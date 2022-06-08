@@ -23,6 +23,7 @@
 
 const { execSync } = require('child_process');
 
+const url = require('url');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
@@ -86,6 +87,30 @@ app.post('/api/example', function (req, res) {
         error: output,
       });
     }
+  }
+});
+
+app.get('/api/creategci', function (req, res) {
+  const { referer } = req.headers;
+
+  const { query } = url.parse(referer, true);
+
+  const { id } = query;
+
+  if (!id) {
+    res.status(400).send({ error: 'Bad referer.' });
+    return;
+  }
+
+  const filePath = path.join(__dirname, `seeds/${id}/input.json`);
+  if (fs.existsSync(filePath)) {
+    const ff = fs.readFileSync(filePath);
+    const json = JSON.parse(ff);
+    res.send({ data: json });
+  } else {
+    res.status(404).send({
+      error: 'Did not find seed data for provided id.',
+    });
   }
 });
 
@@ -154,6 +179,47 @@ app.get('/', (req, res) => {
 
   // res.send('fish');
   // res.sendFile(indexHtmlPath);
+});
+
+const escapeHtml = (str) =>
+  str.replace(
+    /[&<>'"]/g,
+    (tag) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;',
+      }[tag])
+  );
+
+app.get('/getseed', (req, res) => {
+  fs.readFile(path.join(root, 'getseed.html'), function read(err, data) {
+    if (err) {
+      console.log(err);
+      res.status(500).send({ error: 'Internal server error.' });
+    } else {
+      let msg = data.toString();
+
+      const { id } = req.query;
+
+      const filePath = path.join(__dirname, `seeds/${id}/input.json`);
+      if (fs.existsSync(filePath)) {
+        const json = JSON.parse(fs.readFileSync(filePath));
+        json.seedHash = undefined;
+        json.itemPlacement = undefined;
+        const fileContents = escapeHtml(JSON.stringify(json));
+
+        msg = msg.replace(
+          '<!-- INPUT_JSON_DATA -->',
+          `<input id='inputJsonData' type='hidden' value='${fileContents}'>`
+        );
+      }
+
+      res.send(msg);
+    }
+  });
 });
 
 // app.use('*', (req, res) => {

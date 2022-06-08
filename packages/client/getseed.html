@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" target="_blank" href="favicon.png" />
+    <title>TP Randomizer</title>
+    <meta property="og:title" content="Twilight Princess Randomizer" />
+    <meta property="og:url" content="https://rando.zeldatp.net/" />
+    <meta
+      property="og:image"
+      content="https://rando.zeldatp.net/img/logo.png"
+    />
+    <meta
+      property="og:description"
+      content="The official Twilight Princess Randomizer website! From download to setup and even tools!"
+    />
+    <link rel="stylesheet" target="_blank" href="css/style.css" />
+    <script src="/js/lib/jquery-3.6.0.js"></script>
+  </head>
+  <body>
+    <!-- INPUT_JSON_DATA -->
+
+    <!-- <?php
+			$id = htmlspecialchars($_GET["id"]);
+			$file = "./seeds/$id/input.json";
+
+			if (file_exists($file)) {
+				$json = json_decode(file_get_contents($file));
+				unset($json->seedHash);
+				unset($json->itemPlacement);
+				$fileContents = htmlspecialchars(json_encode($json));
+				echo "<input id='inputJsonData' type='hidden' value='$fileContents'>";
+			}
+		?> -->
+
+    <img src="img/logo.png" style="width: 300px" />
+    <div id="IsIE">
+      <b>Your web browser is obsolete.</b>
+      <br />
+      Update your browser for more security, and in order to see this website.
+      <br />
+      There are plenty of other browsers far more secure and modern, for example
+      <a
+        target="_blank"
+        href="https://www.google.com/chrome/"
+        style="color: red"
+        >Chrome</a
+      >
+      or
+      <a
+        target="_blank"
+        href="https://www.mozilla.org/en-US/firefox/new/"
+        style="color: red"
+        >Firefox.</a
+      >
+    </div>
+    <div id="IsNotIE">
+      <div class="blackbg">
+        <div id="info" style="font-size: 12px"></div>
+        <table>
+          <tbody>
+            <tr>
+              <td>filename</td>
+              <td id="filename"></td>
+            </tr>
+            <tr>
+              <td>shareUrl</td>
+              <td id="shareUrl"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="tab">
+          <button id="mainTabBtn" class="tablinks active">
+            Randomization Settings
+          </button>
+          <button id="cosmeticsTabBtn" class="tablinks">Cosmetics</button>
+          <button id="audioTabBtn" class="tablinks">Audio</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="mainTab" class="tabcontent" style="display: block" ;>
+          <!-- <div class="leftColumn"> -->
+          <fieldset id="logicSettingsFieldset">
+            <legend>Logic Settings</legend>
+            <label for="gameRegionFieldset">Game Region:</label>
+            <select name="Game Region Fieldset" id="gameRegion">
+              <option value="0">NTSC (US)</option>
+              <option value="1">PAL (EUR)</option>
+              <option value="2">JP (JAP)</option>
+              <option value="3" disabled>Wii NTSC 1.0 (US)</option>
+              <option value="4" disabled>Wii NTSC 1.2 (US)</option>
+              <option value="5" disabled>Wii PAL (EUR)</option>
+              <option value="6" disabled>Wii JP (JAP)</option>
+            </select>
+            <br />
+            <label for="seedNumberFieldset">Seed Number:</label>
+            <select name="Seed Number Fieldset" id="seedNumber">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </fieldset>
+          <!-- </div> -->
+        </div>
+
+        <div id="cosmeticsTab" class="tabcontent">
+          <fieldset id="itemPoolOptionsFieldset">
+            <legend>Item Pool Options</legend>
+            <label for="tunicColorFieldset"
+              >Tunic Color: (not implemented)</label
+            >
+            <select id="tunicColor">
+              <option data-rgb="">Default</option>
+              <option data-rgb="f44336">Red</option>
+              <option data-rgb="e91e63">Pink</option>
+              <option data-rgb="9c27b0">Purple</option>
+              <option data-rgb="673ab7">Deep Purple</option>
+              <option data-rgb="3f51b5">Indigo</option>
+              <option data-rgb="2196f3">Blue</option>
+              <option data-rgb="03a9f4">Light Blue</option>
+              <option data-rgb="00bcd4">Cyan</option>
+              <option data-rgb="009688">Teal</option>
+              <option data-rgb="ffeb3b">Yellow</option>
+              <option data-rgb="ffc107">Amber</option>
+              <option data-rgb="ff9800">Orange</option>
+              <option data-rgb="ff5722">Deep Orange</option>
+            </select>
+
+            <br />
+            <label for="lanternColorFieldset">Lantern Color:</label>
+            <select name="Lantern Color Fieldset" id="lanternColorFieldset">
+              <option value="0">Default</option>
+              <option value="1">Red</option>
+              <option value="2">Orange</option>
+              <option value="3">Yellow</option>
+              <option value="4">Green</option>
+              <option value="5">Blue</option>
+              <option value="6">Purple</option>
+              <option value="7">White</option>
+              <option value="8">Cyan</option>
+            </select>
+            <br />
+            <label for="midnaHairColorFieldset"
+              >Midna Hair Color: (not implemented)</label
+            >
+            <select
+              name="Midna Hair Color Fieldset"
+              id="midnaHairColorFieldset"
+            >
+              <option value="0">Default</option>
+              <option value="1">Blue</option>
+            </select>
+            <br />
+            <label for="heartColorFieldset">Heart Color:</label>
+            <select name="Heart Color Fieldset" id="heartColorFieldset">
+              <option value="0">Default</option>
+              <option value="2">Teal</option>
+              <option value="3">Pink</option>
+              <option value="4">Orange</option>
+              <option value="5">Blue</option>
+              <option value="6">Green</option>
+              <option value="7">Purple</option>
+              <option value="8">Black</option>
+            </select>
+            <br />
+            <label for="aButtonColorFieldset">A Button Color:</label>
+            <select name="A Button Color Fieldset" id="aButtonColorFieldset">
+              <option value="0">Default</option>
+              <option value="1">Red</option>
+              <option value="2">Orange</option>
+              <option value="3">Yellow</option>
+              <option value="4">Dark Green</option>
+              <option value="5">Blue</option>
+              <option value="6">Purple</option>
+              <option value="7">Black</option>
+              <option value="8">Grey</option>
+              <option value="9">Pink</option>
+            </select>
+            <br />
+            <label for="bButtonColorFieldset">B Button Color:</label>
+            <select name="B Button Color Fieldset" id="bButtonColorFieldset">
+              <option value="0">Default</option>
+              <option value="1">Orange</option>
+              <option value="2">Pink</option>
+              <option value="3">Green</option>
+              <option value="4">Blue</option>
+              <option value="5">Purple</option>
+              <option value="6">Black</option>
+              <option value="7">Teal</option>
+            </select>
+            <br />
+            <label for="xButtonColorFieldset">X Button Color:</label>
+            <select name="X Button Color Fieldset" id="xButtonColorFieldset">
+              <option value="0">Default</option>
+              <option value="1">Red</option>
+              <option value="2">Orange</option>
+              <option value="3">Yellow</option>
+              <option value="4">Lime Green</option>
+              <option value="5">Dark Green</option>
+              <option value="6">Blue</option>
+              <option value="7">Purple</option>
+              <option value="8">Black</option>
+              <option value="9">Pink</option>
+              <option value="10">Cyan</option>
+            </select>
+            <br />
+            <label for="yButtonColorFieldset">Y Button Color:</label>
+            <select name="Y Button Color Fieldset" id="yButtonColorFieldset">
+              <option value="0">Default</option>
+              <option value="1">Red</option>
+              <option value="2">Orange</option>
+              <option value="3">Yellow</option>
+              <option value="4">Lime Green</option>
+              <option value="5">Dark Green</option>
+              <option value="6">Blue</option>
+              <option value="7">Purple</option>
+              <option value="8">Black</option>
+              <option value="9">Pink</option>
+              <option value="10">Cyan</option>
+            </select>
+            <br />
+            <label for="zButtonColorFieldset">Z Button Color:</label>
+            <select name="Z Button Color Fieldset" id="zButtonColorFieldset">
+              <option value="0">Default</option>
+              <option value="1">Red</option>
+              <option value="2">Orange</option>
+              <option value="3">Yellow</option>
+              <option value="4">Lime Green</option>
+              <option value="5">Dark Green</option>
+              <option value="6">Purple</option>
+              <option value="7">Black</option>
+              <option value="8">Light Blue</option>
+            </select>
+          </fieldset>
+        </div>
+
+        <div id="audioTab" class="tabcontent">
+          <fieldset id="musicAndSFXFieldset">
+            <legend>Music and SFX</legend>
+            <input
+              type="checkbox"
+              id="randomizeBgm"
+              name="Randomize BGM Checkbox"
+              value=""
+            />
+            <label for="randomizeBgm"> Randomize Background Music </label><br />
+            <input
+              type="checkbox"
+              id="randomizeFanfares"
+              name="Randomize Fanfares Checkbox"
+              value=""
+            />
+            <label for="randomizeFanfares"> Randomize Fanfares </label><br />
+            <input
+              type="checkbox"
+              id="disableEnemyBgm"
+              name="Disable Enemy BGM Checkbox"
+              value=""
+            />
+            <label for="disableEnemyBgm"> Disable Enemy Background Music</label
+            ><br />
+          </fieldset>
+        </div>
+        <br />
+        <!-- <form method="post" action="generator.php"> -->
+        <!-- <form method="post" action="generating.php"> -->
+        <label for="settingsStringTextbox">Settings String:</label>
+        <input
+          type="text"
+          id="settingsStringTextbox"
+          name="settingsStringTextBox"
+          style="min-width: 30em"
+        />
+        <input
+          type="number"
+          id="seed-slot"
+          name="seed-slot"
+          value="-1"
+          hidden
+        />
+        <input
+          id="importSettingsStringButton"
+          value="Import/Apply"
+          type="button"
+        />
+        <br />
+        <button id="create" type="button">Create</button>
+        <!-- </form> -->
+        <script>
+          // document.getElementById('seedNumberFieldset').addEventListener("change",
+          // function ()
+          // {
+          //     document.getElementById('seed-slot').value = this.value;
+          // });
+          // document.getElementById('seed-slot').value = 0;
+        </script>
+      </div>
+      <div class="blackbg">
+        <h1>Tools and resources</h1>
+        <hr />
+        <br />
+        <table>
+          <tr>
+            <td class="rBor">
+              <a target="_blank" href="https://takarikka.github.io/TP-Tracker/"
+                ><img src="img/github.png" alt=" Github Logo"
+              /></a>
+            </td>
+            <td class="rBor">
+              <a
+                target="_blank"
+                href="https://docs.google.com/spreadsheets/d/1quJjkAGV7asF1CNRtJEDNsy9Oga7hmzGLe09u2zxdJI/edit#gid=1131787935"
+                ><img src="img/sheets.png" alt="Google Sheets Logo"
+              /></a>
+            </td>
+            <td class="rBor">
+              <a
+                target="_blank"
+                href="http://tp.docs.aecx.cc/Yet+Another+GameCube+Documentation/index.html"
+                ><img src="img/yagcd.png" alt="YAGCD Logo"
+              /></a>
+            </td>
+            <td class="rBor">
+              <a target="_blank" href="https://github.com/zsrtp"
+                ><img src="img/tp.png" alt="Midna Icon"
+              /></a>
+            </td>
+            <td class="rBor">
+              <a target="_blank" href="https://wiki.zeldatp.net/Main_Page"
+                ><img src="img/wiki.png" alt="Wiki Logo"
+              /></a>
+            </td>
+            <td>
+              <a target="_blank" href="https://discord.zeldatp.net/"
+                ><img src="img/discord.png" alt="Discord Logo"
+              /></a>
+            </td>
+          </tr>
+          <tr>
+            <td class="rBor">
+              <a target="_blank" href="https://takarikka.github.io/TP-Tracker/"
+                >Taka's Item Tracker</a
+              >
+            </td>
+            <td class="rBor">
+              <a
+                target="_blank"
+                href="https://docs.google.com/spreadsheets/d/1quJjkAGV7asF1CNRtJEDNsy9Oga7hmzGLe09u2zxdJI/edit#gid=1131787935"
+                >Rando Dev Sheet</a
+              >
+            </td>
+            <td class="rBor">
+              <a
+                target="_blank"
+                href="http://tp.docs.aecx.cc/Yet+Another+GameCube+Documentation/index.html"
+                >YAGCD</a
+              >
+            </td>
+            <td class="rBor">
+              <a target="_blank" href="https://github.com/zsrtp">TP Devs</a>
+            </td>
+            <td class="rBor">
+              <a target="_blank" href="https://wiki.zeldatp.net/Main_Page"
+                >TP Speedrun Wiki</a
+              >
+            </td>
+            <td>
+              <a target="_blank" href="https://discord.zeldatp.net/">Discord</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="blackbg" style="padding: 0px; margin-bottom: 0px">
+        <p>
+          v1.09 - Made with
+          <img
+            style="display: inline; margin: 0px 0px -10px"
+            src="img/heart.png"
+            alt="Heart Container"
+          />
+          by
+          <a
+            target="_blank"
+            href="https://github.com/zsrtp/Randomizer-Frontend"
+            target="_blank"
+            style="color: #d62013"
+            >Luneyes</a
+          >!<br />
+
+          Logo and background image are property of Nintendo. No infringement
+          intended. We love you guys!<br />
+
+          Logo edited by
+          <a
+            target="_blank"
+            href="https://twitter.com/MelonSpeedruns"
+            target="_blank"
+            style="color: #d62013"
+            >MelonSpeedruns</a
+          >!
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <table>
+        <tbody id="settingsTBody"></tbody>
+      </table>
+    </div>
+    <script src="getseed.js"></script>
+  </body>
+</html>
