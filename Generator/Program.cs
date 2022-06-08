@@ -27,6 +27,10 @@ namespace TPRandomizer
                     // id, tempArg, pSettingsString,
                     Randomizer.GenerateFinalOutput(args[1], args[2], args[3]);
                     break;
+                case "generate_final_output2":
+                    // id, tempArg, pSettingsString,
+                    Randomizer.GenerateFinalOutput2(args[1], args[2], args[3]);
+                    break;
                 case "print_check_ids":
                     Console.WriteLine(
                         JsonConvert.SerializeObject(CheckIdClass.GetNameToIdNumDictionary())

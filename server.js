@@ -28,7 +28,7 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const express = require('express');
-const { callGenerator } = require('./util');
+const { callGenerator, callGeneratorBuf } = require('./util');
 
 const app = express(); // create express app
 app.use(cors());
@@ -90,6 +90,44 @@ app.post('/api/generateseed', function (req, res) {
       });
     }
   }
+});
+
+app.post('/api/final', function (req, res) {
+  const buffer = callGeneratorBuf(
+    'generate_final_output2',
+    'KJNgheF3K73',
+    'aBc',
+    '0p5001pXFOC'
+  );
+  const output = buffer.toString();
+
+  const index = output.indexOf('BYTES:');
+  let currIndex = index;
+  if (currIndex < 0) {
+    res.status(500).send({ error: 'Failed to find BYTES:' });
+    return;
+  }
+
+  currIndex += 'BYTES:'.length;
+  const jsonLenHex = output.substring(currIndex, currIndex + 8);
+  currIndex += 8;
+  const jsonLen = parseInt(jsonLenHex, 16);
+
+  const json = JSON.parse(output.substring(currIndex, currIndex + jsonLen));
+  currIndex += jsonLen;
+
+  const totalByteLength = json.reduce((acc, obj) => {
+    return acc + obj.length;
+  }, 0);
+
+  const buf = buffer.slice(currIndex, currIndex + totalByteLength);
+
+  res.send({
+    data: {
+      meta: json,
+      bytes: buf.toString('base64'),
+    },
+  });
 });
 
 app.get('/api/creategci', function (req, res) {

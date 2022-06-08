@@ -3,7 +3,8 @@ const { execSync } = require('child_process');
 
 const generatorExePath = path.join(
   __dirname,
-  'Generator/bin/release/net5.0/TPRandomizer.exe'
+  // 'Generator/bin/release/net5.0/TPRandomizer.exe'
+  'Generator/bin/Debug/net5.0/TPRandomizer.exe'
 );
 
 function callGenerator(...args) {
@@ -12,6 +13,14 @@ function callGenerator(...args) {
   // const buf = execSync(`${generatorExePath} generate2 ${args[0]} abcdef`);
   const buf = execSync(command);
   return buf.toString();
+}
+
+function callGeneratorBuf(...args) {
+  const command = [generatorExePath].concat(args).join(' ');
+
+  // const buf = execSync(`${generatorExePath} generate2 ${args[0]} abcdef`);
+  const buf = execSync(command);
+  return buf;
 }
 
 function callGeneratorMatchOutput(...args) {
@@ -31,5 +40,6 @@ function callGeneratorMatchOutput(...args) {
 
 module.exports = {
   callGenerator,
+  callGeneratorBuf,
   callGeneratorMatchOutput,
 };

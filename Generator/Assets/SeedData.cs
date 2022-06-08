@@ -283,6 +283,107 @@ namespace TPRandomizer.Assets
             File.WriteAllBytes(fileHash, gci.gciFile.ToArray());
         }
 
+        public static byte[] GenerateSeedDataNewByteArray(string seedHash, PSettings pSettings)
+        {
+            /*
+            * General Note: offset sizes are handled as two bytes. Because of this,
+            * any seed bigger than 7 blocks will not work with this method.
+            */
+            List<byte> currentSeedHeader = new();
+            List<byte> currentSeedData = new();
+            List<byte> currentMessageHeader = new();
+            List<byte> currentMessageData = new();
+            List<byte> currentMessageEntryInfo = new();
+            TPRandomizer.Assets.CustomMessages customMessage = new();
+            Dictionary<byte, CustomMessages.MessageEntry[]> seedDictionary = new();
+
+            char regionCode;
+            string regionName;
+
+            switch (pSettings.gameVersion)
+            {
+                case "GZ2J":
+                    regionName = "JAP";
+                    regionCode = 'J';
+                    CustomMessageHeaderRaw.totalLanguages = 1;
+                    seedDictionary = customMessage.CustomJPMessageDictionary;
+                    break;
+                case "GZ2P":
+                    regionName = "PAL";
+                    regionCode = 'P';
+                    CustomMessageHeaderRaw.totalLanguages = 3;
+                    seedDictionary = customMessage.CustomPALMessageDictionary;
+                    break;
+                default:
+                    regionName = "US";
+                    regionCode = 'E';
+                    CustomMessageHeaderRaw.totalLanguages = 1;
+                    seedDictionary = customMessage.CustomUSMessageDictionary;
+                    break;
+            }
+
+            // Add seed banner
+            BannerDataRaw.AddRange(Properties.Resources.seedGciImageData);
+            BannerDataRaw.AddRange(Converter.StringBytes("TPR 1.0 Seed Data", 0x20, regionCode));
+            BannerDataRaw.AddRange(Converter.StringBytes(seedHash, 0x20, regionCode));
+
+            // Header Info
+            CheckDataRaw.AddRange(GeneratePatchSettings());
+            CheckDataRaw.AddRange(GenerateEventFlags());
+            CheckDataRaw.AddRange(GenerateRegionFlags());
+            CheckDataRaw.AddRange(ParseDZXReplacements());
+            CheckDataRaw.AddRange(ParseRELOverrides());
+            CheckDataRaw.AddRange(ParsePOEReplacements());
+            CheckDataRaw.AddRange(ParseARCReplacements());
+            CheckDataRaw.AddRange(ParseObjectARCReplacements());
+            CheckDataRaw.AddRange(ParseBossReplacements());
+            CheckDataRaw.AddRange(ParseHiddenSkills());
+            CheckDataRaw.AddRange(ParseBugRewards());
+            CheckDataRaw.AddRange(ParseSkyCharacters());
+            CheckDataRaw.AddRange(ParseShopItems());
+            CheckDataRaw.AddRange(ParseStartingItems());
+            while (CheckDataRaw.Count % 0x10 != 0)
+            {
+                CheckDataRaw.Add(Converter.GcByte(0x0));
+            }
+
+            // Custom Message Info
+            CustomMessageHeaderRaw.entry = new CustomMessageTableInfo[
+                CustomMessageHeaderRaw.totalLanguages
+            ];
+            for (int i = 0; i < CustomMessageHeaderRaw.totalLanguages; i++)
+            {
+                CustomMessageHeaderRaw.entry[i] = new CustomMessageTableInfo();
+                currentMessageData.AddRange(
+                    ParseCustomMessageData(i, currentMessageData, seedDictionary)
+                );
+                while (currentMessageData.Count % 0x4 != 0)
+                {
+                    currentMessageData.Add(Converter.GcByte(0x0));
+                }
+                currentMessageEntryInfo.AddRange(GenerateMessageTableInfo(i));
+            }
+
+            currentMessageHeader.AddRange(GenerateMessageHeader(currentMessageEntryInfo));
+            SeedHeaderRaw.totalSize = (uint)(
+                SeedHeaderSize
+                + CheckDataRaw.Count
+                + currentMessageHeader.Count
+                + currentMessageData.Count
+            );
+            currentSeedHeader.AddRange(GenerateSeedHeader(pSettings.seedNumber, seedHash));
+            currentSeedData.AddRange(BannerDataRaw);
+            currentSeedData.AddRange(currentSeedHeader);
+            currentSeedData.AddRange(CheckDataRaw);
+            currentSeedData.AddRange(currentMessageHeader);
+            currentSeedData.AddRange(currentMessageData);
+
+            var gci = new Gci(pSettings.seedNumber, regionName, currentSeedData, seedHash);
+            string fileHash = "TPR-v1.0-" + seedHash + "-Seed-Data.gci";
+            return gci.gciFile.ToArray();
+            // File.WriteAllBytes(fileHash, gci.gciFile.ToArray());
+        }
+
         /// <summary>
         /// text.
         /// </summary>
