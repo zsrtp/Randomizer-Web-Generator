@@ -94,8 +94,6 @@ app.post('/api/example', function (req, res) {
 // });
 
 app.get('/', (req, res) => {
-  // $cmd = "dotnet Generator/bin/Debug/net5.0/TPRandomizer.dll print_check_ids";
-
   fs.readFile(indexHtmlPath, function read(err, data) {
     if (err) {
       console.log(err);
@@ -108,6 +106,47 @@ app.get('/', (req, res) => {
 
       let msg = data.toString();
       msg = msg.replace('<!-- CHECK_IDS -->', arr.join('\n'));
+
+      const startingItems = [
+        [63, 'Progressive Sword'],
+        [63, 'Progressive Sword'],
+        [63, 'Progressive Sword'],
+        [63, 'Progressive Sword'],
+        [64, 'Boomerang'],
+        [72, 'Lantern'],
+        [75, 'Slingshot'],
+        [74, 'Progressive Fishing Rod'],
+        [74, 'Progressive Fishing Rod'],
+        [69, 'Iron Boots'],
+        [67, 'Progressive Bow'],
+        [81, 'Bomb Bag and Bombs'],
+        [49, 'Zora Armor'],
+        [68, 'Progressive Clawshot'],
+        [68, 'Progressive Clawshot'],
+        [50, 'Shadow Crystal'],
+        [144, 'Aurus Memo'],
+        [145, 'Asheis Sketch'],
+        [65, 'Spinner'],
+        [66, 'Ball and Chain'],
+        [70, 'Progressive Dominion Rod'],
+        [70, 'Progressive Dominion Rod'],
+        [233, 'Progressive Sky Book'],
+        [233, 'Progressive Sky Book'],
+        [233, 'Progressive Sky Book'],
+        [233, 'Progressive Sky Book'],
+        [233, 'Progressive Sky Book'],
+        [233, 'Progressive Sky Book'],
+        [233, 'Progressive Sky Book'],
+        [132, 'Horse Call'],
+        [243, 'Gate Keys'],
+        [96, 'Empty Bottle'],
+      ];
+
+      const startingItemsEls = startingItems.map((item) => {
+        return `<li><label><input type='checkbox' data-itemId='${item[0]}'>${item[1]}</label> </li>`;
+      });
+
+      msg = msg.replace('<!-- STARTING_ITEMS -->', startingItemsEls.join('\n'));
 
       res.send(msg);
     }
