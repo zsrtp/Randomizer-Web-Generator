@@ -1,0 +1,341 @@
+@media (max-width: 1000px) {
+  .blackbg {
+    margin: 2vh !important;
+  }
+}
+
+@font-face {
+  font-family: Ravenna;
+  src: url(Ravenna.ttf);
+}
+
+html {
+  background: url(../img/bg.webp) no-repeat center center fixed;
+  background-color: #190a05;
+  background-size: cover;
+}
+
+body {
+  font-family: Segoe UI, Arial;
+  color: white;
+  /* text-align: center;
+  font-size: 24px; */
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+h1 {
+  font-family: Ravenna;
+  margin-top: 0px;
+
+  position: relative;
+  /* background: linear-gradient(to bottom, #ffffff,#ffffff, #55129f, #55129f); */
+  background: linear-gradient(to right bottom, #d62013, #d62013, #000000);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+h2 {
+  margin-top: 15px;
+  background: linear-gradient(to right bottom, #009688, #009688, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* img { */
+.randomizer-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  max-height: 200px;
+}
+
+table {
+  margin: 0px auto;
+  padding: 4px;
+  background-color: #000000cc;
+  border-radius: 0.5em;
+}
+
+td {
+  font-size: 18px;
+  padding: 5px 20px;
+  width: 12vh;
+}
+
+hr {
+  border-color: #5a5a5a;
+}
+
+ul {
+  text-align: left;
+  color: #f3d068;
+}
+
+p {
+  line-height: 2.5;
+  font-size: 1.25em;
+  font-weight: 300;
+}
+
+a > img {
+  display: inline;
+  margin: 0px 12px;
+}
+
+a > img {
+  border: none;
+}
+
+p > img {
+  margin: 30px auto;
+}
+
+p > span {
+  display: inline;
+}
+
+/* div > select {
+  width: 20%;
+} */
+
+/* Classes */
+.hr2 {
+  width: 300px;
+  border-color: #009688;
+}
+
+.blackbg {
+  background-color: #000000a1;
+  margin: 0vh 10vh 5vh;
+  padding: 45px;
+  border-radius: 0.5em;
+}
+
+img.blackbor {
+  border: 25px solid #000000cc;
+  padding: 0px;
+  border-radius: 0.5em;
+}
+
+img.flag {
+  border: 5px solid #000000cc;
+}
+
+.rBor {
+  border-right: 1px #ffffff75 dashed;
+}
+
+.tree {
+  margin: auto;
+  width: 250px;
+  display: inline-block;
+}
+
+.red {
+  color: #d62013;
+  font-size: 1em;
+  margin: 22.5px;
+}
+
+/* Dropdown menus */
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: ' ';
+  clear: both;
+  height: 100%;
+}
+
+.dotless {
+  list-style: none;
+}
+
+.dropdown-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.dropdown-container header {
+  cursor: pointer;
+}
+
+.dropdown-container article {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 350ms ease-in-out;
+}
+
+/* Dolphin version toggle */
+.low5 {
+  display: none;
+}
+
+.high5 {
+  display: block;
+}
+
+.spanLow5 {
+  display: none;
+}
+
+.spanHigh5 {
+  display: inline;
+}
+
+/* Buttons */
+.btn-1a:hover {
+  color: #fff;
+  background: #00403a;
+}
+
+.btn-1 {
+  border: 3px solid #009688;
+  color: #009688;
+}
+
+.btn {
+  display: inline-block;
+  text-align: center;
+  align-items: flex-start;
+  height: 50px;
+  width: 100px;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: #000000cc;
+  cursor: pointer;
+  padding: 15px 25px;
+  margin: 0px 9px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+[type='radio'] + div {
+  cursor: pointer;
+}
+
+[type='radio']:checked + div {
+  color: #fff;
+  background: #00403a;
+}
+
+/* Shit Detector */
+#IsIE {
+  display: none;
+  color: white;
+  font-size: 2em;
+}
+
+#IsNotIE {
+  display: none;
+}
+
+.checkboxFieldset {
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.tabColumn {
+  flex: 1 1 0px;
+}
+
+.tabColumn > * {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+.tabcontent.tabcontentactive {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+#randomizationSettingsTab {
+  text-align: left;
+}
+
+#gameplaySettingsTab {
+  text-align: left;
+}
+
+#cosmeticsAndQuirksTab {
+  text-align: left;
+}
+
+/* .leftColumn {
+  float: left;
+  width: 48%;
+  padding-right: 2%;
+} */
+
+.selectGroup {
+  margin: 0 0 8px;
+  width: auto;
+}
+
+.selectGroup > select {
+  width: 100%;
+  max-width: 300px;
+}
+
+.overwriteDisclaimer {
+  width: 100%;
+  margin: 16px 24px 24px;
+  text-align: center;
+}
