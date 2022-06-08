@@ -1,0 +1,16 @@
+{ 
+    "Neighbours": 
+    [
+        "Lake Hylia"
+    ],
+    "NeighbourRequirements":
+    [
+        "CanDefeatMorpheel"
+    ],
+    "Checks": 
+    [
+        "Lakebed Temple Morpheel Heart Container",
+        "Lakebed Temple Dungeon Reward"
+    ], 
+    "Region": "Lakebed Temple"
+}

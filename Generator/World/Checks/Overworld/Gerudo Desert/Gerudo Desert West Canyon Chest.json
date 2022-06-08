@@ -1,0 +1,10 @@
+{
+    "requirements": "(Progressive_Clawshot, 1)",
+    "arcOffsets": ["16B8"],
+    "stageIDX": [59],
+    "roomIDX": 0,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Gerudo Desert", "ARC"],
+    "itemId": "Purple_Rupee"
+}

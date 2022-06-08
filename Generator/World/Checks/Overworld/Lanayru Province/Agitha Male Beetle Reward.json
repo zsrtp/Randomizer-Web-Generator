@@ -1,0 +1,6 @@
+{
+    "requirements": "Male_Beetle",
+    "flag": "C0",
+    "category": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
+    "itemId": "Orange_Rupee"
+}

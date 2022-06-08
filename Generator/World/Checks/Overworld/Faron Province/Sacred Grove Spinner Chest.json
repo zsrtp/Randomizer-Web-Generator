@@ -1,0 +1,10 @@
+{
+    "requirements": "Spinner",
+    "arcOffsets": ["3260"],
+    "stageIDX": [54],
+    "roomIDX": 3,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Sacred Grove", "ARC"],
+    "itemId": "Orange_Rupee"
+}

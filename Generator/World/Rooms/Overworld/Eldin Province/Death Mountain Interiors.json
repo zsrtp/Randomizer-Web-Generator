@@ -1,0 +1,14 @@
+{
+    "Neighbours": 
+    [
+        "Death Mountain Volcano", 
+        "Goron Mines Entrance"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true",
+        "Iron_Boots"
+    ],
+    "Checks": [""], 
+    "Region": "Eldin Province"
+}

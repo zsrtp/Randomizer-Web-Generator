@@ -1,0 +1,10 @@
+{
+    "requirements": "Lantern",
+    "arcOffsets": ["D80"],
+    "stageIDX": [32],
+    "roomIDX": 0,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Hyrule Field", "ARC"],
+    "itemId": "Piece_of_Heart"
+}

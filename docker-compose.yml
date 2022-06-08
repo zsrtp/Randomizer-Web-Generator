@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  tpr-generator:
+    build: .
+    volumes:
+      - tpr-generator-data:/app/generator/seeds
+volumes:
+  tpr-generator-data:
+    driver: local

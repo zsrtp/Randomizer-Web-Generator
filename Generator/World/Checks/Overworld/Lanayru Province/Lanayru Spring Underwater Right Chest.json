@@ -1,0 +1,10 @@
+{
+    "requirements": "Iron_Boots",
+    "arcOffsets": ["2500"],
+    "stageIDX": [52],
+    "roomIDX": 1,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Lanayru Province", "ARC"],
+    "itemId": "Yellow_Rupee"
+}

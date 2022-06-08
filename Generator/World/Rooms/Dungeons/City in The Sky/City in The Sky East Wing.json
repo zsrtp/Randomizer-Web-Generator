@@ -1,0 +1,20 @@
+{ 
+    "Neighbours": 
+    [
+        "City in The Sky Lobby"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "City in The Sky East First Wing Chest After Fans",
+        "City in The Sky East Wing Lower Level Chest",
+        "City in The Sky East Tile Worm Small Chest",
+        "City in The Sky East Wing After Dinalfos Alcove Chest",
+        "City in The Sky East Wing After Dinalfos Ledge Chest",
+        "City in The Sky Aeralfos Chest"
+    ],
+    "Region": "City in The Sky"
+}

@@ -1,0 +1,10 @@
+{
+    "requirements": "(CanDefeatBombling or canBurnWebs) and Boomerang",
+    "arcOffsets": ["BD4"],
+    "stageIDX": [6],
+    "roomIDX": 1,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Forest Temple", "Big Key", "ARC"],
+    "itemId": "Forest_Temple_Big_Key"
+}

@@ -1,0 +1,9 @@
+{
+    "requirements": "(Progressive_Bow, 1) and hasBombs and Room.Zoras_Domain and (HasSword or (CanDefeatShadowBeast and (Setting.transformAnywhere equals True)))",
+    "arcOffsets": ["1737"],
+    "stageIDX": [52],
+    "fileDirectoryType": [1],
+    "replacementType": [0],
+    "category": ["Overworld", "Npc", "Lanayru Province", "ARC"],
+    "itemId": "Progressive_Bomb_Bag"
+}

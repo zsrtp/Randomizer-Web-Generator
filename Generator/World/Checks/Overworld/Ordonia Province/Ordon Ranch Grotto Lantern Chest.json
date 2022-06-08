@@ -1,0 +1,9 @@
+{
+    "requirements": "Lantern",
+    "hash": ["0BE9"],
+    "stageIDX": [35],
+    "dzxTag": ["TRES"],
+    "category": ["Overworld", "Chest", "Ordonia Province", "DZX"],
+    "itemId": "Purple_Rupee",
+    "actrData": [["74", "62", "6F", "78", "42", "31", "00", "00", "FF", "12", "41", "C1", "C3", "8A", "A2", "AF", "43", "16", "00", "00", "C4", "89", "09", "3D", "00", "0F", "00", "00", "05", "FF", "FF", "FF"]]
+}

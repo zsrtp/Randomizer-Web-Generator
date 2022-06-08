@@ -1,0 +1,23 @@
+{ 
+    "Neighbours": 
+    [
+        "Goron Mines Upper East Wing", 
+        "Goron Mines Magnet Room"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true",
+        "Iron_Boots and CanDefeatDangoro and (Progressive_Bow, 1)"
+    ],
+    "Checks": 
+    [
+        "Goron Mines Gor Ebizo Chest",
+        "Goron Mines Chest Before Dangoro",
+        "Goron Mines Gor Ebizo Key Shard",
+        "Goron Mines Dangoro Chest",
+        "Goron Mines Beamos Room Chest",
+        "Goron Mines Gor Liggs Chest",
+        "Goron Mines Gor Liggs Key Shard"
+    ],
+    "Region": "Goron Mines"
+}

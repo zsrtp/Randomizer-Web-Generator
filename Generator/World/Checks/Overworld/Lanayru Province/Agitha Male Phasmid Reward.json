@@ -1,0 +1,6 @@
+{
+    "requirements": "Male_Phasmid",
+    "flag": "C8",
+    "category": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
+    "itemId": "Progressive_Wallet"
+}

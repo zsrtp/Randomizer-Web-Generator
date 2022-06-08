@@ -1,0 +1,10 @@
+{
+    "requirements": "(Setting.increaseWallet equals True) or (Progressive_Wallet, 1)",
+    "arcOffsets": ["3097"],
+    "stageIDX": [73],
+    "fileDirectoryType": [1],
+    "replacementType": [0],
+    "flag": "13",
+    "category": ["Overworld", "Npc", "Lanayru Province", "ARC", "Shop"],
+    "itemId": "Magic_Armor"
+}

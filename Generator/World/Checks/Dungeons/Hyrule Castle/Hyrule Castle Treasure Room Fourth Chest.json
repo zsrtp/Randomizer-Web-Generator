@@ -1,0 +1,10 @@
+{
+    "requirements": "true",
+    "arcOffsets": ["20C"],
+    "stageIDX": [20],
+    "roomIDX": 8,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Hyrule Castle", "ARC"],
+    "itemId": "Bomblings_10"
+}

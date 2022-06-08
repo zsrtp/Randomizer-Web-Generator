@@ -1,0 +1,18 @@
+{
+    "Neighbours": 
+    [
+        "Temple of Time Central Mechanical Platform", 
+        "Temple of Time Scales of Time"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true",
+        "(Progressive_Bow, 1) and CanDefeatLizalfos and CanDefeatDinalfos"
+    ],
+    "Checks": 
+    [
+        "Temple of Time Moving Wall Beamos Room Chest",
+        "Temple of Time Moving Wall Dinalfos Room Chest"
+     ],
+    "Region": "Temple of Time"
+}

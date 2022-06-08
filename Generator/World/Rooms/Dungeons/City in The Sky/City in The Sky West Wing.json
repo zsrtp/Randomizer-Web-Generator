@@ -1,0 +1,28 @@
+{
+    "Neighbours": 
+    [
+        "City in The Sky Lobby", 
+        "City in The Sky Central Tower Second Floor"
+    ],
+    "NeighbourRequirements": 
+    [
+        "(Progressive_Clawshot, 2)",
+        "(Progressive_Clawshot, 2)"
+    ],
+    "Checks": 
+    [
+        "City in The Sky West Wing First Chest",
+        "City in The Sky West Wing Baba Balcony Chest",
+        "City in The Sky West Wing Narrow Ledge Chest",
+        "City in The Sky West Wing Tile Worm Chest",
+        "City in The Sky Baba Tower Top Small Chest",
+        "City in The Sky Baba Tower Narrow Ledge Chest",
+        "City in The Sky Baba Tower Alcove Chest",
+        "City in The Sky West Garden Corner Chest",
+        "City in The Sky West Garden Lone Island Chest",
+        "City in The Sky West Garden Lower Chest",
+        "City in The Sky West Garden Ledge Chest",
+        "City in The Sky Garden Island Poe"
+     ],
+    "Region": "City in The Sky"
+}

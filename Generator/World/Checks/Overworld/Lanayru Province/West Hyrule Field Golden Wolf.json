@@ -1,0 +1,12 @@
+{
+    "requirements": "Shadow_Crystal and Room.Zoras_Domain and HasSword",
+    "arcOffsets": ["3F54", "3B1C", "4184", "45E4", "43C8", "483C", "4AA8"],
+    "fileDirectoryType": [1,1,1,1,1,1,1],
+    "replacementType": [1,1,1,1,1,1,1],
+    "stageIDX": [64,64,64,64,64,64,64],
+    "lastStageIDX": [57],
+    "roomIDX": 8,
+    "flag": "3C04",
+    "category": ["Overworld", "Hidden Skill", "Lanayru Province", "ARC"],
+    "itemId": "Progressive_Hidden_Skill"
+}

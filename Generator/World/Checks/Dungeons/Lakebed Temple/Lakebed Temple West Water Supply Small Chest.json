@@ -1,0 +1,10 @@
+{
+    "requirements": "(Progressive_Clawshot, 1) and canLaunchBombs",
+    "arcOffsets": ["2218"],
+    "stageIDX": [0],
+    "roomIDX": 13,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Lakebed Temple", "ARC"],
+    "itemId": "Water_Bombs_10"
+}

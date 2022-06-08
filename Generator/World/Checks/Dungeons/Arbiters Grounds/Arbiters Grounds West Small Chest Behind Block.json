@@ -1,0 +1,10 @@
+{
+    "requirements": "true",
+    "arcOffsets": ["814"],
+    "stageIDX": [24],
+    "roomIDX": 6,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Arbiters Grounds", "ARC"],
+    "itemId": "Red_Rupee"
+}

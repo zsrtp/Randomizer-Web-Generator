@@ -1,0 +1,10 @@
+{
+  "requirements": "((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysey)) and Shadow_Crystal",
+  "arcOffsets": ["7F4"],
+  "stageIDX": [24],
+  "roomIDX": 6,
+  "fileDirectoryType": [ 0 ],
+  "replacementType": [ 0 ],
+  "category": [ "Chest", "Dungeon", "Arbiters Grounds", "ARC" ],
+  "itemId": "Red_Rupee"
+}

@@ -1,0 +1,20 @@
+{
+    "Neighbours": 
+    [
+        "Snowpeak Ruins Entrance", 
+        "Snowpeak Ruins Caged Freezard Room", 
+        "Snowpeak Ruins West Courtyard", 
+        "Snowpeak Ruins East Courtyard"
+    ],
+  "NeighbourRequirements": [
+    "true",
+    "(Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysey))",
+    "(Snowpeak_Ruins_Ordon_Pumpkin or (Setting.smallKeySettings equals Keysey))",
+    "Shadow_Crystal or Ball_and_Chain"
+  ],
+    "Checks": 
+    [
+        "Snowpeak Ruins Mansion Map"
+    ],
+    "Region": "Snowpeak Ruins"
+}

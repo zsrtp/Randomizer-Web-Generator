@@ -1,0 +1,10 @@
+{
+    "requirements": "Ball_and_Chain",
+    "arcOffsets": ["950"],
+    "stageIDX": [30],
+    "roomIDX": 0,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Hyrule Field", "ARC"],
+    "itemId": "Piece_of_Heart"
+}

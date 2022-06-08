@@ -1,0 +1,10 @@
+{
+  "requirements": "CanDefeatZantHead and CanDefeatShadowBeast and (Progressive_Clawshot, 2) and ((Palace_of_Twilight_Small_Key, 3) or (Setting.smallKeySettings equals Keysey))",
+  "arcOffsets": ["CE0"],
+    "stageIDX": [15],
+    "roomIDX": 5,
+  "fileDirectoryType": [ 0 ],
+  "replacementType": [ 0 ],
+  "category": [ "Chest", "Dungeon", "Palace of Twilight", "ARC" ],
+  "itemId": "Purple_Rupee"
+}

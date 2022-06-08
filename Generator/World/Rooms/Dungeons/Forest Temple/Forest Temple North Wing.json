@@ -1,0 +1,18 @@
+{
+    "Neighbours": 
+    [
+        "Forest Temple East Wing", 
+        "Forest Temple Boss Room"
+    ],
+  "NeighbourRequirements": [
+    "true",
+    "(Forest_Temple_Big_Key or (Setting.bossKeySettings equals Keysey)) and Boomerang and (canFreeAllMonkeys or (Progressive_Clawshot, 1))"
+  ],
+    "Checks": 
+    [
+        "Forest Temple Windless Bridge Chest",
+        "Forest Temple North Deku Like Chest",
+        "Forest Temple East Tile Worm Chest"
+    ], 
+    "Region": "Forest Temple"
+}
