@@ -33,21 +33,20 @@
 
 #####
 
+# Client
 FROM node:lts-alpine AS ui-build
 
 WORKDIR /usr/app/client/
-COPY package.json .
-COPY yarn.lock .
-RUN yarn
-COPY src ./src
-COPY public ./public
-RUN yarn build
+# COPY package.json .
+# COPY yarn.lock .
+# RUN yarn
+# COPY src ./src
+# COPY public ./public
+# RUN yarn build
+COPY ./packages/client/index.html ./build/
 
+# Server
 FROM node:lts-alpine AS server-build
-
-WORKDIR /usr/app/
-
-# COPY --from=ui-build /usr/app/client/build ./client/build
 WORKDIR /usr/app/server/
 
 COPY package.json .
