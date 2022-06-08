@@ -28,7 +28,7 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const express = require('express');
-const { useGenerator, callGenerator } = require('./util');
+const { callGenerator } = require('./util');
 
 const app = express(); // create express app
 app.use(cors());
@@ -55,7 +55,7 @@ if (process.env.NODE_ENV === 'production') {
   indexHtmlPath = path.join(__dirname, 'packages', 'client', 'index.html');
 }
 
-app.post('/api/example', function (req, res) {
+app.post('/api/generateseed', function (req, res) {
   const { settingsString } = req.body;
 
   if (!settingsString || typeof settingsString !== 'string') {
@@ -80,7 +80,9 @@ app.post('/api/example', function (req, res) {
     const match = output.match(/SUCCESS:(\S+)/);
     if (match) {
       res.send({
-        result: match[1],
+        data: {
+          id: match[1],
+        },
       });
     } else {
       res.status(500).send({
@@ -113,10 +115,6 @@ app.get('/api/creategci', function (req, res) {
     });
   }
 });
-
-// app.use('*', (req, res) => {
-//   res.send('fish');
-// });
 
 app.get('/', (req, res) => {
   fs.readFile(indexHtmlPath, function read(err, data) {
@@ -176,9 +174,6 @@ app.get('/', (req, res) => {
       res.send(msg);
     }
   });
-
-  // res.send('fish');
-  // res.sendFile(indexHtmlPath);
 });
 
 const escapeHtml = (str) =>
@@ -221,33 +216,6 @@ app.get('/getseed', (req, res) => {
     }
   });
 });
-
-// app.use('*', (req, res) => {
-//   // $cmd = "dotnet Generator/bin/Debug/net5.0/TPRandomizer.dll print_check_ids";
-
-//   // fs.readFile(indexHtmlPath, function read(err, data) {
-//   //   if (err) {
-//   //     console.log(err);
-//   //     res.status(500).send({ error: 'Internal server error.' });
-//   //   } else {
-//   //     let msg = data.toString();
-//   //     const a = msg.indexOf('<!-- CHECK_IDS -->');
-//   //     msg = msg.replace('<!-- CHECK_IDS -->', '<div>ABCDEFFFF</div>');
-//   //     // msg = msg.replace(/%email%/gi, 'example@gmail.com');
-
-//   //     // let temp = 'Hello %NAME%, would you like some %DRINK%?';
-//   //     // temp = temp.replace(/%NAME%/gi, 'Myname');
-//   //     // temp = temp.replace('%DRINK%', 'tea');
-//   //     // console.log('temp: ' + temp);
-//   //     console.log('msg: ' + msg);
-//   //     // res.send(msg);
-//   //     res.send('fish');
-//   //   }
-//   // });
-
-//   res.send('fish');
-//   // res.sendFile(indexHtmlPath);
-// });
 
 app.use(express.static(root));
 

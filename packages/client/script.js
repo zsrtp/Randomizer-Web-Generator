@@ -1,3 +1,5 @@
+const $ = window.$;
+
 function byId(id) {
   return document.getElementById(id);
 }
@@ -766,7 +768,8 @@ $('#generateSeed').on('click', () => {
   const settingsString =
     genSettingsString() + window.tpr.shared.genUSettingsFromUi();
 
-  fetch('/ajax/generateseed.php', {
+  // fetch('/ajax/generateseed.php', {
+  fetch('/api/generateseed', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -782,9 +785,9 @@ $('#generateSeed').on('click', () => {
     .then((response) => response.json())
     .then((data) => {
       if (data && data.data && data.data.id) {
-        window.location.href = '/getseed.php?id=' + data.data.id;
+        window.location.href = '/getseed?id=' + data.data.id;
       } else {
-        creationCallInProgress = false;
+        // creationCallInProgress = false;
         console.log(data);
       }
     })
