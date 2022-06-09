@@ -208,7 +208,8 @@ namespace TPRandomizer
             while (!idConfirmedUnique)
             {
                 id = Util.Hash.GenId();
-                outputPath = Path.Combine("seeds", id, "input.json");
+                // outputPath = Path.Combine("seeds", id, "input.json");
+                outputPath = Global.CombineOutputPath("seeds", id, "input.json");
 
                 if (!File.Exists(outputPath))
                     idConfirmedUnique = true;
@@ -417,11 +418,11 @@ namespace TPRandomizer
 
         public static bool GenerateFinalOutput(string id, string tempArg, string pSettingsString)
         {
-            string inputJsonPath = Path.Combine("seeds", id, "input.json");
+            string inputJsonPath = Global.CombineOutputPath("seeds", id, "input.json");
 
             if (!File.Exists(inputJsonPath))
             {
-                throw new Exception("input.json not found for id: " + id);
+                throw new Exception("input.json not found for (path: " + inputJsonPath + ") id: " + id);
             }
 
             string fileContents = File.ReadAllText(inputJsonPath);
@@ -503,11 +504,11 @@ namespace TPRandomizer
 
         public static bool GenerateFinalOutput2(string id, string tempArg, string pSettingsString)
         {
-            string inputJsonPath = Path.Combine("seeds", id, "input.json");
+            string inputJsonPath = Global.CombineOutputPath("seeds", id, "input.json");
 
             if (!File.Exists(inputJsonPath))
             {
-                throw new Exception("input.json not found for id: " + id);
+                throw new Exception("input.json not found for (path: " + inputJsonPath + ") id: " + id);
             }
 
             string fileContents = File.ReadAllText(inputJsonPath);
@@ -1059,7 +1060,8 @@ namespace TPRandomizer
         {
             foreach (
                 string file in System.IO.Directory.GetFiles(
-                    "./Generator/World/Checks/",
+                    // "./Generator/World/Checks/",
+                    Global.CombineRootPath("./World/Checks/"),
                     "*",
                     SearchOption.AllDirectories
                 )
@@ -1086,7 +1088,8 @@ namespace TPRandomizer
         {
             foreach (
                 string file in System.IO.Directory.GetFiles(
-                    "./Generator/World/Rooms/",
+                    // "./Generator/World/Rooms/",
+                    Global.CombineRootPath("./World/Rooms/"),
                     "*",
                     SearchOption.AllDirectories
                 )

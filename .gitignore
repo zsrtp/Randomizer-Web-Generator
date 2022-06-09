@@ -27,3 +27,6 @@ yarn-error.log*
 **/.vs
 **/bin
 **/obj
+
+# Added later
+volume

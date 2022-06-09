@@ -19,19 +19,6 @@
   <body>
     <!-- INPUT_JSON_DATA -->
 
-    <!-- <?php
-			$id = htmlspecialchars($_GET["id"]);
-			$file = "./seeds/$id/input.json";
-
-			if (file_exists($file)) {
-				$json = json_decode(file_get_contents($file));
-				unset($json->seedHash);
-				unset($json->itemPlacement);
-				$fileContents = htmlspecialchars(json_encode($json));
-				echo "<input id='inputJsonData' type='hidden' value='$fileContents'>";
-			}
-		?> -->
-
     <img src="img/logo.png" style="width: 300px" />
     <div id="IsIE">
       <b>Your web browser is obsolete.</b>
@@ -269,8 +256,6 @@
           </fieldset>
         </div>
         <br />
-        <!-- <form method="post" action="generator.php"> -->
-        <!-- <form method="post" action="generating.php"> -->
         <label for="settingsStringTextbox">Settings String:</label>
         <input
           type="text"
@@ -292,15 +277,7 @@
         />
         <br />
         <button id="create" type="button">Create</button>
-        <!-- </form> -->
-        <script>
-          // document.getElementById('seedNumberFieldset').addEventListener("change",
-          // function ()
-          // {
-          //     document.getElementById('seed-slot').value = this.value;
-          // });
-          // document.getElementById('seed-slot').value = 0;
-        </script>
+        <div id="downloadLinkParent" style="padding: 24px"></div>
       </div>
       <div class="blackbg">
         <h1>Tools and resources</h1>

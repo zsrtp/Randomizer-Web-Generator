@@ -2,6 +2,7 @@
   const $ = window.$;
 
   let pageData;
+  let creationCallInProgress;
 
   const RawSettingType = {
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
@@ -223,53 +224,53 @@
     // </tr>;
   }
 
-  let creationCallInProgress = false;
+  // let creationCallInProgress = false;
 
-  function handleCreateClick() {
-    if (creationCallInProgress) {
-      return;
-    }
+  // function handleCreateClick() {
+  //   if (creationCallInProgress) {
+  //     return;
+  //   }
+  //   creationCallInProgress = true;
 
-    const getVal = (id) => {
-      return $('#' + id).val();
-    };
+  //   const getVal = (id) => {
+  //     return $('#' + id).val();
+  //   };
 
-    const isChecked = (id) => {
-      return document.getElementById(id).checked;
-    };
+  //   const isChecked = (id) => {
+  //     return document.getElementById(id).checked;
+  //   };
 
-    const arr = ['gameRegion', 'seedNumber'];
+  //   const arr = ['gameRegion', 'seedNumber'];
 
-    let values = arr.map(getVal);
-    values.push(genRecolorBits());
-    values = values.concat(
-      ['randomizeBgm', 'randomizeFanfares', 'disableEnemyBgm'].map(isChecked)
-    );
+  //   let values = arr.map(getVal);
+  //   values.push(genRecolorBits());
+  //   values = values.concat(
+  //     ['randomizeBgm', 'randomizeFanfares', 'disableEnemyBgm'].map(isChecked)
+  //   );
 
-    console.log(values);
-    const pSettingsString = encodePSettings(values);
-    console.log(pSettingsString);
+  //   console.log(values);
+  //   const pSettingsString = encodePSettings(values);
+  //   console.log(pSettingsString);
 
-    creationCallInProgress = true;
-    fetch('/ajax/creategci.php', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ pSettings: pSettingsString }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        creationCallInProgress = false;
-        console.log(data);
-      })
-      .catch((err) => {
-        creationCallInProgress = false;
-        console.log('ERROR');
-        console.log(err);
-      });
-  }
+  //   fetch('/ajax/creategci.php', {
+  //     method: 'POST',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ pSettings: pSettingsString }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       creationCallInProgress = false;
+  //       console.log(data);
+  //     })
+  //     .catch((err) => {
+  //       creationCallInProgress = false;
+  //       console.log('ERROR');
+  //       console.log(err);
+  //     });
+  // }
 
   function encodeBits(bitString) {
     const missingChars = 6 - (bitString.length % 6);
@@ -314,5 +315,105 @@
     // encode bitString
 
     return '0p' + encodeBits(bitString);
+  }
+
+  function _base64ToUint8Array(base64Str) {
+    const binary_string = window.atob(base64Str);
+    const len = binary_string.length;
+    const bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+      bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes;
+  }
+
+  function handleCreateClick() {
+    if (creationCallInProgress) {
+      return;
+    }
+    creationCallInProgress = true;
+
+    const getVal = (id) => {
+      return $('#' + id).val();
+    };
+
+    const isChecked = (id) => {
+      return document.getElementById(id).checked;
+    };
+
+    const arr = ['gameRegion', 'seedNumber'];
+
+    let values = arr.map(getVal);
+    values.push(genRecolorBits());
+    values = values.concat(
+      ['randomizeBgm', 'randomizeFanfares', 'disableEnemyBgm'].map(isChecked)
+    );
+
+    console.log(values);
+    const pSettingsString = encodePSettings(values);
+    console.log(pSettingsString);
+
+    callCreateGci(pSettingsString, (error, data) => {
+      if (error) {
+        console.log('error in response');
+        console.log(error);
+      } else if (data) {
+        data.forEach(({ name, bytes }) => {
+          const fileBytes = _base64ToUint8Array(bytes);
+
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(new Blob([fileBytes]));
+          link.download = name;
+          // link.innerHTML = 'Click here to download the file';
+          link.textContent = `Download ${name}`;
+          document.getElementById('downloadLinkParent').appendChild(link);
+        });
+      }
+
+      creationCallInProgress = false;
+    });
+
+    // fetch('/ajax/creategci.php', {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ pSettings: pSettingsString }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     creationCallInProgress = false;
+    //     console.log(data);
+    //   })
+    //   .catch((err) => {
+    //     creationCallInProgress = false;
+    //     console.log('ERROR');
+    //     console.log(err);
+    //   });
+  }
+
+  function callCreateGci(pSettingsString, cb) {
+    fetch('/api/final', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        // settingsString: genSettingsString(),
+        pSettingsString,
+        // settingsString: settingsString,
+        // uSettingsString: ,
+        // seed: $('#seed').val(),
+      }),
+    })
+      .then((response) => response.json())
+      .then(({ error, data }) => {
+        cb(error, data);
+      })
+      .catch((err) => {
+        cb(err);
+      });
   }
 })();

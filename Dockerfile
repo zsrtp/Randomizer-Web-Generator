@@ -43,7 +43,7 @@ WORKDIR /usr/app/client/
 # COPY src ./src
 # COPY public ./public
 # RUN yarn build
-COPY ./packages/client/index.html ./build/
+COPY ./packages/client/ ./build/
 
 # Server
 FROM node:lts-alpine AS server-build
@@ -53,7 +53,9 @@ COPY package.json .
 COPY yarn.lock .
 RUN yarn
 
+COPY .env .
 COPY server.js .
+COPY util.js .
 
 # ENV NODE_ENV=production
 
@@ -73,14 +75,15 @@ RUN dotnet restore "./TPRandomizer.csproj" --disable-parallel
 # copy and publish app and libraries
 RUN dotnet publish "./TPRandomizer.csproj" -c release -o /app/generator --no-restore
 
-RUN mkdir /app/generator/Generator
-RUN cp -r World /app/generator/Generator/World
+# RUN mkdir /app/generator/Generator
+RUN cp -r World /app/generator/World
 
 FROM node:lts-alpine as node_base
 FROM mcr.microsoft.com/dotnet/runtime:5.0-alpine
 COPY --from=node_base . .
 WORKDIR /app
 COPY --from=build /app .
+COPY .env ./generator
 # ENTRYPOINT ["dotnet", "dotnetapp.dll"]
 
 # CMD ["sleep", "infinity"]
@@ -91,6 +94,7 @@ COPY --from=server-build /usr/app/server /usr/app/server
 
 WORKDIR /usr/app/server
 
+ENV TPR_ENV=production
 ENV NODE_ENV=production
 
 EXPOSE 5000

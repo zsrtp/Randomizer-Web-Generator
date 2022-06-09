@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace TPRandomizer
 {
@@ -11,6 +14,8 @@ namespace TPRandomizer
         [STAThread]
         static void Main(string[] args)
         {
+            Global.Init();
+
             string command = args[0];
 
             switch (command)

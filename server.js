@@ -21,14 +21,26 @@
 //   console.log('server started');
 // });
 
-const { execSync } = require('child_process');
+if (process.env.NODE_ENV === 'production') {
+  require('dotenv').config();
+} else {
+  require('dotenv').config({
+    path: '.env.development',
+  });
+}
+console.log(process.env);
 
 const url = require('url');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const express = require('express');
-const { callGenerator, callGeneratorBuf } = require('./util');
+const {
+  callGenerator,
+  callGeneratorMatchOutput,
+  callGeneratorBuf,
+  genOutputPath,
+} = require('./util');
 
 const app = express(); // create express app
 app.use(cors());
@@ -36,18 +48,13 @@ app.use(cors());
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-const generatorExePath = path.join(
-  __dirname,
-  'Generator/bin/release/net5.0/TPRandomizer.exe'
-);
-
 let root;
 let indexHtmlPath;
 
 // add middlewares
 if (process.env.NODE_ENV === 'production') {
   root = path.join(__dirname, '..', 'client', 'build');
-  indexHtmlPath = path.join(__dirname, '..', 'build', 'client', 'index.html');
+  indexHtmlPath = path.join(__dirname, '..', 'client', 'build', 'index.html');
 } else {
   // root = path.join(__dirname, 'build');
   root = path.join(__dirname, 'packages', 'client');
@@ -59,45 +66,56 @@ app.post('/api/generateseed', function (req, res) {
   const { settingsString } = req.body;
 
   if (!settingsString || typeof settingsString !== 'string') {
-    res.status(500).send({ error: 'Malformed request.' });
+    res.status(400).send({ error: 'Malformed request.' });
     return;
   }
 
-  let error;
-  let buf;
-
-  try {
-    buf = execSync(`${generatorExePath} generate2 ${settingsString} abcdef`);
-  } catch (e) {
-    error = e.toString();
-  }
+  const { error, data } = callGeneratorMatchOutput(
+    `generate2 ${settingsString} abcdef`
+  );
 
   if (error) {
     res.status(500).send({ error });
   } else {
-    const output = buf.toString();
-
-    const match = output.match(/SUCCESS:(\S+)/);
-    if (match) {
-      res.send({
-        data: {
-          id: match[1],
-        },
-      });
-    } else {
-      res.status(500).send({
-        error: output,
-      });
-    }
+    res.send({ data: { id: data } });
   }
 });
 
 app.post('/api/final', function (req, res) {
+  const { referer } = req.headers;
+
+  const { query } = url.parse(referer, true);
+
+  const { id } = query;
+
+  if (!id) {
+    res.status(400).send({ error: 'Bad referer.' });
+    return;
+  }
+
+  if (typeof id !== 'string' || !/^[0-9a-z-_]+$/i.test(id)) {
+    res.status(400).send({ error: 'Invalid id format.' });
+    return;
+  }
+
+  const { pSettingsString } = req.body;
+
+  if (
+    !pSettingsString ||
+    typeof pSettingsString !== 'string' ||
+    !/^[0-9a-f]+p[0-9a-z-_]+$/i.test(pSettingsString)
+  ) {
+    res.status(400).send({ error: 'Invalid pSettingsString format.' });
+    return;
+  }
+
   const buffer = callGeneratorBuf(
     'generate_final_output2',
-    'KJNgheF3K73',
+    // 'KJNgheF3K73',
+    id,
     'aBc',
-    '0p5001pXFOC'
+    // '0p5001pXFOC'
+    pSettingsString
   );
   const output = buffer.toString();
 
@@ -116,17 +134,30 @@ app.post('/api/final', function (req, res) {
   const json = JSON.parse(output.substring(currIndex, currIndex + jsonLen));
   currIndex += jsonLen;
 
-  const totalByteLength = json.reduce((acc, obj) => {
-    return acc + obj.length;
-  }, 0);
+  // const bytesStartIndex = currIndex;
 
-  const buf = buffer.slice(currIndex, currIndex + totalByteLength);
+  const data = [];
+  json.forEach(({ name, length }) => {
+    data.push({
+      name,
+      length,
+      bytes: buffer.slice(currIndex, currIndex + length).toString('base64'),
+    });
+    currIndex += length;
+  });
+
+  // const totalByteLength = json.reduce((acc, obj) => {
+  //   return acc + obj.length;
+  // }, 0);
+
+  // const buf = buffer.slice(currIndex, currIndex + totalByteLength);
 
   res.send({
-    data: {
-      meta: json,
-      bytes: buf.toString('base64'),
-    },
+    // data: {
+    //   meta: json,
+    //   bytes: buf.toString('base64'),
+    // },
+    data,
   });
 });
 
@@ -142,7 +173,7 @@ app.get('/api/creategci', function (req, res) {
     return;
   }
 
-  const filePath = path.join(__dirname, `seeds/${id}/input.json`);
+  const filePath = genOutputPath(`seeds/${id}/input.json`);
   if (fs.existsSync(filePath)) {
     const ff = fs.readFileSync(filePath);
     const json = JSON.parse(ff);
@@ -237,7 +268,9 @@ app.get('/getseed', (req, res) => {
 
       const { id } = req.query;
 
-      const filePath = path.join(__dirname, `seeds/${id}/input.json`);
+      // const filePath = path.join(__dirname, `seeds/${id}/input.json`);
+      const filePath = genOutputPath(`seeds/${id}/input.json`);
+
       if (fs.existsSync(filePath)) {
         const json = JSON.parse(fs.readFileSync(filePath));
         json.seedHash = undefined;

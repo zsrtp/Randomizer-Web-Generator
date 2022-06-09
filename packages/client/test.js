@@ -1,17 +1,13 @@
 console.log('in tetsstst');
 
-function _base64ToArrayBuffer(base64) {
-  const binary_string = window.atob(base64);
+function _base64ToUint8Array(base64Str) {
+  const binary_string = window.atob(base64Str);
   const len = binary_string.length;
   const bytes = new Uint8Array(len);
   for (var i = 0; i < len; i++) {
     bytes[i] = binary_string.charCodeAt(i);
   }
-  // const blob = new Blob([bytes]);
   return bytes;
-
-  // return bytes.buffer;
-  // return blob;
 }
 
 fetch('/api/final', {
@@ -28,27 +24,20 @@ fetch('/api/final', {
   // }),
 })
   .then((response) => response.json())
-  .then((data) => {
-    console.log(data);
-    if (data.data && data.data.meta && data.data.bytes) {
-      const { meta, bytes } = data.data;
-      const allFileBytes = _base64ToArrayBuffer(bytes);
-
-      let currIndex = 0;
-      meta.forEach(({ name, length }) => {
-        const fileBytes = allFileBytes.slice(currIndex, currIndex + length);
-
-        const blob = new Blob([fileBytes]);
+  .then(({ error, data }) => {
+    if (error) {
+      console.log('error in response');
+      console.log(error);
+    } else if (data) {
+      data.forEach(({ name, bytes }) => {
+        const fileBytes = _base64ToUint8Array(bytes);
 
         const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
+        link.href = URL.createObjectURL(new Blob([fileBytes]));
         link.download = name;
         link.innerHTML = 'Click here to download the file';
         document.body.appendChild(link);
-        currIndex += length;
       });
-    } else {
-      console.error('PROBLEM');
     }
   })
   .catch((err) => {
