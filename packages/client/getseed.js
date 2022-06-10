@@ -199,7 +199,6 @@
       })
       .join(' -- ');
 
-    byId('shareUrl').textContent = window.location.href;
     byId('filename').textContent = pageData.filename;
   }
 
