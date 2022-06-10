@@ -77,7 +77,7 @@ ul {
   color: #f3d068;
 }
 
-p {
+.footerText {
   line-height: 2.5;
   font-size: 1.25em;
   font-weight: 300;
@@ -111,7 +111,8 @@ p > span {
 }
 
 .blackbg {
-  background-color: #000000a1;
+  /* background-color: #000000a1; */
+  background-color: rgb(0, 0, 0, 0.9);
   margin: 0vh 10vh 5vh;
   padding: 45px;
   border-radius: 0.5em;
@@ -338,4 +339,210 @@ ul {
   width: 100%;
   margin: 16px 24px 24px;
   text-align: center;
+}
+
+.labelValueGroup {
+  display: inline-block;
+  position: relative;
+  padding: 6px 0;
+}
+
+.settingsStringLabel {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.settingsStringValue {
+  padding: 4px 0;
+}
+
+.primaryButton {
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  outline: 0px;
+  border: 0px;
+  margin: 0px;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  text-decoration: none;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  min-width: 64px;
+  padding: 6px 16px;
+  border-radius: 4px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: rgb(144, 202, 249);
+  box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
+    rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+
+  border-radius: 9999px;
+  /* background-color: #311b92; */
+  background-color: #673ab7;
+  background-color: #5d1ec4;
+  color: white;
+  font-weight: bold;
+}
+
+.css-1egpgfe {
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  outline: 0px;
+  border: 0px;
+  margin: 0px;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  text-decoration: none;
+  text-align: center;
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+  padding: 8px;
+  border-radius: 50%;
+  overflow: visible;
+  color: rgb(255, 255, 255);
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.css-1egpgfe:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.css-vubbuv {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentColor;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-size: 1.5rem;
+
+  font-size: 1.25rem;
+}
+
+.settingsEditBtnPos {
+  /* position: absolute;
+  top: 50%;
+  left: 100%; */
+  margin-left: 8px;
+}
+
+/* Temp basic modal start */
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+  color: rgb(0, 0, 0, 0.87);
+}
+
+.modal * {
+  box-sizing: border-box;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 8px;
+  color: rgb(0, 0, 0, 0.87);
+
+  max-width: 600px;
+}
+
+/* The Close Button */
+.modal-close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: -16px;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* End Temp basic modal */
+
+.settingsStringLabel.settingsStringLabelLight {
+  color: rgb(0, 0, 0, 0.87);
+}
+
+.settingsStringValueLight {
+  color: rgb(0, 0, 0, 0.87);
+}
+
+.modalSettingsStringInput {
+  width: 100%;
+  margin: 4px 0;
+}
+
+.modalButtonsWrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+  width: 100%;
+  padding: 40px 0 16px;
+}
+
+.modalButtonsWrapper > button {
+  margin: 0 4px;
+}
+
+.modalTitle {
+  color: #202124;
+  font-size: 1.375rem;
+  font-weight: 400;
+  padding-bottom: 16px;
+}
+
+.fieldErrorText {
+  font-size: 14px;
+  color: red;
+  margin-top: 4px;
 }

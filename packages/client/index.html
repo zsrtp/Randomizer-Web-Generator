@@ -506,41 +506,70 @@
 					</fieldset>
 				</div>
 				<br/>
-				<!-- <form method="post" action="generator.php"> -->
 
-				<div>
-					<label style="display:block;" for="newSettingsDisplay">SettingsString (display only):</label>
-					<input type="text" id="newSettingsDisplay" name="newSettingsDisplay" style="min-width: 30em;width: 100%;">
+				<div style="display:flex;align-items:flex-end;">
+					<div class="labelValueGroup">
+						<div class="settingsStringLabel">Settings String</div>
+						<span id="combinedSettingsString" class="settingsStringValue"></span>
+					</div>
+					<button id="editSettingsBtn" class="settingsEditBtnPos css-1egpgfe" tabindex="0" type="button" aria-label="delete">
+						<svg class="css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+							<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+						</svg>
+					</button>
 				</div>
 
-				<form autocomplete="off" method="post" action="generating.php">
-					<div>
+
+				<!-- <div>SSettings (display only):</div>
+				<div id="newSettingsDisplay" class="settingsStringValue"></div> -->
+				<div class="labelValueGroup" style="display:none;">
+					<div class="settingsStringLabel">SSettings (locked in during step1):</div>
+					<div id="newSettingsDisplay" class="settingsStringValue"></div>
+				</div>
+
+				<!-- <div>USettings (display only):</div>
+				<div id="uSettingsDisplay" class="settingsStringValue"></div> -->
+				<div class="labelValueGroup" style="display:none;">
+					<div class="settingsStringLabel">USettings (editable in step2):</div>
+					<div id="uSettingsDisplay" class="settingsStringValue"></div>
+				</div>
+
+				<!-- <div>Legacy Settings String:</div>
+				<div id="settingsStringTextbox" class="settingsStringValue"></div> -->
+				<div class="labelValueGroup" style="display:none;">
+					<div class="settingsStringLabel">Legacy Settings String:</div>
+					<div id="settingsStringTextbox" class="settingsStringValue"></div>
+				</div>
+
+
+					<!-- <div>
 						<label style="display:block;" for="settingsStringTextbox">Legacy Settings String:</label>
 						<input type="text" id="settingsStringTextbox" name="settingsStringTextBox" style="min-width: 30em;width: 100%;">
-					</div>
+					</div> -->
 					<div>
-						<label style="display:block;" for="seed">Seed:</label>
-						<input type="text" id="seed" name="seed" style="min-width: 30em;width: 100%;">
+						<label style="display:block;" for="seed" class="settingsStringLabel">Seed</label>
+						<input type="text" id="seed" name="seed" style="min-width: 30em;width: 100%;max-width: 300px;">
 					</div>
-					<div>
+
+					<!-- <div>
 						<label style="display:block;" for="uSettingsString">USettings (for display):</label>
 						<input type="text" id="uSettingsString" name="uSettingsString" style="min-width: 30em;width: 100%;">
-					</div>
+					</div> -->
 					<br/>
-					<input type="number" id="seed-slot" name="seed-slot" value="0" hidden/>
-					<input id="importSettingsStringButton" value="Import/Apply" type="button">
+
+					<!-- <input id="importSettingsStringButton" value="Import/Apply" type="button"> -->
+					<button id="importSettingsStringButton" class="primaryButton" style="display:none;">Import/Apply</button>
+
 					<br/>
-					<input id="generateSeedButton" name="generateSeedButton" value="Generate" type="submit" >
-					<button id="generateSeed" type="button">Ajax</button>
-				</form>
-                <script>
-                    document.getElementById('seedNumberFieldset').addEventListener("change",
-                    function ()
-                    {
-                        document.getElementById('seed-slot').value = this.value;
-                    });
-                    document.getElementById('seed-slot').value = 0;
-                </script>
+					<!-- <input id="generateSeedButton" name="generateSeedButton" value="Generate" type="submit" > -->
+					<button id="generateSeed" type="button" class="primaryButton">Generate</button>
+
+					<!-- <button class="css-1egpgfe" tabindex="0" type="button" aria-label="delete">
+						<svg class="css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+							<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+						</svg>
+					</button> -->
+
 			</div>
 			<div class="blackbg">
 				<h1>Tools and resources</h1>
@@ -590,7 +619,7 @@
 				</table>
 			</div>
 			<div class="blackbg" style="padding: 0px; margin-bottom: 0px;">
-				<p>
+				<p class="footerText">
 					v1.09 - Made with
 					<img style="display: inline; margin: 0px 0px -10px;" src="img/heart.png" alt="Heart Container"/>
 					 by
@@ -603,6 +632,35 @@
 				</p>
 			</div>
 		</div>
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="modal-close">&times;</span>
+				<!-- <p style="color:black;">Some text in the Modal..</p> -->
+				<div class="modalTitle">Import Settings</div>
+
+				<!-- <div class="settingsStringLabel settingsStringLabelLight">Current Settings</div>
+				<div>ashdioh</div> -->
+				<div class="labelValueGroup">
+					<div class="settingsStringLabel settingsStringLabelLight">Current Settings</div>
+					<div id="modalCurrentSettings" class="settingsStringValue settingsStringValueLight">asdhfoi</div>
+				</div>
+
+				<div class="settingsStringLabel settingsStringLabelLight">New Settings</div>
+				<input id="modalSettingsStringInput" type="text" class="modalSettingsStringInput">
+
+				<div id="modalFieldError" class="fieldErrorText" style="display:none;"></div>
+
+				<div class="modalButtonsWrapper">
+					<button id="modalImport" type="button">Import</button>
+					<button id="modalCancel" type="button">Cancel</button>
+					<button id="modalCopy" type="button" style="margin-right:auto;">Copy settings</button>
+				</div>
+
+			</div>
+		</div>
+
 	</body>
 	<script src="script.js"></script>
 	<!-- <script src="test.js"></script> -->

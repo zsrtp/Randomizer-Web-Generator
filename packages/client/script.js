@@ -48,6 +48,8 @@ function onDomContentLoaded() {
   initTabButtons();
 
   setSettingsString();
+
+  initModal();
 }
 
 const RawSettingType = {
@@ -364,14 +366,26 @@ function setSettingsString() {
   settingsStringRaw[41] = document.getElementById(
     'modifyShopModelsCheckbox'
   ).checked;
-  document.getElementById('settingsStringTextbox').value =
+  // document.getElementById('settingsStringTextbox').value =
+  document.getElementById('settingsStringTextbox').textContent =
     getSettingsString(settingsStringRaw);
 
-  document.getElementById('newSettingsDisplay').value = genSettingsString();
-  document.getElementById('seed').value =
-    window.tpr.shared.genPSettingsFromUi();
-  document.getElementById('uSettingsString').value =
-    window.tpr.shared.genUSettingsFromUi();
+  const sSettingsString = genSettingsString();
+  const pSettingsString = window.tpr.shared.genPSettingsFromUi();
+  // const pSettingsString = '';
+
+  document.getElementById('combinedSettingsString').textContent =
+    sSettingsString + pSettingsString;
+
+  // document.getElementById('newSettingsDisplay').value = genSettingsString();
+  // document.getElementById('newSettingsDisplay').textContent = sSettingsString;
+
+  // document.getElementById('seed').value = window.tpr.shared.genPSettingsFromUi();
+  // document.getElementById('uSettingsDisplay').textContent =
+  //   pSettingsString || '<empty>';
+
+  // document.getElementById('uSettingsString').value =
+  //   window.tpr.shared.genUSettingsFromUi();
 }
 
 function getSettingsString(settingsStringRaw) {
@@ -797,3 +811,70 @@ $('#generateSeed').on('click', () => {
       console.log(err);
     });
 });
+
+function initModal() {
+  const modal = document.getElementById('myModal');
+  const btn = document.getElementById('editSettingsBtn');
+  const span = modal.querySelector('.modal-close');
+  const fieldErrorText = document.getElementById('modalFieldError');
+  const input = document.getElementById('modalSettingsStringInput');
+  const currentSettings = document.getElementById('modalCurrentSettings');
+
+  input.addEventListener('input', () => {
+    $(fieldErrorText).hide();
+  });
+
+  // When the user clicks the button, open the modal
+  btn.addEventListener('click', () => {
+    // Prepare modal
+    currentSettings.textContent =
+      genSettingsString() + window.tpr.shared.genPSettingsFromUi();
+    $(fieldErrorText).hide();
+    input.value = '';
+
+    modal.style.display = 'block';
+
+    input.focus();
+  });
+
+  span.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  document.getElementById('modalCancel').addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  document.getElementById('modalImport').addEventListener('click', () => {
+    $(fieldErrorText)
+      .text(
+        'Unable to understand those settings. Do you have the correct string?'
+      )
+      .show();
+
+    // modal.style.display = 'none';
+  });
+
+  document.getElementById('modalCopy').addEventListener('click', () => {
+    $(fieldErrorText).hide();
+
+    const text = currentSettings.textContent;
+    navigator.clipboard.writeText(text).then(
+      () => {
+        // success
+      },
+      (err) => {
+        $(fieldErrorText).text('Failed to copy text.').show();
+      }
+    );
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      // This is the background behind the modal.
+      modal.style.display = 'none';
+    }
+  });
+
+  // btn.click(); // TODO: remove temp test code
+}

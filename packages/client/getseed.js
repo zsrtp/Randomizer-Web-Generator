@@ -129,6 +129,10 @@
       document.getElementById('IsIE').style.display = 'none';
     }
 
+    document.getElementById('logo').addEventListener('click', () => {
+      window.location.href = '/';
+    });
+
     initTabButtons();
 
     const inputJsonDataEl = document.getElementById('inputJsonData');
@@ -139,7 +143,6 @@
       fillInSettingsTable();
     }
 
-    // fetch('/ajax/creategci.php')
     fetch('/api/creategci')
       .then((response) => response.json())
       .then((data) => console.log(data));
@@ -215,62 +218,7 @@
       valueEl.textContent = pageData.settings[key];
       tr.appendChild(valueEl);
     });
-
-    // const nameEl = '';
-
-    // <tr>
-    //   <td>version</td>
-    //   <td id="version"></td>
-    // </tr>;
   }
-
-  // let creationCallInProgress = false;
-
-  // function handleCreateClick() {
-  //   if (creationCallInProgress) {
-  //     return;
-  //   }
-  //   creationCallInProgress = true;
-
-  //   const getVal = (id) => {
-  //     return $('#' + id).val();
-  //   };
-
-  //   const isChecked = (id) => {
-  //     return document.getElementById(id).checked;
-  //   };
-
-  //   const arr = ['gameRegion', 'seedNumber'];
-
-  //   let values = arr.map(getVal);
-  //   values.push(genRecolorBits());
-  //   values = values.concat(
-  //     ['randomizeBgm', 'randomizeFanfares', 'disableEnemyBgm'].map(isChecked)
-  //   );
-
-  //   console.log(values);
-  //   const pSettingsString = encodePSettings(values);
-  //   console.log(pSettingsString);
-
-  //   fetch('/ajax/creategci.php', {
-  //     method: 'POST',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ pSettings: pSettingsString }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       creationCallInProgress = false;
-  //       console.log(data);
-  //     })
-  //     .catch((err) => {
-  //       creationCallInProgress = false;
-  //       console.log('ERROR');
-  //       console.log(err);
-  //     });
-  // }
 
   function encodeBits(bitString) {
     const missingChars = 6 - (bitString.length % 6);
@@ -311,8 +259,6 @@
         }
       }
     });
-
-    // encode bitString
 
     return '0p' + encodeBits(bitString);
   }
@@ -364,7 +310,6 @@
           const link = document.createElement('a');
           link.href = URL.createObjectURL(new Blob([fileBytes]));
           link.download = name;
-          // link.innerHTML = 'Click here to download the file';
           link.textContent = `Download ${name}`;
           document.getElementById('downloadLinkParent').appendChild(link);
         });
@@ -372,25 +317,6 @@
 
       creationCallInProgress = false;
     });
-
-    // fetch('/ajax/creategci.php', {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ pSettings: pSettingsString }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     creationCallInProgress = false;
-    //     console.log(data);
-    //   })
-    //   .catch((err) => {
-    //     creationCallInProgress = false;
-    //     console.log('ERROR');
-    //     console.log(err);
-    //   });
   }
 
   function callCreateGci(pSettingsString, cb) {
@@ -401,11 +327,7 @@
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        // settingsString: genSettingsString(),
         pSettingsString,
-        // settingsString: settingsString,
-        // uSettingsString: ,
-        // seed: $('#seed').val(),
       }),
     })
       .then((response) => response.json())
