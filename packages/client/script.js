@@ -850,17 +850,17 @@ function initSettingsModal() {
     $(fieldErrorText).hide();
     input.value = '';
 
-    modal.style.display = 'block';
+    $(modal).show();
 
     input.focus();
   });
 
   span.addEventListener('click', () => {
-    modal.style.display = 'none';
+    $(modal).hide();
   });
 
   document.getElementById('modalCancel').addEventListener('click', () => {
-    modal.style.display = 'none';
+    $(modal).hide();
   });
 
   document.getElementById('modalImport').addEventListener('click', () => {
@@ -890,7 +890,7 @@ function initSettingsModal() {
   window.addEventListener('click', (e) => {
     if (e.target === modal) {
       // This is the background behind the modal.
-      modal.style.display = 'none';
+      $(modal).hide();
     }
   });
 
