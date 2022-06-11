@@ -42,14 +42,26 @@ function initTabButtons() {
   });
 }
 
+let showGeneratingModal; // fn
+let hideGeneratingModal; // fn
+let showGeneratingModalError; // fn
+
 window.addEventListener('DOMContentLoaded', onDomContentLoaded);
+window.addEventListener('pageshow', function (event) {
+  if (event.persisted) {
+    // history traversal forward or backward
+    generateCallInProgress = false;
+    hideGeneratingModal();
+  }
+});
 
 function onDomContentLoaded() {
   initTabButtons();
 
   setSettingsString();
 
-  initModal();
+  initSettingsModal();
+  initGeneratingModal();
 }
 
 const RawSettingType = {
@@ -777,12 +789,15 @@ $('#generateSeed').on('click', () => {
     return;
   }
 
+  generateCallInProgress = true;
+
+  showGeneratingModal();
+
   // window.tpr.shared.genUSettingsFromUi();
 
   const settingsString =
     genSettingsString() + window.tpr.shared.genUSettingsFromUi();
 
-  // fetch('/ajax/generateseed.php', {
   fetch('/api/generateseed', {
     method: 'POST',
     headers: {
@@ -790,9 +805,7 @@ $('#generateSeed').on('click', () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      // settingsString: genSettingsString(),
       settingsString: settingsString,
-      // uSettingsString: ,
       seed: $('#seed').val(),
     }),
   })
@@ -801,18 +814,23 @@ $('#generateSeed').on('click', () => {
       if (data && data.data && data.data.id) {
         window.location.href = '/getseed?id=' + data.data.id;
       } else {
-        // creationCallInProgress = false;
-        console.log(data);
+        generateCallInProgress = false;
+        console.error('Unrecognized response from `/api/generateseed`');
+        console.error(data);
+        showGeneratingModalError(
+          'Unrecognized response from `/api/generateseed`.'
+        );
       }
     })
     .catch((err) => {
       generateCallInProgress = false;
-      console.log('ERROR');
-      console.log(err);
+      showGeneratingModalError('/api/generateseed error');
+      console.error('/api/generateseed error');
+      console.error(err);
     });
 });
 
-function initModal() {
+function initSettingsModal() {
   const modal = document.getElementById('myModal');
   const btn = document.getElementById('editSettingsBtn');
   const span = modal.querySelector('.modal-close');
@@ -877,4 +895,42 @@ function initModal() {
   });
 
   // btn.click(); // TODO: remove temp test code
+}
+
+function initGeneratingModal() {
+  const bg = document.getElementById('modal2Bg');
+  const modal = document.getElementById('generatingModal');
+  const $progressRow = $('#generatingProgressRow');
+  const errorEl = document.getElementById('generatingError');
+
+  function showModal() {
+    errorEl.textContent = '';
+    errorEl.style.display = 'none';
+    $progressRow.show();
+    bg.style.display = '';
+    modal.style.display = '';
+    modal.classList.add('isOpen');
+  }
+
+  function hideModal() {
+    bg.style.display = 'none';
+    modal.style.display = 'none';
+    modal.classList.remove('isOpen');
+  }
+
+  function showError(msg) {
+    $progressRow.hide();
+    errorEl.textContent = msg;
+    errorEl.style.display = '';
+  }
+
+  showGeneratingModal = showModal;
+  hideGeneratingModal = hideModal;
+  showGeneratingModalError = showError;
+
+  window.addEventListener('click', () => {
+    if (!generateCallInProgress) {
+      hideModal();
+    }
+  });
 }

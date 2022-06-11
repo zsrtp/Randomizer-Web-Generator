@@ -545,9 +545,13 @@ ul {
   padding-bottom: 16px;
 }
 
+.errorTextColor {
+  color: #d32f2f;
+}
+
 .fieldErrorText {
   font-size: 14px;
-  color: red;
+  color: #d32f2f;
   margin-top: 4px;
 }
 
@@ -592,4 +596,362 @@ table.getSeedTable td {
   /* width: 50%; */
   /* padding: 5px 20px; */
   /* width: 12vh; */
+}
+
+/* modal 2 start */
+
+.modal-dialog-bg {
+  background-color: #000;
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: 998;
+  opacity: 0.6;
+
+  /* added */
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+/* resize listener to adjust dimensions? */
+
+.quantumWizDialogBackground {
+  -webkit-transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
+  transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
+  background-color: rgba(0, 0, 0, 0.502);
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 5000;
+}
+
+.quantumWizDialogBackground.isOpen {
+  -webkit-transition: opacity 0.05s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.05s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+}
+
+.quantumWizDialogLayout {
+  -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: -webkit-transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-box-align: center;
+  box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  bottom: 0;
+  left: 0;
+  padding: 0 5%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.boqDrivesharedialogDialogcontainerRemovePadding {
+  padding: 0;
+}
+
+.quantumWizDialogBackgroundTop,
+.quantumWizDialogBackgroundBottom {
+  display: block;
+  height: 3em;
+}
+
+.quantumWizDialogEl {
+  -webkit-flex-shrink: 1;
+  flex-shrink: 1;
+  max-height: 100%;
+}
+
+.boqDrivesharedialogDialogcontainerFullWidth {
+  width: 100%;
+}
+
+.boqDrivesharedialogDialogsShareContainer {
+  -webkit-align-items: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
+  -webkit-justify-content: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+.boqDrivesharedialogDialogsShareDialogWrapper {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.boqDrivesharedialogDialogsShareDialog {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.boqDrivesharedialogDialogsShareCardContainer {
+  max-height: max(100vh, 1000px);
+  padding: 5px;
+  overflow: hidden;
+  position: relative;
+  -webkit-transition-property: max-height;
+  transition-property: max-height;
+  -webkit-transition-delay: 0ms;
+  transition-delay: 0ms;
+  -webkit-transition-duration: 270ms;
+  transition-duration: 270ms;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.boqDrivesharedialogCommonIdomcardCardContainer {
+  transition: transform;
+  transition-delay: 0ms;
+  transition-duration: 270ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 100%;
+  position: relative;
+  -webkit-transform-origin: top;
+  transform-origin: top;
+  width: 640px;
+}
+
+.boqDrivesharedialogCommonIdomcardCardContainer {
+  width: 512px;
+  min-width: 320px;
+}
+
+.boqDrivesharedialogCommonIdomcardCardContainer.TransformOriginBottom {
+  -webkit-transform-origin: bottom;
+  transform-origin: bottom;
+}
+
+.boqDrivesharedialogCommonAnimatedfadeParentContainer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.boqDrivesharedialogCommonAnimatedfadeContainer {
+  transition: opacity;
+  transition-delay: 117ms;
+  transition-duration: 80ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+  opacity: 1;
+}
+
+.boqDrivesharedialogCommonIdomcardCardFade {
+  transition: opacity;
+  transition-delay: 50ms;
+  transition-duration: 225ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.boqDrivesharedialogCommonIdomcardCard::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  pointer-events: none;
+}
+
+.mdc-card::after {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-border-radius: var(--mdc-shape-medium, 4px);
+  border-radius: var(--mdc-shape-medium, 4px);
+  position: absolute;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: 1px solid transparent;
+  -webkit-border-radius: inherit;
+  border-radius: inherit;
+  content: '';
+  pointer-events: none;
+}
+
+/* body {
+  font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+  margin: 0;
+  overflow: hidden;
+} */
+
+.boqDrivesharedialogCommonIdomcardCard {
+  outline: none;
+}
+
+.mdc-card {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-border-radius: var(--mdc-shape-medium, 4px);
+  border-radius: var(--mdc-shape-medium, 4px);
+  background-color: #fff;
+  background-color: var(--mdc-theme-surface, #fff);
+  position: relative;
+  -webkit-box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%),
+    0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 1px 3px 0 rgb(0 0 0 / 12%);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.GmCard {
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  background-color: #fff;
+  border-width: 0;
+  -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
+    0 1px 3px 1px rgb(60 64 67 / 15%);
+  box-shadow: 0 1px 2px 0rgba (60, 64, 67, 0.3),
+    0 1px 3px 1pxrgba (60, 64, 67, 0.15);
+}
+
+.boqDrivesharedialogCommonTitlebarTitleBar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  padding: 20px 12px 0 24px;
+}
+
+.boqDrivesharedialogCommonTitlebarTitleBar {
+  padding: 8px 8px 0 24px;
+}
+
+.boqDrivesharedialogCommonTitlebarTitleBar .Heading {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.boqDrivesharedialogCommonTitlebarTitleBar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  padding: 20px 12px 0 24px;
+}
+
+.boqDrivesharedialogCommonTitlebarTitleBar {
+  padding: 8px 8px 0 24px;
+}
+
+.boqDrivesharedialogCommonTitlebarTitleBar .Heading {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.boqDrivesharedialogCommonTitlebarTitleBar .LeftSlotAndTitle {
+  padding-top: 16px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.boqDrivesharedialogCommonTitlebarTitleBar .Heading .Title {
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  line-height: 1.75rem;
+  font-size: 1.375rem;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: #202124;
+  margin: 0;
+}
+
+/* end modal 2 */
+
+.dialog2Content {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.dialog2ContentArea {
+  /* padding: 16px 24px 16px; */
+  padding: 24px;
+}
+
+@keyframes spinner-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-border {
+  border-color: currentcolor transparent currentcolor currentcolor;
+}
+
+.spinner-border {
+  color: #5d1ec4;
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: text-bottom;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner-border 0.75s linear infinite;
+  animation: spinner-border 0.75s linear infinite;
 }
