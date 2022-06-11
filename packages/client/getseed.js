@@ -187,6 +187,29 @@
   }
 
   function fillInInfo() {
+    const date = new Date(pageData.timestamp);
+
+    let locales = navigator.languages;
+    if (locales == null) {
+      locales = navigator.language;
+    }
+
+    $('#timestamp').text(
+      // date.toLocaleDateString(locales, {
+      date.toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        timeZoneName: 'short',
+      })
+    );
+    $('#seed').text(pageData.seed);
+    $('#settingsString').text(pageData.settingsString);
+
     const arr = [];
 
     arr.push({ label: 'Created', value: pageData.timestamp });

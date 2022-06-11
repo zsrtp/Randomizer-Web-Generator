@@ -41,6 +41,8 @@ namespace TPRandomizer
                         JsonConvert.SerializeObject(CheckIdClass.GetNameToIdNumDictionary())
                     );
                     break;
+                default:
+                    throw new Exception("Unrecognized command.");
             }
         }
     }

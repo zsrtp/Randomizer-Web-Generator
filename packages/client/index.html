@@ -49,6 +49,7 @@
 		<meta property="og:image" content="https://rando.zeldatp.net/img/logo.png" />
 		<meta property="og:description" content="The official Twilight Princess Randomizer website! From download to setup and even tools!" />
 		<link rel="stylesheet" target="_blank" href="css/style.css">
+		<script src="/js/lib/lodash.toarray.js"></script>
 		<script src="/js/lib/jquery-3.6.0.js"></script>
 		<script src="/js/shared.js"></script>
 	</head>
@@ -557,7 +558,7 @@
 					</div> -->
 					<div>
 						<label style="display:block;" for="seed" class="settingsStringLabel">Seed</label>
-						<input type="text" id="seed" name="seed" style="min-width: 30em;width: 100%;max-width: 300px;" autocomplete="off">
+						<input type="text" id="seed" name="seed" style="min-width: 30em;width: 100%;max-width: 300px;" autocomplete="off" maxlength="128">
 					</div>
 
 					<!-- <div>
@@ -704,7 +705,7 @@
 																	</div>
 																</div>
 
-																<div id="generatingError" class="errorTextColor"></div>
+																<div id="generatingError" class="errorTextColor" style="white-space:pre-wrap;"></div>
 															</div>
 
 														</div>

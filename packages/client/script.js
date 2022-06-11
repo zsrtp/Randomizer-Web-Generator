@@ -1,5 +1,60 @@
 const $ = window.$;
 
+function normalizeStringToMax128Bytes(inputStr, doTrims) {
+  // substring to save lodash some work potentially. 256 because some
+  // characters like emojis have length 2, and we want to leave at least 128
+  // glyphs. Normalize is to handle writing the same unicode chars in
+  // different ways.
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
+  let seedStr = inputStr.normalize();
+
+  if (doTrims) {
+    seedStr = seedStr.trim();
+  } else {
+    seedStr = seedStr.replace(/^\s+/, '');
+  }
+
+  seedStr = seedStr.replace(/\s+/g, ' ').substring(0, 256);
+
+  // The whitespace replacement already handles removing \n, \r, \f, and \t,
+  // so the only characters left which have to be escaped are double-quote,
+  // backslash, and backspace (\b or \x08). Even though they are only 1 byte in
+  // UTF-8, we say those ones are 2 bytes because they will take 2 bytes in
+  // the json file due to the backslash escape character.
+
+  // Allow 128 bytes max
+  const textEncoder = new TextEncoder();
+  let len = 0;
+  let str = '';
+
+  // We use the lodash.toarray method because it handles chars like 👩‍❤️‍💋‍👩.
+  // Another approach that almost works is str.match(/./gu), but this returns
+  // [ "👩", "‍", "❤", "️", "‍", "💋", "‍", "👩" ] for 👩‍❤️‍💋‍👩.
+  const chars = window.lodashToArray.toArray(seedStr);
+  for (let i = 0; i < chars.length; i++) {
+    const char = chars[i];
+
+    let byteLength;
+    if (char === '"' || char === '\\' || char === '\b') {
+      byteLength = 2; // Will use 2 chars in the json file
+    } else {
+      byteLength = textEncoder.encode(char).length;
+    }
+
+    if (len + byteLength <= 128) {
+      str += char;
+      len += byteLength;
+    } else {
+      break;
+    }
+  }
+
+  if (doTrims) {
+    return str.trim();
+  }
+  return str;
+}
+
 function byId(id) {
   return document.getElementById(id);
 }
@@ -62,6 +117,11 @@ function onDomContentLoaded() {
 
   initSettingsModal();
   initGeneratingModal();
+
+  document.getElementById('seed').addEventListener('input', (e) => {
+    const { value } = e.target;
+    e.target.value = normalizeStringToMax128Bytes(value);
+  });
 }
 
 const RawSettingType = {
@@ -807,11 +867,17 @@ $('#generateSeed').on('click', () => {
     body: JSON.stringify({
       settingsString: settingsString,
       seed: $('#seed').val(),
+      // seed: `  abc  \n def\tdog abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789  \n\n cat  \t `,
     }),
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data && data.data && data.data.id) {
+      if (data.error) {
+        generateCallInProgress = false;
+        console.error('`/api/generateseed` error:');
+        console.error(data);
+        showGeneratingModalError(`Error:\n${data.error}`);
+      } else if (data.data && data.data.id) {
         window.location.href = '/getseed?id=' + data.data.id;
       } else {
         generateCallInProgress = false;

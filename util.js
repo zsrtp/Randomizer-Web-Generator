@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execSync, execFile } = require('child_process');
+const spawn = require('cross-spawn');
 
 let outputPath = null;
 initOutputPath();
@@ -68,19 +69,33 @@ function callGeneratorBuf(...args) {
   return buf;
 }
 
-function callGeneratorMatchOutput(...args) {
-  const output = callGenerator(args);
+function callGeneratorAsync(args, cb) {
+  execFile(generatorExePath, args, (error, stdout, stderr) => {
+    if (error) {
+      cb(error.message);
+    } else {
+      cb(null, stdout);
+    }
+  });
+}
 
-  const match = output.match(/SUCCESS:(\S+)/);
-  if (match) {
-    return {
-      data: match[1],
-    };
-  }
+function callGeneratorMatchOutput(args, cb) {
+  callGeneratorAsync(args, (error, output) => {
+    if (error) {
+      cb(error);
+    } else {
+      const match = output.match(/SUCCESS:(\S+)/);
+      if (match) {
+        cb(null, match[1]);
+      } else {
+        cb(output);
+      }
+    }
+  });
+}
 
-  return {
-    error: output,
-  };
+function getGeneratorExePath() {
+  return generatorExePath;
 }
 
 module.exports = {
@@ -88,4 +103,5 @@ module.exports = {
   callGeneratorBuf,
   callGeneratorMatchOutput,
   genOutputPath,
+  getGeneratorExePath,
 };

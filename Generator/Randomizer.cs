@@ -129,7 +129,12 @@ namespace TPRandomizer
             // Generate seedHash from seed
             if (seed == null || seed.Length < 1)
             {
-                seed = Util.Hash.GenId();
+                // 132 bits of data as 22 characters. Wanted at least 128 bits,
+                // and the 6bit encoding only needs 22 chars instead of the 32
+                // hex characters you would normally use for 128 bits. Use 2
+                // characters because we don't want it to be easily confused
+                // with the seed's id in the URL.
+                seed = Util.Hash.GenId() + Util.Hash.GenId();
             }
 
             int seedHash = Util.Hash.CalculateMD5(seed);
