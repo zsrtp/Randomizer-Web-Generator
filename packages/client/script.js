@@ -447,7 +447,8 @@ function setSettingsString() {
   // const pSettingsString = '';
 
   document.getElementById('combinedSettingsString').textContent =
-    sSettingsString + pSettingsString;
+    // sSettingsString + pSettingsString;
+    sSettingsString + window.tpr.shared.genUSettingsFromUi();
 
   // document.getElementById('newSettingsDisplay').value = genSettingsString();
   // document.getElementById('newSettingsDisplay').textContent = sSettingsString;
@@ -867,7 +868,6 @@ $('#generateSeed').on('click', () => {
     body: JSON.stringify({
       settingsString: settingsString,
       seed: $('#seed').val(),
-      // seed: `  abc  \n def\tdog abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789  \n\n cat  \t `,
     }),
   })
     .then((response) => response.json())
@@ -930,13 +930,22 @@ function initSettingsModal() {
   });
 
   document.getElementById('modalImport').addEventListener('click', () => {
-    $(fieldErrorText)
-      .text(
-        'Unable to understand those settings. Do you have the correct string?'
-      )
-      .show();
+    if (!input.value) {
+      $(modal).hide();
+      return;
+    }
 
-    // modal.style.display = 'none';
+    const error = populateFromSettingsString(input.value);
+
+    if (error) {
+      $(fieldErrorText)
+        .text(
+          'Unable to understand those settings. Do you have the correct string?'
+        )
+        .show();
+    } else {
+      $(modal).hide();
+    }
   });
 
   document.getElementById('modalCopy').addEventListener('click', () => {
@@ -1000,3 +1009,91 @@ function initGeneratingModal() {
     }
   });
 }
+
+function populateFromSettingsString(settingsString) {
+  let byType;
+
+  try {
+    byType = window.tpr.shared.decodeSettingsString(settingsString);
+  } catch (e) {
+    console.error(e);
+    return e.message;
+  }
+
+  if (byType.s) {
+    populateSSettings(byType.s);
+  }
+
+  setSettingsString();
+
+  return null;
+}
+
+function populateSSettings(s) {
+  if (!s) {
+    return;
+  }
+
+  $('#logicRulesFieldset').val(s.logicRules);
+  $('#castleRequirementsFieldset').val(s.castleRequirements);
+  $('#palaceRequirementsFieldset').val(s.palaceRequirements);
+  $('#faronLogicFieldset').val(s.faronWoodsLogic);
+  $('#goldenBugsCheckbox').prop('checked', s.goldenBugs);
+  $('#skyCharacterCheckbox').prop('checked', s.skyCharacters);
+  $('#giftsFromNPCsCheckbox').prop('checked', s.giftsFromNpcs);
+  $('#poesCheckbox').prop('checked', s.poes);
+  $('#shopItemsCheckbox').prop('checked', s.shopItems);
+  $('#hiddenSkillsCheckbox').prop('checked', s.hiddenSkills);
+  $('#smallKeyFieldset').val(s.smallKeys);
+  $('#bigKeyFieldset').val(s.bigKeys);
+  $('#mapAndCompassFieldset').val(s.mapsAndCompasses);
+  $('#introCheckbox').prop('checked', s.skipIntro);
+  $('#faronTwilightCheckbox').prop('checked', s.faronTwilightCleared);
+  $('#eldinTwilightCheckbox').prop('checked', s.eldinTwilightCleared);
+  $('#lanayruTwilightCheckbox').prop('checked', s.lanayruTwilightCleared);
+  $('#mdhCheckbox').prop('checked', s.skipMdh);
+  $('#skipMinorCutscenesCheckbox').prop('checked', s.skipMinorCutscenes);
+  $('#fastIBCheckbox').prop('checked', s.fastIronBoots);
+  $('#quickTransformCheckbox').prop('checked', s.quickTransform);
+  $('#transformAnywhereCheckbox').prop('checked', s.transformAnywhere);
+  $('#increaseWalletCheckbox').prop('checked', s.increaseWalletCapacity);
+  $('#modifyShopModelsCheckbox').prop(
+    'checked',
+    s.shopModelsShowTheReplacedItem
+  );
+  $('#foolishItemFieldset').val(s.trapItemsFrequency);
+
+  const $excludedChecksParent = $('#baseExcludedChecksListbox');
+  s.excludedChecks.forEach((checkNumId) => {
+    $excludedChecksParent
+      .find(`input[data-checkid="${checkNumId}"`)
+      .prop('checked', true);
+  });
+
+  if (s.startingItems.length > 0) {
+    const byId = {};
+
+    const $startingItemsParent = $('#baseImportantItemsListbox');
+
+    s.startingItems.forEach((id) => {
+      byId[id] = (byId[id] || 0) + 1;
+    });
+
+    Object.keys(byId).forEach((id) => {
+      const count = byId[id];
+
+      const checkboxes = $startingItemsParent.find(
+        `input[data-itemid="${id}"]`
+      );
+
+      for (let i = 0; i < count && i < checkboxes.length; i++) {
+        checkboxes[i].checked = true;
+      }
+    });
+  }
+}
+
+// // TODO: remove test code
+// setTimeout(() => {
+//   window.decodeSettingsString('0sPB13400007__u0pf8W06FH3DW');
+// }, 1000);

@@ -131,13 +131,14 @@ namespace TPRandomizer
             {
                 // 132 bits of data as 22 characters. Wanted at least 128 bits,
                 // and the 6bit encoding only needs 22 chars instead of the 32
-                // hex characters you would normally use for 128 bits. Use 2
-                // characters because we don't want it to be easily confused
-                // with the seed's id in the URL.
+                // hex characters you would normally use for 128 bits.
+                // Concatenate 2 together because we don't want it to be easily
+                // confused with the seed's id in the URL.
                 seed = Util.Hash.GenId() + Util.Hash.GenId();
             }
 
             int seedHash = Util.Hash.CalculateMD5(seed);
+            Random rnd = new Random(seedHash);
 
             bool generationStatus = false;
             int remainingGenerationAttempts = 30;
@@ -147,8 +148,6 @@ namespace TPRandomizer
                     + "."
                     + RandomizerVersionMinor
             );
-            Random rnd = new Random(seedHash);
-            // string seedHash = generatorSeedHash;
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.
             DeserializeChecks();
@@ -319,7 +318,7 @@ namespace TPRandomizer
             inputJsonRoot.Add("seed", seed);
             inputJsonRoot.Add("seedHash", seedHash.ToString("x8"));
             inputJsonRoot.Add("filename", filename);
-            inputJsonRoot.Add("settings", GenPart2Settings(true));
+            // inputJsonRoot.Add("settings", GenPart2Settings(true));
             inputJsonRoot.Add("itemPlacement", checkIdToItemId);
 
             return JsonConvert.SerializeObject(inputJsonRoot);

@@ -24,10 +24,16 @@ namespace TPRandomizer
                     // Randomizer.Start(args[1], args[2]);
                     Randomizer.Start(args[1], args[2], args[3]);
                     break;
-                case "generate2":
+                case "generate2": {
                     // settingsString, seed
-                    Randomizer.CreateInputJson(args[1], args[2]);
+                    string seed = "";
+                    if (args.Length > 2)
+                    {
+                        seed = args[2];
+                    }
+                    Randomizer.CreateInputJson(args[1], seed);
                     break;
+                }
                 case "generate_final_output":
                     // id, tempArg, pSettingsString,
                     Randomizer.GenerateFinalOutput(args[1], args[2], args[3]);

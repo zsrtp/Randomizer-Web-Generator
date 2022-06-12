@@ -12,16 +12,10 @@ namespace TPRandomizer
 
         static Global()
         {
-            // rootPath = Assembly.GetEntryAssembly().Location;
-
             string envFileDir = InitEnv();
 
             rootPath = ResolvePath(envFileDir, Environment.GetEnvironmentVariable("TPR_GENERATOR_PATH"));
             outputPath = ResolvePath(envFileDir, Environment.GetEnvironmentVariable("OUTPUT_VOLUME_PATH"));
-            // if (Path.IsPathRooted(outputVolumePath))
-            //     outputPath = Path.GetFullPath(outputVolumePath);
-            // else
-            //     outputPath = Path.Join(envFileDir, outputVolumePath);
 
             Directory.CreateDirectory(outputPath);
         }

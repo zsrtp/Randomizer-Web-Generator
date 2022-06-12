@@ -1,12 +1,5 @@
-'use strict';
-
 (function () {
-  const sEnumBitLen = 4;
-  const uEnumBitLen = 4;
-  const pEnumBitLen = 4;
-
-  const encodingChars =
-    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
+  const $ = window.$;
 
   const RawSettingType = {
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
@@ -19,6 +12,17 @@
     zoraArmorSecondary: 0x02,
     zoraArmorHelmet: 0x03,
   };
+
+  const RecolorDefType = {
+    twentyFourBitRgb: 0b0,
+    randomAnyPalette: 0b1,
+    randomByMath: 0b10,
+    paletteEntry: 0b11,
+    randomWithinPalette: 0b100,
+  };
+
+  const encodingChars =
+    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
 
   function encodeBits(bitString) {
     const missingChars = (6 - (bitString.length % 6)) % 6;
@@ -37,6 +41,76 @@
 
     return charString;
   }
+
+  function sixBitCharsToBitString(sixBitChars) {
+    if (!sixBitChars) {
+      return '';
+    }
+
+    let result = '';
+
+    for (let i = 0; i < sixBitChars.length; i++) {
+      result += numToPaddedBits(encodingChars.indexOf(sixBitChars[i]), 6);
+    }
+
+    return result;
+  }
+
+  function genEncodeAsVlqX(numBitDef) {
+    if (numBitDef < 3 || numBitDef > 4) {
+      throw new Error(`Only valid for 3 or 4; provided ${numBitDef}`);
+    }
+
+    const xBitNumber = Math.pow(2, numBitDef);
+    const max = (1 << xBitNumber) - 1;
+
+    return function encodeAsVlqX(num) {
+      if (num < 0 || num > max) {
+        throw new Error(`Given num ${num} is outside of range 0-${max}.`);
+      }
+
+      if (num < 2) {
+        return '0'.repeat(numBitDef) + num;
+      }
+
+      let bitsNeeded = 1;
+      for (let i = 2; i <= xBitNumber; i++) {
+        const oneOverMax = 1 << i;
+        if (num < oneOverMax) {
+          bitsNeeded = i - 1;
+          break;
+        }
+      }
+
+      return (
+        numToPaddedBits(bitsNeeded, numBitDef) + num.toString(2).substring(1)
+      );
+    };
+  }
+
+  function genDecodeVlqX(numBitDef) {
+    if (numBitDef < 3 || numBitDef > 4) {
+      throw new Error(`Only valid for 3 or 4; provided ${numBitDef}`);
+    }
+
+    return function (str) {
+      const bitsToRead = parseInt(str.substring(0, numBitDef), 2);
+      if (bitsToRead === 0) {
+        return parseInt(str.substring(numBitDef, numBitDef + 1), 2);
+      }
+
+      return (
+        (1 << bitsToRead) +
+        parseInt(str.substring(numBitDef, numBitDef + bitsToRead), 2)
+      );
+    };
+  }
+
+  const encodeAsVlq8 = genEncodeAsVlqX(3);
+  const decodeVlq8 = genDecodeVlqX(3);
+
+  const encodeAsVlq16 = genEncodeAsVlqX(4);
+  const decodeVlq16 = genDecodeVlqX(4);
 
   /**
    * Adds '0' chars to front of bitStr such that the returned string length is
@@ -68,18 +142,6 @@
    */
   function numToPaddedBits(number, strLength) {
     return padBits2(number.toString(2), strLength);
-  }
-
-  function sEnumToBits(number) {
-    return numToPaddedBits(number, sEnumBitLen);
-  }
-
-  function uEnumToBits(number) {
-    return numToPaddedBits(number, uEnumBitLen);
-  }
-
-  function pEnumToBits(number) {
-    return numToPaddedBits(number, pEnumBitLen);
   }
 
   function encodeSettings(version, idChar, valuesArr) {
@@ -176,10 +238,6 @@
     return $el.val();
   }
 
-  function isRgbHex(str) {
-    return /^[a-fA-F0-9]{6}$/.test(str);
-  }
-
   function isEnumWithinRange(maxBits, enumVal) {
     if (maxBits > 30) {
       return false;
@@ -194,36 +252,43 @@
     return enumVal < maxValPlusOne;
   }
 
-  function genTunicRecolorDef(id, recolorId) {
-    const select = document.getElementById(id);
+  function genTunicRecolorDef(selectElId) {
+    const select = document.getElementById(selectElId);
     const selectedOption = select.children[select.selectedIndex];
 
     if (selectedOption.hasAttribute('data-rgb')) {
       return {
-        recolorId: recolorId,
-        rgb: selectedOption.getAttribute('data-rgb'),
-      };
-    } else if (selectedOption.value !== '0') {
-      return {
-        recolorId: recolorId,
-        sValue: selectedOption.value,
+        type: RecolorDefType.twentyFourBitRgb,
+        recolorId: RecolorId.herosClothes,
+        value: parseInt(selectedOption.getAttribute('data-rgb'), 16),
       };
     }
+
+    return null;
   }
 
-  function genRecolorBits(recolorDefs, enumBitLen) {
+  function genRecolorBits(recolorDefs) {
     if (!recolorDefs) {
       return false;
     }
 
+    const version = 0;
+
+    function isValidRecolorDef(recolorDef) {
+      // Temp implementation until add support for more types.
+      if (!recolorDef) {
+        return false;
+      }
+
+      if (recolorDef.type === RecolorDefType.twentyFourBitRgb) {
+        return recolorDef.value >= 0 && recolorDef.value <= 0x00ffffff;
+      }
+
+      return false;
+    }
+
     // Process all recolorDefs
-    recolorDefs = recolorDefs.filter(function (recolorDef) {
-      return (
-        recolorDef &&
-        (isRgbHex(recolorDef.rgb) ||
-          isEnumWithinRange(enumBitLen, recolorDef.sValue))
-      );
-    });
+    recolorDefs = recolorDefs.filter(isValidRecolorDef);
 
     recolorDefs.sort(function (defA, defB) {
       return defA.recolorId - defB.recolorId;
@@ -231,43 +296,35 @@
 
     if (recolorDefs.length < 1) {
       return false;
-      // return {
-      //   type: RawSettingType.bitString,
-      //   bitString: '0000000000000000', // 16 zeroes
-      // };
     }
 
-    let metaBitsPerEnum = 1;
     const enabledRecolorIds = {};
-    let rgbAndSBits = '';
+    let valuesBits = '';
 
     recolorDefs.forEach(function (recolorDef) {
-      if (recolorDef.sValue) {
-        metaBitsPerEnum = 2;
-        enabledRecolorIds[recolorDef.recolorId] = 2;
-        rgbAndSBits += numToPaddedBits(
-          parseInt(recolorDef.sValue, 10),
-          enumBitLen
-        );
-      } else if (recolorDef.rgb) {
+      // Temp implementation until add support for more types.
+      if (recolorDef.type === RecolorDefType.twentyFourBitRgb) {
         enabledRecolorIds[recolorDef.recolorId] = 1;
-        rgbAndSBits += numToPaddedBits(parseInt(recolorDef.rgb, 16), 24);
+        valuesBits +=
+          numToPaddedBits(recolorDef.type, 3) +
+          numToPaddedBits(recolorDef.value, 24);
       }
     });
 
+    const smallestRecolorId = recolorDefs[0].recolorId;
     const recolorIdEnabledBitsLength =
-      recolorDefs[recolorDefs.length - 1].recolorId + 1;
+      recolorDefs[recolorDefs.length - 1].recolorId - smallestRecolorId + 1;
 
-    let bitString = '1'; // for On/Off
-    bitString += numToPaddedBits(recolorIdEnabledBitsLength, 16);
-    bitString += numToPaddedBits(metaBitsPerEnum, enumBitLen);
+    let bitString = '1'; // for on/off
+    bitString += encodeAsVlq16(version);
+    bitString += encodeAsVlq16(smallestRecolorId);
+    bitString += encodeAsVlq16(recolorIdEnabledBitsLength);
 
     for (let i = 0; i < recolorIdEnabledBitsLength; i++) {
-      // bitString += enabledRecolorIds[i] ? '1' : '0';
-      bitString += numToPaddedBits(enabledRecolorIds[i] || 0, metaBitsPerEnum);
+      bitString += enabledRecolorIds[smallestRecolorId + i] ? '1' : '0';
     }
 
-    bitString += rgbAndSBits;
+    bitString += valuesBits;
 
     return {
       type: RawSettingType.bitString,
@@ -281,22 +338,26 @@
       'castleRequirementsFieldset',
       'palaceRequirementsFieldset',
       'faronLogicFieldset',
-      'mdhCheckbox',
-      'introCheckbox',
+      'goldenBugsCheckbox',
+      'skyCharacterCheckbox',
+      'giftsFromNPCsCheckbox',
+      'poesCheckbox',
+      'shopItemsCheckbox',
+      'hiddenSkillsCheckbox',
       'smallKeyFieldset',
       'bigKeyFieldset',
       'mapAndCompassFieldset',
-      'goldenBugsCheckbox',
-      'poesCheckbox',
-      'giftsFromNPCsCheckbox',
-      'shopItemsCheckbox',
+      'introCheckbox',
       'faronTwilightCheckbox',
       'eldinTwilightCheckbox',
       'lanayruTwilightCheckbox',
+      'mdhCheckbox',
       'skipMinorCutscenesCheckbox',
       'fastIBCheckbox',
       'quickTransformCheckbox',
       'transformAnywhereCheckbox',
+      'increaseWalletCheckbox',
+      'modifyShopModelsCheckbox',
       'foolishItemFieldset',
     ].map(getVal);
 
@@ -307,21 +368,7 @@
   }
 
   function genPSettingsFromUi() {
-    const values = [
-      'randomizeBGMCheckbox',
-      'randomizeFanfaresCheckbox',
-      'disableEnemyBGMCheckbox',
-    ].map(getVal);
-
-    const recolorDefs = [];
-    // Add recolorDefs to list.
-    recolorDefs.push(
-      genTunicRecolorDef('tunicColorFieldset', RecolorId.herosClothes)
-    );
-
-    values.push(genRecolorBits(recolorDefs, pEnumBitLen));
-
-    return encodeSettings(0, 'p', values);
+    return genUSettingsFromUi();
   }
 
   const MidnaColorOptions = {
@@ -332,6 +379,12 @@
   };
 
   function genMidnaSettings(recolorDefs) {
+    const uEnumBitLen = 4;
+
+    function uEnumToBits(number) {
+      return numToPaddedBits(number, uEnumBitLen);
+    }
+
     // This implementation will significantly change when recoloring options is
     // fleshed out.
     const selectVal = parseInt(getVal('midnaHairColorFieldset'), 10);
@@ -353,9 +406,9 @@
 
     bits += uEnumToBits(midnaColorOption);
 
-    if (midnaColorOption == MidnaColorOptions.preset) {
+    if (midnaColorOption === MidnaColorOptions.preset) {
       bits += uEnumToBits(selectVal);
-    } else if (midnaColorOption == MidnaColorOptions.detailed) {
+    } else if (midnaColorOption === MidnaColorOptions.detailed) {
       // Will need to add 1 bit for on/off on Active matches Inactive checkbox.
       // Will need to call this once for each, with either rgb or sValue
       // recolorDefs.push(...);
@@ -368,27 +421,269 @@
   }
 
   function genUSettingsFromUi(returnEvenIfEmpty) {
-    let values = [];
+    let values = [
+      'randomizeBGMCheckbox',
+      'randomizeFanfaresCheckbox',
+      'disableEnemyBGMCheckbox',
+    ].map(getVal);
 
     const recolorDefs = [];
+    recolorDefs.push(genTunicRecolorDef('tunicColorFieldset'));
 
-    recolorDefs.push(genTunicRecolorDef('tunicColor', RecolorId.herosClothes));
+    // values.push(genMidnaSettings(recolorDefs));
 
-    values.push(genMidnaSettings(recolorDefs));
-
-    values = [genRecolorBits(recolorDefs, pEnumBitLen)].concat(values);
+    values = [genRecolorBits(recolorDefs)].concat(values);
 
     if (!returnEvenIfEmpty && values.every((x) => !x)) {
       return '';
     }
 
-    return encodeSettings(0, 'u', values);
+    return encodeSettings(0, 'p', values);
   }
 
-  window.tpr = window.trp || {};
+  function decodeSettingsHeader(settingsString) {
+    const match = settingsString.match(/^([a-fA-F0-9])+([sp])(.)/);
+    if (match == null) {
+      throw new Error('Invalid settings string.');
+    }
+
+    const version = parseInt(match[1], 16);
+    const type = match[2];
+    const lengthBits = sixBitCharsToBitString(match[3]);
+
+    // return match;
+
+    // extra bits, then lengthLength
+    const extraBits = parseInt(lengthBits.substring(0, 3), 2);
+    const lengthLength = parseInt(lengthBits.substring(3), 2);
+    if (lengthLength < 1) {
+      throw new Error('Invalid settings string.');
+    }
+
+    const lengthCharsStart = match[0].length;
+    const contentStart = lengthCharsStart + lengthLength;
+
+    if (contentStart > settingsString.length) {
+      throw new Error('Invalid settings string.');
+    }
+    const contentLengthEncoded = settingsString.substring(
+      lengthCharsStart,
+      contentStart
+    );
+    const contentNumChars = parseInt(
+      sixBitCharsToBitString(contentLengthEncoded),
+      2
+    );
+
+    if (contentStart + contentNumChars > settingsString.length) {
+      throw new Error('Invalid settings string.');
+    }
+    const chars = settingsString.substring(
+      contentStart,
+      contentStart + contentNumChars
+    );
+    let bits = sixBitCharsToBitString(chars);
+
+    if (extraBits > 0) {
+      if (bits.length < 1) {
+        throw new Error('Invalid settings string.');
+      }
+      bits = bits.substring(0, bits.length - (6 - extraBits));
+    }
+
+    const remaining = settingsString.substring(contentStart + contentNumChars);
+
+    return {
+      version,
+      type,
+      bits,
+      remaining,
+    };
+  }
+
+  function breakUpSettingsString(settingsString) {
+    // TODO: handle null check
+    let remainingSettingsString = settingsString;
+
+    const settingsByType = {};
+
+    while (remainingSettingsString) {
+      const obj = decodeSettingsHeader(remainingSettingsString);
+      if (settingsByType[obj.type]) {
+        return { error: `Multiple settings in string of type '${obj.type}'.` };
+      }
+
+      remainingSettingsString = obj.remaining;
+      obj.remaining = undefined;
+      settingsByType[obj.type] = obj;
+    }
+
+    return settingsByType;
+  }
+
+  function BitsProcessor(bits) {
+    let remaining = bits;
+
+    function nextXBitsAsNum(numBits) {
+      if (remaining.length < numBits) {
+        throw new Error(
+          `Asked for ${numBits} bits, but only had ${remaining.length} remaining.`
+        );
+      }
+
+      const value = parseInt(remaining.substring(0, numBits), 2);
+      remaining = remaining.substring(numBits);
+      return value;
+    }
+
+    function nextBoolean() {
+      return Boolean(nextXBitsAsNum(1));
+    }
+
+    function nextEolList(bitLength) {
+      let eolValue = 0;
+      for (let i = 0; i < bitLength; i++) {
+        eolValue += 1 << i;
+      }
+
+      const list = [];
+
+      while (true) {
+        if (remaining.length < bitLength) {
+          throw new Error('Not enough bits remaining.');
+        }
+
+        const val = nextXBitsAsNum(bitLength);
+
+        if (val === eolValue) {
+          break;
+        } else {
+          list.push(val);
+        }
+      }
+
+      return list;
+    }
+
+    return {
+      nextXBitsAsNum,
+      nextBoolean,
+      nextEolList,
+    };
+  }
+
+  function decodeSSettings({ version, bits }) {
+    // function getVal2(id) {
+    //   let type = 'unknown';
+    //   const $el = $('#' + id);
+    //   if ($el.prop('nodeName') === 'INPUT') {
+    //     type = 'input';
+    //     if ($el.attr('type') === 'checkbox') {
+    //       type = 'checkbox';
+    //     }
+    //   } else if ($el.prop('nodeName') === 'SELECT') {
+    //     type = 'select';
+    //   }
+
+    //   return {
+    //     id,
+    //     type,
+    //   };
+    // }
+
+    // const values = [
+    //   'logicRulesFieldset',
+    //   'castleRequirementsFieldset',
+    //   'palaceRequirementsFieldset',
+    //   'faronLogicFieldset',
+    //   'mdhCheckbox',
+    //   'introCheckbox',
+    //   'smallKeyFieldset',
+    //   'bigKeyFieldset',
+    //   'mapAndCompassFieldset',
+    //   'goldenBugsCheckbox',
+    //   'poesCheckbox',
+    //   'giftsFromNPCsCheckbox',
+    //   'shopItemsCheckbox',
+    //   'faronTwilightCheckbox',
+    //   'eldinTwilightCheckbox',
+    //   'lanayruTwilightCheckbox',
+    //   'skipMinorCutscenesCheckbox',
+    //   'fastIBCheckbox',
+    //   'quickTransformCheckbox',
+    //   'transformAnywhereCheckbox',
+    //   'foolishItemFieldset',
+    // ].map(getVal2);
+
+    const a = [
+      { id: 'logicRules', type: 'number' },
+      { id: 'castleRequirements', type: 'number' },
+      { id: 'palaceRequirements', type: 'number' },
+      { id: 'faronWoodsLogic', type: 'number' },
+      { id: 'goldenBugs', type: 'boolean' },
+      { id: 'skyCharacters', type: 'boolean' },
+      { id: 'giftsFromNpcs', type: 'boolean' },
+      { id: 'poes', type: 'boolean' },
+      { id: 'shopItems', type: 'boolean' },
+      { id: 'hiddenSkills', type: 'boolean' },
+      { id: 'smallKeys', type: 'number' },
+      { id: 'bigKeys', type: 'number' },
+      { id: 'mapsAndCompasses', type: 'number' },
+      { id: 'skipIntro', type: 'boolean' },
+      { id: 'faronTwilightCleared', type: 'boolean' },
+      { id: 'eldinTwilightCleared', type: 'boolean' },
+      { id: 'lanayruTwilightCleared', type: 'boolean' },
+      { id: 'skipMdh', type: 'boolean' },
+      { id: 'skipMinorCutscenes', type: 'boolean' },
+      { id: 'fastIronBoots', type: 'boolean' },
+      { id: 'quickTransform', type: 'boolean' },
+      { id: 'transformAnywhere', type: 'boolean' },
+      { id: 'increaseWalletCapacity', type: 'boolean' },
+      { id: 'shopModelsShowTheReplacedItem', type: 'boolean' },
+      { id: 'trapItemsFrequency', type: 'number' },
+    ];
+
+    const processor = BitsProcessor(bits);
+
+    const res = {};
+
+    a.forEach(({ id, type }) => {
+      if (type === 'number') {
+        const num = processor.nextXBitsAsNum(4);
+        res[id] = num;
+      } else if (type === 'boolean') {
+        const num = processor.nextBoolean();
+        res[id] = num;
+      } else {
+        throw new Error(`Unknown type ${type} while decoding SSettings.`);
+      }
+    });
+
+    res.startingItems = processor.nextEolList(9);
+    res.excludedChecks = processor.nextEolList(9);
+
+    return res;
+  }
+
+  function decodeSettingsString(settingsString) {
+    const byType = breakUpSettingsString(settingsString);
+
+    const result = {};
+
+    if (byType.s) {
+      result.s = decodeSSettings(byType.s);
+    }
+
+    return result;
+  }
+
+  window.decodeSettingsString = decodeSettingsString;
+
+  window.tpr = window.tpr || {};
   window.tpr.shared = {
-    genSSettingsFromUi: genSSettingsFromUi,
-    genUSettingsFromUi: genUSettingsFromUi,
-    genPSettingsFromUi: genPSettingsFromUi,
+    genSSettingsFromUi,
+    genUSettingsFromUi,
+    genPSettingsFromUi,
+    decodeSettingsString,
   };
 })();

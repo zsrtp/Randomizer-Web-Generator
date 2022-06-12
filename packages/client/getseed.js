@@ -225,7 +225,14 @@
     byId('filename').textContent = pageData.filename;
   }
 
+  // Parse SSetting to object.
+  // Parse PSettings to object.
+
   function fillInSettingsTable() {
+    if (true) {
+      return;
+    }
+    // Need to redo this
     const tbody = byId('settingsTBody');
 
     Object.keys(pageData.settings).forEach((key) => {
