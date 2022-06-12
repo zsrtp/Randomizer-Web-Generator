@@ -435,18 +435,43 @@
   }
 
   function genUSettingsFromUi(returnEvenIfEmpty) {
-    let values = [
-      'randomizeBGMCheckbox',
-      'randomizeFanfaresCheckbox',
-      'disableEnemyBGMCheckbox',
-    ].map(getVal);
+    const values = [
+      { id: 'tunicColorFieldset', bitLength: 4 },
+      { id: 'lanternColorFieldset', bitLength: 4 },
+      { id: 'midnaHairColorFieldset', bitLength: 1 },
+      { id: 'heartColorFieldset', bitLength: 3 },
+      { id: 'aButtonColorFieldset', bitLength: 4 },
+      { id: 'bButtonColorFieldset', bitLength: 3 },
+      { id: 'xButtonColorFieldset', bitLength: 4 },
+      { id: 'yButtonColorFieldset', bitLength: 4 },
+      { id: 'zButtonColorFieldset', bitLength: 4 },
 
-    const recolorDefs = [];
-    recolorDefs.push(genTunicRecolorDef('tunicColorFieldset'));
+      { id: 'randomizeBGMCheckbox' },
+      { id: 'randomizeFanfaresCheckbox' },
+      { id: 'disableEnemyBGMCheckbox' },
+    ].map(({ id, bitLength }) => {
+      const val = getVal(id);
+      if (bitLength) {
+        // select
+        return {
+          type: RawSettingType.xBitNum,
+          bitLength,
+          value: parseInt(getVal(id), 10),
+        };
+      }
+      // checkbox
+      return val;
+    });
 
-    // values.push(genMidnaSettings(recolorDefs));
+    // TODO: temp turning off color defs while UI is using simple selects for the colors.
+    // Will update the settings when UI refresh with complex color options is implemented.
 
-    values = [genRecolorBits(recolorDefs)].concat(values);
+    // const recolorDefs = [];
+    // recolorDefs.push(genTunicRecolorDef('tunicColorFieldset'));
+
+    // // values.push(genMidnaSettings(recolorDefs));
+
+    // values = [genRecolorBits(recolorDefs)].concat(values);
 
     if (!returnEvenIfEmpty && values.every((x) => !x)) {
       return '';
@@ -661,48 +686,6 @@
   }
 
   function decodeSSettings({ version, bits }) {
-    // function getVal2(id) {
-    //   let type = 'unknown';
-    //   const $el = $('#' + id);
-    //   if ($el.prop('nodeName') === 'INPUT') {
-    //     type = 'input';
-    //     if ($el.attr('type') === 'checkbox') {
-    //       type = 'checkbox';
-    //     }
-    //   } else if ($el.prop('nodeName') === 'SELECT') {
-    //     type = 'select';
-    //   }
-
-    //   return {
-    //     id,
-    //     type,
-    //   };
-    // }
-
-    // const values = [
-    //   'logicRulesFieldset',
-    //   'castleRequirementsFieldset',
-    //   'palaceRequirementsFieldset',
-    //   'faronLogicFieldset',
-    //   'mdhCheckbox',
-    //   'introCheckbox',
-    //   'smallKeyFieldset',
-    //   'bigKeyFieldset',
-    //   'mapAndCompassFieldset',
-    //   'goldenBugsCheckbox',
-    //   'poesCheckbox',
-    //   'giftsFromNPCsCheckbox',
-    //   'shopItemsCheckbox',
-    //   'faronTwilightCheckbox',
-    //   'eldinTwilightCheckbox',
-    //   'lanayruTwilightCheckbox',
-    //   'skipMinorCutscenesCheckbox',
-    //   'fastIBCheckbox',
-    //   'quickTransformCheckbox',
-    //   'transformAnywhereCheckbox',
-    //   'foolishItemFieldset',
-    // ].map(getVal2);
-
     const a = [
       { id: 'logicRules', type: 'number', bitLength: 2 },
       { id: 'castleRequirements', type: 'number', bitLength: 3 },
@@ -754,15 +737,49 @@
   }
 
   function decodePSettings({ version, bits }) {
+    // const processor = BitsProcessor(bits);
+
+    // const res = {};
+
+    // res.recolorDefs = processor.nextRecolorDefs();
+
+    // res.randomizeBgm = processor.nextBoolean();
+    // res.randomizeFanfares = processor.nextBoolean();
+    // res.disableEnemyBgm = processor.nextBoolean();
+
+    // return res;
+
+    const a = [
+      { id: 'tunicColor', type: 'number', bitLength: 4 },
+      { id: 'lanternColor', type: 'number', bitLength: 4 },
+      { id: 'midnaHairColor', type: 'number', bitLength: 1 },
+      { id: 'heartColor', type: 'number', bitLength: 3 },
+      { id: 'aBtnColor', type: 'number', bitLength: 4 },
+      { id: 'bBtnColor', type: 'number', bitLength: 3 },
+      { id: 'xBtnColor', type: 'number', bitLength: 4 },
+      { id: 'yBtnColor', type: 'number', bitLength: 4 },
+      { id: 'zBtnColor', type: 'number', bitLength: 4 },
+
+      { id: 'randomizeBgm', type: 'boolean' },
+      { id: 'randomizeFanfares', type: 'boolean' },
+      { id: 'disableEnemyBgm', type: 'boolean' },
+    ];
+
     const processor = BitsProcessor(bits);
 
     const res = {};
 
-    res.recolorDefs = processor.nextRecolorDefs();
-
-    res.randomizeBgm = processor.nextBoolean();
-    res.randomizeFanfares = processor.nextBoolean();
-    res.disableEnemyBgm = processor.nextBoolean();
+    a.forEach(({ id, type, bitLength }) => {
+      if (type === 'number') {
+        const num = processor.nextXBitsAsNum(bitLength);
+        res[id] = num;
+      } else if (type === 'boolean') {
+        const num = processor.nextBoolean();
+        res[id] = num;
+      } else {
+        throw new Error(`Unknown type ${type} while decoding PSettings.`);
+      }
+    });
 
     return res;
   }
@@ -783,7 +800,27 @@
     return result;
   }
 
-  window.decodeSettingsString = decodeSettingsString;
+  function populateUiFromPSettings(p) {
+    if (!p) {
+      return;
+    }
+
+    $('#tunicColorFieldset').val(p.tunicColor);
+    $('#lanternColorFieldset').val(p.lanternColor);
+    $('#midnaHairColorFieldset').val(p.midnaHairColor);
+    $('#heartColorFieldset').val(p.heartColor);
+    $('#aButtonColorFieldset').val(p.aBtnColor);
+    $('#bButtonColorFieldset').val(p.bBtnColor);
+    $('#xButtonColorFieldset').val(p.xBtnColor);
+    $('#yButtonColorFieldset').val(p.yBtnColor);
+    $('#zButtonColorFieldset').val(p.zBtnColor);
+
+    $('#randomizeBGMCheckbox').prop('checked', p.randomizeBgm);
+    $('#randomizeFanfaresCheckbox').prop('checked', p.randomizeFanfares);
+    $('#disableEnemyBGMCheckbox').prop('checked', p.disableEnemyBgm);
+  }
+
+  // window.decodeSettingsString = decodeSettingsString;
 
   window.tpr = window.tpr || {};
   window.tpr.shared = {
@@ -791,5 +828,6 @@
     genUSettingsFromUi,
     genPSettingsFromUi,
     decodeSettingsString,
+    populateUiFromPSettings,
   };
 })();

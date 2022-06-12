@@ -33,7 +33,9 @@
     let recolorDefs = [];
 
     // Add recolorDefs to list.
-    recolorDefs.push(genTunicRecolorDef('tunicColor', RecolorId.herosClothes));
+    recolorDefs.push(
+      genTunicRecolorDef('tunicColorFieldset', RecolorId.herosClothes)
+    );
 
     // Process all recolorDefs
     recolorDefs = recolorDefs.filter(function (recolorDef) {
@@ -146,7 +148,7 @@
       fillInInfo();
       fillInSettingsTable();
 
-      populateFromPSettings(decodedSettings.p);
+      window.tpr.shared.populateUiFromPSettings(decodedSettings.p);
     }
 
     fetch('/api/creategci')
@@ -327,7 +329,11 @@
     let values = arr.map(getVal);
     values.push(genRecolorBits());
     values = values.concat(
-      ['randomizeBgm', 'randomizeFanfares', 'disableEnemyBgm'].map(isChecked)
+      [
+        'randomizeBGMCheckbox',
+        'randomizeFanfaresCheckbox',
+        'disableEnemyBGMCheckbox',
+      ].map(isChecked)
     );
 
     console.log(values);
@@ -395,34 +401,34 @@
     return ret + str;
   }
 
-  function populateRecolorSelect(pSettings, elId, recolorId) {
-    const $sel = $(`#${elId}`);
+  // function populateRecolorSelect(pSettings, elId, recolorId) {
+  //   const $sel = $(`#${elId}`);
 
-    const recolorDef = pSettings.recolorDefs[recolorId];
+  //   const recolorDef = pSettings.recolorDefs[recolorId];
 
-    if (recolorDef) {
-      const rgbHex = padBits2(recolorDef.value.toString(16), 6);
+  //   if (recolorDef) {
+  //     const rgbHex = padBits2(recolorDef.value.toString(16), 6);
 
-      const option = $sel.find(`option[data-rgb="${rgbHex}"]`)[0];
-      if (option) {
-        option.selected = true;
-        // $sel.val(rgbHex);
-      } else {
-        $sel.val('0');
-      }
-    } else {
-      $sel.val('0');
-    }
-  }
+  //     const option = $sel.find(`option[data-rgb="${rgbHex}"]`)[0];
+  //     if (option) {
+  //       option.selected = true;
+  //       // $sel.val(rgbHex);
+  //     } else {
+  //       $sel.val('0');
+  //     }
+  //   } else {
+  //     $sel.val('0');
+  //   }
+  // }
 
-  function populateFromPSettings(pSettings) {
-    console.log(pSettings);
+  // function populateFromPSettings(pSettings) {
+  //   console.log(pSettings);
 
-    // $('#tunicColor')
-    populateRecolorSelect(pSettings, 'tunicColor', RecolorId.herosClothes);
+  //   // $('#tunicColor')
+  //   populateRecolorSelect(pSettings, 'tunicColor', RecolorId.herosClothes);
 
-    $('#randomizeBgm').prop('checked', pSettings.randomizeBgm);
-    $('#randomizeFanfares').prop('checked', pSettings.randomizeFanfares);
-    $('#disableEnemyBgm').prop('checked', pSettings.disableEnemyBgm);
-  }
+  //   $('#randomizeBgm').prop('checked', pSettings.randomizeBgm);
+  //   $('#randomizeFanfares').prop('checked', pSettings.randomizeFanfares);
+  //   $('#disableEnemyBgm').prop('checked', pSettings.disableEnemyBgm);
+  // }
 })();

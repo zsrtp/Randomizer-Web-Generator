@@ -1024,6 +1024,10 @@ function populateFromSettingsString(settingsString) {
     populateSSettings(byType.s);
   }
 
+  if (byType.p) {
+    window.tpr.shared.populateUiFromPSettings(byType.p);
+  }
+
   setSettingsString();
 
   return null;
