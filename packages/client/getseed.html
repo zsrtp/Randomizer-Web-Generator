@@ -296,14 +296,17 @@
           value="-1"
           hidden
         /> -->
-          <input
-            id="importSettingsStringButton"
-            value="Import/Apply"
-            type="button"
-          />
+          <input id="importSettingsStringButton" value="Import" type="button" />
           <br />
-          <button id="create" type="button">Create</button>
-          <div id="downloadLinkParent" style="padding: 24px"></div>
+          <!-- <button id="create" type="button">Create</button> -->
+          <button id="create" class="primaryButton" style="margin-top: 16px">
+            Create
+          </button>
+
+          <div
+            id="downloadLinkParent"
+            style="padding: 40px 24px 0px; display: none"
+          ></div>
         </div>
         <div class="blackbg">
           <h1>Tools and resources</h1>
@@ -424,6 +427,50 @@
         <tbody id="settingsTBody"></tbody>
       </table>
     </div>
+
+    <!-- Edit Settings Modal -->
+    <div id="myModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <div class="modalTitle">Import Settings</div>
+
+        <div class="labelValueGroup">
+          <div class="settingsStringLabel settingsStringLabelLight">
+            Current Settings
+          </div>
+          <div
+            id="modalCurrentSettings"
+            class="settingsStringValue settingsStringValueLight"
+          >
+            asdhfoi
+          </div>
+        </div>
+
+        <div class="settingsStringLabel settingsStringLabelLight">
+          New Settings
+        </div>
+        <input
+          id="modalSettingsStringInput"
+          type="text"
+          class="modalSettingsStringInput"
+        />
+
+        <div
+          id="modalFieldError"
+          class="fieldErrorText"
+          style="display: none"
+        ></div>
+
+        <div class="modalButtonsWrapper">
+          <button id="modalImport" type="button">Import</button>
+          <button id="modalCancel" type="button">Cancel</button>
+          <button id="modalCopy" type="button" style="margin-right: auto">
+            Copy settings
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script src="getseed.js"></script>
   </body>
 </html>

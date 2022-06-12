@@ -150,6 +150,8 @@
       fillInSettingsTable();
 
       window.tpr.shared.populateUiFromPSettings(decodedSettings.p);
+
+      initSettingsModal();
     }
 
     fetch('/api/creategci')
@@ -415,10 +417,14 @@
           const fileBytes = _base64ToUint8Array(bytes);
 
           const link = document.createElement('a');
+          link.className = 'downloadAnchor';
           link.href = URL.createObjectURL(new Blob([fileBytes]));
           link.download = name;
           link.textContent = `Download ${name}`;
-          document.getElementById('downloadLinkParent').appendChild(link);
+          const downloadLinkParent =
+            document.getElementById('downloadLinkParent');
+          $(downloadLinkParent).show();
+          downloadLinkParent.appendChild(link);
         });
       }
 
@@ -508,4 +514,99 @@
   //   $('#randomizeFanfares').prop('checked', pSettings.randomizeFanfares);
   //   $('#disableEnemyBgm').prop('checked', pSettings.disableEnemyBgm);
   // }
+
+  function initSettingsModal() {
+    const modal = document.getElementById('myModal');
+    // const btn = document.getElementById('editSettingsBtn');
+    const btn = document.getElementById('importSettingsStringButton');
+    const span = modal.querySelector('.modal-close');
+    const fieldErrorText = document.getElementById('modalFieldError');
+    const input = document.getElementById('modalSettingsStringInput');
+    const currentSettings = document.getElementById('modalCurrentSettings');
+
+    input.addEventListener('input', () => {
+      $(fieldErrorText).hide();
+    });
+
+    // When the user clicks the button, open the modal
+    btn.addEventListener('click', () => {
+      // Prepare modal
+      currentSettings.textContent = window.tpr.shared.genPSettingsFromUi();
+      $(fieldErrorText).hide();
+      input.value = '';
+
+      $(modal).show();
+
+      input.focus();
+    });
+
+    span.addEventListener('click', () => {
+      $(modal).hide();
+    });
+
+    document.getElementById('modalCancel').addEventListener('click', () => {
+      $(modal).hide();
+    });
+
+    document.getElementById('modalImport').addEventListener('click', () => {
+      if (!input.value) {
+        $(modal).hide();
+        return;
+      }
+
+      const error = populateFromSettingsString(input.value);
+
+      if (error) {
+        $(fieldErrorText)
+          .text(
+            'Unable to understand those settings. Do you have the correct string?'
+          )
+          .show();
+      } else {
+        $(modal).hide();
+      }
+    });
+
+    document.getElementById('modalCopy').addEventListener('click', () => {
+      $(fieldErrorText).hide();
+
+      const text = currentSettings.textContent;
+      navigator.clipboard.writeText(text).then(
+        () => {
+          // success
+        },
+        (err) => {
+          $(fieldErrorText).text('Failed to copy text.').show();
+        }
+      );
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        // This is the background behind the modal.
+        $(modal).hide();
+      }
+    });
+
+    // btn.click(); // TODO: remove temp test code
+  }
+
+  function populateFromSettingsString(settingsString) {
+    let byType;
+
+    try {
+      byType = window.tpr.shared.decodeSettingsString(settingsString);
+    } catch (e) {
+      console.error(e);
+      return e.message;
+    }
+
+    if (byType.p) {
+      window.tpr.shared.populateUiFromPSettings(byType.p);
+    }
+
+    // setSettingsString();
+
+    return null;
+  }
 })();

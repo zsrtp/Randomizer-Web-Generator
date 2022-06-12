@@ -957,3 +957,9 @@ table.getSeedTable td {
   -webkit-animation: spinner-border 0.75s linear infinite;
   animation: spinner-border 0.75s linear infinite;
 }
+
+.downloadAnchor {
+  display: block;
+  color: rgb(98, 197, 255);
+  padding: 4px 0;
+}
