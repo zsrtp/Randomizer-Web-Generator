@@ -4,6 +4,7 @@
   const RawSettingType = {
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
     bitString: 'bitString',
+    xBitNum: 'xBitNum',
   };
 
   const RecolorId = {
@@ -162,6 +163,8 @@
           bitString += '0';
         } else if (value.type === RawSettingType.bitString) {
           bitString += value.bitString;
+        } else if (value.type === RawSettingType.xBitNum) {
+          bitString += numToPaddedBits(value.value, value.bitLength);
         }
       }
     });
@@ -334,32 +337,44 @@
 
   function genSSettingsFromUi() {
     const values = [
-      'logicRulesFieldset',
-      'castleRequirementsFieldset',
-      'palaceRequirementsFieldset',
-      'faronLogicFieldset',
-      'goldenBugsCheckbox',
-      'skyCharacterCheckbox',
-      'giftsFromNPCsCheckbox',
-      'poesCheckbox',
-      'shopItemsCheckbox',
-      'hiddenSkillsCheckbox',
-      'smallKeyFieldset',
-      'bigKeyFieldset',
-      'mapAndCompassFieldset',
-      'introCheckbox',
-      'faronTwilightCheckbox',
-      'eldinTwilightCheckbox',
-      'lanayruTwilightCheckbox',
-      'mdhCheckbox',
-      'skipMinorCutscenesCheckbox',
-      'fastIBCheckbox',
-      'quickTransformCheckbox',
-      'transformAnywhereCheckbox',
-      'increaseWalletCheckbox',
-      'modifyShopModelsCheckbox',
-      'foolishItemFieldset',
-    ].map(getVal);
+      { id: 'logicRulesFieldset', bitLength: 2 },
+      { id: 'castleRequirementsFieldset', bitLength: 3 },
+      { id: 'palaceRequirementsFieldset', bitLength: 2 },
+      { id: 'faronLogicFieldset', bitLength: 1 },
+      { id: 'goldenBugsCheckbox' },
+      { id: 'skyCharacterCheckbox' },
+      { id: 'giftsFromNPCsCheckbox' },
+      { id: 'poesCheckbox' },
+      { id: 'shopItemsCheckbox' },
+      { id: 'hiddenSkillsCheckbox' },
+      { id: 'smallKeyFieldset', bitLength: 3 },
+      { id: 'bigKeyFieldset', bitLength: 3 },
+      { id: 'mapAndCompassFieldset', bitLength: 3 },
+      { id: 'introCheckbox' },
+      { id: 'faronTwilightCheckbox' },
+      { id: 'eldinTwilightCheckbox' },
+      { id: 'lanayruTwilightCheckbox' },
+      { id: 'mdhCheckbox' },
+      { id: 'skipMinorCutscenesCheckbox' },
+      { id: 'fastIBCheckbox' },
+      { id: 'quickTransformCheckbox' },
+      { id: 'transformAnywhereCheckbox' },
+      { id: 'increaseWalletCheckbox' },
+      { id: 'modifyShopModelsCheckbox' },
+      { id: 'foolishItemFieldset', bitLength: 3 },
+    ].map(({ id, bitLength }) => {
+      const val = getVal(id);
+      if (bitLength) {
+        // select
+        return {
+          type: RawSettingType.xBitNum,
+          bitLength,
+          value: parseInt(getVal(id), 10),
+        };
+      }
+      // checkbox
+      return val;
+    });
 
     values.push(genStartingItemsBits());
     values.push(genExcludedChecksBits());
@@ -616,19 +631,19 @@
     // ].map(getVal2);
 
     const a = [
-      { id: 'logicRules', type: 'number' },
-      { id: 'castleRequirements', type: 'number' },
-      { id: 'palaceRequirements', type: 'number' },
-      { id: 'faronWoodsLogic', type: 'number' },
+      { id: 'logicRules', type: 'number', bitLength: 2 },
+      { id: 'castleRequirements', type: 'number', bitLength: 3 },
+      { id: 'palaceRequirements', type: 'number', bitLength: 2 },
+      { id: 'faronWoodsLogic', type: 'number', bitLength: 1 },
       { id: 'goldenBugs', type: 'boolean' },
       { id: 'skyCharacters', type: 'boolean' },
       { id: 'giftsFromNpcs', type: 'boolean' },
       { id: 'poes', type: 'boolean' },
       { id: 'shopItems', type: 'boolean' },
       { id: 'hiddenSkills', type: 'boolean' },
-      { id: 'smallKeys', type: 'number' },
-      { id: 'bigKeys', type: 'number' },
-      { id: 'mapsAndCompasses', type: 'number' },
+      { id: 'smallKeys', type: 'number', bitLength: 3 },
+      { id: 'bigKeys', type: 'number', bitLength: 3 },
+      { id: 'mapsAndCompasses', type: 'number', bitLength: 3 },
       { id: 'skipIntro', type: 'boolean' },
       { id: 'faronTwilightCleared', type: 'boolean' },
       { id: 'eldinTwilightCleared', type: 'boolean' },
@@ -640,16 +655,16 @@
       { id: 'transformAnywhere', type: 'boolean' },
       { id: 'increaseWalletCapacity', type: 'boolean' },
       { id: 'shopModelsShowTheReplacedItem', type: 'boolean' },
-      { id: 'trapItemsFrequency', type: 'number' },
+      { id: 'trapItemsFrequency', type: 'number', bitLength: 3 },
     ];
 
     const processor = BitsProcessor(bits);
 
     const res = {};
 
-    a.forEach(({ id, type }) => {
+    a.forEach(({ id, type, bitLength }) => {
       if (type === 'number') {
-        const num = processor.nextXBitsAsNum(4);
+        const num = processor.nextXBitsAsNum(bitLength);
         res[id] = num;
       } else if (type === 'boolean') {
         const num = processor.nextBoolean();

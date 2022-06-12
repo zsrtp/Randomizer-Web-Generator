@@ -17,19 +17,19 @@ namespace TPRandomizer
         {
             BitsProcessor processor = new BitsProcessor(bits);
 
-            logicRules = processor.NextString(SettingData.logicRules);
-            castleRequirements = processor.NextString(SettingData.castleRequirements);
-            palaceRequirements = processor.NextString(SettingData.palaceRequirements);
-            faronWoodsLogic = processor.NextString(SettingData.faronWoodsLogic);
+            logicRules = processor.NextString(SettingData.logicRules, 2);
+            castleRequirements = processor.NextString(SettingData.castleRequirements, 3);
+            palaceRequirements = processor.NextString(SettingData.palaceRequirements, 2);
+            faronWoodsLogic = processor.NextString(SettingData.faronWoodsLogic, 1);
             goldenBugsShuffled = processor.NextBool();
             shuffleSkyCharacters = processor.NextBool();
             npcItemsShuffled = processor.NextBool();
             poesShuffled = processor.NextBool();
             shopItemsShuffled = processor.NextBool();
             shuffleHiddenSkills = processor.NextBool();
-            smallKeySettings = processor.NextString(SettingData.smallKeySettings);
-            bossKeySettings = processor.NextString(SettingData.bossKeySettings);
-            mapAndCompassSettings = processor.NextString(SettingData.mapAndCompassSettings);
+            smallKeySettings = processor.NextString(SettingData.smallKeySettings, 3);
+            bossKeySettings = processor.NextString(SettingData.bossKeySettings, 3);
+            mapAndCompassSettings = processor.NextString(SettingData.mapAndCompassSettings, 3);
             introSkipped = processor.NextBool();
             faronTwilightCleared = processor.NextBool();
             eldinTwilightCleared = processor.NextBool();
@@ -41,7 +41,7 @@ namespace TPRandomizer
             transformAnywhere = processor.NextBool();
             increaseWallet = processor.NextBool();
             modifyShopModels = processor.NextBool();
-            iceTrapSettings = processor.NextString(SettingData.iceTrapSettings);
+            iceTrapSettings = processor.NextString(SettingData.iceTrapSettings, 3);
             StartingItems = processor.NextItemList();
             ExcludedChecks = processor.NextExcludedChecksList();
 

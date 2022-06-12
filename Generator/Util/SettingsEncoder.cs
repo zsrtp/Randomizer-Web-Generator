@@ -57,6 +57,22 @@ namespace TPRandomizer.Util
             return result;
         }
 
+        public string NextString(string[] arr, byte bitLength)
+        {
+            if (done || bits.Length < currentIndex + bitLength)
+            {
+                throw new Exception("Not enough bits remaining");
+            }
+
+            string result = arr[Convert.ToInt32(bits.Substring(currentIndex, bitLength), 2)];
+
+            currentIndex += bitLength;
+            if (currentIndex >= bits.Length)
+                done = true;
+
+            return result;
+        }
+
         public byte NextNibble()
         {
             int len = 4;
