@@ -473,7 +473,16 @@
 
     // values = [genRecolorBits(recolorDefs)].concat(values);
 
-    if (!returnEvenIfEmpty && values.every((x) => !x)) {
+    if (
+      !returnEvenIfEmpty &&
+      values.every((x) => {
+        if (x) {
+          return x.type === RawSettingType.xBitNum && x.value === 0;
+        }
+
+        return true;
+      })
+    ) {
       return '';
     }
 
