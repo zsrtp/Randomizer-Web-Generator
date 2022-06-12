@@ -962,14 +962,17 @@ function initSettingsModal() {
     );
   });
 
-  window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      // This is the background behind the modal.
-      $(modal).hide();
-    }
-  });
+  let canHide = true;
 
-  // btn.click(); // TODO: remove temp test code
+  $('#myModal')
+    .on('mousedown', function (e) {
+      canHide = e.target === this;
+    })
+    .on('mouseup', function (e) {
+      if (canHide && e.target === this) {
+        $(modal).hide();
+      }
+    });
 }
 
 function initGeneratingModal() {
