@@ -52,7 +52,11 @@
         <div class="blackbg">
           <div style="display: flex; align-items: center">
             <div style="font-size: 24px">File Creation</div>
-            <button class="primaryButton" style="margin-left: auto">
+            <button
+              id="shareBtn"
+              class="primaryButton"
+              style="margin-left: auto"
+            >
               Share
             </button>
           </div>
@@ -468,6 +472,116 @@
             Copy settings
           </button>
         </div>
+      </div>
+    </div>
+
+    <div id="modal2Bg" class="modal-dialog-bg" style="display: none"></div>
+    <!-- <div id="generatingModal" class="isOpen quantumWizDialogBackground"> -->
+    <div
+      id="generatingModal"
+      class="quantumWizDialogBackground"
+      style="display: none"
+    >
+      <div
+        class="quantumWizDialogLayout boqDrivesharedialogDialogcontainerRemovePadding"
+      >
+        <div class="quantumWizDialogBackgroundTop"></div>
+        <div
+          class="boqDrivesharedialogDialogcontainerFullWidth quantumWizDialogEl isOpen"
+          role="dialog"
+          tabindex="0"
+        >
+          <div
+            tabindex="0"
+            aria-hidden="true"
+            class="focusSentinel"
+            jsaction="focus:.CLIENT"
+          ></div>
+
+          <span>
+            <div tabindex="-1" class="boqDrivesharedialogDialogsShareContainer">
+              <div class="boqDrivesharedialogDialogsShareDialogWrapper">
+                <div
+                  class="boqDrivesharedialogDialogsShareDialog"
+                  role="dialog"
+                >
+                  <div class="boqDrivesharedialogDialogsShareCardContainer">
+                    <div
+                      class="boqDrivesharedialogCommonIdomcardCardContainer TransformOriginBottom"
+                    >
+                      <div
+                        class="boqDrivesharedialogCommonAnimatedfadeParentContainer"
+                      >
+                        <div
+                          class="boqDrivesharedialogCommonAnimatedfadeContainer boqDrivesharedialogCommonIdomcardCardFade"
+                        >
+                          <div
+                            class="mdc-card GmCard GmCardElevatedDarkTheme boqDrivesharedialogCommonIdomcardCard"
+                          >
+                            <!-- Content -->
+                            <div class="dialog2Content">
+                              <div
+                                class="boqDrivesharedialogCommonTitlebarTitleBar"
+                              >
+                                <div class="Heading">
+                                  <div class="LeftSlotAndTitle">
+                                    <div class="Title">Share</div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="dialog2ContentArea">
+                                <div id="shareUrl"></div>
+                                <div style="padding-top: 28px">
+                                  <div id="linkCopiedMsg" style="display: none">
+                                    Link copied
+                                  </div>
+                                  <div
+                                    id="linkCopiedError"
+                                    class="errorTextColor"
+                                    style="display: none"
+                                  >
+                                    Failed to copy link.
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="shareBtnsWrapper">
+                                <button
+                                  id="copyLinkBtn"
+                                  class="secondaryButton"
+                                >
+                                  Copy Link
+                                </button>
+
+                                <button
+                                  id="shareDoneBtn"
+                                  class="primaryButton primaryButtonNoShadow"
+                                  style="margin-left: auto"
+                                >
+                                  Done
+                                </button>
+                              </div>
+                            </div>
+                            <!-- End Content -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+
+          <div
+            tabindex="0"
+            aria-hidden="true"
+            class="focusSentinel"
+            jsaction="focus:.CLIENT"
+          ></div>
+        </div>
+        <div class="quantumWizDialogBackgroundBottom"></div>
       </div>
     </div>
 

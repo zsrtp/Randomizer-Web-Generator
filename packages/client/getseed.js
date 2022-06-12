@@ -152,6 +152,7 @@
       window.tpr.shared.populateUiFromPSettings(decodedSettings.p);
 
       initSettingsModal();
+      initShareModal();
     }
 
     fetch('/api/creategci')
@@ -608,5 +609,58 @@
     // setSettingsString();
 
     return null;
+  }
+
+  function initShareModal() {
+    const $bg = $('#modal2Bg');
+    const $modal = $('#generatingModal');
+    const $successEl = $('#linkCopiedMsg');
+    const $errorEl = $('#linkCopiedError');
+
+    function showModal() {
+      $successEl.hide();
+      $errorEl.hide();
+      $bg.show();
+      $modal.addClass('isOpen').show();
+    }
+
+    function hideModal() {
+      $bg.hide();
+      $modal.hide().removeClass('isOpen');
+    }
+
+    document
+      .getElementById('shareDoneBtn')
+      .addEventListener('click', hideModal);
+
+    document.getElementById('copyLinkBtn').addEventListener('click', () => {
+      $successEl.hide();
+      $errorEl.hide();
+
+      navigator.clipboard.writeText(window.location.href).then(
+        () => {
+          $successEl.show();
+        },
+        (err) => {
+          $errorEl.show();
+        }
+      );
+    });
+
+    $('#shareUrl').text(window.location.href);
+
+    document.getElementById('shareBtn').addEventListener('click', showModal);
+
+    let canHide = true;
+
+    $('.boqDrivesharedialogDialogsShareContainer')
+      .on('mousedown', function (e) {
+        canHide = e.target === this;
+      })
+      .on('mouseup', function (e) {
+        if (canHide && e.target === this) {
+          hideModal();
+        }
+      });
   }
 })();

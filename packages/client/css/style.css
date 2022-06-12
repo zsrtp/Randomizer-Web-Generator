@@ -403,6 +403,58 @@ ul {
   font-weight: bold;
 }
 
+.primaryButton.primaryButtonNoShadow {
+  box-shadow: none;
+}
+
+.primaryButton.primaryButtonNoShadow:hover {
+  box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
+    rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+}
+
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  text-decoration: none;
+  color: inherit;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  min-width: 64px;
+  padding: 5px 15px;
+  border-radius: 4px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border: 1px solid rgba(25, 118, 210, 0.5);
+  color: #1976d2;
+
+  font-weight: bold;
+  border-radius: 9999px;
+}
+
+.secondaryButton:hover {
+  text-decoration: none;
+  background-color: rgba(25, 118, 210, 0.04);
+  border: 1px solid #1976d2;
+}
+
 .css-1egpgfe {
   display: inline-flex;
   -webkit-box-align: center;
@@ -962,4 +1014,12 @@ table.getSeedTable td {
   display: block;
   color: rgb(98, 197, 255);
   padding: 4px 0;
+}
+
+.shareBtnsWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 13px 24px 16px;
+  box-sizing: border-box;
 }
