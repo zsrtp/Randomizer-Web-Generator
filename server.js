@@ -159,6 +159,15 @@ app.post('/api/final', function (req, res) {
 
   const { pSettingsString } = req.body;
 
+  const exampleJson = {
+    fish: 'yes',
+    dog: 'no',
+    recolorDefs: {
+      0: 0xffffff,
+      17: 0x234a99,
+    },
+  };
+
   if (
     !pSettingsString ||
     typeof pSettingsString !== 'string' ||
@@ -168,56 +177,65 @@ app.post('/api/final', function (req, res) {
     return;
   }
 
-  const buffer = callGeneratorBuf(
-    'generate_final_output2',
-    // 'KJNgheF3K73',
-    id,
-    'aBc',
-    // '0p5001pXFOC'
-    pSettingsString
+  const buf = Buffer.from(JSON.stringify(exampleJson));
+  const base64Encoded = buf.toString('base64');
+
+  // const buffer = callGeneratorBuf(
+  callGeneratorBuf(
+    [
+      'generate_final_output2',
+      // 'KJNgheF3K73',
+      id,
+      'aBc',
+      // '0p5001pXFOC'
+      // pSettingsString
+      JSON.stringify(exampleJson),
+    ],
+    (error, output) => {
+      // const output = buffer.toString();
+
+      const index = output.indexOf('BYTES:');
+      let currIndex = index;
+      if (currIndex < 0) {
+        res.status(500).send({ error: 'Failed to find BYTES:' });
+        return;
+      }
+
+      currIndex += 'BYTES:'.length;
+      const jsonLenHex = output.substring(currIndex, currIndex + 8);
+      currIndex += 8;
+      const jsonLen = parseInt(jsonLenHex, 16);
+
+      const json = JSON.parse(output.substring(currIndex, currIndex + jsonLen));
+      currIndex += jsonLen;
+
+      // const bytesStartIndex = currIndex;
+
+      const data = [];
+      json.forEach(({ name, length }) => {
+        data.push({
+          name,
+          length,
+          bytes: buffer.slice(currIndex, currIndex + length).toString('base64'),
+        });
+        currIndex += length;
+      });
+
+      // const totalByteLength = json.reduce((acc, obj) => {
+      //   return acc + obj.length;
+      // }, 0);
+
+      // const buf = buffer.slice(currIndex, currIndex + totalByteLength);
+
+      res.send({
+        // data: {
+        //   meta: json,
+        //   bytes: buf.toString('base64'),
+        // },
+        data,
+      });
+    }
   );
-  const output = buffer.toString();
-
-  const index = output.indexOf('BYTES:');
-  let currIndex = index;
-  if (currIndex < 0) {
-    res.status(500).send({ error: 'Failed to find BYTES:' });
-    return;
-  }
-
-  currIndex += 'BYTES:'.length;
-  const jsonLenHex = output.substring(currIndex, currIndex + 8);
-  currIndex += 8;
-  const jsonLen = parseInt(jsonLenHex, 16);
-
-  const json = JSON.parse(output.substring(currIndex, currIndex + jsonLen));
-  currIndex += jsonLen;
-
-  // const bytesStartIndex = currIndex;
-
-  const data = [];
-  json.forEach(({ name, length }) => {
-    data.push({
-      name,
-      length,
-      bytes: buffer.slice(currIndex, currIndex + length).toString('base64'),
-    });
-    currIndex += length;
-  });
-
-  // const totalByteLength = json.reduce((acc, obj) => {
-  //   return acc + obj.length;
-  // }, 0);
-
-  // const buf = buffer.slice(currIndex, currIndex + totalByteLength);
-
-  res.send({
-    // data: {
-    //   meta: json,
-    //   bytes: buf.toString('base64'),
-    // },
-    data,
-  });
 });
 
 app.get('/api/creategci', function (req, res) {

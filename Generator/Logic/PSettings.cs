@@ -2,6 +2,7 @@ namespace TPRandomizer
 {
     using System;
     using System.Collections.Generic;
+    using TPRandomizer.Util;
 
     public class PSettings
     {
@@ -11,7 +12,7 @@ namespace TPRandomizer
 
         private PSettings(string bits)
         {
-            Util.BitsProcessor processor = new Util.BitsProcessor(bits);
+            BitsProcessor processor = new BitsProcessor(bits);
 
             gameVersion = processor.NextString(PSettingsOptions.gameVersion);
             seedNumber = processor.NextNibble();
@@ -25,7 +26,7 @@ namespace TPRandomizer
                 throw new Exception("Unable to decode pSettingsString.");
             }
 
-            string bits = Util.SettingsEncoder.DecodeToBitString(pSettingsString.Substring(2));
+            string bits = SettingsEncoder.DecodeToBitString(pSettingsString.Substring(2));
             return new PSettings(bits);
         }
 

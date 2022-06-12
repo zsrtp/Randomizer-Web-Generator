@@ -61,22 +61,30 @@ function callGenerator(...args) {
   return buf.toString();
 }
 
-function callGeneratorBuf(...args) {
-  const command = [generatorExePath].concat(args).join(' ');
+function callGeneratorBuf(args, cb) {
+  callGeneratorAsync(args, cb);
 
-  // const buf = execSync(`${generatorExePath} generate2 ${args[0]} abcdef`);
-  const buf = execSync(command);
-  return buf;
+  // const command = [generatorExePath].concat(args).join(' ');
+
+  // // const buf = execSync(`${generatorExePath} generate2 ${args[0]} abcdef`);
+  // const buf = execSync(command);
+  // return buf;
 }
 
 function callGeneratorAsync(args, cb) {
-  execFile(generatorExePath, args, (error, stdout, stderr) => {
-    if (error) {
-      cb(error.message);
-    } else {
-      cb(null, stdout);
+  const childProcess = execFile(
+    generatorExePath,
+    args,
+    (error, stdout, stderr) => {
+      if (error) {
+        cb(error.message);
+      } else {
+        cb(null, stdout);
+      }
     }
-  });
+  );
+
+  return childProcess;
 }
 
 function callGeneratorMatchOutput(args, cb) {

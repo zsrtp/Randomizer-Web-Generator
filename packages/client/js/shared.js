@@ -117,21 +117,21 @@
    * Adds '0' chars to front of bitStr such that the returned string length is
    * equal to the provided size. If bitStr.length > size, simply returns bitStr.
    *
-   * @param {string} bitStr String of '0' and '1' chars
+   * @param {string} str String of '0' and '1' chars
    * @param {number} size Desired length of resultant string.
    * @return {string}
    */
-  function padBits2(bitStr, size) {
-    const numZeroesToAdd = size - bitStr.length;
+  function padBits2(str, size) {
+    const numZeroesToAdd = size - str.length;
     if (numZeroesToAdd <= 0) {
-      return bitStr;
+      return str;
     }
 
     let ret = '';
     for (let i = 0; i < numZeroesToAdd; i++) {
       ret += '0';
     }
-    return ret + bitStr;
+    return ret + str;
   }
 
   /**
@@ -315,16 +315,15 @@
     });
 
     const smallestRecolorId = recolorDefs[0].recolorId;
-    const recolorIdEnabledBitsLength =
-      recolorDefs[recolorDefs.length - 1].recolorId - smallestRecolorId + 1;
+    const largestRecolorId = recolorDefs[recolorDefs.length - 1].recolorId;
 
     let bitString = '1'; // for on/off
     bitString += encodeAsVlq16(version);
     bitString += encodeAsVlq16(smallestRecolorId);
-    bitString += encodeAsVlq16(recolorIdEnabledBitsLength);
+    bitString += encodeAsVlq16(largestRecolorId);
 
-    for (let i = 0; i < recolorIdEnabledBitsLength; i++) {
-      bitString += enabledRecolorIds[smallestRecolorId + i] ? '1' : '0';
+    for (let i = smallestRecolorId; i <= largestRecolorId; i++) {
+      bitString += enabledRecolorIds[i] ? '1' : '0';
     }
 
     bitString += valuesBits;
@@ -580,10 +579,84 @@
       return list;
     }
 
+    function getVlq16BitLength(num) {
+      if (num < 2) {
+        return 5;
+      }
+
+      let bitsNeeded = 1;
+      for (let i = 2; i <= 16; i++) {
+        const oneOverMax = 1 << i;
+        if (num < oneOverMax) {
+          bitsNeeded = i - 1;
+          break;
+        }
+      }
+
+      return 4 + bitsNeeded;
+    }
+
+    function nextVlq16() {
+      if (remaining.Length < 4) {
+        throw new Error('Not enough bits remaining');
+      }
+
+      const val = decodeVlq16(remaining);
+      remaining = remaining.substring(getVlq16BitLength(val));
+
+      return val;
+    }
+
+    function nextRecolorTableEntry() {
+      const type = nextXBitsAsNum(3);
+      let value;
+
+      if (type === RecolorDefType.twentyFourBitRgb) {
+        value = nextXBitsAsNum(24);
+      } else {
+        throw new Error(
+          'Not currently supporting anything other than 24-bit colors.'
+        );
+      }
+
+      return { type, value };
+    }
+
+    function nextRecolorDefs() {
+      const result = {};
+
+      if (!nextBoolean()) {
+        return result;
+      }
+
+      const version = nextVlq16();
+      const smallestRecolorId = nextVlq16();
+      const largestRecolorId = nextVlq16();
+
+      const onRecolorIds = [];
+
+      for (let i = smallestRecolorId; i <= largestRecolorId; i++) {
+        if (nextBoolean()) {
+          onRecolorIds.push(i);
+        }
+      }
+
+      for (let i = 0; i < onRecolorIds.length; i++) {
+        const recolorId = onRecolorIds[i];
+
+        // Read next recolor table entry
+        const obj = nextRecolorTableEntry();
+        result[recolorId] = obj;
+      }
+
+      return result;
+    }
+
     return {
       nextXBitsAsNum,
       nextBoolean,
       nextEolList,
+      nextRecolorDefs,
     };
   }
 
@@ -680,6 +753,20 @@
     return res;
   }
 
+  function decodePSettings({ version, bits }) {
+    const processor = BitsProcessor(bits);
+
+    const res = {};
+
+    res.recolorDefs = processor.nextRecolorDefs();
+
+    res.randomizeBgm = processor.nextBoolean();
+    res.randomizeFanfares = processor.nextBoolean();
+    res.disableEnemyBgm = processor.nextBoolean();
+
+    return res;
+  }
+
   function decodeSettingsString(settingsString) {
     const byType = breakUpSettingsString(settingsString);
 
@@ -687,6 +774,10 @@
 
     if (byType.s) {
       result.s = decodeSSettings(byType.s);
+    }
+
+    if (byType.p) {
+      result.p = decodePSettings(byType.p);
     }
 
     return result;

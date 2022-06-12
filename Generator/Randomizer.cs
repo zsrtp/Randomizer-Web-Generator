@@ -6,6 +6,7 @@ namespace TPRandomizer
     using System.Linq;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
+    using TPRandomizer.Util;
 
     /// <summary>
     /// Generates a randomizer seed given a settings string.
@@ -245,13 +246,15 @@ namespace TPRandomizer
         {
             Dictionary<string, Item> checkIdToItemId = new();
             List<string> placementStrParts = new();
+            SortedDictionary<int, byte> checkNumIdToItemId = new();
 
             foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
             {
                 if (checkList.Value.checkStatus != "Vanilla")
                 {
                     string checkId = CheckIdClass.FromString(checkList.Key);
-                    if (checkId == null)
+                    int checkIdNum = CheckIdClass.GetCheckIdNum(checkList.Key);
+                    if (checkId == null || checkIdNum < 0)
                     {
                         throw new Exception(
                             "Need to update CheckId to support check named \""
@@ -259,8 +262,15 @@ namespace TPRandomizer
                                 + "\"."
                         );
                     }
-                    placementStrParts.Add(checkId + "_" + (byte)checkList.Value.itemId);
+
+                    byte itemId = (byte)checkList.Value.itemId;
+
+                    // For generating consistent filenames.
+                    placementStrParts.Add(checkId + "_" + itemId);
                     checkIdToItemId[checkId] = checkList.Value.itemId;
+
+                    // For storing placements in json file.
+                    checkNumIdToItemId.Add(checkIdNum, itemId);
                 }
             }
 
@@ -319,9 +329,84 @@ namespace TPRandomizer
             inputJsonRoot.Add("seedHash", seedHash.ToString("x8"));
             inputJsonRoot.Add("filename", filename);
             // inputJsonRoot.Add("settings", GenPart2Settings(true));
-            inputJsonRoot.Add("itemPlacement", checkIdToItemId);
+            // inputJsonRoot.Add("itemPlacement", checkIdToItemId);
+            inputJsonRoot.Add("itemPlacement", EncodeItemPlacements(checkNumIdToItemId));
 
             return JsonConvert.SerializeObject(inputJsonRoot);
+        }
+
+        private static string EncodeItemPlacements(SortedDictionary<int, byte> checkNumIdToItemId)
+        {
+            UInt16 version = 0;
+            string result = SettingsEncoder.EncodeAsVlq16(version);
+
+            if (checkNumIdToItemId.Count() == 0)
+            {
+                result += "0";
+                return SettingsEncoder.EncodeAs6BitString(result);
+            }
+
+            result += "1";
+
+            int smallest = checkNumIdToItemId.First().Key;
+            int largest = checkNumIdToItemId.Last().Key;
+
+            result += SettingsEncoder.EncodeNumAsBits(smallest, 9);
+            result += SettingsEncoder.EncodeNumAsBits(largest, 9);
+
+            string itemBits = "";
+
+            for (int i = smallest; i <= largest; i++)
+            {
+                if (checkNumIdToItemId.ContainsKey(i))
+                {
+                    result += "1";
+                    itemBits += SettingsEncoder.EncodeNumAsBits(checkNumIdToItemId[i], 8);
+                }
+                else
+                {
+                    result += "0";
+                }
+            }
+
+            result += itemBits;
+
+            return SettingsEncoder.EncodeAs6BitString(result);
+        }
+
+        private static Dictionary<int, byte> DecodeItemPlacements(string sixCharString)
+        {
+            BitsProcessor processor = new BitsProcessor(SettingsEncoder.DecodeToBitString(sixCharString));
+
+            Dictionary<int, byte> checkNumIdToItemId = new();
+
+            UInt16 version = processor.NextVlq16();
+
+            if (!processor.NextBool())
+            {
+                return checkNumIdToItemId;
+            }
+
+            int smallest = processor.NextInt(9);
+            int largest = processor.NextInt(9);
+
+            List<int> checkIdsWithItemIds = new();
+
+            for (int i = smallest; i <= largest; i++)
+            {
+                if (processor.NextBool())
+                {
+                    checkIdsWithItemIds.Add(i);
+                }
+            }
+
+            for (int i = 0; i < checkIdsWithItemIds.Count; i++)
+            {
+                byte itemId = processor.NextByte();
+                checkNumIdToItemId[smallest + i] = itemId;
+            }
+
+            return checkNumIdToItemId;
         }
 
         private static SortedDictionary<string, object> GenPart2Settings(bool noExclusions)
@@ -524,20 +609,32 @@ namespace TPRandomizer
 
             // Read in the settings string and set the settings values accordingly
             // BackendFunctions.InterpretSettingsString(settingsString);
-            RandoSetting.PopulateFromInputJson(json);
-            PSettings pSettings = PSettings.FromString(pSettingsString);
 
-            Dictionary<string, Item> itemPlacement = json["itemPlacement"].ToObject<
-                Dictionary<string, Item>
-            >();
+            // TODO: temp disable
+            // RandoSetting.PopulateFromInputJson(json);
+            // PSettings pSettings = PSettings.FromString(pSettingsString);
+            RandoSetting = RandomizerSetting.FromString((string)json["settingsString"]);
+            PSettings pSettings = null;
+
+            // Dictionary<int, byte> checkNumIdToItemId = DecodeItemPlacements((string)json["itemPlacement2"]);
+            Dictionary<int, byte> checkNumIdToItemId = DecodeItemPlacements((string)json["itemPlacement2"]);
+            Dictionary<string, Item> checkNameToItem = checkNumIdToItemId.ToDictionary(
+                kvp => CheckIdClass.GetCheckName(kvp.Key),
+                kvp => (Item)kvp.Value
+            );
+            // Dictionary<string, Item> itemPlacement = json["itemPlacement"].ToObject<
+            //     Dictionary<string, Item>
+            // >();
 
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check check = checkList.Value;
-                string checkId = CheckIdClass.FromString(check.checkName);
-                if (itemPlacement.ContainsKey(checkId))
+                // string checkId = CheckIdClass.FromString(check.checkName);
+                // if (itemPlacement.ContainsKey(checkId))
+                if (checkNameToItem.ContainsKey(check.checkName))
                 {
-                    check.itemId = itemPlacement[checkId];
+                    // check.itemId = itemPlacement[checkId];
+                    check.itemId = checkNameToItem[check.checkName];
                 }
             }
 

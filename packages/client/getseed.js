@@ -139,8 +139,14 @@
     if (inputJsonDataEl) {
       pageData = JSON.parse(inputJsonDataEl.value);
 
+      const decodedSettings = window.tpr.shared.decodeSettingsString(
+        pageData.settingsString
+      );
+
       fillInInfo();
       fillInSettingsTable();
+
+      populateFromPSettings(decodedSettings.p);
     }
 
     fetch('/api/creategci')
@@ -289,7 +295,7 @@
       }
     });
 
-    return '0p' + encodeBits(bitString);
+    return encodeBits(bitString);
   }
 
   function _base64ToUint8Array(base64Str) {
@@ -366,5 +372,57 @@
       .catch((err) => {
         cb(err);
       });
+  }
+
+  /**
+   * Adds '0' chars to front of bitStr such that the returned string length is
+   * equal to the provided size. If bitStr.length > size, simply returns bitStr.
+   *
+   * @param {string} str String of '0' and '1' chars
+   * @param {number} size Desired length of resultant string.
+   * @return {string}
+   */
+  function padBits2(str, size) {
+    const numZeroesToAdd = size - str.length;
+    if (numZeroesToAdd <= 0) {
+      return str;
+    }
+
+    let ret = '';
+    for (let i = 0; i < numZeroesToAdd; i++) {
+      ret += '0';
+    }
+    return ret + str;
+  }
+
+  function populateRecolorSelect(pSettings, elId, recolorId) {
+    const $sel = $(`#${elId}`);
+
+    const recolorDef = pSettings.recolorDefs[recolorId];
+
+    if (recolorDef) {
+      const rgbHex = padBits2(recolorDef.value.toString(16), 6);
+
+      const option = $sel.find(`option[data-rgb="${rgbHex}"]`)[0];
+      if (option) {
+        option.selected = true;
+        // $sel.val(rgbHex);
+      } else {
+        $sel.val('0');
+      }
+    } else {
+      $sel.val('0');
+    }
+  }
+
+  function populateFromPSettings(pSettings) {
+    console.log(pSettings);
+
+    // $('#tunicColor')
+    populateRecolorSelect(pSettings, 'tunicColor', RecolorId.herosClothes);
+
+    $('#randomizeBgm').prop('checked', pSettings.randomizeBgm);
+    $('#randomizeFanfares').prop('checked', pSettings.randomizeFanfares);
+    $('#disableEnemyBgm').prop('checked', pSettings.disableEnemyBgm);
   }
 })();

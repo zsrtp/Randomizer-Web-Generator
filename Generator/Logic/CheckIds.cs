@@ -546,11 +546,11 @@ namespace TPRandomizer
             return Convert.ToInt32(bitStr, 2);
         }
 
-        public static string FromString(string name)
+        public static string FromString(string checkName)
         {
-            if (nameToId.ContainsKey(name))
+            if (nameToId.ContainsKey(checkName))
             {
-                return nameToId[name];
+                return nameToId[checkName];
             }
             return null;
         }
@@ -560,15 +560,6 @@ namespace TPRandomizer
             if (idNumToName.ContainsKey(idNumber))
             {
                 return idNumToName[idNumber];
-            }
-            return null;
-        }
-
-        public static string GetCheckId(string checkName)
-        {
-            if (nameToId.ContainsKey(checkName))
-            {
-                return nameToId[checkName];
             }
             return null;
         }
