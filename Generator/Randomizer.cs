@@ -524,7 +524,7 @@ namespace TPRandomizer
             // Read in the settings string and set the settings values accordingly
             // BackendFunctions.InterpretSettingsString(settingsString);
             RandoSetting.PopulateFromInputJson(json);
-            PSettings pSettings = PSettings.FromString(pSettingsString);
+            FileCreationSettings pSettings = FileCreationSettings.FromString(pSettingsString);
 
             Dictionary<string, Item> itemPlacement = json["itemPlacement"].ToObject<
                 Dictionary<string, Item>
@@ -591,7 +591,7 @@ namespace TPRandomizer
             return true;
         }
 
-        public static bool GenerateFinalOutput2(string id, string tempArg, string pSettingsString)
+        public static bool GenerateFinalOutput2(string id, string tempArg, string fcSettingsString)
         {
             string inputJsonPath = Global.CombineOutputPath("seeds", id, "input.json");
 
@@ -612,12 +612,12 @@ namespace TPRandomizer
 
             // TODO: temp disable
             // RandoSetting.PopulateFromInputJson(json);
-            // PSettings pSettings = PSettings.FromString(pSettingsString);
+            FileCreationSettings fcSettings = FileCreationSettings.FromString(fcSettingsString);
             RandoSetting = RandomizerSetting.FromString((string)json["settingsString"]);
-            PSettings pSettings = null;
+            fcSettings.UpdateRandoSettings(RandoSetting);
 
             // Dictionary<int, byte> checkNumIdToItemId = DecodeItemPlacements((string)json["itemPlacement2"]);
-            Dictionary<int, byte> checkNumIdToItemId = DecodeItemPlacements((string)json["itemPlacement2"]);
+            Dictionary<int, byte> checkNumIdToItemId = DecodeItemPlacements((string)json["itemPlacement"]);
             Dictionary<string, Item> checkNameToItem = checkNumIdToItemId.ToDictionary(
                 kvp => CheckIdClass.GetCheckName(kvp.Key),
                 kvp => (Item)kvp.Value
@@ -660,12 +660,29 @@ namespace TPRandomizer
             //         PlaceItemsInWorld(startingRoom, rnd);
             Console.WriteLine("\nGenerating Seed Data.");
             // Assets.SeedData.GenerateSeedData("aBc"); // just making up a seed hash right now
-            byte[] bytes = Assets.SeedData.GenerateSeedDataNewByteArray(tempArg, pSettings); // just making up a seed hash right now
+            byte[] bytes = Assets.SeedData.GenerateSeedDataNewByteArray(tempArg, fcSettings); // just making up a seed hash right now
 
 
             List<Dictionary<string, object>> jsonRoot = new();
             Dictionary<string, object> dict = new();
-            dict.Add("name", "exampleNameFile.gci");
+
+            string seedVersion = "1.4";
+            string filename = (string)json["filename"];
+
+            string gameVer = "ge";
+            switch (fcSettings.gameRegion)
+            {
+                case "PAL":
+                    gameVer = "gp";
+                    break;
+                case "JAP":
+                    gameVer = "gj";
+                    break;
+            }
+
+
+            // dict.Add("name", "exampleNameFile.gci");
+            dict.Add("name", "TprSeed-v" + seedVersion + gameVer + "-" + fcSettings.seedNumber + "--" + filename + ".gci");
             dict.Add("length", bytes.Length);
             jsonRoot.Add(dict);
 

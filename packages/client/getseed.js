@@ -7,6 +7,7 @@
   const RawSettingType = {
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
     bitString: 'bitString',
+    xBitNum: 'xBitNum',
   };
 
   const RecolorId = {
@@ -257,9 +258,12 @@
     });
   }
 
-  function encodeBits(bitString) {
-    const missingChars = 6 - (bitString.length % 6);
-    bitString += '0'.repeat(missingChars);
+  function encodeBitStringTo6BitsString(bitString) {
+    const remainder = bitString.length % 6;
+    if (remainder > 0) {
+      const missingChars = 6 - remainder;
+      bitString += '0'.repeat(missingChars);
+    }
 
     let charString = '';
 
@@ -278,10 +282,66 @@
     return charString;
   }
 
-  function encodePSettings(valuesArr) {
+  function genFcSettingsString(valuesArr) {
+    function getVal(id) {
+      const $el = $('#' + id);
+      if ($el.prop('nodeName') === 'INPUT' && $el.attr('type') === 'checkbox') {
+        return $el.prop('checked');
+      }
+
+      return $el.val();
+    }
+
+    const values = [
+      { id: 'gameRegion', bitLength: 3 },
+      { id: 'seedNumber', bitLength: 4 },
+
+      { id: 'randomizeBGMCheckbox' },
+      { id: 'randomizeFanfaresCheckbox' },
+      { id: 'disableEnemyBGMCheckbox' },
+
+      { id: 'tunicColorFieldset', bitLength: 4 },
+      { id: 'lanternColorFieldset', bitLength: 4 },
+      { id: 'midnaHairColorFieldset', bitLength: 1 },
+      { id: 'heartColorFieldset', bitLength: 3 },
+      { id: 'aButtonColorFieldset', bitLength: 4 },
+      { id: 'bButtonColorFieldset', bitLength: 3 },
+      { id: 'xButtonColorFieldset', bitLength: 4 },
+      { id: 'yButtonColorFieldset', bitLength: 4 },
+      { id: 'zButtonColorFieldset', bitLength: 4 },
+    ].map(({ id, bitLength }) => {
+      const val = getVal(id);
+      if (bitLength) {
+        // select
+        return {
+          type: RawSettingType.xBitNum,
+          bitLength,
+          value: parseInt(getVal(id), 10),
+        };
+      }
+      // checkbox
+      return val;
+    });
+
     let bitString = '';
 
-    valuesArr.forEach((value) => {
+    // valuesArr.forEach((value) => {
+    //   if (typeof value === 'boolean') {
+    //     bitString += value ? '1' : '0';
+    //   } else if (typeof value === 'string') {
+    //     let asNum = parseInt(value, 10);
+    //     if (Number.isNaN(asNum)) {
+    //       asNum = 0;
+    //     }
+    //     bitString += toPaddedBits(asNum, 4);
+    //   } else if (value && typeof value === 'object') {
+    //     if (value.type === RawSettingType.bitString) {
+    //       bitString += value.bitString;
+    //     }
+    //   }
+    // });
+
+    values.forEach((value) => {
       if (typeof value === 'boolean') {
         bitString += value ? '1' : '0';
       } else if (typeof value === 'string') {
@@ -289,15 +349,20 @@
         if (Number.isNaN(asNum)) {
           asNum = 0;
         }
-        bitString += toPaddedBits(asNum, 4);
-      } else if (value && typeof value === 'object') {
-        if (value.type === RawSettingType.bitString) {
+        bitString += numToPaddedBits(asNum, 4);
+      } else if (typeof value === 'object') {
+        if (value === null) {
+          // triple-equals here is intentional for now
+          bitString += '0';
+        } else if (value.type === RawSettingType.bitString) {
           bitString += value.bitString;
+        } else if (value.type === RawSettingType.xBitNum) {
+          bitString += numToPaddedBits(value.value, value.bitLength);
         }
       }
     });
 
-    return encodeBits(bitString);
+    return encodeBitStringTo6BitsString(bitString);
   }
 
   function _base64ToUint8Array(base64Str) {
@@ -324,23 +389,24 @@
       return document.getElementById(id).checked;
     };
 
-    const arr = ['gameRegion', 'seedNumber'];
+    // const arr = ['gameRegion', 'seedNumber'];
 
-    let values = arr.map(getVal);
-    values.push(genRecolorBits());
-    values = values.concat(
-      [
-        'randomizeBGMCheckbox',
-        'randomizeFanfaresCheckbox',
-        'disableEnemyBGMCheckbox',
-      ].map(isChecked)
-    );
+    // let values = arr.map(getVal);
+    // values.push(genRecolorBits());
+    // values = values.concat(
+    //   [
+    //     'randomizeBGMCheckbox',
+    //     'randomizeFanfaresCheckbox',
+    //     'disableEnemyBGMCheckbox',
+    //   ].map(isChecked)
+    // );
 
-    console.log(values);
-    const pSettingsString = encodePSettings(values);
-    console.log(pSettingsString);
+    // console.log(values);
+    // const fileCreationSettings = encodeSettingsForFileCreationCall(values);
+    const fileCreationSettings = genFcSettingsString();
+    console.log(fileCreationSettings);
 
-    callCreateGci(pSettingsString, (error, data) => {
+    callCreateGci(fileCreationSettings, (error, data) => {
       if (error) {
         console.log('error in response');
         console.log(error);
@@ -360,7 +426,7 @@
     });
   }
 
-  function callCreateGci(pSettingsString, cb) {
+  function callCreateGci(fileCreationSettings, cb) {
     fetch('/api/final', {
       method: 'POST',
       headers: {
@@ -368,7 +434,7 @@
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        pSettingsString,
+        fileCreationSettings,
       }),
     })
       .then((response) => response.json())
@@ -399,6 +465,17 @@
       ret += '0';
     }
     return ret + str;
+  }
+
+  /**
+   * Converts a number to a bit string of a specified length.
+   *
+   * @param {number} number Number to convert to bit string.
+   * @param {number} strLength Length of string to return.
+   * @return {string} Bit string of specified length.
+   */
+  function numToPaddedBits(number, strLength) {
+    return padBits2(number.toString(2), strLength);
   }
 
   // function populateRecolorSelect(pSettings, elId, recolorId) {

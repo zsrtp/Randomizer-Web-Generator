@@ -157,83 +157,62 @@ app.post('/api/final', function (req, res) {
     return;
   }
 
-  const { pSettingsString } = req.body;
-
-  const exampleJson = {
-    fish: 'yes',
-    dog: 'no',
-    recolorDefs: {
-      0: 0xffffff,
-      17: 0x234a99,
-    },
-  };
+  const { fileCreationSettings } = req.body;
 
   if (
-    !pSettingsString ||
-    typeof pSettingsString !== 'string' ||
-    !/^[0-9a-f]+p[0-9a-z-_]+$/i.test(pSettingsString)
+    !fileCreationSettings ||
+    typeof fileCreationSettings !== 'string' ||
+    !/^[0-9a-z-_]+$/i.test(fileCreationSettings)
   ) {
-    res.status(400).send({ error: 'Invalid pSettingsString format.' });
+    res.status(400).send({ error: 'Invalid fileCreationSettings format.' });
     return;
   }
 
-  const buf = Buffer.from(JSON.stringify(exampleJson));
-  const base64Encoded = buf.toString('base64');
-
-  // const buffer = callGeneratorBuf(
   callGeneratorBuf(
-    [
-      'generate_final_output2',
-      // 'KJNgheF3K73',
-      id,
-      'aBc',
-      // '0p5001pXFOC'
-      // pSettingsString
-      JSON.stringify(exampleJson),
-    ],
-    (error, output) => {
-      // const output = buffer.toString();
-
-      const index = output.indexOf('BYTES:');
-      let currIndex = index;
-      if (currIndex < 0) {
-        res.status(500).send({ error: 'Failed to find BYTES:' });
+    ['generate_final_output2', id, 'aBc', fileCreationSettings],
+    (error, buffer) => {
+      if (error) {
+        res.status(500).send({ error });
         return;
       }
 
-      currIndex += 'BYTES:'.length;
-      const jsonLenHex = output.substring(currIndex, currIndex + 8);
-      currIndex += 8;
-      const jsonLen = parseInt(jsonLenHex, 16);
+      try {
+        const index = buffer.indexOf('BYTES:', 0);
 
-      const json = JSON.parse(output.substring(currIndex, currIndex + jsonLen));
-      currIndex += jsonLen;
+        let currIndex = index;
+        if (currIndex < 0) {
+          res.status(500).send({ error: 'Failed to find BYTES:' });
+          return;
+        }
 
-      // const bytesStartIndex = currIndex;
+        currIndex += 'BYTES:'.length;
+        const jsonLen = parseInt(
+          buffer.toString('utf8', currIndex, currIndex + 8),
+          16
+        );
+        currIndex += 8;
 
-      const data = [];
-      json.forEach(({ name, length }) => {
-        data.push({
-          name,
-          length,
-          bytes: buffer.slice(currIndex, currIndex + length).toString('base64'),
+        const json = JSON.parse(
+          buffer.toString('utf8', currIndex, currIndex + jsonLen)
+        );
+        currIndex += jsonLen;
+
+        const data = [];
+        json.forEach(({ name, length }) => {
+          data.push({
+            name,
+            length,
+            bytes: buffer
+              .subarray(currIndex, currIndex + length)
+              .toString('base64'),
+          });
+          currIndex += length;
         });
-        currIndex += length;
-      });
 
-      // const totalByteLength = json.reduce((acc, obj) => {
-      //   return acc + obj.length;
-      // }, 0);
-
-      // const buf = buffer.slice(currIndex, currIndex + totalByteLength);
-
-      res.send({
-        // data: {
-        //   meta: json,
-        //   bytes: buf.toString('base64'),
-        // },
-        data,
-      });
+        res.send({ data });
+      } catch (e) {
+        res.status(500).send({ error: e.message });
+      }
     }
   );
 });

@@ -183,7 +183,7 @@ namespace TPRandomizer.Assets
             File.WriteAllBytes(fileHash, gci.gciFile.ToArray());
         }
 
-        public static void GenerateSeedDataNew(string seedHash, PSettings pSettings)
+        public static void GenerateSeedDataNew(string seedHash, FileCreationSettings fcSettings)
         {
             /*
             * General Note: offset sizes are handled as two bytes. Because of this,
@@ -200,15 +200,17 @@ namespace TPRandomizer.Assets
             char regionCode;
             string regionName;
 
-            switch (pSettings.gameVersion)
+            switch (fcSettings.gameRegion)
             {
-                case "GZ2J":
+                // case "GZ2J":
+                case "JAP":
                     regionName = "JAP";
                     regionCode = 'J';
                     CustomMessageHeaderRaw.totalLanguages = 1;
                     seedDictionary = customMessage.CustomJPMessageDictionary;
                     break;
-                case "GZ2P":
+                // case "GZ2P":
+                case "PAL":
                     regionName = "PAL";
                     regionCode = 'P';
                     CustomMessageHeaderRaw.totalLanguages = 3;
@@ -271,19 +273,19 @@ namespace TPRandomizer.Assets
                 + currentMessageHeader.Count
                 + currentMessageData.Count
             );
-            currentSeedHeader.AddRange(GenerateSeedHeader(pSettings.seedNumber, seedHash));
+            currentSeedHeader.AddRange(GenerateSeedHeader(fcSettings.seedNumber, seedHash));
             currentSeedData.AddRange(BannerDataRaw);
             currentSeedData.AddRange(currentSeedHeader);
             currentSeedData.AddRange(CheckDataRaw);
             currentSeedData.AddRange(currentMessageHeader);
             currentSeedData.AddRange(currentMessageData);
 
-            var gci = new Gci(pSettings.seedNumber, regionName, currentSeedData, seedHash);
+            var gci = new Gci(fcSettings.seedNumber, regionName, currentSeedData, seedHash);
             string fileHash = "TPR-v1.0-" + seedHash + "-Seed-Data.gci";
             File.WriteAllBytes(fileHash, gci.gciFile.ToArray());
         }
 
-        public static byte[] GenerateSeedDataNewByteArray(string seedHash, PSettings pSettings)
+        public static byte[] GenerateSeedDataNewByteArray(string seedHash, FileCreationSettings fcSettings)
         {
             /*
             * General Note: offset sizes are handled as two bytes. Because of this,
@@ -300,15 +302,17 @@ namespace TPRandomizer.Assets
             char regionCode;
             string regionName;
 
-            switch (pSettings.gameVersion)
+            switch (fcSettings.gameRegion)
             {
-                case "GZ2J":
+            //    case "GZ2J":
+               case "JAP":
                     regionName = "JAP";
                     regionCode = 'J';
                     CustomMessageHeaderRaw.totalLanguages = 1;
                     seedDictionary = customMessage.CustomJPMessageDictionary;
                     break;
-                case "GZ2P":
+                // case "GZ2P":
+                case "PAL":
                     regionName = "PAL";
                     regionCode = 'P';
                     CustomMessageHeaderRaw.totalLanguages = 3;
@@ -371,14 +375,14 @@ namespace TPRandomizer.Assets
                 + currentMessageHeader.Count
                 + currentMessageData.Count
             );
-            currentSeedHeader.AddRange(GenerateSeedHeader(pSettings.seedNumber, seedHash));
+            currentSeedHeader.AddRange(GenerateSeedHeader(fcSettings.seedNumber, seedHash));
             currentSeedData.AddRange(BannerDataRaw);
             currentSeedData.AddRange(currentSeedHeader);
             currentSeedData.AddRange(CheckDataRaw);
             currentSeedData.AddRange(currentMessageHeader);
             currentSeedData.AddRange(currentMessageData);
 
-            var gci = new Gci(pSettings.seedNumber, regionName, currentSeedData, seedHash);
+            var gci = new Gci(fcSettings.seedNumber, regionName, currentSeedData, seedHash);
             string fileHash = "TPR-v1.0-" + seedHash + "-Seed-Data.gci";
             return gci.gciFile.ToArray();
             // File.WriteAllBytes(fileHash, gci.gciFile.ToArray());
