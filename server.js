@@ -346,6 +346,18 @@ app.get('/getseed', (req, res) => {
 
 app.use(express.static(root));
 
+app.use(function (req, res, next) {
+  res.status(404);
+
+  const accepts = req.accepts(['text/html', 'application/json']);
+
+  if (accepts === 'applicaton/json') {
+    res.json({ error: 'Not found' });
+  } else {
+    res.type('txt').send('Not found');
+  }
+});
+
 // start express server on port 5000
 app.listen(process.env.PORT || 5000, () => {
   console.log('server started');

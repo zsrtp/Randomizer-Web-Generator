@@ -153,13 +153,15 @@
 
       initSettingsModal();
       initShareModal();
+
+      $('#create').on('click', handleCreateClick);
+    } else {
+      byId('filename').textContent = 'Invalid seed ID.';
     }
 
-    fetch('/api/creategci')
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-
-    $('#create').on('click', handleCreateClick);
+    // fetch('/api/creategci')
+    //   .then((response) => response.json())
+    //   .then((data) => console.log(data));
   }
 
   function initTabButtons() {
