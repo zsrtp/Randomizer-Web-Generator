@@ -1,6 +1,10 @@
-const path = require('path');
+import path from 'path';
 
-function searchUpFileTree(startDir, cb) {
+interface searchUpFileTreeCb {
+  (currentPath: string): boolean;
+}
+
+function searchUpFileTree(startDir: string, cb: searchUpFileTreeCb): string {
   let prevPath = null;
   let currPath = startDir;
 
@@ -18,4 +22,4 @@ function searchUpFileTree(startDir, cb) {
   }
 }
 
-module.exports = searchUpFileTree;
+export default searchUpFileTree;

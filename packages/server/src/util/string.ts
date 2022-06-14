@@ -1,6 +1,6 @@
 const toArray = require('lodash.toarray');
 
-function normalizeStringToMax128Bytes(inputStr) {
+function normalizeStringToMax128Bytes(inputStr: string): string {
   // substring to save lodash some work potentially. 256 because some
   // characters like emojis have length 2, and we want to leave at least 128
   // glyphs. Normalize is to handle writing the same unicode chars in

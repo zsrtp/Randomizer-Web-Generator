@@ -1,31 +1,21 @@
-// const path = require('path');
-// const cors = require('cors');
-// const express = require('express');
-
-// const app = express(); // create express app
-// app.use(cors());
-
-// const bodyParser = require('body-parser');
-// app.use(bodyParser.json());
-
-// // add middlewares
-// const root = require('path').join(__dirname, 'build');
-// app.use(express.static(root));
-
-// app.use('/*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
-
-// // start express server on port 5000
-// app.listen(process.env.PORT || 5000, () => {
-//   console.log('server started');
-// });
+import path from 'path';
+import fs from 'fs-extra';
+import searchUpFileTree from './util/searchUpFileTree';
 
 if (process.env.NODE_ENV === 'production') {
   require('dotenv').config();
 } else {
+  const rootPath = searchUpFileTree(__dirname, (currPath) => {
+    const outputConfigPath = path.join(currPath, '.env');
+    if (fs.existsSync(outputConfigPath)) {
+      return true;
+    }
+    return false;
+  });
+
+  console.log('about to run dotenv');
   require('dotenv').config({
-    path: '.env.development',
+    path: path.join(rootPath, '.env.development'),
   });
 }
 console.log(process.env);
@@ -34,16 +24,13 @@ const { initConfig, resolveRootPath, resolveOutputPath } = require('./config');
 initConfig();
 
 const url = require('url');
-const fs = require('fs');
-const path = require('path');
 const cors = require('cors');
-const express = require('express');
-const spawn = require('cross-spawn');
-const {
+import express from 'express';
+import {
   callGenerator,
   callGeneratorMatchOutput,
   callGeneratorBuf,
-} = require('./util');
+} from './util';
 const { normalizeStringToMax128Bytes } = require('./util/string');
 
 const app = express(); // create express app
@@ -52,8 +39,8 @@ app.use(cors());
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-let root;
-let indexHtmlPath;
+let root: string;
+let indexHtmlPath: string;
 
 // add middlewares
 if (process.env.NODE_ENV === 'production') {
@@ -72,35 +59,49 @@ if (process.env.NODE_ENV === 'production') {
   indexHtmlPath = path.join(root, 'index.html');
 }
 
-app.post('/api/generateseed', function (req, res) {
-  const { settingsString, seed } = req.body;
+app.post(
+  '/api/generateseed',
+  function (req: express.Request, res: express.Response) {
+    const { settingsString, seed } = req.body;
 
-  if (!settingsString || typeof settingsString !== 'string') {
-    res.status(400).send({ error: 'Malformed request.' });
-    return;
-  }
-
-  if (seed && typeof seed !== 'string') {
-    res.status(400).send({ error: 'Malformed request.' });
-    return;
-  }
-
-  const seedStr = seed ? normalizeStringToMax128Bytes(seed) : '';
-  console.log(`seedStr: '${seedStr}'`);
-
-  callGeneratorMatchOutput(
-    ['generate2', settingsString, seedStr],
-    (error, data) => {
-      if (error) {
-        res.status(500).send({ error });
-      } else {
-        res.send({ data: { id: data } });
-      }
+    if (!settingsString || typeof settingsString !== 'string') {
+      res.status(400).send({ error: 'Malformed request.' });
+      return;
     }
-  );
-});
 
-app.post('/api/final', function (req, res) {
+    if (seed && typeof seed !== 'string') {
+      res.status(400).send({ error: 'Malformed request.' });
+      return;
+    }
+
+    const seedStr = seed ? normalizeStringToMax128Bytes(seed) : '';
+    console.log(`seedStr: '${seedStr}'`);
+
+    callGeneratorMatchOutput(
+      ['generate2', settingsString, seedStr],
+      (error, data) => {
+        if (error) {
+          res.status(500).send({ error });
+        } else {
+          res.send({ data: { id: data } });
+        }
+      }
+    );
+  }
+);
+
+interface Aaa {
+  name: string;
+  length: number;
+  bytes: string;
+}
+
+interface OutputFileMeta {
+  name: string;
+  length: number;
+}
+
+app.post('/api/final', function (req: express.Request, res: express.Response) {
   const { referer } = req.headers;
 
   const { query } = url.parse(referer, true);
@@ -152,12 +153,13 @@ app.post('/api/final', function (req, res) {
         );
         currIndex += 8;
 
-        const json = JSON.parse(
+        const json: OutputFileMeta[] = JSON.parse(
           buffer.toString('utf8', currIndex, currIndex + jsonLen)
         );
         currIndex += jsonLen;
 
-        const data = [];
+        const data: Aaa[] = [];
+        // const data = [];
         json.forEach(({ name, length }) => {
           data.push({
             name,
@@ -177,31 +179,34 @@ app.post('/api/final', function (req, res) {
   );
 });
 
-app.get('/api/creategci', function (req, res) {
-  const { referer } = req.headers;
+app.get(
+  '/api/creategci',
+  function (req: express.Request, res: express.Response) {
+    const { referer } = req.headers;
 
-  const { query } = url.parse(referer, true);
+    const { query } = url.parse(referer, true);
 
-  const { id } = query;
+    const { id } = query;
 
-  if (!id) {
-    res.status(400).send({ error: 'Bad referer.' });
-    return;
+    if (!id) {
+      res.status(400).send({ error: 'Bad referer.' });
+      return;
+    }
+
+    const filePath = resolveOutputPath(`seeds/${id}/input.json`);
+    if (fs.existsSync(filePath)) {
+      const ff = fs.readFileSync(filePath, { encoding: 'utf8' });
+      const json = JSON.parse(ff);
+      res.send({ data: json });
+    } else {
+      res.status(404).send({
+        error: 'Did not find seed data for provided id.',
+      });
+    }
   }
+);
 
-  const filePath = resolveOutputPath(`seeds/${id}/input.json`);
-  if (fs.existsSync(filePath)) {
-    const ff = fs.readFileSync(filePath);
-    const json = JSON.parse(ff);
-    res.send({ data: json });
-  } else {
-    res.status(404).send({
-      error: 'Did not find seed data for provided id.',
-    });
-  }
-});
-
-app.get('/', (req, res) => {
+app.get('/', (req: express.Request, res: express.Response) => {
   fs.readFile(indexHtmlPath, function read(err, data) {
     if (err) {
       console.log(err);
@@ -261,10 +266,10 @@ app.get('/', (req, res) => {
   });
 });
 
-const escapeHtml = (str) =>
+const escapeHtml = (str: string) =>
   str.replace(
     /[&<>'"]/g,
-    (tag) =>
+    (tag: string) =>
       ({
         '&': '&amp;',
         '<': '&lt;',
@@ -274,7 +279,7 @@ const escapeHtml = (str) =>
       }[tag])
   );
 
-app.get('/seed', (req, res) => {
+app.get('/seed', (req: express.Request, res: express.Response) => {
   fs.readFile(path.join(root, 'getseed.html'), function read(err, data) {
     if (err) {
       console.log(err);
@@ -288,7 +293,9 @@ app.get('/seed', (req, res) => {
       const filePath = resolveOutputPath(`seeds/${id}/input.json`);
 
       if (fs.existsSync(filePath)) {
-        const json = JSON.parse(fs.readFileSync(filePath));
+        const json = JSON.parse(
+          fs.readFileSync(filePath, { encoding: 'utf8' })
+        );
         json.seedHash = undefined;
         json.itemPlacement = undefined;
         const fileContents = escapeHtml(JSON.stringify(json));
@@ -306,7 +313,7 @@ app.get('/seed', (req, res) => {
 
 app.use(express.static(root));
 
-app.use(function (req, res, next) {
+app.use(function (req: express.Request, res: express.Response, next) {
   res.status(404);
 
   const accepts = req.accepts(['text/html', 'application/json']);

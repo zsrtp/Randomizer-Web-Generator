@@ -1,7 +1,4 @@
-const fs = require('fs-extra');
-const path = require('path');
-const { execSync, execFile } = require('child_process');
-const spawn = require('cross-spawn');
+import { execSync, execFile, ExecFileException } from 'child_process';
 const { resolveRootPath } = require('./config');
 
 let exePath = process.env.TPR_GENERATOR_EXE_PATH;
@@ -18,7 +15,7 @@ const generatorExePath = resolveRootPath(exePath);
 //   'Generator/bin/Debug/net5.0/TPRandomizer.exe'
 // );
 
-function callGenerator(...args) {
+function callGenerator(...args: string[]) {
   const command = [generatorExePath].concat(args).join(' ');
 
   // const buf = execSync(`${generatorExePath} generate2 ${args[0]} abcdef`);
@@ -26,7 +23,15 @@ function callGenerator(...args) {
   return buf.toString();
 }
 
-function callGeneratorBuf(args, cb) {
+interface callGeneratorCb {
+  (error: string, data?: string): void;
+}
+
+interface callGeneratorBufCb {
+  (error: string, buffer?: Buffer): void;
+}
+
+function callGeneratorBuf(args: string[], cb: callGeneratorBufCb) {
   // callGeneratorAsync(args, cb);
 
   // const command = [generatorExePath].concat(args).join(' ');
@@ -51,23 +56,27 @@ function callGeneratorBuf(args, cb) {
   return childProcess;
 }
 
-function callGeneratorAsync(args, cb) {
-  const childProcess = execFile(
-    generatorExePath,
-    args,
-    (error, stdout, stderr) => {
-      if (error) {
-        cb(error.message);
-      } else {
-        cb(null, stdout);
-      }
+interface execFileCb {
+  (error: ExecFileException | null, stdout: string, stderr: string): void;
+}
+
+function callGeneratorAsync(args: string[], cb: callGeneratorCb) {
+  const childProcess = execFile(generatorExePath, args, <execFileCb>((
+    error,
+    stdout,
+    stderr
+  ) => {
+    if (error) {
+      cb(error.message);
+    } else {
+      cb(null, stdout);
     }
-  );
+  }));
 
   return childProcess;
 }
 
-function callGeneratorMatchOutput(args, cb) {
+function callGeneratorMatchOutput(args: string[], cb: callGeneratorCb) {
   callGeneratorAsync(args, (error, output) => {
     if (error) {
       cb(error);
@@ -86,8 +95,4 @@ function callGeneratorMatchOutput(args, cb) {
 //   return generatorExePath;
 // }
 
-module.exports = {
-  callGenerator,
-  callGeneratorBuf,
-  callGeneratorMatchOutput,
-};
+export { callGenerator, callGeneratorBuf, callGeneratorMatchOutput };
