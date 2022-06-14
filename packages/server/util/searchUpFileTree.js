@@ -2,7 +2,7 @@ const path = require('path');
 
 function searchUpFileTree(startDir, cb) {
   let prevPath = null;
-  let currPath = __dirname;
+  let currPath = startDir;
 
   while (true) {
     if (currPath === prevPath) {

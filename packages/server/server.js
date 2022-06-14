@@ -30,6 +30,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 console.log(process.env);
 
+const { initConfig, resolveRootPath, resolveOutputPath } = require('./config');
+initConfig();
+
 const url = require('url');
 const fs = require('fs');
 const path = require('path');
@@ -40,7 +43,6 @@ const {
   callGenerator,
   callGeneratorMatchOutput,
   callGeneratorBuf,
-  genOutputPath,
 } = require('./util');
 const { normalizeStringToMax128Bytes } = require('./util/string');
 
@@ -48,7 +50,6 @@ const app = express(); // create express app
 app.use(cors());
 
 const bodyParser = require('body-parser');
-const findRootDir = require('./util/findRootDir');
 app.use(bodyParser.json());
 
 let root;
@@ -65,10 +66,7 @@ if (process.env.NODE_ENV === 'production') {
   // root = path.join(__dirname, 'packages', 'client');
   // indexHtmlPath = path.join(__dirname, 'packages', 'client', 'index.html');
 
-  const rootDir = findRootDir();
-  if (rootDir == null) {
-    throw new Error('Could not find root directory for server.');
-  }
+  const rootDir = resolveRootPath();
 
   root = path.join(rootDir, 'packages', 'client');
   indexHtmlPath = path.join(root, 'index.html');
@@ -191,7 +189,7 @@ app.get('/api/creategci', function (req, res) {
     return;
   }
 
-  const filePath = genOutputPath(`seeds/${id}/input.json`);
+  const filePath = resolveOutputPath(`seeds/${id}/input.json`);
   if (fs.existsSync(filePath)) {
     const ff = fs.readFileSync(filePath);
     const json = JSON.parse(ff);
@@ -287,7 +285,7 @@ app.get('/seed', (req, res) => {
       const { id } = req.query;
 
       // const filePath = path.join(__dirname, `seeds/${id}/input.json`);
-      const filePath = genOutputPath(`seeds/${id}/input.json`);
+      const filePath = resolveOutputPath(`seeds/${id}/input.json`);
 
       if (fs.existsSync(filePath)) {
         const json = JSON.parse(fs.readFileSync(filePath));
