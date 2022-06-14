@@ -5,17 +5,12 @@ import searchUpFileTree from './util/searchUpFileTree';
 if (process.env.NODE_ENV === 'production') {
   require('dotenv').config();
 } else {
-  const rootPath = searchUpFileTree(__dirname, (currPath) => {
-    const outputConfigPath = path.join(currPath, '.env');
-    if (fs.existsSync(outputConfigPath)) {
-      return true;
-    }
-    return false;
-  });
+  const envFileDir = searchUpFileTree(__dirname, (currPath) =>
+    fs.existsSync(path.join(currPath, '.env'))
+  );
 
-  console.log('about to run dotenv');
   require('dotenv').config({
-    path: path.join(rootPath, '.env.development'),
+    path: path.join(envFileDir, '.env.development'),
   });
 }
 console.log(process.env);

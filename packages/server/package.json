@@ -21,6 +21,7 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "start": "ts-node src/server.ts"
+    "start": "ts-node src/server.ts",
+    "debug": "nodemon --exec \"node --inspect=0.0.0.0:9229 --require ts-node/register src/server.ts\""
   }
 }
