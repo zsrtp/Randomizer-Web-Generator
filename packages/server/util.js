@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const { execSync, execFile } = require('child_process');
 const spawn = require('cross-spawn');
+const findRootDir = require('./util/findRootDir');
 
 let outputPath = null;
 initOutputPath();
@@ -45,7 +46,7 @@ if (process.platform === 'win32') {
   exePath += '.exe';
 }
 
-const generatorExePath = path.resolve(__dirname, exePath);
+const generatorExePath = path.resolve(findRootDir(), exePath);
 
 // const generatorExePath = path.join(
 //   __dirname,

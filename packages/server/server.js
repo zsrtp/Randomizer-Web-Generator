@@ -36,18 +36,19 @@ const path = require('path');
 const cors = require('cors');
 const express = require('express');
 const spawn = require('cross-spawn');
-const toArray = require('lodash.toarray');
 const {
   callGenerator,
   callGeneratorMatchOutput,
   callGeneratorBuf,
   genOutputPath,
 } = require('./util');
+const { normalizeStringToMax128Bytes } = require('./util/string');
 
 const app = express(); // create express app
 app.use(cors());
 
 const bodyParser = require('body-parser');
+const findRootDir = require('./util/findRootDir');
 app.use(bodyParser.json());
 
 let root;
@@ -59,57 +60,18 @@ if (process.env.NODE_ENV === 'production') {
   indexHtmlPath = path.join(__dirname, '..', 'client', 'build', 'index.html');
 } else {
   // root = path.join(__dirname, 'build');
-  root = path.join(__dirname, 'packages', 'client');
   // indexHtmlPath = path.join(__dirname, 'build', 'index.html');
-  indexHtmlPath = path.join(__dirname, 'packages', 'client', 'index.html');
-}
 
-function normalizeStringToMax128Bytes(inputStr) {
-  // substring to save lodash some work potentially. 256 because some
-  // characters like emojis have length 2, and we want to leave at least 128
-  // glyphs. Normalize is to handle writing the same unicode chars in
-  // different ways.
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
-  let seedStr = inputStr
-    .normalize()
-    .trim()
-    .replace(/\s+/g, ' ')
-    .substring(0, 256);
+  // root = path.join(__dirname, 'packages', 'client');
+  // indexHtmlPath = path.join(__dirname, 'packages', 'client', 'index.html');
 
-  // The whitespace replacement already handles removing \n, \r, \f, and \t,
-  // so the only characters left which have to be escaped are double-quote,
-  // backslash, and backspace (\b or \x08). Even though they are only 1 byte in
-  // UTF-8, we say those ones are 2 bytes because they will take 2 bytes in
-  // the json file due to the backslash escape character.
-
-  // Allow 128 bytes max
-  const textEncoder = new TextEncoder();
-  let len = 0;
-  let str = '';
-
-  // We use the lodash.toarray method because it handles chars like 👩‍❤️‍💋‍👩.
-  // Another approach that almost works is str.match(/./gu), but this returns
-  // [ "👩", "‍", "❤", "️", "‍", "💋", "‍", "👩" ] for 👩‍❤️‍💋‍👩.
-  const chars = toArray(seedStr);
-  for (let i = 0; i < chars.length; i++) {
-    const char = chars[i];
-
-    let byteLength;
-    if (char === '"' || char === '\\' || char === '\b') {
-      byteLength = 2; // Will use 2 chars in the json file
-    } else {
-      byteLength = textEncoder.encode(char).length;
-    }
-
-    if (len + byteLength <= 128) {
-      str += char;
-      len += byteLength;
-    } else {
-      break;
-    }
+  const rootDir = findRootDir();
+  if (rootDir == null) {
+    throw new Error('Could not find root directory for server.');
   }
 
-  return str.trim();
+  root = path.join(rootDir, 'packages', 'client');
+  indexHtmlPath = path.join(root, 'index.html');
 }
 
 app.post('/api/generateseed', function (req, res) {
@@ -314,7 +276,7 @@ const escapeHtml = (str) =>
       }[tag])
   );
 
-app.get('/getseed', (req, res) => {
+app.get('/seed', (req, res) => {
   fs.readFile(path.join(root, 'getseed.html'), function read(err, data) {
     if (err) {
       console.log(err);

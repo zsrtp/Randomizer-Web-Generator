@@ -878,7 +878,7 @@ $('#generateSeed').on('click', () => {
         console.error(data);
         showGeneratingModalError(`Error:\n${data.error}`);
       } else if (data.data && data.data.id) {
-        window.location.href = '/getseed?id=' + data.data.id;
+        window.location.href = '/seed?id=' + data.data.id;
       } else {
         generateCallInProgress = false;
         console.error('Unrecognized response from `/api/generateseed`');
