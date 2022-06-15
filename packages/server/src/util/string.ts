@@ -1,4 +1,4 @@
-const toArray = require('lodash.toarray');
+import toArray from 'lodash.toarray';
 
 function normalizeStringToMax128Bytes(inputStr: string): string {
   // substring to save lodash some work potentially. 256 because some
@@ -48,6 +48,4 @@ function normalizeStringToMax128Bytes(inputStr: string): string {
   return str.trim();
 }
 
-module.exports = {
-  normalizeStringToMax128Bytes,
-};
+export { normalizeStringToMax128Bytes };

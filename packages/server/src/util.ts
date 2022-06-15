@@ -1,19 +1,5 @@
 import { execSync, execFile, ExecFileException } from 'child_process';
-const { resolveRootPath } = require('./config');
-
-let exePath = process.env.TPR_GENERATOR_EXE_PATH;
-if (process.platform === 'win32') {
-  // This does not mean 32-bit Windows only. Should work for all of them.
-  exePath += '.exe';
-}
-
-const generatorExePath = resolveRootPath(exePath);
-
-// const generatorExePath = path.join(
-//   __dirname,
-//   // 'Generator/bin/release/net5.0/TPRandomizer.exe'
-//   'Generator/bin/Debug/net5.0/TPRandomizer.exe'
-// );
+import { resolveRootPath, generatorExePath } from 'src/config';
 
 function callGenerator(...args: string[]) {
   const command = [generatorExePath].concat(args).join(' ');

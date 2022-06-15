@@ -122,6 +122,8 @@ function onDomContentLoaded() {
     const { value } = e.target;
     e.target.value = normalizeStringToMax128Bytes(value);
   });
+
+  tempTestQueueFunc();
 }
 
 const RawSettingType = {
@@ -1098,6 +1100,47 @@ function populateSSettings(s) {
       }
     });
   }
+}
+
+function tempTestQueueFunc() {
+  const settingsString =
+    genSettingsString() + window.tpr.shared.genUSettingsFromUi();
+
+  fetch('/api/seed/generate', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      settingsString: settingsString,
+      seed: $('#seed').val(),
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('/api/seed/generate data');
+      console.log(data);
+      // if (data.error) {
+      //   generateCallInProgress = false;
+      //   console.error('`/api/generateseed` error:');
+      //   console.error(data);
+      //   showGeneratingModalError(`Error:\n${data.error}`);
+      // } else if (data.data && data.data.id) {
+      //   window.location.href = '/seed?id=' + data.data.id;
+      // } else {
+      //   generateCallInProgress = false;
+      //   console.error('Unrecognized response from `/api/generateseed`');
+      //   console.error(data);
+      //   showGeneratingModalError(
+      //     'Unrecognized response from `/api/generateseed`.'
+      //   );
+      // }
+    })
+    .catch((err) => {
+      console.error('/api/seed/generate error');
+      console.error(err);
+    });
 }
 
 // // TODO: remove test code

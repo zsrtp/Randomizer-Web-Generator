@@ -1,9 +1,10 @@
-const fs = require('fs-extra');
+import fs from 'fs-extra';
 import path from 'path';
 import searchUpFileTree from './util/searchUpFileTree';
 
 let rootPath: string;
 let outputPath: string;
+let generatorExePath: string;
 
 function initConfig() {
   const outputVolumePath: string = process.env.OUTPUT_VOLUME_PATH;
@@ -26,20 +27,22 @@ function initConfig() {
   }
 
   fs.mkdirp(outputPath);
+
+  let exePath = process.env.TPR_GENERATOR_EXE_PATH;
+  if (process.platform === 'win32') {
+    // This does not mean 32-bit Windows only. Should work for all of them.
+    exePath += '.exe';
+  }
+
+  generatorExePath = resolveRootPath(exePath);
 }
 
-path.resolve();
-
-function resolveRootPath(...args: string[]): string {
-  return path.resolve(rootPath, ...args);
+function resolveRootPath(...str: string[]): string {
+  return path.resolve(rootPath, ...str);
 }
 
-function resolveOutputPath(...args: string[]): string {
-  return path.resolve(outputPath, ...args);
+function resolveOutputPath(...str: string[]): string {
+  return path.resolve(outputPath, ...str);
 }
 
-module.exports = {
-  initConfig,
-  resolveRootPath,
-  resolveOutputPath,
-};
+export { initConfig, resolveRootPath, resolveOutputPath, generatorExePath };
