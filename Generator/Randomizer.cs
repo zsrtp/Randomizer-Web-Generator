@@ -2,6 +2,7 @@ namespace TPRandomizer
 {
     using System;
     using System.Collections.Generic;
+    using System.Text.RegularExpressions;
     using System.IO;
     using System.Linq;
     using Newtonsoft.Json;
@@ -125,8 +126,38 @@ namespace TPRandomizer
             return generationStatus;
         }
 
-        public static bool CreateInputJson(string settingsString, string seed)
+        public static bool CreateInputJson(string idParam, string settingsString, string seed)
         {
+            if (idParam == null || (idParam != "idnull" && !(new Regex("^id[0-9A-Za-z-_]{11}$").IsMatch(idParam))))
+            {
+                throw new Exception("Invalid id param.");
+            }
+
+            string id = "";
+            string outputPath = "";
+
+            if (idParam == "idnull") {
+                bool idConfirmedUnique = false;
+                while (!idConfirmedUnique)
+                {
+                    id = Util.Hash.GenId();
+                    // outputPath = Path.Combine("seeds", id, "input.json");
+                    outputPath = Global.CombineOutputPath("seeds", id, "input.json");
+
+                    if (!File.Exists(outputPath))
+                        idConfirmedUnique = true;
+                }
+            }
+            else
+            {
+                id = idParam.Substring(2);
+                outputPath = Global.CombineOutputPath("seeds", id, "input.json");
+                if (File.Exists(outputPath))
+                {
+                    throw new Exception("input.json already exists for the id '" + id + "'.");
+                }
+            }
+
             // Generate seedHash from seed
             if (seed == null || seed.Length < 1)
             {
@@ -205,20 +236,6 @@ namespace TPRandomizer
             }
 
             string jsonContent = GenerateInputJsonContent(settingsString, seed, seedHash);
-
-            string id = "";
-            string outputPath = "";
-            bool idConfirmedUnique = false;
-
-            while (!idConfirmedUnique)
-            {
-                id = Util.Hash.GenId();
-                // outputPath = Path.Combine("seeds", id, "input.json");
-                outputPath = Global.CombineOutputPath("seeds", id, "input.json");
-
-                if (!File.Exists(outputPath))
-                    idConfirmedUnique = true;
-            }
 
             try
             {

@@ -1102,6 +1102,31 @@ function populateSSettings(s) {
   }
 }
 
+function testProgressFunc(id) {
+  fetch(`/api/seed/progress/${id}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('/api/seed/progress data');
+      console.log(data);
+
+      if (!data.data.obj.done) {
+        setTimeout(() => {
+          testProgressFunc(id);
+        }, 2000);
+      }
+    })
+    .catch((err) => {
+      console.error('/api/seed/progress error');
+      console.error(err);
+    });
+}
+
 function tempTestQueueFunc() {
   const settingsString =
     genSettingsString() + window.tpr.shared.genUSettingsFromUi();
@@ -1121,6 +1146,9 @@ function tempTestQueueFunc() {
     .then((data) => {
       console.log('/api/seed/generate data');
       console.log(data);
+
+      testProgressFunc(data.data.id);
+
       // if (data.error) {
       //   generateCallInProgress = false;
       //   console.error('`/api/generateseed` error:');
@@ -1142,8 +1170,3 @@ function tempTestQueueFunc() {
       console.error(err);
     });
 }
-
-// // TODO: remove test code
-// setTimeout(() => {
-//   window.decodeSettingsString('0sPB13400007__u0pf8W06FH3DW');
-// }, 1000);

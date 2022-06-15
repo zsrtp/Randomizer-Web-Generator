@@ -1,7 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
 import searchUpFileTree from './util/searchUpFileTree';
-import apiSeedGenerate from './api/seed/apiSeedGenerate';
 
 if (process.env.NODE_ENV === 'production') {
   require('dotenv').config();
@@ -28,6 +27,8 @@ import {
   callGeneratorBuf,
 } from './util';
 import { genElevenCharId } from './util/genId';
+import apiSeedProgress from './api/seed/apiSeedProgress';
+import apiSeedGenerate from './api/seed/apiSeedGenerate';
 const { normalizeStringToMax128Bytes } = require('./util/string');
 
 const app = express(); // create express app
@@ -57,6 +58,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.post('/api/seed/generate', apiSeedGenerate);
+app.get('/api/seed/progress/:id', apiSeedProgress);
 
 app.post(
   '/api/generateseed',

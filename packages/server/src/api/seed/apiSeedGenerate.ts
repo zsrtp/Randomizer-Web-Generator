@@ -38,7 +38,7 @@ function apiSeedGenerate(req: express.Request, res: express.Response) {
   res.send({
     data: {
       id: queuedGenerationStatus.id,
-      progress: queuedGenerationStatus.requestStatus.p,
+      progress: queuedGenerationStatus.requestStatus.progress,
     },
   });
 
