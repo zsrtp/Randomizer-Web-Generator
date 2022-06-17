@@ -127,7 +127,7 @@ function onDomContentLoaded() {
     e.target.value = normalizeStringToMax128Bytes(value);
   });
 
-  tempTestQueueFunc();
+  // tempTestQueueFunc();
 }
 
 function initJwt() {
@@ -890,26 +890,38 @@ $('#generateSeed').on('click', () => {
   const settingsString =
     genSettingsString() + window.tpr.shared.genUSettingsFromUi();
 
-  fetch('/api/generateseed', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      settingsString: settingsString,
-      seed: $('#seed').val(),
-    }),
-  })
+  // fetch('/api/generateseed', {
+  window.tpr.shared
+    .fetch('/api/seed/generate', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        settingsString: settingsString,
+        seed: $('#seed').val(),
+      }),
+    })
     .then((response) => response.json())
-    .then((data) => {
-      if (data.error) {
+    .then(({ data, error }) => {
+      if (error) {
         generateCallInProgress = false;
         console.error('`/api/generateseed` error:');
-        console.error(data);
-        showGeneratingModalError(`Error:\n${data.error}`);
-      } else if (data.data && data.data.id) {
-        window.location.href = '/seed?id=' + data.data.id;
+        showGeneratingModalError(`Error:\n${error}`);
+      } else if (data && data.seedId && data.requesterHash) {
+        try {
+          localStorage.setItem('lastGeneratedSeedId', data.seedId);
+          localStorage.setItem('requesterHash', data.requesterHash);
+        } catch (e) {
+          console.error(
+            `Failed to set lastGeneratedSeedId in localStorage to ${data.data}`
+          );
+          console.error(e);
+        }
+
+        // window.location.href = '/seed?id=' + data.data;
+        window.location.href = `/seed/${data.seedId}`;
       } else {
         generateCallInProgress = false;
         console.error('Unrecognized response from `/api/generateseed`');

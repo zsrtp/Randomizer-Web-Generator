@@ -156,7 +156,26 @@
 
       $('#create').on('click', handleCreateClick);
     } else {
-      byId('filename').textContent = 'Invalid seed ID.';
+      let shouldCheckProgress = false;
+
+      const requesterHashEl = document.getElementById('requesterHash');
+      if (requesterHashEl) {
+        try {
+          const requesterHash = localStorage.getItem('requesterHash');
+          if (requesterHash === requesterHashEl.value) {
+            shouldCheckProgress = true;
+          }
+        } catch (e) {
+          shouldCheckProgress = true;
+        }
+      }
+
+      if (shouldCheckProgress) {
+        byId('filename').textContent = 'Checking progress...';
+        startCheckProgressRoutine();
+      } else {
+        byId('filename').textContent = 'Invalid seed ID.';
+      }
     }
 
     // fetch('/api/creategci')
@@ -666,6 +685,50 @@
         if (canHide && e.target === this) {
           hideModal();
         }
+      });
+  }
+
+  function startCheckProgressRoutine() {
+    const match = window.location.pathname.match(/[^\/]+$/);
+    if (!match) {
+      console.error('Failed to parse `location.pathname` to check progress.');
+      return;
+    }
+
+    const id = match[0];
+    runProgressCheck(id);
+  }
+
+  function runProgressCheck(id) {
+    window.tpr.shared
+      .fetch(`/api/seed/progress/${id}`)
+      .then((response) => response.json())
+      .then(({ error, data = {} }) => {
+        console.log('/api/seed/progress data');
+        console.log(data);
+
+        if (error) {
+          throw new Error(errors[0].message);
+        } else if (data) {
+          const { done, progress, queuePos, queueLength } = data;
+
+          if (done) {
+            window.location.reload();
+            return;
+          }
+
+          byId(
+            'filename'
+          ).textContent = `progress: ${progress}; qPos: ${queuePos}; qLen: ${queueLength}`;
+
+          setTimeout(() => {
+            runProgressCheck(id);
+          }, 2000);
+        }
+      })
+      .catch((err) => {
+        console.error('/api/seed/progress error');
+        console.error(err);
       });
   }
 })();

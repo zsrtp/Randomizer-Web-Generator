@@ -9,21 +9,21 @@ type GenerationRequest = {
   seed: string;
 };
 
-type QueuedGenerationStatus = {
-  id: string;
-  requestStatus: GenerationStatus;
-};
-
 type GenerationRequestMap = {
   [key: string]: GenerationStatus;
 };
 
-const byId: GenerationRequestMap = {};
+type UserIdToSeedIdMap = {
+  [key: string]: string;
+};
+
+const seedIdToRequestStatus: GenerationRequestMap = {};
+const userIdToSeedId: UserIdToSeedIdMap = {};
 const fastQueue: string[] = [];
 const slowQueue: string[] = [];
 let idInProgress: string = null;
 
-function genUniqueId(): string {
+function genUniqueSeedId(): string {
   let id;
 
   while (true) {
@@ -31,7 +31,7 @@ function genUniqueId(): string {
 
     // Check if in queue or if this id has been generated before.
     if (
-      !byId[id] &&
+      !seedIdToRequestStatus[id] &&
       !fs.existsSync(resolveOutputPath('seeds', id, 'input.json'))
     ) {
       return id;
@@ -39,15 +39,29 @@ function genUniqueId(): string {
   }
 }
 
-function getGenerationProgress(id: string) {
+type GenerationProgress = {
+  error?: string;
+  generationStatus?: GenerationStatus;
+  queuePos?: number;
+  queueLength?: number;
+};
+
+function getGenerationProgress(id: string): GenerationProgress {
+  if (!seedIdToRequestStatus[id]) {
+    return {
+      error: 'No data for that id.',
+    };
+  }
+
   return {
-    obj: byId[id],
-    fastQueueLength: fastQueue.length,
-    slowQueueLength: slowQueue.length,
+    generationStatus: seedIdToRequestStatus[id],
+    queuePos: fastQueue.indexOf(id),
+    queueLength: fastQueue.length,
   };
 }
 
 function makeRequestStatus(
+  seedId: string,
   generationRequest: GenerationRequest
 ): GenerationStatus {
   if (!generationRequest || !generationRequest.settingsString) {
@@ -55,6 +69,8 @@ function makeRequestStatus(
   }
 
   return new GenerationStatus(
+    seedId,
+    genElevenCharId(),
     generationRequest.settingsString,
     generationRequest.seed
   );
@@ -75,7 +91,7 @@ function processQueueItem(isFastQueue: boolean) {
   if (idToProcess) {
     idInProgress = idToProcess;
 
-    const generationStatus = byId[idToProcess];
+    const generationStatus = seedIdToRequestStatus[idToProcess];
     generationStatus.updateProgress('started');
 
     callGeneratorMatchOutput(
@@ -128,31 +144,40 @@ function notifyQueueItemAdded() {
   processQueueItems();
 }
 
+type QueuedGenerationStatus = {
+  seedId: string;
+  requesterHash: string;
+  // requestStatus: GenerationStatus;
+};
+
 // add an item to the fast queue
 function addToFastQueue(
+  userId: string,
   generationRequest: GenerationRequest
 ): QueuedGenerationStatus {
   if (!generationRequest) {
     return null;
   }
 
-  const id = genUniqueId();
+  // Check if user already has an item queued for their userId.
 
-  const requestStatus = makeRequestStatus(generationRequest);
+  const seedId = genUniqueSeedId();
 
+  const requestStatus = makeRequestStatus(seedId, generationRequest);
   if (!requestStatus) {
     return null;
   }
 
-  byId[id] = requestStatus;
-  fastQueue.push(id);
+  seedIdToRequestStatus[seedId] = requestStatus;
+  userIdToSeedId[userId] = seedId;
+  fastQueue.push(seedId);
 
   notifyQueueItemAdded();
 
   // Check if can process.
   return {
-    id,
-    requestStatus,
+    seedId,
+    requesterHash: requestStatus.requesterHash,
   };
 }
 
@@ -175,6 +200,25 @@ export {
   swapToSlowQueue,
   filterFastQueue,
 };
+
+// When we create the seed, we map
+// userId => seedId
+// seedId => requestStatus
+// queue[seedIds....]
+
+// On the server, we update the status as appropriate
+// independent of the client.
+
+// After a status item hasn't had its timestamp updated
+// for an hour, we will remove it from the maps.
+
+// So for one to be considered in progress,
+// meaning we want the requester to make progress calls on it,
+// that means it does not exist on disk, and there is a status
+// for it.
+
+// The client will only make progress requests on it in the
+// case that the requesterHash is present.
 
 // setInterval(() => {
 //   queuesMgr.filterFastQueue((queueItem) => {

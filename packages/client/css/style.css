@@ -10,7 +10,7 @@
 }
 
 html {
-  background: url(../img/bg.webp) no-repeat center center fixed;
+  background: url(/img/bg.webp) no-repeat center center fixed;
   background-color: #190a05;
   background-size: cover;
 }

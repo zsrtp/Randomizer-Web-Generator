@@ -1,13 +1,22 @@
 class GenerationStatus {
   timestamp: number;
+  seedId: string;
+  requesterHash: string;
   done: boolean;
   progress: string;
   error: boolean;
   settingsString: string;
   seed: string;
 
-  constructor(settingsString: string, seed: string) {
+  constructor(
+    seedId: string,
+    requesterHash: string,
+    settingsString: string,
+    seed: string
+  ) {
     this.timestamp = new Date().getTime();
+    this.seedId = seedId;
+    this.requesterHash = requesterHash;
     this.done = false;
     this.progress = 'queued';
     this.error = false;

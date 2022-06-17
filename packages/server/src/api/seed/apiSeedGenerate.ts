@@ -23,12 +23,10 @@ function apiSeedGenerate(req: express.Request, res: express.Response) {
   console.log(`seedStr: '${seedStr}'`);
 
   // Need to
-  const queuedGenerationStatus = addToFastQueue({
+  const queuedGenerationStatus = addToFastQueue(userId, {
     settingsString,
     seed,
   });
-
-  console.log(77);
 
   // Want to say the following:
   // Send error as main obj if there was an error.
@@ -39,10 +37,7 @@ function apiSeedGenerate(req: express.Request, res: express.Response) {
   // how many items are in the fast and slow queues
 
   res.send({
-    data: {
-      id: queuedGenerationStatus.id,
-      progress: queuedGenerationStatus.requestStatus.progress,
-    },
+    data: queuedGenerationStatus,
   });
 
   // callGeneratorMatchOutput(

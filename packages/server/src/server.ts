@@ -31,6 +31,7 @@ import apiSeedGenerate from './api/seed/apiSeedGenerate';
 import { genUserJwt } from './util/jwt';
 const { normalizeStringToMax128Bytes } = require('./util/string');
 import jwt from 'jsonwebtoken';
+import { getGenerationProgress } from './generationQueues';
 
 declare global {
   namespace Express {
@@ -50,9 +51,6 @@ app.use(bodyParser.json());
 app.all(
   '/api/*',
   (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.log('req.headers.authorization');
-    console.log(req.headers.authorization);
-
     if (
       !req.headers.authorization ||
       !req.headers.authorization.startsWith('Bearer ')
@@ -77,6 +75,18 @@ app.get(
   '*',
   (req: express.Request, res: express.Response, next: express.NextFunction) => {
     if (req.path.indexOf('.') < 0 && !req.path.startsWith('/api/')) {
+      const userAgent = req.headers['user-agent'];
+      if (!userAgent) {
+        return res.send('Unsupported User-Agent.');
+      } else if (
+        userAgent.indexOf('MSIE ') >= 0 ||
+        userAgent.indexOf('Trident/') >= 0
+      ) {
+        return res.send(
+          'Internet Explorer is not supported. Please use a different browser.'
+        );
+      }
+
       req.newUserJwt = genUserJwt();
     }
     next();
@@ -331,7 +341,7 @@ const escapeHtml = (str: string) =>
       }[tag])
   );
 
-app.get('/seed', (req: express.Request, res: express.Response) => {
+app.get('/seed/:id', (req: express.Request, res: express.Response) => {
   fs.readFile(path.join(root, 'getseed.html'), function read(err, data) {
     if (err) {
       console.log(err);
@@ -339,12 +349,21 @@ app.get('/seed', (req: express.Request, res: express.Response) => {
     } else {
       let msg = data.toString();
 
-      const { id } = req.query;
+      // const { id } = <{ id: string }>req.query;
+      // if (!id || typeof id )
+
+      const { id } = req.params;
+
+      if (!id) {
+        res.status(400).send({ error: 'Malformed request.' });
+        return;
+      }
 
       // const filePath = path.join(__dirname, `seeds/${id}/input.json`);
       const filePath = resolveOutputPath(`seeds/${id}/input.json`);
 
       if (fs.existsSync(filePath)) {
+        // Completely done generating
         const json = JSON.parse(
           fs.readFileSync(filePath, { encoding: 'utf8' })
         );
@@ -356,6 +375,22 @@ app.get('/seed', (req: express.Request, res: express.Response) => {
           '<!-- INPUT_JSON_DATA -->',
           `<input id='inputJsonData' type='hidden' value='${fileContents}'>`
         );
+        msg = msg.replace('<!-- REQUESTER_HASH -->', '');
+      } else {
+        const { generationStatus } = getGenerationProgress(id);
+        if (generationStatus) {
+          // Generation requested but not completed and not 100% forgotten about
+          // by the server
+          msg = msg.replace('<!-- INPUT_JSON_DATA -->', '');
+          msg = msg.replace(
+            '<!-- REQUESTER_HASH -->',
+            `<input id='requesterHash' type='hidden' value='${generationStatus.requesterHash}'>`
+          );
+        } else {
+          // Have no idea what the client is talking about with that seedId
+          msg = msg.replace('<!-- INPUT_JSON_DATA -->', '');
+          msg = msg.replace('<!-- REQUESTER_HASH -->', '');
+        }
       }
 
       res.send(msg);

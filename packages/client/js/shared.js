@@ -858,9 +858,17 @@
     }
   });
 
-  function fetchWrapper(resource, init) {
+  function fetchWrapper(resource, init = {}) {
     const newInit = init || {};
     newInit.headers = init.headers || {};
+
+    if (!newInit.headers.Accept) {
+      newInit.headers.Accept = 'application/json';
+    }
+
+    if (!newInit.headers['Content-Type']) {
+      newInit.headers['Content-Type'] = 'application/json';
+    }
 
     if (!newInit.headers.Authorization) {
       newInit.headers.Authorization = `Bearer ${userJwt}`;

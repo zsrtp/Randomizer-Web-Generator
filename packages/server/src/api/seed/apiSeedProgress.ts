@@ -12,32 +12,41 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
     return;
   }
 
-  const item = getGenerationProgress(id);
+  const { error, generationStatus, queuePos, queueLength } =
+    getGenerationProgress(id);
 
-  console.log(88);
-
-  // Want to say the following:
-  // Send error as main obj if there was an error.
-
-  // For data:
-  // id of request.
-  // progress status (queued)
-  // how many items are in the fast and slow queues
+  if (error) {
+    return res.send({
+      error: {
+        errors: [
+          {
+            reason: 'not_found',
+            message: `Unable to find generation status for id: ${id}`,
+          },
+        ],
+      },
+    });
+  } else if (generationStatus.error) {
+    return res.send({
+      error: {
+        errors: [
+          {
+            reason: 'generation_error',
+            message: 'Generation failed.',
+          },
+        ],
+      },
+    });
+  }
 
   res.send({
-    data: item,
+    data: {
+      done: generationStatus.done,
+      progress: generationStatus.progress,
+      queuePos,
+      queueLength,
+    },
   });
-
-  // callGeneratorMatchOutput(
-  //   ['generate2', settingsString, seedStr],
-  //   (error, data) => {
-  //     if (error) {
-  //       res.status(500).send({ error });
-  //     } else {
-  //       res.send({ data: { id: data } });
-  //     }
-  //   }
-  // );
 }
 
 export default apiSeedProgress;
