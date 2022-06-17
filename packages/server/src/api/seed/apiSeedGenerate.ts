@@ -4,6 +4,9 @@ import { callGeneratorMatchOutput } from 'src/util';
 import { normalizeStringToMax128Bytes } from 'src/util/string';
 
 function apiSeedGenerate(req: express.Request, res: express.Response) {
+  const { userId } = req;
+  console.log(`USER ID IS: ${userId}`);
+
   const { settingsString, seed } = req.body;
 
   if (!settingsString || typeof settingsString !== 'string') {

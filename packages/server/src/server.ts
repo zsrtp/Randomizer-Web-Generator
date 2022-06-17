@@ -26,16 +26,62 @@ import {
   callGeneratorMatchOutput,
   callGeneratorBuf,
 } from './util';
-import { genElevenCharId } from './util/genId';
 import apiSeedProgress from './api/seed/apiSeedProgress';
 import apiSeedGenerate from './api/seed/apiSeedGenerate';
+import { genUserJwt } from './util/jwt';
 const { normalizeStringToMax128Bytes } = require('./util/string');
+import jwt from 'jsonwebtoken';
+
+declare global {
+  namespace Express {
+    interface Request {
+      newUserJwt?: string;
+      userId?: string;
+    }
+  }
+}
 
 const app = express(); // create express app
 app.use(cors());
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+
+app.all(
+  '/api/*',
+  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.log('req.headers.authorization');
+    console.log(req.headers.authorization);
+
+    if (
+      !req.headers.authorization ||
+      !req.headers.authorization.startsWith('Bearer ')
+    ) {
+      return res.status(403).send({ error: 'Forbidden' });
+    }
+
+    const token = req.headers.authorization.substring(7);
+
+    jwt.verify(token, 'example_secret_key', (err, data: jwt.JwtPayload) => {
+      if (err || !data.uid) {
+        return res.status(403).send({ error: 'Forbidden' });
+      }
+
+      req.userId = data.uid;
+      next();
+    });
+  }
+);
+
+app.get(
+  '*',
+  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (req.path.indexOf('.') < 0 && !req.path.startsWith('/api/')) {
+      req.newUserJwt = genUserJwt();
+    }
+    next();
+  }
+);
 
 let root: string;
 let indexHtmlPath: string;
@@ -213,12 +259,17 @@ app.get('/', (req: express.Request, res: express.Response) => {
       console.log(err);
       res.status(500).send({ error: 'Internal server error.' });
     } else {
+      let msg = data.toString();
+      msg = msg.replace(
+        '<!-- USER_ID -->',
+        `<input id="userJwtInput" type="hidden" value="${req.newUserJwt}">`
+      );
+
       const excludedChecksList = JSON.parse(callGenerator('print_check_ids'));
       const arr = Object.keys(excludedChecksList).map((key) => {
         return `<li><label><input type='checkbox' data-checkId='${excludedChecksList[key]}'>${key}</label></li>`;
       });
 
-      let msg = data.toString();
       msg = msg.replace('<!-- CHECK_IDS -->', arr.join('\n'));
 
       const startingItems = [

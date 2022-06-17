@@ -1,5 +1,7 @@
 const $ = window.$;
 
+let userJwt;
+
 function normalizeStringToMax128Bytes(inputStr, doTrims) {
   // substring to save lodash some work potentially. 256 because some
   // characters like emojis have length 2, and we want to leave at least 128
@@ -111,6 +113,8 @@ window.addEventListener('pageshow', function (event) {
 });
 
 function onDomContentLoaded() {
+  initJwt();
+
   initTabButtons();
 
   setSettingsString();
@@ -124,6 +128,31 @@ function onDomContentLoaded() {
   });
 
   tempTestQueueFunc();
+}
+
+function initJwt() {
+  try {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      userJwt = jwt;
+      return;
+    }
+  } catch (e) {
+    console.error('Could not read jwt from localStorage.');
+    console.error(e);
+  }
+
+  const jwtEl = document.getElementById('userJwtInput');
+  if (jwtEl) {
+    userJwt = jwtEl.value;
+  }
+
+  try {
+    localStorage.setItem('jwt', userJwt);
+  } catch (e) {
+    console.error('Could not set jwt to localStorage.');
+    console.error(e);
+  }
 }
 
 const RawSettingType = {
@@ -1103,13 +1132,14 @@ function populateSSettings(s) {
 }
 
 function testProgressFunc(id) {
-  fetch(`/api/seed/progress/${id}`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  })
+  window.tpr.shared
+    .fetch(`/api/seed/progress/${id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
     .then((response) => response.json())
     .then((data) => {
       console.log('/api/seed/progress data');
@@ -1131,17 +1161,21 @@ function tempTestQueueFunc() {
   const settingsString =
     genSettingsString() + window.tpr.shared.genUSettingsFromUi();
 
-  fetch('/api/seed/generate', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      settingsString: settingsString,
-      seed: $('#seed').val(),
-    }),
-  })
+  // fetch('/api/seed/generate', {
+  window.tpr.shared
+    .fetch('/api/seed/generate', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        // Authorization: 'example auth content',
+        // Authorization: `Bearer ${userJwt}`,
+      },
+      body: JSON.stringify({
+        settingsString: settingsString,
+        seed: $('#seed').val(),
+      }),
+    })
     .then((response) => response.json())
     .then((data) => {
       console.log('/api/seed/generate data');
@@ -1170,3 +1204,50 @@ function tempTestQueueFunc() {
       console.error(err);
     });
 }
+
+// Temp queue testing stuff
+(function () {
+  const queueParent = document.getElementById('queueParent');
+  const images = [];
+  let imgTags = queueParent.querySelectorAll('img');
+  for (let i = 0; i < imgTags.length; i++) {
+    images.push(imgTags[i]);
+  }
+
+  let queuePosition = 5;
+
+  function swapImages() {
+    if (queuePosition > 0) {
+      $('#queuePosText').text(
+        `Your seed request is in the queue at position ${queuePosition}.`
+      );
+    } else {
+      $('#genWarning').hide();
+      $('#queuePosText').text('Generating your seed...');
+    }
+
+    let obachanPos = (queuePosition + 4) % 5;
+
+    images.forEach((img, i) => {
+      if (queuePosition !== 0 && i === obachanPos) {
+        img.className = 'queueImg';
+        img.setAttribute('src', '/img/queue/im_obachan_48.bti.png');
+      } else {
+        img.className = 'queueImg2';
+        img.setAttribute('src', '/img/queue/im_musuko_48.bti.png');
+      }
+    });
+  }
+
+  setInterval(() => {
+    if (queuePosition > 0) {
+      // const decrementAmount = Math.floor(Math.random() * 2) + 1;
+      const decrementAmount = 1;
+      queuePosition -= decrementAmount;
+      if (queuePosition < 0) {
+        queuePosition = 0;
+      }
+      swapImages();
+    }
+  }, 2000);
+})();

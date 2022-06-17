@@ -1023,3 +1023,80 @@ table.getSeedTable td {
   padding: 13px 24px 16px;
   box-sizing: border-box;
 }
+
+@keyframes bobbingAnim {
+  0% {
+    transform: scale(0.999, 0.999) translate3d(0px, 0px, 1px);
+    animation-timing-function: ease-in-out;
+  }
+
+  50% {
+    transform: scale(0.999, 0.999) translate3d(0px, -12px, 1px);
+    animation-timing-function: ease-in-out;
+  }
+
+  100% {
+    transform: scale(0.999, 0.999) translate3d(0px, 0px, 1px);
+    animation-timing-function: ease-in-out;
+  }
+}
+
+/* queue start */
+.queueParent {
+  display: flex;
+  align-items: center;
+  margin-top: 28px;
+  margin-bottom: 16px;
+}
+
+.queueItemWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 130px;
+  /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+  /* animation: 3s ease-in 1s infinite reverse both running slidein; */
+  animation: 1.5s ease-in 0s infinite reverse both running bobbingAnim;
+}
+
+.queueItemWrapper:nth-of-type(1) {
+  /* animation-delay: -1.6s; */
+  /* animation-delay: -1.2s; */
+  animation-delay: -1s;
+}
+
+.queueItemWrapper:nth-of-type(2) {
+  /* animation-delay: -0.9s; */
+  animation-delay: -0.75s;
+}
+
+.queueItemWrapper:nth-of-type(3) {
+  /* animation-delay: -0.6s; */
+  animation-delay: -0.5s;
+}
+
+.queueItemWrapper:nth-of-type(4) {
+  /* animation-delay: -0.3s; */
+  animation-delay: -0.25s;
+}
+
+.queueItemWrapper:nth-of-type(5) {
+  animation-delay: 0s;
+}
+
+.queueImg {
+  /* max-width: 80px; */
+  /* max-height: 80px; */
+  max-width: 96px; /* 75% */
+  max-width: 77px; /* 60% */
+}
+
+.queueImg2 {
+  /* 185 width normally */
+  max-width: 113px; /* 100% */
+  max-width: 56px;
+  max-width: 85px; /* 75% */
+  max-width: 67px; /* 60% */
+}
+/* queue end */

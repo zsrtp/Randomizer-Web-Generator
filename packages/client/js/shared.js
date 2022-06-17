@@ -831,6 +831,56 @@
 
   // window.decodeSettingsString = decodeSettingsString;
 
+  let userJwt;
+
+  window.addEventListener('DOMContentLoaded', () => {
+    try {
+      const jwt = localStorage.getItem('jwt');
+      if (jwt) {
+        userJwt = jwt;
+        return;
+      }
+    } catch (e) {
+      console.error('Could not read jwt from localStorage.');
+      console.error(e);
+    }
+
+    const jwtEl = document.getElementById('userJwtInput');
+    if (jwtEl) {
+      userJwt = jwtEl.value;
+    }
+
+    try {
+      localStorage.setItem('jwt', userJwt);
+    } catch (e) {
+      console.error('Could not set jwt to localStorage.');
+      console.error(e);
+    }
+  });
+
+  function fetchWrapper(resource, init) {
+    const newInit = init || {};
+    newInit.headers = init.headers || {};
+
+    if (!newInit.headers.Authorization) {
+      newInit.headers.Authorization = `Bearer ${userJwt}`;
+    }
+
+    return fetch(resource, newInit).then((res) => {
+      if (res.status === 403) {
+        try {
+          localStorage.removeItem('jwt');
+        } catch (e) {
+          console.error(`Failed to remove 'jwt' from localStorage.`);
+          console.error(e);
+          console.error('Please refresh the page.');
+        }
+      }
+
+      return res;
+    });
+  }
+
   window.tpr = window.tpr || {};
   window.tpr.shared = {
     genSSettingsFromUi,
@@ -838,5 +888,6 @@
     genPSettingsFromUi,
     decodeSettingsString,
     populateUiFromPSettings,
+    fetch: fetchWrapper,
   };
 })();

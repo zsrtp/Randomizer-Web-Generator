@@ -54,6 +54,7 @@
 		<script src="/js/shared.js"></script>
 	</head>
 	<body>
+		<!-- USER_ID -->
 		<script>
 			function tabControl(evt, cityName) {
 				// Declare all variables
@@ -90,6 +91,36 @@
 		<div id="IsNotIE">
 		<div class="mainContentWrapper">
 			<div class="blackbg">
+
+				<div style="width:500px;height:100px;background-color:lightblue;"></div>
+				<div style="display:none;">
+					<div style="font-size: 24px;padding-bottom:20px;">Please Wait</div>
+					<div id="queuePosText">
+						Your seed request is in the queue at position 5.
+					</div>
+					<div id="queueParent" class="queueParent">
+						<div class="queueItemWrapper">
+							<img src="/img/queue/im_musuko_48.bti.png" class="queueImg2">
+						</div>
+						<div class="queueItemWrapper">
+							<img src="/img/queue/im_musuko_48.bti.png" class="queueImg2">
+						</div>
+						<div class="queueItemWrapper">
+							<img src="/img/queue/im_musuko_48.bti.png" class="queueImg2">
+						</div>
+						<div class="queueItemWrapper">
+							<img src="/img/queue/im_musuko_48.bti.png" class="queueImg2">
+						</div>
+						<div class="queueItemWrapper">
+							<img src="/img/queue/im_obachan_48.bti.png" class="queueImg">
+							<!-- <img src="/img/queue/im_musuko_48.bti.png" class="queueImg2"> -->
+						</div>
+					</div>
+					<div id="genWarning" style="margin-top:16px;">
+						Please keep this tab in the foreground, or your may lose your queue position.
+					</div>
+				</div>
+				<div style="display:none;width:500px;height:100px;background-color:lightblue;"></div>
 
 				<div style="display: flex; align-items: center">
 					<div style="font-size: 24px;padding-bottom:20px;">Seed Generation</div>

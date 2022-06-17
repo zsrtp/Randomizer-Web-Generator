@@ -2,6 +2,9 @@ import express from 'express';
 import { getGenerationProgress } from 'src/generationQueues';
 
 function apiSeedProgress(req: express.Request, res: express.Response) {
+  const { userId } = req;
+  console.log(`USER ID IS: ${userId}`);
+
   const { id } = req.params;
 
   if (!id) {
