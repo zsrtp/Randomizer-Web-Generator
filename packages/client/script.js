@@ -1,6 +1,7 @@
 const $ = window.$;
 
 let userJwt;
+let generateCallInProgress = false;
 
 function normalizeStringToMax128Bytes(inputStr, doTrims) {
   // substring to save lodash some work potentially. 256 because some
@@ -715,20 +716,6 @@ function parseSettingsString(settingsString) {
   return;
 }
 
-function isIE() {
-  ua = navigator.userAgent;
-  var is_ie = ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1;
-
-  return is_ie;
-}
-if (isIE()) {
-  document.getElementById('IsIE').style.display = 'block';
-  document.getElementById('IsNotIE').style.display = 'none';
-} else {
-  document.getElementById('IsNotIE').style.display = 'block';
-  document.getElementById('IsIE').style.display = 'none';
-}
-
 function encodeBits(bitString) {
   const missingChars = (6 - (bitString.length % 6)) % 6;
   bitString += '0'.repeat(missingChars);
@@ -873,8 +860,6 @@ function genSettingsString() {
 
   return window.tpr.shared.genSSettingsFromUi();
 }
-
-let generateCallInProgress = false;
 
 $('#generateSeed').on('click', () => {
   if (generateCallInProgress) {

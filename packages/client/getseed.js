@@ -83,11 +83,6 @@
     return document.getElementById(id);
   }
 
-  function isIE() {
-    const ua = navigator.userAgent;
-    return ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1;
-  }
-
   /**
    * Adds '0' chars to front of bitStr such that the returned string length is
    * equal to the provided size. If bitStr.length > size, simply returns bitStr.
@@ -123,38 +118,9 @@
   window.addEventListener('DOMContentLoaded', onDomContentLoaded);
 
   function onDomContentLoaded() {
-    if (isIE()) {
-      document.getElementById('IsIE').style.display = 'block';
-      document.getElementById('IsNotIE').style.display = 'none';
-      return;
-    } else {
-      document.getElementById('IsNotIE').style.display = 'block';
-      document.getElementById('IsIE').style.display = 'none';
-    }
-
-    document.getElementById('logo').addEventListener('click', () => {
-      window.location.href = '/';
-    });
-
-    initTabButtons();
-
     const inputJsonDataEl = document.getElementById('inputJsonData');
     if (inputJsonDataEl) {
-      pageData = JSON.parse(inputJsonDataEl.value);
-
-      const decodedSettings = window.tpr.shared.decodeSettingsString(
-        pageData.settingsString
-      );
-
-      fillInInfo();
-      fillInSettingsTable();
-
-      window.tpr.shared.populateUiFromPSettings(decodedSettings.p);
-
-      initSettingsModal();
-      initShareModal();
-
-      $('#create').on('click', handleCreateClick);
+      handleGenerationCompletedPage(inputJsonDataEl);
     } else {
       let shouldCheckProgress = false;
 
@@ -171,16 +137,39 @@
       }
 
       if (shouldCheckProgress) {
-        byId('filename').textContent = 'Checking progress...';
-        startCheckProgressRoutine();
+        handleCheckProgressPage();
       } else {
-        byId('filename').textContent = 'Invalid seed ID.';
+        handleInvalidSeedPage();
       }
     }
+  }
 
-    // fetch('/api/creategci')
-    //   .then((response) => response.json())
-    //   .then((data) => console.log(data));
+  function handleGenerationCompletedPage(inputJsonDataEl) {
+    pageData = JSON.parse(inputJsonDataEl.value);
+
+    const decodedSettings = window.tpr.shared.decodeSettingsString(
+      pageData.settingsString
+    );
+
+    initTabButtons();
+    fillInInfo();
+    fillInSettingsTable();
+
+    window.tpr.shared.populateUiFromPSettings(decodedSettings.p);
+
+    initSettingsModal();
+    initShareModal();
+
+    $('#create').on('click', handleCreateClick);
+  }
+
+  function handleCheckProgressPage() {
+    byId('filename').textContent = 'Checking progress...';
+    startCheckProgressRoutine();
+  }
+
+  function handleInvalidSeedPage() {
+    byId('filename').textContent = 'Invalid seed ID.';
   }
 
   function initTabButtons() {

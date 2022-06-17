@@ -1,9 +1,3 @@
-@media (max-width: 1000px) {
-  .blackbg {
-    margin: 2vh !important;
-  }
-}
-
 @font-face {
   font-family: Ravenna;
   src: url(Ravenna.ttf);
@@ -100,10 +94,6 @@ p > span {
   display: inline;
 }
 
-/* div > select {
-  width: 20%;
-} */
-
 /* Classes */
 .hr2 {
   width: 300px;
@@ -111,12 +101,35 @@ p > span {
 }
 
 .blackbg {
-  /* background-color: #000000a1; */
+  width: 100%;
   background-color: rgb(0, 0, 0, 0.9);
-  margin: 0vh 10vh 5vh;
-  /* padding: 45px; */
-  padding: 24px 40px 40px;
-  border-radius: 0.5em;
+  padding: 24px 20px 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.blackbg.blackBgNoBorder {
+  border: none;
+}
+
+@media (min-width: 450px) {
+  .blackbg {
+    padding-top: 32px;
+  }
+}
+
+@media (min-width: 601px) {
+  .blackbg {
+    border-radius: 8px;
+    margin-bottom: 32px;
+    border: none;
+  }
+}
+
+@media (min-width: 1032px) {
+  .blackbg {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 }
 
 img.blackbor {
@@ -234,17 +247,6 @@ img.flag {
 [type='radio']:checked + div {
   color: #fff;
   background: #00403a;
-}
-
-/* Shit Detector */
-#IsIE {
-  display: none;
-  color: white;
-  font-size: 2em;
-}
-
-#IsNotIE {
-  display: none;
 }
 
 .checkboxFieldset {
@@ -613,11 +615,28 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  /* width: 100%;
+  max-width: 1080px;
+  padding: 0 40px; */
+  margin: auto;
+  max-width: 1260px;
+
+  /* padding: 0 20px; */
+  padding: 0;
 }
 
-.mainContentWrapper > * {
-  width: 100%;
-  max-width: 1080px;
+/* @media (min-width: 450px) { */
+@media (min-width: 601px) {
+  .mainContentWrapper {
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  .mainContentWrapper {
+    padding: 0 40px;
+  }
 }
 
 table.getSeedTable {
