@@ -21,6 +21,7 @@
     <link rel="stylesheet" target="_blank" href="/css/style.css" />
     <script src="/js/lib/jquery-3.6.0.js"></script>
     <script src="/js/shared.js"></script>
+    <script src="/js/game.js"></script>
   </head>
   <body>
     <!-- INPUT_JSON_DATA -->
@@ -36,7 +37,249 @@
     </a>
 
     <div class="mainContentWrapper">
-      <div class="blackbg">
+      <div id="sectionProgress" class="blackbg">
+        <div id="queueStatusSection" class="queueStatusSection">
+          <div id="progressTitle" class="progressTitle"></div>
+          <div id="sectionGenText" style="display: none">
+            Generating your seed...
+          </div>
+          <div id="sectionQueuePos" style="display: none">
+            Your seed request is in the queue at position
+            <span id="queuePosNum" class="queuePosText">5</span>.
+          </div>
+          <div
+            id="sectionQueueImages"
+            class="queueParent"
+            style="display: none"
+          >
+            <div class="queueItemWrapper">
+              <img src="/img/queue/im_musuko_48.bti.png" class="queueImg2" />
+            </div>
+            <div class="queueItemWrapper">
+              <img src="/img/queue/im_musuko_48.bti.png" class="queueImg2" />
+            </div>
+            <div class="queueItemWrapper">
+              <img src="/img/queue/im_musuko_48.bti.png" class="queueImg2" />
+            </div>
+            <div class="queueItemWrapper">
+              <img src="/img/queue/im_musuko_48.bti.png" class="queueImg2" />
+            </div>
+            <div class="queueItemWrapper">
+              <!-- <img src="/img/queue/im_obachan_48.bti.png" class="queueImg" /> -->
+              <img src="/img/queue/im_musuko_48.bti.png" class="queueImg2" />
+            </div>
+          </div>
+          <div
+            id="sectionGenWarning"
+            class="alert alert-warning"
+            style="display: none"
+          >
+            Please keep this tab in the foreground, or your may lose your queue
+            position.
+          </div>
+        </div>
+
+        <div
+          id="sectionPlayPicross"
+          class="sectionPlayPicross"
+          style="display: none"
+        >
+          <div style="margin-bottom: 16px">Play picross while you wait?</div>
+          <button id="playPicrossBtn" type="button">Play Picross</button>
+        </div>
+
+        <div id="fullGameWrapper" style="display: none">
+          <div class="picrossBtnsWrapper">
+            <button
+              id="picrossGoToGeneratedSeedFirst"
+              type="button"
+              class="primaryButton picrossBtn"
+              style="display: none"
+            >
+              Go to Generated Seed
+            </button>
+          </div>
+
+          <h2 style="text-align: center">Picross</h2>
+          <div class="picrossBtnsWrapper">
+            <button id="togglePicrossExplanation" type="button">
+              Toggle Explanation
+            </button>
+          </div>
+
+          <div
+            id="picrossExplanationSection"
+            class="picrossExplanationSection"
+            style="display: none"
+          >
+            <div class="picrossExplanationSectionChild">
+              <h3>How to play:</h3>
+              <ul class="picrossExplanation">
+                <li>
+                  The hint numbers on each row and column tell you how many
+                  squares you need to fill in for that row or column.
+                </li>
+                <li>
+                  If a hint said '5', you would need to fill in all 5 of the
+                  squares like 'OOOOO' (where 'O' is filled, 'x' is not filled).
+                </li>
+                <li>
+                  If a hint said '2 2', you would need to fill 2 squares, then
+                  leave at least 1 blank space, then fill in another 2 squares.
+                  This would look like 'OOxOO'
+                </li>
+                <li>
+                  Some hints like '2 1' have multiple solutions: 'OOxOx',
+                  'OOxxO', or 'xOOxO'. These ones require that you have found
+                  some other information about the board before fully filling
+                  that row in.
+                  <ul>
+                    <li>
+                      Notice that it is safe to fill in the second square with
+                      the hint '2 1' since it will be filled no matter which of
+                      the 3 possibilities is the correct one.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  The key to success is marking which squares to avoid filling
+                  in when you can (by right-clicking).
+                  <ul>
+                    <li>
+                      For example, if a row had the hint '1 1' and was filled
+                      like 'O????'(where '?' means you aren't sure if it should
+                      be an 'O' or 'x'), you could change this to 'Ox???'
+                      because the second square cannot possibly be filled as
+                      this would violate the first hint number which is a 1.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <h3>How to win:</h3>
+              <ul class="picrossExplanation">
+                <li>
+                  Once you have filled in the 'O' squares such that every row
+                  and column has its conditions satisfied, the board will change
+                  colors to indicate that you have won. Click "New Game" to
+                  start a new game.
+                </li>
+                <li>
+                  You may occasionally have a puzzle with multiple solutions.
+                  Any valid solution will be marked as correct.
+                </li>
+              </ul>
+              <h3>Controls:</h3>
+              <ul class="picrossExplanation">
+                <li>
+                  Left-click a square to fill it in. Left-click the square to
+                  reset it.
+                </li>
+                <li>
+                  Right-click a square to mark that it should not be filled in.
+                  Right-click the square to reset it.
+                </li>
+                <li>Click "New Game" to start a new game.</li>
+                <li>
+                  Click "Restart" to clear the current board so you can try
+                  again.
+                </li>
+                <li>
+                  Click the "Show Example Puzzle" button to abandon the current
+                  game and show an example of a solved puzzle.
+                  <ul>
+                    <li>
+                      If you have never played before, it is recommended that
+                      you do this to get a better feel for how the hint numbers
+                      and squares work together.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="picrossBtnsWrapper">
+            <button
+              id="picrossGoToGeneratedSeed"
+              type="button"
+              class="primaryButton picrossBtn"
+              style="display: none"
+            >
+              Go to Generated Seed
+            </button>
+          </div>
+          <div class="picrossBtnsWrapper">
+            <button id="newPicrossGame" type="button" class="picrossBtn">
+              New Game
+            </button>
+            <button id="restartPicrossGame" type="button" class="picrossBtn">
+              Restart
+            </button>
+            <button
+              id="showExamplePicrossGame"
+              type="button"
+              class="picrossBtn"
+            >
+              Show Example Puzzle
+            </button>
+          </div>
+
+          <table class="picrossTable">
+            <tbody>
+              <tr class="picrossHeaderRow">
+                <td class="headerTopLeft"></td>
+                <td class="pcrsHeader headerTop">2</td>
+                <td class="pcrsHeader headerTop">2</td>
+                <td class="pcrsHeader headerTop">1</td>
+                <td class="pcrsHeader headerTop">2</td>
+                <td class="pcrsHeader headerTopRight">1<br />2</td>
+              </tr>
+              <tr class="picrossRow0">
+                <td class="pcrsHeader headerLeft">1 1</td>
+                <td data-pos="0"></td>
+                <td data-pos="1"></td>
+                <td data-pos="2"></td>
+                <td data-pos="3"></td>
+                <td data-pos="4"></td>
+              </tr>
+              <tr class="picrossRow1">
+                <td class="pcrsHeader headerLeft">1</td>
+                <td data-pos="5"></td>
+                <td data-pos="6"></td>
+                <td data-pos="7"></td>
+                <td data-pos="8"></td>
+                <td data-pos="9"></td>
+              </tr>
+              <tr class="picrossRow2">
+                <td class="pcrsHeader headerLeft">1</td>
+                <td data-pos="10"></td>
+                <td data-pos="11"></td>
+                <td data-pos="12"></td>
+                <td data-pos="13"></td>
+                <td data-pos="14"></td>
+              </tr>
+              <tr class="picrossRow3">
+                <td class="pcrsHeader headerLeft">4</td>
+                <td data-pos="15"></td>
+                <td data-pos="16"></td>
+                <td data-pos="17"></td>
+                <td data-pos="18"></td>
+                <td data-pos="19"></td>
+              </tr>
+              <tr class="picrossRow4 bottomRow">
+                <td class="pcrsHeader headerBottomLeft">1 1</td>
+                <td data-pos="20"></td>
+                <td data-pos="21"></td>
+                <td data-pos="22"></td>
+                <td data-pos="23"></td>
+                <td data-pos="24"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="sectionFileCreation" class="blackbg" style="display: none">
         <div style="display: flex; align-items: center">
           <div style="font-size: 24px">File Creation</div>
           <button id="shareBtn" class="primaryButton" style="margin-left: auto">

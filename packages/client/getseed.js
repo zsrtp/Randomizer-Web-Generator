@@ -3,6 +3,7 @@
 
   let pageData;
   let creationCallInProgress;
+  let picrossOpened = false;
 
   const RawSettingType = {
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
@@ -145,6 +146,9 @@
   }
 
   function handleGenerationCompletedPage(inputJsonDataEl) {
+    $('#sectionProgress').hide();
+    $('#sectionFileCreation').show();
+
     pageData = JSON.parse(inputJsonDataEl.value);
 
     const decodedSettings = window.tpr.shared.decodeSettingsString(
@@ -164,12 +168,18 @@
   }
 
   function handleCheckProgressPage() {
-    byId('filename').textContent = 'Checking progress...';
+    $('#progressTitle').text('Checking progress...');
+    $('#sectionPlayPicross').show();
+
+    $('#playPicrossBtn').on('click', () => {
+      picrossOpened = true;
+    });
+
     startCheckProgressRoutine();
   }
 
   function handleInvalidSeedPage() {
-    byId('filename').textContent = 'Invalid seed ID.';
+    $('#progressTitle').text('Invalid seed ID.');
   }
 
   function initTabButtons() {
@@ -702,13 +712,15 @@
           const { done, progress, queuePos, queueLength } = data;
 
           if (done) {
-            window.location.reload();
+            handleProgressCheckDone();
             return;
           }
 
-          byId(
-            'filename'
-          ).textContent = `progress: ${progress}; qPos: ${queuePos}; qLen: ${queueLength}`;
+          updateQueuePosState(queuePos);
+
+          // $('#progressTitle').text(
+          //   `progress: ${progress}; qPos: ${queuePos}; qLen: ${queueLength}`
+          // );
 
           setTimeout(() => {
             runProgressCheck(id);
@@ -719,5 +731,66 @@
         console.error('/api/seed/progress error');
         console.error(err);
       });
+  }
+
+  // Temp queue testing stuff
+  function swapImages(queuePosition) {
+    const queueParent = document.getElementById('sectionQueueImages');
+    const images = [];
+    let imgTags = queueParent.querySelectorAll('img');
+    for (let i = 0; i < imgTags.length; i++) {
+      images.push(imgTags[i]);
+    }
+
+    let obachanPos = queuePosition;
+    if (queuePosition < 0 || queuePosition > 4) {
+      obachanPos = -1;
+    }
+
+    images.forEach((img, i) => {
+      if (i === obachanPos) {
+        img.className = 'queueImg';
+        img.setAttribute('src', '/img/queue/im_obachan_48.bti.png');
+      } else {
+        img.className = 'queueImg2';
+        img.setAttribute('src', '/img/queue/im_musuko_48.bti.png');
+      }
+    });
+  }
+
+  function updateQueuePosState(queuePos) {
+    $('#progressTitle').text('Please Wait');
+    $('#sectionQueueImages').show();
+
+    const inTheQueue = queuePos >= 0;
+
+    $('#sectionQueuePos').toggle(inTheQueue);
+    $('#sectionGenWarning').toggle(inTheQueue);
+    $('#sectionGenText').toggle(!inTheQueue);
+
+    swapImages(queuePos);
+
+    if (inTheQueue) {
+      $('#queuePosNum').text(queuePos + 1);
+    }
+  }
+
+  function handleProgressCheckDone() {
+    $('#progressTitle').text('Seed Generated');
+    $('#sectionQueuePos').hide();
+    $('#sectionGenText').hide();
+    $('#sectionQueueImages').hide();
+
+    if (picrossOpened) {
+      $('#picrossGoToGeneratedSeedFirst, #picrossGoToGeneratedSeed')
+        .show()
+        .on('click', () => {
+          document.body.scrollTop = document.documentElement.scrollTop = 0;
+          window.location.reload();
+        });
+    } else {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      window.location.reload();
+    }
   }
 })();

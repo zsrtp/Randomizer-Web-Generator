@@ -12,6 +12,8 @@ html {
 body {
   font-family: Segoe UI, Arial;
   color: white;
+  /* color: rgba(255, 255, 255, 0.9); */
+
   /* text-align: center;
   font-size: 24px; */
 }
@@ -33,12 +35,12 @@ h1 {
   color: transparent;
 }
 
-h2 {
+/* h2 {
   margin-top: 15px;
   background: linear-gradient(to right bottom, #009688, #009688, #000000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
+} */
 
 /* img { */
 .randomizer-logo {
@@ -56,11 +58,11 @@ table {
   border-radius: 0.5em;
 }
 
-td {
+/* td {
   font-size: 18px;
   padding: 5px 20px;
   width: 12vh;
-}
+} */
 
 hr {
   border-color: #5a5a5a;
@@ -1119,3 +1121,300 @@ table.getSeedTable td {
   max-width: 67px; /* 60% */
 }
 /* queue end */
+
+/* picross start */
+table.picrossTable {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.picrossTable td {
+  text-align: center;
+  line-height: 1.5;
+}
+
+.picrossTable td[data-pos] {
+  width: 100px;
+  height: 100px;
+  background-color: #d7d7d7;
+  /* border: 1px solid #ccc; */
+  /* border: 1px solid #aaa; */
+  border: 1px solid #707070;
+  cursor: pointer;
+  position: relative;
+}
+
+.picrossTable td[data-pos].complete {
+  cursor: default;
+}
+
+.picrossTable td[data-pos]:not(.complete):hover::after {
+  content: '';
+  /* background-color: rgba(0, 0, 0, 0.05); */
+  /* box-shadow: 0 0 5px 2px #01a9db inset; */
+
+  /* box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2) inset; */
+
+  /* box-shadow: 0px 0px 5px 3px red inset; */
+
+  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+    0 3px 14px 2px rgb(0 0 0 / 12%);
+
+  box-shadow: 0 5px 5px 3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+    0 3px 14px 2px rgb(0 0 0 / 12%) inset;
+
+  box-shadow: 0 0 5px 3px rgb(0 0 0 / 20%) inset;
+
+  /* box-shadow: 0 0 5px 3px rgb(255 143 0 / 20%) inset; */
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.picrossTable td[data-pos].positive {
+  background-color: #81daf5;
+  background-color: #26c6da;
+  background-color: #64b5f6;
+  /* box-shadow: 0 0 5px 3px rgb(0 0 0 / 20%) inset; */
+}
+
+.picrossTable td[data-pos].positive.complete {
+  background-color: pink;
+}
+
+.picrossTable td[data-pos].negative {
+  /* background-color: #bbb; */
+  background-color: #b3b3b3;
+}
+
+.picrossTable td[data-pos].negative.complete {
+  background-color: #333;
+  background-color: #4d2b25;
+  background-color: #383433;
+  background-color: #353535;
+  background-color: #202124;
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 82%;
+  }
+  50% {
+    background-position: 100% 19%;
+  }
+  100% {
+    background-position: 0% 82%;
+  }
+}
+
+.picrossTable td[data-pos].positive.complete:not(.example) {
+  /* background-color: #81c784; */
+  /* background-color: rgb(108, 190, 130); */
+  background-color: rgb(130, 212, 151);
+  background-color: #64ffda;
+  background-color: #85fbdc;
+  background-color: #65dcb4;
+
+  background: linear-gradient(
+    124deg,
+    #ff2400,
+    #e81d1d,
+    #e8b71d,
+    #e3e81d,
+    #1de840,
+    #1ddde8,
+    #2b1de8,
+    #dd00f3,
+    #dd00f3
+  );
+
+  /* background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 154, 0, 1) 10%,
+    rgba(208, 222, 33, 1) 20%,
+    rgba(79, 220, 74, 1) 30%,
+    rgba(63, 218, 216, 1) 40%,
+    rgba(47, 201, 226, 1) 50%,
+    rgba(28, 127, 238, 1) 60%,
+    rgba(95, 21, 242, 1) 70%,
+    rgba(186, 12, 248, 1) 80%,
+    rgba(251, 7, 217, 1) 90%,
+    rgba(255, 0, 0, 1) 100%
+  ); */
+
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 154, 0, 1) 10%,
+    rgba(208, 222, 33, 1) 20%,
+    rgba(79, 220, 74, 1) 30%,
+    rgba(63, 218, 216, 1) 40%,
+    rgba(47, 201, 226, 1) 50%,
+    rgba(28, 127, 238, 1) 60%,
+    rgba(95, 21, 242, 1) 70%,
+    rgba(186, 12, 248, 1) 80%,
+    rgba(251, 7, 217, 1) 90%,
+    rgba(255, 0, 0, 1) 100%
+  );
+
+  /* from lch: */
+  background: linear-gradient(
+    90deg,
+    #fc98b9 0%,
+    #f99e8c 10%,
+    #dead6e 20%,
+    #b2bd6c 30%,
+    #7ec788 40%,
+    #47cbb5 50%,
+    #2fc9e2 60%,
+    #6cc0ff 70%,
+    #b0b1ff 80%,
+    #e3a0e5 90%,
+    #fc98b9 100%
+  );
+
+  /* from lch reordered: */
+  background: linear-gradient(
+    90deg,
+    #47cbb5 0%,
+    #2fc9e2 10%,
+    #6cc0ff 20%,
+    #b0b1ff 30%,
+    #e3a0e5 40%,
+    #fc98b9 50%,
+    #f99e8c 60%,
+    #dead6e 70%,
+    #b2bd6c 80%,
+    #7ec788 90%,
+    #47cbb5 100%
+  );
+
+  background-size: 10000%;
+  animation: rainbow 5s linear infinite running;
+  animation-delay: 0.3s;
+}
+
+.picrossTable tr.picrossHeaderRow > td {
+  vertical-align: bottom;
+  padding-bottom: 7px;
+  text-align: center;
+  font-family: Monospace;
+  font-weight: bold;
+}
+
+.picrossTable td.headerLeft {
+  vertical-align: middle;
+  padding-right: 11px;
+  text-align: right;
+  font-family: Monospace;
+  font-weight: bold;
+  border-right: 1px solid #707070;
+}
+
+.picrossTable td.headerTop {
+  /* border-bottom: 1px solid #aaa; */
+  border-bottom: 1px solid #707070;
+}
+
+.picrossTable td.headerTopLeft {
+  border-right: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+}
+
+.picrossTable td.headerBottomLeft {
+  border-right: 1px solid #707070;
+  border-bottom: 1px solid #aaa;
+  vertical-align: middle;
+  padding-right: 11px;
+  text-align: right;
+  font-family: Monospace;
+  font-weight: bold;
+}
+
+.picrossTable td.headerTopRight {
+  border-right: 1px solid #aaa;
+  border-bottom: 1px solid #707070;
+}
+
+.picrossTable td:nth-child(5n + 11) {
+  /* Cells on the right edge */
+  border-right: 1px solid #707070;
+}
+
+.picrossTable tr.bottomRow td:nth-child(1n + 2) {
+  border-bottom: 1px solid #707070;
+}
+
+ul.picrossExplanation li {
+  list-style-type: decimal;
+  line-height: 24px;
+  padding-left: 16px;
+  padding-top: 8px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+ul.picrossExplanation ul > li {
+  list-style-type: disc;
+}
+
+.picrossExplanationSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.picrossExplanationSectionChild {
+  max-width: 840px;
+}
+
+.picrossBtnsWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0 16px;
+}
+
+.picrossBtn {
+  margin: 0 4px;
+}
+
+.sectionPlayPicross {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+}
+/* picross end */
+
+.queueStatusSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-warning {
+  color: rgba(255, 255, 157, 0.9);
+  background-color: rgb(85, 64, 0);
+  border-color: rgb(172, 129, 0);
+}
+
+.queuePosText {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.progressTitle {
+  font-size: 24px;
+  padding-bottom: 20px;
+}
