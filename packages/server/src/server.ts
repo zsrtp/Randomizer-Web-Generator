@@ -161,9 +161,22 @@ interface OutputFileMeta {
 app.post('/api/final', function (req: express.Request, res: express.Response) {
   const { referer } = req.headers;
 
-  const { query } = url.parse(referer, true);
+  let id = null;
 
-  const { id } = query;
+  try {
+    const refUrl = new URL(referer);
+    if (refUrl.pathname) {
+      const match = refUrl.pathname.match(/^\/seed\/([a-zA-Z0-9-_]+)$/);
+      if (match && match.length > 1) {
+        id = match[1];
+      }
+    }
+  } catch (e) {
+    // do nothing
+  }
+
+  // const { query } = url.parse(referer, true);
+  // const { id } = query;
 
   if (!id) {
     res.status(400).send({ error: 'Bad referer.' });

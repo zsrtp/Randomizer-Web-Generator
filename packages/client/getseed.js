@@ -463,16 +463,17 @@
   }
 
   function callCreateGci(fileCreationSettings, cb) {
-    fetch('/api/final', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        fileCreationSettings,
-      }),
-    })
+    window.tpr.shared
+      .fetch('/api/final', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fileCreationSettings,
+        }),
+      })
       .then((response) => response.json())
       .then(({ error, data }) => {
         cb(error, data);
