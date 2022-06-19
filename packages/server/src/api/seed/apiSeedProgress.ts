@@ -7,7 +7,9 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
 
   const { id } = req.params;
 
-  if (!id) {
+  if (!id || id.indexOf('/') > 0) {
+    // Can update this to be more robust, but slash check is meant to prevent
+    // possibility of client trying to check for files on the server machine.
     res.status(400).send({ error: 'Malformed request.' });
     return;
   }

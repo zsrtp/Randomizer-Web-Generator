@@ -1,6 +1,15 @@
 (() => {
   const $ = window.$;
 
+  const PageStates = {
+    default: 'default',
+    inQueue: 'inQueue',
+    beingWorked: 'beingWorked',
+    generationSuccess: 'generationSuccess',
+    generationFailure: 'generationFailure',
+    progressCallFailure: 'progressCallFailure',
+  };
+
   let pageData;
   let creationCallInProgress;
   let picrossOpened = false;
@@ -698,6 +707,22 @@
     runProgressCheck(id);
   }
 
+  let timesProgressCallFailed = 0;
+
+  let secondsUntilNextProgressCheck = 0;
+  let progressCallCheckInterval = null;
+
+  function showRetryingInXSecondsMsg() {
+    let secondsText = 'seconds';
+    if (secondsUntilNextProgressCheck === 1) {
+      secondsText = 'second';
+    }
+
+    $('#sectionCheckFailed')
+      .show()
+      .text(`Retrying in ${secondsUntilNextProgressCheck} ${secondsText}.`);
+  }
+
   function runProgressCheck(id) {
     window.tpr.shared
       .fetch(`/api/seed/progress/${id}`)
@@ -706,8 +731,10 @@
         console.log('/api/seed/progress data');
         console.log(data);
 
+        timesProgressCallFailed = 0;
+
         if (error) {
-          throw new Error(errors[0].message);
+          handleGenerationFailed(error);
         } else if (data) {
           const { done, progress, queuePos, queueLength } = data;
 
@@ -718,23 +745,38 @@
 
           updateQueuePosState(queuePos);
 
-          // $('#progressTitle').text(
-          //   `progress: ${progress}; qPos: ${queuePos}; qLen: ${queueLength}`
-          // );
-
           setTimeout(() => {
             runProgressCheck(id);
           }, 2000);
         }
       })
       .catch((err) => {
+        timesProgressCallFailed += 1;
+        secondsUntilNextProgressCheck = Math.pow(2, timesProgressCallFailed);
+
         console.error('/api/seed/progress error');
         console.error(err);
+
+        handleProgressCheckFailed();
+
+        showRetryingInXSecondsMsg();
+
+        progressCallCheckInterval = setInterval(() => {
+          secondsUntilNextProgressCheck -= 1;
+          if (secondsUntilNextProgressCheck > 0) {
+            showRetryingInXSecondsMsg();
+          } else {
+            clearInterval(progressCallCheckInterval);
+            progressCallCheckInterval = -1;
+
+            $('#sectionCheckFailed').text(`Retrying...`);
+            runProgressCheck(id);
+          }
+        }, 1000);
       });
   }
 
-  // Temp queue testing stuff
-  function swapImages(queuePosition) {
+  function swapQueueImages(queuePosition) {
     const queueParent = document.getElementById('sectionQueueImages');
     const images = [];
     let imgTags = queueParent.querySelectorAll('img');
@@ -759,38 +801,76 @@
   }
 
   function updateQueuePosState(queuePos) {
-    $('#progressTitle').text('Please Wait');
-    $('#sectionQueueImages').show();
-
     const inTheQueue = queuePos >= 0;
 
-    $('#sectionQueuePos').toggle(inTheQueue);
-    $('#sectionGenWarning').toggle(inTheQueue);
-    $('#sectionGenText').toggle(!inTheQueue);
-
-    swapImages(queuePos);
-
     if (inTheQueue) {
+      updateSectionVisibilities(PageStates.inQueue);
       $('#queuePosNum').text(queuePos + 1);
+    } else {
+      updateSectionVisibilities(PageStates.beingWorked);
     }
+
+    $('#progressTitle').text('Please Wait');
+
+    swapQueueImages(queuePos);
   }
 
   function handleProgressCheckDone() {
+    updateSectionVisibilities(PageStates.generationSuccess);
     $('#progressTitle').text('Seed Generated');
-    $('#sectionQueuePos').hide();
-    $('#sectionGenText').hide();
-    $('#sectionQueueImages').hide();
+
+    function reloadPage() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      window.location.reload();
+    }
 
     if (picrossOpened) {
       $('#picrossGoToGeneratedSeedFirst, #picrossGoToGeneratedSeed')
         .show()
-        .on('click', () => {
-          document.body.scrollTop = document.documentElement.scrollTop = 0;
-          window.location.reload();
-        });
+        .on('click', reloadPage);
     } else {
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
-      window.location.reload();
+      reloadPage();
     }
+  }
+
+  function handleProgressCheckFailed() {
+    updateSectionVisibilities(PageStates.progressCallFailure);
+    $('#progressTitle').text('Progress check failed');
+  }
+
+  function handleGenerationFailed(error) {
+    updateSectionVisibilities(PageStates.generationFailure);
+    $('#progressTitle').text('Failure');
+
+    if (typeof error === 'string') {
+      $('#sectionErrorReturned').text(error);
+    } else if (Array.isArray(error.errors) && error.errors.length > 0) {
+      $('#sectionErrorReturned').text(error.errors[0].message);
+    }
+  }
+
+  function updateSectionVisibilities(pageState) {
+    $('#sectionQueueImages').toggle(
+      pageState === PageStates.inQueue || pageState === PageStates.beingWorked
+    );
+    $('#sectionQueuePos').toggle(pageState === PageStates.inQueue);
+    $('#sectionGenWarning').toggle(pageState === PageStates.inQueue);
+    $('#sectionGenText').toggle(pageState === PageStates.beingWorked);
+    $('#sectionPlayPicross').toggle(
+      !picrossOpened &&
+        pageState !== PageStates.generationFailure &&
+        pageState !== PageStates.progressCallFailure
+    );
+    $('#sectionCheckFailed').toggle(
+      pageState === PageStates.progressCallFailure
+    );
+    $('#fullGameWrapper').toggle(
+      picrossOpened &&
+        pageState !== PageStates.progressCallFailure &&
+        pageState !== PageStates.generationFailure
+    );
+    $('#sectionErrorReturned').toggle(
+      pageState === PageStates.generationFailure
+    );
   }
 })();

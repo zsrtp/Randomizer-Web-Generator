@@ -47,7 +47,10 @@ type GenerationProgress = {
 };
 
 function getGenerationProgress(id: string): GenerationProgress {
-  if (!seedIdToRequestStatus[id]) {
+  if (
+    !seedIdToRequestStatus[id] &&
+    !fs.existsSync(resolveOutputPath('seeds', id, 'input.json'))
+  ) {
     return {
       error: 'No data for that id.',
     };
