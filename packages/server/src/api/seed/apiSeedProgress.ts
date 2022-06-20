@@ -1,10 +1,13 @@
 import express from 'express';
-import { getGenerationProgress } from 'src/generationQueues';
+import { checkProgress } from 'src/generationQueues';
+import { SeedGenProgress } from 'src/SeedGenStatus';
+
+enum SeedProgressError {
+  NotFound = 'NotFound',
+  GenerationError = 'GenerationError',
+}
 
 function apiSeedProgress(req: express.Request, res: express.Response) {
-  const { userId } = req;
-  console.log(`USER ID IS: ${userId}`);
-
   const { id } = req.params;
 
   if (!id || id.indexOf('/') > 0) {
@@ -14,26 +17,25 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
     return;
   }
 
-  const { error, generationStatus, queuePos, queueLength } =
-    getGenerationProgress(id);
+  const { error, seedGenStatus, queuePos } = checkProgress(id);
 
-  if (error) {
+  if (error || !seedGenStatus) {
     return res.send({
       error: {
         errors: [
           {
-            reason: 'not_found',
+            reason: SeedProgressError.NotFound,
             message: `Unable to find generation status for id: ${id}`,
           },
         ],
       },
     });
-  } else if (generationStatus.error) {
+  } else if (seedGenStatus.progress === SeedGenProgress.Error) {
     return res.send({
       error: {
         errors: [
           {
-            reason: 'generation_error',
+            reason: SeedProgressError.GenerationError,
             message: 'Generation failed.',
           },
         ],
@@ -43,10 +45,8 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
 
   res.send({
     data: {
-      done: generationStatus.done,
-      progress: generationStatus.progress,
+      progress: seedGenStatus.progress,
       queuePos,
-      queueLength,
     },
   });
 }

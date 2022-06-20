@@ -10,11 +10,11 @@ function callGenerator(...args: string[]) {
 }
 
 interface callGeneratorCb {
-  (error: string, data?: string): void;
+  (error: string | null, data?: string): void;
 }
 
 interface callGeneratorBufCb {
-  (error: string, buffer?: Buffer): void;
+  (error: string | null, buffer?: Buffer): void;
 }
 
 function callGeneratorBuf(args: string[], cb: callGeneratorBufCb) {
@@ -67,6 +67,11 @@ function callGeneratorMatchOutput(args: string[], cb: callGeneratorCb) {
     if (error) {
       cb(error);
     } else {
+      if (!output) {
+        cb('No output.');
+        return;
+      }
+
       const match = output.match(/SUCCESS:(\S+)/);
       if (match) {
         cb(null, match[1]);

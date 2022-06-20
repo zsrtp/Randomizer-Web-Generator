@@ -1,6 +1,12 @@
 (() => {
   const $ = window.$;
 
+  const SeedGenProgress = {
+    Queued: 'Queued',
+    Started: 'Started',
+    Done: 'Done',
+  };
+
   const PageStates = {
     default: 'default',
     inQueue: 'inQueue',
@@ -737,9 +743,9 @@
         if (error) {
           handleGenerationFailed(error);
         } else if (data) {
-          const { done, progress, queuePos, queueLength } = data;
+          const { progress, queuePos } = data;
 
-          if (done) {
+          if (progress === SeedGenProgress.Done) {
             handleProgressCheckDone();
             return;
           }

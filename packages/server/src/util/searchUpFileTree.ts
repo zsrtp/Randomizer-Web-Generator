@@ -4,7 +4,10 @@ interface searchUpFileTreeCb {
   (currentPath: string): boolean;
 }
 
-function searchUpFileTree(startDir: string, cb: searchUpFileTreeCb): string {
+function searchUpFileTree(
+  startDir: string,
+  cb: searchUpFileTreeCb
+): string | null {
   let prevPath = null;
   let currPath = startDir;
 

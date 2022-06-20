@@ -5,9 +5,12 @@ import { normalizeStringToMax128Bytes } from 'src/util/string';
 
 function apiSeedGenerate(req: express.Request, res: express.Response) {
   const { userId } = req;
-  console.log(`USER ID IS: ${userId}`);
-
   const { settingsString, seed } = req.body;
+
+  if (!userId) {
+    res.status(403).send({ error: 'Forbidden' });
+    return;
+  }
 
   if (!settingsString || typeof settingsString !== 'string') {
     res.status(400).send({ error: 'Malformed request.' });
@@ -20,36 +23,21 @@ function apiSeedGenerate(req: express.Request, res: express.Response) {
   }
 
   const seedStr = seed ? normalizeStringToMax128Bytes(seed) : '';
-  console.log(`seedStr: '${seedStr}'`);
 
-  // Need to
   const queuedGenerationStatus = addToFastQueue(userId, {
     settingsString,
-    seed,
+    seed: seedStr,
   });
 
-  // Want to say the following:
-  // Send error as main obj if there was an error.
-
-  // For data:
-  // id of request.
-  // progress status (queued)
-  // how many items are in the fast and slow queues
-
-  res.send({
-    data: queuedGenerationStatus,
-  });
-
-  // callGeneratorMatchOutput(
-  //   ['generate2', settingsString, seedStr],
-  //   (error, data) => {
-  //     if (error) {
-  //       res.status(500).send({ error });
-  //     } else {
-  //       res.send({ data: { id: data } });
-  //     }
-  //   }
-  // );
+  if (queuedGenerationStatus) {
+    res.send({
+      data: queuedGenerationStatus,
+    });
+  } else {
+    res.send({
+      error: 'Failed to queue seed request.',
+    });
+  }
 }
 
 export default apiSeedGenerate;

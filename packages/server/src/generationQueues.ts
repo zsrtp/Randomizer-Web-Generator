@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import { callGeneratorMatchOutput } from './util';
 import { genElevenCharId } from './util/genId';
-import GenerationStatus from './GenerationStatus';
+import SeedGenStatus, { SeedGenProgress } from './SeedGenStatus';
 import { resolveOutputPath } from './config';
 
 type GenerationRequest = {
@@ -10,7 +10,7 @@ type GenerationRequest = {
 };
 
 type GenerationRequestMap = {
-  [key: string]: GenerationStatus;
+  [key: string]: SeedGenStatus;
 };
 
 type UserIdToSeedIdMap = {
@@ -21,7 +21,7 @@ const seedIdToRequestStatus: GenerationRequestMap = {};
 const userIdToSeedId: UserIdToSeedIdMap = {};
 const fastQueue: string[] = [];
 const slowQueue: string[] = [];
-let idInProgress: string = null;
+let idInProgress: string | null = null;
 
 function genUniqueSeedId(): string {
   let id;
@@ -39,39 +39,15 @@ function genUniqueSeedId(): string {
   }
 }
 
-type GenerationProgress = {
-  error?: string;
-  generationStatus?: GenerationStatus;
-  queuePos?: number;
-  queueLength?: number;
-};
-
-function getGenerationProgress(id: string): GenerationProgress {
-  if (
-    !seedIdToRequestStatus[id] &&
-    !fs.existsSync(resolveOutputPath('seeds', id, 'input.json'))
-  ) {
-    return {
-      error: 'No data for that id.',
-    };
-  }
-
-  return {
-    generationStatus: seedIdToRequestStatus[id],
-    queuePos: fastQueue.indexOf(id),
-    queueLength: fastQueue.length,
-  };
-}
-
 function makeRequestStatus(
   seedId: string,
   generationRequest: GenerationRequest
-): GenerationStatus {
+): SeedGenStatus | null {
   if (!generationRequest || !generationRequest.settingsString) {
     return null;
   }
 
-  return new GenerationStatus(
+  return new SeedGenStatus(
     seedId,
     genElevenCharId(),
     generationRequest.settingsString,
@@ -83,7 +59,7 @@ const numFastItemsPerSlow = 3;
 let numFastItemsBeforeNextSlow = numFastItemsPerSlow;
 
 function processQueueItem(isFastQueue: boolean) {
-  let idToProcess: string = null;
+  let idToProcess: string | null | undefined = undefined;
 
   if (isFastQueue) {
     idToProcess = fastQueue.shift();
@@ -95,7 +71,7 @@ function processQueueItem(isFastQueue: boolean) {
     idInProgress = idToProcess;
 
     const generationStatus = seedIdToRequestStatus[idToProcess];
-    generationStatus.updateProgress('started');
+    generationStatus.progress = SeedGenProgress.Started;
 
     callGeneratorMatchOutput(
       [
@@ -106,9 +82,9 @@ function processQueueItem(isFastQueue: boolean) {
       ],
       (error, data) => {
         if (error) {
-          generationStatus.markError();
+          generationStatus.progress = SeedGenProgress.Error;
         } else {
-          generationStatus.markDone();
+          generationStatus.progress = SeedGenProgress.Done;
         }
 
         processQueueItems();
@@ -118,7 +94,7 @@ function processQueueItem(isFastQueue: boolean) {
 }
 
 function processQueueItems() {
-  let idToProcess: string = null;
+  let idToProcess: string | null = null;
 
   if (numFastItemsBeforeNextSlow > 0 && fastQueue.length > 0) {
     numFastItemsBeforeNextSlow -= 1;
@@ -147,22 +123,19 @@ function notifyQueueItemAdded() {
   processQueueItems();
 }
 
-type QueuedGenerationStatus = {
-  seedId: string;
-  requesterHash: string;
-  // requestStatus: GenerationStatus;
-};
+// pass callback to determine which objects to remove from the fast queue
+// function filterFastQueue(cb) {}
+function filterFastQueue() {}
 
 // add an item to the fast queue
 function addToFastQueue(
   userId: string,
   generationRequest: GenerationRequest
-): QueuedGenerationStatus {
-  if (!generationRequest) {
-    return null;
-  }
-
-  // Check if user already has an item queued for their userId.
+): {
+  seedId: string;
+  requesterHash: string;
+} | null {
+  // TODO: Check if user already has an item queued for their userId.
 
   const seedId = genUniqueSeedId();
 
@@ -177,32 +150,33 @@ function addToFastQueue(
 
   notifyQueueItemAdded();
 
-  // Check if can process.
   return {
     seedId,
     requesterHash: requestStatus.requesterHash,
   };
 }
 
-// add an item to the slow queue
-function addToSlowQueue(generationRequest: GenerationRequest) {
-  // this will handle generating the id
+function checkProgress(id: string): {
+  error?: string;
+  seedGenStatus?: SeedGenStatus;
+  queuePos?: number;
+} {
+  if (
+    !seedIdToRequestStatus[id] &&
+    !fs.existsSync(resolveOutputPath('seeds', id, 'input.json'))
+  ) {
+    return {
+      error: 'No data for that id.',
+    };
+  }
+
+  return {
+    seedGenStatus: seedIdToRequestStatus[id],
+    queuePos: fastQueue.indexOf(id),
+  };
 }
 
-// move an item from the fast queue to the slow queue
-function swapToSlowQueue(id: string) {}
-
-// pass callback to determine which objects to remove from the fast queue
-// function filterFastQueue(cb) {}
-function filterFastQueue() {}
-
-export {
-  getGenerationProgress,
-  addToFastQueue,
-  addToSlowQueue,
-  swapToSlowQueue,
-  filterFastQueue,
-};
+export { addToFastQueue, checkProgress };
 
 // When we create the seed, we map
 // userId => seedId

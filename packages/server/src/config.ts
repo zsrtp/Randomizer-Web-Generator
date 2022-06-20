@@ -7,7 +7,7 @@ let outputPath: string;
 let generatorExePath: string;
 
 function initConfig() {
-  const outputVolumePath: string = process.env.OUTPUT_VOLUME_PATH;
+  const outputVolumePath = process.env.OUTPUT_VOLUME_PATH;
   if (!outputVolumePath) {
     throw new Error('Did not find `OUTPUT_VOLUME_PATH` in process.env.');
   }
@@ -29,6 +29,10 @@ function initConfig() {
   fs.mkdirp(outputPath);
 
   let exePath = process.env.TPR_GENERATOR_EXE_PATH;
+  if (!exePath) {
+    throw new Error('Did not find `TPR_GENERATOR_EXE_PATH` in process.env.');
+  }
+
   if (process.platform === 'win32') {
     // This does not mean 32-bit Windows only. Should work for all of them.
     exePath += '.exe';

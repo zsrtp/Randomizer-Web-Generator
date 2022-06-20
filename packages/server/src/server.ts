@@ -9,6 +9,10 @@ if (process.env.NODE_ENV === 'production') {
     fs.existsSync(path.join(currPath, '.env'))
   );
 
+  if (!envFileDir) {
+    throw new Error('Failed to find env file directory.');
+  }
+
   require('dotenv').config({
     path: path.join(envFileDir, '.env.development'),
   });
@@ -31,7 +35,7 @@ import apiSeedGenerate from './api/seed/apiSeedGenerate';
 import { genUserJwt } from './util/jwt';
 const { normalizeStringToMax128Bytes } = require('./util/string');
 import jwt from 'jsonwebtoken';
-import { getGenerationProgress } from './generationQueues';
+import { checkProgress } from './generationQueues';
 
 declare global {
   namespace Express {
@@ -164,11 +168,13 @@ app.post('/api/final', function (req: express.Request, res: express.Response) {
   let id = null;
 
   try {
-    const refUrl = new URL(referer);
-    if (refUrl.pathname) {
-      const match = refUrl.pathname.match(/^\/seed\/([a-zA-Z0-9-_]+)$/);
-      if (match && match.length > 1) {
-        id = match[1];
+    if (referer != null) {
+      const refUrl = new URL(referer);
+      if (refUrl.pathname) {
+        const match = refUrl.pathname.match(/^\/seed\/([a-zA-Z0-9-_]+)$/);
+        if (match && match.length > 1) {
+          id = match[1];
+        }
       }
     }
   } catch (e) {
@@ -208,6 +214,11 @@ app.post('/api/final', function (req: express.Request, res: express.Response) {
       }
 
       try {
+        if (!buffer) {
+          res.status(500).send({ error: 'Output buffer was null.' });
+          return;
+        }
+
         const index = buffer.indexOf('BYTES:', 0);
 
         let currIndex = index;
@@ -341,18 +352,38 @@ app.get('/', (req: express.Request, res: express.Response) => {
   });
 });
 
-const escapeHtml = (str: string) =>
-  str.replace(
-    /[&<>'"]/g,
-    (tag: string) =>
-      ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        "'": '&#39;',
-        '"': '&quot;',
-      }[tag])
-  );
+// const escapeHtml = (str: string) =>
+//   str.replace(
+//     /[&<>'"]/g,
+//     (tag: string) =>
+//       ({
+//         '&': '&amp;',
+//         '<': '&lt;',
+//         '>': '&gt;',
+//         "'": '&#39;',
+//         '"': '&quot;',
+//       }[tag])
+//   );
+
+type HtmlCharMap = {
+  [key: string]: string;
+};
+
+const abc: HtmlCharMap = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  "'": '&#39;',
+  '"': '&quot;',
+};
+
+function escapeHtml(str: string) {
+  console.log(77);
+
+  return str.replace(/[&<>'"]/g, (tag: string) => {
+    return abc[tag] || '';
+  });
+}
 
 app.get('/seed/:id', (req: express.Request, res: express.Response) => {
   fs.readFile(path.join(root, 'getseed.html'), function read(err, data) {
@@ -390,17 +421,17 @@ app.get('/seed/:id', (req: express.Request, res: express.Response) => {
         );
         msg = msg.replace('<!-- REQUESTER_HASH -->', '');
       } else {
-        const { generationStatus } = getGenerationProgress(id);
-        if (generationStatus) {
+        const { seedGenStatus } = checkProgress(id);
+        if (seedGenStatus) {
           // Generation requested but not completed and not 100% forgotten about
-          // by the server
+          // by the server.
           msg = msg.replace('<!-- INPUT_JSON_DATA -->', '');
           msg = msg.replace(
             '<!-- REQUESTER_HASH -->',
-            `<input id='requesterHash' type='hidden' value='${generationStatus.requesterHash}'>`
+            `<input id='requesterHash' type='hidden' value='${seedGenStatus.requesterHash}'>`
           );
         } else {
-          // Have no idea what the client is talking about with that seedId
+          // Have no idea what the client is talking about with that seedId.
           msg = msg.replace('<!-- INPUT_JSON_DATA -->', '');
           msg = msg.replace('<!-- REQUESTER_HASH -->', '');
         }
