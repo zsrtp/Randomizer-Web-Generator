@@ -171,7 +171,7 @@ app.post('/api/final', function (req: express.Request, res: express.Response) {
     if (referer != null) {
       const refUrl = new URL(referer);
       if (refUrl.pathname) {
-        const match = refUrl.pathname.match(/^\/seed\/([a-zA-Z0-9-_]+)$/);
+        const match = refUrl.pathname.match(/^\/s\/([a-zA-Z0-9-_]+)$/);
         if (match && match.length > 1) {
           id = match[1];
         }
@@ -385,7 +385,7 @@ function escapeHtml(str: string) {
   });
 }
 
-app.get('/seed/:id', (req: express.Request, res: express.Response) => {
+app.get('/s/:id', (req: express.Request, res: express.Response) => {
   fs.readFile(path.join(root, 'getseed.html'), function read(err, data) {
     if (err) {
       console.log(err);

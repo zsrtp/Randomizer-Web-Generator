@@ -913,7 +913,7 @@ $('#generateSeed').on('click', () => {
         }
 
         // window.location.href = '/seed?id=' + data.data;
-        window.location.href = `/seed/${data.seedId}`;
+        window.location.href = `/s/${data.seedId}`;
       } else {
         generateCallInProgress = false;
         console.error('Unrecognized response from `/api/generateseed`');
@@ -1064,7 +1064,7 @@ function initGeneratingModal() {
   // });
 
   $('#viewOngoingRequestBtn').on('click', () => {
-    window.open(`/seed/${ongoingRequestId}`, '_blank');
+    window.open(`/s/${ongoingRequestId}`, '_blank');
     hideModal();
   });
 
