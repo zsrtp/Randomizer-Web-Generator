@@ -103,6 +103,7 @@ function initTabButtons() {
 let showGeneratingModal; // fn
 let hideGeneratingModal; // fn
 let showGeneratingModalError; // fn
+let showGenModalOngoingRequestError; // fn
 
 window.addEventListener('DOMContentLoaded', onDomContentLoaded);
 window.addEventListener('pageshow', function (event) {
@@ -894,6 +895,12 @@ $('#generateSeed').on('click', () => {
         generateCallInProgress = false;
         console.error('`/api/generateseed` error:');
         showGeneratingModalError(`Error:\n${error}`);
+      } else if (data && data.ongoingSeedId) {
+        generateCallInProgress = false;
+        showGenModalOngoingRequestError(data.ongoingSeedId);
+        // showGeneratingModalError(
+        //   `You already have an ongoing request for seed id: ${data.ongoingSeedId}`
+        // );
       } else if (data && data.seedId && data.requesterHash) {
         try {
           localStorage.setItem('lastGeneratedSeedId', data.seedId);
@@ -1008,6 +1015,7 @@ function initGeneratingModal() {
   const modal = document.getElementById('generatingModal');
   const $progressRow = $('#generatingProgressRow');
   const errorEl = document.getElementById('generatingError');
+  let ongoingRequestId = null;
 
   function showModal() {
     errorEl.textContent = '';
@@ -1022,6 +1030,7 @@ function initGeneratingModal() {
     bg.style.display = 'none';
     modal.style.display = 'none';
     modal.classList.remove('isOpen');
+    $('#ongoingRequestBtnRow').hide();
   }
 
   function showError(msg) {
@@ -1030,14 +1039,37 @@ function initGeneratingModal() {
     errorEl.style.display = '';
   }
 
+  function showOngoingRequestError(id) {
+    ongoingRequestId = id;
+    $progressRow.hide();
+    $(errorEl)
+      .text(
+        'You already have a seed request in progress. Please wait for it to finish before creating a new request.'
+      )
+      .show();
+
+    $('#ongoingRequestBtnRow').show();
+    $('#showOngoingRequestBtn').show();
+  }
+
   showGeneratingModal = showModal;
   hideGeneratingModal = hideModal;
   showGeneratingModalError = showError;
+  showGenModalOngoingRequestError = showOngoingRequestError;
 
-  window.addEventListener('click', () => {
-    if (!generateCallInProgress) {
-      hideModal();
-    }
+  // window.addEventListener('click', () => {
+  //   if (!generateCallInProgress) {
+  //     hideModal();
+  //   }
+  // });
+
+  $('#viewOngoingRequestBtn').on('click', () => {
+    window.open(`/seed/${ongoingRequestId}`, '_blank');
+    hideModal();
+  });
+
+  $('#hideOngoingRequestBtn').on('click', () => {
+    hideModal();
   });
 }
 

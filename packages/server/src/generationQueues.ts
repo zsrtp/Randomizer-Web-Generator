@@ -3,18 +3,23 @@ import { callGeneratorMatchOutput } from './util';
 import { genElevenCharId } from './util/genId';
 import SeedGenStatus, { SeedGenProgress } from './SeedGenStatus';
 import { resolveOutputPath } from './config';
+import * as objects from './util/object';
 
 type GenerationRequest = {
   settingsString: string;
   seed: string;
 };
 
-const seedIdToRequestStatus: {
+type SeedIdToSeedGenStatusType = {
   [key: string]: SeedGenStatus;
-} = {};
-const userIdToSeedId: {
+};
+
+type UserIdToSeedIdType = {
   [key: string]: string;
-} = {};
+};
+
+let seedIdToSeedGenStatus: SeedIdToSeedGenStatusType = {};
+let userIdToSeedId: UserIdToSeedIdType = {};
 let queue: string[] = [];
 let idInProgress: string | null = null;
 
@@ -24,12 +29,25 @@ function genUniqueSeedId(): string {
 
     // Check if id temporarily reserved or if this id has been generated before.
     if (
-      !seedIdToRequestStatus[id] &&
+      !seedIdToSeedGenStatus[id] &&
       !fs.existsSync(resolveOutputPath('seeds', id, 'input.json'))
     ) {
       return id;
     }
   }
+}
+
+function handleSeedGenStatusDone(seedGenStatus: SeedGenStatus) {
+  if (!seedGenStatus) {
+    return;
+  }
+
+  seedIdToSeedGenStatus = objects.filterKeys(seedIdToSeedGenStatus, [
+    seedGenStatus.seedId,
+  ]) as SeedIdToSeedGenStatusType;
+  userIdToSeedId = objects.filterKeys(userIdToSeedId, [
+    seedGenStatus.userId,
+  ]) as UserIdToSeedIdType;
 }
 
 function processQueueItem() {
@@ -38,21 +56,22 @@ function processQueueItem() {
   if (idToProcess) {
     idInProgress = idToProcess;
 
-    const generationStatus = seedIdToRequestStatus[idToProcess];
-    generationStatus.progress = SeedGenProgress.Started;
+    const seedGenStatus = seedIdToSeedGenStatus[idToProcess];
+    seedGenStatus.progress = SeedGenProgress.Started;
 
     callGeneratorMatchOutput(
       [
         'generate2',
         'id' + idToProcess,
-        generationStatus.settingsString,
-        generationStatus.seed,
+        seedGenStatus.settingsString,
+        seedGenStatus.seed,
       ],
       (error, data) => {
         if (error) {
-          generationStatus.progress = SeedGenProgress.Error;
+          seedGenStatus.progress = SeedGenProgress.Error;
         } else {
-          generationStatus.progress = SeedGenProgress.Done;
+          handleSeedGenStatusDone(seedGenStatus);
+          // generationStatus.progress = SeedGenProgress.Done;
           // TODO: Instead of marking as done, just remove from status object entirely.
         }
 
@@ -67,13 +86,13 @@ function processQueueItems() {
   const currentTime = new Date().getTime();
 
   queue = queue.filter((seedId) => {
-    const seedGenStatus = seedIdToRequestStatus[seedId];
+    const seedGenStatus = seedIdToSeedGenStatus[seedId];
     if (!seedGenStatus) {
       return false;
     }
 
-    // Temp setting to 3 seconds
-    if (currentTime - seedGenStatus.lastRefreshed > 1000) {
+    // TODO: Temp setting to 3 seconds
+    if (currentTime - seedGenStatus.lastRefreshed > 3000) {
       seedGenStatus.progress = SeedGenProgress.Abandoned;
       return false;
     }
@@ -101,26 +120,29 @@ function notifyQueueItemAdded() {
 function addToFastQueue(
   userId: string,
   generationRequest: GenerationRequest
-): {
-  seedId: string;
-  requesterHash: string;
-} | null {
+):
+  | {
+      seedId: string;
+      requesterHash: string;
+    }
+  | string {
   // TODO: Check if user already has an item queued for their userId.
 
-  if (!generationRequest || !generationRequest.settingsString) {
-    return null;
+  if (userIdToSeedId[userId]) {
+    return userIdToSeedId[userId];
   }
 
   const seedId = genUniqueSeedId();
 
   const requestStatus = new SeedGenStatus(
     seedId,
+    userId,
     genElevenCharId(),
     generationRequest.settingsString,
     generationRequest.seed
   );
 
-  seedIdToRequestStatus[seedId] = requestStatus;
+  seedIdToSeedGenStatus[seedId] = requestStatus;
   userIdToSeedId[userId] = seedId;
   queue.push(seedId);
 
@@ -134,20 +156,22 @@ function addToFastQueue(
 
 function checkProgress(id: string): {
   error?: string;
+  seedGenProgress?: SeedGenProgress;
   seedGenStatus?: SeedGenStatus;
   queuePos?: number;
 } {
-  if (
-    !seedIdToRequestStatus[id] &&
-    !fs.existsSync(resolveOutputPath('seeds', id, 'input.json'))
-  ) {
-    return {
-      error: 'No data for that id.',
-    };
+  if (!seedIdToSeedGenStatus[id]) {
+    if (fs.existsSync(resolveOutputPath('seeds', id, 'input.json'))) {
+      return {
+        seedGenProgress: SeedGenProgress.Done,
+        queuePos: -1,
+      };
+    } else {
+      return { error: 'No data for that id.' };
+    }
   }
 
-  const seedGenStatus = seedIdToRequestStatus[id];
-  seedGenStatus.updateRefreshTime();
+  const seedGenStatus = seedIdToSeedGenStatus[id];
 
   if (seedGenStatus.progress === SeedGenProgress.Abandoned) {
     seedGenStatus.progress = SeedGenProgress.Queued;
@@ -155,7 +179,8 @@ function checkProgress(id: string): {
   }
 
   return {
-    seedGenStatus,
+    seedGenProgress: seedGenStatus.progress,
+    seedGenStatus: seedGenStatus,
     queuePos: queue.indexOf(id),
   };
 }

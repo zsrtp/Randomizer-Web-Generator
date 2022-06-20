@@ -24,18 +24,20 @@ function apiSeedGenerate(req: express.Request, res: express.Response) {
 
   const seedStr = seed ? normalizeStringToMax128Bytes(seed) : '';
 
-  const queuedGenerationStatus = addToFastQueue(userId, {
+  const result = addToFastQueue(userId, {
     settingsString,
     seed: seedStr,
   });
 
-  if (queuedGenerationStatus) {
+  if (typeof result === 'string') {
     res.send({
-      data: queuedGenerationStatus,
+      data: {
+        ongoingSeedId: result,
+      },
     });
   } else {
     res.send({
-      error: 'Failed to queue seed request.',
+      data: result,
     });
   }
 }

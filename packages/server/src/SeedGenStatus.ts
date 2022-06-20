@@ -21,17 +21,20 @@ class SeedGenStatus {
   // display as if the id is invalid until the generation successfully
   // completes.
   readonly requesterHash: string;
+  readonly userId: string;
 
   private _lastRefreshed: number;
   private _progress: SeedGenProgress;
 
   constructor(
     seedId: string,
+    userId: string,
     requesterHash: string,
     settingsString: string,
     seed: string
   ) {
     this.seedId = seedId;
+    this.userId = userId;
     this._lastRefreshed = new Date().getTime();
     this._progress = SeedGenProgress.Queued;
     this.requesterHash = requesterHash;

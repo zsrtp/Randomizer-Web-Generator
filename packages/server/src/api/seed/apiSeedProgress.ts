@@ -17,9 +17,9 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
     return;
   }
 
-  const { error, seedGenStatus, queuePos } = checkProgress(id);
+  const { error, seedGenStatus, seedGenProgress, queuePos } = checkProgress(id);
 
-  if (error || !seedGenStatus) {
+  if (error) {
     return res.send({
       error: {
         errors: [
@@ -30,7 +30,7 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
         ],
       },
     });
-  } else if (seedGenStatus.progress === SeedGenProgress.Error) {
+  } else if (seedGenProgress === SeedGenProgress.Error) {
     return res.send({
       error: {
         errors: [
@@ -43,9 +43,13 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
     });
   }
 
+  if (seedGenStatus) {
+    seedGenStatus.updateRefreshTime();
+  }
+
   res.send({
     data: {
-      progress: seedGenStatus.progress,
+      progress: seedGenProgress,
       queuePos,
     },
   });
