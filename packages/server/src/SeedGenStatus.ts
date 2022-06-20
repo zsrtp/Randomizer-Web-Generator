@@ -53,7 +53,9 @@ class SeedGenStatus {
 
   set progress(progress: SeedGenProgress) {
     this._progress = progress;
-    this._lastRefreshed = new Date().getTime();
+    if (progress !== SeedGenProgress.Abandoned) {
+      this._lastRefreshed = new Date().getTime();
+    }
   }
 }
 

@@ -9,27 +9,20 @@ type GenerationRequest = {
   seed: string;
 };
 
-type GenerationRequestMap = {
+const seedIdToRequestStatus: {
   [key: string]: SeedGenStatus;
-};
-
-type UserIdToSeedIdMap = {
+} = {};
+const userIdToSeedId: {
   [key: string]: string;
-};
-
-const seedIdToRequestStatus: GenerationRequestMap = {};
-const userIdToSeedId: UserIdToSeedIdMap = {};
-const fastQueue: string[] = [];
-const slowQueue: string[] = [];
+} = {};
+let queue: string[] = [];
 let idInProgress: string | null = null;
 
 function genUniqueSeedId(): string {
-  let id;
-
   while (true) {
-    id = genElevenCharId();
+    const id = genElevenCharId();
 
-    // Check if in queue or if this id has been generated before.
+    // Check if id temporarily reserved or if this id has been generated before.
     if (
       !seedIdToRequestStatus[id] &&
       !fs.existsSync(resolveOutputPath('seeds', id, 'input.json'))
@@ -39,33 +32,8 @@ function genUniqueSeedId(): string {
   }
 }
 
-function makeRequestStatus(
-  seedId: string,
-  generationRequest: GenerationRequest
-): SeedGenStatus | null {
-  if (!generationRequest || !generationRequest.settingsString) {
-    return null;
-  }
-
-  return new SeedGenStatus(
-    seedId,
-    genElevenCharId(),
-    generationRequest.settingsString,
-    generationRequest.seed
-  );
-}
-
-const numFastItemsPerSlow = 3;
-let numFastItemsBeforeNextSlow = numFastItemsPerSlow;
-
-function processQueueItem(isFastQueue: boolean) {
-  let idToProcess: string | null | undefined = undefined;
-
-  if (isFastQueue) {
-    idToProcess = fastQueue.shift();
-  } else {
-    idToProcess = slowQueue.shift();
-  }
+function processQueueItem() {
+  const idToProcess: string | undefined = queue.shift();
 
   if (idToProcess) {
     idInProgress = idToProcess;
@@ -85,6 +53,7 @@ function processQueueItem(isFastQueue: boolean) {
           generationStatus.progress = SeedGenProgress.Error;
         } else {
           generationStatus.progress = SeedGenProgress.Done;
+          // TODO: Instead of marking as done, just remove from status object entirely.
         }
 
         processQueueItems();
@@ -94,21 +63,26 @@ function processQueueItem(isFastQueue: boolean) {
 }
 
 function processQueueItems() {
-  let idToProcess: string | null = null;
+  // filter list
+  const currentTime = new Date().getTime();
 
-  if (numFastItemsBeforeNextSlow > 0 && fastQueue.length > 0) {
-    numFastItemsBeforeNextSlow -= 1;
-    processQueueItem(true);
-    // try to pull from fast queue
-    // pull item from fast queue.
-  } else if (slowQueue.length > 0) {
-    numFastItemsBeforeNextSlow = numFastItemsPerSlow;
-    processQueueItem(false);
-    // pull item from slowQueue
-  } else if (fastQueue.length > 0) {
-    numFastItemsBeforeNextSlow = numFastItemsPerSlow - 1;
-    processQueueItem(true);
-    // If was supposed to pull from slow, but the slow was empty
+  queue = queue.filter((seedId) => {
+    const seedGenStatus = seedIdToRequestStatus[seedId];
+    if (!seedGenStatus) {
+      return false;
+    }
+
+    // Temp setting to 3 seconds
+    if (currentTime - seedGenStatus.lastRefreshed > 1000) {
+      seedGenStatus.progress = SeedGenProgress.Abandoned;
+      return false;
+    }
+
+    return true;
+  });
+
+  if (queue.length > 0) {
+    processQueueItem();
   } else {
     idInProgress = null;
   }
@@ -123,10 +97,6 @@ function notifyQueueItemAdded() {
   processQueueItems();
 }
 
-// pass callback to determine which objects to remove from the fast queue
-// function filterFastQueue(cb) {}
-function filterFastQueue() {}
-
 // add an item to the fast queue
 function addToFastQueue(
   userId: string,
@@ -137,16 +107,22 @@ function addToFastQueue(
 } | null {
   // TODO: Check if user already has an item queued for their userId.
 
-  const seedId = genUniqueSeedId();
-
-  const requestStatus = makeRequestStatus(seedId, generationRequest);
-  if (!requestStatus) {
+  if (!generationRequest || !generationRequest.settingsString) {
     return null;
   }
 
+  const seedId = genUniqueSeedId();
+
+  const requestStatus = new SeedGenStatus(
+    seedId,
+    genElevenCharId(),
+    generationRequest.settingsString,
+    generationRequest.seed
+  );
+
   seedIdToRequestStatus[seedId] = requestStatus;
   userIdToSeedId[userId] = seedId;
-  fastQueue.push(seedId);
+  queue.push(seedId);
 
   notifyQueueItemAdded();
 
@@ -170,9 +146,17 @@ function checkProgress(id: string): {
     };
   }
 
+  const seedGenStatus = seedIdToRequestStatus[id];
+  seedGenStatus.updateRefreshTime();
+
+  if (seedGenStatus.progress === SeedGenProgress.Abandoned) {
+    seedGenStatus.progress = SeedGenProgress.Queued;
+    queue.push(id);
+  }
+
   return {
-    seedGenStatus: seedIdToRequestStatus[id],
-    queuePos: fastQueue.indexOf(id),
+    seedGenStatus,
+    queuePos: queue.indexOf(id),
   };
 }
 
