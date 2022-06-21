@@ -37,6 +37,18 @@ function genUniqueSeedId(): string {
   }
 }
 
+function handleSeedGenStatusError(seedGenStatus: SeedGenStatus) {
+  if (!seedGenStatus) {
+    return;
+  }
+
+  seedGenStatus.progress = SeedGenProgress.Error;
+
+  userIdToSeedId = objects.filterKeys(userIdToSeedId, [
+    seedGenStatus.userId,
+  ]) as UserIdToSeedIdType;
+}
+
 function handleSeedGenStatusDone(seedGenStatus: SeedGenStatus) {
   if (!seedGenStatus) {
     return;
@@ -68,11 +80,9 @@ function processQueueItem() {
       ],
       (error, data) => {
         if (error) {
-          seedGenStatus.progress = SeedGenProgress.Error;
+          handleSeedGenStatusError(seedGenStatus);
         } else {
           handleSeedGenStatusDone(seedGenStatus);
-          // generationStatus.progress = SeedGenProgress.Done;
-          // TODO: Instead of marking as done, just remove from status object entirely.
         }
 
         processQueueItems();
@@ -91,8 +101,8 @@ function processQueueItems() {
       return false;
     }
 
-    // TODO: Temp setting to 3 seconds
-    if (currentTime - seedGenStatus.lastRefreshed > 3000) {
+    // TODO: Temp setting to 10 seconds
+    if (currentTime - seedGenStatus.lastRefreshed > 10000) {
       seedGenStatus.progress = SeedGenProgress.Abandoned;
       return false;
     }
@@ -126,9 +136,11 @@ function addToFastQueue(
       requesterHash: string;
     }
   | string {
-  // TODO: Check if user already has an item queued for their userId.
-
-  if (userIdToSeedId[userId]) {
+  // if (userIdToSeedId[userId]) {
+  if (
+    Object.keys(seedIdToSeedGenStatus).length > 10 &&
+    userIdToSeedId[userId]
+  ) {
     return userIdToSeedId[userId];
   }
 
@@ -176,6 +188,11 @@ function checkProgress(id: string): {
   if (seedGenStatus.progress === SeedGenProgress.Abandoned) {
     seedGenStatus.progress = SeedGenProgress.Queued;
     queue.push(id);
+    notifyQueueItemAdded();
+  } else if (seedGenStatus.progress === SeedGenProgress.Error) {
+    seedIdToSeedGenStatus = objects.filterKeys(seedIdToSeedGenStatus, [
+      seedGenStatus.seedId,
+    ]) as SeedIdToSeedGenStatusType;
   }
 
   return {
