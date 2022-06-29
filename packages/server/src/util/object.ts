@@ -1,4 +1,6 @@
-function filterKeys(
+type obj = { [key: string]: any };
+
+export function filterKeys(
   obj: { [key: string]: any },
   keys: string[] | string
 ): object {
@@ -40,4 +42,15 @@ function filterKeys(
   );
 }
 
-export { filterKeys };
+export function filter(
+  obj: obj,
+  predicate: (key: string, value: any) => boolean
+): obj {
+  const result: obj = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (predicate(key, value)) {
+      result[key] = value;
+    }
+  }
+  return result;
+}

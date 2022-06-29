@@ -6,7 +6,7 @@ enum SeedGenProgress {
   Done = 'Done',
   Error = 'Error',
   // Abandoned are ones which appear to be abandoned. This means no one is
-  // checking on its status, so we won't actual run the generation unless
+  // checking on its status, so we won't actually run the generation unless
   // someone starts checking on it again. Eventually, it will be completely
   // deleted if no one checks on it.
   Abandoned = 'Abandoned',
