@@ -60,6 +60,13 @@ class SeedGenStatus {
       this._lastRefreshed = new Date().getTime();
     }
   }
+
+  isHanging() {
+    return (
+      this._progress === SeedGenProgress.Abandoned ||
+      this._progress === SeedGenProgress.Error
+    );
+  }
 }
 
 export default SeedGenStatus;

@@ -17,7 +17,10 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
     return;
   }
 
-  const { error, seedGenStatus, seedGenProgress, queuePos } = checkProgress(id);
+  const { error, seedGenStatus, seedGenProgress, queuePos } = checkProgress(
+    id,
+    true
+  );
 
   if (error) {
     return res.send({

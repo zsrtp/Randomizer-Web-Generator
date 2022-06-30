@@ -4,6 +4,7 @@ import { genElevenCharId } from './util/genId';
 import SeedGenStatus, { SeedGenProgress } from './SeedGenStatus';
 import { resolveOutputPath } from './config';
 import * as objects from './util/object';
+import logger from './logger/logger';
 
 const hangingRequestDataFilterInterval = 1000 * 60 * 5; // 5 minutes
 const seedAbandonedTimeout = 1000 * 60; // 1 minute
@@ -26,10 +27,17 @@ let seedIdToSeedGenStatus: SeedIdToSeedGenStatus = {};
 let userIdToSeedId: UserIdToSeedId = {};
 let queue: string[] = [];
 let idInProgress: string | null = null;
+let filterHangingIntervalId: NodeJS.Timer | undefined;
 
-function init(): void {
-  // Every 5 minutes, clear out hanging request data.
-  setInterval(filterHangingRequestData, hangingRequestDataFilterInterval);
+function tryStartHangingRequestCleaner(): void {
+  if (filterHangingIntervalId != null) {
+    return;
+  }
+  logger.debug('Starting hangingRequestCleaner...');
+  filterHangingIntervalId = setInterval(
+    filterHangingRequestData,
+    hangingRequestDataFilterInterval
+  );
 }
 
 /**
@@ -38,31 +46,44 @@ function init(): void {
  */
 function filterHangingRequestData() {
   const now = new Date().getTime();
+  const foreverAbandonedSeedIds: string[] = [];
+  const maxFullyAbandonable = Object.values(seedIdToSeedGenStatus).filter(
+    (seedGenStatus) => seedGenStatus.isHanging()
+  ).length;
 
-  // Filter out all SeedGenStatus which are certain status and which have not
-  // been checked on recently.
+  if (maxFullyAbandonable < 1) {
+    logger.debug(
+      'Stopping hangingRequestCleaner because there are 0 hanging requests.'
+    );
+    clearInterval(filterHangingIntervalId);
+    filterHangingIntervalId = undefined;
+    return;
+  }
+
   seedIdToSeedGenStatus = objects.filter(
     seedIdToSeedGenStatus,
     (seedId: string, seedGenStatus: SeedGenStatus) => {
       if (
-        seedGenStatus.progress !== SeedGenProgress.Error &&
-        seedGenStatus.progress !== SeedGenProgress.Abandoned
+        seedGenStatus.isHanging() &&
+        now > seedGenStatus.lastRefreshed + seedForeverAbandonedTimeout
       ) {
-        // Only filter if Error or Abandoned
-        return true;
-      }
-      const seedForeverAbandoned =
-        now - seedGenStatus.lastRefreshed > seedForeverAbandonedTimeout;
-      if (seedForeverAbandoned) {
-        // TODO: Do a debug log here.
+        // Filter out Abandoned requests which will likely never be checked on
+        // again.
+        foreverAbandonedSeedIds.push(seedGenStatus.seedId);
         return false;
       }
       return true;
     }
   ) as SeedIdToSeedGenStatus;
 
+  let logMsg = `Ran filterHangingRequestData. Filtered ${foreverAbandonedSeedIds.length} of ${maxFullyAbandonable}.`;
+  if (foreverAbandonedSeedIds.length > 0) {
+    logMsg += ` SeedIds: ${foreverAbandonedSeedIds.join(',')}`;
+  }
+  logger.debug(logMsg);
+
   // Filter out any userIdToSeedId entries which no longer point to a valid
-  // SeedGenStatus after we did the first filter in this method.
+  // SeedGenStatus.
   userIdToSeedId = objects.filter(
     userIdToSeedId,
     (userId: string, seedId: string) => Boolean(seedIdToSeedGenStatus[seedId])
@@ -88,17 +109,27 @@ function handleSeedGenStatusError(seedGenStatus: SeedGenStatus) {
     return;
   }
 
+  logger.error(
+    `Error occurred while generating seed with seedId: ${seedGenStatus.seedId}`
+  );
+
   seedGenStatus.progress = SeedGenProgress.Error;
 
   userIdToSeedId = objects.filterKeys(userIdToSeedId, [
     seedGenStatus.userId,
   ]) as UserIdToSeedId;
+
+  tryStartHangingRequestCleaner();
 }
 
 function handleSeedGenStatusDone(seedGenStatus: SeedGenStatus) {
   if (!seedGenStatus) {
     return;
   }
+
+  logger.debug(
+    `Successfully generated seed with seedId: ${seedGenStatus.seedId}`
+  );
 
   seedIdToSeedGenStatus = objects.filterKeys(seedIdToSeedGenStatus, [
     seedGenStatus.seedId,
@@ -116,6 +147,10 @@ function processQueueItem() {
 
     const seedGenStatus = seedIdToSeedGenStatus[idToProcess];
     seedGenStatus.progress = SeedGenProgress.Started;
+
+    logger.debug(
+      `Generating seed with seedId: ${idToProcess} , settingsString: ${seedGenStatus.settingsString} , seed: ${seedGenStatus.seed}`
+    );
 
     callGeneratorMatchOutput(
       [
@@ -144,6 +179,8 @@ function processQueueItems() {
   // filter list
   const currentTime = new Date().getTime();
 
+  const seedIdsMarkedAsAbandoned: string[] = [];
+
   queue = queue.filter((seedId) => {
     const seedGenStatus = seedIdToSeedGenStatus[seedId];
     if (!seedGenStatus) {
@@ -155,15 +192,28 @@ function processQueueItems() {
       // Mark a seedGenStatus as Abandoned if no one has checked on it for more
       // than 60 seconds.
       seedGenStatus.progress = SeedGenProgress.Abandoned;
+      seedIdsMarkedAsAbandoned.push(seedGenStatus.seedId);
       return false;
     }
 
     return true;
   });
 
+  if (seedIdsMarkedAsAbandoned.length > 0) {
+    logger.debug(
+      `Marked ${
+        seedIdsMarkedAsAbandoned.length
+      } seeds as Abandoned with seedIds: ${seedIdsMarkedAsAbandoned.join(',')}`
+    );
+
+    tryStartHangingRequestCleaner();
+  }
+
   if (queue.length > 0) {
+    logger.debug(`Queue length: ${queue.length}. Processing next item...`);
     processQueueItem();
   } else {
+    logger.debug('Queue length: 0. No items to process.');
     idInProgress = null;
   }
 }
@@ -212,6 +262,10 @@ function addToFastQueue(
   userIdToSeedId[userId] = seedId;
   queue.push(seedId);
 
+  logger.debug(
+    `Queued seed request with seedId: ${seedId}. Queue length is ${queue.length}`
+  );
+
   notifyQueueItemAdded();
 
   return {
@@ -220,7 +274,10 @@ function addToFastQueue(
   };
 }
 
-function checkProgress(id: string): {
+function checkProgress(
+  id: string,
+  canCauseRequeue?: boolean
+): {
   error?: string;
   seedGenProgress?: SeedGenProgress;
   seedGenStatus?: SeedGenStatus;
@@ -240,9 +297,12 @@ function checkProgress(id: string): {
   const seedGenStatus = seedIdToSeedGenStatus[id];
 
   if (seedGenStatus.progress === SeedGenProgress.Abandoned) {
-    seedGenStatus.progress = SeedGenProgress.Queued;
-    queue.push(id);
-    notifyQueueItemAdded();
+    if (canCauseRequeue) {
+      logger.debug(`Requeuing request with seedId: ${seedGenStatus.seedId}`);
+      seedGenStatus.progress = SeedGenProgress.Queued;
+      queue.push(id);
+      notifyQueueItemAdded();
+    }
   } else if (seedGenStatus.progress === SeedGenProgress.Error) {
     seedIdToSeedGenStatus = objects.filterKeys(seedIdToSeedGenStatus, [
       seedGenStatus.seedId,
@@ -255,8 +315,6 @@ function checkProgress(id: string): {
     queuePos: queue.indexOf(id),
   };
 }
-
-init();
 
 export { addToFastQueue, checkProgress };
 

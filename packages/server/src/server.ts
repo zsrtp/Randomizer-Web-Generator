@@ -17,13 +17,15 @@ if (process.env.NODE_ENV === 'production') {
     path: path.join(envFileDir, '.env.development'),
   });
 }
-console.log(process.env);
+
+// console.log(process.env);
 
 import { initConfig, resolveRootPath, resolveOutputPath } from './config';
 initConfig();
 
 const url = require('url');
 const cors = require('cors');
+import logger from './logger/logger';
 import express from 'express';
 import {
   callGenerator,
@@ -45,6 +47,13 @@ declare global {
     }
   }
 }
+
+logger.info('Server started');
+// let count = Math.floor(Math.random() * 200);
+// setInterval(() => {
+//   logger.info(`count is ${count}`);
+//   count += 1;
+// }, 1000);
 
 const app = express(); // create express app
 app.use(cors());
