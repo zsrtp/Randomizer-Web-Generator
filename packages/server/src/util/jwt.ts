@@ -12,6 +12,4 @@ function genUserJwt(): string {
   return token;
 }
 
-// function
-
 export { genUserJwt };

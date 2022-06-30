@@ -227,25 +227,55 @@ function notifyQueueItemAdded() {
   processQueueItems();
 }
 
+type QueueRequestResult = {
+  success: boolean;
+  // If success is true, seedId is the new seedId for the queued request.
+  // Else seedId references the existing request for this user which blocks the
+  // new request.
+  seedId: string;
+  // If success is true, requesterHash is a string which the client will
+  // use to determine whether or not to make progress API calls.
+  requesterHash?: string;
+  // If success is false, canCancel indicates to the client that a `cancel`
+  // API call with the same userId and requesterHash will succeed or fail.
+  canCancel?: boolean;
+};
+
 // add an item to the fast queue
 function addToFastQueue(
   userId: string,
-  generationRequest: GenerationRequest
-):
-  | {
-      seedId: string;
-      requesterHash: string;
-    }
-  | string {
+  generationRequest: GenerationRequest,
+  requesterHash: string | null | undefined
+): QueueRequestResult {
   // TODO: temp code for testing. Allow same user to make multiple requests at
   // the same time.
-
   // if (userIdToSeedId[userId]) {
   if (
     Object.keys(seedIdToSeedGenStatus).length > 10 &&
     userIdToSeedId[userId]
   ) {
-    return userIdToSeedId[userId];
+    const seedGenStatus = seedIdToSeedGenStatus[userIdToSeedId[userId]];
+
+    if (seedGenStatus) {
+      const canCancel = Boolean(
+        userId &&
+          requesterHash &&
+          seedGenStatus.userId === userId &&
+          seedGenStatus.requesterHash === requesterHash
+      );
+
+      return {
+        success: false,
+        seedId: seedGenStatus.seedId,
+        canCancel,
+      };
+    } else {
+      // If userId points to an invalid seedId for some reason, just filter out
+      // the userId and pretend there is no issue.
+      userIdToSeedId = objects.filterKeys(userIdToSeedId, [
+        userId,
+      ]) as UserIdToSeedId;
+    }
   }
 
   const seedId = genUniqueSeedId();
@@ -269,6 +299,7 @@ function addToFastQueue(
   notifyQueueItemAdded();
 
   return {
+    success: true,
     seedId,
     requesterHash: requestStatus.requesterHash,
   };
@@ -316,29 +347,11 @@ function checkProgress(
   };
 }
 
-export { addToFastQueue, checkProgress };
+function cancelRequest(seedId: string, userId: string): void {
+  // We don't provide any info about whether or not something was actually
+  // cancelled. Assuming the API response returns a 200, the client can know that there is no longer a block for the
+  //
+  // Only allow the user to cancel the request if they provide the correct userId and requesterHash
+}
 
-// When we create the seed, we map
-// userId => seedId
-// seedId => requestStatus
-// queue[seedIds....]
-
-// On the server, we update the status as appropriate
-// independent of the client.
-
-// After a status item hasn't had its timestamp updated
-// for an hour, we will remove it from the maps.
-
-// So for one to be considered in progress,
-// meaning we want the requester to make progress calls on it,
-// that means it does not exist on disk, and there is a status
-// for it.
-
-// The client will only make progress requests on it in the
-// case that the requesterHash is present.
-
-// setInterval(() => {
-//   queuesMgr.filterFastQueue((queueItem) => {
-//     return true; // true indicates gets to stay
-//   });
-// }, 1000 * 15);
+export { addToFastQueue, checkProgress, cancelRequest };

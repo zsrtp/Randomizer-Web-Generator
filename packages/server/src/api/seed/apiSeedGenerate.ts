@@ -5,39 +5,52 @@ import { normalizeStringToMax128Bytes } from 'src/util/string';
 
 function apiSeedGenerate(req: express.Request, res: express.Response) {
   const { userId } = req;
-  const { settingsString, seed } = req.body;
+  const { settingsString, seed, requesterHash } = req.body;
 
   if (!userId) {
-    res.status(403).send({ error: 'Forbidden' });
+    res.status(403).send({ error: { message: 'Forbidden' } });
     return;
   }
 
   if (!settingsString || typeof settingsString !== 'string') {
-    res.status(400).send({ error: 'Malformed request.' });
+    res.status(400).send({ error: { message: 'Malformed request.' } });
     return;
   }
 
   if (seed && typeof seed !== 'string') {
-    res.status(400).send({ error: 'Malformed request.' });
+    res.status(400).send({ error: { message: 'Malformed request.' } });
     return;
   }
 
   const seedStr = seed ? normalizeStringToMax128Bytes(seed) : '';
 
-  const result = addToFastQueue(userId, {
-    settingsString,
-    seed: seedStr,
-  });
+  const {
+    success,
+    seedId,
+    requesterHash: newRequesterHash,
+    canCancel,
+  } = addToFastQueue(
+    userId,
+    {
+      settingsString,
+      seed: seedStr,
+    },
+    req.body.requesterHash
+  );
 
-  if (typeof result === 'string') {
+  if (success) {
     res.send({
       data: {
-        ongoingSeedId: result,
+        seedId,
+        requesterHash: newRequesterHash,
       },
     });
   } else {
     res.send({
-      data: result,
+      error: {
+        seedId,
+        canCancel,
+      },
     });
   }
 }

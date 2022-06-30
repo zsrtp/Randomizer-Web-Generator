@@ -2,12 +2,12 @@ import express from 'express';
 import { checkProgress } from 'src/generationQueues';
 import { SeedGenProgress } from 'src/SeedGenStatus';
 
-enum SeedProgressError {
+enum SeedCancelError {
   NotFound = 'NotFound',
   GenerationError = 'GenerationError',
 }
 
-function apiSeedProgress(req: express.Request, res: express.Response) {
+function apiSeedCancel(req: express.Request, res: express.Response) {
   const { userId } = req;
 
   if (!userId) {
@@ -34,7 +34,7 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
       error: {
         errors: [
           {
-            reason: SeedProgressError.NotFound,
+            reason: SeedCancelError.NotFound,
             message: `Unable to find generation status for id: ${id}`,
           },
         ],
@@ -45,7 +45,7 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
       error: {
         errors: [
           {
-            reason: SeedProgressError.GenerationError,
+            reason: SeedCancelError.GenerationError,
             message: 'Generation failed.',
           },
         ],
@@ -65,4 +65,4 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
   });
 }
 
-export default apiSeedProgress;
+export default apiSeedCancel;

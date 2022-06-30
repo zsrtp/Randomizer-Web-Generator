@@ -34,6 +34,7 @@ import {
 } from './util';
 import apiSeedProgress from './api/seed/apiSeedProgress';
 import apiSeedGenerate from './api/seed/apiSeedGenerate';
+import apiSeedCancel from './api/seed/apiSeedCancel';
 import { genUserJwt } from './util/jwt';
 const { normalizeStringToMax128Bytes } = require('./util/string');
 import jwt from 'jsonwebtoken';
@@ -128,6 +129,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.post('/api/seed/generate', apiSeedGenerate);
 app.get('/api/seed/progress/:id', apiSeedProgress);
+app.post('/api/seed/cancel/:id', apiSeedCancel);
 
 app.post(
   '/api/generateseed',

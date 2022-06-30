@@ -876,6 +876,14 @@ $('#generateSeed').on('click', () => {
   const settingsString =
     genSettingsString() + window.tpr.shared.genUSettingsFromUi();
 
+  let requesterHash = undefined;
+
+  try {
+    requesterHash = localStorage.getItem('requesterHash');
+  } catch (e) {
+    // do nothing
+  }
+
   // fetch('/api/generateseed', {
   window.tpr.shared
     .fetch('/api/seed/generate', {
@@ -887,6 +895,7 @@ $('#generateSeed').on('click', () => {
       body: JSON.stringify({
         settingsString: settingsString,
         seed: $('#seed').val(),
+        requesterHash,
       }),
     })
     .then((response) => response.json())
@@ -894,13 +903,13 @@ $('#generateSeed').on('click', () => {
       if (error) {
         generateCallInProgress = false;
         console.error('`/api/generateseed` error:');
-        showGeneratingModalError(`Error:\n${error}`);
-      } else if (data && data.ongoingSeedId) {
-        generateCallInProgress = false;
-        showGenModalOngoingRequestError(data.ongoingSeedId);
-        // showGeneratingModalError(
-        //   `You already have an ongoing request for seed id: ${data.ongoingSeedId}`
-        // );
+        if (error.message) {
+          showGeneratingModalError(`Error:\n${error}`);
+        } else if (error.seedId) {
+          showGenModalOngoingRequestError(error.seedId, error.canCancel);
+        } else {
+          console.error('`/api/generateseed` unrecognized error');
+        }
       } else if (data && data.seedId && data.requesterHash) {
         try {
           localStorage.setItem('lastGeneratedSeedId', data.seedId);
@@ -1039,7 +1048,7 @@ function initGeneratingModal() {
     errorEl.style.display = '';
   }
 
-  function showOngoingRequestError(id) {
+  function showOngoingRequestError(id, canCancel) {
     ongoingRequestId = id;
     $progressRow.hide();
     $(errorEl)
