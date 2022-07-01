@@ -1022,14 +1022,21 @@ function initSettingsModal() {
 function initGeneratingModal() {
   const bg = document.getElementById('modal2Bg');
   const modal = document.getElementById('generatingModal');
+  const $generatingModalTitle = $('#generatingModalTitle');
   const $progressRow = $('#generatingProgressRow');
-  const errorEl = document.getElementById('generatingError');
+  const $deleteRequestSection = $('#deleteRequestSection');
+  const $errorEl = $('#generatingError');
+  const $doneBtnRow = $('#doneBtnRow');
+  const $bodyMsg = $('#bodyMsg');
   let ongoingRequestId = null;
 
   function showModal() {
-    errorEl.textContent = '';
-    errorEl.style.display = 'none';
+    $errorEl.text('').hide();
+    $bodyMsg.text('').hide();
+    $generatingModalTitle.text('Requesting generation...');
     $progressRow.show();
+    $deleteRequestSection.hide();
+    $doneBtnRow.hide();
     bg.style.display = '';
     modal.style.display = '';
     modal.classList.add('isOpen');
@@ -1044,21 +1051,91 @@ function initGeneratingModal() {
 
   function showError(msg) {
     $progressRow.hide();
-    errorEl.textContent = msg;
-    errorEl.style.display = '';
+    $errorEl.text(msg).show();
   }
 
   function showOngoingRequestError(id, canCancel) {
     ongoingRequestId = id;
     $progressRow.hide();
-    $(errorEl)
+    $generatingModalTitle.text('Request in progress');
+    $errorEl
       .text(
         'You already have a seed request in progress. Please wait for it to finish before creating a new request.'
       )
       .show();
 
+    if (canCancel) {
+      $deleteRequestSection.show();
+    }
     $('#ongoingRequestBtnRow').show();
     $('#showOngoingRequestBtn').show();
+  }
+
+  function doCancelRequest() {
+    console.log('doing cancel request here');
+
+    if (!ongoingRequestId) {
+      hideModal();
+      return;
+    }
+
+    $generatingModalTitle.text('Deleting request...');
+    $progressRow.show();
+    $errorEl.text('').hide();
+    $deleteRequestSection.hide();
+    $('#ongoingRequestBtnRow').hide();
+    $('#showOngoingRequestBtn').hide();
+
+    let requesterHash = undefined;
+
+    try {
+      requesterHash = localStorage.getItem('requesterHash');
+    } catch (e) {
+      // do nothing
+    }
+
+    window.tpr.shared
+      .fetch('/api/seed/cancel/', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        // TODO: handle on server when forget to stringify on client so don't
+        // expose stack trace
+        body: JSON.stringify({
+          seedId: ongoingRequestId,
+          userId: userJwt,
+          // requesterHash: requesterHash + 'a',
+          requesterHash,
+        }),
+      })
+      .then((response) => response.json())
+      .then(({ error }) => {
+        if (error) {
+          handleCancelRequestError(error);
+        } else {
+          handleCancelRequestSuccess();
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        handleCancelRequestError(err.message);
+      });
+  }
+
+  function handleCancelRequestSuccess() {
+    $progressRow.hide();
+    $generatingModalTitle.text('Request deleted');
+    $bodyMsg.text('You can now request a new seed generation.').show();
+    $doneBtnRow.show();
+  }
+
+  function handleCancelRequestError(errorMsg) {
+    $progressRow.hide();
+    $generatingModalTitle.text('Request deletion failed');
+    $errorEl.text(errorMsg).show();
+    $doneBtnRow.show();
   }
 
   showGeneratingModal = showModal;
@@ -1077,9 +1154,9 @@ function initGeneratingModal() {
     hideModal();
   });
 
-  $('#hideOngoingRequestBtn').on('click', () => {
-    hideModal();
-  });
+  $('#hideOngoingRequestBtn').on('click', hideModal);
+  $('#generatingModalDoneBtn').on('click', hideModal);
+  $('#deleteRequest').on('click', doCancelRequest);
 }
 
 function populateFromSettingsString(settingsString) {

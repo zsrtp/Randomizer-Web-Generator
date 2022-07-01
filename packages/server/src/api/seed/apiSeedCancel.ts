@@ -32,9 +32,9 @@ function apiSeedCancel(req: express.Request, res: express.Response) {
 
   if (result === CancelRequestResult.Unauthorized) {
     res.status(403).send({ error: 'Forbidden' });
-  } else if (result === CancelRequestResult.NotFound) {
-    res.send({ error: result });
   } else {
+    // NotFound is not considered since the client doesn't really care either
+    // way.
     res.send({ data: result });
   }
 }

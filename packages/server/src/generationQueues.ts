@@ -166,15 +166,15 @@ function processQueueItem() {
       ],
       (error, data) => {
         // TODO: temp setting a timeout to make easier to test
-        // setTimeout(() => {
-        if (error) {
-          handleSeedGenStatusError(error, seedGenStatus);
-        } else {
-          handleSeedGenStatusDone(seedGenStatus);
-        }
+        setTimeout(() => {
+          if (error) {
+            handleSeedGenStatusError(error, seedGenStatus);
+          } else {
+            handleSeedGenStatusDone(seedGenStatus);
+          }
 
-        processQueueItems();
-        // }, 10000);
+          processQueueItems();
+        }, 10000);
       }
     );
   }
@@ -254,11 +254,11 @@ function addToFastQueue(
 ): QueueRequestResult {
   // TODO: temp code for testing. Allow same user to make multiple requests at
   // the same time.
-  // if (userIdToSeedId[userId]) {
-  if (
-    Object.keys(seedIdToSeedGenStatus).length > 10 &&
-    userIdToSeedId[userId]
-  ) {
+  if (userIdToSeedId[userId]) {
+    // if (
+    //   Object.keys(seedIdToSeedGenStatus).length > 10 &&
+    //   userIdToSeedId[userId]
+    // ) {
     const seedGenStatus = seedIdToSeedGenStatus[userIdToSeedId[userId]];
 
     if (seedGenStatus) {
@@ -413,7 +413,7 @@ function cancelRequest(
     logger.debug(
       `User ${userId} tried to cancel a request with seedId ${seedId}, but failed authorization.`
     );
-    return CancelRequestResult.NotFound;
+    return CancelRequestResult.Unauthorized;
   }
 
   // Only allow the user to cancel the request if they provide the correct

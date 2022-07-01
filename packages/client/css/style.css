@@ -589,7 +589,13 @@ ul {
   justify-content: flex-start;
   flex-direction: row-reverse;
   width: 100%;
-  padding: 40px 0 16px;
+  /* padding: 40px 0 16px; */
+  padding: 40px 0 5px;
+}
+
+.modalButtonsWrapper.modalButtonsWrapperSmaller {
+  padding-top: 16px;
+  padding-bottom: 0px;
 }
 
 .modalButtonsWrapper > button {
@@ -1417,4 +1423,9 @@ ul.picrossExplanation ul > li {
 .progressTitle {
   font-size: 24px;
   padding-bottom: 20px;
+}
+
+.deleteRequestText {
+  color: #3367d6;
+  cursor: pointer;
 }
