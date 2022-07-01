@@ -132,7 +132,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.post('/api/seed/generate', apiSeedGenerate);
 app.get('/api/seed/progress/:id', apiSeedProgress);
-app.post('/api/seed/cancel/:id', apiSeedCancel);
+app.post('/api/seed/cancel', apiSeedCancel);
 
 app.post(
   '/api/generateseed',

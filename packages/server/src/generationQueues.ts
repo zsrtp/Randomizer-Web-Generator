@@ -352,11 +352,91 @@ function checkProgress(
   };
 }
 
-function cancelRequest(seedId: string, userId: string): void {
-  // We don't provide any info about whether or not something was actually
-  // cancelled. Assuming the API response returns a 200, the client can know that there is no longer a block for the
+export const enum CancelRequestResult {
+  NotFound = 'NotFound',
+  Unauthorized = 'Unauthorized',
+  Success = 'Success',
+}
+
+function cancelRequest(
+  seedId: string,
+  userId: string,
+  requesterHash: string
+): CancelRequestResult {
+  const seedGenStatus = seedIdToSeedGenStatus[seedId];
+
+  if (!seedGenStatus) {
+    logger.debug(
+      `User ${userId} tried to cancel a request with seedId ${seedId} which was not found.`
+    );
+    return CancelRequestResult.NotFound;
+  }
+
+  if (
+    userId &&
+    requesterHash &&
+    seedGenStatus.userId === userId &&
+    seedGenStatus.requesterHash === requesterHash
+  ) {
+    // Filter out userId so that user is able to create a new request.
+    userIdToSeedId = objects.filterKeys(userIdToSeedId, [
+      seedGenStatus.userId,
+    ]) as UserIdToSeedId;
+
+    // If in the queue, remove from the queue.
+    const index = queue.indexOf(seedId);
+    if (index >= 0) {
+      const newQueue = new Array(queue.length - 1);
+      for (let i = 0; i < queue.length; i++) {
+        if (i !== index) {
+          newQueue.push(queue[i]);
+        }
+      }
+      queue = newQueue;
+
+      // Filter out of seedIdMap so that it doesn't hang around forever.
+      seedIdToSeedGenStatus = objects.filterKeys(seedIdToSeedGenStatus, [
+        seedId,
+      ]) as SeedIdToSeedGenStatus;
+
+      logger.debug(
+        `User ${userId} canceled request with seedId ${seedId} at queue pos ${index}.`
+      );
+    } else {
+      logger.debug(
+        `User ${userId} canceled a request with seedId ${seedId} not in the queue with progress: ${seedGenStatus.progress}.`
+      );
+    }
+
+    return CancelRequestResult.Success;
+  } else {
+    logger.debug(
+      `User ${userId} tried to cancel a request with seedId ${seedId}, but failed authorization.`
+    );
+    return CancelRequestResult.NotFound;
+  }
+
+  // Only allow the user to cancel the request if they provide the correct
+  // userId and requesterHash
   //
-  // Only allow the user to cancel the request if they provide the correct userId and requesterHash
+  // Possible responses to the caller:
+  // - call failed because bad auth (first priority, so as to not give away any
+  //   information about whether or not the seedId is/was a valid target for
+  //   cancellation) ---- The below assume auth was passed:
+  //
+  // - Always returns success assuming auth passed. Even if the seed request
+  //   from the same user was currently being generated, only a single user at a
+  //   time can cause any weirdness here, and even then there is no real
+  //   problem.
+  //
+  // Canceling the request will filter out that user's userId from the userId
+  // map. Filtering out their userId is enough to allow them to make another
+  // request.
+  //
+  // We still want to prevent unnecessary work, so if the seedId is in the
+  // queue, we should filter it out of the queue and remove it from the
+  // seedIdToSeedGenRequest map as well. If it is not in the queue, we will
+  // leave it alone because the server might want to mark its status as Error.
 }
 
 export { addToFastQueue, checkProgress, cancelRequest };
