@@ -20,7 +20,12 @@ if (process.env.NODE_ENV === 'production') {
 
 // console.log(process.env);
 
-import { initConfig, resolveRootPath, resolveOutputPath } from './config';
+import {
+  initConfig,
+  resolveRootPath,
+  resolveOutputPath,
+  logConfig,
+} from './config';
 initConfig();
 
 const url = require('url');
@@ -49,12 +54,10 @@ declare global {
   }
 }
 
-logger.info('Server started');
-// let count = Math.floor(Math.random() * 200);
-// setInterval(() => {
-//   logger.info(`count is ${count}`);
-//   count += 1;
-// }, 1000);
+logger.info('Server starting...');
+
+// log config
+logConfig(logger.info);
 
 const app = express(); // create express app
 app.use(cors());
@@ -469,5 +472,5 @@ app.use(function (req: express.Request, res: express.Response, next) {
 
 // start express server on port 5000
 app.listen(process.env.PORT || 5000, () => {
-  console.log('server started');
+  logger.info('Server started.');
 });

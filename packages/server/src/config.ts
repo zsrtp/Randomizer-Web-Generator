@@ -41,6 +41,24 @@ function initConfig() {
   generatorExePath = resolveRootPath(exePath);
 }
 
+function logConfig(logFn: Function) {
+  const varNames = [
+    'OUTPUT_VOLUME_PATH',
+    'TPR_GENERATOR_PATH',
+    'TPR_GENERATOR_EXE_PATH',
+  ];
+
+  logFn('=====Environment Variables=====');
+  varNames.forEach((varName) => {
+    logFn(`${varName}=${process.env[varName]}`);
+  });
+
+  logFn('=====Resolved Paths=====');
+  logFn(`rootPath=${rootPath}`);
+  logFn(`outputPath=${outputPath}`);
+  logFn(`generatorExePath=${generatorExePath}`);
+}
+
 function resolveRootPath(...str: string[]): string {
   return path.resolve(rootPath, ...str);
 }
@@ -49,4 +67,10 @@ function resolveOutputPath(...str: string[]): string {
   return path.resolve(outputPath, ...str);
 }
 
-export { initConfig, resolveRootPath, resolveOutputPath, generatorExePath };
+export {
+  initConfig,
+  logConfig,
+  resolveRootPath,
+  resolveOutputPath,
+  generatorExePath,
+};

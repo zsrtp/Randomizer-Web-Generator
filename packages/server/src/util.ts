@@ -10,11 +10,15 @@ function callGenerator(...args: string[]) {
 }
 
 interface callGeneratorCb {
-  (error: string | null, data?: string): void;
+  (error: ExecFileException | string | null, data?: string): void;
 }
 
 interface callGeneratorBufCb {
   (error: string | null, buffer?: Buffer): void;
+}
+
+interface execFileCb {
+  (error: ExecFileException | null, stdout: string, stderr: string): void;
 }
 
 function callGeneratorBuf(args: string[], cb: callGeneratorBufCb) {
@@ -42,10 +46,6 @@ function callGeneratorBuf(args: string[], cb: callGeneratorBufCb) {
   return childProcess;
 }
 
-interface execFileCb {
-  (error: ExecFileException | null, stdout: string, stderr: string): void;
-}
-
 function callGeneratorAsync(args: string[], cb: callGeneratorCb) {
   const childProcess = execFile(generatorExePath, args, <execFileCb>((
     error,
@@ -53,7 +53,7 @@ function callGeneratorAsync(args: string[], cb: callGeneratorCb) {
     stderr
   ) => {
     if (error) {
-      cb(error.message);
+      cb(error);
     } else {
       cb(null, stdout);
     }

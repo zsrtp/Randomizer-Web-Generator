@@ -1,4 +1,5 @@
 import fs from 'fs-extra';
+import { ExecFileException } from 'child_process';
 import { callGeneratorMatchOutput } from './util';
 import { genElevenCharId } from './util/genId';
 import SeedGenStatus, { SeedGenProgress } from './SeedGenStatus';
@@ -104,7 +105,10 @@ function genUniqueSeedId(): string {
   }
 }
 
-function handleSeedGenStatusError(seedGenStatus: SeedGenStatus) {
+function handleSeedGenStatusError(
+  error: ExecFileException | string | null,
+  seedGenStatus: SeedGenStatus
+) {
   if (!seedGenStatus) {
     return;
   }
@@ -112,6 +116,7 @@ function handleSeedGenStatusError(seedGenStatus: SeedGenStatus) {
   logger.error(
     `Error occurred while generating seed with seedId: ${seedGenStatus.seedId}`
   );
+  logger.error(error);
 
   seedGenStatus.progress = SeedGenProgress.Error;
 
@@ -161,15 +166,15 @@ function processQueueItem() {
       ],
       (error, data) => {
         // TODO: temp setting a timeout to make easier to test
-        setTimeout(() => {
-          if (error) {
-            handleSeedGenStatusError(seedGenStatus);
-          } else {
-            handleSeedGenStatusDone(seedGenStatus);
-          }
+        // setTimeout(() => {
+        if (error) {
+          handleSeedGenStatusError(error, seedGenStatus);
+        } else {
+          handleSeedGenStatusDone(seedGenStatus);
+        }
 
-          processQueueItems();
-        }, 10000);
+        processQueueItems();
+        // }, 10000);
       }
     );
   }
