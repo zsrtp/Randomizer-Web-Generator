@@ -166,15 +166,15 @@ function processQueueItem() {
       ],
       (error, data) => {
         // TODO: temp setting a timeout to make easier to test
-        setTimeout(() => {
-          if (error) {
-            handleSeedGenStatusError(error, seedGenStatus);
-          } else {
-            handleSeedGenStatusDone(seedGenStatus);
-          }
+        // setTimeout(() => {
+        if (error) {
+          handleSeedGenStatusError(error, seedGenStatus);
+        } else {
+          handleSeedGenStatusDone(seedGenStatus);
+        }
 
-          processQueueItems();
-        }, 10000);
+        processQueueItems();
+        // }, 10000);
       }
     );
   }
@@ -298,7 +298,9 @@ function addToFastQueue(
   queue.push(seedId);
 
   logger.debug(
-    `Queued seed request with seedId: ${seedId}. Queue length is ${queue.length}`
+    `User ${userId} queued seed request with seedId ${seedId} to queue pos ${
+      queue.length - 1
+    }.`
   );
 
   notifyQueueItemAdded();
