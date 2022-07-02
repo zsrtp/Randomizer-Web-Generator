@@ -30,3 +30,4 @@ yarn-error.log*
 
 # Added later
 volume
+/packages/server/dist

@@ -1,0 +1,6 @@
+version: '3.9'
+services:
+  tpr-generator:
+    ports:
+      - '80:5000'
+    image: my.image.name.rc2

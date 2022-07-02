@@ -1,67 +1,23 @@
-# # FROM node:14 AS ui-build
-# FROM node:lts-alpine AS ui-build
-
-# WORKDIR /usr/app/client/
-# COPY package.json .
-# COPY yarn.lock .
-# RUN yarn
-# COPY src ./src
-# COPY public ./public
-# RUN yarn build
-
-# # FROM node:14 AS server-build
-# FROM node:lts-alpine AS server-build
-
-# WORKDIR /usr/app/
-
-# COPY --from=ui-build /usr/app/client/build ./client/build
-# WORKDIR /usr/app/server/
-
-# # COPY package*.json .
-# # RUN npm install
-# COPY package.json .
-# COPY yarn.lock .
-# RUN yarn
-
-# COPY server.js .
-
-# ENV NODE_ENV=production
-
-# EXPOSE 5000
-
-# CMD ["node", "server.js"]
-
-#####
-
 # Client
-FROM node:lts-alpine AS ui-build
+FROM node:lts-alpine AS packages-build
 
-WORKDIR /usr/app/client/
-# COPY package.json .
-# COPY yarn.lock .
-# RUN yarn
-# COPY src ./src
-# COPY public ./public
-# RUN yarn build
-COPY ./packages/client/ ./build/
+WORKDIR /usr/app/
 
-# Server
-FROM node:lts-alpine AS server-build
-WORKDIR /usr/app/server/
+COPY ./package.json .
+COPY ./yarn.lock .
+COPY ./packages/client/package.json ./packages/client/package.json
+COPY ./packages/server/package.json ./packages/server/package.json
 
-COPY package.json .
-COPY yarn.lock .
 RUN yarn
 
-COPY .env .
-COPY server.js .
-COPY util.js .
+COPY ./packages/server/ ./packages/server/
 
-# ENV NODE_ENV=production
+WORKDIR /usr/app/packages/server
+RUN yarn build
+COPY .env ./dist/
 
-# EXPOSE 5000
-
-# CMD ["node", "server.js"]
+WORKDIR /usr/app/
+COPY ./packages/client/ ./packages/client
 
 #####
 
@@ -89,8 +45,8 @@ COPY .env ./generator
 # CMD ["sleep", "infinity"]
 
 
-COPY --from=ui-build /usr/app/client/build /usr/app/client/build
-COPY --from=server-build /usr/app/server /usr/app/server
+COPY --from=packages-build /usr/app/packages/client /usr/app/client/build
+COPY --from=packages-build /usr/app/packages/server/dist /usr/app/server
 
 WORKDIR /usr/app/server
 
@@ -99,4 +55,4 @@ ENV NODE_ENV=production
 
 EXPOSE 5000
 
-CMD ["node", "server.js"]
+CMD ["node", "bundle.js"]
