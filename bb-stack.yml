@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  bb-app:
+    # image: bulletinboard:1.0
+    # image: getting-started:latest
+    image: tpr-generator:${IMAGE_VERSION}
+    ports:
+      # - '8000:8080'
+      - '5000:5000'
+    secrets:
+      - db_password
+
+secrets:
+  db_password:
+    file: ./fish/apple.txt
+    name: db_password-${DB_PASSWORD_VER}

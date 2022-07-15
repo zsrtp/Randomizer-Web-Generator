@@ -4,5 +4,9 @@
     "packages/*"
   ],
   "name": "docker-web-app-demo",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "scripts": {
+    "deploy": "node packages/build-scripts/deploy.js",
+    "build": "node packages/build-scripts/image.js"
+  }
 }

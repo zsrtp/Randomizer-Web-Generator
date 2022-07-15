@@ -1,0 +1,9 @@
+{
+  "name": "build-scripts",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "yaml": "^2.1.1"
+  }
+}
