@@ -55,6 +55,6 @@ ENV NODE_ENV=production
 
 EXPOSE 3500
 
-ENV TPRGEN_VERSION=0.9
+ENV TPRGEN_VERSION=0.1.0
 
 CMD ["node", "bundle.js"]

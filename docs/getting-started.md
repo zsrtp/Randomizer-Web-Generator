@@ -30,7 +30,7 @@ For local development, you will need the following:
 - dotNET (for Generator C# code)
 
 If you need to interact with the deployment process, you will also need Docker.
-After completing the rest of this document, see [deployment.md](./deployment.md) for further instructions.
+After completing the rest of this document, see [docker.md](./docker.md) for further instructions.
 
 ### Node
 
@@ -65,4 +65,86 @@ This will install all javascript dependencies.
 
 ## Development
 
-// TODO: Add instructions for C# here
+### Generator
+
+// TODO: Add better instructions for C# here
+
+The Generator can be worked on by itself without going through the website.
+
+If you need the Generator to be available to the server, you will need to build it after any changes.
+
+Currently, I am doing this by putting a breakpoint near the start of the Program.cs file, then stopping the Generator once the breakpoint is hit.
+There is probably a way to just build the C# code with a single command, but I don't know it at the moment.
+
+Here is a crappy configuration you can use in VSCode for this:
+
+```json
+{
+  // Use IntelliSense to find out which attributes exist for C# debugging
+  // Use hover for the description of the existing attributes
+  // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+  "name": "generate2 w/args .NET Core Launch (console)",
+  "type": "coreclr",
+  "request": "launch",
+  "preLaunchTask": "build",
+  // If you have changed target frameworks, make sure to update the program path.
+  "program": "${workspaceFolder}/Generator/bin/Debug/net5.0/TPRandomizer.dll",
+  // "args": ["QVFZUUFBQUFBNzc3NEFBQUFBQUFBQUE=", "[0]-Attentive-Dangoro"],
+  "args": [
+    "generate2",
+    "idnull",
+    // "null",
+    // "QVFZUUFBQUFBNzc3NFlBQUFBQUFBQUFBQUJSR09GNg==",
+    // "0s0H13400000_7v89H5_u",
+    // "0s0Q13400000_7v09H5__G807cc1_u",
+    // "0sPN11700000_91A8V_Jm-Gaq_u",
+    "0s9A3Fod_-V__W",
+    "DYIteDjcACDaz7SnA76sRW"
+  ],
+  // "cwd": "${workspaceFolder}/Generator",
+  "cwd": "${workspaceFolder}",
+  // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+  "console": "internalConsole",
+  "stopAtEntry": false
+}
+```
+
+### Running the server
+
+During development, the server is run by `nodemon`.
+
+Nodemon will watch for changes to files, and it will restart the server after any changes to server files.
+
+Its output will also display any TypeScript errors, and it will display output which we print to the console.
+
+The recommended steps for running the server are:
+
+- Open a new command line.
+- From the root directory, run `yarn server:debug`.
+
+This will start the server, and you will be able to attach to it to debug with breakpoints (more on this later).
+
+The website will be accessible at `http://localhost:3500`.
+
+Using VSCode, you can attach to the server with the following debug configuration:
+
+```json
+{
+  "name": "Attach to server",
+  "port": 9229,
+  "request": "attach",
+  "skipFiles": ["<node_internals>/**"],
+  "type": "pwa-node",
+  "restart": true
+}
+```
+
+You can also start the server with command `yarn server:debug-b`.
+This will start the server, but it will pause immediately and wait for you to connect a debugger before continuing.
+This is handy if you need to put a breakpoint near the very start of execution.
+
+### Editing client code
+
+_Note: This section will change after the client-side code is restructured in an update coming soon._
+
+Assuming you are just making changes to existing client code, you can make a change to the file, then reload the page in your browser.

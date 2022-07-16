@@ -3,8 +3,10 @@ import fs from 'fs-extra';
 import searchUpFileTree from './util/searchUpFileTree';
 
 if (process.env.NODE_ENV === 'production') {
+  // In production, the config is provided by docker swarm configs.
   require('dotenv').config({ path: '/env_config' });
 } else {
+  // During development, we load config using env variables.
   const envFileDir = searchUpFileTree(__dirname, (currPath) =>
     fs.existsSync(path.join(currPath, '.env'))
   );
@@ -13,12 +15,20 @@ if (process.env.NODE_ENV === 'production') {
     throw new Error('Failed to find env file directory.');
   }
 
-  require('dotenv').config({
-    path: path.join(envFileDir, '.env.development'),
-  });
+  const dotenvPath = path.resolve(path.join(envFileDir, '.env'));
 
-  require('dotenv').config({
-    path: path.join(envFileDir, '.env'),
+  const dotenvFiles = [
+    `${dotenvPath}.development.local`,
+    `${dotenvPath}.development`,
+    dotenvPath,
+  ].filter(Boolean);
+
+  dotenvFiles.forEach((dotenvFile: string) => {
+    if (fs.existsSync(dotenvFile)) {
+      require('dotenv').config({
+        path: dotenvFile,
+      });
+    }
   });
 }
 
