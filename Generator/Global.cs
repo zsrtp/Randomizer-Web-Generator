@@ -14,8 +14,8 @@ namespace TPRandomizer
         {
             string envFileDir = InitEnv();
 
-            rootPath = ResolvePath(envFileDir, Environment.GetEnvironmentVariable("TPR_GENERATOR_PATH"));
-            outputPath = ResolvePath(envFileDir, Environment.GetEnvironmentVariable("OUTPUT_VOLUME_PATH"));
+            rootPath = ResolvePath(envFileDir, Environment.GetEnvironmentVariable("TPRGEN_GENERATOR_ROOT"));
+            outputPath = ResolvePath(envFileDir, Environment.GetEnvironmentVariable("TPRGEN_VOLUME_ROOT"));
 
             Directory.CreateDirectory(outputPath);
         }
@@ -39,9 +39,9 @@ namespace TPRandomizer
             string path = Assembly.GetEntryAssembly().Location;
 
             string desiredFilename = ".env.development";
-            if (Environment.GetEnvironmentVariable("TPR_ENV") == "production")
+            if (Environment.GetEnvironmentVariable("TPRGEN_ENV") == "production")
             {
-                desiredFilename = ".env";
+                desiredFilename = "/env_config";
             }
 
             while (true)
@@ -49,7 +49,7 @@ namespace TPRandomizer
                 path = Path.GetDirectoryName(path);
                 if (path == null)
                 {
-                    throw new Exception("Unable to find output.config.json");
+                    throw new Exception("Unable to find environment config.");
                 }
 
                 string outputConfigPath = Path.Join(path, desiredFilename);

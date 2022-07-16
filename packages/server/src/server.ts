@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 import searchUpFileTree from './util/searchUpFileTree';
 
 if (process.env.NODE_ENV === 'production') {
-  require('dotenv').config();
+  require('dotenv').config({ path: '/env_config' });
 } else {
   const envFileDir = searchUpFileTree(__dirname, (currPath) =>
     fs.existsSync(path.join(currPath, '.env'))
@@ -15,6 +15,10 @@ if (process.env.NODE_ENV === 'production') {
 
   require('dotenv').config({
     path: path.join(envFileDir, '.env.development'),
+  });
+
+  require('dotenv').config({
+    path: path.join(envFileDir, '.env'),
   });
 }
 
@@ -470,7 +474,10 @@ app.use(function (req: express.Request, res: express.Response, next) {
   }
 });
 
-// start express server on port 5000
-app.listen(process.env.PORT || 5000, () => {
+const port = process.env.SERVER_PORT || 3500;
+logger.info(`Server will listen on port: ${port}`);
+
+// start express server
+app.listen(port, () => {
   logger.info('Server started.');
 });

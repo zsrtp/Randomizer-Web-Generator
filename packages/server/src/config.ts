@@ -7,9 +7,9 @@ let outputPath: string;
 let generatorExePath: string;
 
 function initConfig() {
-  const outputVolumePath = process.env.OUTPUT_VOLUME_PATH;
+  const outputVolumePath = process.env.TPRGEN_VOLUME_ROOT;
   if (!outputVolumePath) {
-    throw new Error('Did not find `OUTPUT_VOLUME_PATH` in process.env.');
+    throw new Error('Did not find `TPRGEN_VOLUME_ROOT` in process.env.');
   }
 
   searchUpFileTree(__dirname, (currPath) => {
@@ -28,9 +28,9 @@ function initConfig() {
 
   fs.mkdirp(outputPath);
 
-  let exePath = process.env.TPR_GENERATOR_EXE_PATH;
+  let exePath = process.env.TPRGEN_GENERATOR_EXE;
   if (!exePath) {
-    throw new Error('Did not find `TPR_GENERATOR_EXE_PATH` in process.env.');
+    throw new Error('Did not find `TPRGEN_GENERATOR_EXE` in process.env.');
   }
 
   if (process.platform === 'win32') {
@@ -43,9 +43,9 @@ function initConfig() {
 
 function logConfig(logFn: Function) {
   const varNames = [
-    'OUTPUT_VOLUME_PATH',
-    'TPR_GENERATOR_PATH',
-    'TPR_GENERATOR_EXE_PATH',
+    'TPRGEN_VOLUME_ROOT',
+    'TPRGEN_GENERATOR_ROOT',
+    'TPRGEN_GENERATOR_EXE',
   ];
 
   logFn('=====Environment Variables=====');

@@ -7,6 +7,7 @@
   "version": "0.1.0",
   "scripts": {
     "deploy": "node packages/build-scripts/deploy.js",
-    "build": "node packages/build-scripts/image.js"
+    "build": "node packages/build-scripts/image.js",
+    "down": "docker service rm demo_tpr-generator"
   }
 }

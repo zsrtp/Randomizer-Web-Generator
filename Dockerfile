@@ -50,9 +50,11 @@ COPY --from=packages-build /usr/app/packages/server/dist /usr/app/server
 
 WORKDIR /usr/app/server
 
-ENV TPR_ENV=production
+ENV TPRGEN_ENV=production
 ENV NODE_ENV=production
 
-EXPOSE 5000
+EXPOSE 3500
+
+ENV TPRGEN_VERSION=0.9
 
 CMD ["node", "bundle.js"]

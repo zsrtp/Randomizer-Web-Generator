@@ -1,15 +1,19 @@
-version: '3.7'
+version: '3.8'
 
 services:
-  bb-app:
-    # image: bulletinboard:1.0
-    # image: getting-started:latest
+  tpr-generator:
     image: tpr-generator:${IMAGE_VERSION}
     ports:
-      # - '8000:8080'
-      - '5000:5000'
+      - '${HOST_PORT:-3000}:3500'
     secrets:
       - db_password
+    configs:
+      - env_config
+
+configs:
+  env_config:
+    file: ./.env
+    name: env_config-${EXAMPLE_CONFIG_VER}
 
 secrets:
   db_password:
