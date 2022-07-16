@@ -29,7 +29,17 @@ yarn-error.log*
 **/obj
 
 # Added later
+
 /volume
 /packages/server/dist
 # NEVER remove /secrets from the .gitignore!
 /secrets
+
+# From https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
