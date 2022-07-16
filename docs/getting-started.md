@@ -78,7 +78,7 @@ There is probably a way to just build the C# code with a single command, but I d
 
 Here is a crappy configuration you can use in VSCode for this:
 
-```json
+```jsonc
 {
   // Use IntelliSense to find out which attributes exist for C# debugging
   // Use hover for the description of the existing attributes
