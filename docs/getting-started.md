@@ -148,3 +148,7 @@ This is handy if you need to put a breakpoint near the very start of execution.
 _Note: This section will change after the client-side code is restructured in an update coming soon._
 
 Assuming you are just making changes to existing client code, you can make a change to the file, then reload the page in your browser.
+
+## Next steps
+
+See [docker.md](./docker.md) for instructions on deploying a production build.
