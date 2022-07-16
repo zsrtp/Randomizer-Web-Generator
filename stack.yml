@@ -5,10 +5,16 @@ services:
     image: tpr-generator:${IMAGE_VERSION}
     ports:
       - '${HOST_PORT:-3000}:3500'
-    secrets:
-      - db_password
+    volumes:
+      - tpr-generator-data:${TPRGEN_VOLUME_ROOT}
     configs:
       - env_config
+    secrets:
+      - db_password
+
+volumes:
+  tpr-generator-data:
+    driver: local
 
 configs:
   env_config:
