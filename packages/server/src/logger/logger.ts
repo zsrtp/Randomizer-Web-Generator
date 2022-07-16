@@ -77,4 +77,16 @@ if (true || process.env.NODE_ENV === 'development') {
   });
 }
 
+process.on('uncaughtException', (e) => {
+  logger.error('Uncaught exception:\n', e);
+});
+
+logger.on('finish', () => {
+  // Wait a second before exiting to make sure logs are written. Can revisit
+  // later if this is not working.
+  setTimeout(() => {
+    process.exit(1);
+  }, 1000);
+});
+
 export default logger;

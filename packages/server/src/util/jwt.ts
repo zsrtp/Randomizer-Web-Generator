@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { getJwtSecret } from 'src/secret';
 import { genUserId } from './genId';
 
 function genUserJwt(): string {
@@ -6,7 +7,7 @@ function genUserJwt(): string {
     {
       uid: genUserId(),
     },
-    'example_secret_key'
+    getJwtSecret()
   );
 
   return token;

@@ -29,5 +29,7 @@ yarn-error.log*
 **/obj
 
 # Added later
-volume
+/volume
 /packages/server/dist
+# NEVER remove /secrets from the .gitignore!
+/secrets

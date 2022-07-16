@@ -22,8 +22,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// console.log(process.env);
-
 import {
   initConfig,
   resolveRootPath,
@@ -31,10 +29,15 @@ import {
   logConfig,
 } from './config';
 initConfig();
+// Import the logger as soon as the config is initialized so that it can be used
+// after this point.
+import logger from './logger/logger';
+
+import { initSecrets, getJwtSecret } from './secret';
+initSecrets();
 
 const url = require('url');
 const cors = require('cors');
-import logger from './logger/logger';
 import express from 'express';
 import {
   callGenerator,
@@ -81,7 +84,7 @@ app.all(
 
     const token = req.headers.authorization.substring(7);
 
-    jwt.verify(token, 'example_secret_key', (err, data: jwt.JwtPayload) => {
+    jwt.verify(token, getJwtSecret(), (err, data: jwt.JwtPayload) => {
       if (err || !data.uid) {
         return res.status(403).send({ error: 'Forbidden' });
       }

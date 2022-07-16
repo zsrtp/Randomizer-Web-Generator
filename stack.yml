@@ -10,7 +10,7 @@ services:
     configs:
       - env_config
     secrets:
-      - db_password
+      - jwt_secret
 
 volumes:
   tpr-generator-data:
@@ -19,9 +19,9 @@ volumes:
 configs:
   env_config:
     file: ./.env
-    name: env_config-${EXAMPLE_CONFIG_VER}
+    name: env_config-${ENV_CONFIG_HASH}
 
 secrets:
-  db_password:
-    file: ./fish/apple.txt
-    name: db_password-${DB_PASSWORD_VER}
+  jwt_secret:
+    file: ./secrets/jwtSecret.txt
+    name: jwt_secret-${JWT_SECRET_HASH}
