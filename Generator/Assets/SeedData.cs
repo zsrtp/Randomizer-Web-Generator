@@ -246,10 +246,10 @@ namespace TPRandomizer.Assets
             }
 
             // Generate Data file
-            File.WriteAllBytes(
-                "rando-data" + randomizerSettings.seedNumber,
-                currentSeedData.ToArray()
-            );
+            // File.WriteAllBytes(
+            //     "rando-data" + randomizerSettings.seedNumber,
+            //     currentSeedData.ToArray()
+            // );
 
             char region;
             switch (fcSettings.gameRegion)
@@ -486,11 +486,10 @@ namespace TPRandomizer.Assets
                     {
                         listOfArcReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.arcOffsets[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.arcOffsets[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         if (currentCheck.replacementType[i] != 3)
@@ -503,11 +502,10 @@ namespace TPRandomizer.Assets
                         {
                             listOfArcReplacements.AddRange(
                                 Converter.GcBytes(
-                                    (UInt32)
-                                        uint.Parse(
-                                            currentCheck.flag,
-                                            System.Globalization.NumberStyles.HexNumber
-                                        )
+                                    (UInt32)uint.Parse(
+                                        currentCheck.flag,
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                                 )
                             );
                         }
@@ -550,11 +548,10 @@ namespace TPRandomizer.Assets
                     {
                         listOfArcReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.arcOffsets[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.arcOffsets[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfArcReplacements.AddRange(
@@ -615,11 +612,10 @@ namespace TPRandomizer.Assets
 
                         listOfDZXReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt16)
-                                    ushort.Parse(
-                                        currentCheck.hash[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt16)ushort.Parse(
+                                    currentCheck.hash[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfDZXReplacements.Add(Converter.GcByte(currentCheck.stageIDX[i]));
@@ -694,20 +690,18 @@ namespace TPRandomizer.Assets
                         );
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.moduleID[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.moduleID[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.relOffsets[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.relOffsets[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfRELReplacements.AddRange(
@@ -763,11 +757,10 @@ namespace TPRandomizer.Assets
                 {
                     listOfBugRewards.AddRange(
                         Converter.GcBytes(
-                            (UInt16)
-                                byte.Parse(
-                                    currentCheck.flag,
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                            (UInt16)byte.Parse(
+                                currentCheck.flag,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
                         )
                     );
                     listOfBugRewards.AddRange(Converter.GcBytes((UInt16)(byte)currentCheck.itemId));
@@ -814,11 +807,10 @@ namespace TPRandomizer.Assets
                 {
                     listOfHiddenSkills.AddRange(
                         Converter.GcBytes(
-                            (UInt16)
-                                short.Parse(
-                                    currentCheck.flag,
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                            (UInt16)short.Parse(
+                                currentCheck.flag,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
                         )
                     );
                     listOfHiddenSkills.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
@@ -846,11 +838,10 @@ namespace TPRandomizer.Assets
                 {
                     listOfShopItems.AddRange(
                         Converter.GcBytes(
-                            (UInt16)
-                                short.Parse(
-                                    currentCheck.flag,
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                            (UInt16)short.Parse(
+                                currentCheck.flag,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
                         )
                     );
                     listOfShopItems.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));

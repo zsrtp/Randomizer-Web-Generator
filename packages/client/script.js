@@ -322,8 +322,7 @@ document
 document
   .getElementById('transformAnywhereCheckbox')
   .addEventListener('click', setSettingsString);
-document
-  .getElementById('bgmFieldset').onchange = setSettingsString;
+document.getElementById('bgmFieldset').onchange = setSettingsString;
 document
   .getElementById('randomizeFanfaresCheckbox')
   .addEventListener('click', setSettingsString);
@@ -339,14 +338,30 @@ document.getElementById('bButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('xButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('yButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('zButtonColorFieldset').onchange = setSettingsString;
-document.getElementById('barrenCheckbox').addEventListener("click", setSettingsString);
-document.getElementById('minesEntranceCheckbox').addEventListener("click", setSettingsString);
-document.getElementById('lakebedEntranceCheckbox').addEventListener("click", setSettingsString);
-document.getElementById('arbitersEntranceCheckbox').addEventListener("click", setSettingsString);
-document.getElementById('snowpeakEntranceCheckbox').addEventListener("click", setSettingsString);
-document.getElementById('totEntranceCheckbox').addEventListener("click", setSettingsString);
-document.getElementById('cityEntranceCheckbox').addEventListener("click", setSettingsString);
-document.getElementById('importSettingsStringButton').addEventListener("click", importSettingsString);
+document
+  .getElementById('barrenCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('minesEntranceCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('lakebedEntranceCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('arbitersEntranceCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('snowpeakEntranceCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('totEntranceCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('cityEntranceCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('importSettingsStringButton')
+  .addEventListener('click', importSettingsString);
 document
   .getElementById('increaseWalletCheckbox')
   .addEventListener('click', setSettingsString);
@@ -363,27 +378,53 @@ function importSettingsString() {
 
 function setSettingsString() {
   var settingsStringRaw = [];
-  settingsStringRaw[0] = document.getElementById('logicRulesFieldset').selectedIndex;
-  settingsStringRaw[1] = document.getElementById('castleRequirementsFieldset').selectedIndex;
-  settingsStringRaw[2] = document.getElementById('palaceRequirementsFieldset').selectedIndex;
-  settingsStringRaw[3] = document.getElementById('faronLogicFieldset').selectedIndex;
+  settingsStringRaw[0] =
+    document.getElementById('logicRulesFieldset').selectedIndex;
+  settingsStringRaw[1] = document.getElementById(
+    'castleRequirementsFieldset'
+  ).selectedIndex;
+  settingsStringRaw[2] = document.getElementById(
+    'palaceRequirementsFieldset'
+  ).selectedIndex;
+  settingsStringRaw[3] =
+    document.getElementById('faronLogicFieldset').selectedIndex;
   settingsStringRaw[4] = document.getElementById('mdhCheckbox').checked;
   settingsStringRaw[5] = document.getElementById('introCheckbox').checked;
-  settingsStringRaw[6] = document.getElementById('smallKeyFieldset').selectedIndex
-  settingsStringRaw[7] = document.getElementById('bigKeyFieldset').selectedIndex
-  settingsStringRaw[8] = document.getElementById('mapAndCompassFieldset').selectedIndex;
+  settingsStringRaw[6] =
+    document.getElementById('smallKeyFieldset').selectedIndex;
+  settingsStringRaw[7] =
+    document.getElementById('bigKeyFieldset').selectedIndex;
+  settingsStringRaw[8] = document.getElementById(
+    'mapAndCompassFieldset'
+  ).selectedIndex;
   settingsStringRaw[9] = document.getElementById('goldenBugsCheckbox').checked;
   settingsStringRaw[10] = document.getElementById('poesCheckbox').checked;
-  settingsStringRaw[11] = document.getElementById('giftsFromNPCsCheckbox').checked;
+  settingsStringRaw[11] = document.getElementById(
+    'giftsFromNPCsCheckbox'
+  ).checked;
   settingsStringRaw[12] = document.getElementById('shopItemsCheckbox').checked;
-  settingsStringRaw[13] = document.getElementById('faronTwilightCheckbox').checked;
-  settingsStringRaw[14] = document.getElementById('eldinTwilightCheckbox').checked;
-  settingsStringRaw[15] = document.getElementById('lanayruTwilightCheckbox').checked;
-  settingsStringRaw[16] = document.getElementById('skipMinorCutscenesCheckbox').checked;
+  settingsStringRaw[13] = document.getElementById(
+    'faronTwilightCheckbox'
+  ).checked;
+  settingsStringRaw[14] = document.getElementById(
+    'eldinTwilightCheckbox'
+  ).checked;
+  settingsStringRaw[15] = document.getElementById(
+    'lanayruTwilightCheckbox'
+  ).checked;
+  settingsStringRaw[16] = document.getElementById(
+    'skipMinorCutscenesCheckbox'
+  ).checked;
   settingsStringRaw[17] = document.getElementById('fastIBCheckbox').checked;
-  settingsStringRaw[18] = document.getElementById('quickTransformCheckbox').checked;
-  settingsStringRaw[19] = document.getElementById('transformAnywhereCheckbox').checked;
-  settingsStringRaw[20] = document.getElementById('foolishItemFieldset').selectedIndex;
+  settingsStringRaw[18] = document.getElementById(
+    'quickTransformCheckbox'
+  ).checked;
+  settingsStringRaw[19] = document.getElementById(
+    'transformAnywhereCheckbox'
+  ).checked;
+  settingsStringRaw[20] = document.getElementById(
+    'foolishItemFieldset'
+  ).selectedIndex;
   var listItem = document
     .getElementById('baseImportantItemsListbox')
     .getElementsByTagName('input');
@@ -402,30 +443,71 @@ function setSettingsString() {
       options.push(listItem[i].getAttribute('data-checkId'));
   }
   settingsStringRaw[22] = options;
-  settingsStringRaw[23] = document.getElementById('tunicColorFieldset').selectedIndex;
-    settingsStringRaw[24] = document.getElementById('midnaHairColorFieldset').selectedIndex;
-    settingsStringRaw[25] = document.getElementById('lanternColorFieldset').selectedIndex;
-    settingsStringRaw[26] = document.getElementById('heartColorFieldset').selectedIndex;
-    settingsStringRaw[27] = document.getElementById('aButtonColorFieldset').selectedIndex;
-    settingsStringRaw[28] = document.getElementById('bButtonColorFieldset').selectedIndex;
-    settingsStringRaw[29] = document.getElementById('xButtonColorFieldset').selectedIndex;
-    settingsStringRaw[30] = document.getElementById('yButtonColorFieldset').selectedIndex;
-    settingsStringRaw[31] = document.getElementById('zButtonColorFieldset').selectedIndex;
-    settingsStringRaw[32] = document.getElementById('bgmFieldset').selectedIndex;
-    settingsStringRaw[33] = document.getElementById('randomizeFanfaresCheckbox').checked;
-    settingsStringRaw[34] = document.getElementById('disableEnemyBGMCheckbox').checked;
-    settingsStringRaw[35] = document.getElementById('hiddenSkillsCheckbox').checked;
-    settingsStringRaw[36] = document.getElementById('skyCharacterCheckbox').checked;
-    settingsStringRaw[37] = document.getElementById('seedNumberFieldset').selectedIndex;
-		settingsStringRaw[38] = document.getElementById('increaseWalletCheckbox').checked;
-		settingsStringRaw[39] = document.getElementById('modifyShopModelsCheckbox').checked;
-		settingsStringRaw[40] = document.getElementById('barrenCheckbox').checked;
-		settingsStringRaw[41] = document.getElementById('minesEntranceCheckbox').checked;
-		settingsStringRaw[42] = document.getElementById('lakebedEntranceCheckbox').checked;
-		settingsStringRaw[43] = document.getElementById('arbitersEntranceCheckbox').checked;
-		settingsStringRaw[44] = document.getElementById('snowpeakEntranceCheckbox').checked;
-		settingsStringRaw[45] = document.getElementById('totEntranceCheckbox').checked;
-		settingsStringRaw[46] = document.getElementById('cityEntranceCheckbox').checked;
+  settingsStringRaw[23] =
+    document.getElementById('tunicColorFieldset').selectedIndex;
+  settingsStringRaw[24] = document.getElementById(
+    'midnaHairColorFieldset'
+  ).selectedIndex;
+  settingsStringRaw[25] = document.getElementById(
+    'lanternColorFieldset'
+  ).selectedIndex;
+  settingsStringRaw[26] =
+    document.getElementById('heartColorFieldset').selectedIndex;
+  settingsStringRaw[27] = document.getElementById(
+    'aButtonColorFieldset'
+  ).selectedIndex;
+  settingsStringRaw[28] = document.getElementById(
+    'bButtonColorFieldset'
+  ).selectedIndex;
+  settingsStringRaw[29] = document.getElementById(
+    'xButtonColorFieldset'
+  ).selectedIndex;
+  settingsStringRaw[30] = document.getElementById(
+    'yButtonColorFieldset'
+  ).selectedIndex;
+  settingsStringRaw[31] = document.getElementById(
+    'zButtonColorFieldset'
+  ).selectedIndex;
+  settingsStringRaw[32] = document.getElementById('bgmFieldset').selectedIndex;
+  settingsStringRaw[33] = document.getElementById(
+    'randomizeFanfaresCheckbox'
+  ).checked;
+  settingsStringRaw[34] = document.getElementById(
+    'disableEnemyBGMCheckbox'
+  ).checked;
+  settingsStringRaw[35] = document.getElementById(
+    'hiddenSkillsCheckbox'
+  ).checked;
+  settingsStringRaw[36] = document.getElementById(
+    'skyCharacterCheckbox'
+  ).checked;
+  settingsStringRaw[37] =
+    document.getElementById('seedNumberFieldset').selectedIndex;
+  settingsStringRaw[38] = document.getElementById(
+    'increaseWalletCheckbox'
+  ).checked;
+  settingsStringRaw[39] = document.getElementById(
+    'modifyShopModelsCheckbox'
+  ).checked;
+  settingsStringRaw[40] = document.getElementById('barrenCheckbox').checked;
+  settingsStringRaw[41] = document.getElementById(
+    'minesEntranceCheckbox'
+  ).checked;
+  settingsStringRaw[42] = document.getElementById(
+    'lakebedEntranceCheckbox'
+  ).checked;
+  settingsStringRaw[43] = document.getElementById(
+    'arbitersEntranceCheckbox'
+  ).checked;
+  settingsStringRaw[44] = document.getElementById(
+    'snowpeakEntranceCheckbox'
+  ).checked;
+  settingsStringRaw[45] = document.getElementById(
+    'totEntranceCheckbox'
+  ).checked;
+  settingsStringRaw[46] = document.getElementById(
+    'cityEntranceCheckbox'
+  ).checked;
   // document.getElementById('settingsStringTextbox').value =
   document.getElementById('settingsStringTextbox').textContent =
     getSettingsString(settingsStringRaw);
@@ -783,44 +865,6 @@ function genExcludedChecksBits() {
 }
 
 function genSettingsString() {
-  // const getVal = (id) => {
-  //   const $el = $('#' + id);
-  //   if ($el.prop('nodeName') === 'INPUT' && $el.attr('type') === 'checkbox') {
-  //     return $el.prop('checked');
-  //   }
-
-  //   return $el.val();
-  // };
-
-  // const values = [
-  //   'logicRulesFieldset',
-  //   'castleRequirementsFieldset',
-  //   'palaceRequirementsFieldset',
-  //   'faronLogicFieldset',
-  //   'mdhCheckbox',
-  //   'introCheckbox',
-  //   'smallKeyFieldset',
-  //   'bigKeyFieldset',
-  //   'mapAndCompassFieldset',
-  //   'goldenBugsCheckbox',
-  //   'poesCheckbox',
-  //   'giftsFromNPCsCheckbox',
-  //   'shopItemsCheckbox',
-  //   'faronTwilightCheckbox',
-  //   'eldinTwilightCheckbox',
-  //   'lanayruTwilightCheckbox',
-  //   'skipMinorCutscenesCheckbox',
-  //   'fastIBCheckbox',
-  //   'quickTransformCheckbox',
-  //   'transformAnywhereCheckbox',
-  //   'foolishItemFieldset',
-  // ].map(getVal);
-
-  // values.push(genStartingItemsBits());
-  // values.push(genExcludedChecksBits());
-
-  // return encodeSettings(0, 's', values);
-
   return window.tpr.shared.genSSettingsFromUi();
 }
 
@@ -833,8 +877,6 @@ $('#generateSeed').on('click', () => {
 
   showGeneratingModal();
 
-  // window.tpr.shared.genUSettingsFromUi();
-
   const settingsString =
     genSettingsString() + window.tpr.shared.genUSettingsFromUi();
 
@@ -846,7 +888,6 @@ $('#generateSeed').on('click', () => {
     // do nothing
   }
 
-  // fetch('/api/generateseed', {
   window.tpr.shared
     .fetch('/api/seed/generate', {
       method: 'POST',
@@ -883,7 +924,6 @@ $('#generateSeed').on('click', () => {
           console.error(e);
         }
 
-        // window.location.href = '/seed?id=' + data.data;
         window.location.href = `/s/${data.seedId}`;
       } else {
         generateCallInProgress = false;
@@ -906,11 +946,13 @@ function initSettingsModal() {
   const modal = document.getElementById('myModal');
   const btn = document.getElementById('editSettingsBtn');
   const span = modal.querySelector('.modal-close');
+  const $copySuccessText = $('#modalFieldCopiedText');
   const fieldErrorText = document.getElementById('modalFieldError');
   const input = document.getElementById('modalSettingsStringInput');
   const currentSettings = document.getElementById('modalCurrentSettings');
 
   input.addEventListener('input', () => {
+    $copySuccessText.hide();
     $(fieldErrorText).hide();
   });
 
@@ -919,6 +961,7 @@ function initSettingsModal() {
     // Prepare modal
     currentSettings.textContent =
       genSettingsString() + window.tpr.shared.genPSettingsFromUi();
+    $copySuccessText.hide();
     $(fieldErrorText).hide();
     input.value = '';
 
@@ -955,12 +998,13 @@ function initSettingsModal() {
   });
 
   document.getElementById('modalCopy').addEventListener('click', () => {
+    $copySuccessText.hide();
     $(fieldErrorText).hide();
 
     const text = currentSettings.textContent;
     navigator.clipboard.writeText(text).then(
       () => {
-        // success
+        $copySuccessText.show();
       },
       (err) => {
         $(fieldErrorText).text('Failed to copy text.').show();
@@ -1177,13 +1221,13 @@ function populateSSettings(s) {
     s.shopModelsShowTheReplacedItem
   );
   $('#foolishItemFieldset').val(s.trapItemsFrequency);
+  $('#barrenCheckbox').prop('checked', s.barrenDungeons);
   $('#minesEntranceCheckbox').prop('checked', s.skipMinesEntrance);
   $('#lakebedEntranceCheckbox').prop('checked', s.skipLakebedEntrance);
   $('#arbitersEntranceCheckbox').prop('checked', s.skipArbitersEntrance);
   $('#snowpeakEntranceCheckbox').prop('checked', s.skipSnowpeakEntrance);
   $('#totEntranceCheckbox').prop('checked', s.skipToTEntrance);
   $('#cityEntranceCheckbox').prop('checked', s.skipCityEntrance);
-  $('#barrenCheckbox').prop('checked', s.barrenDungeons)
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {

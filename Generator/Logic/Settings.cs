@@ -42,6 +42,13 @@ namespace TPRandomizer
             increaseWallet = processor.NextBool();
             modifyShopModels = processor.NextBool();
             iceTrapSettings = processor.NextString(SettingData.iceTrapSettings, 3);
+            barrenDungeons = processor.NextBool();
+            skipMinesEntrance = processor.NextBool();
+            skipLakebedEntrance = processor.NextBool();
+            skipArbitersEntrance = processor.NextBool();
+            skipSnowpeakEntrance = processor.NextBool();
+            skipToTEntrance = processor.NextBool();
+            skipCityEntrance = processor.NextBool();
             StartingItems = processor.NextItemList();
             ExcludedChecks = processor.NextExcludedChecksList();
 

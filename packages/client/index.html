@@ -190,7 +190,7 @@
 							<input type="checkbox" id="quickTransformCheckbox" name="Quick Transform Checkbox" value="">
 							<label for="quickTransformCheckbox"> Quick Transform </label><br>
 							<input type="checkbox" id="barrenCheckbox" name="Intro Logic" value="">
-							<label for="introCheckbox"> Unrequired Dungeons Are Barren </label><br>
+							<label for="barrenCheckbox"> Unrequired Dungeons Are Barren </label><br>
 						</fieldset>
 					</div>
 					<div class="tabColumn">
@@ -203,13 +203,13 @@
 							<input type="checkbox" id="modifyShopModelsCheckbox" name="Modify Shop Models Checkbox" value="">
 							<label for="modifyShopModelsCheckbox">Shop Models Show The Replaced Item</label><br>
 							<div class="selectGroup" style="margin-top:8px;">
-								<label for="foolishItemFieldsetABC">Foolish Items Type</label><br>
+								<label for="foolishItemFieldsetABC">Trap Items Type</label><br>
 								<select name="Foolish Items ABC" id="foolishItemFieldsetABC">
 									<option value="0">Ice Trap</option>
 								</select>
 							</div>
 							<div class="selectGroup">
-								<label for="foolishItemFieldset">Foolish Items Frequency</label><br>
+								<label for="foolishItemFieldset">Trap Items Frequency</label><br>
 								<select name="Foolish Items" id="foolishItemFieldset">
 									<option value="0">None</option>
 									<option value="1">Few</option>
@@ -222,7 +222,7 @@
 					</div>
 					<div class="tabColumn">
 						<fieldset id="dungeonRequirementsFieldset">
-							<legend>Dungeon Logic Settings</legend>
+							<legend>Dungeon Entrance Settings</legend>
 							<input type="checkbox" id="minesEntranceCheckbox" name="Goron Mines Checkbox" value="">
 							<label for="minesEntranceCheckbox"> Mines Does Not Require Wrestling </label><br>
 							<input type="checkbox" id="lakebedEntranceCheckbox" name="Lakebed Temple Checkbox" value="">
@@ -636,6 +636,7 @@
 				<div class="settingsStringLabel settingsStringLabelLight">New Settings</div>
 				<input id="modalSettingsStringInput" type="text" class="modalSettingsStringInput">
 
+				<div id="modalFieldCopiedText" class="fieldUnderneathText" style="display:none;">Copied.</div>
 				<div id="modalFieldError" class="fieldErrorText" style="display:none;"></div>
 
 				<div class="modalButtonsWrapper">

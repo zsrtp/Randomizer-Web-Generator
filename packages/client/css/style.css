@@ -613,6 +613,11 @@ ul {
   color: #d32f2f;
 }
 
+.fieldUnderneathText {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
 .fieldErrorText {
   font-size: 14px;
   color: #d32f2f;
