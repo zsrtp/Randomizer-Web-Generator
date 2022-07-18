@@ -1381,7 +1381,7 @@ namespace TPRandomizer
         {
             foreach (
                 string file in System.IO.Directory.GetFiles(
-                    "./Generator/World/Checks/",
+                    Global.CombineRootPath("./World/Checks/"),
                     "*",
                     SearchOption.AllDirectories
                 )
