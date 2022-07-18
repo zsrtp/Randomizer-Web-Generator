@@ -1,5 +1,5 @@
 {
-  "requirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysey)) or canSmash",
+  "requirements": "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysey)))",
   "stageIDX": [ 56 ],
   "category": [ "Overworld", "Npc", "Hyrule Field", "Boss" ],
   "itemId": "Piece_of_Heart"
