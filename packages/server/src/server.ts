@@ -237,7 +237,7 @@ app.post('/api/final', function (req: express.Request, res: express.Response) {
   }
 
   callGeneratorBuf(
-    ['generate_final_output2', id, 'aBc', fileCreationSettings],
+    ['generate_final_output2', id, fileCreationSettings],
     (error, buffer) => {
       if (error) {
         res.status(500).send({ error });

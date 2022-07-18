@@ -35,14 +35,9 @@ namespace TPRandomizer
                     Randomizer.CreateInputJson(args[1], args[2], seed);
                     break;
                 }
-                case "generate_final_output":
-                    // id, tempArg, pSettingsString,
-                    Randomizer.GenerateFinalOutput(args[1], args[2], args[3]);
-                    break;
                 case "generate_final_output2":
-                    // id, tempArg, pSettingsString,
-                    // id, tempArg, fileSettingsJson
-                    Randomizer.GenerateFinalOutput2(args[1], args[2], args[3]);
+                    // id, fileCreationSettingsString
+                    Randomizer.GenerateFinalOutput2(args[1], args[2]);
                     break;
                 case "print_check_ids":
                     Console.WriteLine(

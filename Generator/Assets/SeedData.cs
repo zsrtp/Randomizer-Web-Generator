@@ -180,7 +180,7 @@ namespace TPRandomizer.Assets
         }
 
         public static byte[] GenerateSeedDataNewByteArray(
-            string seedHash,
+            string playthroughName,
             FileCreationSettings fcSettings
         )
         {
@@ -198,7 +198,6 @@ namespace TPRandomizer.Assets
             List<byte> currentSeedHeader = new();
             List<byte> currentSeedData = new();
             List<byte> currentBgmData = new();
-            string fileHash = seedHash;
             char[] gameRegions = { 'J', 'P', 'E' };
 
             // Raw Check Data
@@ -235,7 +234,9 @@ namespace TPRandomizer.Assets
             );
 
             // Generate Seed Data
-            currentSeedHeader.AddRange(GenerateSeedHeader(randomizerSettings.seedNumber, seedHash));
+            currentSeedHeader.AddRange(
+                GenerateSeedHeader(randomizerSettings.seedNumber, playthroughName)
+            );
             currentSeedData.AddRange(currentSeedHeader);
             currentSeedData.AddRange(CheckDataRaw);
             currentSeedData.AddRange(GenerateBgmHeader());
@@ -273,7 +274,7 @@ namespace TPRandomizer.Assets
             // Add seed banner
             BannerDataRaw.AddRange(Properties.Resources.seedGciImageData);
             BannerDataRaw.AddRange(Converter.StringBytes("TPR 1.0 Seed Data", 0x20, region));
-            BannerDataRaw.AddRange(Converter.StringBytes(seedHash, 0x20, region));
+            BannerDataRaw.AddRange(Converter.StringBytes(playthroughName, 0x20, region));
             // Generate GCI Files
             currentGCIData.AddRange(BannerDataRaw);
             currentGCIData.AddRange(currentSeedData);
@@ -281,10 +282,10 @@ namespace TPRandomizer.Assets
                 (byte)randomizerSettings.seedNumber,
                 region,
                 currentGCIData,
-                seedHash
+                playthroughName
             );
             return gci.gciFile.ToArray();
-            // File.WriteAllBytes(fileHash, gci.gciFile.ToArray());
+            // File.WriteAllBytes(playthroughName, gci.gciFile.ToArray());
         }
 
         /// <summary>

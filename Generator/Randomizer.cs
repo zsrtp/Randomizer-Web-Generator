@@ -533,95 +533,7 @@ namespace TPRandomizer
             return part2Settings;
         }
 
-        public static bool GenerateFinalOutput(string id, string tempArg, string pSettingsString)
-        {
-            string inputJsonPath = Global.CombineOutputPath("seeds", id, "input.json");
-
-            if (!File.Exists(inputJsonPath))
-            {
-                throw new Exception(
-                    "input.json not found for (path: " + inputJsonPath + ") id: " + id
-                );
-            }
-
-            string fileContents = File.ReadAllText(inputJsonPath);
-            JObject json = JsonConvert.DeserializeObject<JObject>(fileContents);
-
-            // Generate the dictionary values that are needed and initialize the data for the selected logic type.
-            DeserializeChecks();
-            DeserializeRooms();
-
-            // Read in the settings string and set the settings values accordingly
-            // BackendFunctions.InterpretSettingsString(settingsString);
-            RandoSetting.PopulateFromInputJson(json);
-            FileCreationSettings pSettings = FileCreationSettings.FromString(pSettingsString);
-
-            Dictionary<string, Item> itemPlacement = json["itemPlacement"].ToObject<
-                Dictionary<string, Item>
-            >();
-
-            foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
-            {
-                Check check = checkList.Value;
-                string checkId = CheckIdClass.FromString(check.checkName);
-                if (itemPlacement.ContainsKey(checkId))
-                {
-                    check.itemId = itemPlacement[checkId];
-                }
-            }
-
-            // TODO: ^ fill in settings from the JObject json
-
-            // Generate the item pool based on user settings/input.
-            // Randomizer.Items.GenerateItemPool();
-            // CheckFunctions.GenerateCheckList();
-
-            // Generate the world based on the room class values and their neighbour values. If we want to randomize entrances, we would do it before this step.
-            // Room startingRoom = SetupGraph();
-            // while (remainingGenerationAttempts > 0)
-            // {
-            //     foreach (Item startingItem in parseSetting.StartingItems)
-            //     {
-            //         Randomizer.Items.heldItems.Add(startingItem);
-            //     }
-            //     Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
-            //     remainingGenerationAttempts--;
-            // try
-            // {
-            //         // Place the items in the world based on the starting room.
-            //         PlaceItemsInWorld(startingRoom, rnd);
-            Console.WriteLine("\nGenerating Seed Data.");
-            // Assets.SeedData.GenerateSeedData("aBc"); // just making up a seed hash right now
-            Assets.SeedData.GenerateSeedDataNew(tempArg, pSettings); // just making up a seed hash right now
-            Console.WriteLine("Done!");
-            // Console.WriteLine("Generating Spoiler Log.");
-            // BackendFunctions.GenerateSpoilerLog(startingRoom, seedHash);
-            //         IEnumerable<string> fileList = new string[]
-            //         {
-            //             "TPR-v1.0-" + seedHash + ".txt",
-            //             "TPR-v1.0-" + seedHash + "-Seed-Data.gci"
-            //         };
-            //         BackendFunctions.CreateZipFile("Seed/TPR-v1.0-" + seedHash + ".zip", fileList);
-            //         Console.WriteLine("Generation Complete!");
-            //         generationStatus = true;
-            //         break;
-            //     }
-            //     // If for some reason the assumed fill fails, we want to dump everything and start over.
-            //     catch (ArgumentOutOfRangeException a)
-            //     {
-            //         Console.WriteLine(a + " No checks remaining, starting over..");
-            //         StartOver();
-            //         continue;
-            //     }
-            // }
-
-            CleanUp();
-            // return generationStatus;
-
-            return true;
-        }
-
-        public static bool GenerateFinalOutput2(string id, string tempArg, string fcSettingsString)
+        public static bool GenerateFinalOutput2(string id, string fcSettingsString)
         {
             string inputJsonPath = Global.CombineOutputPath("seeds", id, "input.json");
 
@@ -694,7 +606,10 @@ namespace TPRandomizer
             //         PlaceItemsInWorld(startingRoom, rnd);
             Console.WriteLine("\nGenerating Seed Data.");
             // Assets.SeedData.GenerateSeedData("aBc"); // just making up a seed hash right now
-            byte[] bytes = Assets.SeedData.GenerateSeedDataNewByteArray(tempArg, fcSettings); // just making up a seed hash right now
+            byte[] bytes = Assets.SeedData.GenerateSeedDataNewByteArray(
+                (string)json["filename"], // "filename" in input.json will be renamed to playthroughName
+                fcSettings
+            );
 
             List<Dictionary<string, object>> jsonRoot = new();
             Dictionary<string, object> dict = new();
