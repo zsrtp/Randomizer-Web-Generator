@@ -11,21 +11,60 @@ namespace TPRandomizer.Util
 
         public static int CalculateMD5(string inputStr)
         {
-            using (MD5 md5 = MD5.Create())
-            {
-                byte[] hash = md5.ComputeHash(Encoding.ASCII.GetBytes(inputStr));
-                string rr = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-                if (rr.Length > 8)
-                {
-                    rr = rr.Substring(0, 8);
-                }
-                else if (rr.Length < 1)
-                {
-                    return 0;
-                }
+            HashAlgorithm algorithm = MD5.Create();
 
-                return int.Parse(rr, System.Globalization.NumberStyles.HexNumber);
+            byte[] bytes = algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputStr));
+
+            // We compute the result this way so that it is consistent
+            // regardless of the endianess of the machine this runs on.
+            int result = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                result += bytes[i] << (8 * (3 - i));
             }
+
+            return result;
+        }
+
+        private static int HashSeedWithSalt(string seedStr)
+        {
+            byte[] plainText = Encoding.UTF8.GetBytes(seedStr);
+            byte[] salt = Global.seedHashSecret;
+
+            // https://stackoverflow.com/a/2138588
+            HashAlgorithm algorithm = SHA256.Create();
+
+            byte[] plainTextWithSaltBytes = new byte[plainText.Length + salt.Length];
+
+            for (int i = 0; i < plainText.Length; i++)
+            {
+                plainTextWithSaltBytes[i] = plainText[i];
+            }
+            for (int i = 0; i < salt.Length; i++)
+            {
+                plainTextWithSaltBytes[plainText.Length + i] = salt[i];
+            }
+
+            byte[] bytes = algorithm.ComputeHash(plainTextWithSaltBytes);
+
+            // We compute the result this way so that it is consistent
+            // regardless of the endianess of the machine this runs on.
+            int result = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                result += bytes[i] << (8 * (3 - i));
+            }
+
+            return result;
+        }
+
+        public static int HashSeed(string seedStr, bool isRaceSeed)
+        {
+            if (isRaceSeed)
+            {
+                return HashSeedWithSalt(seedStr);
+            }
+            return CalculateMD5(seedStr);
         }
 
         public static string GenId()

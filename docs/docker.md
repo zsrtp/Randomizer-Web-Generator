@@ -31,12 +31,13 @@ Run `yarn build` to build the image.
 
 ### Secret
 
-Before deploying the image, you need to define a secret which is used in the production environment.
+Before deploying the image, you need to define secrets which are used in the production environment.
 
 - Create a `secrets` directory at the root of the repository.
 - In this directory, create a `jwtSecret.txt` file.
 - It is recommended that you set the contents of this file to a random 32 character hex hash.
-  - You can go to [this website](https://onlinehashtools.com/generate-random-md5-hash) and copy one of the hash lines if you would like.
+  You can go to [this website](https://onlinehashtools.com/generate-random-md5-hash) and copy one of the hash lines if you would like.
+- Repeat the previous steps for `seedHashSecret.txt`, using a different hash for the file contents.
 
 ### Deploying
 

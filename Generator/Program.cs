@@ -26,13 +26,13 @@ namespace TPRandomizer
                     break;
                 case "generate2":
                 {
-                    // id, settingsString, seed
+                    // id, settingsString, isRaceSeed, seed
                     string seed = "";
                     if (args.Length > 3)
                     {
-                        seed = args[3];
+                        seed = args[4];
                     }
-                    Randomizer.CreateInputJson(args[1], args[2], seed);
+                    Randomizer.CreateInputJson(args[1], args[2], args[3], seed);
                     break;
                 }
                 case "generate_final_output2":

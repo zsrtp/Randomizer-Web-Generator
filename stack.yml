@@ -11,6 +11,7 @@ services:
       - env_config
     secrets:
       - jwt_secret
+      - seedhash_secret
 
 volumes:
   tpr-generator-data:
@@ -25,3 +26,6 @@ secrets:
   jwt_secret:
     file: ./secrets/jwtSecret.txt
     name: jwt_secret-${JWT_SECRET_HASH}
+  seedhash_secret:
+    file: ./secrets/seedHashSecret.txt
+    name: seedhash_secret-${SEEDHASH_SECRET_HASH}

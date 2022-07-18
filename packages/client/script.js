@@ -868,7 +868,7 @@ function genSettingsString() {
   return window.tpr.shared.genSSettingsFromUi();
 }
 
-$('#generateSeed').on('click', () => {
+function doGenerateCall(isRaceSeed) {
   if (generateCallInProgress) {
     return;
   }
@@ -898,6 +898,7 @@ $('#generateSeed').on('click', () => {
       body: JSON.stringify({
         settingsString: settingsString,
         seed: $('#seed').val(),
+        isRaceSeed: Boolean(isRaceSeed),
         requesterHash,
       }),
     })
@@ -940,6 +941,14 @@ $('#generateSeed').on('click', () => {
       console.error('/api/generateseed error');
       console.error(err);
     });
+}
+
+$('#generateSeed').on('click', () => {
+  doGenerateCall(false);
+});
+
+$('#generateRaceSeed').on('click', () => {
+  doGenerateCall(true);
 });
 
 function initSettingsModal() {

@@ -62,6 +62,8 @@ namespace TPRandomizer
         /// <param name="settingsString"> The Settings String to be read in. </param>
         public static bool Start(string settingsString, string generatorSeedHash, string seedName)
         {
+            // TODO: This method is for the legacy generation, and it will be removed.
+
             bool generationStatus = false;
             int remainingGenerationAttempts = 30;
             RandomizerSetting parseSetting = Randomizer.RandoSetting;
@@ -71,9 +73,7 @@ namespace TPRandomizer
                     + "."
                     + RandomizerVersionMinor
             );
-            Random rnd = new();
             string seedHash = generatorSeedHash;
-            ;
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.
             DeserializeChecks();
@@ -99,7 +99,7 @@ namespace TPRandomizer
                 try
                 {
                     // Place the items in the world based on the starting room.
-                    PlaceItemsInWorld(startingRoom);
+                    PlaceItemsInWorld(startingRoom, new Random());
                     Console.WriteLine("Generating Seed Data.");
                     Console.WriteLine("Generating Spoiler Log.");
                     BackendFunctions.GenerateSpoilerLog(startingRoom, seedHash);
@@ -130,7 +130,12 @@ namespace TPRandomizer
             return generationStatus;
         }
 
-        public static bool CreateInputJson(string idParam, string settingsString, string seed)
+        public static bool CreateInputJson(
+            string idParam,
+            string settingsString,
+            string raceSeedParam,
+            string seed
+        )
         {
             if (
                 idParam == null
@@ -149,7 +154,6 @@ namespace TPRandomizer
                 while (!idConfirmedUnique)
                 {
                     id = Util.Hash.GenId();
-                    // outputPath = Path.Combine("seeds", id, "input.json");
                     outputPath = Global.CombineOutputPath("seeds", id, "input.json");
 
                     if (!File.Exists(outputPath))
@@ -177,7 +181,9 @@ namespace TPRandomizer
                 seed = Util.Hash.GenId() + Util.Hash.GenId();
             }
 
-            int seedHash = Util.Hash.CalculateMD5(seed);
+            bool isRaceSeed = raceSeedParam.ToLowerInvariant() == "true";
+
+            int seedHash = Util.Hash.HashSeed(seed, isRaceSeed);
             Random rnd = new Random(seedHash);
 
             bool generationStatus = false;
@@ -219,7 +225,7 @@ namespace TPRandomizer
                 try
                 {
                     // Place the items in the world based on the starting room.
-                    PlaceItemsInWorld(startingRoom);
+                    PlaceItemsInWorld(startingRoom, rnd);
                     // Console.WriteLine("Generating Seed Data.");
                     // Assets.SeedData.GenerateSeedData(seedHash);
                     // Console.WriteLine("Generating Spoiler Log.");
@@ -243,21 +249,29 @@ namespace TPRandomizer
                 }
             }
 
-            string jsonContent = GenerateInputJsonContent(settingsString, seed, seedHash);
-
-            try
+            if (generationStatus)
             {
-                // Write json file to id dir.
-                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
-                File.WriteAllText(outputPath, jsonContent);
+                string jsonContent = GenerateInputJsonContent(
+                    settingsString,
+                    seed,
+                    seedHash,
+                    isRaceSeed
+                );
 
-                Console.WriteLine("SUCCESS:" + id);
-            }
-            catch (Exception e)
-            {
-                e = null;
-                Console.WriteLine("Problem writing input.json file for id: " + id + e);
-                System.Environment.Exit(1);
+                try
+                {
+                    // Write json file to id dir.
+                    Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+                    File.WriteAllText(outputPath, jsonContent);
+
+                    Console.WriteLine("SUCCESS:" + id);
+                }
+                catch (Exception e)
+                {
+                    e = null;
+                    Console.WriteLine("Problem writing input.json file for id: " + id + e);
+                    System.Environment.Exit(1);
+                }
             }
 
             CleanUp();
@@ -267,7 +281,8 @@ namespace TPRandomizer
         private static string GenerateInputJsonContent(
             string settingsString,
             string seed,
-            int seedHash
+            int seedHash,
+            bool isRaceSeed
         )
         {
             Dictionary<string, Item> checkIdToItemId = new();
@@ -300,7 +315,9 @@ namespace TPRandomizer
                 }
             }
 
-            placementStrParts.Sort();
+            // StringComparer is needed because the default sort order is
+            // different on Linux and Windows
+            placementStrParts.Sort(StringComparer.Ordinal);
             string itemPlacementPart = String.Join("-", placementStrParts);
 
             //
@@ -316,10 +333,11 @@ namespace TPRandomizer
             // string aaa = JsonConvert.SerializeObject(part2Settings);
 
             //
+            string seedHashAsString = seedHash.ToString("x8");
 
             string filenameInput = String.Join(
                 "%%%%",
-                new List<string> { itemPlacementPart, part2SettingsPart, seed }
+                new List<string> { itemPlacementPart, part2SettingsPart, seedHashAsString }
             );
 
             int filenameBits = Util.Hash.CalculateMD5(filenameInput);
@@ -352,7 +370,8 @@ namespace TPRandomizer
             inputJsonRoot.Add("timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
             inputJsonRoot.Add("settingsString", settingsString);
             inputJsonRoot.Add("seed", seed);
-            inputJsonRoot.Add("seedHash", seedHash.ToString("x8"));
+            inputJsonRoot.Add("seedHash", seedHashAsString);
+            inputJsonRoot.Add("raceSeed", isRaceSeed.ToString().ToLowerInvariant());
             inputJsonRoot.Add("filename", filename);
             // inputJsonRoot.Add("settings", GenPart2Settings(true));
             // inputJsonRoot.Add("itemPlacement", checkIdToItemId);
@@ -439,7 +458,9 @@ namespace TPRandomizer
 
         private static SortedDictionary<string, object> GenPart2Settings(bool noExclusions)
         {
-            SortedDictionary<string, object> part2Settings = new();
+            // StringComparer is needed because the default sort order is
+            // different on Linux and Windows
+            SortedDictionary<string, object> part2Settings = new(StringComparer.Ordinal);
 
             // If a setting matches what the game behavior would have been
             // before that setting existed, we leave it off when noExclusions is
@@ -784,7 +805,7 @@ namespace TPRandomizer
         /// Places the generated item pool's items into the world graph that has been created.
         /// </summary>
         /// <param name="startingRoom"> The room node that the generation algorithm will begin with. </param>
-        private static void PlaceItemsInWorld(Room startingRoom)
+        private static void PlaceItemsInWorld(Room startingRoom, Random rnd)
         {
             // Any vanilla checks will be placed first for the sake of logic. Even if they aren't available to be randomized in the game yet,
             // we may need to logically account for their placement.
@@ -799,7 +820,8 @@ namespace TPRandomizer
                 startingRoom,
                 Items.ShuffledDungeonRewards,
                 Randomizer.Items.heldItems,
-                "Dungeon Rewards"
+                "Dungeon Rewards",
+                rnd
             );
 
             // Next we want to place items that are locked to a specific region such as keys, maps, compasses, etc.
@@ -808,7 +830,8 @@ namespace TPRandomizer
                 startingRoom,
                 Items.RandomizedDungeonRegionItems,
                 Randomizer.Items.heldItems,
-                "Region"
+                "Region",
+                rnd
             );
 
             CheckUnrequiredDungeons();
@@ -817,7 +840,7 @@ namespace TPRandomizer
             // prevent important items from being placed in checks that the player or randomizer has requested to be not
             // considered in logic.
             Console.WriteLine("Placing Excluded Checks.");
-            PlaceExcludedChecks();
+            PlaceExcludedChecks(rnd);
 
             // Once all of the items that have some restriction on their placement are placed, we then place all of the items that can
             // be logically important (swords, clawshot, bow, etc.)
@@ -826,19 +849,18 @@ namespace TPRandomizer
                 startingRoom,
                 Items.RandomizedImportantItems,
                 Randomizer.Items.heldItems,
-                string.Empty
+                string.Empty,
+                rnd
             );
 
             // Next we will place the "always" items. Basically the constants in every seed, so Heart Pieces, Heart Containers, etc.
             // These items do not affect logic at all so there is very little constraint to this method.
             Console.WriteLine("Placing Non Impact Items.");
-            PlaceNonImpactItems(Items.alwaysItems);
+            PlaceNonImpactItems(Items.alwaysItems, rnd);
 
             // Any extra checks that have not been filled at this point are filled with "junk" items such as ammunition, foolish items, etc.
             Console.WriteLine("Placing Junk Items.");
-            PlaceJunkItems(Items.JunkItems);
-
-            return;
+            PlaceJunkItems(Items.JunkItems, rnd);
         }
 
         /// <summary>
@@ -856,16 +878,13 @@ namespace TPRandomizer
                     PlaceItemInCheck(currentCheck.itemId, currentCheck);
                 }
             }
-
-            return;
         }
 
         /// <summary>
         /// Places junk items in checks that have been labeled as excluded.
         /// </summary>
-        private static void PlaceExcludedChecks()
+        private static void PlaceExcludedChecks(Random rnd)
         {
-            Random rnd = new();
             foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
@@ -890,7 +909,8 @@ namespace TPRandomizer
             Room startingRoom,
             List<Item> itemGroup,
             List<Item> itemPool,
-            string restriction
+            string restriction,
+            Random rnd
         )
         {
             // Essentially we want to do the following: make a copy of our item pool for safe keeping so we can modify
@@ -906,7 +926,6 @@ namespace TPRandomizer
                 List<Item> currentItemPool = new();
                 currentItemPool.AddRange(itemPool);
                 itemsToBeRandomized.AddRange(itemGroup);
-                Random rnd = new();
 
                 while (itemsToBeRandomized.Count > 0)
                 {
@@ -1031,12 +1050,11 @@ namespace TPRandomizer
         /// Places all items in a list into the world with no restrictions.
         /// </summary>
         /// <param name="itemsToBeRandomized"> The group of items that are to be randomized. </param>
-        private static void PlaceNonImpactItems(List<Item> itemsToBeRandomized)
+        private static void PlaceNonImpactItems(List<Item> itemsToBeRandomized, Random rnd)
         {
             List<string> availableChecks = new();
             Item itemToPlace;
             Check checkToReciveItem;
-            Random rnd = new();
 
             while (itemsToBeRandomized.Count > 0)
             {
@@ -1067,9 +1085,8 @@ namespace TPRandomizer
         /// Places all items in a list into the world with no restrictions. Does not empty the list of items, however.
         /// </summary>
         /// <param name="itemsToBeRandomized"> The group of items that are to be randomized. </param>
-        private static void PlaceJunkItems(List<Item> itemsToBeRandomized)
+        private static void PlaceJunkItems(List<Item> itemsToBeRandomized, Random rnd)
         {
-            Random rnd = new();
             foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;

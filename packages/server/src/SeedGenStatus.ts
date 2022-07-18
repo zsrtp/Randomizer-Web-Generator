@@ -16,6 +16,7 @@ class SeedGenStatus {
   readonly seedId: string;
   readonly settingsString: string;
   readonly seed: string;
+  readonly isRaceSeed: boolean;
   // requesterHash is passed to the client-side to prevent unnecessary progress
   // check calls from people who did not request the generation. The page will
   // display as if the id is invalid until the generation successfully
@@ -31,7 +32,8 @@ class SeedGenStatus {
     userId: string,
     requesterHash: string,
     settingsString: string,
-    seed: string
+    seed: string,
+    isRaceSeed: boolean
   ) {
     this.seedId = seedId;
     this.userId = userId;
@@ -40,6 +42,7 @@ class SeedGenStatus {
     this.requesterHash = requesterHash;
     this.settingsString = settingsString;
     this.seed = seed;
+    this.isRaceSeed = isRaceSeed;
   }
 
   get lastRefreshed() {

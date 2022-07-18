@@ -14,6 +14,7 @@ const seedForeverAbandonedTimeout = 1000 * 60 * 15; // 15 minutes
 type GenerationRequest = {
   settingsString: string;
   seed: string;
+  isRaceSeed: boolean;
 };
 
 type SeedIdToSeedGenStatus = {
@@ -162,6 +163,7 @@ function processQueueItem() {
         'generate2',
         'id' + idToProcess,
         seedGenStatus.settingsString,
+        seedGenStatus.isRaceSeed ? 'true' : 'false',
         seedGenStatus.seed,
       ],
       (error, data) => {
@@ -290,7 +292,8 @@ function addToFastQueue(
     userId,
     genElevenCharId(),
     generationRequest.settingsString,
-    generationRequest.seed
+    generationRequest.seed,
+    generationRequest.isRaceSeed
   );
 
   seedIdToSeedGenStatus[seedId] = requestStatus;
