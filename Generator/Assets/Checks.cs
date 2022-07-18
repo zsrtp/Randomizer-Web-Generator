@@ -459,11 +459,6 @@ namespace TPRandomizer
             }
 
             // Vanilla until all of the flag issues are figured out.
-            Randomizer.Checks.CheckDict["Renados Letter"].itemId = Item.Renados_Letter;
-            Randomizer.Checks.CheckDict["Telma Invoice"].itemId = Item.Invoice;
-            Randomizer.Checks.CheckDict["Wooden Statue"].itemId = Item.Wooden_Statue;
-            Randomizer.Checks.CheckDict["Ilia Charm"].itemId = Item.Ilias_Charm;
-            Randomizer.Checks.CheckDict["Ilia Memory Reward"].itemId = Item.Horse_Call;
             Randomizer.Checks.CheckDict["Renados Letter"].checkStatus = "Vanilla";
             Randomizer.Checks.CheckDict["Telma Invoice"].checkStatus = "Vanilla";
             Randomizer.Checks.CheckDict["Wooden Statue"].checkStatus = "Vanilla";
