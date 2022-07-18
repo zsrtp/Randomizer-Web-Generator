@@ -3,6 +3,10 @@ namespace TPRandomizer
     using System.Collections.Generic;
     using System.Linq;
 
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum Item : byte
     {
         Recovery_Heart = 0x00,
@@ -91,8 +95,8 @@ namespace TPRandomizer
         /*?	=	0x4D,*/
         /*?	=	0x4E,*/
         Giant_Bomb_Bag = 0x4F,
-        Empty_Bomb_Bag = 0x50,
-        Progressive_Bomb_Bag = 0x51,
+        Barnes_Bomb_Bag = 0x50,
+        Filled_Bomb_Bag = 0x51,
 
         /*Giant_Bomb_Bag?	=	0x52,*/
         /*?	=	0x53,*/
@@ -400,7 +404,7 @@ namespace TPRandomizer
                 Item.Progressive_Fishing_Rod,
                 Item.Iron_Boots,
                 Item.Progressive_Bow,
-                Item.Progressive_Bomb_Bag,
+                Item.Filled_Bomb_Bag,
                 Item.Zora_Armor,
                 Item.Progressive_Clawshot,
                 Item.Progressive_Clawshot,
@@ -582,9 +586,9 @@ namespace TPRandomizer
                 Item.Progressive_Wallet,
                 Item.Progressive_Bow,
                 Item.Progressive_Bow,
-                Item.Progressive_Bomb_Bag,
-                Item.Progressive_Bomb_Bag,
-                Item.Progressive_Bomb_Bag,
+                Item.Filled_Bomb_Bag,
+                Item.Filled_Bomb_Bag,
+                Item.Giant_Bomb_Bag,
                 Item.Sera_Bottle,
                 Item.Coro_Bottle,
                 Item.Jovani_Bottle,
@@ -700,6 +704,10 @@ namespace TPRandomizer
             else if (parseSetting.smallKeySettings == "Keysey")
             {
                 this.RandomizedImportantItems.Remove(Item.Gate_Keys);
+                if (!parseSetting.StartingItems.Contains(Item.Gerudo_Desert_Bulblin_Camp_Key))
+                {
+                    parseSetting.StartingItems.Add(Item.Gerudo_Desert_Bulblin_Camp_Key);
+                }
             }
 
             // Check Big Key Settings before adding them to the pool
@@ -771,6 +779,31 @@ namespace TPRandomizer
             foreach (Item startingItem in parseSetting.StartingItems)
             {
                 RandomizedImportantItems.Remove(startingItem);
+            }
+
+            // If a poe is excluded, we still want to place the item that was in its location.
+            foreach (string excludedCheck in parseSetting.ExcludedChecks)
+            {
+                if (Randomizer.Checks.CheckDict[excludedCheck].itemId == Item.Poe_Soul)
+                {
+                    if (!parseSetting.poesShuffled)
+                    {
+                        this.alwaysItems.Add(Randomizer.Checks.CheckDict[excludedCheck].itemId);
+                    }
+                }
+            }
+
+            // Remove the bulblin camp key from the item pool if we have the setting to skip Bulblin Camp enabled.
+            if (parseSetting.skipArbitersEntrance)
+            {
+                if (parseSetting.smallKeySettings == "Keysanity")
+                {
+                    this.RandomizedImportantItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
+                }
+                else
+                {
+                    this.alwaysItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
+                }
             }
 
             Randomizer.Items.BaseItemPool.AddRange(this.RandomizedImportantItems);

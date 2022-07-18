@@ -218,8 +218,10 @@ namespace TPRandomizer
             }
             catch (System.Exception ex)
             {
+                ex = null;
                 Console.WriteLine(
                     "The entered value is not a valid settings string. Please check your settings string and try again."
+                        + ex
                 );
                 System.Environment.Exit(0);
             }

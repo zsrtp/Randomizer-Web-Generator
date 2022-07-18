@@ -53,7 +53,8 @@ namespace TPRandomizer
             }
             catch (Exception e)
             {
-                Console.WriteLine("Problem writing input.json file for id: " + id);
+                e = null;
+                Console.WriteLine("Problem writing input.json file for id: " + id + e);
                 System.Environment.Exit(1);
             }
 

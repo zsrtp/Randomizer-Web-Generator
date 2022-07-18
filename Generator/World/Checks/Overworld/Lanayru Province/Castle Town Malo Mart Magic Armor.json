@@ -5,6 +5,6 @@
     "fileDirectoryType": [1],
     "replacementType": [0],
     "flag": "13",
-    "category": ["Overworld", "Npc", "Lanayru Province", "ARC", "Shop"],
+    "category": ["Overworld", "Lanayru Province", "ARC", "Shop"],
     "itemId": "Magic_Armor"
 }

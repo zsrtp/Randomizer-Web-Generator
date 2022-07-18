@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Fishing_Rod, 1) or (Setting.introSkipped equals True)",
+    "requirements": "(Progressive_Fishing_Rod, 1) or (Setting.prologueSkipped equals True)",
     "arcOffsets": ["370F"],
     "stageIDX": [65],
     "fileDirectoryType": [1],

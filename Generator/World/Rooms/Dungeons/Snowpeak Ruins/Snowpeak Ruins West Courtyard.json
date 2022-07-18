@@ -8,14 +8,15 @@
         "Snowpeak Ruins Darkhammer Room", 
         "Snowpeak Ruins Boss Room"
     ],
-  "NeighbourRequirements": [
-    "true",
-    "Ball_and_Chain",
-    "true",
-    "(Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysey)) and Ball_and_Chain and CanDefeatChilfos and CanDefeatMiniFreezard and CanDefeatFreezard and ((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysey)) and hasBombs",
-    "Ball_and_Chain or (((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysey)) and hasBombs)",
-    "(Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysey)) and Ball_and_Chain and CanDefeatChilfos and CanDefeatMiniFreezard and CanDefeatFreezard and ((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysey)) and hasBombs and (Snowpeak_Ruins_Bedroom_Key or (Setting.bossKeySettings equals Keysey))"
-  ],
+    "NeighbourRequirements":
+    [
+        "true",
+        "Ball_and_Chain",
+        "true",
+        "(((Snowpeak_Ruins_Small_Key, 4) and Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysey)) and Ball_and_Chain and hasBombs",
+        "Ball_and_Chain or (((Snowpeak_Ruins_Small_Key, 2) or (Setting.smallKeySettings equals Keysey)) and hasBombs)",
+        "(((Snowpeak_Ruins_Small_Key, 4) and Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysey)) and Ball_and_Chain and hasBombs and (Snowpeak_Ruins_Bedroom_Key or (Setting.bossKeySettings equals Keysey))"
+    ],
     "Checks": 
     [
         "Snowpeak Ruins West Courtyard Buried Chest",

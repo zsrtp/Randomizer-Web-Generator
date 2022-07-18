@@ -1,10 +1,10 @@
 {
-  "requirements": "CanDefeatChilfos and (Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysey)) and Ball_and_Chain",
-  "arcOffsets": ["620"],
+    "requirements": "(Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysey)) and Ball_and_Chain",
+    "arcOffsets": ["620"],
     "stageIDX": [27],
     "roomIDX": 8,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Snowpeak Ruins", "Small Key", "ARC" ],
-  "itemId": "Snowpeak_Ruins_Small_Key"
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Snowpeak Ruins", "Small Key", "ARC"],
+    "itemId": "Snowpeak_Ruins_Small_Key"
 }

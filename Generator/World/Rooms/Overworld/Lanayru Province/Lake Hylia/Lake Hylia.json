@@ -16,8 +16,8 @@
         "canSmash",
         "Shadow_Crystal",
         "Shadow_Crystal",
-        "Iron_Boots and CanUseWaterBombs and Zora_Armor",
-        "(Progressive_Clawshot, 1) and (Progressive_Sky_Book, 7)",
+        "((Iron_Boots and CanUseWaterBombs) or (Setting.skipLakebedEntrance equals True)) and Zora_Armor",
+        "(Progressive_Clawshot, 1) and ((Progressive_Sky_Book, 7) or (Setting.skipCityEntrance equals True))",
         "true",
         "Shadow_Crystal"
     ],

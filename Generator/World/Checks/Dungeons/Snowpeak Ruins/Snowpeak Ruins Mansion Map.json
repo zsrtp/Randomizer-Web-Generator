@@ -4,6 +4,6 @@
     "stageIDX": [27],
     "fileDirectoryType": [1],
     "replacementType": [0],
-    "category": ["Npc", "ARC", "Dungeon Map"],
+    "category": ["Npc", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Dungeon Map", "ARC"],
     "itemId": "Snowpeak_Ruins_Dungeon_Map"
 }

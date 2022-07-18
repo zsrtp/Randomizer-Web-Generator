@@ -5,6 +5,6 @@
     "fileDirectoryType": [1],
     "replacementType": [0],
     "flag": "7",
-    "category": ["Overworld", "Npc", "Eldin Province", "ARC", "Shop"],
+    "category": ["Overworld", "Eldin Province", "ARC", "Shop"],
     "itemId": "Hylian_Shield"
 }

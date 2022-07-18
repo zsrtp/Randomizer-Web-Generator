@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatBombling or canBurnWebs",
+    "requirements": "true",
     "arcOffsets": ["BB4"],
     "stageIDX": [6],
     "roomIDX": 1,

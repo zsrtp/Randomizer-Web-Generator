@@ -6,7 +6,7 @@
     ],
     "NeighbourRequirements":
     [
-        "(HasSword and Slingshot) or (Setting.introSkipped equals True)",
+        "(HasSword and Slingshot) or (Setting.prologueSkipped equals True)",
         "Shadow_Crystal"
     ],
     "Checks": 

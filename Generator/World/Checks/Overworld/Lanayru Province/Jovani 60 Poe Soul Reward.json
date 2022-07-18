@@ -1,9 +1,0 @@
-{
-    "requirements": "(Poe_Soul, 60) and Shadow_Crystal",
-    "arcOffsets": ["42A7"],
-    "stageIDX": [73],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "category": ["Overworld", "Npc", "Lanayru Province", "ARC"],
-    "itemId": "Silver_Rupee"
-}

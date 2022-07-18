@@ -1,7 +1,7 @@
 {
-  "requirements": "Shadow_Crystal and (Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysey))",
-  "stageIDX": [ 55 ],
-  "flag": "78",
-  "category": [ "Overworld", "Poe", "Bulblin Camp" ],
-  "itemId": "Poe_Soul"
+    "requirements": "Shadow_Crystal and (Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysey) or (Setting.skipArbitersEntrance equals True))",
+    "stageIDX": [55],
+    "flag": "78",
+    "category": ["Overworld", "Poe", "Bulblin Camp"],
+    "itemId": "Poe_Soul"
 }

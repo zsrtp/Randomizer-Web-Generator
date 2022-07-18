@@ -27,7 +27,6 @@ namespace TPRandomizer
                 "Palace of Twilight East Wing Second Room Southwest Chest",
                 "Faron Field Poe",
                 "Goron Mines Crystal Switch Room Small Chest",
-                "Jovani 60 Poe Soul Reward",
                 "Goron Mines Gor Liggs Key Shard",
                 "Wrestling With Bo",
                 "Goron Mines After Crystal Switch Room Magnet Wall Chest",

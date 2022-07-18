@@ -8,8 +8,8 @@
     "NeighbourRequirements": 
     [
         "true",
-        "(Progressive_Fishing_Rod, 2) and Shadow_Crystal",
-        "(Progressive_Fishing_Rod, 2) and Shadow_Crystal"
+        "((Progressive_Fishing_Rod, 2) or (Setting.skipSnowpeakEntrance equals True)) and Shadow_Crystal",
+        "((Progressive_Fishing_Rod, 2) or (Setting.skipSnowpeakEntrance equals True)) and Shadow_Crystal"
     ],
     "Checks": 
     [

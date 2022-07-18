@@ -54,11 +54,13 @@ namespace TPRandomizer
         /// </summary>
         public static readonly byte RandomizerVersionMinor = 0;
 
+        public static int RequiredDungeons = 0;
+
         /// <summary>
         /// Generates a randomizer seed given a settings string.
         /// </summary>
         /// <param name="settingsString"> The Settings String to be read in. </param>
-        public static bool Start(string settingsString, string generatorSeedHash, string seed)
+        public static bool Start(string settingsString, string generatorSeedHash, string seedName)
         {
             bool generationStatus = false;
             int remainingGenerationAttempts = 30;
@@ -69,8 +71,7 @@ namespace TPRandomizer
                     + "."
                     + RandomizerVersionMinor
             );
-            // Random rnd = new();
-            Random rnd = new(Util.Hash.CalculateMD5(seed));
+            Random rnd = new();
             string seedHash = generatorSeedHash;
             ;
 
@@ -98,9 +99,8 @@ namespace TPRandomizer
                 try
                 {
                     // Place the items in the world based on the starting room.
-                    PlaceItemsInWorld(startingRoom, rnd);
+                    PlaceItemsInWorld(startingRoom);
                     Console.WriteLine("Generating Seed Data.");
-                    Assets.SeedData.GenerateSeedData(seedHash);
                     Console.WriteLine("Generating Spoiler Log.");
                     BackendFunctions.GenerateSpoilerLog(startingRoom, seedHash);
                     IEnumerable<string> fileList = new string[]
@@ -116,7 +116,11 @@ namespace TPRandomizer
                 // If for some reason the assumed fill fails, we want to dump everything and start over.
                 catch (ArgumentOutOfRangeException a)
                 {
-                    Console.WriteLine(a + " No checks remaining, starting over..");
+                    a = null;
+                    Console.WriteLine(
+                        "/~~~~~~~~~~~~~~~~~~~~~ Generation Failure. No checks remaining, starting over..~~~~~~~~~~~~~~~~~~~~~~~~~~~~/"
+                            + a
+                    );
                     StartOver();
                     continue;
                 }
@@ -128,7 +132,10 @@ namespace TPRandomizer
 
         public static bool CreateInputJson(string idParam, string settingsString, string seed)
         {
-            if (idParam == null || (idParam != "idnull" && !(new Regex("^id[0-9A-Za-z-_]{11}$").IsMatch(idParam))))
+            if (
+                idParam == null
+                || (idParam != "idnull" && !(new Regex("^id[0-9A-Za-z-_]{11}$").IsMatch(idParam)))
+            )
             {
                 throw new Exception("Invalid id param.");
             }
@@ -136,7 +143,8 @@ namespace TPRandomizer
             string id = "";
             string outputPath = "";
 
-            if (idParam == "idnull") {
+            if (idParam == "idnull")
+            {
                 bool idConfirmedUnique = false;
                 while (!idConfirmedUnique)
                 {
@@ -211,7 +219,7 @@ namespace TPRandomizer
                 try
                 {
                     // Place the items in the world based on the starting room.
-                    PlaceItemsInWorld(startingRoom, rnd);
+                    PlaceItemsInWorld(startingRoom);
                     // Console.WriteLine("Generating Seed Data.");
                     // Assets.SeedData.GenerateSeedData(seedHash);
                     // Console.WriteLine("Generating Spoiler Log.");
@@ -247,7 +255,8 @@ namespace TPRandomizer
             }
             catch (Exception e)
             {
-                Console.WriteLine("Problem writing input.json file for id: " + id);
+                e = null;
+                Console.WriteLine("Problem writing input.json file for id: " + id + e);
                 System.Environment.Exit(1);
             }
 
@@ -393,7 +402,9 @@ namespace TPRandomizer
 
         private static Dictionary<int, byte> DecodeItemPlacements(string sixCharString)
         {
-            BitsProcessor processor = new BitsProcessor(SettingsEncoder.DecodeToBitString(sixCharString));
+            BitsProcessor processor = new BitsProcessor(
+                SettingsEncoder.DecodeToBitString(sixCharString)
+            );
 
             Dictionary<int, byte> checkNumIdToItemId = new();
 
@@ -452,8 +463,8 @@ namespace TPRandomizer
             // Boolean fields included when true
             if (noExclusions || RandoSetting.mdhSkipped)
                 part2Settings.Add("mdhSkipped", RandoSetting.mdhSkipped);
-            if (noExclusions || RandoSetting.introSkipped)
-                part2Settings.Add("introSkipped", RandoSetting.introSkipped);
+            if (noExclusions || RandoSetting.prologueSkipped)
+                part2Settings.Add("introSkipped", RandoSetting.prologueSkipped);
             if (noExclusions || RandoSetting.faronTwilightCleared)
                 part2Settings.Add("faronTwilightCleared", RandoSetting.faronTwilightCleared);
             if (noExclusions || RandoSetting.eldinTwilightCleared)
@@ -528,7 +539,9 @@ namespace TPRandomizer
 
             if (!File.Exists(inputJsonPath))
             {
-                throw new Exception("input.json not found for (path: " + inputJsonPath + ") id: " + id);
+                throw new Exception(
+                    "input.json not found for (path: " + inputJsonPath + ") id: " + id
+                );
             }
 
             string fileContents = File.ReadAllText(inputJsonPath);
@@ -614,7 +627,9 @@ namespace TPRandomizer
 
             if (!File.Exists(inputJsonPath))
             {
-                throw new Exception("input.json not found for (path: " + inputJsonPath + ") id: " + id);
+                throw new Exception(
+                    "input.json not found for (path: " + inputJsonPath + ") id: " + id
+                );
             }
 
             string fileContents = File.ReadAllText(inputJsonPath);
@@ -634,7 +649,9 @@ namespace TPRandomizer
             fcSettings.UpdateRandoSettings(RandoSetting);
 
             // Dictionary<int, byte> checkNumIdToItemId = DecodeItemPlacements((string)json["itemPlacement2"]);
-            Dictionary<int, byte> checkNumIdToItemId = DecodeItemPlacements((string)json["itemPlacement"]);
+            Dictionary<int, byte> checkNumIdToItemId = DecodeItemPlacements(
+                (string)json["itemPlacement"]
+            );
             Dictionary<string, Item> checkNameToItem = checkNumIdToItemId.ToDictionary(
                 kvp => CheckIdClass.GetCheckName(kvp.Key),
                 kvp => (Item)kvp.Value
@@ -679,7 +696,6 @@ namespace TPRandomizer
             // Assets.SeedData.GenerateSeedData("aBc"); // just making up a seed hash right now
             byte[] bytes = Assets.SeedData.GenerateSeedDataNewByteArray(tempArg, fcSettings); // just making up a seed hash right now
 
-
             List<Dictionary<string, object>> jsonRoot = new();
             Dictionary<string, object> dict = new();
 
@@ -697,9 +713,18 @@ namespace TPRandomizer
                     break;
             }
 
-
             // dict.Add("name", "exampleNameFile.gci");
-            dict.Add("name", "TprSeed-v" + seedVersion + gameVer + "-" + fcSettings.seedNumber + "--" + filename + ".gci");
+            dict.Add(
+                "name",
+                "TprSeed-v"
+                    + seedVersion
+                    + gameVer
+                    + "-"
+                    + fcSettings.seedNumber
+                    + "--"
+                    + filename
+                    + ".gci"
+            );
             dict.Add("length", bytes.Length);
             jsonRoot.Add(dict);
 
@@ -844,18 +869,12 @@ namespace TPRandomizer
         /// Places the generated item pool's items into the world graph that has been created.
         /// </summary>
         /// <param name="startingRoom"> The room node that the generation algorithm will begin with. </param>
-        private static void PlaceItemsInWorld(Room startingRoom, Random rnd)
+        private static void PlaceItemsInWorld(Room startingRoom)
         {
             // Any vanilla checks will be placed first for the sake of logic. Even if they aren't available to be randomized in the game yet,
             // we may need to logically account for their placement.
             Console.WriteLine("Placing Vanilla Checks.");
             PlaceVanillaChecks();
-
-            // Excluded checks are next and will just be filled with "junk" items (i.e. ammo refills, etc.). This is to
-            // prevent important items from being placed in checks that the player or randomizer has requested to be not
-            // considered in logic.
-            Console.WriteLine("Placing Excluded Checks.");
-            PlaceExcludedChecks(rnd);
 
             // Dungeon rewards have a very limited item pool, so we want to place them first to prevent the generator from putting
             // an unnecessary item in one of the checks.
@@ -865,8 +884,7 @@ namespace TPRandomizer
                 startingRoom,
                 Items.ShuffledDungeonRewards,
                 Randomizer.Items.heldItems,
-                "Dungeon Rewards",
-                rnd
+                "Dungeon Rewards"
             );
 
             // Next we want to place items that are locked to a specific region such as keys, maps, compasses, etc.
@@ -875,9 +893,16 @@ namespace TPRandomizer
                 startingRoom,
                 Items.RandomizedDungeonRegionItems,
                 Randomizer.Items.heldItems,
-                "Region",
-                rnd
+                "Region"
             );
+
+            CheckUnrequiredDungeons();
+
+            // Excluded checks are next and will just be filled with "junk" items (i.e. ammo refills, etc.). This is to
+            // prevent important items from being placed in checks that the player or randomizer has requested to be not
+            // considered in logic.
+            Console.WriteLine("Placing Excluded Checks.");
+            PlaceExcludedChecks();
 
             // Once all of the items that have some restriction on their placement are placed, we then place all of the items that can
             // be logically important (swords, clawshot, bow, etc.)
@@ -886,18 +911,17 @@ namespace TPRandomizer
                 startingRoom,
                 Items.RandomizedImportantItems,
                 Randomizer.Items.heldItems,
-                string.Empty,
-                rnd
+                string.Empty
             );
 
             // Next we will place the "always" items. Basically the constants in every seed, so Heart Pieces, Heart Containers, etc.
             // These items do not affect logic at all so there is very little constraint to this method.
             Console.WriteLine("Placing Non Impact Items.");
-            PlaceNonImpactItems(Items.alwaysItems, rnd);
+            PlaceNonImpactItems(Items.alwaysItems);
 
             // Any extra checks that have not been filled at this point are filled with "junk" items such as ammunition, foolish items, etc.
             Console.WriteLine("Placing Junk Items.");
-            PlaceJunkItems(Items.JunkItems, rnd);
+            PlaceJunkItems(Items.JunkItems);
 
             return;
         }
@@ -924,12 +948,13 @@ namespace TPRandomizer
         /// <summary>
         /// Places junk items in checks that have been labeled as excluded.
         /// </summary>
-        private static void PlaceExcludedChecks(Random rnd)
+        private static void PlaceExcludedChecks()
         {
+            Random rnd = new();
             foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (!currentCheck.itemWasPlaced && (currentCheck.checkStatus == "Excluded"))
+                if (!currentCheck.itemWasPlaced && (currentCheck.checkStatus.Contains("Excluded")))
                 {
                     PlaceItemInCheck(
                         Items.JunkItems[rnd.Next(Items.JunkItems.Count)],
@@ -950,8 +975,7 @@ namespace TPRandomizer
             Room startingRoom,
             List<Item> itemGroup,
             List<Item> itemPool,
-            string restriction,
-            Random rnd
+            string restriction
         )
         {
             // Essentially we want to do the following: make a copy of our item pool for safe keeping so we can modify
@@ -967,6 +991,7 @@ namespace TPRandomizer
                 List<Item> currentItemPool = new();
                 currentItemPool.AddRange(itemPool);
                 itemsToBeRandomized.AddRange(itemGroup);
+                Random rnd = new();
 
                 while (itemsToBeRandomized.Count > 0)
                 {
@@ -1028,34 +1053,39 @@ namespace TPRandomizer
                                         }
                                         else
                                         {
-                                            if (restriction == "Region")
+                                            if (currentCheck.checkStatus == "Ready")
                                             {
-                                                if (
-                                                    RoomFunctions.IsRegionCheck(
-                                                        itemToPlace,
-                                                        currentCheck,
-                                                        graphRoom
+                                                if (restriction == "Region")
+                                                {
+                                                    if (
+                                                        RoomFunctions.IsRegionCheck(
+                                                            itemToPlace,
+                                                            currentCheck,
+                                                            graphRoom
+                                                        )
                                                     )
-                                                )
+                                                    {
+                                                        // Console.WriteLine("Added " + currentCheck.checkName + " to check list.");
+                                                        availableChecks.Add(currentCheck.checkName);
+                                                    }
+                                                }
+                                                else if (restriction == "Dungeon Rewards")
+                                                {
+                                                    if (
+                                                        currentCheck.category.Contains(
+                                                            "Dungeon Reward"
+                                                        )
+                                                    )
+                                                    {
+                                                        // Console.WriteLine("Added " + currentCheck.checkName + " to check list.");
+                                                        availableChecks.Add(currentCheck.checkName);
+                                                    }
+                                                }
+                                                else
                                                 {
                                                     // Console.WriteLine("Added " + currentCheck.checkName + " to check list.");
                                                     availableChecks.Add(currentCheck.checkName);
                                                 }
-                                            }
-                                            else if (restriction == "Dungeon Rewards")
-                                            {
-                                                if (
-                                                    currentCheck.category.Contains("Dungeon Reward")
-                                                )
-                                                {
-                                                    // Console.WriteLine("Added " + currentCheck.checkName + " to check list.");
-                                                    availableChecks.Add(currentCheck.checkName);
-                                                }
-                                            }
-                                            else
-                                            {
-                                                // Console.WriteLine("Added " + currentCheck.checkName + " to check list.");
-                                                availableChecks.Add(currentCheck.checkName);
                                             }
                                         }
 
@@ -1086,11 +1116,12 @@ namespace TPRandomizer
         /// Places all items in a list into the world with no restrictions.
         /// </summary>
         /// <param name="itemsToBeRandomized"> The group of items that are to be randomized. </param>
-        private static void PlaceNonImpactItems(List<Item> itemsToBeRandomized, Random rnd)
+        private static void PlaceNonImpactItems(List<Item> itemsToBeRandomized)
         {
             List<string> availableChecks = new();
             Item itemToPlace;
             Check checkToReciveItem;
+            Random rnd = new();
 
             while (itemsToBeRandomized.Count > 0)
             {
@@ -1121,8 +1152,9 @@ namespace TPRandomizer
         /// Places all items in a list into the world with no restrictions. Does not empty the list of items, however.
         /// </summary>
         /// <param name="itemsToBeRandomized"> The group of items that are to be randomized. </param>
-        private static void PlaceJunkItems(List<Item> itemsToBeRandomized, Random rnd)
+        private static void PlaceJunkItems(List<Item> itemsToBeRandomized)
         {
+            Random rnd = new();
             foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
@@ -1156,10 +1188,13 @@ namespace TPRandomizer
         private static void StartOver()
         {
             Randomizer.Items.heldItems.Clear();
-            Console.WriteLine("Logical error. Starting Over.");
             foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
+                if (currentCheck.checkStatus == "Excluded-Unrequired")
+                {
+                    currentCheck.checkStatus = "Ready";
+                }
                 currentCheck.hasBeenReached = false;
                 currentCheck.itemWasPlaced = false;
                 Checks.CheckDict[currentCheck.checkName] = currentCheck;
@@ -1171,8 +1206,184 @@ namespace TPRandomizer
                 currentRoom.Visited = false;
                 Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
             }
+            Randomizer.RequiredDungeons = 0;
 
             Randomizer.Rooms.RoomDict["Ordon Province"].IsStartingRoom = true;
+        }
+
+        private static void CheckUnrequiredDungeons()
+        {
+            Check dungeonCheck = new();
+            int palace = 0;
+            int city = 1;
+            //int tot = 2;
+            //int snowpeak = 3;
+            int arbiters = 4;
+            int lakebed = 5;
+            //int mines = 6;
+            int forest = 7;
+            List<string>[] listOfAffectedChecks = new List<string>[]
+            {
+                CheckFunctions.palaceRequirementChecksGlitchless,
+                CheckFunctions.cityRequirementChecksGlitchless,
+                CheckFunctions.totRequirementChecksGlitchless,
+                CheckFunctions.snowpeakRequirementChecksGlitchless,
+                CheckFunctions.arbitersRequirementChecksGlitchless,
+                CheckFunctions.lakebedRequirementChecksGlitchless,
+                CheckFunctions.minesRequirementChecksGlitchless,
+                CheckFunctions.forestRequirementChecksGlitchless
+            };
+
+            // Create the dungeon entries
+            requiredDungeons forestTemple = new("Forest Temple Dungeon Reward", false, null);
+            requiredDungeons goronMines = new("Goron Mines Dungeon Reward", false, null);
+            requiredDungeons lakebedTemple = new("Lakebed Temple Dungeon Reward", false, null);
+            requiredDungeons arbitersGrounds =
+                new("Arbiters Grounds Stallord Heart Container", false, null);
+            requiredDungeons snowpeakRuins = new("Snowpeak Ruins Dungeon Reward", false, null);
+            requiredDungeons templeOfTime = new("Temple of Time Dungeon Reward", false, null);
+            requiredDungeons cityInTheSky = new("City in The Sky Dungeon Reward", false, null);
+            requiredDungeons palaceOfTwilight =
+                new("Palace of Twilight Zant Heart Container", false, null);
+
+            requiredDungeons[] listOfRequiredDungeons = new requiredDungeons[]
+            {
+                palaceOfTwilight,
+                cityInTheSky,
+                templeOfTime,
+                snowpeakRuins,
+                arbitersGrounds,
+                lakebedTemple,
+                goronMines,
+                forestTemple,
+            };
+
+            for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
+            {
+                if (Randomizer.RandoSetting.logicRules == "Glitchless")
+                {
+                    listOfRequiredDungeons[i].requirementChecks = listOfAffectedChecks[i];
+                }
+            }
+
+            // First we want to check the Hyrule Castle access requirements to get the base required dungeons to access Hyrule.
+            if (Randomizer.RandoSetting.castleRequirements == "Fused_Shadows")
+            {
+                for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
+                {
+                    if (
+                        Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemId
+                        == Item.Progressive_Fused_Shadow
+                    )
+                    {
+                        listOfRequiredDungeons[i].isRequired = true;
+                    }
+                }
+            }
+            else if (Randomizer.RandoSetting.castleRequirements == "Mirror_Shards")
+            {
+                for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
+                {
+                    if (
+                        Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemId
+                        == Item.Progressive_Mirror_Shard
+                    )
+                    {
+                        listOfRequiredDungeons[i].isRequired = true;
+                    }
+                }
+            }
+            else if (Randomizer.RandoSetting.castleRequirements == "Vanilla")
+            {
+                // If Palace is required then Arbiters is automatically required.
+                listOfRequiredDungeons[arbiters].isRequired = true;
+                listOfRequiredDungeons[palace].isRequired = true;
+                if (Randomizer.RandoSetting.palaceRequirements == "Fused_Shadows")
+                {
+                    for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
+                    {
+                        if (
+                            Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemId
+                            == Item.Progressive_Fused_Shadow
+                        )
+                        {
+                            listOfRequiredDungeons[i].isRequired = true;
+                        }
+                    }
+                }
+                else if (Randomizer.RandoSetting.palaceRequirements == "Mirror_Shards")
+                {
+                    for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
+                    {
+                        if (
+                            Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemId
+                            == Item.Progressive_Mirror_Shard
+                        )
+                        {
+                            listOfRequiredDungeons[i].isRequired = true;
+                        }
+                    }
+                }
+                else if (Randomizer.RandoSetting.palaceRequirements == "Vanilla")
+                {
+                    listOfRequiredDungeons[city].isRequired = true;
+                }
+            }
+            else if (Randomizer.RandoSetting.castleRequirements == "All_Dungeons")
+            {
+                for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
+                {
+                    listOfRequiredDungeons[i].isRequired = true;
+                }
+            }
+
+            // If Faron Woods is closed then we need to beat Forest Temple to leave.
+            if (Randomizer.RandoSetting.faronWoodsLogic == "Closed")
+            {
+                listOfRequiredDungeons[forest].isRequired = true;
+            }
+
+            // If MDH is not skipped then we need to complete Lakebed to enter Hyrule
+            if (!Randomizer.RandoSetting.mdhSkipped)
+            {
+                listOfRequiredDungeons[lakebed].isRequired = true;
+            }
+
+            // If Palace is required then Arbiters is required to enter the dungeon.
+            if (listOfRequiredDungeons[palace].isRequired)
+            {
+                listOfRequiredDungeons[arbiters].isRequired = true;
+            }
+
+            for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
+            {
+                if (!listOfRequiredDungeons[i].isRequired)
+                {
+                    if (Randomizer.RandoSetting.barrenDungeons)
+                    {
+                        foreach (string check in listOfRequiredDungeons[i].requirementChecks)
+                        {
+                            if (
+                                (Checks.CheckDict[check].checkStatus != "Vanilla")
+                                && !Checks.CheckDict[check].itemWasPlaced
+                            )
+                            {
+                                //Console.WriteLine(check + " is now excluded");
+                                Checks.CheckDict[check].checkStatus = "Excluded-Unrequired";
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Randomizer.RequiredDungeons |= 0x80 >> i;
+                    Console.WriteLine(
+                        listOfRequiredDungeons[i].dungeonReward + " is a required Dungeon!"
+                    );
+                }
+            }
+
+            return;
         }
 
         private static Room SetupGraph()
@@ -1195,8 +1406,7 @@ namespace TPRandomizer
         {
             foreach (
                 string file in System.IO.Directory.GetFiles(
-                    // "./Generator/World/Checks/",
-                    Global.CombineRootPath("./World/Checks/"),
+                    "./Generator/World/Checks/",
                     "*",
                     SearchOption.AllDirectories
                 )
@@ -1211,9 +1421,10 @@ namespace TPRandomizer
                 currentCheck.requirements = "(" + currentCheck.requirements + ")";
                 currentCheck.checkStatus = "Ready";
                 currentCheck.itemWasPlaced = false;
+                currentCheck.itemId = Item.Recovery_Heart;
                 Checks.CheckDict[fileName] = currentCheck;
 
-                //Console.WriteLine("Check File Loaded " + fileName);
+                //Console.WriteLine(fileName);
             }
 
             return;
@@ -1223,8 +1434,7 @@ namespace TPRandomizer
         {
             foreach (
                 string file in System.IO.Directory.GetFiles(
-                    // "./Generator/World/Rooms/",
-                    Global.CombineRootPath("./World/Rooms/"),
+                    "./Generator/World/Rooms/",
                     "*",
                     SearchOption.AllDirectories
                 )
@@ -1266,5 +1476,23 @@ namespace TPRandomizer
             Randomizer.Items.heldItems.Clear();
             Randomizer.Items.BaseItemPool.Clear();
         }
+
+        public struct requiredDungeons
+        {
+            public string dungeonReward;
+            public bool isRequired;
+            public List<String> requirementChecks;
+
+            public requiredDungeons(
+                string dungeonReward,
+                bool isRequired,
+                List<string> requirementChecks
+            )
+            {
+                this.dungeonReward = dungeonReward;
+                this.isRequired = isRequired;
+                this.requirementChecks = requirementChecks;
+            }
+        };
     }
 }

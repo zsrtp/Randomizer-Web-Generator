@@ -3,7 +3,7 @@
     "hash": ["93FC"],
     "stageIDX": [16],
     "dzxTag": ["ACTR"],
-    "category": ["Dungeon", "Palace of Twilight", "Heart Container", "DZX"],
+    "category": ["Dungeon", "Palace of Twilight", "Heart Container", "DZX", "Dungeon Reward"],
     "itemId": "Heart_Container",
     "actrData": [["68", "74", "43", "61", "73", "65", "00", "00", "00", "FF", "80", "22", "C0", "52", "7D", "E1", "45", "1D", "CB", "22", "C6", "64", "2C", "E5", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
 }

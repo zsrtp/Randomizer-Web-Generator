@@ -1,6 +1,6 @@
 {
     "requirements": "(Progressive_Fishing_Rod, 1)",
-    "arcOffsets": ["13A4C"],
+    "arcOffsets": ["139C8"],
     "fileDirectoryType": [0],
     "replacementType": [4],
     "stageIDX": [62],

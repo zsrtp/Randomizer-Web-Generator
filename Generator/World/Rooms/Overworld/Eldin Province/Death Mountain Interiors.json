@@ -7,7 +7,7 @@
     "NeighbourRequirements": 
     [
         "true",
-        "Iron_Boots"
+        "Iron_Boots or (Setting.skipMinesEntrance equals True)"
     ],
     "Checks": [""], 
     "Region": "Eldin Province"

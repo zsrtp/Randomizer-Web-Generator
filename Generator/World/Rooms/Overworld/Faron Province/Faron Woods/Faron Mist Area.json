@@ -8,7 +8,7 @@
   "NeighbourRequirements": [
     "true",
     "Lantern",
-    "(North_Faron_Woods_Gate_Key or (Setting.smallKeySettings equals Keysey) or (Shadow_Crystal and (Setting.faronTwilightCleared equals True)) or (Setting.introSkipped equals True)) and (Lantern or Shadow_Crystal)"
+    "(North_Faron_Woods_Gate_Key or (Setting.smallKeySettings equals Keysey) or (Shadow_Crystal and (Setting.faronTwilightCleared equals True)) or (Setting.prologueSkipped equals True)) and (Lantern or Shadow_Crystal)"
   ],
     "Checks": 
     [
