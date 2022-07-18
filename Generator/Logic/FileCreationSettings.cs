@@ -8,7 +8,7 @@ namespace TPRandomizer
     {
         public string gameRegion { get; }
         public byte seedNumber { get; }
-        public bool randomizeBgm { get; }
+        public int randomizeBgm { get; }
         public bool randomizeFanfares { get; }
         public bool disableEnemyBgm { get; }
         public int tunicColor { get; }
@@ -28,7 +28,7 @@ namespace TPRandomizer
             gameRegion = processor.NextString(FcSettingsOptions.gameRegion, 3);
             seedNumber = processor.NextNibble();
 
-            randomizeBgm = processor.NextBool();
+            randomizeBgm = processor.NextInt(1);
             randomizeFanfares = processor.NextBool();
             disableEnemyBgm = processor.NextBool();
 
@@ -51,7 +51,7 @@ namespace TPRandomizer
 
         private class FcSettingsOptions
         {
-            public static readonly string[] gameRegion  = new string[] { "NTSC", "PAL", "JAP" };
+            public static readonly string[] gameRegion = new string[] { "NTSC", "PAL", "JAP" };
         }
 
         public void UpdateRandoSettings(RandomizerSetting randoSettings)
@@ -59,7 +59,7 @@ namespace TPRandomizer
             randoSettings.gameRegion = gameRegion;
             randoSettings.seedNumber = seedNumber;
 
-            randoSettings.shuffleBackgroundMusic = randomizeBgm;
+            randoSettings.backgroundMusicSetting = randomizeBgm;
             randoSettings.shuffleItemFanfares = randomizeFanfares;
             randoSettings.disableEnemyBackgoundMusic = disableEnemyBgm;
 

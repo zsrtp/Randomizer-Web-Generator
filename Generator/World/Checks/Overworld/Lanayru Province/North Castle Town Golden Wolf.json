@@ -6,7 +6,7 @@
     "stageIDX": [64,64,64,64,64,64,64],
     "lastStageIDX": [53],
     "roomIDX": 0,
-    "flag": "3D40",
+    "flag": "3E2",
     "category": ["Overworld", "Hidden Skill", "Lanayru Province", "ARC"],
     "itemId": "Progressive_Hidden_Skill"
 }

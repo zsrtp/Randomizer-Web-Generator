@@ -8,7 +8,7 @@
     "NeighbourRequirements": 
     [
         "true",
-        "CanDefeatShadowBeast and (Progressive_Sword, 3)",
+        "(CanDefeatShadowBeast and (Progressive_Sword, 3)) or (Setting.skipToTEntrance equals True)",
         "canSmash and Shadow_Crystal"
     ],
     "Checks": 

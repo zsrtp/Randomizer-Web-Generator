@@ -1,10 +1,10 @@
 {
-  "requirements": "Ball_and_Chain or (hasBombs and ((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysey)))",
-  "arcOffsets": ["F70"],
+    "requirements": "Ball_and_Chain or (hasBombs and ((Snowpeak_Ruins_Small_Key, 2) or (Setting.smallKeySettings equals Keysey)))",
+    "arcOffsets": ["F70"],
     "stageIDX": [27],
     "roomIDX": 4,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Snowpeak Ruins", "ARC" ],
-  "itemId": "Bombs_5"
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Snowpeak Ruins", "ARC"],
+    "itemId": "Bombs_5"
 }

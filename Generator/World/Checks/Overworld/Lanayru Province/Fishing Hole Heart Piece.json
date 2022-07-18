@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Clawshot, 1) or (Progressive_Fishing_Rod, 1)",
+    "requirements": "true",
     "arcOffsets": ["C1F", "375C", "3644"],
     "fileDirectoryType": [0, 1, 1],
     "replacementType": [0, 5, 5],

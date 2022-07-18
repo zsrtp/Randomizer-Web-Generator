@@ -6,8 +6,8 @@
     ],
     "NeighbourRequirements": 
     [
-        "canBurnWebs or Shadow_Crystal or (Setting.introSkipped equals True)",
-        "canBurnWebs or Shadow_Crystal or (Setting.introSkipped equals True)"
+        "canBurnWebs or Shadow_Crystal or (Setting.prologueSkipped equals True)",
+        "canBurnWebs or Shadow_Crystal or (Setting.prologueSkipped equals True)"
     ],
     "Checks": 
     [

@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatDinalfos and (Progressive_Dominion_Rod, 1)",
+    "requirements": "CanDefeatDinalfos and (Progressive_Dominion_Rod, 1) and (Progressive_Bow, 1)",
     "arcOffsets": ["BFC"],
     "stageIDX": [9],
     "roomIDX": 4,

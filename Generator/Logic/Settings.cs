@@ -30,7 +30,7 @@ namespace TPRandomizer
             smallKeySettings = processor.NextString(SettingData.smallKeySettings, 3);
             bossKeySettings = processor.NextString(SettingData.bossKeySettings, 3);
             mapAndCompassSettings = processor.NextString(SettingData.mapAndCompassSettings, 3);
-            introSkipped = processor.NextBool();
+            prologueSkipped = processor.NextBool();
             faronTwilightCleared = processor.NextBool();
             eldinTwilightCleared = processor.NextBool();
             lanayruTwilightCleared = processor.NextBool();
@@ -70,7 +70,7 @@ namespace TPRandomizer
         public string palaceRequirements { get; set; }
         public string faronWoodsLogic { get; set; }
         public bool mdhSkipped { get; set; }
-        public bool introSkipped { get; set; }
+        public bool prologueSkipped { get; set; }
         public string smallKeySettings { get; set; }
         public string bossKeySettings { get; set; }
         public string mapAndCompassSettings { get; set; }
@@ -97,7 +97,7 @@ namespace TPRandomizer
         public int xButtonColor { get; set; }
         public int yButtonColor { get; set; }
         public int zButtonColor { get; set; }
-        public bool shuffleBackgroundMusic { get; set; }
+        public int backgroundMusicSetting { get; set; }
         public bool shuffleItemFanfares { get; set; }
         public bool disableEnemyBackgoundMusic { get; set; }
         public string gameRegion { get; set; }
@@ -106,6 +106,13 @@ namespace TPRandomizer
         public int seedNumber { get; set; }
         public bool increaseWallet { get; set; }
         public bool modifyShopModels { get; set; }
+        public bool barrenDungeons { get; set; }
+        public bool skipMinesEntrance { get; set; }
+        public bool skipLakebedEntrance { get; set; }
+        public bool skipArbitersEntrance { get; set; }
+        public bool skipSnowpeakEntrance { get; set; }
+        public bool skipToTEntrance { get; set; }
+        public bool skipCityEntrance { get; set; }
 
         public void PopulateFromInputJson(JObject root)
         {
@@ -121,7 +128,7 @@ namespace TPRandomizer
 
             // Boolean fields included when true
             mdhSkipped = (bool)settings["mdhSkipped"];
-            introSkipped = (bool)settings["introSkipped"];
+            prologueSkipped = (bool)settings["introSkipped"];
             faronTwilightCleared = (bool)settings["faronTwilightCleared"];
             eldinTwilightCleared = (bool)settings["eldinTwilightCleared"];
             lanayruTwilightCleared = (bool)settings["lanayruTwilightCleared"];
@@ -225,7 +232,7 @@ namespace TPRandomizer
 
         public bool mdhSkipped { get; set; }
 
-        public bool introSkipped { get; set; }
+        public bool prologueSkipped { get; set; }
 
         public static string[] smallKeySettings { get; set; } =
             new string[] { "Vanilla", "Own_Dungeon", "Any_Dungeon", "Keysanity", "Keysey" };
@@ -394,7 +401,7 @@ namespace TPRandomizer
                 "Light Blue"
             };
 
-        public bool shuffleBackgroundMusic { get; set; }
+        public int backgroundMusicSetting { get; set; }
 
         public bool shuffleItemFanfares { get; set; }
 
@@ -412,5 +419,12 @@ namespace TPRandomizer
         public bool increaseWallet { get; set; }
 
         public bool modifyShopModels { get; set; }
+        public bool barrenDungeons { get; set; }
+        public bool skipMinesEntrance { get; set; }
+        public bool skipLakebedEntrance { get; set; }
+        public bool skipArbitersEntrance { get; set; }
+        public bool skipSnowpeakEntrance { get; set; }
+        public bool skipToTEntrance { get; set; }
+        public bool skipCityEntrance { get; set; }
     }
 }

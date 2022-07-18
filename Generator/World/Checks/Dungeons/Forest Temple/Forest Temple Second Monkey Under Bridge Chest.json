@@ -1,5 +1,5 @@
 {
-  "requirements": "(CanDefeatBombling or canBurnWebs) and ((Forest_Temple_Small_Key, 4) or (Setting.smallKeySettings equals Keysey))",
+  "requirements": "(Forest_Temple_Small_Key, 4) or (Setting.smallKeySettings equals Keysey)",
   "arcOffsets": ["984"],
     "stageIDX": [6],
     "roomIDX": 2,

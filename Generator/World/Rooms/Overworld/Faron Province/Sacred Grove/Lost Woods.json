@@ -7,7 +7,7 @@
     "NeighbourRequirements": 
     [
         "true",
-        "CanDefeatSkullKid and Shadow_Crystal"
+        "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.skipToTEntrance equals True)"
     ],
     "Checks": 
     [

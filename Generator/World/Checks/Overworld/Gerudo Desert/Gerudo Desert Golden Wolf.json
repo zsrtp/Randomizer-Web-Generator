@@ -6,7 +6,7 @@
     "stageIDX": [64,64,64,64,64,64,64],
     "lastStageIDX": [59],
     "roomIDX": 0,
-    "flag": "3C01",
+    "flag": "3DE",
     "category": ["Overworld", "Hidden Skill", "Gerudo Desert", "ARC"],
     "itemId": "Progressive_Hidden_Skill"
 }

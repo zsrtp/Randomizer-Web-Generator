@@ -361,6 +361,13 @@
       { id: 'increaseWalletCheckbox' },
       { id: 'modifyShopModelsCheckbox' },
       { id: 'foolishItemFieldset', bitLength: 3 },
+      { id: 'barrenCheckbox'},
+      { id: 'minesEntranceCheckbox'},
+      { id: 'lakebedEntranceCheckbox'},
+      { id: 'arbitersEntranceCheckbox'},
+      { id: 'snowpeakEntranceCheckbox'},
+      { id: 'totEntranceCheckbox'},
+      { id: 'cityEntranceCheckbox'},
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -439,14 +446,14 @@
       { id: 'tunicColorFieldset', bitLength: 4 },
       { id: 'lanternColorFieldset', bitLength: 4 },
       { id: 'midnaHairColorFieldset', bitLength: 1 },
-      { id: 'heartColorFieldset', bitLength: 3 },
+      { id: 'heartColorFieldset', bitLength: 4 },
       { id: 'aButtonColorFieldset', bitLength: 4 },
       { id: 'bButtonColorFieldset', bitLength: 3 },
       { id: 'xButtonColorFieldset', bitLength: 4 },
       { id: 'yButtonColorFieldset', bitLength: 4 },
       { id: 'zButtonColorFieldset', bitLength: 4 },
 
-      { id: 'randomizeBGMCheckbox' },
+      { id: 'bgmFieldset', bitLength: 2 },
       { id: 'randomizeFanfaresCheckbox' },
       { id: 'disableEnemyBGMCheckbox' },
     ].map(({ id, bitLength }) => {
@@ -721,6 +728,13 @@
       { id: 'increaseWalletCapacity', type: 'boolean' },
       { id: 'shopModelsShowTheReplacedItem', type: 'boolean' },
       { id: 'trapItemsFrequency', type: 'number', bitLength: 3 },
+      { id: 'barrenCheckbox', type: 'boolean'},
+      { id: 'minesEntranceCheckbox', type: 'boolean'},
+      { id: 'lakebedEntranceCheckbox', type: 'boolean'},
+      { id: 'arbitersEntranceCheckbox', type: 'boolean'},
+      { id: 'snowpeakEntranceCheckbox', type: 'boolean'},
+      { id: 'totEntranceCheckbox', type: 'boolean'},
+      { id: 'cityEntranceCheckbox', type: 'boolean'},
     ];
 
     const processor = BitsProcessor(bits);
@@ -824,7 +838,7 @@
     $('#yButtonColorFieldset').val(p.yBtnColor);
     $('#zButtonColorFieldset').val(p.zBtnColor);
 
-    $('#randomizeBGMCheckbox').prop('checked', p.randomizeBgm);
+    $('#bgmFieldset').val(p.randomizeBgm);
     $('#randomizeFanfaresCheckbox').prop('checked', p.randomizeFanfares);
     $('#disableEnemyBGMCheckbox').prop('checked', p.disableEnemyBgm);
   }

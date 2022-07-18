@@ -1,5 +1,5 @@
 {
-    "requirements": "HasSword and Iron_Boots",
+    "requirements": "(HasSword or CanUseWaterBombs) and Iron_Boots",
     "arcOffsets": ["F18"],
     "stageIDX": [3],
     "roomIDX": 7,

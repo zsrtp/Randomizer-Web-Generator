@@ -21,7 +21,7 @@ COPY ./packages/client/ ./packages/client
 
 #####
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 WORKDIR /usr/app/generatorSrc
 
 # copy csproj and restore as distinct layers
@@ -35,7 +35,7 @@ RUN dotnet publish "./TPRandomizer.csproj" -c release -o /app/generator --no-res
 RUN cp -r World /app/generator/World
 
 FROM node:lts-alpine as node_base
-FROM mcr.microsoft.com/dotnet/runtime:5.0-alpine
+FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine
 COPY --from=node_base . .
 WORKDIR /app
 COPY --from=build /app .

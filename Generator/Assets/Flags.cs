@@ -14,6 +14,8 @@ namespace TPRandomizer.Assets
         {
             { 0x2, 0x46 }, // Midna jump 1 mist area.
             { 0x2, 0x47 }, // Midna jump 1 mist area.
+            { 0x0, 0x47 }, // Picked Up Ordon Sword.
+            { 0x0, 0x45 }, // Picked up Ordon Shield.
             { 0x2, 0x5D }, // North Faron Portal.
             { 0x2, 0x98 }, // South Faron Portal.
             { 0x0, 0x6B }, // Ordon Spring Portal.
@@ -46,7 +48,10 @@ namespace TPRandomizer.Assets
             { 0x16, 0x6B }, // West Bridge in CiTS Destroyed CS Trigger.
             { 0x2, 0x63 }, // Trill lets you shop at his store.
             { 0x3, 0xB9 }, // Barnes sells water bombs.
+            { 0x3, 0xB3 }, // Colin Rescued CS (Malo Mart is Open).
             { 0x2, 0x60 }, // Got Lantern Back from Monkey
+            { 0x2, 0x4E }, // Saved Monkey from Puppets.
+            { 0x2, 0x62 }, // Midna text before jumping to lost woods
             { 0x6, 0x4C }, // Bridge of Eldin Warped back CS.
             { 0x2, 0x95 }, // Midna text after warping to North Faron for bridge.
             { 0x2, 0xBF }, // Burned First cobweb in faron cave
@@ -57,6 +62,7 @@ namespace TPRandomizer.Assets
             { 0x6, 0x7E }, // Kakariko Gorge placed CS
             { 0x10, 0x49 }, // FT Ook Bridge Destroyed
             { 0x17, 0x94 }, // Set flag to trigger the twilight fence before Zant
+            { 0x3, 0x42 }, // Big Rock fell at DMT
         };
 
         /// <summary>
@@ -238,7 +244,6 @@ namespace TPRandomizer.Assets
             { 0x2, 0x4B }, // North Faron Gate Unlocked.
             { 0x3, 0xBA }, // Followed Rutella to graveyard.
             { 0x3, 0xB6 }, // Started Rutella escort.
-            { 0xA, 0xE7 }, // Give Bulblin Camp Key.
             { 0x10, 0x54 }, // Unlocked door to Second Monkey.
             { 0x10, 0x58 }, // Unlock windless bridge east door.
             { 0x10, 0x61 }, // Opened big baba monkey cage.
@@ -326,6 +331,24 @@ namespace TPRandomizer.Assets
             { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
         };
 
+        public static readonly byte[,] OpenLakebedRegionFlags = new byte[,]
+        {
+            { 0x4, 0x70 }, // Blew up rock in front of lakebed CS.
+            { 0x4, 0x78 }, // Blew up rock in front of lakebed.
+        };
+
+        public static readonly byte[,] OpenToTRegionFlags = new byte[,]
+        {
+            { 0x7, 0x49 }, // Stairs to Temple of time created.
+            { 0x7, 0x4A }, // Struck master sword pedestal with sword.
+            { 0x7, 0x4B }, // Stairs and window appear and work properly (Past).
+            { 0x7, 0xB6 }, // Skull Kid - Human defeated.
+            { 0x7, 0xB7 }, // Lost Woods Turns to day after defeating Skull Kid - Human
+            { 0x7, 0xBB }, // Sacred Grove Portal
+            { 0x7, 0x5B }, // Block pushed down
+            { 0x7, 0x42 }, // Midna text after block pushed down
+        };
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -342,6 +365,8 @@ namespace TPRandomizer.Assets
                 { 8, BigKeyRegionFlags },
                 { 9, MapAndCompassRegionFlags },
                 { 10, OpenCastleRegionFlags },
+                { 13, OpenLakebedRegionFlags },
+                { 16, OpenToTRegionFlags },
             };
 
         /// <summary>
@@ -353,16 +378,19 @@ namespace TPRandomizer.Assets
             { 0x14, 0x10 }, // Put Bo outside, ready to wrestle
             { 0xA, 0x2F }, // Bridge of Eldin Stolen, KB1 defeated, KB1 started
             { 0xF, 0x9 }, // Bridge of Eldin Warped Back, coro gave lantern
-            { 0x40, 0x8 }, // Visited Gerudo Desert for the first time.
+            { 0x40, 0x88 }, // Saved monkey from puppets, Visited Gerudo Desert for the first time.
+            { 0x41, 0x18 }, // Talked to Fado after Faron and Eldin Twilight
             { 0x7, 0xA0 }, // Watched Colin CS after KB1, talked to Bo before sumo
             { 0x20, 0x20 }, // Master Sword Story Progression
             { 0x20, 0x10 }, // Arbiters Grounds Story Progression
             { 0x2C, 0x10 }, // Raised the mirror in the Mirror Chamber
             { 0x1B, 0x38 }, // Skip Monkey Escort
+            { 0x1C, 0x20 }, // Talked to Bo after opening boots chest.
             { 0x6, 0x20 }, // Warped Kakariko Bridge Back.
             { 0x5F, 0x20 }, // Shad leaves sanctuary.
             { 0xF7, 0x1 }, // Add 256 Rupees to Charlo.
             { 0xF8, 0xF4 }, // Add 244 Rupees to Charlo.
+            { 0x60, 0x1 }, // Talked to Fyer after Lanayru Twilight
         };
 
         /// <summary>
@@ -417,6 +445,7 @@ namespace TPRandomizer.Assets
             { 0x1, 0x40 }, // Talked to Yeto First Time.
             { 0x3, 0x90 }, // Jaggle Calls out to Link, talked to Squirrel as Wolf in Ordon.
             { 0x6, 0xC0 }, // CS After beating Ordon Shadow, CS after entering Faron Twilight.
+            { 0x7, 0x2 }, // First Time Talking to Gor Coron in Sumo Hall
             { 0x10, 0x2 }, // Talked to Jaggle after climbing vines.
             { 0xF, 0x40 }, // Talked to Doctor for the first time.
             { 0x5E, 0x10 }, // Midna text after beating Forest Temple.
@@ -442,6 +471,8 @@ namespace TPRandomizer.Assets
         public static readonly byte[,] OpenForestEventFlags = new byte[,]
         {
             { 0x6, 0x2 }, // Forest Temple Story Flag
+            { 0xC, 0x40 }, // Talked to Farone after clearing Forest Temple
+            { 0x5E, 0x10 }, // Midna text after Forest Temple completed
         };
 
         public static readonly byte[,] MDHEventFlags = new byte[,]
@@ -469,6 +500,23 @@ namespace TPRandomizer.Assets
             { 0x2B, 0x8 }, // Mirror of Twilight Repaired.
         };
 
+        public static readonly byte[,] OpenMinesEventFlags = new byte[,]
+        {
+            { 0x7, 0x6 }, // Talked to Gor Coron, Won Sumo against Gor Coron.
+        };
+        public static readonly byte[,] OpenArbitersEventFlags = new byte[,]
+        {
+            { 0xB, 0x40 }, // Escaped Burning Tent in Bulblin Camp.
+        };
+        public static readonly byte[,] OpenSnowpeakEventFlags = new byte[,]
+        {
+            { 0x61, 0x20 }, // Got the reekfish and smelled it (removes void in Snowpeak).
+        };
+        public static readonly byte[,] OpenCityEventFlags = new byte[,]
+        {
+            { 0x3B, 0x8 }, // Sky Cannon Repaired.
+        };
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -485,6 +533,10 @@ namespace TPRandomizer.Assets
                 { 7, SmallKeyEventFlags },
                 { 10, OpenCastleEventFlags },
                 { 11, OpenPalaceEventFlags },
+                { 12, OpenMinesEventFlags },
+                { 14, OpenArbitersEventFlags },
+                { 15, OpenSnowpeakEventFlags },
+                { 17, OpenCityEventFlags },
             };
         private static readonly RandomizerSetting RandomizerSettings = Randomizer.RandoSetting;
 
@@ -493,7 +545,7 @@ namespace TPRandomizer.Assets
         /// </summary>
         public static readonly bool[] FlagSettings = new bool[]
         {
-            /* 0 */RandomizerSettings.introSkipped,
+            /* 0 */RandomizerSettings.prologueSkipped,
             /* 1 */RandomizerSettings.faronTwilightCleared,
             /* 2 */RandomizerSettings.eldinTwilightCleared,
             /* 3 */RandomizerSettings.lanayruTwilightCleared,
@@ -505,6 +557,12 @@ namespace TPRandomizer.Assets
             /* 9 */RandomizerSettings.mapAndCompassSettings == "Start_With",
             /* 10 */RandomizerSettings.castleRequirements == "Open",
             /* 11 */RandomizerSettings.palaceRequirements == "Open",
+            /* 12 */RandomizerSettings.skipMinesEntrance,
+            /* 13 */RandomizerSettings.skipLakebedEntrance,
+            /* 14 */RandomizerSettings.skipArbitersEntrance,
+            /* 15 */RandomizerSettings.skipSnowpeakEntrance,
+            /* 16 */RandomizerSettings.skipToTEntrance,
+            /* 17 */RandomizerSettings.skipCityEntrance,
         };
     }
 }

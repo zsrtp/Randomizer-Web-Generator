@@ -7,7 +7,7 @@
     "NeighbourRequirements": 
     [
         "true",
-        "(Progressive_Sword, 3)"
+        "(Progressive_Sword, 3) or (Setting.skipToTEntrance equals True)"
     ],
     "Checks": 
     [

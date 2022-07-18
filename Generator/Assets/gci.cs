@@ -42,25 +42,11 @@ namespace TPRandomizer.Assets
         /// <returns> The inserted value as a byte. </returns>
         public Gci(
             byte seedNumber = 0,
-            string seedRegion = "NTSC",
+            char regionCode = 'E',
             List<byte> seedData = null,
             string seedHash = ""
         )
         {
-            char regionCode;
-            switch (seedRegion)
-            {
-                case "JAP":
-                    regionCode = 'J';
-                    break;
-                case "PAL":
-                    regionCode = 'P';
-                    break;
-                default:
-                    regionCode = 'E';
-                    break;
-            }
-
             gciHeader = new List<byte>();
             gciData = new List<byte>();
             gciFile = new List<byte>();
@@ -95,7 +81,7 @@ namespace TPRandomizer.Assets
             /*x36*/
             gciHeader.AddRange(Converter.GcBytes((UInt16)0x00)); // first block number
             /*x38*/
-            gciHeader.AddRange(Converter.GcBytes((UInt16)0x03)); // Actual num of blocks.
+            gciHeader.AddRange(Converter.GcBytes((UInt16)0x02)); // Actual num of blocks.
             /*x3A*/
             gciHeader.AddRange(Converter.GcBytes((UInt16)0xFFFF)); // unused
             /*x3C*/
@@ -105,7 +91,7 @@ namespace TPRandomizer.Assets
             gciFile.AddRange(seedData);
 
             // Pad
-            while (gciFile.Count < (3 * 0x2000) + 0x40) // Pad to 2 blocks.
+            while (gciFile.Count < (2 * 0x2000) + 0x40) // Pad to 4 blocks.
                 gciFile.Add((byte)0x0);
         }
     }

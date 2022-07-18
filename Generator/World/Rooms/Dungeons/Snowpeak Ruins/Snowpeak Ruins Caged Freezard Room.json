@@ -3,13 +3,16 @@
     [
         "Snowpeak Ruins Yeto and Yeta", 
         "Snowpeak Ruins Second Floor Mini Freezard Room", 
-        "Snowpeak Ruins Wooden Beam Room"
+        "Snowpeak Ruins Wooden Beam Room",
+        "Snowpeak Ruins West Courtyard"
     ],
-  "NeighbourRequirements": [
-    "true",
-    "Ball_and_Chain and ((Snowpeak_Ruins_Small_Key, 3) or (Setting.smallKeySettings equals Keysey))",
-    "Ball_and_Chain"
-  ],
+    "NeighbourRequirements":
+    [
+        "true",
+        "Ball_and_Chain and ((Snowpeak_Ruins_Small_Key, 3) or (Setting.smallKeySettings equals Keysey))",
+        "Ball_and_Chain",
+        "((Snowpeak_Ruins_Small_Key, 2) or (Setting.smallKeySettings equals Keysey))"
+    ],
     "Checks": 
     [
         "Snowpeak Ruins Broken Floor Chest"

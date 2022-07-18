@@ -94,10 +94,12 @@ namespace TPRandomizer
         {
             return (
                 (getItemCount(Item.Progressive_Clawshot) >= 1)
-                && (HasSword()
-                || CanUse(Item.Ball_and_Chain)
-                || CanUse(Item.Iron_Boots)
-                || CanUse(Item.Shadow_Crystal))
+                && (
+                    HasSword()
+                    || CanUse(Item.Ball_and_Chain)
+                    || CanUse(Item.Iron_Boots)
+                    || CanUse(Item.Shadow_Crystal)
+                )
             );
         }
 
@@ -1056,12 +1058,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanDefeatKingBulblinDesert()
         {
-            return (
-                HasSword()
-                || CanUse(Item.Ball_and_Chain)
-                || CanUse(Item.Iron_Boots)
-                || CanUse(Item.Shadow_Crystal)
-            );
+            return (HasSword() || CanUse(Item.Ball_and_Chain) || CanUse(Item.Shadow_Crystal));
         }
 
         /// <summary>
@@ -1069,12 +1066,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanDefeatKingBulblinCastle()
         {
-            return (
-                HasSword()
-                || CanUse(Item.Ball_and_Chain)
-                || CanUse(Item.Iron_Boots)
-                || CanUse(Item.Shadow_Crystal)
-            );
+            return (HasSword() || CanUse(Item.Ball_and_Chain) || CanUse(Item.Shadow_Crystal));
         }
 
         /// <summary>
@@ -1359,7 +1351,7 @@ namespace TPRandomizer
         public static bool hasBombs()
         {
             return (
-                (CanUse(Item.Progressive_Bomb_Bag))
+                (CanUse(Item.Filled_Bomb_Bag))
                 && (
                     Randomizer.Rooms.RoomDict["Kakariko Village"].ReachedByPlaythrough
                     || (
@@ -1382,7 +1374,7 @@ namespace TPRandomizer
         public static bool CanUseWaterBombs()
         {
             return (
-                CanUse(Item.Progressive_Bomb_Bag)
+                CanUse(Item.Filled_Bomb_Bag)
                 && (
                     Randomizer.Rooms.RoomDict["Kakariko Village"].ReachedByPlaythrough
                     || (
@@ -1422,7 +1414,7 @@ namespace TPRandomizer
                         CanUse(Item.North_Faron_Woods_Gate_Key)
                         || (Randomizer.RandoSetting.smallKeySettings == "Keysey")
                     )
-                ) || (Randomizer.RandoSetting.introSkipped == true)
+                ) || (Randomizer.RandoSetting.prologueSkipped == true)
             );
         }
 

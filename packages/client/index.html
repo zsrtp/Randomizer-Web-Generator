@@ -189,6 +189,8 @@
 							<label for="fastIBCheckbox"> Fast Iron Boots </label><br>
 							<input type="checkbox" id="quickTransformCheckbox" name="Quick Transform Checkbox" value="">
 							<label for="quickTransformCheckbox"> Quick Transform </label><br>
+							<input type="checkbox" id="barrenCheckbox" name="Intro Logic" value="">
+							<label for="introCheckbox"> Unrequired Dungeons Are Barren </label><br>
 						</fieldset>
 					</div>
 					<div class="tabColumn">
@@ -219,6 +221,21 @@
 						</fieldset>
 					</div>
 					<div class="tabColumn">
+						<fieldset id="dungeonRequirementsFieldset">
+							<legend>Dungeon Logic Settings</legend>
+							<input type="checkbox" id="minesEntranceCheckbox" name="Goron Mines Checkbox" value="">
+							<label for="minesEntranceCheckbox"> Mines Does Not Require Wrestling </label><br>
+							<input type="checkbox" id="lakebedEntranceCheckbox" name="Lakebed Temple Checkbox" value="">
+							<label for="lakebedEntranceCheckbox"> Lakebed Does Not Require Water Bombs </label><br>
+							<input type="checkbox" id="arbitersEntranceCheckbox" name="Arbiters Grounds Checkbox" value="">
+							<label for="arbitersEntranceCheckbox"> Arbiters Does Not Require Bulblin Camp </label><br>
+							<input type="checkbox" id="snowpeakEntranceCheckbox" name="Snowpeak Ruins Checkbox" value="">
+							<label for="snowpeakEntranceCheckbox"> Snowpeak Does Not Require Reekfish Scent </label><br>
+							<input type="checkbox" id="totEntranceCheckbox" name="Temple of Time Checkbox" value="">
+							<label for="totEntranceCheckbox"> Temple of Time Does Not Require Sword or Grove</label><br>
+							<input type="checkbox" id="cityEntranceCheckbox" name="City in The Sky Checkbox" value="">
+							<label for="cityEntranceCheckbox"> City Does Not Require Filled Skybook </label><br>
+						</fieldset>
 					</div>
 				</div>
 
@@ -229,7 +246,7 @@
             <!-- CHECK_IDS -->
 
 						<!-- <?php
-							$cmd = "dotnet Generator/bin/Debug/net5.0/TPRandomizer.dll print_check_ids";
+							$cmd = "dotnet Generator/bin/Debug/net6.0/TPRandomizer.dll print_check_ids";
 							$proc = popen($cmd, 'r'); // for Windows, use popen("start /B ". $cmd, 'r');
 							$log = "";
 							while (!feof($proc))
@@ -317,13 +334,14 @@
 							<label for="heartColorFieldset">Heart Color:</label>
 							<select name="Heart Color Fieldset" id="heartColorFieldset">
 								<option value="0">Default</option>
-								<option value="2">Teal</option>
-								<option value="3">Pink</option>
-								<option value="4">Orange</option>
+								<option value="1">Pink</option>
+								<option value="2">Orange</option>
+								<option value="3">Green</option>
+								<option value="4">Teal</option>
 								<option value="5">Blue</option>
-								<option value="6">Green</option>
-								<option value="7">Purple</option>
-								<option value="8">Black</option>
+								<option value="6">Purple</option>
+								<option value="7">Black</option>
+								<option value="8">Rainbow</option>
 							</select>
 							<br/>
 							<label for="aButtonColorFieldset">A Button Color:</label>
@@ -431,8 +449,13 @@
 					</div>
 						<fieldset id="musicAndSFXFieldset">
 							<legend> Music and SFX </legend>
-							<input type="checkbox" id="randomizeBGMCheckbox" name="Randomize BGM Checkbox" value="">
-							<label for="randomizeBGMCheckbox"> Randomize Background Music </label><br>
+							<label for="bgmFieldset">Randomized Background Music:</label>
+							<select name="Background Music Fieldset" id="bgmFieldset">
+								<option value="0" selected>Vanilla</option>
+								<option value="1">Overworld</option>
+								<option value="2">Dungeon</option>
+								<option value="3">All</option>
+							</select> <br>
 							<input type="checkbox" id="randomizeFanfaresCheckbox" name="Randomize Fanfares Checkbox" value="">
 							<label for="randomizeFanfaresCheckbox"> Randomize Fanfares </label><br>
 							<input type="checkbox" id="disableEnemyBGMCheckbox" name="Disable Enemy BGM Checkbox" value="">
