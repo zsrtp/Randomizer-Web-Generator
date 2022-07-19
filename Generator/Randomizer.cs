@@ -1054,8 +1054,6 @@ namespace TPRandomizer
                 itemPool.Clear();
                 itemPool.AddRange(currentItemPool);
             }
-
-            return;
         }
 
         /// <summary>
@@ -1089,8 +1087,6 @@ namespace TPRandomizer
                 PlaceItemInCheck(itemToPlace, checkToReciveItem);
                 availableChecks.Clear();
             }
-
-            return;
         }
 
         /// <summary>
@@ -1110,8 +1106,6 @@ namespace TPRandomizer
                     );
                 }
             }
-
-            return;
         }
 
         /// <summary>
@@ -1126,7 +1120,6 @@ namespace TPRandomizer
             check.itemId = item;
 
             //Console.WriteLine("Placed " + check.itemId + " in check " + check.checkName);
-            return;
         }
 
         private static void StartOver()
@@ -1357,8 +1350,6 @@ namespace TPRandomizer
                     );
                 }
             }
-
-            return;
         }
 
         private static Room SetupGraph()
@@ -1379,13 +1370,17 @@ namespace TPRandomizer
 
         private static void DeserializeChecks()
         {
-            foreach (
-                string file in System.IO.Directory.GetFiles(
-                    Global.CombineRootPath("./World/Checks/"),
-                    "*",
-                    SearchOption.AllDirectories
-                )
-            )
+            string[] files = System.IO.Directory.GetFiles(
+                Global.CombineRootPath("./World/Checks/"),
+                "*",
+                SearchOption.AllDirectories
+            );
+
+            // Sort so that the item placement algorithm produces the exact same
+            // result in production and development.
+            Array.Sort(files, new FilenameComparer());
+
+            foreach (string file in files)
             {
                 string contents = File.ReadAllText(file);
                 string fileName = Path.GetFileNameWithoutExtension(file);
@@ -1402,21 +1397,23 @@ namespace TPRandomizer
                 }
                 Checks.CheckDict[fileName] = currentCheck;
 
-                //Console.WriteLine(fileName);
+                // Console.WriteLine(fileName);
             }
-
-            return;
         }
 
         private static void DeserializeRooms()
         {
-            foreach (
-                string file in System.IO.Directory.GetFiles(
-                    Global.CombineRootPath("./World/Rooms/"),
-                    "*",
-                    SearchOption.AllDirectories
-                )
-            )
+            string[] files = System.IO.Directory.GetFiles(
+                Global.CombineRootPath("./World/Rooms/"),
+                "*",
+                SearchOption.AllDirectories
+            );
+
+            // Sort so that the item placement algorithm produces the exact same
+            // result in production and development.
+            Array.Sort(files, new FilenameComparer());
+
+            foreach (string file in files)
             {
                 string contents = File.ReadAllText(file);
                 string fileName = Path.GetFileNameWithoutExtension(file);
@@ -1436,8 +1433,6 @@ namespace TPRandomizer
 
                 // Console.WriteLine("Room File Loaded " + fileName);
             }
-
-            return;
         }
 
         /// <summary>
@@ -1472,5 +1467,16 @@ namespace TPRandomizer
                 this.requirementChecks = requirementChecks;
             }
         };
+    }
+
+    internal class FilenameComparer : IComparer<string>
+    {
+        int IComparer<string>.Compare(string s1, string s2)
+        {
+            return String.CompareOrdinal(
+                Path.GetFileNameWithoutExtension(s1),
+                Path.GetFileNameWithoutExtension(s2)
+            );
+        }
     }
 }
