@@ -9,6 +9,7 @@ namespace TPRandomizer
     using Newtonsoft.Json.Linq;
     using TPRandomizer.Util;
     using System.Reflection;
+    using Assets;
 
     /// <summary>
     /// Generates a randomizer seed given a settings string.
@@ -45,90 +46,7 @@ namespace TPRandomizer
         /// </summary>
         public static readonly SettingData RandoSettingData = new();
 
-        /// <summary>
-        /// The most recent version of the randomizer that will support the seed generated.
-        /// </summary>
-        public static readonly byte RandomizerVersionMajor = 1;
-
-        /// <summary>
-        /// The oldest version of the randomizer that will support the seed generated..
-        /// </summary>
-        public static readonly byte RandomizerVersionMinor = 0;
-
         public static int RequiredDungeons = 0;
-
-        /// <summary>
-        /// Generates a randomizer seed given a settings string.
-        /// </summary>
-        /// <param name="settingsString"> The Settings String to be read in. </param>
-        public static bool Start(string settingsString, string generatorSeedHash, string seedName)
-        {
-            // TODO: This method is for the legacy generation, and it will be removed.
-
-            bool generationStatus = false;
-            int remainingGenerationAttempts = 30;
-            RandomizerSetting parseSetting = Randomizer.RandoSetting;
-            Console.WriteLine(
-                "Twilight Princess Randomizer Version "
-                    + RandomizerVersionMajor
-                    + "."
-                    + RandomizerVersionMinor
-            );
-            string seedHash = generatorSeedHash;
-
-            // Generate the dictionary values that are needed and initialize the data for the selected logic type.
-            DeserializeChecks();
-            DeserializeRooms();
-
-            // Read in the settings string and set the settings values accordingly
-            BackendFunctions.InterpretSettingsString(settingsString);
-
-            // Generate the item pool based on user settings/input.
-            Randomizer.Items.GenerateItemPool();
-            CheckFunctions.GenerateCheckList();
-
-            // Generate the world based on the room class values and their neighbour values. If we want to randomize entrances, we would do it before this step.
-            Room startingRoom = SetupGraph();
-            while (remainingGenerationAttempts > 0)
-            {
-                foreach (Item startingItem in parseSetting.StartingItems)
-                {
-                    Randomizer.Items.heldItems.Add(startingItem);
-                }
-                Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
-                remainingGenerationAttempts--;
-                try
-                {
-                    // Place the items in the world based on the starting room.
-                    PlaceItemsInWorld(startingRoom, new Random());
-                    Console.WriteLine("Generating Seed Data.");
-                    Console.WriteLine("Generating Spoiler Log.");
-                    BackendFunctions.GenerateSpoilerLog(startingRoom, seedHash);
-                    IEnumerable<string> fileList = new string[]
-                    {
-                        "TPR-v1.0-" + seedHash + ".txt",
-                        "TPR-v1.0-" + seedHash + "-Seed-Data.gci"
-                    };
-                    BackendFunctions.CreateZipFile("Seed/TPR-v1.0-" + seedHash + ".zip", fileList);
-                    Console.WriteLine("Generation Complete!");
-                    generationStatus = true;
-                    break;
-                }
-                // If for some reason the assumed fill fails, we want to dump everything and start over.
-                catch (ArgumentOutOfRangeException a)
-                {
-                    a = null;
-                    Console.WriteLine(
-                        "/~~~~~~~~~~~~~~~~~~~~~ Generation Failure. No checks remaining, starting over..~~~~~~~~~~~~~~~~~~~~~~~~~~~~/"
-                    );
-                    StartOver();
-                    continue;
-                }
-            }
-
-            CleanUp();
-            return generationStatus;
-        }
 
         public static bool CreateInputJson(
             string idParam,
@@ -188,11 +106,12 @@ namespace TPRandomizer
 
             bool generationStatus = false;
             int remainingGenerationAttempts = 30;
+
             Console.WriteLine(
-                "Twilight Princess Randomizer Version "
-                    + RandomizerVersionMajor
+                "SeedData Version: "
+                    + SeedData.SeedDataVersionMajor
                     + "."
-                    + RandomizerVersionMinor
+                    + SeedData.SeedDataVersionMinor
             );
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.

@@ -11,6 +11,11 @@ namespace TPRandomizer.Assets
     /// </summary>
     public class SeedData
     {
+        // See <add_documentation_reference_here> for the flowchart for
+        // determining if you should increment the major or minor version.
+        public static readonly UInt16 SeedDataVersionMajor = 1;
+        public static readonly UInt16 SeedDataVersionMinor = 0;
+
         private static readonly List<byte> CheckDataRaw = new();
         private static readonly List<byte> BannerDataRaw = new();
         private static readonly SeedHeader SeedHeaderRaw = new();
@@ -23,8 +28,8 @@ namespace TPRandomizer.Assets
         /// </summary>
         internal class SeedHeader
         {
-            public UInt16 minVersion { get; set; } // minimal required REL version
-            public UInt16 maxVersion { get; set; } // maximum supported REL version
+            public UInt16 versionMajor { get; set; } // SeedData version major
+            public UInt16 versionMinor { get; set; } // SeedData version minor
             public UInt16 headerSize { get; set; } // Total size of the header in bytes
             public UInt16 dataSize { get; set; } // Total number of bytes in the check data
             public UInt64 seed { get; set; } // Current seed
@@ -302,12 +307,8 @@ namespace TPRandomizer.Assets
             SeedHeaderRaw.headerSize = (ushort)SeedHeaderSize;
             SeedHeaderRaw.dataSize = (ushort)CheckDataRaw.Count;
             SeedHeaderRaw.seed = BackendFunctions.GetChecksum(seedHash, 64);
-            SeedHeaderRaw.minVersion = (ushort)(
-                Randomizer.RandomizerVersionMajor << 8 | Randomizer.RandomizerVersionMinor
-            );
-            SeedHeaderRaw.maxVersion = (ushort)(
-                Randomizer.RandomizerVersionMajor << 8 | Randomizer.RandomizerVersionMinor
-            );
+            SeedHeaderRaw.versionMajor = SeedDataVersionMajor;
+            SeedHeaderRaw.versionMinor = SeedDataVersionMinor;
             SeedHeaderRaw.requiredDungeons = (uint)Randomizer.RequiredDungeons;
             PropertyInfo[] seedHeaderProperties = SeedHeaderRaw.GetType().GetProperties();
             foreach (PropertyInfo headerObject in seedHeaderProperties)
