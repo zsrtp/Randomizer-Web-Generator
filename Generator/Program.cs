@@ -20,10 +20,6 @@ namespace TPRandomizer
 
             switch (command)
             {
-                case "generate_legacy":
-                    // Randomizer.Start(args[1], args[2]);
-                    Randomizer.Start(args[1], args[2], args[3]);
-                    break;
                 case "generate2":
                 {
                     // id, settingsString, isRaceSeed, seed

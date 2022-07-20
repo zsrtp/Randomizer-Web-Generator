@@ -8,6 +8,7 @@ namespace TPRandomizer
     using System.Text;
     using Newtonsoft.Json;
     using System.IO.Compression;
+    using Assets;
 
     /// <summary>
     /// summary text.
@@ -698,10 +699,10 @@ namespace TPRandomizer
             using StreamWriter file = new(fileHash);
 
             file.WriteLine(
-                "Randomizer Version: "
-                    + Randomizer.RandomizerVersionMajor
+                "SeedData Version: "
+                    + SeedData.SeedDataVersionMajor
                     + "."
-                    + Randomizer.RandomizerVersionMinor
+                    + SeedData.SeedDataVersionMinor
             );
             file.WriteLine("Settings: ");
             file.WriteLine(
