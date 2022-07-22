@@ -334,14 +334,14 @@
       { id: 'gameRegion', bitLength: 3 },
       { id: 'seedNumber', bitLength: 4 },
 
-      { id: 'randomizeBGMCheckbox' },
+      { id: 'bgmFieldset', bitLength:2 },
       { id: 'randomizeFanfaresCheckbox' },
       { id: 'disableEnemyBGMCheckbox' },
 
       { id: 'tunicColorFieldset', bitLength: 4 },
       { id: 'lanternColorFieldset', bitLength: 4 },
       { id: 'midnaHairColorFieldset', bitLength: 1 },
-      { id: 'heartColorFieldset', bitLength: 3 },
+      { id: 'heartColorFieldset', bitLength: 4 },
       { id: 'aButtonColorFieldset', bitLength: 4 },
       { id: 'bButtonColorFieldset', bitLength: 3 },
       { id: 'xButtonColorFieldset', bitLength: 4 },

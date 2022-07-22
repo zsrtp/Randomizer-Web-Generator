@@ -1,5 +1,5 @@
 {
-    "requirements": "Ball_and_Chain or Boomerang or (Progressive_Clawshot, 1)",
+    "requirements": "Boomerang or (Progressive_Clawshot, 1)",
     "arcOffsets": ["FF7"],
     "stageIDX": [56],
     "roomIDX": 6,

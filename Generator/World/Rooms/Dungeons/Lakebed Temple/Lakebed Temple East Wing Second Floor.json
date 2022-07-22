@@ -6,7 +6,7 @@
     ],
     "NeighbourRequirements": 
     [   "true",
-        "canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash)"
+        "canLaunchBombs or (Progressive_Clawshot, 1)"
     ],
     "Checks": 
     [

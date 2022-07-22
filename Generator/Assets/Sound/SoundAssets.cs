@@ -50,7 +50,7 @@ namespace TPRandomizer.Assets
             }
             Dictionary<string, bgmData> dataList = JsonConvert.DeserializeObject<
                 Dictionary<string, bgmData>
-            >(File.ReadAllText("./Generator/Assets/Sound/BackgroundMusic.json"));
+            >(File.ReadAllText(Global.CombineRootPath("./Assets/Sound/BackgroundMusic.json")));
             if (Randomizer.RandoSetting.backgroundMusicSetting != bgmSetting_Vanilla)
             {
                 foreach (KeyValuePair<string, bgmData> currentData in dataList)

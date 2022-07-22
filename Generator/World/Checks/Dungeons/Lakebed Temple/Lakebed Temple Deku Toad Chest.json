@@ -1,10 +1,10 @@
 {
-  "requirements": "CanDefeatDekuToad and ((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysey)) and Zora_Armor and CanUseWaterBombs and (canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash))",
-  "arcOffsets": ["69C"],
+    "requirements": "CanDefeatDekuToad and ((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysey)) and Zora_Armor and Iron_Boots and CanUseWaterBombs and (canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash))",
+    "arcOffsets": ["69C"],
     "stageIDX": [2],
     "roomIDX": 51,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Lakebed Temple", "ARC" ],
-  "itemId": "Progressive_Clawshot"
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Lakebed Temple", "ARC"],
+    "itemId": "Progressive_Clawshot"
 }

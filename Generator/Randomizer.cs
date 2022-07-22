@@ -534,6 +534,8 @@ namespace TPRandomizer
                 }
             }
 
+            CheckUnrequiredDungeons();
+
             // TODO: ^ fill in settings from the JObject json
 
             // Generate the item pool based on user settings/input.

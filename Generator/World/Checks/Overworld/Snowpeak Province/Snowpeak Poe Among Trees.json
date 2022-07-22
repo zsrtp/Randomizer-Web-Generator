@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and ((Progressive_Fishing_Rod,2) or (Setting.skipSnowpeakEntrance equals True))",
+    "requirements": "Shadow_Crystal and ((Progressive_Fishing_Rod, 2) or (Setting.skipSnowpeakEntrance equals True))",
     "stageIDX": [51],
     "flag": "7B",
     "category": ["Overworld", "Poe", "Snowpeak Province"],
