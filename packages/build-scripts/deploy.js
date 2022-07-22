@@ -13,9 +13,28 @@ require('dotenv').config({ path: path.join(rootDir, '.env') });
 
 envFromYaml(stackFilePath);
 
-spawnSync('docker', ['stack', 'deploy', '-c', stackFilePath, 'demo'], {
-  stdio: 'inherit',
-  cwd: path.join(__dirname, '..'),
-});
+let useSwarm = true;
 
-console.log('deployyy');
+const args = process.argv.slice(2);
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '--no-swarm') {
+    useSwarm = false;
+  }
+}
+
+if (useSwarm) {
+  spawnSync('docker', ['stack', 'deploy', '-c', stackFilePath, 'demo'], {
+    stdio: 'inherit',
+    cwd: path.join(__dirname, '..'),
+  });
+  console.log('deployyy');
+} else {
+  process.env.HOST_PORT = 80;
+
+  spawnSync('docker', ['compose', '-f', stackFilePath, 'up', '-d'], {
+    stdio: 'inherit',
+    cwd: path.join(__dirname, '..'),
+  });
+
+  console.log('deployyy non-swarm');
+}
