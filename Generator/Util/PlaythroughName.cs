@@ -657,12 +657,48 @@ namespace TPRandomizer.Util
         {
             int adjIndex = (hash >> 23) & 0x1FF;
             int nounIndex = (hash >> 16) & 0x7F;
+            string firstPart;
 
-            string adj = adjectives[adjIndex];
-            string noun = nouns[nounIndex];
+            if (adjIndex == 0x1FF)
+            {
+                // Chance someone gets one of these special playthroughNames is
+                // 1/512 or about 0.2%. Of those, roughly 70% positive, 30%
+                // negative. Ratio of results is approximately 1:2:3 with
+                // "Great" results being the least common. This replaces the
+                // results for the last adjective "Zany".
+                if (nounIndex < 15)
+                {
+                    firstPart = "GreatFortune" + nounIndex;
+                }
+                else if (nounIndex < 45)
+                {
+                    firstPart = "GoodFortune" + (nounIndex - 15);
+                }
+                else if (nounIndex < 90)
+                {
+                    firstPart = "SmallFortune" + (nounIndex - 45);
+                }
+                else if (nounIndex < 108)
+                {
+                    firstPart = "SmallMisfortune" + (nounIndex - 90);
+                }
+                else if (nounIndex < 120)
+                {
+                    firstPart = "Misfortune" + (nounIndex - 108);
+                }
+                else
+                {
+                    firstPart = "GreatMisfortune" + (nounIndex - 120);
+                }
+            }
+            else
+            {
+                firstPart = adjectives[adjIndex] + nouns[nounIndex];
+            }
+
             string threeChar = sixteenBitTo3Char((UInt16)(hash & 0xFFFF));
 
-            return adj + noun + "_" + threeChar;
+            return firstPart + "_" + threeChar;
         }
 
         private static readonly string chars = "0123456789abcDefghiJkLmNopQrstuVwxyzABEHR";
