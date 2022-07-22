@@ -15,6 +15,16 @@ if (process.env.NODE_ENV === 'production') {
     throw new Error('Failed to find env file directory.');
   }
 
+  const { execSync } = require('node:child_process');
+  const gitCommitHash = execSync('git rev-parse HEAD', {
+    cwd: envFileDir,
+    encoding: 'utf8',
+  });
+
+  if (gitCommitHash) {
+    process.env.GIT_COMMIT = gitCommitHash.substring(0, 12);
+  }
+
   const dotenvPath = path.resolve(path.join(envFileDir, '.env'));
 
   const dotenvFiles = [
@@ -325,6 +335,14 @@ app.get('/', (req: express.Request, res: express.Response) => {
       res.status(500).send({ error: 'Internal server error.' });
     } else {
       let msg = data.toString();
+      msg = msg.replace(
+        '<!-- IMAGE_VERSION -->',
+        `<input id="envImageVersion" type="hidden" value="${process.env.IMAGE_VERSION}">`
+      );
+      msg = msg.replace(
+        '<!-- GIT_COMMIT -->',
+        `<input id="envGitCommit" type="hidden" value="${process.env.GIT_COMMIT}">`
+      );
       msg = msg.replace(
         '<!-- USER_ID -->',
         `<input id="userJwtInput" type="hidden" value="${req.newUserJwt}">`

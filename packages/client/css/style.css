@@ -74,9 +74,14 @@ ul {
 }
 
 .footerText {
-  line-height: 2.5;
+  line-height: 2;
   font-size: 1.25em;
   font-weight: 300;
+}
+
+.devFooterText {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
 }
 
 a > img {

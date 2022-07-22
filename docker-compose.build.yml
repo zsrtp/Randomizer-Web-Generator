@@ -2,5 +2,9 @@ version: '3.8'
 
 services:
   tpr-generator:
-    build: .
+    build:
+      context: .
+      args:
+        IMAGE_VERSION: ${IMAGE_VERSION}
+        GIT_COMMIT: ${GIT_COMMIT}
     container_name: tprgen

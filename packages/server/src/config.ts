@@ -43,6 +43,8 @@ function initConfig() {
 
 function logConfig(logFn: Function) {
   const varNames = [
+    'IMAGE_VERSION',
+    'GIT_COMMIT',
     'TPRGEN_VOLUME_ROOT',
     'TPRGEN_GENERATOR_ROOT',
     'TPRGEN_GENERATOR_EXE',

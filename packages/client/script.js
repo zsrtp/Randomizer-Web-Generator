@@ -117,6 +117,8 @@ window.addEventListener('pageshow', function (event) {
 function onDomContentLoaded() {
   initJwt();
 
+  initDevFooter();
+
   initTabButtons();
 
   setSettingsString();
@@ -155,6 +157,13 @@ function initJwt() {
     console.error('Could not set jwt to localStorage.');
     console.error(e);
   }
+}
+
+function initDevFooter() {
+  const imageVersion = $('#envImageVersion').val();
+  const gitCommit = $('#envGitCommit').val();
+
+  $('#devFooterText').text(imageVersion + ' ' + gitCommit);
 }
 
 const RawSettingType = {
