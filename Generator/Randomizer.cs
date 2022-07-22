@@ -353,9 +353,7 @@ namespace TPRandomizer
             );
 
             int filenameBits = Util.Hash.CalculateMD5(filenameInput);
-            string filename = Util.Filename.GenFilename(filenameBits);
-            // convert bits to name
-
+            string filename = Util.PlaythroughName.GenName(filenameBits);
 
             // When generating the filename, the following should be taken into account:
 
