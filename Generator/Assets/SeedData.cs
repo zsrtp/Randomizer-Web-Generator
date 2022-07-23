@@ -27,7 +27,7 @@ namespace TPRandomizer.Assets
         private static readonly byte BgmHeaderSize = 0xC;
 
         private SeedGenResults seedGenResults;
-        private FileCreationSettings fcSettings;
+        public FileCreationSettings fcSettings { get; }
         public BgmHeader BgmHeaderRaw = new();
 
         private SeedData(SeedGenResults seedGenResults, FileCreationSettings fcSettings)
@@ -95,7 +95,7 @@ namespace TPRandomizer.Assets
             );
 
             // Generate Seed Data
-            currentSeedHeader.AddRange(GenerateSeedHeader(randomizerSettings.seedNumber));
+            currentSeedHeader.AddRange(GenerateSeedHeader(fcSettings.seedNumber));
             currentSeedData.AddRange(currentSeedHeader);
             currentSeedData.AddRange(CheckDataRaw);
             currentSeedData.AddRange(GenerateBgmHeader());
@@ -143,7 +143,7 @@ namespace TPRandomizer.Assets
             currentGCIData.AddRange(BannerDataRaw);
             currentGCIData.AddRange(currentSeedData);
             var gci = new Gci(
-                (byte)randomizerSettings.seedNumber,
+                (byte)fcSettings.seedNumber,
                 region,
                 currentGCIData,
                 seedGenResults.playthroughName
@@ -281,7 +281,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.increaseWallet,
                 randomizerSettings.fastIronBoots,
                 randomizerSettings.modifyShopModels,
-                randomizerSettings.disableEnemyBackgoundMusic
+                fcSettings.disableEnemyBgm
             };
             int patchOptions = 0x0;
             int bitwiseOperator = 0;

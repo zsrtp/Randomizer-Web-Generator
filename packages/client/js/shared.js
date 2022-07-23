@@ -776,14 +776,14 @@
       { id: 'tunicColor', type: 'number', bitLength: 4 },
       { id: 'lanternColor', type: 'number', bitLength: 4 },
       { id: 'midnaHairColor', type: 'number', bitLength: 1 },
-      { id: 'heartColor', type: 'number', bitLength: 3 },
+      { id: 'heartColor', type: 'number', bitLength: 4 },
       { id: 'aBtnColor', type: 'number', bitLength: 4 },
       { id: 'bBtnColor', type: 'number', bitLength: 3 },
       { id: 'xBtnColor', type: 'number', bitLength: 4 },
       { id: 'yBtnColor', type: 'number', bitLength: 4 },
       { id: 'zBtnColor', type: 'number', bitLength: 4 },
 
-      { id: 'randomizeBgm', type: 'boolean' },
+      { id: 'randomizeBgm', type: 'number', bitLength: 2 },
       { id: 'randomizeFanfares', type: 'boolean' },
       { id: 'disableEnemyBgm', type: 'boolean' },
     ];

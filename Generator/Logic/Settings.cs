@@ -95,22 +95,8 @@ namespace TPRandomizer
         public string iceTrapSettings { get; set; }
         public List<Item> StartingItems { get; set; }
         public List<string> ExcludedChecks { get; set; }
-        public int TunicColor { get; set; }
-        public int MidnaHairColor { get; set; }
-        public int lanternColor { get; set; }
-        public int heartColor { get; set; }
-        public int aButtonColor { get; set; }
-        public int bButtonColor { get; set; }
-        public int xButtonColor { get; set; }
-        public int yButtonColor { get; set; }
-        public int zButtonColor { get; set; }
-        public int backgroundMusicSetting { get; set; }
-        public bool shuffleItemFanfares { get; set; }
-        public bool disableEnemyBackgoundMusic { get; set; }
-        public string gameRegion { get; set; }
         public bool shuffleHiddenSkills { get; set; }
         public bool shuffleSkyCharacters { get; set; }
-        public int seedNumber { get; set; }
         public bool increaseWallet { get; set; }
         public bool modifyShopModels { get; set; }
         public bool barrenDungeons { get; set; }

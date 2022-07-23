@@ -38,40 +38,45 @@ namespace TPRandomizer.Assets
         //{bgmId,replacementId,replacementWave},{...},fanfareReplacementCount,fanfareId,replacementId,{...})
         public static List<byte> GenerateBgmData(SeedData seedData)
         {
-            const int bgmSetting_Vanilla = 0;
-            const int bgmSetting_Overworld = 1;
-            const int bgmSetting_Dungeon = 2;
-            const int bgmSetting_All = 3;
             List<byte> data = new();
             List<bgmData> replacementPool = new();
             List<bgmReplacement> bgmReplacementArray = new();
-            if (Randomizer.RandoSetting.backgroundMusicSetting == bgmSetting_Vanilla)
+            if (
+                seedData.fcSettings.randomizeBgm
+                == FileCreationSettings.Options.RandomizeBgm.Vanilla
+            )
             {
                 return data;
             }
             Dictionary<string, bgmData> dataList = JsonConvert.DeserializeObject<
                 Dictionary<string, bgmData>
             >(File.ReadAllText(Global.CombineRootPath("./Assets/Sound/BackgroundMusic.json")));
-            if (Randomizer.RandoSetting.backgroundMusicSetting != bgmSetting_Vanilla)
+            if (
+                seedData.fcSettings.randomizeBgm
+                != FileCreationSettings.Options.RandomizeBgm.Vanilla
+            )
             {
                 foreach (KeyValuePair<string, bgmData> currentData in dataList)
                 {
                     if (
-                        Randomizer.RandoSetting.backgroundMusicSetting == bgmSetting_Overworld
+                        seedData.fcSettings.randomizeBgm
+                            == FileCreationSettings.Options.RandomizeBgm.Overworld
                         && currentData.Value.sceneBgm == true
                     )
                     {
                         replacementPool.Add(currentData.Value);
                     }
                     if (
-                        Randomizer.RandoSetting.backgroundMusicSetting == bgmSetting_Dungeon
+                        seedData.fcSettings.randomizeBgm
+                            == FileCreationSettings.Options.RandomizeBgm.Dungeon
                         && currentData.Value.dungeonBgm == true
                     )
                     {
                         replacementPool.Add(currentData.Value);
                     }
                     if (
-                        Randomizer.RandoSetting.backgroundMusicSetting == bgmSetting_All
+                        seedData.fcSettings.randomizeBgm
+                            == FileCreationSettings.Options.RandomizeBgm.All
                         && (
                             currentData.Value.sceneBgm == true
                             || currentData.Value.bossBgm == true
@@ -139,7 +144,7 @@ namespace TPRandomizer.Assets
             List<byte> data = new();
             List<bgmData> replacementPool = new();
             List<bgmReplacement> fanfareReplacementArray = new();
-            if (Randomizer.RandoSetting.shuffleItemFanfares)
+            if (seedData.fcSettings.randomizeFanfares)
             {
                 Dictionary<string, bgmData> dataList = JsonConvert.DeserializeObject<
                     Dictionary<string, bgmData>

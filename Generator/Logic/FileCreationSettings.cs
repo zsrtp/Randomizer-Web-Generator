@@ -8,7 +8,7 @@ namespace TPRandomizer
     {
         public string gameRegion { get; }
         public byte seedNumber { get; }
-        public int randomizeBgm { get; }
+        public Options.RandomizeBgm randomizeBgm { get; }
         public bool randomizeFanfares { get; }
         public bool disableEnemyBgm { get; }
         public int tunicColor { get; }
@@ -25,17 +25,17 @@ namespace TPRandomizer
         {
             BitsProcessor processor = new BitsProcessor(bits);
 
-            gameRegion = processor.NextString(FcSettingsOptions.gameRegion, 3);
+            gameRegion = processor.NextString(Options.gameRegion, 3);
             seedNumber = processor.NextNibble();
 
-            randomizeBgm = processor.NextInt(1);
+            randomizeBgm = (Options.RandomizeBgm)processor.NextInt(2);
             randomizeFanfares = processor.NextBool();
             disableEnemyBgm = processor.NextBool();
 
             tunicColor = processor.NextInt(4);
             lanternColor = processor.NextInt(4);
             midnaHairColor = processor.NextInt(1);
-            heartColor = processor.NextInt(3);
+            heartColor = processor.NextInt(4);
             aBtnColor = processor.NextInt(4);
             bBtnColor = processor.NextInt(3);
             xBtnColor = processor.NextInt(4);
@@ -49,29 +49,17 @@ namespace TPRandomizer
             return new FileCreationSettings(bits);
         }
 
-        private class FcSettingsOptions
+        public class Options
         {
             public static readonly string[] gameRegion = new string[] { "NTSC", "PAL", "JAP" };
-        }
 
-        public void UpdateRandoSettings(RandomizerSetting randoSettings)
-        {
-            randoSettings.gameRegion = gameRegion;
-            randoSettings.seedNumber = seedNumber;
-
-            randoSettings.backgroundMusicSetting = randomizeBgm;
-            randoSettings.shuffleItemFanfares = randomizeFanfares;
-            randoSettings.disableEnemyBackgoundMusic = disableEnemyBgm;
-
-            randoSettings.TunicColor = tunicColor;
-            randoSettings.lanternColor = lanternColor;
-            randoSettings.MidnaHairColor = midnaHairColor;
-            randoSettings.heartColor = heartColor;
-            randoSettings.aButtonColor = aBtnColor;
-            randoSettings.bButtonColor = bBtnColor;
-            randoSettings.xButtonColor = xBtnColor;
-            randoSettings.yButtonColor = yBtnColor;
-            randoSettings.zButtonColor = zBtnColor;
+            public enum RandomizeBgm
+            {
+                Vanilla = 0,
+                Overworld = 1,
+                Dungeon = 2,
+                All = 3,
+            }
         }
     }
 }

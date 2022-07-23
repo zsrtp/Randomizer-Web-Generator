@@ -360,7 +360,6 @@ namespace TPRandomizer
 
             FileCreationSettings fcSettings = FileCreationSettings.FromString(fcSettingsString);
             RandoSetting = RandomizerSetting.FromString(seedGenResults.settingsString);
-            fcSettings.UpdateRandoSettings(RandoSetting);
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.
             DeserializeChecks();
