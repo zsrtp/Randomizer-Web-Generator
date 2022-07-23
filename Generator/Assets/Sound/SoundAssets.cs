@@ -34,8 +34,9 @@ namespace TPRandomizer.Assets
             public bool isFanfare { get; set; }
         };
 
-        //The Bgm Section will be layed out as follows (BgmReplacementCount, {bgmId,replacementId,replacementWave},{...},fanfareReplacementCount,fanfareId,replacementId,{...})
-        public static List<byte> GenerateBgmData()
+        //The Bgm Section will be laid out as follows: (BgmReplacementCount,
+        //{bgmId,replacementId,replacementWave},{...},fanfareReplacementCount,fanfareId,replacementId,{...})
+        public static List<byte> GenerateBgmData(SeedData seedData)
         {
             const int bgmSetting_Vanilla = 0;
             const int bgmSetting_Overworld = 1;
@@ -128,12 +129,12 @@ namespace TPRandomizer.Assets
                     data.Add((byte)0x0); // Padding
                 }
             }
-            SeedData.BgmHeaderRaw.bgmTableNumEntries = ((byte)bgmReplacementArray.Count);
-            SeedData.BgmHeaderRaw.bgmTableSize = (UInt16)data.Count;
+            seedData.BgmHeaderRaw.bgmTableNumEntries = ((byte)bgmReplacementArray.Count);
+            seedData.BgmHeaderRaw.bgmTableSize = (UInt16)data.Count;
             return data;
         }
 
-        public static List<byte> GenerateFanfareData()
+        public static List<byte> GenerateFanfareData(SeedData seedData)
         {
             List<byte> data = new();
             List<bgmData> replacementPool = new();
@@ -195,8 +196,10 @@ namespace TPRandomizer.Assets
                     data.Add((byte)0x0); // Padding
                 }
             }
-            SeedData.BgmHeaderRaw.fanfareTableNumEntries = (byte)fanfareReplacementArray.Count;
-            SeedData.BgmHeaderRaw.fanfareTableSize = (UInt16)data.Count;
+
+            seedData.BgmHeaderRaw.fanfareTableNumEntries = (byte)fanfareReplacementArray.Count;
+            seedData.BgmHeaderRaw.fanfareTableSize = (UInt16)data.Count;
+
             return data;
         }
     }

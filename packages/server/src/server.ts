@@ -301,33 +301,6 @@ app.post('/api/final', function (req: express.Request, res: express.Response) {
   );
 });
 
-app.get(
-  '/api/creategci',
-  function (req: express.Request, res: express.Response) {
-    const { referer } = req.headers;
-
-    const { query } = url.parse(referer, true);
-
-    const { id } = query;
-
-    if (!id) {
-      res.status(400).send({ error: 'Bad referer.' });
-      return;
-    }
-
-    const filePath = resolveOutputPath(`seeds/${id}/input.json`);
-    if (fs.existsSync(filePath)) {
-      const ff = fs.readFileSync(filePath, { encoding: 'utf8' });
-      const json = JSON.parse(ff);
-      res.send({ data: json });
-    } else {
-      res.status(404).send({
-        error: 'Did not find seed data for provided id.',
-      });
-    }
-  }
-);
-
 app.get('/', (req: express.Request, res: express.Response) => {
   fs.readFile(indexHtmlPath, function read(err, data) {
     if (err) {
@@ -460,8 +433,10 @@ app.get('/s/:id', (req: express.Request, res: express.Response) => {
         const json = JSON.parse(
           fs.readFileSync(filePath, { encoding: 'utf8' })
         );
-        json.seedHash = undefined;
-        json.itemPlacement = undefined;
+        json.output.seedHash = undefined;
+        json.output.itemPlacement = undefined;
+        // Stringifying will get rid of these undefined values. We don't want to
+        // expose certain values, especially if it is a race seed.
         const fileContents = escapeHtml(JSON.stringify(json));
 
         msg = msg.replace(

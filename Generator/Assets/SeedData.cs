@@ -13,75 +13,39 @@ namespace TPRandomizer.Assets
     {
         // See <add_documentation_reference_here> for the flowchart for
         // determining if you should increment the major or minor version.
-        public static readonly UInt16 SeedDataVersionMajor = 1;
-        public static readonly UInt16 SeedDataVersionMinor = 0;
+        public static readonly UInt16 VersionMajor = 1;
+        public static readonly UInt16 VersionMinor = 0;
+
+        // For convenience. This does not include any sort of leading 'v', so
+        // add that where you use this variable if you need it.
+        public static readonly string VersionString = $"{VersionMajor}.{VersionMinor}";
 
         private static readonly List<byte> CheckDataRaw = new();
         private static readonly List<byte> BannerDataRaw = new();
         private static readonly SeedHeader SeedHeaderRaw = new();
-        public static BgmHeader BgmHeaderRaw = new();
         private static readonly short SeedHeaderSize = 0x160;
         private static readonly byte BgmHeaderSize = 0xC;
 
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        internal class SeedHeader
+        private SeedGenResults seedGenResults;
+        private FileCreationSettings fcSettings;
+        public BgmHeader BgmHeaderRaw = new();
+
+        private SeedData(SeedGenResults seedGenResults, FileCreationSettings fcSettings)
         {
-            public UInt16 versionMajor { get; set; } // SeedData version major
-            public UInt16 versionMinor { get; set; } // SeedData version minor
-            public UInt16 headerSize { get; set; } // Total size of the header in bytes
-            public UInt16 dataSize { get; set; } // Total number of bytes in the check data
-            public UInt64 seed { get; set; } // Current seed
-            public UInt32 totalSize { get; set; } // Total number of bytes in the gci after the comments
-            public UInt32 requiredDungeons { get; set; } // Bitfield containing which dungeons are required to beat the seed. Only 8 bits are used, while the rest are reserved for future updates
-            public UInt16 volatilePatchInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
-            public UInt16 volatilePatchInfoDataOffset { get; set; }
-            public UInt16 oneTimePatchInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
-            public UInt16 oneTimePatchInfoDataOffset { get; set; }
-            public UInt16 eventFlagsInfoNumEntries { get; set; } // eventFlags that need to be set for this seed
-            public UInt16 eventFlagsInfoDataOffset { get; set; }
-            public UInt16 regionFlagsInfoNumEntries { get; set; } // regionFlags that need to be set, alternating
-            public UInt16 regionFlagsInfoDataOffset { get; set; }
-            public UInt16 dzxCheckInfoNumEntries { get; set; }
-            public UInt16 dzxCheckInfoDataOffset { get; set; }
-            public UInt16 relCheckInfoNumEntries { get; set; }
-            public UInt16 relCheckInfoDataOffset { get; set; }
-            public UInt16 poeCheckInfoNumEntries { get; set; }
-            public UInt16 poeCheckInfoDataOffset { get; set; }
-            public UInt16 arcCheckInfoNumEntries { get; set; }
-            public UInt16 arcCheckInfoDataOffset { get; set; }
-            public UInt16 objectArcCheckInfoNumEntries { get; set; }
-            public UInt16 objectArcCheckInfoDataOffset { get; set; }
-            public UInt16 bossCheckInfoNumEntries { get; set; }
-            public UInt16 bossCheckInfoDataOffset { get; set; }
-            public UInt16 hiddenSkillCheckInfoNumEntries { get; set; }
-            public UInt16 hiddenSkillCheckInfoDataOffset { get; set; }
-            public UInt16 bugRewardCheckInfoNumEntries { get; set; }
-            public UInt16 bugRewardCheckInfoDataOffset { get; set; }
-            public UInt16 skyCharacterCheckInfoNumEntries { get; set; }
-            public UInt16 skyCharacterCheckInfoDataOffset { get; set; }
-            public UInt16 shopCheckInfoNumEntries { get; set; }
-            public UInt16 shopCheckInfoDataOffset { get; set; }
-            public UInt16 startingItemInfoNumEntries { get; set; }
-            public UInt16 startingItemInfoDataOffset { get; set; }
-            public UInt16 bgmHeaderOffset { get; set; }
+            this.seedGenResults = seedGenResults;
+            this.fcSettings = fcSettings;
         }
 
-        public class BgmHeader
-        {
-            public UInt16 bgmTableSize { get; set; }
-            public UInt16 fanfareTableSize { get; set; }
-            public UInt16 bgmTableOffset { get; set; }
-            public UInt16 fanfareTableOffset { get; set; }
-            public byte bgmTableNumEntries { get; set; }
-            public byte fanfareTableNumEntries { get; set; }
-        }
-
-        public static byte[] GenerateSeedDataNewByteArray(
-            string playthroughName,
+        public static byte[] GenerateSeedDataBytes(
+            SeedGenResults seedGenResults,
             FileCreationSettings fcSettings
         )
+        {
+            SeedData seedData = new SeedData(seedGenResults, fcSettings);
+            return seedData.GenerateSeedDataBytesInternal();
+        }
+
+        private byte[] GenerateSeedDataBytesInternal()
         {
             /*
             * General Note: offset sizes are handled as two bytes. Because of this,
@@ -121,21 +85,17 @@ namespace TPRandomizer.Assets
             SeedHeaderRaw.bgmHeaderOffset = (UInt16)CheckDataRaw.Count();
 
             // BGM Table info
-            SeedData.BgmHeaderRaw.bgmTableOffset = (UInt16)BgmHeaderSize;
-            currentBgmData.AddRange(SoundAssets.GenerateBgmData());
-            SeedData.BgmHeaderRaw.fanfareTableOffset = (UInt16)(
-                BgmHeaderSize + currentBgmData.Count
-            );
-            currentBgmData.AddRange(SoundAssets.GenerateFanfareData());
+            BgmHeaderRaw.bgmTableOffset = (UInt16)BgmHeaderSize;
+            currentBgmData.AddRange(SoundAssets.GenerateBgmData(this));
+            BgmHeaderRaw.fanfareTableOffset = (UInt16)(BgmHeaderSize + currentBgmData.Count);
+            currentBgmData.AddRange(SoundAssets.GenerateFanfareData(this));
 
             SeedHeaderRaw.totalSize = (uint)(
                 SeedHeaderSize + CheckDataRaw.Count + BgmHeaderSize + currentBgmData.Count
             );
 
             // Generate Seed Data
-            currentSeedHeader.AddRange(
-                GenerateSeedHeader(randomizerSettings.seedNumber, playthroughName)
-            );
+            currentSeedHeader.AddRange(GenerateSeedHeader(randomizerSettings.seedNumber));
             currentSeedData.AddRange(currentSeedHeader);
             currentSeedData.AddRange(CheckDataRaw);
             currentSeedData.AddRange(GenerateBgmHeader());
@@ -174,13 +134,11 @@ namespace TPRandomizer.Assets
             // Add seed banner
             BannerDataRaw.AddRange(Properties.Resources.seedGciImageData);
             BannerDataRaw.AddRange(
-                Converter.StringBytes(
-                    $"TPR SeedData v{SeedDataVersionMajor}.{SeedDataVersionMinor}",
-                    0x20,
-                    region
-                )
+                Converter.StringBytes($"TPR SeedData v{VersionString}", 0x20, region)
             );
-            BannerDataRaw.AddRange(Converter.StringBytes(playthroughName, 0x20, region));
+            BannerDataRaw.AddRange(
+                Converter.StringBytes(seedGenResults.playthroughName, 0x20, region)
+            );
             // Generate GCI Files
             currentGCIData.AddRange(BannerDataRaw);
             currentGCIData.AddRange(currentSeedData);
@@ -188,7 +146,7 @@ namespace TPRandomizer.Assets
                 (byte)randomizerSettings.seedNumber,
                 region,
                 currentGCIData,
-                playthroughName
+                seedGenResults.playthroughName
             );
             return gci.gciFile.ToArray();
             // File.WriteAllBytes(playthroughName, gci.gciFile.ToArray());
@@ -200,17 +158,17 @@ namespace TPRandomizer.Assets
         /// <param name="seedNumber">The number you want to convert.</param>
         /// <param name="seedHash">A randomized string that represents the current seed.</param>
         /// <returns> The inserted value as a byte. </returns>
-        internal static List<byte> GenerateSeedHeader(int seedNumber, string seedHash)
+        private List<byte> GenerateSeedHeader(int seedNumber)
         {
             List<byte> seedHeader = new();
             RandomizerSetting randomizerSettings = Randomizer.RandoSetting;
             SettingData settingData = Randomizer.RandoSettingData;
             SeedHeaderRaw.headerSize = (ushort)SeedHeaderSize;
             SeedHeaderRaw.dataSize = (ushort)CheckDataRaw.Count;
-            SeedHeaderRaw.seed = BackendFunctions.GetChecksum(seedHash, 64);
-            SeedHeaderRaw.versionMajor = SeedDataVersionMajor;
-            SeedHeaderRaw.versionMinor = SeedDataVersionMinor;
-            SeedHeaderRaw.requiredDungeons = (uint)Randomizer.RequiredDungeons;
+            SeedHeaderRaw.seed = BackendFunctions.GetChecksum(seedGenResults.playthroughName, 64);
+            SeedHeaderRaw.versionMajor = VersionMajor;
+            SeedHeaderRaw.versionMinor = VersionMinor;
+            SeedHeaderRaw.requiredDungeons = (uint)seedGenResults.requiredDungeons;
             PropertyInfo[] seedHeaderProperties = SeedHeaderRaw.GetType().GetProperties();
             foreach (PropertyInfo headerObject in seedHeaderProperties)
             {
@@ -234,13 +192,13 @@ namespace TPRandomizer.Assets
                 }
             }
 
-            seedHeader.Add(Converter.GcByte(randomizerSettings.heartColor));
-            seedHeader.Add(Converter.GcByte(randomizerSettings.aButtonColor));
-            seedHeader.Add(Converter.GcByte(randomizerSettings.bButtonColor));
-            seedHeader.Add(Converter.GcByte(randomizerSettings.xButtonColor));
-            seedHeader.Add(Converter.GcByte(randomizerSettings.yButtonColor));
-            seedHeader.Add(Converter.GcByte(randomizerSettings.zButtonColor));
-            seedHeader.Add(Converter.GcByte(randomizerSettings.lanternColor));
+            seedHeader.Add(Converter.GcByte(fcSettings.heartColor));
+            seedHeader.Add(Converter.GcByte(fcSettings.aBtnColor));
+            seedHeader.Add(Converter.GcByte(fcSettings.bBtnColor));
+            seedHeader.Add(Converter.GcByte(fcSettings.xBtnColor));
+            seedHeader.Add(Converter.GcByte(fcSettings.yBtnColor));
+            seedHeader.Add(Converter.GcByte(fcSettings.zBtnColor));
+            seedHeader.Add(Converter.GcByte(fcSettings.lanternColor));
             seedHeader.Add(Converter.GcByte(randomizerSettings.transformAnywhere ? 1 : 0));
             seedHeader.Add(Converter.GcByte(randomizerSettings.quickTransform ? 1 : 0));
             seedHeader.Add(
@@ -268,7 +226,7 @@ namespace TPRandomizer.Assets
             return seedHeader;
         }
 
-        private static List<byte> GenerateBgmHeader()
+        private List<byte> GenerateBgmHeader()
         {
             List<byte> bgmHeaderRaw = new();
             PropertyInfo[] bgmHeaderProperties = BgmHeaderRaw.GetType().GetProperties();
@@ -306,7 +264,7 @@ namespace TPRandomizer.Assets
             return bgmHeaderRaw;
         }
 
-        private static List<byte> GeneratePatchSettings()
+        private List<byte> GeneratePatchSettings()
         {
             RandomizerSetting randomizerSettings = Randomizer.RandoSetting;
             List<byte> listOfPatches = new();
@@ -376,7 +334,7 @@ namespace TPRandomizer.Assets
             return listOfPatches;
         }
 
-        private static List<byte> ParseARCReplacements()
+        private List<byte> ParseARCReplacements()
         {
             List<byte> listOfArcReplacements = new();
             ushort count = 0;
@@ -438,7 +396,7 @@ namespace TPRandomizer.Assets
             return listOfArcReplacements;
         }
 
-        private static List<byte> ParseObjectARCReplacements()
+        private List<byte> ParseObjectARCReplacements()
         {
             List<byte> listOfArcReplacements = new();
             ushort count = 0;
@@ -483,7 +441,7 @@ namespace TPRandomizer.Assets
             return listOfArcReplacements;
         }
 
-        private static List<byte> ParseDZXReplacements()
+        private List<byte> ParseDZXReplacements()
         {
             List<byte> listOfDZXReplacements = new();
             ushort count = 0;
@@ -549,7 +507,7 @@ namespace TPRandomizer.Assets
             return listOfDZXReplacements;
         }
 
-        private static List<byte> ParsePOEReplacements()
+        private List<byte> ParsePOEReplacements()
         {
             List<byte> listOfPOEReplacements = new();
             ushort count = 0;
@@ -577,7 +535,7 @@ namespace TPRandomizer.Assets
             return listOfPOEReplacements;
         }
 
-        private static List<byte> ParseRELOverrides()
+        private List<byte> ParseRELOverrides()
         {
             List<byte> listOfRELReplacements = new();
             ushort count = 0;
@@ -627,7 +585,7 @@ namespace TPRandomizer.Assets
             return listOfRELReplacements;
         }
 
-        private static List<byte> ParseBossReplacements()
+        private List<byte> ParseBossReplacements()
         {
             List<byte> listOfBossReplacements = new();
             ushort count = 0;
@@ -649,7 +607,7 @@ namespace TPRandomizer.Assets
             return listOfBossReplacements;
         }
 
-        private static List<byte> ParseBugRewards()
+        private List<byte> ParseBugRewards()
         {
             List<byte> listOfBugRewards = new();
             ushort count = 0;
@@ -676,7 +634,7 @@ namespace TPRandomizer.Assets
             return listOfBugRewards;
         }
 
-        private static List<byte> ParseSkyCharacters()
+        private List<byte> ParseSkyCharacters()
         {
             List<byte> listOfSkyCharacters = new();
             ushort count = 0;
@@ -699,7 +657,7 @@ namespace TPRandomizer.Assets
             return listOfSkyCharacters;
         }
 
-        private static List<byte> ParseHiddenSkills()
+        private List<byte> ParseHiddenSkills()
         {
             List<byte> listOfHiddenSkills = new();
             ushort count = 0;
@@ -730,7 +688,7 @@ namespace TPRandomizer.Assets
             return listOfHiddenSkills;
         }
 
-        private static List<byte> ParseShopItems()
+        private List<byte> ParseShopItems()
         {
             List<byte> listOfShopItems = new();
             ushort count = 0;
@@ -757,7 +715,7 @@ namespace TPRandomizer.Assets
             return listOfShopItems;
         }
 
-        private static List<byte> ParseStartingItems()
+        private List<byte> ParseStartingItems()
         {
             RandomizerSetting randomizerSettings = Randomizer.RandoSetting;
             List<byte> listOfStartingItems = new();
@@ -773,7 +731,7 @@ namespace TPRandomizer.Assets
             return listOfStartingItems;
         }
 
-        private static List<byte> GenerateEventFlags()
+        private List<byte> GenerateEventFlags()
         {
             List<byte> listOfEventFlags = new();
             ushort count = 0;
@@ -807,7 +765,7 @@ namespace TPRandomizer.Assets
             return listOfEventFlags;
         }
 
-        private static List<byte> GenerateRegionFlags()
+        private List<byte> GenerateRegionFlags()
         {
             List<byte> listOfRegionFlags = new();
             ushort count = 0;
@@ -840,5 +798,57 @@ namespace TPRandomizer.Assets
             SeedHeaderRaw.regionFlagsInfoDataOffset = (ushort)(CheckDataRaw.Count);
             return listOfRegionFlags;
         }
+
+        private class SeedHeader
+        {
+            public UInt16 versionMajor { get; set; } // SeedData version major
+            public UInt16 versionMinor { get; set; } // SeedData version minor
+            public UInt16 headerSize { get; set; } // Total size of the header in bytes
+            public UInt16 dataSize { get; set; } // Total number of bytes in the check data
+            public UInt64 seed { get; set; } // Current seed
+            public UInt32 totalSize { get; set; } // Total number of bytes in the gci after the comments
+            public UInt32 requiredDungeons { get; set; } // Bitfield containing which dungeons are required to beat the seed. Only 8 bits are used, while the rest are reserved for future updates
+            public UInt16 volatilePatchInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
+            public UInt16 volatilePatchInfoDataOffset { get; set; }
+            public UInt16 oneTimePatchInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
+            public UInt16 oneTimePatchInfoDataOffset { get; set; }
+            public UInt16 eventFlagsInfoNumEntries { get; set; } // eventFlags that need to be set for this seed
+            public UInt16 eventFlagsInfoDataOffset { get; set; }
+            public UInt16 regionFlagsInfoNumEntries { get; set; } // regionFlags that need to be set, alternating
+            public UInt16 regionFlagsInfoDataOffset { get; set; }
+            public UInt16 dzxCheckInfoNumEntries { get; set; }
+            public UInt16 dzxCheckInfoDataOffset { get; set; }
+            public UInt16 relCheckInfoNumEntries { get; set; }
+            public UInt16 relCheckInfoDataOffset { get; set; }
+            public UInt16 poeCheckInfoNumEntries { get; set; }
+            public UInt16 poeCheckInfoDataOffset { get; set; }
+            public UInt16 arcCheckInfoNumEntries { get; set; }
+            public UInt16 arcCheckInfoDataOffset { get; set; }
+            public UInt16 objectArcCheckInfoNumEntries { get; set; }
+            public UInt16 objectArcCheckInfoDataOffset { get; set; }
+            public UInt16 bossCheckInfoNumEntries { get; set; }
+            public UInt16 bossCheckInfoDataOffset { get; set; }
+            public UInt16 hiddenSkillCheckInfoNumEntries { get; set; }
+            public UInt16 hiddenSkillCheckInfoDataOffset { get; set; }
+            public UInt16 bugRewardCheckInfoNumEntries { get; set; }
+            public UInt16 bugRewardCheckInfoDataOffset { get; set; }
+            public UInt16 skyCharacterCheckInfoNumEntries { get; set; }
+            public UInt16 skyCharacterCheckInfoDataOffset { get; set; }
+            public UInt16 shopCheckInfoNumEntries { get; set; }
+            public UInt16 shopCheckInfoDataOffset { get; set; }
+            public UInt16 startingItemInfoNumEntries { get; set; }
+            public UInt16 startingItemInfoDataOffset { get; set; }
+            public UInt16 bgmHeaderOffset { get; set; }
+        }
+    }
+
+    public class BgmHeader
+    {
+        public UInt16 bgmTableSize { get; set; }
+        public UInt16 fanfareTableSize { get; set; }
+        public UInt16 bgmTableOffset { get; set; }
+        public UInt16 fanfareTableOffset { get; set; }
+        public byte bgmTableNumEntries { get; set; }
+        public byte fanfareTableNumEntries { get; set; }
     }
 }

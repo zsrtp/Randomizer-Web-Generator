@@ -95,16 +95,16 @@ namespace TPRandomizer.Assets
         /// <param name="region"> The language region of the text you want to
         /// convert. CURRENTLY UNUSED???</param>
         /// <returns>Array of Bytes processed.</returns>
-        public static byte[] StringBytes(string text, int desiredLength = 0, char region = 'E')
+        public static byte[] StringBytes(string text, int desiredLength = -1, char region = 'E')
         {
             List<byte> textData = new();
 
-            if (desiredLength < 0 || text == null)
+            if (desiredLength == 0 || text == null)
             {
                 return new byte[0];
             }
 
-            if (desiredLength == 0)
+            if (desiredLength < 0)
             {
                 desiredLength = text.Length;
             }

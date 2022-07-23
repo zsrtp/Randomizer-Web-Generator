@@ -167,7 +167,7 @@
     pageData = JSON.parse(inputJsonDataEl.value);
 
     const decodedSettings = window.tpr.shared.decodeSettingsString(
-      pageData.settingsString
+      pageData.input.settingsString
     );
 
     initTabButtons();
@@ -234,7 +234,7 @@
   }
 
   function fillInInfo() {
-    const date = new Date(pageData.timestamp);
+    const date = new Date(pageData.meta.timestamp);
 
     let locales = navigator.languages;
     if (locales == null) {
@@ -254,14 +254,17 @@
         timeZoneName: 'short',
       })
     );
-    $('#seed').text(pageData.seed);
-    $('#settingsString').text(pageData.settingsString);
+    $('#seed').text(pageData.input.seed);
+    $('#settingsString').text(pageData.input.settingsString);
 
     const arr = [];
 
-    arr.push({ label: 'Created', value: pageData.timestamp });
-    arr.push({ label: 'Seed', value: pageData.seed });
-    arr.push({ label: 'Settings String', value: pageData.settingsString });
+    arr.push({ label: 'Created', value: pageData.meta.timestamp });
+    arr.push({ label: 'Seed', value: pageData.input.seed });
+    arr.push({
+      label: 'Settings String',
+      value: pageData.input.settingsString,
+    });
 
     byId('info').innerHTML = arr
       .map((obj) => {
@@ -269,7 +272,7 @@
       })
       .join(' -- ');
 
-    byId('filename').textContent = pageData.filename;
+    byId('filename').textContent = pageData.output.name;
   }
 
   // Parse SSetting to object.
@@ -334,7 +337,7 @@
       { id: 'gameRegion', bitLength: 3 },
       { id: 'seedNumber', bitLength: 4 },
 
-      { id: 'bgmFieldset', bitLength:2 },
+      { id: 'bgmFieldset', bitLength: 2 },
       { id: 'randomizeFanfaresCheckbox' },
       { id: 'disableEnemyBGMCheckbox' },
 
