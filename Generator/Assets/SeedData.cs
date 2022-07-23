@@ -78,112 +78,6 @@ namespace TPRandomizer.Assets
             public byte fanfareTableNumEntries { get; set; }
         }
 
-        public static void GenerateSeedDataNew(string seedHash, FileCreationSettings fcSettings)
-        {
-            /*
-            * General Note: offset sizes are handled as two bytes. Because of this,
-            * any seed bigger than 7 blocks will not work with this method. The seed structure is as follows:
-            * Seed Header
-            * Seed Data
-            * Check Data
-            * Bgm Header
-            * Bgm Data
-            */
-            RandomizerSetting randomizerSettings = Randomizer.RandoSetting;
-            List<byte> currentGCIData = new();
-            List<byte> currentSeedHeader = new();
-            List<byte> currentSeedData = new();
-            List<byte> currentBgmData = new();
-            string fileHash = seedHash;
-            char regionCode;
-            string regionName;
-
-            // Raw Check Data
-            CheckDataRaw.AddRange(GeneratePatchSettings());
-            CheckDataRaw.AddRange(GenerateEventFlags());
-            CheckDataRaw.AddRange(GenerateRegionFlags());
-            CheckDataRaw.AddRange(ParseDZXReplacements());
-            CheckDataRaw.AddRange(ParseRELOverrides());
-            CheckDataRaw.AddRange(ParsePOEReplacements());
-            CheckDataRaw.AddRange(ParseARCReplacements());
-            CheckDataRaw.AddRange(ParseObjectARCReplacements());
-            CheckDataRaw.AddRange(ParseBossReplacements());
-            CheckDataRaw.AddRange(ParseHiddenSkills());
-            CheckDataRaw.AddRange(ParseBugRewards());
-            CheckDataRaw.AddRange(ParseSkyCharacters());
-            CheckDataRaw.AddRange(ParseShopItems());
-            CheckDataRaw.AddRange(ParseStartingItems());
-            while (CheckDataRaw.Count % 0x10 != 0)
-            {
-                CheckDataRaw.Add(Converter.GcByte(0x0));
-            }
-            SeedHeaderRaw.bgmHeaderOffset = (UInt16)CheckDataRaw.Count();
-
-            // BGM Table info
-            SeedData.BgmHeaderRaw.bgmTableOffset = (UInt16)BgmHeaderSize;
-            currentBgmData.AddRange(SoundAssets.GenerateBgmData());
-            SeedData.BgmHeaderRaw.fanfareTableOffset = (UInt16)(
-                BgmHeaderSize + currentBgmData.Count
-            );
-            currentBgmData.AddRange(SoundAssets.GenerateFanfareData());
-
-            SeedHeaderRaw.totalSize = (uint)(
-                SeedHeaderSize + CheckDataRaw.Count + BgmHeaderSize + currentBgmData.Count
-            );
-
-            // Generate Seed Data
-            currentSeedHeader.AddRange(GenerateSeedHeader(randomizerSettings.seedNumber, seedHash));
-            currentSeedData.AddRange(currentSeedHeader);
-            currentSeedData.AddRange(CheckDataRaw);
-            currentSeedData.AddRange(GenerateBgmHeader());
-            currentSeedData.AddRange(currentBgmData);
-            while (currentSeedData.Count % 0x20 != 0)
-            {
-                currentSeedData.Add(Converter.GcByte(0x0));
-            }
-
-            // Generate Data file
-            File.WriteAllBytes(
-                "rando-data" + randomizerSettings.seedNumber,
-                currentSeedData.ToArray()
-            );
-
-            switch (fcSettings.gameRegion)
-            {
-                //    case "GZ2J":
-                case "JAP":
-                    regionName = "JAP";
-                    regionCode = 'J';
-                    break;
-                // case "GZ2P":
-                case "PAL":
-                    regionName = "PAL";
-                    regionCode = 'P';
-                    break;
-                default:
-                    regionName = "US";
-                    regionCode = 'E';
-                    break;
-            }
-            // Add seed banner
-            BannerDataRaw.AddRange(Properties.Resources.seedGciImageData);
-            BannerDataRaw.AddRange(Converter.StringBytes("TPR 1.0 Seed Data", 0x20, regionCode));
-            BannerDataRaw.AddRange(Converter.StringBytes(seedHash, 0x20, regionCode));
-            // Generate GCI Files
-            currentGCIData.AddRange(BannerDataRaw);
-            currentGCIData.AddRange(currentSeedData);
-            var gci = new Gci(
-                (byte)randomizerSettings.seedNumber,
-                regionCode,
-                currentGCIData,
-                seedHash
-            );
-            fileHash = "TPR-v1.0-" + seedHash + "-Seed-Data." + regionName + ".gci";
-            File.WriteAllBytes(fileHash, gci.gciFile.ToArray());
-            BannerDataRaw.Clear();
-            currentGCIData.Clear();
-        }
-
         public static byte[] GenerateSeedDataNewByteArray(
             string playthroughName,
             FileCreationSettings fcSettings
@@ -276,9 +170,16 @@ namespace TPRandomizer.Assets
                     break;
                 }
             }
+
             // Add seed banner
             BannerDataRaw.AddRange(Properties.Resources.seedGciImageData);
-            BannerDataRaw.AddRange(Converter.StringBytes("TPR 1.0 Seed Data", 0x20, region));
+            BannerDataRaw.AddRange(
+                Converter.StringBytes(
+                    $"TPR SeedData v{SeedDataVersionMajor}.{SeedDataVersionMinor}",
+                    0x20,
+                    region
+                )
+            );
             BannerDataRaw.AddRange(Converter.StringBytes(playthroughName, 0x20, region));
             // Generate GCI Files
             currentGCIData.AddRange(BannerDataRaw);
