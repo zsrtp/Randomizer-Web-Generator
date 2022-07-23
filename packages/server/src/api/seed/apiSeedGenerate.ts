@@ -1,6 +1,5 @@
 import express from 'express';
 import { addToFastQueue } from 'src/generationQueues';
-import { callGeneratorMatchOutput } from 'src/util';
 import { normalizeStringToMax128Bytes } from 'src/util/string';
 
 function apiSeedGenerate(req: express.Request, res: express.Response) {

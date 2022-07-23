@@ -167,7 +167,7 @@
     pageData = JSON.parse(inputJsonDataEl.value);
 
     const decodedSettings = window.tpr.shared.decodeSettingsString(
-      pageData.input.settingsString
+      pageData.input.settings
     );
 
     initTabButtons();
@@ -234,7 +234,7 @@
   }
 
   function fillInInfo() {
-    const date = new Date(pageData.meta.timestamp);
+    const date = new Date(pageData.meta.ts);
 
     let locales = navigator.languages;
     if (locales == null) {
@@ -242,8 +242,8 @@
     }
 
     $('#timestamp').text(
-      // date.toLocaleDateString(locales, {
-      date.toLocaleDateString('en-US', {
+      date.toLocaleDateString(locales, {
+        // date.toLocaleDateString('en-US', {
         weekday: 'short',
         year: 'numeric',
         month: 'numeric',
@@ -255,16 +255,16 @@
       })
     );
     $('#seed').text(pageData.input.seed);
-    $('#settingsString').text(pageData.input.settingsString);
+    $('#settingsString').text(pageData.input.settings);
 
-    const arr = [];
-
-    arr.push({ label: 'Created', value: pageData.meta.timestamp });
-    arr.push({ label: 'Seed', value: pageData.input.seed });
-    arr.push({
-      label: 'Settings String',
-      value: pageData.input.settingsString,
-    });
+    const arr = [
+      { label: 'Created', value: pageData.meta.ts },
+      { label: 'Seed', value: pageData.input.seed },
+      {
+        label: 'Settings String',
+        value: pageData.input.settings,
+      },
+    ];
 
     byId('info').innerHTML = arr
       .map((obj) => {

@@ -148,17 +148,6 @@ namespace TPRandomizer
                 {
                     // Place the items in the world based on the starting room.
                     PlaceItemsInWorld(startingRoom, rnd);
-                    // Console.WriteLine("Generating Seed Data.");
-                    // Assets.SeedData.GenerateSeedData(seedHash);
-                    // Console.WriteLine("Generating Spoiler Log.");
-                    // BackendFunctions.GenerateSpoilerLog(startingRoom, seedHash);
-                    // IEnumerable<string> fileList = new string[]
-                    // {
-                    //     "TPR-v1.0-" + seedHash + ".txt",
-                    //     "TPR-v1.0-" + seedHash + "-Seed-Data.gci"
-                    // };
-                    // BackendFunctions.CreateZipFile("Seed/TPR-v1.0-" + seedHash + ".zip", fileList);
-                    // Console.WriteLine("Generation Complete!");
                     generationStatus = true;
                     break;
                 }
@@ -246,10 +235,7 @@ namespace TPRandomizer
             placementStrParts.Sort(StringComparer.Ordinal);
             string itemPlacementPart = String.Join("-", placementStrParts);
 
-            //
-
             // Only need to take settings into account which are important to part2.
-
             SortedDictionary<string, object> part2SettingsForString = GenPart2Settings();
 
             string part2SettingsPart = JsonConvert.SerializeObject(part2SettingsForString);
@@ -291,22 +277,22 @@ namespace TPRandomizer
 
             Dictionary<string, object> metaObj = new();
             inputJsonRoot.Add("meta", metaObj);
-            metaObj.Add("timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
-            // Add "imgVer" for IMAGE_VERSION
-            // Add "gitCmt" for GIT_COMMIT
+            metaObj.Add("ts", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
+            metaObj.Add("imgVer", Global.imageVersion);
+            metaObj.Add("gitCmt", Global.gitCommit);
 
             Dictionary<string, object> inputObj = new();
             inputJsonRoot.Add("input", inputObj);
-            inputObj.Add("settingsString", settingsString);
+            inputObj.Add("settings", settingsString);
             inputObj.Add("seed", seed);
-            inputObj.Add("raceSeed", isRaceSeed.ToString().ToLowerInvariant());
+            inputObj.Add("race", isRaceSeed ? 1 : 0);
 
             Dictionary<string, object> outputObj = new();
             inputJsonRoot.Add("output", outputObj);
             outputObj.Add("seedHash", seedHashAsString);
             outputObj.Add("name", playthroughName);
             outputObj.Add("itemPlacement", SeedGenResults.EncodeItemPlacements(checkNumIdToItemId));
-            outputObj.Add("requiredDungeons", Randomizer.RequiredDungeons);
+            outputObj.Add("reqDungeons", Randomizer.RequiredDungeons);
 
             return JsonConvert.SerializeObject(inputJsonRoot);
         }
@@ -383,7 +369,7 @@ namespace TPRandomizer
             SeedGenResults seedGenResults = new SeedGenResults(json);
 
             FileCreationSettings fcSettings = FileCreationSettings.FromString(fcSettingsString);
-            RandoSetting = RandomizerSetting.FromString((string)(json["input"]["settingsString"]));
+            RandoSetting = RandomizerSetting.FromString(seedGenResults.settings);
             fcSettings.UpdateRandoSettings(RandoSetting);
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.

@@ -8,17 +8,21 @@ namespace TPRandomizer
 {
     public class SeedGenResults
     {
+        public string settings { get; }
         public string playthroughName { get; }
         public Dictionary<int, byte> itemPlacements { get; }
         public byte requiredDungeons { get; }
 
         public SeedGenResults(JObject inputJsonContents)
         {
+            JObject input = (JObject)inputJsonContents["input"];
+            settings = (string)input["settings"];
+
             JObject output = (JObject)inputJsonContents["output"];
 
             this.playthroughName = (string)output["name"];
             this.itemPlacements = DecodeItemPlacements((string)output["itemPlacement"]);
-            this.requiredDungeons = (byte)output["requiredDungeons"];
+            this.requiredDungeons = (byte)output["reqDungeons"];
         }
 
         public static string EncodeItemPlacements(SortedDictionary<int, byte> checkNumIdToItemId)

@@ -59,11 +59,7 @@ initSecrets();
 const url = require('url');
 const cors = require('cors');
 import express from 'express';
-import {
-  callGenerator,
-  callGeneratorMatchOutput,
-  callGeneratorBuf,
-} from './util';
+import { callGenerator, callGeneratorBuf } from './util';
 import apiSeedProgress from './api/seed/apiSeedProgress';
 import apiSeedGenerate from './api/seed/apiSeedGenerate';
 import apiSeedCancel from './api/seed/apiSeedCancel';
@@ -160,37 +156,6 @@ if (process.env.NODE_ENV === 'production') {
 app.post('/api/seed/generate', apiSeedGenerate);
 app.get('/api/seed/progress/:id', apiSeedProgress);
 app.post('/api/seed/cancel', apiSeedCancel);
-
-app.post(
-  '/api/generateseed',
-  function (req: express.Request, res: express.Response) {
-    const { settingsString, seed } = req.body;
-
-    if (!settingsString || typeof settingsString !== 'string') {
-      res.status(400).send({ error: 'Malformed request.' });
-      return;
-    }
-
-    if (seed && typeof seed !== 'string') {
-      res.status(400).send({ error: 'Malformed request.' });
-      return;
-    }
-
-    const seedStr = seed ? normalizeStringToMax128Bytes(seed) : '';
-    console.log(`seedStr: '${seedStr}'`);
-
-    callGeneratorMatchOutput(
-      ['generate2', settingsString, seedStr],
-      (error, data) => {
-        if (error) {
-          res.status(500).send({ error });
-        } else {
-          res.send({ data: { id: data } });
-        }
-      }
-    );
-  }
-);
 
 interface Aaa {
   name: string;

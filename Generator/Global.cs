@@ -11,10 +11,14 @@ namespace TPRandomizer
         public static string outputPath { get; }
         public static string rootPath { get; }
         public static byte[] seedHashSecret { get; }
+        public static string imageVersion { get; }
+        public static string gitCommit { get; }
 
         static Global()
         {
             string envFileDir = InitEnv();
+
+            bool isProduction = Environment.GetEnvironmentVariable("TPRGEN_ENV") == "production";
 
             rootPath = ResolvePath(
                 envFileDir,
@@ -25,14 +29,28 @@ namespace TPRandomizer
                 Environment.GetEnvironmentVariable("TPRGEN_VOLUME_ROOT")
             );
 
-            if (Environment.GetEnvironmentVariable("TPRGEN_ENV") == "production")
+            if (isProduction)
             {
                 string text = File.ReadAllText("/run/secrets/seedhash_secret", Encoding.UTF8);
                 seedHashSecret = Encoding.UTF8.GetBytes(text.Trim());
             }
             else
             {
+                // Use a default value during development so people who aren't
+                // deploying are not required to create secrets.
                 seedHashSecret = Encoding.UTF8.GetBytes("seedHashSecret");
+            }
+
+            imageVersion = Environment.GetEnvironmentVariable("IMAGE_VERSION");
+            if (isProduction && String.IsNullOrEmpty(imageVersion))
+            {
+                throw new Exception("Did not find IMAGE_VERSION in environment variables.");
+            }
+
+            gitCommit = Environment.GetEnvironmentVariable("GIT_COMMIT");
+            if (isProduction && String.IsNullOrEmpty(gitCommit))
+            {
+                throw new Exception("Did not find GIT_COMMIT in environment variables.");
             }
 
             Directory.CreateDirectory(outputPath);

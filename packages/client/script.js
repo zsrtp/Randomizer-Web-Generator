@@ -130,8 +130,6 @@ function onDomContentLoaded() {
     const { value } = e.target;
     e.target.value = normalizeStringToMax128Bytes(value);
   });
-
-  // tempTestQueueFunc();
 }
 
 function initJwt() {
@@ -915,13 +913,13 @@ function doGenerateCall(isRaceSeed) {
     .then(({ data, error }) => {
       if (error) {
         generateCallInProgress = false;
-        console.error('`/api/generateseed` error:');
+        console.error('`/api/seed/generate` error:');
         if (error.message) {
           showGeneratingModalError(`Error:\n${error}`);
         } else if (error.seedId) {
           showGenModalOngoingRequestError(error.seedId, error.canCancel);
         } else {
-          console.error('`/api/generateseed` unrecognized error');
+          console.error('`/api/seed/generate` unrecognized error');
         }
       } else if (data && data.seedId && data.requesterHash) {
         try {
@@ -937,17 +935,17 @@ function doGenerateCall(isRaceSeed) {
         window.location.href = `/s/${data.seedId}`;
       } else {
         generateCallInProgress = false;
-        console.error('Unrecognized response from `/api/generateseed`');
+        console.error('Unrecognized response from `/api/seed/generate`');
         console.error(data);
         showGeneratingModalError(
-          'Unrecognized response from `/api/generateseed`.'
+          'Unrecognized response from `/api/seed/generate`.'
         );
       }
     })
     .catch((err) => {
       generateCallInProgress = false;
-      showGeneratingModalError('/api/generateseed error');
-      console.error('/api/generateseed error');
+      showGeneratingModalError('/api/seed/generate error');
+      console.error('/api/seed/generate error');
       console.error(err);
     });
 }
@@ -1299,54 +1297,6 @@ function testProgressFunc(id) {
     })
     .catch((err) => {
       console.error('/api/seed/progress error');
-      console.error(err);
-    });
-}
-
-function tempTestQueueFunc() {
-  const settingsString =
-    genSettingsString() + window.tpr.shared.genUSettingsFromUi();
-
-  // fetch('/api/seed/generate', {
-  window.tpr.shared
-    .fetch('/api/seed/generate', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        // Authorization: 'example auth content',
-        // Authorization: `Bearer ${userJwt}`,
-      },
-      body: JSON.stringify({
-        settingsString: settingsString,
-        seed: $('#seed').val(),
-      }),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('/api/seed/generate data');
-      console.log(data);
-
-      testProgressFunc(data.data.id);
-
-      // if (data.error) {
-      //   generateCallInProgress = false;
-      //   console.error('`/api/generateseed` error:');
-      //   console.error(data);
-      //   showGeneratingModalError(`Error:\n${data.error}`);
-      // } else if (data.data && data.data.id) {
-      //   window.location.href = '/seed?id=' + data.data.id;
-      // } else {
-      //   generateCallInProgress = false;
-      //   console.error('Unrecognized response from `/api/generateseed`');
-      //   console.error(data);
-      //   showGeneratingModalError(
-      //     'Unrecognized response from `/api/generateseed`.'
-      //   );
-      // }
-    })
-    .catch((err) => {
-      console.error('/api/seed/generate error');
       console.error(err);
     });
 }
