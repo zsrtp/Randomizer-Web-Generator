@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TPRandomizer.Util;
 
@@ -8,18 +9,27 @@ namespace TPRandomizer
 {
     public class SeedGenResults
     {
-        public string settings { get; }
-        public string playthroughName { get; }
+        // input
+        public string settingsString { get; set; }
+        public string seed { get; set; }
+        public bool isRaceSeed { get; set; }
+
+        // output
+        public string playthroughName { get; set; }
         public Dictionary<int, byte> itemPlacements { get; }
-        public byte requiredDungeons { get; }
+        public byte requiredDungeons { get; set; }
 
         public SeedGenResults(JObject inputJsonContents)
         {
+            // Can read `version` as well if format ever changes and we need to
+            // support multiple formats.
+
             JObject input = (JObject)inputJsonContents["input"];
-            settings = (string)input["settings"];
+            settingsString = (string)input["settings"];
+            seed = (string)input["seed"];
+            isRaceSeed = (int)input["race"] == 1;
 
             JObject output = (JObject)inputJsonContents["output"];
-
             this.playthroughName = (string)output["name"];
             this.itemPlacements = DecodeItemPlacements((string)output["itemPlacement"]);
             this.requiredDungeons = (byte)output["reqDungeons"];
@@ -99,6 +109,54 @@ namespace TPRandomizer
             }
 
             return checkNumIdToItemId;
+        }
+
+        public class Builder
+        {
+            public string settingsString { get; set; }
+            public string seed { get; set; }
+            public bool isRaceSeed { get; set; }
+            public string seedHashString { get; set; }
+            public string playthroughName { get; set; }
+            public byte requiredDungeons { get; set; }
+            private string itemPlacement;
+
+            public Builder() { }
+
+            public void SetItemPlacements(SortedDictionary<int, byte> checkNumIdToItemId)
+            {
+                itemPlacement = EncodeItemPlacements(checkNumIdToItemId);
+            }
+
+            override public string ToString()
+            {
+                Dictionary<string, object> inputJsonRoot = new();
+                // Need to update format for any changes.
+                // For minor additions, can bump to 1.1, etc.
+                // For major format changes, can change to 2, etc.
+                inputJsonRoot.Add("version", "1");
+
+                Dictionary<string, object> metaObj = new();
+                inputJsonRoot.Add("meta", metaObj);
+                metaObj.Add("ts", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
+                metaObj.Add("imgVer", Global.imageVersion);
+                metaObj.Add("gitCmt", Global.gitCommit);
+
+                Dictionary<string, object> inputObj = new();
+                inputJsonRoot.Add("input", inputObj);
+                inputObj.Add("settings", settingsString);
+                inputObj.Add("seed", seed);
+                inputObj.Add("race", isRaceSeed ? 1 : 0);
+
+                Dictionary<string, object> outputObj = new();
+                inputJsonRoot.Add("output", outputObj);
+                outputObj.Add("seedHash", seedHashString);
+                outputObj.Add("name", playthroughName);
+                outputObj.Add("itemPlacement", itemPlacement);
+                outputObj.Add("reqDungeons", requiredDungeons);
+
+                return JsonConvert.SerializeObject(inputJsonRoot);
+            }
         }
     }
 }

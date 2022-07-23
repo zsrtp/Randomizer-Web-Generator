@@ -206,6 +206,7 @@ namespace TPRandomizer
 
             foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
             {
+                // We don't store itemIds in the json for vanilla checks to save space.
                 if (checkList.Value.checkStatus != "Vanilla")
                 {
                     string checkId = CheckIdClass.FromString(checkList.Key);
@@ -272,29 +273,18 @@ namespace TPRandomizer
 
             // TODO: review if the above comment needs a little revision
 
-            Dictionary<string, object> inputJsonRoot = new();
-            inputJsonRoot.Add("version", "1");
+            SeedGenResults.Builder builder = new();
+            // inputs
+            builder.settingsString = settingsString;
+            builder.seed = seed;
+            builder.isRaceSeed = isRaceSeed;
+            // outputs
+            builder.seedHashString = seedHashAsString;
+            builder.playthroughName = playthroughName;
+            builder.requiredDungeons = (byte)Randomizer.RequiredDungeons;
+            builder.SetItemPlacements(checkNumIdToItemId);
 
-            Dictionary<string, object> metaObj = new();
-            inputJsonRoot.Add("meta", metaObj);
-            metaObj.Add("ts", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
-            metaObj.Add("imgVer", Global.imageVersion);
-            metaObj.Add("gitCmt", Global.gitCommit);
-
-            Dictionary<string, object> inputObj = new();
-            inputJsonRoot.Add("input", inputObj);
-            inputObj.Add("settings", settingsString);
-            inputObj.Add("seed", seed);
-            inputObj.Add("race", isRaceSeed ? 1 : 0);
-
-            Dictionary<string, object> outputObj = new();
-            inputJsonRoot.Add("output", outputObj);
-            outputObj.Add("seedHash", seedHashAsString);
-            outputObj.Add("name", playthroughName);
-            outputObj.Add("itemPlacement", SeedGenResults.EncodeItemPlacements(checkNumIdToItemId));
-            outputObj.Add("reqDungeons", Randomizer.RequiredDungeons);
-
-            return JsonConvert.SerializeObject(inputJsonRoot);
+            return builder.ToString();
         }
 
         private static SortedDictionary<string, object> GenPart2Settings()
@@ -369,7 +359,7 @@ namespace TPRandomizer
             SeedGenResults seedGenResults = new SeedGenResults(json);
 
             FileCreationSettings fcSettings = FileCreationSettings.FromString(fcSettingsString);
-            RandoSetting = RandomizerSetting.FromString(seedGenResults.settings);
+            RandoSetting = RandomizerSetting.FromString(seedGenResults.settingsString);
             fcSettings.UpdateRandoSettings(RandoSetting);
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.
