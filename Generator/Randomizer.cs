@@ -296,6 +296,14 @@ namespace TPRandomizer
             // If a setting matches what the game behavior would have been
             // before that setting existed, we leave it off.
 
+            // We don't add a setting when its only effect has to do with
+            // itemPlacement. itemPlacement is handled on its own. If one seed
+            // generation had smallKeys in OwnDungeon and another had them in
+            // AnyDungeon and the placement ended up being the exact same, (all
+            // other things being the same) the playthroughName should match
+            // because the generated file would be the same, meaning the player
+            // has already played this exact scenario.
+
             // Multi-option fields which are only included for certain values
             if (RandoSetting.castleRequirements != CastleRequirements.Vanilla)
                 part2Settings.Add("castleRequirements", RandoSetting.castleRequirements);
@@ -304,7 +312,7 @@ namespace TPRandomizer
             // TODO: Change this one to a boolean called "faronWoodsOpen"
             if (RandoSetting.faronWoodsLogic == FaronWoodsLogic.Open)
                 part2Settings.Add("faronWoodsLogic", RandoSetting.faronWoodsLogic);
-            if (RandoSetting.smallKeySettings == "Keysey")
+            if (RandoSetting.smallKeySettings == SmallKeySettings.Keysey)
                 part2Settings.Add("smallKeySettings", RandoSetting.smallKeySettings);
             if (RandoSetting.bossKeySettings == "Keysey")
                 part2Settings.Add("bossKeySettings", RandoSetting.bossKeySettings);

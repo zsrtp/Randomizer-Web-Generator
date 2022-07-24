@@ -2,9 +2,9 @@ namespace TPRandomizer
 {
     using System.Collections.Generic;
     using System.Linq;
-
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using TPRandomizer.SSettings.Enums;
 
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Item : byte
@@ -690,18 +690,18 @@ namespace TPRandomizer
 
             // Check Small Key settings before adding them to the rando pool
             if (
-                (parseSetting.smallKeySettings == "Own_Dungeon")
-                || (parseSetting.smallKeySettings == "Any_Dungeon")
+                (parseSetting.smallKeySettings == SmallKeySettings.OwnDungeon)
+                || (parseSetting.smallKeySettings == SmallKeySettings.AnyDungeon)
             )
             {
                 this.RandomizedDungeonRegionItems.AddRange(this.RegionSmallKeys);
                 Randomizer.Items.BaseItemPool.AddRange(this.RegionSmallKeys);
             }
-            else if (parseSetting.smallKeySettings == "Keysanity")
+            else if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
             {
                 this.RandomizedImportantItems.AddRange(this.RegionSmallKeys);
             }
-            else if (parseSetting.smallKeySettings == "Keysey")
+            else if (parseSetting.smallKeySettings == SmallKeySettings.Keysey)
             {
                 this.RandomizedImportantItems.Remove(Item.Gate_Keys);
                 if (!parseSetting.StartingItems.Contains(Item.Gerudo_Desert_Bulblin_Camp_Key))
@@ -796,7 +796,7 @@ namespace TPRandomizer
             // Remove the bulblin camp key from the item pool if we have the setting to skip Bulblin Camp enabled.
             if (parseSetting.skipArbitersEntrance)
             {
-                if (parseSetting.smallKeySettings == "Keysanity")
+                if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
                 {
                     this.RandomizedImportantItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
                 }

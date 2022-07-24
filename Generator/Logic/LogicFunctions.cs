@@ -1320,7 +1320,7 @@ namespace TPRandomizer
                 && CanDefeatBigBaba()
                 && (
                     (getItemCount(Item.Forest_Temple_Small_Key) >= 4)
-                    || (Randomizer.RandoSetting.smallKeySettings == "Keysey")
+                    || (Randomizer.RandoSetting.smallKeySettings == SmallKeySettings.Keysey)
                 )
             );
         }
@@ -1412,7 +1412,7 @@ namespace TPRandomizer
                     && (getItemCount(Item.Progressive_Fishing_Rod) >= 1)
                     && (
                         CanUse(Item.North_Faron_Woods_Gate_Key)
-                        || (Randomizer.RandoSetting.smallKeySettings == "Keysey")
+                        || (Randomizer.RandoSetting.smallKeySettings == SmallKeySettings.Keysey)
                     )
                 ) || (Randomizer.RandoSetting.prologueSkipped == true)
             );

@@ -1,6 +1,7 @@
 namespace TPRandomizer
 {
     using System.Collections.Generic;
+    using TPRandomizer.SSettings.Enums;
 
     /// <summary>
     /// Identifies the basic structure containing multiple fields used to identify a check in the randomizer..
@@ -310,7 +311,7 @@ namespace TPRandomizer
                 if (currentCheck.checkStatus == "Ready")
                 {
                     if (
-                        (parseSetting.smallKeySettings == "Vanilla")
+                        (parseSetting.smallKeySettings == SmallKeySettings.Vanilla)
                         && currentCheck.category.Contains("Small Key")
                     )
                     {
@@ -342,7 +343,7 @@ namespace TPRandomizer
                         {
                             if (
                                 (
-                                    (parseSetting.smallKeySettings == "Keysey")
+                                    (parseSetting.smallKeySettings == SmallKeySettings.Keysey)
                                     && currentCheck.category.Contains("Small Key")
                                 )
                                 || (

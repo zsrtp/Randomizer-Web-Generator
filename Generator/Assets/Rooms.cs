@@ -1,6 +1,7 @@
 namespace TPRandomizer
 {
     using System.Collections.Generic;
+    using TPRandomizer.SSettings.Enums;
 
     /// <summary>
     /// summary text.
@@ -73,14 +74,14 @@ namespace TPRandomizer
             if (Randomizer.Items.RegionSmallKeys.Contains(itemToPlace))
             {
                 if (
-                    (parseSetting.smallKeySettings == "Own_Dungeon")
+                    (parseSetting.smallKeySettings == SmallKeySettings.OwnDungeon)
                     && itemName.Contains(currentRoom.Region)
                 )
                 {
                     return true;
                 }
                 else if (
-                    (parseSetting.smallKeySettings == "Any_Dungeon")
+                    (parseSetting.smallKeySettings == SmallKeySettings.AnyDungeon)
                     && currentCheck.category.Contains("Dungeon")
                 )
                 {

@@ -29,4 +29,13 @@ namespace TPRandomizer.SSettings.Enums
         Open = 0,
         Closed = 1
     }
+
+    public enum SmallKeySettings
+    {
+        Vanilla = 0,
+        OwnDungeon = 1,
+        AnyDungeon = 2,
+        Anywhere = 3,
+        Keysey = 4,
+    }
 }

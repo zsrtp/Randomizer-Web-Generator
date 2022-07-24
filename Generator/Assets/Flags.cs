@@ -553,7 +553,7 @@ namespace TPRandomizer.Assets
             /* 4 */RandomizerSettings.skipMinorCutscenes,
             /* 5 */RandomizerSettings.faronWoodsLogic == FaronWoodsLogic.Open,
             /* 6 */RandomizerSettings.mdhSkipped,
-            /* 7 */RandomizerSettings.smallKeySettings == "Keysey",
+            /* 7 */RandomizerSettings.smallKeySettings == SmallKeySettings.Keysey,
             /* 8 */RandomizerSettings.bossKeySettings == "Keysey",
             /* 9 */RandomizerSettings.mapAndCompassSettings == "Start_With",
             /* 10 */RandomizerSettings.castleRequirements == CastleRequirements.Open,
