@@ -551,7 +551,7 @@ namespace TPRandomizer.Assets
             /* 2 */RandomizerSettings.eldinTwilightCleared,
             /* 3 */RandomizerSettings.lanayruTwilightCleared,
             /* 4 */RandomizerSettings.skipMinorCutscenes,
-            /* 5 */RandomizerSettings.faronWoodsLogic == "Open",
+            /* 5 */RandomizerSettings.faronWoodsLogic == FaronWoodsLogic.Open,
             /* 6 */RandomizerSettings.mdhSkipped,
             /* 7 */RandomizerSettings.smallKeySettings == "Keysey",
             /* 8 */RandomizerSettings.bossKeySettings == "Keysey",

@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Reflection;
+using TPRandomizer.SSettings.Enums;
 
 namespace TPRandomizer
 {
@@ -1432,8 +1432,10 @@ namespace TPRandomizer
         public static bool canLeaveForest()
         {
             return (
-                (canCompleteForestTemple() || (Randomizer.RandoSetting.faronWoodsLogic == "Open"))
-                && CanCompleteIntro()
+                (
+                    canCompleteForestTemple()
+                    || (Randomizer.RandoSetting.faronWoodsLogic == FaronWoodsLogic.Open)
+                ) && CanCompleteIntro()
             );
         }
 

@@ -23,4 +23,10 @@ namespace TPRandomizer.SSettings.Enums
         MirrorShards = 2,
         Vanilla = 3
     }
+
+    public enum FaronWoodsLogic
+    {
+        Open = 0,
+        Closed = 1
+    }
 }

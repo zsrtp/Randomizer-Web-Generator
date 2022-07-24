@@ -302,7 +302,7 @@ namespace TPRandomizer
             if (RandoSetting.palaceRequirements != PalaceRequirements.Vanilla)
                 part2Settings.Add("palaceRequirements", RandoSetting.palaceRequirements);
             // TODO: Change this one to a boolean called "faronWoodsOpen"
-            if (RandoSetting.faronWoodsLogic == "Open")
+            if (RandoSetting.faronWoodsLogic == FaronWoodsLogic.Open)
                 part2Settings.Add("faronWoodsLogic", RandoSetting.faronWoodsLogic);
             if (RandoSetting.smallKeySettings == "Keysey")
                 part2Settings.Add("smallKeySettings", RandoSetting.smallKeySettings);
@@ -1056,7 +1056,7 @@ namespace TPRandomizer
             }
 
             // If Faron Woods is closed then we need to beat Forest Temple to leave.
-            if (Randomizer.RandoSetting.faronWoodsLogic == "Closed")
+            if (Randomizer.RandoSetting.faronWoodsLogic == FaronWoodsLogic.Closed)
             {
                 listOfRequiredDungeons[forest].isRequired = true;
             }
