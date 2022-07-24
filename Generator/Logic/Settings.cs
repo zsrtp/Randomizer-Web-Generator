@@ -30,7 +30,7 @@ namespace TPRandomizer
         public bool fastIronBoots { get; set; }
         public bool quickTransform { get; set; }
         public bool transformAnywhere { get; set; }
-        public string iceTrapSettings { get; set; }
+        public TrapFrequency trapFrequency { get; set; }
         public List<Item> StartingItems { get; set; }
         public List<string> ExcludedChecks { get; set; }
         public bool shuffleHiddenSkills { get; set; }
@@ -75,7 +75,7 @@ namespace TPRandomizer
             transformAnywhere = processor.NextBool();
             increaseWallet = processor.NextBool();
             modifyShopModels = processor.NextBool();
-            iceTrapSettings = processor.NextString(SettingData.iceTrapSettings, 3);
+            trapFrequency = (TrapFrequency)processor.NextInt(3);
             barrenDungeons = processor.NextBool();
             skipMinesEntrance = processor.NextBool();
             skipLakebedEntrance = processor.NextBool();
@@ -148,9 +148,6 @@ namespace TPRandomizer
         public bool quickTransform { get; set; }
 
         public bool transformAnywhere { get; set; }
-
-        public static string[] iceTrapSettings { get; set; } =
-            new string[] { "None", "Few", "Many", "Mayhem", "Nightmare" };
 
         public List<Item> StartingItems { get; set; }
 

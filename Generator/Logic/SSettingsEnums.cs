@@ -56,4 +56,13 @@ namespace TPRandomizer.SSettings.Enums
         Anywhere = 3,
         StartWith = 4,
     }
+
+    public enum TrapFrequency
+    {
+        None = 0,
+        Few = 1,
+        Many = 2,
+        Mayhem = 3,
+        Nightmare = 4,
+    }
 }

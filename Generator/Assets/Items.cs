@@ -740,30 +740,30 @@ namespace TPRandomizer
 
             // Modifying Item Pool based on ice trap settings
             // If we have Ice Trap Mayhem or Nightmare, all extra junk items are replaced with Foolish Items
-            switch (parseSetting.iceTrapSettings)
+            switch (parseSetting.trapFrequency)
             {
-                case "Few": // There is a small chance that a Foolish Item could appear
+                case TrapFrequency.Few: // There is a small chance that a Foolish Item could appear
                 {
                     this.JunkItems.AddRange(this.vanillaJunkItems);
                     this.JunkItems.AddRange(Enumerable.Repeat(Item.Foolish_Item, 6));
                     break;
                 }
 
-                case "Many": // There is an increased chance that a Foolish Item could appear
+                case TrapFrequency.Many: // There is an increased chance that a Foolish Item could appear
                 {
                     this.JunkItems.AddRange(this.vanillaJunkItems);
                     this.JunkItems.AddRange(Enumerable.Repeat(Item.Foolish_Item, 27));
                     break;
                 }
 
-                case "Mayhem": // All junk items outside of the item pool are Foolish Items
+                case TrapFrequency.Mayhem: // All junk items outside of the item pool are Foolish Items
                 {
                     this.JunkItems.AddRange(this.vanillaJunkItems);
                     this.JunkItems.AddRange(Enumerable.Repeat(Item.Foolish_Item, 64));
                     break;
                 }
 
-                case "Nightmare": // All junk items are Foolish Items
+                case TrapFrequency.Nightmare: // All junk items are Foolish Items
                 {
                     this.JunkItems.Add(Item.Foolish_Item);
                     break;

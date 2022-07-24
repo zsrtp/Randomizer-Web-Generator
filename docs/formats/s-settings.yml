@@ -320,8 +320,8 @@ enums:
     3:
       name: mayhem
       description: >
-        A large number of trap items are added to the game.
+        All junk items outside of the item pool are trap items.
     4:
       name: nightmare
       description: >
-        As many traps items as possible are added to the game.
+        All junk items are trap items.
