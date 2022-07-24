@@ -198,6 +198,7 @@ enums:
       description: >
         The requirements to access Hyrule Castle are unchanged from the vanilla
         game.
+
   palaceRequirements:
     0:
       name: open
@@ -247,7 +248,7 @@ enums:
       description: >
         Small keys appear in random locations within any dungeon.
     3:
-      name: keysanity
+      name: anywhere
       description: >
         Small keys can appear in any randomized location.
     4:
@@ -271,7 +272,7 @@ enums:
       description: >
         Big keys appear in random locations within any dungeon.
     3:
-      name: keysanity
+      name: anywhere
       description: >
         Big keys can appear in any randomized location.
     4:
