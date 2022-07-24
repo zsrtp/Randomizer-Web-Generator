@@ -314,8 +314,8 @@ namespace TPRandomizer
                 part2Settings.Add("faronWoodsLogic", RandoSetting.faronWoodsLogic);
             if (RandoSetting.smallKeySettings == SmallKeySettings.Keysey)
                 part2Settings.Add("smallKeySettings", RandoSetting.smallKeySettings);
-            if (RandoSetting.bossKeySettings == "Keysey")
-                part2Settings.Add("bossKeySettings", RandoSetting.bossKeySettings);
+            if (RandoSetting.bigKeySettings == BigKeySettings.Keysey)
+                part2Settings.Add("bossKeySettings", RandoSetting.bigKeySettings);
             if (RandoSetting.mapAndCompassSettings == "Start_With")
                 part2Settings.Add("mapAndCompassSettings", RandoSetting.mapAndCompassSettings);
 

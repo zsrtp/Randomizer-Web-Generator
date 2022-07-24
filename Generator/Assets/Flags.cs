@@ -554,7 +554,7 @@ namespace TPRandomizer.Assets
             /* 5 */RandomizerSettings.faronWoodsLogic == FaronWoodsLogic.Open,
             /* 6 */RandomizerSettings.mdhSkipped,
             /* 7 */RandomizerSettings.smallKeySettings == SmallKeySettings.Keysey,
-            /* 8 */RandomizerSettings.bossKeySettings == "Keysey",
+            /* 8 */RandomizerSettings.bigKeySettings == BigKeySettings.Keysey,
             /* 9 */RandomizerSettings.mapAndCompassSettings == "Start_With",
             /* 10 */RandomizerSettings.castleRequirements == CastleRequirements.Open,
             /* 11 */RandomizerSettings.palaceRequirements == PalaceRequirements.Open,

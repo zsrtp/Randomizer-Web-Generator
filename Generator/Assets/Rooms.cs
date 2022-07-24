@@ -90,14 +90,14 @@ namespace TPRandomizer
             }
             else if (Randomizer.Items.DungeonBigKeys.Contains(itemToPlace))
             {
-                if (parseSetting.bossKeySettings == "Own_Dungeon")
+                if (parseSetting.bigKeySettings == BigKeySettings.OwnDungeon)
                 {
                     if (itemName.Contains(currentRoom.Region))
                     {
                         return true;
                     }
                 }
-                else if (parseSetting.bossKeySettings == "Any_Dungeon")
+                else if (parseSetting.bigKeySettings == BigKeySettings.AnyDungeon)
                 {
                     if (currentCheck.category.Contains("Dungeon"))
                     {

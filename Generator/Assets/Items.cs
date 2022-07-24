@@ -712,14 +712,14 @@ namespace TPRandomizer
 
             // Check Big Key Settings before adding them to the pool
             if (
-                (parseSetting.bossKeySettings == "Own_Dungeon")
-                || (parseSetting.bossKeySettings == "Any_Dungeon")
+                (parseSetting.bigKeySettings == BigKeySettings.OwnDungeon)
+                || (parseSetting.bigKeySettings == BigKeySettings.AnyDungeon)
             )
             {
                 this.RandomizedDungeonRegionItems.AddRange(this.DungeonBigKeys);
                 Randomizer.Items.BaseItemPool.AddRange(this.DungeonBigKeys);
             }
-            else if (parseSetting.bossKeySettings == "Keysanity")
+            else if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
             {
                 this.RandomizedImportantItems.AddRange(this.DungeonBigKeys);
             }

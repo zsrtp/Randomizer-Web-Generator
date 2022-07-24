@@ -319,7 +319,7 @@ namespace TPRandomizer
                     }
 
                     if (
-                        (parseSetting.bossKeySettings == "Vanilla")
+                        (parseSetting.bigKeySettings == BigKeySettings.Vanilla)
                         && currentCheck.category.Contains("Big Key")
                     )
                     {
@@ -347,7 +347,7 @@ namespace TPRandomizer
                                     && currentCheck.category.Contains("Small Key")
                                 )
                                 || (
-                                    (parseSetting.bossKeySettings == "Keysey")
+                                    (parseSetting.bigKeySettings == BigKeySettings.Keysey)
                                     && currentCheck.category.Contains("Big Key")
                                 )
                                 || (
