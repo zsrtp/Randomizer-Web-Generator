@@ -1,19 +1,20 @@
 namespace TPRandomizer
 {
-    using System;
-    using System.Collections.Generic;
     using TPRandomizer.Util;
+    using TPRandomizer.FcSettings.Enums;
 
     public class FileCreationSettings
     {
         public string gameRegion { get; }
         public byte seedNumber { get; }
-        public Options.RandomizeBgm randomizeBgm { get; }
+        public RandomizeBgm randomizeBgm { get; }
         public bool randomizeFanfares { get; }
         public bool disableEnemyBgm { get; }
-        public int tunicColor { get; }
-        public int lanternColor { get; }
-        public int midnaHairColor { get; }
+
+        // public int tunicColor { get; }
+        public int lanternGlowColor { get; }
+
+        // public int midnaHairColor { get; }
         public int heartColor { get; }
         public int aBtnColor { get; }
         public int bBtnColor { get; }
@@ -26,15 +27,15 @@ namespace TPRandomizer
             BitsProcessor processor = new BitsProcessor(bits);
 
             gameRegion = processor.NextString(Options.gameRegion, 3);
-            seedNumber = processor.NextNibble();
+            seedNumber = (byte)processor.NextInt(4);
 
-            randomizeBgm = (Options.RandomizeBgm)processor.NextInt(2);
+            randomizeBgm = (RandomizeBgm)processor.NextInt(2);
             randomizeFanfares = processor.NextBool();
             disableEnemyBgm = processor.NextBool();
 
-            tunicColor = processor.NextInt(4);
-            lanternColor = processor.NextInt(4);
-            midnaHairColor = processor.NextInt(1);
+            // tunicColor = processor.NextInt(4);
+            lanternGlowColor = processor.NextInt(4);
+            // midnaHairColor = processor.NextInt(1);
             heartColor = processor.NextInt(4);
             aBtnColor = processor.NextInt(4);
             bBtnColor = processor.NextInt(3);
@@ -52,14 +53,6 @@ namespace TPRandomizer
         public class Options
         {
             public static readonly string[] gameRegion = new string[] { "NTSC", "PAL", "JAP" };
-
-            public enum RandomizeBgm
-            {
-                Vanilla = 0,
-                Overworld = 1,
-                Dungeon = 2,
-                All = 3,
-            }
         }
     }
 }

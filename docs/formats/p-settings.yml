@@ -1,0 +1,161 @@
+# p-settings
+version: 0
+fields:
+  - name: lanternGlowColor
+    description: Color of the Lantern's glow.
+    type: enum
+    bitLength: 4
+
+  - name: heartColor
+    description: Color of the hearts in the top left corner.
+    type: enum
+    bitLength: 4
+
+  - name: aBtnColor
+    description: Color of the A button in the top right corner.
+    type: enum
+    bitLength: 4
+
+  - name: bBtnColor
+    description: Color of the B button in the top right corner.
+    type: enum
+    bitLength: 3
+
+  - name: xBtnColor
+    description: Color of the X button in the top right corner.
+    type: enum
+    bitLength: 4
+
+  - name: yBtnColor
+    description: Color of the Y button in the top right corner.
+    type: enum
+    bitLength: 4
+
+  - name: zBtnColor
+    description: Color of the Z button in the top right corner.
+    type: enum
+    bitLength: 4
+
+  - name: randomizeBgm
+    description: Specifies how background music should be randomized.
+    type: enum
+    bitLength: 2
+
+  - name: randomizeFanfares
+    description: If true, fanfares will be shuffled.
+    type: boolean
+
+  - name: disableEnemyBgm
+    description: >
+      If true, the music that plays when you are near enemies will not play.
+    type: boolean
+
+enums:
+  lanternGlowColor:
+    0: default
+    1: red
+    2: orange
+    3: yellow
+    4: green
+    5: blue
+    6: purple
+    7: white
+    8: cyan
+
+  heartColor:
+    0: default
+    1: pink
+    2: orange
+    3: green
+    4: teal
+    5: blue
+    6: purple
+    7: black
+    8:
+      name: rainbow
+      description: >
+        Each heart color is different from the previous one such that the heart
+        colors create a rainbow.
+
+  aBtnColor:
+    0: default
+    1: red
+    2: orange
+    3: yellow
+    4: darkGreen
+    5: blue
+    6: purple
+    7: black
+    8: gray
+    9: pink
+
+  bBtnColor:
+    0: default
+    1: orange
+    2: pink
+    3: green
+    4: blue
+    5: purple
+    6: black
+    7: teal
+
+  xBtnColor:
+    0: default
+    1: orange
+    2: pink
+    3: green
+    4: blue
+    5: purple
+    6: black
+    7: teal
+
+  xBtnColor:
+    0: default
+    1: red
+    2: orange
+    3: yellow
+    4: limeGreen
+    5: darkGreen
+    6: blue
+    7: purple
+    8: black
+    9: pink
+    10: cyan
+
+  yBtnColor:
+    0: default
+    1: red
+    2: orange
+    3: yellow
+    4: limeGreen
+    5: darkGreen
+    6: blue
+    7: purple
+    8: black
+    9: pink
+    10: cyan
+
+  zBtnColor:
+    0: default
+    1: red
+    2: orange
+    3: yellow
+    4: limeGreen
+    5: darkGreen
+    6: purple
+    7: black
+    8: lightBlue
+
+  randomizeBgm:
+    0:
+      name: "off"
+      description: Background music is not randomized.
+    1:
+      name: overworld
+      description: Overworld background music is randomized.
+    2:
+      name: dungeon
+      description: Dungeon background music is randomized.
+    3:
+      name: all
+      description: Overworld and dungeon background music is randomized.

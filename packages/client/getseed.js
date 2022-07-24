@@ -341,9 +341,9 @@
       { id: 'randomizeFanfaresCheckbox' },
       { id: 'disableEnemyBGMCheckbox' },
 
-      { id: 'tunicColorFieldset', bitLength: 4 },
+      // { id: 'tunicColorFieldset', bitLength: 4 },
       { id: 'lanternColorFieldset', bitLength: 4 },
-      { id: 'midnaHairColorFieldset', bitLength: 1 },
+      // { id: 'midnaHairColorFieldset', bitLength: 1 },
       { id: 'heartColorFieldset', bitLength: 4 },
       { id: 'aButtonColorFieldset', bitLength: 4 },
       { id: 'bButtonColorFieldset', bitLength: 3 },

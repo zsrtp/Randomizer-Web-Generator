@@ -336,9 +336,9 @@ document
 document
   .getElementById('disableEnemyBGMCheckbox')
   .addEventListener('click', setSettingsString);
-document.getElementById('tunicColorFieldset').onchange = setSettingsString;
+// document.getElementById('tunicColorFieldset').onchange = setSettingsString;
 document.getElementById('lanternColorFieldset').onchange = setSettingsString;
-document.getElementById('midnaHairColorFieldset').onchange = setSettingsString;
+// document.getElementById('midnaHairColorFieldset').onchange = setSettingsString;
 document.getElementById('heartColorFieldset').onchange = setSettingsString;
 document.getElementById('aButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('bButtonColorFieldset').onchange = setSettingsString;
@@ -450,11 +450,11 @@ function setSettingsString() {
       options.push(listItem[i].getAttribute('data-checkId'));
   }
   settingsStringRaw[22] = options;
-  settingsStringRaw[23] =
-    document.getElementById('tunicColorFieldset').selectedIndex;
-  settingsStringRaw[24] = document.getElementById(
-    'midnaHairColorFieldset'
-  ).selectedIndex;
+  // settingsStringRaw[23] =
+  //   document.getElementById('tunicColorFieldset').selectedIndex;
+  // settingsStringRaw[24] = document.getElementById(
+  //   'midnaHairColorFieldset'
+  // ).selectedIndex;
   settingsStringRaw[25] = document.getElementById(
     'lanternColorFieldset'
   ).selectedIndex;
@@ -525,7 +525,7 @@ function setSettingsString() {
 
   document.getElementById('combinedSettingsString').textContent =
     // sSettingsString + pSettingsString;
-    sSettingsString + window.tpr.shared.genUSettingsFromUi();
+    sSettingsString + window.tpr.shared.genPSettingsFromUi();
 
   // document.getElementById('newSettingsDisplay').value = genSettingsString();
   // document.getElementById('newSettingsDisplay').textContent = sSettingsString;
@@ -535,7 +535,7 @@ function setSettingsString() {
   //   pSettingsString || '<empty>';
 
   // document.getElementById('uSettingsString').value =
-  //   window.tpr.shared.genUSettingsFromUi();
+  //   window.tpr.shared.genPSettingsFromUi();
 }
 
 function getSettingsString(settingsStringRaw) {
@@ -885,7 +885,7 @@ function doGenerateCall(isRaceSeed) {
   showGeneratingModal();
 
   const settingsString =
-    genSettingsString() + window.tpr.shared.genUSettingsFromUi();
+    genSettingsString() + window.tpr.shared.genPSettingsFromUi();
 
   let requesterHash = undefined;
 

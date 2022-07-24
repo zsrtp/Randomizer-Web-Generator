@@ -5,6 +5,7 @@ namespace TPRandomizer.Assets
     using System.Linq;
     using Newtonsoft.Json;
     using System.IO;
+    using TPRandomizer.FcSettings.Enums;
 
     /// <summary>
     /// summary text.
@@ -41,42 +42,33 @@ namespace TPRandomizer.Assets
             List<byte> data = new();
             List<bgmData> replacementPool = new();
             List<bgmReplacement> bgmReplacementArray = new();
-            if (
-                seedData.fcSettings.randomizeBgm
-                == FileCreationSettings.Options.RandomizeBgm.Vanilla
-            )
+            if (seedData.fcSettings.randomizeBgm == RandomizeBgm.Off)
             {
                 return data;
             }
             Dictionary<string, bgmData> dataList = JsonConvert.DeserializeObject<
                 Dictionary<string, bgmData>
             >(File.ReadAllText(Global.CombineRootPath("./Assets/Sound/BackgroundMusic.json")));
-            if (
-                seedData.fcSettings.randomizeBgm
-                != FileCreationSettings.Options.RandomizeBgm.Vanilla
-            )
+            if (seedData.fcSettings.randomizeBgm != RandomizeBgm.Off)
             {
                 foreach (KeyValuePair<string, bgmData> currentData in dataList)
                 {
                     if (
-                        seedData.fcSettings.randomizeBgm
-                            == FileCreationSettings.Options.RandomizeBgm.Overworld
+                        seedData.fcSettings.randomizeBgm == RandomizeBgm.Overworld
                         && currentData.Value.sceneBgm == true
                     )
                     {
                         replacementPool.Add(currentData.Value);
                     }
                     if (
-                        seedData.fcSettings.randomizeBgm
-                            == FileCreationSettings.Options.RandomizeBgm.Dungeon
+                        seedData.fcSettings.randomizeBgm == RandomizeBgm.Dungeon
                         && currentData.Value.dungeonBgm == true
                     )
                     {
                         replacementPool.Add(currentData.Value);
                     }
                     if (
-                        seedData.fcSettings.randomizeBgm
-                            == FileCreationSettings.Options.RandomizeBgm.All
+                        seedData.fcSettings.randomizeBgm == RandomizeBgm.All
                         && (
                             currentData.Value.sceneBgm == true
                             || currentData.Value.bossBgm == true

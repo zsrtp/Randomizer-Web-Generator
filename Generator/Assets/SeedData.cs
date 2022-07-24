@@ -198,7 +198,7 @@ namespace TPRandomizer.Assets
             seedHeader.Add(Converter.GcByte(fcSettings.xBtnColor));
             seedHeader.Add(Converter.GcByte(fcSettings.yBtnColor));
             seedHeader.Add(Converter.GcByte(fcSettings.zBtnColor));
-            seedHeader.Add(Converter.GcByte(fcSettings.lanternColor));
+            seedHeader.Add(Converter.GcByte(fcSettings.lanternGlowColor));
             seedHeader.Add(Converter.GcByte(randomizerSettings.transformAnywhere ? 1 : 0));
             seedHeader.Add(Converter.GcByte(randomizerSettings.quickTransform ? 1 : 0));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirements));

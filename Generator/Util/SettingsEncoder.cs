@@ -55,14 +55,16 @@ namespace TPRandomizer.Util
 
         public static string EncodeAsVlq16(UInt16 num)
         {
-            if (num < 2) {
+            if (num < 2)
+            {
                 return "0000" + num;
             }
 
             int bitsNeeded = GetVlq16BitLength(num) - 4;
 
             return (
-                Convert.ToString(bitsNeeded, 2).PadLeft(4, '0') + Convert.ToString(num, 2).Substring(1)
+                Convert.ToString(bitsNeeded, 2).PadLeft(4, '0')
+                + Convert.ToString(num, 2).Substring(1)
             );
         }
 
@@ -70,7 +72,8 @@ namespace TPRandomizer.Util
         {
             byte bitsToRead = Convert.ToByte(bits.Substring(0, 4), 2);
 
-            if (bitsToRead == 0) {
+            if (bitsToRead == 0)
+            {
                 return Convert.ToUInt16(bits.Substring(4, 1), 2);
             }
 
@@ -79,10 +82,7 @@ namespace TPRandomizer.Util
                 throw new Exception("Not enough bits to decode vlq16.");
             }
 
-            return (UInt16)(
-                (1 << bitsToRead) +
-                Convert.ToUInt16(bits.Substring(4, bitsToRead), 2)
-            );
+            return (UInt16)((1 << bitsToRead) + Convert.ToUInt16(bits.Substring(4, bitsToRead), 2));
         }
 
         public static byte GetVlq16BitLength(UInt16 num)
@@ -93,9 +93,11 @@ namespace TPRandomizer.Util
             }
 
             int bitsNeeded = 1;
-            for (int i = 2; i <= 16; i++) {
+            for (int i = 2; i <= 16; i++)
+            {
                 int oneOverMax = 1 << i;
-                if (num < oneOverMax) {
+                if (num < oneOverMax)
+                {
                     bitsNeeded = i - 1;
                     break;
                 }
@@ -151,23 +153,6 @@ namespace TPRandomizer.Util
             string result = arr[Convert.ToInt32(bits.Substring(currentIndex, bitLength), 2)];
 
             currentIndex += bitLength;
-            if (currentIndex >= bits.Length)
-                done = true;
-
-            return result;
-        }
-
-        public byte NextNibble()
-        {
-            int len = 4;
-            if (done || bits.Length < currentIndex + len)
-            {
-                throw new Exception("Not enough bits remaining");
-            }
-
-            byte result = Convert.ToByte(bits.Substring(currentIndex, len), 2);
-
-            currentIndex += len;
             if (currentIndex >= bits.Length)
                 done = true;
 

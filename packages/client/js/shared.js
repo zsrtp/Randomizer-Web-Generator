@@ -388,10 +388,6 @@
     return encodeSettings(0, 's', values);
   }
 
-  function genPSettingsFromUi() {
-    return genUSettingsFromUi();
-  }
-
   const MidnaColorOptions = {
     default: 0,
     preset: 1,
@@ -441,11 +437,11 @@
     };
   }
 
-  function genUSettingsFromUi(returnEvenIfEmpty) {
+  function genPSettingsFromUi(returnEvenIfEmpty) {
     const values = [
-      { id: 'tunicColorFieldset', bitLength: 4 },
+      // { id: 'tunicColorFieldset', bitLength: 4 },
       { id: 'lanternColorFieldset', bitLength: 4 },
-      { id: 'midnaHairColorFieldset', bitLength: 1 },
+      // { id: 'midnaHairColorFieldset', bitLength: 1 },
       { id: 'heartColorFieldset', bitLength: 4 },
       { id: 'aButtonColorFieldset', bitLength: 4 },
       { id: 'bButtonColorFieldset', bitLength: 3 },
@@ -773,9 +769,9 @@
     // return res;
 
     const a = [
-      { id: 'tunicColor', type: 'number', bitLength: 4 },
+      // { id: 'tunicColor', type: 'number', bitLength: 4 },
       { id: 'lanternColor', type: 'number', bitLength: 4 },
-      { id: 'midnaHairColor', type: 'number', bitLength: 1 },
+      // { id: 'midnaHairColor', type: 'number', bitLength: 1 },
       { id: 'heartColor', type: 'number', bitLength: 4 },
       { id: 'aBtnColor', type: 'number', bitLength: 4 },
       { id: 'bBtnColor', type: 'number', bitLength: 3 },
@@ -828,9 +824,9 @@
       return;
     }
 
-    $('#tunicColorFieldset').val(p.tunicColor);
+    // $('#tunicColorFieldset').val(p.tunicColor);
     $('#lanternColorFieldset').val(p.lanternColor);
-    $('#midnaHairColorFieldset').val(p.midnaHairColor);
+    // $('#midnaHairColorFieldset').val(p.midnaHairColor);
     $('#heartColorFieldset').val(p.heartColor);
     $('#aButtonColorFieldset').val(p.aBtnColor);
     $('#bButtonColorFieldset').val(p.bBtnColor);
@@ -906,7 +902,6 @@
   window.tpr = window.tpr || {};
   window.tpr.shared = {
     genSSettingsFromUi,
-    genUSettingsFromUi,
     genPSettingsFromUi,
     decodeSettingsString,
     populateUiFromPSettings,
