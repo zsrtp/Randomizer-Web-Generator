@@ -7,7 +7,7 @@ namespace TPRandomizer
     using System.Linq;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
-    using TPRandomizer.Util;
+    using TPRandomizer.SSettings.Enums;
     using System.Reflection;
     using Assets;
 
@@ -937,7 +937,7 @@ namespace TPRandomizer
 
             for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
             {
-                if (Randomizer.RandoSetting.logicRules == "Glitchless")
+                if (Randomizer.RandoSetting.logicRules == LogicRules.Glitchless)
                 {
                     listOfRequiredDungeons[i].requirementChecks = listOfAffectedChecks[i];
                 }

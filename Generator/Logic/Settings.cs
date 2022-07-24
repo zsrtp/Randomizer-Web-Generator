@@ -1,8 +1,7 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using TPRandomizer.Util;
+using TPRandomizer.SSettings.Enums;
 
 namespace TPRandomizer
 {
@@ -11,68 +10,7 @@ namespace TPRandomizer
     /// </summary>
     public class RandomizerSetting
     {
-        public RandomizerSetting() { }
-
-        public RandomizerSetting(string bits)
-        {
-            BitsProcessor processor = new BitsProcessor(bits);
-
-            logicRules = processor.NextString(SettingData.logicRules, 2);
-            castleRequirements = processor.NextString(SettingData.castleRequirements, 3);
-            palaceRequirements = processor.NextString(SettingData.palaceRequirements, 2);
-            faronWoodsLogic = processor.NextString(SettingData.faronWoodsLogic, 1);
-            goldenBugsShuffled = processor.NextBool();
-            shuffleSkyCharacters = processor.NextBool();
-            npcItemsShuffled = processor.NextBool();
-            poesShuffled = processor.NextBool();
-            shopItemsShuffled = processor.NextBool();
-            shuffleHiddenSkills = processor.NextBool();
-            smallKeySettings = processor.NextString(SettingData.smallKeySettings, 3);
-            bossKeySettings = processor.NextString(SettingData.bossKeySettings, 3);
-            mapAndCompassSettings = processor.NextString(SettingData.mapAndCompassSettings, 3);
-            prologueSkipped = processor.NextBool();
-            faronTwilightCleared = processor.NextBool();
-            eldinTwilightCleared = processor.NextBool();
-            lanayruTwilightCleared = processor.NextBool();
-            mdhSkipped = processor.NextBool();
-            skipMinorCutscenes = processor.NextBool();
-            fastIronBoots = processor.NextBool();
-            quickTransform = processor.NextBool();
-            transformAnywhere = processor.NextBool();
-            increaseWallet = processor.NextBool();
-            modifyShopModels = processor.NextBool();
-            iceTrapSettings = processor.NextString(SettingData.iceTrapSettings, 3);
-            barrenDungeons = processor.NextBool();
-            skipMinesEntrance = processor.NextBool();
-            skipLakebedEntrance = processor.NextBool();
-            skipArbitersEntrance = processor.NextBool();
-            skipSnowpeakEntrance = processor.NextBool();
-            skipToTEntrance = processor.NextBool();
-            skipCityEntrance = processor.NextBool();
-            StartingItems = processor.NextItemList();
-            ExcludedChecks = processor.NextExcludedChecksList();
-
-            // int TunicColor;
-            // int MidnaHairColor;
-            // int lanternColor;
-            // int heartColor;
-            // int aButtonColor;
-            // int bButtonColor;
-            // int xButtonColor;
-            // int yButtonColor;
-            // int zButtonColor;
-            // bool shuffleBackgroundMusic;
-            // bool shuffleItemFanfares;
-            // bool disableEnemyBackgoundMusic;
-            // string gameRegion;
-            // bool shuffleHiddenSkills;
-            // bool shuffleSkyCharacters;
-            // int seedNumber;
-            // bool increaseWallet;
-            // bool modifyShopModels;
-        }
-
-        public string logicRules { get; set; }
+        public LogicRules logicRules { get; set; }
         public string castleRequirements { get; set; }
         public string palaceRequirements { get; set; }
         public string faronWoodsLogic { get; set; }
@@ -106,6 +44,48 @@ namespace TPRandomizer
         public bool skipSnowpeakEntrance { get; set; }
         public bool skipToTEntrance { get; set; }
         public bool skipCityEntrance { get; set; }
+
+        public RandomizerSetting() { }
+
+        private RandomizerSetting(string bits)
+        {
+            BitsProcessor processor = new BitsProcessor(bits);
+
+            logicRules = (LogicRules)processor.NextInt(2);
+            castleRequirements = processor.NextString(SettingData.castleRequirements, 3);
+            palaceRequirements = processor.NextString(SettingData.palaceRequirements, 2);
+            faronWoodsLogic = processor.NextString(SettingData.faronWoodsLogic, 1);
+            goldenBugsShuffled = processor.NextBool();
+            shuffleSkyCharacters = processor.NextBool();
+            npcItemsShuffled = processor.NextBool();
+            poesShuffled = processor.NextBool();
+            shopItemsShuffled = processor.NextBool();
+            shuffleHiddenSkills = processor.NextBool();
+            smallKeySettings = processor.NextString(SettingData.smallKeySettings, 3);
+            bossKeySettings = processor.NextString(SettingData.bossKeySettings, 3);
+            mapAndCompassSettings = processor.NextString(SettingData.mapAndCompassSettings, 3);
+            prologueSkipped = processor.NextBool();
+            faronTwilightCleared = processor.NextBool();
+            eldinTwilightCleared = processor.NextBool();
+            lanayruTwilightCleared = processor.NextBool();
+            mdhSkipped = processor.NextBool();
+            skipMinorCutscenes = processor.NextBool();
+            fastIronBoots = processor.NextBool();
+            quickTransform = processor.NextBool();
+            transformAnywhere = processor.NextBool();
+            increaseWallet = processor.NextBool();
+            modifyShopModels = processor.NextBool();
+            iceTrapSettings = processor.NextString(SettingData.iceTrapSettings, 3);
+            barrenDungeons = processor.NextBool();
+            skipMinesEntrance = processor.NextBool();
+            skipLakebedEntrance = processor.NextBool();
+            skipArbitersEntrance = processor.NextBool();
+            skipSnowpeakEntrance = processor.NextBool();
+            skipToTEntrance = processor.NextBool();
+            skipCityEntrance = processor.NextBool();
+            StartingItems = processor.NextItemList();
+            ExcludedChecks = processor.NextExcludedChecksList();
+        }
 
         public static RandomizerSetting FromString(string settingsString)
         {
@@ -143,9 +123,6 @@ namespace TPRandomizer
 
     public class SettingData
     {
-        public static string[] logicRules { get; set; } =
-            new string[] { "Glitchless", "Glitched", "No_Logic" };
-
         public static string[] castleRequirements { get; set; } =
             new string[] { "Open", "Fused_Shadows", "Mirror_Shards", "All_Dungeons", "Vanilla", };
 
