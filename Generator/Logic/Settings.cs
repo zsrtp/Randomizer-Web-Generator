@@ -12,7 +12,7 @@ namespace TPRandomizer
     {
         public LogicRules logicRules { get; set; }
         public CastleRequirements castleRequirements { get; set; }
-        public string palaceRequirements { get; set; }
+        public PalaceRequirements palaceRequirements { get; set; }
         public string faronWoodsLogic { get; set; }
         public bool mdhSkipped { get; set; }
         public bool prologueSkipped { get; set; }
@@ -53,7 +53,7 @@ namespace TPRandomizer
 
             logicRules = (LogicRules)processor.NextInt(2);
             castleRequirements = (CastleRequirements)processor.NextInt(3);
-            palaceRequirements = processor.NextString(SettingData.palaceRequirements, 2);
+            palaceRequirements = (PalaceRequirements)processor.NextInt(2);
             faronWoodsLogic = processor.NextString(SettingData.faronWoodsLogic, 1);
             goldenBugsShuffled = processor.NextBool();
             shuffleSkyCharacters = processor.NextBool();
@@ -123,9 +123,6 @@ namespace TPRandomizer
 
     public class SettingData
     {
-        public static string[] palaceRequirements { get; set; } =
-            new string[] { "Open", "Fused_Shadows", "Mirror_Shards", "Vanilla" };
-
         public static string[] faronWoodsLogic { get; set; } = new string[] { "Open", "Closed" };
 
         public bool mdhSkipped { get; set; }

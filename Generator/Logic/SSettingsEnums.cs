@@ -15,4 +15,12 @@ namespace TPRandomizer.SSettings.Enums
         AllDungeons = 3,
         Vanilla = 4,
     }
+
+    public enum PalaceRequirements
+    {
+        Open = 0,
+        FusedShadows = 1,
+        MirrorShards = 2,
+        Vanilla = 3
+    }
 }

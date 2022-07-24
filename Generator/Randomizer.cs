@@ -299,7 +299,7 @@ namespace TPRandomizer
             // Multi-option fields which are only included for certain values
             if (RandoSetting.castleRequirements != CastleRequirements.Vanilla)
                 part2Settings.Add("castleRequirements", RandoSetting.castleRequirements);
-            if (RandoSetting.palaceRequirements != "Vanilla")
+            if (RandoSetting.palaceRequirements != PalaceRequirements.Vanilla)
                 part2Settings.Add("palaceRequirements", RandoSetting.palaceRequirements);
             // TODO: Change this one to a boolean called "faronWoodsOpen"
             if (RandoSetting.faronWoodsLogic == "Open")
@@ -975,7 +975,7 @@ namespace TPRandomizer
                 // If Palace is required then Arbiters is automatically required.
                 listOfRequiredDungeons[arbiters].isRequired = true;
                 listOfRequiredDungeons[palace].isRequired = true;
-                if (Randomizer.RandoSetting.palaceRequirements == "Fused_Shadows")
+                if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.FusedShadows)
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                     {
@@ -988,7 +988,9 @@ namespace TPRandomizer
                         }
                     }
                 }
-                else if (Randomizer.RandoSetting.palaceRequirements == "Mirror_Shards")
+                else if (
+                    Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.MirrorShards
+                )
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                     {
@@ -1001,7 +1003,7 @@ namespace TPRandomizer
                         }
                     }
                 }
-                else if (Randomizer.RandoSetting.palaceRequirements == "Vanilla")
+                else if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Vanilla)
                 {
                     listOfRequiredDungeons[city].isRequired = true;
                 }
@@ -1019,7 +1021,7 @@ namespace TPRandomizer
                 // If Palace is required then Arbiters is automatically required.
                 listOfRequiredDungeons[arbiters].isRequired = true;
                 listOfRequiredDungeons[palace].isRequired = true;
-                if (Randomizer.RandoSetting.palaceRequirements == "Fused_Shadows")
+                if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.FusedShadows)
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                     {
@@ -1032,7 +1034,9 @@ namespace TPRandomizer
                         }
                     }
                 }
-                else if (Randomizer.RandoSetting.palaceRequirements == "Mirror_Shards")
+                else if (
+                    Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.MirrorShards
+                )
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                     {
@@ -1045,7 +1049,7 @@ namespace TPRandomizer
                         }
                     }
                 }
-                else if (Randomizer.RandoSetting.palaceRequirements == "Vanilla")
+                else if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Vanilla)
                 {
                     listOfRequiredDungeons[city].isRequired = true;
                 }

@@ -557,7 +557,7 @@ namespace TPRandomizer.Assets
             /* 8 */RandomizerSettings.bossKeySettings == "Keysey",
             /* 9 */RandomizerSettings.mapAndCompassSettings == "Start_With",
             /* 10 */RandomizerSettings.castleRequirements == CastleRequirements.Open,
-            /* 11 */RandomizerSettings.palaceRequirements == "Open",
+            /* 11 */RandomizerSettings.palaceRequirements == PalaceRequirements.Open,
             /* 12 */RandomizerSettings.skipMinesEntrance,
             /* 13 */RandomizerSettings.skipLakebedEntrance,
             /* 14 */RandomizerSettings.skipArbitersEntrance,
