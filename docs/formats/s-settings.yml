@@ -1,164 +1,149 @@
-sSettings:
-  version: 0
-  fields:
-    - name: logicRules
-      description: >
-        Specifies which complexity of edge traversal is
-        used when placing items during randomization. Ex: glitchless.
-      type: enum
-      bitLength: 2
+# s-settings
+version: 0
+fields:
+  - name: logicRules
+    description: >
+      Specifies which complexity of edge traversal is used when placing items
+      during randomization. Ex: glitchless.
+    type: enum
+    bitLength: 2
 
-    - name: castleRequirements
-      description: >
-        Requirements to enter Hyrule Castle.
-      type: enum
-      bitLength: 3
+  - name: castleRequirements
+    description: Requirements to enter Hyrule Castle.
+    type: enum
+    bitLength: 3
 
-    - name: palaceRequirements
-      description: >
-        Requirements to enter Palace of Twilight
-      type: enum
-      bitLength: 2
+  - name: palaceRequirements
+    description: Requirements to enter Palace of Twilight
+    type: enum
+    bitLength: 2
 
-    - name: faronWoodsLogic
-      description: >
-        Specifies whether or not the player can freely move through Faron Woods
-        immediately or if they must earn that ability through gameplay.
-      type: enum
-      bitLength: 1
+  - name: faronWoodsLogic
+    description: >
+      Specifies whether or not the player can freely move through Faron Woods
+      immediately or if they must earn that ability through gameplay.
+    type: enum
+    bitLength: 1
 
-    - name: shuffleGoldenBugs
-      description: >
-        Adds golden bugs to the item pool, and places random items in golden bug
-        locations.
-      type: boolean
+  - name: shuffleGoldenBugs
+    description: >
+      Adds golden bugs to the item pool, and places random items in golden bug
+      locations.
+    type: boolean
 
-    - name: shuffleSkyCharacters
-      description: >
-        Adds sky characters to the item pool, and places random items in sky
-        character locations.
-      type: boolean
+  - name: shuffleSkyCharacters
+    description: >
+      Adds sky characters to the item pool, and places random items in sky
+      character locations.
+    type: boolean
 
-    - name: shuffleNpcItems
-      description: >
-        Adds NPC items to the item pool, and places random items in NPC item
-        locations.
-      type: boolean
+  - name: shuffleNpcItems
+    description: >
+      Adds NPC items to the item pool, and places random items in NPC item
+      locations.
+    type: boolean
 
-    - name: shufflePoes
-      description: >
-        Adds poes to the item pool, and places random items in poe locations.
-      type: boolean
+  - name: shufflePoes
+    description: >
+      Adds poes to the item pool, and places random items in poe locations.
+    type: boolean
 
-    - name: shuffleShopItems
-      description: >
-        Adds shop items to the item pool, and places random items in shop item
-        locations.
-      type: boolean
+  - name: shuffleShopItems
+    description: >
+      Adds shop items to the item pool, and places random items in shop item
+      locations.
+    type: boolean
 
-    - name: shuffleHiddenSkills
-      description: >
-        Adds hidden skills to the item pool, and places random items in hidden
-        skill locations.
-      type: boolean
+  - name: shuffleHiddenSkills
+    description: >
+      Adds hidden skills to the item pool, and places random items in hidden
+      skill locations.
+    type: boolean
 
-    - name: smallKeySettings
-      description: >
-        Specifies how small keys should be handled.
-      type: enum
-      bitLength: 3
+  - name: smallKeySettings
+    description: Specifies how small keys should be handled.
+    type: enum
+    bitLength: 3
 
-    - name: bigKeySettings
-      description: >
-        Specifies how big keys should be handled.
-      type: enum
-      bitLength: 3
+  - name: bigKeySettings
+    description: Specifies how big keys should be handled.
+    type: enum
+    bitLength: 3
 
-    - name: mapAndCompassSettings
-      description: >
-        Specifies how maps and compasses should be handled.
-      type: enum
-      bitLength: 3
+  - name: mapAndCompassSettings
+    description: Specifies how maps and compasses should be handled.
+    type: enum
+    bitLength: 3
 
-    - name: skipPrologue
-      description: >
-        If true, skips the beginning part of the vanilla game.
-      type: boolean
+  - name: skipPrologue
+    description: If true, skips the beginning part of the vanilla game.
+    type: boolean
 
-    - name: faronTwilightCleared
-      description: >
-        If true, Faron Twilight is already cleared.
-      type: boolean
+  - name: faronTwilightCleared
+    description: If true, Faron Twilight is already cleared.
+    type: boolean
 
-    - name: eldinTwilightCleared
-      description: >
-        If true, Eldin Twilight is already cleared.
-      type: boolean
+  - name: eldinTwilightCleared
+    description: If true, Eldin Twilight is already cleared.
+    type: boolean
 
-    - name: lanayruTwilightCleared
-      description: >
-        If true, Lanayru Twilight is already cleared.
-      type: boolean
+  - name: lanayruTwilightCleared
+    description: If true, Lanayru Twilight is already cleared.
+    type: boolean
 
-    - name: skipMdh
-      description: >
-        If true, Midna's Desperate Hour is already cleared.
-      type: boolean
+  - name: skipMdh
+    description: If true, Midna's Desperate Hour is already cleared.
+    type: boolean
 
-    - name: skipMinorCutscenes
-      description: >
-        If true, skips minor cutscenes.
-      type: boolean
+  - name: skipMinorCutscenes
+    description: If true, skips minor cutscenes.
+    type: boolean
 
-    - name: fastIronBoots
-      description: >
-        If true, the player is not slowed by Iron Boots.
-      type: boolean
+  - name: fastIronBoots
+    description: If true, the player is not slowed by Iron Boots.
+    type: boolean
 
-    - name: quickTransform
-      description: >
-        If true, the player can use a controller shortcut to transform between
-        human and wolf form.
-      type: boolean
+  - name: quickTransform
+    description: >
+      If true, the player can use a controller shortcut to transform between
+      human and wolf form.
+    type: boolean
 
-    - name: transformAnywhere
-      description: >
-        If true, the player can transform to and from Wolf Link even if the
-        player would normally not be able to, such as when someone nearby might
-        be watching.
-      type: boolean
+  - name: transformAnywhere
+    description: >
+      If true, the player can transform to and from Wolf Link even if the
+      player would normally not be able to, such as when someone nearby might
+      be watching.
+    type: boolean
 
-    - name: increaseWallet
-      description: >
-        If true, increases the amount of rupees that wallets can hold.
-      type: boolean
+  - name: increaseWallet
+    description: If true, increases the amount of rupees that wallets can hold.
+    type: boolean
 
-    - name: modifyShopModels
-      description: >
-        If true, shop models are updated to match what the player would get when
-        they buy that item.
-      type: boolean
+  - name: modifyShopModels
+    description: >
+      If true, shop models are updated to match what the player would get when
+      they buy that item.
+    type: boolean
 
-    - name: trapFrequency
-      description: >
-        Specifies how many trap items are in the item pool.
-      type: enum
-      bitLength: 3
+  - name: trapFrequency
+    description: Specifies how many trap items are in the item pool.
+    type: enum
+    bitLength: 3
 
-    - name: startingItems
-      description: >
-        Specifies item ids for items which the player will start with. The list
-        may contain duplicate values.
-      type: eolList
-      bitLength: 9
-      endOfListMin: 0x1FF
+  - name: startingItems
+    description: >
+      Specifies item ids for items which the player will start with. The list
+      can contain duplicate values.
+    type: eolList
+    bitLength: 9
+    endOfListMin: 0x1FF
 
-    - name: excludedChecks
-      description: >
-        Specifies check ids for checks which should not be randomized.
-      type: eolList
-      bitLength: 9
-      endOfListMin: 0x1FF
+  - name: excludedChecks
+    description: Specifies check ids for checks which should not be randomized.
+    type: eolList
+    bitLength: 9
+    endOfListMin: 0x1FF
 
 enums:
   logicRules:
@@ -298,31 +283,24 @@ enums:
         Maps and compasses appear in random locations within any dungeon.
     3:
       name: anywhere
-      description: >
-        Maps and compasses can appear in any randomized location.
+      description: Maps and compasses can appear in any randomized location.
     4:
       name: startWith
-      description: >
-        The player automatically starts with all maps and compasses.
+      description: The player automatically starts with all maps and compasses.
 
   trapFrequency:
     0:
       name: none
-      description: >
-        No trap items are added to the game.
+      description: No trap items are added to the game.
     1:
       name: few
-      description: >
-        A few trap items are added to the game.
+      description: A few trap items are added to the game.
     2:
       name: many
-      description: >
-        Many trap items are added to the game.
+      description: Many trap items are added to the game.
     3:
       name: mayhem
-      description: >
-        All junk items outside of the item pool are trap items.
+      description: All junk items outside of the item pool are trap items.
     4:
       name: nightmare
-      description: >
-        All junk items are trap items.
+      description: All junk items are trap items.
