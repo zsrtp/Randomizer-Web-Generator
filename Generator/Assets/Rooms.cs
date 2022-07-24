@@ -107,14 +107,14 @@ namespace TPRandomizer
             }
             else if (Randomizer.Items.DungeonMapsAndCompasses.Contains(itemToPlace))
             {
-                if (parseSetting.mapAndCompassSettings == "Own_Dungeon")
+                if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.OwnDungeon)
                 {
                     if (itemName.Contains(currentRoom.Region))
                     {
                         return true;
                     }
                 }
-                else if (parseSetting.mapAndCompassSettings == "Any_Dungeon")
+                else if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.AnyDungeon)
                 {
                     if (currentCheck.category.Contains("Dungeon"))
                     {

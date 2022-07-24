@@ -316,7 +316,7 @@ namespace TPRandomizer
                 part2Settings.Add("smallKeySettings", RandoSetting.smallKeySettings);
             if (RandoSetting.bigKeySettings == BigKeySettings.Keysey)
                 part2Settings.Add("bossKeySettings", RandoSetting.bigKeySettings);
-            if (RandoSetting.mapAndCompassSettings == "Start_With")
+            if (RandoSetting.mapAndCompassSettings == MapAndCompassSettings.StartWith)
                 part2Settings.Add("mapAndCompassSettings", RandoSetting.mapAndCompassSettings);
 
             // Boolean fields included when true

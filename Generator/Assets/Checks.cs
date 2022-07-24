@@ -327,7 +327,7 @@ namespace TPRandomizer
                     }
 
                     if (
-                        (parseSetting.mapAndCompassSettings == "Vanilla")
+                        (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Vanilla)
                         && (
                             currentCheck.category.Contains("Dungeon Map")
                             || currentCheck.category.Contains("Compass")
@@ -351,7 +351,10 @@ namespace TPRandomizer
                                     && currentCheck.category.Contains("Big Key")
                                 )
                                 || (
-                                    (parseSetting.mapAndCompassSettings == "Start_With")
+                                    (
+                                        parseSetting.mapAndCompassSettings
+                                        == MapAndCompassSettings.StartWith
+                                    )
                                     && (
                                         currentCheck.category.Contains("Dungeon Map")
                                         || currentCheck.category.Contains("Compass")

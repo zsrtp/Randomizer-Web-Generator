@@ -726,14 +726,14 @@ namespace TPRandomizer
 
             // Check Map and Compass settings before adding to pool
             if (
-                (parseSetting.mapAndCompassSettings == "Own_Dungeon")
-                || (parseSetting.mapAndCompassSettings == "Any_Dungeon")
+                (parseSetting.mapAndCompassSettings == MapAndCompassSettings.OwnDungeon)
+                || (parseSetting.mapAndCompassSettings == MapAndCompassSettings.AnyDungeon)
             )
             {
                 this.RandomizedDungeonRegionItems.AddRange(this.DungeonMapsAndCompasses);
                 Randomizer.Items.BaseItemPool.AddRange(this.DungeonMapsAndCompasses);
             }
-            else if (parseSetting.mapAndCompassSettings == "Anywhere")
+            else if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Anywhere)
             {
                 this.RandomizedImportantItems.AddRange(this.DungeonMapsAndCompasses);
             }

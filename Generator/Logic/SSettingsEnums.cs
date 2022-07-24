@@ -47,4 +47,13 @@ namespace TPRandomizer.SSettings.Enums
         Anywhere = 3,
         Keysey = 4,
     }
+
+    public enum MapAndCompassSettings
+    {
+        Vanilla = 0,
+        OwnDungeon = 1,
+        AnyDungeon = 2,
+        Anywhere = 3,
+        StartWith = 4,
+    }
 }

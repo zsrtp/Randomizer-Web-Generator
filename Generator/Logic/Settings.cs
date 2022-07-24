@@ -18,7 +18,7 @@ namespace TPRandomizer
         public bool prologueSkipped { get; set; }
         public SmallKeySettings smallKeySettings { get; set; }
         public BigKeySettings bigKeySettings { get; set; }
-        public string mapAndCompassSettings { get; set; }
+        public MapAndCompassSettings mapAndCompassSettings { get; set; }
         public bool goldenBugsShuffled { get; set; }
         public bool poesShuffled { get; set; }
         public bool npcItemsShuffled { get; set; }
@@ -63,7 +63,7 @@ namespace TPRandomizer
             shuffleHiddenSkills = processor.NextBool();
             smallKeySettings = (SmallKeySettings)processor.NextInt(3);
             bigKeySettings = (BigKeySettings)processor.NextInt(3);
-            mapAndCompassSettings = processor.NextString(SettingData.mapAndCompassSettings, 3);
+            mapAndCompassSettings = (MapAndCompassSettings)processor.NextInt(3);
             prologueSkipped = processor.NextBool();
             faronTwilightCleared = processor.NextBool();
             eldinTwilightCleared = processor.NextBool();
@@ -126,9 +126,6 @@ namespace TPRandomizer
         public bool mdhSkipped { get; set; }
 
         public bool prologueSkipped { get; set; }
-
-        public static string[] mapAndCompassSettings { get; set; } =
-            new string[] { "Vanilla", "Own_Dungeon", "Any_Dungeon", "Anywhere", "Start_With" };
 
         public bool goldenBugsShuffled { get; set; }
 
