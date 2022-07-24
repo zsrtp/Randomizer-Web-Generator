@@ -1,0 +1,327 @@
+sSettings:
+  version: 0
+  fields:
+    - name: logicRules
+      description: >
+        Specifies which complexity of edge traversal is
+        used when placing items during randomization. Ex: glitchless.
+      type: enum
+      bitLength: 2
+
+    - name: castleRequirements
+      description: >
+        Requirements to enter Hyrule Castle.
+      type: enum
+      bitLength: 3
+
+    - name: palaceRequirements
+      description: >
+        Requirements to enter Palace of Twilight
+      type: enum
+      bitLength: 2
+
+    - name: faronWoodsLogic
+      description: >
+        Specifies whether or not the player can freely move through Faron Woods
+        immediately or if they must earn that ability through gameplay.
+      type: enum
+      bitLength: 1
+
+    - name: shuffleGoldenBugs
+      description: >
+        Adds golden bugs to the item pool, and places random items in golden bug
+        locations.
+      type: boolean
+
+    - name: shuffleSkyCharacters
+      description: >
+        Adds sky characters to the item pool, and places random items in sky
+        character locations.
+      type: boolean
+
+    - name: shuffleNpcItems
+      description: >
+        Adds NPC items to the item pool, and places random items in NPC item
+        locations.
+      type: boolean
+
+    - name: shufflePoes
+      description: >
+        Adds poes to the item pool, and places random items in poe locations.
+      type: boolean
+
+    - name: shuffleShopItems
+      description: >
+        Adds shop items to the item pool, and places random items in shop item
+        locations.
+      type: boolean
+
+    - name: shuffleHiddenSkills
+      description: >
+        Adds hidden skills to the item pool, and places random items in hidden
+        skill locations.
+      type: boolean
+
+    - name: smallKeySettings
+      description: >
+        Specifies how small keys should be handled.
+      type: enum
+      bitLength: 3
+
+    - name: bigKeySettings
+      description: >
+        Specifies how big keys should be handled.
+      type: enum
+      bitLength: 3
+
+    - name: mapAndCompassSettings
+      description: >
+        Specifies how maps and compasses should be handled.
+      type: enum
+      bitLength: 3
+
+    - name: skipPrologue
+      description: >
+        If true, skips the beginning part of the vanilla game.
+      type: boolean
+
+    - name: faronTwilightCleared
+      description: >
+        If true, Faron Twilight is already cleared.
+      type: boolean
+
+    - name: eldinTwilightCleared
+      description: >
+        If true, Eldin Twilight is already cleared.
+      type: boolean
+
+    - name: lanayruTwilightCleared
+      description: >
+        If true, Lanayru Twilight is already cleared.
+      type: boolean
+
+    - name: skipMdh
+      description: >
+        If true, Midna's Desperate Hour is already cleared.
+      type: boolean
+
+    - name: skipMinorCutscenes
+      description: >
+        If true, skips minor cutscenes.
+      type: boolean
+
+    - name: fastIronBoots
+      description: >
+        If true, the player is not slowed by Iron Boots.
+      type: boolean
+
+    - name: quickTransform
+      description: >
+        If true, the player can use a controller shortcut to transform between
+        human and wolf form.
+      type: boolean
+
+    - name: transformAnywhere
+      description: >
+        If true, the player can transform to and from Wolf Link even if the
+        player would normally not be able to, such as when someone nearby might
+        be watching.
+      type: boolean
+
+    - name: increaseWallet
+      description: >
+        If true, increases the amount of rupees that wallets can hold.
+      type: boolean
+
+    - name: modifyShopModels
+      description: >
+        If true, shop models are updated to match what the player would get when
+        they buy that item.
+      type: boolean
+
+    - name: trapFrequency
+      description: >
+        Specifies how many trap items are in the item pool.
+      type: enum
+      bitLength: 3
+
+    - name: startingItems
+      description: >
+        Specifies item ids for items which the player will start with. The list
+        may contain duplicate values.
+      type: eolList
+      bitLength: 9
+      endOfListMin: 0x1FF
+
+    - name: excludedChecks
+      description: >
+        Specifies check ids for checks which should not be randomized.
+      type: eolList
+      bitLength: 9
+      endOfListMin: 0x1FF
+
+enums:
+  logicRules:
+    0:
+      name: glitchless
+      description: >
+        During item placement, only glitchless graph traversal is used.
+    1:
+      name: glitched (not yet implemented)
+      description: TBD
+    2:
+      name: noLogic (not yet implemented)
+      description: TBD
+
+  castleRequirements:
+    0:
+      name: open
+      description: There is never a barrier around Hyrule Castle.
+    1:
+      name: fusedShadows
+      description: >
+        The barrier around Hyrule Castle is broken when the player obtains 3
+        Fused Shadows.
+    2:
+      name: mirrorShards
+      description: >
+        The barrier around Hyrule Castle is broken when the player obtains 3
+        Mirror Shards.
+    3:
+      name: allDungeons
+      description: >
+        The barrier around Hyrule Castle is broken when the player defeats the
+        boss of every main dungeon other than Hyrule Castle.
+    # TODO: update enum so that vanilla is 0
+    4:
+      name: vanilla
+      description: >
+        The requirements to access Hyrule Castle are unchanged from the vanilla
+        game.
+  palaceRequirements:
+    0:
+      name: open
+      description: >
+        Palace of Twilight is immediately accessible.
+    1:
+      name: fusedShadows
+      description: >
+        Palace of Twilight is accessible after the player collects 3 Fused
+        Shadows.
+    2:
+      name: mirrorShards
+      description: >
+        Palace of Twilight is accessible after the player collects 3 Mirror
+        Shards.
+    # TODO: update enum so that vanilla is 0
+    3:
+      name: vanilla
+      description: >
+        The requirements to access Palace of Twilight are unchanged from the
+        vanilla game.
+
+  # TODO: change enum to a boolean
+  faronWoodsLogic:
+    0:
+      name: open
+      description: >
+        The player can automatically move freely through Faron Woods.
+    1:
+      name: closed
+      description: >
+        The requirements to move freely through Faron Woods are unchanged from
+        the vanilla game.
+
+  smallKeySettings:
+    0:
+      name: vanilla
+      description: >
+        Small keys are obtained through the same methods as the vanilla game.
+    1:
+      name: ownDungeon
+      description: >
+        Small keys appear in random locations within the dungeon in which they
+        are used.
+    2:
+      name: anyDungeon
+      description: >
+        Small keys appear in random locations within any dungeon.
+    3:
+      name: keysanity
+      description: >
+        Small keys can appear in any randomized location.
+    4:
+      name: keysey
+      description: >
+        The player does not have to find any small keys to be able to traverse
+        through small key doors.
+
+  bigKeySettings:
+    0:
+      name: vanilla
+      description: >
+        Big keys are obtained through the same methods as the vanilla game.
+    1:
+      name: ownDungeon
+      description: >
+        Big keys appear in random locations within the dungeon in which they are
+        used.
+    2:
+      name: anyDungeon
+      description: >
+        Big keys appear in random locations within any dungeon.
+    3:
+      name: keysanity
+      description: >
+        Big keys can appear in any randomized location.
+    4:
+      name: keysey
+      description: >
+        The player does not have to find any big keys to be able to traverse
+        through big key doors.
+
+  mapAndCompassSettings:
+    0:
+      name: vanilla
+      description: >
+        Maps and compasses are obtained through the same methods as the vanilla
+        game.
+    1:
+      name: ownDungeon
+      description: >
+        Maps and compasses appear in random locations within the dungeon in
+        which they are used.
+    2:
+      name: anyDungeon
+      description: >
+        Maps and compasses appear in random locations within any dungeon.
+    3:
+      name: anywhere
+      description: >
+        Maps and compasses can appear in any randomized location.
+    4:
+      name: startWith
+      description: >
+        The player automatically starts with all maps and compasses.
+
+  trapFrequency:
+    0:
+      name: none
+      description: >
+        No trap items are added to the game.
+    1:
+      name: few
+      description: >
+        A few trap items are added to the game.
+    2:
+      name: many
+      description: >
+        Many trap items are added to the game.
+    3:
+      name: mayhem
+      description: >
+        A large number of trap items are added to the game.
+    4:
+      name: nightmare
+      description: >
+        As many traps items as possible are added to the game.
