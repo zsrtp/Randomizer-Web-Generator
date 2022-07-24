@@ -11,7 +11,7 @@ namespace TPRandomizer
     public class RandomizerSetting
     {
         public LogicRules logicRules { get; set; }
-        public string castleRequirements { get; set; }
+        public CastleRequirements castleRequirements { get; set; }
         public string palaceRequirements { get; set; }
         public string faronWoodsLogic { get; set; }
         public bool mdhSkipped { get; set; }
@@ -52,7 +52,7 @@ namespace TPRandomizer
             BitsProcessor processor = new BitsProcessor(bits);
 
             logicRules = (LogicRules)processor.NextInt(2);
-            castleRequirements = processor.NextString(SettingData.castleRequirements, 3);
+            castleRequirements = (CastleRequirements)processor.NextInt(3);
             palaceRequirements = processor.NextString(SettingData.palaceRequirements, 2);
             faronWoodsLogic = processor.NextString(SettingData.faronWoodsLogic, 1);
             goldenBugsShuffled = processor.NextBool();
@@ -123,9 +123,6 @@ namespace TPRandomizer
 
     public class SettingData
     {
-        public static string[] castleRequirements { get; set; } =
-            new string[] { "Open", "Fused_Shadows", "Mirror_Shards", "All_Dungeons", "Vanilla", };
-
         public static string[] palaceRequirements { get; set; } =
             new string[] { "Open", "Fused_Shadows", "Mirror_Shards", "Vanilla" };
 

@@ -297,7 +297,7 @@ namespace TPRandomizer
             // before that setting existed, we leave it off.
 
             // Multi-option fields which are only included for certain values
-            if (RandoSetting.castleRequirements != "Vanilla")
+            if (RandoSetting.castleRequirements != CastleRequirements.Vanilla)
                 part2Settings.Add("castleRequirements", RandoSetting.castleRequirements);
             if (RandoSetting.palaceRequirements != "Vanilla")
                 part2Settings.Add("palaceRequirements", RandoSetting.palaceRequirements);
@@ -944,7 +944,7 @@ namespace TPRandomizer
             }
 
             // First we want to check the Hyrule Castle access requirements to get the base required dungeons to access Hyrule.
-            if (Randomizer.RandoSetting.castleRequirements == "Fused_Shadows")
+            if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.FusedShadows)
             {
                 for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                 {
@@ -957,7 +957,7 @@ namespace TPRandomizer
                     }
                 }
             }
-            else if (Randomizer.RandoSetting.castleRequirements == "Mirror_Shards")
+            else if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.MirrorShards)
             {
                 for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                 {
@@ -970,7 +970,7 @@ namespace TPRandomizer
                     }
                 }
             }
-            else if (Randomizer.RandoSetting.castleRequirements == "Vanilla")
+            else if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.Vanilla)
             {
                 // If Palace is required then Arbiters is automatically required.
                 listOfRequiredDungeons[arbiters].isRequired = true;
@@ -1006,7 +1006,7 @@ namespace TPRandomizer
                     listOfRequiredDungeons[city].isRequired = true;
                 }
             }
-            else if (Randomizer.RandoSetting.castleRequirements == "All_Dungeons")
+            else if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.AllDungeons)
             {
                 for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                 {

@@ -1,6 +1,7 @@
 namespace TPRandomizer.Assets
 {
     using System.Collections.Generic;
+    using TPRandomizer.SSettings.Enums;
 
     /// <summary>
     /// summary text.
@@ -555,7 +556,7 @@ namespace TPRandomizer.Assets
             /* 7 */RandomizerSettings.smallKeySettings == "Keysey",
             /* 8 */RandomizerSettings.bossKeySettings == "Keysey",
             /* 9 */RandomizerSettings.mapAndCompassSettings == "Start_With",
-            /* 10 */RandomizerSettings.castleRequirements == "Open",
+            /* 10 */RandomizerSettings.castleRequirements == CastleRequirements.Open,
             /* 11 */RandomizerSettings.palaceRequirements == "Open",
             /* 12 */RandomizerSettings.skipMinesEntrance,
             /* 13 */RandomizerSettings.skipLakebedEntrance,

@@ -201,14 +201,7 @@ namespace TPRandomizer.Assets
             seedHeader.Add(Converter.GcByte(fcSettings.lanternColor));
             seedHeader.Add(Converter.GcByte(randomizerSettings.transformAnywhere ? 1 : 0));
             seedHeader.Add(Converter.GcByte(randomizerSettings.quickTransform ? 1 : 0));
-            seedHeader.Add(
-                Converter.GcByte(
-                    Array.IndexOf(
-                        SettingData.castleRequirements,
-                        randomizerSettings.castleRequirements
-                    )
-                )
-            );
+            seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirements));
             seedHeader.Add(
                 Converter.GcByte(
                     Array.IndexOf(

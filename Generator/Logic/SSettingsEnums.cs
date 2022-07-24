@@ -6,4 +6,13 @@ namespace TPRandomizer.SSettings.Enums
         Glitched = 1,
         NoLogic = 2,
     }
+
+    public enum CastleRequirements
+    {
+        Open = 0,
+        FusedShadows = 1,
+        MirrorShards = 2,
+        AllDungeons = 3,
+        Vanilla = 4,
+    }
 }
