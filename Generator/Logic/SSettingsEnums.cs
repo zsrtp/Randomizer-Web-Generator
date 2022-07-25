@@ -8,7 +8,7 @@ namespace TPRandomizer.SSettings.Enums
     {
         Glitchless = 0,
         Glitched = 1,
-        NoLogic = 2,
+        No_Logic = 2,
     }
 
     public enum CastleRequirements
@@ -37,8 +37,8 @@ namespace TPRandomizer.SSettings.Enums
     public enum SmallKeySettings
     {
         Vanilla = 0,
-        OwnDungeon = 1,
-        AnyDungeon = 2,
+        Own_Dungeon = 1,
+        Any_Dungeon = 2,
         Anywhere = 3,
         Keysey = 4,
     }
@@ -46,8 +46,8 @@ namespace TPRandomizer.SSettings.Enums
     public enum BigKeySettings
     {
         Vanilla = 0,
-        OwnDungeon = 1,
-        AnyDungeon = 2,
+        Own_Dungeon = 1,
+        Any_Dungeon = 2,
         Anywhere = 3,
         Keysey = 4,
     }
@@ -55,10 +55,10 @@ namespace TPRandomizer.SSettings.Enums
     public enum MapAndCompassSettings
     {
         Vanilla = 0,
-        OwnDungeon = 1,
-        AnyDungeon = 2,
+        Own_Dungeon = 1,
+        Any_Dungeon = 2,
         Anywhere = 3,
-        StartWith = 4,
+        Start_With = 4,
     }
 
     public enum TrapFrequency

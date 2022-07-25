@@ -690,8 +690,8 @@ namespace TPRandomizer
 
             // Check Small Key settings before adding them to the rando pool
             if (
-                (parseSetting.smallKeySettings == SmallKeySettings.OwnDungeon)
-                || (parseSetting.smallKeySettings == SmallKeySettings.AnyDungeon)
+                (parseSetting.smallKeySettings == SmallKeySettings.Own_Dungeon)
+                || (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
             )
             {
                 this.RandomizedDungeonRegionItems.AddRange(this.RegionSmallKeys);
@@ -712,8 +712,8 @@ namespace TPRandomizer
 
             // Check Big Key Settings before adding them to the pool
             if (
-                (parseSetting.bigKeySettings == BigKeySettings.OwnDungeon)
-                || (parseSetting.bigKeySettings == BigKeySettings.AnyDungeon)
+                (parseSetting.bigKeySettings == BigKeySettings.Own_Dungeon)
+                || (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
             )
             {
                 this.RandomizedDungeonRegionItems.AddRange(this.DungeonBigKeys);
@@ -726,8 +726,8 @@ namespace TPRandomizer
 
             // Check Map and Compass settings before adding to pool
             if (
-                (parseSetting.mapAndCompassSettings == MapAndCompassSettings.OwnDungeon)
-                || (parseSetting.mapAndCompassSettings == MapAndCompassSettings.AnyDungeon)
+                (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Own_Dungeon)
+                || (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Any_Dungeon)
             )
             {
                 this.RandomizedDungeonRegionItems.AddRange(this.DungeonMapsAndCompasses);

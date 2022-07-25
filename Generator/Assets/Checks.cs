@@ -353,7 +353,7 @@ namespace TPRandomizer
                                 || (
                                     (
                                         parseSetting.mapAndCompassSettings
-                                        == MapAndCompassSettings.StartWith
+                                        == MapAndCompassSettings.Start_With
                                     )
                                     && (
                                         currentCheck.category.Contains("Dungeon Map")

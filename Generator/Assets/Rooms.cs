@@ -74,14 +74,14 @@ namespace TPRandomizer
             if (Randomizer.Items.RegionSmallKeys.Contains(itemToPlace))
             {
                 if (
-                    (parseSetting.smallKeySettings == SmallKeySettings.OwnDungeon)
+                    (parseSetting.smallKeySettings == SmallKeySettings.Own_Dungeon)
                     && itemName.Contains(currentRoom.Region)
                 )
                 {
                     return true;
                 }
                 else if (
-                    (parseSetting.smallKeySettings == SmallKeySettings.AnyDungeon)
+                    (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
                     && currentCheck.category.Contains("Dungeon")
                 )
                 {
@@ -90,14 +90,14 @@ namespace TPRandomizer
             }
             else if (Randomizer.Items.DungeonBigKeys.Contains(itemToPlace))
             {
-                if (parseSetting.bigKeySettings == BigKeySettings.OwnDungeon)
+                if (parseSetting.bigKeySettings == BigKeySettings.Own_Dungeon)
                 {
                     if (itemName.Contains(currentRoom.Region))
                     {
                         return true;
                     }
                 }
-                else if (parseSetting.bigKeySettings == BigKeySettings.AnyDungeon)
+                else if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
                 {
                     if (currentCheck.category.Contains("Dungeon"))
                     {
@@ -107,14 +107,14 @@ namespace TPRandomizer
             }
             else if (Randomizer.Items.DungeonMapsAndCompasses.Contains(itemToPlace))
             {
-                if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.OwnDungeon)
+                if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Own_Dungeon)
                 {
                     if (itemName.Contains(currentRoom.Region))
                     {
                         return true;
                     }
                 }
-                else if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.AnyDungeon)
+                else if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Any_Dungeon)
                 {
                     if (currentCheck.category.Contains("Dungeon"))
                     {

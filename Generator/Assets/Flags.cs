@@ -555,7 +555,7 @@ namespace TPRandomizer.Assets
             /* 6 */RandomizerSettings.skipMdh,
             /* 7 */RandomizerSettings.smallKeySettings == SmallKeySettings.Keysey,
             /* 8 */RandomizerSettings.bigKeySettings == BigKeySettings.Keysey,
-            /* 9 */RandomizerSettings.mapAndCompassSettings == MapAndCompassSettings.StartWith,
+            /* 9 */RandomizerSettings.mapAndCompassSettings == MapAndCompassSettings.Start_With,
             /* 10 */RandomizerSettings.castleRequirements == CastleRequirements.Open,
             /* 11 */RandomizerSettings.palaceRequirements == PalaceRequirements.Open,
             /* 12 */RandomizerSettings.skipMinesEntrance,
