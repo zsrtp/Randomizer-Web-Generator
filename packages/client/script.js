@@ -519,7 +519,7 @@ function setSettingsString() {
   document.getElementById('settingsStringTextbox').textContent =
     getSettingsString(settingsStringRaw);
 
-  const sSettingsString = genSettingsString();
+  const sSettingsString = window.tpr.shared.genSSettingsFromUi();
   const pSettingsString = window.tpr.shared.genPSettingsFromUi();
   // const pSettingsString = '';
 
@@ -527,7 +527,7 @@ function setSettingsString() {
     // sSettingsString + pSettingsString;
     sSettingsString + window.tpr.shared.genPSettingsFromUi();
 
-  // document.getElementById('newSettingsDisplay').value = genSettingsString();
+  // document.getElementById('newSettingsDisplay').value = window.tpr.shared.genSSettingsFromUi();
   // document.getElementById('newSettingsDisplay').textContent = sSettingsString;
 
   // document.getElementById('seed').value = window.tpr.shared.genPSettingsFromUi();
@@ -871,10 +871,6 @@ function genExcludedChecksBits() {
   };
 }
 
-function genSettingsString() {
-  return window.tpr.shared.genSSettingsFromUi();
-}
-
 function doGenerateCall(isRaceSeed) {
   if (generateCallInProgress) {
     return;
@@ -885,7 +881,8 @@ function doGenerateCall(isRaceSeed) {
   showGeneratingModal();
 
   const settingsString =
-    genSettingsString() + window.tpr.shared.genPSettingsFromUi();
+    window.tpr.shared.genSSettingsFromUi() +
+    window.tpr.shared.genPSettingsFromUi();
 
   let requesterHash = undefined;
 
@@ -976,7 +973,8 @@ function initSettingsModal() {
   btn.addEventListener('click', () => {
     // Prepare modal
     currentSettings.textContent =
-      genSettingsString() + window.tpr.shared.genPSettingsFromUi();
+      window.tpr.shared.genSSettingsFromUi() +
+      window.tpr.shared.genPSettingsFromUi();
     $copySuccessText.hide();
     $(fieldErrorText).hide();
     input.value = '';
