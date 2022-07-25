@@ -86,8 +86,14 @@ namespace TPRandomizer
             skipSnowpeakEntrance = processor.NextBool();
             skipToTEntrance = processor.NextBool();
             skipCityEntrance = processor.NextBool();
+            // We sort these lists so that the order which the UI happens to
+            // pass the data up does not affect anything.
             startingItems = processor.NextItemList();
+            startingItems.Sort();
             excludedChecks = processor.NextExcludedChecksList();
+            // StringComparer is needed because the default sort order is
+            // different on Linux and Windows
+            excludedChecks.Sort(StringComparer.Ordinal);
         }
 
         public static RandomizerSetting FromString(string settingsString)

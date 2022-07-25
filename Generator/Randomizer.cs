@@ -289,6 +289,12 @@ namespace TPRandomizer
 
         private static SortedDictionary<string, object> GenPart2Settings()
         {
+            // Please read the comments below when updating the sSettings to
+            // determine if/how this method needs to be updated.
+
+            // Generally speaking, it should be added if it affects starting
+            // state or the ability to traverse the game graph.
+
             // StringComparer is needed because the default sort order is
             // different on Linux and Windows
             SortedDictionary<string, object> part2Settings = new(StringComparer.Ordinal);
@@ -304,6 +310,19 @@ namespace TPRandomizer
             // because the generated file would be the same, meaning the player
             // has already played this exact scenario.
 
+            // A setting is only added if it is set to a value which has a
+            // definite impact on the game either. For example, it affects the
+            // starting state (such as you start with these flags already set
+            // and these items in your inventory). Another example would be if
+            // there was a setting that had an impact on your ability to
+            // navigate an edge of the graph during gameplay (such as trying to
+            // enter the Stallord boss fight from the back causes you to
+            // teleport back to the mirror chamber).
+
+            // Note that the string keys must never be changed after initial
+            // release. It is okay if the name does not match exactly with the
+            // sSettings property.
+
             // Multi-option fields which are only included for certain values
             if (RandoSetting.castleRequirements != CastleRequirements.Vanilla)
                 part2Settings.Add("castleRequirements", RandoSetting.castleRequirements);
@@ -315,21 +334,21 @@ namespace TPRandomizer
             if (RandoSetting.smallKeySettings == SmallKeySettings.Keysey)
                 part2Settings.Add("smallKeySettings", RandoSetting.smallKeySettings);
             if (RandoSetting.bigKeySettings == BigKeySettings.Keysey)
-                part2Settings.Add("bossKeySettings", RandoSetting.bigKeySettings);
+                part2Settings.Add("bigKeySettings", RandoSetting.bigKeySettings);
             if (RandoSetting.mapAndCompassSettings == MapAndCompassSettings.Start_With)
                 part2Settings.Add("mapAndCompassSettings", RandoSetting.mapAndCompassSettings);
 
             // Boolean fields included when true
-            if (RandoSetting.skipMdh)
-                part2Settings.Add("mdhSkipped", RandoSetting.skipMdh);
             if (RandoSetting.skipPrologue)
-                part2Settings.Add("introSkipped", RandoSetting.skipPrologue);
+                part2Settings.Add("skipPrologue", RandoSetting.skipPrologue);
             if (RandoSetting.faronTwilightCleared)
                 part2Settings.Add("faronTwilightCleared", RandoSetting.faronTwilightCleared);
             if (RandoSetting.eldinTwilightCleared)
                 part2Settings.Add("eldinTwilightCleared", RandoSetting.eldinTwilightCleared);
             if (RandoSetting.lanayruTwilightCleared)
                 part2Settings.Add("lanayruTwilightCleared", RandoSetting.lanayruTwilightCleared);
+            if (RandoSetting.skipMdh)
+                part2Settings.Add("skipMdh", RandoSetting.skipMdh);
             if (RandoSetting.skipMinorCutscenes)
                 part2Settings.Add("skipMinorCutscenes", RandoSetting.skipMinorCutscenes);
             if (RandoSetting.fastIronBoots)
@@ -343,9 +362,26 @@ namespace TPRandomizer
             if (RandoSetting.modifyShopModels)
                 part2Settings.Add("modifyShopModels", RandoSetting.modifyShopModels);
 
+            if (RandoSetting.skipMinesEntrance)
+                part2Settings.Add("skipMinesEntrance", RandoSetting.skipMinesEntrance);
+            if (RandoSetting.skipLakebedEntrance)
+                part2Settings.Add("skipLakebedEntrance", RandoSetting.skipLakebedEntrance);
+            if (RandoSetting.skipArbitersEntrance)
+                part2Settings.Add("skipArbitersEntrance", RandoSetting.skipArbitersEntrance);
+            if (RandoSetting.skipSnowpeakEntrance)
+                part2Settings.Add("skipSnowpeakEntrance", RandoSetting.skipSnowpeakEntrance);
+            if (RandoSetting.skipToTEntrance)
+                part2Settings.Add("skipToTEntrance", RandoSetting.skipToTEntrance);
+            if (RandoSetting.skipCityEntrance)
+                part2Settings.Add("skipCityEntrance", RandoSetting.skipCityEntrance);
+
             // Complex fields
             if (RandoSetting.startingItems?.Count > 0)
-                part2Settings.Add("StartingItems", RandoSetting.startingItems);
+            {
+                List<Item> startingItems = new(RandoSetting.startingItems);
+                startingItems.Sort();
+                part2Settings.Add("startingItems", startingItems);
+            }
 
             return part2Settings;
         }
