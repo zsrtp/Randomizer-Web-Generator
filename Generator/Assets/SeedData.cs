@@ -162,7 +162,6 @@ namespace TPRandomizer.Assets
         {
             List<byte> seedHeader = new();
             RandomizerSetting randomizerSettings = Randomizer.RandoSetting;
-            SettingData settingData = Randomizer.RandoSettingData;
             SeedHeaderRaw.headerSize = (ushort)SeedHeaderSize;
             SeedHeaderRaw.dataSize = (ushort)CheckDataRaw.Count;
             SeedHeaderRaw.seed = BackendFunctions.GetChecksum(seedGenResults.playthroughName, 64);

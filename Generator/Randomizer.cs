@@ -41,11 +41,6 @@ namespace TPRandomizer
         /// </summary>
         public static RandomizerSetting RandoSetting = new();
 
-        /// <summary>
-        /// A reference to the settings that the settings string use that need to be used by the randomizer.
-        /// </summary>
-        public static readonly SettingData RandoSettingData = new();
-
         public static int RequiredDungeons = 0;
 
         public static bool CreateInputJson(
