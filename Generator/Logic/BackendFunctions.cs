@@ -33,7 +33,7 @@ namespace TPRandomizer
                 Randomizer.Checks.CheckDict[currentCheck.checkName] = currentCheck;
             }
 
-            foreach (Item startingItem in parseSetting.StartingItems)
+            foreach (Item startingItem in parseSetting.startingItems)
             {
                 Randomizer.Items.heldItems.Add(startingItem);
             }
@@ -151,7 +151,7 @@ namespace TPRandomizer
             }
 
             Randomizer.Items.heldItems.Clear();
-            foreach (Item startingItem in parseSetting.StartingItems)
+            foreach (Item startingItem in parseSetting.startingItems)
             {
                 Randomizer.Items.heldItems.Add(startingItem);
                 playthroughDictionary.Add("Starting Item: " + startingItem.ToString(), null);
@@ -310,7 +310,7 @@ namespace TPRandomizer
             }
 
             Randomizer.Items.heldItems.Clear();
-            foreach (Item startingItem in parseSetting.StartingItems)
+            foreach (Item startingItem in parseSetting.startingItems)
             {
                 Randomizer.Items.heldItems.Add(startingItem);
             }

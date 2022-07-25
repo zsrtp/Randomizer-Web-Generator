@@ -125,7 +125,7 @@ namespace TPRandomizer
                 );
             }
 
-            foreach (string checkName in RandoSetting.ExcludedChecks)
+            foreach (string checkName in RandoSetting.excludedChecks)
             {
                 Randomizer.Checks.CheckDict[checkName].checkStatus = "Excluded";
             }
@@ -138,7 +138,7 @@ namespace TPRandomizer
             Room startingRoom = SetupGraph();
             while (remainingGenerationAttempts > 0)
             {
-                foreach (Item startingItem in Randomizer.RandoSetting.StartingItems)
+                foreach (Item startingItem in Randomizer.RandoSetting.startingItems)
                 {
                     Randomizer.Items.heldItems.Add(startingItem);
                 }
@@ -320,10 +320,10 @@ namespace TPRandomizer
                 part2Settings.Add("mapAndCompassSettings", RandoSetting.mapAndCompassSettings);
 
             // Boolean fields included when true
-            if (RandoSetting.mdhSkipped)
-                part2Settings.Add("mdhSkipped", RandoSetting.mdhSkipped);
-            if (RandoSetting.prologueSkipped)
-                part2Settings.Add("introSkipped", RandoSetting.prologueSkipped);
+            if (RandoSetting.skipMdh)
+                part2Settings.Add("mdhSkipped", RandoSetting.skipMdh);
+            if (RandoSetting.skipPrologue)
+                part2Settings.Add("introSkipped", RandoSetting.skipPrologue);
             if (RandoSetting.faronTwilightCleared)
                 part2Settings.Add("faronTwilightCleared", RandoSetting.faronTwilightCleared);
             if (RandoSetting.eldinTwilightCleared)
@@ -344,8 +344,8 @@ namespace TPRandomizer
                 part2Settings.Add("modifyShopModels", RandoSetting.modifyShopModels);
 
             // Complex fields
-            if (RandoSetting.StartingItems?.Count > 0)
-                part2Settings.Add("StartingItems", RandoSetting.StartingItems);
+            if (RandoSetting.startingItems?.Count > 0)
+                part2Settings.Add("StartingItems", RandoSetting.startingItems);
 
             return part2Settings;
         }
@@ -1070,7 +1070,7 @@ namespace TPRandomizer
             }
 
             // If MDH is not skipped then we need to complete Lakebed to enter Hyrule
-            if (!Randomizer.RandoSetting.mdhSkipped)
+            if (!Randomizer.RandoSetting.skipMdh)
             {
                 listOfRequiredDungeons[lakebed].isRequired = true;
             }

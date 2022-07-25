@@ -14,29 +14,27 @@ namespace TPRandomizer
         public CastleRequirements castleRequirements { get; set; }
         public PalaceRequirements palaceRequirements { get; set; }
         public FaronWoodsLogic faronWoodsLogic { get; set; }
-        public bool mdhSkipped { get; set; }
-        public bool prologueSkipped { get; set; }
+        public bool shuffleGoldenBugs { get; set; }
+        public bool shuffleSkyCharacters { get; set; }
+        public bool shuffleNpcItems { get; set; }
+        public bool shufflePoes { get; set; }
+        public bool shuffleShopItems { get; set; }
+        public bool shuffleHiddenSkills { get; set; }
         public SmallKeySettings smallKeySettings { get; set; }
         public BigKeySettings bigKeySettings { get; set; }
         public MapAndCompassSettings mapAndCompassSettings { get; set; }
-        public bool goldenBugsShuffled { get; set; }
-        public bool poesShuffled { get; set; }
-        public bool npcItemsShuffled { get; set; }
-        public bool shopItemsShuffled { get; set; }
+        public bool skipPrologue { get; set; }
         public bool faronTwilightCleared { get; set; }
         public bool eldinTwilightCleared { get; set; }
         public bool lanayruTwilightCleared { get; set; }
+        public bool skipMdh { get; set; }
         public bool skipMinorCutscenes { get; set; }
         public bool fastIronBoots { get; set; }
         public bool quickTransform { get; set; }
         public bool transformAnywhere { get; set; }
-        public TrapFrequency trapFrequency { get; set; }
-        public List<Item> StartingItems { get; set; }
-        public List<string> ExcludedChecks { get; set; }
-        public bool shuffleHiddenSkills { get; set; }
-        public bool shuffleSkyCharacters { get; set; }
         public bool increaseWallet { get; set; }
         public bool modifyShopModels { get; set; }
+        public TrapFrequency trapFrequency { get; set; }
         public bool barrenDungeons { get; set; }
         public bool skipMinesEntrance { get; set; }
         public bool skipLakebedEntrance { get; set; }
@@ -44,6 +42,8 @@ namespace TPRandomizer
         public bool skipSnowpeakEntrance { get; set; }
         public bool skipToTEntrance { get; set; }
         public bool skipCityEntrance { get; set; }
+        public List<Item> startingItems { get; set; }
+        public List<string> excludedChecks { get; set; }
 
         public RandomizerSetting() { }
 
@@ -55,20 +55,20 @@ namespace TPRandomizer
             castleRequirements = (CastleRequirements)processor.NextInt(3);
             palaceRequirements = (PalaceRequirements)processor.NextInt(2);
             faronWoodsLogic = (FaronWoodsLogic)processor.NextInt(1);
-            goldenBugsShuffled = processor.NextBool();
+            shuffleGoldenBugs = processor.NextBool();
             shuffleSkyCharacters = processor.NextBool();
-            npcItemsShuffled = processor.NextBool();
-            poesShuffled = processor.NextBool();
-            shopItemsShuffled = processor.NextBool();
+            shuffleNpcItems = processor.NextBool();
+            shufflePoes = processor.NextBool();
+            shuffleShopItems = processor.NextBool();
             shuffleHiddenSkills = processor.NextBool();
             smallKeySettings = (SmallKeySettings)processor.NextInt(3);
             bigKeySettings = (BigKeySettings)processor.NextInt(3);
             mapAndCompassSettings = (MapAndCompassSettings)processor.NextInt(3);
-            prologueSkipped = processor.NextBool();
+            skipPrologue = processor.NextBool();
             faronTwilightCleared = processor.NextBool();
             eldinTwilightCleared = processor.NextBool();
             lanayruTwilightCleared = processor.NextBool();
-            mdhSkipped = processor.NextBool();
+            skipMdh = processor.NextBool();
             skipMinorCutscenes = processor.NextBool();
             fastIronBoots = processor.NextBool();
             quickTransform = processor.NextBool();
@@ -83,8 +83,8 @@ namespace TPRandomizer
             skipSnowpeakEntrance = processor.NextBool();
             skipToTEntrance = processor.NextBool();
             skipCityEntrance = processor.NextBool();
-            StartingItems = processor.NextItemList();
-            ExcludedChecks = processor.NextExcludedChecksList();
+            startingItems = processor.NextItemList();
+            excludedChecks = processor.NextExcludedChecksList();
         }
 
         public static RandomizerSetting FromString(string settingsString)

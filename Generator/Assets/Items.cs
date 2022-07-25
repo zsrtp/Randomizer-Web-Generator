@@ -678,12 +678,12 @@ namespace TPRandomizer
             Randomizer.Items.BaseItemPool.AddRange(this.VanillaDungeonRewards);
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);
 
-            if (parseSetting.poesShuffled)
+            if (parseSetting.shufflePoes)
             {
                 this.RandomizedImportantItems.AddRange(Enumerable.Repeat(Item.Poe_Soul, 60));
             }
 
-            if (parseSetting.goldenBugsShuffled)
+            if (parseSetting.shuffleGoldenBugs)
             {
                 this.RandomizedImportantItems.AddRange(this.goldenBugs);
             }
@@ -704,9 +704,9 @@ namespace TPRandomizer
             else if (parseSetting.smallKeySettings == SmallKeySettings.Keysey)
             {
                 this.RandomizedImportantItems.Remove(Item.Gate_Keys);
-                if (!parseSetting.StartingItems.Contains(Item.Gerudo_Desert_Bulblin_Camp_Key))
+                if (!parseSetting.startingItems.Contains(Item.Gerudo_Desert_Bulblin_Camp_Key))
                 {
-                    parseSetting.StartingItems.Add(Item.Gerudo_Desert_Bulblin_Camp_Key);
+                    parseSetting.startingItems.Add(Item.Gerudo_Desert_Bulblin_Camp_Key);
                 }
             }
 
@@ -776,17 +776,17 @@ namespace TPRandomizer
                 }
             }
 
-            foreach (Item startingItem in parseSetting.StartingItems)
+            foreach (Item startingItem in parseSetting.startingItems)
             {
                 RandomizedImportantItems.Remove(startingItem);
             }
 
             // If a poe is excluded, we still want to place the item that was in its location.
-            foreach (string excludedCheck in parseSetting.ExcludedChecks)
+            foreach (string excludedCheck in parseSetting.excludedChecks)
             {
                 if (Randomizer.Checks.CheckDict[excludedCheck].itemId == Item.Poe_Soul)
                 {
-                    if (!parseSetting.poesShuffled)
+                    if (!parseSetting.shufflePoes)
                     {
                         this.alwaysItems.Add(Randomizer.Checks.CheckDict[excludedCheck].itemId);
                     }

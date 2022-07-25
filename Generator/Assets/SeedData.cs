@@ -260,7 +260,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.eldinTwilightCleared,
                 randomizerSettings.lanayruTwilightCleared,
                 randomizerSettings.skipMinorCutscenes,
-                randomizerSettings.mdhSkipped,
+                randomizerSettings.skipMdh,
             };
             bool[] oneTimePatchSettingsArray =
             {
@@ -706,7 +706,7 @@ namespace TPRandomizer.Assets
             RandomizerSetting randomizerSettings = Randomizer.RandoSetting;
             List<byte> listOfStartingItems = new();
             ushort count = 0;
-            foreach (Item startingItem in randomizerSettings.StartingItems)
+            foreach (Item startingItem in randomizerSettings.startingItems)
             {
                 listOfStartingItems.Add(Converter.GcByte((int)startingItem));
                 count++;

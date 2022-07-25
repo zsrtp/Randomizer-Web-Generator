@@ -546,13 +546,13 @@ namespace TPRandomizer.Assets
         /// </summary>
         public static readonly bool[] FlagSettings = new bool[]
         {
-            /* 0 */RandomizerSettings.prologueSkipped,
+            /* 0 */RandomizerSettings.skipPrologue,
             /* 1 */RandomizerSettings.faronTwilightCleared,
             /* 2 */RandomizerSettings.eldinTwilightCleared,
             /* 3 */RandomizerSettings.lanayruTwilightCleared,
             /* 4 */RandomizerSettings.skipMinorCutscenes,
             /* 5 */RandomizerSettings.faronWoodsLogic == FaronWoodsLogic.Open,
-            /* 6 */RandomizerSettings.mdhSkipped,
+            /* 6 */RandomizerSettings.skipMdh,
             /* 7 */RandomizerSettings.smallKeySettings == SmallKeySettings.Keysey,
             /* 8 */RandomizerSettings.bigKeySettings == BigKeySettings.Keysey,
             /* 9 */RandomizerSettings.mapAndCompassSettings == MapAndCompassSettings.StartWith,

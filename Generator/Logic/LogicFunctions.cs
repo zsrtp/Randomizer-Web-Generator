@@ -1414,7 +1414,7 @@ namespace TPRandomizer
                         CanUse(Item.North_Faron_Woods_Gate_Key)
                         || (Randomizer.RandoSetting.smallKeySettings == SmallKeySettings.Keysey)
                     )
-                ) || (Randomizer.RandoSetting.prologueSkipped == true)
+                ) || (Randomizer.RandoSetting.skipPrologue == true)
             );
         }
 
@@ -1423,7 +1423,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteMDH()
         {
-            return (canCompleteLakebedTemple() || (Randomizer.RandoSetting.mdhSkipped == true));
+            return (canCompleteLakebedTemple() || (Randomizer.RandoSetting.skipMdh == true));
         }
 
         /// <summary>
