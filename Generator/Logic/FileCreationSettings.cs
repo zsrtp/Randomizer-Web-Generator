@@ -5,7 +5,7 @@ namespace TPRandomizer
 
     public class FileCreationSettings
     {
-        public string gameRegion { get; }
+        public GameRegion gameRegion { get; }
         public byte seedNumber { get; }
         public RandomizeBgm randomizeBgm { get; }
         public bool randomizeFanfares { get; }
@@ -26,7 +26,7 @@ namespace TPRandomizer
         {
             BitsProcessor processor = new BitsProcessor(bits);
 
-            gameRegion = processor.NextString(Options.gameRegion, 3);
+            gameRegion = (GameRegion)processor.NextInt(3);
             seedNumber = (byte)processor.NextInt(4);
 
             randomizeBgm = (RandomizeBgm)processor.NextInt(2);
@@ -48,11 +48,6 @@ namespace TPRandomizer
         {
             string bits = SettingsEncoder.DecodeToBitString(fcSettingsString);
             return new FileCreationSettings(bits);
-        }
-
-        public class Options
-        {
-            public static readonly string[] gameRegion = new string[] { "NTSC", "PAL", "JAP" };
         }
     }
 }

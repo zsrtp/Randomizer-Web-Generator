@@ -5,6 +5,7 @@ namespace TPRandomizer.Assets
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using TPRandomizer.FcSettings.Enums;
 
     /// <summary>
     /// summary text.
@@ -114,12 +115,12 @@ namespace TPRandomizer.Assets
             char region;
             switch (fcSettings.gameRegion)
             {
-                case "PAL":
+                case GameRegion.PAL:
                 {
                     region = 'P';
                     break;
                 }
-                case "JAP":
+                case GameRegion.JAP:
                 {
                     region = 'J';
                     break;

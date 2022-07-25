@@ -8,6 +8,7 @@ namespace TPRandomizer
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using TPRandomizer.SSettings.Enums;
+    using TPRandomizer.FcSettings.Enums;
     using System.Reflection;
     using Assets;
 
@@ -428,10 +429,10 @@ namespace TPRandomizer
             string gameVer = "ge";
             switch (fcSettings.gameRegion)
             {
-                case "PAL":
+                case GameRegion.PAL:
                     gameVer = "gp";
                     break;
-                case "JAP":
+                case GameRegion.JAP:
                     gameVer = "gj";
                     break;
             }
