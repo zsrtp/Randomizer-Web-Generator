@@ -673,7 +673,7 @@ namespace TPRandomizer
         /// </summary>
         public void GenerateItemPool()
         {
-            RandomizerSetting parseSetting = Randomizer.RandoSetting;
+            SharedSettings parseSetting = Randomizer.SSettings;
             Randomizer.Items.RandomizedImportantItems.AddRange(this.ImportantItems);
             Randomizer.Items.BaseItemPool.AddRange(this.VanillaDungeonRewards);
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);

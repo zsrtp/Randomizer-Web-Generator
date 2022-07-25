@@ -304,7 +304,7 @@ namespace TPRandomizer
         /// </summary>
         public static void GenerateCheckList()
         {
-            RandomizerSetting parseSetting = Randomizer.RandoSetting;
+            SharedSettings parseSetting = Randomizer.SSettings;
             foreach (KeyValuePair<string, Check> check in Randomizer.Checks.CheckDict)
             {
                 Check currentCheck = check.Value;

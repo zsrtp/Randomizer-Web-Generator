@@ -68,7 +68,7 @@ namespace TPRandomizer
         /// <returns>A value that determines if the specified item and check meet the regional requirements set by the generation.</returns>
         public static bool IsRegionCheck(Item itemToPlace, Check currentCheck, Room currentRoom)
         {
-            RandomizerSetting parseSetting = Randomizer.RandoSetting;
+            SharedSettings parseSetting = Randomizer.SSettings;
             string itemName = itemToPlace.ToString();
             itemName = itemName.Replace("_", " ");
             if (Randomizer.Items.RegionSmallKeys.Contains(itemToPlace))

@@ -6,9 +6,9 @@ using TPRandomizer.SSettings.Enums;
 namespace TPRandomizer
 {
     /// <summary>
-    /// summary text.
+    /// These are "sSettings".
     /// </summary>
-    public class RandomizerSetting
+    public class SharedSettings
     {
         // WARNING: Certain properties of this class are referenced by name in
         // the logic json files. To rename a property, you must check with those
@@ -48,9 +48,9 @@ namespace TPRandomizer
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
 
-        public RandomizerSetting() { }
+        public SharedSettings() { }
 
-        private RandomizerSetting(string bits)
+        private SharedSettings(string bits)
         {
             BitsProcessor processor = new BitsProcessor(bits);
 
@@ -96,7 +96,7 @@ namespace TPRandomizer
             excludedChecks.Sort(StringComparer.Ordinal);
         }
 
-        public static RandomizerSetting FromString(string settingsString)
+        public static SharedSettings FromString(string settingsString)
         {
             if (
                 settingsString == null
@@ -126,7 +126,7 @@ namespace TPRandomizer
                 bits = bits.Substring(0, bits.Length - (6 - numExtraBits));
             }
 
-            return new RandomizerSetting(bits);
+            return new SharedSettings(bits);
         }
     }
 }

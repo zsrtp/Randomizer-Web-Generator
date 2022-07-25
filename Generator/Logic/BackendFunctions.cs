@@ -23,7 +23,7 @@ namespace TPRandomizer
             bool areAllChecksReachable = true;
             bool areAllRoomsReachable = true;
             List<Item> playthroughItems = new();
-            RandomizerSetting parseSetting = Randomizer.RandoSetting;
+            SharedSettings parseSetting = Randomizer.SSettings;
 
             // Console.WriteLine("Item to place: " + itemToPlace);
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
@@ -125,7 +125,7 @@ namespace TPRandomizer
         /// </summary>
         private static List<string> CalculateOptimalPlaythrough(Room startingRoom)
         {
-            RandomizerSetting parseSetting = Randomizer.RandoSetting;
+            SharedSettings parseSetting = Randomizer.SSettings;
             bool hasCompletedSphere;
             bool hasConcludedPlaythrough;
             List<List<string>> listofPlaythroughs = new();
@@ -293,7 +293,7 @@ namespace TPRandomizer
             bool hasConcludedPlaythrough;
             List<Room> currentPlaythroughGraph;
             List<Item> sphereItems = new();
-            RandomizerSetting parseSetting = Randomizer.RandoSetting;
+            SharedSettings parseSetting = Randomizer.SSettings;
 
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
@@ -414,9 +414,7 @@ namespace TPRandomizer
 
             file.WriteLine("SeedData Version: " + SeedData.VersionString);
             file.WriteLine("Settings: ");
-            file.WriteLine(
-                JsonConvert.SerializeObject(Randomizer.RandoSetting, Formatting.Indented)
-            );
+            file.WriteLine(JsonConvert.SerializeObject(Randomizer.SSettings, Formatting.Indented));
             file.WriteLine(string.Empty);
             file.WriteLine("Dungeon Rewards: ");
             foreach (KeyValuePair<string, Check> check in Randomizer.Checks.CheckDict)

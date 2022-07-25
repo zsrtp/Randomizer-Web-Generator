@@ -38,9 +38,9 @@ namespace TPRandomizer
         public static readonly ItemFunctions Items = new();
 
         /// <summary>
-        /// A reference to the settings structures that need to be used by the randomizer.
+        /// A reference to the sSettings.
         /// </summary>
-        public static RandomizerSetting RandoSetting = new();
+        public static SharedSettings SSettings = new();
 
         public static int RequiredDungeons = 0;
 
@@ -111,17 +111,17 @@ namespace TPRandomizer
 
             // Read in the settings string and set the settings values accordingly
             // BackendFunctions.InterpretSettingsString(settingsString);
-            RandoSetting = RandomizerSetting.FromString(settingsString);
-            PropertyInfo[] randoSettingProperties = RandoSetting.GetType().GetProperties();
+            SSettings = SharedSettings.FromString(settingsString);
+            PropertyInfo[] randoSettingProperties = SSettings.GetType().GetProperties();
 
             foreach (PropertyInfo settingProperty in randoSettingProperties)
             {
                 Console.WriteLine(
-                    settingProperty.Name + ": " + settingProperty.GetValue(RandoSetting, null)
+                    settingProperty.Name + ": " + settingProperty.GetValue(SSettings, null)
                 );
             }
 
-            foreach (string checkName in RandoSetting.excludedChecks)
+            foreach (string checkName in SSettings.excludedChecks)
             {
                 Randomizer.Checks.CheckDict[checkName].checkStatus = "Excluded";
             }
@@ -134,7 +134,7 @@ namespace TPRandomizer
             Room startingRoom = SetupGraph();
             while (remainingGenerationAttempts > 0)
             {
-                foreach (Item startingItem in Randomizer.RandoSetting.startingItems)
+                foreach (Item startingItem in Randomizer.SSettings.startingItems)
                 {
                     Randomizer.Items.heldItems.Add(startingItem);
                 }
@@ -320,61 +320,61 @@ namespace TPRandomizer
             // sSettings property.
 
             // Multi-option fields which are only included for certain values
-            if (RandoSetting.castleRequirements != CastleRequirements.Vanilla)
-                part2Settings.Add("castleRequirements", RandoSetting.castleRequirements);
-            if (RandoSetting.palaceRequirements != PalaceRequirements.Vanilla)
-                part2Settings.Add("palaceRequirements", RandoSetting.palaceRequirements);
+            if (SSettings.castleRequirements != CastleRequirements.Vanilla)
+                part2Settings.Add("castleRequirements", SSettings.castleRequirements);
+            if (SSettings.palaceRequirements != PalaceRequirements.Vanilla)
+                part2Settings.Add("palaceRequirements", SSettings.palaceRequirements);
             // TODO: Change this one to a boolean called "faronWoodsOpen"
-            if (RandoSetting.faronWoodsLogic == FaronWoodsLogic.Open)
-                part2Settings.Add("faronWoodsLogic", RandoSetting.faronWoodsLogic);
-            if (RandoSetting.smallKeySettings == SmallKeySettings.Keysey)
-                part2Settings.Add("smallKeySettings", RandoSetting.smallKeySettings);
-            if (RandoSetting.bigKeySettings == BigKeySettings.Keysey)
-                part2Settings.Add("bigKeySettings", RandoSetting.bigKeySettings);
-            if (RandoSetting.mapAndCompassSettings == MapAndCompassSettings.Start_With)
-                part2Settings.Add("mapAndCompassSettings", RandoSetting.mapAndCompassSettings);
+            if (SSettings.faronWoodsLogic == FaronWoodsLogic.Open)
+                part2Settings.Add("faronWoodsLogic", SSettings.faronWoodsLogic);
+            if (SSettings.smallKeySettings == SmallKeySettings.Keysey)
+                part2Settings.Add("smallKeySettings", SSettings.smallKeySettings);
+            if (SSettings.bigKeySettings == BigKeySettings.Keysey)
+                part2Settings.Add("bigKeySettings", SSettings.bigKeySettings);
+            if (SSettings.mapAndCompassSettings == MapAndCompassSettings.Start_With)
+                part2Settings.Add("mapAndCompassSettings", SSettings.mapAndCompassSettings);
 
             // Boolean fields included when true
-            if (RandoSetting.skipPrologue)
-                part2Settings.Add("skipPrologue", RandoSetting.skipPrologue);
-            if (RandoSetting.faronTwilightCleared)
-                part2Settings.Add("faronTwilightCleared", RandoSetting.faronTwilightCleared);
-            if (RandoSetting.eldinTwilightCleared)
-                part2Settings.Add("eldinTwilightCleared", RandoSetting.eldinTwilightCleared);
-            if (RandoSetting.lanayruTwilightCleared)
-                part2Settings.Add("lanayruTwilightCleared", RandoSetting.lanayruTwilightCleared);
-            if (RandoSetting.skipMdh)
-                part2Settings.Add("skipMdh", RandoSetting.skipMdh);
-            if (RandoSetting.skipMinorCutscenes)
-                part2Settings.Add("skipMinorCutscenes", RandoSetting.skipMinorCutscenes);
-            if (RandoSetting.fastIronBoots)
-                part2Settings.Add("fastIronBoots", RandoSetting.fastIronBoots);
-            if (RandoSetting.quickTransform)
-                part2Settings.Add("quickTransform", RandoSetting.quickTransform);
-            if (RandoSetting.transformAnywhere)
-                part2Settings.Add("transformAnywhere", RandoSetting.transformAnywhere);
-            if (RandoSetting.increaseWallet)
-                part2Settings.Add("increaseWallet", RandoSetting.increaseWallet);
-            if (RandoSetting.modifyShopModels)
-                part2Settings.Add("modifyShopModels", RandoSetting.modifyShopModels);
+            if (SSettings.skipPrologue)
+                part2Settings.Add("skipPrologue", SSettings.skipPrologue);
+            if (SSettings.faronTwilightCleared)
+                part2Settings.Add("faronTwilightCleared", SSettings.faronTwilightCleared);
+            if (SSettings.eldinTwilightCleared)
+                part2Settings.Add("eldinTwilightCleared", SSettings.eldinTwilightCleared);
+            if (SSettings.lanayruTwilightCleared)
+                part2Settings.Add("lanayruTwilightCleared", SSettings.lanayruTwilightCleared);
+            if (SSettings.skipMdh)
+                part2Settings.Add("skipMdh", SSettings.skipMdh);
+            if (SSettings.skipMinorCutscenes)
+                part2Settings.Add("skipMinorCutscenes", SSettings.skipMinorCutscenes);
+            if (SSettings.fastIronBoots)
+                part2Settings.Add("fastIronBoots", SSettings.fastIronBoots);
+            if (SSettings.quickTransform)
+                part2Settings.Add("quickTransform", SSettings.quickTransform);
+            if (SSettings.transformAnywhere)
+                part2Settings.Add("transformAnywhere", SSettings.transformAnywhere);
+            if (SSettings.increaseWallet)
+                part2Settings.Add("increaseWallet", SSettings.increaseWallet);
+            if (SSettings.modifyShopModels)
+                part2Settings.Add("modifyShopModels", SSettings.modifyShopModels);
 
-            if (RandoSetting.skipMinesEntrance)
-                part2Settings.Add("skipMinesEntrance", RandoSetting.skipMinesEntrance);
-            if (RandoSetting.skipLakebedEntrance)
-                part2Settings.Add("skipLakebedEntrance", RandoSetting.skipLakebedEntrance);
-            if (RandoSetting.skipArbitersEntrance)
-                part2Settings.Add("skipArbitersEntrance", RandoSetting.skipArbitersEntrance);
-            if (RandoSetting.skipSnowpeakEntrance)
-                part2Settings.Add("skipSnowpeakEntrance", RandoSetting.skipSnowpeakEntrance);
-            if (RandoSetting.skipToTEntrance)
-                part2Settings.Add("skipToTEntrance", RandoSetting.skipToTEntrance);
-            if (RandoSetting.skipCityEntrance)
-                part2Settings.Add("skipCityEntrance", RandoSetting.skipCityEntrance);
+            if (SSettings.skipMinesEntrance)
+                part2Settings.Add("skipMinesEntrance", SSettings.skipMinesEntrance);
+            if (SSettings.skipLakebedEntrance)
+                part2Settings.Add("skipLakebedEntrance", SSettings.skipLakebedEntrance);
+            if (SSettings.skipArbitersEntrance)
+                part2Settings.Add("skipArbitersEntrance", SSettings.skipArbitersEntrance);
+            if (SSettings.skipSnowpeakEntrance)
+                part2Settings.Add("skipSnowpeakEntrance", SSettings.skipSnowpeakEntrance);
+            if (SSettings.skipToTEntrance)
+                part2Settings.Add("skipToTEntrance", SSettings.skipToTEntrance);
+            if (SSettings.skipCityEntrance)
+                part2Settings.Add("skipCityEntrance", SSettings.skipCityEntrance);
 
             // Complex fields
-            if (RandoSetting.startingItems?.Count > 0)
+            if (SSettings.startingItems?.Count > 0)
             {
-                List<Item> startingItems = new(RandoSetting.startingItems);
+                List<Item> startingItems = new(SSettings.startingItems);
                 startingItems.Sort();
                 part2Settings.Add("startingItems", startingItems);
             }
@@ -399,7 +399,7 @@ namespace TPRandomizer
             SeedGenResults seedGenResults = new SeedGenResults(json);
 
             FileCreationSettings fcSettings = FileCreationSettings.FromString(fcSettingsString);
-            RandoSetting = RandomizerSetting.FromString(seedGenResults.settingsString);
+            SSettings = SharedSettings.FromString(seedGenResults.settingsString);
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.
             DeserializeChecks();
@@ -977,14 +977,14 @@ namespace TPRandomizer
 
             for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
             {
-                if (Randomizer.RandoSetting.logicRules == LogicRules.Glitchless)
+                if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
                 {
                     listOfRequiredDungeons[i].requirementChecks = listOfAffectedChecks[i];
                 }
             }
 
             // First we want to check the Hyrule Castle access requirements to get the base required dungeons to access Hyrule.
-            if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.Fused_Shadows)
+            if (Randomizer.SSettings.castleRequirements == CastleRequirements.Fused_Shadows)
             {
                 for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                 {
@@ -997,7 +997,7 @@ namespace TPRandomizer
                     }
                 }
             }
-            else if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.Mirror_Shards)
+            else if (Randomizer.SSettings.castleRequirements == CastleRequirements.Mirror_Shards)
             {
                 for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                 {
@@ -1010,12 +1010,12 @@ namespace TPRandomizer
                     }
                 }
             }
-            else if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.Vanilla)
+            else if (Randomizer.SSettings.castleRequirements == CastleRequirements.Vanilla)
             {
                 // If Palace is required then Arbiters is automatically required.
                 listOfRequiredDungeons[arbiters].isRequired = true;
                 listOfRequiredDungeons[palace].isRequired = true;
-                if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Fused_Shadows)
+                if (Randomizer.SSettings.palaceRequirements == PalaceRequirements.Fused_Shadows)
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                     {
@@ -1029,7 +1029,7 @@ namespace TPRandomizer
                     }
                 }
                 else if (
-                    Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Mirror_Shards
+                    Randomizer.SSettings.palaceRequirements == PalaceRequirements.Mirror_Shards
                 )
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
@@ -1043,12 +1043,12 @@ namespace TPRandomizer
                         }
                     }
                 }
-                else if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Vanilla)
+                else if (Randomizer.SSettings.palaceRequirements == PalaceRequirements.Vanilla)
                 {
                     listOfRequiredDungeons[city].isRequired = true;
                 }
             }
-            else if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.All_Dungeons)
+            else if (Randomizer.SSettings.castleRequirements == CastleRequirements.All_Dungeons)
             {
                 for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                 {
@@ -1061,7 +1061,7 @@ namespace TPRandomizer
                 // If Palace is required then Arbiters is automatically required.
                 listOfRequiredDungeons[arbiters].isRequired = true;
                 listOfRequiredDungeons[palace].isRequired = true;
-                if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Fused_Shadows)
+                if (Randomizer.SSettings.palaceRequirements == PalaceRequirements.Fused_Shadows)
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                     {
@@ -1075,7 +1075,7 @@ namespace TPRandomizer
                     }
                 }
                 else if (
-                    Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Mirror_Shards
+                    Randomizer.SSettings.palaceRequirements == PalaceRequirements.Mirror_Shards
                 )
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
@@ -1089,20 +1089,20 @@ namespace TPRandomizer
                         }
                     }
                 }
-                else if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Vanilla)
+                else if (Randomizer.SSettings.palaceRequirements == PalaceRequirements.Vanilla)
                 {
                     listOfRequiredDungeons[city].isRequired = true;
                 }
             }
 
             // If Faron Woods is closed then we need to beat Forest Temple to leave.
-            if (Randomizer.RandoSetting.faronWoodsLogic == FaronWoodsLogic.Closed)
+            if (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Closed)
             {
                 listOfRequiredDungeons[forest].isRequired = true;
             }
 
             // If MDH is not skipped then we need to complete Lakebed to enter Hyrule
-            if (!Randomizer.RandoSetting.skipMdh)
+            if (!Randomizer.SSettings.skipMdh)
             {
                 listOfRequiredDungeons[lakebed].isRequired = true;
             }
@@ -1111,7 +1111,7 @@ namespace TPRandomizer
             {
                 if (!listOfRequiredDungeons[i].isRequired)
                 {
-                    if (Randomizer.RandoSetting.barrenDungeons)
+                    if (Randomizer.SSettings.barrenDungeons)
                     {
                         foreach (string check in listOfRequiredDungeons[i].requirementChecks)
                         {

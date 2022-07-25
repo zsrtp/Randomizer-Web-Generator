@@ -57,7 +57,7 @@ namespace TPRandomizer.Assets
             * Bgm Header
             * Bgm Data
             */
-            RandomizerSetting randomizerSettings = Randomizer.RandoSetting;
+            SharedSettings randomizerSettings = Randomizer.SSettings;
             List<byte> currentGCIData = new();
             List<byte> currentSeedHeader = new();
             List<byte> currentSeedData = new();
@@ -162,7 +162,7 @@ namespace TPRandomizer.Assets
         private List<byte> GenerateSeedHeader(int seedNumber)
         {
             List<byte> seedHeader = new();
-            RandomizerSetting randomizerSettings = Randomizer.RandoSetting;
+            SharedSettings randomizerSettings = Randomizer.SSettings;
             SeedHeaderRaw.headerSize = (ushort)SeedHeaderSize;
             SeedHeaderRaw.dataSize = (ushort)CheckDataRaw.Count;
             SeedHeaderRaw.seed = BackendFunctions.GetChecksum(seedGenResults.playthroughName, 64);
@@ -252,7 +252,7 @@ namespace TPRandomizer.Assets
 
         private List<byte> GeneratePatchSettings()
         {
-            RandomizerSetting randomizerSettings = Randomizer.RandoSetting;
+            SharedSettings randomizerSettings = Randomizer.SSettings;
             List<byte> listOfPatches = new();
             bool[] volatilePatchSettingsArray =
             {
@@ -703,7 +703,7 @@ namespace TPRandomizer.Assets
 
         private List<byte> ParseStartingItems()
         {
-            RandomizerSetting randomizerSettings = Randomizer.RandoSetting;
+            SharedSettings randomizerSettings = Randomizer.SSettings;
             List<byte> listOfStartingItems = new();
             ushort count = 0;
             foreach (Item startingItem in randomizerSettings.startingItems)

@@ -21,12 +21,12 @@ namespace TPRandomizer
         /// </summary>
         public static bool EvaluateSetting(string setting, string value)
         {
-            PropertyInfo[] settingProperties = Randomizer.RandoSetting.GetType().GetProperties();
+            PropertyInfo[] settingProperties = Randomizer.SSettings.GetType().GetProperties();
             setting = setting.Replace("Setting.", "");
             bool isEqual = false;
             foreach (PropertyInfo property in settingProperties)
             {
-                var settingValue = property.GetValue(Randomizer.RandoSetting, null);
+                var settingValue = property.GetValue(Randomizer.SSettings, null);
                 if ((property.Name == setting) && (value == settingValue.ToString()))
                 {
                     isEqual = true;
@@ -1320,7 +1320,7 @@ namespace TPRandomizer
                 && CanDefeatBigBaba()
                 && (
                     (getItemCount(Item.Forest_Temple_Small_Key) >= 4)
-                    || (Randomizer.RandoSetting.smallKeySettings == SmallKeySettings.Keysey)
+                    || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
                 )
             );
         }
@@ -1412,9 +1412,9 @@ namespace TPRandomizer
                     && (getItemCount(Item.Progressive_Fishing_Rod) >= 1)
                     && (
                         CanUse(Item.North_Faron_Woods_Gate_Key)
-                        || (Randomizer.RandoSetting.smallKeySettings == SmallKeySettings.Keysey)
+                        || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
                     )
-                ) || (Randomizer.RandoSetting.skipPrologue == true)
+                ) || (Randomizer.SSettings.skipPrologue == true)
             );
         }
 
@@ -1423,7 +1423,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteMDH()
         {
-            return (canCompleteLakebedTemple() || (Randomizer.RandoSetting.skipMdh == true));
+            return (canCompleteLakebedTemple() || (Randomizer.SSettings.skipMdh == true));
         }
 
         /// <summary>
@@ -1434,7 +1434,7 @@ namespace TPRandomizer
             return (
                 (
                     canCompleteForestTemple()
-                    || (Randomizer.RandoSetting.faronWoodsLogic == FaronWoodsLogic.Open)
+                    || (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Open)
                 ) && CanCompleteIntro()
             );
         }

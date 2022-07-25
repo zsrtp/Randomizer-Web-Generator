@@ -539,7 +539,7 @@ namespace TPRandomizer.Assets
                 { 15, OpenSnowpeakEventFlags },
                 { 17, OpenCityEventFlags },
             };
-        private static readonly RandomizerSetting RandomizerSettings = Randomizer.RandoSetting;
+        private static readonly SharedSettings RandomizerSettings = Randomizer.SSettings;
 
         /// <summary>
         /// summary text.
