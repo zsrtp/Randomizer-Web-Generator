@@ -10,6 +10,9 @@ namespace TPRandomizer
     /// </summary>
     public class RandomizerSetting
     {
+        // WARNING: Certain properties of this class are referenced by name in
+        // the logic json files. To rename a property, you must check with those
+        // files and update both this file and any json files as needed.
         public LogicRules logicRules { get; set; }
         public CastleRequirements castleRequirements { get; set; }
         public PalaceRequirements palaceRequirements { get; set; }

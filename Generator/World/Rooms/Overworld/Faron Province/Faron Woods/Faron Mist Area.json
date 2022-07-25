@@ -1,23 +1,20 @@
 {
-    "Neighbours": 
-    [
-        "South Faron Woods Cave", 
-        "Faron Mist Cave", 
-        "North Faron Woods"
-    ],
+  "Neighbours": [
+    "South Faron Woods Cave",
+    "Faron Mist Cave",
+    "North Faron Woods"
+  ],
   "NeighbourRequirements": [
     "true",
     "Lantern",
-    "(North_Faron_Woods_Gate_Key or (Setting.smallKeySettings equals Keysey) or (Shadow_Crystal and (Setting.faronTwilightCleared equals True)) or (Setting.prologueSkipped equals True)) and (Lantern or Shadow_Crystal)"
+    "(North_Faron_Woods_Gate_Key or (Setting.smallKeySettings equals Keysey) or (Shadow_Crystal and (Setting.faronTwilightCleared equals True)) or (Setting.skipPrologue equals True)) and (Lantern or Shadow_Crystal)"
   ],
-    "Checks": 
-    [
-        "Faron Mist Stump Chest",
-        "Faron Mist North Chest",
-        "Faron Mist South Chest",
-        "Faron Woods Owl Statue Chest",
-        "Faron Mist Poe"
-
-    ],
-    "Region": "Faron Woods"
+  "Checks": [
+    "Faron Mist Stump Chest",
+    "Faron Mist North Chest",
+    "Faron Mist South Chest",
+    "Faron Woods Owl Statue Chest",
+    "Faron Mist Poe"
+  ],
+  "Region": "Faron Woods"
 }

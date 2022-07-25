@@ -1,16 +1,9 @@
-{ 
-    "Neighbours": 
-    [
-        "City in The Sky Lobby", 
-        "City in The Sky Boss Room"
-    ],
+{
+  "Neighbours": ["City in The Sky Lobby", "City in The Sky Boss Room"],
   "NeighbourRequirements": [
     "true",
-    "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bossKeySettings equals Keysey))"
+    "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bigKeySettings equals Keysey))"
   ],
-    "Checks": 
-    [
-        "City in The Sky Chest Behind North Fan"
-    ], 
-    "Region": "City in The Sky"
+  "Checks": ["City in The Sky Chest Behind North Fan"],
+  "Region": "City in The Sky"
 }

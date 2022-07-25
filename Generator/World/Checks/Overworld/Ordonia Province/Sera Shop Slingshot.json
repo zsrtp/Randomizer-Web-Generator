@@ -1,10 +1,10 @@
 {
-    "requirements": "(Progressive_Fishing_Rod, 1) or (Setting.prologueSkipped equals True)",
-    "arcOffsets": ["26A7"],
-    "stageIDX": [65],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "flag": "10",
-    "category": ["Overworld", "Shop", "Ordonia Province", "ARC"],
-    "itemId": "Slingshot"
+  "requirements": "(Progressive_Fishing_Rod, 1) or (Setting.skipPrologue equals True)",
+  "arcOffsets": ["26A7"],
+  "stageIDX": [65],
+  "fileDirectoryType": [1],
+  "replacementType": [0],
+  "flag": "10",
+  "category": ["Overworld", "Shop", "Ordonia Province", "ARC"],
+  "itemId": "Slingshot"
 }

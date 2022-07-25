@@ -1,15 +1,14 @@
 {
-    "Neighbours": 
-    [
-        "Hyrule Castle Third Floor Balcony", 
-        "Hyrule Castle Treasure Room", 
-        "Ganondorf Castle"
-    ],
+  "Neighbours": [
+    "Hyrule Castle Third Floor Balcony",
+    "Hyrule Castle Treasure Room",
+    "Ganondorf Castle"
+  ],
   "NeighbourRequirements": [
     "true",
     "((Hyrule_Castle_Small_Key, 3) or (Setting.smallKeySettings equals Keysey)) and Spinner and (Progressive_Clawshot, 2) and CanDefeatDarknut and CanDefeatLizalfos",
-    "Spinner and (Progressive_Clawshot, 2) and CanDefeatDarknut and CanDefeatLizalfos and (Hyrule_Castle_Big_Key or (Setting.bossKeySettings equals Keysey)) and CanDefeatGanondorf"
+    "Spinner and (Progressive_Clawshot, 2) and CanDefeatDarknut and CanDefeatLizalfos and (Hyrule_Castle_Big_Key or (Setting.bigKeySettings equals Keysey)) and CanDefeatGanondorf"
   ],
-    "Checks": [""], 
-    "Region": "Hyrule Castle"
+  "Checks": [""],
+  "Region": "Hyrule Castle"
 }

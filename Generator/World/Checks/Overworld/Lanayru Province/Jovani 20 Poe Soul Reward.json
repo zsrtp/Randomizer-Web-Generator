@@ -1,9 +1,9 @@
 {
-    "requirements": "(Poe_Soul, 20) and Shadow_Crystal and ((Setting.mdhSkipped equals True) or canCompleteLakebedTemple)",
-    "arcOffsets": ["421F"],
-    "stageIDX": [73],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "category": ["Overworld", "Npc", "Lanayru Province", "ARC"],
-    "itemId": "Jovani_Bottle"
+  "requirements": "(Poe_Soul, 20) and Shadow_Crystal and ((Setting.skipMdh equals True) or canCompleteLakebedTemple)",
+  "arcOffsets": ["421F"],
+  "stageIDX": [73],
+  "fileDirectoryType": [1],
+  "replacementType": [0],
+  "category": ["Overworld", "Npc", "Lanayru Province", "ARC"],
+  "itemId": "Jovani_Bottle"
 }

@@ -1,26 +1,20 @@
 {
-    "Neighbours": 
-    [
-        "South Faron Woods",
-        "Ordon Ranch Grotto"
-    ],
-    "NeighbourRequirements":
-    [
-        "(HasSword and Slingshot) or (Setting.prologueSkipped equals True)",
-        "Shadow_Crystal"
-    ],
-    "Checks": 
-    [
-        "Uli Cradle Delivery",
-        "Ordon Cat Rescue",
-        "Sera Shop Slingshot",
-        "Gift From Rusl",
-        "Links Basement Chest",
-        "Ordon Shield",
-        "Ordon Sword",
-        "Wrestling With Bo",
-        "Herding Goats Reward",
-        "Ordon Spring Golden Wolf"
-    ],
-    "Region": "Ordonia Province"
+  "Neighbours": ["South Faron Woods", "Ordon Ranch Grotto"],
+  "NeighbourRequirements": [
+    "(HasSword and Slingshot) or (Setting.skipPrologue equals True)",
+    "Shadow_Crystal"
+  ],
+  "Checks": [
+    "Uli Cradle Delivery",
+    "Ordon Cat Rescue",
+    "Sera Shop Slingshot",
+    "Gift From Rusl",
+    "Links Basement Chest",
+    "Ordon Shield",
+    "Ordon Sword",
+    "Wrestling With Bo",
+    "Herding Goats Reward",
+    "Ordon Spring Golden Wolf"
+  ],
+  "Region": "Ordonia Province"
 }

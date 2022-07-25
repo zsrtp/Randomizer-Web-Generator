@@ -1,19 +1,14 @@
-{ 
-    "Neighbours": 
-    [
-        "Palace of Twilight Entrance", 
-        "Palace of Twilight Boss Room"
-    ],
+{
+  "Neighbours": ["Palace of Twilight Entrance", "Palace of Twilight Boss Room"],
   "NeighbourRequirements": [
     "true",
-    "((Palace_of_Twilight_Small_Key, 7) or (Setting.smallKeySettings equals Keysey)) and CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bossKeySettings equals Keysey)) and CanDefeatShadowBeast"
+    "((Palace_of_Twilight_Small_Key, 7) or (Setting.smallKeySettings equals Keysey)) and CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bigKeySettings equals Keysey)) and CanDefeatShadowBeast"
   ],
-    "Checks": 
-    [
-        "Palace of Twilight Central First Room Chest",
-        "Palace of Twilight Big Key Chest",
-        "Palace of Twilight Central Outdoor Chest",
-        "Palace of Twilight Central Tower Chest"
-    ],
-    "Region": "Palace of Twilight"
+  "Checks": [
+    "Palace of Twilight Central First Room Chest",
+    "Palace of Twilight Big Key Chest",
+    "Palace of Twilight Central Outdoor Chest",
+    "Palace of Twilight Central Tower Chest"
+  ],
+  "Region": "Palace of Twilight"
 }

@@ -952,7 +952,7 @@ namespace TPRandomizer
             }
 
             // First we want to check the Hyrule Castle access requirements to get the base required dungeons to access Hyrule.
-            if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.FusedShadows)
+            if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.Fused_Shadows)
             {
                 for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                 {
@@ -965,7 +965,7 @@ namespace TPRandomizer
                     }
                 }
             }
-            else if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.MirrorShards)
+            else if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.Mirror_Shards)
             {
                 for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                 {
@@ -983,7 +983,7 @@ namespace TPRandomizer
                 // If Palace is required then Arbiters is automatically required.
                 listOfRequiredDungeons[arbiters].isRequired = true;
                 listOfRequiredDungeons[palace].isRequired = true;
-                if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.FusedShadows)
+                if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Fused_Shadows)
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                     {
@@ -997,7 +997,7 @@ namespace TPRandomizer
                     }
                 }
                 else if (
-                    Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.MirrorShards
+                    Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Mirror_Shards
                 )
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
@@ -1016,7 +1016,7 @@ namespace TPRandomizer
                     listOfRequiredDungeons[city].isRequired = true;
                 }
             }
-            else if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.AllDungeons)
+            else if (Randomizer.RandoSetting.castleRequirements == CastleRequirements.All_Dungeons)
             {
                 for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                 {
@@ -1029,7 +1029,7 @@ namespace TPRandomizer
                 // If Palace is required then Arbiters is automatically required.
                 listOfRequiredDungeons[arbiters].isRequired = true;
                 listOfRequiredDungeons[palace].isRequired = true;
-                if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.FusedShadows)
+                if (Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Fused_Shadows)
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
                     {
@@ -1043,7 +1043,7 @@ namespace TPRandomizer
                     }
                 }
                 else if (
-                    Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.MirrorShards
+                    Randomizer.RandoSetting.palaceRequirements == PalaceRequirements.Mirror_Shards
                 )
                 {
                     for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)

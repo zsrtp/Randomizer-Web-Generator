@@ -1,5 +1,9 @@
 namespace TPRandomizer.SSettings.Enums
 {
+    // WARNING: Certain enums in this file are are referenced by name in the
+    // logic json files. To rename an enum, you must check with those files and
+    // update both this file and any json files as needed.
+
     public enum LogicRules
     {
         Glitchless = 0,
@@ -10,17 +14,17 @@ namespace TPRandomizer.SSettings.Enums
     public enum CastleRequirements
     {
         Open = 0,
-        FusedShadows = 1,
-        MirrorShards = 2,
-        AllDungeons = 3,
+        Fused_Shadows = 1,
+        Mirror_Shards = 2,
+        All_Dungeons = 3,
         Vanilla = 4,
     }
 
     public enum PalaceRequirements
     {
         Open = 0,
-        FusedShadows = 1,
-        MirrorShards = 2,
+        Fused_Shadows = 1,
+        Mirror_Shards = 2,
         Vanilla = 3
     }
 

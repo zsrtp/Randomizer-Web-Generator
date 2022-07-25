@@ -1,23 +1,18 @@
 {
-    "Neighbours": 
-    [
-        "Arbiters Grounds Lobby",
-        "Arbiters Grounds Boss Room"
-    ],
+  "Neighbours": ["Arbiters Grounds Lobby", "Arbiters Grounds Boss Room"],
   "NeighbourRequirements": [
     "true",
-    "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bossKeySettings equals Keysey))"
+    "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysey))"
   ],
-    "Checks": 
-    [
-        "Arbiters Grounds Big Key Chest",
-        "Arbiters Grounds North Turning Room Chest",
-        "Arbiters Grounds Death Sword Chest",
-        "Arbiters Grounds Spinner Room First Small Chest",
-        "Arbiters Grounds Spinner Room Second Small Chest",
-        "Arbiters Grounds Spinner Room Lower Central Small Chest",
-        "Arbiters Grounds Spinner Room Stalfos Alcove Chest",
-        "Arbiters Grounds Spinner Room Lower North Chest"
-    ], 
-    "Region": "Arbiters Grounds"
+  "Checks": [
+    "Arbiters Grounds Big Key Chest",
+    "Arbiters Grounds North Turning Room Chest",
+    "Arbiters Grounds Death Sword Chest",
+    "Arbiters Grounds Spinner Room First Small Chest",
+    "Arbiters Grounds Spinner Room Second Small Chest",
+    "Arbiters Grounds Spinner Room Lower Central Small Chest",
+    "Arbiters Grounds Spinner Room Stalfos Alcove Chest",
+    "Arbiters Grounds Spinner Room Lower North Chest"
+  ],
+  "Region": "Arbiters Grounds"
 }

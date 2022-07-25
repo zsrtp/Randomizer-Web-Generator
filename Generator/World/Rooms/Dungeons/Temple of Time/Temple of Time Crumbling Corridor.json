@@ -1,13 +1,9 @@
 {
-    "Neighbours": 
-    [
-        "Temple of Time Entrance", 
-        "Temple of Time Boss Room"
-    ],
+  "Neighbours": ["Temple of Time Entrance", "Temple of Time Boss Room"],
   "NeighbourRequirements": [
     "true",
-    "(Progressive_Dominion_Rod, 1) and (Temple_of_Time_Big_Key or (Setting.bossKeySettings equals Keysey))"
+    "(Progressive_Dominion_Rod, 1) and (Temple_of_Time_Big_Key or (Setting.bigKeySettings equals Keysey))"
   ],
-    "Checks": [""], 
-    "Region": "Temple of Time"
+  "Checks": [""],
+  "Region": "Temple of Time"
 }
