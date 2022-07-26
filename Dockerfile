@@ -33,6 +33,7 @@ RUN dotnet publish "./TPRandomizer.csproj" -c release -o /app/generator --no-res
 
 # RUN mkdir /app/generator/Generator
 RUN cp -r World /app/generator/World
+RUN cp -r Assets /app/generator/Assets
 
 FROM node:lts-alpine as node_base
 FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine
