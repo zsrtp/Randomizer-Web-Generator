@@ -32,8 +32,9 @@ RUN dotnet restore "./TPRandomizer.csproj" --disable-parallel
 RUN dotnet publish "./TPRandomizer.csproj" -c release -o /app/generator --no-restore
 
 # RUN mkdir /app/generator/Generator
-RUN cp -r World /app/generator/World
-RUN cp -r Assets /app/generator/Assets
+RUN cp -R World /app/generator/World
+RUN mkdir -p /app/generator/Assets/Sound
+RUN cp -R Assets/Sound/BackgroundMusic.json /app/generator/Assets/Sound/BackgroundMusic.json
 
 FROM node:lts-alpine as node_base
 FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine
