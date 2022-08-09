@@ -104,8 +104,9 @@ namespace TPRandomizer
 
             for (int i = 0; i < checkIdsWithItemIds.Count; i++)
             {
+                int checkId = checkIdsWithItemIds[i];
                 byte itemId = processor.NextByte();
-                checkNumIdToItemId[smallest + i] = itemId;
+                checkNumIdToItemId[checkId] = itemId;
             }
 
             return checkNumIdToItemId;
