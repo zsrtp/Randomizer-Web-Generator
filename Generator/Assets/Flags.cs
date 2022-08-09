@@ -242,6 +242,7 @@ namespace TPRandomizer.Assets
         public static readonly byte[,] SmallKeyRegionFlags = new byte[,]
         {
             { 0x2, 0x53 }, // Coro gate unlocked.
+            { 0x2, 0x6D }, // Got key from Coro.
             { 0x2, 0x4B }, // North Faron Gate Unlocked.
             { 0x3, 0xBA }, // Followed Rutella to graveyard.
             { 0x3, 0xB6 }, // Started Rutella escort.
@@ -338,6 +339,18 @@ namespace TPRandomizer.Assets
             { 0x4, 0x78 }, // Blew up rock in front of lakebed.
         };
 
+        public static readonly byte[,] OpenArbitersRegionFlags = new byte[,]
+        {
+            { 0xA, 0x43 }, // Explored part 9 of the Bulblin camp area
+            { 0xA, 0x44 }, // Explored part 8 of the Bulblin camp area
+            { 0xA, 0x45 }, // Explored part 7 of the Bulblin camp area
+            { 0xA, 0x46 }, // Explored part 6 of the Bulblin camp area
+            { 0xA, 0x47 }, // Explored part 5 of the Bulblin camp area
+            { 0xA, 0x4C }, // Explored part 2 of the Bulblin camp area
+            { 0xA, 0x4D }, // Explored part 4 of the Bulblin camp area
+            { 0xA, 0x4E }, // Explored part 3 of the Bulblin camp area
+        };
+
         public static readonly byte[,] OpenToTRegionFlags = new byte[,]
         {
             { 0x7, 0x49 }, // Stairs to Temple of time created.
@@ -367,6 +380,7 @@ namespace TPRandomizer.Assets
                 { 9, MapAndCompassRegionFlags },
                 { 10, OpenCastleRegionFlags },
                 { 13, OpenLakebedRegionFlags },
+                { 14, OpenArbitersRegionFlags },
                 { 16, OpenToTRegionFlags },
             };
 

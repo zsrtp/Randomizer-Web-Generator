@@ -2307,7 +2307,7 @@
         "minigameBgm": false,
         "eventBgm": false,
         "cutsceneBgm": false,
-        "isFanfare": true
+        "isFanfare": false
     },
     "Z2BGM_RIVER_GAME_00": {
         "name": "River Game",
