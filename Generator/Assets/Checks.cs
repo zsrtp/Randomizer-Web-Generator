@@ -404,7 +404,15 @@ namespace TPRandomizer
                     {
                         if (currentCheck.category.Contains("Sky Book"))
                         {
-                            currentCheck.checkStatus = "Vanilla";
+                            if (parseSetting.skipCityEntrance)
+                            {
+                                currentCheck.checkStatus = "Excluded";
+                            }
+                            else
+                            {
+                                currentCheck.checkStatus = "Vanilla";
+                            }
+
                             Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
                         }
                     }
@@ -455,11 +463,6 @@ namespace TPRandomizer
                     Randomizer.Checks.CheckDict["Ordon Shield"].itemId
                 );
                 Randomizer.Checks.CheckDict["Ordon Shield"].checkStatus = "Vanilla";
-            }
-
-            if (parseSetting.skipMdh)
-            {
-                Randomizer.Checks.CheckDict["Jovani House Poe"].checkStatus = "Excluded";
             }
 
             // Vanilla until all of the flag issues are figured out.

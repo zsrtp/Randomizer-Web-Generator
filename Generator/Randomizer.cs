@@ -990,7 +990,8 @@ namespace TPRandomizer
                 {
                     if (
                         Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemId
-                        == Item.Progressive_Fused_Shadow
+                            == Item.Progressive_Fused_Shadow
+                        && Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemWasPlaced
                     )
                     {
                         listOfRequiredDungeons[i].isRequired = true;
@@ -1003,7 +1004,8 @@ namespace TPRandomizer
                 {
                     if (
                         Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemId
-                        == Item.Progressive_Mirror_Shard
+                            == Item.Progressive_Mirror_Shard
+                        && Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemWasPlaced
                     )
                     {
                         listOfRequiredDungeons[i].isRequired = true;
@@ -1021,7 +1023,10 @@ namespace TPRandomizer
                     {
                         if (
                             Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemId
-                            == Item.Progressive_Fused_Shadow
+                                == Item.Progressive_Fused_Shadow
+                            && Checks.CheckDict[
+                                listOfRequiredDungeons[i].dungeonReward
+                            ].itemWasPlaced
                         )
                         {
                             listOfRequiredDungeons[i].isRequired = true;
@@ -1036,7 +1041,10 @@ namespace TPRandomizer
                     {
                         if (
                             Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemId
-                            == Item.Progressive_Mirror_Shard
+                                == Item.Progressive_Mirror_Shard
+                            && Checks.CheckDict[
+                                listOfRequiredDungeons[i].dungeonReward
+                            ].itemWasPlaced
                         )
                         {
                             listOfRequiredDungeons[i].isRequired = true;
@@ -1175,10 +1183,6 @@ namespace TPRandomizer
                 currentCheck.requirements = "(" + currentCheck.requirements + ")";
                 currentCheck.checkStatus = "Ready";
                 currentCheck.itemWasPlaced = false;
-                if (currentCheck.category.Contains("Dungeon Reward"))
-                {
-                    currentCheck.itemId = Item.Recovery_Heart;
-                }
                 Checks.CheckDict[fileName] = currentCheck;
 
                 // Console.WriteLine(fileName);

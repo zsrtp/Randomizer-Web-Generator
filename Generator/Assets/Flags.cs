@@ -64,6 +64,8 @@ namespace TPRandomizer.Assets
             { 0x10, 0x49 }, // FT Ook Bridge Destroyed
             { 0x17, 0x94 }, // Set flag to trigger the twilight fence before Zant
             { 0x3, 0x42 }, // Big Rock fell at DMT
+            { 0x6, 0x83 }, // Set the flag for the Ganon Barriers in Hyrule Field during Eldin Twilight.
+            { 0x9, 0x1F }, // Original Jovani Poe killed. It is replaced with a custom actor.
         };
 
         /// <summary>
@@ -503,6 +505,7 @@ namespace TPRandomizer.Assets
             { 0x0, 0x3 }, // Yeto put pumpkin and cheese in soup.
             { 0x14, 0x60 }, // Snowpeak Ruins North and West doors unlocked.
             { 0x1, 0x20 }, // Told Yeta about cheese
+            { 0x1A, 0x10 }, // Talked to Coro after Faron Twilight
         };
 
         public static readonly byte[,] OpenCastleEventFlags = new byte[,]

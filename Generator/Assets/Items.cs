@@ -802,7 +802,16 @@ namespace TPRandomizer
                 }
                 else
                 {
-                    this.alwaysItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
+                    this.RandomizedDungeonRegionItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
+                }
+            }
+
+            //
+            if (parseSetting.skipCityEntrance)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    this.RandomizedImportantItems.Remove(Item.Progressive_Sky_Book);
                 }
             }
 
