@@ -257,10 +257,7 @@ namespace TPRandomizer
                     {
                         playthroughDictionary.Remove(dictEntry.Key);
                     }
-                    else
-                    {
-                        Randomizer.Checks.CheckDict[dictEntry.Value.checkName].itemId = currentItem;
-                    }
+                    Randomizer.Checks.CheckDict[dictEntry.Value.checkName].itemId = currentItem;
                 }
             }
             int index = 1;
@@ -429,10 +426,7 @@ namespace TPRandomizer
                     {
                         playthroughDictionary.Remove(dictEntry.Key);
                     }
-                    else
-                    {
-                        Randomizer.Checks.CheckDict[dictEntry.Value.checkName].itemId = currentItem;
-                    }
+                    Randomizer.Checks.CheckDict[dictEntry.Value.checkName].itemId = currentItem;
                 }
             }
             int index = 1;
