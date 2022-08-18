@@ -546,6 +546,10 @@ window.tpr.checkData = {
     category: ['Overworld', 'Chest', 'Faron Woods', 'DZX'],
     itemId: 'Red_Rupee',
   },
+  'Faron Woods Golden Wolf': {
+    category: ['Overworld', 'Hidden Skill', 'Faron Province', 'ARC'],
+    itemId: 'Progressive_Hidden_Skill',
+  },
   'Faron Woods Owl Statue Chest': {
     category: ['Overworld', 'Chest', 'Faron Woods', 'ARC'],
     itemId: 'Piece_of_Heart',
@@ -769,7 +773,7 @@ window.tpr.checkData = {
     itemId: 'Progressive_Fishing_Rod',
   },
   'Gift From Rusl': {
-    category: ['Overworld', 'Chest', 'Ordonia Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Ordona Province', 'ARC'],
     itemId: 'Progressive_Sword',
   },
   'Goron Mines After Crystal Switch Room Magnet Wall Chest': {
@@ -900,7 +904,7 @@ window.tpr.checkData = {
     itemId: 'Piece_of_Heart',
   },
   'Herding Goats Reward': {
-    category: ['Overworld', 'Npc', 'Ordonia Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Ordona Province', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Hidden Village Poe': {
@@ -1488,7 +1492,7 @@ window.tpr.checkData = {
     itemId: 'Orange_Rupee',
   },
   'Links Basement Chest': {
-    category: ['Overworld', 'Chest', 'Ordonia Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Ordona Province', 'ARC'],
     itemId: 'Purple_Rupee_Links_House',
   },
   'Lost Woods Boulder Poe': {
@@ -1512,15 +1516,15 @@ window.tpr.checkData = {
     itemId: 'Yellow_Rupee',
   },
   'Ordon Cat Rescue': {
-    category: ['Overworld', 'Npc', 'Ordonia Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Ordona Province', 'ARC'],
     itemId: 'Sera_Bottle',
   },
   'Ordon Ranch Grotto Lantern Chest': {
-    category: ['Overworld', 'Chest', 'Ordonia Province', 'DZX'],
+    category: ['Overworld', 'Chest', 'Ordona Province', 'DZX'],
     itemId: 'Purple_Rupee',
   },
   'Ordon Shield': {
-    category: ['Overworld', 'Ordonia Province'],
+    category: ['Overworld', 'Ordona Province'],
     itemId: 'Ordon_Shield',
   },
   'Ordon Spring Golden Wolf': {
@@ -1528,7 +1532,7 @@ window.tpr.checkData = {
     itemId: 'Progressive_Hidden_Skill',
   },
   'Ordon Sword': {
-    category: ['Overworld', 'Ordonia Province'],
+    category: ['Overworld', 'Ordona Province'],
     itemId: 'Progressive_Sword',
   },
   'Outside Arbiters Grounds Lantern Chest': {
@@ -1728,7 +1732,7 @@ window.tpr.checkData = {
     itemId: 'Poe_Soul',
   },
   'Sera Shop Slingshot': {
-    category: ['Overworld', 'Shop', 'Ordonia Province', 'ARC'],
+    category: ['Overworld', 'Shop', 'Ordona Province', 'ARC'],
     itemId: 'Slingshot',
   },
   'Skybook From Impaz': {
@@ -1992,7 +1996,7 @@ window.tpr.checkData = {
     itemId: 'Red_Rupee',
   },
   'Uli Cradle Delivery': {
-    category: ['Overworld', 'Ordonia Province', 'ARC'],
+    category: ['Overworld', 'Ordona Province', 'ARC'],
     itemId: 'Progressive_Fishing_Rod',
   },
   'Upper Zoras River Female Dragonfly': {
@@ -2024,7 +2028,7 @@ window.tpr.checkData = {
     itemId: 'Wooden_Statue',
   },
   'Wrestling With Bo': {
-    category: ['Overworld', 'Chest', 'Ordonia Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Ordona Province', 'ARC'],
     itemId: 'Iron_Boots',
   },
   'Zoras Domain Chest Behind Waterfall': {
