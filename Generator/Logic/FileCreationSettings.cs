@@ -6,6 +6,7 @@ namespace TPRandomizer
     public class FileCreationSettings
     {
         public GameRegion gameRegion { get; }
+        public bool includeSpoilerLog { get; }
         public byte seedNumber { get; }
         public RandomizeBgm randomizeBgm { get; }
         public bool randomizeFanfares { get; }
@@ -26,7 +27,8 @@ namespace TPRandomizer
         {
             BitsProcessor processor = new BitsProcessor(bits);
 
-            gameRegion = (GameRegion)processor.NextInt(3);
+            gameRegion = (GameRegion)processor.NextInt(2);
+            includeSpoilerLog = processor.NextBool();
             seedNumber = (byte)processor.NextInt(4);
 
             randomizeBgm = (RandomizeBgm)processor.NextInt(2);

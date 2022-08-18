@@ -21,9 +21,9 @@ namespace TPRandomizer.Assets
         // add that where you use this variable if you need it.
         public static readonly string VersionString = $"{VersionMajor}.{VersionMinor}";
 
-        private static readonly List<byte> CheckDataRaw = new();
-        private static readonly List<byte> BannerDataRaw = new();
-        private static readonly SeedHeader SeedHeaderRaw = new();
+        private static List<byte> CheckDataRaw = new();
+        private static List<byte> BannerDataRaw = new();
+        private static SeedHeader SeedHeaderRaw = new();
         private static readonly short SeedHeaderSize = 0x160;
         private static readonly byte BgmHeaderSize = 0xC;
 
@@ -39,14 +39,15 @@ namespace TPRandomizer.Assets
 
         public static byte[] GenerateSeedDataBytes(
             SeedGenResults seedGenResults,
-            FileCreationSettings fcSettings
+            FileCreationSettings fcSettings,
+            GameRegion regionOverride
         )
         {
             SeedData seedData = new SeedData(seedGenResults, fcSettings);
-            return seedData.GenerateSeedDataBytesInternal();
+            return seedData.GenerateSeedDataBytesInternal(regionOverride);
         }
 
-        private byte[] GenerateSeedDataBytesInternal()
+        private byte[] GenerateSeedDataBytesInternal(GameRegion regionOverride)
         {
             /*
             * General Note: offset sizes are handled as two bytes. Because of this,
@@ -57,12 +58,18 @@ namespace TPRandomizer.Assets
             * Bgm Header
             * Bgm Data
             */
+
+            // Reset buffers (needed for when generating multiple files in a
+            // single request)
+            CheckDataRaw = new();
+            BannerDataRaw = new();
+            SeedHeaderRaw = new();
+
             SharedSettings randomizerSettings = Randomizer.SSettings;
             List<byte> currentGCIData = new();
             List<byte> currentSeedHeader = new();
             List<byte> currentSeedData = new();
             List<byte> currentBgmData = new();
-            char[] gameRegions = { 'J', 'P', 'E' };
 
             // Raw Check Data
             CheckDataRaw.AddRange(GeneratePatchSettings());
@@ -112,10 +119,18 @@ namespace TPRandomizer.Assets
             //     currentSeedData.ToArray()
             // );
 
+            // If generating for all regions, we use the region passed in as an
+            // argument rather than reading from fcSettings.
+            GameRegion gameRegion =
+                fcSettings.gameRegion == GameRegion.All ? regionOverride : fcSettings.gameRegion;
+
             char region;
-            switch (fcSettings.gameRegion)
+            switch (gameRegion)
             {
-                case GameRegion.PAL:
+                case GameRegion.USA:
+                    region = 'E';
+                    break;
+                case GameRegion.EUR:
                 {
                     region = 'P';
                     break;
@@ -127,8 +142,7 @@ namespace TPRandomizer.Assets
                 }
                 default:
                 {
-                    region = 'E';
-                    break;
+                    throw new Exception("Did not specify which region the output should be for.");
                 }
             }
 

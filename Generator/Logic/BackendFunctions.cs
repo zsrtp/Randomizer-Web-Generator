@@ -18,7 +18,7 @@ namespace TPRandomizer
         /// <summary>
         /// summary text.
         /// </summary>
-        private static bool ValidatePlaythrough(Room startingRoom)
+        public static bool ValidatePlaythrough(Room startingRoom)
         {
             bool areAllChecksReachable = true;
             bool areAllRoomsReachable = true;
@@ -123,7 +123,7 @@ namespace TPRandomizer
         /// <summary>
         /// summary text.
         /// </summary>
-        private static List<string> CalculateOptimalPlaythrough(Room startingRoom)
+        public static List<string> CalculateOptimalPlaythrough(Room startingRoom)
         {
             SharedSettings parseSetting = Randomizer.SSettings;
             bool hasCompletedSphere;
@@ -285,6 +285,197 @@ namespace TPRandomizer
             currentPlaythrough.Add("    Ganondorf Castle: Ganondorf Defeated");
 
             return currentPlaythrough;
+        }
+
+        public static List<List<KeyValuePair<int, Item>>> CalculateOptimalPlaythrough2(
+            Room startingRoom
+        )
+        {
+            List<List<KeyValuePair<int, Item>>> result = new();
+
+            SharedSettings parseSetting = Randomizer.SSettings;
+            bool hasCompletedSphere;
+            bool hasConcludedPlaythrough;
+            List<List<string>> listofPlaythroughs = new();
+            List<Room> currentPlaythroughGraph;
+            List<Item> playthroughItems = new();
+            List<Item> sphereItems = new();
+            Dictionary<string, Check> playthroughDictionary = new();
+            int sphereCount = 0;
+            List<string> currentPlaythrough = new();
+
+            List<KeyValuePair<int, Item>> currentSpherePairs = new();
+
+            foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
+            {
+                Check listedCheck = checkList.Value;
+                listedCheck.hasBeenReached = false;
+                Randomizer.Checks.CheckDict[listedCheck.checkName] = listedCheck;
+            }
+
+            foreach (KeyValuePair<string, Room> roomList in Randomizer.Rooms.RoomDict.ToList())
+            {
+                Room currentRoom = roomList.Value;
+                currentRoom.Visited = false;
+                Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
+            }
+
+            Randomizer.Items.heldItems.Clear();
+            foreach (Item startingItem in parseSetting.startingItems)
+            {
+                Randomizer.Items.heldItems.Add(startingItem);
+                playthroughDictionary.Add("Starting Item: " + startingItem.ToString(), null);
+            }
+
+            while (!Randomizer.Rooms.RoomDict["Ganondorf Castle"].Visited)
+            {
+                hasCompletedSphere = false;
+                hasConcludedPlaythrough = false;
+                currentPlaythroughGraph = Randomizer.GeneratePlaythroughGraph(startingRoom);
+                playthroughDictionary.Add("Sphere: " + sphereCount, null);
+                result.Add(currentSpherePairs);
+                currentSpherePairs = new();
+
+                // Walk through the current graph and get a list of rooms that we can currently access
+                // If we collect any items during the playthrough, we add them to the player's inventory
+                // and try walking through the graph again until we have collected every item that we can.
+
+                sphereItems.Clear();
+                foreach (Room graphRoom in currentPlaythroughGraph)
+                {
+                    // Console.WriteLine("Currently Exploring: " + graphRoom.name);
+                    if (graphRoom.RoomName == "Ganondorf Castle")
+                    {
+                        graphRoom.Visited = true;
+                        hasConcludedPlaythrough = true;
+                        break;
+                    }
+
+                    for (int i = 0; i < graphRoom.Checks.Count; i++)
+                    {
+                        // Create reference to the dictionary entry of the check whose logic we are evaluating
+                        if (
+                            !Randomizer.Checks.CheckDict.TryGetValue(
+                                graphRoom.Checks[i],
+                                out Check currentCheck
+                            )
+                        )
+                        {
+                            if (graphRoom.Checks[i].ToString() == string.Empty)
+                            {
+                                // Console.WriteLine("Room has no checks, continuing on....");
+                                break;
+                            }
+                        }
+
+                        if (!currentCheck.hasBeenReached)
+                        {
+                            var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
+                                currentCheck.requirements
+                            );
+                            if ((bool)areCheckRequirementsMet == true)
+                            {
+                                sphereItems.Add(currentCheck.itemId);
+                                currentCheck.hasBeenReached = true;
+                                if (
+                                    Randomizer.Items.ImportantItems.Contains(currentCheck.itemId)
+                                    || Randomizer.Items.RegionSmallKeys.Contains(
+                                        currentCheck.itemId
+                                    )
+                                    || Randomizer.Items.DungeonBigKeys.Contains(currentCheck.itemId)
+                                    || Randomizer.Items.VanillaDungeonRewards.Contains(
+                                        currentCheck.itemId
+                                    )
+                                    || Randomizer.Items.goldenBugs.Contains(currentCheck.itemId)
+                                    || (currentCheck.itemId == Item.Poe_Soul)
+                                )
+                                {
+                                    playthroughDictionary.Add(
+                                        "    "
+                                            + currentCheck.checkName
+                                            + ": "
+                                            + currentCheck.itemId,
+                                        currentCheck
+                                    );
+                                    hasCompletedSphere = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Randomizer.Items.heldItems.AddRange(sphereItems);
+
+                sphereCount++;
+                if ((hasCompletedSphere == false) && !hasConcludedPlaythrough)
+                {
+                    Console.WriteLine(
+                        "Could not validate playthrough. There possibly is an error in logic or the specific playthrough has failed."
+                    );
+                    break;
+                }
+            }
+
+            bool playthroughStatus;
+            Item currentItem;
+            foreach (KeyValuePair<string, Check> dictEntry in playthroughDictionary.Reverse())
+            {
+                if (dictEntry.Value != null)
+                {
+                    currentItem = dictEntry.Value.itemId;
+                    Randomizer.Checks.CheckDict[dictEntry.Value.checkName].itemId = 0x0;
+                    playthroughStatus = emulatePlaythrough(startingRoom);
+                    if (playthroughStatus)
+                    {
+                        playthroughDictionary.Remove(dictEntry.Key);
+                    }
+                    else
+                    {
+                        Randomizer.Checks.CheckDict[dictEntry.Value.checkName].itemId = currentItem;
+                    }
+                }
+            }
+            int index = 1;
+            currentPlaythrough.Add("Sphere: " + 0);
+            result.Add(currentSpherePairs);
+            currentSpherePairs = new();
+            for (int i = 0; i < playthroughDictionary.Count; i++)
+            {
+                KeyValuePair<string, Check> dictEntry = playthroughDictionary.ElementAt(i);
+                if (dictEntry.Value == null)
+                {
+                    if ((i > 0) && playthroughDictionary.ElementAt(i - 1).Value != null)
+                    {
+                        currentPlaythrough.Add("Sphere: " + index);
+                        result.Add(currentSpherePairs);
+                        currentSpherePairs = new();
+                        index++;
+                    }
+                }
+                else
+                {
+                    currentPlaythrough.Add(dictEntry.Key);
+                    Check check = dictEntry.Value;
+                    currentSpherePairs.Add(
+                        new KeyValuePair<int, Item>(
+                            CheckIdClass.GetCheckIdNum(check.checkName),
+                            check.itemId
+                        )
+                    );
+                }
+            }
+
+            currentPlaythrough.Add("    Ganondorf Castle: Ganondorf Defeated");
+
+            result.Add(currentSpherePairs);
+
+            List<List<KeyValuePair<int, Item>>> finalResult = result
+                .Where(x => x.Count > 0)
+                .ToList();
+
+            // return currentPlaythrough;
+            // return result;
+            return finalResult;
         }
 
         static bool emulatePlaythrough(Room startingRoom)

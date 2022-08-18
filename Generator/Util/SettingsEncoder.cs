@@ -299,7 +299,7 @@ namespace TPRandomizer.Util
                 throw new Exception("Not enough bits remaining");
             }
 
-            UInt16 val = SettingsEncoder.DecodeVlq16(bits);
+            UInt16 val = SettingsEncoder.DecodeVlq16(bits.Substring(currentIndex));
 
             currentIndex += SettingsEncoder.GetVlq16BitLength(val);
             if (currentIndex >= bits.Length)

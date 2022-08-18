@@ -1,9 +1,11 @@
 namespace TPRandomizer
 {
     using System;
+    using System.Text;
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using System.IO;
+    using System.IO.Compression;
     using System.Linq;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -162,11 +164,33 @@ namespace TPRandomizer
 
             if (generationStatus)
             {
+                Randomizer.Items.GenerateItemPool();
+
+                List<KeyValuePair<int, Item>> dungeonRewards = new();
+
+                foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
+                {
+                    Check check = checkList.Value;
+
+                    if (check.itemWasPlaced && check.category.Contains("Dungeon Reward"))
+                    {
+                        dungeonRewards.Add(
+                            new KeyValuePair<int, Item>(
+                                CheckIdClass.GetCheckIdNum(check.checkName),
+                                check.itemId
+                            )
+                        );
+                    }
+                }
+
+                List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(startingRoom);
+
                 string jsonContent = GenerateInputJsonContent(
                     settingsString,
                     seed,
                     seedHash,
-                    isRaceSeed
+                    isRaceSeed,
+                    spheres
                 );
 
                 try
@@ -189,16 +213,32 @@ namespace TPRandomizer
             return generationStatus;
         }
 
+        private static List<List<KeyValuePair<int, Item>>> GenerateSpoilerLog(Room startingRoom)
+        {
+            Randomizer.Items.GenerateItemPool();
+
+            bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom);
+            if (!isPlaythroughValid)
+            {
+                return null;
+            }
+
+            return BackendFunctions.CalculateOptimalPlaythrough2(startingRoom);
+        }
+
         private static string GenerateInputJsonContent(
             string settingsString,
             string seed,
             int seedHash,
-            bool isRaceSeed
+            bool isRaceSeed,
+            List<List<KeyValuePair<int, Item>>> spheres
         )
         {
             Dictionary<string, Item> checkIdToItemId = new();
             List<string> placementStrParts = new();
             SortedDictionary<int, byte> checkNumIdToItemId = new();
+
+            List<KeyValuePair<int, Item>> dungeonRewards = new();
 
             foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
             {
@@ -216,14 +256,26 @@ namespace TPRandomizer
                         );
                     }
 
-                    byte itemId = (byte)checkList.Value.itemId;
+                    Check check = checkList.Value;
+
+                    byte itemIdByte = (byte)check.itemId;
 
                     // For generating consistent filenames.
-                    placementStrParts.Add(checkId + "_" + itemId);
-                    checkIdToItemId[checkId] = checkList.Value.itemId;
+                    placementStrParts.Add(checkId + "_" + itemIdByte);
+                    checkIdToItemId[checkId] = check.itemId;
 
                     // For storing placements in json file.
-                    checkNumIdToItemId.Add(checkIdNum, itemId);
+                    checkNumIdToItemId.Add(checkIdNum, itemIdByte);
+
+                    if (check.category.Contains("Dungeon Reward"))
+                    {
+                        dungeonRewards.Add(
+                            new KeyValuePair<int, Item>(
+                                CheckIdClass.GetCheckIdNum(check.checkName),
+                                check.itemId
+                            )
+                        );
+                    }
                 }
             }
 
@@ -279,6 +331,7 @@ namespace TPRandomizer
             builder.playthroughName = playthroughName;
             builder.requiredDungeons = (byte)Randomizer.RequiredDungeons;
             builder.SetItemPlacements(checkNumIdToItemId);
+            builder.SetSpheres(spheres);
 
             return builder.ToString();
         }
@@ -396,7 +449,7 @@ namespace TPRandomizer
             string fileContents = File.ReadAllText(inputJsonPath);
             JObject json = JsonConvert.DeserializeObject<JObject>(fileContents);
 
-            SeedGenResults seedGenResults = new SeedGenResults(json);
+            SeedGenResults seedGenResults = new SeedGenResults(id, json);
 
             FileCreationSettings fcSettings = FileCreationSettings.FromString(fcSettingsString);
             SSettings = SharedSettings.FromString(seedGenResults.settingsString);
@@ -421,57 +474,39 @@ namespace TPRandomizer
             // seedGenResults from input.json, such as required dungeons
             // fcSettings
 
-            byte[] bytes = SeedData.GenerateSeedDataBytes(seedGenResults, fcSettings);
+            List<Tuple<Dictionary<string, object>, byte[]>> fileDefs = new();
 
-            List<Dictionary<string, object>> jsonRoot = new();
-            Dictionary<string, object> dict = new();
-
-            string gameVer = "ge";
-            switch (fcSettings.gameRegion)
+            if (fcSettings.gameRegion == GameRegion.All)
             {
-                case GameRegion.PAL:
-                    gameVer = "gp";
-                    break;
-                case GameRegion.JAP:
-                    gameVer = "gj";
-                    break;
+                // Create files for all regions
+                foreach (GameRegion gameRegion in GameRegion.GetValues(typeof(GameRegion)))
+                {
+                    if (gameRegion != GameRegion.All)
+                    {
+                        fileDefs.Add(GenGciFileDef(id, seedGenResults, fcSettings, gameRegion));
+                    }
+                }
+            }
+            else
+            {
+                // Create file for one region
+                fileDefs.Add(GenGciFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion));
             }
 
-            // dict.Add("name", "exampleNameFile.gci");
-            dict.Add(
-                "name",
-                "TprSeed-v"
-                    + SeedData.VersionString
-                    + gameVer
-                    + "-"
-                    + fcSettings.seedNumber
-                    + "--"
-                    + seedGenResults.playthroughName
-                    + ".gci"
-            );
-            dict.Add("length", bytes.Length);
-            jsonRoot.Add(dict);
-
-            // inputJsonRoot.Add("timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
-            // inputJsonRoot.Add("settingsString", settingsString);
-            // inputJsonRoot.Add("seed", seed);
-            // inputJsonRoot.Add("seedHash", seedHash.ToString("x8"));
-            // inputJsonRoot.Add("filename", filename);
-            // inputJsonRoot.Add("settings", GenPart2Settings(true));
-            // inputJsonRoot.Add("itemPlacement", checkIdToItemId);
-            string fileDefs = JsonConvert.SerializeObject(jsonRoot);
-            string hexValue = fileDefs.Length.ToString("x8");
-
-            Console.Write("BYTES:");
-            Console.Write(hexValue);
-            Console.Write(fileDefs);
-            // Write 8 chars of hex for length of json
-            // json looks like: [{name: '', length: number}, {}]
-
-            using (Stream myOutStream = Console.OpenStandardOutput())
+            if (!seedGenResults.isRaceSeed && fcSettings.includeSpoilerLog)
             {
-                myOutStream.Write(bytes, 0, bytes.Length);
+                // Add fileDef for spoilerLog
+                string spoilerLogText = GetSeedGenResultsJson(id, true);
+                byte[] spoilerBytes = Encoding.UTF8.GetBytes(spoilerLogText);
+
+                Dictionary<string, object> dict = new();
+                dict.Add("name", $"Tpr--{seedGenResults.playthroughName}--SpoilerLog-{id}.json");
+                dict.Add("length", spoilerBytes.Length);
+
+                fileDefs.Add(new(dict, spoilerBytes));
             }
+
+            PrintFileDefs(id, seedGenResults, fcSettings, fileDefs);
 
             // Console.WriteLine("Done!");
             // Console.WriteLine("Generating Spoiler Log.");
@@ -499,6 +534,138 @@ namespace TPRandomizer
             // return generationStatus;
 
             return true;
+        }
+
+        private static Tuple<Dictionary<string, object>, byte[]> GenGciFileDef(
+            string seedId,
+            SeedGenResults seedGenResults,
+            FileCreationSettings fcSettings,
+            GameRegion gameRegionOverride
+        )
+        {
+            byte[] bytes = SeedData.GenerateSeedDataBytes(
+                seedGenResults,
+                fcSettings,
+                gameRegionOverride
+            );
+
+            Dictionary<string, object> dict = new();
+
+            string gameVer;
+            switch (gameRegionOverride)
+            {
+                case GameRegion.USA:
+                    gameVer = "ge";
+                    break;
+                case GameRegion.EUR:
+                    gameVer = "gp";
+                    break;
+                case GameRegion.JAP:
+                    gameVer = "gj";
+                    break;
+                default:
+                    throw new Exception("Did not specify output region");
+            }
+
+            dict.Add(
+                "name",
+                "Tpr--"
+                    + seedGenResults.playthroughName
+                    + "--SeedV"
+                    + SeedData.VersionString
+                    + gameVer
+                    + "-"
+                    + fcSettings.seedNumber
+                    + "-"
+                    + seedId
+                    + ".gci"
+            );
+            dict.Add("length", bytes.Length);
+
+            return new(dict, bytes);
+        }
+
+        private static void PrintFileDefs(
+            string seedId,
+            SeedGenResults seedGenResults,
+            FileCreationSettings fcSettings,
+            List<Tuple<Dictionary<string, object>, byte[]>> fileDefs
+        )
+        {
+            if (fileDefs.Count > 1)
+            {
+                // Write ZIP file instead
+                string zipFilename = $"TPR--{seedGenResults.playthroughName}--{seedId}.zip";
+                fileDefs = MergeFileDefsToZip(zipFilename, fileDefs);
+            }
+
+            List<Dictionary<string, object>> jsonRoot = fileDefs
+                .Select(tuple => tuple.Item1)
+                .ToList();
+
+            string fileDefMetaJson = JsonConvert.SerializeObject(jsonRoot);
+            string hexValue = fileDefMetaJson.Length.ToString("x8");
+
+            // Write 8 chars of hex for length of json
+            // json looks like: [{name: '', length: number}, {}]
+            Console.Write("BYTES:");
+            Console.Write(hexValue);
+            Console.Write(fileDefMetaJson);
+
+            // Write file bytes
+            for (int i = 0; i < fileDefs.Count; i++)
+            {
+                byte[] bytes = fileDefs[i].Item2;
+
+                using (Stream myOutStream = Console.OpenStandardOutput())
+                {
+                    myOutStream.Write(bytes, 0, bytes.Length);
+                }
+            }
+        }
+
+        private static List<Tuple<Dictionary<string, object>, byte[]>> MergeFileDefsToZip(
+            string filename,
+            List<Tuple<Dictionary<string, object>, byte[]>> fileDefs
+        )
+        {
+            byte[] compressedBytes;
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                using (
+                    ZipArchive archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true)
+                )
+                {
+                    for (int i = 0; i < fileDefs.Count; i++)
+                    {
+                        string name = (string)fileDefs[i].Item1["name"];
+                        byte[] bytes = fileDefs[i].Item2;
+
+                        ZipArchiveEntry demoFile = archive.CreateEntry(name);
+
+                        using (Stream entryStream = demoFile.Open())
+                        {
+                            using (BinaryWriter streamWriter = new BinaryWriter(entryStream))
+                            {
+                                streamWriter.Write(bytes, 0, bytes.Length);
+                            }
+                        }
+                    }
+                }
+
+                compressedBytes = memoryStream.ToArray();
+            }
+
+            Dictionary<string, object> meta = new();
+            meta.Add("name", filename);
+            meta.Add("length", compressedBytes.Length);
+
+            List<Tuple<Dictionary<string, object>, byte[]>> list = new();
+
+            list.Add(new(meta, compressedBytes));
+
+            return list;
         }
 
         /// <summary>
@@ -1255,6 +1422,26 @@ namespace TPRandomizer
                 this.requirementChecks = requirementChecks;
             }
         };
+
+        public static string GetSeedGenResultsJson(
+            string seedId,
+            bool prettyPrint,
+            bool dangerouslyPrintFullRaceSpoiler = false
+        )
+        {
+            string inputPath = Global.CombineOutputPath("seeds", seedId, "input.json");
+            if (!File.Exists(inputPath))
+            {
+                throw new Exception("input.json not found for id '" + seedId + "'.");
+            }
+
+            string fileContents = File.ReadAllText(inputPath);
+            JObject json = JsonConvert.DeserializeObject<JObject>(fileContents);
+
+            SeedGenResults seedGenResults = new SeedGenResults(seedId, json);
+
+            return seedGenResults.ToSpoilerString(prettyPrint, dangerouslyPrintFullRaceSpoiler);
+        }
     }
 
     internal class FilenameComparer : IComparer<string>

@@ -22,10 +22,12 @@
     <script src="/js/lib/jquery-3.6.0.js"></script>
     <script src="/js/shared.js"></script>
     <script src="/js/game.js"></script>
+    <script src="/js/checkData.js"></script>
   </head>
   <body>
     <!-- INPUT_JSON_DATA -->
     <!-- REQUESTER_HASH -->
+    <!-- SEED_GEN_RESULTS -->
 
     <a href="/">
       <img
@@ -321,7 +323,7 @@
           <!-- <div class="leftColumn"> -->
           <fieldset id="logicSettingsFieldset">
             <legend>Seed Settings</legend>
-            <label for="gameRegionFieldset">Game Region:</label>
+            <!-- <label for="gameRegionFieldset">Game Region:</label>
             <select name="Game Region Fieldset" id="gameRegion">
               <option value="0">NTSC (US)</option>
               <option value="1">PAL (EUR)</option>
@@ -331,7 +333,7 @@
               <option value="5" disabled>Wii PAL (EUR)</option>
               <option value="6" disabled>Wii JP (JAP)</option>
             </select>
-            <br />
+            <br /> -->
             <label for="seedNumberFieldset">Seed Number:</label>
             <select name="Seed Number Fieldset" id="seedNumber">
               <option value="0">0</option>
@@ -526,18 +528,130 @@
           value="-1"
           hidden
         /> -->
-        <input id="importSettingsStringButton" value="Import" type="button" />
-        <br />
-        <!-- <button id="create" type="button">Create</button> -->
-        <button id="create" class="primaryButton" style="margin-top: 16px">
-          Create
-        </button>
+        <input
+          id="importSettingsStringButton"
+          value="Import Settings"
+          type="button"
+        />
+
+        <div class="downloadOptionsParent">
+          <div style="font-size: 18px; margin-bottom: 12px">
+            Download Options
+          </div>
+          <div id="downloadOptionsRegionFilterGroup"></div>
+          <div id="downloadOptionsSpoilerCheckboxParent"></div>
+
+          <button id="create" class="primaryButton" style="margin-top: 16px">
+            Get Download Link
+          </button>
+
+          <div id="downloadsParent" style="padding: 24px 0 0px; display: none">
+            <div
+              id="preparingDownloadLinkRow"
+              class="preparingDownloadLinkRow"
+              style="display: none"
+            >
+              <div
+                class="spinner-border"
+                role="status"
+                style="margin-right: 24px; color: rgb(8, 92, 161)"
+              ></div>
+              <div>Preparing download link ...</div>
+            </div>
+
+            <div id="downloadLinkParent" style="display: none"></div>
+            <div
+              id="downloadLinkError"
+              class="downloadLinkError"
+              style="display: none"
+            ></div>
+          </div>
+          <!-- style="padding: 40px 24px 0px; display: none" -->
+        </div>
+      </div>
+
+      <!-- Spoiler Section -->
+      <div id="settingsSpoilerSection" class="blackbg" style="display: none">
+        <div style="display: flex; align-items: center; margin-bottom: 24px">
+          <div id="spoilerSectionTitle" style="font-size: 24px">Settings</div>
+          <a
+            id="downloadSpoilerLogBtn"
+            class="primaryButton"
+            style="margin-left: auto; display: none"
+          >
+            Download Spoiler Log
+          </a>
+        </div>
+
+        <div class="tab">
+          <button id="tabBtnSharedSettings" class="tablinks active">
+            Shared Settings
+          </button>
+          <button id="tabBtnDefaultCosmetics" class="tablinks">
+            Default Cosmetics
+          </button>
+          <button
+            id="tabBtnPlaythroughSpoilers"
+            class="tablinks"
+            style="display: none"
+          >
+            Spoilers
+          </button>
+        </div>
 
         <div
-          id="downloadLinkParent"
-          style="padding: 40px 24px 0px; display: none"
+          id="tabSharedSettings"
+          class="tabcontent"
+          style="display: block"
         ></div>
+
+        <div
+          id="tabDefaultCosmetics"
+          class="tabcontent"
+          style="display: none"
+        ></div>
+
+        <div
+          id="tabPlaythroughSpoilers"
+          class="tabcontent"
+          style="display: none"
+        >
+          <div class="spoilerFiltersParent">
+            <div id="spoilerFilterGroupsParent"></div>
+            <div class="searchFilterGroup">
+              <label>
+                <input
+                  id="checkboxImportantItemsOnly"
+                  type="checkbox"
+                  checked="checked"
+                />
+                Important items only
+              </label>
+            </div>
+            <div class="searchFilterGroup">
+              <input
+                type="text"
+                id="spoilerFilterInput"
+                placeholder="Search"
+                class="searchInput"
+                maxlength="60"
+              />
+              <span id="spoilerResultsCount" class="spoilerResultsCount"></span>
+            </div>
+          </div>
+          <div id="spoilerCheckList" class="spoilerCheckList">
+            <table class="spoilerTable">
+              <tbody id="spoilerTableBody"></tbody>
+            </table>
+          </div>
+          <div
+            id="noSpoilerResults"
+            class="noSpoilerResults"
+            style="display: none"
+          ></div>
+        </div>
       </div>
+
       <div class="blackbg">
         <h1>Tools and resources</h1>
         <hr />
@@ -643,12 +757,6 @@
           >!
         </div>
       </div>
-    </div>
-
-    <div>
-      <table>
-        <tbody id="settingsTBody"></tbody>
-      </table>
     </div>
 
     <!-- Edit Settings Modal -->

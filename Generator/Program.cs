@@ -22,7 +22,7 @@ namespace TPRandomizer
             {
                 case "generate2":
                 {
-                    // id, settingsString, isRaceSeed, seed
+                    // seedId, settingsString, isRaceSeed, seed
                     string seed = "";
                     if (args.Length > 3)
                     {
@@ -32,13 +32,24 @@ namespace TPRandomizer
                     break;
                 }
                 case "generate_final_output2":
-                    // id, fileCreationSettingsString
+                    // seedId, fileCreationSettingsString
                     Randomizer.GenerateFinalOutput2(args[1], args[2]);
                     break;
                 case "print_check_ids":
                     Console.WriteLine(
                         JsonConvert.SerializeObject(CheckIdClass.GetNameToIdNumDictionary())
                     );
+                    break;
+                case "print_seed_gen_results":
+                    // seedId
+                    Console.WriteLine(Randomizer.GetSeedGenResultsJson(args[1], false));
+                    break;
+                // "dangerously_print_full_race_spoiler" should only ever be
+                // called by a human manually from the command line. The website
+                // must never call this code.
+                case "dangerously_print_full_race_spoiler":
+                    // seedId
+                    Console.WriteLine(Randomizer.GetSeedGenResultsJson(args[1], true, true));
                     break;
                 default:
                     throw new Exception("Unrecognized command.");

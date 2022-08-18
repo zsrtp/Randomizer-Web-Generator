@@ -372,6 +372,10 @@ function escapeHtml(str: string) {
   });
 }
 
+function genSpoilerData(inputJsonObj: string) {
+  return JSON.parse(JSON.stringify(inputJsonObj));
+}
+
 app.get('/s/:id', (req: express.Request, res: express.Response) => {
   fs.readFile(path.join(root, 'getseed.html'), function read(err, data) {
     if (err) {
@@ -398,6 +402,7 @@ app.get('/s/:id', (req: express.Request, res: express.Response) => {
         const json = JSON.parse(
           fs.readFileSync(filePath, { encoding: 'utf8' })
         );
+
         json.output.seedHash = undefined;
         json.output.itemPlacement = undefined;
         // Stringifying will get rid of these undefined values. We don't want to
@@ -409,6 +414,13 @@ app.get('/s/:id', (req: express.Request, res: express.Response) => {
           `<input id='inputJsonData' type='hidden' value='${fileContents}'>`
         );
         msg = msg.replace('<!-- REQUESTER_HASH -->', '');
+
+        const spoilerData = callGenerator('print_seed_gen_results', id);
+
+        msg = msg.replace(
+          '<!-- SEED_GEN_RESULTS -->',
+          `<input id='spoilerData' type='hidden' value='${spoilerData}'>`
+        );
       } else {
         const { seedGenStatus } = checkProgress(id);
         if (seedGenStatus) {
@@ -419,10 +431,12 @@ app.get('/s/:id', (req: express.Request, res: express.Response) => {
             '<!-- REQUESTER_HASH -->',
             `<input id='requesterHash' type='hidden' value='${seedGenStatus.requesterHash}'>`
           );
+          msg = msg.replace('<!-- SEED_GEN_RESULTS -->', '');
         } else {
           // Have no idea what the client is talking about with that seedId.
           msg = msg.replace('<!-- INPUT_JSON_DATA -->', '');
           msg = msg.replace('<!-- REQUESTER_HASH -->', '');
+          msg = msg.replace('<!-- SEED_GEN_RESULTS -->', '');
         }
       }
 

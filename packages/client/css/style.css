@@ -1439,3 +1439,144 @@ ul.picrossExplanation ul > li {
   color: #3367d6;
   cursor: pointer;
 }
+
+.spoilerFiltersParent {
+  background-color: #3c4042;
+  border-radius: 4px;
+}
+
+.filterGroupParent {
+  padding: 8px;
+}
+
+.filterGroupFilter {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 9999px;
+  box-sizing: border-box;
+  padding: 4px 12px;
+  display: inline-block;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-right: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filterGroupFilter.filterSelected {
+  background-color: rgb(8, 92, 161);
+}
+
+.filterGroupTitle {
+  margin: 0 8px 4px;
+  font-size: 14px;
+}
+
+.searchFilterGroup {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  padding: 6px 8px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  margin-right: 16px;
+  line-height: 1.428;
+}
+
+.spoilerResultsCount {
+  font-size: 14px;
+}
+
+.spoilerCheckList {
+  padding: 16px;
+}
+
+table.spoilerTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.spoilerTable tr > td {
+  /* text-align: right; */
+  padding: 6px;
+}
+
+table.spoilerTable tr > td:first-child {
+  /* text-align: right; */
+  padding-right: 16px;
+  /* padding: 2px 16px 2px 0; */
+}
+
+table.spoilerTable tr > td:last-child {
+  margin-right: 9999px;
+}
+
+.noSpoilerResults {
+  width: 100%;
+  text-align: center;
+  padding: 24px 16px;
+}
+
+table.settingsTable {
+  /* width: 100%; */
+  border-collapse: collapse;
+}
+
+table.settingsTable tr > td {
+  padding: 6px;
+  width: 50%;
+}
+
+table.settingsTable tr > td:first-child {
+  /* text-align: right; */
+  padding-right: 24px;
+  /* width: 50%; */
+  /* padding: 2px 16px 2px 0; */
+  /* color: rgba(255, 255, 255, 0.8); */
+}
+
+table.settingsTable tr > td:last-child {
+  /* margin-right: 9999px; */
+  color: rgba(255, 255, 255, 0.87);
+}
+
+table.settingsTable > tbody > tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* table.spoilerTable > tbody > tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.3);
+} */
+
+.basicCheckboxLabel {
+  display: inline-block;
+  padding: 8px;
+}
+
+.basicCheckboxSpan {
+  margin-left: 8px;
+}
+
+.downloadOptionsParent {
+  background-color: #202124;
+  padding: 16px 16px 24px;
+  margin-top: 16px;
+  border-radius: 4px;
+}
+
+.preparingDownloadLinkRow {
+  display: flex;
+  align-items: center;
+}
+
+.downloadLinkError {
+  color: rgb(255, 188, 200);
+  background-color: rgb(94, 17, 24);
+  border: 1px solid rgb(146, 25, 38);
+  border-radius: 4px;
+  padding: 12px 20px;
+}
