@@ -497,6 +497,7 @@ namespace TPRandomizer
                 "Kakariko Village Malo Mart Hylian Shield",
                 "Palace of Twilight East Wing First Room East Alcove",
                 "Bulblin Camp Roasted Boar",
+                "Faron Woods Golden Wolf",
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.
