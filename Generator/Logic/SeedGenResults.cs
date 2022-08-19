@@ -190,6 +190,7 @@ namespace TPRandomizer
 
         // forceOutputEverything only exists so that we can print
         public string ToSpoilerString(
+            SortedDictionary<string, string> sortedCheckNameToItemNameDict,
             bool prettyPrint,
             bool dangerouslyPrintFullRaceSpoiler = false
         )
@@ -218,7 +219,7 @@ namespace TPRandomizer
             if (!isRaceSeed || dangerouslyPrintFullRaceSpoiler)
             {
                 root.Add("requiredDungeons", GetRequiredDungeonsStringList());
-                root.Add("itemPlacements", GetItemPlacementsForSpoiler());
+                root.Add("itemPlacements", sortedCheckNameToItemNameDict);
                 root.Add("spheres", GetSpheresForSpoiler());
             }
 
@@ -255,24 +256,6 @@ namespace TPRandomizer
             }
 
             return reqDungeonsList;
-        }
-
-        private SortedDictionary<string, string> GetItemPlacementsForSpoiler()
-        {
-            // StringComparer is needed because the default sort order is
-            // different on Linux and Windows
-            SortedDictionary<string, string> checkIdToItemId = new(StringComparer.Ordinal);
-
-            foreach (KeyValuePair<int, byte> kvp in itemPlacements)
-            {
-                // key is checkId, value is itemId
-                string checkName = CheckIdClass.GetCheckName(kvp.Key);
-                Item item = (Item)kvp.Value;
-
-                checkIdToItemId.Add(checkName, item.ToString());
-            }
-
-            return checkIdToItemId;
         }
 
         private Dictionary<string, Dictionary<string, string>> GetSpheresForSpoiler()

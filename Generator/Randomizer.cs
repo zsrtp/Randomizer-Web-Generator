@@ -1440,7 +1440,59 @@ namespace TPRandomizer
 
             SeedGenResults seedGenResults = new SeedGenResults(seedId, json);
 
-            return seedGenResults.ToSpoilerString(prettyPrint, dangerouslyPrintFullRaceSpoiler);
+            return seedGenResults.ToSpoilerString(
+                GetSortedCheckNameToItemNameDict(seedGenResults),
+                prettyPrint,
+                dangerouslyPrintFullRaceSpoiler
+            );
+        }
+
+        private static SortedDictionary<string, string> GetSortedCheckNameToItemNameDict(
+            SeedGenResults seedGenResults
+        )
+        {
+            if (Checks.CheckDict.Count < 1)
+            {
+                // Can't deserialize twice if generating the spoiler in the same
+                // call as the GCI creation(s).
+                DeserializeChecks();
+                DeserializeRooms();
+            }
+
+            foreach (KeyValuePair<int, byte> kvp in seedGenResults.itemPlacements)
+            {
+                // key is checkId, value is itemId
+                string checkName = CheckIdClass.GetCheckName(kvp.Key);
+                if (Randomizer.Checks.CheckDict.ContainsKey(checkName))
+                {
+                    Randomizer.Checks.CheckDict[checkName].itemId = (Item)kvp.Value;
+                }
+            }
+
+            SortedDictionary<string, string> checkNameToItemName = new(StringComparer.Ordinal);
+
+            foreach (KeyValuePair<string, Check> kvp in Checks.CheckDict)
+            {
+                string checkId = CheckIdClass.FromString(kvp.Key);
+                int checkIdNum = CheckIdClass.GetCheckIdNum(kvp.Key);
+                if (checkId == null || checkIdNum < 0)
+                {
+                    throw new Exception(
+                        "Need to update CheckId to support check named \"" + kvp.Key + "\"."
+                    );
+                }
+
+                Check check = kvp.Value;
+
+                if (seedGenResults.itemPlacements.ContainsKey(checkIdNum))
+                {
+                    check.itemId = (Item)seedGenResults.itemPlacements[checkIdNum];
+                }
+
+                checkNameToItemName[check.checkName] = check.itemId.ToString();
+            }
+
+            return checkNameToItemName;
         }
     }
 
