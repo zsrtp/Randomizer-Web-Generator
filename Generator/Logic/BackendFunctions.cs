@@ -299,6 +299,7 @@ namespace TPRandomizer
             List<Item> sphereItems = new();
             Dictionary<string, Check> playthroughDictionary = new();
             int sphereCount = 0;
+            int startingItemCount = 1;
             List<string> currentPlaythrough = new();
 
             List<KeyValuePair<int, Item>> currentSpherePairs = new();
@@ -321,7 +322,11 @@ namespace TPRandomizer
             foreach (Item startingItem in parseSetting.startingItems)
             {
                 Randomizer.Items.heldItems.Add(startingItem);
-                playthroughDictionary.Add("Starting Item: " + startingItem.ToString(), null);
+                playthroughDictionary.Add(
+                    "Starting Item " + startingItemCount + ": " + startingItem.ToString(),
+                    null
+                );
+                startingItemCount++;
             }
 
             while (!Randomizer.Rooms.RoomDict["Ganondorf Castle"].Visited)
