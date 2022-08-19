@@ -1544,6 +1544,21 @@ namespace TPRandomizer
             );
         }
 
+        /// <summary>
+        /// summary text.
+        /// </summary>
+        public static bool HasBug()
+        {
+            foreach (Item bug in Randomizer.Items.goldenBugs)
+            {
+                if (CanUse(bug))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static int getItemCount(Item itemToBeCounted)
         {
             List<Item> itemList = Randomizer.Items.heldItems;
