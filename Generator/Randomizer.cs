@@ -1469,6 +1469,10 @@ namespace TPRandomizer
                 }
             }
 
+            SharedSettings sharedSettings = SharedSettings.FromString(
+                seedGenResults.settingsString
+            );
+
             SortedDictionary<string, string> checkNameToItemName = new(StringComparer.Ordinal);
 
             foreach (KeyValuePair<string, Check> kvp in Checks.CheckDict)
@@ -1489,7 +1493,14 @@ namespace TPRandomizer
                     check.itemId = (Item)seedGenResults.itemPlacements[checkIdNum];
                 }
 
-                checkNameToItemName[check.checkName] = check.itemId.ToString();
+                if (!sharedSettings.shuffleNpcItems && check.category.Contains("Bug Reward"))
+                {
+                    checkNameToItemName[check.checkName] = "Vanilla";
+                }
+                else
+                {
+                    checkNameToItemName[check.checkName] = check.itemId.ToString();
+                }
             }
 
             return checkNameToItemName;
