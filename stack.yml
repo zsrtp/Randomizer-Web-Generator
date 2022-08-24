@@ -5,6 +5,7 @@ services:
     image: tpr-generator:${IMAGE_VERSION}
     ports:
       - '${HOST_PORT:-3000}:3500'
+      - '40444:40444'
     volumes:
       - tpr-generator-data:${TPRGEN_VOLUME_ROOT}
     configs:
@@ -12,6 +13,10 @@ services:
     secrets:
       - jwt_secret
       - seedhash_secret
+      - source: server_crt_secret
+        target: server.crt
+      - source: server_key_secret
+        target: server.key
 
 volumes:
   tpr-generator-data:
@@ -29,3 +34,9 @@ secrets:
   seedhash_secret:
     file: ./secrets/seedHashSecret.txt
     name: seedhash_secret-${SEEDHASH_SECRET_HASH}
+  server_crt_secret:
+    file: ./secrets/server.crt
+    name: server_crt_secret-${SERVER_CRT_SECRET_HASH}
+  server_key_secret:
+    file: ./secrets/server.key
+    name: server_key_secret-${SERVER_KEY_SECRET_HASH}

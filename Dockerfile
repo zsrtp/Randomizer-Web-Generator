@@ -39,6 +39,11 @@ RUN cp -R Assets/Sound/BackgroundMusic.json /app/generator/Assets/Sound/Backgrou
 FROM node:lts-alpine as node_base
 FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine
 COPY --from=node_base . .
+
+# Install nginx. Maybe don't need curl and vim, though vim could potentially be handy.
+RUN apk update \
+	&& apk add nginx curl vim
+
 WORKDIR /app
 COPY --from=build /app .
 COPY .env ./generator
@@ -55,7 +60,10 @@ WORKDIR /usr/app/server
 ENV TPRGEN_ENV=production
 ENV NODE_ENV=production
 
-EXPOSE 3500
+# EXPOSE 3500
+
+COPY ./nginx.conf /usr/nginx.conf
+COPY ./start.sh /usr/start.sh
 
 ARG IMAGE_VERSION
 ENV IMAGE_VERSION $IMAGE_VERSION
@@ -63,4 +71,5 @@ ENV IMAGE_VERSION $IMAGE_VERSION
 ARG GIT_COMMIT
 ENV GIT_COMMIT $GIT_COMMIT
 
-CMD ["node", "bundle.js"]
+# CMD ["node", "bundle.js"]
+CMD ["/usr/start.sh"]
