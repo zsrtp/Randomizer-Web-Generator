@@ -420,6 +420,7 @@ namespace TPRandomizer
 
             bool playthroughStatus;
             Item currentItem;
+
             foreach (KeyValuePair<string, Check> dictEntry in playthroughDictionary.Reverse())
             {
                 if (dictEntry.Value != null)
@@ -430,6 +431,8 @@ namespace TPRandomizer
                     if (playthroughStatus)
                     {
                         playthroughDictionary.Remove(dictEntry.Key);
+                        Randomizer.Checks.CheckDict[dictEntry.Value.checkName].itemWasPlaced =
+                            false;
                     }
                     Randomizer.Checks.CheckDict[dictEntry.Value.checkName].itemId = currentItem;
                 }
@@ -544,7 +547,7 @@ namespace TPRandomizer
                                 }
                             }
 
-                            if (!currentCheck.hasBeenReached)
+                            if (!currentCheck.hasBeenReached && currentCheck.itemWasPlaced)
                             {
                                 var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
                                     currentCheck.requirements

@@ -65,7 +65,10 @@ namespace TPRandomizer.Assets
             { 0x17, 0x94 }, // Set flag to trigger the twilight fence before Zant
             { 0x3, 0x42 }, // Big Rock fell at DMT
             { 0x6, 0x83 }, // Set the flag for the Ganon Barriers in Hyrule Field during Eldin Twilight.
-            { 0x9, 0x1F }, // Original Jovani Poe killed. It is replaced with a custom actor.
+            { 0x9, 0x40 }, // Original Jovani Poe killed. It is replaced with a custom actor.
+            { 0x9, 0x76 }, // Jovani Chest CS 2
+            { 0x9, 0x7F }, // Open Chest to Jovani
+            { 0x9, 0x7E }, // Jovani Chest CS
         };
 
         /// <summary>
@@ -408,6 +411,7 @@ namespace TPRandomizer.Assets
             { 0xF7, 0x1 }, // Add 256 Rupees to Charlo.
             { 0xF8, 0xF4 }, // Add 244 Rupees to Charlo.
             { 0x60, 0x1 }, // Talked to Fyer after Lanayru Twilight
+            { 0x38, 0x80 }, // Talked to Jovani after defeating Poe.
         };
 
         /// <summary>
