@@ -40,12 +40,7 @@ namespace TPRandomizer.Assets
         /// <param name="seedRegion">The region of the game that the seed is being generated for.</param>
         /// <param name="seedData">Any data that needs to be read into the GCI file.</param>
         /// <returns> The inserted value as a byte. </returns>
-        public Gci(
-            byte seedNumber = 0,
-            char regionCode = 'E',
-            List<byte> seedData = null,
-            string seedHash = ""
-        )
+        public Gci(byte seedNumber, char regionCode, List<byte> seedData, string playthroughName)
         {
             gciHeader = new List<byte>();
             gciData = new List<byte>();
@@ -63,7 +58,13 @@ namespace TPRandomizer.Assets
             /*x7*/
             gciHeader.Add(Converter.GcByte(1)); // banner flags (C8)
             /*x8*/
-            gciHeader.AddRange(Converter.StringBytes($"rando-data{seedNumber}", 0x20));
+            // gciHeader.AddRange(Converter.StringBytes($"rando-data{seedNumber}", 0x20));
+            gciHeader.AddRange(
+                Converter.StringBytes(
+                    $"sd{EncodeU16As3Chars(SeedData.VersionMajor)}{EncodeU16As3Chars(SeedData.VersionMinor)}{playthroughName}",
+                    0x20
+                )
+            );
             /*x28*/
             gciHeader.AddRange(
                 Converter.GcBytes((UInt32)(DateTime.UtcNow - new DateTime(2000, 1, 1)).TotalSeconds)
@@ -94,5 +95,30 @@ namespace TPRandomizer.Assets
             while (gciFile.Count < (2 * 0x2000) + 0x40) // Pad to 4 blocks.
                 gciFile.Add((byte)0x0);
         }
+
+        private static readonly string U16EncodingChars =
+            "0123456789abcDefghiJkLmNopQrstuVwxyzABEHR";
+
+        private static string EncodeU16As3Chars(UInt16 number)
+        {
+            int iterations = 3;
+            int charCount = 41;
+
+            char[] arr = new char[3];
+            UInt16 currNum = number;
+
+            for (int i = 0; i < iterations; i++)
+            {
+                int charIndex = currNum % charCount;
+                arr[i] = U16EncodingChars[charIndex];
+                currNum = (UInt16)((currNum - charIndex) / charCount);
+            }
+
+            Array.Reverse(arr);
+
+            return new String(arr);
+        }
     }
+
+    // 41 chars. Don't change the value of this string ever.
 }
