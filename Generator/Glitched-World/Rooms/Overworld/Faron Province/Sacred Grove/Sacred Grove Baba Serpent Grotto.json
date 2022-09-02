@@ -1,0 +1,15 @@
+{ 
+    "Neighbours": 
+    [
+        "Sacred Grove Master Sword"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Sacred Grove Baba Serpent Grotto Chest"
+    ],
+    "Region": "Sacred Grove"
+}

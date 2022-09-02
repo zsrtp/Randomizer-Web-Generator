@@ -1,0 +1,7 @@
+{
+    "requirements": "Shadow_Crystal and (Progressive_Clawshot, 2) and CanDefeatArmos and CanDefeatBabaSerpent and CanDefeatLizalfos and CanDefeatDinalfos and ((Progressive_Bow, 1) or Ball_and_Chain)",
+    "stageIDX": [31],
+    "flag": "47",
+    "category": ["Overworld", "Poe", "Cave of Ordeals"],
+    "itemId": "Poe_Soul"
+}

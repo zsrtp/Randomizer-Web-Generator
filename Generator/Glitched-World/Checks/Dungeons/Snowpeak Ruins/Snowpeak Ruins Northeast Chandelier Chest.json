@@ -1,0 +1,10 @@
+{
+    "requirements": "CanDefeatChilfos and Ball_and_Chain",
+    "arcOffsets": ["D4C"],
+    "stageIDX": [27],
+    "roomIDX": 5,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Snowpeak Ruins", "Small Key", "ARC"],
+    "itemId": "Snowpeak_Ruins_Small_Key"
+}

@@ -1,0 +1,26 @@
+{
+    "Neighbours":
+    [
+        "South Faron Woods",
+        "Outside Castle Town South",
+        "Kakariko Gorge",
+        "Lake Hylia Bridge",
+        "Faron Field Corner Grotto"
+    ],
+  "NeighbourRequirements": [
+    "true",
+    "Shadow_Crystal or ((Gate_Keys or (Setting.smallKeySettings equals Keysey)) and (Shadow_Crystal or (Setting.lanayruTwilightCleared equals True)) or canSmash) and Empty_Bottle",
+    "true",
+    "Shadow_Crystal or ((Gate_Keys or (Setting.smallKeySettings equals Keysey)) and (Shadow_Crystal or (Setting.lanayruTwilightCleared equals True)) or canSmash)",
+    "Shadow_Crystal"
+  ],
+    "Checks":
+    [
+        "Faron Field Bridge Chest",
+        "Faron Field Tree Heart Piece",
+        "Faron Field Male Beetle",
+        "Faron Field Female Beetle",
+        "Faron Field Poe"
+    ],
+    "Region": "Hyrule Field"
+}

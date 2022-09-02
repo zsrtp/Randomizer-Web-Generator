@@ -1,0 +1,21 @@
+{ 
+    "Neighbours": 
+    [
+        "City in The Sky West Wing", 
+        "City in The Sky Lobby"
+    ],
+    "NeighbourRequirements":
+    [
+        "(Progressive_Clawshot, 2)",
+        "true"
+    ],
+    "Checks": 
+    [
+        "City in The Sky Central Outside Ledge Chest",
+        "City in The Sky Central Outside Poe Island Chest",
+        "City in The Sky Big Key Chest",
+        "City in The Sky Chest Below Big Key Chest",
+        "City in The Sky Poe Above Central Fan"
+    ],
+    "Region": "City in The Sky"
+}

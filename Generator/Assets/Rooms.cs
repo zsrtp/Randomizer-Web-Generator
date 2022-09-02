@@ -2,6 +2,7 @@ namespace TPRandomizer
 {
     using System.Collections.Generic;
     using TPRandomizer.SSettings.Enums;
+    using System;
 
     /// <summary>
     /// summary text.
@@ -78,7 +79,7 @@ namespace TPRandomizer
                     && itemName.Contains(currentRoom.Region)
                 )
                 {
-                    return true;
+                    return checkBarrenRegionLocation(currentRoom, currentCheck, itemName);
                 }
                 else if (
                     (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
@@ -88,7 +89,7 @@ namespace TPRandomizer
                     )
                 )
                 {
-                    return true;
+                    return checkBarrenRegionLocation(currentRoom, currentCheck, itemName);
                 }
             }
             else if (Randomizer.Items.DungeonBigKeys.Contains(itemToPlace))
@@ -97,14 +98,14 @@ namespace TPRandomizer
                 {
                     if (itemName.Contains(currentRoom.Region))
                     {
-                        return true;
+                        return checkBarrenRegionLocation(currentRoom, currentCheck, itemName);
                     }
                 }
                 else if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
                 {
                     if (currentCheck.category.Contains("Dungeon"))
                     {
-                        return true;
+                        return checkBarrenRegionLocation(currentRoom, currentCheck, itemName);
                     }
                 }
             }
@@ -127,6 +128,27 @@ namespace TPRandomizer
             }
 
             return false;
+        }
+
+        private static bool checkBarrenRegionLocation(
+            Room currentRoom,
+            Check currentCheck,
+            string itemName
+        )
+        {
+            SharedSettings parseSetting = Randomizer.SSettings;
+            if (parseSetting.barrenDungeons)
+            {
+                if (
+                    !itemName.Contains(currentRoom.Region)
+                    && currentCheck.checkStatus.Contains("Excluded")
+                )
+                {
+                    return false;
+                }
+                //Console.WriteLine("Can place " + itemName + " in " + currentCheck.checkName);
+            }
+            return true;
         }
     }
 }

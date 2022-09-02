@@ -1,0 +1,10 @@
+{
+    "requirements": "(Progressive_Bow, 1)",
+    "arcOffsets": ["BDC"],
+    "stageIDX": [9],
+    "roomIDX": 4,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Temple of Time", "Dungeon Items", "Compass", "ARC"],
+    "itemId": "Temple_of_Time_Compass"
+}

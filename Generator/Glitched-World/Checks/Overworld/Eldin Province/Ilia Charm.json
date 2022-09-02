@@ -1,0 +1,9 @@
+{
+    "requirements": "(Progressive_Bow, 1)",
+    "arcOffsets": ["1A7"],
+    "stageIDX": [63],
+    "fileDirectoryType": [1],
+    "replacementType": [0],
+    "category": ["Overworld", "Npc", "Hidden Village", "ARC"],
+    "itemId": "Ilias_Charm"
+}

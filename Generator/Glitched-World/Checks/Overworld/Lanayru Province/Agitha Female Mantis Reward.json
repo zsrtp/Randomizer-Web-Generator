@@ -1,0 +1,6 @@
+{
+    "requirements": "Female_Mantis",
+    "flag": "CD",
+    "category": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
+    "itemId": "Orange_Rupee"
+}

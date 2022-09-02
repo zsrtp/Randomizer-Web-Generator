@@ -1,0 +1,33 @@
+{
+    "Neighbours": 
+    [
+        "Kakariko Gorge", 
+        "Kakariko Village", 
+        "Goron Stockcave", 
+        "Castle Town", 
+        "Lanayru Field", 
+        "Eldin Field Water Bomb Fish Grotto", 
+        "Eldin Field Bomskit Grotto"
+    ],
+  "NeighbourRequirements": [
+    "canSmash",
+    "true",
+    "(Progressive_Clawshot, 1)",
+    "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysey)))",
+    "canSmash",
+    "Shadow_Crystal",
+    "Shadow_Crystal"
+  ],
+    "Checks": 
+    [
+        "Eldin Field Bomb Rock Chest",
+        "Bridge of Eldin Owl Statue Chest",
+        "Goron Springwater Rush",
+        "Bridge of Eldin Owl Statue Sky Character",
+        "Eldin Field Male Grasshopper",
+        "Eldin Field Female Grasshopper",
+        "Bridge of Eldin Male Phasmid",
+        "Bridge of Eldin Female Phasmid"
+    ],
+    "Region": "Hyrule Field"
+}

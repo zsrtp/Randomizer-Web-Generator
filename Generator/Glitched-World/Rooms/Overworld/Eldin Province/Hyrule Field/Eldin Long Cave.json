@@ -1,0 +1,18 @@
+{
+    "Neighbours": 
+    [
+        "Kakariko Gorge"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Eldin Lantern Cave First Chest",
+        "Eldin Lantern Cave Lantern Chest",
+        "Eldin Lantern Cave Second Chest",
+        "Eldin Lantern Cave Poe"
+    ],
+    "Region": "Hyrule Field"
+}

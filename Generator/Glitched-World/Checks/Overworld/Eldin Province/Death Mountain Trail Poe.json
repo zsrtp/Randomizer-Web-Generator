@@ -1,0 +1,7 @@
+{
+    "requirements": "Shadow_Crystal and canCompleteGoronMines",
+    "stageIDX": [47],
+    "flag": "59",
+    "category": ["Overworld", "Poe", "Eldin Province"],
+    "itemId": "Poe_Soul"
+}

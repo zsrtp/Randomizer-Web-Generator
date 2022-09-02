@@ -1,0 +1,11 @@
+{
+    "requirements": "(Progressive_Clawshot, 1) and CanDefeatTileWorm and CanDefeatDinalfos",
+    "arcFileValues": [["D_MN07/R07_00.arc", "80370"]],
+    "arcOffsets": ["990"],
+    "stageIDX": [12],
+    "roomIDX": 7,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "City in The Sky", "ARC"],
+    "itemId": "Purple_Rupee"
+}

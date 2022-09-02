@@ -1,0 +1,10 @@
+{
+    "requirements": "true",
+    "arcOffsets": ["218"],
+    "stageIDX": [45],
+    "roomIDX": 14,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Faron Woods", "Small Key", "ARC"],
+    "itemId": "North_Faron_Woods_Gate_Key"
+}

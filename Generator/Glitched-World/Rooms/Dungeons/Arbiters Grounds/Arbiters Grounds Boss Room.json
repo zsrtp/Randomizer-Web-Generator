@@ -1,0 +1,15 @@
+{
+    "Neighbours": 
+    [
+	      "Mirror Chamber"
+    ],
+    "NeighbourRequirements": 
+    [
+        "CanDefeatStallord"
+    ],
+    "Checks": 
+    [
+	      "Arbiters Grounds Stallord Heart Container"
+    ], 
+    "Region": "Arbiters Grounds"
+}

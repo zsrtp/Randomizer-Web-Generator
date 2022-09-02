@@ -1,0 +1,9 @@
+{
+    "requirements": "Shadow_Crystal",
+    "arcOffsets": ["FF7"],
+    "stageIDX": [61],
+    "fileDirectoryType": [1],
+    "replacementType": [0],
+    "category": ["Overworld", "Npc", "Lanayru Province", "ARC"],
+    "itemId": "Piece_of_Heart"
+}

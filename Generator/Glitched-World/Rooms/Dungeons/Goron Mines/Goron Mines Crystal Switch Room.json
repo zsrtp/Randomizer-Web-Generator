@@ -1,0 +1,18 @@
+{
+    "Neighbours": 
+    [
+        "Goron Mines Magnet Room", 
+        "Goron Mines North Wing"
+    ],
+  "NeighbourRequirements": [
+    "true",
+    "((Iron_Boots and HasSword) or (Progressive_Bow, 1)) and ((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysey))"
+  ],
+    "Checks": 
+    [
+        "Goron Mines Crystal Switch Room Underwater Chest",
+        "Goron Mines Crystal Switch Room Small Chest",
+        "Goron Mines After Crystal Switch Room Magnet Wall Chest"
+    ],
+    "Region": "Goron Mines"
+}

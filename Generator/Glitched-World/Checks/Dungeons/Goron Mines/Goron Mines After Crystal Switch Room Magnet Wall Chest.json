@@ -1,0 +1,10 @@
+{
+    "requirements": "Iron_Boots",
+    "arcOffsets": ["A88"],
+    "stageIDX": [3],
+    "roomIDX": 6,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Goron Mines", "ARC"],
+    "itemId": "Piece_of_Heart"
+}

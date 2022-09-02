@@ -1,0 +1,12 @@
+{
+    "requirements": "CanDefeatArmogohma",
+    "moduleID": ["5B"],
+    "stageIDX": [10],
+    "relOffsets": ["1880"],
+    "relOverride": ["38600000"],
+    "arcOffsets": ["383E"],
+    "fileDirectoryType": [3],
+    "replacementType": [2],
+    "category": ["Dungeon", "Temple of Time", "Dungeon Reward", "REL", "ARC"],
+    "itemId": "Progressive_Mirror_Shard"
+}

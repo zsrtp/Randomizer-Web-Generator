@@ -1,0 +1,9 @@
+{
+    "requirements": "true",
+    "arcOffsets": ["242F"],
+    "stageIDX": [68],
+    "fileDirectoryType": [1],
+    "replacementType": [0],
+    "category": ["Overworld", "Npc", "Eldin Province", "ARC"],
+    "itemId": "Filled_Bomb_Bag"
+}

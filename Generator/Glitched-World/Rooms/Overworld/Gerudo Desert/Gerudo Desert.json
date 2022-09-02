@@ -1,0 +1,40 @@
+{
+    "Neighbours": 
+    [
+        "Cave of Ordeals Floors 01-11", 
+        "Bulblin Camp", 
+        "Gerudo Desert Rock Grotto", 
+        "Gerudo Desert Skulltula Grotto"
+    ],
+    "NeighbourRequirements":
+    [
+        "CanDefeatShadowBeast and (Progressive_Clawshot, 1)",
+        "CanDefeatBulblin",
+        "Shadow_Crystal and (Progressive_Clawshot, 1)",
+        "Shadow_Crystal"
+    ],
+    "Checks": 
+    [
+        "Gerudo Desert Peahat Ledge Chest",
+        "Gerudo Desert East Canyon Chest",
+        "Gerudo Desert Lone Small Chest",
+        "Gerudo Desert West Canyon Chest",
+        "Gerudo Desert Northeast Chest Behind Gates",
+        "Gerudo Desert South Chest Behind Wooden Gates",
+        "Gerudo Desert Campfire North Chest",
+        "Gerudo Desert Campfire East Chest",
+        "Gerudo Desert Campfire West Chest",
+        "Gerudo Desert Northwest Chest Behind Gates",
+        "Gerudo Desert North Small Chest Before Bulblin Camp",
+        "Gerudo Desert Owl Statue Chest",
+        "Gerudo Desert Owl Statue Sky Character",
+        "Gerudo Desert Male Dayfly",
+        "Gerudo Desert Female Dayfly",
+        "Gerudo Desert East Poe",
+        "Gerudo Desert North Peahat Poe",
+        "Gerudo Desert Poe Above Cave of Ordeals",
+        "Outside Bulblin Camp Poe",
+        "Gerudo Desert Golden Wolf"
+     ],
+    "Region": "Gerudo Desert"
+}

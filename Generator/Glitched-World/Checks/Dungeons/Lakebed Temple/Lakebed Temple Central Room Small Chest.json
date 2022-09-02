@@ -1,0 +1,10 @@
+{
+    "requirements": "true",
+    "arcOffsets": ["361C"],
+    "stageIDX": [0],
+    "roomIDX": 3,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Lakebed Temple", "ARC"],
+    "itemId": "Arrows_20"
+}

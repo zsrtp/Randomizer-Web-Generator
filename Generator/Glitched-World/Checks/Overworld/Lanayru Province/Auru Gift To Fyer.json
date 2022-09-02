@@ -1,0 +1,9 @@
+{
+    "requirements": "true",
+    "arcOffsets": ["C17"],
+    "stageIDX": [52],
+    "fileDirectoryType": [1],
+    "replacementType": [0],
+    "category": ["Overworld", "Npc", "Lanayru Province", "ARC"],
+    "itemId": "Aurus_Memo"
+}

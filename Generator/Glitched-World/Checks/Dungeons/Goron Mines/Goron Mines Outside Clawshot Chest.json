@@ -1,0 +1,10 @@
+{
+    "requirements": "(Progressive_Clawshot, 1) and ((Progressive_Bow, 1) or Slingshot)",
+    "arcOffsets": ["ED8"],
+    "stageIDX": [3],
+    "roomIDX": 7,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Goron Mines", "ARC"],
+    "itemId": "Purple_Rupee"
+}

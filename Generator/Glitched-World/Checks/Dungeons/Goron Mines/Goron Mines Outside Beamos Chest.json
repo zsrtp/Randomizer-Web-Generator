@@ -1,0 +1,10 @@
+{
+    "requirements": "true",
+    "arcOffsets": ["EF8"],
+    "stageIDX": [3],
+    "roomIDX": 7,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Goron Mines", "Small Key", "ARC"],
+    "itemId": "Goron_Mines_Small_Key"
+}

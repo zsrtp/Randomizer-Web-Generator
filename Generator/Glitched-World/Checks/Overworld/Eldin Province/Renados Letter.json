@@ -1,0 +1,9 @@
+{
+    "requirements": "canCompleteTempleofTime",
+    "arcOffsets": ["CE7"],
+    "stageIDX": [68],
+    "fileDirectoryType": [1],
+    "replacementType": [0],
+    "category": ["Overworld", "Npc", "Eldin Province", "ARC"],
+    "itemId": "Renados_Letter"
+}

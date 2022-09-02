@@ -1,0 +1,19 @@
+{ 
+    "Neighbours": 
+    [
+        "Lakebed Temple Central Room", 
+        "Lakebed Temple East Wing First Floor"
+    ],
+    "NeighbourRequirements": 
+    [   "true",
+        "canLaunchBombs or (Progressive_Clawshot, 1)"
+    ],
+    "Checks": 
+    [
+        "Lakebed Temple East Second Floor Southwest Chest",
+        "Lakebed Temple East Second Floor Southeast Chest",
+        "Lakebed Temple East Water Supply Small Chest",
+        "Lakebed Temple East Water Supply Clawshot Chest"
+    ],
+    "Region": "Lakebed Temple"
+}

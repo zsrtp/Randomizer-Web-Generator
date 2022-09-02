@@ -1559,7 +1559,136 @@ namespace TPRandomizer
             return false;
         }
 
-        public static int getItemCount(Item itemToBeCounted)
+		// START OF GLITCHED LOGIC
+
+		/// <summary>
+		/// Check for sword or Back Slice (aka fake sword)
+		/// </summary>
+		public static bool HasSwordOrBS()
+		{
+			return getItemCount(Item.Progressive_Sword) >= 1 || getItemCount(Item.Progressive_Hidden_Skill) >= 3;
+		}
+
+		/// <summary>
+		/// Check for if weak sword (Wooden/Ordon). Required for some tricks as to not do too much damage to an enemy you LJA off of
+		/// </summary>
+		public static bool HasWeakSword()
+		{
+			return CanUse(Item.Ordon_Sword) || getItemCount(Item.Progressive_Sword) == 1;
+		}
+
+		/// <summary>
+		/// Check for a usable bottle (requires lantern to avoid issues with lantern oil in all bottles)
+		/// </summary>
+		public static bool HasBottle()
+		{
+			return (CanUse(Item.Empty_Bottle) || CanUse(Item.Sera_Bottle) || CanUse(Item.Jovani_Bottle) ||
+				CanUse(Item.Coro_Bottle)) && CanUse(Item.Lantern);
+		}
+
+		/// <summary>
+		/// Check for heavy mod (boots or MA)
+		/// </summary>
+		public static bool HasHeavyMod()
+		{
+			return CanUse(Item.Iron_Boots) || CanUse(Item.Magic_Armor);
+		}
+
+		/// <summary>
+		/// Check for cutscene item (useful for cutscene dropping a bomb in specific spot)
+		/// </summary>
+		public static bool HasCutsceneItem()
+		{
+			return getItemCount(Item.Progressive_Sky_Book) >= 1 || HasBottle() || CanUse(Item.Horse_Call);
+		}
+
+		/// <summary>
+		/// Check for if you can do LJAs
+		/// </summary>
+		public static bool CanDoLJA()
+		{
+			return HasSword() && CanUse(Item.Boomerang);
+		}
+
+		/// <summary>
+		/// Check for if you can do Jump Strike LJAs
+		/// </summary>
+		public static bool CanDoJSLJA()
+		{
+			return HasSword() && CanUse(Item.Boomerang) && getItemCount(Item.Progressive_Hidden_Skill) >= 6;
+		}
+
+		/// <summary>
+		/// Check for if you can do Map Glitch
+		/// </summary>
+		public static bool CanDoMapGlitch()
+		{
+			return CanUse(Item.Shadow_Crystal);
+		}
+
+		/// <summary>
+		/// Check for if you can do storage (aka Reverse Door Adventure (RDA)). Note: Needs a one-handed item
+		/// </summary>
+		public static bool CanDoStorage()
+		{
+			return CanDoMapGlitch() &&
+				(HasSword() || HasBottle() || getItemCount(Item.Progressive_Clawshot) >= 1 ||
+				getItemCount(Item.Progressive_Bow) >= 1 || getItemCount(Item.Progressive_Dominion_Rod) >= 1 ||
+				CanUse(Item.Lantern) || CanUse(Item.Boomerang) || CanUse(Item.Slingshot));
+
+		}
+
+		/// <summary>
+		/// Check for if you can do Moon Boots
+		/// </summary>
+		public static bool CanDoMoonBoots()
+		{
+			return HasSword() && HasHeavyMod();
+		}
+
+		/// <summary>
+		/// Check for if you can do Jump Strike Moon Boots
+		/// </summary>
+		public static bool CanDoJSMoonBoots()
+		{
+			return CanDoMoonBoots() && getItemCount(Item.Progressive_Hidden_Skill) >= 6;
+		}
+
+		/// <summary>
+		/// Check for if you can do Back Slice Moon Boots
+		/// </summary>
+		public static bool CanDoBSMoonBoots()
+		{
+			return getItemCount(Item.Progressive_Hidden_Skill) >= 3 && CanUse(Item.Magic_Armor);
+		}
+
+		/// <summary>
+		/// Check for if you can do Ending Blow Moon Boots
+		/// </summary>
+		public static bool CanDoEBMoonBoots()
+		{
+			return CanDoMoonBoots() && getItemCount(Item.Progressive_Hidden_Skill) >= 1;
+		}
+
+		/// <summary>
+		/// Check for if you can do The Amazing Fly Glitch™
+		/// </summary>
+		public static bool CanDoFlyGlitch()
+		{
+			return getItemCount(Item.Progressive_Fishing_Rod) >= 1 && HasHeavyMod();
+		}
+
+		/// <summary>
+		/// Check for if you can swim with Water Bombs. Note: Requires sword/claw so you can drop bomb while underwater
+		/// </summary>
+		public static bool CanDoSwimWithWBs()
+		{
+			return CanUseWaterBombs() && HasHeavyMod() && (HasSword() || getItemCount(Item.Progressive_Clawshot) >= 1);
+		}
+
+		// END OF GLITCHED LOGIC
+
+		public static int getItemCount(Item itemToBeCounted)
         {
             List<Item> itemList = Randomizer.Items.heldItems;
             int itemQuantity = 0;

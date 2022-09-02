@@ -1,0 +1,14 @@
+{
+    "Neighbours": 
+    [
+        "Arbiters Grounds Boss Room", 
+        "Palace of Twilight Entrance"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true",
+        "((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky)) and CanDefeatShadowBeast"
+    ],
+    "Checks": [""], 
+    "Region": "Gerudo Desert"
+}

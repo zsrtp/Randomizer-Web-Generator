@@ -1,0 +1,7 @@
+{
+    "requirements": "HasDamagingItem",
+    "stageIDX": [55],
+    "roomIDX": 1,
+    "category": ["Overworld", "Bulblin Camp", "Boss"],
+    "itemId": "Piece_of_Heart"
+}

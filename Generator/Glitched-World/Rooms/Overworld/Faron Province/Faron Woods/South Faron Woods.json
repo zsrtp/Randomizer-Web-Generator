@@ -1,0 +1,22 @@
+{
+    "Neighbours":
+    [
+        "Ordon Province",
+        "Faron Field",
+        "South Faron Woods Cave",
+        "Faron Mist Area"
+    ],
+    "NeighbourRequirements":
+    [
+        "true",
+        "(canLeaveForest and CanCompleteIntro) or HasSword or CanDoMapGlitch",
+        "true",
+        "(canSmash and (Progressive_Dominion_Rod, 2) and Shadow_Crystal) or (CanDoBSMoonBoots and hasBombs and CanDoLJA)"
+    ],
+    "Checks":
+    [
+        "Coro Bottle",
+        "Faron Woods Owl Statue Sky Character"
+    ],
+    "Region": "Faron Woods"
+}

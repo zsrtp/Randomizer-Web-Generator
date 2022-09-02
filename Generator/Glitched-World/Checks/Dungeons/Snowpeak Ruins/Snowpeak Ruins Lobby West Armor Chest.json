@@ -1,0 +1,10 @@
+{
+    "requirements": "Ball_and_Chain",
+    "arcOffsets": ["8EC"],
+    "stageIDX": [27],
+    "roomIDX": 0,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Snowpeak Ruins", "ARC"],
+    "itemId": "Red_Rupee"
+}

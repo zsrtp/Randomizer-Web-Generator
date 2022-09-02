@@ -107,14 +107,14 @@ namespace TPRandomizer
 
             Console.WriteLine("SeedData Version: " + SeedData.VersionString);
 
-            // Generate the dictionary values that are needed and initialize the data for the selected logic type.
-            DeserializeChecks();
-            DeserializeRooms();
-
             // Read in the settings string and set the settings values accordingly
             // BackendFunctions.InterpretSettingsString(settingsString);
             SSettings = SharedSettings.FromString(settingsString);
             PropertyInfo[] randoSettingProperties = SSettings.GetType().GetProperties();
+
+            // Generate the dictionary values that are needed and initialize the data for the selected logic type.
+            DeserializeChecks(SSettings);
+            DeserializeRooms(SSettings);
 
             foreach (PropertyInfo settingProperty in randoSettingProperties)
             {
@@ -455,8 +455,8 @@ namespace TPRandomizer
             SSettings = SharedSettings.FromString(seedGenResults.settingsString);
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.
-            DeserializeChecks();
-            DeserializeRooms();
+            DeserializeChecks(SSettings);
+            DeserializeRooms(SSettings);
 
             foreach (KeyValuePair<int, byte> kvp in seedGenResults.itemPlacements.ToList())
             {
@@ -779,6 +779,11 @@ namespace TPRandomizer
                 rnd
             );
 
+            // We determine which dungeons are required after the dungeon rewards are placed but before the other checks
+            // are placed because if a certain dungeon's checks need to be excluded, we want to exclude the check before
+            // any items are placed in it.
+            CheckUnrequiredDungeons();
+
             // Next we want to place items that are locked to a specific region such as keys, maps, compasses, etc.
             Console.WriteLine("Placing Region-Restricted Checks.");
             PlaceItemsRestricted(
@@ -789,27 +794,29 @@ namespace TPRandomizer
                 rnd
             );
 
-            // We determine which dungeons are required after the dungeon rewards are placed but before the other checks
-            // are placed because if a certain dungeon's checks need to be excluded, we want to exclude the check before
-            // any items are placed in it.
-            CheckUnrequiredDungeons();
-
             // Excluded checks are next and will just be filled with "junk" items (i.e. ammo refills, etc.). This is to
             // prevent important items from being placed in checks that the player or randomizer has requested to be not
             // considered in logic.
             Console.WriteLine("Placing Excluded Checks.");
             PlaceExcludedChecks(rnd);
 
-            // Once all of the items that have some restriction on their placement are placed, we then place all of the items that can
-            // be logically important (swords, clawshot, bow, etc.)
-            Console.WriteLine("Placing Important Items.");
-            PlaceItemsRestricted(
-                startingRoom,
-                Items.RandomizedImportantItems,
-                Randomizer.Items.heldItems,
-                string.Empty,
-                rnd
-            );
+            if (SSettings.logicRules == LogicRules.No_Logic)
+            {
+                PlaceNonImpactItems(Items.RandomizedImportantItems, rnd); // Place Important Items Randomly
+            }
+            else
+            {
+                // Once all of the items that have some restriction on their placement are placed, we then place all of the items that can
+                // be logically important (swords, clawshot, bow, etc.)
+                Console.WriteLine("Placing Important Items.");
+                PlaceItemsRestricted(
+                    startingRoom,
+                    Items.RandomizedImportantItems,
+                    Randomizer.Items.heldItems,
+                    string.Empty,
+                    rnd
+                );
+            }
 
             // Next we will place the "always" items. Basically the constants in every seed, so Heart Pieces, Heart Containers, etc.
             // These items do not affect logic at all so there is very little constraint to this method.
@@ -833,6 +840,7 @@ namespace TPRandomizer
                 if (currentCheck.checkStatus == "Vanilla")
                 {
                     Randomizer.Items.heldItems.Remove(currentCheck.itemId);
+                    Items.RandomizedDungeonRegionItems.Remove(currentCheck.itemId);
                     PlaceItemInCheck(currentCheck.itemId, currentCheck);
                 }
             }
@@ -945,23 +953,23 @@ namespace TPRandomizer
                                         }
                                         else
                                         {
-                                            if (currentCheck.checkStatus == "Ready")
+                                            if (restriction == "Region")
                                             {
-                                                if (restriction == "Region")
-                                                {
-                                                    if (
-                                                        RoomFunctions.IsRegionCheck(
-                                                            itemToPlace,
-                                                            currentCheck,
-                                                            graphRoom
-                                                        )
+                                                if (
+                                                    RoomFunctions.IsRegionCheck(
+                                                        itemToPlace,
+                                                        currentCheck,
+                                                        graphRoom
                                                     )
-                                                    {
-                                                        // Console.WriteLine("Added " + currentCheck.checkName + " to check list.");
-                                                        availableChecks.Add(currentCheck.checkName);
-                                                    }
+                                                )
+                                                {
+                                                    // Console.WriteLine("Added " + currentCheck.checkName + " to check list.");
+                                                    availableChecks.Add(currentCheck.checkName);
                                                 }
-                                                else if (restriction == "Dungeon Rewards")
+                                            }
+                                            else if (currentCheck.checkStatus == "Ready")
+                                            {
+                                                if (restriction == "Dungeon Rewards")
                                                 {
                                                     if (
                                                         currentCheck.category.Contains(
@@ -1106,16 +1114,28 @@ namespace TPRandomizer
             int lakebed = 5;
             //int mines = 6;
             int forest = 7;
-            List<string>[] listOfAffectedChecks = new List<string>[]
+            List<string>[] listOfGlitchlessAffectedChecks = new List<string>[]
             {
-                CheckFunctions.palaceRequirementChecksGlitchless,
-                CheckFunctions.cityRequirementChecksGlitchless,
+                CheckFunctions.palaceRequirementChecks,
+                CheckFunctions.cityRequirementChecks,
                 CheckFunctions.totRequirementChecksGlitchless,
-                CheckFunctions.snowpeakRequirementChecksGlitchless,
-                CheckFunctions.arbitersRequirementChecksGlitchless,
-                CheckFunctions.lakebedRequirementChecksGlitchless,
-                CheckFunctions.minesRequirementChecksGlitchless,
-                CheckFunctions.forestRequirementChecksGlitchless
+                CheckFunctions.snowpeakRequirementChecks,
+                CheckFunctions.arbitersRequirementChecks,
+                CheckFunctions.lakebedRequirementChecks,
+                CheckFunctions.minesRequirementChecks,
+                CheckFunctions.forestRequirementChecks
+            };
+
+            List<string>[] listOfGlitchedAffectedChecks = new List<string>[]
+            {
+                CheckFunctions.palaceRequirementChecks,
+                CheckFunctions.cityRequirementChecks,
+                CheckFunctions.totRequirementChecksGlitched,
+                CheckFunctions.snowpeakRequirementChecks,
+                CheckFunctions.arbitersRequirementChecks,
+                CheckFunctions.lakebedRequirementChecks,
+                CheckFunctions.minesRequirementChecks,
+                CheckFunctions.forestRequirementChecks
             };
 
             // Create the dungeon entries
@@ -1146,7 +1166,11 @@ namespace TPRandomizer
             {
                 if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
                 {
-                    listOfRequiredDungeons[i].requirementChecks = listOfAffectedChecks[i];
+                    listOfRequiredDungeons[i].requirementChecks = listOfGlitchlessAffectedChecks[i];
+                }
+                else
+                {
+                    listOfRequiredDungeons[i].requirementChecks = listOfGlitchedAffectedChecks[i];
                 }
             }
 
@@ -1327,13 +1351,25 @@ namespace TPRandomizer
             return startingRoom;
         }
 
-        private static void DeserializeChecks()
+        private static void DeserializeChecks(SharedSettings SSettings)
         {
-            string[] files = System.IO.Directory.GetFiles(
-                Global.CombineRootPath("./World/Checks/"),
-                "*",
-                SearchOption.AllDirectories
-            );
+            string[] files;
+            if (SSettings.logicRules == LogicRules.Glitchless)
+            {
+                files = System.IO.Directory.GetFiles(
+                    Global.CombineRootPath("./World/Checks/"),
+                    "*",
+                    SearchOption.AllDirectories
+                );
+            }
+            else
+            {
+                files = System.IO.Directory.GetFiles(
+                    Global.CombineRootPath("./Glitched-World/Checks/"),
+                    "*",
+                    SearchOption.AllDirectories
+                );
+            }
 
             // Sort so that the item placement algorithm produces the exact same
             // result in production and development.
@@ -1356,13 +1392,25 @@ namespace TPRandomizer
             }
         }
 
-        private static void DeserializeRooms()
+        private static void DeserializeRooms(SharedSettings SSettings)
         {
-            string[] files = System.IO.Directory.GetFiles(
-                Global.CombineRootPath("./World/Rooms/"),
-                "*",
-                SearchOption.AllDirectories
-            );
+            string[] files;
+            if (SSettings.logicRules == LogicRules.Glitchless)
+            {
+                files = System.IO.Directory.GetFiles(
+                    Global.CombineRootPath("./World/Rooms/"),
+                    "*",
+                    SearchOption.AllDirectories
+                );
+            }
+            else
+            {
+                files = System.IO.Directory.GetFiles(
+                    Global.CombineRootPath("./Glitched-World/Rooms/"),
+                    "*",
+                    SearchOption.AllDirectories
+                );
+            }
 
             // Sort so that the item placement algorithm produces the exact same
             // result in production and development.
@@ -1455,8 +1503,8 @@ namespace TPRandomizer
             {
                 // Can't deserialize twice if generating the spoiler in the same
                 // call as the GCI creation(s).
-                DeserializeChecks();
-                DeserializeRooms();
+                DeserializeChecks(SSettings);
+                DeserializeRooms(SSettings);
             }
 
             foreach (KeyValuePair<int, byte> kvp in seedGenResults.itemPlacements)

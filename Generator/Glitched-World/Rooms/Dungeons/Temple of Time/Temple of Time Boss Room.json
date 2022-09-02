@@ -1,0 +1,16 @@
+{
+    "Neighbours": 
+    [
+        "Sacred Grove Temple of Time"
+    ],
+    "NeighbourRequirements":
+    [
+        "CanDefeatArmogohma"
+    ],
+    "Checks": 
+    [
+        "Temple of Time Armogohma Heart Container",
+        "Temple of Time Dungeon Reward"
+    ], 
+    "Region": "Temple of Time"
+}
