@@ -214,6 +214,4 @@ namespace TPRandomizer.Assets
             return new String(arr);
         }
     }
-
-    // 41 chars. Don't change the value of this string ever.
 }
