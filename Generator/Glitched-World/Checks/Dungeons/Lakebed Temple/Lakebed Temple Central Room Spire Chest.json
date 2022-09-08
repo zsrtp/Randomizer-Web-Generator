@@ -1,0 +1,10 @@
+{
+  "requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysey)) and Iron_Boots and canLaunchBombs",
+  "arcOffsets": ["35FC"],
+    "stageIDX": [0],
+    "roomIDX": 3,
+  "fileDirectoryType": [ 0 ],
+  "replacementType": [ 0 ],
+  "category": [ "Chest", "Dungeon", "Lakebed Temple", "ARC" ],
+  "itemId": "Red_Rupee"
+}

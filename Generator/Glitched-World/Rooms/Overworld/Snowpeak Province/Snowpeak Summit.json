@@ -1,0 +1,20 @@
+{ 
+    "Neighbours": 
+    [
+        "Snowpeak Climb", 
+        "Snowpeak Ruins Entrance"
+    ],
+    "NeighbourRequirements":
+    [
+        "Shadow_Crystal",
+        "CanDefeatShadowBeast"
+    ],
+    "Checks": 
+    [
+        "Snowpeak Cave Ice Lantern Chest",
+        "Snowboard Racing Prize",
+        "Snowpeak Cave Ice Poe",
+        "Snowpeak Icy Summit Poe"
+    ],
+    "Region": "Snowpeak Province"
+}

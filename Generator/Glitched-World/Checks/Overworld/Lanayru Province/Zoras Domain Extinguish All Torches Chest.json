@@ -1,0 +1,10 @@
+{
+    "requirements": "Boomerang and Iron_Boots",
+    "arcOffsets": ["A78"],
+    "stageIDX": [50],
+    "roomIDX": 0,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Lanayru Province", "ARC"],
+    "itemId": "Purple_Rupee"
+}

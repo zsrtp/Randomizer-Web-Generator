@@ -1,0 +1,9 @@
+{
+    "requirements": "true",
+    "hash": ["4293"],
+    "stageIDX": [52],
+    "dzxTag": ["ACTR"],
+    "category": ["Overworld", "Chest", "Lanayru Province", "DZX"],
+    "itemId": "Orange_Rupee",
+    "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "9D", "06","C7", "C8", "3D", "82", "C6", "82", "0D", "5B", "47", "29", "1B", "6E", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
+}

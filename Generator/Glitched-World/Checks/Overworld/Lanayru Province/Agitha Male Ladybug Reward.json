@@ -1,0 +1,6 @@
+{
+    "requirements": "Male_Ladybug",
+    "flag": "CE",
+    "category": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
+    "itemId": "Purple_Rupee"
+}

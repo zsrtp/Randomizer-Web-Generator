@@ -1,0 +1,6 @@
+{
+    "requirements": "Male_Dayfly",
+    "flag": "D6",
+    "category": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
+    "itemId": "Purple_Rupee"
+}

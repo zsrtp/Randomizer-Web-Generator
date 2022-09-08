@@ -1,0 +1,17 @@
+{ 
+    "Neighbours": 
+    [
+        "Hyrule Castle Entrance"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Hyrule Castle West Courtyard North Small Chest",
+        "Hyrule Castle West Courtyard Central Small Chest",
+        "Hyrule Castle King Bulblin Key"
+    ],
+    "Region": "Hyrule Castle"
+}

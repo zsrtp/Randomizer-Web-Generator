@@ -1,0 +1,41 @@
+{
+    "Neighbours":
+    [
+        "Kakariko Gorge",
+        "Eldin Field",
+        "Death Mountain Trail",
+        "Lake Hylia"
+    ],
+    "NeighbourRequirements":
+    [
+        "true",
+        "true",
+        "true",
+        "(HasHeavyMod or Zora_Armor) or HasSword or Shadow_Crystal or (hasBombs and Spinner)"
+    ],
+    "Checks":
+    [
+        "Kakariko Inn Chest",
+        "Eldin Spring Underwater Chest",
+        "Kakariko Graveyard Lantern Chest",
+        "Kakariko Watchtower Chest",
+        "Kakariko Watchtower Alcove Chest",
+        "Kakariko Village Bomb Rock Spire Heart Piece",
+        "Gift From Ralis",
+        "Rutelas Blessing",
+        "Renados Letter",
+        "Ilia Memory Reward",
+        "Talo Sharpshooting",
+        "Barnes Bomb Bag",
+        "Kakariko Village Female Ant",
+        "Kakariko Graveyard Male Ant",
+        "Kakariko Graveyard Grave Poe",
+        "Kakariko Graveyard Open Poe",
+        "Kakariko Village Bomb Shop Poe",
+        "Kakariko Village Watchtower Poe",
+        "Kakariko Graveyard Golden Wolf",
+        "Kakariko Village Malo Mart Hylian Shield",
+        "Kakariko Village Malo Mart Hawkeye"
+    ],
+    "Region": "Eldin Province"
+}

@@ -1,0 +1,15 @@
+{ 
+    "Neighbours": 
+    [
+        "Gerudo Desert"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Gerudo Desert Skulltula Grotto Chest"
+    ],
+    "Region": "Gerudo Desert"
+}

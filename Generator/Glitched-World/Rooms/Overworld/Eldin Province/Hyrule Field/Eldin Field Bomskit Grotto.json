@@ -1,0 +1,16 @@
+{ 
+    "Neighbours": 
+    [
+        "Eldin Field"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Eldin Field Bomskit Grotto Left Chest",
+        "Eldin Field Bomskit Grotto Lantern Chest"
+     ],
+    "Region": "Hyrule Field"
+}

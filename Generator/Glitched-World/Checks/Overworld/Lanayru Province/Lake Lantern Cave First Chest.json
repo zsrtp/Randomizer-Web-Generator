@@ -1,0 +1,10 @@
+{
+    "requirements": "canSmash",
+    "arcOffsets": ["1D5C"],
+    "stageIDX": [33],
+    "roomIDX": 0,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Lanayru Province", "ARC"],
+    "itemId": "Bomblings_5"
+}

@@ -1,0 +1,16 @@
+{
+    "Neighbours": 
+    [
+        "Temple of Time Scales of Time"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Temple of Time Big Key Chest",
+        "Temple of Time Floor Switch Puzzle Room Upper Chest"
+     ],
+    "Region": "Temple of Time"
+}

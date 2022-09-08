@@ -1,0 +1,10 @@
+{
+    "requirements": "CanDefeatDarkhammer and Ball_and_Chain",
+    "arcOffsets": ["4D0"],
+    "stageIDX": [29],
+    "roomIDX": 51,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Snowpeak Ruins", "Small Key", "ARC"],
+    "itemId": "Snowpeak_Ruins_Ordon_Goat_Cheese"
+}

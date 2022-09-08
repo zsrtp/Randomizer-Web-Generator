@@ -1,0 +1,10 @@
+{
+    "requirements": "Lantern or (CanDoLJA and Room.Forest_Temple_West_Wing)",
+    "arcOffsets": ["10AC"],
+    "stageIDX": [6],
+    "roomIDX": 0,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Forest Temple", "Dungeon Items", "Dungeon Map", "ARC"],
+    "itemId": "Forest_Temple_Dungeon_Map"
+}

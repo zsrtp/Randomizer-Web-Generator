@@ -1,0 +1,6 @@
+{
+    "requirements": "Male_Snail",
+    "flag": "D0",
+    "category": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
+    "itemId": "Purple_Rupee"
+}

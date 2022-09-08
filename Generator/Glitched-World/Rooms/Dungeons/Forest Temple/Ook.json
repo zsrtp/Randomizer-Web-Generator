@@ -1,0 +1,12 @@
+{
+    "Neighbours": 
+    [
+        "Forest Temple West Wing"
+    ],
+    "NeighbourRequirements":
+    [
+        "CanDefeatOok and Boomerang"
+    ],
+    "Checks": ["Forest Temple Gale Boomerang"], 
+    "Region": "Forest Temple"
+}

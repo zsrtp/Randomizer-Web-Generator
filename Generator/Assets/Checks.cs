@@ -59,7 +59,7 @@ namespace TPRandomizer
     /// </summary>
     public class CheckFunctions
     {
-        public static List<string> forestRequirementChecksGlitchless =
+        public static List<string> forestRequirementChecks =
             new()
             {
                 "Forest Temple Big Baba Key",
@@ -81,9 +81,10 @@ namespace TPRandomizer
                 "Forest Temple West Tile Worm Room Vines Chest",
                 "Forest Temple Windless Bridge Chest",
             };
-        public static List<string> minesRequirementChecksGlitchless =
+        public static List<string> minesRequirementChecks =
             new()
             {
+				"Death Mountain Trail Poe",
                 "Goron Mines After Crystal Switch Room Magnet Wall Chest",
                 "Goron Mines Beamos Room Chest",
                 "Goron Mines Chest Before Dangoro",
@@ -110,7 +111,7 @@ namespace TPRandomizer
                 "Talo Sharpshooting",
             };
 
-        public static List<string> lakebedRequirementChecksGlitchless =
+        public static List<string> lakebedRequirementChecks =
             new()
             {
                 "Lakebed Temple Before Deku Toad Alcove Chest",
@@ -143,7 +144,7 @@ namespace TPRandomizer
                 "Lakebed Temple West Water Supply Small Chest",
             };
 
-        public static List<string> arbitersRequirementChecksGlitchless =
+        public static List<string> arbitersRequirementChecks =
             new()
             {
                 "Arbiters Grounds Big Key Chest",
@@ -172,7 +173,7 @@ namespace TPRandomizer
                 "Arbiters Grounds West Stalfos West Chest",
             };
 
-        public static List<string> snowpeakRequirementChecksGlitchless =
+        public static List<string> snowpeakRequirementChecks =
             new()
             {
                 "Snowpeak Ruins Ball and Chain",
@@ -236,8 +237,37 @@ namespace TPRandomizer
                 "North Castle Town Golden Wolf",
                 "Cats Hide and Seek Minigame",
             };
+        public static List<string> totRequirementChecksGlitched =
+            new()
+            {
+                "Temple of Time Armogohma Heart Container",
+                "Temple of Time Armos Antechamber East Chest",
+                "Temple of Time Armos Antechamber North Chest",
+                "Temple of Time Armos Antechamber Statue Chest",
+                "Temple of Time Big Key Chest",
+                "Temple of Time Chest Before Darknut",
+                "Temple of Time Darknut Chest",
+                "Temple of Time Dungeon Reward",
+                "Temple of Time First Staircase Armos Chest",
+                "Temple of Time First Staircase Gohma Gate Chest",
+                "Temple of Time First Staircase Window Chest",
+                "Temple of Time Floor Switch Puzzle Room Upper Chest",
+                "Temple of Time Gilloutine Chest",
+                "Temple of Time Lobby Lantern Chest",
+                "Temple of Time Moving Wall Beamos Room Chest",
+                "Temple of Time Moving Wall Dinalfos Room Chest",
+                "Temple of Time Poe Above Scales",
+                "Temple of Time Poe Behind Gate",
+                "Temple of Time Scales Gohma Chest",
+                "Temple of Time Scales Upper Chest",
+                "Renados Letter",
+                "Telma Invoice",
+                "Wooden Statue",
+                "Ilia Charm",
+                "Ilia Memory Reward",
+            };
 
-        public static List<string> cityRequirementChecksGlitchless =
+        public static List<string> cityRequirementChecks =
             new()
             {
                 "City in The Sky Aeralfos Chest",
@@ -270,7 +300,7 @@ namespace TPRandomizer
                 "City in The Sky West Wing Tile Worm Chest",
             };
 
-        public static List<string> palaceRequirementChecksGlitchless =
+        public static List<string> palaceRequirementChecks =
             new()
             {
                 "Palace of Twilight Big Key Chest",
@@ -308,123 +338,119 @@ namespace TPRandomizer
             foreach (KeyValuePair<string, Check> check in Randomizer.Checks.CheckDict)
             {
                 Check currentCheck = check.Value;
-                if (currentCheck.checkStatus == "Ready")
+
+                if (
+                    (parseSetting.smallKeySettings == SmallKeySettings.Vanilla)
+                    && currentCheck.category.Contains("Small Key")
+                )
                 {
-                    if (
-                        (parseSetting.smallKeySettings == SmallKeySettings.Vanilla)
-                        && currentCheck.category.Contains("Small Key")
-                    )
-                    {
-                        currentCheck.checkStatus = "Vanilla";
-                    }
+                    currentCheck.checkStatus = "Vanilla";
+                }
 
-                    if (
-                        (parseSetting.bigKeySettings == BigKeySettings.Vanilla)
-                        && currentCheck.category.Contains("Big Key")
-                    )
-                    {
-                        currentCheck.checkStatus = "Vanilla";
-                    }
+                if (
+                    (parseSetting.bigKeySettings == BigKeySettings.Vanilla)
+                    && currentCheck.category.Contains("Big Key")
+                )
+                {
+                    currentCheck.checkStatus = "Vanilla";
+                }
 
-                    if (
-                        (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Vanilla)
-                        && (
-                            currentCheck.category.Contains("Dungeon Map")
-                            || currentCheck.category.Contains("Compass")
-                        )
+                if (
+                    (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Vanilla)
+                    && (
+                        currentCheck.category.Contains("Dungeon Map")
+                        || currentCheck.category.Contains("Compass")
                     )
-                    {
-                        currentCheck.checkStatus = "Vanilla";
-                    }
+                )
+                {
+                    currentCheck.checkStatus = "Vanilla";
+                }
 
-                    if (!parseSetting.shuffleNpcItems)
+                if (!parseSetting.shuffleNpcItems)
+                {
+                    if (currentCheck.category.Contains("Npc"))
                     {
-                        if (currentCheck.category.Contains("Npc"))
-                        {
-                            if (
+                        if (
+                            (
+                                (parseSetting.smallKeySettings == SmallKeySettings.Keysey)
+                                && currentCheck.category.Contains("Small Key")
+                            )
+                            || (
+                                (parseSetting.bigKeySettings == BigKeySettings.Keysey)
+                                && currentCheck.category.Contains("Big Key")
+                            )
+                            || (
                                 (
-                                    (parseSetting.smallKeySettings == SmallKeySettings.Keysey)
-                                    && currentCheck.category.Contains("Small Key")
+                                    parseSetting.mapAndCompassSettings
+                                    == MapAndCompassSettings.Start_With
                                 )
-                                || (
-                                    (parseSetting.bigKeySettings == BigKeySettings.Keysey)
-                                    && currentCheck.category.Contains("Big Key")
-                                )
-                                || (
-                                    (
-                                        parseSetting.mapAndCompassSettings
-                                        == MapAndCompassSettings.Start_With
-                                    )
-                                    && (
-                                        currentCheck.category.Contains("Dungeon Map")
-                                        || currentCheck.category.Contains("Compass")
-                                    )
+                                && (
+                                    currentCheck.category.Contains("Dungeon Map")
+                                    || currentCheck.category.Contains("Compass")
                                 )
                             )
-                            {
-                                currentCheck.checkStatus = "Excluded";
-                            }
-                            else
-                            {
-                                currentCheck.checkStatus = "Vanilla";
-                                Randomizer.Items.RandomizedImportantItems.Remove(
-                                    currentCheck.itemId
-                                );
-                                Randomizer.Items.alwaysItems.Remove(currentCheck.itemId);
-                            }
-                        }
-                    }
-
-                    if (!parseSetting.shufflePoes)
-                    {
-                        if (currentCheck.category.Contains("Poe"))
+                        )
                         {
-                            currentCheck.checkStatus = "Vanilla";
+                            currentCheck.checkStatus = "Excluded";
                         }
-                    }
-
-                    if (!parseSetting.shuffleGoldenBugs)
-                    {
-                        if (currentCheck.category.Contains("Golden Bug"))
-                        {
-                            currentCheck.checkStatus = "Vanilla";
-                        }
-                    }
-
-                    if (!parseSetting.shuffleHiddenSkills)
-                    {
-                        if (currentCheck.category.Contains("Hidden Skill"))
-                        {
-                            currentCheck.checkStatus = "Vanilla";
-                            Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
-                        }
-                    }
-
-                    if (!parseSetting.shuffleSkyCharacters)
-                    {
-                        if (currentCheck.category.Contains("Sky Book"))
-                        {
-                            if (parseSetting.skipCityEntrance)
-                            {
-                                currentCheck.checkStatus = "Excluded";
-                            }
-                            else
-                            {
-                                currentCheck.checkStatus = "Vanilla";
-                            }
-
-                            Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
-                        }
-                    }
-
-                    if (!parseSetting.shuffleShopItems)
-                    {
-                        if (currentCheck.category.Contains("Shop"))
+                        else
                         {
                             currentCheck.checkStatus = "Vanilla";
                             Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
                             Randomizer.Items.alwaysItems.Remove(currentCheck.itemId);
                         }
+                    }
+                }
+
+                if (!parseSetting.shufflePoes)
+                {
+                    if (currentCheck.category.Contains("Poe"))
+                    {
+                        currentCheck.checkStatus = "Vanilla";
+                    }
+                }
+
+                if (!parseSetting.shuffleGoldenBugs)
+                {
+                    if (currentCheck.category.Contains("Golden Bug"))
+                    {
+                        currentCheck.checkStatus = "Vanilla";
+                    }
+                }
+
+                if (!parseSetting.shuffleHiddenSkills)
+                {
+                    if (currentCheck.category.Contains("Hidden Skill"))
+                    {
+                        currentCheck.checkStatus = "Vanilla";
+                        Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
+                    }
+                }
+
+                if (!parseSetting.shuffleSkyCharacters)
+                {
+                    if (currentCheck.category.Contains("Sky Book"))
+                    {
+                        if (parseSetting.skipCityEntrance)
+                        {
+                            currentCheck.checkStatus = "Excluded";
+                        }
+                        else
+                        {
+                            currentCheck.checkStatus = "Vanilla";
+                        }
+
+                        Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
+                    }
+                }
+
+                if (!parseSetting.shuffleShopItems)
+                {
+                    if (currentCheck.category.Contains("Shop"))
+                    {
+                        currentCheck.checkStatus = "Vanilla";
+                        Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
+                        Randomizer.Items.alwaysItems.Remove(currentCheck.itemId);
                     }
                 }
             }

@@ -1,0 +1,10 @@
+{
+    "requirements": "canSmash or Shadow_Crystal or Spinner",
+    "arcOffsets": ["2F6C"],
+    "stageIDX": [46],
+    "roomIDX": 0,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Eldin Province", "ARC"],
+    "itemId": "Orange_Rupee"
+}

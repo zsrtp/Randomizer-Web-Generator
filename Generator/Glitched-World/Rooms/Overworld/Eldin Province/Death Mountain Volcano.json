@@ -1,0 +1,14 @@
+{
+    "Neighbours":
+    [
+        "Death Mountain Trail",
+        "Death Mountain Interiors"
+    ],
+    "NeighbourRequirements":
+    [
+        "true",
+        "true"
+    ],
+    "Checks": [""],
+    "Region": "Eldin Province"
+}

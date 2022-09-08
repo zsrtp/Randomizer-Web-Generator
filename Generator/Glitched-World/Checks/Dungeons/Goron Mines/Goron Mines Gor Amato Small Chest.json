@@ -1,0 +1,10 @@
+{
+    "requirements": "Iron_Boots",
+    "arcOffsets": ["308"],
+    "stageIDX": [3],
+    "roomIDX": 14,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Goron Mines", "ARC"],
+    "itemId": "Red_Rupee"
+}

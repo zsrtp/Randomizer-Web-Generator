@@ -1,0 +1,7 @@
+{
+    "requirements": "Shadow_Crystal and canBurnWebs",
+    "stageIDX": [32],
+    "flag": "60",
+    "category": ["Overworld", "Poe", "Hyrule Field"],
+    "itemId": "Poe_Soul"
+}

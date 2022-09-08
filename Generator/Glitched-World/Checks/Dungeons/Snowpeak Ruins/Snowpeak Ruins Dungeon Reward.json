@@ -1,0 +1,12 @@
+{
+    "requirements": "CanDefeatBlizzeta",
+    "moduleID": ["5B"],
+    "stageIDX": [28],
+    "relOffsets": ["1880"],
+    "relOverride": ["38600000"],
+    "arcOffsets": ["33AA"],
+    "fileDirectoryType": [3],
+    "replacementType": [2],
+    "category": ["Dungeon", "Snowpeak Ruins", "Dungeon Reward", "REL", "ARC"],
+    "itemId": "Progressive_Mirror_Shard"
+}

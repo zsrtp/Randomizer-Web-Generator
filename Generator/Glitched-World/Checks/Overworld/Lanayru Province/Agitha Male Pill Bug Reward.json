@@ -1,0 +1,6 @@
+{
+    "requirements": "Male_Pill_Bug",
+    "flag": "CA",
+    "category": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
+    "itemId": "Orange_Rupee"
+}

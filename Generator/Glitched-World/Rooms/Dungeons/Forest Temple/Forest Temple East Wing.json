@@ -1,0 +1,19 @@
+{
+    "Neighbours": 
+    [
+        "Forest Temple Lobby",
+        "Forest Temple North Wing"
+    ],
+    "NeighbourRequirements":
+    [
+        "true",
+        "true"
+    ],
+    "Checks": 
+    [
+        "Forest Temple Second Monkey Under Bridge Chest",
+        "Forest Temple Big Key Chest",
+        "Forest Temple East Water Cave Chest"
+    ],
+    "Region": "Forest Temple"
+}

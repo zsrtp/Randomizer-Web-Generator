@@ -1,0 +1,10 @@
+{
+    "requirements": "CanDefeatChilfos",
+    "arcOffsets": ["6F4"],
+    "stageIDX": [27],
+    "roomIDX": 11,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Snowpeak Ruins", "Big Key", "ARC"],
+    "itemId": "Snowpeak_Ruins_Bedroom_Key"
+}

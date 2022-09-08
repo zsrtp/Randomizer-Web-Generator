@@ -1,0 +1,15 @@
+{ 
+    "Neighbours": 
+    [
+        "Lake Hylia Bridge"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Lake Hylia Bridge Bubble Grotto Chest"
+    ],
+    "Region": "Hyrule Field"
+}

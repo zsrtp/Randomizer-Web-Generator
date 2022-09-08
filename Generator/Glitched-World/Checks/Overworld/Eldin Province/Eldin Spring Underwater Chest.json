@@ -1,0 +1,10 @@
+{
+    "requirements": "HasHeavyMod and (canSmash or CanDoMapGlitch)",
+    "arcOffsets": ["2F4C"],
+    "stageIDX": [46],
+    "roomIDX": 0,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Eldin Province", "ARC"],
+    "itemId": "Piece_of_Heart"
+}

@@ -1,0 +1,36 @@
+
+{
+    "Neighbours":
+    [
+        "Eldin Field",
+        "Zoras Domain",
+        "Outside Castle Town West",
+        "Lanayru Ice Puzzle Cave",
+        "Lake Hylia Bridge",
+        "Hidden Village",
+        "Lanayru Field Stalfos Grotto",
+        "Lanayru Field Skulltula Grotto",
+        "Lanayru Field Poe Grotto"
+    ],
+    "NeighbourRequirements":
+    [
+        "canSmash or CanDoMapGlitch",
+        "canSmash or CanDoMapGlitch",
+        "true",
+        "canSmash",
+        "canSmash or CanDoMapGlitch",
+        "Wooden_Statue",
+        "(Shadow_Crystal and Spinner) or CanDoMapGlitch",
+        "Shadow_Crystal",
+        "Shadow_Crystal"
+    ],
+    "Checks":
+    [
+        "Lanayru Field Behind Gate Underwater Chest",
+        "Lanayru Field Spinner Track Chest",
+        "Lanayru Field Male Stag Beetle",
+        "Lanayru Field Female Stag Beetle",
+        "Lanayru Field Bridge Poe"
+    ],
+    "Region": "Hyrule Field"
+}

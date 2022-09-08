@@ -1,0 +1,18 @@
+{
+    "Neighbours": 
+    [
+        "Goron Mines Magnet Room"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Goron Mines Magnet Maze Chest",
+        "Goron Mines Gor Amato Chest",
+        "Goron Mines Gor Amato Small Chest",
+        "Goron Mines Gor Amato Key Shard"
+    ],
+    "Region": "Goron Mines"
+}

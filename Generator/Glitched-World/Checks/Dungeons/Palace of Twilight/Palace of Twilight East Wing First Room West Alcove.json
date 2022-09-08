@@ -1,0 +1,10 @@
+{
+    "requirements": "(Progressive_Sword, 4)",
+    "arcOffsets": ["B38"],
+    "stageIDX": [15],
+    "roomIDX": 4,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Palace of Twilight", "ARC"],
+    "itemId": "Purple_Rupee"
+}

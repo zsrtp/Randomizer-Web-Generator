@@ -1,0 +1,10 @@
+{
+    "requirements": "(Progressive_Dominion_Rod, 2) or CanDoLJA or CanDoStorage or CanDoEBMoonBoots",
+    "arcOffsets": ["1698"],
+    "stageIDX": [56],
+    "roomIDX": 3,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Hyrule Field", "ARC"],
+    "itemId": "Orange_Rupee"
+}

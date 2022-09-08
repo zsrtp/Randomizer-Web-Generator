@@ -1,0 +1,10 @@
+{
+    "requirements": "CanDoMapGlitch or (canSmash and Spinner)",
+    "arcOffsets": ["5D4"],
+    "stageIDX": [56],
+    "roomIDX": 11,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Hyrule Field", "ARC"],
+    "itemId": "Piece_of_Heart"
+}

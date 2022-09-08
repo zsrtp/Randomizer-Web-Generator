@@ -1,0 +1,7 @@
+{
+    "requirements": "Shadow_Crystal and CanDefeatWalltula",
+    "stageIDX": [12],
+    "flag": "55",
+    "category": ["Overworld", "Poe", "City in The Sky"],
+    "itemId": "Poe_Soul"
+}

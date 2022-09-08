@@ -1,0 +1,10 @@
+{
+    "requirements": "(Progressive_Clawshot, 1) or Boomerang or Lantern",
+    "hash": ["54E6"],
+    "stageIDX": [56],
+    "dzxTag": ["ACTR"],
+    "magicByte": ["FE"],
+    "category": ["Overworld", "Golden Bug", "Hyrule Field", "DZX"],
+    "itemId": "Male_Mantis",
+    "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "93", "CC", "C7", "B5", "72", "00", "C5", "AA", "0B", "19", "46", "ED", "1C", "00", "00", "00", "40", "00", "00", "00", "FF", "FF"]]
+}

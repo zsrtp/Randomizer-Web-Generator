@@ -1,0 +1,10 @@
+{
+    "requirements": "canSmash or (CanDoEBMoonBoots and CanDoLJA) or CanDoMapGlitch",
+    "arcOffsets": ["1E34"],
+    "stageIDX": [56],
+    "roomIDX": 0,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Hyrule Field", "ARC"],
+    "itemId": "Piece_of_Heart"
+}

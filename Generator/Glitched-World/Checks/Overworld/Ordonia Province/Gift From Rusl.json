@@ -1,0 +1,10 @@
+{
+    "requirements": "(Progressive_Fishing_Rod, 1) or (Setting.skipPrologue equals True)",
+    "arcOffsets": ["450"],
+    "stageIDX": [65],
+    "roomIDX": 4,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Ordonia Province", "ARC"],
+    "itemId": "Progressive_Sword"
+}

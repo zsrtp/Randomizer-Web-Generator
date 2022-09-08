@@ -1,0 +1,9 @@
+{
+    "requirements": "true",
+    "hash": ["121E"],
+    "stageIDX": [36],
+    "dzxTag": ["TRES"],
+    "category": ["Overworld", "Chest", "Hyrule Field", "DZX"],
+    "itemId": "Yellow_Rupee",
+    "actrData": [["74", "62", "6F", "78", "41", "30", "00", "00", "FF", "0F", "F3", "40", "C3", "8C", "D2", "BC", "C3", "96", "00", "00", "44", "63", "92", "D3", "00", "00", "64", "FA", "03", "FF", "FF", "FF"]]
+}

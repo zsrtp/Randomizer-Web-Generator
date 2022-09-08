@@ -1,0 +1,7 @@
+{
+    "requirements": "Shadow_Crystal and (Progressive_Dominion_Rod, 1)",
+    "stageIDX": [9],
+    "flag": "19",
+    "category": ["Overworld", "Poe", "Temple of Time"],
+    "itemId": "Poe_Soul"
+}

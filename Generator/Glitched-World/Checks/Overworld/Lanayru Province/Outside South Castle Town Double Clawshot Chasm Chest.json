@@ -1,0 +1,10 @@
+{
+    "requirements": "(Progressive_Clawshot, 2) or HasSword or hasBombs or Spinner or Shadow_Crystal",
+    "arcOffsets": ["219C"],
+    "stageIDX": [57],
+    "roomIDX": 16,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Hyrule Field", "ARC"],
+    "itemId": "Orange_Rupee"
+}

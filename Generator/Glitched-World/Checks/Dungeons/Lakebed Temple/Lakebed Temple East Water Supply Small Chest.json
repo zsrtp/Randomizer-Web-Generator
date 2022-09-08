@@ -1,0 +1,10 @@
+{
+  "requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysey))",
+  "arcOffsets": ["10EC"],
+    "stageIDX": [0],
+    "roomIDX": 10,
+  "fileDirectoryType": [ 0 ],
+  "replacementType": [ 0 ],
+  "category": [ "Chest", "Dungeon", "Lakebed Temple", "ARC" ],
+  "itemId": "Water_Bombs_10"
+}

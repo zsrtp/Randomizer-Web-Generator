@@ -1,0 +1,10 @@
+{
+    "requirements": "Iron_Boots and CanDefeatDangoro",
+    "arcOffsets": ["B38"],
+    "stageIDX": [3],
+    "roomIDX": 11,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Chest", "Dungeon", "Goron Mines", "ARC"],
+    "itemId": "Progressive_Bow"
+}

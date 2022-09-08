@@ -1,0 +1,14 @@
+{
+    "Neighbours":
+    [
+        "Death Mountain Volcano",
+        "Goron Mines Entrance"
+    ],
+    "NeighbourRequirements":
+    [
+        "true",
+        "(Setting.skipMinesEntrance equals True) or Iron_Boots or Spinner"
+    ],
+    "Checks": [""],
+    "Region": "Eldin Province"
+}

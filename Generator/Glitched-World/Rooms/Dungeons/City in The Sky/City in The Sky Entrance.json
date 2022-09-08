@@ -1,0 +1,18 @@
+{
+    "Neighbours": 
+    [
+        "Lake Hylia", 
+        "City in The Sky Lobby"
+    ],
+    "NeighbourRequirements":
+    [
+        "(Progressive_Clawshot, 1)",
+        "(Progressive_Clawshot, 1)"
+    ],
+    "Checks": 
+    [
+        "City in The Sky Underwater West Chest",
+        "City in The Sky Underwater East Chest"
+    ],
+    "Region": "City in The Sky"
+}

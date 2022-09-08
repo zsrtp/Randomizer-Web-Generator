@@ -1,0 +1,17 @@
+{ 
+    "Neighbours": 
+    [
+        "Lanayru Field"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Lanayru Field Stalfos Grotto Right Small Chest",
+        "Lanayru Field Stalfos Grotto Left Small Chest",
+        "Lanayru Field Stalfos Grotto Stalfos Chest"
+    ],
+    "Region": "Hyrule Field"
+}
