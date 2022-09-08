@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Clawshot, 2)",
+    "requirements": "(Progressive_Clawshot, 2) or HasSword or hasBombs or Spinner or Shadow_Crystal",
     "arcOffsets": ["219C"],
     "stageIDX": [57],
     "roomIDX": 16,

@@ -1,13 +1,13 @@
 {
-    "Neighbours": 
+    "Neighbours":
     [
-        "Gerudo Desert", 
-        "Lake Hylia Long Cave", 
-        "Lake Hylia Water Toadpoli Grotto", 
-        "Lake Hylia Shell Blade Grotto", 
-        "Lakebed Temple Entrance", 
-        "City in The Sky Entrance", 
-        "Lake Hylia Bridge", 
+        "Gerudo Desert",
+        "Lake Hylia Long Cave",
+        "Lake Hylia Water Toadpoli Grotto",
+        "Lake Hylia Shell Blade Grotto",
+        "Lakebed Temple Entrance",
+        "City in The Sky Entrance",
+        "Lake Hylia Bridge",
         "Zoras Domain"
     ],
     "NeighbourRequirements":
@@ -16,12 +16,12 @@
         "canSmash",
         "Shadow_Crystal",
         "Shadow_Crystal",
-        "((Iron_Boots and CanUseWaterBombs) or (Setting.skipLakebedEntrance equals True)) and Zora_Armor",
+        "Zora_Armor or CanDoAirRefill",
         "(Progressive_Clawshot, 1) and ((Progressive_Sky_Book, 7) or (Setting.skipCityEntrance equals True))",
         "true",
         "Shadow_Crystal"
     ],
-    "Checks": 
+    "Checks":
     [
         "Lake Hylia Underwater Chest",
         "Outside Lanayru Spring Left Statue Chest",

@@ -1,5 +1,5 @@
 {
-    "requirements": "Lantern",
+    "requirements": "Lantern or (CanDoLJA and Room.Forest_Temple_West_Wing)",
     "arcOffsets": ["10AC"],
     "stageIDX": [6],
     "roomIDX": 0,

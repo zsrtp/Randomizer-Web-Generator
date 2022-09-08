@@ -1,24 +1,24 @@
 {
-    "Neighbours": 
+    "Neighbours":
     [
-        "Kakariko Gorge", 
-        "Kakariko Village", 
-        "Goron Stockcave", 
-        "Castle Town", 
-        "Lanayru Field", 
-        "Eldin Field Water Bomb Fish Grotto", 
+        "Kakariko Gorge",
+        "Kakariko Village",
+        "Goron Stockcave",
+        "Castle Town",
+        "Lanayru Field",
+        "Eldin Field Water Bomb Fish Grotto",
         "Eldin Field Bomskit Grotto"
     ],
   "NeighbourRequirements": [
     "canSmash",
     "true",
-    "(Progressive_Clawshot, 1)",
+    "(Progressive_Clawshot, 1) or CanDoMapGlitch or CanDoLJA",
     "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysey)))",
     "canSmash",
     "Shadow_Crystal",
     "Shadow_Crystal"
   ],
-    "Checks": 
+    "Checks":
     [
         "Eldin Field Bomb Rock Chest",
         "Bridge of Eldin Owl Statue Chest",

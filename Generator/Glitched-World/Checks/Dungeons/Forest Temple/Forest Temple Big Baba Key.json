@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatBigBaba and CanDefeatWalltula",
+    "requirements": "CanDefeatBigBaba",
     "moduleID": ["26D"],
     "stageIDX": [6],
     "relOffsets": ["155C"],

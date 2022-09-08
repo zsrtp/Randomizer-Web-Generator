@@ -1,5 +1,5 @@
 {
-    "requirements": "canSmash and Iron_Boots",
+    "requirements": "HasHeavyMod and (canSmash or CanDoMapGlitch)",
     "arcOffsets": ["2F4C"],
     "stageIDX": [46],
     "roomIDX": 0,

@@ -1,15 +1,15 @@
 {
-    "Neighbours": 
+    "Neighbours":
     [
         "Forest Temple Lobby",
         "Ook"
     ],
-    "NeighbourRequirements": 
+    "NeighbourRequirements":
     [
         "true",
-        "Boomerang"
+        "Boomerang or Shadow_Crystal or HasSword or hasBombs"
     ],
-    "Checks": 
+    "Checks":
     [
         "Forest Temple West Deku Like Chest",
         "Forest Temple Totem Pole Chest",

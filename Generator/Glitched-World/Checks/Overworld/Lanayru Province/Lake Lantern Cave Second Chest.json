@@ -1,5 +1,5 @@
 {
-    "requirements": "canSmash and Lantern",
+    "requirements": "canSmash",
     "arcOffsets": ["1E5C"],
     "stageIDX": [33],
     "roomIDX": 0,

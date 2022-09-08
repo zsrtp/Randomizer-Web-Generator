@@ -1,5 +1,5 @@
 {
-    "requirements": "Iron_Boots",
+    "requirements": "HasHeavyMod",
     "arcOffsets": ["1FE0"],
     "stageIDX": [56],
     "roomIDX": 10,

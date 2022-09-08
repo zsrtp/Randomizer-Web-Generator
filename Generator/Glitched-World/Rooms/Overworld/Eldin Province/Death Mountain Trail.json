@@ -1,15 +1,15 @@
-{ 
-    "Neighbours": 
+{
+    "Neighbours":
     [
-        "Kakariko Village", 
+        "Kakariko Village",
         "Death Mountain Volcano"
     ],
-    "NeighbourRequirements": 
+    "NeighbourRequirements":
     [
         "true",
-        "Iron_Boots"
+        "true"
     ],
-    "Checks": 
+    "Checks":
     [
         "Death Mountain Alcove Chest",
         "Death Mountain Trail Poe"

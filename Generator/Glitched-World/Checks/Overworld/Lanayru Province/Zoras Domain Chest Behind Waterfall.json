@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal",
+    "requirements": "Shadow_Crystal or CanDoBSMoonBoots or Spinner or (hasBombs and HasSword) or CanDoLJA",
     "arcFileValues": [["F_SP113/R01_00.arc", "BBC30"]],
     "arcOffsets": ["27F0"],
     "stageIDX": [50],

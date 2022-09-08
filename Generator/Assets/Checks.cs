@@ -84,6 +84,7 @@ namespace TPRandomizer
         public static List<string> minesRequirementChecks =
             new()
             {
+				"Death Mountain Trail Poe",
                 "Goron Mines After Crystal Switch Room Magnet Wall Chest",
                 "Goron Mines Beamos Room Chest",
                 "Goron Mines Chest Before Dangoro",

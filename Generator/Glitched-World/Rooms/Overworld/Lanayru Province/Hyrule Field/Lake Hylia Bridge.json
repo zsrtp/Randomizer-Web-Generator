@@ -1,20 +1,20 @@
-{ 
-    "Neighbours": 
+{
+    "Neighbours":
     [
-        "Faron Field", 
-        "Lake Hylia", 
-        "Lanayru Field", 
-        "Outside Castle Town West", 
+        "Faron Field",
+        "Lake Hylia",
+        "Lanayru Field",
+        "Outside Castle Town West",
         "Lake Hylia Bridge Bubble Grotto"
     ],
   "NeighbourRequirements": [
-    "(Gate_Keys or (Setting.smallKeySettings equals Keysey))",
+    "(Gate_Keys or (Setting.smallKeySettings equals Keysey)) or Shadow_Crystal",
     "true",
-    "canSmash",
+    "canSmash or CanDoMapGlitch",
     "true",
     "Shadow_Crystal and canLaunchBombs and (Progressive_Clawshot, 1)"
   ],
-    "Checks": 
+    "Checks":
     [
         "Lake Hylia Bridge Vines Chest",
         "Lake Hylia Bridge Cliff Chest",

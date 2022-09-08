@@ -1,5 +1,5 @@
 {
-    "requirements": "true",
+    "requirements": "(Progressive_Clawshot, 1) or Boomerang",
     "hash": ["270F"],
     "stageIDX": [54],
     "dzxTag": ["ACTR"],

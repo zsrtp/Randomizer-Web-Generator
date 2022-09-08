@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatBombling",
+    "requirements": "CanDefeatBombling or canSmash",
     "arcOffsets": ["BF4"],
     "stageIDX": [6],
     "roomIDX": 5,

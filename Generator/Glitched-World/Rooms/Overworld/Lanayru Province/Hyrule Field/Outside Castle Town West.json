@@ -1,19 +1,19 @@
 {
-    "Neighbours": 
+    "Neighbours":
     [
-        "Lake Hylia Bridge", 
-        "Lanayru Field", 
-        "Castle Town", 
+        "Lake Hylia Bridge",
+        "Lanayru Field",
+        "Castle Town",
         "West Hyrule Field Helmasaur Grotto"
     ],
-    "NeighbourRequirements": 
+    "NeighbourRequirements":
     [
         "true",
         "true",
         "true",
-        "Shadow_Crystal and (Progressive_Clawshot, 1)"
+        "Shadow_Crystal and ((Progressive_Clawshot, 1) or CanDoMapGlitch)"
     ],
-    "Checks": 
+    "Checks":
     [
         "Hyrule Field Ampitheater Owl Statue Chest",
         "Hyrule Field Ampitheater Owl Statue Sky Character",

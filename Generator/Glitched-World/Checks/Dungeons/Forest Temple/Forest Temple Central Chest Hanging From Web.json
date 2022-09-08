@@ -1,5 +1,5 @@
 {
-    "requirements": "canCutHangingWeb",
+    "requirements": "canCutHangingWeb or CanDoJSMoonBoots",
     "arcOffsets": ["106C"],
     "stageIDX": [6],
     "roomIDX": 0,

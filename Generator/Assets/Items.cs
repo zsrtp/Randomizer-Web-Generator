@@ -295,6 +295,31 @@ namespace TPRandomizer
         public List<Item> JunkItems = new(); // Extra junk items that are put in the pool if there are checks left and all items have been placed..
         public List<Item> BaseItemPool = new(); // The list of Items that have yet to be randomized..
         public List<Item> heldItems = new(); // The list of items that the player currently has. This is to be used when emulating the playthrough..
+		public List<Item> ItemWheelItems = new()
+		{
+			Item.Progressive_Clawshot,
+			Item.Progressive_Dominion_Rod,
+			Item.Ball_and_Chain,
+			Item.Spinner,
+			Item.Progressive_Bow,
+			Item.Iron_Boots,
+			Item.Boomerang,
+			Item.Lantern,
+			Item.Slingshot,
+			Item.Progressive_Fishing_Rod,
+			Item.Hawkeye,
+			Item.Filled_Bomb_Bag,
+			Item.Filled_Bomb_Bag,
+			Item.Filled_Bomb_Bag,
+			Item.Empty_Bottle,
+			Item.Jovani_Bottle,
+			Item.Sera_Bottle,
+			Item.Coro_Bottle,
+			Item.Aurus_Memo,
+			Item.Renados_Letter, // Covers letter, invoice, statue, charm. It doesn't matter which item you
+								// have in the chain, as long as you have the slot available.
+			Item.Horse_Call,
+		};
 
         public List<Item> ShuffledDungeonRewards = new();
         internal List<Item> VanillaDungeonRewards =

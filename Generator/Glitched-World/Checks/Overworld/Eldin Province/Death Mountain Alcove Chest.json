@@ -1,5 +1,5 @@
 {
-    "requirements": "(canCompleteGoronMines and (Setting.barrenDungeons equals False)) or ((Progressive_Clawshot, 1) and (Iron_Boots or Shadow_Crystal))",
+"requirements": "(canCompleteGoronMines and (Setting.barrenDungeons equals False)) or (Progressive_Clawshot, 1)",
     "arcOffsets": ["1504"],
     "stageIDX": [47],
     "roomIDX": 0,

@@ -1,22 +1,22 @@
-{ 
-    "Neighbours": 
+{
+    "Neighbours":
     [
-        "Kakariko Gorge", 
-        "Eldin Field", 
-        "Death Mountain Trail", 
+        "Kakariko Gorge",
+        "Eldin Field",
+        "Death Mountain Trail",
         "Lake Hylia"
     ],
-    "NeighbourRequirements": 
+    "NeighbourRequirements":
     [
         "true",
         "true",
         "true",
-        "CanUseWaterBombs and Iron_Boots"
+        "(HasHeavyMod or Zora_Armor) or HasSword or Shadow_Crystal or (hasBombs and Spinner)"
     ],
-    "Checks": 
+    "Checks":
     [
         "Kakariko Inn Chest",
-        "Eldin Spring Underwater Chest",        
+        "Eldin Spring Underwater Chest",
         "Kakariko Graveyard Lantern Chest",
         "Kakariko Watchtower Chest",
         "Kakariko Watchtower Alcove Chest",

@@ -14,12 +14,12 @@ namespace TPRandomizer
         /// </summary>
         public Dictionary<Token, string> TokenDict = new();
 
-        //Evaluate the tokenized settings to their respective values that are set by the settings string.
+		//Evaluate the tokenized settings to their respective values that are set by the settings string.
 
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        public static bool EvaluateSetting(string setting, string value)
+		/// <summary>
+		/// summary text.
+		/// </summary>
+		public static bool EvaluateSetting(string setting, string value)
         {
             PropertyInfo[] settingProperties = Randomizer.SSettings.GetType().GetProperties();
             setting = setting.Replace("Setting.", "");
@@ -1141,7 +1141,12 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanDefeatMorpheel()
         {
-            return (CanUse(Item.Zora_Armor) && CanUse(Item.Iron_Boots) && HasSword());
+            return (
+                CanUse(Item.Zora_Armor)
+                && CanUse(Item.Iron_Boots)
+                && HasSword()
+                && (getItemCount(Item.Progressive_Clawshot) >= 1)
+            );
         }
 
         /// <summary>
@@ -1559,131 +1564,170 @@ namespace TPRandomizer
             return false;
         }
 
-		// START OF GLITCHED LOGIC
+        // START OF GLITCHED LOGIC
+
+        /// <summary>
+        /// Check for sword or Back Slice (aka fake sword)
+        /// </summary>
+        public static bool HasSwordOrBS()
+        {
+            return getItemCount(Item.Progressive_Sword) >= 1
+                || getItemCount(Item.Progressive_Hidden_Skill) >= 3;
+        }
+
+        /// <summary>
+        /// Check for a usable bottle (requires lantern to avoid issues with lantern oil in all bottles)
+        /// </summary>
+        public static bool HasBottle()
+        {
+            return (
+                    CanUse(Item.Empty_Bottle)
+                    || CanUse(Item.Sera_Bottle)
+                    || CanUse(Item.Jovani_Bottle)
+                    || CanUse(Item.Coro_Bottle)
+                ) && CanUse(Item.Lantern);
+        }
+
+        /// <summary>
+        /// Check for heavy mod (boots or MA)
+        /// </summary>
+        public static bool HasHeavyMod()
+        {
+            return CanUse(Item.Iron_Boots) || CanUse(Item.Magic_Armor);
+        }
+
+        /// <summary>
+        /// Check for cutscene item (useful for cutscene dropping a bomb in specific spot)
+        /// </summary>
+        public static bool HasCutsceneItem()
+        {
+            return getItemCount(Item.Progressive_Sky_Book) >= 1
+                || HasBottle()
+                || CanUse(Item.Horse_Call);
+        }
+
+        /// <summary>
+        /// Check for if you can do LJAs
+        /// </summary>
+        public static bool CanDoLJA()
+        {
+            return HasSword() && CanUse(Item.Boomerang);
+        }
+
+        /// <summary>
+        /// Check for if you can do Jump Strike LJAs
+        /// </summary>
+        public static bool CanDoJSLJA()
+        {
+            return HasSword()
+                && CanUse(Item.Boomerang)
+                && getItemCount(Item.Progressive_Hidden_Skill) >= 6;
+        }
+
+        /// <summary>
+        /// Check for if you can do Map Glitch
+        /// </summary>
+        public static bool CanDoMapGlitch()
+        {
+            return CanUse(Item.Shadow_Crystal);
+        }
+
+        /// <summary>
+        /// Check for if you can do storage (aka Reverse Door Adventure (RDA)). Note: Needs a one-handed item
+        /// </summary>
+        public static bool CanDoStorage()
+        {
+            return CanDoMapGlitch() && HasOneHandedItem();
+        }
 
 		/// <summary>
-		/// Check for sword or Back Slice (aka fake sword)
+		/// Check for if you have any one-handed item
 		/// </summary>
-		public static bool HasSwordOrBS()
+		public static bool HasOneHandedItem()
 		{
-			return getItemCount(Item.Progressive_Sword) >= 1 || getItemCount(Item.Progressive_Hidden_Skill) >= 3;
+			return HasSword() || HasBottle() || CanUse(Item.Boomerang)
+					|| getItemCount(Item.Progressive_Clawshot) >= 1 || CanUse(Item.Lantern)
+					|| getItemCount(Item.Progressive_Bow) >= 1 || CanUse(Item.Slingshot)
+					|| getItemCount(Item.Progressive_Dominion_Rod) >= 1;
 		}
 
-		/// <summary>
-		/// Check for if weak sword (Wooden/Ordon). Required for some tricks as to not do too much damage to an enemy you LJA off of
-		/// </summary>
-		public static bool HasWeakSword()
-		{
-			return CanUse(Item.Ordon_Sword) || getItemCount(Item.Progressive_Sword) == 1;
-		}
-
-		/// <summary>
-		/// Check for a usable bottle (requires lantern to avoid issues with lantern oil in all bottles)
-		/// </summary>
-		public static bool HasBottle()
-		{
-			return (CanUse(Item.Empty_Bottle) || CanUse(Item.Sera_Bottle) || CanUse(Item.Jovani_Bottle) ||
-				CanUse(Item.Coro_Bottle)) && CanUse(Item.Lantern);
-		}
-
-		/// <summary>
-		/// Check for heavy mod (boots or MA)
-		/// </summary>
-		public static bool HasHeavyMod()
-		{
-			return CanUse(Item.Iron_Boots) || CanUse(Item.Magic_Armor);
-		}
-
-		/// <summary>
-		/// Check for cutscene item (useful for cutscene dropping a bomb in specific spot)
-		/// </summary>
-		public static bool HasCutsceneItem()
-		{
-			return getItemCount(Item.Progressive_Sky_Book) >= 1 || HasBottle() || CanUse(Item.Horse_Call);
-		}
-
-		/// <summary>
-		/// Check for if you can do LJAs
-		/// </summary>
-		public static bool CanDoLJA()
-		{
-			return HasSword() && CanUse(Item.Boomerang);
-		}
-
-		/// <summary>
-		/// Check for if you can do Jump Strike LJAs
-		/// </summary>
-		public static bool CanDoJSLJA()
-		{
-			return HasSword() && CanUse(Item.Boomerang) && getItemCount(Item.Progressive_Hidden_Skill) >= 6;
-		}
-
-		/// <summary>
-		/// Check for if you can do Map Glitch
-		/// </summary>
-		public static bool CanDoMapGlitch()
-		{
-			return CanUse(Item.Shadow_Crystal);
-		}
-
-		/// <summary>
-		/// Check for if you can do storage (aka Reverse Door Adventure (RDA)). Note: Needs a one-handed item
-		/// </summary>
-		public static bool CanDoStorage()
-		{
-			return CanDoMapGlitch() &&
-				(HasSword() || HasBottle() || getItemCount(Item.Progressive_Clawshot) >= 1 ||
-				getItemCount(Item.Progressive_Bow) >= 1 || getItemCount(Item.Progressive_Dominion_Rod) >= 1 ||
-				CanUse(Item.Lantern) || CanUse(Item.Boomerang) || CanUse(Item.Slingshot));
-
-		}
-
-		/// <summary>
-		/// Check for if you can do Moon Boots
-		/// </summary>
+        /// <summary>
+        /// Check for if you can do Moon Boots
+        /// </summary>
 		public static bool CanDoMoonBoots()
 		{
-			return HasSword() && HasHeavyMod();
+			return HasSword() && (CanUse(Item.Magic_Armor)
+				|| CanUse(Item.Iron_Boots) && GetItemWheelSlotCount() >= 3); // Ensure you can equip something over boots
 		}
 
-		/// <summary>
-		/// Check for if you can do Jump Strike Moon Boots
-		/// </summary>
-		public static bool CanDoJSMoonBoots()
-		{
-			return CanDoMoonBoots() && getItemCount(Item.Progressive_Hidden_Skill) >= 6;
-		}
+        /// <summary>
+        /// Check for if you can do Jump Strike Moon Boots
+        /// </summary>
+        public static bool CanDoJSMoonBoots()
+        {
+            return CanDoMoonBoots() && getItemCount(Item.Progressive_Hidden_Skill) >= 6;
+        }
 
-		/// <summary>
-		/// Check for if you can do Back Slice Moon Boots
-		/// </summary>
-		public static bool CanDoBSMoonBoots()
-		{
-			return getItemCount(Item.Progressive_Hidden_Skill) >= 3 && CanUse(Item.Magic_Armor);
-		}
+        /// <summary>
+        /// Check for if you can do Back Slice Moon Boots
+        /// </summary>
+        public static bool CanDoBSMoonBoots()
+        {
+            return getItemCount(Item.Progressive_Hidden_Skill) >= 3 && CanUse(Item.Magic_Armor);
+        }
 
-		/// <summary>
-		/// Check for if you can do Ending Blow Moon Boots
-		/// </summary>
+        /// <summary>
+        /// Check for if you can do Ending Blow Moon Boots
+        /// </summary>
 		public static bool CanDoEBMoonBoots()
 		{
-			return CanDoMoonBoots() && getItemCount(Item.Progressive_Hidden_Skill) >= 1;
+			return CanDoMoonBoots() && getItemCount(Item.Progressive_Hidden_Skill) >= 1 && CanUse(Item.Iron_Boots);
 		}
 
-		/// <summary>
-		/// Check for if you can do The Amazing Fly Glitch™
-		/// </summary>
-		public static bool CanDoFlyGlitch()
+        /// <summary>
+        /// Check for if you can do The Amazing Fly Glitch™
+        /// </summary>
+        public static bool CanDoFlyGlitch()
+        {
+            return getItemCount(Item.Progressive_Fishing_Rod) >= 1 && HasHeavyMod();
+        }
+
+        /// <summary>
+        /// Check for if you can swim with Water Bombs
+        /// </summary>
+		public static bool CanDoAirRefill()
 		{
-			return getItemCount(Item.Progressive_Fishing_Rod) >= 1 && HasHeavyMod();
+			return CanUseWaterBombs()
+				&& (HasSword() || getItemCount(Item.Progressive_Clawshot) >= 1)
+				&& (CanUse(Item.Magic_Armor)
+				|| CanUse(Item.Iron_Boots) && GetItemWheelSlotCount() >= 3); // Ensure you can equip something over boots
 		}
 
+        /// <summary>
+        /// Check for if you can do Hidden Village (glitched)
+        /// </summary>
+        public static bool CanDoHiddenVillageGlitched()
+        {
+            return getItemCount(Item.Progressive_Bow) >= 1
+                || CanUse(Item.Ball_and_Chain)
+                || (
+                    CanUse(Item.Slingshot)
+                    && (
+                        CanUse(Item.Shadow_Crystal)
+                        || HasSword()
+                        || hasBombs()
+                        || CanUse(Item.Iron_Boots)
+                        || CanUse(Item.Spinner)
+                    )
+                );
+        }
+
 		/// <summary>
-		/// Check for if you can swim with Water Bombs. Note: Requires sword/claw so you can drop bomb while underwater
+		/// Check for if you can get passed FT windless bridge room (glitched)
 		/// </summary>
-		public static bool CanDoSwimWithWBs()
+		public static bool CanDoFTWindlessBridgeRoom()
 		{
-			return CanUseWaterBombs() && HasHeavyMod() && (HasSword() || getItemCount(Item.Progressive_Clawshot) >= 1);
+			return hasBombs() || CanDoBSMoonBoots() || CanDoJSMoonBoots();
 		}
 
 		// END OF GLITCHED LOGIC
@@ -1701,6 +1745,21 @@ namespace TPRandomizer
             }
             return itemQuantity;
         }
+
+		public static int GetItemWheelSlotCount()
+		{
+			int count = 0;
+
+			foreach (Item item in Randomizer.Items.ItemWheelItems)
+			{
+				if (CanUse(item))
+				{
+					count++;
+				}
+			}
+
+			return count;
+		}
 
         /// <summary>
         /// summary text.

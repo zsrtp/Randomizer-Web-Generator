@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and canSmash and Lantern",
+    "requirements": "Shadow_Crystal and canSmash",
     "stageIDX": [33],
     "flag": "5D",
     "category": ["Overworld", "Poe", "Lanayru Province"],

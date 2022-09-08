@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatIceKeese and CanDefeatFreezard and Ball_and_Chain",
+    "requirements": "true",
     "hash": ["4584"],
     "stageIDX": [38],
     "dzxTag": ["TRES"],

@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Clawshot, 1)",
+    "requirements": "(Progressive_Clawshot, 1) or CanDoLJA or (Shadow_Crystal and hasBombs)",
     "arcOffsets": ["16B8"],
     "stageIDX": [59],
     "roomIDX": 0,

@@ -1,5 +1,5 @@
 {
-    "requirements": "Lantern and Iron_Boots",
+    "requirements": "((Progressive_Clawshot, 1) or CanDoMapGlitch or CanDoLJA) and Lantern",
     "arcOffsets": ["ED0"],
     "stageIDX": [34],
     "roomIDX": 10,
