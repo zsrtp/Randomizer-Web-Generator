@@ -95,8 +95,7 @@ namespace TPRandomizer.Assets
 
         private static string playthroughNameToFilename(string playthroughName)
         {
-            // string verAsStr = VersionNumToChars(SeedData.VersionMajor, SeedData.VersionMinor);
-            string verAsStr = VersionNumToChars(57, 3000);
+            string verAsStr = VersionNumToChars(SeedData.VersionMajor, SeedData.VersionMinor);
 
             return "sd"
                 + verAsStr
