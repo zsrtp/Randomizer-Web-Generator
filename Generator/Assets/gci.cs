@@ -190,28 +190,5 @@ namespace TPRandomizer.Assets
 
             throw new Exception($"Value \"{number}\" could not be represented as a U16.");
         }
-
-        private static readonly string U16EncodingChars =
-            "0123456789abcDefghiJkLmNopQrstuVwxyzABEHR";
-
-        private static string EncodeU16As3Chars(UInt16 number)
-        {
-            int iterations = 3;
-            int charCount = 41;
-
-            char[] arr = new char[3];
-            UInt16 currNum = number;
-
-            for (int i = 0; i < iterations; i++)
-            {
-                int charIndex = currNum % charCount;
-                arr[i] = U16EncodingChars[charIndex];
-                currNum = (UInt16)((currNum - charIndex) / charCount);
-            }
-
-            Array.Reverse(arr);
-
-            return new String(arr);
-        }
     }
 }
