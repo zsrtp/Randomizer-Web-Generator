@@ -205,10 +205,6 @@
 
     initTabButtons([
       {
-        buttonId: 'mainTabBtn',
-        contentId: 'mainTab',
-      },
-      {
         buttonId: 'cosmeticsTabBtn',
         contentId: 'cosmeticsTab',
       },
@@ -1014,7 +1010,6 @@
       [
         // { id: 'gameRegion', bitLength: 3 },
         { id: 'includeSpoilerCheckbox' },
-        { id: 'seedNumber', bitLength: 4 },
 
         { id: 'bgmFieldset', bitLength: 2 },
         { id: 'randomizeFanfaresCheckbox' },

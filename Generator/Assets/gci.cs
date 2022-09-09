@@ -37,11 +37,10 @@ namespace TPRandomizer.Assets
         /// <summary>
         /// text.
         /// </summary>
-        /// <param name="seedNumber">The current seed number that the memory card will read.</param>
         /// <param name="seedRegion">The region of the game that the seed is being generated for.</param>
         /// <param name="seedData">Any data that needs to be read into the GCI file.</param>
         /// <returns> The inserted value as a byte. </returns>
-        public Gci(byte seedNumber, char regionCode, List<byte> seedData, string playthroughName)
+        public Gci(char regionCode, List<byte> seedData, string playthroughName)
         {
             gciHeader = new List<byte>();
             gciData = new List<byte>();

@@ -103,7 +103,7 @@ namespace TPRandomizer.Assets
             );
 
             // Generate Seed Data
-            currentSeedHeader.AddRange(GenerateSeedHeader(fcSettings.seedNumber));
+            currentSeedHeader.AddRange(GenerateSeedHeader());
             currentSeedData.AddRange(currentSeedHeader);
             currentSeedData.AddRange(CheckDataRaw);
             currentSeedData.AddRange(GenerateBgmHeader());
@@ -157,23 +157,12 @@ namespace TPRandomizer.Assets
             // Generate GCI Files
             currentGCIData.AddRange(BannerDataRaw);
             currentGCIData.AddRange(currentSeedData);
-            var gci = new Gci(
-                (byte)fcSettings.seedNumber,
-                region,
-                currentGCIData,
-                seedGenResults.playthroughName
-            );
+            var gci = new Gci(region, currentGCIData, seedGenResults.playthroughName);
             return gci.gciFile.ToArray();
             // File.WriteAllBytes(playthroughName, gci.gciFile.ToArray());
         }
 
-        /// <summary>
-        /// text.
-        /// </summary>
-        /// <param name="seedNumber">The number you want to convert.</param>
-        /// <param name="seedHash">A randomized string that represents the current seed.</param>
-        /// <returns> The inserted value as a byte. </returns>
-        private List<byte> GenerateSeedHeader(int seedNumber)
+        private List<byte> GenerateSeedHeader()
         {
             List<byte> seedHeader = new();
             SharedSettings randomizerSettings = Randomizer.SSettings;
@@ -217,12 +206,11 @@ namespace TPRandomizer.Assets
             seedHeader.Add(Converter.GcByte(randomizerSettings.quickTransform ? 1 : 0));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirements));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.palaceRequirements));
-            while (seedHeader.Count < (SeedHeaderSize - 1))
+            while (seedHeader.Count < (SeedHeaderSize))
             {
                 seedHeader.Add((byte)0x0);
             }
 
-            seedHeader.Add(Converter.GcByte(seedNumber));
             return seedHeader;
         }
 
