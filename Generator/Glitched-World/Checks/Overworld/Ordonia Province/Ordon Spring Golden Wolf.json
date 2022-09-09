@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and Room.Death_Mountain_Trail and HasSword",
+    "requirements": "Shadow_Crystal and Room.Death_Mountain_Trail and HasSword and hasShield",
     "arcOffsets": ["3F54", "3B1C", "4184", "45E4", "43C8", "483C", "4AA8"],
     "fileDirectoryType": [1,1,1,1,1,1,1],
     "replacementType": [1,1,1,1,1,1,1],

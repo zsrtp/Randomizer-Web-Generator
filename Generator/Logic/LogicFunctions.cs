@@ -441,7 +441,7 @@ namespace TPRandomizer
                 || (getItemCount(Item.Progressive_Bow) >= 1)
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
-                || (getItemCount(Item.Progressive_Hidden_Skill) >= 2)
+                || (hasShield() && (getItemCount(Item.Progressive_Hidden_Skill) >= 2))
                 || CanUse(Item.Slingshot)
                 || CanUse(Item.Lantern)
                 || (getItemCount(Item.Progressive_Clawshot) >= 1)
@@ -1251,9 +1251,10 @@ namespace TPRandomizer
         public static bool hasShield()
         {
             return (
-                CanUse(Item.Ordon_Shield)
-                || CanUse(Item.Wooden_Shield)
-                || CanUse(Item.Hylian_Shield)
+                CanUse(Item.Hylian_Shield)
+                || Randomizer.Rooms.RoomDict["Kakariko Village"].ReachedByPlaythrough
+                || Randomizer.Rooms.RoomDict["Castle Town"].ReachedByPlaythrough
+                || (Randomizer.Rooms.RoomDict["Death Mountain Volcano"].ReachedByPlaythrough && CanDefeatGoron())
             );
         }
 
@@ -1319,10 +1320,13 @@ namespace TPRandomizer
         {
             return (
                 canBreakMonkeyCage()
-                && CanUse(Item.Lantern)
+                && (
+                    CanUse(Item.Lantern)
+                    || ((Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
+                     && (hasBombs() || CanUse(Item.Iron_Boots)))
+                )
                 && CanUse(Item.Boomerang)
                 && CanDefeatBokoblin()
-                && CanDefeatBigBaba()
                 && (
                     (getItemCount(Item.Forest_Temple_Small_Key) >= 4)
                     || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
