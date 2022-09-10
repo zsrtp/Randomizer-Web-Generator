@@ -1743,26 +1743,11 @@ namespace TPRandomizer
 			return hasBombs() || CanDoBSMoonBoots() || CanDoJSMoonBoots();
 		}
 
-		public static bool CanCompleteIntroGlitched()
-		{
-			return (
-				(
-					HasSword()
-					&& CanUse(Item.Slingshot)
-					&& (getItemCount(Item.Progressive_Fishing_Rod) >= 1)
-					&& (
-						(Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey) ||
-						(CanUse(Item.North_Faron_Woods_Gate_Key) || CanUse(Item.Shadow_Crystal))
-					)
-				) || (Randomizer.SSettings.skipPrologue == true)
-			);
-		}
-
 		public static bool CanLeaveForestGlitched()
 		{
 			return
 			(
-				CanCompleteIntroGlitched() &&
+				CanCompleteIntro() &&
 				(
 					(Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Open) ||
 					(canCompleteForestTemple() || CanDoLJA() || CanDoMapGlitch())
