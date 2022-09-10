@@ -1448,6 +1448,14 @@ namespace TPRandomizer
             );
         }
 
+		/// <summary>
+		/// Can complete Eldin twilight
+		/// </summary>
+		public static bool CanCompleteEldinTwilight()
+		{
+			return Randomizer.SSettings.eldinTwilightCleared || (CanCompleteIntro() && canLeaveForest());
+		}
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -1631,10 +1639,10 @@ namespace TPRandomizer
         /// <summary>
         /// Check for if you can do Map Glitch
         /// </summary>
-        public static bool CanDoMapGlitch()
-        {
-            return CanUse(Item.Shadow_Crystal);
-        }
+		public static bool CanDoMapGlitch()
+		{
+			return CanUse(Item.Shadow_Crystal) && CanCompleteEldinTwilightGlitched();
+		}
 
         /// <summary>
         /// Check for if you can do storage (aka Reverse Door Adventure (RDA)). Note: Needs a one-handed item
@@ -1732,6 +1740,41 @@ namespace TPRandomizer
 		public static bool CanDoFTWindlessBridgeRoom()
 		{
 			return hasBombs() || CanDoBSMoonBoots() || CanDoJSMoonBoots();
+		}
+
+		public static bool CanCompleteIntroGlitched()
+		{
+			return (
+				(
+					HasSword()
+					&& CanUse(Item.Slingshot)
+					&& (getItemCount(Item.Progressive_Fishing_Rod) >= 1)
+					&& (
+						(Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey) ||
+						(CanUse(Item.North_Faron_Woods_Gate_Key) || CanUse(Item.Shadow_Crystal))
+					)
+				) || (Randomizer.SSettings.skipPrologue == true)
+			);
+		}
+
+		public static bool CanLeaveForestGlitched()
+		{
+			return
+			(
+				CanCompleteIntroGlitched() &&
+				(
+					(Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Open) ||
+					(canCompleteForestTemple() || CanDoLJA() || CanDoMapGlitch())
+				)
+			);
+		}
+
+		/// <summary>
+		/// Check for if Eldin twilight can be completed (glitched). Check this for if map warp can be obtained
+		/// </summary>
+		public static bool CanCompleteEldinTwilightGlitched()
+		{
+			return Randomizer.SSettings.eldinTwilightCleared || CanLeaveForestGlitched();
 		}
 
 		// END OF GLITCHED LOGIC
