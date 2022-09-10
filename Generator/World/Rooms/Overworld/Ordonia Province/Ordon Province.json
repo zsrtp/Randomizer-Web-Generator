@@ -1,5 +1,5 @@
 {
-    "Neighbours": 
+    "Neighbours":
     [
         "South Faron Woods",
         "Ordon Ranch Grotto"
@@ -7,9 +7,9 @@
     "NeighbourRequirements":
     [
         "(HasSword and Slingshot) or (Setting.skipPrologue equals True)",
-        "Shadow_Crystal"
+        "CanCompleteIntro and Shadow_Crystal"
     ],
-    "Checks": 
+    "Checks":
     [
         "Uli Cradle Delivery",
         "Ordon Cat Rescue",
