@@ -1325,6 +1325,7 @@ namespace TPRandomizer
                     || ((Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
                      && (hasBombs() || CanUse(Item.Iron_Boots)))
                 )
+                && canBurnWebs()
                 && CanUse(Item.Boomerang)
                 && CanDefeatBokoblin()
                 && (
