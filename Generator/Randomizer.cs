@@ -575,8 +575,6 @@ namespace TPRandomizer
                     + SeedData.VersionString
                     + gameVer
                     + "-"
-                    + fcSettings.seedNumber
-                    + "-"
                     + seedId
                     + ".gci"
             );
