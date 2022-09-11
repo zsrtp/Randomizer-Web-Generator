@@ -168,7 +168,6 @@ namespace TPRandomizer.Assets
             SharedSettings randomizerSettings = Randomizer.SSettings;
             SeedHeaderRaw.headerSize = (ushort)SeedHeaderSize;
             SeedHeaderRaw.dataSize = (ushort)CheckDataRaw.Count;
-            SeedHeaderRaw.seed = BackendFunctions.GetChecksum(seedGenResults.playthroughName, 64);
             SeedHeaderRaw.versionMajor = VersionMajor;
             SeedHeaderRaw.versionMinor = VersionMinor;
             SeedHeaderRaw.requiredDungeons = (uint)seedGenResults.requiredDungeons;
@@ -801,7 +800,6 @@ namespace TPRandomizer.Assets
             public UInt16 versionMinor { get; set; } // SeedData version minor
             public UInt16 headerSize { get; set; } // Total size of the header in bytes
             public UInt16 dataSize { get; set; } // Total number of bytes in the check data
-            public UInt64 seed { get; set; } // Current seed
             public UInt32 totalSize { get; set; } // Total number of bytes in the gci after the comments
             public UInt32 requiredDungeons { get; set; } // Bitfield containing which dungeons are required to beat the seed. Only 8 bits are used, while the rest are reserved for future updates
             public UInt16 volatilePatchInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
