@@ -1,5 +1,5 @@
 {
-    "requirements": "(HasSword or CanUseWaterBombs) and Iron_Boots",
+    "requirements": "HasHeavyMod",
     "arcOffsets": ["F18"],
     "stageIDX": [3],
     "roomIDX": 7,

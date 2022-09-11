@@ -1,5 +1,5 @@
 {
-  "requirements": "(Progressive_Bow, 1) and Iron_Boots and CanDefeatDangoro and ((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysey))",
+  "requirements": "Room.Goron_Mines_Upper_East_Wing and CanDefeatDangoro and CanDefeatBeamos",
   "arcOffsets": ["169C"],
     "stageIDX": [3],
     "roomIDX": 3,

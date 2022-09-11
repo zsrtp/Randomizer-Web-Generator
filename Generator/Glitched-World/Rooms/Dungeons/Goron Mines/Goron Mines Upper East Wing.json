@@ -1,15 +1,15 @@
-{ 
-    "Neighbours": 
+{
+    "Neighbours":
     [
-        "Goron Mines Upper East Wing", 
+        "Goron Mines Upper East Wing",
         "Goron Mines Magnet Room"
     ],
-    "NeighbourRequirements": 
+    "NeighbourRequirements":
     [
         "true",
-        "Iron_Boots and CanDefeatDangoro and (Progressive_Bow, 1)"
+        "Iron_Boots and CanDefeatDangoro and ((Progressive_Bow, 1) or CanDefeatBeamos)"
     ],
-    "Checks": 
+    "Checks":
     [
         "Goron Mines Gor Ebizo Chest",
         "Goron Mines Chest Before Dangoro",

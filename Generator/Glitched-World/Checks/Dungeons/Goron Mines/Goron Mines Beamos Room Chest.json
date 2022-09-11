@@ -1,5 +1,5 @@
 {
-    "requirements": " Iron_Boots and CanDefeatDangoro and (Progressive_Bow, 1)",
+    "requirements": " Iron_Boots and CanDefeatDangoro and CanDefeatBeamos",
     "arcOffsets": ["B58"],
     "stageIDX": [3],
     "roomIDX": 11,

@@ -1,5 +1,5 @@
 {
-    "requirements": "Iron_Boots",
+    "requirements": "Iron_Boots or CanDoLJA",
     "arcOffsets": ["BD4"],
     "stageIDX": [3],
     "roomIDX": 9,
