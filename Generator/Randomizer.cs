@@ -938,9 +938,18 @@ namespace TPRandomizer
                                 }
                                 if (!currentCheck.hasBeenReached)
                                 {
-                                    var areCheckRequirementsMet = Logic.EvaluateRequirements(
-                                        currentCheck.requirements
-                                    );
+                                    var areCheckRequirementsMet = false;
+                                    if (SSettings.logicRules == LogicRules.No_Logic)
+                                    {
+                                        areCheckRequirementsMet = true;
+                                    }
+                                    else
+                                    {
+                                        areCheckRequirementsMet = Logic.EvaluateRequirements(
+                                            currentCheck.requirements
+                                        );
+                                    }
+
                                     if ((bool)areCheckRequirementsMet == true)
                                     {
                                         if (currentCheck.itemWasPlaced)
