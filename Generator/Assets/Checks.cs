@@ -52,6 +52,8 @@ namespace TPRandomizer
         public string fileName { get; set; }
 
         public List<string> relOverride { get; set; } // Used by REL checks. The override instruction to be used when replacing the item in the rel.
+
+        public bool isRequired { get; set; }
     }
 
     /// <summary>
@@ -84,7 +86,7 @@ namespace TPRandomizer
         public static List<string> minesRequirementChecks =
             new()
             {
-				"Death Mountain Trail Poe",
+                "Death Mountain Trail Poe",
                 "Goron Mines After Crystal Switch Room Magnet Wall Chest",
                 "Goron Mines Beamos Room Chest",
                 "Goron Mines Chest Before Dangoro",

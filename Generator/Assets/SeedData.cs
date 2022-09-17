@@ -103,7 +103,7 @@ namespace TPRandomizer.Assets
             );
 
             // Generate Seed Data
-            currentSeedHeader.AddRange(GenerateSeedHeader(fcSettings.seedNumber));
+            currentSeedHeader.AddRange(GenerateSeedHeader());
             currentSeedData.AddRange(currentSeedHeader);
             currentSeedData.AddRange(CheckDataRaw);
             currentSeedData.AddRange(GenerateBgmHeader());
@@ -157,29 +157,17 @@ namespace TPRandomizer.Assets
             // Generate GCI Files
             currentGCIData.AddRange(BannerDataRaw);
             currentGCIData.AddRange(currentSeedData);
-            var gci = new Gci(
-                (byte)fcSettings.seedNumber,
-                region,
-                currentGCIData,
-                seedGenResults.playthroughName
-            );
+            var gci = new Gci(region, currentGCIData, seedGenResults.playthroughName);
             return gci.gciFile.ToArray();
             // File.WriteAllBytes(playthroughName, gci.gciFile.ToArray());
         }
 
-        /// <summary>
-        /// text.
-        /// </summary>
-        /// <param name="seedNumber">The number you want to convert.</param>
-        /// <param name="seedHash">A randomized string that represents the current seed.</param>
-        /// <returns> The inserted value as a byte. </returns>
-        private List<byte> GenerateSeedHeader(int seedNumber)
+        private List<byte> GenerateSeedHeader()
         {
             List<byte> seedHeader = new();
             SharedSettings randomizerSettings = Randomizer.SSettings;
             SeedHeaderRaw.headerSize = (ushort)SeedHeaderSize;
             SeedHeaderRaw.dataSize = (ushort)CheckDataRaw.Count;
-            SeedHeaderRaw.seed = BackendFunctions.GetChecksum(seedGenResults.playthroughName, 64);
             SeedHeaderRaw.versionMajor = VersionMajor;
             SeedHeaderRaw.versionMinor = VersionMinor;
             SeedHeaderRaw.requiredDungeons = (uint)seedGenResults.requiredDungeons;
@@ -217,12 +205,11 @@ namespace TPRandomizer.Assets
             seedHeader.Add(Converter.GcByte(randomizerSettings.quickTransform ? 1 : 0));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirements));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.palaceRequirements));
-            while (seedHeader.Count < (SeedHeaderSize - 1))
+            while (seedHeader.Count < (SeedHeaderSize))
             {
                 seedHeader.Add((byte)0x0);
             }
 
-            seedHeader.Add(Converter.GcByte(seedNumber));
             return seedHeader;
         }
 
@@ -347,11 +334,10 @@ namespace TPRandomizer.Assets
                     {
                         listOfArcReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.arcOffsets[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.arcOffsets[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         if (currentCheck.replacementType[i] != 3)
@@ -364,11 +350,10 @@ namespace TPRandomizer.Assets
                         {
                             listOfArcReplacements.AddRange(
                                 Converter.GcBytes(
-                                    (UInt32)
-                                        uint.Parse(
-                                            currentCheck.flag,
-                                            System.Globalization.NumberStyles.HexNumber
-                                        )
+                                    (UInt32)uint.Parse(
+                                        currentCheck.flag,
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                                 )
                             );
                         }
@@ -411,11 +396,10 @@ namespace TPRandomizer.Assets
                     {
                         listOfArcReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.arcOffsets[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.arcOffsets[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfArcReplacements.AddRange(
@@ -476,11 +460,10 @@ namespace TPRandomizer.Assets
 
                         listOfDZXReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt16)
-                                    ushort.Parse(
-                                        currentCheck.hash[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt16)ushort.Parse(
+                                    currentCheck.hash[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfDZXReplacements.Add(Converter.GcByte(currentCheck.stageIDX[i]));
@@ -555,20 +538,18 @@ namespace TPRandomizer.Assets
                         );
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.moduleID[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.moduleID[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.relOffsets[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.relOffsets[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfRELReplacements.AddRange(
@@ -629,11 +610,10 @@ namespace TPRandomizer.Assets
                     {
                         listOfBugRewards.AddRange(
                             Converter.GcBytes(
-                                (UInt16)
-                                    byte.Parse(
-                                        currentCheck.flag,
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt16)byte.Parse(
+                                    currentCheck.flag,
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfBugRewards.AddRange(
@@ -683,11 +663,10 @@ namespace TPRandomizer.Assets
                 {
                     listOfHiddenSkills.AddRange(
                         Converter.GcBytes(
-                            (UInt16)
-                                short.Parse(
-                                    currentCheck.flag,
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                            (UInt16)short.Parse(
+                                currentCheck.flag,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
                         )
                     );
                     listOfHiddenSkills.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
@@ -715,11 +694,10 @@ namespace TPRandomizer.Assets
                 {
                     listOfShopItems.AddRange(
                         Converter.GcBytes(
-                            (UInt16)
-                                short.Parse(
-                                    currentCheck.flag,
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                            (UInt16)short.Parse(
+                                currentCheck.flag,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
                         )
                     );
                     listOfShopItems.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
@@ -822,7 +800,6 @@ namespace TPRandomizer.Assets
             public UInt16 versionMinor { get; set; } // SeedData version minor
             public UInt16 headerSize { get; set; } // Total size of the header in bytes
             public UInt16 dataSize { get; set; } // Total number of bytes in the check data
-            public UInt64 seed { get; set; } // Current seed
             public UInt32 totalSize { get; set; } // Total number of bytes in the gci after the comments
             public UInt32 requiredDungeons { get; set; } // Bitfield containing which dungeons are required to beat the seed. Only 8 bits are used, while the rest are reserved for future updates
             public UInt16 volatilePatchInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough

@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDoMapGlitch or ((Progressive_Clawshot, 1) and (CanDoStorage or (Progressive_Dominion_Rod, 2)))",
+    "requirements": "CanDoMapGlitch or ((Progressive_Clawshot, 1) and (Progressive_Dominion_Rod, 2))",
     "arcOffsets": ["E44"],
     "stageIDX": [56],
     "roomIDX": 13,

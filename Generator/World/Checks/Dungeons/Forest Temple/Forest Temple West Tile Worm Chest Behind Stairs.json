@@ -1,5 +1,5 @@
 {
-    "requirements": "Boomerang and CanDefeatBombling",
+    "requirements": "Boomerang",
     "arcOffsets": ["C14"],
     "stageIDX": [6],
     "roomIDX": 5,

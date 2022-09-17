@@ -7,7 +7,6 @@ namespace TPRandomizer
     {
         public GameRegion gameRegion { get; }
         public bool includeSpoilerLog { get; }
-        public byte seedNumber { get; }
         public RandomizeBgm randomizeBgm { get; }
         public bool randomizeFanfares { get; }
         public bool disableEnemyBgm { get; }
@@ -29,7 +28,6 @@ namespace TPRandomizer
 
             gameRegion = (GameRegion)processor.NextInt(2);
             includeSpoilerLog = processor.NextBool();
-            seedNumber = (byte)processor.NextInt(4);
 
             randomizeBgm = (RandomizeBgm)processor.NextInt(2);
             randomizeFanfares = processor.NextBool();

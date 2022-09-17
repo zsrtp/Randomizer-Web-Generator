@@ -9,7 +9,7 @@
     "NeighbourRequirements":
     [
         "true",
-        "(canLeaveForest and CanCompleteIntro) or HasSword or CanDoMapGlitch",
+		"CanLeaveForestGlitched",
         "true",
         "(canSmash and (Progressive_Dominion_Rod, 2) and Shadow_Crystal) or (CanDoBSMoonBoots and hasBombs and CanDoLJA) or CanDoMapGlitch"
     ],
