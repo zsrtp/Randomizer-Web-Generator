@@ -1,15 +1,15 @@
 {
-    "Neighbours": 
+    "Neighbours":
     [
-        "Death Mountain Interiors", 
+        "Death Mountain Interiors",
         "Goron Mines Magnet Room"
     ],
-    "NeighbourRequirements": 
+    "NeighbourRequirements":
     [
         "true",
-        "Iron_Boots and canBreakWoodenDoor"
+        "Iron_Boots and (canBreakWoodenDoor or CanDoBSMoonBoots)"
     ],
-    "Checks": 
+    "Checks":
     [
         "Goron Mines Entrance Chest"
     ],

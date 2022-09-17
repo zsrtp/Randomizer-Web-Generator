@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatBombling",
+    "requirements": "CanDefeatWalltula",
     "arcOffsets": ["C74"],
     "stageIDX": [6],
     "roomIDX": 3,

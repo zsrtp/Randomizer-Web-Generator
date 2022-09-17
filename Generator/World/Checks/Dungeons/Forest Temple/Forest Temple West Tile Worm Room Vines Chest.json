@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatBombling",
+    "requirements": "true",
     "arcOffsets": ["C34"],
     "stageIDX": [6],
     "roomIDX": 5,

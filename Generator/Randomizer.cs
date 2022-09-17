@@ -218,7 +218,7 @@ namespace TPRandomizer
             Randomizer.Items.GenerateItemPool();
 
             bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom);
-            if (!isPlaythroughValid)
+            if (!isPlaythroughValid && (SSettings.logicRules != LogicRules.No_Logic))
             {
                 return null;
             }
@@ -575,8 +575,6 @@ namespace TPRandomizer
                     + SeedData.VersionString
                     + gameVer
                     + "-"
-                    + fcSettings.seedNumber
-                    + "-"
                     + seedId
                     + ".gci"
             );
@@ -800,23 +798,16 @@ namespace TPRandomizer
             Console.WriteLine("Placing Excluded Checks.");
             PlaceExcludedChecks(rnd);
 
-            if (SSettings.logicRules == LogicRules.No_Logic)
-            {
-                PlaceNonImpactItems(Items.RandomizedImportantItems, rnd); // Place Important Items Randomly
-            }
-            else
-            {
-                // Once all of the items that have some restriction on their placement are placed, we then place all of the items that can
-                // be logically important (swords, clawshot, bow, etc.)
-                Console.WriteLine("Placing Important Items.");
-                PlaceItemsRestricted(
-                    startingRoom,
-                    Items.RandomizedImportantItems,
-                    Randomizer.Items.heldItems,
-                    string.Empty,
-                    rnd
-                );
-            }
+            // Once all of the items that have some restriction on their placement are placed, we then place all of the items that can
+            // be logically important (swords, clawshot, bow, etc.)
+            Console.WriteLine("Placing Important Items.");
+            PlaceItemsRestricted(
+                startingRoom,
+                Items.RandomizedImportantItems,
+                Randomizer.Items.heldItems,
+                string.Empty,
+                rnd
+            );
 
             // Next we will place the "always" items. Basically the constants in every seed, so Heart Pieces, Heart Containers, etc.
             // These items do not affect logic at all so there is very little constraint to this method.
@@ -940,9 +931,18 @@ namespace TPRandomizer
                                 }
                                 if (!currentCheck.hasBeenReached)
                                 {
-                                    var areCheckRequirementsMet = Logic.EvaluateRequirements(
-                                        currentCheck.requirements
-                                    );
+                                    var areCheckRequirementsMet = false;
+                                    if (SSettings.logicRules == LogicRules.No_Logic)
+                                    {
+                                        areCheckRequirementsMet = true;
+                                    }
+                                    else
+                                    {
+                                        areCheckRequirementsMet = Logic.EvaluateRequirements(
+                                            currentCheck.requirements
+                                        );
+                                    }
+
                                     if ((bool)areCheckRequirementsMet == true)
                                     {
                                         if (currentCheck.itemWasPlaced)
@@ -1386,6 +1386,7 @@ namespace TPRandomizer
                 currentCheck.requirements = "(" + currentCheck.requirements + ")";
                 currentCheck.checkStatus = "Ready";
                 currentCheck.itemWasPlaced = false;
+                currentCheck.isRequired = false;
                 Checks.CheckDict[fileName] = currentCheck;
 
                 // Console.WriteLine(fileName);

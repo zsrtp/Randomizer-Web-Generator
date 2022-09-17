@@ -138,14 +138,17 @@ namespace TPRandomizer
             UInt16 version = 0;
             string result = SettingsEncoder.EncodeAsVlq16(version);
 
-            foreach (List<KeyValuePair<int, Item>> spherePairsList in spheres)
+            if (spheres != null) // In no logic, there is a chance that no items are reachable and therefore, no spheres will be possible
             {
-                result += SettingsEncoder.EncodeAsVlq16((UInt16)spherePairsList.Count);
-
-                foreach (KeyValuePair<int, Item> pair in spherePairsList)
+                foreach (List<KeyValuePair<int, Item>> spherePairsList in spheres)
                 {
-                    result += SettingsEncoder.EncodeNumAsBits(pair.Key, 9); // checkId
-                    result += SettingsEncoder.EncodeNumAsBits((int)pair.Value, 8); // itemId
+                    result += SettingsEncoder.EncodeAsVlq16((UInt16)spherePairsList.Count);
+
+                    foreach (KeyValuePair<int, Item> pair in spherePairsList)
+                    {
+                        result += SettingsEncoder.EncodeNumAsBits(pair.Key, 9); // checkId
+                        result += SettingsEncoder.EncodeNumAsBits((int)pair.Value, 8); // itemId
+                    }
                 }
             }
 
