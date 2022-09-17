@@ -1386,6 +1386,7 @@ namespace TPRandomizer
                 currentCheck.requirements = "(" + currentCheck.requirements + ")";
                 currentCheck.checkStatus = "Ready";
                 currentCheck.itemWasPlaced = false;
+                currentCheck.isRequired = false;
                 Checks.CheckDict[fileName] = currentCheck;
 
                 // Console.WriteLine(fileName);
