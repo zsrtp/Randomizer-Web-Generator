@@ -90,7 +90,9 @@
 							<legend> Access Options</legend>
 							<div class="selectGroup">
 								<label for="castleRequirementsFieldset">Hyrule Castle Requirements</label><br>
-								<select name="Castle Requirements" id="castleRequirementsFieldset">
+								<select name="Castle Requirements" 
+								data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'All Dungeons': The player must complete all dungeons.&#0010;&#0010;'Vanilla': The player must complete Palace of Twilight.&#0010;" 
+								id="castleRequirementsFieldset">
 									<option value="0"> Open </option>
 									<option value="1"> Fused Shadows </option>
 									<option value="2"> Mirror Shards </option>
@@ -100,7 +102,9 @@
 							</div>
 							<div class="selectGroup">
 								<label for="palaceRequirementsFieldset">Palace of Twilight Requirements</label><br>
-								<select name="Palace Requirements" id="palaceRequirementsFieldset">
+								<select name="Palace Requirements" 
+								data-tooltip-text="'Open': The mirror is assembled from the beginning and the portal to the dungeon is open.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'Vanilla': The player must complete City in the Sky.&#0010;"
+								id="palaceRequirementsFieldset">
 									<option value="0"> Open </option>
 									<option value="1"> Fused Shadows </option>
 									<option value="2"> Mirror Shards </option>
@@ -109,7 +113,9 @@
 							</div>
 							<div class="selectGroup">
 								<label for="faronLogicFieldset">Faron Woods Logic:</label><br>
-								<select name="Faron Woods  Logic" id="faronLogicFieldset">
+								<select name="Faron Woods  Logic" 
+								data-tooltip-text="'Open': Midna will not prevent the player from leaving Faron Woods.&#0010;&#0010;'Closed': Midna will block the player from leaving Faron Woods until Forest Temple is completed.&#0010;"
+								id="faronLogicFieldset">
 									<option value="0">Open</option>
 									<option value="1" selected>Closed</option>
 								</select>
@@ -138,7 +144,8 @@
 							<legend>Dungeon Items</legend>
 							<div class="selectGroup">
 								<label for="smallKeyFieldset">Small Keys</label><br>
-								<select name="Small Keys" id="smallKeyFieldset">
+								<select name="Small Keys" data-tooltip-text="'Vanilla': Small Keys will be placed in their original location.&#0010;&#0010;'Own Dungeon': Small Keys will only be randomizer in their vanilla dungeon. Example: You can only find a Forest Temple Small Key in the Forest Temple.&#0010;&#0010;'Any Dungeon': Small keys will be randomized between dungeons.&#0010;&#0010;'Keysanity': Small Keys will be randomized among all checks.&#0010;&#0010;'Keysey': All small key locks are removed and the keys are removed from the item pool and the player will start with the Bulblin Camp Key.&#0010;" 
+								id="smallKeyFieldset">
 									<option value="0">Vanilla</option>
 									<option value="1">Own Dungeon</option>
 									<option value="2">Any Dungeon</option>
@@ -726,5 +733,31 @@
 
 	</body>
 	<script src="/script.js"></script>
+	<script>
+		let tooltipElements = document.querySelectorAll('[data-tooltip-text]');
+		tooltipElements.forEach((tooltipElement)=>{
+			tooltipElement.addEventListener("mouseout", (e) => {
+				removetooltips();
+			});
+			tooltipElement.addEventListener("mouseover", (e) => {
+				let element = document.createElement('div');
+				element.classList.add('tooltip');
+				let tooltipContent = e.currentTarget.getAttribute('data-tooltip-text');
+				element.innerHTML = tooltipContent;
+				
+				let coords = e.currentTarget.getBoundingClientRect();
+				element.style.left = coords.left + e.currentTarget.clientWidth + 5 + 'px';
+				element.style.top = coords.top+'px';
+				document.body.appendChild(element);
+				$(element).hide().fadeIn(300);
+			});
+		});
+
+		function removetooltips(){
+			document.querySelectorAll('.tooltip').forEach((tooltip)=>{
+					tooltip.remove();
+				});
+		}
+	</script>
 	<!-- <script src="/test.js"></script> -->
 </html>
