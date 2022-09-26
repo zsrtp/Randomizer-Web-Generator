@@ -7,6 +7,7 @@
     "arcOffsets": ["3946"],
     "fileDirectoryType": [3],
     "replacementType": [2],
+    "relReplacementType": [0],
     "category": ["Dungeon", "Goron Mines", "Dungeon Reward", "REL", "ARC"],
     "itemId": "Progressive_Fused_Shadow"
 }

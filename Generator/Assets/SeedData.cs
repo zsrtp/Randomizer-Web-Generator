@@ -542,7 +542,10 @@ namespace TPRandomizer.Assets
                     for (int i = 0; i < currentCheck.moduleID.Count; i++)
                     {
                         listOfRELReplacements.AddRange(
-                            Converter.GcBytes((UInt32)currentCheck.stageIDX[i])
+                            Converter.GcBytes((UInt16)currentCheck.relReplacementType[i])
+                        );
+                        listOfRELReplacements.AddRange(
+                            Converter.GcBytes((UInt16)currentCheck.stageIDX[i])
                         );
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(

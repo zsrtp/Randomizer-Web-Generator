@@ -7,6 +7,7 @@
     "arcOffsets": ["33AA"],
     "fileDirectoryType": [3],
     "replacementType": [2],
+    "relReplacementType": [0],
     "category": ["Dungeon", "Snowpeak Ruins", "Dungeon Reward", "REL", "ARC"],
     "itemId": "Progressive_Mirror_Shard"
 }

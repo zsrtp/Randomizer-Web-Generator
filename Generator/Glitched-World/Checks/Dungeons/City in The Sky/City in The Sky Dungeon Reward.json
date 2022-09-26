@@ -7,6 +7,7 @@
     "arcOffsets": ["37EE"],
     "fileDirectoryType": [3],
     "replacementType": [2],
+    "relReplacementType": [0],
     "category": ["Dungeon", "City in The Sky", "Dungeon Reward", "REL", "ARC"],
     "itemId": "Progressive_Mirror_Shard"
 }

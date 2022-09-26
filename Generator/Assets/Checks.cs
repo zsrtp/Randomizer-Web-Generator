@@ -44,6 +44,7 @@ namespace TPRandomizer
         public List<string> moduleID { get; set; } // Used by REL checks. The module ID for the rel file being loaded.
 
         public List<string> relOffsets { get; set; } // Used by REL checks.
+        public List<byte> relReplacementType { get; set; } // Used by ARC checks. The type of replacement taking place.
 
         public List<string> arcOffsets { get; set; } // Used by ARC checks.
 
