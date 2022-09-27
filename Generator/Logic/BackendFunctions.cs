@@ -400,6 +400,7 @@ namespace TPRandomizer
                                         currentCheck
                                     );
                                     hasCompletedSphere = true;
+                                    currentCheck.isRequired = true;
                                 }
                             }
                         }
@@ -427,12 +428,11 @@ namespace TPRandomizer
                 {
                     currentItem = dictEntry.Value.itemId;
                     Randomizer.Checks.CheckDict[dictEntry.Value.checkName].itemId = 0x0;
-                    playthroughStatus = emulatePlaythrough(startingRoom);
+                    playthroughStatus = emulatePlaythroughSpheres(startingRoom);
                     if (playthroughStatus)
                     {
                         playthroughDictionary.Remove(dictEntry.Key);
-                        Randomizer.Checks.CheckDict[dictEntry.Value.checkName].itemWasPlaced =
-                            false;
+                        Randomizer.Checks.CheckDict[dictEntry.Value.checkName].isRequired = false;
                     }
                     Randomizer.Checks.CheckDict[dictEntry.Value.checkName].itemId = currentItem;
                 }
@@ -466,7 +466,6 @@ namespace TPRandomizer
                     );
                 }
             }
-
             currentPlaythrough.Add("    Ganondorf Castle: Ganondorf Defeated");
 
             result.Add(currentSpherePairs);
@@ -575,6 +574,104 @@ namespace TPRandomizer
                                         sphereItems.Add(currentCheck.itemId);
                                         hasCompletedSphere = true;
                                     }
+                                }
+                            }
+                        }
+                    }
+
+                    Randomizer.Items.heldItems.AddRange(sphereItems);
+                } while (sphereItems.Count > 0);
+
+                if ((hasCompletedSphere == false) && !hasConcludedPlaythrough)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        static bool emulatePlaythroughSpheres(Room startingRoom)
+        {
+            bool hasCompletedSphere;
+            bool hasConcludedPlaythrough;
+            List<Room> currentPlaythroughGraph;
+            List<Item> sphereItems = new();
+            SharedSettings parseSetting = Randomizer.SSettings;
+
+            foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
+            {
+                Check listedCheck = checkList.Value;
+                listedCheck.hasBeenReached = false;
+                Randomizer.Checks.CheckDict[listedCheck.checkName] = listedCheck;
+            }
+
+            foreach (KeyValuePair<string, Room> roomList in Randomizer.Rooms.RoomDict.ToList())
+            {
+                Room currentRoom = roomList.Value;
+                currentRoom.Visited = false;
+                Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
+            }
+
+            Randomizer.Items.heldItems.Clear();
+            foreach (Item startingItem in parseSetting.startingItems)
+            {
+                Randomizer.Items.heldItems.Add(startingItem);
+            }
+
+            while (!Randomizer.Rooms.RoomDict["Ganondorf Castle"].Visited)
+            {
+                hasCompletedSphere = false;
+                hasConcludedPlaythrough = false;
+                currentPlaythroughGraph = Randomizer.GeneratePlaythroughGraph(startingRoom);
+
+                // Walk through the current graph and get a list of rooms that we can currently access
+                // If we collect any items during the playthrough, we add them to the player's inventory
+                // and try walking through the graph again until we have collected every item that we can.
+                do
+                {
+                    sphereItems.Clear();
+                    foreach (Room graphRoom in currentPlaythroughGraph)
+                    {
+                        // Console.WriteLine("Currently Exploring: " + graphRoom.name);
+                        if (graphRoom.RoomName == "Ganondorf Castle")
+                        {
+                            graphRoom.Visited = true;
+                            hasConcludedPlaythrough = true;
+                            return true;
+                        }
+
+                        for (int i = 0; i < graphRoom.Checks.Count; i++)
+                        {
+                            // Create reference to the dictionary entry of the check whose logic we are evaluating
+                            if (
+                                !Randomizer.Checks.CheckDict.TryGetValue(
+                                    graphRoom.Checks[i],
+                                    out Check currentCheck
+                                )
+                            )
+                            {
+                                if (graphRoom.Checks[i].ToString() == string.Empty)
+                                {
+                                    // Console.WriteLine("Room has no checks, continuing on....");
+                                    break;
+                                }
+                            }
+
+                            if (
+                                !currentCheck.hasBeenReached
+                                && currentCheck.itemWasPlaced
+                                && currentCheck.isRequired
+                            )
+                            {
+                                var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
+                                    currentCheck.requirements
+                                );
+                                if ((bool)areCheckRequirementsMet == true)
+                                {
+                                    currentCheck.hasBeenReached = true;
+
+                                    sphereItems.Add(currentCheck.itemId);
+                                    hasCompletedSphere = true;
                                 }
                             }
                         }

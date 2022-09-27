@@ -8,6 +8,16 @@ namespace TPRandomizer.Util
         private static string charMap =
             "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
 
+        public static char EncodeByteAs6BitChar(byte value)
+        {
+            if (value >= 64)
+            {
+                throw new Exception($"Can't encode \"{value}\" to 6 bits.");
+            }
+
+            return charMap[value];
+        }
+
         public static string EncodeAs6BitString(string bitString)
         {
             if (bitString == null || bitString.Length == 0)
