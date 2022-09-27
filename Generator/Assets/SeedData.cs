@@ -6,6 +6,7 @@ namespace TPRandomizer.Assets
     using System.Linq;
     using System.Reflection;
     using TPRandomizer.FcSettings.Enums;
+    using TPRandomizer.Assets.CLR0;
 
     /// <summary>
     /// summary text.
@@ -88,6 +89,11 @@ namespace TPRandomizer.Assets
             CheckDataRaw.AddRange(ParseSkyCharacters());
             CheckDataRaw.AddRange(ParseShopItems());
             CheckDataRaw.AddRange(ParseStartingItems());
+            List<byte> clr0Bytes = ParseClr0Bytes();
+            if (clr0Bytes != null)
+            {
+                CheckDataRaw.AddRange(clr0Bytes);
+            }
             while (CheckDataRaw.Count % 0x10 != 0)
             {
                 CheckDataRaw.Add(Converter.GcByte(0x0));
@@ -210,8 +216,10 @@ namespace TPRandomizer.Assets
             }
 
             seedHeader.Add(Converter.GcByte(fcSettings.heartColor));
-            seedHeader.Add(Converter.GcByte(fcSettings.aBtnColor));
-            seedHeader.Add(Converter.GcByte(fcSettings.bBtnColor));
+            // seedHeader.Add(Converter.GcByte(fcSettings.aBtnColor));
+            seedHeader.Add(Converter.GcByte(0)); // temp aBtn
+            // seedHeader.Add(Converter.GcByte(fcSettings.bBtnColor));
+            seedHeader.Add(Converter.GcByte(0)); // temp bBtn
             seedHeader.Add(Converter.GcByte(fcSettings.xBtnColor));
             seedHeader.Add(Converter.GcByte(fcSettings.yBtnColor));
             seedHeader.Add(Converter.GcByte(fcSettings.zBtnColor));
@@ -742,6 +750,15 @@ namespace TPRandomizer.Assets
             return listOfStartingItems;
         }
 
+        private List<byte> ParseClr0Bytes()
+        {
+            List<byte> bytes = CLR0.CLR0.BuildClr0(fcSettings);
+
+            SeedHeaderRaw.clr0Offset = (ushort)(CheckDataRaw.Count);
+
+            return bytes;
+        }
+
         private List<byte> GenerateEventFlags()
         {
             List<byte> listOfEventFlags = new();
@@ -881,6 +898,7 @@ namespace TPRandomizer.Assets
             public UInt16 startingItemInfoNumEntries { get; set; }
             public UInt16 startingItemInfoDataOffset { get; set; }
             public UInt16 bgmHeaderOffset { get; set; }
+            public UInt16 clr0Offset { get; set; }
         }
     }
 

@@ -2,6 +2,7 @@ namespace TPRandomizer
 {
     using TPRandomizer.Util;
     using TPRandomizer.FcSettings.Enums;
+    using TPRandomizer.Assets.CLR0;
 
     public class FileCreationSettings
     {
@@ -17,8 +18,12 @@ namespace TPRandomizer
 
         // public int midnaHairColor { get; }
         public int heartColor { get; }
-        public int aBtnColor { get; }
-        public int bBtnColor { get; }
+
+        // public int aBtnColor { get; }
+        public Clr0Entry aBtnColor { get; }
+
+        // public int bBtnColor { get; }
+        public Clr0Entry bBtnColor { get; }
         public int xBtnColor { get; }
         public int yBtnColor { get; }
         public int zBtnColor { get; }
@@ -39,8 +44,10 @@ namespace TPRandomizer
             lanternGlowColor = processor.NextInt(4);
             // midnaHairColor = processor.NextInt(1);
             heartColor = processor.NextInt(4);
-            aBtnColor = processor.NextInt(4);
-            bBtnColor = processor.NextInt(3);
+            // aBtnColor = processor.NextInt(4);
+            aBtnColor = new RgbEntry(Assets.CLR0.RecolorId.ABtn, 0, 0x88, 0x88);
+            // bBtnColor = processor.NextInt(3);
+            bBtnColor = new RgbEntry(Assets.CLR0.RecolorId.BBtn, 0x88, 0x88, 0);
             xBtnColor = processor.NextInt(4);
             yBtnColor = processor.NextInt(4);
             zBtnColor = processor.NextInt(4);
