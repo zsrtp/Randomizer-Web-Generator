@@ -8,7 +8,8 @@ namespace TPRandomizer.Assets.CLR0
     public enum RecolorId : UInt16
     {
         None = 0xFFFF,
-        TunicAndCap = 0,
+
+        HerosClothes = 0, // Cap and body
         ABtn = 1,
         BBtn = 19,
     }
