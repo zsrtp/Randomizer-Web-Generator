@@ -55,6 +55,7 @@
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
     bitString: 'bitString',
     xBitNum: 'xBitNum',
+    rgb: 'rgb',
   };
 
   const RecolorId = {
@@ -1015,7 +1016,7 @@
         { id: 'randomizeFanfaresCheckbox' },
         { id: 'disableEnemyBGMCheckbox' },
 
-        // { id: 'tunicColorFieldset', bitLength: 4 },
+        { id: 'tunicColorFieldset', rgb: true },
         { id: 'lanternColorFieldset', bitLength: 4 },
         // { id: 'midnaHairColorFieldset', bitLength: 1 },
         { id: 'heartColorFieldset', bitLength: 4 },
@@ -1024,8 +1025,7 @@
         { id: 'xButtonColorFieldset', bitLength: 4 },
         { id: 'yButtonColorFieldset', bitLength: 4 },
         { id: 'zButtonColorFieldset', bitLength: 4 },
-      ].map(({ id, bitLength }) => {
-        const val = getVal(id);
+      ].map(({ id, bitLength, rgb }) => {
         if (bitLength) {
           // select
           return {
@@ -1033,9 +1033,18 @@
             bitLength,
             value: parseInt(getVal(id), 10),
           };
+        } else if (rgb) {
+          const selVal = getVal(id);
+          const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
+          const value = $option.data('rgb');
+
+          return {
+            type: RawSettingType.rgb,
+            value,
+          };
         }
         // checkbox
-        return val;
+        return getVal(id);
       })
     );
 
@@ -1074,6 +1083,15 @@
           bitString += value.bitString;
         } else if (value.type === RawSettingType.xBitNum) {
           bitString += numToPaddedBits(value.value, value.bitLength);
+        } else if (value.type === RawSettingType.rgb) {
+          if (value.value == null) {
+            bitString += '0';
+          } else {
+            bitString += '1';
+            const numBits = value.value.length * 4;
+            const colorAsNumber = parseInt(value.value, 16);
+            bitString += numToPaddedBits(colorAsNumber, numBits);
+          }
         }
       }
     });
