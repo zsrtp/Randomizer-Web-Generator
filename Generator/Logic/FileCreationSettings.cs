@@ -13,7 +13,8 @@ namespace TPRandomizer
         public bool disableEnemyBgm { get; }
 
         public Clr0Entry tunicColor { get; }
-        public int lanternGlowColor { get; }
+
+        public Clr0Entry lanternGlowColor { get; }
 
         // public int midnaHairColor { get; }
         public int heartColor { get; }
@@ -37,7 +38,7 @@ namespace TPRandomizer
             disableEnemyBgm = processor.NextBool();
 
             tunicColor = processor.NextClr0Entry(RecolorId.HerosClothes);
-            lanternGlowColor = processor.NextInt(4);
+            lanternGlowColor = processor.NextClr0Entry(RecolorId.LanternGlow);
             // midnaHairColor = processor.NextInt(1);
             heartColor = processor.NextInt(4);
             aBtnColor = processor.NextClr0Entry(RecolorId.ABtn);

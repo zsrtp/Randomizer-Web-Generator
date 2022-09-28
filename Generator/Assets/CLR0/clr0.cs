@@ -40,6 +40,7 @@ namespace TPRandomizer.Assets.CLR0
             List<Clr0Entry> entries = new();
 
             entries.Add(fcSettings.tunicColor);
+            entries.Add(fcSettings.lanternGlowColor);
             entries.Add(fcSettings.aBtnColor);
             entries.Add(fcSettings.bBtnColor);
             entries.Add(fcSettings.xBtnColor);

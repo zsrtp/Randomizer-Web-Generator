@@ -16,6 +16,7 @@ namespace TPRandomizer.Assets.CLR0
         XBtn = 0x03,
         YBtn = 0x04,
         ZBtn = 0x05,
+        LanternGlow = 0x06,
     }
 
     public enum RecolorType : byte

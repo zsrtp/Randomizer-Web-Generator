@@ -1017,7 +1017,7 @@
         { id: 'disableEnemyBGMCheckbox' },
 
         { id: 'tunicColorFieldset', rgb: true },
-        { id: 'lanternColorFieldset', bitLength: 4 },
+        { id: 'lanternColorFieldset', rgb: true },
         // { id: 'midnaHairColorFieldset', bitLength: 1 },
         { id: 'heartColorFieldset', bitLength: 4 },
         { id: 'aButtonColorFieldset', rgb: true },
