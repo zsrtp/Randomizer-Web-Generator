@@ -1020,7 +1020,7 @@
         { id: 'lanternColorFieldset', bitLength: 4 },
         // { id: 'midnaHairColorFieldset', bitLength: 1 },
         { id: 'heartColorFieldset', bitLength: 4 },
-        { id: 'aButtonColorFieldset', bitLength: 4 },
+        { id: 'aButtonColorFieldset', rgb: true },
         { id: 'bButtonColorFieldset', bitLength: 3 },
         { id: 'xButtonColorFieldset', bitLength: 4 },
         { id: 'yButtonColorFieldset', bitLength: 4 },
