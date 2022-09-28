@@ -39,10 +39,12 @@ namespace TPRandomizer.Assets.CLR0
         {
             List<Clr0Entry> entries = new();
 
+            entries.Add(fcSettings.tunicColor);
             entries.Add(fcSettings.aBtnColor);
             entries.Add(fcSettings.bBtnColor);
-            // entries.Add(new RgbEntry(Assets.CLR0.RecolorId.HerosClothes, 0x99, 0x44, 0x88));
-            entries.Add(fcSettings.tunicColor);
+            entries.Add(fcSettings.xBtnColor);
+            entries.Add(fcSettings.yBtnColor);
+            entries.Add(fcSettings.zBtnColor);
 
             entries.RemoveAll(entry => entry == null);
             entries.Sort(new Clr0EntryComparer());

@@ -1022,9 +1022,9 @@
         { id: 'heartColorFieldset', bitLength: 4 },
         { id: 'aButtonColorFieldset', rgb: true },
         { id: 'bButtonColorFieldset', rgb: true },
-        { id: 'xButtonColorFieldset', bitLength: 4 },
-        { id: 'yButtonColorFieldset', bitLength: 4 },
-        { id: 'zButtonColorFieldset', bitLength: 4 },
+        { id: 'xButtonColorFieldset', rgb: true },
+        { id: 'yButtonColorFieldset', rgb: true },
+        { id: 'zButtonColorFieldset', rgb: true },
       ].map(({ id, bitLength, rgb }) => {
         if (bitLength) {
           // select

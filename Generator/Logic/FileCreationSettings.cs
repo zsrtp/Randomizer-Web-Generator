@@ -21,9 +21,9 @@ namespace TPRandomizer
         public Clr0Entry aBtnColor { get; }
 
         public Clr0Entry bBtnColor { get; }
-        public int xBtnColor { get; }
-        public int yBtnColor { get; }
-        public int zBtnColor { get; }
+        public Clr0Entry xBtnColor { get; }
+        public Clr0Entry yBtnColor { get; }
+        public Clr0Entry zBtnColor { get; }
 
         private FileCreationSettings(string bits)
         {
@@ -36,15 +36,15 @@ namespace TPRandomizer
             randomizeFanfares = processor.NextBool();
             disableEnemyBgm = processor.NextBool();
 
-            tunicColor = processor.NextClr0Entry(Assets.CLR0.RecolorId.HerosClothes);
+            tunicColor = processor.NextClr0Entry(RecolorId.HerosClothes);
             lanternGlowColor = processor.NextInt(4);
             // midnaHairColor = processor.NextInt(1);
             heartColor = processor.NextInt(4);
-            aBtnColor = processor.NextClr0Entry(Assets.CLR0.RecolorId.ABtn);
-            bBtnColor = processor.NextClr0Entry(Assets.CLR0.RecolorId.BBtn);
-            xBtnColor = processor.NextInt(4);
-            yBtnColor = processor.NextInt(4);
-            zBtnColor = processor.NextInt(4);
+            aBtnColor = processor.NextClr0Entry(RecolorId.ABtn);
+            bBtnColor = processor.NextClr0Entry(RecolorId.BBtn);
+            xBtnColor = processor.NextClr0Entry(RecolorId.XBtn);
+            yBtnColor = processor.NextClr0Entry(RecolorId.YBtn);
+            zBtnColor = processor.NextClr0Entry(RecolorId.ZBtn);
         }
 
         public static FileCreationSettings FromString(string fcSettingsString)
