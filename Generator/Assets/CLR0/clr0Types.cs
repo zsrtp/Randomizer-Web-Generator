@@ -4,14 +4,15 @@ namespace TPRandomizer.Assets.CLR0
     using System.Collections.Generic;
 
     // WARNING: The values of the RecolorIds cannot be changed once they are set
-    // because this would break backwards compatibility!
+    // because this would break backwards compatibility! Note this is a u16 and
+    // not a u8.
     public enum RecolorId : UInt16
     {
         None = 0xFFFF,
 
-        HerosClothes = 0, // Cap and body
-        ABtn = 1,
-        BBtn = 19,
+        HerosClothes = 0x00, // Cap and body
+        ABtn = 0x01,
+        BBtn = 0x02,
     }
 
     public enum RecolorType : byte
