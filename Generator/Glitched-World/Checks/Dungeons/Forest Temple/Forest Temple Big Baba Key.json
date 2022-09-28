@@ -3,7 +3,7 @@
     "moduleID": ["26D"],
     "stageIDX": [6],
     "relOffsets": ["155C"],
-    "relOverride": ["38800000"],
+    "overrideInstruction": ["38800000"],
     "relReplacementType": [0],
     "category": ["Small Key", "Dungeon", "Forest Temple", "REL"],
     "itemId": "Forest_Temple_Small_Key"

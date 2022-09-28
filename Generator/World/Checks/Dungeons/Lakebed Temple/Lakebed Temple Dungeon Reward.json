@@ -3,7 +3,7 @@
     "moduleID": ["5B"],
     "stageIDX": [1],
     "relOffsets": ["1880"],
-    "relOverride": ["38600000"],
+    "overrideInstruction": ["38600000"],
     "arcOffsets": ["389A"],
     "fileDirectoryType": [3],
     "replacementType": [2],

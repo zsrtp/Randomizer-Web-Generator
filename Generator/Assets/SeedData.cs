@@ -357,7 +357,7 @@ namespace TPRandomizer.Assets
                                 Converter.GcBytes(
                                     (UInt32)
                                         uint.Parse(
-                                            currentCheck.flag,
+                                            currentCheck.overrideInstruction[i],
                                             System.Globalization.NumberStyles.HexNumber
                                         )
                                 )
@@ -565,11 +565,12 @@ namespace TPRandomizer.Assets
                                     )
                             )
                         );
+                        Console.WriteLine(currentCheck.checkName);
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
                                 (UInt32)(
                                     uint.Parse(
-                                        currentCheck.relOverride[i],
+                                        currentCheck.overrideInstruction[i],
                                         System.Globalization.NumberStyles.HexNumber
                                     ) + (byte)currentCheck.itemId
                                 )

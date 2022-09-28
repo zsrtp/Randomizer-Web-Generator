@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using TPRandomizer.SSettings.Enums;
+using System;
 
 namespace TPRandomizer
 {
@@ -14,12 +15,12 @@ namespace TPRandomizer
         /// </summary>
         public Dictionary<Token, string> TokenDict = new();
 
-		//Evaluate the tokenized settings to their respective values that are set by the settings string.
+        //Evaluate the tokenized settings to their respective values that are set by the settings string.
 
-		/// <summary>
-		/// summary text.
-		/// </summary>
-		public static bool EvaluateSetting(string setting, string value)
+        /// <summary>
+        /// summary text.
+        /// </summary>
+        public static bool EvaluateSetting(string setting, string value)
         {
             PropertyInfo[] settingProperties = Randomizer.SSettings.GetType().GetProperties();
             setting = setting.Replace("Setting.", "");
@@ -1254,7 +1255,10 @@ namespace TPRandomizer
                 CanUse(Item.Hylian_Shield)
                 || Randomizer.Rooms.RoomDict["Kakariko Village"].ReachedByPlaythrough
                 || Randomizer.Rooms.RoomDict["Castle Town"].ReachedByPlaythrough
-                || (Randomizer.Rooms.RoomDict["Death Mountain Volcano"].ReachedByPlaythrough && CanDefeatGoron())
+                || (
+                    Randomizer.Rooms.RoomDict["Death Mountain Volcano"].ReachedByPlaythrough
+                    && CanDefeatGoron()
+                )
             );
         }
 
@@ -1322,8 +1326,10 @@ namespace TPRandomizer
                 canBreakMonkeyCage()
                 && (
                     CanUse(Item.Lantern)
-                    || ((Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
-                     && (hasBombs() || CanUse(Item.Iron_Boots)))
+                    || (
+                        (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
+                        && (hasBombs() || CanUse(Item.Iron_Boots))
+                    )
                 )
                 && canBurnWebs()
                 && CanUse(Item.Boomerang)
@@ -1449,13 +1455,14 @@ namespace TPRandomizer
             );
         }
 
-		/// <summary>
-		/// Can complete Eldin twilight
-		/// </summary>
-		public static bool CanCompleteEldinTwilight()
-		{
-			return Randomizer.SSettings.eldinTwilightCleared || (CanCompleteIntro() && canLeaveForest());
-		}
+        /// <summary>
+        /// Can complete Eldin twilight
+        /// </summary>
+        public static bool CanCompleteEldinTwilight()
+        {
+            return Randomizer.SSettings.eldinTwilightCleared
+                || (CanCompleteIntro() && canLeaveForest());
+        }
 
         /// <summary>
         /// summary text.
@@ -1640,10 +1647,11 @@ namespace TPRandomizer
         /// <summary>
         /// Check for if you can do Map Glitch
         /// </summary>
-		public static bool CanDoMapGlitch()
-		{
-			return CanUse(Item.Shadow_Crystal) && CanCompleteEldinTwilightGlitched();
-		}
+        public static bool CanDoMapGlitch()
+        {
+            return CanUse(Item.Shadow_Crystal)
+                && Randomizer.Rooms.RoomDict["Kakariko Gorge"].ReachedByPlaythrough;
+        }
 
         /// <summary>
         /// Check for if you can do storage (aka Reverse Door Adventure (RDA)). Note: Needs a one-handed item
@@ -1653,25 +1661,32 @@ namespace TPRandomizer
             return CanDoMapGlitch() && HasOneHandedItem();
         }
 
-		/// <summary>
-		/// Check for if you have any one-handed item
-		/// </summary>
-		public static bool HasOneHandedItem()
-		{
-			return HasSword() || HasBottle() || CanUse(Item.Boomerang)
-					|| getItemCount(Item.Progressive_Clawshot) >= 1 || CanUse(Item.Lantern)
-					|| getItemCount(Item.Progressive_Bow) >= 1 || CanUse(Item.Slingshot)
-					|| getItemCount(Item.Progressive_Dominion_Rod) >= 1;
-		}
+        /// <summary>
+        /// Check for if you have any one-handed item
+        /// </summary>
+        public static bool HasOneHandedItem()
+        {
+            return HasSword()
+                || HasBottle()
+                || CanUse(Item.Boomerang)
+                || getItemCount(Item.Progressive_Clawshot) >= 1
+                || CanUse(Item.Lantern)
+                || getItemCount(Item.Progressive_Bow) >= 1
+                || CanUse(Item.Slingshot)
+                || getItemCount(Item.Progressive_Dominion_Rod) >= 1;
+        }
 
         /// <summary>
         /// Check for if you can do Moon Boots
         /// </summary>
-		public static bool CanDoMoonBoots()
-		{
-			return HasSword() && (CanUse(Item.Magic_Armor)
-				|| CanUse(Item.Iron_Boots) && GetItemWheelSlotCount() >= 3); // Ensure you can equip something over boots
-		}
+        public static bool CanDoMoonBoots()
+        {
+            return HasSword()
+                && (
+                    CanUse(Item.Magic_Armor)
+                    || CanUse(Item.Iron_Boots) && GetItemWheelSlotCount() >= 3
+                ); // Ensure you can equip something over boots
+        }
 
         /// <summary>
         /// Check for if you can do Jump Strike Moon Boots
@@ -1692,10 +1707,12 @@ namespace TPRandomizer
         /// <summary>
         /// Check for if you can do Ending Blow Moon Boots
         /// </summary>
-		public static bool CanDoEBMoonBoots()
-		{
-			return CanDoMoonBoots() && getItemCount(Item.Progressive_Hidden_Skill) >= 1 && CanUse(Item.Iron_Boots);
-		}
+        public static bool CanDoEBMoonBoots()
+        {
+            return CanDoMoonBoots()
+                && getItemCount(Item.Progressive_Hidden_Skill) >= 1
+                && CanUse(Item.Iron_Boots);
+        }
 
         /// <summary>
         /// Check for if you can do The Amazing Fly Glitch™
@@ -1708,13 +1725,15 @@ namespace TPRandomizer
         /// <summary>
         /// Check for if you can swim with Water Bombs
         /// </summary>
-		public static bool CanDoAirRefill()
-		{
-			return CanUseWaterBombs()
-				&& (HasSword() || getItemCount(Item.Progressive_Clawshot) >= 1)
-				&& (CanUse(Item.Magic_Armor)
-				|| CanUse(Item.Iron_Boots) && GetItemWheelSlotCount() >= 3); // Ensure you can equip something over boots
-		}
+        public static bool CanDoAirRefill()
+        {
+            return CanUseWaterBombs()
+                && (HasSword() || getItemCount(Item.Progressive_Clawshot) >= 1)
+                && (
+                    CanUse(Item.Magic_Armor)
+                    || CanUse(Item.Iron_Boots) && GetItemWheelSlotCount() >= 3
+                ); // Ensure you can equip something over boots
+        }
 
         /// <summary>
         /// Check for if you can do Hidden Village (glitched)
@@ -1735,37 +1754,36 @@ namespace TPRandomizer
                 );
         }
 
-		/// <summary>
-		/// Check for if you can get passed FT windless bridge room (glitched)
-		/// </summary>
-		public static bool CanDoFTWindlessBridgeRoom()
-		{
-			return hasBombs() || CanDoBSMoonBoots() || CanDoJSMoonBoots();
-		}
+        /// <summary>
+        /// Check for if you can get passed FT windless bridge room (glitched)
+        /// </summary>
+        public static bool CanDoFTWindlessBridgeRoom()
+        {
+            return hasBombs() || CanDoBSMoonBoots() || CanDoJSMoonBoots();
+        }
 
-		public static bool CanLeaveForestGlitched()
-		{
-			return
-			(
-				CanCompleteIntro() &&
-				(
-					(Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Open) ||
-					(canCompleteForestTemple() || CanDoLJA() || CanDoMapGlitch())
-				)
-			);
-		}
+        public static bool CanLeaveForestGlitched()
+        {
+            return (
+                CanCompleteIntro()
+                && (
+                    (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Open)
+                    || (canCompleteForestTemple() || CanDoLJA() || CanDoMapGlitch())
+                )
+            );
+        }
 
-		/// <summary>
-		/// Check for if Eldin twilight can be completed (glitched). Check this for if map warp can be obtained
-		/// </summary>
-		public static bool CanCompleteEldinTwilightGlitched()
-		{
-			return Randomizer.SSettings.eldinTwilightCleared || CanLeaveForestGlitched();
-		}
+        /// <summary>
+        /// Check for if Eldin twilight can be completed (glitched). Check this for if map warp can be obtained
+        /// </summary>
+        public static bool CanCompleteEldinTwilightGlitched()
+        {
+            return Randomizer.SSettings.eldinTwilightCleared || CanLeaveForestGlitched();
+        }
 
-		// END OF GLITCHED LOGIC
+        // END OF GLITCHED LOGIC
 
-		public static int getItemCount(Item itemToBeCounted)
+        public static int getItemCount(Item itemToBeCounted)
         {
             List<Item> itemList = Randomizer.Items.heldItems;
             int itemQuantity = 0;
@@ -1779,20 +1797,20 @@ namespace TPRandomizer
             return itemQuantity;
         }
 
-		public static int GetItemWheelSlotCount()
-		{
-			int count = 0;
+        public static int GetItemWheelSlotCount()
+        {
+            int count = 0;
 
-			foreach (Item item in Randomizer.Items.ItemWheelItems)
-			{
-				if (CanUse(item))
-				{
-					count++;
-				}
-			}
+            foreach (Item item in Randomizer.Items.ItemWheelItems)
+            {
+                if (CanUse(item))
+                {
+                    count++;
+                }
+            }
 
-			return count;
-		}
+            return count;
+        }
 
         /// <summary>
         /// summary text.

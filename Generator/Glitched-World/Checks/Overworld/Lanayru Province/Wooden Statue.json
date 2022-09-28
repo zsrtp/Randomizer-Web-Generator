@@ -2,7 +2,7 @@
     "requirements": "Invoice",
     "stageIDX": [57],
     "moduleID": ["2B3"],
-    "relOverride": ["38800000"],
+    "overrideInstruction": ["38800000"],
     "relReplacementType": [0],
     "relOffsets": ["F24"],
     "category": ["Overworld", "Npc", "Hyrule Field", "REL"],
