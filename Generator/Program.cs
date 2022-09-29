@@ -15,7 +15,6 @@ namespace TPRandomizer
         static void Main(string[] args)
         {
             Global.Init();
-            args = new string[] { "generate2", "idnull", "0sHBPm00000F__m", "false", "test" };
 
             string command = args[0];
 
