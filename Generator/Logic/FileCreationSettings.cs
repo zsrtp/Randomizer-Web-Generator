@@ -17,7 +17,7 @@ namespace TPRandomizer
         public Clr0Entry lanternGlowColor { get; }
 
         // public int midnaHairColor { get; }
-        public int heartColor { get; }
+        public Clr0Entry heartColor { get; }
 
         public Clr0Entry aBtnColor { get; }
 
@@ -40,7 +40,7 @@ namespace TPRandomizer
             tunicColor = processor.NextClr0Entry(RecolorId.HerosClothes);
             lanternGlowColor = processor.NextClr0Entry(RecolorId.LanternGlow);
             // midnaHairColor = processor.NextInt(1);
-            heartColor = processor.NextInt(4);
+            heartColor = processor.NextClr0Entry(RecolorId.Hearts);
             aBtnColor = processor.NextClr0Entry(RecolorId.ABtn);
             bBtnColor = processor.NextClr0Entry(RecolorId.BBtn);
             xBtnColor = processor.NextClr0Entry(RecolorId.XBtn);

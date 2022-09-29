@@ -17,6 +17,7 @@ namespace TPRandomizer.Assets.CLR0
         YBtn = 0x04,
         ZBtn = 0x05,
         LanternGlow = 0x06,
+        Hearts = 0x07,
     }
 
     public enum RecolorType : byte
@@ -94,7 +95,17 @@ namespace TPRandomizer.Assets.CLR0
 
         override public Clr0Result getResult()
         {
-            return null;
+            List<byte> complexData = new();
+
+            complexData.Add((byte)rgbList.Count);
+            foreach (Rgb rgb in rgbList)
+            {
+                complexData.Add(rgb.r);
+                complexData.Add(rgb.g);
+                complexData.Add(rgb.b);
+            }
+
+            return new Clr0Result(0, complexData);
         }
     }
 }

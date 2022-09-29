@@ -1019,7 +1019,7 @@
         { id: 'tunicColorFieldset', rgb: true },
         { id: 'lanternColorFieldset', rgb: true },
         // { id: 'midnaHairColorFieldset', bitLength: 1 },
-        { id: 'heartColorFieldset', bitLength: 4 },
+        { id: 'heartColorFieldset', rgb: true },
         { id: 'aButtonColorFieldset', rgb: true },
         { id: 'bButtonColorFieldset', rgb: true },
         { id: 'xButtonColorFieldset', rgb: true },
@@ -1088,9 +1088,7 @@
             bitString += '0';
           } else {
             bitString += '1';
-            const numBits = value.value.length * 4;
-            const colorAsNumber = parseInt(value.value, 16);
-            bitString += numToPaddedBits(colorAsNumber, numBits);
+            bitString += hexStrToBits(value.value);
           }
         }
       }
@@ -1238,6 +1236,28 @@
    */
   function numToPaddedBits(number, strLength) {
     return padBits2(number.toString(2), strLength);
+  }
+
+  /**
+   * Converts a hex string like "fc8a" to a bit string like "10110...".
+   *
+   * @param {string} hexStr hex string to convert to a bit string
+   * @return {string} Bit string
+   */
+  function hexStrToBits(hexStr) {
+    if (!hexStr) {
+      return '';
+    }
+
+    let result = '';
+
+    for (let i = 0; i < hexStr.length; i++) {
+      const character = hexStr.substring(i, i + 1);
+      const num = parseInt(character, 16);
+      result += numToPaddedBits(num, 4);
+    }
+
+    return result;
   }
 
   // function populateRecolorSelect(pSettings, elId, recolorId) {

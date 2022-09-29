@@ -203,7 +203,8 @@ namespace TPRandomizer.Assets
                 }
             }
 
-            seedHeader.Add(Converter.GcByte(fcSettings.heartColor));
+            // seedHeader.Add(Converter.GcByte(fcSettings.heartColor));
+            seedHeader.Add(Converter.GcByte(0)); // temp heartColor
             // seedHeader.Add(Converter.GcByte(fcSettings.aBtnColor));
             seedHeader.Add(Converter.GcByte(0)); // temp aBtn
             // seedHeader.Add(Converter.GcByte(fcSettings.bBtnColor));
