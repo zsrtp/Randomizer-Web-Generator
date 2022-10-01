@@ -2,6 +2,7 @@ namespace TPRandomizer
 {
     using TPRandomizer.Util;
     using TPRandomizer.FcSettings.Enums;
+    using TPRandomizer.Assets.CLR0;
 
     public class FileCreationSettings
     {
@@ -11,16 +12,19 @@ namespace TPRandomizer
         public bool randomizeFanfares { get; }
         public bool disableEnemyBgm { get; }
 
-        // public int tunicColor { get; }
-        public int lanternGlowColor { get; }
+        public Clr0Entry tunicColor { get; }
+
+        public Clr0Entry lanternGlowColor { get; }
 
         // public int midnaHairColor { get; }
-        public int heartColor { get; }
-        public int aBtnColor { get; }
-        public int bBtnColor { get; }
-        public int xBtnColor { get; }
-        public int yBtnColor { get; }
-        public int zBtnColor { get; }
+        public Clr0Entry heartColor { get; }
+
+        public Clr0Entry aBtnColor { get; }
+
+        public Clr0Entry bBtnColor { get; }
+        public Clr0Entry xBtnColor { get; }
+        public Clr0Entry yBtnColor { get; }
+        public Clr0Entry zBtnColor { get; }
 
         private FileCreationSettings(string bits)
         {
@@ -33,15 +37,15 @@ namespace TPRandomizer
             randomizeFanfares = processor.NextBool();
             disableEnemyBgm = processor.NextBool();
 
-            // tunicColor = processor.NextInt(4);
-            lanternGlowColor = processor.NextInt(4);
+            tunicColor = processor.NextClr0Entry(RecolorId.HerosClothes);
+            lanternGlowColor = processor.NextClr0Entry(RecolorId.LanternGlow);
             // midnaHairColor = processor.NextInt(1);
-            heartColor = processor.NextInt(4);
-            aBtnColor = processor.NextInt(4);
-            bBtnColor = processor.NextInt(3);
-            xBtnColor = processor.NextInt(4);
-            yBtnColor = processor.NextInt(4);
-            zBtnColor = processor.NextInt(4);
+            heartColor = processor.NextClr0Entry(RecolorId.Hearts);
+            aBtnColor = processor.NextClr0Entry(RecolorId.ABtn);
+            bBtnColor = processor.NextClr0Entry(RecolorId.BBtn);
+            xBtnColor = processor.NextClr0Entry(RecolorId.XBtn);
+            yBtnColor = processor.NextClr0Entry(RecolorId.YBtn);
+            zBtnColor = processor.NextClr0Entry(RecolorId.ZBtn);
         }
 
         public static FileCreationSettings FromString(string fcSettingsString)

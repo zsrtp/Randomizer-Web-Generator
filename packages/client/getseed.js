@@ -55,6 +55,7 @@
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
     bitString: 'bitString',
     xBitNum: 'xBitNum',
+    rgb: 'rgb',
   };
 
   const RecolorId = {
@@ -1015,17 +1016,16 @@
         { id: 'randomizeFanfaresCheckbox' },
         { id: 'disableEnemyBGMCheckbox' },
 
-        // { id: 'tunicColorFieldset', bitLength: 4 },
-        { id: 'lanternColorFieldset', bitLength: 4 },
+        { id: 'tunicColorFieldset', rgb: true },
+        { id: 'lanternColorFieldset', rgb: true },
         // { id: 'midnaHairColorFieldset', bitLength: 1 },
-        { id: 'heartColorFieldset', bitLength: 4 },
-        { id: 'aButtonColorFieldset', bitLength: 4 },
-        { id: 'bButtonColorFieldset', bitLength: 3 },
-        { id: 'xButtonColorFieldset', bitLength: 4 },
-        { id: 'yButtonColorFieldset', bitLength: 4 },
-        { id: 'zButtonColorFieldset', bitLength: 4 },
-      ].map(({ id, bitLength }) => {
-        const val = getVal(id);
+        { id: 'heartColorFieldset', rgb: true },
+        { id: 'aButtonColorFieldset', rgb: true },
+        { id: 'bButtonColorFieldset', rgb: true },
+        { id: 'xButtonColorFieldset', rgb: true },
+        { id: 'yButtonColorFieldset', rgb: true },
+        { id: 'zButtonColorFieldset', rgb: true },
+      ].map(({ id, bitLength, rgb }) => {
         if (bitLength) {
           // select
           return {
@@ -1033,9 +1033,18 @@
             bitLength,
             value: parseInt(getVal(id), 10),
           };
+        } else if (rgb) {
+          const selVal = getVal(id);
+          const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
+          const value = $option.data('rgb');
+
+          return {
+            type: RawSettingType.rgb,
+            value,
+          };
         }
         // checkbox
-        return val;
+        return getVal(id);
       })
     );
 
@@ -1074,6 +1083,13 @@
           bitString += value.bitString;
         } else if (value.type === RawSettingType.xBitNum) {
           bitString += numToPaddedBits(value.value, value.bitLength);
+        } else if (value.type === RawSettingType.rgb) {
+          if (value.value == null) {
+            bitString += '0';
+          } else {
+            bitString += '1';
+            bitString += hexStrToBits(value.value);
+          }
         }
       }
     });
@@ -1220,6 +1236,28 @@
    */
   function numToPaddedBits(number, strLength) {
     return padBits2(number.toString(2), strLength);
+  }
+
+  /**
+   * Converts a hex string like "fc8a" to a bit string like "10110...".
+   *
+   * @param {string} hexStr hex string to convert to a bit string
+   * @return {string} Bit string
+   */
+  function hexStrToBits(hexStr) {
+    if (!hexStr) {
+      return '';
+    }
+
+    let result = '';
+
+    for (let i = 0; i < hexStr.length; i++) {
+      const character = hexStr.substring(i, i + 1);
+      const num = parseInt(character, 16);
+      result += numToPaddedBits(num, 4);
+    }
+
+    return result;
   }
 
   // function populateRecolorSelect(pSettings, elId, recolorId) {

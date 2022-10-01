@@ -336,7 +336,7 @@ document
 document
   .getElementById('disableEnemyBGMCheckbox')
   .addEventListener('click', setSettingsString);
-// document.getElementById('tunicColorFieldset').onchange = setSettingsString;
+document.getElementById('tunicColorFieldset').onchange = setSettingsString;
 document.getElementById('lanternColorFieldset').onchange = setSettingsString;
 // document.getElementById('midnaHairColorFieldset').onchange = setSettingsString;
 document.getElementById('heartColorFieldset').onchange = setSettingsString;

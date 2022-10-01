@@ -439,7 +439,7 @@
 
   function genPSettingsFromUi(returnEvenIfEmpty) {
     const values = [
-      // { id: 'tunicColorFieldset', bitLength: 4 },
+      { id: 'tunicColorFieldset', bitLength: 4 },
       { id: 'lanternColorFieldset', bitLength: 4 },
       // { id: 'midnaHairColorFieldset', bitLength: 1 },
       { id: 'heartColorFieldset', bitLength: 4 },
@@ -769,7 +769,7 @@
     // return res;
 
     const a = [
-      // { id: 'tunicColor', type: 'number', bitLength: 4 },
+      { id: 'tunicColor', type: 'number', bitLength: 4 },
       { id: 'lanternColor', type: 'number', bitLength: 4 },
       // { id: 'midnaHairColor', type: 'number', bitLength: 1 },
       { id: 'heartColor', type: 'number', bitLength: 4 },
@@ -824,7 +824,7 @@
       return;
     }
 
-    // $('#tunicColorFieldset').val(p.tunicColor);
+    $('#tunicColorFieldset').val(p.tunicColor);
     $('#lanternColorFieldset').val(p.lanternColor);
     // $('#midnaHairColorFieldset').val(p.midnaHairColor);
     $('#heartColorFieldset').val(p.heartColor);

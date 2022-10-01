@@ -2,6 +2,7 @@ namespace TPRandomizer.Util
 {
     using System;
     using System.Collections.Generic;
+    using TPRandomizer.Assets.CLR0;
 
     public class SettingsEncoder
     {
@@ -236,32 +237,6 @@ namespace TPRandomizer.Util
             return result;
         }
 
-        public List<RecolorDefinition> NextRecolorDefinitions()
-        {
-            UInt16 numRecolorIds = NextUInt16();
-
-            List<RecolorDefinition> recolorDefs = new();
-
-            for (int j = 0; j < numRecolorIds; j++)
-            {
-                if (NextBool())
-                {
-                    recolorDefs.Add(new RecolorDefinition((RecolorId)j));
-                }
-            }
-
-            foreach (RecolorDefinition recolorDef in recolorDefs)
-            {
-                byte red = NextByte();
-                byte green = NextByte();
-                byte blue = NextByte();
-
-                recolorDef.rgb = new List<byte> { red, green, blue };
-            }
-
-            return recolorDefs;
-        }
-
         public List<Item> NextItemList()
         {
             List<Item> list = new();
@@ -316,6 +291,44 @@ namespace TPRandomizer.Util
                 done = true;
 
             return val;
+        }
+
+        public Clr0Entry NextClr0Entry(RecolorId recolorId)
+        {
+            bool enabled = NextBool();
+            if (!enabled)
+            {
+                return null;
+            }
+
+            RecolorType recolorType = (RecolorType)NextByte();
+            switch (recolorType)
+            {
+                case RecolorType.Rgb:
+                {
+                    byte r = NextByte();
+                    byte g = NextByte();
+                    byte b = NextByte();
+                    return new RgbEntry(recolorId, r, g, b);
+                }
+                case RecolorType.RgbArray:
+                {
+                    byte arrLength = NextByte();
+                    List<Rgb> rgbList = new();
+
+                    for (byte i = 0; i < arrLength; i++)
+                    {
+                        byte r = NextByte();
+                        byte g = NextByte();
+                        byte b = NextByte();
+                        rgbList.Add(new Rgb(r, g, b));
+                    }
+
+                    return new RgbArrayEntry(recolorId, rgbList);
+                }
+                default:
+                    throw new Exception($"Unrecognized RecolorType {recolorType}");
+            }
         }
     }
 }

@@ -80,7 +80,9 @@ namespace TPRandomizer.Assets
             /*x3A*/
             gciHeader.AddRange(Converter.GcBytes((UInt16)0xFFFF)); // unused
             /*x3C*/
-            gciHeader.AddRange(Converter.GcBytes((UInt32)0x1400)); // Comments Offset
+            gciHeader.AddRange(
+                Converter.GcBytes((UInt32)(SeedData.DebugInfoSize + SeedData.ImageDataSize))
+            ); // Comments Offset
 
             gciFile.AddRange(gciHeader);
             gciFile.AddRange(seedData);

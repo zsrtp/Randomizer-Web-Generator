@@ -6,6 +6,7 @@ namespace TPRandomizer.Assets
     using System.Linq;
     using System.Reflection;
     using TPRandomizer.FcSettings.Enums;
+    using TPRandomizer.Assets.CLR0;
 
     /// <summary>
     /// summary text.
@@ -24,6 +25,8 @@ namespace TPRandomizer.Assets
         private static List<byte> CheckDataRaw = new();
         private static List<byte> BannerDataRaw = new();
         private static SeedHeader SeedHeaderRaw = new();
+        public static readonly int DebugInfoSize = 0x20;
+        public static readonly int ImageDataSize = 0x1400;
         private static readonly short SeedHeaderSize = 0x160;
         private static readonly byte BgmHeaderSize = 0xC;
 
@@ -86,6 +89,11 @@ namespace TPRandomizer.Assets
             CheckDataRaw.AddRange(ParseSkyCharacters());
             CheckDataRaw.AddRange(ParseShopItems());
             CheckDataRaw.AddRange(ParseStartingItems());
+            List<byte> clr0Bytes = ParseClr0Bytes();
+            if (clr0Bytes != null)
+            {
+                CheckDataRaw.AddRange(clr0Bytes);
+            }
             while (CheckDataRaw.Count % 0x10 != 0)
             {
                 CheckDataRaw.Add(Converter.GcByte(0x0));
@@ -147,6 +155,7 @@ namespace TPRandomizer.Assets
             }
 
             // Add seed banner
+            BannerDataRaw.AddRange(GenerateDebugInfoChunk(seedGenResults.seedId));
             BannerDataRaw.AddRange(Properties.Resources.seedGciImageData);
             BannerDataRaw.AddRange(
                 Converter.StringBytes($"TPR SeedData v{VersionString}", 0x20, region)
@@ -198,13 +207,6 @@ namespace TPRandomizer.Assets
                 }
             }
 
-            seedHeader.Add(Converter.GcByte(fcSettings.heartColor));
-            seedHeader.Add(Converter.GcByte(fcSettings.aBtnColor));
-            seedHeader.Add(Converter.GcByte(fcSettings.bBtnColor));
-            seedHeader.Add(Converter.GcByte(fcSettings.xBtnColor));
-            seedHeader.Add(Converter.GcByte(fcSettings.yBtnColor));
-            seedHeader.Add(Converter.GcByte(fcSettings.zBtnColor));
-            seedHeader.Add(Converter.GcByte(fcSettings.lanternGlowColor));
             seedHeader.Add(Converter.GcByte(randomizerSettings.transformAnywhere ? 1 : 0));
             seedHeader.Add(Converter.GcByte(randomizerSettings.quickTransform ? 1 : 0));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirements));
@@ -743,6 +745,15 @@ namespace TPRandomizer.Assets
             return listOfStartingItems;
         }
 
+        private List<byte> ParseClr0Bytes()
+        {
+            List<byte> bytes = CLR0.CLR0.BuildClr0(fcSettings);
+
+            SeedHeaderRaw.clr0Offset = (ushort)(CheckDataRaw.Count);
+
+            return bytes;
+        }
+
         private List<byte> GenerateEventFlags()
         {
             List<byte> listOfEventFlags = new();
@@ -811,6 +822,37 @@ namespace TPRandomizer.Assets
             return listOfRegionFlags;
         }
 
+        private List<byte> GenerateDebugInfoChunk(string seedId)
+        {
+            List<byte> debugInfoBytes = new();
+
+            // 'w' for website. Can update this code to put 's' for standalone
+            // in the future whenever that is needed.
+            debugInfoBytes.AddRange(Converter.StringBytes("w")); // 0x00
+            debugInfoBytes.Add(0);
+            debugInfoBytes.AddRange(Converter.StringBytes("id:")); // 0x02
+            debugInfoBytes.AddRange(Converter.StringBytes(seedId));
+            debugInfoBytes.AddRange(Converter.StringBytes("cmt:")); // 0x10
+            debugInfoBytes.AddRange(Converter.StringBytes(Global.gitCommit)); // 0x14
+            // Ideally we would include the version, but this would require us
+            // to go over 0x20 bytes. I think we might need to go to 0x40 at
+            // that point, which would not be great. We should be able to find
+            // the exact version using the git commit, so this is probably good
+            // enough for now.
+
+            while (debugInfoBytes.Count % 0x20 != 0)
+            {
+                debugInfoBytes.Add(0);
+            }
+
+            if (debugInfoBytes.Count > DebugInfoSize)
+            {
+                debugInfoBytes = debugInfoBytes.GetRange(0, DebugInfoSize);
+            }
+
+            return debugInfoBytes;
+        }
+
         private class SeedHeader
         {
             public UInt16 versionMajor { get; set; } // SeedData version major
@@ -850,6 +892,7 @@ namespace TPRandomizer.Assets
             public UInt16 startingItemInfoNumEntries { get; set; }
             public UInt16 startingItemInfoDataOffset { get; set; }
             public UInt16 bgmHeaderOffset { get; set; }
+            public UInt16 clr0Offset { get; set; }
         }
     }
 
