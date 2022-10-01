@@ -1108,7 +1108,7 @@ namespace TPRandomizer
             Check dungeonCheck = new();
             int palace = 0;
             int city = 1;
-            //int tot = 2;
+            int tot = 2;
             //int snowpeak = 3;
             int arbiters = 4;
             int lakebed = 5;
@@ -1294,16 +1294,28 @@ namespace TPRandomizer
                 }
             }
 
-            // If Faron Woods is closed then we need to beat Forest Temple to leave.
-            if (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Closed)
-            {
-                listOfRequiredDungeons[forest].isRequired = true;
-            }
-
             // If MDH is not skipped then we need to complete Lakebed to enter Hyrule
             if (!Randomizer.SSettings.skipMdh)
             {
                 listOfRequiredDungeons[lakebed].isRequired = true;
+            }
+
+            if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
+            {
+                if (
+                    listOfRequiredDungeons[city].isRequired
+                    && !Randomizer.SSettings.shuffleNpcItems
+                    && !Randomizer.SSettings.skipCityEntrance
+                )
+                {
+                    listOfRequiredDungeons[tot].isRequired = true;
+                }
+
+                // If Faron Woods is closed then we need to beat Forest Temple to leave.
+                if (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Closed)
+                {
+                    listOfRequiredDungeons[forest].isRequired = true;
+                }
             }
 
             for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)

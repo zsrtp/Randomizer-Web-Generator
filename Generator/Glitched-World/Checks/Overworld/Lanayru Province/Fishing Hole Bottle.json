@@ -6,7 +6,8 @@
     "stageIDX": [62],
     "moduleID": ["32"],
     "relOffsets": ["B2AC"],
-    "relOverride": ["38600000"],
+    "overrideInstruction": ["38600000"],
+    "relReplacementType": [0],
     "category": ["Overworld", "Lanayru Province", "ARC", "REL"],
     "itemId": "Empty_Bottle"
 }

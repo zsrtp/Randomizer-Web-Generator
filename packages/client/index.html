@@ -76,7 +76,8 @@
 						<fieldset id="logicSettingsFieldset">
 							<legend>Logic Settings</legend>
 							<label for="logicRulesFieldset">Logic Rules:</label>
-							<select name="Logic Rules Fieldset" id="logicRulesFieldset">
+							<select name="Logic Rules Fieldset" id="logicRulesFieldset" 
+							data-tooltip-text="'Glitchless': No glitches are considered in logic.&#0010;&#0010;'Glitched': Repeatable glitches are in logic. Some frame perfect or very precise glitches are not considered in logic.&#0010;&#0010;'No Logic': All items are placed randomly with no consideration for logic. SEEDS MAY BE UNBEATABLE.&#0010;">
 								<option value="0">Glitchless</option>
 								<option value="1">Glitched</option>
 								<option value="2">No Logic</option>
@@ -90,7 +91,9 @@
 							<legend> Access Options</legend>
 							<div class="selectGroup">
 								<label for="castleRequirementsFieldset">Hyrule Castle Requirements</label><br>
-								<select name="Castle Requirements" id="castleRequirementsFieldset">
+								<select name="Castle Requirements" 
+								data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'All Dungeons': The player must complete all dungeons.&#0010;&#0010;'Vanilla': The player must complete Palace of Twilight.&#0010;" 
+								id="castleRequirementsFieldset">
 									<option value="0"> Open </option>
 									<option value="1"> Fused Shadows </option>
 									<option value="2"> Mirror Shards </option>
@@ -100,7 +103,9 @@
 							</div>
 							<div class="selectGroup">
 								<label for="palaceRequirementsFieldset">Palace of Twilight Requirements</label><br>
-								<select name="Palace Requirements" id="palaceRequirementsFieldset">
+								<select name="Palace Requirements" 
+								data-tooltip-text="'Open': The mirror is assembled from the beginning and the portal to the dungeon is open.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'Vanilla': The player must complete City in the Sky.&#0010;"
+								id="palaceRequirementsFieldset">
 									<option value="0"> Open </option>
 									<option value="1"> Fused Shadows </option>
 									<option value="2"> Mirror Shards </option>
@@ -109,7 +114,9 @@
 							</div>
 							<div class="selectGroup">
 								<label for="faronLogicFieldset">Faron Woods Logic:</label><br>
-								<select name="Faron Woods  Logic" id="faronLogicFieldset">
+								<select name="Faron Woods  Logic" 
+								data-tooltip-text="'Open': Midna will not prevent the player from leaving Faron Woods.&#0010;&#0010;'Closed': Midna will block the player from leaving Faron Woods until Forest Temple is completed.&#0010;"
+								id="faronLogicFieldset">
 									<option value="0">Open</option>
 									<option value="1" selected>Closed</option>
 								</select>
@@ -119,17 +126,29 @@
 					<div class="tabColumn">
 						<fieldset id="itemPoolOptionsFieldset"> 
 							<legend>Item Pool</legend>
-							<input type="checkbox" id="goldenBugsCheckbox" name="Golden Bugs" value="">
+							<input type="checkbox" id="goldenBugsCheckbox" 
+							data-tooltip-text="If checked, the golden bug locations across Hyrule are randomized.&#0010;"
+							name="Golden Bugs" value="">
 							<label for="goldenBugsCheckbox"> Golden Bugs </label><br>
-							<input type="checkbox" id="skyCharacterCheckbox" name="Sky Characters" value="">
+							<input type="checkbox" 
+							data-tooltip-text="If checked, the Sky Characters received from the Owl Statues are randomized.&#0010;"
+							id="skyCharacterCheckbox" name="Sky Characters" value="">
 							<label for="skyCharacterCheckbox"> Sky Characters </label><br>
-							<input type="checkbox" id="giftsFromNPCsCheckbox" name="Gifts From NPCs" value="">
+							<input type="checkbox" id="giftsFromNPCsCheckbox" 
+							data-tooltip-text="If checked, items recieved from NPCs will be randomized.&#0010;"
+							name="Gifts From NPCs" value="">
 							<label for="giftsFromNPCsCheckbox"> Gifts From NPCs </label><br>
-							<input type="checkbox" id="poesCheckbox" name="Poes" value="">
+							<input type="checkbox" 
+							data-tooltip-text="If checked, the souls recieved from Poes will be randomized.&#0010;"
+							id="poesCheckbox" name="Poes" value="">
 							<label for="poesCheckbox"> Poes </label><br>
-							<input type="checkbox" id="shopItemsCheckbox" name="Shop Items" value="">
+							<input type="checkbox" 
+							data-tooltip-text="If checked, the items you can permanently buy from shops are randomized.&#0010;"
+							id="shopItemsCheckbox" name="Shop Items" value="">
 							<label for="shopItemsCheckbox"> Shop Items </label><br>
-							<input type="checkbox" id="hiddenSkillsCheckbox" name="Hidden Skills" value="">
+							<input type="checkbox" 
+							data-tooltip-text="If checked, the Hidden Skills recieved from Golden Wolves are randomized.&#0010;"
+							id="hiddenSkillsCheckbox" name="Hidden Skills" value="">
 							<label for="hiddenSkillsCheckbox"> Hidden Skills </label><br>
 						</fieldset>
 					</div>
@@ -138,7 +157,9 @@
 							<legend>Dungeon Items</legend>
 							<div class="selectGroup">
 								<label for="smallKeyFieldset">Small Keys</label><br>
-								<select name="Small Keys" id="smallKeyFieldset">
+								<select name="Small Keys" 
+								data-tooltip-text="'Vanilla': Small Keys will be placed in their original location.&#0010;&#0010;'Own Dungeon': Small Keys will only be randomized in their vanilla dungeon. Example: You can only find a Forest Temple Small Key in the Forest Temple.&#0010;&#0010;'Any Dungeon': Small Keys will be randomized between dungeons.&#0010;&#0010;'Keysanity': Small Keys will be randomized among all checks.&#0010;&#0010;'Keysey': All small key locks are removed and the keys are removed from the item pool and the player will start with the Bulblin Camp Key.&#0010;" 
+								id="smallKeyFieldset">
 									<option value="0">Vanilla</option>
 									<option value="1">Own Dungeon</option>
 									<option value="2">Any Dungeon</option>
@@ -148,7 +169,9 @@
 							</div>
 							<div class="selectGroup">
 							<label for="bigKeyFieldset">Big Keys</label><br>
-								<select name="Big Keys" id="bigKeyFieldset">
+								<select name="Big Keys" 
+								data-tooltip-text="'Vanilla': Big Keys will be placed in their original location.&#0010;&#0010;'Own Dungeon': Big Keys will only be randomized in their vanilla dungeon. Example: You can only find a Forest Temple Big Key in the Forest Temple.&#0010;&#0010;'Any Dungeon': Big Keys will be randomized between dungeons.&#0010;&#0010;'Keysanity': Big Keys will be randomized among all checks.&#0010;&#0010;'Keysey': All Big Key locks are removed and the keys are removed from the item pool.&#0010;"
+								id="bigKeyFieldset">
 									<option value="0">Vanilla</option>
 									<option value="1">Own Dungeon</option>
 									<option value="2">Any Dungeon</option>
@@ -158,7 +181,9 @@
 								</div>
 							<div class="selectGroup">
 								<label for="mapAndCompassFieldset">Maps and Compasses</label><br>
-								<select name="Maps and Compasses" id="mapAndCompassFieldset">
+								<select name="Maps and Compasses" 
+								data-tooltip-text="'Vanilla': Maps and Compasses will be placed in their original location.&#0010;&#0010;'Own Dungeon': Maps and Compasses will only be randomized in their vanilla dungeon. Example: You can only find the Forest Temple Map in the Forest Temple.&#0010;&#0010;'Any Dungeon': Maps and Compasses will be randomized between dungeons.&#0010;&#0010;'Anywhere': Maps and Compasses will be randomized among all checks.&#0010;&#0010;'Start With': The player starts with all Maps and Compasses.&#0010;"
+								id="mapAndCompassFieldset">
 									<option value="0">Vanilla</option>
 									<option value="1">Own Dungeon</option>
 									<option value="2">Any Dungeon</option>
@@ -175,34 +200,46 @@
 					<div class="tabColumn">
 						<fieldset id="clearedTwilightsFieldset">
 							<legend>Timesavers</legend>
-							<input type="checkbox" id="introCheckbox" name="Intro Logic" value="">
+							<input type="checkbox" id="introCheckbox" name="Intro Logic" value=""
+							data-tooltip-text="Skips the first three days of Ordon and places Link outside his house before the Sewers segment.&#0010;">
 							<label for="introCheckbox"> Skip Prologue </label><br>
-							<input type="checkbox" id="faronTwilightCheckbox" name="Faron Twilight Checkbox" value="">
+							<input type="checkbox" id="faronTwilightCheckbox" name="Faron Twilight Checkbox" value=""
+							data-tooltip-text="Skips the Faron Twilight tear collection segment.&#0010;">
 							<label for="faronTwilightCheckbox"> Faron Twilight Cleared </label><br>
-							<input type="checkbox" id="eldinTwilightCheckbox" name="Eldin Twilight Checkbox" value="">
+							<input type="checkbox" id="eldinTwilightCheckbox" name="Eldin Twilight Checkbox" value=""
+							data-tooltip-text="Skips the Eldin Twilight tear collection segment.&#0010;">
 							<label for="eldinTwilightCheckbox"> Eldin Twilight Cleared </label><br>
-							<input type="checkbox" id="lanayruTwilightCheckbox" name="Lanayru Twilight Checkbox" value="">
+							<input type="checkbox" id="lanayruTwilightCheckbox" name="Lanayru Twilight Checkbox" value=""
+							data-tooltip-text="Skips the Lanayru Twilight tear collection segment.&#0010;">
 							<label for="lanayruTwilightCheckbox"> Lanayru Twilight Cleared </label><br>
-							<input type="checkbox" id="mdhCheckbox" name="MDH Logic" value="">
+							<input type="checkbox" id="mdhCheckbox" name="MDH Logic" value=""
+							data-tooltip-text="Skips the Midna's Desperate Hour segment after Lakebed Temple.&#0010;">
 							<label for="mdhCheckbox">  Skip Midna's Desperate Hour </label><br>
-							<input type="checkbox" id="skipMinorCutscenesCheckbox" name="Skip Minor Cutscenes Checkbox" value="">
+							<input type="checkbox" id="skipMinorCutscenesCheckbox" name="Skip Minor Cutscenes Checkbox" value=""
+							data-tooltip-text="Sets the flags for most minor cutscenes. (Dungeon Entrance cutscenes, Midna text prompts, etc.)&#0010;">
 							<label for="skipMinorCutscenesCheckbox"> Skip Minor Cutscenes </label><br>
-							<input type="checkbox" id="fastIBCheckbox" name="Fast IB Checkbox" value="">
+							<input type="checkbox" id="fastIBCheckbox" name="Fast IB Checkbox" value=""
+							data-tooltip-text="Removes the speed reduction caused by wearing the Iron Boots.&#0010;">
 							<label for="fastIBCheckbox"> Fast Iron Boots </label><br>
-							<input type="checkbox" id="quickTransformCheckbox" name="Quick Transform Checkbox" value="">
+							<input type="checkbox" id="quickTransformCheckbox" name="Quick Transform Checkbox" value=""
+							data-tooltip-text="Allows the player to instantly transform when pressing a specified button combination.&#0010;&#0010;Gamecube: R + Y&#0010;">
 							<label for="quickTransformCheckbox"> Quick Transform </label><br>
-							<input type="checkbox" id="barrenCheckbox" name="Intro Logic" value="">
+							<input type="checkbox" id="barrenCheckbox" name="Unrequired Dungeons" value=""
+							data-tooltip-text="If enabled, any dungeon that is not required to open Hyrule Castle will not contain any important items.&#0010;">
 							<label for="barrenCheckbox"> Unrequired Dungeons Are Barren </label><br>
 						</fieldset>
 					</div>
 					<div class="tabColumn">
 						<fieldset id="additionalSettingsFieldset">
 							<legend>Additional Settings</legend>
-							<input type="checkbox" id="transformAnywhereCheckbox" name="Transform Anywhere Checkbox" value="">
+							<input type="checkbox" id="transformAnywhereCheckbox" name="Transform Anywhere Checkbox" value=""
+							data-tooltip-text="If enabled, the player can transform anywhere, even in front of people.&#0010;">
 							<label for="transformAnywhereCheckbox">  Transform Anywhere </label><br>
-							<input type="checkbox" id="increaseWalletCheckbox" name="Increase Wallet Checkbox" value="">
+							<input type="checkbox" id="increaseWalletCheckbox" name="Increase Wallet Checkbox" value=""
+							data-tooltip-text="Increases the player's wallet capacity from 300, 600, 1000 to 1000, 5000, 9999 respectively.&#0010;">
 							<label for="increaseWalletCheckbox"> Increase Wallet Capacity</label><br>
-							<input type="checkbox" id="modifyShopModelsCheckbox" name="Modify Shop Models Checkbox" value="">
+							<input type="checkbox" id="modifyShopModelsCheckbox" name="Modify Shop Models Checkbox" value=""
+							data-tooltip-text="If checked, shop item models will show the model of the replacement item. If unchecked, the shop model will always be vanilla.&#0010;">
 							<label for="modifyShopModelsCheckbox">Shop Models Show The Replaced Item</label><br>
 							<!-- <div class="selectGroup" style="margin-top:8px;">
 								<label for="foolishItemFieldsetABC">Trap Items Type</label><br>
@@ -212,7 +249,8 @@
 							</div> -->
 							<div class="selectGroup" style="margin-top:8px;">
 								<label for="foolishItemFieldset">Ice Trap Frequency</label><br>
-								<select name="Foolish Items" id="foolishItemFieldset">
+								<select name="Foolish Items" id="foolishItemFieldset" 
+								data-tooltip-text="'None': No foolish items are placed in the seed.&#0010;&#0010;'Few': A small chance for a foolish item to be placed when placing a junk item. (~12.5%)&#0010;&#0010;'Many': An increased chance for a foolish item to be placed when placing a junk item. (~39.1%).&#0010;&#0010;'Mayhem': A high chance of a foolish item to be placed when placing a junk item. (~62.7%)&#0010;&#0010;'Nightmare': All junk items are replaced with foolish items. (100%)&#0010;">
 									<option value="0">None</option>
 									<option value="1">Few</option>
 									<option value="2">Many</option>
@@ -225,17 +263,23 @@
 					<div class="tabColumn">
 						<fieldset id="dungeonRequirementsFieldset">
 							<legend>Dungeon Entrance Settings</legend>
-							<input type="checkbox" id="minesEntranceCheckbox" name="Goron Mines Checkbox" value="">
+							<input type="checkbox" id="minesEntranceCheckbox" name="Goron Mines Checkbox" value=""
+							data-tooltip-text="If checked, Link will not have to wrestle Gor Coron to enter Goron Mines.&#0010;">
 							<label for="minesEntranceCheckbox"> Mines Does Not Require Wrestling </label><br>
-							<input type="checkbox" id="lakebedEntranceCheckbox" name="Lakebed Temple Checkbox" value="">
+							<input type="checkbox" id="lakebedEntranceCheckbox" name="Lakebed Temple Checkbox" value=""
+							data-tooltip-text="If checked, the rock in front of the entrance to Lakebed Temple is destroyed.&#0010;">
 							<label for="lakebedEntranceCheckbox"> Lakebed Does Not Require Water Bombs </label><br>
-							<input type="checkbox" id="arbitersEntranceCheckbox" name="Arbiters Grounds Checkbox" value="">
+							<input type="checkbox" id="arbitersEntranceCheckbox" name="Arbiters Grounds Checkbox" value=""
+							data-tooltip-text="If checked, the Bulblin Camp is cleared and the player does not need to defeat King Bulblin. This also removes the Bulblin Camp Key from the item pool.&#0010;">
 							<label for="arbitersEntranceCheckbox"> Arbiters Does Not Require Bulblin Camp </label><br>
-							<input type="checkbox" id="snowpeakEntranceCheckbox" name="Snowpeak Ruins Checkbox" value="">
+							<input type="checkbox" id="snowpeakEntranceCheckbox" name="Snowpeak Ruins Checkbox" value=""
+							data-tooltip-text="If checked, the blizzard in Snowpeak will not void out Link if the correct path is taken. Shadow Crystal is still in logic to see the scent path.&#0010;">
 							<label for="snowpeakEntranceCheckbox"> Snowpeak Does Not Require Reekfish Scent </label><br>
-							<input type="checkbox" id="totEntranceCheckbox" name="Temple of Time Checkbox" value="">
+							<input type="checkbox" id="totEntranceCheckbox" name="Temple of Time Checkbox" value=""
+							data-tooltip-text="If checked, the portal to the Sacred Grove is opened, the player will not need to defeat Skull Kid to pass through the Lost Woods, the statue is removed from the Temple of Time doors, and the staircase to the dungeon is activated.&#0010;">
 							<label for="totEntranceCheckbox"> Temple of Time Does Not Require Sword or Grove</label><br>
-							<input type="checkbox" id="cityEntranceCheckbox" name="City in The Sky Checkbox" value="">
+							<input type="checkbox" id="cityEntranceCheckbox" name="City in The Sky Checkbox" value=""
+							data-tooltip-text="If checked, the Sky Cannon is automatically warped to Lake Hylia once Lanayru Twilight is complete and the Sky Characters are removed from the item pool.&#0010;">
 							<label for="cityEntranceCheckbox"> City Does Not Require Filled Skybook </label><br>
 						</fieldset>
 					</div>
@@ -244,7 +288,7 @@
 				<div id="excludedChecksTab" class="tabcontent">
 					<fieldset class="checkboxFieldset">
 					<legend>Excluded Checks</legend>
-					<ul id="baseExcludedChecksListbox" multiple="multiple" size="10" width="20%">
+					<ul id="baseExcludedChecksListbox" multiple="multiple" size="10" width="20%" data-tooltip-text="Any checks selected will be excluded, meaning that they cannot contain important items. Please note that settings take priority, so if a check is excluded, but a setting has the check set to be vanilla, it will be vanilla.&#0010;">
             <!-- CHECK_IDS -->
 
 						<!-- <?php
@@ -272,7 +316,8 @@
 				<div id="startingInventoryTab" class="tabcontent">
 				<fieldset class="checkboxFieldset">
 					<legend>Starting Items</legend>
-					<ul id="baseImportantItemsListbox" multiple="multiple" size="10" width="20%">
+					<ul id="baseImportantItemsListbox" multiple="multiple" size="10" width="20%" 
+					data-tooltip-text="The player will start with any items selected and the playthrough will take them into account for logic.&#0010;">
             <!-- STARTING_ITEMS -->
 
 						<!-- <?php
@@ -315,7 +360,8 @@
 							</select>
 							<br/>
 							<label for="lanternColorFieldset">Lantern Glow Color:</label>
-							<select name="Lantern Color Fieldset" id="lanternColorFieldset">
+							<select name="Lantern Color Fieldset" id="lanternColorFieldset"
+							data-tooltip-text="Sets the color  of the light around the Lantern and the color of the light produced by the Lantern.&#0010;">
 								<option value="0">Default</option>
 								<option value="1">Red</option>
 								<option value="2">Orange</option>
@@ -334,7 +380,8 @@
 							</select>
 							<br/> -->
 							<label for="heartColorFieldset">Heart Color:</label>
-							<select name="Heart Color Fieldset" id="heartColorFieldset">
+							<select name="Heart Color Fieldset" id="heartColorFieldset"
+							data-tooltip-text="Sets the color of the player's hearts in the HUD.&#0010;">
 								<option value="0">Default</option>
 								<option value="1">Pink</option>
 								<option value="2">Orange</option>
@@ -347,7 +394,8 @@
 							</select>
 							<br/>
 							<label for="aButtonColorFieldset">A Button Color:</label>
-							<select name="A Button Color Fieldset" id="aButtonColorFieldset">
+							<select name="A Button Color Fieldset" id="aButtonColorFieldset"
+							data-tooltip-text="Sets the color of the A Button in the HUD.&#0010;">
 								<option value="0">Default</option>
 								<option value="1">Red</option>
 								<option value="2">Orange</option>
@@ -361,7 +409,8 @@
 							</select>
 							<br/>
 							<label for="bButtonColorFieldset">B Button Color:</label>
-							<select name="B Button Color Fieldset" id="bButtonColorFieldset">
+							<select name="B Button Color Fieldset" id="bButtonColorFieldset"
+							data-tooltip-text="Sets the color of the B Button in the HUD.&#0010;">
 								<option value="0">Default</option>
 								<option value="1">Orange</option>
 								<option value="2">Pink</option>
@@ -373,7 +422,8 @@
 							</select>
 							<br/>
 							<label for="xButtonColorFieldset">X Button Color:</label>
-							<select name="X Button Color Fieldset" id="xButtonColorFieldset">
+							<select name="X Button Color Fieldset" id="xButtonColorFieldset"
+							data-tooltip-text="Sets the color of the X Button in the HUD.&#0010;">
 								<option value="0">Default</option>
 								<option value="1">Red</option>
 								<option value="2">Orange</option>
@@ -388,7 +438,8 @@
 							</select>
 							<br/>
 							<label for="yButtonColorFieldset">Y Button Color:</label>
-							<select name="Y Button Color Fieldset" id="yButtonColorFieldset">
+							<select name="Y Button Color Fieldset" id="yButtonColorFieldset"
+							data-tooltip-text="Sets the color of the Y Button in the HUD.&#0010;">
 								<option value="0">Default</option>
 								<option value="1">Red</option>
 								<option value="2">Orange</option>
@@ -403,7 +454,8 @@
 							</select>
 							<br/>
 							<label for="zButtonColorFieldset">Z Button Color:</label>
-							<select name="Z Button Color Fieldset" id="zButtonColorFieldset">
+							<select name="Z Button Color Fieldset" id="zButtonColorFieldset"
+							data-tooltip-text="Sets the color of the Z Button in the HUD.&#0010;">
 								<option value="0">Default</option>
 								<option value="1">Red</option>
 								<option value="2">Orange</option>
@@ -452,15 +504,17 @@
 						<fieldset id="musicAndSFXFieldset">
 							<legend> Music and SFX </legend>
 							<label for="bgmFieldset">Randomize Background Music:</label>
-							<select name="Background Music Fieldset" id="bgmFieldset">
+							<select name="Background Music Fieldset" id="bgmFieldset"
+							data-tooltip-text="'Off': All background music is vanilla.&#0010;&#0010;'Overworld': Only the overworld background music is randomized.&#0010;&#0010;'Dungeon': Only the dungeon background music is randomized.&#0010;&#0010;'All': All background music is randomized.&#0010;">
 								<option value="0" selected>Off</option>
 								<option value="1">Overworld</option>
 								<option value="2">Dungeon</option>
 								<option value="3">All</option>
 							</select> <br>
-							<input type="checkbox" id="randomizeFanfaresCheckbox" name="Randomize Fanfares Checkbox" value="">
+							<input type="checkbox" id="randomizeFanfaresCheckbox" name="Randomize Fanfares Checkbox" value=""
+							data-tooltip-text="Randomizes the various fanfares that play when completing tasks and collecting items.&#0010;">
 							<label for="randomizeFanfaresCheckbox"> Randomize Fanfares </label><br>
-							<input type="checkbox" id="disableEnemyBGMCheckbox" name="Disable Enemy BGM Checkbox" value="">
+							<input type="checkbox" id="disableEnemyBGMCheckbox" name="Disable Enemy BGM Checkbox" value="" data-tooltip-text="Disables the music that plays when you fight enemies.&#0010;">
 							<label for="disableEnemyBGMCheckbox"> Disable Enemy Background Music</label><br>
 						</fieldset>
 				</div>
@@ -553,10 +607,12 @@
 
 					<br/>
 					<!-- <input id="generateSeedButton" name="generateSeedButton" value="Generate" type="submit" > -->
-					<button id="generateSeed" type="button" class="primaryButton">Generate</button>
+					<button id="generateSeed" type="button" class="primaryButton" 
+					data-tooltip-text="Generates a seed based on the settings string.&#0010;">Generate</button>
 					<br/>
 					<br/>
-					<button id="generateRaceSeed" type="button" class="primaryButton">Generate Race Seed</button>
+					<button id="generateRaceSeed" type="button" class="primaryButton"
+					data-tooltip-text="Generates an encrypted seed with a locked spoiler log. Contact an admin to get the spoiler log unlocked.&#0010;">Generate Race Seed</button>
 
 					<!-- <button class="css-1egpgfe" tabindex="0" type="button" aria-label="delete">
 						<svg class="css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
@@ -587,18 +643,12 @@
 							<a target="_blank" href="https://wiki.zeldatp.net/Main_Page"><img src="/img/wiki.png" alt="Wiki Logo"/></a>
 						</td>
 						<td>
-							<a target="_blank" href="https://discord.zeldatp.net/"><img src="/img/discord.png" alt="Discord Logo"/></a>
+							<a target="_blank" href="https://discord.tprandomizer.com/"><img src="/img/discord.png" alt="Discord Logo"/></a>
 						</td>
 					</tr>
 					<tr>
 						<td class="rBor">
 							<a target="_blank" href="https://takarikka.github.io/TP-Tracker/">Taka's Item Tracker</a>
-						</td>
-						<td class="rBor">
-							<a target="_blank" href="https://docs.google.com/spreadsheets/d/1quJjkAGV7asF1CNRtJEDNsy9Oga7hmzGLe09u2zxdJI/edit#gid=1131787935">Rando Dev Sheet</a>
-						</td>
-						<td class="rBor">
-							<a target="_blank" href="http://tp.docs.aecx.cc/Yet+Another+GameCube+Documentation/index.html">YAGCD</a>
 						</td>
 						<td class="rBor">
 							<a target="_blank" href="https://github.com/zsrtp">TP Devs</a>
@@ -607,17 +657,35 @@
 							<a target="_blank" href="https://wiki.zeldatp.net/Main_Page">TP Speedrun Wiki</a>
 						</td>
 						<td>
-							<a target="_blank" href="https://discord.zeldatp.net/">Discord</a>
+							<a target="_blank" href="https://discord.tprandomizer.com/">Discord</a>
 						</td>
 					</tr>
 				</table>
 			</div>
 			<div class="blackbg blackBgNoBorder">
 				<div class="footerText">
-					v1.09 - Made with
-					<img style="display: inline; margin: 0px 0px -10px;" src="/img/heart.png" alt="Heart Container"/>
-					 by
-					<a target="_blank" href="https://github.com/zsrtp/Randomizer-Frontend" target="_blank" style="color: #d62013;">Luneyes</a>!<br/>
+					v1.0 - Based off the original website design by
+          <a
+            target="_blank"
+            href="https://github.com/Luneyes"
+            target="_blank"
+            style="color: #d62013"
+            >Luneyes</a
+          >. Created by 
+          <a
+            target="_blank"
+            href="https://github.com/Lunarsoap5"
+            target="_blank"
+            style="color: #d62013"
+            >Lunar Soap</a
+          > and 
+          <a
+            target="_blank"
+            href="https://github.com/icogn"
+            target="_blank"
+            style="color: #d62013"
+            >Isaac</a
+          >.<br />
 
 					Logo and background image are property of Nintendo. No infringement intended. We love you guys!<br/>
 
@@ -726,5 +794,31 @@
 
 	</body>
 	<script src="/script.js"></script>
+	<script>
+		let tooltipElements = document.querySelectorAll('[data-tooltip-text]');
+		tooltipElements.forEach((tooltipElement)=>{
+			tooltipElement.addEventListener("mouseout", (e) => {
+				removetooltips();
+			});
+			tooltipElement.addEventListener("mouseover", (e) => {
+				let element = document.createElement('div');
+				element.classList.add('tooltip');
+				let tooltipContent = e.currentTarget.getAttribute('data-tooltip-text');
+				element.innerHTML = tooltipContent;
+				
+				let coords = e.currentTarget.getBoundingClientRect();
+				element.style.left = coords.left + e.currentTarget.clientWidth + 5 + 'px';
+				element.style.top = coords.top+'px';
+				document.body.appendChild(element);
+				$(element).hide().fadeIn(300);
+			});
+		});
+
+		function removetooltips(){
+			document.querySelectorAll('.tooltip').forEach((tooltip)=>{
+					tooltip.remove();
+				});
+		}
+	</script>
 	<!-- <script src="/test.js"></script> -->
 </html>

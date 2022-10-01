@@ -46,8 +46,6 @@ namespace TPRandomizer.Assets
             gciData = new List<byte>();
             gciFile = new List<byte>();
 
-            string filename = playthroughNameToFilename(playthroughName);
-
             // Populate GCI Header
             /*x0*/
             gciHeader.AddRange(Converter.StringBytes("GZ2"));
@@ -60,7 +58,7 @@ namespace TPRandomizer.Assets
             /*x7*/
             gciHeader.Add(Converter.GcByte(1)); // banner flags (C8)
             /*x8*/
-            gciHeader.AddRange(Converter.StringBytes(filename, 0x20));
+            gciHeader.AddRange(Converter.StringBytes(playthroughName, 0x20));
             /*x28*/
             gciHeader.AddRange(
                 Converter.GcBytes((UInt32)(DateTime.UtcNow - new DateTime(2000, 1, 1)).TotalSeconds)
@@ -94,7 +92,7 @@ namespace TPRandomizer.Assets
                 gciFile.Add((byte)0x0);
         }
 
-        private static string playthroughNameToFilename(string playthroughName)
+        public static string playthroughNameToFilename(string playthroughName)
         {
             string verAsStr = VersionNumToChars(SeedData.VersionMajor, SeedData.VersionMinor);
 

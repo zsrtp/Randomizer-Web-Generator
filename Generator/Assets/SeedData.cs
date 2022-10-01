@@ -161,7 +161,11 @@ namespace TPRandomizer.Assets
                 Converter.StringBytes($"TPR SeedData v{VersionString}", 0x20, region)
             );
             BannerDataRaw.AddRange(
-                Converter.StringBytes(seedGenResults.playthroughName, 0x20, region)
+                Converter.StringBytes(
+                    Gci.playthroughNameToFilename(seedGenResults.playthroughName),
+                    0x20,
+                    region
+                )
             );
             // Generate GCI Files
             currentGCIData.AddRange(BannerDataRaw);
@@ -336,10 +340,11 @@ namespace TPRandomizer.Assets
                     {
                         listOfArcReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)uint.Parse(
-                                    currentCheck.arcOffsets[i],
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt32)
+                                    uint.Parse(
+                                        currentCheck.arcOffsets[i],
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
                         if (currentCheck.replacementType[i] != 3)
@@ -352,10 +357,11 @@ namespace TPRandomizer.Assets
                         {
                             listOfArcReplacements.AddRange(
                                 Converter.GcBytes(
-                                    (UInt32)uint.Parse(
-                                        currentCheck.flag,
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                    (UInt32)
+                                        uint.Parse(
+                                            currentCheck.overrideInstruction[i],
+                                            System.Globalization.NumberStyles.HexNumber
+                                        )
                                 )
                             );
                         }
@@ -398,10 +404,11 @@ namespace TPRandomizer.Assets
                     {
                         listOfArcReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)uint.Parse(
-                                    currentCheck.arcOffsets[i],
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt32)
+                                    uint.Parse(
+                                        currentCheck.arcOffsets[i],
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
                         listOfArcReplacements.AddRange(
@@ -462,10 +469,11 @@ namespace TPRandomizer.Assets
 
                         listOfDZXReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt16)ushort.Parse(
-                                    currentCheck.hash[i],
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt16)
+                                    ushort.Parse(
+                                        currentCheck.hash[i],
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
                         listOfDZXReplacements.Add(Converter.GcByte(currentCheck.stageIDX[i]));
@@ -536,29 +544,35 @@ namespace TPRandomizer.Assets
                     for (int i = 0; i < currentCheck.moduleID.Count; i++)
                     {
                         listOfRELReplacements.AddRange(
-                            Converter.GcBytes((UInt32)currentCheck.stageIDX[i])
+                            Converter.GcBytes((UInt16)currentCheck.relReplacementType[i])
+                        );
+                        listOfRELReplacements.AddRange(
+                            Converter.GcBytes((UInt16)currentCheck.stageIDX[i])
                         );
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)uint.Parse(
-                                    currentCheck.moduleID[i],
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt32)
+                                    uint.Parse(
+                                        currentCheck.moduleID[i],
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)uint.Parse(
-                                    currentCheck.relOffsets[i],
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt32)
+                                    uint.Parse(
+                                        currentCheck.relOffsets[i],
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
+                        Console.WriteLine(currentCheck.checkName);
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
                                 (UInt32)(
                                     uint.Parse(
-                                        currentCheck.relOverride[i],
+                                        currentCheck.overrideInstruction[i],
                                         System.Globalization.NumberStyles.HexNumber
                                     ) + (byte)currentCheck.itemId
                                 )
@@ -612,10 +626,11 @@ namespace TPRandomizer.Assets
                     {
                         listOfBugRewards.AddRange(
                             Converter.GcBytes(
-                                (UInt16)byte.Parse(
-                                    currentCheck.flag,
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt16)
+                                    byte.Parse(
+                                        currentCheck.flag,
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
                         listOfBugRewards.AddRange(
@@ -665,10 +680,11 @@ namespace TPRandomizer.Assets
                 {
                     listOfHiddenSkills.AddRange(
                         Converter.GcBytes(
-                            (UInt16)short.Parse(
-                                currentCheck.flag,
-                                System.Globalization.NumberStyles.HexNumber
-                            )
+                            (UInt16)
+                                short.Parse(
+                                    currentCheck.flag,
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                         )
                     );
                     listOfHiddenSkills.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
@@ -696,10 +712,11 @@ namespace TPRandomizer.Assets
                 {
                     listOfShopItems.AddRange(
                         Converter.GcBytes(
-                            (UInt16)short.Parse(
-                                currentCheck.flag,
-                                System.Globalization.NumberStyles.HexNumber
-                            )
+                            (UInt16)
+                                short.Parse(
+                                    currentCheck.flag,
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                         )
                     );
                     listOfShopItems.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
