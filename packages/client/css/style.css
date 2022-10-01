@@ -1580,3 +1580,18 @@ table.settingsTable > tbody > tr:nth-child(even) {
   border-radius: 4px;
   padding: 12px 20px;
 }
+
+.tooltip {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 10px;
+  border-style: solid;
+  border-color: #cc9900;
+  white-space: pre-wrap;
+  max-width: 400px;
+}
