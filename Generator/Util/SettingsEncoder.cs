@@ -237,32 +237,6 @@ namespace TPRandomizer.Util
             return result;
         }
 
-        // public List<RecolorDefinition> NextRecolorDefinitions()
-        // {
-        //     UInt16 numRecolorIds = NextUInt16();
-
-        //     List<RecolorDefinition> recolorDefs = new();
-
-        //     for (int j = 0; j < numRecolorIds; j++)
-        //     {
-        //         if (NextBool())
-        //         {
-        //             recolorDefs.Add(new RecolorDefinition((RecolorId)j));
-        //         }
-        //     }
-
-        //     foreach (RecolorDefinition recolorDef in recolorDefs)
-        //     {
-        //         byte red = NextByte();
-        //         byte green = NextByte();
-        //         byte blue = NextByte();
-
-        //         recolorDef.rgb = new List<byte> { red, green, blue };
-        //     }
-
-        //     return recolorDefs;
-        // }
-
         public List<Item> NextItemList()
         {
             List<Item> list = new();
