@@ -260,10 +260,6 @@
         contentId: 'tabSharedSettings',
       },
       {
-        buttonId: 'tabBtnDefaultCosmetics',
-        contentId: 'tabDefaultCosmetics',
-      },
-      {
         buttonId: 'tabBtnPlaythroughSpoilers',
         contentId: 'tabPlaythroughSpoilers',
       },
