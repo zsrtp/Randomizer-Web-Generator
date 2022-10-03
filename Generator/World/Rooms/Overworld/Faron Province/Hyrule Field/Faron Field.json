@@ -9,9 +9,9 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "((Gate_Keys or (Setting.smallKeySettings equals Keysey)) and (Shadow_Crystal or (Setting.lanayruTwilightCleared equals True)) or canSmash) and Empty_Bottle",
+    "((Gate_Keys or (Setting.smallKeySettings equals Keysy)) and (Shadow_Crystal or (Setting.lanayruTwilightCleared equals True)) or canSmash) and Empty_Bottle",
     "true",
-    "((Gate_Keys or (Setting.smallKeySettings equals Keysey)) and (Shadow_Crystal or (Setting.lanayruTwilightCleared equals True)) or canSmash)",
+    "((Gate_Keys or (Setting.smallKeySettings equals Keysy)) and (Shadow_Crystal or (Setting.lanayruTwilightCleared equals True)) or canSmash)",
     "Shadow_Crystal"
   ],
     "Checks": 

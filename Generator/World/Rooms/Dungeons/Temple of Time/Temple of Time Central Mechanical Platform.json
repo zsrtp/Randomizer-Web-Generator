@@ -8,7 +8,7 @@
   "NeighbourRequirements": [
     "true",
     "Spinner",
-    "Spinner and ((Temple_of_Time_Small_Key, 2) or (Setting.smallKeySettings equals Keysey))"
+    "Spinner and ((Temple_of_Time_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
   ],
     "Checks": 
     [

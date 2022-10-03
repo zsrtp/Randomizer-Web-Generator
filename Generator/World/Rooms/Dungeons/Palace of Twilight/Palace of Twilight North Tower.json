@@ -6,7 +6,7 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "((Palace_of_Twilight_Small_Key, 7) or (Setting.smallKeySettings equals Keysey)) and CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bigKeySettings equals Keysey)) and CanDefeatShadowBeast"
+    "((Palace_of_Twilight_Small_Key, 7) or (Setting.smallKeySettings equals Keysy)) and CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatShadowBeast"
   ],
     "Checks": 
     [

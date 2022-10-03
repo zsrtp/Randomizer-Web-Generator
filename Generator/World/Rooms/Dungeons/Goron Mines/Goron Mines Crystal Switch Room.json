@@ -6,7 +6,7 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "((Iron_Boots and HasSword) or (Progressive_Bow, 1)) and ((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysey))"
+    "((Iron_Boots and HasSword) or (Progressive_Bow, 1)) and ((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
   ],
     "Checks": 
     [

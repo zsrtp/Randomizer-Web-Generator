@@ -7,7 +7,7 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "((Arbiters_Grounds_Small_Key,1) or (Setting.smallKeySettings equals Keysey)) and Lantern"
+    "((Arbiters_Grounds_Small_Key,1) or (Setting.smallKeySettings equals Keysy)) and Lantern"
   ],
     "Checks": 
     [

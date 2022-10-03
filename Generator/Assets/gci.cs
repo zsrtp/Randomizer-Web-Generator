@@ -64,7 +64,7 @@ namespace TPRandomizer.Assets
                 Converter.GcBytes((UInt32)(DateTime.UtcNow - new DateTime(2000, 1, 1)).TotalSeconds)
             );
             /*x2c*/
-            gciHeader.AddRange(Converter.GcBytes((UInt32)0x0)); // Image data offset
+            gciHeader.AddRange(Converter.GcBytes(SeedData.DebugInfoSize)); // Image data offset
             /*x30*/
             gciHeader.AddRange(Converter.GcBytes((UInt16)0x0001)); // iconFormats
             /*x32*/

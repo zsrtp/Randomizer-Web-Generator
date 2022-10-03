@@ -6,7 +6,7 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "(CanDefeatKingBulblinDesert and (Gerudo_Desert_Bulblin_Camp_Key or (CanDoMapGlitch or (Setting.smallKeySettings equals Keysey)))) or (Setting.skipArbitersEntrance equals True)"
+    "(CanDefeatKingBulblinDesert and (Gerudo_Desert_Bulblin_Camp_Key or (CanDoMapGlitch or (Setting.smallKeySettings equals Keysy)))) or (Setting.skipArbitersEntrance equals True)"
   ],
     "Checks":
     [

@@ -40,7 +40,7 @@ namespace TPRandomizer.SSettings.Enums
         Own_Dungeon = 1,
         Any_Dungeon = 2,
         Anywhere = 3,
-        Keysey = 4,
+        Keysy = 4,
     }
 
     public enum BigKeySettings
@@ -49,7 +49,7 @@ namespace TPRandomizer.SSettings.Enums
         Own_Dungeon = 1,
         Any_Dungeon = 2,
         Anywhere = 3,
-        Keysey = 4,
+        Keysy = 4,
     }
 
     public enum MapAndCompassSettings

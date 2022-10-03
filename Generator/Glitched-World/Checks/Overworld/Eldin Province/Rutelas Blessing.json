@@ -1,5 +1,5 @@
 {
-  "requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysey)",
+  "requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)",
   "arcOffsets": ["2BF"],
     "stageIDX": [48],
   "fileDirectoryType": [ 1 ],

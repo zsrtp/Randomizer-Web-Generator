@@ -1,5 +1,5 @@
 {
-  "requirements": "canBreakWoodenDoor and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysey)) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat",
+  "requirements": "canBreakWoodenDoor and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat",
   "arcOffsets": ["6AC"],
   "stageIDX": [24],
   "roomIDX": 7,

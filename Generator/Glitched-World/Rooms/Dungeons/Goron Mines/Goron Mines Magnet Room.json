@@ -7,8 +7,8 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysey))",
-    "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysey)) and Iron_Boots"
+    "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
+    "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy)) and Iron_Boots"
   ],
     "Checks": 
     [

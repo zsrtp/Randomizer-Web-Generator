@@ -8,7 +8,7 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "((Hyrule_Castle_Small_Key, 1) or (Setting.smallKeySettings equals Keysey))",
+    "((Hyrule_Castle_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
     "CanDefeatBokoblin and CanDefeatKargarok",
     "CanDefeatBokoblin and CanDefeatKargarok"
   ],

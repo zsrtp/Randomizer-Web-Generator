@@ -1327,7 +1327,7 @@ namespace TPRandomizer
                 && (
                     CanUse(Item.Lantern)
                     || (
-                        (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
+                        (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy)
                         && (hasBombs() || CanUse(Item.Iron_Boots))
                     )
                 )
@@ -1336,7 +1336,7 @@ namespace TPRandomizer
                 && CanDefeatBokoblin()
                 && (
                     (getItemCount(Item.Forest_Temple_Small_Key) >= 4)
-                    || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
+                    || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy)
                 )
             );
         }
@@ -1428,7 +1428,7 @@ namespace TPRandomizer
                     && (getItemCount(Item.Progressive_Fishing_Rod) >= 1)
                     && (
                         CanUse(Item.North_Faron_Woods_Gate_Key)
-                        || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
+                        || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy)
                     )
                 ) || (Randomizer.SSettings.skipPrologue == true)
             );

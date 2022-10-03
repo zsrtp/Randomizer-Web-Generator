@@ -13,7 +13,7 @@
     "canSmash",
     "true",
     "(Progressive_Clawshot, 1)",
-    "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysey)))",
+    "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy)))",
     "canSmash",
     "Shadow_Crystal",
     "Shadow_Crystal"

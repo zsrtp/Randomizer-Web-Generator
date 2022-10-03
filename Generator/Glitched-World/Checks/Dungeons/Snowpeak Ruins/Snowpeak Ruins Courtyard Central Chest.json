@@ -1,5 +1,5 @@
 {
-    "requirements": "Ball_and_Chain or (hasBombs and ((Snowpeak_Ruins_Small_Key, 2) or (Setting.smallKeySettings equals Keysey)))",
+    "requirements": "Ball_and_Chain or (hasBombs and ((Snowpeak_Ruins_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)))",
     "arcOffsets": ["F70"],
     "stageIDX": [27],
     "roomIDX": 4,

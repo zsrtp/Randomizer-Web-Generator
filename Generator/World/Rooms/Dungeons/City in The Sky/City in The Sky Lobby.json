@@ -8,7 +8,7 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "Spinner and ((City_in_The_Sky_Small_Key, 1) or (Setting.smallKeySettings equals Keysey))",
+    "Spinner and ((City_in_The_Sky_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
     "(Progressive_Clawshot, 2)",
     "(Progressive_Clawshot, 2) and CanDefeatBabaSerpent and CanDefeatKargarok and Shadow_Crystal and Iron_Boots"
   ],

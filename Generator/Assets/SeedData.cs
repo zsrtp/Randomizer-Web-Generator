@@ -331,6 +331,7 @@ namespace TPRandomizer.Assets
         {
             List<byte> listOfArcReplacements = new();
             ushort count = 0;
+            List<ARCReplacement> staticArcReplacements = generateStaticArcReplacements();
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
@@ -384,6 +385,33 @@ namespace TPRandomizer.Assets
                         count++;
                     }
                 }
+            }
+
+            foreach (ARCReplacement arcReplacement in staticArcReplacements)
+            {
+                listOfArcReplacements.AddRange(
+                    Converter.GcBytes(
+                        (UInt32)
+                            uint.Parse(
+                                arcReplacement.Offset,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
+                    )
+                );
+                listOfArcReplacements.AddRange(
+                    Converter.GcBytes(
+                        (UInt32)
+                            uint.Parse(
+                                arcReplacement.ReplacementValue,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
+                    )
+                );
+                listOfArcReplacements.Add(Converter.GcByte(arcReplacement.Directory));
+                listOfArcReplacements.Add(Converter.GcByte(arcReplacement.ReplacementType));
+                listOfArcReplacements.Add(Converter.GcByte(arcReplacement.StageIDX));
+                listOfArcReplacements.Add(Converter.GcByte(arcReplacement.RoomID));
+                count++;
             }
 
             SeedHeaderRaw.arcCheckInfoNumEntries = count;
@@ -853,6 +881,14 @@ namespace TPRandomizer.Assets
             return debugInfoBytes;
         }
 
+        private List<ARCReplacement> generateStaticArcReplacements()
+        {
+            List<ARCReplacement> listOfStaticReplacements = new();
+            listOfStaticReplacements.Add(new ARCReplacement("1A62", "00060064", 1, 3, 53, 0)); // Set Charlo Donation to check for 100 rupees.
+            listOfStaticReplacements.Add(new ARCReplacement("1ACC", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to 100
+            return listOfStaticReplacements;
+        }
+
         private class SeedHeader
         {
             public UInt16 versionMajor { get; set; } // SeedData version major
@@ -904,5 +940,63 @@ namespace TPRandomizer.Assets
         public UInt16 fanfareTableOffset { get; set; }
         public byte bgmTableNumEntries { get; set; }
         public byte fanfareTableNumEntries { get; set; }
+    }
+
+    public class ARCReplacement
+    {
+        private string offset;
+        private string replacementValue;
+        private byte directory;
+        private int replacementType;
+        private int stageIDX;
+        private int roomID;
+
+        public ARCReplacement(
+            string offset,
+            string replacementValue,
+            byte directory,
+            int replacementType,
+            int stageIDX,
+            int roomID
+        )
+        {
+            this.offset = offset;
+            this.replacementValue = replacementValue;
+            this.directory = directory;
+            this.replacementType = replacementType;
+            this.stageIDX = stageIDX;
+            this.roomID = roomID;
+        }
+
+        public string Offset
+        {
+            get { return offset; }
+            set { offset = value; }
+        } // The offset where the item is stored from the message flow header.
+        public string ReplacementValue
+        {
+            get { return replacementValue; }
+            set { replacementValue = value; }
+        } // Used to be item, but can be more now.
+        public byte Directory
+        {
+            get { return directory; }
+            set { directory = value; }
+        } // The type of directory where the check is stored.
+        public int ReplacementType
+        {
+            get { return replacementType; }
+            set { replacementType = value; }
+        } // The type of replacement that is taking place.
+        public int StageIDX
+        {
+            get { return stageIDX; }
+            set { stageIDX = value; }
+        } // The name of the file where the check is stored
+        public int RoomID
+        {
+            get { return roomID; }
+            set { roomID = value; }
+        } // The room number for chests/room based dzr checks.
     }
 }

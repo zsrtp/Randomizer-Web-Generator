@@ -6,7 +6,7 @@
     ],
   "NeighbourRequirements": [
     "true",
-	"((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysey)) and ((Progressive_Bow, 1) or (Iron_Boots and HasSword) or ((CanDoLJA or (HasSword and hasBombs)) and ((Progressive_Clawshot, 1) or Ball_and_Chain or hasBombs)))"
+	"((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)) and ((Progressive_Bow, 1) or (Iron_Boots and HasSword) or ((CanDoLJA or (HasSword and hasBombs)) and ((Progressive_Clawshot, 1) or Ball_and_Chain or hasBombs)))"
   ],
     "Checks":
     [

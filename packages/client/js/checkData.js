@@ -772,7 +772,7 @@ window.tpr.checkData = {
     category: ['Overworld', 'Npc', 'Eldin Province', 'ARC'],
     itemId: 'Progressive_Fishing_Rod',
   },
-  'Gift From Rusl': {
+  'Wooden Sword Chest': {
     category: ['Overworld', 'Chest', 'Ordona Province', 'ARC'],
     itemId: 'Progressive_Sword',
   },

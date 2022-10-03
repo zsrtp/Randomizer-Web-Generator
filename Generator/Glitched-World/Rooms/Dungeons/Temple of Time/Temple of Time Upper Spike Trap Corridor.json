@@ -6,7 +6,7 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "CanDefeatLizalfos and CanDefeatBabyGohma and CanDefeatYoungGohma and CanDefeatArmos and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysey))"
+    "CanDefeatLizalfos and CanDefeatBabyGohma and CanDefeatYoungGohma and CanDefeatArmos and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
   ],
     "Checks": 
     [

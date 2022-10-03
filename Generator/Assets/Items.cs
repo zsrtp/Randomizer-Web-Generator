@@ -726,7 +726,7 @@ namespace TPRandomizer
             {
                 this.RandomizedImportantItems.AddRange(this.RegionSmallKeys);
             }
-            else if (parseSetting.smallKeySettings == SmallKeySettings.Keysey)
+            else if (parseSetting.smallKeySettings == SmallKeySettings.Keysy)
             {
                 this.RandomizedImportantItems.Remove(Item.Gate_Keys);
                 if (!parseSetting.startingItems.Contains(Item.Gerudo_Desert_Bulblin_Camp_Key))

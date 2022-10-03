@@ -380,9 +380,9 @@ namespace TPRandomizer
             // TODO: Change this one to a boolean called "faronWoodsOpen"
             if (SSettings.faronWoodsLogic == FaronWoodsLogic.Open)
                 part2Settings.Add("faronWoodsLogic", SSettings.faronWoodsLogic);
-            if (SSettings.smallKeySettings == SmallKeySettings.Keysey)
+            if (SSettings.smallKeySettings == SmallKeySettings.Keysy)
                 part2Settings.Add("smallKeySettings", SSettings.smallKeySettings);
-            if (SSettings.bigKeySettings == BigKeySettings.Keysey)
+            if (SSettings.bigKeySettings == BigKeySettings.Keysy)
                 part2Settings.Add("bigKeySettings", SSettings.bigKeySettings);
             if (SSettings.mapAndCompassSettings == MapAndCompassSettings.Start_With)
                 part2Settings.Add("mapAndCompassSettings", SSettings.mapAndCompassSettings);

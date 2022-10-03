@@ -274,7 +274,7 @@ enums:
       description: >
         Small keys can appear in any randomized location.
     4:
-      name: keysey
+      name: Keysy
       description: >
         The player does not have to find any small keys to be able to traverse
         through small key doors.
@@ -298,7 +298,7 @@ enums:
       description: >
         Big keys can appear in any randomized location.
     4:
-      name: keysey
+      name: Keysy
       description: >
         The player does not have to find any big keys to be able to traverse
         through big key doors.
