@@ -1781,6 +1781,17 @@ namespace TPRandomizer
             return Randomizer.SSettings.eldinTwilightCleared || CanLeaveForestGlitched();
         }
 
+		  /// <summary>
+		  /// Check for if you need the key for getting to Lakebed Deku Toad
+		  ///
+		  public static bool CanSkipKeyToDekuToad()
+		  {
+				return Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy ||
+					getItemCount(Item.Progressive_Hidden_Skill) >= 3 ||
+					CanDoBSMoonBoots() || CanDoJSMoonBoots() ||
+					(hasBombs() && (HasHeavyMod() || getItemCount(Item.Progressive_Hidden_Skill) >= 6));
+		  }
+
         // END OF GLITCHED LOGIC
 
         public static int getItemCount(Item itemToBeCounted)

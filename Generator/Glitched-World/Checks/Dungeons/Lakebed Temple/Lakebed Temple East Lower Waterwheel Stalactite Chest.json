@@ -1,5 +1,5 @@
 {
-    "requirements": "canLaunchBombs",
+    "requirements": "canLaunchBombs or CanDoLJA",
     "arcOffsets": ["3344"],
     "stageIDX": [0],
     "roomIDX": 8,
