@@ -92,12 +92,19 @@ namespace TPRandomizer.Assets.CLR0
         public Clr0Entry colorEntry; // The setting that contains the data for this override
         public string bmdFile;
         public string texture;
+        public byte archiveIndex;
 
-        public CMPRTextureFileSettings(Clr0Entry colorEntry, string bmdFile, string texture)
+        public CMPRTextureFileSettings(
+            Clr0Entry colorEntry,
+            string bmdFile,
+            string texture,
+            byte archiveIndex
+        )
         {
             this.colorEntry = colorEntry;
             this.bmdFile = bmdFile;
             this.texture = texture;
+            this.archiveIndex = archiveIndex;
         }
     };
 
@@ -106,12 +113,24 @@ namespace TPRandomizer.Assets.CLR0
         public byte recolorType;
         public string bmdFile;
         public List<string> textures;
+        public byte archiveIndex;
 
-        public BmdTextureAssociation(byte recolorType, string bmdFile, List<string> textures)
+        public BmdTextureAssociation(
+            byte recolorType,
+            string bmdFile,
+            List<string> textures,
+            byte archiveIndex
+        )
         {
             this.recolorType = recolorType;
             this.bmdFile = bmdFile;
             this.textures = textures;
+            this.archiveIndex = archiveIndex;
         }
     };
+
+    public enum ArchiveIndex : byte
+    {
+        Link = 0,
+    }
 }

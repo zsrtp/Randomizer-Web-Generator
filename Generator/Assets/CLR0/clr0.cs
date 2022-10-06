@@ -33,9 +33,15 @@ namespace TPRandomizer.Assets.CLR0
             List<Clr0Entry> entries = new();
 
             // Create any CMPR texture associations right here.
-            cmprFileModifications.Add(new(fcSettings.tunicColor, "al.bmd", "al_lowbody"));
-            cmprFileModifications.Add(new(fcSettings.tunicColor, "al.bmd", "al_upbody"));
-            cmprFileModifications.Add(new(fcSettings.tunicColor, "al_head.bmd", "al_cap"));
+            cmprFileModifications.Add(
+                new(fcSettings.tunicColor, "al.bmd", "al_lowbody", (byte)ArchiveIndex.Link)
+            );
+            cmprFileModifications.Add(
+                new(fcSettings.tunicColor, "al.bmd", "al_upbody", (byte)ArchiveIndex.Link)
+            );
+            cmprFileModifications.Add(
+                new(fcSettings.tunicColor, "al_head.bmd", "al_cap", (byte)ArchiveIndex.Link)
+            );
 
             entries.Add(fcSettings.tunicColor);
             entries.Add(fcSettings.lanternGlowColor);
@@ -86,7 +92,8 @@ namespace TPRandomizer.Assets.CLR0
                                                     new(
                                                         (byte)RecolorId.CMPR,
                                                         modification.bmdFile,
-                                                        new List<string>()
+                                                        new List<string>(),
+                                                        modification.archiveIndex
                                                     );
                                                 newAssociation.textures.Add(modification.texture);
                                                 textureAssociations.Add(newAssociation);
@@ -98,7 +105,8 @@ namespace TPRandomizer.Assets.CLR0
                                                 new(
                                                     (byte)RecolorId.CMPR,
                                                     modification.bmdFile,
-                                                    new List<string>()
+                                                    new List<string>(),
+                                                    modification.archiveIndex
                                                 );
                                             newAssociation.textures.Add(modification.texture);
                                             textureAssociations.Add(newAssociation);
@@ -125,17 +133,18 @@ namespace TPRandomizer.Assets.CLR0
             foreach (BmdTextureAssociation association in textureAssociations)
             {
                 bmdListRaw.Add(Converter.GcByte(association.recolorType));
-                bmdListRaw.Add(Converter.GcByte(association.textures.Count));
+                bmdListRaw.Add(Converter.GcByte(association.archiveIndex));
+                bmdListRaw.AddRange(Converter.GcBytes((UInt16)association.textures.Count));
                 bmdListRaw.AddRange(
                     Converter.GcBytes(
                         (UInt16)(
-                            (textureAssociations.Count * 0x14)
+                            (textureAssociations.Count * 0x18)
                             + clr0HeaderSize
                             + textureListRaw.Count
                         )
                     )
                 );
-                bmdListRaw.AddRange(Converter.StringBytes(association.bmdFile, 0x10));
+                bmdListRaw.AddRange(Converter.StringBytes(association.bmdFile, 0x12));
 
                 // We want to handle CMPR textures first since they go before any other formats.
                 foreach (string texture in association.textures)
