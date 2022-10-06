@@ -14,30 +14,28 @@ namespace TPRandomizer.Assets.CLR0
 
     public class CLR0
     {
-        // Maps nibble value to how many bits it has set.
-        private static readonly byte[] NIBBLE_LOOKUP =
-        {
-            0,
-            1,
-            1,
-            2,
-            1,
-            2,
-            2,
-            3,
-            1,
-            2,
-            2,
-            3,
-            2,
-            3,
-            3,
-            4
-        };
-
         public static List<byte> BuildClr0(FileCreationSettings fcSettings)
         {
+            // CLR0 section is set up as the following:
+            // CLR0Header
+            // BMDEntryList
+            // TextureEntryList
+            // RawRGBList
+            List<CMPRTextureEntry> cmprTextureList = new();
+            List<uint> rawRGBList = new();
+            List<byte> clr0Raw = new();
+            List<byte> rawRGBRaw = new();
+            List<byte> bmdListRaw = new();
+            List<byte> textureListRaw = new();
+            List<BmdTextureAssociation> textureAssociations = new();
+            int clr0HeaderSize = 0x10;
+            List<CMPRTextureFileSettings> cmprFileModifications = new();
             List<Clr0Entry> entries = new();
+
+            // Create any CMPR texture associations right here.
+            cmprFileModifications.Add(new(fcSettings.tunicColor, "al.bmd", "al_lowbody"));
+            cmprFileModifications.Add(new(fcSettings.tunicColor, "al.bmd", "al_upbody"));
+            cmprFileModifications.Add(new(fcSettings.tunicColor, "al_head.bmd", "al_cap"));
 
             entries.Add(fcSettings.tunicColor);
             entries.Add(fcSettings.lanternGlowColor);
@@ -48,154 +46,142 @@ namespace TPRandomizer.Assets.CLR0
             entries.Add(fcSettings.yBtnColor);
             entries.Add(fcSettings.zBtnColor);
 
-            entries.RemoveAll(entry => entry == null);
-            entries.Sort(new Clr0EntryComparer());
-
-            return GenBytes(entries);
-        }
-
-        private static List<byte> GenBytes(List<Clr0Entry> entries)
-        {
-            int bitTableOffset = 0;
-            int bitTableLen = 0;
-            UInt16 minEnum = 0;
-            UInt16 maxEnum = 0;
-            int cummCountTableOffset = 0;
-            int cummCountTableLen = 0;
-            int basicDataOffset = 0;
-            int complexDataOffset = 0;
-            byte[] bitTable = new byte[1];
-            UInt16[] cummCountTable = new UInt16[1];
-            List<UInt32> basicData = new();
-            List<byte> complexData = new();
-            int totalByteLen = 0x16;
-
-            if (entries.Count > 0)
+            foreach (Clr0Entry entry in entries)
             {
-                bitTableOffset = 0x16;
-                minEnum = (UInt16)entries[0].recolorId;
-                maxEnum = (UInt16)entries[entries.Count - 1].recolorId;
-
-                cummCountTableLen = (maxEnum - minEnum) / 8;
-                bitTableLen = cummCountTableLen + 1;
-
-                bitTable = new byte[bitTableLen];
-                if (cummCountTableLen > 0)
+                if (entry != null)
                 {
-                    cummCountTable = new UInt16[cummCountTableLen];
-                }
-
-                foreach (Clr0Entry clr0Entry in entries)
-                {
-                    UInt16 diff = (UInt16)(clr0Entry.recolorId - minEnum);
-
-                    int bitTableIndex = diff / 8;
-                    byte bitNum = (byte)(diff % 8);
-                    bitTable[bitTableIndex] |= (byte)(1 << bitNum);
-
-                    Clr0Result result = clr0Entry.getResult();
-
-                    UInt32 basicDataEntry;
-
-                    if (result.complexBytes != null)
+                    switch (entry.recolorId)
                     {
-                        // Has complex data
-                        UInt32 currentComplexDataLen = (UInt32)(complexData.Count);
-                        if (currentComplexDataLen > 0x00FFFFFF)
+                        case RecolorId.None:
                         {
-                            throw new Exception(
-                                "Trying to create a CLR0 basicDataEntry which is not able to store the offset to the complexData."
-                            );
+                            Clr0Result result = entry.getResult();
+                            rawRGBList.Add(((result.basicDataEntry << 0x8) | 0xFF));
+                            break;
                         }
+                        case RecolorId.CMPR:
+                        {
+                            foreach (CMPRTextureFileSettings modification in cmprFileModifications)
+                            {
+                                if (modification.colorEntry != null)
+                                {
+                                    if (modification.colorEntry == entry)
+                                    {
+                                        if (textureAssociations.Count > 0)
+                                        {
+                                            bool isInList = false;
+                                            foreach (
+                                                BmdTextureAssociation association in textureAssociations
+                                            )
+                                            {
+                                                if (modification.bmdFile == association.bmdFile)
+                                                {
+                                                    association.textures.Add(modification.texture);
+                                                    isInList = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (!isInList)
+                                            {
+                                                BmdTextureAssociation newAssociation =
+                                                    new(
+                                                        (byte)RecolorId.CMPR,
+                                                        modification.bmdFile,
+                                                        new List<string>()
+                                                    );
+                                                newAssociation.textures.Add(modification.texture);
+                                                textureAssociations.Add(newAssociation);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            BmdTextureAssociation newAssociation =
+                                                new(
+                                                    (byte)RecolorId.CMPR,
+                                                    modification.bmdFile,
+                                                    new List<string>()
+                                                );
+                                            newAssociation.textures.Add(modification.texture);
+                                            textureAssociations.Add(newAssociation);
+                                        }
 
-                        basicDataEntry = currentComplexDataLen;
-
-                        complexData.AddRange(result.complexBytes);
+                                        Clr0Result result = entry.getResult();
+                                        cmprTextureList.Add(
+                                            new(result.basicDataEntry, modification.texture)
+                                        );
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        default:
+                        {
+                            Console.WriteLine("Invalid recolor id: " + entry.recolorId);
+                            break;
+                        }
                     }
-                    else
+                }
+            }
+
+            foreach (BmdTextureAssociation association in textureAssociations)
+            {
+                bmdListRaw.Add(Converter.GcByte(association.recolorType));
+                bmdListRaw.Add(Converter.GcByte(association.textures.Count));
+                bmdListRaw.AddRange(
+                    Converter.GcBytes(
+                        (UInt16)(
+                            (textureAssociations.Count * 0x14)
+                            + clr0HeaderSize
+                            + textureListRaw.Count
+                        )
+                    )
+                );
+                bmdListRaw.AddRange(Converter.StringBytes(association.bmdFile, 0x10));
+
+                // We want to handle CMPR textures first since they go before any other formats.
+                foreach (string texture in association.textures)
+                {
+                    foreach (CMPRTextureFileSettings modification in cmprFileModifications)
                     {
-                        basicDataEntry = result.basicDataEntry;
-                    }
-
-                    basicDataEntry = basicDataEntry & 0x00FFFFFF;
-                    basicDataEntry |= (UInt32)((byte)clr0Entry.recolorType << 24);
-
-                    basicData.Add(basicDataEntry);
-                }
-
-                // Determine offsets
-                cummCountTableOffset = bitTableOffset + bitTableLen;
-                basicDataOffset = cummCountTableOffset + cummCountTableLen * 2;
-                complexDataOffset = basicDataOffset + basicData.Count * 4;
-
-                totalByteLen = complexDataOffset + complexData.Count;
-
-                if (cummCountTableLen < 1)
-                {
-                    cummCountTableOffset = 0;
-                }
-                else
-                {
-                    UInt16 cummulativeCount = 0;
-
-                    for (int i = 0; i < cummCountTableLen; i++)
-                    {
-                        cummulativeCount += GetNumBitsSet(bitTable[i]);
-                        cummCountTable[i] = cummulativeCount;
+                        if (modification.texture == texture)
+                        {
+                            Clr0Result result = modification.colorEntry.getResult();
+                            textureListRaw.AddRange(
+                                Converter.GcBytes((UInt32)((result.basicDataEntry << 0x8) | 0xFF))
+                            );
+                            textureListRaw.AddRange(Converter.StringBytes(texture, 0xC));
+                        }
                     }
                 }
-
-                if (basicData.Count < 1)
-                    basicDataOffset = 0;
-
-                if (complexData.Count < 1)
-                    complexDataOffset = 0;
+                //.AddRange(Converter.GcBytes((UInt16)association.recolorType));
             }
 
-            List<byte> finalBytes = new();
-            finalBytes.AddRange(Converter.StringBytes("CLR0", 4)); // 0x00, "CLR0"
-            finalBytes.AddRange(Converter.GcBytes((UInt32)totalByteLen)); // 0x04, u32, totalBytes
-            finalBytes.Add(Converter.GcByte(0x00)); // 0x08, u8, reserved; always 0 for now
-            // 0x09, u8, bitTableOffset; Normally 0x16, but 0 if no entries.
-            finalBytes.Add(Converter.GcByte(bitTableOffset));
-            finalBytes.AddRange(Converter.GcBytes((UInt16)minEnum)); // 0x0A, u16, minEnum
-            finalBytes.AddRange(Converter.GcBytes((UInt16)maxEnum)); // 0x0C, u16, maxEnum
-            finalBytes.AddRange(Converter.GcBytes((UInt16)cummCountTableOffset)); // 0x0E, u16, cummCountTableOffset
-            finalBytes.AddRange(Converter.GcBytes((UInt32)complexDataOffset)); // 0x10, u32, complexDataOffset
-            finalBytes.AddRange(Converter.GcBytes((UInt16)basicDataOffset)); // 0x14, u16, basicDataOffset
-
-            if (bitTableLen > 0)
+            // Generate a list of the raw RGB values that will be used. The data associations should be static, meaning that they should always be in the same order.
+            foreach (uint rawRGB in rawRGBList)
             {
-                finalBytes.AddRange(bitTable);
+                rawRGBRaw.AddRange(Converter.GcBytes((UInt32)rawRGB));
             }
 
-            if (cummCountTableLen > 0)
-            {
-                for (int i = 0; i < cummCountTableLen; i++)
-                {
-                    finalBytes.AddRange(Converter.GcBytes((UInt16)cummCountTable[i]));
-                }
-            }
+            // Now that all of our lists are populated with the appropriate data. It is time to build the header and list contents with the dynamic data
+            clr0Raw.AddRange(Converter.StringBytes("CLR0", 0x4)); // magic bytes
+            clr0Raw.AddRange( // size of the CLR0 chunk
+                Converter.GcBytes(
+                    (UInt32)(
+                        clr0HeaderSize + bmdListRaw.Count + textureListRaw.Count + rawRGBList.Count
+                    )
+                )
+            );
+            clr0Raw.AddRange(Converter.GcBytes((UInt32)textureAssociations.Count)); // number of Bmd entries
+            clr0Raw.AddRange(Converter.GcBytes((UInt16)clr0HeaderSize)); // offset to the list of bmd entries. It always follows the CLR0 header.
+            clr0Raw.AddRange(
+                Converter.GcBytes(
+                    (UInt16)(clr0HeaderSize + bmdListRaw.Count + textureListRaw.Count)
+                )
+            ); // offset to raw rgb table.
+            clr0Raw.AddRange(bmdListRaw);
+            clr0Raw.AddRange(textureListRaw);
+            clr0Raw.AddRange(rawRGBRaw);
 
-            if (basicData.Count > 0)
-            {
-                for (int i = 0; i < basicData.Count; i++)
-                {
-                    finalBytes.AddRange(Converter.GcBytes((UInt32)basicData[i]));
-                }
-            }
-
-            if (complexData.Count > 0)
-            {
-                finalBytes.AddRange(complexData);
-            }
-
-            return finalBytes;
-        }
-
-        private static byte GetNumBitsSet(byte byteVal)
-        {
-            return (byte)(NIBBLE_LOOKUP[byteVal & 0x0f] + NIBBLE_LOOKUP[byteVal >> 4]);
+            return clr0Raw;
         }
     }
 }

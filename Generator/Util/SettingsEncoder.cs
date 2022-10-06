@@ -302,33 +302,11 @@ namespace TPRandomizer.Util
             }
 
             RecolorType recolorType = (RecolorType)NextByte();
-            switch (recolorType)
-            {
-                case RecolorType.Rgb:
-                {
-                    byte r = NextByte();
-                    byte g = NextByte();
-                    byte b = NextByte();
-                    return new RgbEntry(recolorId, r, g, b);
-                }
-                case RecolorType.RgbArray:
-                {
-                    byte arrLength = NextByte();
-                    List<Rgb> rgbList = new();
 
-                    for (byte i = 0; i < arrLength; i++)
-                    {
-                        byte r = NextByte();
-                        byte g = NextByte();
-                        byte b = NextByte();
-                        rgbList.Add(new Rgb(r, g, b));
-                    }
-
-                    return new RgbArrayEntry(recolorId, rgbList);
-                }
-                default:
-                    throw new Exception($"Unrecognized RecolorType {recolorType}");
-            }
+            byte r = NextByte();
+            byte g = NextByte();
+            byte b = NextByte();
+            return new RgbEntry(recolorId, r, g, b);
         }
     }
 }

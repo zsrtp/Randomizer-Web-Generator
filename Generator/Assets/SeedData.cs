@@ -89,14 +89,14 @@ namespace TPRandomizer.Assets
             CheckDataRaw.AddRange(ParseSkyCharacters());
             CheckDataRaw.AddRange(ParseShopItems());
             CheckDataRaw.AddRange(ParseStartingItems());
+            while (CheckDataRaw.Count % 0x10 != 0)
+            {
+                CheckDataRaw.Add(Converter.GcByte(0x0));
+            }
             List<byte> clr0Bytes = ParseClr0Bytes();
             if (clr0Bytes != null)
             {
                 CheckDataRaw.AddRange(clr0Bytes);
-            }
-            while (CheckDataRaw.Count % 0x10 != 0)
-            {
-                CheckDataRaw.Add(Converter.GcByte(0x0));
             }
             SeedHeaderRaw.bgmHeaderOffset = (UInt16)CheckDataRaw.Count();
 

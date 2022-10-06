@@ -37,15 +37,15 @@ namespace TPRandomizer
             randomizeFanfares = processor.NextBool();
             disableEnemyBgm = processor.NextBool();
 
-            tunicColor = processor.NextClr0Entry(RecolorId.HerosClothes);
-            lanternGlowColor = processor.NextClr0Entry(RecolorId.LanternGlow);
+            tunicColor = processor.NextClr0Entry(RecolorId.CMPR);
+            lanternGlowColor = processor.NextClr0Entry(RecolorId.None);
             // midnaHairColor = processor.NextInt(1);
-            heartColor = processor.NextClr0Entry(RecolorId.Hearts);
-            aBtnColor = processor.NextClr0Entry(RecolorId.ABtn);
-            bBtnColor = processor.NextClr0Entry(RecolorId.BBtn);
-            xBtnColor = processor.NextClr0Entry(RecolorId.XBtn);
-            yBtnColor = processor.NextClr0Entry(RecolorId.YBtn);
-            zBtnColor = processor.NextClr0Entry(RecolorId.ZBtn);
+            heartColor = processor.NextClr0Entry(RecolorId.None);
+            aBtnColor = processor.NextClr0Entry(RecolorId.None);
+            bBtnColor = processor.NextClr0Entry(RecolorId.None);
+            xBtnColor = processor.NextClr0Entry(RecolorId.None);
+            yBtnColor = processor.NextClr0Entry(RecolorId.None);
+            zBtnColor = processor.NextClr0Entry(RecolorId.None);
         }
 
         public static FileCreationSettings FromString(string fcSettingsString)

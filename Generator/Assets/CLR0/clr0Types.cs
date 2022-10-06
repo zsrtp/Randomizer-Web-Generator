@@ -10,14 +10,7 @@ namespace TPRandomizer.Assets.CLR0
     {
         None = 0xFFFF,
 
-        HerosClothes = 0x00, // Cap and body
-        ABtn = 0x01,
-        BBtn = 0x02,
-        XBtn = 0x03,
-        YBtn = 0x04,
-        ZBtn = 0x05,
-        LanternGlow = 0x06,
-        Hearts = 0x07,
+        CMPR = 0x00,
     }
 
     public enum RecolorType : byte
@@ -82,30 +75,43 @@ namespace TPRandomizer.Assets.CLR0
         }
     }
 
-    public class RgbArrayEntry : Clr0Entry
+    public class CMPRTextureEntry
     {
-        private List<Rgb> rgbList { get; }
+        public uint rgb;
+        public string textureName;
 
-        public RgbArrayEntry(RecolorId recolorId, List<Rgb> rgbList)
+        public CMPRTextureEntry(uint rgb, string textureName)
         {
-            this.recolorType = RecolorType.RgbArray;
-            this.recolorId = recolorId;
-            this.rgbList = rgbList;
-        }
-
-        override public Clr0Result getResult()
-        {
-            List<byte> complexData = new();
-
-            complexData.Add((byte)rgbList.Count);
-            foreach (Rgb rgb in rgbList)
-            {
-                complexData.Add(rgb.r);
-                complexData.Add(rgb.g);
-                complexData.Add(rgb.b);
-            }
-
-            return new Clr0Result(0, complexData);
+            this.rgb = rgb;
+            this.textureName = textureName;
         }
     }
+
+    public struct CMPRTextureFileSettings
+    {
+        public Clr0Entry colorEntry; // The setting that contains the data for this override
+        public string bmdFile;
+        public string texture;
+
+        public CMPRTextureFileSettings(Clr0Entry colorEntry, string bmdFile, string texture)
+        {
+            this.colorEntry = colorEntry;
+            this.bmdFile = bmdFile;
+            this.texture = texture;
+        }
+    };
+
+    public struct BmdTextureAssociation
+    {
+        public byte recolorType;
+        public string bmdFile;
+        public List<string> textures;
+
+        public BmdTextureAssociation(byte recolorType, string bmdFile, List<string> textures)
+        {
+            this.recolorType = recolorType;
+            this.bmdFile = bmdFile;
+            this.textures = textures;
+        }
+    };
 }
