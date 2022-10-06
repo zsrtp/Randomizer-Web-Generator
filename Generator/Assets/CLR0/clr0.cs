@@ -34,16 +34,18 @@ namespace TPRandomizer.Assets.CLR0
 
             // Create any CMPR texture associations right here.
             cmprFileModifications.Add(
-                new(fcSettings.tunicColor, "al.bmd", "al_lowbody", (byte)ArchiveIndex.Link)
+                new(fcSettings.hTunicSkirtColor, "al.bmd", "al_lowbody", (byte)ArchiveIndex.Link)
             );
             cmprFileModifications.Add(
-                new(fcSettings.tunicColor, "al.bmd", "al_upbody", (byte)ArchiveIndex.Link)
+                new(fcSettings.hTunicBodyColor, "al.bmd", "al_upbody", (byte)ArchiveIndex.Link)
             );
             cmprFileModifications.Add(
-                new(fcSettings.tunicColor, "al_head.bmd", "al_cap", (byte)ArchiveIndex.Link)
+                new(fcSettings.hTunicHatColor, "al_head.bmd", "al_cap", (byte)ArchiveIndex.Link)
             );
 
-            entries.Add(fcSettings.tunicColor);
+            entries.Add(fcSettings.hTunicHatColor);
+            entries.Add(fcSettings.hTunicBodyColor);
+            entries.Add(fcSettings.hTunicSkirtColor);
             entries.Add(fcSettings.lanternGlowColor);
             entries.Add(fcSettings.heartColor);
             entries.Add(fcSettings.aBtnColor);

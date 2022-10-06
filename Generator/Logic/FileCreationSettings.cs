@@ -12,7 +12,9 @@ namespace TPRandomizer
         public bool randomizeFanfares { get; }
         public bool disableEnemyBgm { get; }
 
-        public Clr0Entry tunicColor { get; }
+        public Clr0Entry hTunicHatColor { get; }
+        public Clr0Entry hTunicBodyColor { get; }
+        public Clr0Entry hTunicSkirtColor { get; }
 
         public Clr0Entry lanternGlowColor { get; }
 
@@ -37,7 +39,9 @@ namespace TPRandomizer
             randomizeFanfares = processor.NextBool();
             disableEnemyBgm = processor.NextBool();
 
-            tunicColor = processor.NextClr0Entry(RecolorId.CMPR);
+            hTunicHatColor = processor.NextClr0Entry(RecolorId.CMPR);
+            hTunicBodyColor = processor.NextClr0Entry(RecolorId.CMPR);
+            hTunicSkirtColor = processor.NextClr0Entry(RecolorId.CMPR);
             lanternGlowColor = processor.NextClr0Entry(RecolorId.None);
             // midnaHairColor = processor.NextInt(1);
             heartColor = processor.NextClr0Entry(RecolorId.None);

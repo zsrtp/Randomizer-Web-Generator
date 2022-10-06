@@ -336,7 +336,9 @@ document
 document
   .getElementById('disableEnemyBGMCheckbox')
   .addEventListener('click', setSettingsString);
-document.getElementById('tunicColorFieldset').onchange = setSettingsString;
+document.getElementById('hTunicHatColorFieldset').onchange = setSettingsString;
+document.getElementById('hTunicBodyColorFieldset').onchange = setSettingsString;
+document.getElementById('hTunicSkirtColorFieldset').onchange = setSettingsString;
 document.getElementById('lanternColorFieldset').onchange = setSettingsString;
 // document.getElementById('midnaHairColorFieldset').onchange = setSettingsString;
 document.getElementById('heartColorFieldset').onchange = setSettingsString;
@@ -675,7 +677,9 @@ var arrayOfSettingsItems = [
   'foolishItemFieldset',
   'baseImportantItemsListbox',
   'baseExcludedChecksListbox',
-  'tunicColorFieldset',
+  'hTunicHatColorFieldset',
+  'hTunicBodyColorFieldset',
+  'hTunicSkirtColorFieldset',
   'midnaHairColorFieldset',
   'lanternColorFieldset',
   'heartColorFieldset',

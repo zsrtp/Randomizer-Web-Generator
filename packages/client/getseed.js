@@ -83,7 +83,13 @@
 
     // Add recolorDefs to list.
     recolorDefs.push(
-      genTunicRecolorDef('tunicColorFieldset', RecolorId.herosClothes)
+      genTunicRecolorDef('hTunicHatColorFieldset', RecolorId.herosClothes)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('hTunicBodyColorFieldset', RecolorId.herosClothes)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('hTunicSkirtColorFieldset', RecolorId.herosClothes)
     );
 
     // Process all recolorDefs
@@ -1012,7 +1018,9 @@
         { id: 'randomizeFanfaresCheckbox' },
         { id: 'disableEnemyBGMCheckbox' },
 
-        { id: 'tunicColorFieldset', rgb: true },
+        { id: 'hTunicHatColorFieldset', rgb: true },
+        { id: 'hTunicBodyColorFieldset', rgb: true },
+        { id: 'hTunicSkirtColorFieldset', rgb: true },
         { id: 'lanternColorFieldset', rgb: true },
         // { id: 'midnaHairColorFieldset', bitLength: 1 },
         { id: 'heartColorFieldset', rgb: true },
@@ -1255,37 +1263,6 @@
 
     return result;
   }
-
-  // function populateRecolorSelect(pSettings, elId, recolorId) {
-  //   const $sel = $(`#${elId}`);
-
-  //   const recolorDef = pSettings.recolorDefs[recolorId];
-
-  //   if (recolorDef) {
-  //     const rgbHex = padBits2(recolorDef.value.toString(16), 6);
-
-  //     const option = $sel.find(`option[data-rgb="${rgbHex}"]`)[0];
-  //     if (option) {
-  //       option.selected = true;
-  //       // $sel.val(rgbHex);
-  //     } else {
-  //       $sel.val('0');
-  //     }
-  //   } else {
-  //     $sel.val('0');
-  //   }
-  // }
-
-  // function populateFromPSettings(pSettings) {
-  //   console.log(pSettings);
-
-  //   // $('#tunicColor')
-  //   populateRecolorSelect(pSettings, 'tunicColor', RecolorId.herosClothes);
-
-  //   $('#randomizeBgm').prop('checked', pSettings.randomizeBgm);
-  //   $('#randomizeFanfares').prop('checked', pSettings.randomizeFanfares);
-  //   $('#disableEnemyBgm').prop('checked', pSettings.disableEnemyBgm);
-  // }
 
   function initSettingsModal() {
     const modal = document.getElementById('myModal');

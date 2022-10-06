@@ -439,7 +439,9 @@
 
   function genPSettingsFromUi(returnEvenIfEmpty) {
     const values = [
-      { id: 'tunicColorFieldset', bitLength: 4 },
+      { id: 'hTunicHatColorFieldset', bitLength: 4 },
+      { id: 'hTunicBodyColorFieldset', bitLength: 4 },
+      { id: 'hTunicSkirtColorFieldset', bitLength: 4 },
       { id: 'lanternColorFieldset', bitLength: 4 },
       // { id: 'midnaHairColorFieldset', bitLength: 1 },
       { id: 'heartColorFieldset', bitLength: 4 },
@@ -465,16 +467,6 @@
       // checkbox
       return val;
     });
-
-    // TODO: temp turning off color defs while UI is using simple selects for the colors.
-    // Will update the settings when UI refresh with complex color options is implemented.
-
-    // const recolorDefs = [];
-    // recolorDefs.push(genTunicRecolorDef('tunicColorFieldset'));
-
-    // // values.push(genMidnaSettings(recolorDefs));
-
-    // values = [genRecolorBits(recolorDefs)].concat(values);
 
     if (
       !returnEvenIfEmpty &&
@@ -769,7 +761,9 @@
     // return res;
 
     const a = [
-      { id: 'tunicColor', type: 'number', bitLength: 4 },
+      { id: 'hTunicHatColor', type: 'number', bitLength: 4 },
+      { id: 'hTunicBodyColor', type: 'number', bitLength: 4 },
+      { id: 'hTunicSkirtColor', type: 'number', bitLength: 4 },
       { id: 'lanternColor', type: 'number', bitLength: 4 },
       // { id: 'midnaHairColor', type: 'number', bitLength: 1 },
       { id: 'heartColor', type: 'number', bitLength: 4 },
@@ -824,7 +818,9 @@
       return;
     }
 
-    $('#tunicColorFieldset').val(p.tunicColor);
+    $('#hTunicHatColorFieldset').val(p.hTunicHatColor);
+    $('#hTunicBodyColorFieldset').val(p.hTunicBodyColor);
+    $('#hTunicSkirtColorFieldset').val(p.hTunicSkirtColor);
     $('#lanternColorFieldset').val(p.lanternColor);
     // $('#midnaHairColorFieldset').val(p.midnaHairColor);
     $('#heartColorFieldset').val(p.heartColor);
