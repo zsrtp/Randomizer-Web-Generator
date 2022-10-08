@@ -76,6 +76,42 @@ namespace TPRandomizer.Assets.CLR0
                 new(fcSettings.zTunicBodyColor, "zl.bmd", "zl_armL", (byte)ArchiveIndex.ZoraArmor)
             );
 
+            cmprFileModifications.Add(
+                new(
+                    fcSettings.zTunicBodyColor,
+                    "o_gd_al_zora.bmd",
+                    "zl_armor",
+                    (byte)ArchiveIndex.ZoraArmorField
+                )
+            );
+
+            cmprFileModifications.Add(
+                new(
+                    fcSettings.zTunicScalesColor,
+                    "o_gd_al_zora.bmd",
+                    "zl_body",
+                    (byte)ArchiveIndex.ZoraArmorField
+                )
+            );
+
+            cmprFileModifications.Add(
+                new(
+                    fcSettings.zTunicHelmetColor,
+                    "o_gd_al_zora.bmd",
+                    "zl_helmet",
+                    (byte)ArchiveIndex.ZoraArmorField
+                )
+            );
+
+            cmprFileModifications.Add(
+                new(
+                    fcSettings.zTunicHatColor,
+                    "o_gd_al_zora.bmd",
+                    "zl_cap",
+                    (byte)ArchiveIndex.ZoraArmorField
+                )
+            );
+
             entries.Add(fcSettings.hTunicHatColor);
             entries.Add(fcSettings.hTunicBodyColor);
             entries.Add(fcSettings.hTunicSkirtColor);
@@ -191,7 +227,10 @@ namespace TPRandomizer.Assets.CLR0
                 {
                     foreach (CMPRTextureFileSettings modification in cmprFileModifications)
                     {
-                        if (modification.texture == texture)
+                        if (
+                            (modification.texture == texture)
+                            && (modification.archiveIndex == association.archiveIndex)
+                        )
                         {
                             Clr0Result result = modification.colorEntry.getResult();
                             textureListRaw.AddRange(

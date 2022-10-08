@@ -161,11 +161,7 @@ namespace TPRandomizer.Assets
                 Converter.StringBytes($"TPR SeedData v{VersionString}", 0x20, region)
             );
             BannerDataRaw.AddRange(
-                Converter.StringBytes(
-                    Gci.playthroughNameToFilename(seedGenResults.playthroughName),
-                    0x20,
-                    region
-                )
+                Converter.StringBytes(seedGenResults.playthroughName, 0x20, region)
             );
             // Generate GCI Files
             currentGCIData.AddRange(BannerDataRaw);

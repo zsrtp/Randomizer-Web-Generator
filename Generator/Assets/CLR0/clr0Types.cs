@@ -133,5 +133,6 @@ namespace TPRandomizer.Assets.CLR0
     {
         Link = 0,
         ZoraArmor = 1,
+        ZoraArmorField = 2,
     }
 }
