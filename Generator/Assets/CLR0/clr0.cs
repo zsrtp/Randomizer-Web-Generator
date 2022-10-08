@@ -28,11 +28,13 @@ namespace TPRandomizer.Assets.CLR0
             List<byte> bmdListRaw = new();
             List<byte> textureListRaw = new();
             List<BmdTextureAssociation> textureAssociations = new();
-            int clr0HeaderSize = 0x10;
+            int clr0HeaderSize = 0xC;
             List<CMPRTextureFileSettings> cmprFileModifications = new();
             List<Clr0Entry> entries = new();
 
             // Create any CMPR texture associations right here.
+
+            // Hero's Tunic
             cmprFileModifications.Add(
                 new(fcSettings.hTunicSkirtColor, "al.bmd", "al_lowbody", (byte)ArchiveIndex.Link)
             );
@@ -43,9 +45,45 @@ namespace TPRandomizer.Assets.CLR0
                 new(fcSettings.hTunicHatColor, "al_head.bmd", "al_cap", (byte)ArchiveIndex.Link)
             );
 
+            // Zora Armor
+            cmprFileModifications.Add(
+                new(
+                    fcSettings.zTunicHatColor,
+                    "zl_head.bmd",
+                    "zl_cap",
+                    (byte)ArchiveIndex.ZoraArmor
+                )
+            );
+
+            cmprFileModifications.Add(
+                new(
+                    fcSettings.zTunicHelmetColor,
+                    "zl_head.bmd",
+                    "zl_helmet",
+                    (byte)ArchiveIndex.ZoraArmor
+                )
+            );
+            cmprFileModifications.Add(
+                new(fcSettings.zTunicBodyColor, "zl.bmd", "zl_armor", (byte)ArchiveIndex.ZoraArmor)
+            );
+            cmprFileModifications.Add(
+                new(fcSettings.zTunicScalesColor, "zl.bmd", "zl_body", (byte)ArchiveIndex.ZoraArmor)
+            );
+            cmprFileModifications.Add(
+                new(fcSettings.zTunicBootsColor, "zl.bmd", "zl_boots", (byte)ArchiveIndex.ZoraArmor)
+            );
+            cmprFileModifications.Add(
+                new(fcSettings.zTunicBodyColor, "zl.bmd", "zl_armL", (byte)ArchiveIndex.ZoraArmor)
+            );
+
             entries.Add(fcSettings.hTunicHatColor);
             entries.Add(fcSettings.hTunicBodyColor);
             entries.Add(fcSettings.hTunicSkirtColor);
+            entries.Add(fcSettings.zTunicHatColor);
+            entries.Add(fcSettings.zTunicHelmetColor);
+            entries.Add(fcSettings.zTunicBodyColor);
+            entries.Add(fcSettings.zTunicScalesColor);
+            entries.Add(fcSettings.zTunicBootsColor);
             entries.Add(fcSettings.lanternGlowColor);
             entries.Add(fcSettings.heartColor);
             entries.Add(fcSettings.aBtnColor);
@@ -173,7 +211,6 @@ namespace TPRandomizer.Assets.CLR0
             }
 
             // Now that all of our lists are populated with the appropriate data. It is time to build the header and list contents with the dynamic data
-            clr0Raw.AddRange(Converter.StringBytes("CLR0", 0x4)); // magic bytes
             clr0Raw.AddRange( // size of the CLR0 chunk
                 Converter.GcBytes(
                     (UInt32)(

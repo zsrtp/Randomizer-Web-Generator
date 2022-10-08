@@ -1595,3 +1595,49 @@ table.settingsTable > tbody > tr:nth-child(even) {
   white-space: pre-wrap;
   max-width: 400px;
 }
+
+.col-l40 {
+  float: left;
+  width: 40%;
+  margin-top: 6px;
+}
+
+.col-l50 {
+  float: left;
+  width: 50%;
+  margin-top: 6px;
+}
+
+.col-l60 {
+  float: left;
+  width: 60%;
+  margin-top: 6px;
+}
+
+.col-l60 > select
+{
+  width: 60%;
+}
+
+.col-l50 > select
+{
+  width: 60%;
+}
+
+.col-l30 {
+  float: left;
+  width: 30%;
+  margin-top: 6px;
+}
+
+.col-r70 {
+  float: left;
+  width: 70%;
+  margin-top: 6px;
+}
+
+.col-r50 {
+  float: left;
+  width: 50%;
+  margin-top: 6px;
+}

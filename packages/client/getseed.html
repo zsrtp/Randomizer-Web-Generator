@@ -320,53 +320,160 @@
         </div>
 
         <!-- Tab content -->
-        <div id="cosmeticsTab" class="tabcontent" style="display: block">
-          <fieldset id="itemPoolOptionsFieldset">
-            <legend>Cosmetic Options</legend>
-            <label for="hTunicHatColorFieldset">Hero's Tunic Hat Color:</label>
-            <select id="hTunicHatColorFieldset">
-              <option value="0">Default</option>
-              <option value="1" data-rgb="00ab706e">Red</option>
-              <option value="2" data-rgb="006382a0">Blue</option>
-              <option value="3" data-rgb="0094749a">Purple</option>
-              <option value="4" data-rgb="00ec8644">Orange</option>
-              <option value="5" data-rgb="00b9ab00">Yellow</option>
-              <option value="6" data-rgb="00ec9fc8">Pink</option>
-              <option value="7" data-rgb="00505154">Black</option>
-              <option value="8" data-rgb="00f8f7f4">White</option>
-              <option value="9" data-rgb="0091723e">Brown</option>
-            </select>
-            <br />
-            <label for="hTunicBodyColorFieldset">Hero's Tunic Body Color:</label>
-            <select id="hTunicBodyColorFieldset">
-              <option value="0">Default</option>
-              <option value="1" data-rgb="00ab706e">Red</option>
-              <option value="2" data-rgb="006382a0">Blue</option>
-              <option value="3" data-rgb="0094749a">Purple</option>
-              <option value="4" data-rgb="00ec8644">Orange</option>
-              <option value="5" data-rgb="00b9ab00">Yellow</option>
-              <option value="6" data-rgb="00ec9fc8">Pink</option>
-              <option value="7" data-rgb="00505154">Black</option>
-              <option value="8" data-rgb="00f8f7f4">White</option>
-              <option value="9" data-rgb="0091723e">Brown</option>
-            </select>
-            <br />
-            <label for="hTunicSkirtColorFieldset">Hero's Tunic Skirt Color:</label>
-            <select id="hTunicSkirtColorFieldset">
-              <option value="0">Default</option>
-              <option value="1" data-rgb="00ab706e">Red</option>
-              <option value="2" data-rgb="006382a0">Blue</option>
-              <option value="3" data-rgb="0094749a">Purple</option>
-              <option value="4" data-rgb="00ec8644">Orange</option>
-              <option value="5" data-rgb="00b9ab00">Yellow</option>
-              <option value="6" data-rgb="00ec9fc8">Pink</option>
-              <option value="7" data-rgb="00505154">Black</option>
-              <option value="8" data-rgb="00f8f7f4">White</option>
-              <option value="9" data-rgb="0091723e">Brown</option>
-            </select>
-            <br />
-            <label for="lanternColorFieldset">Lantern Glow Color:</label>
-            <select name="Lantern Color Fieldset" id="lanternColorFieldset">
+        <div id="cosmeticsTab" class="tabcontent" style="display: inline-block; width: 100%;">
+          <div class="tabColumn" style="width: 50%; float:left; height: 100%;">
+						<fieldset id="itemPoolOptionsFieldset">
+						<legend>Equipment</legend>
+						<div class="col-l50">
+							<label for="hTunicHatColorFieldset">Hero's Tunic Cap Color:</label>
+						</div>
+						<div class="col-l50">
+							<select id="hTunicHatColorFieldset" data-tooltip-text="Sets the color of the hat of the Hero's Tunic.&#0010;">
+							<option value="0">Default</option>
+							<option value="1" data-rgb="00ab706e">Red</option>
+							<option value="2" data-rgb="006382a0">Blue</option>
+							<option value="3" data-rgb="0094749a">Purple</option>
+							<option value="4" data-rgb="00ec8644">Orange</option>
+							<option value="5" data-rgb="00b9ab00">Yellow</option>
+							<option value="6" data-rgb="00ec9fc8">Pink</option>
+							<option value="7" data-rgb="00505154">Black</option>
+							<option value="8" data-rgb="00f8f7f4">White</option>
+							<option value="9" data-rgb="0091723e">Brown</option>
+							</select>
+						</div>
+							<br />
+							<div class="col-l50">
+							<label for="hTunicBodyColorFieldset">Hero's Tunic Torso Color:</label>
+						</div>
+						<div class="col-l50">
+							<select id="hTunicBodyColorFieldset" data-tooltip-text="Sets the color of the area of the Hero's Tunic that is above the belt.&#0010;">
+							<option value="0">Default</option>
+							<option value="1" data-rgb="00ab706e">Red</option>
+							<option value="2" data-rgb="006382a0">Blue</option>
+							<option value="3" data-rgb="0094749a">Purple</option>
+							<option value="4" data-rgb="00ec8644">Orange</option>
+							<option value="5" data-rgb="00b9ab00">Yellow</option>
+							<option value="6" data-rgb="00ec9fc8">Pink</option>
+							<option value="7" data-rgb="00505154">Black</option>
+							<option value="8" data-rgb="00f8f7f4">White</option>
+							<option value="9" data-rgb="0091723e">Brown</option>
+							</select>
+						</div>
+							<br />
+							<div class="col-l50">
+							<label for="hTunicSkirtColorFieldset">Hero's Tunic Waist Color:</label>
+						</div>
+						<div class="col-l50">
+							<select id="hTunicSkirtColorFieldset" data-tooltip-text="Sets the color of the area of the Hero's Tunic that is below the belt.&#0010;">
+							<option value="0">Default</option>
+							<option value="1" data-rgb="00ab706e">Red</option>
+							<option value="2" data-rgb="006382a0">Blue</option>
+							<option value="3" data-rgb="0094749a">Purple</option>
+							<option value="4" data-rgb="00ec8644">Orange</option>
+							<option value="5" data-rgb="00b9ab00">Yellow</option>
+							<option value="6" data-rgb="00ec9fc8">Pink</option>
+							<option value="7" data-rgb="00505154">Black</option>
+							<option value="8" data-rgb="00f8f7f4">White</option>
+							<option value="9" data-rgb="0091723e">Brown</option>
+							</select>
+						</div>
+						<br />
+							<div class="col-l50">
+							<label for="zTunicHatColorFieldset">Zora Armor Cap Color:</label>
+						</div>
+						<div class="col-l50">
+							<select id="zTunicHatColorFieldset" data-tooltip-text="Sets the color of the cap of the Zora Armor.&#0010;">
+							<option value="0">Default</option>
+							<option value="1" data-rgb="00ab706e">Red</option>
+							<option value="2" data-rgb="006382a0">Blue</option>
+							<option value="3" data-rgb="0094749a">Purple</option>
+							<option value="4" data-rgb="00ec8644">Orange</option>
+							<option value="5" data-rgb="00b9ab00">Yellow</option>
+							<option value="6" data-rgb="00ec9fc8">Pink</option>
+							<option value="7" data-rgb="00505154">Black</option>
+							<option value="8" data-rgb="00f8f7f4">White</option>
+							<option value="9" data-rgb="0091723e">Brown</option>
+							</select>
+						</div>
+						<br />
+							<div class="col-l50">
+							<label for="zTunicHelmetColorFieldset">Zora Armor Helmet Color:</label>
+						</div>
+						<div class="col-l50">
+							<select id="zTunicHelmetColorFieldset" data-tooltip-text="Sets the color of the helmet of the Zora Armor.&#0010;">
+							<option value="0">Default</option>
+							<option value="1" data-rgb="00ab706e">Red</option>
+							<option value="2" data-rgb="006382a0">Blue</option>
+							<option value="3" data-rgb="0094749a">Purple</option>
+							<option value="4" data-rgb="00ec8644">Orange</option>
+							<option value="5" data-rgb="00b9ab00">Yellow</option>
+							<option value="6" data-rgb="00ec9fc8">Pink</option>
+							<option value="7" data-rgb="00505154">Black</option>
+							<option value="8" data-rgb="00f8f7f4">White</option>
+							<option value="9" data-rgb="0091723e">Brown</option>
+							</select>
+						</div>
+							<br />
+							<div class="col-l50">
+							<label for="zTunicBodyColorFieldset">Zora Armor Torso Color:</label>
+							</div>
+							<div class="col-l50">
+							<select id="zTunicBodyColorFieldset" data-tooltip-text="Sets the color of the leather area of the Zora Armor. (The area on the body that is normally blue)&#0010;">
+							<option value="0">Default</option>
+							<option value="1" data-rgb="00ab706e">Red</option>
+							<option value="2" data-rgb="006382a0">Blue</option>
+							<option value="3" data-rgb="0094749a">Purple</option>
+							<option value="4" data-rgb="00ec8644">Orange</option>
+							<option value="5" data-rgb="00b9ab00">Yellow</option>
+							<option value="6" data-rgb="00ec9fc8">Pink</option>
+							<option value="7" data-rgb="00505154">Black</option>
+							<option value="8" data-rgb="00f8f7f4">White</option>
+							<option value="9" data-rgb="0091723e">Brown</option>
+							</select>
+						</div>
+							<br />
+							<div class="col-l50">
+							<label for="zTunicScalesColorFieldset">Zora Armor Scales Color:</label>
+							</div>
+							<div class="col-l50">
+							<select id="zTunicScalesColorFieldset" data-tooltip-text="Sets the color of the scales on the Zora Armor.&#0010;">
+							<option value="0">Default</option>
+							<option value="1" data-rgb="00ab706e">Red</option>
+							<option value="2" data-rgb="006382a0">Blue</option>
+							<option value="3" data-rgb="0094749a">Purple</option>
+							<option value="4" data-rgb="00ec8644">Orange</option>
+							<option value="5" data-rgb="00b9ab00">Yellow</option>
+							<option value="6" data-rgb="00ec9fc8">Pink</option>
+							<option value="7" data-rgb="00505154">Black</option>
+							<option value="8" data-rgb="00f8f7f4">White</option>
+							<option value="9" data-rgb="0091723e">Brown</option>
+							</select>
+						</div>
+							<br />
+							<div class="col-l50">
+							<label for="zTunicBootsColorFieldset">Zora Armor Flippers Color:</label>
+							</div>
+							<div class="col-l50">
+							<select id="zTunicBootsColorFieldset" data-tooltip-text="Sets the color of the flippers on the Zora Armor.&#0010;">
+							<option value="0">Default</option>
+							<option value="1" data-rgb="00ab706e">Red</option>
+							<option value="2" data-rgb="006382a0">Blue</option>
+							<option value="3" data-rgb="0094749a">Purple</option>
+							<option value="4" data-rgb="00ec8644">Orange</option>
+							<option value="5" data-rgb="00b9ab00">Yellow</option>
+							<option value="6" data-rgb="00ec9fc8">Pink</option>
+							<option value="7" data-rgb="00505154">Black</option>
+							<option value="8" data-rgb="00f8f7f4">White</option>
+							<option value="9" data-rgb="0091723e">Brown</option>
+							</select>
+						</div>
+							<br />
+							<div class="col-l50">
+							<label for="lanternColorFieldset">Lantern Glow Color:</label>
+							</div>
+							<div class="col-l50">
+							<select name="Lantern Color Fieldset" id="lanternColorFieldset"
+							data-tooltip-text="Sets the color of the light around the Lantern and the color of the light produced by the Lantern.&#0010;">
               <option value="0" data-rgb="ffffffff">Default</option>
               <option value="1" data-rgb="00ff0000">Red</option>
               <option value="2" data-rgb="00f68821">Orange</option>
@@ -376,107 +483,137 @@
               <option value="6" data-rgb="008000ff">Purple</option>
               <option value="7" data-rgb="00a0a0a0">White</option>
               <option value="8" data-rgb="0030d0d0">Cyan</option>
-            </select>
-            <br />
-            <!-- <label for="midnaHairColorFieldset"
-              >Midna Hair Color: (not implemented)</label
-            >
-            <select
-              name="Midna Hair Color Fieldset"
-              id="midnaHairColorFieldset"
-            >
-              <option value="0">Default</option>
-              <option value="1">Blue</option>
-            </select>
-            <br /> -->
-            <label for="heartColorFieldset">Heart Color:</label>
-            <select name="Heart Color Fieldset" id="heartColorFieldset">
-              <option value="0" data-rgb="ffffffff">Default</option>
-              <option value="1" data-rgb="00ffa0ff">Pink</option>
-              <option value="2" data-rgb="00ffff40">Orange</option>
-              <option value="3" data-rgb="0000e87b">Green</option>
-              <option value="4" data-rgb="0000f3ff">Teal</option>
-              <option value="5" data-rgb="0000aaff">Blue</option>
-              <option value="6" data-rgb="006078ff">Purple</option>
-              <option value="7" data-rgb="00000000">Black</option>
-            </select>
-            <br />
-            <label for="aButtonColorFieldset">A Button Color:</label>
-            <select name="A Button Color Fieldset" id="aButtonColorFieldset">
-              <option value="0" data-rgb="ffffffff">Default</option>
-              <option value="1" data-rgb="00ff0000">Red</option>
-              <option value="2" data-rgb="00ff5000">Orange</option>
-              <option value="3" data-rgb="00ffaf00">Yellow</option>
-              <option value="4" data-rgb="000080ff">Dark Green</option>
-              <option value="5" data-rgb="000000ff">Blue</option>
-              <option value="6" data-rgb="008000ff">Purple</option>
-              <option value="7" data-rgb="00000000">Black</option>
-              <option value="8" data-rgb="005555ff">Grey</option>
-              <option value="9" data-rgb="00ff20ff">Pink</option>
-            </select>
-            <br />
-            <label for="bButtonColorFieldset">B Button Color:</label>
-            <select name="B Button Color Fieldset" id="bButtonColorFieldset">
-              <option value="0" data-rgb="ffffffff">Default</option>
-              <option value="1" data-rgb="00ffff40">Orange</option>
-              <option value="2" data-rgb="00ffa0ff">Pink</option>
-              <option value="3" data-rgb="0000e87b">Green</option>
-              <option value="4" data-rgb="0000aaff">Blue</option>
-              <option value="5" data-rgb="006078ff">Purple</option>
-              <option value="6" data-rgb="00000000">Black</option>
-              <option value="7" data-rgb="0000f3ff">Teal</option>
-            </select>
-            <br />
-            <label for="xButtonColorFieldset">X Button Color:</label>
-            <select name="X Button Color Fieldset" id="xButtonColorFieldset">
-              <option value="0" data-rgb="ffffffff">Default</option>
-              <option value="1" data-rgb="00ff0000">Red</option>
-              <option value="2" data-rgb="00ff8200">Orange</option>
-              <option value="3" data-rgb="00f7df00">Yellow</option>
-              <option value="4" data-rgb="0070ff00">Lime Green</option>
-              <option value="5" data-rgb="0000bd11">Dark Green</option>
-              <option value="6" data-rgb="000000ff">Blue</option>
-              <option value="7" data-rgb="00880088">Purple</option>
-              <option value="8" data-rgb="00000000">Black</option>
-              <option value="9" data-rgb="00ff00aa">Pink</option>
-              <option value="10" data-rgb="0000ffff">Cyan</option>
-            </select>
-            <br />
-            <label for="yButtonColorFieldset">Y Button Color:</label>
-            <select name="Y Button Color Fieldset" id="yButtonColorFieldset">
-              <option value="0" data-rgb="ffffffff">Default</option>
-              <option value="1" data-rgb="00ff0000">Red</option>
-              <option value="2" data-rgb="00ff8200">Orange</option>
-              <option value="3" data-rgb="00f7df00">Yellow</option>
-              <option value="4" data-rgb="0070ff00">Lime Green</option>
-              <option value="5" data-rgb="0000bd11">Dark Green</option>
-              <option value="6" data-rgb="000000ff">Blue</option>
-              <option value="7" data-rgb="00880088">Purple</option>
-              <option value="8" data-rgb="00000000">Black</option>
-              <option value="9" data-rgb="00ff00aa">Pink</option>
-              <option value="10" data-rgb="0000ffff">Cyan</option>
-            </select>
-            <br />
-            <label for="zButtonColorFieldset">Z Button Color:</label>
-            <select name="Z Button Color Fieldset" id="zButtonColorFieldset">
-              <option value="0" data-rgb="ffffffff">Default</option>
-              <option value="1" data-rgb="00ff0000">Red</option>
-              <option value="2" data-rgb="00ff8200">Orange</option>
-              <option value="3" data-rgb="00f7df00">Yellow</option>
-              <option value="4" data-rgb="0070ff00">Lime Green</option>
-              <option value="5" data-rgb="0000bd11">Dark Green</option>
-              <option value="6" data-rgb="00880088">Purple</option>
-              <option value="7" data-rgb="00000000">Black</option>
-              <option value="8" data-rgb="0000ffff">Light Blue</option>
-            </select>
-          </fieldset>
+							</select>
+						</div>
+							<br />
+							
+						</fieldset>
+					</div>
+					<div class="tabColumn" style="width: 50%; float:left; height: 100%;">
+						<fieldset id="itemPoolOptionsFieldset">
+							<legend>HUD</legend>
+							<div class="col-l40">
+								<label for="heartColorFieldset">Heart Color:</label>
+							</div>
+								<div class="col-l60">
+								<select name="Heart Color Fieldset" id="heartColorFieldset"
+								data-tooltip-text="Sets the color of the player's hearts in the HUD.&#0010;">
+                <option value="0" data-rgb="ffffffff">Default</option>
+                <option value="1" data-rgb="00ffa0ff">Pink</option>
+                <option value="2" data-rgb="00ffff40">Orange</option>
+                <option value="3" data-rgb="0000e87b">Green</option>
+                <option value="4" data-rgb="0000f3ff">Teal</option>
+                <option value="5" data-rgb="0000aaff">Blue</option>
+                <option value="6" data-rgb="006078ff">Purple</option>
+                <option value="7" data-rgb="00000000">Black</option>
+								</select>
+							</div>
+								<br />
+								<div class="col-l40">
+								<label for="aButtonColorFieldset">A Button Color:</label>
+								</div>
+								<div class="col-l60">
+								<select name="A Button Color Fieldset" id="aButtonColorFieldset"
+								data-tooltip-text="Sets the color of the A Button in the HUD.&#0010;">
+                <option value="0" data-rgb="ffffffff">Default</option>
+                <option value="1" data-rgb="00ff0000">Red</option>
+                <option value="2" data-rgb="00ff5000">Orange</option>
+                <option value="3" data-rgb="00ffaf00">Yellow</option>
+                <option value="4" data-rgb="000080ff">Dark Green</option>
+                <option value="5" data-rgb="000000ff">Blue</option>
+                <option value="6" data-rgb="008000ff">Purple</option>
+                <option value="7" data-rgb="00000000">Black</option>
+                <option value="8" data-rgb="005555ff">Grey</option>
+                <option value="9" data-rgb="00ff20ff">Pink</option>
+								</select>
+							</div>
+								<br />
+								<div class="col-l40">
+								<label for="bButtonColorFieldset">B Button Color:</label>
+								</div>
+								<div class="col-l60">
+								<select name="B Button Color Fieldset" id="bButtonColorFieldset"
+								data-tooltip-text="Sets the color of the B Button in the HUD.&#0010;">
+                <option value="0" data-rgb="ffffffff">Default</option>
+                <option value="1" data-rgb="00ffff40">Orange</option>
+                <option value="2" data-rgb="00ffa0ff">Pink</option>
+                <option value="3" data-rgb="0000e87b">Green</option>
+                <option value="4" data-rgb="0000aaff">Blue</option>
+                <option value="5" data-rgb="006078ff">Purple</option>
+                <option value="6" data-rgb="00000000">Black</option>
+                <option value="7" data-rgb="0000f3ff">Teal</option>
+								</select>
+							</div>
+								<br />
+								<div class="col-l40">
+								<label for="xButtonColorFieldset">X Button Color:</label>
+								</div>
+								<div class="col-l60">
+								<select name="X Button Color Fieldset" id="xButtonColorFieldset"
+								data-tooltip-text="Sets the color of the X Button in the HUD.&#0010;">
+                <option value="0" data-rgb="ffffffff">Default</option>
+                <option value="1" data-rgb="00ff0000">Red</option>
+                <option value="2" data-rgb="00ff8200">Orange</option>
+                <option value="3" data-rgb="00f7df00">Yellow</option>
+                <option value="4" data-rgb="0070ff00">Lime Green</option>
+                <option value="5" data-rgb="0000bd11">Dark Green</option>
+                <option value="6" data-rgb="000000ff">Blue</option>
+                <option value="7" data-rgb="00880088">Purple</option>
+                <option value="8" data-rgb="00000000">Black</option>
+                <option value="9" data-rgb="00ff00aa">Pink</option>
+                <option value="10" data-rgb="0000ffff">Cyan</option>
+								</select>
+							</div>
+								<br />
+								<div class="col-l40">
+								<label for="yButtonColorFieldset">Y Button Color:</label>
+								</div>
+								<div class="col-l60">
+								<select name="Y Button Color Fieldset" id="yButtonColorFieldset"
+								data-tooltip-text="Sets the color of the Y Button in the HUD.&#0010;">
+                <option value="0" data-rgb="ffffffff">Default</option>
+                <option value="1" data-rgb="00ff0000">Red</option>
+                <option value="2" data-rgb="00ff8200">Orange</option>
+                <option value="3" data-rgb="00f7df00">Yellow</option>
+                <option value="4" data-rgb="0070ff00">Lime Green</option>
+                <option value="5" data-rgb="0000bd11">Dark Green</option>
+                <option value="6" data-rgb="000000ff">Blue</option>
+                <option value="7" data-rgb="00880088">Purple</option>
+                <option value="8" data-rgb="00000000">Black</option>
+                <option value="9" data-rgb="00ff00aa">Pink</option>
+                <option value="10" data-rgb="0000ffff">Cyan</option>
+								</select>
+							</div>
+								<br />
+								<div class="col-l40">
+								<label for="zButtonColorFieldset">Z Button Color:</label>
+								</div>
+								<div class="col-l60">
+								<select name="Z Button Color Fieldset" id="zButtonColorFieldset"
+								data-tooltip-text="Sets the color of the Z Button in the HUD.&#0010;">
+                <option value="0" data-rgb="ffffffff">Default</option>
+                <option value="1" data-rgb="00ff0000">Red</option>
+                <option value="2" data-rgb="00ff8200">Orange</option>
+                <option value="3" data-rgb="00f7df00">Yellow</option>
+                <option value="4" data-rgb="0070ff00">Lime Green</option>
+                <option value="5" data-rgb="0000bd11">Dark Green</option>
+                <option value="6" data-rgb="00880088">Purple</option>
+                <option value="7" data-rgb="00000000">Black</option>
+                <option value="8" data-rgb="0000ffff">Light Blue</option>
+								</select>
+							</div>
+              <div class="col-l40"></div>
+              <div class="col-l40"></div>
+              <div class="col-l40"></div>
+						</fieldset>
+					</div>
         </div>
 
-        <div id="audioTab" class="tabcontent">
+        <div id="audioTab" class="tabcontent" style="width: 100%;">
           <fieldset id="musicAndSFXFieldset">
             <legend>Music and SFX</legend>
             <label for="bgmFieldset">Randomize Background Music:</label>
-            <select name="Background Music Fieldset" id="bgmFieldset">
+            <select name="Background Music Fieldset" id="bgmFieldset" data-tooltip-text="'Off': All background music is vanilla.&#0010;&#0010;'Overworld': Only the overworld background music is randomized.&#0010;&#0010;'Dungeon': Only the dungeon background music is randomized.&#0010;&#0010;'All': All background music is randomized.&#0010;">
               <option value="0" selected>Off</option>
               <option value="1">Overworld</option>
               <option value="2">Dungeon</option>
@@ -488,6 +625,7 @@
               id="randomizeFanfaresCheckbox"
               name="Randomize Fanfares Checkbox"
               value=""
+              data-tooltip-text="Randomizes the various fanfares that play when completing tasks and collecting items.&#0010;"
             />
             <label for="randomizeFanfaresCheckbox"> Randomize Fanfares </label
             ><br />
@@ -496,6 +634,7 @@
               id="disableEnemyBGMCheckbox"
               name="Disable Enemy BGM Checkbox"
               value=""
+              data-tooltip-text="Disables the music that plays when you fight enemies.&#0010;"
             />
             <label for="disableEnemyBGMCheckbox">
               Disable Enemy Background Music</label
@@ -521,6 +660,7 @@
           id="importSettingsStringButton"
           value="Import Settings"
           type="button"
+          style="margin-top:10px"
         />
 
         <div class="downloadOptionsParent">
@@ -904,5 +1044,31 @@
     </div>
 
     <script src="/getseed.js"></script>
+    <script>
+      let tooltipElements = document.querySelectorAll('[data-tooltip-text]');
+      tooltipElements.forEach((tooltipElement)=>{
+        tooltipElement.addEventListener("mouseout", (e) => {
+          removetooltips();
+        });
+        tooltipElement.addEventListener("mouseover", (e) => {
+          let element = document.createElement('div');
+          element.classList.add('tooltip');
+          let tooltipContent = e.currentTarget.getAttribute('data-tooltip-text');
+          element.innerHTML = tooltipContent;
+          
+          let coords = e.currentTarget.getBoundingClientRect();
+          element.style.left = coords.left + e.currentTarget.clientWidth + 5 + 'px';
+          element.style.top = coords.top+'px';
+          document.body.appendChild(element);
+          $(element).hide().fadeIn(300);
+        });
+      });
+  
+      function removetooltips(){
+        document.querySelectorAll('.tooltip').forEach((tooltip)=>{
+            tooltip.remove();
+          });
+      }
+    </script>
   </body>
 </html>

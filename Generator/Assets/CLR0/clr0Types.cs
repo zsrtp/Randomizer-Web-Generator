@@ -132,5 +132,6 @@ namespace TPRandomizer.Assets.CLR0
     public enum ArchiveIndex : byte
     {
         Link = 0,
+        ZoraArmor = 1,
     }
 }

@@ -442,6 +442,11 @@
       { id: 'hTunicHatColorFieldset', bitLength: 4 },
       { id: 'hTunicBodyColorFieldset', bitLength: 4 },
       { id: 'hTunicSkirtColorFieldset', bitLength: 4 },
+      { id: 'zTunicHatColorFieldset', bitLength: 4 },
+      { id: 'zTunicHelmetColorFieldset', bitLength: 4 },
+      { id: 'zTunicBodyColorFieldset', bitLength: 4 },
+      { id: 'zTunicScalesColorFieldset', bitLength: 4 },
+      { id: 'zTunicBootsColorFieldset', bitLength: 4 },
       { id: 'lanternColorFieldset', bitLength: 4 },
       // { id: 'midnaHairColorFieldset', bitLength: 1 },
       { id: 'heartColorFieldset', bitLength: 4 },
@@ -764,6 +769,11 @@
       { id: 'hTunicHatColor', type: 'number', bitLength: 4 },
       { id: 'hTunicBodyColor', type: 'number', bitLength: 4 },
       { id: 'hTunicSkirtColor', type: 'number', bitLength: 4 },
+      { id: 'zTunicHatColor', type: 'number', bitLength: 4 },
+      { id: 'zTunicHelmetColor', type: 'number', bitLength: 4 },
+      { id: 'zTunicBodyColor', type: 'number', bitLength: 4 },
+      { id: 'zTunicScalesColor', type: 'number', bitLength: 4 },
+      { id: 'zTunicBootsColor', type: 'number', bitLength: 4 },
       { id: 'lanternColor', type: 'number', bitLength: 4 },
       // { id: 'midnaHairColor', type: 'number', bitLength: 1 },
       { id: 'heartColor', type: 'number', bitLength: 4 },
@@ -821,6 +831,11 @@
     $('#hTunicHatColorFieldset').val(p.hTunicHatColor);
     $('#hTunicBodyColorFieldset').val(p.hTunicBodyColor);
     $('#hTunicSkirtColorFieldset').val(p.hTunicSkirtColor);
+    $('#zTunicHatColorFieldset').val(p.zTunicHatColor);
+    $('#zTunicHelmetColorFieldset').val(p.zTunicHelmetColor);
+    $('#zTunicBodyColorFieldset').val(p.zTunicBodyColor);
+    $('#zTunicScalesColorFieldset').val(p.zTunicScalesColor);
+    $('#zTunicBootsColorFieldset').val(p.zTunicBootsColor);
     $('#lanternColorFieldset').val(p.lanternColor);
     // $('#midnaHairColorFieldset').val(p.midnaHairColor);
     $('#heartColorFieldset').val(p.heartColor);

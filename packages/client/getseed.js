@@ -60,7 +60,7 @@
 
   const RecolorId = {
     herosClothes: 0x00, // Cap and Body
-    zoraArmorPrimary: 0x01,
+    zoraArmor: 0x01,
     zoraArmorSecondary: 0x02,
     zoraArmorHelmet: 0x03,
   };
@@ -90,6 +90,22 @@
     );
     recolorDefs.push(
       genTunicRecolorDef('hTunicSkirtColorFieldset', RecolorId.herosClothes)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('zTunicHatColorFieldset', RecolorId.zoraArmor)
+    );
+
+    recolorDefs.push(
+      genTunicRecolorDef('zTunicHelmetColorFieldset', RecolorId.zoraArmor)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('zTunicBodyColorFieldset', RecolorId.zoraArmor)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('zTunicScalesColorFieldset', RecolorId.zoraArmor)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('zTunicBootsColorFieldset', RecolorId.zoraArmor)
     );
 
     // Process all recolorDefs
@@ -864,7 +880,7 @@
 
         // Show the current tab, and add an "active" class to the button that opened the tab
         // byId(id).style.display = 'block';
-        contentEl.style.display = 'block';
+        contentEl.style.display = 'inline-block';
         e.currentTarget.className += ' active';
       };
     }
@@ -1021,6 +1037,11 @@
         { id: 'hTunicHatColorFieldset', rgb: true },
         { id: 'hTunicBodyColorFieldset', rgb: true },
         { id: 'hTunicSkirtColorFieldset', rgb: true },
+        { id: 'zTunicHatColorFieldset', rgb: true },
+        { id: 'zTunicHelmetColorFieldset', rgb: true },
+        { id: 'zTunicBodyColorFieldset', rgb: true },
+        { id: 'zTunicScalesColorFieldset', rgb: true },
+        { id: 'zTunicBootsColorFieldset', rgb: true },
         { id: 'lanternColorFieldset', rgb: true },
         // { id: 'midnaHairColorFieldset', bitLength: 1 },
         { id: 'heartColorFieldset', rgb: true },

@@ -15,6 +15,12 @@ namespace TPRandomizer
         public Clr0Entry hTunicHatColor { get; }
         public Clr0Entry hTunicBodyColor { get; }
         public Clr0Entry hTunicSkirtColor { get; }
+        public Clr0Entry zTunicHatColor { get; }
+
+        public Clr0Entry zTunicHelmetColor { get; }
+        public Clr0Entry zTunicBodyColor { get; }
+        public Clr0Entry zTunicScalesColor { get; }
+        public Clr0Entry zTunicBootsColor { get; }
 
         public Clr0Entry lanternGlowColor { get; }
 
@@ -42,6 +48,11 @@ namespace TPRandomizer
             hTunicHatColor = processor.NextClr0Entry(RecolorId.CMPR);
             hTunicBodyColor = processor.NextClr0Entry(RecolorId.CMPR);
             hTunicSkirtColor = processor.NextClr0Entry(RecolorId.CMPR);
+            zTunicHatColor = processor.NextClr0Entry(RecolorId.CMPR);
+            zTunicHelmetColor = processor.NextClr0Entry(RecolorId.CMPR);
+            zTunicBodyColor = processor.NextClr0Entry(RecolorId.CMPR);
+            zTunicScalesColor = processor.NextClr0Entry(RecolorId.CMPR);
+            zTunicBootsColor = processor.NextClr0Entry(RecolorId.CMPR);
             lanternGlowColor = processor.NextClr0Entry(RecolorId.None);
             // midnaHairColor = processor.NextInt(1);
             heartColor = processor.NextClr0Entry(RecolorId.None);
