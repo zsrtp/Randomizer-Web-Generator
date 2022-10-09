@@ -351,6 +351,39 @@
     return label;
   }
 
+  document
+  .getElementById('randomizeCosmeticsButton')
+  .addEventListener('click', randomizeCosmetics);
+
+
+function randomizeCosmetics() {
+    var arrayOfCosmeticSettings = 
+    [
+      'hTunicHatColorFieldset',
+      'hTunicBodyColorFieldset',
+      'hTunicSkirtColorFieldset',
+      'zTunicHatColorFieldset',
+      'zTunicHelmetColorFieldset',
+      'zTunicBodyColorFieldset',
+      'zTunicScalesColorFieldset',
+      'zTunicBootsColorFieldset',
+      'lanternColorFieldset',
+      'heartColorFieldset',
+      'aButtonColorFieldset',
+      'bButtonColorFieldset',
+      'xButtonColorFieldset',
+      'yButtonColorFieldset',
+      'zButtonColorFieldset'
+    ];
+
+    for (let i = 0; i < arrayOfCosmeticSettings.length; i++)
+    {
+      var select = document.getElementById(arrayOfCosmeticSettings[i]);
+      var items = select.getElementsByTagName('option');
+      select.selectedIndex = Math.floor(Math.random() * items.length);
+    }
+}  
+
   function initPlaythroughSpoilers(spoilerData) {
     // const ids = ['tabAgitha', 'tabArbiters'].map((contentId) => {
     //   return {

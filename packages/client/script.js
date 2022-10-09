@@ -339,8 +339,14 @@ document
 document.getElementById('hTunicHatColorFieldset').onchange = setSettingsString;
 document.getElementById('hTunicBodyColorFieldset').onchange = setSettingsString;
 document.getElementById('hTunicSkirtColorFieldset').onchange = setSettingsString;
+
+document.getElementById('zTunicHatColorFieldset').onchange = setSettingsString;
+document.getElementById('zTunicHelmetColorFieldset').onchange = setSettingsString;
+document.getElementById('zTunicBodyColorFieldset').onchange = setSettingsString;
+document.getElementById('zTunicScalesColorFieldset').onchange = setSettingsString;
+document.getElementById('zTunicBootsColorFieldset').onchange = setSettingsString;
+
 document.getElementById('lanternColorFieldset').onchange = setSettingsString;
-// document.getElementById('midnaHairColorFieldset').onchange = setSettingsString;
 document.getElementById('heartColorFieldset').onchange = setSettingsString;
 document.getElementById('aButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('bButtonColorFieldset').onchange = setSettingsString;
@@ -380,6 +386,40 @@ document
 document
   .getElementById('importSettingsStringButton')
   .addEventListener('click', importSettingsString);
+
+document
+  .getElementById('randomizeCosmeticsButton')
+  .addEventListener('click', randomizeCosmetics);
+
+
+function randomizeCosmetics() {
+    var arrayOfCosmeticSettings = 
+    [
+      'hTunicHatColorFieldset',
+      'hTunicBodyColorFieldset',
+      'hTunicSkirtColorFieldset',
+      'zTunicHatColorFieldset',
+      'zTunicHelmetColorFieldset',
+      'zTunicBodyColorFieldset',
+      'zTunicScalesColorFieldset',
+      'zTunicBootsColorFieldset',
+      'lanternColorFieldset',
+      'heartColorFieldset',
+      'aButtonColorFieldset',
+      'bButtonColorFieldset',
+      'xButtonColorFieldset',
+      'yButtonColorFieldset',
+      'zButtonColorFieldset'
+    ];
+
+    for (let i = 0; i < arrayOfCosmeticSettings.length; i++)
+    {
+      var select = document.getElementById(arrayOfCosmeticSettings[i]);
+      var items = select.getElementsByTagName('option');
+      select.selectedIndex = Math.floor(Math.random() * items.length);
+    }
+    setSettingsString();
+}  
 
 function importSettingsString() {
   parseSettingsString(document.getElementById('settingsStringTextbox').value);
