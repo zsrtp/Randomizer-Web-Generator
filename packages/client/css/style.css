@@ -48,7 +48,7 @@ h1 {
   margin-left: auto;
   margin-right: auto;
   max-width: 100%;
-  max-height: 200px;
+  max-height: 300px;
 }
 
 table {
@@ -151,6 +151,8 @@ img.flag {
 
 .rBor {
   border-right: 1px #ffffff75 dashed;
+  text-align: center;
+  padding: 10px;
 }
 
 .tree {
