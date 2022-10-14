@@ -13,11 +13,36 @@
       href="/css/modern-normalize.min.css"
     />
 		<link rel="stylesheet" target="_blank" href="/css/style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="/js/lib/lodash.toarray.js"></script>
 		<script src="/js/lib/jquery-3.6.0.js"></script>
 		<script src="/js/shared.js"></script>
 	</head>
 	<body>
+		<header>
+			<a href="#" class="logo"></a>
+
+			<nav class="navbar">
+				<ul>
+					<li><a href="https://tprandomizer.com">Home</a></li>
+					<li><a href="https://generator.tprandomizer.com">Generator <i class="fa fa-caret-down"></i></a>
+						<ul>
+							<li><a href="https://generator.tprandomizer.com">Stable</a></li>
+						</ul>
+					</li>
+					<li><a href="https://wiki.tprandomizer.com">Wiki</a></li>
+					<li><a href="https://tprandomizer.com/downloads">Downloads</a></li>
+					<li><a href="https://discord.tprandomizer.com">Discord</a></li>
+					<li><a href="#">Resources <i class="fa fa-caret-down"></i></a>
+						<ul>
+							<li><a href="https://github.com/zsrtp">ZSRTP Github</a></li>
+							<li><a href="https://github.com/zeldaret/tp">Decomp Github</a></li>
+							<li><a href="https://www.zeldaspeedruns.com/tp">ZSR TP Pages</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</header>
 		<!-- IMAGE_VERSION -->
 		<!-- GIT_COMMIT -->
 		<!-- USER_ID -->
@@ -248,7 +273,7 @@
 								</select>
 							</div> -->
 							<div class="selectGroup" style="margin-top:8px;">
-								<label for="foolishItemFieldset">Ice Trap Frequency</label><br>
+								<label for="foolishItemFieldset">Foolish Item Frequency</label><br>
 								<select name="Foolish Items" id="foolishItemFieldset" 
 								data-tooltip-text="'None': No foolish items are placed in the seed.&#0010;&#0010;'Few': A small chance for a foolish item to be placed when placing a junk item. (~12.5%)&#0010;&#0010;'Many': An increased chance for a foolish item to be placed when placing a junk item. (~39.1%).&#0010;&#0010;'Mayhem': A high chance of a foolish item to be placed when placing a junk item. (~62.7%)&#0010;&#0010;'Nightmare': All junk items are replaced with foolish items. (100%)&#0010;">
 									<option value="0">None</option>
@@ -775,7 +800,7 @@
 					</tr>
 				</table>
 				<br/>
-				<div class="devFooterText" style="text-align: center;">
+				<div class="footerText" style="text-align: center;">
 					Logo and background image are property of Nintendo. Copyright © Nintendo, 1998-2022.<br>
 					Based off the original website design by  
 					<a
