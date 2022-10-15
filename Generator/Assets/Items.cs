@@ -30,9 +30,9 @@ namespace TPRandomizer
         Arrows_1 = 0x11,
         Seeds_50 = 0x12,
 
-        /*?	=	0x13,*/
-        /*?	=	0x14,*/
-        /*?	=	0x15,*/
+        Foolish_Item = 0x13, // Custom Item added for the Randomizer.
+        Foolish_Item_2 = 0x14, // Custom Item added for the Randomizer.
+        Foolish_Item_3 = 0x15, // Custom Item added for the Randomizer.
         Water_Bombs_5 = 0x16,
         Water_Bombs_10 = 0x17,
         Water_Bombs_15 = 0x18,
@@ -161,7 +161,8 @@ namespace TPRandomizer
         Palace_of_Twilight_Small_Key = 0x8C, /*custom*/
         Hyrule_Castle_Small_Key = 0x8D, /*custom*/
         Gerudo_Desert_Bulblin_Camp_Key = 0x8E, /*custom*/
-        Foolish_Item = 0x8F, /*custom*/
+
+        /*unused 0x8F */
         Aurus_Memo = 0x90,
         Asheis_Sketch = 0x91,
         Forest_Temple_Big_Key = 0x92, /*custom*/
@@ -295,31 +296,32 @@ namespace TPRandomizer
         public List<Item> JunkItems = new(); // Extra junk items that are put in the pool if there are checks left and all items have been placed..
         public List<Item> BaseItemPool = new(); // The list of Items that have yet to be randomized..
         public List<Item> heldItems = new(); // The list of items that the player currently has. This is to be used when emulating the playthrough..
-		public List<Item> ItemWheelItems = new()
-		{
-			Item.Progressive_Clawshot,
-			Item.Progressive_Dominion_Rod,
-			Item.Ball_and_Chain,
-			Item.Spinner,
-			Item.Progressive_Bow,
-			Item.Iron_Boots,
-			Item.Boomerang,
-			Item.Lantern,
-			Item.Slingshot,
-			Item.Progressive_Fishing_Rod,
-			Item.Hawkeye,
-			Item.Filled_Bomb_Bag,
-			Item.Filled_Bomb_Bag,
-			Item.Filled_Bomb_Bag,
-			Item.Empty_Bottle,
-			Item.Jovani_Bottle,
-			Item.Sera_Bottle,
-			Item.Coro_Bottle,
-			Item.Aurus_Memo,
-			Item.Renados_Letter, // Covers letter, invoice, statue, charm. It doesn't matter which item you
-								// have in the chain, as long as you have the slot available.
-			Item.Horse_Call,
-		};
+        public List<Item> ItemWheelItems =
+            new()
+            {
+                Item.Progressive_Clawshot,
+                Item.Progressive_Dominion_Rod,
+                Item.Ball_and_Chain,
+                Item.Spinner,
+                Item.Progressive_Bow,
+                Item.Iron_Boots,
+                Item.Boomerang,
+                Item.Lantern,
+                Item.Slingshot,
+                Item.Progressive_Fishing_Rod,
+                Item.Hawkeye,
+                Item.Filled_Bomb_Bag,
+                Item.Filled_Bomb_Bag,
+                Item.Filled_Bomb_Bag,
+                Item.Empty_Bottle,
+                Item.Jovani_Bottle,
+                Item.Sera_Bottle,
+                Item.Coro_Bottle,
+                Item.Aurus_Memo,
+                Item.Renados_Letter, // Covers letter, invoice, statue, charm. It doesn't matter which item you
+                // have in the chain, as long as you have the slot available.
+                Item.Horse_Call,
+            };
 
         public List<Item> ShuffledDungeonRewards = new();
         internal List<Item> VanillaDungeonRewards =
