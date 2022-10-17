@@ -3,7 +3,7 @@
     "hash": ["A573"],
     "stageIDX": [46],
     "dzxTag": ["ACTR"],
-    "category": ["Overworld", "Chest", "Eldin Province", "DZX"],
+    "category": ["Overworld", "Chest", "Kakariko Village", "DZX"],
     "itemId": "Piece_of_Heart",
     "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "8C", "21", "C5", "13", "80", "00", "44", "C6", "4E", "92", "46", "0D", "68", "00", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
 }

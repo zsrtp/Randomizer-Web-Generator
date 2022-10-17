@@ -4,7 +4,7 @@
     "stageIDX": [56],
     "dzxTag": ["ACTR"],
     "magicByte": ["FE"],
-    "category": ["Overworld", "Golden Bug", "Hyrule Field","DZX"],
+    "category": ["Overworld", "Golden Bug", "Hyrule Field - Eldin Province","DZX"],
     "itemId": "Male_Pill_Bug",
     "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "95", "CA", "C6", "1C", "40", "00", "C5", "E1", "00", "00", "47", "60", "6A", "00", "00", "00", "80", "00", "00", "00", "FF", "FF"]]
 }

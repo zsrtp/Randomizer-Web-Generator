@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal and canSmash and Lantern",
     "stageIDX": [33],
     "flag": "5D",
-    "category": ["Overworld", "Poe", "Lanayru Province"],
+    "category": ["Overworld", "Poe", "Lake Lantern Cave"],
     "itemId": "Poe_Soul"
 }

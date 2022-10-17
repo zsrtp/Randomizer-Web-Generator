@@ -9,6 +9,6 @@
     "overrideInstruction": ["38600000"], 
     "relReplacementType": [0],
     "relOffsets": ["7D40"],
-    "category": ["Overworld", "Lanayru Province", "ARC", "REL"],
+    "category": ["Overworld", "Fishing Hole", "ARC", "REL"],
     "itemId": "Piece_of_Heart"
 }

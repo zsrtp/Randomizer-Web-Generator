@@ -1,5 +1,5 @@
 {
     "requirements": "Ilias_Charm",
-    "category": ["Overworld", "Npc", "Eldin Province"],
+    "category": ["Overworld", "Npc", "Kakariko Village"],
     "itemId": "Horse_Call"
 }

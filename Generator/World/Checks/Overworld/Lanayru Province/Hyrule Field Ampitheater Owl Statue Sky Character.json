@@ -2,6 +2,6 @@
     "requirements": "(Progressive_Dominion_Rod, 2)",
     "stageIDX": [57],
     "roomIDX": 8,
-    "category": ["Overworld", "Hyrule Field", "Sky Book"],
+    "category": ["Overworld", "Hyrule Field - Lanayru Province", "Sky Book"],
     "itemId": "Progressive_Sky_Book"
 }

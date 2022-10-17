@@ -5,6 +5,6 @@
     "roomIDX": 10,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Overworld", "Chest", "Hyrule Field", "ARC"],
+    "category": ["Overworld", "Chest", "Eldin Stockcave", "ARC"],
     "itemId": "Red_Rupee"
 }

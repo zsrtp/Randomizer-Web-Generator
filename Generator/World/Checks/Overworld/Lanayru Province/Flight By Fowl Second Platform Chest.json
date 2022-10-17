@@ -3,7 +3,7 @@
     "hash": ["4003"],
     "stageIDX": [52],
     "dzxTag": ["TRES"],
-    "category": ["Overworld", "Chest", "Lanayru Province", "DZX"],
+    "category": ["Overworld", "Chest", "Lake Hylia", "DZX"],
     "itemId": "Piece_of_Heart",
     "actrData": [["74", "62", "6F", "78", "42", "30", "00", "00", "FF", "1F", "F0", "00", "C7", "C8", "81", "10", "C6", "86", "D8", "97", "47", "28", "A1", "8F", "00", "00", "20", "00", "21", "FF", "FF", "FF"]]
 }
