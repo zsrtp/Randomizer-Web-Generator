@@ -1711,7 +1711,7 @@ namespace TPRandomizer
         {
             return CanDoMoonBoots()
                 && getItemCount(Item.Progressive_Hidden_Skill) >= 1
-                && CanUse(Item.Iron_Boots);
+                && getItemCount(Item.Progressive_Sword) >= 2;
         }
 
         /// <summary>
@@ -1741,8 +1741,7 @@ namespace TPRandomizer
         public static bool CanDoHiddenVillageGlitched()
         {
             return getItemCount(Item.Progressive_Bow) >= 1
-                || CanUse(Item.Ball_and_Chain)
-                || (
+                || CanUse(Item.Ball_and_Chain) || (
                     CanUse(Item.Slingshot)
                     && (
                         CanUse(Item.Shadow_Crystal)
@@ -1788,7 +1787,7 @@ namespace TPRandomizer
 		  {
 				return Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy ||
 					getItemCount(Item.Progressive_Hidden_Skill) >= 3 ||
-					CanDoBSMoonBoots() || CanDoJSMoonBoots() ||
+					CanDoBSMoonBoots() || CanDoJSMoonBoots() || CanDoLJA() ||
 					(hasBombs() && (HasHeavyMod() || getItemCount(Item.Progressive_Hidden_Skill) >= 6));
 		  }
 

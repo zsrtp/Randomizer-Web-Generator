@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatSkulltula and Lantern and canBreakWoodenDoor",
+    "requirements": "Lantern and canBreakWoodenDoor",
     "hash": ["A444"],
     "stageIDX": [38],
     "dzxTag": ["TRES"],

@@ -1,5 +1,5 @@
 {
-    "requirements": "canSmash or Shadow_Crystal or Spinner",
+    "requirements": "canSmash or Shadow_Crystal",
     "arcOffsets": ["2F6C"],
     "stageIDX": [46],
     "roomIDX": 0,
