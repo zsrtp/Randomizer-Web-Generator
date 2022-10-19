@@ -103,7 +103,23 @@ namespace TPRandomizer.Assets
                         }
                         if (foundSame == false)
                         {
-                            break;
+                            bool incompatible = false;
+                            for (int i = 0; i < IncompatibleReplacements.GetLength(0); i++)
+                            {
+                                int original = IncompatibleReplacements[i, 0];
+                                int replacementBgm = IncompatibleReplacements[i, 1];
+                                if (original == replacement.originalBgmTrack)
+                                {
+                                    if (replacementBgm == replacement.replacementBgmTrack)
+                                    {
+                                        incompatible = true;
+                                    }
+                                }
+                            }
+                            if (!incompatible)
+                            {
+                                break;
+                            }
                         }
                     }
                     bgmReplacementArray.Add(replacement);
@@ -199,5 +215,11 @@ namespace TPRandomizer.Assets
 
             return data;
         }
+
+        private static readonly int[,] IncompatibleReplacements = new int[,]
+        {
+            { 62, 148 }, // Armogohma Phase 1 overwriting Palace Theme
+            { 62, 98 }, // Zant Boss Theme overwriting Palace Theme
+        };
     }
 }

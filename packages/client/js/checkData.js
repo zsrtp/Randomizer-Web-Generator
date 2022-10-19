@@ -586,7 +586,7 @@ window.tpr.checkData = {
     category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Purple_Rupee',
   },
-  'Flight By Fowl Top Platform Chest': {
+  'Flight By Fowl Top Platform Reward': {
     category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Orange_Rupee',
   },

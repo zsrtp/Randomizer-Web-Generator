@@ -1696,6 +1696,7 @@ header .navbar ul li ul
 	width: 200px;
 	background: #000000d1;
 	display: none;
+  padding:0;
 }
 
 header .navbar ul li ul li 
