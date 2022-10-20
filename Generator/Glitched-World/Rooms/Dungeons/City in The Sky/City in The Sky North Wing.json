@@ -6,7 +6,7 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bigKeySettings equals Keysey))"
+    "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bigKeySettings equals Keysy))"
   ],
     "Checks": 
     [

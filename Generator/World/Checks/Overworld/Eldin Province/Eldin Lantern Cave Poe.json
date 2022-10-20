@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal and canBurnWebs",
     "stageIDX": [32],
     "flag": "60",
-    "category": ["Overworld", "Poe", "Hyrule Field"],
+    "category": ["Overworld", "Poe", "Eldin Lantern Cave"],
     "itemId": "Poe_Soul"
 }

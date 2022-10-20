@@ -16,7 +16,7 @@ The Generator also handles creating GCI file data.
 It is written in C#.
 
 The Client is the client-side of the website.
-It is written in JS, CSS, and HTML (though it is expected to swap to React in an update fairly soon).
+It is written in JS, CSS, and HTML.
 
 The Server is the backend of the website.
 It is written in TypeScript.

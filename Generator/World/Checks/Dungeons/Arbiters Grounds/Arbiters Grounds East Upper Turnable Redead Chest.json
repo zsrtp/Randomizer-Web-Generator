@@ -1,5 +1,5 @@
 {
-  "requirements": "HasDamagingItem and ((Arbiters_Grounds_Small_Key, 2) or (Setting.smallKeySettings equals Keysey))",
+  "requirements": "HasDamagingItem and ((Arbiters_Grounds_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))",
   "arcOffsets": ["D34"],
   "stageIDX": [24],
   "roomIDX": 4,

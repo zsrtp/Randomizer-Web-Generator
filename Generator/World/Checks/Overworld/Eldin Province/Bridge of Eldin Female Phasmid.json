@@ -4,7 +4,7 @@
     "stageIDX": [56],
     "dzxTag": ["ACTR"],
     "magicByte": ["FE"],
-    "category": ["Overworld", "Golden Bug", "Hyrule Field","DZX"],
+    "category": ["Overworld", "Golden Bug", "Hyrule Field - Eldin Province","DZX"],
     "itemId": "Female_Phasmid",
     "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "96", "C9", "47", "1B", "EF", "DC", "44", "B0", "ED", "60", "C7", "1D", "AF", "63", "C0", "00", "58", "E3", "00", "00", "FF", "FF"]]
 }

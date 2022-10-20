@@ -7,8 +7,8 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysey))",
-    "((Goron_Mines_Key_Shard, 3) or (Setting.bigKeySettings equals Keysey)) and (Progressive_Bow, 1) and ((Iron_Boots and CanDefeatBulblin) or (Progressive_Clawshot) or CanDoLJA)"
+    "((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))",
+    "((Goron_Mines_Key_Shard, 3) or (Setting.bigKeySettings equals Keysy)) and (Progressive_Bow, 1) and ((Iron_Boots and CanDefeatBulblin) or (Progressive_Clawshot) or CanDoLJA)"
   ],
     "Checks":
     [

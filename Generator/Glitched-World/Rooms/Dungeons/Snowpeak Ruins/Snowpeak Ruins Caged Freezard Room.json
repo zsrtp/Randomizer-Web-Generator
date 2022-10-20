@@ -9,9 +9,9 @@
     "NeighbourRequirements":
     [
         "true",
-        "Ball_and_Chain and ((Snowpeak_Ruins_Small_Key, 3) or (Setting.smallKeySettings equals Keysey))",
+        "Ball_and_Chain and ((Snowpeak_Ruins_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))",
         "Ball_and_Chain",
-        "((Snowpeak_Ruins_Small_Key, 2) or (Setting.smallKeySettings equals Keysey))"
+        "((Snowpeak_Ruins_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
     ],
     "Checks": 
     [

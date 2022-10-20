@@ -48,7 +48,7 @@ h1 {
   margin-left: auto;
   margin-right: auto;
   max-width: 100%;
-  max-height: 200px;
+  max-height: 300px;
 }
 
 table {
@@ -74,9 +74,8 @@ ul {
 }
 
 .footerText {
-  line-height: 2;
-  font-size: 1.25em;
-  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
 }
 
 .devFooterText {
@@ -151,6 +150,8 @@ img.flag {
 
 .rBor {
   border-right: 1px #ffffff75 dashed;
+  text-align: center;
+  padding: 10px;
 }
 
 .tree {
@@ -1594,4 +1595,118 @@ table.settingsTable > tbody > tr:nth-child(even) {
   border-color: #cc9900;
   white-space: pre-wrap;
   max-width: 400px;
+}
+
+.col-l40 {
+  float: left;
+  width: 40%;
+  margin-top: 6px;
+}
+
+.col-l50 {
+  float: left;
+  width: 50%;
+  margin-top: 6px;
+}
+
+.col-l60 {
+  float: left;
+  width: 60%;
+  margin-top: 6px;
+}
+
+.col-l60 > select
+{
+  width: 60%;
+}
+
+.col-l50 > select
+{
+  width: 60%;
+}
+
+.col-l30 {
+  float: left;
+  width: 30%;
+  margin-top: 6px;
+}
+
+.col-r70 {
+  float: left;
+  width: 70%;
+  margin-top: 6px;
+}
+
+.col-r50 {
+  float: left;
+  width: 50%;
+  margin-top: 6px;
+}
+
+header
+{
+	position: fixed;
+	top:0; left:0; right:0;
+	background-color: rgb(0, 0, 0, 0.9);
+	box-shadow: 0 5px 10px rgba(0,0,0,.1);
+	padding: 0px 7%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	z-index: 1000;
+	font-family: Segoe UI, Arial;
+}
+
+header .logo 
+{
+	font-weight: bolder;
+	font-size: 25px;
+	color:white;
+}
+
+header .navbar ul
+{
+	list-style: none;
+}
+
+header .navbar ul li
+{
+	position: relative;
+	float:left;
+}
+
+header .navbar ul li a 
+{
+	font-size: 20px;
+	padding:20px;
+	color:white;
+	display: block;
+}
+
+header .navbar ul li a:hover
+{
+	background:white;
+	color:#000000d1;
+}
+
+header .navbar ul li ul
+{
+	position: absolute;
+	left:0;
+	width: 200px;
+	background: #000000d1;
+	display: none;
+  padding:0;
+}
+
+header .navbar ul li ul li 
+{
+	width:100%;
+	border-top: 1px solid rgba(0,0,0,.1);
+}
+
+header .navbar ul li:focus-within > ul,
+header .navbar ul li:hover > ul
+{
+	display:initial;
 }

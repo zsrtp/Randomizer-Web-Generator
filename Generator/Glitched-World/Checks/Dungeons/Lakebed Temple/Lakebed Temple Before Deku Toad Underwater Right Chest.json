@@ -1,5 +1,5 @@
 {
-  "requirements": "Zora_Armor and Iron_Boots and ((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysey)) and (canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash))",
+  "requirements": "((CanDoLJA and (CanSkipKeyToDekuToad or (Lakebed_Temple_Small_Key, 1)))) or ((CanSkipKeyToDekuToad or (Lakebed_Temple_Small_Key, 3)) and (Progressive_Clawshot, 1) and canLaunchBombs)) and HasHeavyMod and (CanUseWaterBombs or Zora_Armor)",
   "arcOffsets": ["C84"],
     "stageIDX": [0],
     "roomIDX": 9,

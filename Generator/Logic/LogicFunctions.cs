@@ -1327,7 +1327,7 @@ namespace TPRandomizer
                 && (
                     CanUse(Item.Lantern)
                     || (
-                        (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
+                        (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy)
                         && (hasBombs() || CanUse(Item.Iron_Boots))
                     )
                 )
@@ -1336,7 +1336,7 @@ namespace TPRandomizer
                 && CanDefeatBokoblin()
                 && (
                     (getItemCount(Item.Forest_Temple_Small_Key) >= 4)
-                    || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
+                    || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy)
                 )
             );
         }
@@ -1428,7 +1428,7 @@ namespace TPRandomizer
                     && (getItemCount(Item.Progressive_Fishing_Rod) >= 1)
                     && (
                         CanUse(Item.North_Faron_Woods_Gate_Key)
-                        || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysey)
+                        || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy)
                     )
                 ) || (Randomizer.SSettings.skipPrologue == true)
             );
@@ -1711,7 +1711,7 @@ namespace TPRandomizer
         {
             return CanDoMoonBoots()
                 && getItemCount(Item.Progressive_Hidden_Skill) >= 1
-                && CanUse(Item.Iron_Boots);
+                && getItemCount(Item.Progressive_Sword) >= 2;
         }
 
         /// <summary>
@@ -1741,8 +1741,7 @@ namespace TPRandomizer
         public static bool CanDoHiddenVillageGlitched()
         {
             return getItemCount(Item.Progressive_Bow) >= 1
-                || CanUse(Item.Ball_and_Chain)
-                || (
+                || CanUse(Item.Ball_and_Chain) || (
                     CanUse(Item.Slingshot)
                     && (
                         CanUse(Item.Shadow_Crystal)
@@ -1780,6 +1779,17 @@ namespace TPRandomizer
         {
             return Randomizer.SSettings.eldinTwilightCleared || CanLeaveForestGlitched();
         }
+
+		  /// <summary>
+		  /// Check for if you need the key for getting to Lakebed Deku Toad
+		  ///
+		  public static bool CanSkipKeyToDekuToad()
+		  {
+				return Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy ||
+					getItemCount(Item.Progressive_Hidden_Skill) >= 3 ||
+					CanDoBSMoonBoots() || CanDoJSMoonBoots() || CanDoLJA() ||
+					(hasBombs() && (HasHeavyMod() || getItemCount(Item.Progressive_Hidden_Skill) >= 6));
+		  }
 
         // END OF GLITCHED LOGIC
 

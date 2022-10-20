@@ -8,6 +8,6 @@
     "relOffsets": ["B2AC"],
     "overrideInstruction": ["38600000"],
     "relReplacementType": [0],
-    "category": ["Overworld", "Lanayru Province", "ARC", "REL"],
+    "category": ["Overworld", "Fishing Hole", "ARC", "REL"],
     "itemId": "Empty_Bottle"
 }

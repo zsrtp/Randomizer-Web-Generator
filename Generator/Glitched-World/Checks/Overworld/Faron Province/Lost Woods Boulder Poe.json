@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal and (CanDefeatSkullKid or (Setting.skipToTEntrance equals True)) and canSmash",
     "stageIDX": [54],
     "flag": "10",
-    "category": ["Overworld", "Poe", "Faron Woods"],
+    "category": ["Overworld", "Poe", "Sacred Grove"],
     "itemId": "Poe_Soul"
 }

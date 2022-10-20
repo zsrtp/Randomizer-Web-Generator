@@ -1,0 +1,10 @@
+{
+    "requirements": "Lantern",
+    "arcOffsets": ["1CC"],
+    "stageIDX": [65],
+    "roomIDX": 7,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "category": ["Overworld", "Chest", "Ordona Province", "ARC"],
+    "itemId": "Purple_Rupee_Links_House"
+}

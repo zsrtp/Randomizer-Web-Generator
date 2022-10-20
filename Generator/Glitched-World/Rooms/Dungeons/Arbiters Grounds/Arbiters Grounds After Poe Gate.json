@@ -6,7 +6,7 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysey))"
+    "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysy))"
   ],
     "Checks": 
     [

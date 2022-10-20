@@ -1,5 +1,5 @@
 {
-  "requirements": "(Progressive_Clawshot, 1) and ((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysey)) and canLaunchBombs",
+  "requirements": "CanDoLJA or ((Progressive_Clawshot, 1) and hasBombs) or (Room.Lakebed_Temple_East_Wing_Second_Floor and ((Progressive_Clawshot, 1) or canLaunchBombs) and ((Shadow_Crystal or (hasBombs and HasSword)))) or (Room.Lakebed_Temple_West_Wing and canLaunchBombs)",
   "arcOffsets": ["3364"],
     "stageIDX": [0],
     "roomIDX": 8,

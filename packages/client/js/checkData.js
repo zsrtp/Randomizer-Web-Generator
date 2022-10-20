@@ -217,27 +217,27 @@ window.tpr.checkData = {
     itemId: 'Asheis_Sketch',
   },
   'Auru Gift To Fyer': {
-    category: ['Overworld', 'Npc', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Lake Hylia', 'ARC'],
     itemId: 'Aurus_Memo',
   },
   'Barnes Bomb Bag': {
-    category: ['Overworld', 'Npc', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Kakariko Village', 'ARC'],
     itemId: 'Filled_Bomb_Bag',
   },
   'Bridge of Eldin Female Phasmid': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Eldin Province', 'DZX'],
     itemId: 'Female_Phasmid',
   },
   'Bridge of Eldin Male Phasmid': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Eldin Province', 'DZX'],
     itemId: 'Male_Phasmid',
   },
   'Bridge of Eldin Owl Statue Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Bridge of Eldin Owl Statue Sky Character': {
-    category: ['Overworld', 'Hyrule Field', 'Sky Book'],
+    category: ['Overworld', 'Hyrule Field - Eldin Province', 'Sky Book'],
     itemId: 'Progressive_Sky_Book',
   },
   'Bulblin Camp First Chest Under Tower At Entrance': {
@@ -261,7 +261,7 @@ window.tpr.checkData = {
     itemId: 'Gerudo_Desert_Bulblin_Camp_Key',
   },
   'Castle Town Malo Mart Magic Armor': {
-    category: ['Overworld', 'Lanayru Province', 'ARC', 'Shop'],
+    category: ['Overworld', 'Castle Town', 'ARC', 'Shop'],
     itemId: 'Magic_Armor',
   },
   'Cats Hide and Seek Minigame': {
@@ -419,11 +419,11 @@ window.tpr.checkData = {
     itemId: 'Coro_Bottle',
   },
   'Death Mountain Alcove Chest': {
-    category: ['Overworld', 'Chest', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Death Mountain', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Death Mountain Trail Poe': {
-    category: ['Overworld', 'Poe', 'Eldin Province'],
+    category: ['Overworld', 'Poe', 'Death Mountain'],
     itemId: 'Poe_Soul',
   },
   'Doctors Office Balcony Chest': {
@@ -431,95 +431,95 @@ window.tpr.checkData = {
     itemId: 'Red_Rupee',
   },
   'East Castle Town Bridge Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Hyrule Field - Lanayru Province'],
     itemId: 'Poe_Soul',
   },
   'Eldin Field Bomb Rock Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Eldin Field Bomskit Grotto Lantern Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'DZX'],
     itemId: 'Purple_Rupee',
   },
   'Eldin Field Bomskit Grotto Left Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'DZX'],
     itemId: 'Purple_Rupee',
   },
   'Eldin Field Female Grasshopper': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Eldin Province', 'DZX'],
     itemId: 'Female_Grasshopper',
   },
   'Eldin Field Male Grasshopper': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Eldin Province', 'DZX'],
     itemId: 'Male_Grasshopper',
   },
   'Eldin Field Water Bomb Fish Grotto Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'DZX'],
     itemId: 'Purple_Rupee',
   },
   'Eldin Lantern Cave First Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Eldin Lantern Cave', 'ARC'],
     itemId: 'Red_Rupee',
   },
   'Eldin Lantern Cave Lantern Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Eldin Lantern Cave', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Eldin Lantern Cave Poe': {
-    category: ['Overworld', 'Poe', 'Hyrule Field'],
+    category: ['Overworld', 'Poe', 'Eldin Lantern Cave'],
     itemId: 'Poe_Soul',
   },
   'Eldin Lantern Cave Second Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Eldin Lantern Cave', 'ARC'],
     itemId: 'Purple_Rupee',
   },
   'Eldin Spring Underwater Chest': {
-    category: ['Overworld', 'Chest', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Kakariko Village', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Eldin Stockcave Lantern Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Eldin Stockcave', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Eldin Stockcave Lowest Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Eldin Stockcave', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Eldin Stockcave Upper Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Eldin Stockcave', 'ARC'],
     itemId: 'Red_Rupee',
   },
   'Faron Field Bridge Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Faron Province', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Faron Field Corner Grotto Left Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Faron Province', 'DZX'],
     itemId: 'Red_Rupee',
   },
   'Faron Field Corner Grotto Rear Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Faron Province', 'DZX'],
     itemId: 'Yellow_Rupee',
   },
   'Faron Field Corner Grotto Right Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Faron Province', 'DZX'],
     itemId: 'Red_Rupee',
   },
   'Faron Field Female Beetle': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Faron Province', 'DZX'],
     itemId: 'Female_Beetle',
   },
   'Faron Field Male Beetle': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Faron Province', 'DZX'],
     itemId: 'Male_Beetle',
   },
   'Faron Field Poe': {
-    category: ['Overworld', 'Poe', 'Hyrule Field'],
+    category: ['Overworld', 'Poe', 'Hyrule Field - Faron Province'],
     itemId: 'Poe_Soul',
   },
   'Faron Field Tree Heart Piece': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Faron Province', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Faron Mist Cave Lantern Chest': {
@@ -547,7 +547,7 @@ window.tpr.checkData = {
     itemId: 'Red_Rupee',
   },
   'Faron Woods Golden Wolf': {
-    category: ['Overworld', 'Hidden Skill', 'Faron Province', 'ARC'],
+    category: ['Overworld', 'Hidden Skill', 'Faron Woods', 'ARC'],
     itemId: 'Progressive_Hidden_Skill',
   },
   'Faron Woods Owl Statue Chest': {
@@ -559,35 +559,35 @@ window.tpr.checkData = {
     itemId: 'Progressive_Sky_Book',
   },
   'Fishing Hole Bottle': {
-    category: ['Overworld', 'Lanayru Province', 'ARC', 'REL'],
+    category: ['Overworld', 'Fishing Hole', 'ARC', 'REL'],
     itemId: 'Empty_Bottle',
   },
   'Fishing Hole Heart Piece': {
-    category: ['Overworld', 'Lanayru Province', 'ARC', 'REL'],
+    category: ['Overworld', 'Fishing Hole', 'ARC', 'REL'],
     itemId: 'Piece_of_Heart',
   },
   'Flight By Fowl Fifth Platform Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'DZX'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Yellow_Rupee',
   },
   'Flight By Fowl Fourth Platform Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'DZX'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Red_Rupee',
   },
   'Flight By Fowl Ledge Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Lake Hylia'],
     itemId: 'Poe_Soul',
   },
   'Flight By Fowl Second Platform Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'DZX'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Piece_of_Heart',
   },
   'Flight By Fowl Third Platform Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'DZX'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Purple_Rupee',
   },
-  'Flight By Fowl Top Platform Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'DZX'],
+  'Flight By Fowl Top Platform Reward': {
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Orange_Rupee',
   },
   'Forest Temple Big Baba Key': {
@@ -769,10 +769,10 @@ window.tpr.checkData = {
     itemId: 'Purple_Rupee',
   },
   'Gift From Ralis': {
-    category: ['Overworld', 'Npc', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Kakariko Graveyard', 'ARC'],
     itemId: 'Progressive_Fishing_Rod',
   },
-  'Gift From Rusl': {
+  'Wooden Sword Chest': {
     category: ['Overworld', 'Chest', 'Ordona Province', 'ARC'],
     itemId: 'Progressive_Sword',
   },
@@ -900,7 +900,7 @@ window.tpr.checkData = {
     itemId: 'Purple_Rupee',
   },
   'Goron Springwater Rush': {
-    category: ['Overworld', 'Npc', 'Hyrule Field', 'Boss'],
+    category: ['Overworld', 'Npc', 'Hyrule Field - Eldin Province', 'Boss'],
     itemId: 'Piece_of_Heart',
   },
   'Herding Goats Reward': {
@@ -1038,15 +1038,15 @@ window.tpr.checkData = {
     itemId: 'Red_Rupee',
   },
   'Hyrule Field Ampitheater Owl Statue Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Hyrule Field Ampitheater Owl Statue Sky Character': {
-    category: ['Overworld', 'Hyrule Field', 'Sky Book'],
+    category: ['Overworld', 'Hyrule Field - Lanayru Province', 'Sky Book'],
     itemId: 'Progressive_Sky_Book',
   },
   'Hyrule Field Ampitheater Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Hyrule Field - Lanayru Province'],
     itemId: 'Poe_Soul',
   },
   'Ilia Charm': {
@@ -1054,239 +1054,239 @@ window.tpr.checkData = {
     itemId: 'Ilias_Charm',
   },
   'Ilia Memory Reward': {
-    category: ['Overworld', 'Npc', 'Eldin Province'],
+    category: ['Overworld', 'Npc', 'Kakariko Village'],
     itemId: 'Horse_Call',
   },
   'Isle of Riches Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Lake Hylia'],
     itemId: 'Poe_Soul',
   },
   'Iza Helping Hand': {
-    category: ['Overworld', 'Npc', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Upper Zoras River', 'ARC'],
     itemId: 'Filled_Bomb_Bag',
   },
   'Iza Raging Rapids Minigame': {
-    category: ['Overworld', 'Npc', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Upper Zoras River', 'ARC'],
     itemId: 'Giant_Bomb_Bag',
   },
   'Jovani 20 Poe Soul Reward': {
-    category: ['Overworld', 'Npc', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Castle Town', 'ARC'],
     itemId: 'Jovani_Bottle',
   },
   'Jovani House Poe': {
-    category: ['Overworld', 'Lanayru Province', 'Poe'],
+    category: ['Overworld', 'Castle Town', 'Poe'],
     itemId: 'Poe_Soul',
   },
   'Kakariko Gorge Double Clawshot Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Kakariko Gorge Female Pill Bug': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Eldin Province', 'DZX'],
     itemId: 'Female_Pill_Bug',
   },
   'Kakariko Gorge Male Pill Bug': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Eldin Province', 'DZX'],
     itemId: 'Male_Pill_Bug',
   },
   'Kakariko Gorge Owl Statue Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Kakariko Gorge Owl Statue Sky Character': {
-    category: ['Overworld', 'Hyrule Field', 'Sky Book'],
+    category: ['Overworld', 'Hyrule Field - Eldin Province', 'Sky Book'],
     itemId: 'Progressive_Sky_Book',
   },
   'Kakariko Gorge Poe': {
-    category: ['Overworld', 'Poe', 'Hyrule Field'],
+    category: ['Overworld', 'Poe', 'Hyrule Field - Eldin Province'],
     itemId: 'Poe_Soul',
   },
   'Kakariko Gorge Spire Heart Piece': {
-    category: ['Overworld', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Hyrule Field - Eldin Province', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Kakariko Graveyard Golden Wolf': {
-    category: ['Overworld', 'Hidden Skill', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Hidden Skill', 'Kakariko Graveyard', 'ARC'],
     itemId: 'Progressive_Hidden_Skill',
   },
   'Kakariko Graveyard Grave Poe': {
-    category: ['Overworld', 'Poe', 'Eldin Province'],
+    category: ['Overworld', 'Poe', 'Kakariko Graveyard'],
     itemId: 'Poe_Soul',
   },
   'Kakariko Graveyard Lantern Chest': {
-    category: ['Overworld', 'Chest', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Kakariko Graveyard', 'ARC'],
     itemId: 'Purple_Rupee',
   },
   'Kakariko Graveyard Male Ant': {
-    category: ['Overworld', 'Golden Bug', 'Eldin Province', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Kakariko Graveyard', 'DZX'],
     itemId: 'Male_Ant',
   },
   'Kakariko Graveyard Open Poe': {
-    category: ['Overworld', 'Poe', 'Eldin Province'],
+    category: ['Overworld', 'Poe', 'Kakariko Graveyard'],
     itemId: 'Poe_Soul',
   },
   'Kakariko Inn Chest': {
-    category: ['Overworld', 'Chest', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Kakariko Village', 'ARC'],
     itemId: 'Red_Rupee',
   },
   'Kakariko Village Bomb Rock Spire Heart Piece': {
-    category: ['Overworld', 'Chest', 'Eldin Province', 'DZX'],
+    category: ['Overworld', 'Chest', 'Kakariko Village', 'DZX'],
     itemId: 'Piece_of_Heart',
   },
   'Kakariko Village Bomb Shop Poe': {
-    category: ['Overworld', 'Poe', 'Eldin Province'],
+    category: ['Overworld', 'Poe', 'Kakariko Village'],
     itemId: 'Poe_Soul',
   },
   'Kakariko Village Female Ant': {
-    category: ['Overworld', 'Golden Bug', 'Eldin Province', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Kakariko Village', 'DZX'],
     itemId: 'Female_Ant',
   },
   'Kakariko Village Malo Mart Hawkeye': {
-    category: ['Overworld', 'Eldin Province', 'ARC', 'Shop'],
+    category: ['Overworld', 'Kakariko Village', 'ARC', 'Shop'],
     itemId: 'Hawkeye',
   },
   'Kakariko Village Malo Mart Hylian Shield': {
-    category: ['Overworld', 'Eldin Province', 'ARC', 'Shop'],
+    category: ['Overworld', 'Kakariko Village', 'ARC', 'Shop'],
     itemId: 'Hylian_Shield',
   },
   'Kakariko Village Watchtower Poe': {
-    category: ['Overworld', 'Poe', 'Eldin Province'],
+    category: ['Overworld', 'Poe', 'Kakariko Village'],
     itemId: 'Poe_Soul',
   },
   'Kakariko Watchtower Alcove Chest': {
-    category: ['Overworld', 'Chest', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Kakariko Village', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Kakariko Watchtower Chest': {
-    category: ['Overworld', 'Chest', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Kakariko Village', 'ARC'],
     itemId: 'Purple_Rupee',
   },
   'Lake Hylia Alcove Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Lake Hylia'],
     itemId: 'Poe_Soul',
   },
   'Lake Hylia Bridge Bubble Grotto Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Orange_Rupee',
   },
   'Lake Hylia Bridge Cliff Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field- Lanayru Province', 'ARC'],
     itemId: 'Purple_Rupee',
   },
   'Lake Hylia Bridge Cliff Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Hyrule Field - Lanayru Province'],
     itemId: 'Poe_Soul',
   },
   'Lake Hylia Bridge Female Mantis': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Female_Mantis',
   },
   'Lake Hylia Bridge Male Mantis': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Male_Mantis',
   },
   'Lake Hylia Bridge Owl Statue Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Lake Hylia Bridge Owl Statue Sky Character': {
-    category: ['Overworld', 'Hyrule Field', 'Sky Book'],
+    category: ['Overworld', 'Hyrule Field - Lanayru Province', 'Sky Book'],
     itemId: 'Progressive_Sky_Book',
   },
   'Lake Hylia Bridge Vines Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Lake Hylia Dock Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Lake Hylia'],
     itemId: 'Poe_Soul',
   },
   'Lake Hylia Shell Blade Grotto Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'DZX'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Orange_Rupee',
   },
   'Lake Hylia Tower Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Lake Hylia'],
     itemId: 'Poe_Soul',
   },
   'Lake Hylia Underwater Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'DZX'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Orange_Rupee',
   },
   'Lake Hylia Water Toadpoli Grotto Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'DZX'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Orange_Rupee',
   },
   'Lake Lantern Cave Eighth Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Bomblings_5',
   },
   'Lake Lantern Cave Eleventh Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Bomblings_10',
   },
   'Lake Lantern Cave End Lantern Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Lake Lantern Cave Fifth Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Red_Rupee',
   },
   'Lake Lantern Cave Final Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Lake Lantern Cave'],
     itemId: 'Poe_Soul',
   },
   'Lake Lantern Cave First Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Bomblings_5',
   },
   'Lake Lantern Cave First Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Lake Lantern Cave'],
     itemId: 'Poe_Soul',
   },
   'Lake Lantern Cave Fourteenth Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Lake Lantern Cave Fourth Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Arrows_10',
   },
   'Lake Lantern Cave Ninth Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Arrows_10',
   },
   'Lake Lantern Cave Second Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Yellow_Rupee',
   },
   'Lake Lantern Cave Second Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Lake Lantern Cave'],
     itemId: 'Poe_Soul',
   },
   'Lake Lantern Cave Seventh Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Red_Rupee',
   },
   'Lake Lantern Cave Sixth Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Lake Lantern Cave Tenth Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Purple_Rupee',
   },
   'Lake Lantern Cave Third Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Red_Rupee',
   },
   'Lake Lantern Cave Thirteenth Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Seeds_50',
   },
   'Lake Lantern Cave Twelfth Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Purple_Rupee',
   },
   'Lakebed Temple Before Deku Toad Alcove Chest': {
@@ -1416,79 +1416,79 @@ window.tpr.checkData = {
     itemId: 'Water_Bombs_10',
   },
   'Lanayru Field Behind Gate Underwater Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Lanayru Field Bridge Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Hyrule Field - Lanayru Province'],
     itemId: 'Poe_Soul',
   },
   'Lanayru Field Female Stag Beetle': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Female_Stag_Beetle',
   },
   'Lanayru Field Male Stag Beetle': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Male_Stag_Beetle',
   },
   'Lanayru Field Poe Grotto Left Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Hyrule Field - Lanayru Province'],
     itemId: 'Poe_Soul',
   },
   'Lanayru Field Poe Grotto Right Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Hyrule Field - Lanayru Province'],
     itemId: 'Poe_Soul',
   },
   'Lanayru Field Skulltula Grotto Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Orange_Rupee',
   },
   'Lanayru Field Spinner Track Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Lanayru Field Stalfos Grotto Left Small Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Bombs_5',
   },
   'Lanayru Field Stalfos Grotto Right Small Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Bombs_5',
   },
   'Lanayru Field Stalfos Grotto Stalfos Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Piece_of_Heart',
   },
   'Lanayru Ice Block Puzzle Cave Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Lanayru Spring Back Room Lantern Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Lanayru Spring Back Room Left Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'ARC'],
     itemId: 'Bombs_5',
   },
   'Lanayru Spring Back Room Right Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'ARC'],
     itemId: 'Blue_Rupee',
   },
   'Lanayru Spring East Double Clawshot Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Lanayru Spring Underwater Left Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'ARC'],
     itemId: 'Blue_Rupee',
   },
   'Lanayru Spring Underwater Right Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'ARC'],
     itemId: 'Yellow_Rupee',
   },
   'Lanayru Spring West Double Clawshot Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Links Basement Chest': {
@@ -1496,7 +1496,7 @@ window.tpr.checkData = {
     itemId: 'Purple_Rupee_Links_House',
   },
   'Lost Woods Boulder Poe': {
-    category: ['Overworld', 'Poe', 'Faron Woods'],
+    category: ['Overworld', 'Poe', 'Sacred Grove'],
     itemId: 'Poe_Soul',
   },
   'Lost Woods Lantern Chest': {
@@ -1508,7 +1508,7 @@ window.tpr.checkData = {
     itemId: 'Poe_Soul',
   },
   'North Castle Town Golden Wolf': {
-    category: ['Overworld', 'Hidden Skill', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Hidden Skill', 'Castle Town', 'ARC'],
     itemId: 'Progressive_Hidden_Skill',
   },
   'North Faron Woods Deku Baba Chest': {
@@ -1528,7 +1528,7 @@ window.tpr.checkData = {
     itemId: 'Ordon_Shield',
   },
   'Ordon Spring Golden Wolf': {
-    category: ['Overworld', 'Hidden Skill', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Hidden Skill', 'Ordona Province', 'ARC'],
     itemId: 'Progressive_Hidden_Skill',
   },
   'Ordon Sword': {
@@ -1548,43 +1548,43 @@ window.tpr.checkData = {
     itemId: 'Poe_Soul',
   },
   'Outside Lanayru Spring Left Statue Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'DZX'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Purple_Rupee',
   },
   'Outside Lanayru Spring Right Statue Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'DZX'],
+    category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Orange_Rupee',
   },
   'Outside South Castle Town Double Clawshot Chasm Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Outside South Castle Town Female Ladybug': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Female_Ladybug',
   },
   'Outside South Castle Town Fountain Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Outside South Castle Town Golden Wolf': {
-    category: ['Overworld', 'Hidden Skill', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Hidden Skill', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Progressive_Hidden_Skill',
   },
   'Outside South Castle Town Male Ladybug': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Male_Ladybug',
   },
   'Outside South Castle Town Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Hyrule Field - Lanayru Province'],
     itemId: 'Poe_Soul',
   },
   'Outside South Castle Town Tektite Grotto Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Orange_Rupee',
   },
   'Outside South Castle Town Tightrope Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'ARC'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Orange_Rupee',
   },
   'Palace of Twilight Big Key Chest': {
@@ -1684,15 +1684,15 @@ window.tpr.checkData = {
     itemId: 'Heart_Container',
   },
   'Plumm Fruit Balloon Minigame': {
-    category: ['Overworld', 'Npc', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Lake Hylia', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Renados Letter': {
-    category: ['Overworld', 'Npc', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Kakariko Village', 'ARC'],
     itemId: 'Renados_Letter',
   },
   'Rutelas Blessing': {
-    category: ['Overworld', 'Npc', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Kakariko Graveyard', 'ARC'],
     itemId: 'Zora_Armor',
   },
   'STAR Prize 1': {
@@ -1744,7 +1744,7 @@ window.tpr.checkData = {
     itemId: 'Piece_of_Heart',
   },
   'Snowpeak Above Freezard Grotto Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Snowpeak Province'],
     itemId: 'Poe_Soul',
   },
   'Snowpeak Blizzard Poe': {
@@ -1894,7 +1894,7 @@ window.tpr.checkData = {
     itemId: 'Yellow_Rupee',
   },
   'Talo Sharpshooting': {
-    category: ['Overworld', 'Npc', 'Eldin Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Kakariko Village', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
   'Telma Invoice': {
@@ -2000,31 +2000,31 @@ window.tpr.checkData = {
     itemId: 'Progressive_Fishing_Rod',
   },
   'Upper Zoras River Female Dragonfly': {
-    category: ['Overworld', 'Golden Bug', 'Lanayru Province', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Upper Zoras River', 'DZX'],
     itemId: 'Female_Dragonfly',
   },
   'Upper Zoras River Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Upper Zoras River'],
     itemId: 'Poe_Soul',
   },
   'West Hyrule Field Female Butterfly': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Female_Butterfly',
   },
   'West Hyrule Field Golden Wolf': {
-    category: ['Overworld', 'Hidden Skill', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Hidden Skill', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Progressive_Hidden_Skill',
   },
   'West Hyrule Field Helmasaur Grotto Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Orange_Rupee',
   },
   'West Hyrule Field Male Butterfly': {
-    category: ['Overworld', 'Golden Bug', 'Hyrule Field', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Male_Butterfly',
   },
   'Wooden Statue': {
-    category: ['Overworld', 'Npc', 'Hyrule Field', 'REL'],
+    category: ['Overworld', 'Npc', 'Hyrule Field - Lanayru Province', 'REL'],
     itemId: 'Wooden_Statue',
   },
   'Wrestling With Bo': {
@@ -2032,35 +2032,35 @@ window.tpr.checkData = {
     itemId: 'Iron_Boots',
   },
   'Zoras Domain Chest Behind Waterfall': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Zoras Domain', 'ARC'],
     itemId: 'Red_Rupee',
   },
   'Zoras Domain Chest By Mother and Child Isles': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Zoras Domain', 'ARC'],
     itemId: 'Yellow_Rupee',
   },
   'Zoras Domain Extinguish All Torches Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Zoras Domain', 'ARC'],
     itemId: 'Purple_Rupee',
   },
   'Zoras Domain Light All Torches Chest': {
-    category: ['Overworld', 'Chest', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Chest', 'Zoras Domain', 'ARC'],
     itemId: 'Purple_Rupee',
   },
   'Zoras Domain Male Dragonfly': {
-    category: ['Overworld', 'Golden Bug', 'Lanayru Province', 'DZX'],
+    category: ['Overworld', 'Golden Bug', 'Zoras Domain', 'DZX'],
     itemId: 'Male_Dragonfly',
   },
   'Zoras Domain Mother and Child Isle Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Zoras Domain'],
     itemId: 'Poe_Soul',
   },
   'Zoras Domain Underwater Goron': {
-    category: ['Overworld', 'Npc', 'Lanayru Province', 'ARC'],
+    category: ['Overworld', 'Npc', 'Zoras Domain', 'ARC'],
     itemId: 'Filled_Bomb_Bag',
   },
   'Zoras Domain Waterfall Poe': {
-    category: ['Overworld', 'Poe', 'Lanayru Province'],
+    category: ['Overworld', 'Poe', 'Zoras Domain'],
     itemId: 'Poe_Soul',
   },
 };

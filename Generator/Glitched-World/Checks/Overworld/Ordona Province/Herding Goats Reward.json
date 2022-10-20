@@ -1,0 +1,9 @@
+{
+  "requirements": "CanCompleteIntro",
+  "arcOffsets": ["1A3F"],
+    "stageIDX": [41],
+  "fileDirectoryType": [ 1 ],
+  "replacementType": [ 0 ],
+  "category": [ "Overworld", "Npc", "Ordona Province", "ARC" ],
+  "itemId": "Piece_of_Heart"
+}

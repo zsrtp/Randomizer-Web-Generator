@@ -375,11 +375,11 @@ namespace TPRandomizer
                     {
                         if (
                             (
-                                (parseSetting.smallKeySettings == SmallKeySettings.Keysey)
+                                (parseSetting.smallKeySettings == SmallKeySettings.Keysy)
                                 && currentCheck.category.Contains("Small Key")
                             )
                             || (
-                                (parseSetting.bigKeySettings == BigKeySettings.Keysey)
+                                (parseSetting.bigKeySettings == BigKeySettings.Keysy)
                                 && currentCheck.category.Contains("Big Key")
                             )
                             || (

@@ -1,0 +1,10 @@
+{
+  "requirements": "CanCompleteIntro",
+  "arcOffsets": ["544"],
+    "stageIDX": [65],
+    "roomIDX": 0,
+  "fileDirectoryType": [ 0 ],
+  "replacementType": [ 0 ],
+  "category": [ "Overworld", "Chest", "Ordona Province", "ARC" ],
+  "itemId": "Iron_Boots"
+}

@@ -9,10 +9,10 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "((Lakebed_Temple_Small_Key, 1) or (Setting.smallKeySettings equals Keysey))",
+    "((Lakebed_Temple_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
     "true",
-    "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysey)) and canSmash and (Progressive_Clawshot, 1)",
-    "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysey)) and canLaunchBombs and (Progressive_Clawshot, 1) and (Lakebed_Temple_Big_Key or (Setting.bigKeySettings equals Keysey))"
+    "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canSmash and (Progressive_Clawshot, 1)",
+    "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canLaunchBombs and (Progressive_Clawshot, 1) and (Lakebed_Temple_Big_Key or (Setting.bigKeySettings equals Keysy))"
   ],
     "Checks": 
     [

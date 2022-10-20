@@ -4,7 +4,7 @@
     "stageIDX": [56],
     "dzxTag": ["ACTR"],
     "magicByte": ["FE"],
-    "category": ["Overworld", "Golden Bug", "Hyrule Field","DZX"],
+    "category": ["Overworld", "Golden Bug", "Hyrule Field - Eldin Province","DZX"],
     "itemId": "Female_Grasshopper",
     "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "98", "C7", "C6", "1B", "78", "00", "42", "0C", "B4", "C1", "C6", "0B", "D8", "00", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
 }

@@ -31,7 +31,7 @@
         "Lanayru Spring Back Room Left Chest",
         "Lanayru Spring Back Room Right Chest",
         "Lanayru Spring Back Room Lantern Chest",
-        "Flight By Fowl Top Platform Chest",
+        "Flight By Fowl Top Platform Reward",
         "Flight By Fowl Second Platform Chest",
         "Flight By Fowl Third Platform Chest",
         "Flight By Fowl Fourth Platform Chest",
@@ -47,5 +47,5 @@
         "Lake Hylia Dock Poe",
         "Lake Hylia Tower Poe"
      ],
-    "Region": "Lanayru Province"
+    "Region": "Lake Hylia"
 }

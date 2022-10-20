@@ -1,9 +1,9 @@
 {
-  "requirements": "Asheis_Sketch and (Gate_Keys or (Setting.smallKeySettings equals Keysey))",
+  "requirements": "Asheis_Sketch and (Gate_Keys or (Setting.smallKeySettings equals Keysy))",
   "arcOffsets": ["19DF"],
   "stageIDX": [48],
   "fileDirectoryType": [ 1 ],
   "replacementType": [ 0 ],
-  "category": [ "Overworld", "Npc", "Eldin Province", "ARC" ],
+  "category": [ "Overworld", "Npc", "Kakariko Graveyard", "ARC" ],
   "itemId": "Progressive_Fishing_Rod"
 }

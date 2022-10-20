@@ -5,6 +5,6 @@
     "overrideInstruction": ["38800000"],
     "relReplacementType": [0],
     "relOffsets": ["F24"],
-    "category": ["Overworld", "Npc", "Hyrule Field", "REL"],
+    "category": ["Overworld", "Npc", "Hyrule Field - Lanayru Province", "REL"],
     "itemId": "Wooden_Statue"
 }

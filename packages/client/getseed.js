@@ -55,11 +55,12 @@
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
     bitString: 'bitString',
     xBitNum: 'xBitNum',
+    rgb: 'rgb',
   };
 
   const RecolorId = {
     herosClothes: 0x00, // Cap and Body
-    zoraArmorPrimary: 0x01,
+    zoraArmor: 0x01,
     zoraArmorSecondary: 0x02,
     zoraArmorHelmet: 0x03,
   };
@@ -82,7 +83,29 @@
 
     // Add recolorDefs to list.
     recolorDefs.push(
-      genTunicRecolorDef('tunicColorFieldset', RecolorId.herosClothes)
+      genTunicRecolorDef('hTunicHatColorFieldset', RecolorId.herosClothes)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('hTunicBodyColorFieldset', RecolorId.herosClothes)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('hTunicSkirtColorFieldset', RecolorId.herosClothes)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('zTunicHatColorFieldset', RecolorId.zoraArmor)
+    );
+
+    recolorDefs.push(
+      genTunicRecolorDef('zTunicHelmetColorFieldset', RecolorId.zoraArmor)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('zTunicBodyColorFieldset', RecolorId.zoraArmor)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('zTunicScalesColorFieldset', RecolorId.zoraArmor)
+    );
+    recolorDefs.push(
+      genTunicRecolorDef('zTunicBootsColorFieldset', RecolorId.zoraArmor)
     );
 
     // Process all recolorDefs
@@ -259,10 +282,6 @@
         contentId: 'tabSharedSettings',
       },
       {
-        buttonId: 'tabBtnDefaultCosmetics',
-        contentId: 'tabDefaultCosmetics',
-      },
-      {
         buttonId: 'tabBtnPlaythroughSpoilers',
         contentId: 'tabPlaythroughSpoilers',
       },
@@ -331,6 +350,39 @@
 
     return label;
   }
+
+  document
+  .getElementById('randomizeCosmeticsButton')
+  .addEventListener('click', randomizeCosmetics);
+
+
+function randomizeCosmetics() {
+    var arrayOfCosmeticSettings = 
+    [
+      'hTunicHatColorFieldset',
+      'hTunicBodyColorFieldset',
+      'hTunicSkirtColorFieldset',
+      'zTunicHatColorFieldset',
+      'zTunicHelmetColorFieldset',
+      'zTunicBodyColorFieldset',
+      'zTunicScalesColorFieldset',
+      'zTunicBootsColorFieldset',
+      'lanternColorFieldset',
+      'heartColorFieldset',
+      'aButtonColorFieldset',
+      'bButtonColorFieldset',
+      'xButtonColorFieldset',
+      'yButtonColorFieldset',
+      'zButtonColorFieldset'
+    ];
+
+    for (let i = 0; i < arrayOfCosmeticSettings.length; i++)
+    {
+      var select = document.getElementById(arrayOfCosmeticSettings[i]);
+      var items = select.getElementsByTagName('option');
+      select.selectedIndex = Math.floor(Math.random() * items.length);
+    }
+}  
 
   function initPlaythroughSpoilers(spoilerData) {
     // const ids = ['tabAgitha', 'tabArbiters'].map((contentId) => {
@@ -482,22 +534,32 @@
       'Castle Town': true,
       'Cave of Ordeals': true,
       'City in The Sky': true,
-      'Eldin Province': true,
+      'Death Mountain': true,
+      'Eldin Lantern Cave': true,
+      'Eldin Stockcave': true,
       'Faron Woods': true,
+      'Fishing Hole': true,
       'Forest Temple': true,
       'Gerudo Desert': true,
       'Goron Mines': true,
       'Hidden Village': true,
       'Hyrule Castle': true,
-      'Hyrule Field': true,
+      'Hyrule Field - Faron Province': true,
+      'Hyrule Field - Eldin Province': true,
+      'Hyrule Field - Lanayru Province': true,
+      'Kakariko Village': true,
+      'Kakariko Graveyard': true,
+      'Lake Hylia': true,
+      'Lake Lantern Cave': true,
       'Lakebed Temple': true,
-      'Lanayru Province': true,
       'Ordona Province': true,
       'Palace of Twilight': true,
       'Sacred Grove': true,
       'Snowpeak Province': true,
       'Snowpeak Ruins': true,
       'Temple of Time': true,
+      'Upper Zoras River': true,
+      'Zoras Domain': true,
     };
 
     const typeFiltersSet = {
@@ -861,7 +923,7 @@
 
         // Show the current tab, and add an "active" class to the button that opened the tab
         // byId(id).style.display = 'block';
-        contentEl.style.display = 'block';
+        contentEl.style.display = 'inline-block';
         e.currentTarget.className += ' active';
       };
     }
@@ -1015,17 +1077,23 @@
         { id: 'randomizeFanfaresCheckbox' },
         { id: 'disableEnemyBGMCheckbox' },
 
-        // { id: 'tunicColorFieldset', bitLength: 4 },
-        { id: 'lanternColorFieldset', bitLength: 4 },
+        { id: 'hTunicHatColorFieldset', rgb: true },
+        { id: 'hTunicBodyColorFieldset', rgb: true },
+        { id: 'hTunicSkirtColorFieldset', rgb: true },
+        { id: 'zTunicHatColorFieldset', rgb: true },
+        { id: 'zTunicHelmetColorFieldset', rgb: true },
+        { id: 'zTunicBodyColorFieldset', rgb: true },
+        { id: 'zTunicScalesColorFieldset', rgb: true },
+        { id: 'zTunicBootsColorFieldset', rgb: true },
+        { id: 'lanternColorFieldset', rgb: true },
         // { id: 'midnaHairColorFieldset', bitLength: 1 },
-        { id: 'heartColorFieldset', bitLength: 4 },
-        { id: 'aButtonColorFieldset', bitLength: 4 },
-        { id: 'bButtonColorFieldset', bitLength: 3 },
-        { id: 'xButtonColorFieldset', bitLength: 4 },
-        { id: 'yButtonColorFieldset', bitLength: 4 },
-        { id: 'zButtonColorFieldset', bitLength: 4 },
-      ].map(({ id, bitLength }) => {
-        const val = getVal(id);
+        { id: 'heartColorFieldset', rgb: true },
+        { id: 'aButtonColorFieldset', rgb: true },
+        { id: 'bButtonColorFieldset', rgb: true },
+        { id: 'xButtonColorFieldset', rgb: true },
+        { id: 'yButtonColorFieldset', rgb: true },
+        { id: 'zButtonColorFieldset', rgb: true },
+      ].map(({ id, bitLength, rgb }) => {
         if (bitLength) {
           // select
           return {
@@ -1033,9 +1101,18 @@
             bitLength,
             value: parseInt(getVal(id), 10),
           };
+        } else if (rgb) {
+          const selVal = getVal(id);
+          const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
+          const value = $option.data('rgb');
+
+          return {
+            type: RawSettingType.rgb,
+            value,
+          };
         }
         // checkbox
-        return val;
+        return getVal(id);
       })
     );
 
@@ -1074,6 +1151,13 @@
           bitString += value.bitString;
         } else if (value.type === RawSettingType.xBitNum) {
           bitString += numToPaddedBits(value.value, value.bitLength);
+        } else if (value.type === RawSettingType.rgb) {
+          if (value.value == null) {
+            bitString += '0';
+          } else {
+            bitString += '1';
+            bitString += hexStrToBits(value.value);
+          }
         }
       }
     });
@@ -1222,36 +1306,27 @@
     return padBits2(number.toString(2), strLength);
   }
 
-  // function populateRecolorSelect(pSettings, elId, recolorId) {
-  //   const $sel = $(`#${elId}`);
+  /**
+   * Converts a hex string like "fc8a" to a bit string like "10110...".
+   *
+   * @param {string} hexStr hex string to convert to a bit string
+   * @return {string} Bit string
+   */
+  function hexStrToBits(hexStr) {
+    if (!hexStr) {
+      return '';
+    }
 
-  //   const recolorDef = pSettings.recolorDefs[recolorId];
+    let result = '';
 
-  //   if (recolorDef) {
-  //     const rgbHex = padBits2(recolorDef.value.toString(16), 6);
+    for (let i = 0; i < hexStr.length; i++) {
+      const character = hexStr.substring(i, i + 1);
+      const num = parseInt(character, 16);
+      result += numToPaddedBits(num, 4);
+    }
 
-  //     const option = $sel.find(`option[data-rgb="${rgbHex}"]`)[0];
-  //     if (option) {
-  //       option.selected = true;
-  //       // $sel.val(rgbHex);
-  //     } else {
-  //       $sel.val('0');
-  //     }
-  //   } else {
-  //     $sel.val('0');
-  //   }
-  // }
-
-  // function populateFromPSettings(pSettings) {
-  //   console.log(pSettings);
-
-  //   // $('#tunicColor')
-  //   populateRecolorSelect(pSettings, 'tunicColor', RecolorId.herosClothes);
-
-  //   $('#randomizeBgm').prop('checked', pSettings.randomizeBgm);
-  //   $('#randomizeFanfares').prop('checked', pSettings.randomizeFanfares);
-  //   $('#disableEnemyBgm').prop('checked', pSettings.disableEnemyBgm);
-  // }
+    return result;
+  }
 
   function initSettingsModal() {
     const modal = document.getElementById('myModal');

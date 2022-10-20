@@ -439,7 +439,14 @@
 
   function genPSettingsFromUi(returnEvenIfEmpty) {
     const values = [
-      // { id: 'tunicColorFieldset', bitLength: 4 },
+      { id: 'hTunicHatColorFieldset', bitLength: 4 },
+      { id: 'hTunicBodyColorFieldset', bitLength: 4 },
+      { id: 'hTunicSkirtColorFieldset', bitLength: 4 },
+      { id: 'zTunicHatColorFieldset', bitLength: 4 },
+      { id: 'zTunicHelmetColorFieldset', bitLength: 4 },
+      { id: 'zTunicBodyColorFieldset', bitLength: 4 },
+      { id: 'zTunicScalesColorFieldset', bitLength: 4 },
+      { id: 'zTunicBootsColorFieldset', bitLength: 4 },
       { id: 'lanternColorFieldset', bitLength: 4 },
       // { id: 'midnaHairColorFieldset', bitLength: 1 },
       { id: 'heartColorFieldset', bitLength: 4 },
@@ -465,16 +472,6 @@
       // checkbox
       return val;
     });
-
-    // TODO: temp turning off color defs while UI is using simple selects for the colors.
-    // Will update the settings when UI refresh with complex color options is implemented.
-
-    // const recolorDefs = [];
-    // recolorDefs.push(genTunicRecolorDef('tunicColorFieldset'));
-
-    // // values.push(genMidnaSettings(recolorDefs));
-
-    // values = [genRecolorBits(recolorDefs)].concat(values);
 
     if (
       !returnEvenIfEmpty &&
@@ -769,7 +766,14 @@
     // return res;
 
     const a = [
-      // { id: 'tunicColor', type: 'number', bitLength: 4 },
+      { id: 'hTunicHatColor', type: 'number', bitLength: 4 },
+      { id: 'hTunicBodyColor', type: 'number', bitLength: 4 },
+      { id: 'hTunicSkirtColor', type: 'number', bitLength: 4 },
+      { id: 'zTunicHatColor', type: 'number', bitLength: 4 },
+      { id: 'zTunicHelmetColor', type: 'number', bitLength: 4 },
+      { id: 'zTunicBodyColor', type: 'number', bitLength: 4 },
+      { id: 'zTunicScalesColor', type: 'number', bitLength: 4 },
+      { id: 'zTunicBootsColor', type: 'number', bitLength: 4 },
       { id: 'lanternColor', type: 'number', bitLength: 4 },
       // { id: 'midnaHairColor', type: 'number', bitLength: 1 },
       { id: 'heartColor', type: 'number', bitLength: 4 },
@@ -824,7 +828,14 @@
       return;
     }
 
-    // $('#tunicColorFieldset').val(p.tunicColor);
+    $('#hTunicHatColorFieldset').val(p.hTunicHatColor);
+    $('#hTunicBodyColorFieldset').val(p.hTunicBodyColor);
+    $('#hTunicSkirtColorFieldset').val(p.hTunicSkirtColor);
+    $('#zTunicHatColorFieldset').val(p.zTunicHatColor);
+    $('#zTunicHelmetColorFieldset').val(p.zTunicHelmetColor);
+    $('#zTunicBodyColorFieldset').val(p.zTunicBodyColor);
+    $('#zTunicScalesColorFieldset').val(p.zTunicScalesColor);
+    $('#zTunicBootsColorFieldset').val(p.zTunicBootsColor);
     $('#lanternColorFieldset').val(p.lanternColor);
     // $('#midnaHairColorFieldset').val(p.midnaHairColor);
     $('#heartColorFieldset').val(p.heartColor);

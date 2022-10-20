@@ -6,7 +6,7 @@
     ],
   "NeighbourRequirements": [
     "true",
-    "(Progressive_Dominion_Rod, 1) and (Temple_of_Time_Big_Key or (Setting.bigKeySettings equals Keysey))"
+    "(Progressive_Dominion_Rod, 1) and (Temple_of_Time_Big_Key or (Setting.bigKeySettings equals Keysy))"
   ],
     "Checks": [""],
     "Region": "Temple of Time"
