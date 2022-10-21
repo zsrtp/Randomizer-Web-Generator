@@ -1114,23 +1114,11 @@ namespace TPRandomizer
             int lakebed = 5;
             //int mines = 6;
             int forest = 7;
-            List<string>[] listOfGlitchlessAffectedChecks = new List<string>[]
+            List<string>[] listOfAffectedChecks = new List<string>[]
             {
                 CheckFunctions.palaceRequirementChecks,
                 CheckFunctions.cityRequirementChecks,
-                CheckFunctions.totRequirementChecksGlitchless,
-                CheckFunctions.snowpeakRequirementChecks,
-                CheckFunctions.arbitersRequirementChecks,
-                CheckFunctions.lakebedRequirementChecks,
-                CheckFunctions.minesRequirementChecks,
-                CheckFunctions.forestRequirementChecks
-            };
-
-            List<string>[] listOfGlitchedAffectedChecks = new List<string>[]
-            {
-                CheckFunctions.palaceRequirementChecks,
-                CheckFunctions.cityRequirementChecks,
-                CheckFunctions.totRequirementChecksGlitched,
+                CheckFunctions.totRequirementChecks,
                 CheckFunctions.snowpeakRequirementChecks,
                 CheckFunctions.arbitersRequirementChecks,
                 CheckFunctions.lakebedRequirementChecks,
@@ -1164,14 +1152,7 @@ namespace TPRandomizer
 
             for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
             {
-                if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
-                {
-                    listOfRequiredDungeons[i].requirementChecks = listOfGlitchlessAffectedChecks[i];
-                }
-                else
-                {
-                    listOfRequiredDungeons[i].requirementChecks = listOfGlitchedAffectedChecks[i];
-                }
+                listOfRequiredDungeons[i].requirementChecks = listOfAffectedChecks[i];
             }
 
             // First we want to check the Hyrule Castle access requirements to get the base required dungeons to access Hyrule.
