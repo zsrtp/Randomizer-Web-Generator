@@ -454,6 +454,18 @@ window.tpr.checkData = {
     category: ['Overworld', 'Golden Bug', 'Hyrule Field - Eldin Province', 'DZX'],
     itemId: 'Male_Grasshopper',
   },
+  'Eldin Field Stalfos Grotto Left Small Chest': {
+    category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'DZX'],
+    itemId: 'Bombs_5',
+  },
+  'Eldin Field Stalfos Grotto Right Small Chest': {
+    category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'DZX'],
+    itemId: 'Bombs_5',
+  },
+  'Eldin Field Stalfos Grotto Stalfos Chest': {
+    category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'DZX'],
+    itemId: 'Piece_of_Heart',
+  },
   'Eldin Field Water Bomb Fish Grotto Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'DZX'],
     itemId: 'Purple_Rupee',
@@ -1445,18 +1457,6 @@ window.tpr.checkData = {
   },
   'Lanayru Field Spinner Track Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
-    itemId: 'Piece_of_Heart',
-  },
-  'Lanayru Field Stalfos Grotto Left Small Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
-    itemId: 'Bombs_5',
-  },
-  'Lanayru Field Stalfos Grotto Right Small Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
-    itemId: 'Bombs_5',
-  },
-  'Lanayru Field Stalfos Grotto Stalfos Chest': {
-    category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
     itemId: 'Piece_of_Heart',
   },
   'Lanayru Ice Block Puzzle Cave Chest': {

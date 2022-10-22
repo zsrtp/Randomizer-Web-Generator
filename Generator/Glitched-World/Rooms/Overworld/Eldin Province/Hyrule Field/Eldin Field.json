@@ -7,7 +7,8 @@
         "Castle Town",
         "Lanayru Field",
         "Eldin Field Water Bomb Fish Grotto",
-        "Eldin Field Bomskit Grotto"
+        "Eldin Field Bomskit Grotto",
+        "Eldin Field Stalfos Grotto"
     ],
   "NeighbourRequirements": [
     "canSmash",
@@ -16,7 +17,8 @@
     "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy)))",
     "canSmash",
     "Shadow_Crystal",
-    "Shadow_Crystal"
+    "Shadow_Crystal",
+    "((Shadow_Crystal and Spinner) or CanDoMapGlitch) and (canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy))))"
   ],
     "Checks":
     [
