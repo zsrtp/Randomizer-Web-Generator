@@ -555,29 +555,26 @@ namespace TPRandomizer
             switch (gameRegionOverride)
             {
                 case GameRegion.USA:
-                    gameVer = "ge";
+                    gameVer = "E";
                     break;
                 case GameRegion.EUR:
-                    gameVer = "gp";
+                    gameVer = "P";
                     break;
                 case GameRegion.JAP:
-                    gameVer = "gj";
+                    gameVer = "J";
                     break;
                 default:
                     throw new Exception("Did not specify output region");
             }
 
-            dict.Add(
-                "name",
-                "Tpr--"
-                    + seedGenResults.playthroughName
-                    + "--SeedV"
-                    + SeedData.VersionString
-                    + gameVer
-                    + "-"
-                    + seedId
-                    + ".gci"
-            );
+            string fileName = "Tpr-" + gameVer + "-" + seedGenResults.playthroughName + ".gci";
+
+            if (fileName.Length > 32)
+            {
+                fileName = fileName.Substring(0, 32);
+            }
+
+            dict.Add("name", fileName);
             dict.Add("length", bytes.Length);
 
             return new(dict, bytes);
