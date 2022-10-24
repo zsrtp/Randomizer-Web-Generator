@@ -294,6 +294,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
       msg = msg.replace('<!-- CHECK_IDS -->', arr.join('\n'));
 
       const startingItems = [
+        [50, 'Shadow Crystal'],
         [63, 'Progressive Sword'],
         [63, 'Progressive Sword'],
         [63, 'Progressive Sword'],
@@ -309,7 +310,6 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [49, 'Zora Armor'],
         [68, 'Progressive Clawshot'],
         [68, 'Progressive Clawshot'],
-        [50, 'Shadow Crystal'],
         [144, 'Aurus Memo'],
         [145, 'Asheis Sketch'],
         [65, 'Spinner'],
