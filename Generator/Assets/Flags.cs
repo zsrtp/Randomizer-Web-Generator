@@ -32,7 +32,6 @@ namespace TPRandomizer.Assets
             { 0x3, 0x1B }, // Collected Tear From Bomb Storage
             { 0x3, 0x40 }, // Kakariko Village Portal
             { 0x3, 0x4A }, // Death Mountain Portal
-            { 0x3, 0xA7 }, // Unlock Jumps to top of Sanctuary
             { 0x6, 0x4A }, // Give Gorge Portal
         };
 
@@ -69,6 +68,7 @@ namespace TPRandomizer.Assets
             { 0x9, 0x76 }, // Jovani Chest CS 2
             { 0x9, 0x7F }, // Open Chest to Jovani
             { 0x9, 0x7E }, // Jovani Chest CS
+            { 0x3, 0xA7 }, // Unlock Jumps to top of Sanctuary
         };
 
         /// <summary>
