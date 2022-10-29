@@ -151,30 +151,30 @@
 					<div class="tabColumn">
 						<fieldset id="itemPoolOptionsFieldset"> 
 							<legend>Item Pool</legend>
-							<input type="checkbox" id="goldenBugsCheckbox" 
-							data-tooltip-text="If checked, the golden bug locations across Hyrule are randomized.&#0010;"
-							name="Golden Bugs" value="">
-							<label for="goldenBugsCheckbox"> Golden Bugs </label><br>
-							<input type="checkbox" 
-							data-tooltip-text="If checked, the Sky Characters received from the Owl Statues are randomized.&#0010;"
-							id="skyCharacterCheckbox" name="Sky Characters" value="">
-							<label for="skyCharacterCheckbox"> Sky Characters </label><br>
-							<input type="checkbox" id="giftsFromNPCsCheckbox" 
-							data-tooltip-text="If checked, items recieved from NPCs will be randomized.&#0010;"
-							name="Gifts From NPCs" value="">
-							<label for="giftsFromNPCsCheckbox"> Gifts From NPCs </label><br>
-							<input type="checkbox" 
-							data-tooltip-text="If checked, the souls recieved from Poes will be randomized.&#0010;"
-							id="poesCheckbox" name="Poes" value="">
-							<label for="poesCheckbox"> Poes </label><br>
-							<input type="checkbox" 
-							data-tooltip-text="If checked, the items you can permanently buy from shops are randomized.&#0010;"
-							id="shopItemsCheckbox" name="Shop Items" value="">
-							<label for="shopItemsCheckbox"> Shop Items </label><br>
-							<input type="checkbox" 
-							data-tooltip-text="If checked, the Hidden Skills recieved from Golden Wolves are randomized.&#0010;"
-							id="hiddenSkillsCheckbox" name="Hidden Skills" value="">
-							<label for="hiddenSkillsCheckbox"> Hidden Skills </label><br>
+							<div data-tooltip-text="If checked, the golden bug locations across Hyrule are randomized.&#0010;" style="width:50%">
+								<input type="checkbox" id="goldenBugsCheckbox" name="Golden Bugs" value="">
+								<label for="goldenBugsCheckbox"> Golden Bugs </label><br>
+							</div>
+							<div data-tooltip-text="If checked, the Sky Characters received from the Owl Statues are randomized.&#0010;" style="width:50%">
+								<input type="checkbox" id="skyCharacterCheckbox" name="Sky Characters" value="">
+								<label for="skyCharacterCheckbox"> Sky Characters </label><br>
+							</div>
+							<div style="width:50%" data-tooltip-text="If checked, items recieved from NPCs will be randomized.&#0010;">
+								<input type="checkbox" id="giftsFromNPCsCheckbox" name="Gifts From NPCs" value="">
+								<label for="giftsFromNPCsCheckbox"> Gifts From NPCs </label><br>
+							</div>
+							<div style="width:50%" data-tooltip-text="If checked, the souls recieved from Poes will be randomized.&#0010;">
+								<input type="checkbox" id="poesCheckbox" name="Poes" value="">
+								<label for="poesCheckbox"> Poes </label><br>
+							</div>
+							<div style="width:50%" data-tooltip-text="If checked, the items you can permanently buy from shops are randomized.&#0010;">
+								<input type="checkbox" id="shopItemsCheckbox" name="Shop Items" value="">
+								<label for="shopItemsCheckbox"> Shop Items </label><br>
+							</div>
+							<div style="width:50%" data-tooltip-text="If checked, the Hidden Skills recieved from Golden Wolves are randomized.&#0010;">
+								<input type="checkbox" id="hiddenSkillsCheckbox" name="Hidden Skills" value="">
+								<label for="hiddenSkillsCheckbox"> Hidden Skills </label><br>
+							</div>
 						</fieldset>
 					</div>
 					<div class="tabColumn">
@@ -225,47 +225,59 @@
 					<div class="tabColumn">
 						<fieldset id="clearedTwilightsFieldset">
 							<legend>Timesavers</legend>
-							<input type="checkbox" id="introCheckbox" name="Intro Logic" value=""
-							data-tooltip-text="Skips the first three days of Ordon and places Link outside his house before the Sewers segment.&#0010;">
-							<label for="introCheckbox"> Skip Prologue </label><br>
-							<input type="checkbox" id="faronTwilightCheckbox" name="Faron Twilight Checkbox" value=""
-							data-tooltip-text="Skips the Faron Twilight tear collection segment.&#0010;">
-							<label for="faronTwilightCheckbox"> Faron Twilight Cleared </label><br>
-							<input type="checkbox" id="eldinTwilightCheckbox" name="Eldin Twilight Checkbox" value=""
-							data-tooltip-text="Skips the Eldin Twilight tear collection segment.&#0010;">
-							<label for="eldinTwilightCheckbox"> Eldin Twilight Cleared </label><br>
-							<input type="checkbox" id="lanayruTwilightCheckbox" name="Lanayru Twilight Checkbox" value=""
-							data-tooltip-text="Skips the Lanayru Twilight tear collection segment.&#0010;">
-							<label for="lanayruTwilightCheckbox"> Lanayru Twilight Cleared </label><br>
-							<input type="checkbox" id="mdhCheckbox" name="MDH Logic" value=""
-							data-tooltip-text="Skips the Midna's Desperate Hour segment after Lakebed Temple.&#0010;">
-							<label for="mdhCheckbox">  Skip Midna's Desperate Hour </label><br>
-							<input type="checkbox" id="skipMinorCutscenesCheckbox" name="Skip Minor Cutscenes Checkbox" value=""
-							data-tooltip-text="Sets the flags for most minor cutscenes. (Dungeon Entrance cutscenes, Midna text prompts, etc.)&#0010;">
-							<label for="skipMinorCutscenesCheckbox"> Skip Minor Cutscenes </label><br>
-							<input type="checkbox" id="fastIBCheckbox" name="Fast IB Checkbox" value=""
-							data-tooltip-text="Removes the speed reduction caused by wearing the Iron Boots.&#0010;">
-							<label for="fastIBCheckbox"> Fast Iron Boots </label><br>
-							<input type="checkbox" id="quickTransformCheckbox" name="Quick Transform Checkbox" value=""
-							data-tooltip-text="Allows the player to instantly transform when pressing a specified button combination.&#0010;&#0010;Gamecube: R + Y&#0010;">
-							<label for="quickTransformCheckbox"> Quick Transform </label><br>
-							<input type="checkbox" id="barrenCheckbox" name="Unrequired Dungeons" value=""
-							data-tooltip-text="If enabled, any dungeon that is not required to open Hyrule Castle will not contain any important items.&#0010;">
-							<label for="barrenCheckbox"> Unrequired Dungeons Are Barren </label><br>
+							<div style="width:60%" data-tooltip-text="Skips the first three days of Ordon and places Link outside his house before the Sewers segment.&#0010;">
+								<input type="checkbox" id="introCheckbox" name="Intro Logic" value="">
+								<label for="introCheckbox"> Skip Prologue </label><br>
+							</div>
+							<div style="width:60%" data-tooltip-text="Skips the Faron Twilight tear collection segment.&#0010;">
+								<input type="checkbox" id="faronTwilightCheckbox" name="Faron Twilight Checkbox" value="">
+								<label for="faronTwilightCheckbox"> Faron Twilight Cleared </label><br>
+							</div>
+							<div style="width:60%" data-tooltip-text="Skips the Eldin Twilight tear collection segment.&#0010;">
+								<input type="checkbox" id="eldinTwilightCheckbox" name="Eldin Twilight Checkbox" value="">
+								<label for="eldinTwilightCheckbox"> Eldin Twilight Cleared </label><br>
+							</div>
+							<div style="width:80%" data-tooltip-text="Skips the Lanayru Twilight tear collection segment.&#0010;">
+								<input type="checkbox" id="lanayruTwilightCheckbox" name="Lanayru Twilight Checkbox" value="">
+								<label for="lanayruTwilightCheckbox"> Lanayru Twilight Cleared </label><br>
+							</div>
+							<div style="width:70%" data-tooltip-text="Skips the Midna's Desperate Hour segment after Lakebed Temple.&#0010;">
+								<input type="checkbox" id="mdhCheckbox" name="MDH Logic" value="">
+								<label for="mdhCheckbox">  Skip Midna's Desperate Hour </label><br>
+							</div>
+							<div style="width:60%" data-tooltip-text="Sets the flags for most minor cutscenes. (Dungeon Entrance cutscenes, Midna text prompts, etc.)&#0010;">
+								<input type="checkbox" id="skipMinorCutscenesCheckbox" name="Skip Minor Cutscenes Checkbox" value="">
+								<label for="skipMinorCutscenesCheckbox"> Skip Minor Cutscenes </label><br>
+							</div>
+							<div style="width:60%" data-tooltip-text="Removes the speed reduction caused by wearing the Iron Boots.&#0010;">
+								<input type="checkbox" id="fastIBCheckbox" name="Fast IB Checkbox" value="">
+								<label for="fastIBCheckbox"> Fast Iron Boots </label><br>
+							</div>
+							<div style="width:60%" data-tooltip-text="Allows the player to instantly transform when pressing a specified button combination.&#0010;&#0010;Gamecube: R + Y&#0010;">
+								<input type="checkbox" id="quickTransformCheckbox" name="Quick Transform Checkbox" value="">
+								<label for="quickTransformCheckbox"> Quick Transform </label><br>
+							</div>
+							<div style="width:90%" data-tooltip-text="If enabled, any dungeon that is not required to open Hyrule Castle will not contain any important items.&#0010;">
+								<input type="checkbox" id="barrenCheckbox" name="Unrequired Dungeons" value="">
+								<label for="barrenCheckbox"> Unrequired Dungeons Are Barren </label><br>
+							</div>
 						</fieldset>
 					</div>
 					<div class="tabColumn">
 						<fieldset id="additionalSettingsFieldset">
 							<legend>Additional Settings</legend>
-							<input type="checkbox" id="transformAnywhereCheckbox" name="Transform Anywhere Checkbox" value=""
-							data-tooltip-text="If enabled, the player can transform anywhere, even in front of people.&#0010;">
-							<label for="transformAnywhereCheckbox">  Transform Anywhere </label><br>
-							<input type="checkbox" id="increaseWalletCheckbox" name="Increase Wallet Checkbox" value=""
-							data-tooltip-text="Increases the player's wallet capacity from 300, 600, 1000 to 1000, 5000, 9999 respectively.&#0010;">
-							<label for="increaseWalletCheckbox"> Increase Wallet Capacity</label><br>
-							<input type="checkbox" id="modifyShopModelsCheckbox" name="Modify Shop Models Checkbox" value=""
-							data-tooltip-text="If checked, shop item models will show the model of the replacement item. If unchecked, the shop model will always be vanilla.&#0010;">
-							<label for="modifyShopModelsCheckbox">Shop Models Show The Replaced Item</label><br>
+							<div style="width:60%" data-tooltip-text="If enabled, the player can transform anywhere, even in front of people.&#0010;">
+								<input type="checkbox" id="transformAnywhereCheckbox" name="Transform Anywhere Checkbox" value="">
+								<label for="transformAnywhereCheckbox">  Transform Anywhere </label><br>
+							</div>
+							<div style="width:70%" data-tooltip-text="Increases the player's wallet capacity from 300, 600, 1000 to 1000, 5000, 9999 respectively.&#0010;">
+								<input type="checkbox" id="increaseWalletCheckbox" name="Increase Wallet Checkbox" value="">
+								<label for="increaseWalletCheckbox"> Increase Wallet Capacity</label><br>
+							</div>
+							<div data-tooltip-text="If checked, shop item models will show the model of the replacement item. If unchecked, the shop model will always be vanilla.&#0010;">
+								<input type="checkbox" id="modifyShopModelsCheckbox" name="Modify Shop Models Checkbox" value="">
+								<label for="modifyShopModelsCheckbox">Shop Models Show The Replaced Item</label><br>
+							</div>
 							<!-- <div class="selectGroup" style="margin-top:8px;">
 								<label for="foolishItemFieldsetABC">Trap Items Type</label><br>
 								<select name="Foolish Items ABC" id="foolishItemFieldsetABC">
@@ -288,24 +300,30 @@
 					<div class="tabColumn">
 						<fieldset id="dungeonRequirementsFieldset">
 							<legend>Dungeon Entrance Settings</legend>
-							<input type="checkbox" id="minesEntranceCheckbox" name="Goron Mines Checkbox" value=""
-							data-tooltip-text="If checked, Link will not have to wrestle Gor Coron to enter Goron Mines.&#0010;">
-							<label for="minesEntranceCheckbox"> Mines Does Not Require Wrestling </label><br>
-							<input type="checkbox" id="lakebedEntranceCheckbox" name="Lakebed Temple Checkbox" value=""
-							data-tooltip-text="If checked, the rock in front of the entrance to Lakebed Temple is destroyed.&#0010;">
-							<label for="lakebedEntranceCheckbox"> Lakebed Does Not Require Water Bombs </label><br>
-							<input type="checkbox" id="arbitersEntranceCheckbox" name="Arbiters Grounds Checkbox" value=""
-							data-tooltip-text="If checked, the Bulblin Camp is cleared and the player does not need to defeat King Bulblin. This also removes the Bulblin Camp Key from the item pool.&#0010;">
-							<label for="arbitersEntranceCheckbox"> Arbiters Does Not Require Bulblin Camp </label><br>
-							<input type="checkbox" id="snowpeakEntranceCheckbox" name="Snowpeak Ruins Checkbox" value=""
-							data-tooltip-text="If checked, the blizzard in Snowpeak will not void out Link if the correct path is taken. Shadow Crystal is still in logic to see the scent path.&#0010;">
-							<label for="snowpeakEntranceCheckbox"> Snowpeak Does Not Require Reekfish Scent </label><br>
-							<input type="checkbox" id="totEntranceCheckbox" name="Temple of Time Checkbox" value=""
-							data-tooltip-text="If checked, the portal to the Sacred Grove is opened, the player will not need to defeat Skull Kid to pass through the Lost Woods, the statue is removed from the Temple of Time doors, and the staircase to the dungeon is activated.&#0010;">
-							<label for="totEntranceCheckbox"> Temple of Time Does Not Require Sword or Grove</label><br>
-							<input type="checkbox" id="cityEntranceCheckbox" name="City in The Sky Checkbox" value=""
-							data-tooltip-text="If checked, the Sky Cannon is automatically warped to Lake Hylia once Lanayru Twilight is complete and the Sky Characters are removed from the item pool.&#0010;">
+							<div data-tooltip-text="If checked, Link will not have to wrestle Gor Coron to enter Goron Mines.&#0010;">
+								<input type="checkbox" id="minesEntranceCheckbox" name="Goron Mines Checkbox" value="">
+								<label for="minesEntranceCheckbox"> Mines Does Not Require Wrestling </label><br>
+							</div>
+							<div data-tooltip-text="If checked, the rock in front of the entrance to Lakebed Temple is destroyed.&#0010;">
+								<input type="checkbox" id="lakebedEntranceCheckbox" name="Lakebed Temple Checkbox" value="">
+								<label for="lakebedEntranceCheckbox"> Lakebed Does Not Require Water Bombs </label><br>
+							</div>
+							<div data-tooltip-text="If checked, the Bulblin Camp is cleared and the player does not need to defeat King Bulblin. This also removes the Bulblin Camp Key from the item pool.&#0010;">
+								<input type="checkbox" id="arbitersEntranceCheckbox" name="Arbiters Grounds Checkbox" value="">
+								<label for="arbitersEntranceCheckbox"> Arbiters Does Not Require Bulblin Camp </label><br>
+							</div>
+							<div data-tooltip-text="If checked, the blizzard in Snowpeak will not void out Link if the correct path is taken. Shadow Crystal is still in logic in to see the scent path.&#0010;">
+								<input type="checkbox" id="snowpeakEntranceCheckbox" name="Snowpeak Ruins Checkbox" value="">
+								<label for="snowpeakEntranceCheckbox"> Snowpeak Does Not Require Reekfish Scent </label><br>
+							</div>
+							<div data-tooltip-text="If checked, the portal to the Sacred Grove is opened, the player will not need to defeat Skull Kid to pass through the Lost Woods, the statue is removed from the Temple of Time doors, and the staircase to the dungeon is activated.&#0010;">
+								<input type="checkbox" id="totEntranceCheckbox" name="Temple of Time Checkbox" value="">
+								<label for="totEntranceCheckbox"> Temple of Time Does Not Require Sword or Grove</label><br>
+							</div>
+							<div data-tooltip-text="If checked, the Sky Cannon is automatically warped to Lake Hylia once Lanayru Twilight is complete and the Sky Characters are removed from the item pool.&#0010;">
+							<input type="checkbox" id="cityEntranceCheckbox" name="City in The Sky Checkbox" value="">
 							<label for="cityEntranceCheckbox"> City Does Not Require Filled Skybook </label><br>
+							</div>
 						</fieldset>
 					</div>
 				</div>
@@ -665,11 +683,14 @@
 								<option value="2">Dungeon</option>
 								<option value="3">All</option>
 							</select> <br>
-							<input type="checkbox" id="randomizeFanfaresCheckbox" name="Randomize Fanfares Checkbox" value=""
-							data-tooltip-text="Randomizes the various fanfares that play when completing tasks and collecting items.&#0010;">
-							<label for="randomizeFanfaresCheckbox"> Randomize Fanfares </label><br>
-							<input type="checkbox" id="disableEnemyBGMCheckbox" name="Disable Enemy BGM Checkbox" value="" data-tooltip-text="Disables the music that plays when you fight enemies.&#0010;">
-							<label for="disableEnemyBGMCheckbox"> Disable Enemy Background Music</label><br>
+							<div style="width:60%" data-tooltip-text="Randomizes the various fanfares that play when completing tasks and collecting items.&#0010;">
+								<input type="checkbox" id="randomizeFanfaresCheckbox" name="Randomize Fanfares Checkbox" value="">
+								<label for="randomizeFanfaresCheckbox"> Randomize Fanfares </label><br>
+							</div>
+							<div data-tooltip-text="Disables the music that plays when you fight enemies.&#0010;">
+								<input type="checkbox" id="disableEnemyBGMCheckbox" name="Disable Enemy BGM Checkbox" value="">
+								<label for="disableEnemyBGMCheckbox"> Disable Enemy Background Music</label><br>
+							</div>
 						</fieldset>
 				</div>
 
