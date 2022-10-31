@@ -415,7 +415,9 @@ app.get('/s/:id', (req: express.Request, res: express.Response) => {
         );
         msg = msg.replace('<!-- REQUESTER_HASH -->', '');
 
-        const spoilerData = callGenerator('print_seed_gen_results', id);
+        const spoilerData = escapeHtml(
+          callGenerator('print_seed_gen_results', id)
+        );
 
         msg = msg.replace(
           '<!-- SEED_GEN_RESULTS -->',
