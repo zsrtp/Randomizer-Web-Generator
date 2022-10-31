@@ -731,10 +731,6 @@ namespace TPRandomizer
             else if (parseSetting.smallKeySettings == SmallKeySettings.Keysy)
             {
                 this.RandomizedImportantItems.Remove(Item.Gate_Keys);
-                if (!parseSetting.startingItems.Contains(Item.Gerudo_Desert_Bulblin_Camp_Key))
-                {
-                    parseSetting.startingItems.Add(Item.Gerudo_Desert_Bulblin_Camp_Key);
-                }
             }
 
             // Check Big Key Settings before adding them to the pool
@@ -815,7 +811,7 @@ namespace TPRandomizer
                 {
                     if (!parseSetting.shufflePoes)
                     {
-                        this.alwaysItems.Add(Randomizer.Checks.CheckDict[excludedCheck].itemId);
+                        Randomizer.Checks.CheckDict[excludedCheck].checkStatus = "Vanilla";
                     }
                 }
             }
