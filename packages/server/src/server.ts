@@ -394,6 +394,11 @@ app.get('/s/:id', (req: express.Request, res: express.Response) => {
         return;
       }
 
+      msg = msg.replace(
+        '<!-- USER_ID -->',
+        `<input id="userJwtInput" type="hidden" value="${req.newUserJwt}">`
+      );
+
       // const filePath = path.join(__dirname, `seeds/${id}/input.json`);
       const filePath = resolveOutputPath(`seeds/${id}/input.json`);
 
