@@ -857,7 +857,10 @@
   window.addEventListener('DOMContentLoaded', () => {
     try {
       const jwt = localStorage.getItem('jwt');
-      if (jwt) {
+      // 'undefined' check is to ignore localStorage jwt if we accidentally
+      // saved a bad value which was possible before these changes. Maybe not
+      // strictly necessary, but doesn't hurt.
+      if (jwt && jwt !== 'undefined') {
         userJwt = jwt;
         return;
       }
@@ -871,11 +874,13 @@
       userJwt = jwtEl.value;
     }
 
-    try {
-      localStorage.setItem('jwt', userJwt);
-    } catch (e) {
-      console.error('Could not set jwt to localStorage.');
-      console.error(e);
+    if (userJwt) {
+      try {
+        localStorage.setItem('jwt', userJwt);
+      } catch (e) {
+        console.error('Could not set jwt to localStorage.');
+        console.error(e);
+      }
     }
   });
 
