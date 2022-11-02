@@ -1309,8 +1309,10 @@ namespace TPRandomizer
                         foreach (string check in listOfRequiredDungeons[i].requirementChecks)
                         {
                             if (
-                                (Checks.CheckDict[check].checkStatus != "Vanilla")
-                                && !Checks.CheckDict[check].itemWasPlaced
+                                (
+                                    (Checks.CheckDict[check].checkStatus != "Vanilla")
+                                    && (Checks.CheckDict[check].checkStatus != "Excluded")
+                                ) && !Checks.CheckDict[check].itemWasPlaced
                             )
                             {
                                 //Console.WriteLine(check + " is now excluded");
