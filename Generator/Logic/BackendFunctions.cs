@@ -70,6 +70,7 @@ namespace TPRandomizer
                         if (!currentCheck.hasBeenReached)
                         {
                             var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
+                                currentCheck.checkName,
                                 currentCheck.requirements
                             );
                             if ((bool)areCheckRequirementsMet == true)
@@ -199,6 +200,7 @@ namespace TPRandomizer
                         if (!currentCheck.hasBeenReached)
                         {
                             var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
+                                currentCheck.checkName,
                                 currentCheck.requirements
                             );
                             if ((bool)areCheckRequirementsMet == true)
@@ -373,6 +375,7 @@ namespace TPRandomizer
                         if (!currentCheck.hasBeenReached)
                         {
                             var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
+                                currentCheck.checkName,
                                 currentCheck.requirements
                             );
                             if ((bool)areCheckRequirementsMet == true)
@@ -549,6 +552,7 @@ namespace TPRandomizer
                             if (!currentCheck.hasBeenReached && currentCheck.itemWasPlaced)
                             {
                                 var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
+                                    currentCheck.checkName,
                                     currentCheck.requirements
                                 );
                                 if ((bool)areCheckRequirementsMet == true)
@@ -664,6 +668,7 @@ namespace TPRandomizer
                             )
                             {
                                 var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
+                                    currentCheck.checkName,
                                     currentCheck.requirements
                                 );
                                 if ((bool)areCheckRequirementsMet == true)

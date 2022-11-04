@@ -470,6 +470,7 @@ namespace TPRandomizer
                 Item.Progressive_Hidden_Skill,
                 Item.Magic_Armor,
                 Item.Ordon_Shield,
+                Item.Hylian_Shield,
             };
 
         public readonly List<Item> goldenBugs =
@@ -619,7 +620,6 @@ namespace TPRandomizer
                 Item.Sera_Bottle,
                 Item.Coro_Bottle,
                 Item.Jovani_Bottle,
-                Item.Hylian_Shield,
                 Item.Hawkeye,
             };
 

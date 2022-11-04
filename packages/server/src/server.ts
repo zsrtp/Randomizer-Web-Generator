@@ -326,6 +326,8 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [132, 'Horse Call'],
         [243, 'Gate Keys'],
         [96, 'Empty Bottle'],
+        [42, 'Ordon Shield'],
+        [44, 'Hylian Shield'],
       ];
 
       const startingItemsEls = startingItems.map((item) => {

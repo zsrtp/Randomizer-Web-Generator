@@ -425,6 +425,14 @@ namespace TPRandomizer
                         currentCheck.checkStatus = "Vanilla";
                         Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
                         Randomizer.Items.alwaysItems.Remove(currentCheck.itemId);
+                        foreach (Item startingItem in parseSetting.startingItems)
+                        {
+                            if (currentCheck.itemId == startingItem)
+                            {
+                                // If we are starting with the shop item and it is not randomized, replace it with a junk item.
+                                currentCheck.checkStatus = "Excluded";
+                            }
+                        }
                     }
                 }
             }
