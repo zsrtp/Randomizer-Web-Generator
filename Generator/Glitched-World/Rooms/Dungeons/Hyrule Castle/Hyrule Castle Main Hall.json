@@ -1,17 +1,17 @@
-{ 
-    "Neighbours": 
+{
+    "Neighbours":
     [
-        "Hyrule Castle Entrance", 
+        "Hyrule Castle Entrance",
         "Hyrule Castle Inside East Wing",
         "Hyrule Castle Inside West Wing"
     ],
-    "NeighbourRequirements": 
+    "NeighbourRequirements":
     [
         "true",
-        "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang and Lantern",
-        "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang and Lantern"
+        "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang",
+        "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang"
     ],
-    "Checks": 
+    "Checks":
     [
         "Hyrule Castle Main Hall Northeast Chest",
         "Hyrule Castle Main Hall Southwest Chest",
