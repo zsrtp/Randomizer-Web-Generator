@@ -1826,6 +1826,11 @@ namespace TPRandomizer
                 && getItemCount(Item.Progressive_Hidden_Skill) >= 3;
         }
 
+		  public static bool CanGetBugWithLantern()
+		  {
+				return false;
+		  }
+
         // END OF GLITCHED LOGIC
 
         public static int getItemCount(Item itemToBeCounted)
