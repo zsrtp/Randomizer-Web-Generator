@@ -763,6 +763,10 @@ namespace TPRandomizer
 
             // Dungeon rewards have a very limited item pool, so we want to place them first to prevent the generator from putting
             // an unnecessary item in one of the checks.
+            placeDungeonRewards(Items.ShuffledDungeonRewards);
+
+            /*
+            // This is the old dungeon item placing code
             // starting room, list of checks to be randomized, items to be randomized, item pool, restriction
             Console.WriteLine("Placing Dungeon Rewards.");
             PlaceItemsRestricted(
@@ -772,6 +776,7 @@ namespace TPRandomizer
                 "Dungeon Rewards",
                 rnd
             );
+            */
 
             // We determine which dungeons are required after the dungeon rewards are placed but before the other checks
             // are placed because if a certain dungeon's checks need to be excluded, we want to exclude the check before
@@ -1551,6 +1556,62 @@ namespace TPRandomizer
             }
 
             return checkNameToItemName;
+        }
+
+        private static void placeDungeonRewards(List<Item> ShuffledDungeonRewards)
+        {
+            List<Check> dungeonRewards = new();
+            Random rnd = new Random();
+            List<Item> itemsToBeRandomized = new();
+            itemsToBeRandomized.AddRange(ShuffledDungeonRewards);
+            if (itemsToBeRandomized.Count > 0)
+            {
+                Check currentCheck;
+                Item currentItem;
+                foreach (KeyValuePair<string, Check> kvp in Checks.CheckDict)
+                {
+                    currentCheck = kvp.Value;
+                    if (currentCheck.category.Contains("Dungeon Reward"))
+                    {
+                        dungeonRewards.Add(currentCheck);
+                    }
+                }
+
+                while (itemsToBeRandomized.Count > 0)
+                {
+                    currentCheck = dungeonRewards[rnd.Next(dungeonRewards.Count)];
+                    currentItem = itemsToBeRandomized[rnd.Next(itemsToBeRandomized.Count)];
+
+                    // We don't want to lock ourselves out of Palace
+                    if (currentCheck.category.Contains("Palace of Twilight"))
+                    {
+                        if (
+                            Randomizer.SSettings.palaceRequirements
+                                == PalaceRequirements.Fused_Shadows
+                            && (currentItem == Item.Progressive_Fused_Shadow)
+                        )
+                        {
+                            continue;
+                        }
+
+                        if (
+                            Randomizer.SSettings.palaceRequirements
+                                == PalaceRequirements.Mirror_Shards
+                            && (currentItem == Item.Progressive_Mirror_Shard)
+                        )
+                        {
+                            continue;
+                        }
+                    }
+                    PlaceItemInCheck(currentItem, currentCheck);
+                    // for debugging
+                    /*Console.WriteLine(
+                        "Placed Reward: " + currentItem + " in: " + currentCheck.checkName
+                    );*/
+                    itemsToBeRandomized.Remove(currentItem);
+                    dungeonRewards.Remove(currentCheck);
+                }
+            }
         }
     }
 
