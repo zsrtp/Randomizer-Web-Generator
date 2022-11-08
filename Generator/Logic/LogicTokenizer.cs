@@ -16,6 +16,8 @@ namespace TPRandomizer
     public class Parser
     {
         public int tokenValue;
+        public int isinParenthesis = 0;
+        public string checkedLogicItem;
 
         /// <summary>
         /// summary text.
@@ -51,6 +53,14 @@ namespace TPRandomizer
                         boolean = boolean || nextBoolean;
                 }
 
+                // If the code makes it to this point, it is catching the closing parenthesis. If there shouldn't be one at this point, we want to parse and account for it.
+                if (
+                    (isinParenthesis == 0) && !(tokenValue > Randomizer.Logic.TokenDict.Count() - 1)
+                )
+                {
+                    ParseBoolean();
+                }
+
                 return boolean;
             }
 
@@ -75,11 +85,12 @@ namespace TPRandomizer
             }
             else if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is OpenParenthesisToken)
             {
+                isinParenthesis++;
                 tokenValue++;
 
                 var expInPars = Parse();
 
-                // If there are no more characters and we have a hanging parenthesis, throw an error
+                // If there are no more characters and we have a hanging open parenthesis, throw an error
                 if (
                     !(
                         Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key
@@ -100,12 +111,18 @@ namespace TPRandomizer
                 }
 
                 tokenValue++;
+                isinParenthesis -= 1;
 
                 return expInPars;
             }
-            else if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is ClosedParenthesisToken)
+            else if (
+                Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is ClosedParenthesisToken
+                && (isinParenthesis == 0)
+            )
             {
-                throw new Exception("Unexpected Closed Parenthesis");
+                throw new Exception(
+                    "Unexpected Closed Parenthesis in location: " + checkedLogicItem
+                );
             }
             else if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is itemToken)
             {
@@ -135,9 +152,8 @@ namespace TPRandomizer
                 {
                     tokenValue++;
                     int getQuantity = 0;
-                    getQuantity = (int)typeof(LogicFunctions)
-                        .GetMethod(evaluatedFunction)
-                        .Invoke(this, null);
+                    getQuantity = (int)
+                        typeof(LogicFunctions).GetMethod(evaluatedFunction).Invoke(this, null);
                     if (
                         getQuantity
                         >= Int16.Parse(Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value)
@@ -150,9 +166,8 @@ namespace TPRandomizer
                 // If there is no comma following the function, then it doesnt need to return an int value, and we can continue to evaluate it
                 else
                 {
-                    parseBool = (bool)typeof(LogicFunctions)
-                        .GetMethod(evaluatedFunction)
-                        .Invoke(this, null);
+                    parseBool = (bool)
+                        typeof(LogicFunctions).GetMethod(evaluatedFunction).Invoke(this, null);
                 }
                 return parseBool;
             }

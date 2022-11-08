@@ -555,29 +555,24 @@ namespace TPRandomizer
             switch (gameRegionOverride)
             {
                 case GameRegion.USA:
-                    gameVer = "ge";
+                    gameVer = "E";
                     break;
                 case GameRegion.EUR:
-                    gameVer = "gp";
+                    gameVer = "P";
                     break;
                 case GameRegion.JAP:
-                    gameVer = "gj";
+                    gameVer = "J";
                     break;
                 default:
                     throw new Exception("Did not specify output region");
             }
 
-            dict.Add(
-                "name",
-                "Tpr--"
-                    + seedGenResults.playthroughName
-                    + "--SeedV"
-                    + SeedData.VersionString
-                    + gameVer
-                    + "-"
-                    + seedId
-                    + ".gci"
-            );
+            string fileName =
+                "Tpr-" + gameVer + "-" + seedGenResults.playthroughName + "-" + seedId;
+
+            fileName += ".gci";
+
+            dict.Add("name", fileName);
             dict.Add("length", bytes.Length);
 
             return new(dict, bytes);
@@ -712,6 +707,7 @@ namespace TPRandomizer
                         {
                             // Parse the neighbour's requirements to find out if we can access it
                             var areNeighbourRequirementsMet = Logic.EvaluateRequirements(
+                                roomsToExplore[0].RoomName,
                                 roomsToExplore[0].NeighbourRequirements[i]
                             );
                             if ((bool)areNeighbourRequirementsMet == true)
@@ -939,6 +935,7 @@ namespace TPRandomizer
                                     else
                                     {
                                         areCheckRequirementsMet = Logic.EvaluateRequirements(
+                                            currentCheck.checkName,
                                             currentCheck.requirements
                                         );
                                     }
@@ -1114,23 +1111,11 @@ namespace TPRandomizer
             int lakebed = 5;
             //int mines = 6;
             int forest = 7;
-            List<string>[] listOfGlitchlessAffectedChecks = new List<string>[]
+            List<string>[] listOfAffectedChecks = new List<string>[]
             {
                 CheckFunctions.palaceRequirementChecks,
                 CheckFunctions.cityRequirementChecks,
-                CheckFunctions.totRequirementChecksGlitchless,
-                CheckFunctions.snowpeakRequirementChecks,
-                CheckFunctions.arbitersRequirementChecks,
-                CheckFunctions.lakebedRequirementChecks,
-                CheckFunctions.minesRequirementChecks,
-                CheckFunctions.forestRequirementChecks
-            };
-
-            List<string>[] listOfGlitchedAffectedChecks = new List<string>[]
-            {
-                CheckFunctions.palaceRequirementChecks,
-                CheckFunctions.cityRequirementChecks,
-                CheckFunctions.totRequirementChecksGlitched,
+                CheckFunctions.totRequirementChecks,
                 CheckFunctions.snowpeakRequirementChecks,
                 CheckFunctions.arbitersRequirementChecks,
                 CheckFunctions.lakebedRequirementChecks,
@@ -1164,14 +1149,7 @@ namespace TPRandomizer
 
             for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
             {
-                if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
-                {
-                    listOfRequiredDungeons[i].requirementChecks = listOfGlitchlessAffectedChecks[i];
-                }
-                else
-                {
-                    listOfRequiredDungeons[i].requirementChecks = listOfGlitchedAffectedChecks[i];
-                }
+                listOfRequiredDungeons[i].requirementChecks = listOfAffectedChecks[i];
             }
 
             // First we want to check the Hyrule Castle access requirements to get the base required dungeons to access Hyrule.
@@ -1266,7 +1244,10 @@ namespace TPRandomizer
                     {
                         if (
                             Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemId
-                            == Item.Progressive_Fused_Shadow
+                                == Item.Progressive_Fused_Shadow
+                            && Checks.CheckDict[
+                                listOfRequiredDungeons[i].dungeonReward
+                            ].itemWasPlaced
                         )
                         {
                             listOfRequiredDungeons[i].isRequired = true;
@@ -1281,7 +1262,10 @@ namespace TPRandomizer
                     {
                         if (
                             Checks.CheckDict[listOfRequiredDungeons[i].dungeonReward].itemId
-                            == Item.Progressive_Mirror_Shard
+                                == Item.Progressive_Mirror_Shard
+                            && Checks.CheckDict[
+                                listOfRequiredDungeons[i].dungeonReward
+                            ].itemWasPlaced
                         )
                         {
                             listOfRequiredDungeons[i].isRequired = true;
@@ -1327,8 +1311,10 @@ namespace TPRandomizer
                         foreach (string check in listOfRequiredDungeons[i].requirementChecks)
                         {
                             if (
-                                (Checks.CheckDict[check].checkStatus != "Vanilla")
-                                && !Checks.CheckDict[check].itemWasPlaced
+                                (
+                                    (Checks.CheckDict[check].checkStatus != "Vanilla")
+                                    && (Checks.CheckDict[check].checkStatus != "Excluded")
+                                ) && !Checks.CheckDict[check].itemWasPlaced
                             )
                             {
                                 //Console.WriteLine(check + " is now excluded");

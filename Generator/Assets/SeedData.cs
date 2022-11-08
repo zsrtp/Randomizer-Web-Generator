@@ -758,6 +758,15 @@ namespace TPRandomizer.Assets
             SharedSettings randomizerSettings = Randomizer.SSettings;
             List<byte> listOfStartingItems = new();
             ushort count = 0;
+
+            if (randomizerSettings.smallKeySettings == SSettings.Enums.SmallKeySettings.Keysy)
+            {
+                if (!randomizerSettings.startingItems.Contains(Item.Gerudo_Desert_Bulblin_Camp_Key))
+                {
+                    randomizerSettings.startingItems.Add(Item.Gerudo_Desert_Bulblin_Camp_Key);
+                }
+            }
+
             foreach (Item startingItem in randomizerSettings.startingItems)
             {
                 listOfStartingItems.Add(Converter.GcByte((int)startingItem));

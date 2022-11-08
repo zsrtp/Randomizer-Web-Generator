@@ -470,6 +470,7 @@ namespace TPRandomizer
                 Item.Progressive_Hidden_Skill,
                 Item.Magic_Armor,
                 Item.Ordon_Shield,
+                Item.Hylian_Shield,
             };
 
         public readonly List<Item> goldenBugs =
@@ -619,7 +620,6 @@ namespace TPRandomizer
                 Item.Sera_Bottle,
                 Item.Coro_Bottle,
                 Item.Jovani_Bottle,
-                Item.Hylian_Shield,
                 Item.Hawkeye,
             };
 
@@ -731,10 +731,6 @@ namespace TPRandomizer
             else if (parseSetting.smallKeySettings == SmallKeySettings.Keysy)
             {
                 this.RandomizedImportantItems.Remove(Item.Gate_Keys);
-                if (!parseSetting.startingItems.Contains(Item.Gerudo_Desert_Bulblin_Camp_Key))
-                {
-                    parseSetting.startingItems.Add(Item.Gerudo_Desert_Bulblin_Camp_Key);
-                }
             }
 
             // Check Big Key Settings before adding them to the pool
@@ -815,7 +811,7 @@ namespace TPRandomizer
                 {
                     if (!parseSetting.shufflePoes)
                     {
-                        this.alwaysItems.Add(Randomizer.Checks.CheckDict[excludedCheck].itemId);
+                        Randomizer.Checks.CheckDict[excludedCheck].checkStatus = "Vanilla";
                     }
                 }
             }

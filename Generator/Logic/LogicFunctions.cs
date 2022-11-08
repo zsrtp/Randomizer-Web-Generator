@@ -98,7 +98,7 @@ namespace TPRandomizer
                 && (
                     HasSword()
                     || CanUse(Item.Ball_and_Chain)
-                    || CanUse(Item.Iron_Boots)
+                    //|| CanUse(Item.Iron_Boots)
                     || CanUse(Item.Shadow_Crystal)
                 )
             );
@@ -114,7 +114,10 @@ namespace TPRandomizer
                 || (getItemCount(Item.Progressive_Bow) >= 1)
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Shadow_Crystal)
-                || (getItemCount(Item.Progressive_Clawshot) >= 1);
+                || (getItemCount(Item.Progressive_Clawshot) >= 1)
+                || hasBombs()
+                || CanUse(Item.Spinner)
+                || CanUseBacksliceAsSword();
         }
 
         /// <summary>
@@ -127,7 +130,9 @@ namespace TPRandomizer
                 || (getItemCount(Item.Progressive_Bow) >= 1)
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
-                || CanUse(Item.Shadow_Crystal);
+                || CanUse(Item.Shadow_Crystal)
+                || hasBombs()
+                || CanUseBacksliceAsSword();
         }
 
         /// <summary>
@@ -141,7 +146,9 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Slingshot)
-                || (getItemCount(Item.Progressive_Clawshot) >= 1);
+                || (getItemCount(Item.Progressive_Clawshot) >= 1)
+                || hasBombs()
+                || CanUseBacksliceAsSword();
         }
 
         /// <summary>
@@ -171,7 +178,10 @@ namespace TPRandomizer
                 || CanUse(Item.Ball_and_Chain)
                 || ((getItemCount(Item.Progressive_Bow) >= 1) && CanGetArrows())
                 || CanUse(Item.Iron_Boots)
-                || CanUse(Item.Shadow_Crystal);
+                || CanUse(Item.Shadow_Crystal)
+                || CanUse(Item.Spinner)
+                || hasBombs()
+                || CanUseBacksliceAsSword();
         }
 
         /// <summary>
@@ -187,6 +197,8 @@ namespace TPRandomizer
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
                 || (getItemCount(Item.Progressive_Clawshot) >= 1)
+                || hasBombs()
+                || CanUseBacksliceAsSword()
             );
         }
 
@@ -203,6 +215,8 @@ namespace TPRandomizer
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Slingshot)
                 || CanUse(Item.Shadow_Crystal)
+                || hasBombs()
+                || CanUseBacksliceAsSword()
             );
         }
 
@@ -914,7 +928,7 @@ namespace TPRandomizer
                 HasSword()
                 || CanUse(Item.Ball_and_Chain)
                 || (getItemCount(Item.Progressive_Bow) >= 1)
-                || CanUse(Item.Shadow_Crystal)
+            //|| CanUse(Item.Shadow_Crystal)
             );
         }
 
@@ -1229,7 +1243,12 @@ namespace TPRandomizer
         /// </summary>
         public static bool canBurnWebs()
         {
-            return (CanUse(Item.Ball_and_Chain) || CanUse(Item.Lantern) || hasBombs());
+            return CanUse(Item.Lantern)
+                || hasBombs()
+                || (
+                    Randomizer.SSettings.logicRules == LogicRules.Glitched
+                    && CanUse(Item.Ball_and_Chain)
+                );
         }
 
         /// <summary>
@@ -1314,7 +1333,11 @@ namespace TPRandomizer
         /// </summary>
         public static bool canPressMinesSwitch()
         {
-            return (CanUse(Item.Ball_and_Chain) || CanUse(Item.Iron_Boots));
+            return CanUse(Item.Iron_Boots)
+                || (
+                    Randomizer.SSettings.logicRules == LogicRules.Glitched
+                    && CanUse(Item.Ball_and_Chain)
+                );
         }
 
         /// <summary>
@@ -1741,7 +1764,8 @@ namespace TPRandomizer
         public static bool CanDoHiddenVillageGlitched()
         {
             return getItemCount(Item.Progressive_Bow) >= 1
-                || CanUse(Item.Ball_and_Chain) || (
+                || CanUse(Item.Ball_and_Chain)
+                || (
                     CanUse(Item.Slingshot)
                     && (
                         CanUse(Item.Shadow_Crystal)
@@ -1780,15 +1804,31 @@ namespace TPRandomizer
             return Randomizer.SSettings.eldinTwilightCleared || CanLeaveForestGlitched();
         }
 
-		  /// <summary>
-		  /// Check for if you need the key for getting to Lakebed Deku Toad
-		  ///
-		  public static bool CanSkipKeyToDekuToad()
+        /// <summary>
+        /// Check for if you need the key for getting to Lakebed Deku Toad
+        ///
+        public static bool CanSkipKeyToDekuToad()
+        {
+            return Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy
+                || getItemCount(Item.Progressive_Hidden_Skill) >= 3
+                || CanDoBSMoonBoots()
+                || CanDoJSMoonBoots()
+                || CanDoLJA()
+                || (
+                    hasBombs()
+                    && (HasHeavyMod() || getItemCount(Item.Progressive_Hidden_Skill) >= 6)
+                );
+        }
+
+        public static bool CanUseBacksliceAsSword()
+        {
+            return Randomizer.SSettings.logicRules == LogicRules.Glitched
+                && getItemCount(Item.Progressive_Hidden_Skill) >= 3;
+        }
+
+		  public static bool CanGetBugWithLantern()
 		  {
-				return Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy ||
-					getItemCount(Item.Progressive_Hidden_Skill) >= 3 ||
-					CanDoBSMoonBoots() || CanDoJSMoonBoots() || CanDoLJA() ||
-					(hasBombs() && (HasHeavyMod() || getItemCount(Item.Progressive_Hidden_Skill) >= 6));
+				return false;
 		  }
 
         // END OF GLITCHED LOGIC
@@ -1848,11 +1888,12 @@ namespace TPRandomizer
         /// <summary>
         /// summary text.
         /// </summary>
-        public bool EvaluateRequirements(string expression)
+        public bool EvaluateRequirements(string location, string expression)
         {
             Parser parse = new Parser();
             parse.ParserReset();
             Randomizer.Logic.TokenDict = new Tokenizer(expression).Tokenize();
+            parse.checkedLogicItem = location + " with logic: " + expression;
             return parse.Parse();
         }
     }

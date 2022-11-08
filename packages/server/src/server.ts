@@ -294,6 +294,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
       msg = msg.replace('<!-- CHECK_IDS -->', arr.join('\n'));
 
       const startingItems = [
+        [50, 'Shadow Crystal'],
         [63, 'Progressive Sword'],
         [63, 'Progressive Sword'],
         [63, 'Progressive Sword'],
@@ -309,7 +310,6 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [49, 'Zora Armor'],
         [68, 'Progressive Clawshot'],
         [68, 'Progressive Clawshot'],
-        [50, 'Shadow Crystal'],
         [144, 'Aurus Memo'],
         [145, 'Asheis Sketch'],
         [65, 'Spinner'],
@@ -326,6 +326,8 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [132, 'Horse Call'],
         [243, 'Gate Keys'],
         [96, 'Empty Bottle'],
+        [42, 'Ordon Shield'],
+        [44, 'Hylian Shield'],
       ];
 
       const startingItemsEls = startingItems.map((item) => {
@@ -394,6 +396,11 @@ app.get('/s/:id', (req: express.Request, res: express.Response) => {
         return;
       }
 
+      msg = msg.replace(
+        '<!-- USER_ID -->',
+        `<input id="userJwtInput" type="hidden" value="${req.newUserJwt}">`
+      );
+
       // const filePath = path.join(__dirname, `seeds/${id}/input.json`);
       const filePath = resolveOutputPath(`seeds/${id}/input.json`);
 
@@ -415,7 +422,9 @@ app.get('/s/:id', (req: express.Request, res: express.Response) => {
         );
         msg = msg.replace('<!-- REQUESTER_HASH -->', '');
 
-        const spoilerData = callGenerator('print_seed_gen_results', id);
+        const spoilerData = escapeHtml(
+          callGenerator('print_seed_gen_results', id)
+        );
 
         msg = msg.replace(
           '<!-- SEED_GEN_RESULTS -->',
