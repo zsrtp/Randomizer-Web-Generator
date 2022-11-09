@@ -62,6 +62,19 @@ function byId(id) {
   return document.getElementById(id);
 }
 
+function toggleCheckboxesOff(){
+
+  var inputs = document.getElementsByTagName('input');
+  for(var i = 0; i < inputs.length; i++) 
+  {
+    if(inputs[i].type.toLowerCase() == 'checkbox') 
+    {
+        inputs[i].checked = false;
+    }
+  }
+}
+    
+
 function initTabButtons() {
   function genOnTabClick(id) {
     return function (e) {
@@ -1229,6 +1242,7 @@ function initGeneratingModal() {
 }
 
 function populateFromSettingsString(settingsString) {
+  toggleCheckboxesOff();
   let byType;
 
   try {
