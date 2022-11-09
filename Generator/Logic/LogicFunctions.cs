@@ -1245,10 +1245,7 @@ namespace TPRandomizer
         {
             return CanUse(Item.Lantern)
                 || hasBombs()
-                || (
-                    Randomizer.SSettings.logicRules == LogicRules.Glitched
-                    && CanUse(Item.Ball_and_Chain)
-                );
+					 || CanUse(Item.Ball_and_Chain);
         }
 
         /// <summary>
