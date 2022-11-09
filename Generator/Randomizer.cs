@@ -763,7 +763,7 @@ namespace TPRandomizer
 
             // Dungeon rewards have a very limited item pool, so we want to place them first to prevent the generator from putting
             // an unnecessary item in one of the checks.
-            placeDungeonRewards(Items.ShuffledDungeonRewards);
+            placeDungeonRewards(Items.ShuffledDungeonRewards, rnd);
 
             /*
             // This is the old dungeon item placing code
@@ -1558,10 +1558,9 @@ namespace TPRandomizer
             return checkNameToItemName;
         }
 
-        private static void placeDungeonRewards(List<Item> ShuffledDungeonRewards)
+        private static void placeDungeonRewards(List<Item> ShuffledDungeonRewards, Random rnd)
         {
             List<Check> dungeonRewards = new();
-            Random rnd = new Random();
             List<Item> itemsToBeRandomized = new();
             itemsToBeRandomized.AddRange(ShuffledDungeonRewards);
             if (itemsToBeRandomized.Count > 0)
