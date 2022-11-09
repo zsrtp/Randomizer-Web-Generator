@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Clawshot, 2)",
+    "requirements": "(Progressive_Clawshot, 2) and CanDefeatDinalfos and CanDefeatTileWorm",
     "arcOffsets": ["948"],
     "stageIDX": [12],
     "roomIDX": 4,
