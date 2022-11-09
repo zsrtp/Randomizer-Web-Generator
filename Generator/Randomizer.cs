@@ -1609,6 +1609,7 @@ namespace TPRandomizer
                     );*/
                     itemsToBeRandomized.Remove(currentItem);
                     dungeonRewards.Remove(currentCheck);
+                    Randomizer.Items.heldItems.Remove(currentItem);
                 }
             }
         }
