@@ -828,6 +828,8 @@
       return;
     }
 
+    uncheckCheckboxes(['cosmeticsTab', 'audioTab']);
+
     $('#hTunicHatColorFieldset').val(p.hTunicHatColor);
     $('#hTunicBodyColorFieldset').val(p.hTunicBodyColor);
     $('#hTunicSkirtColorFieldset').val(p.hTunicSkirtColor);
@@ -915,6 +917,21 @@
     });
   }
 
+  function uncheckCheckboxes(parentIds) {
+    parentIds.forEach(function (parentId) {
+      const parentEl = document.getElementById(parentId);
+      if (parentEl) {
+        const inputs = parentEl.getElementsByTagName('input');
+        for (let i = 0; i < inputs.length; i++) {
+          const input = inputs[i];
+          if (input.type.toLowerCase() === 'checkbox') {
+            input.checked = false;
+          }
+        }
+      }
+    });
+  }
+
   window.tpr = window.tpr || {};
   window.tpr.shared = {
     genSSettingsFromUi,
@@ -922,5 +939,6 @@
     decodeSettingsString,
     populateUiFromPSettings,
     fetch: fetchWrapper,
+    uncheckCheckboxes,
   };
 })();

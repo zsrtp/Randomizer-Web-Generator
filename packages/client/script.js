@@ -62,19 +62,6 @@ function byId(id) {
   return document.getElementById(id);
 }
 
-function toggleCheckboxesOff(){
-
-  var inputs = document.getElementsByTagName('input');
-  for(var i = 0; i < inputs.length; i++) 
-  {
-    if(inputs[i].type.toLowerCase() == 'checkbox') 
-    {
-        inputs[i].checked = false;
-    }
-  }
-}
-    
-
 function initTabButtons() {
   function genOnTabClick(id) {
     return function (e) {
@@ -105,7 +92,7 @@ function initTabButtons() {
     'gameplaySettingsTab',
     'excludedChecksTab',
     'startingInventoryTab',
-    'cosmeticsAndQuirksTab',
+    'cosmeticsTab',
     'audioTab',
     // 'legacyTab',
   ].forEach((id) => {
@@ -351,13 +338,17 @@ document
   .addEventListener('click', setSettingsString);
 document.getElementById('hTunicHatColorFieldset').onchange = setSettingsString;
 document.getElementById('hTunicBodyColorFieldset').onchange = setSettingsString;
-document.getElementById('hTunicSkirtColorFieldset').onchange = setSettingsString;
+document.getElementById('hTunicSkirtColorFieldset').onchange =
+  setSettingsString;
 
 document.getElementById('zTunicHatColorFieldset').onchange = setSettingsString;
-document.getElementById('zTunicHelmetColorFieldset').onchange = setSettingsString;
+document.getElementById('zTunicHelmetColorFieldset').onchange =
+  setSettingsString;
 document.getElementById('zTunicBodyColorFieldset').onchange = setSettingsString;
-document.getElementById('zTunicScalesColorFieldset').onchange = setSettingsString;
-document.getElementById('zTunicBootsColorFieldset').onchange = setSettingsString;
+document.getElementById('zTunicScalesColorFieldset').onchange =
+  setSettingsString;
+document.getElementById('zTunicBootsColorFieldset').onchange =
+  setSettingsString;
 
 document.getElementById('lanternColorFieldset').onchange = setSettingsString;
 document.getElementById('heartColorFieldset').onchange = setSettingsString;
@@ -404,35 +395,32 @@ document
   .getElementById('randomizeCosmeticsButton')
   .addEventListener('click', randomizeCosmetics);
 
-
 function randomizeCosmetics() {
-    var arrayOfCosmeticSettings = 
-    [
-      'hTunicHatColorFieldset',
-      'hTunicBodyColorFieldset',
-      'hTunicSkirtColorFieldset',
-      'zTunicHatColorFieldset',
-      'zTunicHelmetColorFieldset',
-      'zTunicBodyColorFieldset',
-      'zTunicScalesColorFieldset',
-      'zTunicBootsColorFieldset',
-      'lanternColorFieldset',
-      'heartColorFieldset',
-      'aButtonColorFieldset',
-      'bButtonColorFieldset',
-      'xButtonColorFieldset',
-      'yButtonColorFieldset',
-      'zButtonColorFieldset'
-    ];
+  var arrayOfCosmeticSettings = [
+    'hTunicHatColorFieldset',
+    'hTunicBodyColorFieldset',
+    'hTunicSkirtColorFieldset',
+    'zTunicHatColorFieldset',
+    'zTunicHelmetColorFieldset',
+    'zTunicBodyColorFieldset',
+    'zTunicScalesColorFieldset',
+    'zTunicBootsColorFieldset',
+    'lanternColorFieldset',
+    'heartColorFieldset',
+    'aButtonColorFieldset',
+    'bButtonColorFieldset',
+    'xButtonColorFieldset',
+    'yButtonColorFieldset',
+    'zButtonColorFieldset',
+  ];
 
-    for (let i = 0; i < arrayOfCosmeticSettings.length; i++)
-    {
-      var select = document.getElementById(arrayOfCosmeticSettings[i]);
-      var items = select.getElementsByTagName('option');
-      select.selectedIndex = Math.floor(Math.random() * items.length);
-    }
-    setSettingsString();
-}  
+  for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
+    var select = document.getElementById(arrayOfCosmeticSettings[i]);
+    var items = select.getElementsByTagName('option');
+    select.selectedIndex = Math.floor(Math.random() * items.length);
+  }
+  setSettingsString();
+}
 
 function importSettingsString() {
   parseSettingsString(document.getElementById('settingsStringTextbox').value);
@@ -1242,7 +1230,6 @@ function initGeneratingModal() {
 }
 
 function populateFromSettingsString(settingsString) {
-  toggleCheckboxesOff();
   let byType;
 
   try {
@@ -1269,6 +1256,13 @@ function populateSSettings(s) {
   if (!s) {
     return;
   }
+
+  window.tpr.shared.uncheckCheckboxes([
+    'randomizationSettingsTab',
+    'gameplaySettingsTab',
+    'excludedChecksTab',
+    'startingInventoryTab',
+  ]);
 
   $('#logicRulesFieldset').val(s.logicRules);
   $('#castleRequirementsFieldset').val(s.castleRequirements);
