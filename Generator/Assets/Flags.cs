@@ -242,6 +242,8 @@ namespace TPRandomizer.Assets
             { 0x18, 0xA4 }, // Midna text after Owl Statue chest in graveyard.
             { 0x18, 0xB7 }, // Lit southeast torch in second floor north room for the first time CS.
             { 0x18, 0xB8 }, // Lit northeast torch in second floor north room for the first time CS.
+            { 0x18, 0x4B }, // Watched CS with Allies in HC.
+            { 0x18, 0x94 }, // BK Gate opened in HC.
         };
 
         public static readonly byte[,] SmallKeyRegionFlags = new byte[,]
