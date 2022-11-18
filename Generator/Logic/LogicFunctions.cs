@@ -220,22 +220,34 @@ namespace TPRandomizer
             );
         }
 
+		  public static bool CanDefeatBokoblinRed()
+		  {
+				return (
+					HasSword()
+					|| CanUse(Item.Ball_and_Chain)
+					|| ((getItemCount(Item.Progressive_Bow) >= 3) && CanGetArrows())
+					//|| CanUse(Item.Iron_Boots)
+					//|| CanUse(Item.Spinner)
+					|| CanUse(Item.Shadow_Crystal)
+					|| hasBombs()
+					|| CanUseBacksliceAsSword()
+			);
+		  }
+
         /// <summary>
         /// summary text.
         /// </summary>
-        public static bool CanDefeatBombfish()
-        {
-            return (
-                CanUse(Item.Iron_Boots)
-                && (
-                    HasSword()
-                    || CanUse(Item.Ordon_Shield)
-                    || CanUse(Item.Wooden_Shield)
-                    || CanUse(Item.Hylian_Shield)
-                    || (getItemCount(Item.Progressive_Clawshot) >= 1)
-                )
-            );
-        }
+			public static bool CanDefeatBombfish()
+			{
+				return (
+						(CanUse(Item.Iron_Boots) || Randomizer.SSettings.logicRules == LogicRules.Glitched && CanUse(Item.Magic_Armor))
+						&& (
+							HasSword()
+							|| (getItemCount(Item.Progressive_Clawshot) >= 1)
+							|| (hasShield() && getItemCount(Item.Progressive_Hidden_Skill) >= 2)
+						)
+				);
+			}
 
         /// <summary>
         /// summary text.
@@ -262,9 +274,11 @@ namespace TPRandomizer
                 HasSword()
                 || CanUse(Item.Ball_and_Chain)
                 || (getItemCount(Item.Progressive_Bow) >= 1)
-                || CanUse(Item.Iron_Boots)
+                //|| CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -280,6 +294,7 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -295,6 +310,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -306,9 +323,11 @@ namespace TPRandomizer
             return (
                 HasSword()
                 || CanUse(Item.Ball_and_Chain)
-                || (getItemCount(Item.Progressive_Bow) >= 1)
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Shadow_Crystal)
+				|| CanUse(Item.Spinner)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -325,6 +344,7 @@ namespace TPRandomizer
                     || CanUse(Item.Iron_Boots)
                     || CanUse(Item.Spinner)
                     || CanUse(Item.Shadow_Crystal)
+					|| CanUseBacksliceAsSword()
                 ) && (hasBombs() || (getItemCount(Item.Progressive_Clawshot) >= 1))
             );
         }
@@ -334,7 +354,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanDefeatDarknut()
         {
-            return HasSword();
+            return HasSword() || (CanDoDifficultCombat() && (hasBombs() || CanUse(Item.Ball_and_Chain)));
         }
 
         /// <summary>
@@ -351,6 +371,8 @@ namespace TPRandomizer
                 || (getItemCount(Item.Progressive_Hidden_Skill) >= 2)
                 || CanUse(Item.Slingshot)
                 || (getItemCount(Item.Progressive_Clawshot) >= 1)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -359,15 +381,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanDefeatDekuLike()
         {
-            return (
-                hasBombs()
-                || HasSword()
-                || CanUse(Item.Ball_and_Chain)
-                || (getItemCount(Item.Progressive_Bow) >= 1)
-                || CanUse(Item.Iron_Boots)
-                || CanUse(Item.Spinner)
-                || CanUse(Item.Shadow_Crystal)
-            );
+            return (hasBombs());
         }
 
         /// <summary>
@@ -382,6 +396,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -405,6 +421,7 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -421,6 +438,7 @@ namespace TPRandomizer
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Slingshot)
                 || CanUse(Item.Shadow_Crystal)
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -433,7 +451,8 @@ namespace TPRandomizer
                 HasSword()
                 || CanUse(Item.Ball_and_Chain)
                 || (getItemCount(Item.Progressive_Bow) >= 1)
-                || CanUse(Item.Shadow_Crystal)
+				|| (CanUse(Item.Hylian_Shield) && getItemCount(Item.Progressive_Hidden_Skill) >= 2)
+                || (CanDoDifficultCombat() && CanUse(Item.Shadow_Crystal))
             );
         }
 
@@ -460,6 +479,8 @@ namespace TPRandomizer
                 || CanUse(Item.Slingshot)
                 || CanUse(Item.Lantern)
                 || (getItemCount(Item.Progressive_Clawshot) >= 1)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -483,6 +504,7 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| CanUse(Item.Slingshot)
             );
         }
 
@@ -498,6 +520,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -513,6 +537,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -528,6 +554,7 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -544,6 +571,7 @@ namespace TPRandomizer
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Slingshot)
                 || CanUse(Item.Shadow_Crystal)
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -564,9 +592,10 @@ namespace TPRandomizer
                 HasSword()
                 || CanUse(Item.Ball_and_Chain)
                 || (getItemCount(Item.Progressive_Bow) >= 1)
-                || CanUse(Item.Iron_Boots)
+                || (CanDoDifficultCombat() && CanUse(Item.Iron_Boots))
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -583,6 +612,7 @@ namespace TPRandomizer
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Slingshot)
                 || CanUse(Item.Shadow_Crystal)
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -598,6 +628,7 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
             );
         }
 
@@ -612,6 +643,8 @@ namespace TPRandomizer
                 || (getItemCount(Item.Progressive_Bow) >= 1)
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -627,6 +660,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -642,6 +677,7 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
             );
         }
 
@@ -672,6 +708,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -688,6 +726,8 @@ namespace TPRandomizer
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Slingshot)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -702,6 +742,8 @@ namespace TPRandomizer
                 || (getItemCount(Item.Progressive_Bow) >= 1)
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -725,6 +767,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -742,6 +786,8 @@ namespace TPRandomizer
                 || (getItemCount(Item.Progressive_Hidden_Skill) >= 2)
                 || CanUse(Item.Slingshot)
                 || (getItemCount(Item.Progressive_Clawshot) >= 1)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -762,9 +808,11 @@ namespace TPRandomizer
                 HasSword()
                 || CanUse(Item.Ball_and_Chain)
                 || (getItemCount(Item.Progressive_Bow) >= 1)
-                || CanUse(Item.Iron_Boots)
+                || (CanDoDifficultCombat() && CanUse(Item.Iron_Boots))
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -781,6 +829,7 @@ namespace TPRandomizer
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Slingshot)
                 || CanUse(Item.Shadow_Crystal)
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -796,6 +845,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -804,7 +855,17 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanDefeatShellBlade()
         {
-            return (CanUseWaterBombs() || (HasSword() && CanUse(Item.Iron_Boots)));
+				return
+				(
+					CanUseWaterBombs() ||
+					(
+						HasSword() &&
+						(
+							CanUse(Item.Iron_Boots) ||
+							(Randomizer.SSettings.logicRules == LogicRules.Glitched && CanUse(Item.Magic_Armor))
+						)
+					)
+				);
         }
 
         /// <summary>
@@ -834,6 +895,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -857,6 +920,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -872,6 +937,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -887,6 +954,8 @@ namespace TPRandomizer
                 || CanUse(Item.Iron_Boots)
                 || CanUse(Item.Spinner)
                 || CanUse(Item.Shadow_Crystal)
+				|| hasBombs()
+				|| CanUseBacksliceAsSword()
             );
         }
 
@@ -901,6 +970,10 @@ namespace TPRandomizer
                     || CanUse(Item.Ball_and_Chain)
                     || (getItemCount(Item.Progressive_Bow) >= 1)
                     || CanUse(Item.Shadow_Crystal)
+					|| CanUse(Item.Spinner)
+					|| CanUse(Item.Iron_Boots)
+					|| hasBombs()
+					|| CanUseBacksliceAsSword()
                 ) && CanUse(Item.Boomerang)
             );
         }
@@ -925,10 +998,11 @@ namespace TPRandomizer
         public static bool CanDefeatWaterToadpoli()
         {
             return (
-                HasSword()
-                || CanUse(Item.Ball_and_Chain)
-                || (getItemCount(Item.Progressive_Bow) >= 1)
-            //|| CanUse(Item.Shadow_Crystal)
+						HasSword()
+						|| CanUse(Item.Ball_and_Chain)
+						|| (getItemCount(Item.Progressive_Bow) >= 1)
+						|| (hasShield() && getItemCount(Item.Progressive_Hidden_Skill) >= 2)
+						|| CanDoDifficultCombat() && (CanUse(Item.Shadow_Crystal))
             );
         }
 
@@ -1322,6 +1396,8 @@ namespace TPRandomizer
                 || CanUse(Item.Shadow_Crystal)
                 || ((getItemCount(Item.Progressive_Bow) >= 1) && CanGetArrows())
                 || (getItemCount(Item.Progressive_Clawshot) >= 1)
+					 || (getItemCount(Item.Progressive_Hidden_Skill) >= 2)
+					 || hasBombs()
             );
         }
 
@@ -1378,7 +1454,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool canBreakWoodenDoor()
         {
-            return (CanUse(Item.Shadow_Crystal) || HasSword() || canSmash());
+            return (CanUse(Item.Shadow_Crystal) || HasSword() || canSmash() || CanUseBacksliceAsSword());
         }
 
         /// <summary>
@@ -1603,6 +1679,11 @@ namespace TPRandomizer
             }
             return false;
         }
+
+		  public static bool CanDoDifficultCombat()
+		  {
+				return Randomizer.SSettings.logicRules == LogicRules.Glitched;
+		  }
 
         // START OF GLITCHED LOGIC
 
