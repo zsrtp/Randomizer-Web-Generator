@@ -70,6 +70,7 @@ namespace TPRandomizer.Assets
             { 0x9, 0x7E }, // Jovani Chest CS
             { 0x3, 0xA7 }, // Unlock Jumps to top of Sanctuary
             { 0x3, 0x9A }, // Kakariko Village intro CS.
+            { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
         };
 
         /// <summary>
@@ -335,11 +336,6 @@ namespace TPRandomizer.Assets
             { 0x18, 0xEF }, // Got Hyrule Castle Dungeon Map.
         };
 
-        public static readonly byte[,] OpenCastleRegionFlags = new byte[,]
-        {
-            { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
-        };
-
         public static readonly byte[,] OpenLakebedRegionFlags = new byte[,]
         {
             { 0x4, 0x70 }, // Blew up rock in front of lakebed CS.
@@ -385,7 +381,6 @@ namespace TPRandomizer.Assets
                 { 7, SmallKeyRegionFlags },
                 { 8, BigKeyRegionFlags },
                 { 9, MapAndCompassRegionFlags },
-                { 10, OpenCastleRegionFlags },
                 { 13, OpenLakebedRegionFlags },
                 { 14, OpenArbitersRegionFlags },
                 { 16, OpenToTRegionFlags },
