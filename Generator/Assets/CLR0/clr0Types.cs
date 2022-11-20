@@ -135,4 +135,20 @@ namespace TPRandomizer.Assets.CLR0
         ZoraArmor = 1,
         ZoraArmorField = 2,
     }
+
+    public class ColorArrays
+    {
+        public static readonly int[][] MidnaHairColors = new int[][]
+        {
+            // put the actual RGB values here. Note that there is no value for the default color as we don't want to make the change if the player doesn't want to change the color.
+            new[] { 0, 1, 2, 3, 4, 5, 6 },
+            new[] { 7, 8, 9, 10, 11, 12, 13 },
+            new[] { 0, 1, 2, 3, 4, 5, 6 },
+            new[] { 0, 1, 2, 3, 4, 5, 6 },
+            new[] { 0, 1, 2, 3, 4, 5, 6 },
+            new[] { 0, 1, 2, 3, 4, 5, 6 },
+            new[] { 0, 1, 2, 3, 4, 5, 6 },
+            new[] { 0, 1, 2, 3, 4, 5, 6 },
+        };
+    }
 }

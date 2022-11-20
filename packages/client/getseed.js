@@ -1093,6 +1093,8 @@ function randomizeCosmetics() {
         { id: 'xButtonColorFieldset', rgb: true },
         { id: 'yButtonColorFieldset', rgb: true },
         { id: 'zButtonColorFieldset', rgb: true },
+        { id: 'midnaHairBaseColorFieldset', bitLength: 4 },
+        { id: 'midnaHairTipColorFieldset', bitLength: 4 },
       ].map(({ id, bitLength, rgb }) => {
         if (bitLength) {
           // select

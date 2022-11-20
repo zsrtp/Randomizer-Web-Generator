@@ -1710,3 +1710,8 @@ header .navbar ul li:hover > ul
 {
 	display:initial;
 }
+
+tr td select
+{
+  width:100%;
+}

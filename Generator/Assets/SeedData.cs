@@ -607,6 +607,51 @@ namespace TPRandomizer.Assets
                 }
             }
 
+            //The below code block is temporary until the Midna Hair stuff is fully flushed out with dynamic color picking, etc.
+
+            if (fcSettings.midnaHairBaseColor > 0) // we don't want to try to change the hair color if the value is default
+            {
+                int[] midnaBaseOffsets = { 0, 1, 2, 3, 4, 5 };
+                for (int i = 0; i < midnaBaseOffsets.Length; i++) // since we don't need to have any values for default, the values at array index 0 are for color 1, etc.
+                {
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0x3)); // replacement type
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0xFF)); // stageIDX
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)0x33)); // moduleID
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)midnaBaseOffsets[i])); // offset
+                    listOfRELReplacements.AddRange(
+                        Converter.GcBytes(
+                            (UInt32)
+                                Assets.CLR0.ColorArrays.MidnaHairColors[
+                                    fcSettings.midnaHairBaseColor - 1
+                                ][i]
+                        )
+                    );
+                    count++;
+                }
+            }
+
+            if (fcSettings.midnaHairTipsColor > 0) // we don't want to try to change the hair color if the value is default
+            {
+                int[] midnaTipOffsets = { 0, 1, 2, 3, 4, 5 };
+                for (int i = 0; i < midnaTipOffsets.Length; i++) // since we don't need to have any values for default, the values at array index 0 are for color 1, etc.
+                {
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0x3)); // replacement type
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0xFF)); // stageIDX
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)0x33)); // moduleID
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)midnaTipOffsets[i])); // offset
+                    listOfRELReplacements.AddRange(
+                        Converter.GcBytes(
+                            (UInt32)
+                                Assets.CLR0.ColorArrays.MidnaHairColors[
+                                    fcSettings.midnaHairTipsColor - 1
+                                ][i]
+                        )
+                    ); // replacement value
+                    count++;
+                }
+            }
+            // end of midna hair stuff
+
             SeedHeaderRaw.relCheckInfoNumEntries = count;
             SeedHeaderRaw.relCheckInfoDataOffset = (ushort)(CheckDataRaw.Count);
             return listOfRELReplacements;
