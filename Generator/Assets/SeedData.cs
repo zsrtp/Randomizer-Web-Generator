@@ -611,7 +611,7 @@ namespace TPRandomizer.Assets
 
             if (fcSettings.midnaHairBaseColor > 0) // we don't want to try to change the hair color if the value is default
             {
-                int[] midnaBaseOffsets = { 0, 1, 2, 3, 4, 5 };
+                int[] midnaBaseOffsets = { 0xA438, 0xA424, 0xA434 }; //lightworld inactive, darkworld inactive, bothworld active
                 for (int i = 0; i < midnaBaseOffsets.Length; i++) // since we don't need to have any values for default, the values at array index 0 are for color 1, etc.
                 {
                     listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0x3)); // replacement type
@@ -621,9 +621,33 @@ namespace TPRandomizer.Assets
                     listOfRELReplacements.AddRange(
                         Converter.GcBytes(
                             (UInt32)
-                                Assets.CLR0.ColorArrays.MidnaHairColors[
-                                    fcSettings.midnaHairBaseColor - 1
-                                ][i]
+                                uint.Parse(
+                                    Assets.CLR0.ColorArrays.MidnaBaseHairColors[
+                                        fcSettings.midnaHairBaseColor - 1
+                                    ][i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
+                        )
+                    );
+                    count++;
+                }
+
+                int[] midnaGlowOffsets = { 0xA41C, 0xA420, 0xA440, 0xA444, 0xA42C, 0xA430 }; //bothworld inactive, lightworld active, darkworld active
+                for (int i = 0; i < midnaGlowOffsets.Length; i++) // since we don't need to have any values for default, the values at array index 0 are for color 1, etc.
+                {
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0x3)); // replacement type
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0xFF)); // stageIDX
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)0x33)); // moduleID
+                    listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)midnaGlowOffsets[i])); // offset
+                    listOfRELReplacements.AddRange(
+                        Converter.GcBytes(
+                            (UInt32)
+                                uint.Parse(
+                                    Assets.CLR0.ColorArrays.MidnaGlowHairColors[
+                                        fcSettings.midnaHairBaseColor - 1
+                                    ][i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                         )
                     );
                     count++;
@@ -632,7 +656,7 @@ namespace TPRandomizer.Assets
 
             if (fcSettings.midnaHairTipsColor > 0) // we don't want to try to change the hair color if the value is default
             {
-                int[] midnaTipOffsets = { 0, 1, 2, 3, 4, 5 };
+                int[] midnaTipOffsets = { 0xA43C, 0xA428, 0xA448 }; // lightworld inactive, darkworld anyactive, lightworld active
                 for (int i = 0; i < midnaTipOffsets.Length; i++) // since we don't need to have any values for default, the values at array index 0 are for color 1, etc.
                 {
                     listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0x3)); // replacement type
@@ -642,9 +666,12 @@ namespace TPRandomizer.Assets
                     listOfRELReplacements.AddRange(
                         Converter.GcBytes(
                             (UInt32)
-                                Assets.CLR0.ColorArrays.MidnaHairColors[
-                                    fcSettings.midnaHairTipsColor - 1
-                                ][i]
+                                uint.Parse(
+                                    Assets.CLR0.ColorArrays.MidnaTipsHairColors[
+                                        fcSettings.midnaHairTipsColor - 1
+                                    ][i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                         )
                     ); // replacement value
                     count++;
