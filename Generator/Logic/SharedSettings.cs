@@ -39,6 +39,7 @@ namespace TPRandomizer
         public bool modifyShopModels { get; set; }
         public TrapFrequency trapFrequency { get; set; }
         public bool barrenDungeons { get; set; }
+        public bool OpenGrove { get; set; }
         public bool skipMinesEntrance { get; set; }
         public bool skipLakebedEntrance { get; set; }
         public bool skipArbitersEntrance { get; set; }
@@ -80,6 +81,7 @@ namespace TPRandomizer
             modifyShopModels = processor.NextBool();
             trapFrequency = (TrapFrequency)processor.NextInt(3);
             barrenDungeons = processor.NextBool();
+            OpenGrove = processor.NextBool();
             skipMinesEntrance = processor.NextBool();
             skipLakebedEntrance = processor.NextBool();
             skipArbitersEntrance = processor.NextBool();

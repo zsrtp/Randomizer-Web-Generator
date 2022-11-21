@@ -360,6 +360,9 @@ document.getElementById('zButtonColorFieldset').onchange = setSettingsString;
 document
   .getElementById('barrenCheckbox')
   .addEventListener('click', setSettingsString);
+  document
+  .getElementById('OpenGroveCheckbox')
+  .addEventListener('click', setSettingsString);
 document
   .getElementById('minesEntranceCheckbox')
   .addEventListener('click', setSettingsString);
@@ -540,22 +543,23 @@ function setSettingsString() {
     'modifyShopModelsCheckbox'
   ).checked;
   settingsStringRaw[40] = document.getElementById('barrenCheckbox').checked;
-  settingsStringRaw[41] = document.getElementById(
+  settingsStringRaw[41] = document.getElementById('OpenGroveCheckbox').checked;
+  settingsStringRaw[42] = document.getElementById(
     'minesEntranceCheckbox'
   ).checked;
-  settingsStringRaw[42] = document.getElementById(
+  settingsStringRaw[43] = document.getElementById(
     'lakebedEntranceCheckbox'
   ).checked;
-  settingsStringRaw[43] = document.getElementById(
+  settingsStringRaw[44] = document.getElementById(
     'arbitersEntranceCheckbox'
   ).checked;
-  settingsStringRaw[44] = document.getElementById(
+  settingsStringRaw[45] = document.getElementById(
     'snowpeakEntranceCheckbox'
   ).checked;
-  settingsStringRaw[45] = document.getElementById(
+  settingsStringRaw[46] = document.getElementById(
     'totEntranceCheckbox'
   ).checked;
-  settingsStringRaw[46] = document.getElementById(
+  settingsStringRaw[47] = document.getElementById(
     'cityEntranceCheckbox'
   ).checked;
   // document.getElementById('settingsStringTextbox').value =
@@ -744,6 +748,7 @@ var arrayOfSettingsItems = [
   'increaseWalletCheckbox',
   'modifyShopModelsCheckbox',
   'barrenCheckbox',
+  'OpenGroveCheckbox',
   'minesEntranceCheckbox',
   'lakebedEntranceCheckbox',
   'arbitersEntranceCheckbox',
@@ -1293,6 +1298,7 @@ function populateSSettings(s) {
   );
   $('#foolishItemFieldset').val(s.trapItemsFrequency);
   $('#barrenCheckbox').prop('checked', s.barrenDungeons);
+  $('#OpenGroveCheckbox').prop('checked', s.OpenGrove);
   $('#minesEntranceCheckbox').prop('checked', s.skipMinesEntrance);
   $('#lakebedEntranceCheckbox').prop('checked', s.skipLakebedEntrance);
   $('#arbitersEntranceCheckbox').prop('checked', s.skipArbitersEntrance);

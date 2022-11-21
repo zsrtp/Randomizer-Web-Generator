@@ -138,6 +138,12 @@ fields:
       guaranteed to not contain any important items.
     type: boolean
 
+    - name: OpenGrove
+    description: >
+      If true, the portal to the Sacred Grove is opened, 
+      the statue to open tot is still here
+    type: boolean
+
   - name: skipMinesEntrance
     description: If true, the player can enter Goron Mines without Iron Boots.
     type: boolean
