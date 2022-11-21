@@ -406,11 +406,10 @@ namespace TPRandomizer
                 part2Settings.Add("quickTransform", SSettings.quickTransform);
             if (SSettings.OpenGrove)
                 part2Settings.Add("OpenGrove", SSettings.OpenGrove);
-            if (SSettings.increaseWallet)
-                part2Settings.Add("increaseWallet", SSettings.increaseWallet);
             if (SSettings.transformAnywhere)
                 part2Settings.Add("transformAnywhere", SSettings.transformAnywhere);
             if (SSettings.increaseWallet)
+                part2Settings.Add("increaseWallet", SSettings.increaseWallet);
             if (SSettings.modifyShopModels)
                 part2Settings.Add("modifyShopModels", SSettings.modifyShopModels);
 
