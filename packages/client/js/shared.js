@@ -362,7 +362,6 @@
       { id: 'modifyShopModelsCheckbox' },
       { id: 'foolishItemFieldset', bitLength: 3 },
       { id: 'barrenCheckbox' },
-      { id: 'OpenFro' },
       { id: 'minesEntranceCheckbox' },
       { id: 'lakebedEntranceCheckbox' },
       { id: 'arbitersEntranceCheckbox' },
