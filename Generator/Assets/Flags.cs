@@ -588,9 +588,9 @@ namespace TPRandomizer.Assets
             /* 13 */RandomizerSettings.skipLakebedEntrance,
             /* 14 */RandomizerSettings.skipArbitersEntrance,
             /* 15 */RandomizerSettings.skipSnowpeakEntrance,
-            /* 16 */RandomizerSettings.skipToTEntrance,
+            /* 16 */RandomizerSettings.ToTEntrance == TotEntrance.Open,
             /* 17 */RandomizerSettings.skipCityEntrance,
-            /* 18 */RandomizerSettings.OpenGrove,
+            /* 18 */RandomizerSettings.ToTEntrance == TotEntrance.OpenGrove,
         };
     }
 }

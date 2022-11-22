@@ -145,6 +145,7 @@
 									<option value="0">Open</option>
 									<option value="1" selected>Closed</option>
 								</select>
+								<div class="selectGroup">
 							</div>
 						</fieldset>
 					</div>
@@ -261,11 +262,6 @@
 								<input type="checkbox" id="barrenCheckbox" name="Unrequired Dungeons" value="">
 								<label for="barrenCheckbox"> Unrequired Dungeons Are Barren </label><br>
 							</div>
-							<div data-tooltip-text="If enabled, the portal to the Sacred Grove is opened, Skull Kid is not required to pass through the Lost Woods but you need to put the master sword in the pedestal .&#0010;">
-								<input type="checkbox" id="OpenGroveCheckbox" name="Open Grove" value="">
-								<label for="OpenGrovenCheckbox"> Open Grove </label><br>
-								</div>
-						</fieldset>
 					</div>
 					<div class="tabColumn">
 						<fieldset id="additionalSettingsFieldset">
@@ -320,14 +316,19 @@
 								<input type="checkbox" id="snowpeakEntranceCheckbox" name="Snowpeak Ruins Checkbox" value="">
 								<label for="snowpeakEntranceCheckbox"> Snowpeak Does Not Require Reekfish Scent </label><br>
 							</div>
-							<div data-tooltip-text="If checked, the portal to the Sacred Grove is opened, the player will not need to defeat Skull Kid to pass through the Lost Woods, the statue is removed from the Temple of Time doors, and the staircase to the dungeon is activated.&#0010;">
-								<input type="checkbox" id="totEntranceCheckbox" name="Temple of Time Checkbox" value="">
-								<label for="totEntranceCheckbox"> Temple of Time Does Not Require Sword or Grove</label><br>
-							</div>
 							<div data-tooltip-text="If checked, the Sky Cannon is automatically warped to Lake Hylia once Lanayru Twilight is complete and the Sky Characters are removed from the item pool.&#0010;">
 							<input type="checkbox" id="cityEntranceCheckbox" name="City in The Sky Checkbox" value="">
 							<label for="cityEntranceCheckbox"> City Does Not Require Filled Skybook </label><br>
-							</div>
+						</div>
+						<div class="selectGroup"style="margin-top:8px;">
+							<label for="groveLogicFieldset">Temple of Time Entrance</label><br>
+									<select name="Grove Logic" 
+									data-tooltip-text="'Closed': The player must defeat skullkid and open tot .&#0010;&#0010;'Open':the portal to the Sacred Grove is opened, the player will not need to defeat Skull Kid to pass through the Lost Woods, the statue is removed from the Temple of Time doors, and the staircase to the dungeon is activated.&#0010;&#0010;'Open Grove':If checked, the portal to the Sacred Grove is opened, the player will not need to defeat Skull Kid to pass through the Lost Woods,but  the statue is not  removed from the Temple of Time doors, and the staircase to the dungeon is active &#0010;"
+									id="groveLogicFieldset">
+										<option value="0">Closed</option>
+										<option value="1" selected>Open</option>
+										<option value="2" selected>Open Grove</option>
+									</select>
 						</fieldset>
 					</div>
 				</div>

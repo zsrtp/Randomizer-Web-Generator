@@ -138,12 +138,6 @@ fields:
       guaranteed to not contain any important items.
     type: boolean
 
-    - name: OpenGrove
-    description: >
-      If true, the portal to the Sacred Grove is opened, 
-      the statue to open tot is still here
-    type: boolean
-
   - name: skipMinesEntrance
     description: If true, the player can enter Goron Mines without Iron Boots.
     type: boolean
@@ -162,11 +156,11 @@ fields:
       If true, the player can enter Snowpeak Ruins without the Reekfish scent.
     type: boolean
 
-  - name: skipToTEntrance
+  - name: ToTEntrance
     description: >
-      If true, the player can enter Temple of Time without the Master Sword or
-      completing Sacred Grove.
-    type: boolean
+     Requirements to acces Tot 
+    type: enum
+    bitLength: 3
 
   - name: skipCityEntrance
     description: >
@@ -347,3 +341,16 @@ enums:
     4:
       name: nightmare
       description: All junk items are trap items.
+
+  ToTEntrance:
+    0:
+      name: Closed
+      description: If close, the player can't enter Temple of Time without the Master Sword or
+      completing Sacred Grove.
+    1:
+      name: Open
+      description: If open, the player can enter Temple of Time without the Master Sword or
+      completing Sacred Grove.
+    2:
+      name: Open Grove
+      description: If open grove, the player can't enter Temple of Time without the Master Sword but have Sacred Grove Portal.

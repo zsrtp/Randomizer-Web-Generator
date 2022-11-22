@@ -543,23 +543,23 @@ function setSettingsString() {
     'modifyShopModelsCheckbox'
   ).checked;
   settingsStringRaw[40] = document.getElementById('barrenCheckbox').checked;
-  settingsStringRaw[41] = document.getElementById('OpenGroveCheckbox').checked;
-  settingsStringRaw[42] = document.getElementById(
+
+  settingsStringRaw[41] = document.getElementById(
     'minesEntranceCheckbox'
   ).checked;
-  settingsStringRaw[43] = document.getElementById(
+  settingsStringRaw[42] = document.getElementById(
     'lakebedEntranceCheckbox'
   ).checked;
-  settingsStringRaw[44] = document.getElementById(
+  settingsStringRaw[43] = document.getElementById(
     'arbitersEntranceCheckbox'
   ).checked;
-  settingsStringRaw[45] = document.getElementById(
+  settingsStringRaw[44] = document.getElementById(
     'snowpeakEntranceCheckbox'
   ).checked;
+  settingsStringRaw[45] = document.getElementById(
+    'groveLogicFieldset'
+  ).selectedIndex;
   settingsStringRaw[46] = document.getElementById(
-    'totEntranceCheckbox'
-  ).checked;
-  settingsStringRaw[47] = document.getElementById(
     'cityEntranceCheckbox'
   ).checked;
   // document.getElementById('settingsStringTextbox').value =
@@ -753,7 +753,7 @@ var arrayOfSettingsItems = [
   'lakebedEntranceCheckbox',
   'arbitersEntranceCheckbox',
   'snowpeakEntranceCheckbox',
-  'totEntranceCheckbox',
+  'groveLogicFieldset',
   'cityEntranceCheckbox',
 ];
 

@@ -44,7 +44,7 @@ namespace TPRandomizer
         public bool skipLakebedEntrance { get; set; }
         public bool skipArbitersEntrance { get; set; }
         public bool skipSnowpeakEntrance { get; set; }
-        public bool skipToTEntrance { get; set; }
+        public TotEntrance ToTEntrance { get; set; }
         public bool skipCityEntrance { get; set; }
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
@@ -86,7 +86,7 @@ namespace TPRandomizer
             skipLakebedEntrance = processor.NextBool();
             skipArbitersEntrance = processor.NextBool();
             skipSnowpeakEntrance = processor.NextBool();
-            skipToTEntrance = processor.NextBool();
+            ToTEntrance = (TotEntrance)processor.NextInt(2);
             skipCityEntrance = processor.NextBool();
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
