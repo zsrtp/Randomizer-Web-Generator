@@ -1293,12 +1293,11 @@ function populateSSettings(s) {
   );
   $('#foolishItemFieldset').val(s.trapItemsFrequency);
   $('#barrenCheckbox').prop('checked', s.barrenDungeons);
-  $('#OpenGroveCheckbox').prop('checked', s.OpenGrove);
   $('#minesEntranceCheckbox').prop('checked', s.skipMinesEntrance);
   $('#lakebedEntranceCheckbox').prop('checked', s.skipLakebedEntrance);
   $('#arbitersEntranceCheckbox').prop('checked', s.skipArbitersEntrance);
   $('#snowpeakEntranceCheckbox').prop('checked', s.skipSnowpeakEntrance);
-  $('#totEntranceCheckbox').prop('checked', s.skipToTEntrance);
+  $('#ToTEntranceFieldset').val(s.ToTEntrance);
   $('#cityEntranceCheckbox').prop('checked', s.skipCityEntrance);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
