@@ -542,7 +542,6 @@ namespace TPRandomizer.Assets
             { 0x7, 0x5B }, // Block pushed down
             { 0x7, 0x42 }, // Midna text after block pushed down
         };
-
         /// <summary>
         /// summary text.
         /// </summary>
