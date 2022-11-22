@@ -424,7 +424,7 @@ namespace TPRandomizer
              if (SSettings.ToTEntrance == TotEntrance.Open)
                 part2Settings.Add("ToTEntrance", SSettings.ToTEntrance);
             if (SSettings.ToTEntrance == TotEntrance.OpenGrove)
-                part2Settings.Add("smallKeySettings", SSettings.smallKeySettings);
+                part2Settings.Add("ToTEntrance", SSettings.ToTEntrance);
             if (SSettings.skipCityEntrance)
                 part2Settings.Add("skipCityEntrance", SSettings.skipCityEntrance);
 
