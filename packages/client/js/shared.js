@@ -727,7 +727,7 @@
       { id: 'skipLakebedEntrance', type: 'boolean' },
       { id: 'skipArbitersEntrance', type: 'boolean' },
       { id: 'skipSnowpeakEntrance', type: 'boolean' },
-      { id: 'totentrance', type: 'number', bitLength: 2 },
+      { id: 'ToTEntrance', type: 'number', bitLength: 2 },
       { id: 'skipCityEntrance', type: 'boolean' },
     ];
 

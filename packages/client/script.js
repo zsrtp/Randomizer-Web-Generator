@@ -358,6 +358,9 @@ document.getElementById('xButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('yButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('zButtonColorFieldset').onchange = setSettingsString;
 document
+  .getElementById('barrenCheckbox')
+  .addEventListener('click', setSettingsString);
+document
   .getElementById('minesEntranceCheckbox')
   .addEventListener('click', setSettingsString);
 document
