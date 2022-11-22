@@ -358,12 +358,6 @@ document.getElementById('xButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('yButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('zButtonColorFieldset').onchange = setSettingsString;
 document
-  .getElementById('barrenCheckbox')
-  .addEventListener('click', setSettingsString);
-  document
-  .getElementById('OpenGroveCheckbox')
-  .addEventListener('click', setSettingsString);
-document
   .getElementById('minesEntranceCheckbox')
   .addEventListener('click', setSettingsString);
 document
@@ -376,8 +370,7 @@ document
   .getElementById('snowpeakEntranceCheckbox')
   .addEventListener('click', setSettingsString);
 document
-  .getElementById('totEntranceCheckbox')
-  .addEventListener('click', setSettingsString);
+  document.getElementById('ToTEntranceFieldset').onchange = setSettingsString;
 document
   .getElementById('cityEntranceCheckbox')
   .addEventListener('click', setSettingsString);
@@ -557,7 +550,7 @@ function setSettingsString() {
     'snowpeakEntranceCheckbox'
   ).checked;
   settingsStringRaw[45] = document.getElementById(
-    'groveLogicFieldset'
+    'ToTEntranceFieldset'
   ).selectedIndex;
   settingsStringRaw[46] = document.getElementById(
     'cityEntranceCheckbox'
@@ -748,12 +741,11 @@ var arrayOfSettingsItems = [
   'increaseWalletCheckbox',
   'modifyShopModelsCheckbox',
   'barrenCheckbox',
-  'OpenGroveCheckbox',
   'minesEntranceCheckbox',
   'lakebedEntranceCheckbox',
   'arbitersEntranceCheckbox',
   'snowpeakEntranceCheckbox',
-  'groveLogicFieldset',
+  'ToTEntranceFieldset',
   'cityEntranceCheckbox',
 ];
 

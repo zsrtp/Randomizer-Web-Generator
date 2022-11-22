@@ -362,12 +362,12 @@
       { id: 'modifyShopModelsCheckbox' },
       { id: 'foolishItemFieldset', bitLength: 3 },
       { id: 'barrenCheckbox' },
-      { id: 'OpenGroveCheckbox' },
+      { id: 'OpenFro' },
       { id: 'minesEntranceCheckbox' },
       { id: 'lakebedEntranceCheckbox' },
       { id: 'arbitersEntranceCheckbox' },
       { id: 'snowpeakEntranceCheckbox' },
-      { id: 'totEntranceCheckbox' },
+      { id: 'ToTEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
@@ -723,12 +723,11 @@
       { id: 'shopModelsShowTheReplacedItem', type: 'boolean' },
       { id: 'trapItemsFrequency', type: 'number', bitLength: 3 },
       { id: 'barrenDungeons', type: 'boolean' },
-      { id: 'OpenGrove', type: 'boolean' },
       { id: 'skipMinesEntrance', type: 'boolean' },
       { id: 'skipLakebedEntrance', type: 'boolean' },
       { id: 'skipArbitersEntrance', type: 'boolean' },
       { id: 'skipSnowpeakEntrance', type: 'boolean' },
-      { id: 'skipToTEntrance', type: 'boolean' },
+      { id: 'totentrance', type: 'number', bitLength: 2 },
       { id: 'skipCityEntrance', type: 'boolean' },
     ];
 
