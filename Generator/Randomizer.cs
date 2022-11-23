@@ -419,10 +419,8 @@ namespace TPRandomizer
                 part2Settings.Add("skipArbitersEntrance", SSettings.skipArbitersEntrance);
             if (SSettings.skipSnowpeakEntrance)
                 part2Settings.Add("skipSnowpeakEntrance", SSettings.skipSnowpeakEntrance);
-             if (SSettings.ToTEntrance == TotEntrance.Open)
-                part2Settings.Add("ToTEntrance", SSettings.ToTEntrance);
-            if (SSettings.ToTEntrance == TotEntrance.OpenGrove)
-                part2Settings.Add("ToTEntrance", SSettings.ToTEntrance);
+            if (SSettings.totEntrance != TotEntrance.Closed)
+                part2Settings.Add("totEntrance", SSettings.totEntrance);
             if (SSettings.skipCityEntrance)
                 part2Settings.Add("skipCityEntrance", SSettings.skipCityEntrance);
 

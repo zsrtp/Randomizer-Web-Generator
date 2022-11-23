@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TPRandomizer.Util;
 using TPRandomizer.SSettings.Enums;
 
@@ -43,14 +44,14 @@ namespace TPRandomizer
         public bool skipLakebedEntrance { get; set; }
         public bool skipArbitersEntrance { get; set; }
         public bool skipSnowpeakEntrance { get; set; }
-        public TotEntrance ToTEntrance { get; set; }
+        public TotEntrance totEntrance { get; set; }
         public bool skipCityEntrance { get; set; }
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
 
         public SharedSettings() { }
 
-        private SharedSettings(string bits)
+        private SharedSettings(UInt32 version, string bits)
         {
             BitsProcessor processor = new BitsProcessor(bits);
 
@@ -84,7 +85,16 @@ namespace TPRandomizer
             skipLakebedEntrance = processor.NextBool();
             skipArbitersEntrance = processor.NextBool();
             skipSnowpeakEntrance = processor.NextBool();
-            ToTEntrance = (TotEntrance)processor.NextInt(2);
+            if (version >= 1)
+            {
+                // `totEntrance` changed from a checkbox to a select
+                totEntrance = (TotEntrance)processor.NextInt(2);
+            }
+            else
+            {
+                bool totOpen = processor.NextBool();
+                totEntrance = totOpen ? TotEntrance.Open : TotEntrance.Closed;
+            }
             skipCityEntrance = processor.NextBool();
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
@@ -96,29 +106,40 @@ namespace TPRandomizer
             excludedChecks.Sort(StringComparer.Ordinal);
         }
 
+        // Note: this function MUST be able to parse old versions of sSettings
+        // strings which are read from the `input.json` files.
         public static SharedSettings FromString(string settingsString)
         {
-            if (
-                settingsString == null
-                || !settingsString.StartsWith("0s")
-                || settingsString.Length < 3
-            )
+            if (settingsString == null)
             {
-                throw new Exception("Unable to decode settingsString.");
+                throw new Exception("sSettings string is null.");
             }
 
+            Regex regex = new Regex(@"^([0-9a-fA-F]+)s[0-9a-zA-Z-_]+");
+            Match match = regex.Match(settingsString);
+
+            if (!match.Success || match.Groups.Count < 2)
+            {
+                throw new Exception("Unable to decode sSettings string.");
+            }
+
+            string versionHexStr = match.Groups[1].Value;
+            UInt32 version = Convert.ToUInt32(versionHexStr, 16);
+
             // This is actually only 6 bits.
-            int lengthVal = SettingsEncoder.DecodeToInt(settingsString.Substring(2, 1));
+            int lengthVal = SettingsEncoder.DecodeToInt(
+                settingsString.Substring(versionHexStr.Length + 1, 1)
+            );
 
             int lengthDefCharCount = lengthVal & 0b111;
             int numExtraBits = (lengthVal >> 3) & 0b111;
 
             int numChars = SettingsEncoder.DecodeToInt(
-                settingsString.Substring(3, lengthDefCharCount)
+                settingsString.Substring(versionHexStr.Length + 2, lengthDefCharCount)
             );
 
             string bits = SettingsEncoder.DecodeToBitString(
-                settingsString.Substring(3 + lengthDefCharCount, numChars)
+                settingsString.Substring(versionHexStr.Length + 2 + lengthDefCharCount, numChars)
             );
 
             if (numExtraBits > 0)
@@ -126,7 +147,7 @@ namespace TPRandomizer
                 bits = bits.Substring(0, bits.Length - (6 - numExtraBits));
             }
 
-            return new SharedSettings(bits);
+            return new SharedSettings(version, bits);
         }
     }
 }

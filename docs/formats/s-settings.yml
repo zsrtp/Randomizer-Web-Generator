@@ -156,11 +156,10 @@ fields:
       If true, the player can enter Snowpeak Ruins without the Reekfish scent.
     type: boolean
 
-  - name: ToTEntrance
-    description: >
-     Requirements to acces Tot 
+  - name: totEntrance
+    description: Requirements to access Temple of Time.
     type: enum
-    bitLength: 3
+    bitLength: 2
 
   - name: skipCityEntrance
     description: >
@@ -342,7 +341,7 @@ enums:
       name: nightmare
       description: All junk items are trap items.
 
-  ToTEntrance:
+  totEntrance:
     0:
       name: Closed
       description: If close, the player can't enter Temple of Time without the Master Sword or
