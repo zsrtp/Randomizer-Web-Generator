@@ -503,6 +503,7 @@
               <legend>Dungeon Entrance Settings</legend>
               <div
                 data-tooltip-text="If checked, Link will not have to wrestle Gor Coron to enter Goron Mines.&#0010;"
+                data-tooltip-position="left"
               >
                 <input
                   type="checkbox"
@@ -516,6 +517,7 @@
               </div>
               <div
                 data-tooltip-text="If checked, the rock in front of the entrance to Lakebed Temple is destroyed.&#0010;"
+                data-tooltip-position="left"
               >
                 <input
                   type="checkbox"
@@ -529,6 +531,7 @@
               </div>
               <div
                 data-tooltip-text="If checked, the Bulblin Camp is cleared and the player does not need to defeat King Bulblin. This also removes the Bulblin Camp Key from the item pool.&#0010;"
+                data-tooltip-position="left"
               >
                 <input
                   type="checkbox"
@@ -542,6 +545,7 @@
               </div>
               <div
                 data-tooltip-text="If checked, the blizzard in Snowpeak will not void out Link if the correct path is taken. Shadow Crystal is still in logic in to see the scent path.&#0010;"
+                data-tooltip-position="left"
               >
                 <input
                   type="checkbox"
@@ -555,6 +559,7 @@
               </div>
               <div
                 data-tooltip-text="If checked, the Sky Cannon is automatically warped to Lake Hylia once Lanayru Twilight is complete and the Sky Characters are removed from the item pool.&#0010;"
+                data-tooltip-position="left"
               >
                 <input
                   type="checkbox"
@@ -566,15 +571,15 @@
                   City Does Not Require Filled Skybook </label
                 ><br />
               </div>
-              <div class="selectGroup" style="margin-top: 8px">
-                <!-- data-tooltip-text="'Closed': The player must defeat skullkid and open tot.&#0010;&#0010;'Open':the portal to the Sacred Grove is opened, the player will not need to defeat Skull Kid to pass through the Lost Woods, the statue is removed from the Temple of Time doors, and the staircase to the dungeon is activated.&#0010;&#0010;'Open Grove':If checked, the portal to the Sacred Grove is opened, the player will not need to defeat Skull Kid to pass through the Lost Woods,but  the statue is not  removed from the Temple of Time doors, and the staircase to the dungeon is active &#0010;" -->
+              <div
+                class="selectGroup"
+                style="margin-top: 8px"
+                data-tooltip-text="'Closed': The player must defeat Skull Kid and Strike the Master Sword to access the past area and the Temple of Time.&#0010;&#0010;'Open Grove': The player will not need to defeat Skull Kid, and the portal to the Sacred Grove is opened.&#0010;&#0010;'Open': All changes of 'Open Grove' are applied. Additionally, the player will not need the Master Sword to access the past area and the Temple of Time."
+                data-tooltip-position="left"
+              >
                 <label for="totEntranceFieldset">Temple of Time Entrance</label
                 ><br />
-                <select
-                  name="Tot Entrance"
-                  data-tooltip-text="'Closed': The player must defeat skullkid and open tot.&#0010;&#0010;'Open':the portal to the Sacred Grove is opened, the player will not need to defeat Skull Kid to pass through the Lost Woods, the statue is removed from the Temple of Time doors, and the staircase to the dungeon is activated.&#0010;&#0010;'Open Grove':If checked, the portal to the Sacred Grove is opened, the player will not need to defeat Skull Kid to pass through the Lost Woods,but  the statue is not  removed from the Temple of Time doors, and the staircase to the dungeon is active &#0010;"
-                  id="totEntranceFieldset"
-                >
+                <select name="Temple of Time Entrance" id="totEntranceFieldset">
                   <option value="0">Closed</option>
                   <option value="1">Open Grove</option>
                   <option value="2">Open</option>
@@ -950,6 +955,7 @@
                       name="Heart Color Fieldset"
                       id="heartColorFieldset"
                       data-tooltip-text="Sets the color of the player's hearts in the HUD.&#0010;"
+                      data-tooltip-position="left"
                     >
                       <option value="0">Default</option>
                       <option value="1">Pink</option>
@@ -971,6 +977,7 @@
                       name="A Button Color Fieldset"
                       id="aButtonColorFieldset"
                       data-tooltip-text="Sets the color of the A Button in the HUD.&#0010;"
+                      data-tooltip-position="left"
                     >
                       <option value="0">Default</option>
                       <option value="1">Red</option>
@@ -994,6 +1001,7 @@
                       name="B Button Color Fieldset"
                       id="bButtonColorFieldset"
                       data-tooltip-text="Sets the color of the B Button in the HUD.&#0010;"
+                      data-tooltip-position="left"
                     >
                       <option value="0">Default</option>
                       <option value="1">Orange</option>
@@ -1015,6 +1023,7 @@
                       name="X Button Color Fieldset"
                       id="xButtonColorFieldset"
                       data-tooltip-text="Sets the color of the X Button in the HUD.&#0010;"
+                      data-tooltip-position="left"
                     >
                       <option value="0">Default</option>
                       <option value="1">Red</option>
@@ -1039,6 +1048,7 @@
                       name="Y Button Color Fieldset"
                       id="yButtonColorFieldset"
                       data-tooltip-text="Sets the color of the Y Button in the HUD.&#0010;"
+                      data-tooltip-position="left"
                     >
                       <option value="0">Default</option>
                       <option value="1">Red</option>
@@ -1063,6 +1073,7 @@
                       name="Z Button Color Fieldset"
                       id="zButtonColorFieldset"
                       data-tooltip-text="Sets the color of the Z Button in the HUD.&#0010;"
+                      data-tooltip-position="left"
                     >
                       <option value="0">Default</option>
                       <option value="1">Red</option>
@@ -1566,31 +1577,41 @@
   </body>
   <script src="/script.js"></script>
   <script>
-    let tooltipElements = document.querySelectorAll('[data-tooltip-text]');
-    tooltipElements.forEach((tooltipElement) => {
-      tooltipElement.addEventListener('mouseout', (e) => {
-        removetooltips();
-      });
-      tooltipElement.addEventListener('mouseover', (e) => {
-        let element = document.createElement('div');
-        element.classList.add('tooltip');
-        let tooltipContent = e.currentTarget.getAttribute('data-tooltip-text');
-        element.innerHTML = tooltipContent;
+    'use strict';
+    (function () {
+      function removetooltips() {
+        document.querySelectorAll('.tooltip').forEach((tooltip) => {
+          tooltip.remove();
+        });
+      }
 
-        let coords = e.currentTarget.getBoundingClientRect();
-        element.style.left =
-          coords.left + e.currentTarget.clientWidth + 5 + 'px';
-        element.style.top = coords.top + 'px';
-        document.body.appendChild(element);
-        $(element).hide().fadeIn(300);
-      });
-    });
+      const tooltipElements = document.querySelectorAll('[data-tooltip-text]');
+      tooltipElements.forEach((tooltipElement) => {
+        tooltipElement.addEventListener('mouseout', removetooltips);
 
-    function removetooltips() {
-      document.querySelectorAll('.tooltip').forEach((tooltip) => {
-        tooltip.remove();
+        tooltipElement.addEventListener('mouseover', (e) => {
+          const { currentTarget: target } = e;
+
+          const newEl = document.createElement('div');
+          newEl.classList.add('tooltip');
+
+          const tooltipContent = target.getAttribute('data-tooltip-text');
+          newEl.textContent = tooltipContent;
+
+          const coords = target.getBoundingClientRect();
+          if (target.getAttribute('data-tooltip-position') === 'left') {
+            newEl.style.right = window.innerWidth - 5 - coords.left + 'px';
+          } else {
+            newEl.style.left =
+              coords.left + e.currentTarget.clientWidth + 5 + 'px';
+          }
+          newEl.style.top = coords.top + 'px';
+
+          document.body.appendChild(newEl);
+          $(newEl).hide().fadeIn(300);
+        });
       });
-    }
+    })();
   </script>
   <!-- <script src="/test.js"></script> -->
 </html>
