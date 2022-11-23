@@ -69,10 +69,11 @@ namespace TPRandomizer.SSettings.Enums
         Mayhem = 3,
         Nightmare = 4,
     }
-     public enum TotEntrance
+
+    public enum TotEntrance
     {
         Closed = 0,
-        Open = 1,
-        OpenGrove = 2,
+        OpenGrove = 1,
+        Open = 2,
     }
 }

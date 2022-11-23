@@ -365,6 +365,7 @@ namespace TPRandomizer.Assets
             { 0x7, 0x5B }, // Block pushed down
             { 0x7, 0x42 }, // Midna text after block pushed down
         };
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -534,7 +535,7 @@ namespace TPRandomizer.Assets
         {
             { 0x3B, 0x8 }, // Sky Cannon Repaired.
         };
-         public static readonly byte[,] OpenGroveRegionFlags = new byte[,]
+        public static readonly byte[,] OpenGroveRegionFlags = new byte[,]
         {
             { 0x7, 0xB6 }, // Skull Kid - Human defeated.
             { 0x7, 0xB7 }, // Lost Woods Turns to day after defeating Skull Kid - Human
@@ -542,6 +543,7 @@ namespace TPRandomizer.Assets
             { 0x7, 0x5B }, // Block pushed down
             { 0x7, 0x42 }, // Midna text after block pushed down
         };
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -563,7 +565,6 @@ namespace TPRandomizer.Assets
                 { 15, OpenSnowpeakEventFlags },
                 { 17, OpenCityEventFlags },
                 { 18, OpenGroveRegionFlags },
-                
             };
         private static readonly SharedSettings RandomizerSettings = Randomizer.SSettings;
 
@@ -588,9 +589,9 @@ namespace TPRandomizer.Assets
             /* 13 */RandomizerSettings.skipLakebedEntrance,
             /* 14 */RandomizerSettings.skipArbitersEntrance,
             /* 15 */RandomizerSettings.skipSnowpeakEntrance,
-            /* 16 */RandomizerSettings.ToTEntrance == TotEntrance.Open,
+            /* 16 */RandomizerSettings.totEntrance == TotEntrance.Open,
             /* 17 */RandomizerSettings.skipCityEntrance,
-            /* 18 */RandomizerSettings.ToTEntrance == TotEntrance.OpenGrove,
+            /* 18 */RandomizerSettings.totEntrance == TotEntrance.OpenGrove,
         };
     }
 }
