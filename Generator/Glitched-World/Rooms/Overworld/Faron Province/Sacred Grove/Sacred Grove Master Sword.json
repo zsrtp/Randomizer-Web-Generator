@@ -8,7 +8,7 @@
     "NeighbourRequirements": 
     [
         "true",
-        "(CanDefeatShadowBeast and (Progressive_Sword, 3)) or (Setting.totEntrance equals Open)",
+        "(CanDefeatShadowBeast and (Progressive_Sword, 3)) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)",
         "canSmash and Shadow_Crystal"
     ],
     "Checks": 
