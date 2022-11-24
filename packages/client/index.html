@@ -263,6 +263,7 @@
                 <select
                   name="Small Keys"
                   data-tooltip-text="'Vanilla': Small Keys will be placed in their original location.&#0010;&#0010;'Own Dungeon': Small Keys will only be randomized in their vanilla dungeon. Example: You can only find a Forest Temple Small Key in the Forest Temple.&#0010;&#0010;'Any Dungeon': Small Keys will be randomized between dungeons.&#0010;&#0010;'Keysanity': Small Keys will be randomized among all checks.&#0010;&#0010;'Keysy': All small key locks are removed and the keys are removed from the item pool and the player will start with the Bulblin Camp Key.&#0010;"
+                  data-tooltip-position="left"
                   id="smallKeyFieldset"
                 >
                   <option value="0">Vanilla</option>
@@ -277,6 +278,7 @@
                 <select
                   name="Big Keys"
                   data-tooltip-text="'Vanilla': Big Keys will be placed in their original location.&#0010;&#0010;'Own Dungeon': Big Keys will only be randomized in their vanilla dungeon. Example: You can only find a Forest Temple Big Key in the Forest Temple.&#0010;&#0010;'Any Dungeon': Big Keys will be randomized between dungeons.&#0010;&#0010;'Keysanity': Big Keys will be randomized among all checks.&#0010;&#0010;'Keysy': All Big Key locks are removed and the keys are removed from the item pool.&#0010;"
+                  data-tooltip-position="left"
                   id="bigKeyFieldset"
                 >
                   <option value="0">Vanilla</option>
@@ -292,6 +294,7 @@
                 <select
                   name="Maps and Compasses"
                   data-tooltip-text="'Vanilla': Maps and Compasses will be placed in their original location.&#0010;&#0010;'Own Dungeon': Maps and Compasses will only be randomized in their vanilla dungeon. Example: You can only find the Forest Temple Map in the Forest Temple.&#0010;&#0010;'Any Dungeon': Maps and Compasses will be randomized between dungeons.&#0010;&#0010;'Anywhere': Maps and Compasses will be randomized among all checks.&#0010;&#0010;'Start With': The player starts with all Maps and Compasses.&#0010;"
+                  data-tooltip-position="left"
                   id="mapAndCompassFieldset"
                 >
                   <option value="0">Vanilla</option>
@@ -574,7 +577,7 @@
               <div
                 class="selectGroup"
                 style="margin-top: 8px"
-                data-tooltip-text="'Closed': The player must defeat Skull Kid and Strike the Master Sword to access the past area and the Temple of Time.&#0010;&#0010;'Open Grove': The player will not need to defeat Skull Kid, and the portal to the Sacred Grove is opened.&#0010;&#0010;'Open': All changes of 'Open Grove' are applied. Additionally, the player will not need the Master Sword to access the past area and the Temple of Time."
+                data-tooltip-text="'Closed': The player must defeat Skull Kid. Warping to the Sacred Grove, accessing the past area, and entering the Temple of Time dungeon are all locked behind the Master Sword.&#0010;&#0010;'Open Grove': The player will not need to defeat Skull Kid, the portal to the Sacred Grove is opened, and the past area is accessible.&#0010;&#0010;'Open': All changes of 'Open Grove' are applied. Additionally, the player will not need the Master Sword to access the Temple of Time dungeon."
                 data-tooltip-position="left"
               >
                 <label for="totEntranceFieldset">Temple of Time Entrance</label
@@ -1576,42 +1579,5 @@
     </div>
   </body>
   <script src="/script.js"></script>
-  <script>
-    'use strict';
-    (function () {
-      function removetooltips() {
-        document.querySelectorAll('.tooltip').forEach((tooltip) => {
-          tooltip.remove();
-        });
-      }
-
-      const tooltipElements = document.querySelectorAll('[data-tooltip-text]');
-      tooltipElements.forEach((tooltipElement) => {
-        tooltipElement.addEventListener('mouseout', removetooltips);
-
-        tooltipElement.addEventListener('mouseover', (e) => {
-          const { currentTarget: target } = e;
-
-          const newEl = document.createElement('div');
-          newEl.classList.add('tooltip');
-
-          const tooltipContent = target.getAttribute('data-tooltip-text');
-          newEl.textContent = tooltipContent;
-
-          const coords = target.getBoundingClientRect();
-          if (target.getAttribute('data-tooltip-position') === 'left') {
-            newEl.style.right = window.innerWidth - 5 - coords.left + 'px';
-          } else {
-            newEl.style.left =
-              coords.left + e.currentTarget.clientWidth + 5 + 'px';
-          }
-          newEl.style.top = coords.top + 'px';
-
-          document.body.appendChild(newEl);
-          $(newEl).hide().fadeIn(300);
-        });
-      });
-    })();
-  </script>
-  <!-- <script src="/test.js"></script> -->
+  <script src="/js/tooltip.js"></script>
 </html>

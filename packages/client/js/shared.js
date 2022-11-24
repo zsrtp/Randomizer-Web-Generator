@@ -746,8 +746,13 @@
       // `totEntrance` changed from a checkbox to a select
       processBasic({ id: 'totEntrance', bitLength: 2 });
     } else {
+      const totEntrance = {
+        closed: 0,
+        openGrove: 1,
+        open: 2,
+      };
       const totOpen = processor.nextBoolean();
-      res.totEntrance = totOpen ? 2 : 0; // use constants here
+      res.totEntrance = totOpen ? totEntrance.open : totEntrance.closed;
     }
     processBasic({ id: 'skipCityEntrance' });
 
