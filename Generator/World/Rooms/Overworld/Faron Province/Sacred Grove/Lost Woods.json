@@ -7,7 +7,7 @@
     "NeighbourRequirements": 
     [
         "true",
-        "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open)or (Setting.totEntrance equals OpenGrove)"
+        "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
     ],
     "Checks": 
     [
