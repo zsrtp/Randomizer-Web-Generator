@@ -372,9 +372,8 @@ document
 document
   .getElementById('snowpeakEntranceCheckbox')
   .addEventListener('click', setSettingsString);
-document
-  .getElementById('totEntranceCheckbox')
-  .addEventListener('click', setSettingsString);
+document;
+document.getElementById('totEntranceFieldset').onchange = setSettingsString;
 document
   .getElementById('cityEntranceCheckbox')
   .addEventListener('click', setSettingsString);
@@ -540,6 +539,7 @@ function setSettingsString() {
     'modifyShopModelsCheckbox'
   ).checked;
   settingsStringRaw[40] = document.getElementById('barrenCheckbox').checked;
+
   settingsStringRaw[41] = document.getElementById(
     'minesEntranceCheckbox'
   ).checked;
@@ -553,8 +553,8 @@ function setSettingsString() {
     'snowpeakEntranceCheckbox'
   ).checked;
   settingsStringRaw[45] = document.getElementById(
-    'totEntranceCheckbox'
-  ).checked;
+    'totEntranceFieldset'
+  ).selectedIndex;
   settingsStringRaw[46] = document.getElementById(
     'cityEntranceCheckbox'
   ).checked;
@@ -748,7 +748,7 @@ var arrayOfSettingsItems = [
   'lakebedEntranceCheckbox',
   'arbitersEntranceCheckbox',
   'snowpeakEntranceCheckbox',
-  'totEntranceCheckbox',
+  'totEntranceFieldset',
   'cityEntranceCheckbox',
 ];
 
@@ -1297,7 +1297,7 @@ function populateSSettings(s) {
   $('#lakebedEntranceCheckbox').prop('checked', s.skipLakebedEntrance);
   $('#arbitersEntranceCheckbox').prop('checked', s.skipArbitersEntrance);
   $('#snowpeakEntranceCheckbox').prop('checked', s.skipSnowpeakEntrance);
-  $('#totEntranceCheckbox').prop('checked', s.skipToTEntrance);
+  $('#totEntranceFieldset').val(s.totEntrance);
   $('#cityEntranceCheckbox').prop('checked', s.skipCityEntrance);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');

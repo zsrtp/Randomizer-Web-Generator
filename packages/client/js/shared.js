@@ -335,6 +335,10 @@
   }
 
   function genSSettingsFromUi() {
+    // Increment the version when you make changes to the format. Need to make
+    // sure you don't break backwards compatibility!!
+    const sSettingsVersion = 1;
+
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
       { id: 'castleRequirementsFieldset', bitLength: 3 },
@@ -366,7 +370,7 @@
       { id: 'lakebedEntranceCheckbox' },
       { id: 'arbitersEntranceCheckbox' },
       { id: 'snowpeakEntranceCheckbox' },
-      { id: 'totEntranceCheckbox' },
+      { id: 'totEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
@@ -385,7 +389,7 @@
     values.push(genStartingItemsBits());
     values.push(genExcludedChecksBits());
 
-    return encodeSettings(0, 's', values);
+    return encodeSettings(sSettingsVersion, 's', values);
   }
 
   const MidnaColorOptions = {
@@ -695,56 +699,62 @@
   }
 
   function decodeSSettings({ version, bits }) {
-    const a = [
-      { id: 'logicRules', type: 'number', bitLength: 2 },
-      { id: 'castleRequirements', type: 'number', bitLength: 3 },
-      { id: 'palaceRequirements', type: 'number', bitLength: 2 },
-      { id: 'faronWoodsLogic', type: 'number', bitLength: 1 },
-      { id: 'goldenBugs', type: 'boolean' },
-      { id: 'skyCharacters', type: 'boolean' },
-      { id: 'giftsFromNpcs', type: 'boolean' },
-      { id: 'poes', type: 'boolean' },
-      { id: 'shopItems', type: 'boolean' },
-      { id: 'hiddenSkills', type: 'boolean' },
-      { id: 'smallKeys', type: 'number', bitLength: 3 },
-      { id: 'bigKeys', type: 'number', bitLength: 3 },
-      { id: 'mapsAndCompasses', type: 'number', bitLength: 3 },
-      { id: 'skipIntro', type: 'boolean' },
-      { id: 'faronTwilightCleared', type: 'boolean' },
-      { id: 'eldinTwilightCleared', type: 'boolean' },
-      { id: 'lanayruTwilightCleared', type: 'boolean' },
-      { id: 'skipMdh', type: 'boolean' },
-      { id: 'skipMinorCutscenes', type: 'boolean' },
-      { id: 'fastIronBoots', type: 'boolean' },
-      { id: 'quickTransform', type: 'boolean' },
-      { id: 'transformAnywhere', type: 'boolean' },
-      { id: 'increaseWalletCapacity', type: 'boolean' },
-      { id: 'shopModelsShowTheReplacedItem', type: 'boolean' },
-      { id: 'trapItemsFrequency', type: 'number', bitLength: 3 },
-      { id: 'barrenDungeons', type: 'boolean' },
-      { id: 'skipMinesEntrance', type: 'boolean' },
-      { id: 'skipLakebedEntrance', type: 'boolean' },
-      { id: 'skipArbitersEntrance', type: 'boolean' },
-      { id: 'skipSnowpeakEntrance', type: 'boolean' },
-      { id: 'skipToTEntrance', type: 'boolean' },
-      { id: 'skipCityEntrance', type: 'boolean' },
-    ];
-
     const processor = BitsProcessor(bits);
-
     const res = {};
 
-    a.forEach(({ id, type, bitLength }) => {
-      if (type === 'number') {
+    function processBasic({ id, bitLength }) {
+      if (bitLength != null) {
         const num = processor.nextXBitsAsNum(bitLength);
         res[id] = num;
-      } else if (type === 'boolean') {
+      } else {
         const num = processor.nextBoolean();
         res[id] = num;
-      } else {
-        throw new Error(`Unknown type ${type} while decoding SSettings.`);
       }
-    });
+    }
+
+    processBasic({ id: 'logicRules', bitLength: 2 });
+    processBasic({ id: 'castleRequirements', bitLength: 3 });
+    processBasic({ id: 'palaceRequirements', bitLength: 2 });
+    processBasic({ id: 'faronWoodsLogic', bitLength: 1 });
+    processBasic({ id: 'goldenBugs' });
+    processBasic({ id: 'skyCharacters' });
+    processBasic({ id: 'giftsFromNpcs' });
+    processBasic({ id: 'poes' });
+    processBasic({ id: 'shopItems' });
+    processBasic({ id: 'hiddenSkills' });
+    processBasic({ id: 'smallKeys', bitLength: 3 });
+    processBasic({ id: 'bigKeys', bitLength: 3 });
+    processBasic({ id: 'mapsAndCompasses', bitLength: 3 });
+    processBasic({ id: 'skipIntro' });
+    processBasic({ id: 'faronTwilightCleared' });
+    processBasic({ id: 'eldinTwilightCleared' });
+    processBasic({ id: 'lanayruTwilightCleared' });
+    processBasic({ id: 'skipMdh' });
+    processBasic({ id: 'skipMinorCutscenes' });
+    processBasic({ id: 'fastIronBoots' });
+    processBasic({ id: 'quickTransform' });
+    processBasic({ id: 'transformAnywhere' });
+    processBasic({ id: 'increaseWalletCapacity' });
+    processBasic({ id: 'shopModelsShowTheReplacedItem' });
+    processBasic({ id: 'trapItemsFrequency', bitLength: 3 });
+    processBasic({ id: 'barrenDungeons' });
+    processBasic({ id: 'skipMinesEntrance' });
+    processBasic({ id: 'skipLakebedEntrance' });
+    processBasic({ id: 'skipArbitersEntrance' });
+    processBasic({ id: 'skipSnowpeakEntrance' });
+    if (version >= 1) {
+      // `totEntrance` changed from a checkbox to a select
+      processBasic({ id: 'totEntrance', bitLength: 2 });
+    } else {
+      const totEntrance = {
+        closed: 0,
+        openGrove: 1,
+        open: 2,
+      };
+      const totOpen = processor.nextBoolean();
+      res.totEntrance = totOpen ? totEntrance.open : totEntrance.closed;
+    }
+    processBasic({ id: 'skipCityEntrance' });
 
     res.startingItems = processor.nextEolList(9);
     res.excludedChecks = processor.nextEolList(9);

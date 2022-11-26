@@ -325,7 +325,7 @@ namespace TPRandomizer
             result.Add("skipLakebedEntrance", sSettings.skipLakebedEntrance);
             result.Add("skipArbitersEntrance", sSettings.skipArbitersEntrance);
             result.Add("skipSnowpeakEntrance", sSettings.skipSnowpeakEntrance);
-            result.Add("skipToTEntrance", sSettings.skipToTEntrance);
+            result.Add("totEntrance", sSettings.totEntrance.ToString());
             result.Add("skipCityEntrance", sSettings.skipCityEntrance);
 
             result.Add("startingItems", sSettings.startingItems);
