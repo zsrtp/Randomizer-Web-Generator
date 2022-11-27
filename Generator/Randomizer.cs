@@ -1604,6 +1604,27 @@ namespace TPRandomizer
                             continue;
                         }
                     }
+                    if (currentCheck.checkStatus == "Excluded")
+                    {
+                        // Don't place a required dungeon reward on a check that is excluded
+                        if (
+                            Randomizer.SSettings.castleRequirements
+                                == CastleRequirements.Fused_Shadows
+                            && (currentItem == Item.Progressive_Fused_Shadow)
+                        )
+                        {
+                            continue;
+                        }
+
+                        if (
+                            Randomizer.SSettings.castleRequirements
+                                == CastleRequirements.Fused_Shadows
+                            && (currentItem == Item.Progressive_Mirror_Shard)
+                        )
+                        {
+                            continue;
+                        }
+                    }
                     PlaceItemInCheck(currentItem, currentCheck);
                     // for debugging
                     /*Console.WriteLine(
