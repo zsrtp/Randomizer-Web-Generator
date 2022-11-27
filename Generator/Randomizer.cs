@@ -832,7 +832,6 @@ namespace TPRandomizer
                 if (currentCheck.checkStatus == "Vanilla")
                 {
                     Randomizer.Items.heldItems.Remove(currentCheck.itemId);
-                    Items.RandomizedDungeonRegionItems.Remove(currentCheck.itemId);
                     PlaceItemInCheck(currentCheck.itemId, currentCheck);
                 }
             }
@@ -955,7 +954,10 @@ namespace TPRandomizer
                                         }
                                         else
                                         {
-                                            if (restriction == "Region")
+                                            if (
+                                                (restriction == "Region")
+                                                && (currentCheck.checkStatus != "Excluded")
+                                            )
                                             {
                                                 if (
                                                     RoomFunctions.IsRegionCheck(
