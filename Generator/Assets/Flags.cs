@@ -418,6 +418,8 @@ namespace TPRandomizer.Assets
             { 0xF8, 0xF4 }, // Add 244 Rupees to Charlo.
             { 0x60, 0x1 }, // Talked to Fyer after Lanayru Twilight
             { 0x38, 0x80 }, // Talked to Jovani after defeating Poe.
+            { 0x22, 0x8 }, // Talked to Yeto on top of the mountain after clearing SPR
+            { 0x3B, 0x40 }, // Won Snowboard race against Yeto.
         };
 
         /// <summary>
