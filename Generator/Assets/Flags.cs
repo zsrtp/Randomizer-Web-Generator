@@ -373,6 +373,10 @@ namespace TPRandomizer.Assets
             { 0x7, 0x5B }, // Block pushed down
             { 0x7, 0x42 }, // Midna text after block pushed down
         };
+        public static readonly byte[,] OpenSnowpeakRegionFlags = new byte[,]
+        {
+            { 0x8, 0x4A }, // Snowpeak top portal
+        };
 
         /// <summary>
         /// summary text.
@@ -391,6 +395,7 @@ namespace TPRandomizer.Assets
                 { 9, MapAndCompassRegionFlags },
                 { 13, OpenLakebedRegionFlags },
                 { 14, OpenArbitersRegionFlags },
+                { 15, OpenSnowpeakRegionFlags},
                 { 16, OpenToTRegionFlags },
                 { 18, OpenGroveRegionFlags },
             };
