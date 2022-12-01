@@ -497,6 +497,7 @@ namespace TPRandomizer.Assets
             { 0x3E, 0x2 }, // City Ooccoo CS watched.
             { 0x59, 0x40 }, // Met Postman for the first time.
             { 0x5D, 0x40 }, // Midna text after Kargarok flight.
+            { 0x25, 0x2  }, // Watched cutscene with Yeto on top of mountain
         };
 
         /// <summary>
