@@ -357,6 +357,9 @@ document.getElementById('bButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('xButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('yButtonColorFieldset').onchange = setSettingsString;
 document.getElementById('zButtonColorFieldset').onchange = setSettingsString;
+document.getElementById('midnaHairBaseColorFieldset').onchange = setSettingsString;
+document.getElementById('midnaHairTipColorFieldset').onchange = setSettingsString;
+document.getElementById('midnaDomeRingColorFieldset').onchange = setSettingsString;
 document
   .getElementById('barrenCheckbox')
   .addEventListener('click', setSettingsString);
@@ -411,6 +414,9 @@ function randomizeCosmetics() {
     'xButtonColorFieldset',
     'yButtonColorFieldset',
     'zButtonColorFieldset',
+    'midnaHairBaseColorFieldset',
+    'midnaHairTipColorFieldset',
+    'midnaDomeRingColorFieldset'
   ];
 
   for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
@@ -734,6 +740,9 @@ var arrayOfSettingsItems = [
   'xButtonColorFieldset',
   'yButtonColorFieldset',
   'zButtonColorFieldset',
+  'midnaHairBaseColorFieldset',
+  'midnaHairTipColorFieldset',
+  'midnaDomeRingColorFieldset',
   'bgmFieldset',
   'randomizeFanfaresCheckbox',
   'disableEnemyBGMCheckbox',

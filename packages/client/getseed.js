@@ -373,7 +373,10 @@ function randomizeCosmetics() {
       'bButtonColorFieldset',
       'xButtonColorFieldset',
       'yButtonColorFieldset',
-      'zButtonColorFieldset'
+      'zButtonColorFieldset',
+      'midnaHairBaseColorFieldset',
+      'midnaHairTipColorFieldset',
+      'midnaDomeRingColorFieldset'
     ];
 
     for (let i = 0; i < arrayOfCosmeticSettings.length; i++)
@@ -1095,6 +1098,7 @@ function randomizeCosmetics() {
         { id: 'zButtonColorFieldset', rgb: true },
         { id: 'midnaHairBaseColorFieldset', bitLength: 4 },
         { id: 'midnaHairTipColorFieldset', bitLength: 4 },
+        { id: 'midnaDomeRingColorFieldset', rgb: true },
       ].map(({ id, bitLength, rgb }) => {
         if (bitLength) {
           // select

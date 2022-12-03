@@ -127,6 +127,7 @@ namespace TPRandomizer.Assets.CLR0
             entries.Add(fcSettings.xBtnColor);
             entries.Add(fcSettings.yBtnColor);
             entries.Add(fcSettings.zBtnColor);
+            entries.Add(fcSettings.midnaDomeRingColor);
 
             foreach (Clr0Entry entry in entries)
             {

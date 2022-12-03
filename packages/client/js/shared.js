@@ -459,6 +459,9 @@
       { id: 'xButtonColorFieldset', bitLength: 4 },
       { id: 'yButtonColorFieldset', bitLength: 4 },
       { id: 'zButtonColorFieldset', bitLength: 4 },
+      { id: 'midnaHairBaseColorFieldset', bitLength: 4 },
+      { id: 'midnaHairTipColorFieldset', bitLength: 4 },
+      { id: 'midnaDomeRingColorFieldset', bitLength: 4 },
 
       { id: 'bgmFieldset', bitLength: 2 },
       { id: 'randomizeFanfaresCheckbox' },
@@ -856,6 +859,9 @@
     $('#xButtonColorFieldset').val(p.xBtnColor);
     $('#yButtonColorFieldset').val(p.yBtnColor);
     $('#zButtonColorFieldset').val(p.zBtnColor);
+    $('#midnaHairBaseColorFieldset').val(p.midnaHairBaseColor);
+    $('#midnaHairTipColorFieldset').val(p.midnaHairTipColor);
+    $('#midnaDomeRingColorFieldset').val(p.midnaDomeRingColor);
 
     $('#bgmFieldset').val(p.randomizeBgm);
     $('#randomizeFanfaresCheckbox').prop('checked', p.randomizeFanfares);
