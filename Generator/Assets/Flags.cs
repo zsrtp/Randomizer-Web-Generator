@@ -373,6 +373,10 @@ namespace TPRandomizer.Assets
             { 0x7, 0x5B }, // Block pushed down
             { 0x7, 0x42 }, // Midna text after block pushed down
         };
+        public static readonly byte[,] OpenSnowpeakRegionFlags = new byte[,]
+        {
+            { 0x8, 0x4A }, // Snowpeak top portal
+        };
 
         /// <summary>
         /// summary text.
@@ -391,6 +395,7 @@ namespace TPRandomizer.Assets
                 { 9, MapAndCompassRegionFlags },
                 { 13, OpenLakebedRegionFlags },
                 { 14, OpenArbitersRegionFlags },
+                { 15, OpenSnowpeakRegionFlags},
                 { 16, OpenToTRegionFlags },
                 { 18, OpenGroveRegionFlags },
             };
@@ -418,6 +423,8 @@ namespace TPRandomizer.Assets
             { 0xF8, 0xF4 }, // Add 244 Rupees to Charlo.
             { 0x60, 0x1 }, // Talked to Fyer after Lanayru Twilight
             { 0x38, 0x80 }, // Talked to Jovani after defeating Poe.
+            { 0x22, 0x8 }, // Talked to Yeto on top of the mountain after clearing SPR
+            { 0x3B, 0x40 }, // Won Snowboard race against Yeto.
         };
 
         /// <summary>
@@ -490,6 +497,7 @@ namespace TPRandomizer.Assets
             { 0x3E, 0x2 }, // City Ooccoo CS watched.
             { 0x59, 0x40 }, // Met Postman for the first time.
             { 0x5D, 0x40 }, // Midna text after Kargarok flight.
+            { 0x25, 0x2  }, // Watched cutscene with Yeto on top of mountain
         };
 
         /// <summary>
