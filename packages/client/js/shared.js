@@ -795,6 +795,9 @@
       { id: 'xBtnColor', type: 'number', bitLength: 4 },
       { id: 'yBtnColor', type: 'number', bitLength: 4 },
       { id: 'zBtnColor', type: 'number', bitLength: 4 },
+      { id: 'midnaHairBaseColor', type: 'number', bitLength: 4 },
+      { id: 'midnaHairTipColor', type: 'number', bitLength: 4 },
+      { id: 'midnaDomeRingColor', type: 'number', bitLength: 4 },
 
       { id: 'randomizeBgm', type: 'number', bitLength: 2 },
       { id: 'randomizeFanfares', type: 'boolean' },
