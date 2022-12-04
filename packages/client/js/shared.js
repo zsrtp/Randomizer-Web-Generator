@@ -443,29 +443,7 @@
 
   function genPSettingsFromUi(returnEvenIfEmpty) {
     const values = [
-      { id: 'hTunicHatColorFieldset', bitLength: 4 },
-      { id: 'hTunicBodyColorFieldset', bitLength: 4 },
-      { id: 'hTunicSkirtColorFieldset', bitLength: 4 },
-      { id: 'zTunicHatColorFieldset', bitLength: 4 },
-      { id: 'zTunicHelmetColorFieldset', bitLength: 4 },
-      { id: 'zTunicBodyColorFieldset', bitLength: 4 },
-      { id: 'zTunicScalesColorFieldset', bitLength: 4 },
-      { id: 'zTunicBootsColorFieldset', bitLength: 4 },
-      { id: 'lanternColorFieldset', bitLength: 4 },
-      // { id: 'midnaHairColorFieldset', bitLength: 1 },
-      { id: 'heartColorFieldset', bitLength: 4 },
-      { id: 'aButtonColorFieldset', bitLength: 4 },
-      { id: 'bButtonColorFieldset', bitLength: 3 },
-      { id: 'xButtonColorFieldset', bitLength: 4 },
-      { id: 'yButtonColorFieldset', bitLength: 4 },
-      { id: 'zButtonColorFieldset', bitLength: 4 },
-      { id: 'midnaHairBaseColorFieldset', bitLength: 4 },
-      { id: 'midnaHairTipColorFieldset', bitLength: 4 },
-      { id: 'midnaDomeRingColorFieldset', bitLength: 4 },
-
-      { id: 'bgmFieldset', bitLength: 2 },
-      { id: 'randomizeFanfaresCheckbox' },
-      { id: 'disableEnemyBGMCheckbox' },
+      
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -779,29 +757,6 @@
     // return res;
 
     const a = [
-      { id: 'hTunicHatColor', type: 'number', bitLength: 4 },
-      { id: 'hTunicBodyColor', type: 'number', bitLength: 4 },
-      { id: 'hTunicSkirtColor', type: 'number', bitLength: 4 },
-      { id: 'zTunicHatColor', type: 'number', bitLength: 4 },
-      { id: 'zTunicHelmetColor', type: 'number', bitLength: 4 },
-      { id: 'zTunicBodyColor', type: 'number', bitLength: 4 },
-      { id: 'zTunicScalesColor', type: 'number', bitLength: 4 },
-      { id: 'zTunicBootsColor', type: 'number', bitLength: 4 },
-      { id: 'lanternColor', type: 'number', bitLength: 4 },
-      // { id: 'midnaHairColor', type: 'number', bitLength: 1 },
-      { id: 'heartColor', type: 'number', bitLength: 4 },
-      { id: 'aBtnColor', type: 'number', bitLength: 4 },
-      { id: 'bBtnColor', type: 'number', bitLength: 3 },
-      { id: 'xBtnColor', type: 'number', bitLength: 4 },
-      { id: 'yBtnColor', type: 'number', bitLength: 4 },
-      { id: 'zBtnColor', type: 'number', bitLength: 4 },
-      { id: 'midnaHairBaseColor', type: 'number', bitLength: 4 },
-      { id: 'midnaHairTipColor', type: 'number', bitLength: 4 },
-      { id: 'midnaDomeRingColor', type: 'number', bitLength: 4 },
-
-      { id: 'randomizeBgm', type: 'number', bitLength: 2 },
-      { id: 'randomizeFanfares', type: 'boolean' },
-      { id: 'disableEnemyBgm', type: 'boolean' },
     ];
 
     const processor = BitsProcessor(bits);
@@ -843,32 +798,6 @@
     if (!p) {
       return;
     }
-
-    uncheckCheckboxes(['cosmeticsTab', 'audioTab']);
-
-    $('#hTunicHatColorFieldset').val(p.hTunicHatColor);
-    $('#hTunicBodyColorFieldset').val(p.hTunicBodyColor);
-    $('#hTunicSkirtColorFieldset').val(p.hTunicSkirtColor);
-    $('#zTunicHatColorFieldset').val(p.zTunicHatColor);
-    $('#zTunicHelmetColorFieldset').val(p.zTunicHelmetColor);
-    $('#zTunicBodyColorFieldset').val(p.zTunicBodyColor);
-    $('#zTunicScalesColorFieldset').val(p.zTunicScalesColor);
-    $('#zTunicBootsColorFieldset').val(p.zTunicBootsColor);
-    $('#lanternColorFieldset').val(p.lanternColor);
-    // $('#midnaHairColorFieldset').val(p.midnaHairColor);
-    $('#heartColorFieldset').val(p.heartColor);
-    $('#aButtonColorFieldset').val(p.aBtnColor);
-    $('#bButtonColorFieldset').val(p.bBtnColor);
-    $('#xButtonColorFieldset').val(p.xBtnColor);
-    $('#yButtonColorFieldset').val(p.yBtnColor);
-    $('#zButtonColorFieldset').val(p.zBtnColor);
-    $('#midnaHairBaseColorFieldset').val(p.midnaHairBaseColor);
-    $('#midnaHairTipColorFieldset').val(p.midnaHairTipColor);
-    $('#midnaDomeRingColorFieldset').val(p.midnaDomeRingColor);
-
-    $('#bgmFieldset').val(p.randomizeBgm);
-    $('#randomizeFanfaresCheckbox').prop('checked', p.randomizeFanfares);
-    $('#disableEnemyBGMCheckbox').prop('checked', p.disableEnemyBgm);
   }
 
   // window.decodeSettingsString = decodeSettingsString;
