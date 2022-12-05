@@ -118,7 +118,7 @@
         "bgmWave": 11,
         "sceneBgm": false,
         "dungeonBgm": false,
-        "minibossBgm": true,
+        "minibossBgm": false,
         "bossBgm": false,
         "minigameBgm": false,
         "eventBgm": false,
