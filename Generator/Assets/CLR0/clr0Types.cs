@@ -140,8 +140,9 @@ namespace TPRandomizer.Assets.CLR0
     {
         public static readonly string[][] MidnaBaseHairColors = new string[][]
         {
-            // put the actual RGB values here. Note that there is no value for the default color as we don't want to make the change if the player doesn't want to change the color.
+            // put the actual RGB values here.
             // Colors are lightworld inactive, darkworld inactive, bothworld active
+            new[] { "FFDC0000", "B4870000", "50000000" }, // Default
             new[] { "F5CFF300", "AD7F7F00", "1B002000" }, // Pink
             new[] { "E4654100", "A13E2200", "21000000" }, // Red
             new[] { "91830E00", "66500700", "0E0B0000" }, // Yellow
@@ -155,8 +156,9 @@ namespace TPRandomizer.Assets.CLR0
 
         public static readonly string[][] MidnaTipsHairColors = new string[][]
         {
-            // put the actual RGB values here. Note that there is no value for the default color as we don't want to make the change if the player doesn't want to change the color.
+            // put the actual RGB values here.
             // Colors are lightworld inactive, darkworld anyactive, lightworld active
+            new[] { "00C3EB00", "C3C30000", "AAFFC300" }, // Default
             new[] { "DD00EB00", "DD00C300", "F64CFF00" }, // Pink
             new[] { "EB000000", "EB000000", "FF4F3A00" }, // Red
             new[] { "EBDE0000", "EBDE0000", "FFF8BF00" }, // Yellow
@@ -170,8 +172,9 @@ namespace TPRandomizer.Assets.CLR0
 
         public static readonly string[][] MidnaGlowHairColors = new string[][]
         {
-            // put the actual RGB values here. Note that there is no value for the default color as we don't want to make the change if the player doesn't want to change the color.
+            // put the actual RGB values here.
             // Colors are bothworld inactive, lightworld active, darkworld active
+            new[] { "00500000", "00000000", "00FF0078", "00000000", "00FF0064", "00780000" }, // Default
             new[] { "003C0002", "00580000", "00E30072", "00F20000", "00E3005F", "00F80000" }, // Pink
             new[] { "004F0002", "00010000", "00F0003A", "00250000", "00F00030", "008C0000" }, // Red
             new[] { "00240025", "00020000", "00CB00B7", "00000000", "00CB0099", "00780000" }, // Yellow
