@@ -442,36 +442,37 @@
   }
 
   function genPSettingsFromUi(returnEvenIfEmpty) {
-    const values = [
-      
-    ].map(({ id, bitLength }) => {
-      const val = getVal(id);
-      if (bitLength) {
-        // select
-        return {
-          type: RawSettingType.xBitNum,
-          bitLength,
-          value: parseInt(getVal(id), 10),
-        };
-      }
-      // checkbox
-      return val;
-    });
+    // Don't do anything until we sort out pSettings better.
+    return '';
 
-    if (
-      !returnEvenIfEmpty &&
-      values.every((x) => {
-        if (x) {
-          return x.type === RawSettingType.xBitNum && x.value === 0;
-        }
+    // const values = [].map(({ id, bitLength }) => {
+    //   const val = getVal(id);
+    //   if (bitLength) {
+    //     // select
+    //     return {
+    //       type: RawSettingType.xBitNum,
+    //       bitLength,
+    //       value: parseInt(getVal(id), 10),
+    //     };
+    //   }
+    //   // checkbox
+    //   return val;
+    // });
 
-        return true;
-      })
-    ) {
-      return '';
-    }
+    // if (
+    //   !returnEvenIfEmpty &&
+    //   values.every((x) => {
+    //     if (x) {
+    //       return x.type === RawSettingType.xBitNum && x.value === 0;
+    //     }
 
-    return encodeSettings(0, 'p', values);
+    //     return true;
+    //   })
+    // ) {
+    //   return '';
+    // }
+
+    // return encodeSettings(0, 'p', values);
   }
 
   function decodeSettingsHeader(settingsString) {
@@ -743,40 +744,65 @@
     return res;
   }
 
-  function decodePSettings({ version, bits }) {
-    // const processor = BitsProcessor(bits);
+  // decodePSettings is not currently used until we better sort out pSettings.
 
-    // const res = {};
+  // function decodePSettings({ version, bits }) {
+  //   // const processor = BitsProcessor(bits);
 
-    // res.recolorDefs = processor.nextRecolorDefs();
+  //   // const res = {};
 
-    // res.randomizeBgm = processor.nextBoolean();
-    // res.randomizeFanfares = processor.nextBoolean();
-    // res.disableEnemyBgm = processor.nextBoolean();
+  //   // res.recolorDefs = processor.nextRecolorDefs();
 
-    // return res;
+  //   // res.randomizeBgm = processor.nextBoolean();
+  //   // res.randomizeFanfares = processor.nextBoolean();
+  //   // res.disableEnemyBgm = processor.nextBoolean();
 
-    const a = [
-    ];
+  //   // return res;
 
-    const processor = BitsProcessor(bits);
+  //   const a = [
+  //     { id: 'hTunicHatColor', type: 'number', bitLength: 4 },
+  //     { id: 'hTunicBodyColor', type: 'number', bitLength: 4 },
+  //     { id: 'hTunicSkirtColor', type: 'number', bitLength: 4 },
+  //     { id: 'zTunicHatColor', type: 'number', bitLength: 4 },
+  //     { id: 'zTunicHelmetColor', type: 'number', bitLength: 4 },
+  //     { id: 'zTunicBodyColor', type: 'number', bitLength: 4 },
+  //     { id: 'zTunicScalesColor', type: 'number', bitLength: 4 },
+  //     { id: 'zTunicBootsColor', type: 'number', bitLength: 4 },
+  //     { id: 'lanternColor', type: 'number', bitLength: 4 },
+  //     // { id: 'midnaHairColor', type: 'number', bitLength: 1 },
+  //     { id: 'heartColor', type: 'number', bitLength: 4 },
+  //     { id: 'aBtnColor', type: 'number', bitLength: 4 },
+  //     { id: 'bBtnColor', type: 'number', bitLength: 3 },
+  //     { id: 'xBtnColor', type: 'number', bitLength: 4 },
+  //     { id: 'yBtnColor', type: 'number', bitLength: 4 },
+  //     { id: 'zBtnColor', type: 'number', bitLength: 4 },
+  //     { id: 'midnaHairBaseColor', type: 'number', bitLength: 4 },
+  //     { id: 'midnaHairTipColor', type: 'number', bitLength: 4 },
+  //     { id: 'midnaDomeRingColor', type: 'number', bitLength: 4 },
 
-    const res = {};
+  //     { id: 'randomizeBgm', type: 'number', bitLength: 2 },
+  //     { id: 'randomizeFanfares', type: 'boolean' },
+  //     { id: 'disableEnemyBgm', type: 'boolean' },
+  //   ];
 
-    a.forEach(({ id, type, bitLength }) => {
-      if (type === 'number') {
-        const num = processor.nextXBitsAsNum(bitLength);
-        res[id] = num;
-      } else if (type === 'boolean') {
-        const num = processor.nextBoolean();
-        res[id] = num;
-      } else {
-        throw new Error(`Unknown type ${type} while decoding PSettings.`);
-      }
-    });
+  //   const processor = BitsProcessor(bits);
 
-    return res;
-  }
+  //   const res = {};
+
+  //   a.forEach(({ id, type, bitLength }) => {
+  //     if (type === 'number') {
+  //       const num = processor.nextXBitsAsNum(bitLength);
+  //       res[id] = num;
+  //     } else if (type === 'boolean') {
+  //       const num = processor.nextBoolean();
+  //       res[id] = num;
+  //     } else {
+  //       throw new Error(`Unknown type ${type} while decoding PSettings.`);
+  //     }
+  //   });
+
+  //   return res;
+  // }
 
   function decodeSettingsString(settingsString) {
     const byType = breakUpSettingsString(settingsString);
@@ -787,17 +813,47 @@
       result.s = decodeSSettings(byType.s);
     }
 
-    if (byType.p) {
-      result.p = decodePSettings(byType.p);
-    }
+    // Don't do this until we sort out pSettings better.
+    // if (byType.p) {
+    //   result.p = decodePSettings(byType.p);
+    // }
 
     return result;
   }
 
   function populateUiFromPSettings(p) {
-    if (!p) {
-      return;
-    }
+    // Don't do anything for now until we sort out pSettings.
+    return;
+
+    // if (!p) {
+    //   return;
+    // }
+
+    // uncheckCheckboxes(['cosmeticsTab', 'audioTab']);
+
+    // $('#hTunicHatColorFieldset').val(p.hTunicHatColor);
+    // $('#hTunicBodyColorFieldset').val(p.hTunicBodyColor);
+    // $('#hTunicSkirtColorFieldset').val(p.hTunicSkirtColor);
+    // $('#zTunicHatColorFieldset').val(p.zTunicHatColor);
+    // $('#zTunicHelmetColorFieldset').val(p.zTunicHelmetColor);
+    // $('#zTunicBodyColorFieldset').val(p.zTunicBodyColor);
+    // $('#zTunicScalesColorFieldset').val(p.zTunicScalesColor);
+    // $('#zTunicBootsColorFieldset').val(p.zTunicBootsColor);
+    // $('#lanternColorFieldset').val(p.lanternColor);
+    // // $('#midnaHairColorFieldset').val(p.midnaHairColor);
+    // $('#heartColorFieldset').val(p.heartColor);
+    // $('#aButtonColorFieldset').val(p.aBtnColor);
+    // $('#bButtonColorFieldset').val(p.bBtnColor);
+    // $('#xButtonColorFieldset').val(p.xBtnColor);
+    // $('#yButtonColorFieldset').val(p.yBtnColor);
+    // $('#zButtonColorFieldset').val(p.zBtnColor);
+    // $('#midnaHairBaseColorFieldset').val(p.midnaHairBaseColor);
+    // $('#midnaHairTipColorFieldset').val(p.midnaHairTipColor);
+    // $('#midnaDomeRingColorFieldset').val(p.midnaDomeRingColor);
+
+    // $('#bgmFieldset').val(p.randomizeBgm);
+    // $('#randomizeFanfaresCheckbox').prop('checked', p.randomizeFanfares);
+    // $('#disableEnemyBGMCheckbox').prop('checked', p.disableEnemyBgm);
   }
 
   // window.decodeSettingsString = decodeSettingsString;

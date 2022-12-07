@@ -475,23 +475,8 @@ function setSettingsString() {
   document.getElementById('settingsStringTextbox').textContent =
     getSettingsString(settingsStringRaw);
 
-  const sSettingsString = window.tpr.shared.genSSettingsFromUi();
-  const pSettingsString = window.tpr.shared.genPSettingsFromUi();
-  // const pSettingsString = '';
-
   document.getElementById('combinedSettingsString').textContent =
-    // sSettingsString + pSettingsString;
-    sSettingsString + window.tpr.shared.genPSettingsFromUi();
-
-  // document.getElementById('newSettingsDisplay').value = window.tpr.shared.genSSettingsFromUi();
-  // document.getElementById('newSettingsDisplay').textContent = sSettingsString;
-
-  // document.getElementById('seed').value = window.tpr.shared.genPSettingsFromUi();
-  // document.getElementById('uSettingsDisplay').textContent =
-  //   pSettingsString || '<empty>';
-
-  // document.getElementById('uSettingsString').value =
-  //   window.tpr.shared.genPSettingsFromUi();
+    window.tpr.shared.genSSettingsFromUi();
 }
 
 function getSettingsString(settingsStringRaw) {
