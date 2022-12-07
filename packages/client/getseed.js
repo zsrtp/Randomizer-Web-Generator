@@ -352,13 +352,11 @@
   }
 
   document
-  .getElementById('randomizeCosmeticsButton')
-  .addEventListener('click', randomizeCosmetics);
+    .getElementById('randomizeCosmeticsButton')
+    .addEventListener('click', randomizeCosmetics);
 
-
-function randomizeCosmetics() {
-    var arrayOfCosmeticSettings = 
-    [
+  function randomizeCosmetics() {
+    var arrayOfCosmeticSettings = [
       'hTunicHatColorFieldset',
       'hTunicBodyColorFieldset',
       'hTunicSkirtColorFieldset',
@@ -376,16 +374,15 @@ function randomizeCosmetics() {
       'zButtonColorFieldset',
       'midnaHairBaseColorFieldset',
       'midnaHairTipColorFieldset',
-      'midnaDomeRingColorFieldset'
+      'midnaDomeRingColorFieldset',
     ];
 
-    for (let i = 0; i < arrayOfCosmeticSettings.length; i++)
-    {
+    for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
       var select = document.getElementById(arrayOfCosmeticSettings[i]);
       var items = select.getElementsByTagName('option');
       select.selectedIndex = Math.floor(Math.random() * items.length);
     }
-}  
+  }
 
   function initPlaythroughSpoilers(spoilerData) {
     // const ids = ['tabAgitha', 'tabArbiters'].map((contentId) => {
@@ -1335,82 +1332,85 @@ function randomizeCosmetics() {
   }
 
   function initSettingsModal() {
-    const modal = document.getElementById('myModal');
-    // const btn = document.getElementById('editSettingsBtn');
-    const btn = document.getElementById('importSettingsStringButton');
-    const span = modal.querySelector('.modal-close');
-    const fieldErrorText = document.getElementById('modalFieldError');
-    const input = document.getElementById('modalSettingsStringInput');
-    const currentSettings = document.getElementById('modalCurrentSettings');
+    // Do nothing until pSettings are sorted out better.
+    return;
 
-    input.addEventListener('input', () => {
-      $(fieldErrorText).hide();
-    });
+    // const modal = document.getElementById('myModal');
+    // // const btn = document.getElementById('editSettingsBtn');
+    // const btn = document.getElementById('importSettingsStringButton');
+    // const span = modal.querySelector('.modal-close');
+    // const fieldErrorText = document.getElementById('modalFieldError');
+    // const input = document.getElementById('modalSettingsStringInput');
+    // const currentSettings = document.getElementById('modalCurrentSettings');
 
-    // When the user clicks the button, open the modal
-    btn.addEventListener('click', () => {
-      // Prepare modal
-      currentSettings.textContent = window.tpr.shared.genPSettingsFromUi();
-      $(fieldErrorText).hide();
-      input.value = '';
+    // input.addEventListener('input', () => {
+    //   $(fieldErrorText).hide();
+    // });
 
-      $(modal).show();
+    // // When the user clicks the button, open the modal
+    // btn.addEventListener('click', () => {
+    //   // Prepare modal
+    //   currentSettings.textContent = window.tpr.shared.genPSettingsFromUi();
+    //   $(fieldErrorText).hide();
+    //   input.value = '';
 
-      input.focus();
-    });
+    //   $(modal).show();
 
-    span.addEventListener('click', () => {
-      $(modal).hide();
-    });
+    //   input.focus();
+    // });
 
-    document.getElementById('modalCancel').addEventListener('click', () => {
-      $(modal).hide();
-    });
+    // span.addEventListener('click', () => {
+    //   $(modal).hide();
+    // });
 
-    document.getElementById('modalImport').addEventListener('click', () => {
-      if (!input.value) {
-        $(modal).hide();
-        return;
-      }
+    // document.getElementById('modalCancel').addEventListener('click', () => {
+    //   $(modal).hide();
+    // });
 
-      const error = populateFromSettingsString(input.value);
+    // document.getElementById('modalImport').addEventListener('click', () => {
+    //   if (!input.value) {
+    //     $(modal).hide();
+    //     return;
+    //   }
 
-      if (error) {
-        $(fieldErrorText)
-          .text(
-            'Unable to understand those settings. Do you have the correct string?'
-          )
-          .show();
-      } else {
-        $(modal).hide();
-      }
-    });
+    //   const error = populateFromSettingsString(input.value);
 
-    document.getElementById('modalCopy').addEventListener('click', () => {
-      $(fieldErrorText).hide();
+    //   if (error) {
+    //     $(fieldErrorText)
+    //       .text(
+    //         'Unable to understand those settings. Do you have the correct string?'
+    //       )
+    //       .show();
+    //   } else {
+    //     $(modal).hide();
+    //   }
+    // });
 
-      const text = currentSettings.textContent;
-      navigator.clipboard.writeText(text).then(
-        () => {
-          // success
-        },
-        (err) => {
-          $(fieldErrorText).text('Failed to copy text.').show();
-        }
-      );
-    });
+    // document.getElementById('modalCopy').addEventListener('click', () => {
+    //   $(fieldErrorText).hide();
 
-    let canHide = true;
+    //   const text = currentSettings.textContent;
+    //   navigator.clipboard.writeText(text).then(
+    //     () => {
+    //       // success
+    //     },
+    //     (err) => {
+    //       $(fieldErrorText).text('Failed to copy text.').show();
+    //     }
+    //   );
+    // });
 
-    $('#myModal')
-      .on('mousedown', function (e) {
-        canHide = e.target === this;
-      })
-      .on('mouseup', function (e) {
-        if (canHide && e.target === this) {
-          $(modal).hide();
-        }
-      });
+    // let canHide = true;
+
+    // $('#myModal')
+    //   .on('mousedown', function (e) {
+    //     canHide = e.target === this;
+    //   })
+    //   .on('mouseup', function (e) {
+    //     if (canHide && e.target === this) {
+    //       $(modal).hide();
+    //     }
+    //   });
   }
 
   function populateFromSettingsString(settingsString) {
