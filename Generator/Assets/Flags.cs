@@ -365,7 +365,7 @@ namespace TPRandomizer.Assets
             { 0x7, 0x5B }, // Block pushed down
             { 0x7, 0x42 }, // Midna text after block pushed down
         };
-         public static readonly byte[,] OpenGroveRegionFlags = new byte[,]
+        public static readonly byte[,] OpenGroveRegionFlags = new byte[,]
         {
             { 0x7, 0xB6 }, // Skull Kid - Human defeated.
             { 0x7, 0xB7 }, // Lost Woods Turns to day after defeating Skull Kid - Human
@@ -395,7 +395,7 @@ namespace TPRandomizer.Assets
                 { 9, MapAndCompassRegionFlags },
                 { 13, OpenLakebedRegionFlags },
                 { 14, OpenArbitersRegionFlags },
-                { 15, OpenSnowpeakRegionFlags},
+                { 15, OpenSnowpeakRegionFlags },
                 { 16, OpenToTRegionFlags },
                 { 18, OpenGroveRegionFlags },
             };
@@ -421,6 +421,8 @@ namespace TPRandomizer.Assets
             { 0x5F, 0x20 }, // Shad leaves sanctuary.
             { 0xF7, 0x1 }, // Add 256 Rupees to Charlo.
             { 0xF8, 0xF4 }, // Add 244 Rupees to Charlo.
+            { 0xF9, 0x1 }, // Add 256 Rupees to Malo Mart.
+            { 0xFA, 0xF4 }, // Add 244 Rupees to Malo Mart.
             { 0x60, 0x1 }, // Talked to Fyer after Lanayru Twilight
             { 0x38, 0x80 }, // Talked to Jovani after defeating Poe.
             { 0x22, 0x8 }, // Talked to Yeto on top of the mountain after clearing SPR
@@ -497,7 +499,7 @@ namespace TPRandomizer.Assets
             { 0x3E, 0x2 }, // City Ooccoo CS watched.
             { 0x59, 0x40 }, // Met Postman for the first time.
             { 0x5D, 0x40 }, // Midna text after Kargarok flight.
-            { 0x25, 0x2  }, // Watched cutscene with Yeto on top of mountain
+            { 0x25, 0x2 }, // Watched cutscene with Yeto on top of mountain
         };
 
         /// <summary>
@@ -552,7 +554,6 @@ namespace TPRandomizer.Assets
         {
             { 0x3B, 0x8 }, // Sky Cannon Repaired.
         };
-       
 
         /// <summary>
         /// summary text.
