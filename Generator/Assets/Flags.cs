@@ -376,6 +376,8 @@ namespace TPRandomizer.Assets
         public static readonly byte[,] OpenSnowpeakRegionFlags = new byte[,]
         {
             { 0x8, 0x4A }, // Snowpeak top portal
+            { 0x8, 0x49 }, // Snowpeak summit cs.
+            { 0x8, 0x45 }, // Snowpeak Summit intro CS.
         };
 
         /// <summary>

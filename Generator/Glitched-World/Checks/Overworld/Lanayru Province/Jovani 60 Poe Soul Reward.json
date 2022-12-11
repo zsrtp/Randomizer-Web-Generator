@@ -1,0 +1,9 @@
+{
+    "requirements": "(Poe_Soul, 60) and Shadow_Crystal and ((Setting.skipMdh equals True) or canCompleteLakebedTemple)",
+    "arcOffsets": ["42A7"],
+    "stageIDX": [73],
+    "fileDirectoryType": [1],
+    "replacementType": [0],
+    "category": ["Overworld", "Npc", "Castle Town", "ARC"],
+    "itemId": "Silver_Rupee"
+}

@@ -1085,6 +1085,10 @@ window.tpr.checkData = {
     category: ['Overworld', 'Npc', 'Castle Town', 'ARC'],
     itemId: 'Jovani_Bottle',
   },
+  'Jovani 60 Poe Soul Reward': {
+    category: ['Overworld', 'Npc', 'Castle Town', 'ARC'],
+    itemId: 'Jovani_Bottle',
+  },
   'Jovani House Poe': {
     category: ['Overworld', 'Castle Town', 'Poe'],
     itemId: 'Poe_Soul',
