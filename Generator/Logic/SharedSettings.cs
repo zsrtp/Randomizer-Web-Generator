@@ -46,6 +46,7 @@ namespace TPRandomizer
         public bool skipSnowpeakEntrance { get; set; }
         public TotEntrance totEntrance { get; set; }
         public bool skipCityEntrance { get; set; }
+        public bool instantText { get; set; }
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
 
@@ -96,6 +97,11 @@ namespace TPRandomizer
                 totEntrance = totOpen ? TotEntrance.Open : TotEntrance.Closed;
             }
             skipCityEntrance = processor.NextBool();
+            if (version >= 1)
+            {
+                // `instantText` was added as an option in version 1
+                instantText = processor.NextBool();
+            }
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();

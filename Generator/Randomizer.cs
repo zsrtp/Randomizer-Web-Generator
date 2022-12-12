@@ -423,6 +423,8 @@ namespace TPRandomizer
                 part2Settings.Add("totEntrance", SSettings.totEntrance);
             if (SSettings.skipCityEntrance)
                 part2Settings.Add("skipCityEntrance", SSettings.skipCityEntrance);
+            if (SSettings.instantText)
+                part2Settings.Add("instantText", SSettings.instantText);
 
             // Complex fields
             if (SSettings.startingItems?.Count > 0)

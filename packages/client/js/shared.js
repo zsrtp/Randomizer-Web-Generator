@@ -372,6 +372,7 @@
       { id: 'snowpeakEntranceCheckbox' },
       { id: 'totEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
+      { id: 'instantTextCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -737,6 +738,10 @@
       res.totEntrance = totOpen ? totEntrance.open : totEntrance.closed;
     }
     processBasic({ id: 'skipCityEntrance' });
+    if (version >= 1) {
+      // `instantText' added as an option in version 1
+      processBasic({ id: 'instantText' });
+    }
 
     res.startingItems = processor.nextEolList(9);
     res.excludedChecks = processor.nextEolList(9);

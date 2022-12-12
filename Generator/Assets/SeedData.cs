@@ -270,7 +270,8 @@ namespace TPRandomizer.Assets
                 randomizerSettings.increaseWallet,
                 randomizerSettings.fastIronBoots,
                 randomizerSettings.modifyShopModels,
-                fcSettings.disableEnemyBgm
+                fcSettings.disableEnemyBgm,
+                randomizerSettings.instantText,
             };
             int patchOptions = 0x0;
             int bitwiseOperator = 0;

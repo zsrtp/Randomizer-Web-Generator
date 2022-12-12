@@ -347,6 +347,9 @@ document.getElementById('totEntranceFieldset').onchange = setSettingsString;
 document
   .getElementById('cityEntranceCheckbox')
   .addEventListener('click', setSettingsString);
+  document
+  .getElementById('instantTextCheckbox')
+  .addEventListener('click', setSettingsString);
 document
   .getElementById('importSettingsStringButton')
   .addEventListener('click', importSettingsString);
@@ -470,6 +473,9 @@ function setSettingsString() {
   ).selectedIndex;
   settingsStringRaw[36] = document.getElementById(
     'cityEntranceCheckbox'
+  ).checked;
+  settingsStringRaw[37] = document.getElementById(
+    'instantTextCheckbox'
   ).checked;
   // document.getElementById('settingsStringTextbox').value =
   document.getElementById('settingsStringTextbox').textContent =
@@ -629,6 +635,7 @@ var arrayOfSettingsItems = [
   'snowpeakEntranceCheckbox',
   'totEntranceFieldset',
   'cityEntranceCheckbox',
+  'instantTextCheckbox',
 ];
 
 function parseSettingsString(settingsString) {
@@ -1178,6 +1185,7 @@ function populateSSettings(s) {
   $('#snowpeakEntranceCheckbox').prop('checked', s.skipSnowpeakEntrance);
   $('#totEntranceFieldset').val(s.totEntrance);
   $('#cityEntranceCheckbox').prop('checked', s.skipCityEntrance);
+  $('#instantTextCheckbox').prop('checked', s.instantText);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {
