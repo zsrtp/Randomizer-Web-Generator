@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatBokoblin",
+    "requirements": "true",
     "arcOffsets": ["320"],
     "stageIDX": [20],
     "roomIDX": 13,
