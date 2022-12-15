@@ -245,6 +245,8 @@ namespace TPRandomizer.Assets
             { 0x18, 0xB8 }, // Lit northeast torch in second floor north room for the first time CS.
             { 0x18, 0x4B }, // Watched CS with Allies in HC.
             { 0x18, 0x94 }, // BK Gate opened in HC.
+            { 0x13, 0x6A }, // Main room poes taking flames cs.
+            { 0x13, 0x6C }, // Close poe door
         };
 
         public static readonly byte[,] SmallKeyRegionFlags = new byte[,]
