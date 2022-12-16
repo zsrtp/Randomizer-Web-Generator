@@ -245,6 +245,8 @@ namespace TPRandomizer.Assets
             { 0x18, 0xB8 }, // Lit northeast torch in second floor north room for the first time CS.
             { 0x18, 0x4B }, // Watched CS with Allies in HC.
             { 0x18, 0x94 }, // BK Gate opened in HC.
+            { 0x13, 0x9C }, // Main room poes taking flames cs.
+            { 0x13, 0x9A }, // Close poe door
         };
 
         public static readonly byte[,] SmallKeyRegionFlags = new byte[,]
@@ -429,6 +431,7 @@ namespace TPRandomizer.Assets
             { 0x38, 0x80 }, // Talked to Jovani after defeating Poe.
             { 0x22, 0x8 }, // Talked to Yeto on top of the mountain after clearing SPR
             { 0x3B, 0x40 }, // Won Snowboard race against Yeto.
+            { 0x2F, 0x80 }, // Talked to Goron outside East Castle Town 
         };
 
         /// <summary>
