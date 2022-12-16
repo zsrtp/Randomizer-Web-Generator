@@ -431,6 +431,7 @@ namespace TPRandomizer.Assets
             { 0x38, 0x80 }, // Talked to Jovani after defeating Poe.
             { 0x22, 0x8 }, // Talked to Yeto on top of the mountain after clearing SPR
             { 0x3B, 0x40 }, // Won Snowboard race against Yeto.
+            { 0x2F, 0x80 }, // Talked to Goron outside East Castle Town 
         };
 
         /// <summary>
