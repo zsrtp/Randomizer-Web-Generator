@@ -335,6 +335,10 @@
   }
 
   function genSSettingsFromUi() {
+    // Increment the version when you make changes to the format. Need to make
+    // sure you don't break backwards compatibility!!
+    const sSettingsVersion = 1;
+
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
       { id: 'castleRequirementsFieldset', bitLength: 3 },
@@ -366,8 +370,9 @@
       { id: 'lakebedEntranceCheckbox' },
       { id: 'arbitersEntranceCheckbox' },
       { id: 'snowpeakEntranceCheckbox' },
-      { id: 'totEntranceCheckbox' },
+      { id: 'totEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
+      { id: 'instantTextCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -385,7 +390,7 @@
     values.push(genStartingItemsBits());
     values.push(genExcludedChecksBits());
 
-    return encodeSettings(0, 's', values);
+    return encodeSettings(sSettingsVersion, 's', values);
   }
 
   const MidnaColorOptions = {
@@ -438,55 +443,37 @@
   }
 
   function genPSettingsFromUi(returnEvenIfEmpty) {
-    const values = [
-      { id: 'hTunicHatColorFieldset', bitLength: 4 },
-      { id: 'hTunicBodyColorFieldset', bitLength: 4 },
-      { id: 'hTunicSkirtColorFieldset', bitLength: 4 },
-      { id: 'zTunicHatColorFieldset', bitLength: 4 },
-      { id: 'zTunicHelmetColorFieldset', bitLength: 4 },
-      { id: 'zTunicBodyColorFieldset', bitLength: 4 },
-      { id: 'zTunicScalesColorFieldset', bitLength: 4 },
-      { id: 'zTunicBootsColorFieldset', bitLength: 4 },
-      { id: 'lanternColorFieldset', bitLength: 4 },
-      // { id: 'midnaHairColorFieldset', bitLength: 1 },
-      { id: 'heartColorFieldset', bitLength: 4 },
-      { id: 'aButtonColorFieldset', bitLength: 4 },
-      { id: 'bButtonColorFieldset', bitLength: 3 },
-      { id: 'xButtonColorFieldset', bitLength: 4 },
-      { id: 'yButtonColorFieldset', bitLength: 4 },
-      { id: 'zButtonColorFieldset', bitLength: 4 },
+    // Don't do anything until we sort out pSettings better.
+    return '';
 
-      { id: 'bgmFieldset', bitLength: 2 },
-      { id: 'randomizeFanfaresCheckbox' },
-      { id: 'disableEnemyBGMCheckbox' },
-    ].map(({ id, bitLength }) => {
-      const val = getVal(id);
-      if (bitLength) {
-        // select
-        return {
-          type: RawSettingType.xBitNum,
-          bitLength,
-          value: parseInt(getVal(id), 10),
-        };
-      }
-      // checkbox
-      return val;
-    });
+    // const values = [].map(({ id, bitLength }) => {
+    //   const val = getVal(id);
+    //   if (bitLength) {
+    //     // select
+    //     return {
+    //       type: RawSettingType.xBitNum,
+    //       bitLength,
+    //       value: parseInt(getVal(id), 10),
+    //     };
+    //   }
+    //   // checkbox
+    //   return val;
+    // });
 
-    if (
-      !returnEvenIfEmpty &&
-      values.every((x) => {
-        if (x) {
-          return x.type === RawSettingType.xBitNum && x.value === 0;
-        }
+    // if (
+    //   !returnEvenIfEmpty &&
+    //   values.every((x) => {
+    //     if (x) {
+    //       return x.type === RawSettingType.xBitNum && x.value === 0;
+    //     }
 
-        return true;
-      })
-    ) {
-      return '';
-    }
+    //     return true;
+    //   })
+    // ) {
+    //   return '';
+    // }
 
-    return encodeSettings(0, 'p', values);
+    // return encodeSettings(0, 'p', values);
   }
 
   function decodeSettingsHeader(settingsString) {
@@ -695,56 +682,66 @@
   }
 
   function decodeSSettings({ version, bits }) {
-    const a = [
-      { id: 'logicRules', type: 'number', bitLength: 2 },
-      { id: 'castleRequirements', type: 'number', bitLength: 3 },
-      { id: 'palaceRequirements', type: 'number', bitLength: 2 },
-      { id: 'faronWoodsLogic', type: 'number', bitLength: 1 },
-      { id: 'goldenBugs', type: 'boolean' },
-      { id: 'skyCharacters', type: 'boolean' },
-      { id: 'giftsFromNpcs', type: 'boolean' },
-      { id: 'poes', type: 'boolean' },
-      { id: 'shopItems', type: 'boolean' },
-      { id: 'hiddenSkills', type: 'boolean' },
-      { id: 'smallKeys', type: 'number', bitLength: 3 },
-      { id: 'bigKeys', type: 'number', bitLength: 3 },
-      { id: 'mapsAndCompasses', type: 'number', bitLength: 3 },
-      { id: 'skipIntro', type: 'boolean' },
-      { id: 'faronTwilightCleared', type: 'boolean' },
-      { id: 'eldinTwilightCleared', type: 'boolean' },
-      { id: 'lanayruTwilightCleared', type: 'boolean' },
-      { id: 'skipMdh', type: 'boolean' },
-      { id: 'skipMinorCutscenes', type: 'boolean' },
-      { id: 'fastIronBoots', type: 'boolean' },
-      { id: 'quickTransform', type: 'boolean' },
-      { id: 'transformAnywhere', type: 'boolean' },
-      { id: 'increaseWalletCapacity', type: 'boolean' },
-      { id: 'shopModelsShowTheReplacedItem', type: 'boolean' },
-      { id: 'trapItemsFrequency', type: 'number', bitLength: 3 },
-      { id: 'barrenDungeons', type: 'boolean' },
-      { id: 'skipMinesEntrance', type: 'boolean' },
-      { id: 'skipLakebedEntrance', type: 'boolean' },
-      { id: 'skipArbitersEntrance', type: 'boolean' },
-      { id: 'skipSnowpeakEntrance', type: 'boolean' },
-      { id: 'skipToTEntrance', type: 'boolean' },
-      { id: 'skipCityEntrance', type: 'boolean' },
-    ];
-
     const processor = BitsProcessor(bits);
-
     const res = {};
 
-    a.forEach(({ id, type, bitLength }) => {
-      if (type === 'number') {
+    function processBasic({ id, bitLength }) {
+      if (bitLength != null) {
         const num = processor.nextXBitsAsNum(bitLength);
         res[id] = num;
-      } else if (type === 'boolean') {
+      } else {
         const num = processor.nextBoolean();
         res[id] = num;
-      } else {
-        throw new Error(`Unknown type ${type} while decoding SSettings.`);
       }
-    });
+    }
+
+    processBasic({ id: 'logicRules', bitLength: 2 });
+    processBasic({ id: 'castleRequirements', bitLength: 3 });
+    processBasic({ id: 'palaceRequirements', bitLength: 2 });
+    processBasic({ id: 'faronWoodsLogic', bitLength: 1 });
+    processBasic({ id: 'goldenBugs' });
+    processBasic({ id: 'skyCharacters' });
+    processBasic({ id: 'giftsFromNpcs' });
+    processBasic({ id: 'poes' });
+    processBasic({ id: 'shopItems' });
+    processBasic({ id: 'hiddenSkills' });
+    processBasic({ id: 'smallKeys', bitLength: 3 });
+    processBasic({ id: 'bigKeys', bitLength: 3 });
+    processBasic({ id: 'mapsAndCompasses', bitLength: 3 });
+    processBasic({ id: 'skipIntro' });
+    processBasic({ id: 'faronTwilightCleared' });
+    processBasic({ id: 'eldinTwilightCleared' });
+    processBasic({ id: 'lanayruTwilightCleared' });
+    processBasic({ id: 'skipMdh' });
+    processBasic({ id: 'skipMinorCutscenes' });
+    processBasic({ id: 'fastIronBoots' });
+    processBasic({ id: 'quickTransform' });
+    processBasic({ id: 'transformAnywhere' });
+    processBasic({ id: 'increaseWalletCapacity' });
+    processBasic({ id: 'shopModelsShowTheReplacedItem' });
+    processBasic({ id: 'trapItemsFrequency', bitLength: 3 });
+    processBasic({ id: 'barrenDungeons' });
+    processBasic({ id: 'skipMinesEntrance' });
+    processBasic({ id: 'skipLakebedEntrance' });
+    processBasic({ id: 'skipArbitersEntrance' });
+    processBasic({ id: 'skipSnowpeakEntrance' });
+    if (version >= 1) {
+      // `totEntrance` changed from a checkbox to a select
+      processBasic({ id: 'totEntrance', bitLength: 2 });
+    } else {
+      const totEntrance = {
+        closed: 0,
+        openGrove: 1,
+        open: 2,
+      };
+      const totOpen = processor.nextBoolean();
+      res.totEntrance = totOpen ? totEntrance.open : totEntrance.closed;
+    }
+    processBasic({ id: 'skipCityEntrance' });
+    if (version >= 1) {
+      // `instantText' added as an option in version 1
+      processBasic({ id: 'instantText' });
+    }
 
     res.startingItems = processor.nextEolList(9);
     res.excludedChecks = processor.nextEolList(9);
@@ -752,60 +749,65 @@
     return res;
   }
 
-  function decodePSettings({ version, bits }) {
-    // const processor = BitsProcessor(bits);
+  // decodePSettings is not currently used until we better sort out pSettings.
 
-    // const res = {};
+  // function decodePSettings({ version, bits }) {
+  //   // const processor = BitsProcessor(bits);
 
-    // res.recolorDefs = processor.nextRecolorDefs();
+  //   // const res = {};
 
-    // res.randomizeBgm = processor.nextBoolean();
-    // res.randomizeFanfares = processor.nextBoolean();
-    // res.disableEnemyBgm = processor.nextBoolean();
+  //   // res.recolorDefs = processor.nextRecolorDefs();
 
-    // return res;
+  //   // res.randomizeBgm = processor.nextBoolean();
+  //   // res.randomizeFanfares = processor.nextBoolean();
+  //   // res.disableEnemyBgm = processor.nextBoolean();
 
-    const a = [
-      { id: 'hTunicHatColor', type: 'number', bitLength: 4 },
-      { id: 'hTunicBodyColor', type: 'number', bitLength: 4 },
-      { id: 'hTunicSkirtColor', type: 'number', bitLength: 4 },
-      { id: 'zTunicHatColor', type: 'number', bitLength: 4 },
-      { id: 'zTunicHelmetColor', type: 'number', bitLength: 4 },
-      { id: 'zTunicBodyColor', type: 'number', bitLength: 4 },
-      { id: 'zTunicScalesColor', type: 'number', bitLength: 4 },
-      { id: 'zTunicBootsColor', type: 'number', bitLength: 4 },
-      { id: 'lanternColor', type: 'number', bitLength: 4 },
-      // { id: 'midnaHairColor', type: 'number', bitLength: 1 },
-      { id: 'heartColor', type: 'number', bitLength: 4 },
-      { id: 'aBtnColor', type: 'number', bitLength: 4 },
-      { id: 'bBtnColor', type: 'number', bitLength: 3 },
-      { id: 'xBtnColor', type: 'number', bitLength: 4 },
-      { id: 'yBtnColor', type: 'number', bitLength: 4 },
-      { id: 'zBtnColor', type: 'number', bitLength: 4 },
+  //   // return res;
 
-      { id: 'randomizeBgm', type: 'number', bitLength: 2 },
-      { id: 'randomizeFanfares', type: 'boolean' },
-      { id: 'disableEnemyBgm', type: 'boolean' },
-    ];
+  //   const a = [
+  //     { id: 'hTunicHatColor', type: 'number', bitLength: 4 },
+  //     { id: 'hTunicBodyColor', type: 'number', bitLength: 4 },
+  //     { id: 'hTunicSkirtColor', type: 'number', bitLength: 4 },
+  //     { id: 'zTunicHatColor', type: 'number', bitLength: 4 },
+  //     { id: 'zTunicHelmetColor', type: 'number', bitLength: 4 },
+  //     { id: 'zTunicBodyColor', type: 'number', bitLength: 4 },
+  //     { id: 'zTunicScalesColor', type: 'number', bitLength: 4 },
+  //     { id: 'zTunicBootsColor', type: 'number', bitLength: 4 },
+  //     { id: 'lanternColor', type: 'number', bitLength: 4 },
+  //     // { id: 'midnaHairColor', type: 'number', bitLength: 1 },
+  //     { id: 'heartColor', type: 'number', bitLength: 4 },
+  //     { id: 'aBtnColor', type: 'number', bitLength: 4 },
+  //     { id: 'bBtnColor', type: 'number', bitLength: 3 },
+  //     { id: 'xBtnColor', type: 'number', bitLength: 4 },
+  //     { id: 'yBtnColor', type: 'number', bitLength: 4 },
+  //     { id: 'zBtnColor', type: 'number', bitLength: 4 },
+  //     { id: 'midnaHairBaseColor', type: 'number', bitLength: 4 },
+  //     { id: 'midnaHairTipColor', type: 'number', bitLength: 4 },
+  //     { id: 'midnaDomeRingColor', type: 'number', bitLength: 4 },
 
-    const processor = BitsProcessor(bits);
+  //     { id: 'randomizeBgm', type: 'number', bitLength: 2 },
+  //     { id: 'randomizeFanfares', type: 'boolean' },
+  //     { id: 'disableEnemyBgm', type: 'boolean' },
+  //   ];
 
-    const res = {};
+  //   const processor = BitsProcessor(bits);
 
-    a.forEach(({ id, type, bitLength }) => {
-      if (type === 'number') {
-        const num = processor.nextXBitsAsNum(bitLength);
-        res[id] = num;
-      } else if (type === 'boolean') {
-        const num = processor.nextBoolean();
-        res[id] = num;
-      } else {
-        throw new Error(`Unknown type ${type} while decoding PSettings.`);
-      }
-    });
+  //   const res = {};
 
-    return res;
-  }
+  //   a.forEach(({ id, type, bitLength }) => {
+  //     if (type === 'number') {
+  //       const num = processor.nextXBitsAsNum(bitLength);
+  //       res[id] = num;
+  //     } else if (type === 'boolean') {
+  //       const num = processor.nextBoolean();
+  //       res[id] = num;
+  //     } else {
+  //       throw new Error(`Unknown type ${type} while decoding PSettings.`);
+  //     }
+  //   });
+
+  //   return res;
+  // }
 
   function decodeSettingsString(settingsString) {
     const byType = breakUpSettingsString(settingsString);
@@ -816,38 +818,47 @@
       result.s = decodeSSettings(byType.s);
     }
 
-    if (byType.p) {
-      result.p = decodePSettings(byType.p);
-    }
+    // Don't do this until we sort out pSettings better.
+    // if (byType.p) {
+    //   result.p = decodePSettings(byType.p);
+    // }
 
     return result;
   }
 
   function populateUiFromPSettings(p) {
-    if (!p) {
-      return;
-    }
+    // Don't do anything for now until we sort out pSettings.
+    return;
 
-    $('#hTunicHatColorFieldset').val(p.hTunicHatColor);
-    $('#hTunicBodyColorFieldset').val(p.hTunicBodyColor);
-    $('#hTunicSkirtColorFieldset').val(p.hTunicSkirtColor);
-    $('#zTunicHatColorFieldset').val(p.zTunicHatColor);
-    $('#zTunicHelmetColorFieldset').val(p.zTunicHelmetColor);
-    $('#zTunicBodyColorFieldset').val(p.zTunicBodyColor);
-    $('#zTunicScalesColorFieldset').val(p.zTunicScalesColor);
-    $('#zTunicBootsColorFieldset').val(p.zTunicBootsColor);
-    $('#lanternColorFieldset').val(p.lanternColor);
-    // $('#midnaHairColorFieldset').val(p.midnaHairColor);
-    $('#heartColorFieldset').val(p.heartColor);
-    $('#aButtonColorFieldset').val(p.aBtnColor);
-    $('#bButtonColorFieldset').val(p.bBtnColor);
-    $('#xButtonColorFieldset').val(p.xBtnColor);
-    $('#yButtonColorFieldset').val(p.yBtnColor);
-    $('#zButtonColorFieldset').val(p.zBtnColor);
+    // if (!p) {
+    //   return;
+    // }
 
-    $('#bgmFieldset').val(p.randomizeBgm);
-    $('#randomizeFanfaresCheckbox').prop('checked', p.randomizeFanfares);
-    $('#disableEnemyBGMCheckbox').prop('checked', p.disableEnemyBgm);
+    // uncheckCheckboxes(['cosmeticsTab', 'audioTab']);
+
+    // $('#hTunicHatColorFieldset').val(p.hTunicHatColor);
+    // $('#hTunicBodyColorFieldset').val(p.hTunicBodyColor);
+    // $('#hTunicSkirtColorFieldset').val(p.hTunicSkirtColor);
+    // $('#zTunicHatColorFieldset').val(p.zTunicHatColor);
+    // $('#zTunicHelmetColorFieldset').val(p.zTunicHelmetColor);
+    // $('#zTunicBodyColorFieldset').val(p.zTunicBodyColor);
+    // $('#zTunicScalesColorFieldset').val(p.zTunicScalesColor);
+    // $('#zTunicBootsColorFieldset').val(p.zTunicBootsColor);
+    // $('#lanternColorFieldset').val(p.lanternColor);
+    // // $('#midnaHairColorFieldset').val(p.midnaHairColor);
+    // $('#heartColorFieldset').val(p.heartColor);
+    // $('#aButtonColorFieldset').val(p.aBtnColor);
+    // $('#bButtonColorFieldset').val(p.bBtnColor);
+    // $('#xButtonColorFieldset').val(p.xBtnColor);
+    // $('#yButtonColorFieldset').val(p.yBtnColor);
+    // $('#zButtonColorFieldset').val(p.zBtnColor);
+    // $('#midnaHairBaseColorFieldset').val(p.midnaHairBaseColor);
+    // $('#midnaHairTipColorFieldset').val(p.midnaHairTipColor);
+    // $('#midnaDomeRingColorFieldset').val(p.midnaDomeRingColor);
+
+    // $('#bgmFieldset').val(p.randomizeBgm);
+    // $('#randomizeFanfaresCheckbox').prop('checked', p.randomizeFanfares);
+    // $('#disableEnemyBGMCheckbox').prop('checked', p.disableEnemyBgm);
   }
 
   // window.decodeSettingsString = decodeSettingsString;
@@ -915,6 +926,21 @@
     });
   }
 
+  function uncheckCheckboxes(parentIds) {
+    parentIds.forEach(function (parentId) {
+      const parentEl = document.getElementById(parentId);
+      if (parentEl) {
+        const inputs = parentEl.getElementsByTagName('input');
+        for (let i = 0; i < inputs.length; i++) {
+          const input = inputs[i];
+          if (input.type.toLowerCase() === 'checkbox') {
+            input.checked = false;
+          }
+        }
+      }
+    });
+  }
+
   window.tpr = window.tpr || {};
   window.tpr.shared = {
     genSSettingsFromUi,
@@ -922,5 +948,6 @@
     decodeSettingsString,
     populateUiFromPSettings,
     fetch: fetchWrapper,
+    uncheckCheckboxes,
   };
 })();

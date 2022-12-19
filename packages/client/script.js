@@ -92,8 +92,6 @@ function initTabButtons() {
     'gameplaySettingsTab',
     'excludedChecksTab',
     'startingInventoryTab',
-    'cosmeticsAndQuirksTab',
-    'audioTab',
     // 'legacyTab',
   ].forEach((id) => {
     byId(id + 'Btn').addEventListener('click', genOnTabClick(id));
@@ -329,30 +327,6 @@ document
 document
   .getElementById('transformAnywhereCheckbox')
   .addEventListener('click', setSettingsString);
-document.getElementById('bgmFieldset').onchange = setSettingsString;
-document
-  .getElementById('randomizeFanfaresCheckbox')
-  .addEventListener('click', setSettingsString);
-document
-  .getElementById('disableEnemyBGMCheckbox')
-  .addEventListener('click', setSettingsString);
-document.getElementById('hTunicHatColorFieldset').onchange = setSettingsString;
-document.getElementById('hTunicBodyColorFieldset').onchange = setSettingsString;
-document.getElementById('hTunicSkirtColorFieldset').onchange = setSettingsString;
-
-document.getElementById('zTunicHatColorFieldset').onchange = setSettingsString;
-document.getElementById('zTunicHelmetColorFieldset').onchange = setSettingsString;
-document.getElementById('zTunicBodyColorFieldset').onchange = setSettingsString;
-document.getElementById('zTunicScalesColorFieldset').onchange = setSettingsString;
-document.getElementById('zTunicBootsColorFieldset').onchange = setSettingsString;
-
-document.getElementById('lanternColorFieldset').onchange = setSettingsString;
-document.getElementById('heartColorFieldset').onchange = setSettingsString;
-document.getElementById('aButtonColorFieldset').onchange = setSettingsString;
-document.getElementById('bButtonColorFieldset').onchange = setSettingsString;
-document.getElementById('xButtonColorFieldset').onchange = setSettingsString;
-document.getElementById('yButtonColorFieldset').onchange = setSettingsString;
-document.getElementById('zButtonColorFieldset').onchange = setSettingsString;
 document
   .getElementById('barrenCheckbox')
   .addEventListener('click', setSettingsString);
@@ -368,11 +342,13 @@ document
 document
   .getElementById('snowpeakEntranceCheckbox')
   .addEventListener('click', setSettingsString);
-document
-  .getElementById('totEntranceCheckbox')
-  .addEventListener('click', setSettingsString);
+document;
+document.getElementById('totEntranceFieldset').onchange = setSettingsString;
 document
   .getElementById('cityEntranceCheckbox')
+  .addEventListener('click', setSettingsString);
+  document
+  .getElementById('instantTextCheckbox')
   .addEventListener('click', setSettingsString);
 document
   .getElementById('importSettingsStringButton')
@@ -386,40 +362,6 @@ document
 document
   .getElementById('importSettingsStringButton')
   .addEventListener('click', importSettingsString);
-
-document
-  .getElementById('randomizeCosmeticsButton')
-  .addEventListener('click', randomizeCosmetics);
-
-
-function randomizeCosmetics() {
-    var arrayOfCosmeticSettings = 
-    [
-      'hTunicHatColorFieldset',
-      'hTunicBodyColorFieldset',
-      'hTunicSkirtColorFieldset',
-      'zTunicHatColorFieldset',
-      'zTunicHelmetColorFieldset',
-      'zTunicBodyColorFieldset',
-      'zTunicScalesColorFieldset',
-      'zTunicBootsColorFieldset',
-      'lanternColorFieldset',
-      'heartColorFieldset',
-      'aButtonColorFieldset',
-      'bButtonColorFieldset',
-      'xButtonColorFieldset',
-      'yButtonColorFieldset',
-      'zButtonColorFieldset'
-    ];
-
-    for (let i = 0; i < arrayOfCosmeticSettings.length; i++)
-    {
-      var select = document.getElementById(arrayOfCosmeticSettings[i]);
-      var items = select.getElementsByTagName('option');
-      select.selectedIndex = Math.floor(Math.random() * items.length);
-    }
-    setSettingsString();
-}  
 
 function importSettingsString() {
   parseSettingsString(document.getElementById('settingsStringTextbox').value);
@@ -497,87 +439,50 @@ function setSettingsString() {
   // settingsStringRaw[24] = document.getElementById(
   //   'midnaHairColorFieldset'
   // ).selectedIndex;
+
   settingsStringRaw[25] = document.getElementById(
-    'lanternColorFieldset'
-  ).selectedIndex;
-  settingsStringRaw[26] =
-    document.getElementById('heartColorFieldset').selectedIndex;
-  settingsStringRaw[27] = document.getElementById(
-    'aButtonColorFieldset'
-  ).selectedIndex;
-  settingsStringRaw[28] = document.getElementById(
-    'bButtonColorFieldset'
-  ).selectedIndex;
-  settingsStringRaw[29] = document.getElementById(
-    'xButtonColorFieldset'
-  ).selectedIndex;
-  settingsStringRaw[30] = document.getElementById(
-    'yButtonColorFieldset'
-  ).selectedIndex;
-  settingsStringRaw[31] = document.getElementById(
-    'zButtonColorFieldset'
-  ).selectedIndex;
-  settingsStringRaw[32] = document.getElementById('bgmFieldset').selectedIndex;
-  settingsStringRaw[33] = document.getElementById(
-    'randomizeFanfaresCheckbox'
-  ).checked;
-  settingsStringRaw[34] = document.getElementById(
-    'disableEnemyBGMCheckbox'
-  ).checked;
-  settingsStringRaw[35] = document.getElementById(
     'hiddenSkillsCheckbox'
   ).checked;
-  settingsStringRaw[36] = document.getElementById(
+  settingsStringRaw[26] = document.getElementById(
     'skyCharacterCheckbox'
   ).checked;
-  settingsStringRaw[37] =
+  settingsStringRaw[27] =
     document.getElementById('seedNumberFieldset').selectedIndex;
-  settingsStringRaw[38] = document.getElementById(
+  settingsStringRaw[28] = document.getElementById(
     'increaseWalletCheckbox'
   ).checked;
-  settingsStringRaw[39] = document.getElementById(
+  settingsStringRaw[29] = document.getElementById(
     'modifyShopModelsCheckbox'
   ).checked;
-  settingsStringRaw[40] = document.getElementById('barrenCheckbox').checked;
-  settingsStringRaw[41] = document.getElementById(
+  settingsStringRaw[30] = document.getElementById('barrenCheckbox').checked;
+
+  settingsStringRaw[31] = document.getElementById(
     'minesEntranceCheckbox'
   ).checked;
-  settingsStringRaw[42] = document.getElementById(
+  settingsStringRaw[32] = document.getElementById(
     'lakebedEntranceCheckbox'
   ).checked;
-  settingsStringRaw[43] = document.getElementById(
+  settingsStringRaw[33] = document.getElementById(
     'arbitersEntranceCheckbox'
   ).checked;
-  settingsStringRaw[44] = document.getElementById(
+  settingsStringRaw[34] = document.getElementById(
     'snowpeakEntranceCheckbox'
   ).checked;
-  settingsStringRaw[45] = document.getElementById(
-    'totEntranceCheckbox'
-  ).checked;
-  settingsStringRaw[46] = document.getElementById(
+  settingsStringRaw[35] = document.getElementById(
+    'totEntranceFieldset'
+  ).selectedIndex;
+  settingsStringRaw[36] = document.getElementById(
     'cityEntranceCheckbox'
+  ).checked;
+  settingsStringRaw[37] = document.getElementById(
+    'instantTextCheckbox'
   ).checked;
   // document.getElementById('settingsStringTextbox').value =
   document.getElementById('settingsStringTextbox').textContent =
     getSettingsString(settingsStringRaw);
 
-  const sSettingsString = window.tpr.shared.genSSettingsFromUi();
-  const pSettingsString = window.tpr.shared.genPSettingsFromUi();
-  // const pSettingsString = '';
-
   document.getElementById('combinedSettingsString').textContent =
-    // sSettingsString + pSettingsString;
-    sSettingsString + window.tpr.shared.genPSettingsFromUi();
-
-  // document.getElementById('newSettingsDisplay').value = window.tpr.shared.genSSettingsFromUi();
-  // document.getElementById('newSettingsDisplay').textContent = sSettingsString;
-
-  // document.getElementById('seed').value = window.tpr.shared.genPSettingsFromUi();
-  // document.getElementById('uSettingsDisplay').textContent =
-  //   pSettingsString || '<empty>';
-
-  // document.getElementById('uSettingsString').value =
-  //   window.tpr.shared.genPSettingsFromUi();
+    window.tpr.shared.genSSettingsFromUi();
 }
 
 function getSettingsString(settingsStringRaw) {
@@ -717,25 +622,6 @@ var arrayOfSettingsItems = [
   'foolishItemFieldset',
   'baseImportantItemsListbox',
   'baseExcludedChecksListbox',
-  'hTunicHatColorFieldset',
-  'hTunicBodyColorFieldset',
-  'hTunicSkirtColorFieldset',
-  'zTunicHatColorFieldset',
-  'zTunicHelmetColorFieldset',
-  'zTunicBodyColorFieldset',
-  'zTunicScalesColorFieldset',
-  'zTunicBootsColorFieldset',
-  'midnaHairColorFieldset',
-  'lanternColorFieldset',
-  'heartColorFieldset',
-  'aButtonColorFieldset',
-  'bButtonColorFieldset',
-  'xButtonColorFieldset',
-  'yButtonColorFieldset',
-  'zButtonColorFieldset',
-  'bgmFieldset',
-  'randomizeFanfaresCheckbox',
-  'disableEnemyBGMCheckbox',
   'gameRegionFieldset',
   'hiddenSkillsCheckbox',
   'skyCharacterCheckbox',
@@ -747,8 +633,9 @@ var arrayOfSettingsItems = [
   'lakebedEntranceCheckbox',
   'arbitersEntranceCheckbox',
   'snowpeakEntranceCheckbox',
-  'totEntranceCheckbox',
+  'totEntranceFieldset',
   'cityEntranceCheckbox',
+  'instantTextCheckbox',
 ];
 
 function parseSettingsString(settingsString) {
@@ -1256,6 +1143,13 @@ function populateSSettings(s) {
     return;
   }
 
+  window.tpr.shared.uncheckCheckboxes([
+    'randomizationSettingsTab',
+    'gameplaySettingsTab',
+    'excludedChecksTab',
+    'startingInventoryTab',
+  ]);
+
   $('#logicRulesFieldset').val(s.logicRules);
   $('#castleRequirementsFieldset').val(s.castleRequirements);
   $('#palaceRequirementsFieldset').val(s.palaceRequirements);
@@ -1289,8 +1183,9 @@ function populateSSettings(s) {
   $('#lakebedEntranceCheckbox').prop('checked', s.skipLakebedEntrance);
   $('#arbitersEntranceCheckbox').prop('checked', s.skipArbitersEntrance);
   $('#snowpeakEntranceCheckbox').prop('checked', s.skipSnowpeakEntrance);
-  $('#totEntranceCheckbox').prop('checked', s.skipToTEntrance);
+  $('#totEntranceFieldset').val(s.totEntrance);
   $('#cityEntranceCheckbox').prop('checked', s.skipCityEntrance);
+  $('#instantTextCheckbox').prop('checked', s.instantText);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {

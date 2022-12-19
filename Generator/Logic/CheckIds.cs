@@ -498,6 +498,7 @@ namespace TPRandomizer
                 "Palace of Twilight East Wing First Room East Alcove",
                 "Bulblin Camp Roasted Boar",
                 "Faron Woods Golden Wolf",
+                "Jovani 60 Poe Soul Reward",
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.

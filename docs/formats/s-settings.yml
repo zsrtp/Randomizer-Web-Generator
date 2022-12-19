@@ -156,11 +156,10 @@ fields:
       If true, the player can enter Snowpeak Ruins without the Reekfish scent.
     type: boolean
 
-  - name: skipToTEntrance
-    description: >
-      If true, the player can enter Temple of Time without the Master Sword or
-      completing Sacred Grove.
-    type: boolean
+  - name: totEntrance
+    description: Requirements to access Temple of Time.
+    type: enum
+    bitLength: 2
 
   - name: skipCityEntrance
     description: >
@@ -341,3 +340,16 @@ enums:
     4:
       name: nightmare
       description: All junk items are trap items.
+
+  totEntrance:
+    0:
+      name: Closed
+      description: If close, the player can't enter Temple of Time without the Master Sword or
+      completing Sacred Grove.
+    1:
+      name: Open
+      description: If open, the player can enter Temple of Time without the Master Sword or
+      completing Sacred Grove.
+    2:
+      name: Open Grove
+      description: If open grove, the player can't enter Temple of Time without the Master Sword but have Sacred Grove Portal.

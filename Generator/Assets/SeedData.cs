@@ -16,7 +16,7 @@ namespace TPRandomizer.Assets
         // See <add_documentation_reference_here> for the flowchart for
         // determining if you should increment the major or minor version.
         public static readonly UInt16 VersionMajor = 1;
-        public static readonly UInt16 VersionMinor = 0;
+        public static readonly UInt16 VersionMinor = 1;
 
         // For convenience. This does not include any sort of leading 'v', so
         // add that where you use this variable if you need it.
@@ -270,7 +270,8 @@ namespace TPRandomizer.Assets
                 randomizerSettings.increaseWallet,
                 randomizerSettings.fastIronBoots,
                 randomizerSettings.modifyShopModels,
-                fcSettings.disableEnemyBgm
+                fcSettings.disableEnemyBgm,
+                randomizerSettings.instantText,
             };
             int patchOptions = 0x0;
             int bitwiseOperator = 0;
@@ -606,6 +607,74 @@ namespace TPRandomizer.Assets
                     }
                 }
             }
+
+            //The below code block is temporary until the Midna Hair stuff is fully flushed out with dynamic color picking, etc.
+
+
+            int[] midnaBaseOffsets = { 0xA438, 0xA424, 0xA434 }; //lightworld inactive, darkworld inactive, bothworld active
+            for (int i = 0; i < midnaBaseOffsets.Length; i++) // since we don't need to have any values for default, the values at array index 0 are for color 1, etc.
+            {
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0x3)); // replacement type
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0xFF)); // stageIDX
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)0x33)); // moduleID
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)midnaBaseOffsets[i])); // offset
+                listOfRELReplacements.AddRange(
+                    Converter.GcBytes(
+                        (UInt32)
+                            uint.Parse(
+                                Assets.CLR0.ColorArrays.MidnaBaseHairColors[
+                                    fcSettings.midnaHairBaseColor
+                                ][i],
+                                System.Globalization.NumberStyles.HexNumber
+                            )
+                    )
+                );
+                count++;
+            }
+
+            int[] midnaGlowOffsets = { 0xA41C, 0xA420, 0xA440, 0xA444, 0xA42C, 0xA430 }; //bothworld inactive, lightworld active, darkworld active
+            for (int i = 0; i < midnaGlowOffsets.Length; i++) // since we don't need to have any values for default, the values at array index 0 are for color 1, etc.
+            {
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0x3)); // replacement type
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0xFF)); // stageIDX
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)0x33)); // moduleID
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)midnaGlowOffsets[i])); // offset
+                listOfRELReplacements.AddRange(
+                    Converter.GcBytes(
+                        (UInt32)
+                            uint.Parse(
+                                Assets.CLR0.ColorArrays.MidnaGlowHairColors[
+                                    fcSettings.midnaHairBaseColor
+                                ][i],
+                                System.Globalization.NumberStyles.HexNumber
+                            )
+                    )
+                );
+                count++;
+            }
+
+            int[] midnaTipOffsets = { 0xA43C, 0xA428, 0xA448 }; // lightworld inactive, darkworld anyactive, lightworld active
+            for (int i = 0; i < midnaTipOffsets.Length; i++) // since we don't need to have any values for default, the values at array index 0 are for color 1, etc.
+            {
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0x3)); // replacement type
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0xFF)); // stageIDX
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)0x33)); // moduleID
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)midnaTipOffsets[i])); // offset
+                listOfRELReplacements.AddRange(
+                    Converter.GcBytes(
+                        (UInt32)
+                            uint.Parse(
+                                Assets.CLR0.ColorArrays.MidnaTipsHairColors[
+                                    fcSettings.midnaHairTipsColor
+                                ][i],
+                                System.Globalization.NumberStyles.HexNumber
+                            )
+                    )
+                ); // replacement value
+                count++;
+            }
+
+            // end of midna hair stuff
 
             SeedHeaderRaw.relCheckInfoNumEntries = count;
             SeedHeaderRaw.relCheckInfoDataOffset = (ushort)(CheckDataRaw.Count);

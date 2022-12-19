@@ -1,5 +1,5 @@
 {
-  "requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))",
+  "requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and ((Progressive_Clawshot, 1) or canLaunchBombs) and canSmash and Iron_Boots",
   "arcOffsets": ["10EC"],
     "stageIDX": [0],
     "roomIDX": 10,

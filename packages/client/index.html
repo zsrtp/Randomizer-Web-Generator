@@ -1,340 +1,622 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<link rel="icon" target="_blank" href="/favicon.png">
-		<title>TP Randomizer</title>
-		<meta property="og:title" content="Twilight Princess Randomizer" />
-		<meta property="og:url" content="https://rando.zeldatp.net/" />
-		<meta property="og:image" content="https://rando.zeldatp.net/img/logo.png" />
-		<meta property="og:description" content="The official Twilight Princess Randomizer website! From download to setup and even tools!" />
+  <head>
+    <link rel="icon" target="_blank" href="/favicon.png" />
+    <title>TP Randomizer</title>
+    <meta property="og:title" content="Twilight Princess Randomizer" />
+    <meta property="og:url" content="https://rando.zeldatp.net/" />
+    <meta
+      property="og:image"
+      content="https://rando.zeldatp.net/img/logo.png"
+    />
+    <meta
+      property="og:description"
+      content="The official Twilight Princess Randomizer website! From download to setup and even tools!"
+    />
     <link
       rel="stylesheet"
       target="_blank"
       href="/css/modern-normalize.min.css"
     />
-		<link rel="stylesheet" target="_blank" href="/css/style.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<script src="/js/lib/lodash.toarray.js"></script>
-		<script src="/js/lib/jquery-3.6.0.js"></script>
-		<script src="/js/shared.js"></script>
-	</head>
-	<body>
-		<header>
-			<a href="#" class="logo"></a>
+    <link rel="stylesheet" target="_blank" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="/js/lib/lodash.toarray.js"></script>
+    <script src="/js/lib/jquery-3.6.0.js"></script>
+    <script src="/js/shared.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="#" class="logo"></a>
 
-			<nav class="navbar">
-				<ul>
-					<li><a href="https://tprandomizer.com">Home</a></li>
-					<li><a href="https://generator.tprandomizer.com">Generator <i class="fa fa-caret-down"></i></a>
-						<ul>
-							<li><a href="https://generator.tprandomizer.com">Stable</a></li>
-						</ul>
-					</li>
-					<li><a href="https://wiki.tprandomizer.com">Wiki</a></li>
-					<li><a href="https://tprandomizer.com/downloads">Downloads</a></li>
-					<li><a href="https://discord.tprandomizer.com">Discord</a></li>
-					<li><a href="#">Resources <i class="fa fa-caret-down"></i></a>
-						<ul>
-							<li><a href="https://github.com/zsrtp">ZSRTP Github</a></li>
-							<li><a href="https://github.com/zeldaret/tp">Decomp Github</a></li>
-							<li><a href="https://www.zeldaspeedruns.com/tp">ZSR TP Pages</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</header>
-		<!-- IMAGE_VERSION -->
-		<!-- GIT_COMMIT -->
-		<!-- USER_ID -->
-		<script>
-			function tabControl(evt, cityName) {
-				// Declare all variables
-				var i, tabcontent, tablinks;
+      <nav class="navbar">
+        <ul>
+          <li><a href="https://tprandomizer.com">Home</a></li>
+          <li>
+            <a href="https://generator.tprandomizer.com"
+              >Generator <i class="fa fa-caret-down"></i
+            ></a>
+            <ul>
+              <li><a href="https://generator.tprandomizer.com">Stable</a></li>
+            </ul>
+          </li>
+          <li><a href="https://wiki.tprandomizer.com">Wiki</a></li>
+          <li><a href="https://tprandomizer.com/downloads">Downloads</a></li>
+          <li><a href="https://discord.tprandomizer.com">Discord</a></li>
+          <li>
+            <a href="#">Resources <i class="fa fa-caret-down"></i></a>
+            <ul>
+              <li><a href="https://github.com/zsrtp">ZSRTP Github</a></li>
+              <li>
+                <a href="https://github.com/zeldaret/tp">Decomp Github</a>
+              </li>
+              <li>
+                <a href="https://www.zeldaspeedruns.com/tp">ZSR TP Pages</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- IMAGE_VERSION -->
+    <!-- GIT_COMMIT -->
+    <!-- USER_ID -->
+    <script>
+      function tabControl(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
 
-				// Get all elements with class="tabcontent" and hide them
-				tabcontent = document.getElementsByClassName("tabcontent");
-				for (i = 0; i < tabcontent.length; i++) {
-					tabcontent[i].style.display = "none";
-				}
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName('tabcontent');
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = 'none';
+        }
 
-				// Get all elements with class="tablinks" and remove the class "active"
-				tablinks = document.getElementsByClassName("tablinks");
-				for (i = 0; i < tablinks.length; i++) {
-					tablinks[i].className = tablinks[i].className.replace(" active", "");
-				}
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName('tablinks');
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(' active', '');
+        }
 
-				// Show the current tab, and add an "active" class to the button that opened the tab
-				document.getElementById(cityName).style.display = "block";
-				evt.currentTarget.className += " active";
-				}
-		</script>
-		<img src="/img/logo.png" class="randomizer-logo">
-		<div class="mainContentWrapper">
-
-			<div class="blackbg">
-
-
-				<div style="display: flex; align-items: center">
-					<div style="font-size: 24px;padding-bottom:20px;">Seed Generation</div>
-					<!-- <button class="primaryButton" style="margin-left: auto">
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = 'block';
+        evt.currentTarget.className += ' active';
+      }
+    </script>
+    <img src="/img/logo.png" class="randomizer-logo" />
+    <div class="mainContentWrapper">
+      <div class="blackbg">
+        <div style="display: flex; align-items: center">
+          <div style="font-size: 24px; padding-bottom: 20px">
+            Seed Generation
+          </div>
+          <!-- <button class="primaryButton" style="margin-left: auto">
 						Share
 					</button> -->
-				</div>
+        </div>
 
-				<div class="tab">
-					<!-- <button id="randomizationSettingsTabBtn" class="tablinks active">Randomization Settings</button> -->
-					<button id="randomizationSettingsTabBtn" class="tablinks active">Main Rules</button>
-					<button id="excludedChecksTabBtn" class="tablinks">Excluded Checks</button>
-					<button id="startingInventoryTabBtn" class="tablinks">Starting Inventory</button>
-					<button id="gameplaySettingsTabBtn" class="tablinks">Other</button>
-					<!-- <button id="cosmeticsAndQuirksTabBtn" class="tablinks">Cosmetics and Quirks</button> -->
-					<button id="cosmeticsAndQuirksTabBtn" class="tablinks">Cosmetics</button>
-					<button id="audioTabBtn" class="tablinks">Audio</button>
-					<!-- <button id="legacyTabBtn" class="tablinks">Legacy</button> -->
-				</div>
+        <div class="tab">
+          <!-- <button id="randomizationSettingsTabBtn" class="tablinks active">Randomization Settings</button> -->
+          <button id="randomizationSettingsTabBtn" class="tablinks active">
+            Main Rules
+          </button>
+          <button id="excludedChecksTabBtn" class="tablinks">
+            Excluded Checks
+          </button>
+          <button id="startingInventoryTabBtn" class="tablinks">
+            Starting Inventory
+          </button>
+          <button id="gameplaySettingsTabBtn" class="tablinks">Other</button>
+          <!-- <button id="cosmeticsAndQuirksTabBtn" class="tablinks">Cosmetics and Quirks</button> -->
+          <!-- <button id="legacyTabBtn" class="tablinks">Legacy</button> -->
+        </div>
 
-				  <!-- Tab content -->
-				<div id="randomizationSettingsTab" class="tabcontent tabcontentactive">
-					<!-- <div class="leftColumn"> -->
+        <!-- Tab content -->
+        <div id="randomizationSettingsTab" class="tabcontent tabcontentactive">
+          <!-- <div class="leftColumn"> -->
 
-					<div style="width:100%;">
-						<fieldset id="logicSettingsFieldset">
-							<legend>Logic Settings</legend>
-							<label for="logicRulesFieldset">Logic Rules:</label>
-							<select name="Logic Rules Fieldset" id="logicRulesFieldset" 
-							data-tooltip-text="'Glitchless': No glitches are considered in logic.&#0010;&#0010;'Glitched': Repeatable glitches are in logic. Some frame perfect or very precise glitches are not considered in logic.&#0010;&#0010;'No Logic': All items are placed randomly with no consideration for logic. SEEDS MAY BE UNBEATABLE.&#0010;">
-								<option value="0">Glitchless</option>
-								<option value="1">Glitched</option>
-								<option value="2">No Logic</option>
-							</select>
-						</fieldset>
-					</div>
+          <div style="width: 100%">
+            <fieldset id="logicSettingsFieldset">
+              <legend>Logic Settings</legend>
+              <label for="logicRulesFieldset">Logic Rules:</label>
+              <select
+                name="Logic Rules Fieldset"
+                id="logicRulesFieldset"
+                data-tooltip-text="'Glitchless': No glitches are considered in logic.&#0010;&#0010;'Glitched': Repeatable glitches are in logic. Some frame perfect or very precise glitches are not considered in logic.&#0010;&#0010;'No Logic': All items are placed randomly with no consideration for logic. SEEDS MAY BE UNBEATABLE.&#0010;"
+              >
+                <option value="0">Glitchless</option>
+                <option value="1">Glitched</option>
+                <option value="2">No Logic</option>
+              </select>
+            </fieldset>
+          </div>
 
+          <div class="tabColumn">
+            <fieldset id="accessOptionsFieldset">
+              <legend>Access Options</legend>
+              <div class="selectGroup">
+                <label for="castleRequirementsFieldset"
+                  >Hyrule Castle Requirements</label
+                ><br />
+                <select
+                  name="Castle Requirements"
+                  data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'All Dungeons': The player must complete all dungeons.&#0010;&#0010;'Vanilla': The player must complete Palace of Twilight.&#0010;"
+                  id="castleRequirementsFieldset"
+                >
+                  <option value="0">Open</option>
+                  <option value="1">Fused Shadows</option>
+                  <option value="2">Mirror Shards</option>
+                  <option value="3">All Dungeons</option>
+                  <option value="4" selected>Vanilla</option>
+                </select>
+              </div>
+              <div class="selectGroup">
+                <label for="palaceRequirementsFieldset"
+                  >Palace of Twilight Requirements</label
+                ><br />
+                <select
+                  name="Palace Requirements"
+                  data-tooltip-text="'Open': The mirror is assembled from the beginning and the entrance to the dungeon is open.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'Vanilla': The player must complete City in the Sky.&#0010;"
+                  id="palaceRequirementsFieldset"
+                >
+                  <option value="0">Open</option>
+                  <option value="1">Fused Shadows</option>
+                  <option value="2">Mirror Shards</option>
+                  <option value="3" selected>Vanilla</option>
+                </select>
+              </div>
+              <div class="selectGroup">
+                <label for="faronLogicFieldset">Faron Woods Logic:</label><br />
+                <select
+                  name="Faron Woods  Logic"
+                  data-tooltip-text="'Open': Midna will not prevent the player from leaving Faron Woods.&#0010;&#0010;'Closed': Midna will block the player from leaving Faron Woods until Forest Temple is completed.&#0010;"
+                  id="faronLogicFieldset"
+                >
+                  <option value="0">Open</option>
+                  <option value="1" selected>Closed</option>
+                </select>
+              </div>
+            </fieldset>
+          </div>
+          <div class="tabColumn">
+            <fieldset id="itemPoolOptionsFieldset">
+              <legend>Item Pool</legend>
+              <div
+                data-tooltip-text="If checked, the golden bug locations across Hyrule are randomized.&#0010;"
+                style="width: 50%"
+              >
+                <input
+                  type="checkbox"
+                  id="goldenBugsCheckbox"
+                  name="Golden Bugs"
+                  value=""
+                />
+                <label for="goldenBugsCheckbox"> Golden Bugs </label><br />
+              </div>
+              <div
+                data-tooltip-text="If checked, the Sky Characters received from the Owl Statues are randomized.&#0010;"
+                style="width: 50%"
+              >
+                <input
+                  type="checkbox"
+                  id="skyCharacterCheckbox"
+                  name="Sky Characters"
+                  value=""
+                />
+                <label for="skyCharacterCheckbox"> Sky Characters </label><br />
+              </div>
+              <div
+                style="width: 50%"
+                data-tooltip-text="If checked, items recieved from NPCs will be randomized.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="giftsFromNPCsCheckbox"
+                  name="Gifts From NPCs"
+                  value=""
+                />
+                <label for="giftsFromNPCsCheckbox"> Gifts From NPCs </label
+                ><br />
+              </div>
+              <div
+                style="width: 50%"
+                data-tooltip-text="If checked, the souls recieved from Poes will be randomized.&#0010;"
+              >
+                <input type="checkbox" id="poesCheckbox" name="Poes" value="" />
+                <label for="poesCheckbox"> Poes </label><br />
+              </div>
+              <div
+                style="width: 50%"
+                data-tooltip-text="If checked, the items you can permanently buy from shops are randomized.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="shopItemsCheckbox"
+                  name="Shop Items"
+                  value=""
+                />
+                <label for="shopItemsCheckbox"> Shop Items </label><br />
+              </div>
+              <div
+                style="width: 50%"
+                data-tooltip-text="If checked, the Hidden Skills recieved from Golden Wolves are randomized.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="hiddenSkillsCheckbox"
+                  name="Hidden Skills"
+                  value=""
+                />
+                <label for="hiddenSkillsCheckbox"> Hidden Skills </label><br />
+              </div>
+            </fieldset>
+          </div>
+          <div class="tabColumn">
+            <fieldset id="dungeonItemOptionsFieldset">
+              <legend>Dungeon Items</legend>
+              <div class="selectGroup">
+                <label for="smallKeyFieldset">Small Keys</label><br />
+                <select
+                  name="Small Keys"
+                  data-tooltip-text="'Vanilla': Small Keys will be placed in their original location.&#0010;&#0010;'Own Dungeon': Small Keys will only be randomized in their vanilla dungeon. Example: You can only find a Forest Temple Small Key in the Forest Temple.&#0010;&#0010;'Any Dungeon': Small Keys will be randomized between dungeons.&#0010;&#0010;'Keysanity': Small Keys will be randomized among all checks.&#0010;&#0010;'Keysy': All small key locks are removed and the keys are removed from the item pool and the player will start with the Bulblin Camp Key.&#0010;"
+                  data-tooltip-position="left"
+                  id="smallKeyFieldset"
+                >
+                  <option value="0">Vanilla</option>
+                  <option value="1">Own Dungeon</option>
+                  <option value="2">Any Dungeon</option>
+                  <option value="3">Keysanity</option>
+                  <option value="4">Keysy</option>
+                </select>
+              </div>
+              <div class="selectGroup">
+                <label for="bigKeyFieldset">Big Keys</label><br />
+                <select
+                  name="Big Keys"
+                  data-tooltip-text="'Vanilla': Big Keys will be placed in their original location.&#0010;&#0010;'Own Dungeon': Big Keys will only be randomized in their vanilla dungeon. Example: You can only find a Forest Temple Big Key in the Forest Temple.&#0010;&#0010;'Any Dungeon': Big Keys will be randomized between dungeons.&#0010;&#0010;'Keysanity': Big Keys will be randomized among all checks.&#0010;&#0010;'Keysy': All Big Key locks are removed and the keys are removed from the item pool.&#0010;"
+                  data-tooltip-position="left"
+                  id="bigKeyFieldset"
+                >
+                  <option value="0">Vanilla</option>
+                  <option value="1">Own Dungeon</option>
+                  <option value="2">Any Dungeon</option>
+                  <option value="3">Keysanity</option>
+                  <option value="4">Keysy</option>
+                </select>
+              </div>
+              <div class="selectGroup">
+                <label for="mapAndCompassFieldset">Maps and Compasses</label
+                ><br />
+                <select
+                  name="Maps and Compasses"
+                  data-tooltip-text="'Vanilla': Maps and Compasses will be placed in their original location.&#0010;&#0010;'Own Dungeon': Maps and Compasses will only be randomized in their vanilla dungeon. Example: You can only find the Forest Temple Map in the Forest Temple.&#0010;&#0010;'Any Dungeon': Maps and Compasses will be randomized between dungeons.&#0010;&#0010;'Anywhere': Maps and Compasses will be randomized among all checks.&#0010;&#0010;'Start With': The player starts with all Maps and Compasses.&#0010;"
+                  data-tooltip-position="left"
+                  id="mapAndCompassFieldset"
+                >
+                  <option value="0">Vanilla</option>
+                  <option value="1">Own Dungeon</option>
+                  <option value="2">Any Dungeon</option>
+                  <option value="3">Anywhere</option>
+                  <option value="4">Start With</option>
+                </select>
+              </div>
+            </fieldset>
+          </div>
+        </div>
 
-					<div class="tabColumn">
-						<fieldset id="accessOptionsFieldset">
-							<legend> Access Options</legend>
-							<div class="selectGroup">
-								<label for="castleRequirementsFieldset">Hyrule Castle Requirements</label><br>
-								<select name="Castle Requirements" 
-								data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'All Dungeons': The player must complete all dungeons.&#0010;&#0010;'Vanilla': The player must complete Palace of Twilight.&#0010;" 
-								id="castleRequirementsFieldset">
-									<option value="0"> Open </option>
-									<option value="1"> Fused Shadows </option>
-									<option value="2"> Mirror Shards </option>
-									<option value="3"> All Dungeons </option>
-									<option value="4" selected>Vanilla</option>
-								</select>
-							</div>
-							<div class="selectGroup">
-								<label for="palaceRequirementsFieldset">Palace of Twilight Requirements</label><br>
-								<select name="Palace Requirements" 
-								data-tooltip-text="'Open': The mirror is assembled from the beginning and the portal to the dungeon is open.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'Vanilla': The player must complete City in the Sky.&#0010;"
-								id="palaceRequirementsFieldset">
-									<option value="0"> Open </option>
-									<option value="1"> Fused Shadows </option>
-									<option value="2"> Mirror Shards </option>
-									<option value="3" selected> Vanilla </option>
-								</select>
-							</div>
-							<div class="selectGroup">
-								<label for="faronLogicFieldset">Faron Woods Logic:</label><br>
-								<select name="Faron Woods  Logic" 
-								data-tooltip-text="'Open': Midna will not prevent the player from leaving Faron Woods.&#0010;&#0010;'Closed': Midna will block the player from leaving Faron Woods until Forest Temple is completed.&#0010;"
-								id="faronLogicFieldset">
-									<option value="0">Open</option>
-									<option value="1" selected>Closed</option>
-								</select>
-							</div>
-						</fieldset>
-					</div>
-					<div class="tabColumn">
-						<fieldset id="itemPoolOptionsFieldset"> 
-							<legend>Item Pool</legend>
-							<div data-tooltip-text="If checked, the golden bug locations across Hyrule are randomized.&#0010;" style="width:50%">
-								<input type="checkbox" id="goldenBugsCheckbox" name="Golden Bugs" value="">
-								<label for="goldenBugsCheckbox"> Golden Bugs </label><br>
-							</div>
-							<div data-tooltip-text="If checked, the Sky Characters received from the Owl Statues are randomized.&#0010;" style="width:50%">
-								<input type="checkbox" id="skyCharacterCheckbox" name="Sky Characters" value="">
-								<label for="skyCharacterCheckbox"> Sky Characters </label><br>
-							</div>
-							<div style="width:50%" data-tooltip-text="If checked, items recieved from NPCs will be randomized.&#0010;">
-								<input type="checkbox" id="giftsFromNPCsCheckbox" name="Gifts From NPCs" value="">
-								<label for="giftsFromNPCsCheckbox"> Gifts From NPCs </label><br>
-							</div>
-							<div style="width:50%" data-tooltip-text="If checked, the souls recieved from Poes will be randomized.&#0010;">
-								<input type="checkbox" id="poesCheckbox" name="Poes" value="">
-								<label for="poesCheckbox"> Poes </label><br>
-							</div>
-							<div style="width:50%" data-tooltip-text="If checked, the items you can permanently buy from shops are randomized.&#0010;">
-								<input type="checkbox" id="shopItemsCheckbox" name="Shop Items" value="">
-								<label for="shopItemsCheckbox"> Shop Items </label><br>
-							</div>
-							<div style="width:50%" data-tooltip-text="If checked, the Hidden Skills recieved from Golden Wolves are randomized.&#0010;">
-								<input type="checkbox" id="hiddenSkillsCheckbox" name="Hidden Skills" value="">
-								<label for="hiddenSkillsCheckbox"> Hidden Skills </label><br>
-							</div>
-						</fieldset>
-					</div>
-					<div class="tabColumn">
-						<fieldset id="dungeonItemOptionsFieldset">
-							<legend>Dungeon Items</legend>
-							<div class="selectGroup">
-								<label for="smallKeyFieldset">Small Keys</label><br>
-								<select name="Small Keys" 
-								data-tooltip-text="'Vanilla': Small Keys will be placed in their original location.&#0010;&#0010;'Own Dungeon': Small Keys will only be randomized in their vanilla dungeon. Example: You can only find a Forest Temple Small Key in the Forest Temple.&#0010;&#0010;'Any Dungeon': Small Keys will be randomized between dungeons.&#0010;&#0010;'Keysanity': Small Keys will be randomized among all checks.&#0010;&#0010;'Keysy': All small key locks are removed and the keys are removed from the item pool and the player will start with the Bulblin Camp Key.&#0010;" 
-								id="smallKeyFieldset">
-									<option value="0">Vanilla</option>
-									<option value="1">Own Dungeon</option>
-									<option value="2">Any Dungeon</option>
-									<option value="3">Keysanity</option>
-									<option value="4">Keysy</option>
-								</select>
-							</div>
-							<div class="selectGroup">
-							<label for="bigKeyFieldset">Big Keys</label><br>
-								<select name="Big Keys" 
-								data-tooltip-text="'Vanilla': Big Keys will be placed in their original location.&#0010;&#0010;'Own Dungeon': Big Keys will only be randomized in their vanilla dungeon. Example: You can only find a Forest Temple Big Key in the Forest Temple.&#0010;&#0010;'Any Dungeon': Big Keys will be randomized between dungeons.&#0010;&#0010;'Keysanity': Big Keys will be randomized among all checks.&#0010;&#0010;'Keysy': All Big Key locks are removed and the keys are removed from the item pool.&#0010;"
-								id="bigKeyFieldset">
-									<option value="0">Vanilla</option>
-									<option value="1">Own Dungeon</option>
-									<option value="2">Any Dungeon</option>
-									<option value="3">Keysanity</option>
-									<option value="4">Keysy</option>
-								</select>
-								</div>
-							<div class="selectGroup">
-								<label for="mapAndCompassFieldset">Maps and Compasses</label><br>
-								<select name="Maps and Compasses" 
-								data-tooltip-text="'Vanilla': Maps and Compasses will be placed in their original location.&#0010;&#0010;'Own Dungeon': Maps and Compasses will only be randomized in their vanilla dungeon. Example: You can only find the Forest Temple Map in the Forest Temple.&#0010;&#0010;'Any Dungeon': Maps and Compasses will be randomized between dungeons.&#0010;&#0010;'Anywhere': Maps and Compasses will be randomized among all checks.&#0010;&#0010;'Start With': The player starts with all Maps and Compasses.&#0010;"
-								id="mapAndCompassFieldset">
-									<option value="0">Vanilla</option>
-									<option value="1">Own Dungeon</option>
-									<option value="2">Any Dungeon</option>
-									<option value="3">Anywhere</option>
-									<option value="4">Start With</option>
-								</select>
-								</div>
-							</fieldset>
-						</fieldset>
-					</div>
-				</div>
-
-				<div id="gameplaySettingsTab" class="tabcontent">
-					<div class="tabColumn">
-						<fieldset id="clearedTwilightsFieldset">
-							<legend>Timesavers</legend>
-							<div style="width:60%" data-tooltip-text="Skips the first three days of Ordon and places Link outside his house before the Sewers segment.&#0010;">
-								<input type="checkbox" id="introCheckbox" name="Intro Logic" value="">
-								<label for="introCheckbox"> Skip Prologue </label><br>
-							</div>
-							<div style="width:60%" data-tooltip-text="Skips the Faron Twilight tear collection segment.&#0010;">
-								<input type="checkbox" id="faronTwilightCheckbox" name="Faron Twilight Checkbox" value="">
-								<label for="faronTwilightCheckbox"> Faron Twilight Cleared </label><br>
-							</div>
-							<div style="width:60%" data-tooltip-text="Skips the Eldin Twilight tear collection segment.&#0010;">
-								<input type="checkbox" id="eldinTwilightCheckbox" name="Eldin Twilight Checkbox" value="">
-								<label for="eldinTwilightCheckbox"> Eldin Twilight Cleared </label><br>
-							</div>
-							<div style="width:80%" data-tooltip-text="Skips the Lanayru Twilight tear collection segment.&#0010;">
-								<input type="checkbox" id="lanayruTwilightCheckbox" name="Lanayru Twilight Checkbox" value="">
-								<label for="lanayruTwilightCheckbox"> Lanayru Twilight Cleared </label><br>
-							</div>
-							<div style="width:70%" data-tooltip-text="Skips the Midna's Desperate Hour segment after Lakebed Temple.&#0010;">
-								<input type="checkbox" id="mdhCheckbox" name="MDH Logic" value="">
-								<label for="mdhCheckbox">  Skip Midna's Desperate Hour </label><br>
-							</div>
-							<div style="width:60%" data-tooltip-text="Sets the flags for most minor cutscenes. (Dungeon Entrance cutscenes, Midna text prompts, etc.)&#0010;">
-								<input type="checkbox" id="skipMinorCutscenesCheckbox" name="Skip Minor Cutscenes Checkbox" value="">
-								<label for="skipMinorCutscenesCheckbox"> Skip Minor Cutscenes </label><br>
-							</div>
-							<div style="width:60%" data-tooltip-text="Removes the speed reduction caused by wearing the Iron Boots.&#0010;">
-								<input type="checkbox" id="fastIBCheckbox" name="Fast IB Checkbox" value="">
-								<label for="fastIBCheckbox"> Fast Iron Boots </label><br>
-							</div>
-							<div style="width:60%" data-tooltip-text="Allows the player to instantly transform when pressing a specified button combination.&#0010;&#0010;Gamecube: R + Y&#0010;">
-								<input type="checkbox" id="quickTransformCheckbox" name="Quick Transform Checkbox" value="">
-								<label for="quickTransformCheckbox"> Quick Transform </label><br>
-							</div>
-							<div style="width:90%" data-tooltip-text="If enabled, any dungeon that is not required to open Hyrule Castle will not contain any important items.&#0010;">
-								<input type="checkbox" id="barrenCheckbox" name="Unrequired Dungeons" value="">
-								<label for="barrenCheckbox"> Unrequired Dungeons Are Barren </label><br>
-							</div>
-						</fieldset>
-					</div>
-					<div class="tabColumn">
-						<fieldset id="additionalSettingsFieldset">
-							<legend>Additional Settings</legend>
-							<div style="width:60%" data-tooltip-text="If enabled, the player can transform anywhere, even in front of people.&#0010;">
-								<input type="checkbox" id="transformAnywhereCheckbox" name="Transform Anywhere Checkbox" value="">
-								<label for="transformAnywhereCheckbox">  Transform Anywhere </label><br>
-							</div>
-							<div style="width:70%" data-tooltip-text="Increases the player's wallet capacity from 300, 600, 1000 to 1000, 5000, 9999 respectively.&#0010;">
-								<input type="checkbox" id="increaseWalletCheckbox" name="Increase Wallet Checkbox" value="">
-								<label for="increaseWalletCheckbox"> Increase Wallet Capacity</label><br>
-							</div>
-							<div data-tooltip-text="If checked, shop item models will show the model of the replacement item. If unchecked, the shop model will always be vanilla.&#0010;">
-								<input type="checkbox" id="modifyShopModelsCheckbox" name="Modify Shop Models Checkbox" value="">
-								<label for="modifyShopModelsCheckbox">Shop Models Show The Replaced Item</label><br>
-							</div>
-							<!-- <div class="selectGroup" style="margin-top:8px;">
+        <div id="gameplaySettingsTab" class="tabcontent">
+          <div class="tabColumn">
+            <fieldset id="clearedTwilightsFieldset">
+              <legend>Timesavers</legend>
+              <div
+                style="width: 60%"
+                data-tooltip-text="Skips the first three days of Ordon and places Link outside his house before the Sewers segment.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="introCheckbox"
+                  name="Intro Logic"
+                  value=""
+                />
+                <label for="introCheckbox"> Skip Prologue </label><br />
+              </div>
+              <div
+                style="width: 60%"
+                data-tooltip-text="Skips the Faron Twilight tear collection segment.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="faronTwilightCheckbox"
+                  name="Faron Twilight Checkbox"
+                  value=""
+                />
+                <label for="faronTwilightCheckbox">
+                  Faron Twilight Cleared </label
+                ><br />
+              </div>
+              <div
+                style="width: 60%"
+                data-tooltip-text="Skips the Eldin Twilight tear collection segment.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="eldinTwilightCheckbox"
+                  name="Eldin Twilight Checkbox"
+                  value=""
+                />
+                <label for="eldinTwilightCheckbox">
+                  Eldin Twilight Cleared </label
+                ><br />
+              </div>
+              <div
+                style="width: 80%"
+                data-tooltip-text="Skips the Lanayru Twilight tear collection segment.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="lanayruTwilightCheckbox"
+                  name="Lanayru Twilight Checkbox"
+                  value=""
+                />
+                <label for="lanayruTwilightCheckbox">
+                  Lanayru Twilight Cleared </label
+                ><br />
+              </div>
+              <div
+                style="width: 70%"
+                data-tooltip-text="Skips the Midna's Desperate Hour segment after Lakebed Temple.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="mdhCheckbox"
+                  name="MDH Logic"
+                  value=""
+                />
+                <label for="mdhCheckbox"> Skip Midna's Desperate Hour </label
+                ><br />
+              </div>
+              <div
+                style="width: 60%"
+                data-tooltip-text="Sets the flags for most minor cutscenes. (Dungeon Entrance cutscenes, Midna text prompts, etc.)&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="skipMinorCutscenesCheckbox"
+                  name="Skip Minor Cutscenes Checkbox"
+                  value=""
+                />
+                <label for="skipMinorCutscenesCheckbox">
+                  Skip Minor Cutscenes </label
+                ><br />
+              </div>
+              <div
+                style="width: 60%"
+                data-tooltip-text="Removes the speed reduction caused by wearing the Iron Boots.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="fastIBCheckbox"
+                  name="Fast IB Checkbox"
+                  value=""
+                />
+                <label for="fastIBCheckbox"> Fast Iron Boots </label><br />
+              </div>
+              <div
+                style="width: 60%"
+                data-tooltip-text="Allows the player to instantly transform when pressing a specified button combination.&#0010;&#0010;Gamecube: R + Y&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="quickTransformCheckbox"
+                  name="Quick Transform Checkbox"
+                  value=""
+                />
+                <label for="quickTransformCheckbox"> Quick Transform </label
+                ><br />
+              </div>
+              <div
+                style="width: 90%"
+                data-tooltip-text="If enabled, any dungeon that is not required to open Hyrule Castle will not contain any important items.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="barrenCheckbox"
+                  name="Unrequired Dungeons"
+                  value=""
+                />
+                <label for="barrenCheckbox">
+                  Unrequired Dungeons Are Barren </label
+                ><br />
+              </div>
+              <div
+                style="width: 90%"
+                data-tooltip-text="If enabled, text box text will appear immediately for all messages.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="instantTextCheckbox"
+                  name="Instant Text"
+                  value=""
+                />
+                <label for="instantTextCheckbox">
+                  Instant Message Text </label
+                ><br />
+              </div>
+            </fieldset>
+          </div>
+          <div class="tabColumn">
+            <fieldset id="additionalSettingsFieldset">
+              <legend>Additional Settings</legend>
+              <div
+                style="width: 60%"
+                data-tooltip-text="If enabled, the player can transform anywhere, even in front of people.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="transformAnywhereCheckbox"
+                  name="Transform Anywhere Checkbox"
+                  value=""
+                />
+                <label for="transformAnywhereCheckbox">
+                  Transform Anywhere </label
+                ><br />
+              </div>
+              <div
+                style="width: 70%"
+                data-tooltip-text="Increases the player's wallet capacity from 300, 600, 1000 to 1000, 5000, 9999 respectively.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="increaseWalletCheckbox"
+                  name="Increase Wallet Checkbox"
+                  value=""
+                />
+                <label for="increaseWalletCheckbox">
+                  Increase Wallet Capacity</label
+                ><br />
+              </div>
+              <div
+                data-tooltip-text="If checked, shop item models will show the model of the replacement item. If unchecked, the shop model will always be vanilla.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="modifyShopModelsCheckbox"
+                  name="Modify Shop Models Checkbox"
+                  value=""
+                />
+                <label for="modifyShopModelsCheckbox"
+                  >Shop Models Show The Replaced Item</label
+                ><br />
+              </div>
+              <!-- <div class="selectGroup" style="margin-top:8px;">
 								<label for="foolishItemFieldsetABC">Trap Items Type</label><br>
 								<select name="Foolish Items ABC" id="foolishItemFieldsetABC">
 									<option value="0">Ice Trap</option>
 								</select>
 							</div> -->
-							<div class="selectGroup" style="margin-top:8px;">
-								<label for="foolishItemFieldset">Foolish Item Frequency</label><br>
-								<select name="Foolish Items" id="foolishItemFieldset" 
-								data-tooltip-text="'None': No foolish items are placed in the seed.&#0010;&#0010;'Few': A small chance for a foolish item to be placed when placing a junk item. (~12.5%)&#0010;&#0010;'Many': An increased chance for a foolish item to be placed when placing a junk item. (~39.1%).&#0010;&#0010;'Mayhem': A high chance of a foolish item to be placed when placing a junk item. (~62.7%)&#0010;&#0010;'Nightmare': All junk items are replaced with foolish items. (100%)&#0010;">
-									<option value="0">None</option>
-									<option value="1">Few</option>
-									<option value="2">Many</option>
-									<option value="3">Mayhem</option>
-									<option value="4">Nightmare</option>
-								</select>
-							</div>
-						</fieldset>
-					</div>
-					<div class="tabColumn">
-						<fieldset id="dungeonRequirementsFieldset">
-							<legend>Dungeon Entrance Settings</legend>
-							<div data-tooltip-text="If checked, Link will not have to wrestle Gor Coron to enter Goron Mines.&#0010;">
-								<input type="checkbox" id="minesEntranceCheckbox" name="Goron Mines Checkbox" value="">
-								<label for="minesEntranceCheckbox"> Mines Does Not Require Wrestling </label><br>
-							</div>
-							<div data-tooltip-text="If checked, the rock in front of the entrance to Lakebed Temple is destroyed.&#0010;">
-								<input type="checkbox" id="lakebedEntranceCheckbox" name="Lakebed Temple Checkbox" value="">
-								<label for="lakebedEntranceCheckbox"> Lakebed Does Not Require Water Bombs </label><br>
-							</div>
-							<div data-tooltip-text="If checked, the Bulblin Camp is cleared and the player does not need to defeat King Bulblin. This also removes the Bulblin Camp Key from the item pool.&#0010;">
-								<input type="checkbox" id="arbitersEntranceCheckbox" name="Arbiters Grounds Checkbox" value="">
-								<label for="arbitersEntranceCheckbox"> Arbiters Does Not Require Bulblin Camp </label><br>
-							</div>
-							<div data-tooltip-text="If checked, the blizzard in Snowpeak will not void out Link if the correct path is taken. Shadow Crystal is still in logic in to see the scent path.&#0010;">
-								<input type="checkbox" id="snowpeakEntranceCheckbox" name="Snowpeak Ruins Checkbox" value="">
-								<label for="snowpeakEntranceCheckbox"> Snowpeak Does Not Require Reekfish Scent </label><br>
-							</div>
-							<div data-tooltip-text="If checked, the portal to the Sacred Grove is opened, the player will not need to defeat Skull Kid to pass through the Lost Woods, the statue is removed from the Temple of Time doors, and the staircase to the dungeon is activated.&#0010;">
-								<input type="checkbox" id="totEntranceCheckbox" name="Temple of Time Checkbox" value="">
-								<label for="totEntranceCheckbox"> Temple of Time Does Not Require Sword or Grove</label><br>
-							</div>
-							<div data-tooltip-text="If checked, the Sky Cannon is automatically warped to Lake Hylia once Lanayru Twilight is complete and the Sky Characters are removed from the item pool.&#0010;">
-							<input type="checkbox" id="cityEntranceCheckbox" name="City in The Sky Checkbox" value="">
-							<label for="cityEntranceCheckbox"> City Does Not Require Filled Skybook </label><br>
-							</div>
-						</fieldset>
-					</div>
-				</div>
+              <div class="selectGroup" style="margin-top: 8px">
+                <label for="foolishItemFieldset">Foolish Item Frequency</label
+                ><br />
+                <select
+                  name="Foolish Items"
+                  id="foolishItemFieldset"
+                  data-tooltip-text="'None': No foolish items are placed in the seed.&#0010;&#0010;'Few': A small chance for a foolish item to be placed when placing a junk item. (~12.5%)&#0010;&#0010;'Many': An increased chance for a foolish item to be placed when placing a junk item. (~39.1%).&#0010;&#0010;'Mayhem': A high chance of a foolish item to be placed when placing a junk item. (~62.7%)&#0010;&#0010;'Nightmare': All junk items are replaced with foolish items. (100%)&#0010;"
+                >
+                  <option value="0">None</option>
+                  <option value="1">Few</option>
+                  <option value="2">Many</option>
+                  <option value="3">Mayhem</option>
+                  <option value="4">Nightmare</option>
+                </select>
+              </div>
+            </fieldset>
+          </div>
+          <div class="tabColumn">
+            <fieldset id="dungeonRequirementsFieldset">
+              <legend>Dungeon Entrance Settings</legend>
+              <div
+                data-tooltip-text="If checked, Link will not have to wrestle Gor Coron to enter Goron Mines.&#0010;"
+                data-tooltip-position="left"
+              >
+                <input
+                  type="checkbox"
+                  id="minesEntranceCheckbox"
+                  name="Goron Mines Checkbox"
+                  value=""
+                />
+                <label for="minesEntranceCheckbox">
+                  Mines Does Not Require Wrestling </label
+                ><br />
+              </div>
+              <div
+                data-tooltip-text="If checked, the rock in front of the entrance to Lakebed Temple is destroyed.&#0010;"
+                data-tooltip-position="left"
+              >
+                <input
+                  type="checkbox"
+                  id="lakebedEntranceCheckbox"
+                  name="Lakebed Temple Checkbox"
+                  value=""
+                />
+                <label for="lakebedEntranceCheckbox">
+                  Lakebed Does Not Require Water Bombs </label
+                ><br />
+              </div>
+              <div
+                data-tooltip-text="If checked, the Bulblin Camp is cleared and the player does not need to defeat King Bulblin. This also removes the Bulblin Camp Key from the item pool.&#0010;"
+                data-tooltip-position="left"
+              >
+                <input
+                  type="checkbox"
+                  id="arbitersEntranceCheckbox"
+                  name="Arbiters Grounds Checkbox"
+                  value=""
+                />
+                <label for="arbitersEntranceCheckbox">
+                  Arbiters Does Not Require Bulblin Camp </label
+                ><br />
+              </div>
+              <div
+                data-tooltip-text="If checked, the blizzard in Snowpeak will not void out Link if the correct path is taken. Shadow Crystal is still in logic in to see the scent path and the portal to the mountain is open.&#0010;"
+                data-tooltip-position="left"
+              >
+                <input
+                  type="checkbox"
+                  id="snowpeakEntranceCheckbox"
+                  name="Snowpeak Ruins Checkbox"
+                  value=""
+                />
+                <label for="snowpeakEntranceCheckbox">
+                  Snowpeak Does Not Require Reekfish Scent </label
+                ><br />
+              </div>
+              <div
+                data-tooltip-text="If checked, the Sky Cannon is automatically warped to Lake Hylia once Lanayru Twilight is complete and the Sky Characters are removed from the item pool.&#0010;"
+                data-tooltip-position="left"
+              >
+                <input
+                  type="checkbox"
+                  id="cityEntranceCheckbox"
+                  name="City in The Sky Checkbox"
+                  value=""
+                />
+                <label for="cityEntranceCheckbox">
+                  City Does Not Require Filled Skybook </label
+                ><br />
+              </div>
+              <div
+                class="selectGroup"
+                style="margin-top: 8px"
+                data-tooltip-text="'Closed': The player must defeat Skull Kid. Warping to the Sacred Grove, accessing the past area, and entering the Temple of Time dungeon are all locked behind the Master Sword.&#0010;&#0010;'Open Grove': The player will not need to defeat Skull Kid, the portal to the Sacred Grove is opened, and the past area is accessible.&#0010;&#0010;'Open': All changes of 'Open Grove' are applied. Additionally, the player will not need the Master Sword to access the Temple of Time dungeon."
+                data-tooltip-position="left"
+              >
+                <label for="totEntranceFieldset">Temple of Time Entrance</label
+                ><br />
+                <select name="Temple of Time Entrance" id="totEntranceFieldset">
+                  <option value="0">Closed</option>
+                  <option value="1">Open Grove</option>
+                  <option value="2">Open</option>
+                </select>
+              </div>
+            </fieldset>
+          </div>
+        </div>
 
-				<div id="excludedChecksTab" class="tabcontent">
-					<fieldset class="checkboxFieldset">
-					<legend>Excluded Checks</legend>
-					<ul id="baseExcludedChecksListbox" multiple="multiple" size="10" width="20%" data-tooltip-text="Any checks selected will be excluded, meaning that they cannot contain important items. Please note that settings take priority, so if a check is excluded, but a setting has the check set to be vanilla, it will be vanilla.&#0010;">
-            <!-- CHECK_IDS -->
+        <div id="excludedChecksTab" class="tabcontent">
+          <fieldset class="checkboxFieldset">
+            <legend>Excluded Checks</legend>
+            <ul
+              id="baseExcludedChecksListbox"
+              multiple="multiple"
+              size="10"
+              width="20%"
+              data-tooltip-text="Any checks selected will be excluded, meaning that they cannot contain important items. Please note that settings take priority, so if a check is excluded, but a setting has the check set to be vanilla, it will be vanilla.&#0010;"
+            >
+              <!-- CHECK_IDS -->
 
-						<!-- <?php
+              <!-- <?php
 							$cmd = "dotnet Generator/bin/Debug/net6.0/TPRandomizer.dll print_check_ids";
 							$proc = popen($cmd, 'r'); // for Windows, use popen("start /B ". $cmd, 'r');
 							$log = "";
@@ -352,18 +634,23 @@
 								echo "<li><label><input type='checkbox' data-checkId='$value'>".$key."</label></li>";
 							}
 						?> -->
-					</ul>
-					</fieldset>
-				</div>
+            </ul>
+          </fieldset>
+        </div>
 
-				<div id="startingInventoryTab" class="tabcontent">
-				<fieldset class="checkboxFieldset">
-					<legend>Starting Items</legend>
-					<ul id="baseImportantItemsListbox" multiple="multiple" size="10" width="20%" 
-					data-tooltip-text="The player will start with any items selected and the playthrough will take them into account for logic.&#0010;">
-            <!-- STARTING_ITEMS -->
+        <div id="startingInventoryTab" class="tabcontent">
+          <fieldset class="checkboxFieldset">
+            <legend>Starting Items</legend>
+            <ul
+              id="baseImportantItemsListbox"
+              multiple="multiple"
+              size="10"
+              width="20%"
+              data-tooltip-text="The player will start with any items selected and the playthrough will take them into account for logic.&#0010;"
+            >
+              <!-- STARTING_ITEMS -->
 
-						<!-- <?php
+              <!-- <?php
 							$important_items = file_get_contents("Resources/StartingItems.txt");
 							$important_items = explode("\n", $important_items);
 							foreach ($important_items as $important_item)
@@ -373,610 +660,446 @@
 								echo "<li><label><input type='checkbox' data-itemId='$value'>".$name."</label> </li>";
 							}
 						?> -->
-					</ul>
-				</fieldset>
-				</div>
+            </ul>
+          </fieldset>
+        </div>
 
-				<div id="cosmeticsAndQuirksTab" class="tabcontent">
-					<div class="overwriteDisclaimer">
-						Note: These settings can be overwritten by individual players.
-						<br>
-						<input id="randomizeCosmeticsButton" class="primaryButton" value="Randomize Cosmetics" type="button" style="margin-top:10px" data-tooltip-text="Selects a random option for each of the available cosmetic settings.&#0010;"/>
-					</div>
-					<div class="tabColumn">
-						<fieldset id="itemPoolOptionsFieldset">
-						<legend>Equipment</legend>
-						<div class="col-l50">
-							<label for="hTunicHatColorFieldset">Hero's Tunic Cap Color:</label>
-						</div>
-						<div class="col-l50">
-							<select id="hTunicHatColorFieldset" data-tooltip-text="Sets the color of the hat of the Hero's Tunic.&#0010;">
-							<option value="0">Default</option>
-							<option value="1" data-rgb="00ab706e">Red</option>
-							<option value="2" data-rgb="006382a0">Blue</option>
-							<option value="3" data-rgb="0094749a">Purple</option>
-							<option value="4" data-rgb="00ec8644">Orange</option>
-							<option value="5" data-rgb="00b9ab00">Yellow</option>
-							<option value="6" data-rgb="00ec9fc8">Pink</option>
-							<option value="7" data-rgb="00505154">Black</option>
-							<option value="8" data-rgb="00f8f7f4">White</option>
-							<option value="9" data-rgb="0091723e">Brown</option>
-							</select>
-						</div>
-							<br />
-							<div class="col-l50">
-							<label for="hTunicBodyColorFieldset">Hero's Tunic Torso Color:</label>
-						</div>
-						<div class="col-l50">
-							<select id="hTunicBodyColorFieldset" data-tooltip-text="Sets the color of the area of the Hero's Tunic that is above the belt.&#0010;">
-							<option value="0">Default</option>
-							<option value="1" data-rgb="00ab706e">Red</option>
-							<option value="2" data-rgb="006382a0">Blue</option>
-							<option value="3" data-rgb="0094749a">Purple</option>
-							<option value="4" data-rgb="00ec8644">Orange</option>
-							<option value="5" data-rgb="00b9ab00">Yellow</option>
-							<option value="6" data-rgb="00ec9fc8">Pink</option>
-							<option value="7" data-rgb="00505154">Black</option>
-							<option value="8" data-rgb="00f8f7f4">White</option>
-							<option value="9" data-rgb="0091723e">Brown</option>
-							</select>
-						</div>
-							<br />
-							<div class="col-l50">
-							<label for="hTunicSkirtColorFieldset">Hero's Tunic Waist Color:</label>
-						</div>
-						<div class="col-l50">
-							<select id="hTunicSkirtColorFieldset" data-tooltip-text="Sets the color of the area of the Hero's Tunic that is below the belt.&#0010;">
-							<option value="0">Default</option>
-							<option value="1" data-rgb="00ab706e">Red</option>
-							<option value="2" data-rgb="006382a0">Blue</option>
-							<option value="3" data-rgb="0094749a">Purple</option>
-							<option value="4" data-rgb="00ec8644">Orange</option>
-							<option value="5" data-rgb="00b9ab00">Yellow</option>
-							<option value="6" data-rgb="00ec9fc8">Pink</option>
-							<option value="7" data-rgb="00505154">Black</option>
-							<option value="8" data-rgb="00f8f7f4">White</option>
-							<option value="9" data-rgb="0091723e">Brown</option>
-							</select>
-						</div>
-						<br />
-							<div class="col-l50">
-							<label for="zTunicHatColorFieldset">Zora Armor Cap Color:</label>
-						</div>
-						<div class="col-l50">
-							<select id="zTunicHatColorFieldset" data-tooltip-text="Sets the color of the cap of the Zora Armor.&#0010;">
-							<option value="0">Default</option>
-							<option value="1" data-rgb="00ab706e">Red</option>
-							<option value="2" data-rgb="0070ab6e">Green</option>
-							<option value="3" data-rgb="0094749a">Purple</option>
-							<option value="4" data-rgb="00ec8644">Orange</option>
-							<option value="5" data-rgb="00b9ab00">Yellow</option>
-							<option value="6" data-rgb="00ec9fc8">Pink</option>
-							<option value="7" data-rgb="00505154">Black</option>
-							<option value="8" data-rgb="00f8f7f4">White</option>
-							<option value="9" data-rgb="0091723e">Brown</option>
-							</select>
-						</div>
-						<br />
-							<div class="col-l50">
-							<label for="zTunicHelmetColorFieldset">Zora Armor Helmet Color:</label>
-						</div>
-						<div class="col-l50">
-							<select id="zTunicHelmetColorFieldset" data-tooltip-text="Sets the color of the helmet of the Zora Armor.&#0010;">
-							<option value="0">Default</option>
-							<option value="1" data-rgb="00ab706e">Red</option>
-							<option value="2" data-rgb="006382a0">Blue</option>
-							<option value="3" data-rgb="0094749a">Purple</option>
-							<option value="4" data-rgb="00ec8644">Orange</option>
-							<option value="5" data-rgb="0070ab6e">Green</option>
-							<option value="6" data-rgb="00ec9fc8">Pink</option>
-							<option value="7" data-rgb="00505154">Black</option>
-							<option value="8" data-rgb="00f8f7f4">White</option>
-							<option value="9" data-rgb="0091723e">Brown</option>
-							</select>
-						</div>
-							<br />
-							<div class="col-l50">
-							<label for="zTunicBodyColorFieldset">Zora Armor Torso Color:</label>
-							</div>
-							<div class="col-l50">
-							<select id="zTunicBodyColorFieldset" data-tooltip-text="Sets the color of the leather area of the Zora Armor. (The area on the body that is normally blue)&#0010;">
-							<option value="0">Default</option>
-							<option value="1" data-rgb="00ab706e">Red</option>
-							<option value="2" data-rgb="0070ab6e">Green</option>
-							<option value="3" data-rgb="0094749a">Purple</option>
-							<option value="4" data-rgb="00ec8644">Orange</option>
-							<option value="5" data-rgb="00b9ab00">Yellow</option>
-							<option value="6" data-rgb="00ec9fc8">Pink</option>
-							<option value="7" data-rgb="00505154">Black</option>
-							<option value="8" data-rgb="00f8f7f4">White</option>
-							<option value="9" data-rgb="0091723e">Brown</option>
-							</select>
-						</div>
-							<br />
-							<div class="col-l50">
-							<label for="zTunicScalesColorFieldset">Zora Armor Scales Color:</label>
-							</div>
-							<div class="col-l50">
-							<select id="zTunicScalesColorFieldset" data-tooltip-text="Sets the color of the scales on the Zora Armor.&#0010;">
-							<option value="0">Default</option>
-							<option value="1" data-rgb="00ab706e">Red</option>
-							<option value="2" data-rgb="0070ab6e">Green</option>
-							<option value="3" data-rgb="0094749a">Purple</option>
-							<option value="4" data-rgb="00ec8644">Orange</option>
-							<option value="5" data-rgb="00b9ab00">Yellow</option>
-							<option value="6" data-rgb="00ec9fc8">Pink</option>
-							<option value="7" data-rgb="00505154">Black</option>
-							<option value="8" data-rgb="00f8f7f4">White</option>
-							<option value="9" data-rgb="0091723e">Brown</option>
-							</select>
-						</div>
-							<br />
-							<div class="col-l50">
-							<label for="zTunicBootsColorFieldset">Zora Armor Flippers Color:</label>
-							</div>
-							<div class="col-l50">
-							<select id="zTunicBootsColorFieldset" data-tooltip-text="Sets the color of the flippers on the Zora Armor.&#0010;">
-							<option value="0">Default</option>
-							<option value="1" data-rgb="00ab706e">Red</option>
-							<option value="2" data-rgb="006382a0">Blue</option>
-							<option value="3" data-rgb="0094749a">Purple</option>
-							<option value="4" data-rgb="00ec8644">Orange</option>
-							<option value="5" data-rgb="00b9ab00">Yellow</option>
-							<option value="6" data-rgb="00ec9fc8">Pink</option>
-							<option value="7" data-rgb="00505154">Black</option>
-							<option value="8" data-rgb="00f8f7f4">White</option>
-							<option value="9" data-rgb="0091723e">Brown</option>
-							</select>
-						</div>
-							<br />
-							<div class="col-l50">
-							<label for="lanternColorFieldset">Lantern Glow Color:</label>
-							</div>
-							<div class="col-l50">
-							<select name="Lantern Color Fieldset" id="lanternColorFieldset"
-							data-tooltip-text="Sets the color of the light around the Lantern and the color of the light produced by the Lantern.&#0010;">
-								<option value="0">Default</option>
-								<option value="1">Red</option>
-								<option value="2">Orange</option>
-								<option value="3">Yellow</option>
-								<option value="4">Green</option>
-								<option value="5">Blue</option>
-								<option value="6">Purple</option>
-								<option value="7">White</option>
-								<option value="8">Cyan</option>
-							</select>
-						</div>
-							<br />
-							
-						</fieldset>
-					</div>
-					<div class="tabColumn">
-						<fieldset id="itemPoolOptionsFieldset">
-							<legend>HUD</legend>
-							<div class="col-l40">
-								<label for="heartColorFieldset">Heart Color:</label>
-							</div>
-							<div class="col-l60">
-								<select name="Heart Color Fieldset" id="heartColorFieldset"
-								data-tooltip-text="Sets the color of the player's hearts in the HUD.&#0010;">
-									<option value="0">Default</option>
-									<option value="1">Pink</option>
-									<option value="2">Orange</option>
-									<option value="3">Green</option>
-									<option value="4">Teal</option>
-									<option value="5">Blue</option>
-									<option value="6">Purple</option>
-									<option value="7">Black</option>
-								</select>
-							</div>
-							<br />
-							<div class="col-l40">
-								<label for="aButtonColorFieldset">A Button Color:</label>
-							</div>
-							<div class="col-l60">
-								<select name="A Button Color Fieldset" id="aButtonColorFieldset"
-								data-tooltip-text="Sets the color of the A Button in the HUD.&#0010;">
-									<option value="0">Default</option>
-									<option value="1">Red</option>
-									<option value="2">Orange</option>
-									<option value="3">Yellow</option>
-									<option value="4">Dark Green</option>
-									<option value="5">Blue</option>
-									<option value="6">Purple</option>
-									<option value="7">Black</option>
-									<option value="8">Gray</option>
-									<option value="9">Pink</option>
-								</select>
-							</div>
-								<br />
-							<div class="col-l40">
-								<label for="bButtonColorFieldset">B Button Color:</label>
-							</div>
-							<div class="col-l60">
-								<select name="B Button Color Fieldset" id="bButtonColorFieldset"
-								data-tooltip-text="Sets the color of the B Button in the HUD.&#0010;">
-									<option value="0">Default</option>
-									<option value="1">Orange</option>
-									<option value="2">Pink</option>
-									<option value="3">Green</option>
-									<option value="4">Blue</option>
-									<option value="5">Purple</option>
-									<option value="6">Black</option>
-									<option value="7">Teal</option>
-								</select>
-							</div>
-								<br />
-							<div class="col-l40">
-								<label for="xButtonColorFieldset">X Button Color:</label>
-							</div>
-							<div class="col-l60">
-								<select name="X Button Color Fieldset" id="xButtonColorFieldset"
-								data-tooltip-text="Sets the color of the X Button in the HUD.&#0010;">
-									<option value="0">Default</option>
-									<option value="1">Red</option>
-									<option value="2">Orange</option>
-									<option value="3">Yellow</option>
-									<option value="4">Lime Green</option>
-									<option value="5">Dark Green</option>
-									<option value="6">Blue</option>
-									<option value="7">Purple</option>
-									<option value="8">Black</option>
-									<option value="9">Pink</option>
-									<option value="10">Cyan</option>
-								</select>
-							</div>
-								<br />
-							<div class="col-l40">
-								<label for="yButtonColorFieldset">Y Button Color:</label>
-							</div>
-								<div class="col-l60">
-								<select name="Y Button Color Fieldset" id="yButtonColorFieldset"
-								data-tooltip-text="Sets the color of the Y Button in the HUD.&#0010;">
-									<option value="0">Default</option>
-									<option value="1">Red</option>
-									<option value="2">Orange</option>
-									<option value="3">Yellow</option>
-									<option value="4">Lime Green</option>
-									<option value="5">Dark Green</option>
-									<option value="6">Blue</option>
-									<option value="7">Purple</option>
-									<option value="8">Black</option>
-									<option value="9">Pink</option>
-									<option value="10">Cyan</option>
-								</select>
-							</div>
-								<br />
-							<div class="col-l40">
-								<label for="zButtonColorFieldset">Z Button Color:</label>
-							</div>
-							<div class="col-l60">
-								<select name="Z Button Color Fieldset" id="zButtonColorFieldset"
-								data-tooltip-text="Sets the color of the Z Button in the HUD.&#0010;">
-									<option value="0">Default</option>
-									<option value="1">Red</option>
-									<option value="2">Orange</option>
-									<option value="3">Yellow</option>
-									<option value="4">Lime Green</option>
-									<option value="5">Dark Green</option>
-									<option value="6">Purple</option>
-									<option value="7">Black</option>
-									<option value="8">Light Blue</option>
-								</select>
-							</div>
-						</fieldset>
-					</div>
-				</div>
+        <div id="legacyTab" class="tabcontent">
+          <div style="max-width: 500px; margin: 24px">
+            This settings will be removed from here in the future. After
+            generating the seed data from shared settings, individual players
+            will pick these settings on a different page.
+          </div>
+          <fieldset id="logicSettingsFieldset">
+            <label for="gameRegionFieldset">Game Region:</label>
+            <select name="Game Region Fieldset" id="gameRegionFieldset">
+              <option value="0">NTSC (US)</option>
+              <option value="1">PAL (EUR)</option>
+              <option value="2">JP (JAP)</option>
+              <option value="3" disabled>Wii NTSC 1.0 (US)</option>
+              <option value="4" disabled>Wii NTSC 1.2 (US)</option>
+              <option value="5" disabled>Wii PAL (EUR)</option>
+              <option value="6" disabled>Wii JP (JAP)</option>
+            </select>
+            <br />
+            <label for="seedNumberFieldset">Seed Number:</label>
+            <select name="Seed Number Fieldset" id="seedNumberFieldset">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </fieldset>
+        </div>
+        <br />
 
+        <div style="display: flex; align-items: flex-end">
+          <div class="labelValueGroup">
+            <div class="settingsStringLabel">Settings String</div>
+            <span
+              id="combinedSettingsString"
+              class="settingsStringValue"
+            ></span>
+          </div>
+          <button
+            id="editSettingsBtn"
+            class="settingsEditBtnPos css-1egpgfe"
+            tabindex="0"
+            type="button"
+            aria-label="delete"
+          >
+            <svg
+              class="css-vubbuv"
+              focusable="false"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              ></path>
+            </svg>
+          </button>
+        </div>
 
-				<div id="audioTab" class="tabcontent">
-					<div class="overwriteDisclaimer">
-						Note: These settings can be overwritten by individual players.
-					</div>
-						<fieldset id="musicAndSFXFieldset">
-							<legend> Music and SFX </legend>
-							<label for="bgmFieldset">Randomize Background Music:</label>
-							<select name="Background Music Fieldset" id="bgmFieldset"
-							data-tooltip-text="'Off': All background music is vanilla.&#0010;&#0010;'Overworld': Only the overworld background music is randomized.&#0010;&#0010;'Dungeon': Only the dungeon background music is randomized.&#0010;&#0010;'All': All background music is randomized.&#0010;">
-								<option value="0" selected>Off</option>
-								<option value="1">Overworld</option>
-								<option value="2">Dungeon</option>
-								<option value="3">All</option>
-							</select> <br>
-							<div style="width:60%" data-tooltip-text="Randomizes the various fanfares that play when completing tasks and collecting items.&#0010;">
-								<input type="checkbox" id="randomizeFanfaresCheckbox" name="Randomize Fanfares Checkbox" value="">
-								<label for="randomizeFanfaresCheckbox"> Randomize Fanfares </label><br>
-							</div>
-							<div data-tooltip-text="Disables the music that plays when you fight enemies.&#0010;">
-								<input type="checkbox" id="disableEnemyBGMCheckbox" name="Disable Enemy BGM Checkbox" value="">
-								<label for="disableEnemyBGMCheckbox"> Disable Enemy Background Music</label><br>
-							</div>
-						</fieldset>
-				</div>
-
-				<div id="legacyTab" class="tabcontent">
-					<div style="max-width:500px;margin:24px;">
-					This settings will be removed from here in the future. After generating the seed data from shared settings, individual players will pick these settings on a different page.
-					</div>
-					<fieldset id="logicSettingsFieldset">
-						<label for="gameRegionFieldset">Game Region:</label>
-						<select name="Game Region Fieldset" id="gameRegionFieldset">
-							<option value="0">NTSC (US)</option>
-							<option value="1">PAL (EUR)</option>
-							<option value="2">JP (JAP)</option>
-							<option value="3" disabled>Wii NTSC 1.0 (US)</option>
-							<option value="4" disabled>Wii NTSC 1.2 (US)</option>
-							<option value="5" disabled>Wii PAL (EUR)</option>
-							<option value="6" disabled>Wii JP (JAP)</option>
-						</select>
-						<br/>
-						<label for="seedNumberFieldset">Seed Number:</label>
-						<select name="Seed Number Fieldset" id="seedNumberFieldset">
-							<option value="0">0</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-						</select>
-					</fieldset>
-				</div>
-				<br/>
-
-				<div style="display:flex;align-items:flex-end;">
-					<div class="labelValueGroup">
-						<div class="settingsStringLabel">Settings String</div>
-						<span id="combinedSettingsString" class="settingsStringValue"></span>
-					</div>
-					<button id="editSettingsBtn" class="settingsEditBtnPos css-1egpgfe" tabindex="0" type="button" aria-label="delete">
-						<svg class="css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
-							<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
-						</svg>
-					</button>
-				</div>
-
-
-				<!-- <div>SSettings (display only):</div>
+        <!-- <div>SSettings (display only):</div>
 				<div id="newSettingsDisplay" class="settingsStringValue"></div> -->
-				<div class="labelValueGroup" style="display:none;">
-					<div class="settingsStringLabel">SSettings (locked in during step1):</div>
-					<div id="newSettingsDisplay" class="settingsStringValue"></div>
-				</div>
+        <div class="labelValueGroup" style="display: none">
+          <div class="settingsStringLabel">
+            SSettings (locked in during step1):
+          </div>
+          <div id="newSettingsDisplay" class="settingsStringValue"></div>
+        </div>
 
-				<!-- <div>USettings (display only):</div>
+        <!-- <div>USettings (display only):</div>
 				<div id="uSettingsDisplay" class="settingsStringValue"></div> -->
-				<div class="labelValueGroup" style="display:none;">
-					<div class="settingsStringLabel">USettings (editable in step2):</div>
-					<div id="uSettingsDisplay" class="settingsStringValue"></div>
-				</div>
+        <div class="labelValueGroup" style="display: none">
+          <div class="settingsStringLabel">USettings (editable in step2):</div>
+          <div id="uSettingsDisplay" class="settingsStringValue"></div>
+        </div>
 
-				<!-- <div>Legacy Settings String:</div>
+        <!-- <div>Legacy Settings String:</div>
 				<div id="settingsStringTextbox" class="settingsStringValue"></div> -->
-				<div class="labelValueGroup" style="display:none;">
-					<div class="settingsStringLabel">Legacy Settings String:</div>
-					<div id="settingsStringTextbox" class="settingsStringValue"></div>
-				</div>
+        <div class="labelValueGroup" style="display: none">
+          <div class="settingsStringLabel">Legacy Settings String:</div>
+          <div id="settingsStringTextbox" class="settingsStringValue"></div>
+        </div>
 
-
-					<!-- <div>
+        <!-- <div>
 						<label style="display:block;" for="settingsStringTextbox">Legacy Settings String:</label>
 						<input type="text" id="settingsStringTextbox" name="settingsStringTextBox" style="min-width: 30em;width: 100%;">
 					</div> -->
-					<div>
-						<label style="display:block;" for="seed" class="settingsStringLabel">Seed</label>
-						<input type="text" id="seed" name="seed" style="min-width: 30em;width: 100%;max-width: 300px;" autocomplete="off" maxlength="128">
-					</div>
+        <div>
+          <label style="display: block" for="seed" class="settingsStringLabel"
+            >Seed</label
+          >
+          <input
+            type="text"
+            id="seed"
+            name="seed"
+            style="min-width: 30em; width: 100%; max-width: 300px"
+            autocomplete="off"
+            maxlength="128"
+          />
+        </div>
 
-					<!-- <div>
+        <!-- <div>
 						<label style="display:block;" for="uSettingsString">USettings (for display):</label>
 						<input type="text" id="uSettingsString" name="uSettingsString" style="min-width: 30em;width: 100%;">
 					</div> -->
-					<br/>
+        <br />
 
-					<!-- <input id="importSettingsStringButton" value="Import/Apply" type="button"> -->
-					<button id="importSettingsStringButton" class="primaryButton" style="display:none;">Import/Apply</button>
+        <!-- <input id="importSettingsStringButton" value="Import/Apply" type="button"> -->
+        <button
+          id="importSettingsStringButton"
+          class="primaryButton"
+          style="display: none"
+        >
+          Import/Apply
+        </button>
 
-					<br/>
-					<!-- <input id="generateSeedButton" name="generateSeedButton" value="Generate" type="submit" > -->
-					<button id="generateSeed" type="button" class="primaryButton" 
-					data-tooltip-text="Generates a seed based on the settings string.&#0010;">Generate</button>
-					<br/>
-					<br/>
-					<button id="generateRaceSeed" type="button" class="primaryButton"
-					data-tooltip-text="Generates an encrypted seed with a locked spoiler log. Contact an admin to get the spoiler log unlocked.&#0010;">Generate Race Seed</button>
+        <br />
+        <!-- <input id="generateSeedButton" name="generateSeedButton" value="Generate" type="submit" > -->
+        <button
+          id="generateSeed"
+          type="button"
+          class="primaryButton"
+          data-tooltip-text="Generates a seed based on the settings string.&#0010;"
+        >
+          Generate
+        </button>
+        <br />
+        <br />
+        <button
+          id="generateRaceSeed"
+          type="button"
+          class="primaryButton"
+          data-tooltip-text="Generates an encrypted seed with a locked spoiler log. Contact an admin to get the spoiler log unlocked.&#0010;"
+        >
+          Generate Race Seed
+        </button>
 
-					<!-- <button class="css-1egpgfe" tabindex="0" type="button" aria-label="delete">
+        <!-- <button class="css-1egpgfe" tabindex="0" type="button" aria-label="delete">
 						<svg class="css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
 							<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
 						</svg>
 					</button> -->
+      </div>
+      <div class="blackbg">
+        <div style="font-size: 24px; padding-bottom: 20px">
+          Randomizer Downloads
+        </div>
+        <hr />
+        <br />
+        <table>
+          <tr>
+            <td class="rBor">
+              <a
+                target="_blank"
+                href="https://wiki.tprandomizer.com/images/b/b2/Randomizer.us.gci"
+                download
+                ><img class="blackbor flag" src="img/usa.jpg"
+              /></a>
+              <br />
+              NTSC (US)
+            </td>
+            <td class="rBor">
+              <a
+                target="_blank"
+                href="https://wiki.tprandomizer.com/images/6/6d/Randomizer.eu.gci"
+                download
+                ><img class="blackbor flag" src="/img/eur.jpg"
+              /></a>
+              <br />
+              PAL (EU)
+            </td>
+            <td class="rBor">
+              <a
+                target="_blank"
+                href="https://wiki.tprandomizer.com/images/0/0b/Randomizer.jp.gci"
+                download
+                ><img class="blackbor flag" src="/img/jpn.jpg"
+              /></a>
+              <br />
+              JP (JAP)
+            </td>
+            <td style="text-align: center">
+              <a
+                target="_blank"
+                href="https://drive.google.com/file/d/102sBpJKY_CIpd8wYTpfXt6PqVwsO7z4-/view?usp=share_link"
+                download
+                ><img class="blackbor flag" src="/img/folder.png"
+              /></a>
+              <br />
+              ISO Patch Files
+            </td>
+          </tr>
+        </table>
+        <br />
+        <div class="footerText" style="text-align: center">
+          Logo and background image are property of Nintendo. Copyright ©
+          Nintendo, 1998-2022.<br />
+          Based off the original website design by
+          <a
+            target="_blank"
+            href="https://github.com/Luneyes"
+            target="_blank"
+            style="color: #d62013"
+            >Luneyes</a
+          >. Generator created by
+          <a
+            target="_blank"
+            href="https://github.com/Lunarsoap5"
+            target="_blank"
+            style="color: #d62013"
+            >Lunar Soap</a
+          >
+          and
+          <a
+            target="_blank"
+            href="https://github.com/icogn"
+            target="_blank"
+            style="color: #d62013"
+            >Isaac</a
+          >. Logo edited by
+          <a
+            target="_blank"
+            href="https://twitter.com/MelonSpeedruns"
+            target="_blank"
+            style="color: #d62013"
+            >MelonSpeedruns</a
+          >
+          <br />
+          Generator Version
+          <span id="devFooterText" class="devFooterText"></span>
+        </div>
+      </div>
+    </div>
 
-			</div>
-			<div class="blackbg">
-				<div style="font-size: 24px;padding-bottom:20px;">Randomizer Downloads</div>
-				<hr />
-				<br />
-				<table>
-					<tr>
-						<td class="rBor">
-							<a target="_blank" href="https://wiki.tprandomizer.com/images/b/b2/Randomizer.us.gci" download><img class="blackbor flag" src="img/usa.jpg" /></a>
-							<br>
-							NTSC (US)
-						</td>
-						<td class="rBor">
-							<a target="_blank" href="https://wiki.tprandomizer.com/images/6/6d/Randomizer.eu.gci" download><img class="blackbor flag" src="/img/eur.jpg" /></a>
-							<br>
-							PAL (EU)
-						</td>
-						<td class="rBor">
-							<a target="_blank" href="https://wiki.tprandomizer.com/images/0/0b/Randomizer.jp.gci" download><img class="blackbor flag" src="/img/jpn.jpg" /></a>
-							<br>
-							JP (JAP)
-						</td>
-            			<td style="text-align: center;">
-							<a target="_blank" href="https://drive.google.com/file/d/102sBpJKY_CIpd8wYTpfXt6PqVwsO7z4-/view?usp=share_link" download><img class="blackbor flag" src="/img/folder.png" /></a>
-							<br>
-							ISO Patch Files
-						</td>
-						
-					</tr>
-				</table>
-				<br/>
-				<div class="footerText" style="text-align: center;">
-					Logo and background image are property of Nintendo. Copyright © Nintendo, 1998-2022.<br>
-					Based off the original website design by  
-					<a
-					target="_blank"
-					href="https://github.com/Luneyes"
-					target="_blank"
-					style="color: #d62013"
-					>Luneyes</a>. Generator created by 
-					<a
-					  target="_blank"
-					  href="https://github.com/Lunarsoap5"
-					  target="_blank"
-					  style="color: #d62013"
-					  >Lunar Soap</a
-					> and 
-					<a
-					  target="_blank"
-					  href="https://github.com/icogn"
-					  target="_blank"
-					  style="color: #d62013"
-					  >Isaac</a
-					>.
-				Logo edited by <a target="_blank" href="https://twitter.com/MelonSpeedruns" target="_blank" style="color: #d62013;">MelonSpeedruns</a> <br> Generator Version <span id="devFooterText" class="devFooterText"></span>
-				</div>
-			</div>
-		</div>
+    <!-- Edit Settings Modal -->
+    <div id="myModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <div class="modalTitle">Import Settings</div>
 
-		<!-- Edit Settings Modal -->
-		<div id="myModal" class="modal" style="display:none;">
-			<div class="modal-content">
-				<span class="modal-close">&times;</span>
-				<div class="modalTitle">Import Settings</div>
+        <div class="labelValueGroup">
+          <div class="settingsStringLabel settingsStringLabelLight">
+            Current Settings
+          </div>
+          <div
+            id="modalCurrentSettings"
+            class="settingsStringValue settingsStringValueLight"
+          >
+            asdhfoi
+          </div>
+        </div>
 
-				<div class="labelValueGroup">
-					<div class="settingsStringLabel settingsStringLabelLight">Current Settings</div>
-					<div id="modalCurrentSettings" class="settingsStringValue settingsStringValueLight">asdhfoi</div>
-				</div>
+        <div class="settingsStringLabel settingsStringLabelLight">
+          New Settings
+        </div>
+        <input
+          id="modalSettingsStringInput"
+          type="text"
+          class="modalSettingsStringInput"
+        />
 
-				<div class="settingsStringLabel settingsStringLabelLight">New Settings</div>
-				<input id="modalSettingsStringInput" type="text" class="modalSettingsStringInput">
+        <div
+          id="modalFieldCopiedText"
+          class="fieldUnderneathText"
+          style="display: none"
+        >
+          Copied.
+        </div>
+        <div
+          id="modalFieldError"
+          class="fieldErrorText"
+          style="display: none"
+        ></div>
 
-				<div id="modalFieldCopiedText" class="fieldUnderneathText" style="display:none;">Copied.</div>
-				<div id="modalFieldError" class="fieldErrorText" style="display:none;"></div>
+        <div class="modalButtonsWrapper">
+          <button id="modalImport" type="button">Import</button>
+          <button id="modalCancel" type="button">Cancel</button>
+          <button id="modalCopy" type="button" style="margin-right: auto">
+            Copy settings
+          </button>
+        </div>
+      </div>
+    </div>
 
-				<div class="modalButtonsWrapper">
-					<button id="modalImport" type="button">Import</button>
-					<button id="modalCancel" type="button">Cancel</button>
-					<button id="modalCopy" type="button" style="margin-right:auto;">Copy settings</button>
-				</div>
+    <div id="modal2Bg" class="modal-dialog-bg" style="display: none"></div>
+    <!-- <div id="generatingModal" class="isOpen quantumWizDialogBackground"> -->
+    <div
+      id="generatingModal"
+      class="quantumWizDialogBackground"
+      style="display: none"
+    >
+      <div
+        class="quantumWizDialogLayout boqDrivesharedialogDialogcontainerRemovePadding"
+      >
+        <div class="quantumWizDialogBackgroundTop"></div>
+        <div
+          class="boqDrivesharedialogDialogcontainerFullWidth quantumWizDialogEl isOpen"
+          role="dialog"
+          tabindex="0"
+        >
+          <div
+            tabindex="0"
+            aria-hidden="true"
+            class="focusSentinel"
+            jsaction="focus:.CLIENT"
+          ></div>
 
-			</div>
-		</div>
+          <span>
+            <div tabindex="-1" class="boqDrivesharedialogDialogsShareContainer">
+              <div class="boqDrivesharedialogDialogsShareDialogWrapper">
+                <div
+                  class="boqDrivesharedialogDialogsShareDialog"
+                  role="dialog"
+                >
+                  <div class="boqDrivesharedialogDialogsShareCardContainer">
+                    <div
+                      class="boqDrivesharedialogCommonIdomcardCardContainer TransformOriginBottom"
+                    >
+                      <div
+                        class="boqDrivesharedialogCommonAnimatedfadeParentContainer"
+                      >
+                        <div
+                          class="boqDrivesharedialogCommonAnimatedfadeContainer boqDrivesharedialogCommonIdomcardCardFade"
+                        >
+                          <div
+                            class="mdc-card GmCard GmCardElevatedDarkTheme boqDrivesharedialogCommonIdomcardCard"
+                          >
+                            <!-- Content -->
+                            <div class="dialog2Content">
+                              <div
+                                class="boqDrivesharedialogCommonTitlebarTitleBar"
+                              >
+                                <div class="Heading">
+                                  <div class="LeftSlotAndTitle">
+                                    <div
+                                      id="generatingModalTitle"
+                                      class="Title"
+                                    ></div>
+                                  </div>
+                                </div>
+                              </div>
 
-		<div id="modal2Bg" class="modal-dialog-bg" style="display:none;"></div>
-		<!-- <div id="generatingModal" class="isOpen quantumWizDialogBackground"> -->
-		<div id="generatingModal" class="quantumWizDialogBackground" style="display:none;">
-			<div class="quantumWizDialogLayout boqDrivesharedialogDialogcontainerRemovePadding">
-				<div class="quantumWizDialogBackgroundTop"></div>
-				<div class="boqDrivesharedialogDialogcontainerFullWidth quantumWizDialogEl isOpen" role="dialog" tabindex="0">
-					<div tabindex="0" aria-hidden="true" class="focusSentinel" jsaction="focus:.CLIENT"></div>
+                              <div class="dialog2ContentArea">
+                                <div
+                                  id="generatingProgressRow"
+                                  style="display: flex; align-items: center"
+                                >
+                                  <div
+                                    class="spinner-border"
+                                    role="status"
+                                    style="margin-right: 24px"
+                                  ></div>
+                                  <div>This might take a few seconds.</div>
+                                </div>
 
-					<span>
-						<div tabindex="-1" class="boqDrivesharedialogDialogsShareContainer">
-							<div class="boqDrivesharedialogDialogsShareDialogWrapper">
-								<div class="boqDrivesharedialogDialogsShareDialog" role="dialog">
-									<div class="boqDrivesharedialogDialogsShareCardContainer">
-										<div class="boqDrivesharedialogCommonIdomcardCardContainer TransformOriginBottom">
-											<div class="boqDrivesharedialogCommonAnimatedfadeParentContainer">
-												<div class="boqDrivesharedialogCommonAnimatedfadeContainer boqDrivesharedialogCommonIdomcardCardFade">
-													<div class="mdc-card GmCard GmCardElevatedDarkTheme boqDrivesharedialogCommonIdomcardCard">
-														<!-- Content -->
-														<div class="dialog2Content">
+                                <div
+                                  id="generatingError"
+                                  class="errorTextColor"
+                                  style="white-space: pre-wrap"
+                                ></div>
+                                <div
+                                  id="bodyMsg"
+                                  style="white-space: pre-wrap"
+                                ></div>
+                                <div id="deleteRequestSection">
+                                  <br />
+                                  <div style="white-space: pre-wrap">
+                                    Alternatively, you can
+                                    <span
+                                      id="deleteRequest"
+                                      class="deleteRequestText"
+                                      role="button"
+                                      >Delete</span
+                                    >
+                                    the previous request.
+                                  </div>
+                                </div>
+                                <div
+                                  id="ongoingRequestBtnRow"
+                                  class="modalButtonsWrapper"
+                                  style="display: none"
+                                >
+                                  <button
+                                    id="viewOngoingRequestBtn"
+                                    type="button"
+                                    class="primaryButton primaryButtonNoShadow"
+                                    style="margin-left: auto"
+                                  >
+                                    View
+                                  </button>
+                                  <button
+                                    id="hideOngoingRequestBtn"
+                                    type="button"
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                                <div
+                                  id="doneBtnRow"
+                                  class="modalButtonsWrapper modalButtonsWrapperSmaller"
+                                >
+                                  <button
+                                    id="generatingModalDoneBtn"
+                                    type="button"
+                                    class="primaryButton primaryButtonNoShadow"
+                                  >
+                                    Done
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- End Content -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
 
-															<div class="boqDrivesharedialogCommonTitlebarTitleBar">
-																<div class="Heading">
-																	<div class="LeftSlotAndTitle">
-																		<div id="generatingModalTitle" class="Title"></div>
-																	</div>
-																</div>
-															</div>
-
-															<div class="dialog2ContentArea">
-																<div id="generatingProgressRow" style="display:flex;align-items: center;">
-																	<div class="spinner-border" role="status" style="margin-right:24px;"></div>
-																	<div>
-																		This might take a few seconds.
-																	</div>
-																</div>
-
-																<div id="generatingError" class="errorTextColor" style="white-space:pre-wrap;"></div>
-																<div id="bodyMsg" style="white-space:pre-wrap;"></div>
-																<div id="deleteRequestSection">
-																	<br>
-																	<div style="white-space:pre-wrap;">Alternatively, you can <span id="deleteRequest" class="deleteRequestText" role="button">Delete</span> the previous request.</div>
-																</div>
-																<div id="ongoingRequestBtnRow" class="modalButtonsWrapper" style="display:none;">
-																	<button id="viewOngoingRequestBtn" type="button" class="primaryButton primaryButtonNoShadow" style="margin-left:auto;">View</button>
-																	<button id="hideOngoingRequestBtn" type="button">Cancel</button>
-																</div>
-																<div id="doneBtnRow" class="modalButtonsWrapper modalButtonsWrapperSmaller">
-																	<button id="generatingModalDoneBtn" type="button" class="primaryButton primaryButtonNoShadow">Done</button>
-																</div>
-															</div>
-
-														</div>
-														<!-- End Content -->
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</span>
-
-					<div tabindex="0" aria-hidden="true" class="focusSentinel" jsaction="focus:.CLIENT"></div>
-
-				</div>
-				<div class="quantumWizDialogBackgroundBottom"></div>
-			</div>
-		</div>
-
-	</body>
-	<script src="/script.js"></script>
-	<script>
-		let tooltipElements = document.querySelectorAll('[data-tooltip-text]');
-		tooltipElements.forEach((tooltipElement)=>{
-			tooltipElement.addEventListener("mouseout", (e) => {
-				removetooltips();
-			});
-			tooltipElement.addEventListener("mouseover", (e) => {
-				let element = document.createElement('div');
-				element.classList.add('tooltip');
-				let tooltipContent = e.currentTarget.getAttribute('data-tooltip-text');
-				element.innerHTML = tooltipContent;
-				
-				let coords = e.currentTarget.getBoundingClientRect();
-				element.style.left = coords.left + e.currentTarget.clientWidth + 5 + 'px';
-				element.style.top = coords.top+'px';
-				document.body.appendChild(element);
-				$(element).hide().fadeIn(300);
-			});
-		});
-
-		function removetooltips(){
-			document.querySelectorAll('.tooltip').forEach((tooltip)=>{
-					tooltip.remove();
-				});
-		}
-	</script>
-	<!-- <script src="/test.js"></script> -->
+          <div
+            tabindex="0"
+            aria-hidden="true"
+            class="focusSentinel"
+            jsaction="focus:.CLIENT"
+          ></div>
+        </div>
+        <div class="quantumWizDialogBackgroundBottom"></div>
+      </div>
+    </div>
+  </body>
+  <script src="/script.js"></script>
+  <script src="/js/tooltip.js"></script>
 </html>

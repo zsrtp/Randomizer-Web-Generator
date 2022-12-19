@@ -184,6 +184,15 @@ namespace TPRandomizer
                     );
                     tokenValue++;
                 }
+                else if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is NegationToken)
+                {
+                    tokenValue++;
+                    parseBool = !LogicFunctions.EvaluateSetting(
+                        evaluatedItem,
+                        Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value.ToString()
+                    );
+                    tokenValue++;
+                }
                 return parseBool;
             }
             else if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is roomToken)
@@ -279,6 +288,9 @@ namespace TPRandomizer
                                     tokens.Add(new OrToken(), potentialKeyword.ToString());
                                     break;
                                 case "equals":
+                                    tokens.Add(new EqualsToken(), potentialKeyword.ToString());
+                                    break;
+                                case "not_equal":
                                     tokens.Add(new EqualsToken(), potentialKeyword.ToString());
                                     break;
                                 default:

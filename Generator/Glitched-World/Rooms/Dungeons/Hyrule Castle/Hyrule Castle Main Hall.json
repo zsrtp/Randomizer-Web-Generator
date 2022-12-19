@@ -8,8 +8,8 @@
     "NeighbourRequirements":
     [
         "true",
-        "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang",
-        "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang"
+        "CanDefeatBokoblin and  CanDefeatLizalfos and Progressive_Clawshot and CanDefeatDarknut and Boomerang",
+        "CanDefeatBokoblin and  CanDefeatLizalfos and Progressive_Clawshot and CanDefeatDarknut and Boomerang"
     ],
     "Checks":
     [

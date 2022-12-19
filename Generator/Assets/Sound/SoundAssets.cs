@@ -222,6 +222,7 @@ namespace TPRandomizer.Assets
             { 62, 148 }, // Armogohma Phase 1 overwriting Palace Theme
             { 62, 98 }, // Zant Boss Theme overwriting Palace Theme
             { 44, 8 }, // Ook Battle Music overwriting House Interiors
+            { 55, 8 }, // Ook Battle Music overwriting Snowpeak Ruins
         };
     }
 }

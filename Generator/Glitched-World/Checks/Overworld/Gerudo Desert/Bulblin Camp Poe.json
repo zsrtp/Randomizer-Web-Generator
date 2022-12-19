@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and (Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy) or (Setting.skipArbitersEntrance equals True))",
+    "requirements": "(Shadow_Crystal and (Gerudo_Desert_Bulblin_Camp_Key or ((CanDoMapGlitch and HasSword) or (Setting.smallKeySettings equals Keysy)))) or (Setting.skipArbitersEntrance equals True)",
     "stageIDX": [55],
     "flag": "78",
     "category": ["Overworld", "Poe", "Bulblin Camp"],

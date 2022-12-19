@@ -70,6 +70,7 @@ namespace TPRandomizer.Assets
             { 0x9, 0x7E }, // Jovani Chest CS
             { 0x3, 0xA7 }, // Unlock Jumps to top of Sanctuary
             { 0x3, 0x9A }, // Kakariko Village intro CS.
+            { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
         };
 
         /// <summary>
@@ -242,6 +243,10 @@ namespace TPRandomizer.Assets
             { 0x18, 0xA4 }, // Midna text after Owl Statue chest in graveyard.
             { 0x18, 0xB7 }, // Lit southeast torch in second floor north room for the first time CS.
             { 0x18, 0xB8 }, // Lit northeast torch in second floor north room for the first time CS.
+            { 0x18, 0x4B }, // Watched CS with Allies in HC.
+            { 0x18, 0x94 }, // BK Gate opened in HC.
+            { 0x13, 0x9C }, // Main room poes taking flames cs.
+            { 0x13, 0x9A }, // Close poe door
         };
 
         public static readonly byte[,] SmallKeyRegionFlags = new byte[,]
@@ -333,11 +338,6 @@ namespace TPRandomizer.Assets
             { 0x18, 0xEF }, // Got Hyrule Castle Dungeon Map.
         };
 
-        public static readonly byte[,] OpenCastleRegionFlags = new byte[,]
-        {
-            { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
-        };
-
         public static readonly byte[,] OpenLakebedRegionFlags = new byte[,]
         {
             { 0x4, 0x70 }, // Blew up rock in front of lakebed CS.
@@ -367,6 +367,20 @@ namespace TPRandomizer.Assets
             { 0x7, 0x5B }, // Block pushed down
             { 0x7, 0x42 }, // Midna text after block pushed down
         };
+        public static readonly byte[,] OpenGroveRegionFlags = new byte[,]
+        {
+            { 0x7, 0xB6 }, // Skull Kid - Human defeated.
+            { 0x7, 0xB7 }, // Lost Woods Turns to day after defeating Skull Kid - Human
+            { 0x7, 0xBB }, // Sacred Grove Portal
+            { 0x7, 0x5B }, // Block pushed down
+            { 0x7, 0x42 }, // Midna text after block pushed down
+        };
+        public static readonly byte[,] OpenSnowpeakRegionFlags = new byte[,]
+        {
+            { 0x8, 0x4A }, // Snowpeak top portal
+            { 0x8, 0x49 }, // Snowpeak summit cs.
+            { 0x8, 0x45 }, // Snowpeak Summit intro CS.
+        };
 
         /// <summary>
         /// summary text.
@@ -383,10 +397,11 @@ namespace TPRandomizer.Assets
                 { 7, SmallKeyRegionFlags },
                 { 8, BigKeyRegionFlags },
                 { 9, MapAndCompassRegionFlags },
-                { 10, OpenCastleRegionFlags },
                 { 13, OpenLakebedRegionFlags },
                 { 14, OpenArbitersRegionFlags },
+                { 15, OpenSnowpeakRegionFlags },
                 { 16, OpenToTRegionFlags },
+                { 18, OpenGroveRegionFlags },
             };
 
         /// <summary>
@@ -410,8 +425,13 @@ namespace TPRandomizer.Assets
             { 0x5F, 0x20 }, // Shad leaves sanctuary.
             { 0xF7, 0x1 }, // Add 256 Rupees to Charlo.
             { 0xF8, 0xF4 }, // Add 244 Rupees to Charlo.
+            { 0xF9, 0x1 }, // Add 256 Rupees to Malo Mart.
+            { 0xFA, 0xF4 }, // Add 244 Rupees to Malo Mart.
             { 0x60, 0x1 }, // Talked to Fyer after Lanayru Twilight
             { 0x38, 0x80 }, // Talked to Jovani after defeating Poe.
+            { 0x22, 0x8 }, // Talked to Yeto on top of the mountain after clearing SPR
+            { 0x3B, 0x40 }, // Won Snowboard race against Yeto.
+            { 0x2F, 0x80 }, // Talked to Goron outside East Castle Town 
         };
 
         /// <summary>
@@ -484,6 +504,7 @@ namespace TPRandomizer.Assets
             { 0x3E, 0x2 }, // City Ooccoo CS watched.
             { 0x59, 0x40 }, // Met Postman for the first time.
             { 0x5D, 0x40 }, // Midna text after Kargarok flight.
+            { 0x25, 0x2 }, // Watched cutscene with Yeto on top of mountain
         };
 
         /// <summary>
@@ -583,8 +604,9 @@ namespace TPRandomizer.Assets
             /* 13 */RandomizerSettings.skipLakebedEntrance,
             /* 14 */RandomizerSettings.skipArbitersEntrance,
             /* 15 */RandomizerSettings.skipSnowpeakEntrance,
-            /* 16 */RandomizerSettings.skipToTEntrance,
+            /* 16 */RandomizerSettings.totEntrance == TotEntrance.Open,
             /* 17 */RandomizerSettings.skipCityEntrance,
+            /* 18 */RandomizerSettings.totEntrance == TotEntrance.OpenGrove,
         };
     }
 }

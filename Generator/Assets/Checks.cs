@@ -371,6 +371,9 @@ namespace TPRandomizer
                         {
                             currentCheck.checkStatus = "Vanilla";
                             Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
+                            Randomizer.Items.RandomizedDungeonRegionItems.Remove(
+                                currentCheck.itemId
+                            );
                             Randomizer.Items.alwaysItems.Remove(currentCheck.itemId);
                         }
                     }

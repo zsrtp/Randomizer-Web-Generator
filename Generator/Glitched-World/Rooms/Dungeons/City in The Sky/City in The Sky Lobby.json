@@ -4,13 +4,15 @@
         "City in The Sky Entrance", 
         "City in The Sky East Wing", 
         "City in The Sky West Wing", 
-        "City in The Sky North Wing"
+        "City in The Sky North Wing", 
+        "City in The Sky Central Tower Second Floor"
     ],
   "NeighbourRequirements": [
     "true",
     "Spinner and ((City_in_The_Sky_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
     "(Progressive_Clawshot, 2)",
-    "(Progressive_Clawshot, 2) and CanDefeatBabaSerpent and CanDefeatKargarok and Shadow_Crystal and Iron_Boots"
+    "(Progressive_Clawshot, 2) and ((Shadow_Crystal and Iron_Boots) or CanDoLJA)",
+    "Progressive_Clawshot and Shadow_Crystal"
   ],
     "isStartingRoom": "false",
     "Checks": [""],
