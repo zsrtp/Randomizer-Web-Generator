@@ -71,6 +71,7 @@ namespace TPRandomizer.Assets
             { 0x3, 0xA7 }, // Unlock Jumps to top of Sanctuary
             { 0x3, 0x9A }, // Kakariko Village intro CS.
             { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
+            { 0xA, 0x7F} , // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
         };
 
         /// <summary>
