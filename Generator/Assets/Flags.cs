@@ -382,6 +382,10 @@ namespace TPRandomizer.Assets
             { 0x8, 0x49 }, // Snowpeak summit cs.
             { 0x8, 0x45 }, // Snowpeak Summit intro CS.
         };
+         public static readonly byte[,] OpenMinesRegionFlags = new byte[,]
+        {
+            { 0x3, 0x81 }, // moved death mountain rock to exit
+        };
 
         /// <summary>
         /// summary text.
@@ -398,6 +402,7 @@ namespace TPRandomizer.Assets
                 { 7, SmallKeyRegionFlags },
                 { 8, BigKeyRegionFlags },
                 { 9, MapAndCompassRegionFlags },
+                { 12, OpenMinesRegionFlags },
                 { 13, OpenLakebedRegionFlags },
                 { 14, OpenArbitersRegionFlags },
                 { 15, OpenSnowpeakRegionFlags },
