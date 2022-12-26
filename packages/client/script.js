@@ -330,9 +330,8 @@ document
 document
   .getElementById('barrenCheckbox')
   .addEventListener('click', setSettingsString);
-document
-  .getElementById('minesEntranceCheckbox')
-  .addEventListener('click', setSettingsString);
+document;
+document.getElementById('MinesEntranceFieldset').onchange = setSettingsString;
 document
   .getElementById('lakebedEntranceCheckbox')
   .addEventListener('click', setSettingsString);
@@ -457,8 +456,8 @@ function setSettingsString() {
   settingsStringRaw[30] = document.getElementById('barrenCheckbox').checked;
 
   settingsStringRaw[31] = document.getElementById(
-    'minesEntranceCheckbox'
-  ).checked;
+    'MinesEntranceFieldset'
+  ).selectedIndex;
   settingsStringRaw[32] = document.getElementById(
     'lakebedEntranceCheckbox'
   ).checked;
@@ -629,7 +628,7 @@ var arrayOfSettingsItems = [
   'increaseWalletCheckbox',
   'modifyShopModelsCheckbox',
   'barrenCheckbox',
-  'minesEntranceCheckbox',
+  'MinesEntranceFieldset',
   'lakebedEntranceCheckbox',
   'arbitersEntranceCheckbox',
   'snowpeakEntranceCheckbox',
@@ -1179,7 +1178,7 @@ function populateSSettings(s) {
   );
   $('#foolishItemFieldset').val(s.trapItemsFrequency);
   $('#barrenCheckbox').prop('checked', s.barrenDungeons);
-  $('#minesEntranceCheckbox').prop('checked', s.skipMinesEntrance);
+  $('#MinesEntranceFieldset').val(s.MinesEntrance);
   $('#lakebedEntranceCheckbox').prop('checked', s.skipLakebedEntrance);
   $('#arbitersEntranceCheckbox').prop('checked', s.skipArbitersEntrance);
   $('#snowpeakEntranceCheckbox').prop('checked', s.skipSnowpeakEntrance);

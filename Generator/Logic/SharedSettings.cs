@@ -40,7 +40,7 @@ namespace TPRandomizer
         public bool modifyShopModels { get; set; }
         public TrapFrequency trapFrequency { get; set; }
         public bool barrenDungeons { get; set; }
-        public bool skipMinesEntrance { get; set; }
+        public  MinesEntrance MinesEntrance { get; set; }
         public bool skipLakebedEntrance { get; set; }
         public bool skipArbitersEntrance { get; set; }
         public bool skipSnowpeakEntrance { get; set; }
@@ -82,7 +82,6 @@ namespace TPRandomizer
             modifyShopModels = processor.NextBool();
             trapFrequency = (TrapFrequency)processor.NextInt(3);
             barrenDungeons = processor.NextBool();
-            skipMinesEntrance = processor.NextBool();
             skipLakebedEntrance = processor.NextBool();
             skipArbitersEntrance = processor.NextBool();
             skipSnowpeakEntrance = processor.NextBool();
@@ -101,6 +100,16 @@ namespace TPRandomizer
             {
                 // `instantText` was added as an option in version 1
                 instantText = processor.NextBool();
+            }
+             if (version >= 2)
+            {
+                // `MinesEntrance` was added as an option in version 2
+                MinesEntrance = (MinesEntrance) processor.NextInt(2);
+            }
+            else
+            {
+                bool MinesOpen = processor.NextBool();
+                MinesEntrance = MinesOpen ? MinesEntrance.Open : MinesEntrance.Closed;
             }
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.

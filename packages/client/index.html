@@ -516,20 +516,21 @@
           <div class="tabColumn">
             <fieldset id="dungeonRequirementsFieldset">
               <legend>Dungeon Entrance Settings</legend>
+              
               <div
-                data-tooltip-text="If checked, Link will not have to wrestle Gor Coron to enter Goron Mines and death mountain rock is moved.&#0010;"
-                data-tooltip-position="left"
-              >
-                <input
-                  type="checkbox"
-                  id="minesEntranceCheckbox"
-                  name="Goron Mines Checkbox"
-                  value=""
-                />
-                <label for="minesEntranceCheckbox">
-                  Mines Does Not Require Wrestling </label
-                ><br />
-              </div>
+              class="selectGroup"
+              style="margin-top: 8px"
+              data-tooltip-text="'Closed': all changes of 'Open Mines' are applied. Additionally, the player will have the rock of dmt moved.&#0010;'"
+              data-tooltip-position="left"
+            >
+              <label for="">Goron Mines Entrance</label
+              ><br />
+              <select name="Temple of Time Entrance" id="MinesEntranceFieldset">
+                <option value="0">Closed</option>
+                <option value="1">Open</option>
+                <option value="2">Fast DMT</option>
+              </select>
+            </div>
               <div
                 data-tooltip-text="If checked, the rock in front of the entrance to Lakebed Temple is destroyed.&#0010;"
                 data-tooltip-position="left"

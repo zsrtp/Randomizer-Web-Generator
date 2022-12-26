@@ -76,4 +76,11 @@ namespace TPRandomizer.SSettings.Enums
         OpenGrove = 1,
         Open = 2,
     }
+    public enum MinesEntrance
+    {
+        Closed = 0,
+        Open = 1,
+        FastDMT = 2,
+    }
+
 }

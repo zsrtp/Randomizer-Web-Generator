@@ -337,7 +337,7 @@
   function genSSettingsFromUi() {
     // Increment the version when you make changes to the format. Need to make
     // sure you don't break backwards compatibility!!
-    const sSettingsVersion = 1;
+    const sSettingsVersion = 2;
 
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
@@ -366,7 +366,7 @@
       { id: 'modifyShopModelsCheckbox' },
       { id: 'foolishItemFieldset', bitLength: 3 },
       { id: 'barrenCheckbox' },
-      { id: 'minesEntranceCheckbox' },
+      { id: 'MinesEntranceFieldset', bitLength: 2 },
       { id: 'lakebedEntranceCheckbox' },
       { id: 'arbitersEntranceCheckbox' },
       { id: 'snowpeakEntranceCheckbox' },
@@ -721,7 +721,6 @@
     processBasic({ id: 'shopModelsShowTheReplacedItem' });
     processBasic({ id: 'trapItemsFrequency', bitLength: 3 });
     processBasic({ id: 'barrenDungeons' });
-    processBasic({ id: 'skipMinesEntrance' });
     processBasic({ id: 'skipLakebedEntrance' });
     processBasic({ id: 'skipArbitersEntrance' });
     processBasic({ id: 'skipSnowpeakEntrance' });
@@ -741,6 +740,19 @@
     if (version >= 1) {
       // `instantText' added as an option in version 1
       processBasic({ id: 'instantText' });
+    }
+
+    if (version >= 2) {
+      // `MineEntrance` changed from a checkbox to a select
+      processBasic({ id: 'MinesEntrance', bitLength: 2 });
+    } else {
+      const MinesEntrance = {
+        closed: 0,
+        open: 1,
+        FastDMT: 2,
+      };
+      const MinesOpen = processor.nextBoolean();
+    res.MinesEntrance = MinesOpen ? MinesEntrance.open : MinesEntrance.closed;
     }
 
     res.startingItems = processor.nextEolList(9);

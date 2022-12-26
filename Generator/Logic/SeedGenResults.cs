@@ -321,7 +321,7 @@ namespace TPRandomizer
             result.Add("modifyShopModels", sSettings.modifyShopModels);
             result.Add("trapFrequency", sSettings.trapFrequency.ToString());
             result.Add("barrenDungeons", sSettings.barrenDungeons);
-            result.Add("skipMinesEntrance", sSettings.skipMinesEntrance);
+            result.Add("MinesEntrance", sSettings.MinesEntrance.ToString());
             result.Add("skipLakebedEntrance", sSettings.skipLakebedEntrance);
             result.Add("skipArbitersEntrance", sSettings.skipArbitersEntrance);
             result.Add("skipSnowpeakEntrance", sSettings.skipSnowpeakEntrance);
