@@ -7,7 +7,7 @@
     "NeighbourRequirements": 
     [
         "true",
-        "Iron_Boots and ((CanDefeatGoron) or (Setting.skipMinesEntrance equals True))"
+        "Iron_Boots and ((CanDefeatGoron) or (Setting.MinesEntrance equals Open))"
     ],
     "Checks": [""], 
     "Region": "Death Mountain"

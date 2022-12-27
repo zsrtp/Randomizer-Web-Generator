@@ -748,11 +748,11 @@
     } else {
       const MinesEntrance = {
         closed: 0,
-        open: 1,
-        FastDMT: 2,
+        NoWrestling : 1,
+        Open : 2,
       };
       const MinesOpen = processor.nextBoolean();
-    res.MinesEntrance = MinesOpen ? MinesEntrance.open : MinesEntrance.closed;
+    res.MinesEntrance = MinesOpen ? MinesEntrance.NoWrestling : MinesEntrance.closed;
     }
 
     res.startingItems = processor.nextEolList(9);

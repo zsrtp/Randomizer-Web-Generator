@@ -79,8 +79,8 @@ namespace TPRandomizer.SSettings.Enums
     public enum MinesEntrance
     {
         Closed = 0,
-        Open = 1,
-        FastDMT = 2,
+        NoWrestling = 1,
+        Open = 2,
     }
 
 }
