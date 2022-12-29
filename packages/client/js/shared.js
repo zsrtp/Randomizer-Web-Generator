@@ -366,7 +366,7 @@
       { id: 'modifyShopModelsCheckbox' },
       { id: 'foolishItemFieldset', bitLength: 3 },
       { id: 'barrenCheckbox' },
-      { id: 'MinesEntranceFieldset', bitLength: 2 },
+      { id: 'goronMinesEntranceFieldset', bitLength: 2 },
       { id: 'lakebedEntranceCheckbox' },
       { id: 'arbitersEntranceCheckbox' },
       { id: 'snowpeakEntranceCheckbox' },
@@ -721,6 +721,20 @@
     processBasic({ id: 'shopModelsShowTheReplacedItem' });
     processBasic({ id: 'trapItemsFrequency', bitLength: 3 });
     processBasic({ id: 'barrenDungeons' });
+    if (version >= 2) {
+      // `goronMinesEntrance` changed from a checkbox to a select
+      processBasic({ id: 'goronMinesEntrance', bitLength: 2 });
+    } else {
+      const goronMinesEntrance = {
+        closed: 0,
+        noWrestling: 1,
+        open: 2,
+      };
+      const skipMinesEntrance = processor.nextBoolean();
+      res.goronMinesEntrance = skipMinesEntrance
+        ? goronMinesEntrance.noWrestling
+        : goronMinesEntrance.closed;
+    }
     processBasic({ id: 'skipLakebedEntrance' });
     processBasic({ id: 'skipArbitersEntrance' });
     processBasic({ id: 'skipSnowpeakEntrance' });
@@ -740,19 +754,6 @@
     if (version >= 1) {
       // `instantText' added as an option in version 1
       processBasic({ id: 'instantText' });
-    }
-
-    if (version >= 2) {
-      // `MineEntrance` changed from a checkbox to a select
-      processBasic({ id: 'MinesEntrance', bitLength: 2 });
-    } else {
-      const MinesEntrance = {
-        closed: 0,
-        NoWrestling : 1,
-        Open : 2,
-      };
-      const MinesOpen = processor.nextBoolean();
-    res.MinesEntrance = MinesOpen ? MinesEntrance.NoWrestling : MinesEntrance.closed;
     }
 
     res.startingItems = processor.nextEolList(9);

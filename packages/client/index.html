@@ -440,8 +440,7 @@
                   name="Instant Text"
                   value=""
                 />
-                <label for="instantTextCheckbox">
-                  Instant Message Text </label
+                <label for="instantTextCheckbox"> Instant Message Text </label
                 ><br />
               </div>
             </fieldset>
@@ -516,21 +515,7 @@
           <div class="tabColumn">
             <fieldset id="dungeonRequirementsFieldset">
               <legend>Dungeon Entrance Settings</legend>
-              
-              <div
-              class="selectGroup"
-              style="margin-top: 8px"
-              data-tooltip-text="'Closed': If checked, Link will  have to wrestle Gor Coron to enter Goron Mines.&#0010;&#0010;'NoWrestling': If checked, Link will not have to wrestle Gor Coron to enter Goron Mines &#0010;&#0010;'Open': all changes of 'NoWrestling' are applied. Additionally, the player will have the rock of dmt moved'"
-              data-tooltip-position="left"
-            >
-              <label for="">Goron Mines Entrance</label
-              ><br />
-              <select name="Goron Mines Entrance" id="MinesEntranceFieldset">
-                <option value="0">Closed</option>
-                <option value="1">NoWrestling </option>
-                <option value="2">Open</option>
-              </select>
-            </div>
+
               <div
                 data-tooltip-text="If checked, the rock in front of the entrance to Lakebed Temple is destroyed.&#0010;"
                 data-tooltip-position="left"
@@ -586,6 +571,22 @@
                 <label for="cityEntranceCheckbox">
                   City Does Not Require Filled Skybook </label
                 ><br />
+              </div>
+              <div
+                class="selectGroup"
+                style="margin-top: 8px"
+                data-tooltip-text="'Closed': The player must wrestle Gor Coron to enter Goron Mines.&#0010;&#0010;'NoWrestling': The player will not have to wrestle Gor Coron to enter Goron Mines.&#0010;&#0010;'Open': All changes of 'NoWrestling' are applied. Additionally, the player will be able to immediately use the elevator to reach the top of Death Mountain."
+                data-tooltip-position="left"
+              >
+                <label for="">Goron Mines Entrance</label><br />
+                <select
+                  name="Goron Mines Entrance"
+                  id="goronMinesEntranceFieldset"
+                >
+                  <option value="0">Closed</option>
+                  <option value="1">NoWrestling</option>
+                  <option value="2">Open</option>
+                </select>
               </div>
               <div
                 class="selectGroup"
