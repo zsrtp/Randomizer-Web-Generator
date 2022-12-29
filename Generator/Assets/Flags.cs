@@ -608,7 +608,7 @@ namespace TPRandomizer.Assets
             /* 9 */RandomizerSettings.mapAndCompassSettings == MapAndCompassSettings.Start_With,
             /* 10 */RandomizerSettings.castleRequirements == CastleRequirements.Open,
             /* 11 */RandomizerSettings.palaceRequirements == PalaceRequirements.Open,
-            /* 12 */RandomizerSettings.goronMinesEntrance == GoronMinesEntrance.NoWrestling,
+            /* 12 */RandomizerSettings.goronMinesEntrance != GoronMinesEntrance.Closed,
             /* 13 */RandomizerSettings.skipLakebedEntrance,
             /* 14 */RandomizerSettings.skipArbitersEntrance,
             /* 15 */RandomizerSettings.skipSnowpeakEntrance,
