@@ -387,8 +387,6 @@ namespace TPRandomizer.Assets
             { 0x3, 0x81 }, // moved death mountain rock to exit
             { 0x3, 0x8F }, // moved death mountain rock to hot spring water
             { 0x3, 0xB0 }, // Goron lets you enter elevator in sumo hall
-           
-
         };
 
         /// <summary>
