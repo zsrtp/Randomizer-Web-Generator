@@ -411,8 +411,8 @@ namespace TPRandomizer
             if (SSettings.modifyShopModels)
                 part2Settings.Add("modifyShopModels", SSettings.modifyShopModels);
 
-            if (SSettings.MinesEntrance != MinesEntrance.Closed)
-                part2Settings.Add("MinesEntrance", SSettings.MinesEntrance);
+            if (SSettings.goronMinesEntrance != GoronMinesEntrance.Closed)
+                part2Settings.Add("goronMinesEntrance", SSettings.goronMinesEntrance);
             if (SSettings.skipLakebedEntrance)
                 part2Settings.Add("skipLakebedEntrance", SSettings.skipLakebedEntrance);
             if (SSettings.skipArbitersEntrance)

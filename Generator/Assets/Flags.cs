@@ -70,8 +70,8 @@ namespace TPRandomizer.Assets
             { 0x9, 0x7E }, // Jovani Chest CS
             { 0x3, 0xA7 }, // Unlock Jumps to top of Sanctuary
             { 0x3, 0x9A }, // Kakariko Village intro CS.
-           // { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
-            { 0xA, 0x7F} , // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
+            // { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
+            { 0xA, 0x7F }, // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
         };
 
         /// <summary>
@@ -382,7 +382,7 @@ namespace TPRandomizer.Assets
             { 0x8, 0x49 }, // Snowpeak summit cs.
             { 0x8, 0x45 }, // Snowpeak Summit intro CS.
         };
-         public static readonly byte[,] OpenDMTRegionFlags = new byte[,]
+        public static readonly byte[,] OpenDMTRegionFlags = new byte[,]
         {
             { 0x3, 0x81 }, // moved death mountain rock to exit
         };
@@ -402,7 +402,7 @@ namespace TPRandomizer.Assets
                 { 7, SmallKeyRegionFlags },
                 { 8, BigKeyRegionFlags },
                 { 9, MapAndCompassRegionFlags },
-                 { 13, OpenLakebedRegionFlags },
+                { 13, OpenLakebedRegionFlags },
                 { 14, OpenArbitersRegionFlags },
                 { 15, OpenSnowpeakRegionFlags },
                 { 16, OpenToTRegionFlags },
@@ -437,7 +437,7 @@ namespace TPRandomizer.Assets
             { 0x38, 0x80 }, // Talked to Jovani after defeating Poe.
             { 0x22, 0x8 }, // Talked to Yeto on top of the mountain after clearing SPR
             { 0x3B, 0x40 }, // Won Snowboard race against Yeto.
-            { 0x2F, 0x80 }, // Talked to Goron outside East Castle Town 
+            { 0x2F, 0x80 }, // Talked to Goron outside East Castle Town
         };
 
         /// <summary>
@@ -606,14 +606,14 @@ namespace TPRandomizer.Assets
             /* 9 */RandomizerSettings.mapAndCompassSettings == MapAndCompassSettings.Start_With,
             /* 10 */RandomizerSettings.castleRequirements == CastleRequirements.Open,
             /* 11 */RandomizerSettings.palaceRequirements == PalaceRequirements.Open,
-            /* 12 */RandomizerSettings.MinesEntrance == MinesEntrance.NoWrestling,
+            /* 12 */RandomizerSettings.goronMinesEntrance == GoronMinesEntrance.NoWrestling,
             /* 13 */RandomizerSettings.skipLakebedEntrance,
             /* 14 */RandomizerSettings.skipArbitersEntrance,
             /* 15 */RandomizerSettings.skipSnowpeakEntrance,
             /* 16 */RandomizerSettings.totEntrance == TotEntrance.Open,
             /* 17 */RandomizerSettings.skipCityEntrance,
             /* 18 */RandomizerSettings.totEntrance == TotEntrance.OpenGrove,
-            /* 19 */RandomizerSettings.MinesEntrance == MinesEntrance.Open,
+            /* 19 */RandomizerSettings.goronMinesEntrance == GoronMinesEntrance.Open,
         };
     }
 }
