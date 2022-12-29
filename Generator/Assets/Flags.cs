@@ -384,7 +384,7 @@ namespace TPRandomizer.Assets
         };
         public static readonly byte[,] OpenDMTRegionFlags = new byte[,]
         {
-            { 0x3, 0x81 }, // moved death mountain rock to exit
+            { 0x3, 0x79 }, // moved death mountain rock to exit
             { 0x3, 0x8F }, // moved death mountain rock to hot spring water
             { 0x3, 0xB0 }, // Goron lets you enter elevator in sumo hall
         };
