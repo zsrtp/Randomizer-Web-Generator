@@ -440,8 +440,7 @@
                   name="Instant Text"
                   value=""
                 />
-                <label for="instantTextCheckbox">
-                  Instant Message Text </label
+                <label for="instantTextCheckbox"> Instant Message Text </label
                 ><br />
               </div>
             </fieldset>
@@ -516,20 +515,7 @@
           <div class="tabColumn">
             <fieldset id="dungeonRequirementsFieldset">
               <legend>Dungeon Entrance Settings</legend>
-              <div
-                data-tooltip-text="If checked, Link will not have to wrestle Gor Coron to enter Goron Mines.&#0010;"
-                data-tooltip-position="left"
-              >
-                <input
-                  type="checkbox"
-                  id="minesEntranceCheckbox"
-                  name="Goron Mines Checkbox"
-                  value=""
-                />
-                <label for="minesEntranceCheckbox">
-                  Mines Does Not Require Wrestling </label
-                ><br />
-              </div>
+
               <div
                 data-tooltip-text="If checked, the rock in front of the entrance to Lakebed Temple is destroyed.&#0010;"
                 data-tooltip-position="left"
@@ -585,6 +571,22 @@
                 <label for="cityEntranceCheckbox">
                   City Does Not Require Filled Skybook </label
                 ><br />
+              </div>
+              <div
+                class="selectGroup"
+                style="margin-top: 8px"
+                data-tooltip-text="'Closed': The player must wrestle Gor Coron to enter Goron Mines.&#0010;&#0010;'No Wrestling': The player will not have to wrestle Gor Coron to enter Goron Mines.&#0010;&#0010;'Open': All changes of 'No Wrestling' are applied. Additionally, the player will be able to immediately use the elevator to reach the top of Death Mountain."
+                data-tooltip-position="left"
+              >
+                <label for="">Goron Mines Entrance</label><br />
+                <select
+                  name="Goron Mines Entrance"
+                  id="goronMinesEntranceFieldset"
+                >
+                  <option value="0">Closed</option>
+                  <option value="1">NoWrestling</option>
+                  <option value="2">Open</option>
+                </select>
               </div>
               <div
                 class="selectGroup"
@@ -821,7 +823,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/b/b2/Randomizer.us.gci"
+                href="https://wiki.tprandomizer.com/images/a/af/Randomizer-1.0.0-b3.us.gci"
                 download
                 ><img class="blackbor flag" src="img/usa.jpg"
               /></a>
@@ -831,7 +833,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/6/6d/Randomizer.eu.gci"
+                href="https://wiki.tprandomizer.com/images/0/06/Randomizer-1.0.0-b3.eu.gci"
                 download
                 ><img class="blackbor flag" src="/img/eur.jpg"
               /></a>
@@ -841,7 +843,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/0/0b/Randomizer.jp.gci"
+                href="https://wiki.tprandomizer.com/images/6/6a/Randomizer-1.0.0-b3.jp.gci"
                 download
                 ><img class="blackbor flag" src="/img/jpn.jpg"
               /></a>
