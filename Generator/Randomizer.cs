@@ -1585,9 +1585,7 @@ namespace TPRandomizer
                 {
                     if (numAttemptsRemaining == 0)
                     {
-                        throw new Exception(
-                            "Could not place dungeon rewards due to exclusion options."
-                        );
+                        throw new ArgumentOutOfRangeException();
                     }
                     currentCheck = dungeonRewards[rnd.Next(dungeonRewards.Count)];
                     currentItem = itemsToBeRandomized[rnd.Next(itemsToBeRandomized.Count)];
