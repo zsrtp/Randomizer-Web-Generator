@@ -1566,6 +1566,7 @@ namespace TPRandomizer
         {
             List<Check> dungeonRewards = new();
             List<Item> itemsToBeRandomized = new();
+            int numAttemptsRemaining = 30;
             itemsToBeRandomized.AddRange(ShuffledDungeonRewards);
             if (itemsToBeRandomized.Count > 0)
             {
@@ -1582,6 +1583,12 @@ namespace TPRandomizer
 
                 while (itemsToBeRandomized.Count > 0)
                 {
+                    if (numAttemptsRemaining == 0)
+                    {
+                        throw new Exception(
+                            "Could not place dungeon rewards due to exclusion options."
+                        );
+                    }
                     currentCheck = dungeonRewards[rnd.Next(dungeonRewards.Count)];
                     currentItem = itemsToBeRandomized[rnd.Next(itemsToBeRandomized.Count)];
 
@@ -1615,6 +1622,7 @@ namespace TPRandomizer
                             && (currentItem == Item.Progressive_Fused_Shadow)
                         )
                         {
+                            numAttemptsRemaining--;
                             continue;
                         }
 
@@ -1624,6 +1632,7 @@ namespace TPRandomizer
                             && (currentItem == Item.Progressive_Mirror_Shard)
                         )
                         {
+                            numAttemptsRemaining--;
                             continue;
                         }
                     }
