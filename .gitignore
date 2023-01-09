@@ -27,6 +27,7 @@ yarn-error.log*
 **/.vs
 **/bin
 **/obj
+**/.config
 
 # Added later
 
