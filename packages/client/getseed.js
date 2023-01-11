@@ -415,15 +415,15 @@
 
   function randomizeCosmetics() {
     var arrayOfCosmeticSettings = [
-      'hTunicHatColorFieldset',
-      'hTunicBodyColorFieldset',
-      'hTunicSkirtColorFieldset',
-      'zTunicHatColorFieldset',
-      'zTunicHelmetColorFieldset',
-      'zTunicBodyColorFieldset',
-      'zTunicScalesColorFieldset',
-      'zTunicBootsColorFieldset',
-      'lanternColorFieldset',
+      'hTunicHatColorFieldsetColorPicker',
+      'hTunicBodyColorFieldsetColorPicker',
+      'hTunicSkirtColorFieldsetColorPicker',
+      'zTunicHatColorFieldsetColorPicker',
+      'zTunicHelmetColorFieldsetColorPicker',
+      'zTunicBodyColorFieldsetColorPicker',
+      'zTunicScalesColorFieldsetColorPicker',
+      'zTunicBootsColorFieldsetColorPicker',
+      'lanternColorFieldsetColorPicker',
       'heartColorFieldset',
       'aButtonColorFieldset',
       'bButtonColorFieldset',
@@ -437,8 +437,27 @@
 
     for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
       var select = document.getElementById(arrayOfCosmeticSettings[i]);
-      var items = select.getElementsByTagName('option');
-      select.selectedIndex = Math.floor(Math.random() * items.length);
+      if (arrayOfCosmeticSettings[i].includes("ColorPicker"))
+      {
+        select.value = '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
+        let elementID = arrayOfCosmeticSettings[i].replace("ColorPicker","");
+        let customColor = document.getElementById(elementID);
+    
+        // Loop through until we find the custom value. Then convert the color picker hext value to the raw hex the generator uses.
+        for(var j = 0, k = customColor.options.length; j < k; ++j) {
+          if(customColor.options[j].innerHTML === "Custom") {
+            customColor.selectedIndex = j;
+            customColor.children[j].setAttribute('data-rgb', "00" + select.value.slice(1)); 
+            select.style.visibility = "visible";
+            break;
+          }
+        }
+      }
+      else
+      {
+        var items = select.getElementsByTagName('option');
+        select.selectedIndex = Math.floor(Math.random() * items.length);
+      }
     }
   }
 
