@@ -1097,7 +1097,7 @@ namespace TPRandomizer
         {
             return (
                 (HasSword() || CanUse(Item.Shadow_Crystal) || ((getItemCount(Item.Progressive_Bow) >= 1) && hasBombs())
-                || (CanDoNicheStuff() && CanUse(Item.Iron_Boots) || CanUse(Item.Ball_and_Chain)))
+                || (CanDoNicheStuff() && CanUse(Item.Ball_and_Chain)))
                 && CanUse(Item.Iron_Boots)
             );
         }
