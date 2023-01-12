@@ -1626,7 +1626,7 @@ namespace TPRandomizer
 
                         if (
                             Randomizer.SSettings.castleRequirements
-                                == CastleRequirements.Fused_Shadows
+                                == CastleRequirements.Mirror_Shards
                             && (currentItem == Item.Progressive_Mirror_Shard)
                         )
                         {
