@@ -1,33 +1,6 @@
 (() => {
   const $ = window.$;
 
-  document.getElementById('hTunicHatColorFieldsetColorPicker').addEventListener("input", ()=> {changeCustomColorFromPicker()});
-  document.getElementById('hTunicHatColorFieldset').addEventListener("change", ()=> {changeColorPickerFromPresetColor()});
-
-  document.getElementById('hTunicBodyColorFieldsetColorPicker').addEventListener("input", ()=> {changeCustomColorFromPicker()});
-  document.getElementById('hTunicBodyColorFieldset').addEventListener("change", ()=> {changeColorPickerFromPresetColor()});
-
-  document.getElementById('hTunicSkirtColorFieldsetColorPicker').addEventListener("input", ()=> {changeCustomColorFromPicker()});
-  document.getElementById('hTunicSkirtColorFieldset').addEventListener("change", ()=> {changeColorPickerFromPresetColor()});
-
-  document.getElementById('zTunicHatColorFieldsetColorPicker').addEventListener("input", ()=> {changeCustomColorFromPicker()});
-  document.getElementById('zTunicHatColorFieldset').addEventListener("change", ()=> {changeColorPickerFromPresetColor()});
-
-  document.getElementById('zTunicHelmetColorFieldsetColorPicker').addEventListener("input", ()=> {changeCustomColorFromPicker()});
-  document.getElementById('zTunicHelmetColorFieldset').addEventListener("change", ()=> {changeColorPickerFromPresetColor()});
-
-  document.getElementById('zTunicBodyColorFieldsetColorPicker').addEventListener("input", ()=> {changeCustomColorFromPicker()});
-  document.getElementById('zTunicBodyColorFieldset').addEventListener("change", ()=> {changeColorPickerFromPresetColor()});
-
-  document.getElementById('zTunicScalesColorFieldsetColorPicker').addEventListener("input", ()=> {changeCustomColorFromPicker()});
-  document.getElementById('zTunicScalesColorFieldset').addEventListener("change", ()=> {changeColorPickerFromPresetColor()});
-
-  document.getElementById('zTunicBootsColorFieldsetColorPicker').addEventListener("input", ()=> {changeCustomColorFromPicker()});
-  document.getElementById('zTunicBootsColorFieldset').addEventListener("change", ()=> {changeColorPickerFromPresetColor()});
-
-  document.getElementById('lanternColorFieldsetColorPicker').addEventListener("input", ()=> {changeCustomColorFromPicker()});
-  document.getElementById('lanternColorFieldset').addEventListener("change", ()=> {changeColorPickerFromPresetColor()});
-
   const SeedGenProgress = {
     Queued: 'Queued',
     Started: 'Started',
@@ -96,41 +69,10 @@
     return /^[a-fA-F0-9]{6}$/.test(str);
   }
 
-  function changeCustomColorFromPicker()
-  {
-    let elementID = event.target.id.replace("ColorPicker","");
-    let customColor = document.getElementById(elementID);
-    
-    // Loop through until we find the custom value. Then convert the color picker hext value to the raw hex the generator uses.
-    for(var i = 0, j = customColor.options.length; i < j; ++i) {
-      if(customColor.options[i].innerHTML === "Custom") {
-        customColor.selectedIndex = i;
-        customColor.children[i].setAttribute('data-rgb', "00" + event.target.value.slice(1)); 
-         break;
-      }
-  }
-
-  }
-
-  function changeColorPickerFromPresetColor()
-  {
-    let elementID = event.target.id.concat("ColorPicker");
-    const selectedOption = event.target.children[event.target.selectedIndex]; 
-    if ((selectedOption.getAttribute('data-rgb') != null) && event.target.selectedIndex != 0) // Don't view the color if the value is default or if there is no valid value.
-    {
-      document.getElementById(elementID).value = '#' + selectedOption.getAttribute('data-rgb').slice(2);
-      document.getElementById(elementID).style.visibility = "visible";
-    }
-    else
-    {
-      document.getElementById(elementID).style.visibility = "hidden";
-    }
-  }
-
   function genTunicRecolorDef(id, recolorId) {
     const select = document.getElementById(id);
     const selectedOption = select.children[select.selectedIndex];
-     return {
+    return {
       recolorId: recolorId,
       rgb: selectedOption.getAttribute('data-rgb'),
     };
@@ -306,6 +248,8 @@
     $('#create').on('click', handleCreateClick);
 
     handleSpoilerData();
+
+    initCustomColorPickers();
   }
 
   function restoreDefaultFcSettings() {
@@ -414,7 +358,7 @@
     .addEventListener('click', randomizeCosmetics);
 
   function randomizeCosmetics() {
-    var arrayOfCosmeticSettings = [
+    const arrayOfCosmeticSettings = [
       'hTunicHatColorFieldsetColorPicker',
       'hTunicBodyColorFieldsetColorPicker',
       'hTunicSkirtColorFieldsetColorPicker',
@@ -436,27 +380,32 @@
     ];
 
     for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
-      var select = document.getElementById(arrayOfCosmeticSettings[i]);
-      if (arrayOfCosmeticSettings[i].includes("ColorPicker"))
-      {
-        select.value = '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
-        let elementID = arrayOfCosmeticSettings[i].replace("ColorPicker","");
-        let customColor = document.getElementById(elementID);
-    
-        // Loop through until we find the custom value. Then convert the color picker hext value to the raw hex the generator uses.
-        for(var j = 0, k = customColor.options.length; j < k; ++j) {
-          if(customColor.options[j].innerHTML === "Custom") {
-            customColor.selectedIndex = j;
-            customColor.children[j].setAttribute('data-rgb', "00" + select.value.slice(1)); 
-            select.style.visibility = "visible";
-            break;
-          }
+      const elId = arrayOfCosmeticSettings[i];
+      const element = document.getElementById(elId);
+
+      if (elId.includes('ColorPicker')) {
+        // Is a custom color input.
+
+        // Set color input's value and trigger 'input' event.
+        const hexValue =
+          '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
+        element.setAttribute('value', hexValue);
+        element.dispatchEvent(new Event('input', { bubbles: true }));
+
+        // Change selected option to be the Custom one.
+        const selectEl = document.getElementById(
+          elId.replace('ColorPicker', '')
+        );
+        const $customOption = $(selectEl).find('option[data-custom-color]');
+        if ($customOption.length > 0) {
+          const customOption = $customOption[0];
+          $(selectEl).val(customOption.value);
+          selectEl.dispatchEvent(new Event('change', { bubbles: true }));
         }
-      }
-      else
-      {
-        var items = select.getElementsByTagName('option');
-        select.selectedIndex = Math.floor(Math.random() * items.length);
+      } else {
+        // Is a plain select with no custom color option.
+        const items = element.getElementsByTagName('option');
+        element.selectedIndex = Math.floor(Math.random() * items.length);
       }
     }
   }
@@ -1738,5 +1687,56 @@
     $('#sectionErrorReturned').toggle(
       pageState === PageStates.generationFailure
     );
+  }
+
+  function handleCustomColorValueChange(hexValue, selectEl) {
+    const $customOption = $(selectEl).find('option[data-custom-color]');
+    if ($customOption.length > 0) {
+      const customOption = $customOption[0];
+      customOption.setAttribute('data-rgb', '00' + hexValue.slice(1));
+    }
+  }
+
+  function handleSelectWithCustomColorOptionChange(e, colorInputEl) {
+    const selectEl = e.target;
+
+    const selectedOption = selectEl.children[selectEl.selectedIndex];
+    const customOption = $(selectEl).find('option[data-custom-color]')[0];
+
+    $(colorInputEl).toggle(
+      Boolean(selectedOption && selectedOption === customOption)
+    );
+  }
+
+  function initCustomColorPickerPair(selectId, colorInputId) {
+    const selectEl = document.getElementById(selectId);
+    const colorInputEl = document.getElementById(colorInputId);
+
+    selectEl.addEventListener('change', (e) => {
+      handleSelectWithCustomColorOptionChange(e, colorInputEl);
+    });
+    colorInputEl.addEventListener('input', (e) => {
+      handleCustomColorValueChange(e.target.value, selectEl);
+    });
+    // Sync data-rgb attribute of custom option with default value of color
+    // input
+    handleCustomColorValueChange(colorInputEl.value, selectEl);
+  }
+
+  function initCustomColorPickers() {
+    [
+      'hTunicHatColorFieldset',
+      'hTunicBodyColorFieldset',
+      'hTunicSkirtColorFieldset',
+      'zTunicHatColorFieldset',
+      'zTunicHelmetColorFieldset',
+      'zTunicBodyColorFieldset',
+      'zTunicScalesColorFieldset',
+      'zTunicBootsColorFieldset',
+      'lanternColorFieldset',
+    ].forEach((selectId) => {
+      const colorInputId = selectId + 'ColorPicker';
+      initCustomColorPickerPair(selectId, colorInputId);
+    });
   }
 })();
