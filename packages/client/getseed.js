@@ -389,6 +389,7 @@
         // Set color input's value and trigger 'input' event.
         const hexValue =
           '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
+        element.value = hexValue;
         element.setAttribute('value', hexValue);
         element.dispatchEvent(new Event('input', { bubbles: true }));
 
@@ -1133,7 +1134,7 @@
         } else if (rgb) {
           const selVal = getVal(id);
           const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
-          const value = $option.data('rgb');
+          const value = $option[0].getAttribute('data-rgb');
 
           return {
             type: RawSettingType.rgb,
@@ -1689,7 +1690,9 @@
     );
   }
 
-  function handleCustomColorValueChange(hexValue, selectEl) {
+  function handleCustomColorValueChange(colorInput, selectEl, hexValue) {
+    colorInput.value = hexValue;
+    colorInput.setAttribute('value', hexValue);
     const $customOption = $(selectEl).find('option[data-custom-color]');
     if ($customOption.length > 0) {
       const customOption = $customOption[0];
@@ -1716,11 +1719,11 @@
       handleSelectWithCustomColorOptionChange(e, colorInputEl);
     });
     colorInputEl.addEventListener('input', (e) => {
-      handleCustomColorValueChange(e.target.value, selectEl);
+      handleCustomColorValueChange(e.target, selectEl, e.target.value);
     });
     // Sync data-rgb attribute of custom option with default value of color
     // input
-    handleCustomColorValueChange(colorInputEl.value, selectEl);
+    handleCustomColorValueChange(colorInputEl, selectEl, colorInputEl.value);
   }
 
   function initCustomColorPickers() {
