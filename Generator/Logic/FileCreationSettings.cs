@@ -37,6 +37,8 @@ namespace TPRandomizer
         public int midnaHairTipsColor { get; }
         public Clr0Entry midnaDomeRingColor { get; }
 
+        public Clr0Entry linkHairColor { get; }
+
         private FileCreationSettings(string bits)
         {
             BitsProcessor processor = new BitsProcessor(bits);
@@ -67,6 +69,7 @@ namespace TPRandomizer
             midnaHairBaseColor = (int)processor.NextInt(4);
             midnaHairTipsColor = (int)processor.NextInt(4);
             midnaDomeRingColor = processor.NextClr0Entry(RecolorId.None);
+            linkHairColor = processor.NextClr0Entry(RecolorId.CMPR);
         }
 
         public static FileCreationSettings FromString(string fcSettingsString)

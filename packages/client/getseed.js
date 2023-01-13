@@ -107,6 +107,9 @@
     recolorDefs.push(
       genTunicRecolorDef('zTunicBootsColorFieldset', RecolorId.zoraArmor)
     );
+    recolorDefs.push(
+      genTunicRecolorDef('linkHairColorFieldset', RecolorId.herosClothes)
+    );
 
     // Process all recolorDefs
     recolorDefs = recolorDefs.filter(function (recolorDef) {
@@ -359,6 +362,7 @@
 
   function randomizeCosmetics() {
     const arrayOfCosmeticSettings = [
+      'linkHairColorFieldsetColorPicker',
       'hTunicHatColorFieldsetColorPicker',
       'hTunicBodyColorFieldsetColorPicker',
       'hTunicSkirtColorFieldsetColorPicker',
@@ -1123,6 +1127,7 @@
         { id: 'midnaHairBaseColorFieldset', bitLength: 4 },
         { id: 'midnaHairTipColorFieldset', bitLength: 4 },
         { id: 'midnaDomeRingColorFieldset', rgb: true },
+        { id: 'linkHairColorFieldset', rgb: true },
       ].map(({ id, bitLength, rgb }) => {
         if (bitLength) {
           // select
@@ -1728,6 +1733,7 @@
 
   function initCustomColorPickers() {
     [
+      'linkHairColorFieldset',
       'hTunicHatColorFieldset',
       'hTunicBodyColorFieldset',
       'hTunicSkirtColorFieldset',
