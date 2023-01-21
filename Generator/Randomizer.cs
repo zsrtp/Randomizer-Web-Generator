@@ -411,8 +411,8 @@ namespace TPRandomizer
             if (SSettings.modifyShopModels)
                 part2Settings.Add("modifyShopModels", SSettings.modifyShopModels);
 
-            if (SSettings.skipMinesEntrance)
-                part2Settings.Add("skipMinesEntrance", SSettings.skipMinesEntrance);
+            if (SSettings.goronMinesEntrance != GoronMinesEntrance.Closed)
+                part2Settings.Add("goronMinesEntrance", SSettings.goronMinesEntrance);
             if (SSettings.skipLakebedEntrance)
                 part2Settings.Add("skipLakebedEntrance", SSettings.skipLakebedEntrance);
             if (SSettings.skipArbitersEntrance)
@@ -1566,6 +1566,7 @@ namespace TPRandomizer
         {
             List<Check> dungeonRewards = new();
             List<Item> itemsToBeRandomized = new();
+            int numAttemptsRemaining = 30;
             itemsToBeRandomized.AddRange(ShuffledDungeonRewards);
             if (itemsToBeRandomized.Count > 0)
             {
@@ -1582,6 +1583,10 @@ namespace TPRandomizer
 
                 while (itemsToBeRandomized.Count > 0)
                 {
+                    if (numAttemptsRemaining == 0)
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
                     currentCheck = dungeonRewards[rnd.Next(dungeonRewards.Count)];
                     currentItem = itemsToBeRandomized[rnd.Next(itemsToBeRandomized.Count)];
 
@@ -1615,15 +1620,17 @@ namespace TPRandomizer
                             && (currentItem == Item.Progressive_Fused_Shadow)
                         )
                         {
+                            numAttemptsRemaining--;
                             continue;
                         }
 
                         if (
                             Randomizer.SSettings.castleRequirements
-                                == CastleRequirements.Fused_Shadows
+                                == CastleRequirements.Mirror_Shards
                             && (currentItem == Item.Progressive_Mirror_Shard)
                         )
                         {
+                            numAttemptsRemaining--;
                             continue;
                         }
                     }

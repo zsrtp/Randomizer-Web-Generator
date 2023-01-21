@@ -107,6 +107,9 @@
     recolorDefs.push(
       genTunicRecolorDef('zTunicBootsColorFieldset', RecolorId.zoraArmor)
     );
+    recolorDefs.push(
+      genTunicRecolorDef('linkHairColorFieldset', RecolorId.herosClothes)
+    );
 
     // Process all recolorDefs
     recolorDefs = recolorDefs.filter(function (recolorDef) {
@@ -248,6 +251,8 @@
     $('#create').on('click', handleCreateClick);
 
     handleSpoilerData();
+
+    initCustomColorPickers();
   }
 
   function restoreDefaultFcSettings() {
@@ -356,16 +361,17 @@
     .addEventListener('click', randomizeCosmetics);
 
   function randomizeCosmetics() {
-    var arrayOfCosmeticSettings = [
-      'hTunicHatColorFieldset',
-      'hTunicBodyColorFieldset',
-      'hTunicSkirtColorFieldset',
-      'zTunicHatColorFieldset',
-      'zTunicHelmetColorFieldset',
-      'zTunicBodyColorFieldset',
-      'zTunicScalesColorFieldset',
-      'zTunicBootsColorFieldset',
-      'lanternColorFieldset',
+    const arrayOfCosmeticSettings = [
+      'linkHairColorFieldsetColorPicker',
+      'hTunicHatColorFieldsetColorPicker',
+      'hTunicBodyColorFieldsetColorPicker',
+      'hTunicSkirtColorFieldsetColorPicker',
+      'zTunicHatColorFieldsetColorPicker',
+      'zTunicHelmetColorFieldsetColorPicker',
+      'zTunicBodyColorFieldsetColorPicker',
+      'zTunicScalesColorFieldsetColorPicker',
+      'zTunicBootsColorFieldsetColorPicker',
+      'lanternColorFieldsetColorPicker',
       'heartColorFieldset',
       'aButtonColorFieldset',
       'bButtonColorFieldset',
@@ -378,9 +384,34 @@
     ];
 
     for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
-      var select = document.getElementById(arrayOfCosmeticSettings[i]);
-      var items = select.getElementsByTagName('option');
-      select.selectedIndex = Math.floor(Math.random() * items.length);
+      const elId = arrayOfCosmeticSettings[i];
+      const element = document.getElementById(elId);
+
+      if (elId.includes('ColorPicker')) {
+        // Is a custom color input.
+
+        // Set color input's value and trigger 'input' event.
+        const hexValue =
+          '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
+        element.value = hexValue;
+        element.setAttribute('value', hexValue);
+        element.dispatchEvent(new Event('input', { bubbles: true }));
+
+        // Change selected option to be the Custom one.
+        const selectEl = document.getElementById(
+          elId.replace('ColorPicker', '')
+        );
+        const $customOption = $(selectEl).find('option[data-custom-color]');
+        if ($customOption.length > 0) {
+          const customOption = $customOption[0];
+          $(selectEl).val(customOption.value);
+          selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      } else {
+        // Is a plain select with no custom color option.
+        const items = element.getElementsByTagName('option');
+        element.selectedIndex = Math.floor(Math.random() * items.length);
+      }
     }
   }
 
@@ -1096,6 +1127,7 @@
         { id: 'midnaHairBaseColorFieldset', bitLength: 4 },
         { id: 'midnaHairTipColorFieldset', bitLength: 4 },
         { id: 'midnaDomeRingColorFieldset', rgb: true },
+        { id: 'linkHairColorFieldset', rgb: true },
       ].map(({ id, bitLength, rgb }) => {
         if (bitLength) {
           // select
@@ -1107,7 +1139,7 @@
         } else if (rgb) {
           const selVal = getVal(id);
           const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
-          const value = $option.data('rgb');
+          const value = $option[0].getAttribute('data-rgb');
 
           return {
             type: RawSettingType.rgb,
@@ -1661,5 +1693,59 @@
     $('#sectionErrorReturned').toggle(
       pageState === PageStates.generationFailure
     );
+  }
+
+  function handleCustomColorValueChange(colorInput, selectEl, hexValue) {
+    colorInput.value = hexValue;
+    colorInput.setAttribute('value', hexValue);
+    const $customOption = $(selectEl).find('option[data-custom-color]');
+    if ($customOption.length > 0) {
+      const customOption = $customOption[0];
+      customOption.setAttribute('data-rgb', '00' + hexValue.slice(1));
+    }
+  }
+
+  function handleSelectWithCustomColorOptionChange(e, colorInputEl) {
+    const selectEl = e.target;
+
+    const selectedOption = selectEl.children[selectEl.selectedIndex];
+    const customOption = $(selectEl).find('option[data-custom-color]')[0];
+
+    $(colorInputEl).toggle(
+      Boolean(selectedOption && selectedOption === customOption)
+    );
+  }
+
+  function initCustomColorPickerPair(selectId, colorInputId) {
+    const selectEl = document.getElementById(selectId);
+    const colorInputEl = document.getElementById(colorInputId);
+
+    selectEl.addEventListener('change', (e) => {
+      handleSelectWithCustomColorOptionChange(e, colorInputEl);
+    });
+    colorInputEl.addEventListener('input', (e) => {
+      handleCustomColorValueChange(e.target, selectEl, e.target.value);
+    });
+    // Sync data-rgb attribute of custom option with default value of color
+    // input
+    handleCustomColorValueChange(colorInputEl, selectEl, colorInputEl.value);
+  }
+
+  function initCustomColorPickers() {
+    [
+      'linkHairColorFieldset',
+      'hTunicHatColorFieldset',
+      'hTunicBodyColorFieldset',
+      'hTunicSkirtColorFieldset',
+      'zTunicHatColorFieldset',
+      'zTunicHelmetColorFieldset',
+      'zTunicBodyColorFieldset',
+      'zTunicScalesColorFieldset',
+      'zTunicBootsColorFieldset',
+      'lanternColorFieldset',
+    ].forEach((selectId) => {
+      const colorInputId = selectId + 'ColorPicker';
+      initCustomColorPickerPair(selectId, colorInputId);
+    });
   }
 })();

@@ -1049,15 +1049,15 @@ window.tpr.checkData = {
     category: ['Chest', 'Dungeon', 'Hyrule Castle', 'ARC'],
     itemId: 'Red_Rupee',
   },
-  'Hyrule Field Ampitheater Owl Statue Chest': {
+  'Hyrule Field Amphitheater Owl Statue Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Orange_Rupee',
   },
-  'Hyrule Field Ampitheater Owl Statue Sky Character': {
+  'Hyrule Field Amphitheater Owl Statue Sky Character': {
     category: ['Overworld', 'Hyrule Field - Lanayru Province', 'Sky Book'],
     itemId: 'Progressive_Sky_Book',
   },
-  'Hyrule Field Ampitheater Poe': {
+  'Hyrule Field Amphitheater Poe': {
     category: ['Overworld', 'Poe', 'Hyrule Field - Lanayru Province'],
     itemId: 'Poe_Soul',
   },

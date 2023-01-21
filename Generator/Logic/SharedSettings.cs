@@ -40,7 +40,7 @@ namespace TPRandomizer
         public bool modifyShopModels { get; set; }
         public TrapFrequency trapFrequency { get; set; }
         public bool barrenDungeons { get; set; }
-        public bool skipMinesEntrance { get; set; }
+        public GoronMinesEntrance goronMinesEntrance { get; set; }
         public bool skipLakebedEntrance { get; set; }
         public bool skipArbitersEntrance { get; set; }
         public bool skipSnowpeakEntrance { get; set; }
@@ -82,7 +82,18 @@ namespace TPRandomizer
             modifyShopModels = processor.NextBool();
             trapFrequency = (TrapFrequency)processor.NextInt(3);
             barrenDungeons = processor.NextBool();
-            skipMinesEntrance = processor.NextBool();
+            if (version >= 2)
+            {
+                // `goronMinesEntrance` changed from a checkbox to a select
+                goronMinesEntrance = (GoronMinesEntrance)processor.NextInt(2);
+            }
+            else
+            {
+                bool skipMinesEntrance = processor.NextBool();
+                goronMinesEntrance = skipMinesEntrance
+                    ? GoronMinesEntrance.NoWrestling
+                    : GoronMinesEntrance.Closed;
+            }
             skipLakebedEntrance = processor.NextBool();
             skipArbitersEntrance = processor.NextBool();
             skipSnowpeakEntrance = processor.NextBool();

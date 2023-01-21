@@ -34,6 +34,7 @@ namespace TPRandomizer.Assets.CLR0
 
             // Create any CMPR texture associations right here.
 
+            // Link
             // Hero's Tunic
             cmprFileModifications.Add(
                 new(fcSettings.hTunicSkirtColor, "al.bmd", "al_lowbody", (byte)ArchiveIndex.Link)
@@ -43,6 +44,10 @@ namespace TPRandomizer.Assets.CLR0
             );
             cmprFileModifications.Add(
                 new(fcSettings.hTunicHatColor, "al_head.bmd", "al_cap", (byte)ArchiveIndex.Link)
+            );
+
+            cmprFileModifications.Add(
+                new(fcSettings.linkHairColor, "al_head.bmd", "al_hair", (byte)ArchiveIndex.Link)
             );
 
             // Zora Armor
@@ -128,6 +133,7 @@ namespace TPRandomizer.Assets.CLR0
             entries.Add(fcSettings.yBtnColor);
             entries.Add(fcSettings.zBtnColor);
             entries.Add(fcSettings.midnaDomeRingColor);
+            entries.Add(fcSettings.linkHairColor);
 
             foreach (Clr0Entry entry in entries)
             {

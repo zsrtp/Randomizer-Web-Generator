@@ -337,7 +337,7 @@
   function genSSettingsFromUi() {
     // Increment the version when you make changes to the format. Need to make
     // sure you don't break backwards compatibility!!
-    const sSettingsVersion = 1;
+    const sSettingsVersion = 2;
 
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
@@ -366,7 +366,7 @@
       { id: 'modifyShopModelsCheckbox' },
       { id: 'foolishItemFieldset', bitLength: 3 },
       { id: 'barrenCheckbox' },
-      { id: 'minesEntranceCheckbox' },
+      { id: 'goronMinesEntranceFieldset', bitLength: 2 },
       { id: 'lakebedEntranceCheckbox' },
       { id: 'arbitersEntranceCheckbox' },
       { id: 'snowpeakEntranceCheckbox' },
@@ -721,7 +721,20 @@
     processBasic({ id: 'shopModelsShowTheReplacedItem' });
     processBasic({ id: 'trapItemsFrequency', bitLength: 3 });
     processBasic({ id: 'barrenDungeons' });
-    processBasic({ id: 'skipMinesEntrance' });
+    if (version >= 2) {
+      // `goronMinesEntrance` changed from a checkbox to a select
+      processBasic({ id: 'goronMinesEntrance', bitLength: 2 });
+    } else {
+      const goronMinesEntrance = {
+        closed: 0,
+        noWrestling: 1,
+        open: 2,
+      };
+      const skipMinesEntrance = processor.nextBoolean();
+      res.goronMinesEntrance = skipMinesEntrance
+        ? goronMinesEntrance.noWrestling
+        : goronMinesEntrance.closed;
+    }
     processBasic({ id: 'skipLakebedEntrance' });
     processBasic({ id: 'skipArbitersEntrance' });
     processBasic({ id: 'skipSnowpeakEntrance' });

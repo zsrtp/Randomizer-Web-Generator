@@ -76,4 +76,11 @@ namespace TPRandomizer.SSettings.Enums
         OpenGrove = 1,
         Open = 2,
     }
+
+    public enum GoronMinesEntrance
+    {
+        Closed = 0,
+        NoWrestling = 1,
+        Open = 2,
+    }
 }
