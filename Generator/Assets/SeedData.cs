@@ -15,8 +15,8 @@ namespace TPRandomizer.Assets
     {
         // See <add_documentation_reference_here> for the flowchart for
         // determining if you should increment the major or minor version.
-        public static readonly UInt16 VersionMajor = 1;
-        public static readonly UInt16 VersionMinor = 2;
+        public static readonly UInt16 VersionMajor = 2;
+        public static readonly UInt16 VersionMinor = 0;
 
         // For convenience. This does not include any sort of leading 'v', so
         // add that where you use this variable if you need it.
@@ -771,20 +771,19 @@ namespace TPRandomizer.Assets
                 Check currentCheck = checkList.Value;
                 if (currentCheck.category.Contains("Hidden Skill"))
                 {
-                    listOfHiddenSkills.AddRange(
-                        Converter.GcBytes(
-                            (UInt16)
-                                short.Parse(
-                                    currentCheck.flag,
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                    listOfHiddenSkills.Add(Converter.GcByte(currentCheck.stageIDX[0]));
+
+                    listOfHiddenSkills.Add(Converter.GcByte(currentCheck.roomIDX));
+                    listOfHiddenSkills.Add(
+                        Converter.GcByte(
+                            byte.Parse(
+                                currentCheck.flag,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
                         )
                     );
-                    listOfHiddenSkills.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
-                    listOfHiddenSkills.AddRange(
-                        Converter.GcBytes((UInt16)currentCheck.lastStageIDX[0])
-                    );
-                    listOfHiddenSkills.AddRange(Converter.GcBytes((UInt16)currentCheck.roomIDX));
+                    listOfHiddenSkills.Add(Converter.GcByte((byte)currentCheck.itemId));
+
                     count++;
                 }
             }

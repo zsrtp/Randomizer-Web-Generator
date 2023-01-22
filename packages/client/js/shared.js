@@ -337,7 +337,7 @@
   function genSSettingsFromUi() {
     // Increment the version when you make changes to the format. Need to make
     // sure you don't break backwards compatibility!!
-    const sSettingsVersion = 2;
+    const sSettingsVersion = 0;
 
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
@@ -721,40 +721,13 @@
     processBasic({ id: 'shopModelsShowTheReplacedItem' });
     processBasic({ id: 'trapItemsFrequency', bitLength: 3 });
     processBasic({ id: 'barrenDungeons' });
-    if (version >= 2) {
-      // `goronMinesEntrance` changed from a checkbox to a select
-      processBasic({ id: 'goronMinesEntrance', bitLength: 2 });
-    } else {
-      const goronMinesEntrance = {
-        closed: 0,
-        noWrestling: 1,
-        open: 2,
-      };
-      const skipMinesEntrance = processor.nextBoolean();
-      res.goronMinesEntrance = skipMinesEntrance
-        ? goronMinesEntrance.noWrestling
-        : goronMinesEntrance.closed;
-    }
+    processBasic({ id: 'goronMinesEntrance', bitLength: 2 });
     processBasic({ id: 'skipLakebedEntrance' });
     processBasic({ id: 'skipArbitersEntrance' });
     processBasic({ id: 'skipSnowpeakEntrance' });
-    if (version >= 1) {
-      // `totEntrance` changed from a checkbox to a select
-      processBasic({ id: 'totEntrance', bitLength: 2 });
-    } else {
-      const totEntrance = {
-        closed: 0,
-        openGrove: 1,
-        open: 2,
-      };
-      const totOpen = processor.nextBoolean();
-      res.totEntrance = totOpen ? totEntrance.open : totEntrance.closed;
-    }
+    processBasic({ id: 'totEntrance', bitLength: 2 });
     processBasic({ id: 'skipCityEntrance' });
-    if (version >= 1) {
-      // `instantText' added as an option in version 1
-      processBasic({ id: 'instantText' });
-    }
+    processBasic({ id: 'instantText' });
 
     res.startingItems = processor.nextEolList(9);
     res.excludedChecks = processor.nextEolList(9);

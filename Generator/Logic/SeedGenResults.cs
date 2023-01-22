@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TPRandomizer.Util;
+using TPRandomizer.Assets;
 
 namespace TPRandomizer
 {
@@ -237,7 +238,10 @@ namespace TPRandomizer
 
             // Just increment "version" whenever you make a change to what this
             // method outputs
-            root.Add("version", "1");
+            root.Add(
+                "version",
+                "s" + Assets.SeedData.VersionMajor + "." + Assets.SeedData.VersionMinor
+            );
 
             if (prettyPrint || dangerouslyPrintFullRaceSpoiler)
             {

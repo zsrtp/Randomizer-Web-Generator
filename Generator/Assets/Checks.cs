@@ -23,9 +23,7 @@ namespace TPRandomizer
         // Data that will be stored in the rando-data .gci file.
         public Item itemId { get; set; } // The original item id of the check. This allows us to make an array of all items in the item pool for randomization purposes. Also is useful for documentation purposes.
 
-        public List<byte> stageIDX { get; set; } // Used by DZX, SHOP, POE, and BOSS checks. The index of the stage where the check is located.
-
-        public List<byte> lastStageIDX { get; set; } // Used by SKILL checks. The index of the previous stage where the player encountered the wolf.
+        public List<byte> stageIDX { get; set; } // Used by DZX, SHOP, POE, SKILL, and BOSS checks. The index of the stage where the check is located.
 
         public byte roomIDX { get; set; } // Used by SKILL checks to determine which wolf is being learned from.
 

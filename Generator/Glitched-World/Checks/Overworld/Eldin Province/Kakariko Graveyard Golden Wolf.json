@@ -1,12 +1,8 @@
 {
-    "requirements": "Shadow_Crystal and Room.Snowpeak_Climb and ((Progressive_Fishing_Rod, 2) or (Setting.skipSnowpeakEntrance equals True) or CanDoMapGlitch) and HasSword and hasShield",
-    "arcOffsets": ["3F54", "3B1C", "4184", "45E4", "43C8", "483C", "4AA8"],
-    "fileDirectoryType": [1,1,1,1,1,1,1],
-    "replacementType": [1,1,1,1,1,1,1],
-    "stageIDX": [64,64,64,64,64,64,64],
-    "lastStageIDX": [48],
+    "requirements": "Shadow_Crystal and Room.Snowpeak_Climb and ((Progressive_Fishing_Rod, 2) or (Setting.skipSnowpeakEntrance equals True) or CanDoMapGlitch)",
+    "stageIDX": [48],
     "roomIDX": 0,
-    "flag": "3E0",
-    "category": ["Overworld", "Hidden Skill", "Kakariko Graveyard", "ARC"],
+    "flag": "9F",
+    "category": ["Overworld", "Hidden Skill", "Kakariko Graveyard"],
     "itemId": "Progressive_Hidden_Skill"
 }

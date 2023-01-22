@@ -1,12 +1,8 @@
 {
-    "requirements": "HasSword and hasShield",
-    "arcOffsets": ["3F54", "3B1C", "4184", "45E4", "43C8", "483C", "4AA8"],
-    "fileDirectoryType": [1,1,1,1,1,1,1],
-    "replacementType": [1,1,1,1,1,1,1],
-    "stageIDX": [64,64,64,64,64,64,64],
-    "lastStageIDX": [45],
+    "requirements": "true",
+    "stageIDX": [45],
     "roomIDX": 6,
-    "flag": "3D6",
-    "category": ["Overworld", "Hidden Skill", "Faron Woods", "ARC"],
+    "flag": "9F",
+    "category": ["Overworld", "Hidden Skill", "Faron Woods"],
     "itemId": "Progressive_Hidden_Skill"
 }
