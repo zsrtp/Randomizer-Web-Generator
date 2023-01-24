@@ -373,6 +373,7 @@
       { id: 'totEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
       { id: 'instantTextCheckbox' },
+      { id: 'OpenMapCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -728,6 +729,7 @@
     processBasic({ id: 'totEntrance', bitLength: 2 });
     processBasic({ id: 'skipCityEntrance' });
     processBasic({ id: 'instantText' });
+    processBasic({ id: 'OpenMap' })
 
     res.startingItems = processor.nextEolList(9);
     res.excludedChecks = processor.nextEolList(9);

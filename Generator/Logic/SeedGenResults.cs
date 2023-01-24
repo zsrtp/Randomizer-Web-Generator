@@ -332,6 +332,7 @@ namespace TPRandomizer
             result.Add("totEntrance", sSettings.totEntrance.ToString());
             result.Add("skipCityEntrance", sSettings.skipCityEntrance);
             result.Add("instantText", sSettings.instantText);
+            result.Add("OpenMap",sSettings.OpenMap);
 
             result.Add("startingItems", sSettings.startingItems);
             result.Add("excludedChecks", sSettings.excludedChecks);

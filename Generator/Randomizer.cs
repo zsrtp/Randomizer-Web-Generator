@@ -425,6 +425,8 @@ namespace TPRandomizer
                 part2Settings.Add("skipCityEntrance", SSettings.skipCityEntrance);
             if (SSettings.instantText)
                 part2Settings.Add("instantText", SSettings.instantText);
+            if (SSettings.OpenMap)
+                part2Settings.Add("OpenMap", SSettings.OpenMap);
 
             // Complex fields
             if (SSettings.startingItems?.Count > 0)
@@ -686,6 +688,8 @@ namespace TPRandomizer
 
             startingRoom.Visited = true;
             playthroughGraph.Add(startingRoom);
+            if(Randomizer.SSettings.OpenMap)
+            {
 
             if (Randomizer.SSettings.faronTwilightCleared)
             {
@@ -759,6 +763,7 @@ namespace TPRandomizer
                     playthroughGraph.Add(availableRoom);
                     availableRoom.Visited = true;
                 }
+            }
             }
 
             // Build the world by parsing through each room, linking their neighbours, and setting the logic for the checks in the room to reflect the world.
