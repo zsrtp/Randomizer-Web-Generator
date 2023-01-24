@@ -207,6 +207,28 @@ namespace TPRandomizer.Assets
             seedHeader.Add(Converter.GcByte(randomizerSettings.quickTransform ? 1 : 0));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirements));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.palaceRequirements));
+            int mapBits = 0;
+            bool[] mapFlags = new bool[]
+            {
+                false,
+                randomizerSettings.skipSnowpeakEntrance,
+                false,
+                randomizerSettings.lanayruTwilightCleared,
+                randomizerSettings.eldinTwilightCleared,
+                randomizerSettings.faronTwilightCleared,
+                false,
+                false,
+            };
+            for (int i = 0; i < mapFlags.GetLength(0); i++)
+            {
+                if (mapFlags[i])
+                {
+                    mapBits |= (0x80 >> i);
+                }
+            }
+
+            seedHeader.Add(Converter.GcByte(mapBits));
+
             while (seedHeader.Count < (SeedHeaderSize))
             {
                 seedHeader.Add((byte)0x0);
@@ -264,6 +286,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.lanayruTwilightCleared,
                 randomizerSettings.skipMinorCutscenes,
                 randomizerSettings.skipMdh,
+                true, //map bits
             };
             bool[] oneTimePatchSettingsArray =
             {
