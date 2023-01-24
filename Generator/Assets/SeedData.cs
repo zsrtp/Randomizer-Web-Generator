@@ -286,7 +286,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.lanayruTwilightCleared,
                 randomizerSettings.skipMinorCutscenes,
                 randomizerSettings.skipMdh,
-                true, //map bits
+                randomizerSettings.OpenMap //map bits
             };
             bool[] oneTimePatchSettingsArray =
             {
