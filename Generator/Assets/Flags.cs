@@ -72,6 +72,7 @@ namespace TPRandomizer.Assets
             { 0x3, 0x9A }, // Kakariko Village intro CS.
             // { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
             { 0xA, 0x7F }, // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
+
         };
 
         /// <summary>
@@ -248,6 +249,8 @@ namespace TPRandomizer.Assets
             { 0x18, 0x94 }, // BK Gate opened in HC.
             { 0x13, 0x9C }, // Main room poes taking flames cs.
             { 0x13, 0x9A }, // Close poe door
+            { 0x15, 0x54 }, // statue getting possessed for the first time cs
+            { 0x7,  0x43 }, // cs after pushing block human
         };
 
         public static readonly byte[,] SmallKeyRegionFlags = new byte[,]
