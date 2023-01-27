@@ -374,6 +374,7 @@
       { id: 'cityEntranceCheckbox' },
       { id: 'instantTextCheckbox' },
       { id: 'OpenMapCheckbox' },
+      { id: 'spinnerSpeedCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -757,8 +758,9 @@
       processBasic({ id: 'instantText' });
     }
     if (version >= 3) {
-      // `openMap' added as an option in version 3
+      // `openMap' and 'spinnerSpeed' were added as options in version 3
     processBasic({ id: 'OpenMap' });
+    processBasic({ id: 'increaseSpinnerSpeed' });
     }
 
     res.startingItems = processor.nextEolList(9);
