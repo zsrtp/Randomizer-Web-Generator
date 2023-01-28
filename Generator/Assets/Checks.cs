@@ -449,29 +449,10 @@ namespace TPRandomizer
             }
             else
             {
-                Randomizer.Checks.CheckDict["Uli Cradle Delivery"].checkStatus = "Excluded";
-                Randomizer.Checks.CheckDict["Ordon Cat Rescue"].checkStatus = "Excluded";
                 Randomizer.Items.RandomizedImportantItems.Remove(Item.North_Faron_Woods_Gate_Key);
                 Randomizer.Items.RandomizedDungeonRegionItems.Remove(
                     Item.North_Faron_Woods_Gate_Key
                 );
-            }
-
-            if (parseSetting.faronTwilightCleared)
-            {
-                Randomizer.Checks.CheckDict["Ordon Sword"].checkStatus = "Excluded";
-                Randomizer.Checks.CheckDict["Ordon Shield"].checkStatus = "Excluded";
-            }
-            else
-            {
-                Randomizer.Items.RandomizedImportantItems.Remove(
-                    Randomizer.Checks.CheckDict["Ordon Sword"].itemId
-                );
-                Randomizer.Checks.CheckDict["Ordon Sword"].checkStatus = "Vanilla";
-                Randomizer.Items.RandomizedImportantItems.Remove(
-                    Randomizer.Checks.CheckDict["Ordon Shield"].itemId
-                );
-                Randomizer.Checks.CheckDict["Ordon Shield"].checkStatus = "Vanilla";
             }
 
             // Vanilla until all of the flag issues are figured out.
