@@ -295,6 +295,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.modifyShopModels,
                 fcSettings.disableEnemyBgm,
                 randomizerSettings.instantText,
+                randomizerSettings.increaseSpinnerSpeed,
             };
             int patchOptions = 0x0;
             int bitwiseOperator = 0;
@@ -797,15 +798,8 @@ namespace TPRandomizer.Assets
                     listOfHiddenSkills.Add(Converter.GcByte(currentCheck.stageIDX[0]));
 
                     listOfHiddenSkills.Add(Converter.GcByte(currentCheck.roomIDX));
-                    listOfHiddenSkills.Add(
-                        Converter.GcByte(
-                            byte.Parse(
-                                currentCheck.flag,
-                                System.Globalization.NumberStyles.HexNumber
-                            )
-                        )
-                    );
                     listOfHiddenSkills.Add(Converter.GcByte((byte)currentCheck.itemId));
+                    listOfHiddenSkills.Add(Converter.GcByte(0x0)); // padding
 
                     count++;
                 }
