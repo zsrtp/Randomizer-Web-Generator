@@ -438,16 +438,7 @@ namespace TPRandomizer
                 }
             }
 
-            if (!parseSetting.skipPrologue)
-            {
-                // We want to set Uli Cradle Delivery vanilla if intro is not skipped since a Fishing Rod has to be there in order to progress the seed.
-                // We also place the Lantern vanilla because it is a big logic hole and since we don't know how to make coro give both items in one state yet, it's safer to do this.
-                Randomizer.Checks.CheckDict["Uli Cradle Delivery"].checkStatus = "Vanilla";
-                Randomizer.Items.RandomizedImportantItems.Remove(
-                    Randomizer.Checks.CheckDict["Uli Cradle Delivery"].itemId
-                );
-            }
-            else
+            if (parseSetting.skipPrologue)
             {
                 Randomizer.Items.RandomizedImportantItems.Remove(Item.North_Faron_Woods_Gate_Key);
                 Randomizer.Items.RandomizedDungeonRegionItems.Remove(
