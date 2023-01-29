@@ -693,82 +693,81 @@ namespace TPRandomizer
 
             startingRoom.Visited = true;
             playthroughGraph.Add(startingRoom);
-            if(Randomizer.SSettings.OpenMap)
+            if (Randomizer.SSettings.OpenMap)
             {
-
-            if (Randomizer.SSettings.faronTwilightCleared)
-            {
-                if (LogicFunctions.CanUse(Item.Shadow_Crystal))
+                if (Randomizer.SSettings.faronTwilightCleared)
                 {
-                    availableRoom = Randomizer.Rooms.RoomDict["South Faron Woods"];
-                    playthroughGraph.Add(availableRoom);
-                    availableRoom.Visited = true;
+                    if (LogicFunctions.CanUse(Item.Shadow_Crystal))
+                    {
+                        availableRoom = Randomizer.Rooms.RoomDict["South Faron Woods"];
+                        playthroughGraph.Add(availableRoom);
+                        availableRoom.Visited = true;
 
-                    availableRoom = Randomizer.Rooms.RoomDict["North Faron Woods"];
-                    playthroughGraph.Add(availableRoom);
-                    availableRoom.Visited = true;
+                        availableRoom = Randomizer.Rooms.RoomDict["North Faron Woods"];
+                        playthroughGraph.Add(availableRoom);
+                        availableRoom.Visited = true;
+                    }
                 }
-            }
 
-            if (Randomizer.SSettings.eldinTwilightCleared)
-            {
-                if (LogicFunctions.CanUse(Item.Shadow_Crystal))
+                if (Randomizer.SSettings.eldinTwilightCleared)
                 {
-                    availableRoom = Randomizer.Rooms.RoomDict["Kakariko Village"];
-                    playthroughGraph.Add(availableRoom);
-                    availableRoom.Visited = true;
+                    if (LogicFunctions.CanUse(Item.Shadow_Crystal))
+                    {
+                        availableRoom = Randomizer.Rooms.RoomDict["Kakariko Village"];
+                        playthroughGraph.Add(availableRoom);
+                        availableRoom.Visited = true;
 
-                    availableRoom = Randomizer.Rooms.RoomDict["Eldin Field"];
-                    playthroughGraph.Add(availableRoom);
-                    availableRoom.Visited = true;
+                        availableRoom = Randomizer.Rooms.RoomDict["Eldin Field"];
+                        playthroughGraph.Add(availableRoom);
+                        availableRoom.Visited = true;
 
-                    availableRoom = Randomizer.Rooms.RoomDict["Kakariko Gorge"];
-                    playthroughGraph.Add(availableRoom);
-                    availableRoom.Visited = true;
+                        availableRoom = Randomizer.Rooms.RoomDict["Kakariko Gorge"];
+                        playthroughGraph.Add(availableRoom);
+                        availableRoom.Visited = true;
 
-                    availableRoom = Randomizer.Rooms.RoomDict["Death Mountain Volcano"];
-                    playthroughGraph.Add(availableRoom);
-                    availableRoom.Visited = true;
+                        availableRoom = Randomizer.Rooms.RoomDict["Death Mountain Volcano"];
+                        playthroughGraph.Add(availableRoom);
+                        availableRoom.Visited = true;
+                    }
                 }
-            }
 
-            if (Randomizer.SSettings.lanayruTwilightCleared)
-            {
-                if (LogicFunctions.CanUse(Item.Shadow_Crystal))
+                if (Randomizer.SSettings.lanayruTwilightCleared)
                 {
-                    availableRoom = Randomizer.Rooms.RoomDict["Lake Hylia"];
-                    playthroughGraph.Add(availableRoom);
-                    availableRoom.Visited = true;
+                    if (LogicFunctions.CanUse(Item.Shadow_Crystal))
+                    {
+                        availableRoom = Randomizer.Rooms.RoomDict["Lake Hylia"];
+                        playthroughGraph.Add(availableRoom);
+                        availableRoom.Visited = true;
 
-                    availableRoom = Randomizer.Rooms.RoomDict["Outside Castle Town West"];
-                    playthroughGraph.Add(availableRoom);
-                    availableRoom.Visited = true;
+                        availableRoom = Randomizer.Rooms.RoomDict["Outside Castle Town West"];
+                        playthroughGraph.Add(availableRoom);
+                        availableRoom.Visited = true;
 
-                    availableRoom = Randomizer.Rooms.RoomDict["Zoras Domain"];
-                    playthroughGraph.Add(availableRoom);
-                    availableRoom.Visited = true;
+                        availableRoom = Randomizer.Rooms.RoomDict["Zoras Domain"];
+                        playthroughGraph.Add(availableRoom);
+                        availableRoom.Visited = true;
+                    }
                 }
-            }
 
-            if (Randomizer.SSettings.skipSnowpeakEntrance)
-            {
-                if (LogicFunctions.CanUse(Item.Shadow_Crystal))
+                if (Randomizer.SSettings.skipSnowpeakEntrance)
                 {
-                    availableRoom = Randomizer.Rooms.RoomDict["Snowpeak Summit"];
-                    playthroughGraph.Add(availableRoom);
-                    availableRoom.Visited = true;
+                    if (LogicFunctions.CanUse(Item.Shadow_Crystal))
+                    {
+                        availableRoom = Randomizer.Rooms.RoomDict["Snowpeak Summit"];
+                        playthroughGraph.Add(availableRoom);
+                        availableRoom.Visited = true;
+                    }
                 }
-            }
 
-            if (Randomizer.SSettings.totEntrance != TotEntrance.Closed)
-            {
-                if (LogicFunctions.CanUse(Item.Shadow_Crystal))
+                if (Randomizer.SSettings.totEntrance != TotEntrance.Closed)
                 {
-                    availableRoom = Randomizer.Rooms.RoomDict["Sacred Grove Master Sword"];
-                    playthroughGraph.Add(availableRoom);
-                    availableRoom.Visited = true;
+                    if (LogicFunctions.CanUse(Item.Shadow_Crystal))
+                    {
+                        availableRoom = Randomizer.Rooms.RoomDict["Sacred Grove Master Sword"];
+                        playthroughGraph.Add(availableRoom);
+                        availableRoom.Visited = true;
+                    }
                 }
-            }
             }
 
             // Build the world by parsing through each room, linking their neighbours, and setting the logic for the checks in the room to reflect the world.
@@ -1037,7 +1036,9 @@ namespace TPRandomizer
                                         {
                                             playthroughItems.Add(currentCheck.itemId);
 
-                                            // Console.WriteLine("Added " + currentCheck.itemId + " to item list.");
+                                            /*Console.WriteLine(
+                                                "Added " + currentCheck.itemId + " to item list."
+                                            );*/
                                         }
                                         else
                                         {

@@ -60,7 +60,6 @@ namespace TPRandomizer
                 {
                     ParseBoolean();
                 }
-
                 return boolean;
             }
 

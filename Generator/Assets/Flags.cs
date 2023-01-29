@@ -15,11 +15,11 @@ namespace TPRandomizer.Assets
         {
             { 0x2, 0x46 }, // Midna jump 1 mist area.
             { 0x2, 0x47 }, // Midna jump 1 mist area.
-            { 0x0, 0x47 }, // Picked Up Ordon Sword.
-            { 0x0, 0x45 }, // Picked up Ordon Shield.
             { 0x2, 0x5D }, // North Faron Portal.
             { 0x2, 0x98 }, // South Faron Portal.
             { 0x0, 0x6B }, // Ordon Spring Portal.
+            { 0x0, 0x44 }, // Midna Text after Ordon Shield (Spawns sword)
+            { 0x0, 0x46 }, // Midna Text after Ordon Sword
         };
 
         /// <summary>
@@ -70,9 +70,8 @@ namespace TPRandomizer.Assets
             { 0x9, 0x7E }, // Jovani Chest CS
             { 0x3, 0xA7 }, // Unlock Jumps to top of Sanctuary
             { 0x3, 0x9A }, // Kakariko Village intro CS.
-            // { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
             { 0xA, 0x7F }, // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
-
+            { 0x0, 0x7E }, // Midna jumps to Shop unlocked
         };
 
         /// <summary>
@@ -250,7 +249,7 @@ namespace TPRandomizer.Assets
             { 0x13, 0x9C }, // Main room poes taking flames cs.
             { 0x13, 0x9A }, // Close poe door
             { 0x15, 0x54 }, // statue getting possessed for the first time cs
-            { 0x7,  0x43 }, // cs after pushing block human
+            { 0x7, 0x43 }, // cs after pushing block human
         };
 
         public static readonly byte[,] SmallKeyRegionFlags = new byte[,]
@@ -429,6 +428,7 @@ namespace TPRandomizer.Assets
         public static readonly byte[,] BaseRandomizerEventFlags = new byte[,]
         {
             { 0x6, 0x9 }, // Tame Epona, KB1 trigger activated
+            { 0x12, 0x8 }, // Can use Sera's Shop.
             { 0x14, 0x10 }, // Put Bo outside, ready to wrestle
             { 0xA, 0x2F }, // Bridge of Eldin Stolen, KB1 defeated, KB1 started
             { 0xF, 0x9 }, // Bridge of Eldin Warped Back, coro gave lantern
@@ -492,13 +492,11 @@ namespace TPRandomizer.Assets
         {
             { 0x4, 0x4 }, // Talked to Uli Day 1.
             { 0x45, 0x10 }, // Saved Talo
-            { 0x10, 0x1 }, // Cat got Fish
             { 0x3, 0x2 }, // Gave Wooden Sword to Talo
             { 0x4A, 0x60 }, // Completed Ordon Day 1 and Finished Sword Training.
             { 0x16, 0x1 }, // Completed Ordon Day 2.
             { 0x15, 0x80 }, // Watched CS for Goats 2 Done.
             { 0x46, 0x10 }, // Rode Epona back to Link's House
-            { 0x12, 0x8 }, // Can use Sera's Shop.
         };
 
         public static readonly byte[,] CutsceneEventFlags = new byte[,]
