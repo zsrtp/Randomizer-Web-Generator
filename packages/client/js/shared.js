@@ -375,6 +375,7 @@
       { id: 'instantTextCheckbox' },
       { id: 'OpenMapCheckbox' },
       { id: 'spinnerSpeedCheckbox' },
+      { id: 'opendotCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -758,9 +759,10 @@
       processBasic({ id: 'instantText' });
     }
     if (version >= 3) {
-      // `openMap' and 'spinnerSpeed' were added as options in version 3
+      // `openMap' and 'spinnerSpeed' and 'opendot' were added as options in version 3
     processBasic({ id: 'OpenMap' });
     processBasic({ id: 'increaseSpinnerSpeed' });
+    processBasic({ id: 'opendot' });
     }
 
     res.startingItems = processor.nextEolList(9);
