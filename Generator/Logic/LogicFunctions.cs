@@ -1093,12 +1093,17 @@ namespace TPRandomizer
         /// <summary>
         /// summary text.
         /// </summary>
-          public static bool CanDefeatDangoro()
+        public static bool CanDefeatDangoro()
         {
             return (
-                (HasSword() || CanUse(Item.Shadow_Crystal)
-                || (CanDoNicheStuff() && CanUse(Item.Ball_and_Chain)|| ((getItemCount(Item.Progressive_Bow) >= 1) && hasBombs())))
-                && CanUse(Item.Iron_Boots)
+                (
+                    HasSword()
+                    || CanUse(Item.Shadow_Crystal)
+                    || (
+                        CanDoNicheStuff() && CanUse(Item.Ball_and_Chain)
+                        || ((getItemCount(Item.Progressive_Bow) >= 1) && hasBombs())
+                    )
+                ) && CanUse(Item.Iron_Boots)
             );
         }
 

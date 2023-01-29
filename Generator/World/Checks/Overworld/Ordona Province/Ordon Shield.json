@@ -1,5 +1,10 @@
 {
-  "requirements": "CanCompleteIntro",
-  "category": [ "Overworld", "Ordona Province" ],
+  "requirements": "((Setting.faronTwilightCleared equals False) and CanCompleteIntro) or ((Setting.faronTwilightCleared equals True) and Shadow_Crystal)",
+  "moduleID": ["26B"],
+  "stageIDX": [65],
+  "relOffsets": ["13A8"],
+  "overrideInstruction": ["38800000"],
+  "relReplacementType": [0],
+  "category": [ "Overworld", "Ordona Province", "REL" ],
   "itemId": "Ordon_Shield"
 }

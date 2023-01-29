@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Fishing_Rod, 1) or (Setting.skipPrologue equals True)",
+    "requirements": "true",
     "arcOffsets": ["26A7"],
     "stageIDX": [65],
     "fileDirectoryType": [1],
@@ -7,4 +7,4 @@
     "flag": "10",
     "category": ["Overworld", "Shop", "Ordona Province", "ARC"],
     "itemId": "Slingshot"
-}
+} 
