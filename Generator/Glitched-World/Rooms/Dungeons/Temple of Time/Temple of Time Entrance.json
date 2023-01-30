@@ -8,7 +8,7 @@
   "NeighbourRequirements": [
     "true",
     "((Temple_of_Time_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
-    "(Progressive_Dominion_Rod, 1) and (Progressive_Bow, 1) and Spinner and CanDefeatLizalfos and CanDefeatDinalfos and CanDefeatDarknut and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy) or (Setting.opendot equals True))"
+    "((Progressive_Dominion_Rod, 1) and (Progressive_Bow, 1) and Spinner and CanDefeatLizalfos and CanDefeatDinalfos and CanDefeatDarknut and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))) or (Setting.OpenDot equals True)"
   ],
     "Checks": 
     [
