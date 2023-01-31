@@ -334,6 +334,7 @@ namespace TPRandomizer
             result.Add("instantText", sSettings.instantText);
             result.Add("OpenMap", sSettings.OpenMap);
             result.Add("increaseSpinnerSpeed", sSettings.increaseSpinnerSpeed);
+            result.Add("opendot",sSettings.OpenDot);
 
             result.Add("startingItems", sSettings.startingItems);
             result.Add("excludedChecks", sSettings.excludedChecks);

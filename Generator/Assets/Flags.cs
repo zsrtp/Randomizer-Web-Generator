@@ -390,6 +390,13 @@ namespace TPRandomizer.Assets
             { 0x3, 0x8F }, // moved death mountain rock to hot spring water
             { 0x3, 0xB0 }, // Goron lets you enter elevator in sumo hall
         };
+        public static readonly byte[,] OpenDotRegionFlags = new byte[,]
+        {
+            { 0x15, 0x59 }, // deactivate statue slot in room 1 (opens door and deactivates statue)
+            { 0x15, 0x80 }, // open big door in room 1 cs part 2
+            { 0x15, 0x81 }, // open big door in room 1 cs part 1
+        };
+
 
         /// <summary>
         /// summary text.
@@ -412,6 +419,7 @@ namespace TPRandomizer.Assets
                 { 16, OpenToTRegionFlags },
                 { 18, OpenGroveRegionFlags },
                 { 19, OpenDMTRegionFlags },
+                { 20, OpenDotRegionFlags},
             };
 
         /// <summary>
@@ -618,6 +626,8 @@ namespace TPRandomizer.Assets
             /* 17 */RandomizerSettings.skipCityEntrance,
             /* 18 */RandomizerSettings.totEntrance == TotEntrance.OpenGrove,
             /* 19 */RandomizerSettings.goronMinesEntrance == GoronMinesEntrance.Open,
+            /* 20 */ RandomizerSettings.OpenDot,
+
         };
     }
 }

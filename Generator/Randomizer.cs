@@ -427,6 +427,11 @@ namespace TPRandomizer
                 part2Settings.Add("instantText", SSettings.instantText);
             if (SSettings.OpenMap)
                 part2Settings.Add("OpenMap", SSettings.OpenMap);
+            if (SSettings.increaseSpinnerSpeed)
+                part2Settings.Add("increaseSpinnerSpeed", SSettings.increaseSpinnerSpeed);
+            if (SSettings.OpenDot)
+                part2Settings.Add("opendot", SSettings.OpenDot);
+
 
             // Complex fields
             if (SSettings.startingItems?.Count > 0)
