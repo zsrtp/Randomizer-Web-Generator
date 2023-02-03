@@ -429,9 +429,8 @@ namespace TPRandomizer
                 part2Settings.Add("OpenMap", SSettings.OpenMap);
             if (SSettings.increaseSpinnerSpeed)
                 part2Settings.Add("increaseSpinnerSpeed", SSettings.increaseSpinnerSpeed);
-            if (SSettings.OpenDot)
-                part2Settings.Add("opendot", SSettings.OpenDot);
-
+            if (SSettings.openDot)
+                part2Settings.Add("openDot", SSettings.openDot);
 
             // Complex fields
             if (SSettings.startingItems?.Count > 0)
@@ -714,10 +713,6 @@ namespace TPRandomizer
                     if (LogicFunctions.CanUse(Item.Shadow_Crystal))
                     {
                         availableRoom = Randomizer.Rooms.RoomDict["Kakariko Village"];
-                        playthroughGraph.Add(availableRoom);
-                        availableRoom.Visited = true;
-
-                        availableRoom = Randomizer.Rooms.RoomDict["Eldin Field"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
 

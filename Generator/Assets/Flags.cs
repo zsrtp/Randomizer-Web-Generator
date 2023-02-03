@@ -369,6 +369,7 @@ namespace TPRandomizer.Assets
             { 0x7, 0xBB }, // Sacred Grove Portal
             { 0x7, 0x5B }, // Block pushed down
             { 0x7, 0x42 }, // Midna text after block pushed down
+            { 0x7, 0x43 }, // cs after pushing block human
         };
         public static readonly byte[,] OpenGroveRegionFlags = new byte[,]
         {
@@ -377,6 +378,7 @@ namespace TPRandomizer.Assets
             { 0x7, 0xBB }, // Sacred Grove Portal
             { 0x7, 0x5B }, // Block pushed down
             { 0x7, 0x42 }, // Midna text after block pushed down
+            { 0x7, 0x43 }, // cs after pushing block human
         };
         public static readonly byte[,] OpenSnowpeakRegionFlags = new byte[,]
         {
@@ -396,7 +398,6 @@ namespace TPRandomizer.Assets
             { 0x15, 0x80 }, // open big door in room 1 cs part 2
             { 0x15, 0x81 }, // open big door in room 1 cs part 1
         };
-
 
         /// <summary>
         /// summary text.
@@ -419,7 +420,7 @@ namespace TPRandomizer.Assets
                 { 16, OpenToTRegionFlags },
                 { 18, OpenGroveRegionFlags },
                 { 19, OpenDMTRegionFlags },
-                { 20, OpenDotRegionFlags},
+                { 20, OpenDotRegionFlags },
             };
 
         /// <summary>
@@ -510,6 +511,7 @@ namespace TPRandomizer.Assets
             { 0x5E, 0x10 }, // Midna text after beating Forest Temple.
             { 0x1D, 0x40 }, // Listened to Fyer at drained lake.
             { 0x22, 0x1 }, // Plumm initial CS watched.
+            { 0x23, 0x10 }, // STAR initial CS watched.
             { 0x26, 0x2 }, // Talked to Yeto on Snowpeak.
             { 0x28, 0x40 }, // Used Ooccoo for the first time.
             { 0x37, 0x4 }, // Postman twilight text.
@@ -626,8 +628,7 @@ namespace TPRandomizer.Assets
             /* 17 */RandomizerSettings.skipCityEntrance,
             /* 18 */RandomizerSettings.totEntrance == TotEntrance.OpenGrove,
             /* 19 */RandomizerSettings.goronMinesEntrance == GoronMinesEntrance.Open,
-            /* 20 */ RandomizerSettings.OpenDot,
-
+            /* 20 */RandomizerSettings.openDot,
         };
     }
 }

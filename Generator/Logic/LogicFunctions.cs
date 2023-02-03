@@ -1616,6 +1616,14 @@ namespace TPRandomizer
             );
         }
 
+        public static bool canClearForest()
+        {
+            return (
+                canCompleteForestTemple()
+                || (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Open)
+            );
+        }
+
         /// <summary>
         /// Can complete Eldin twilight
         /// </summary>
