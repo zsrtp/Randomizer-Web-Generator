@@ -1,5 +1,5 @@
 {
-  "requirements": "((Setting.faronTwilightCleared equals False) and CanCompleteIntro) or ((Setting.faronTwilightCleared equals True) and Shadow_Crystal)",
+  "requirements": "((Setting.faronTwilightCleared equals False) and canCompletePrologue) or ((Setting.faronTwilightCleared equals True) and Shadow_Crystal)",
   "moduleID": ["26B"],
   "stageIDX": [65],
   "relOffsets": ["13A8"],

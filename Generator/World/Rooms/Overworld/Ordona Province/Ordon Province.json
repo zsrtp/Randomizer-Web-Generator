@@ -7,7 +7,7 @@
     "NeighbourRequirements":
     [
         "(HasSword and Slingshot) or (Setting.skipPrologue equals True)",
-        "CanCompleteIntro and Shadow_Crystal"
+        "canCompletePrologue and Shadow_Crystal"
     ],
     "Checks":
     [
