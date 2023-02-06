@@ -373,7 +373,7 @@
       { id: 'totEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
       { id: 'instantTextCheckbox' },
-      { id: 'OpenMapCheckbox' },
+      { id: 'openMapCheckbox' },
       { id: 'spinnerSpeedCheckbox' },
       { id: 'openDotCheckbox' },
     ].map(({ id, bitLength }) => {
@@ -760,7 +760,7 @@
     }
     if (version >= 3) {
       // `openMap' and 'spinnerSpeed' and 'openDot' were added as options in version 3
-    processBasic({ id: 'OpenMap' });
+    processBasic({ id: 'openMap' });
     processBasic({ id: 'increaseSpinnerSpeed' });
     processBasic({ id: 'openDot' });
     }

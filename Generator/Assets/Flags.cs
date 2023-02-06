@@ -453,6 +453,7 @@ namespace TPRandomizer.Assets
             { 0x3B, 0x40 }, // Won Snowboard race against Yeto.
             { 0x2F, 0x80 }, // Talked to Goron outside East Castle Town
             { 0x1C, 0x10 }, //Win Sumo round 1 against Bo
+            { 0x39, 0x2 }, // Released first caught fish in Ordon Day 2
         };
 
         /// <summary>

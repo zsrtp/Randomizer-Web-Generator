@@ -351,7 +351,7 @@ document
   .getElementById('instantTextCheckbox')
   .addEventListener('click', setSettingsString);
 document
-  .getElementById('OpenMapCheckbox')
+  .getElementById('openMapCheckbox')
   .addEventListener('click', setSettingsString);
 document
   .getElementById('spinnerSpeedCheckbox')
@@ -487,7 +487,7 @@ function setSettingsString() {
     'instantTextCheckbox'
   ).checked;
   settingsStringRaw[38] = document.getElementById(
-    'OpenMapCheckbox'
+    'openMapCheckbox'
   ).checked;
   settingsStringRaw[39] = document.getElementById(
     'spinnerSpeedCheckbox'
@@ -654,7 +654,7 @@ var arrayOfSettingsItems = [
   'totEntranceFieldset',
   'cityEntranceCheckbox',
   'instantTextCheckbox',
-  'OpenMapCheckbox',
+  'openMapCheckbox',
   'spinnerSpeedCheckbox',
   'openDotCheckbox'
 ];
@@ -1207,7 +1207,7 @@ function populateSSettings(s) {
   $('#totEntranceFieldset').val(s.totEntrance);
   $('#cityEntranceCheckbox').prop('checked', s.skipCityEntrance);
   $('#instantTextCheckbox').prop('checked', s.instantText);
-  $('#OpenMapCheckbox').prop('checked', s.OpenMap);
+  $('#openMapCheckbox').prop('checked', s.openMap);
   $('#spinnerSpeedCheckbox').prop('checked', s.increaseSpinnerSpeed);
   $('#openDotCheckbox').prop('checked', s.openDot);
 
