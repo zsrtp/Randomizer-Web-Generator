@@ -8,7 +8,7 @@
   "NeighbourRequirements": [
     "true",
     "Lantern",
-    "CanCompleteIntro and (Lantern or Shadow_Crystal)"
+    "canCompletePrologue and (Lantern or Shadow_Crystal)"
   ],
     "Checks": 
     [

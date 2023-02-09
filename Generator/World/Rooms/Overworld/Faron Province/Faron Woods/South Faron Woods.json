@@ -9,9 +9,9 @@
     "NeighbourRequirements": 
     [
         "true",
-        "canLeaveForest",
+        "canClearForest",
         "true",
-        "canSmash and (Progressive_Dominion_Rod, 2) and Shadow_Crystal and canLeaveForest"
+        "canSmash and (Progressive_Dominion_Rod, 2) and Shadow_Crystal and canClearForest"
     ],
     "Checks": 
     [

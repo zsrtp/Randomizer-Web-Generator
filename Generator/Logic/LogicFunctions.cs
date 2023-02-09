@@ -1573,14 +1573,14 @@ namespace TPRandomizer
         public static bool CanGetArrows()
         {
             return (
-                canLeaveForest() || Randomizer.Rooms.RoomDict["Lost Woods"].ReachedByPlaythrough
+                canClearForest() || Randomizer.Rooms.RoomDict["Lost Woods"].ReachedByPlaythrough
             );
         }
 
         /// <summary>
         /// summary text.
         /// </summary>
-        public static bool CanCompleteIntro()
+        public static bool canCompletePrologue()
         {
             return (
                 (
@@ -1606,13 +1606,13 @@ namespace TPRandomizer
         /// <summary>
         /// summary text.
         /// </summary>
-        public static bool canLeaveForest()
+        public static bool canClearForest()
         {
             return (
                 (
                     canCompleteForestTemple()
                     || (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Open)
-                ) && CanCompleteIntro()
+                ) && canCompletePrologue()
             );
         }
 
@@ -1622,7 +1622,7 @@ namespace TPRandomizer
         public static bool CanCompleteEldinTwilight()
         {
             return Randomizer.SSettings.eldinTwilightCleared
-                || (CanCompleteIntro() && canLeaveForest());
+                || (canCompletePrologue() && canClearForest());
         }
 
         /// <summary>
@@ -1952,10 +1952,10 @@ namespace TPRandomizer
             return hasBombs() || CanDoBSMoonBoots() || CanDoJSMoonBoots();
         }
 
-        public static bool CanLeaveForestGlitched()
+        public static bool canClearForestGlitched()
         {
             return (
-                CanCompleteIntro()
+                canCompletePrologue()
                 && (
                     (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Open)
                     || (canCompleteForestTemple() || CanDoLJA() || CanDoMapGlitch())
@@ -1968,7 +1968,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteEldinTwilightGlitched()
         {
-            return Randomizer.SSettings.eldinTwilightCleared || CanLeaveForestGlitched();
+            return Randomizer.SSettings.eldinTwilightCleared || canClearForestGlitched();
         }
 
         /// <summary>

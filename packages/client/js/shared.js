@@ -373,9 +373,9 @@
       { id: 'totEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
       { id: 'instantTextCheckbox' },
-      { id: 'OpenMapCheckbox' },
+      { id: 'openMapCheckbox' },
       { id: 'spinnerSpeedCheckbox' },
-      { id: 'opendotCheckbox' },
+      { id: 'openDotCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -759,10 +759,10 @@
       processBasic({ id: 'instantText' });
     }
     if (version >= 3) {
-      // `openMap' and 'spinnerSpeed' and 'opendot' were added as options in version 3
-    processBasic({ id: 'OpenMap' });
+      // `openMap' and 'spinnerSpeed' and 'openDot' were added as options in version 3
+    processBasic({ id: 'openMap' });
     processBasic({ id: 'increaseSpinnerSpeed' });
-    processBasic({ id: 'opendot' });
+    processBasic({ id: 'openDot' });
     }
 
     res.startingItems = processor.nextEolList(9);
