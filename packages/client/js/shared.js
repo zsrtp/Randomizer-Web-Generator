@@ -832,6 +832,10 @@
   // }
 
   function decodeSettingsString(settingsString) {
+    if (settingsString) {
+      settingsString = settingsString.trim();
+    }
+
     const byType = breakUpSettingsString(settingsString);
 
     const result = {};
