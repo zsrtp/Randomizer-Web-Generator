@@ -760,9 +760,9 @@
     }
     if (version >= 3) {
       // `openMap' and 'spinnerSpeed' and 'opendot' were added as options in version 3
-    processBasic({ id: 'OpenMap' });
-    processBasic({ id: 'increaseSpinnerSpeed' });
-    processBasic({ id: 'opendot' });
+      processBasic({ id: 'OpenMap' });
+      processBasic({ id: 'increaseSpinnerSpeed' });
+      processBasic({ id: 'opendot' });
     }
 
     res.startingItems = processor.nextEolList(9);
@@ -832,6 +832,10 @@
   // }
 
   function decodeSettingsString(settingsString) {
+    if (settingsString) {
+      settingsString = settingsString.trim();
+    }
+
     const byType = breakUpSettingsString(settingsString);
 
     const result = {};
