@@ -1,5 +1,5 @@
 {
-  "requirements": "CanCompleteIntro or (Setting.faronTwilightCleared equals True)",
+  "requirements": "canCompletePrologue or (Setting.faronTwilightCleared equals True)",
   "moduleID": ["284"],
   "stageIDX": [65],
   "relOffsets": ["6A8"],

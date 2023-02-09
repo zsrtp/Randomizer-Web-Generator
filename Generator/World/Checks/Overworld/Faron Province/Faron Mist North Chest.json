@@ -1,5 +1,5 @@
 {
-  "requirements": "Lantern and CanCompleteIntro",
+  "requirements": "Lantern and canCompletePrologue",
   "hash": [ "BF66" ],
   "stageIDX": [ 45 ],
   "dzxTag": [ "TRES" ],
