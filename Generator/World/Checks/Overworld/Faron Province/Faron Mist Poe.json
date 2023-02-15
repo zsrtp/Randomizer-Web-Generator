@@ -1,5 +1,5 @@
 {
-  "requirements": "Shadow_Crystal and CanCompleteIntro",
+  "requirements": "Shadow_Crystal and canCompletePrologue",
   "stageIDX": [ 45 ],
   "flag": "5D",
   "category": [ "Overworld", "Poe", "Faron Woods" ],
