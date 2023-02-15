@@ -397,6 +397,10 @@ namespace TPRandomizer.Assets
             { 0x15, 0x59 }, // deactivate statue slot in room 1 (opens door and deactivates statue)
             { 0x15, 0x80 }, // open big door in room 1 cs part 2
             { 0x15, 0x81 }, // open big door in room 1 cs part 1
+            { 0x15, 0xBC }, // big door in room 1 opens
+            { 0x15, 0xBE }, // open big door in room 1 cs part 1 trigger
+            { 0x15, 0xBD }, // open big door in room 1 cs part 2 trigger
+            { 0x15, 0xBF }, // statue placed in slot in room 1
         };
 
         /// <summary>

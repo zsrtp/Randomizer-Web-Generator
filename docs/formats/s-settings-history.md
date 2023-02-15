@@ -20,3 +20,14 @@ It is a checkbox.
 The old value of `false` maps to "Closed", and the old value of `true` maps to "Open".
 Setting was also renamed from `skipMinesEntrance` to `goronMinesEntrance`.
 It is still at the same location in the settings string, but it is now 2 bits long instead of 1.
+
+## Version 3
+
+`openDot` was added.
+It is a checkbox.
+
+`openMap` was added.
+It is a checkbox.
+
+`increaseSpinnerSpeed` was added.
+It is a checkbox.
