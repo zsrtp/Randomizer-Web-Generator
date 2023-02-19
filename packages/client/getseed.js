@@ -382,6 +382,16 @@
       'midnaHairTipColorFieldset',
       'midnaDomeRingColorFieldset',
     ];
+    const baseColor = Math.floor(Math.random() * 360); // Generate random color to base off of
+    const scheme = new window.ColorScheme;
+    scheme.from_hue(baseColor)    // Start the scheme 
+          .scheme('tetrade')      // Use the 'tetrade' scheme, that is, colors
+                                  // selected from 3 points equidistant around
+                                  // the color wheel.
+          .variation('soft')   // Use the 'soft' color variation
+          .distance(0.5);
+
+    const colors = scheme.colors();
 
     for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
       const elId = arrayOfCosmeticSettings[i];
@@ -391,8 +401,8 @@
         // Is a custom color input.
 
         // Set color input's value and trigger 'input' event.
-        const hexValue =
-          '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
+        const colorIndex = Math.floor(Math.random() * colors.length);
+        const hexValue = '#' + colors[colorIndex];
         element.value = hexValue;
         element.setAttribute('value', hexValue);
         element.dispatchEvent(new Event('input', { bubbles: true }));
