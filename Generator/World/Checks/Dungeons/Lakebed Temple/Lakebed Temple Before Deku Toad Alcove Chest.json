@@ -1,5 +1,5 @@
 {
-    "requirements": "(CanDefeatDekuToad and (Lakebed_Temple_Small_Key, 2) and Zora_Armor and Iron_Boots and CanUseWaterBombs and (Progressive_Clawshot, 1)) or (((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and (canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash)))",
+    "requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and (canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash))",
     "arcOffsets": ["C64"],
     "stageIDX": [0],
     "roomIDX": 9,
