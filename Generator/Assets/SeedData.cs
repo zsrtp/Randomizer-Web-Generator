@@ -974,8 +974,12 @@ namespace TPRandomizer.Assets
         private List<ARCReplacement> generateStaticArcReplacements()
         {
             List<ARCReplacement> listOfStaticReplacements = new();
-            listOfStaticReplacements.Add(new ARCReplacement("1A62", "00060064", 1, 3, 53, 0)); // Set Charlo Donation to check for 100 rupees.
+
+            listOfStaticReplacements.Add(new ARCReplacement("1A62", "00060064", 1, 3, 53, 0)); // Set Charlo Donation to check Link's wallet for 100 rupees.
+
             listOfStaticReplacements.Add(new ARCReplacement("1A84", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to increase donated amount by 100 rupees.
+
+            listOfStaticReplacements.Add(new ARCReplacement("1ACC", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to remove 100 rupees from Link's wallet.
             return listOfStaticReplacements;
         }
 
