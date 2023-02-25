@@ -35,7 +35,7 @@ RUN dotnet publish "./TPRandomizer.csproj" -c release -o /app/generator --no-res
 RUN cp -R World /app/generator/World
 RUN cp -R Glitched-World /app/generator/Glitched-World
 RUN mkdir -p /app/generator/Assets/Sound
-RUN cp -R Assets/Sound/BackgroundMusic.json /app/generator/Assets/Sound/BackgroundMusic.json
+RUN cp -R Assets/Sound/BackgroundMusic.jsonc /app/generator/Assets/Sound/BackgroundMusic.jsonc
 
 FROM node:lts-alpine as node_base
 FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine
