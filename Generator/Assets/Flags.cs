@@ -512,6 +512,7 @@ namespace TPRandomizer.Assets
             { 0x6, 0xC0 }, // CS After beating Ordon Shadow, CS after entering Faron Twilight.
             { 0x7, 0x2 }, // First Time Talking to Gor Coron in Sumo Hall
             { 0x10, 0x2 }, // Talked to Jaggle after climbing vines.
+            { 0x15, 0x1 }, // Talked to Agitha for the first time.
             { 0xF, 0x40 }, // Talked to Doctor for the first time.
             { 0x5E, 0x10 }, // Midna text after beating Forest Temple.
             { 0x1D, 0x40 }, // Listened to Fyer at drained lake.
