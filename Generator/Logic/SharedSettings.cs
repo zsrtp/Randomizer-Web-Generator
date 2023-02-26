@@ -47,6 +47,9 @@ namespace TPRandomizer
         public TotEntrance totEntrance { get; set; }
         public bool skipCityEntrance { get; set; }
         public bool instantText { get; set; }
+        public bool openMap { get; set; }
+        public bool increaseSpinnerSpeed { get; set; }
+        public bool openDot { get; set; }
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
 
@@ -82,37 +85,16 @@ namespace TPRandomizer
             modifyShopModels = processor.NextBool();
             trapFrequency = (TrapFrequency)processor.NextInt(3);
             barrenDungeons = processor.NextBool();
-            if (version >= 2)
-            {
-                // `goronMinesEntrance` changed from a checkbox to a select
-                goronMinesEntrance = (GoronMinesEntrance)processor.NextInt(2);
-            }
-            else
-            {
-                bool skipMinesEntrance = processor.NextBool();
-                goronMinesEntrance = skipMinesEntrance
-                    ? GoronMinesEntrance.NoWrestling
-                    : GoronMinesEntrance.Closed;
-            }
+            goronMinesEntrance = (GoronMinesEntrance)processor.NextInt(2);
             skipLakebedEntrance = processor.NextBool();
             skipArbitersEntrance = processor.NextBool();
             skipSnowpeakEntrance = processor.NextBool();
-            if (version >= 1)
-            {
-                // `totEntrance` changed from a checkbox to a select
-                totEntrance = (TotEntrance)processor.NextInt(2);
-            }
-            else
-            {
-                bool totOpen = processor.NextBool();
-                totEntrance = totOpen ? TotEntrance.Open : TotEntrance.Closed;
-            }
+            totEntrance = (TotEntrance)processor.NextInt(2);
             skipCityEntrance = processor.NextBool();
-            if (version >= 1)
-            {
-                // `instantText` was added as an option in version 1
-                instantText = processor.NextBool();
-            }
+            instantText = processor.NextBool();
+            openMap = processor.NextBool();
+            increaseSpinnerSpeed = processor.NextBool();
+            openDot = processor.NextBool();
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();

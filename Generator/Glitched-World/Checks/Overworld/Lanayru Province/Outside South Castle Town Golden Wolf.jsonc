@@ -1,0 +1,8 @@
+{
+    "requirements": "Shadow_Crystal and Room.North_Faron_Woods",
+    "stageIDX": [57],
+    "roomIDX": 16,
+    "flag": "87",
+    "category": ["Overworld", "Hidden Skill", "Hyrule Field - Lanayru Province"],
+    "itemId": "Progressive_Hidden_Skill"
+}

@@ -23,9 +23,7 @@ namespace TPRandomizer
         // Data that will be stored in the rando-data .gci file.
         public Item itemId { get; set; } // The original item id of the check. This allows us to make an array of all items in the item pool for randomization purposes. Also is useful for documentation purposes.
 
-        public List<byte> stageIDX { get; set; } // Used by DZX, SHOP, POE, and BOSS checks. The index of the stage where the check is located.
-
-        public List<byte> lastStageIDX { get; set; } // Used by SKILL checks. The index of the previous stage where the player encountered the wolf.
+        public List<byte> stageIDX { get; set; } // Used by DZX, SHOP, POE, SKILL, and BOSS checks. The index of the stage where the check is located.
 
         public byte roomIDX { get; set; } // Used by SKILL checks to determine which wolf is being learned from.
 
@@ -440,40 +438,12 @@ namespace TPRandomizer
                 }
             }
 
-            if (!parseSetting.skipPrologue)
+            if (parseSetting.skipPrologue)
             {
-                // We want to set Uli Cradle Delivery vanilla if intro is not skipped since a Fishing Rod has to be there in order to progress the seed.
-                // We also place the Lantern vanilla because it is a big logic hole and since we don't know how to make coro give both items in one state yet, it's safer to do this.
-                Randomizer.Checks.CheckDict["Uli Cradle Delivery"].checkStatus = "Vanilla";
-                Randomizer.Items.RandomizedImportantItems.Remove(
-                    Randomizer.Checks.CheckDict["Uli Cradle Delivery"].itemId
-                );
-            }
-            else
-            {
-                Randomizer.Checks.CheckDict["Uli Cradle Delivery"].checkStatus = "Excluded";
-                Randomizer.Checks.CheckDict["Ordon Cat Rescue"].checkStatus = "Excluded";
                 Randomizer.Items.RandomizedImportantItems.Remove(Item.North_Faron_Woods_Gate_Key);
                 Randomizer.Items.RandomizedDungeonRegionItems.Remove(
                     Item.North_Faron_Woods_Gate_Key
                 );
-            }
-
-            if (parseSetting.faronTwilightCleared)
-            {
-                Randomizer.Checks.CheckDict["Ordon Sword"].checkStatus = "Excluded";
-                Randomizer.Checks.CheckDict["Ordon Shield"].checkStatus = "Excluded";
-            }
-            else
-            {
-                Randomizer.Items.RandomizedImportantItems.Remove(
-                    Randomizer.Checks.CheckDict["Ordon Sword"].itemId
-                );
-                Randomizer.Checks.CheckDict["Ordon Sword"].checkStatus = "Vanilla";
-                Randomizer.Items.RandomizedImportantItems.Remove(
-                    Randomizer.Checks.CheckDict["Ordon Shield"].itemId
-                );
-                Randomizer.Checks.CheckDict["Ordon Shield"].checkStatus = "Vanilla";
             }
 
             // Vanilla until all of the flag issues are figured out.

@@ -15,8 +15,8 @@ namespace TPRandomizer.Assets
     {
         // See <add_documentation_reference_here> for the flowchart for
         // determining if you should increment the major or minor version.
-        public static readonly UInt16 VersionMajor = 1;
-        public static readonly UInt16 VersionMinor = 2;
+        public static readonly UInt16 VersionMajor = 2;
+        public static readonly UInt16 VersionMinor = 0;
 
         // For convenience. This does not include any sort of leading 'v', so
         // add that where you use this variable if you need it.
@@ -207,6 +207,28 @@ namespace TPRandomizer.Assets
             seedHeader.Add(Converter.GcByte(randomizerSettings.quickTransform ? 1 : 0));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirements));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.palaceRequirements));
+            int mapBits = 0;
+            bool[] mapFlags = new bool[]
+            {
+                false,
+                randomizerSettings.skipSnowpeakEntrance,
+                false,
+                randomizerSettings.lanayruTwilightCleared,
+                randomizerSettings.eldinTwilightCleared,
+                randomizerSettings.faronTwilightCleared,
+                false,
+                false,
+            };
+            for (int i = 0; i < mapFlags.GetLength(0); i++)
+            {
+                if (mapFlags[i])
+                {
+                    mapBits |= (0x80 >> i);
+                }
+            }
+
+            seedHeader.Add(Converter.GcByte(mapBits));
+
             while (seedHeader.Count < (SeedHeaderSize))
             {
                 seedHeader.Add((byte)0x0);
@@ -264,6 +286,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.lanayruTwilightCleared,
                 randomizerSettings.skipMinorCutscenes,
                 randomizerSettings.skipMdh,
+                randomizerSettings.openMap //map bits
             };
             bool[] oneTimePatchSettingsArray =
             {
@@ -272,6 +295,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.modifyShopModels,
                 fcSettings.disableEnemyBgm,
                 randomizerSettings.instantText,
+                randomizerSettings.increaseSpinnerSpeed,
             };
             int patchOptions = 0x0;
             int bitwiseOperator = 0;
@@ -771,20 +795,12 @@ namespace TPRandomizer.Assets
                 Check currentCheck = checkList.Value;
                 if (currentCheck.category.Contains("Hidden Skill"))
                 {
-                    listOfHiddenSkills.AddRange(
-                        Converter.GcBytes(
-                            (UInt16)
-                                short.Parse(
-                                    currentCheck.flag,
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
-                        )
-                    );
-                    listOfHiddenSkills.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
-                    listOfHiddenSkills.AddRange(
-                        Converter.GcBytes((UInt16)currentCheck.lastStageIDX[0])
-                    );
-                    listOfHiddenSkills.AddRange(Converter.GcBytes((UInt16)currentCheck.roomIDX));
+                    listOfHiddenSkills.Add(Converter.GcByte(currentCheck.stageIDX[0]));
+
+                    listOfHiddenSkills.Add(Converter.GcByte(currentCheck.roomIDX));
+                    listOfHiddenSkills.Add(Converter.GcByte((byte)currentCheck.itemId));
+                    listOfHiddenSkills.Add(Converter.GcByte(0x0)); // padding
+
                     count++;
                 }
             }
@@ -958,8 +974,12 @@ namespace TPRandomizer.Assets
         private List<ARCReplacement> generateStaticArcReplacements()
         {
             List<ARCReplacement> listOfStaticReplacements = new();
-            listOfStaticReplacements.Add(new ARCReplacement("1A62", "00060064", 1, 3, 53, 0)); // Set Charlo Donation to check for 100 rupees.
-            listOfStaticReplacements.Add(new ARCReplacement("1ACC", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to 100
+
+            listOfStaticReplacements.Add(new ARCReplacement("1A62", "00060064", 1, 3, 53, 0)); // Set Charlo Donation to check Link's wallet for 100 rupees.
+
+            listOfStaticReplacements.Add(new ARCReplacement("1A84", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to increase donated amount by 100 rupees.
+
+            listOfStaticReplacements.Add(new ARCReplacement("1ACC", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to remove 100 rupees from Link's wallet.
             return listOfStaticReplacements;
         }
 

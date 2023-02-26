@@ -337,7 +337,7 @@
   function genSSettingsFromUi() {
     // Increment the version when you make changes to the format. Need to make
     // sure you don't break backwards compatibility!!
-    const sSettingsVersion = 2;
+    const sSettingsVersion = 3;
 
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
@@ -373,6 +373,9 @@
       { id: 'totEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
       { id: 'instantTextCheckbox' },
+      { id: 'openMapCheckbox' },
+      { id: 'spinnerSpeedCheckbox' },
+      { id: 'openDotCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -755,6 +758,12 @@
       // `instantText' added as an option in version 1
       processBasic({ id: 'instantText' });
     }
+    if (version >= 3) {
+      // `openMap' and 'spinnerSpeed' and 'openDot' were added as options in version 3
+    processBasic({ id: 'openMap' });
+    processBasic({ id: 'increaseSpinnerSpeed' });
+    processBasic({ id: 'openDot' });
+    }
 
     res.startingItems = processor.nextEolList(9);
     res.excludedChecks = processor.nextEolList(9);
@@ -823,6 +832,10 @@
   // }
 
   function decodeSettingsString(settingsString) {
+    if (settingsString) {
+      settingsString = settingsString.trim();
+    }
+
     const byType = breakUpSettingsString(settingsString);
 
     const result = {};

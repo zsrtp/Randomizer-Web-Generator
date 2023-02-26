@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TPRandomizer.Util;
+using TPRandomizer.Assets;
 
 namespace TPRandomizer
 {
@@ -237,7 +238,10 @@ namespace TPRandomizer
 
             // Just increment "version" whenever you make a change to what this
             // method outputs
-            root.Add("version", "1");
+            root.Add(
+                "version",
+                "s" + Assets.SeedData.VersionMajor + "." + Assets.SeedData.VersionMinor
+            );
 
             if (prettyPrint || dangerouslyPrintFullRaceSpoiler)
             {
@@ -328,6 +332,9 @@ namespace TPRandomizer
             result.Add("totEntrance", sSettings.totEntrance.ToString());
             result.Add("skipCityEntrance", sSettings.skipCityEntrance);
             result.Add("instantText", sSettings.instantText);
+            result.Add("openMap", sSettings.openMap);
+            result.Add("increaseSpinnerSpeed", sSettings.increaseSpinnerSpeed);
+            result.Add("openDot",sSettings.openDot);
 
             result.Add("startingItems", sSettings.startingItems);
             result.Add("excludedChecks", sSettings.excludedChecks);

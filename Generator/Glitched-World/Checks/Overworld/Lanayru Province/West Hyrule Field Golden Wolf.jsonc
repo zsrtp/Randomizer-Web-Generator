@@ -1,0 +1,8 @@
+{
+    "requirements": "Shadow_Crystal and Room.Zoras_Domain",
+    "stageIDX": [57],
+    "roomIDX": 8,
+    "flag": "86",
+    "category": ["Overworld", "Hidden Skill", "Hyrule Field - Lanayru Province"],
+    "itemId": "Progressive_Hidden_Skill"
+}

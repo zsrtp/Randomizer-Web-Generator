@@ -1,0 +1,8 @@
+{
+    "requirements": "Shadow_Crystal and Room.Snowpeak_Climb and ((Progressive_Fishing_Rod, 2) or (Setting.skipSnowpeakEntrance equals True) or CanDoMapGlitch)",
+    "stageIDX": [48],
+    "roomIDX": 0,
+    "flag": "9F",
+    "category": ["Overworld", "Hidden Skill", "Kakariko Graveyard"],
+    "itemId": "Progressive_Hidden_Skill"
+}
