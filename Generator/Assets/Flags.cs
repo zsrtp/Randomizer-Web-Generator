@@ -33,6 +33,10 @@ namespace TPRandomizer.Assets
             { 0x3, 0x40 }, // Kakariko Village Portal
             { 0x3, 0x4A }, // Death Mountain Portal
             { 0x6, 0x4A }, // Give Gorge Portal
+            { 0x3, 0x67 }, // Ant house entered from top
+            { 0x3, 0x64 }, // Ant house box pushed
+            { 0x3, 0x5E }, // Defeated Ant house Tears of Light bug
+            { 0x3, 0x1E }, // Collected Tear from Ant house
         };
 
         /// <summary>
