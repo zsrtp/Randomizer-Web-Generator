@@ -462,6 +462,7 @@ namespace TPRandomizer.Assets
             { 0x2F, 0x80 }, // Talked to Goron outside East Castle Town
             { 0x1C, 0x10 }, //Win Sumo round 1 against Bo
             { 0x39, 0x2 }, // Released first caught fish in Ordon Day 2
+            { 0x10, 0x2 }, // Talked to Jaggle after climbing vines.
         };
 
         /// <summary>
@@ -515,7 +516,6 @@ namespace TPRandomizer.Assets
             { 0x3, 0x90 }, // Jaggle Calls out to Link, talked to Squirrel as Wolf in Ordon.
             { 0x6, 0xC0 }, // CS After beating Ordon Shadow, CS after entering Faron Twilight.
             { 0x7, 0x2 }, // First Time Talking to Gor Coron in Sumo Hall
-            { 0x10, 0x2 }, // Talked to Jaggle after climbing vines.
             { 0x15, 0x1 }, // Talked to Agitha for the first time.
             { 0xF, 0x40 }, // Talked to Doctor for the first time.
             { 0x5E, 0x10 }, // Midna text after beating Forest Temple.
