@@ -436,6 +436,7 @@ namespace TPRandomizer.Assets
         /// </summary>
         public static readonly byte[,] BaseRandomizerEventFlags = new byte[,]
         {
+            { 0x3, 0x2 }, // Gave wooden sword to Talo.
             { 0x6, 0x9 }, // Tame Epona, KB1 trigger activated
             { 0x12, 0x8 }, // Can use Sera's Shop.
             { 0x14, 0x10 }, // Put Bo outside, ready to wrestle
@@ -473,7 +474,6 @@ namespace TPRandomizer.Assets
             { 0x5, 0x7F }, // Midna Charge Unlocked, Finished Sewers, Midna text after entering Faron Twilight, Met Zelda in sewers, Midna cut prison chain, Watched Sewers intro CS, Escaped cell in sewers.
             { 0x6, 0x10 }, // Cleared Faron Twilight
             { 0xC, 0x18 }, // Midna accompanies Wolf, sword and shield removed from wolf's back.
-            { 0x3, 0x2 }, // Gave Wooden Sword to Talo
             { 0x43, 0x8 }, // Senses unlocked
         };
 
@@ -503,7 +503,6 @@ namespace TPRandomizer.Assets
         {
             { 0x4, 0x4 }, // Talked to Uli Day 1.
             { 0x45, 0x10 }, // Saved Talo
-            { 0x3, 0x2 }, // Gave Wooden Sword to Talo
             { 0x4A, 0x60 }, // Completed Ordon Day 1 and Finished Sword Training.
             { 0x16, 0x1 }, // Completed Ordon Day 2.
             { 0x15, 0x80 }, // Watched CS for Goats 2 Done.
