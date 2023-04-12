@@ -1440,8 +1440,11 @@ namespace TPRandomizer
             return (
                 getItemCount(Item.Progressive_Bow) >= 1
                 || (
-                    CanDoNicheStuff() && hasBombs()
-                    || (HasSword() && getItemCount(Item.Progressive_Hidden_Skill) >= 6)
+                    CanDoNicheStuff()
+                    && (
+                        hasBombs()
+                        || (HasSword() && getItemCount(Item.Progressive_Hidden_Skill) >= 6)
+                    )
                 )
                 || (
                     Randomizer.SSettings.logicRules == LogicRules.Glitched
@@ -1509,6 +1512,7 @@ namespace TPRandomizer
                 (getItemCount(Item.Progressive_Bow) >= 1)
                 || (getItemCount(Item.Progressive_Clawshot) >= 1)
                 || CanUse(Item.Boomerang)
+                || CanUse(Item.Slingshot)
             );
         }
 
