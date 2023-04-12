@@ -21,9 +21,9 @@
 
   window.shuffle = shuffle;
 
-  window.newRandomArray = () => {
+  window.newRandomArray = (numSquares) => {
     let a = [];
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < numSquares; i++) {
       a.push(i);
     }
     shuffle(a);
@@ -47,13 +47,15 @@
   // We will visualize it as first index picks out a row,
   // and 2nd index picks a column.
 
-  window.newFilledPositions = () => {
-    const arr = new Array(25);
+  window.newFilledPositions = (dimensions) => {
+    const numSquares = dimensions * dimensions;
+    const arr = new Array(numSquares);
     arr.fill(0);
 
-    const randomArr = newRandomArray();
-    const numPositive = Math.floor(Math.random() * 3) + 12;
-    // const numPositive = Math.floor(Math.random() * 8) + 12;
+    const randomArr = newRandomArray(numSquares);
+    // const numPositive = Math.floor(Math.random() * 3) + 12;
+    const numPositive =
+      Math.floor(Math.random() * 3) + Math.floor(numSquares / 2);
 
     for (let i = 0; i < numPositive; i++) {
       arr[randomArr[i]] = 1;
@@ -69,13 +71,14 @@
   };
 
   class GameInstance {
-    constructor() {
+    constructor(dimensions) {
+      this.dimensions = dimensions;
       this.newGame();
     }
 
     newGame() {
-      this.answer = window.newFilledPositions();
-      this.userAnswer = new Array(25);
+      this.answer = window.newFilledPositions(this.dimensions);
+      this.userAnswer = new Array(this.dimensions * this.dimensions);
       this.userAnswer.fill(CellStatus.untouched);
     }
 
@@ -83,8 +86,8 @@
       let streak = 0;
       const results = [];
 
-      for (let i = 0; i < 5; i++) {
-        if (arr[rowIndex * 5 + i] === CellStatus.positive) {
+      for (let i = 0; i < this.dimensions; i++) {
+        if (arr[rowIndex * this.dimensions + i] === CellStatus.positive) {
           streak += 1;
         } else if (streak > 0) {
           results.push(streak);
@@ -107,8 +110,8 @@
       let streak = 0;
       const results = [];
 
-      for (let i = 0; i < 5; i++) {
-        if (arr[colIndex + i * 5] === CellStatus.positive) {
+      for (let i = 0; i < this.dimensions; i++) {
+        if (arr[colIndex + i * this.dimensions] === CellStatus.positive) {
           streak += 1;
         } else if (streak > 0) {
           results.push(streak);
@@ -134,11 +137,11 @@
 
       const results = [];
 
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < this.dimensions; i++) {
         results.push(this.getColumnHeaderNumbers(arr, i));
       }
 
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < this.dimensions; i++) {
         results.push(this.getRowHeaderNumbers(arr, i));
       }
 
@@ -149,7 +152,7 @@
       const solution = this.getHeaderNumbers();
       const fromUser = this.getHeaderNumbers(this.userAnswer);
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < this.dimensions * 2; i++) {
         const solutionArr = solution[i];
         const userArr = fromUser[i];
         if (solutionArr.length !== userArr.length) {
@@ -167,11 +170,69 @@
     }
   }
 
+  function newElWithClass(tag, className) {
+    const el = document.createElement(tag);
+    el.className = className;
+    return el;
+  }
+
   window.addEventListener('DOMContentLoaded', () => {
-    const gameInstance = new GameInstance();
+    const dimensions = 7;
+
+    const gameInstance = new GameInstance(dimensions);
     let solved = false;
 
     console.log(gameInstance.getHeaderNumbers());
+
+    function rebuildPicrossTableDom(dimensions) {
+      const $tbody = $('.picrossTable > tbody');
+      $tbody.empty();
+      const tbody = $tbody[0];
+
+      const topRow = newElWithClass('tr', 'picrossHeaderRow');
+      for (let i = 0; i < dimensions + 1; i++) {
+        let el;
+        if (i === 0) {
+          el = newElWithClass('td', 'headerTopLeft');
+        } else if (i === dimensions) {
+          el = newElWithClass('td', 'pcrsHeader headerTopRight');
+        } else {
+          el = newElWithClass('td', 'pcrsHeader headerTop');
+        }
+        topRow.appendChild(el);
+      }
+      tbody.appendChild(topRow);
+
+      for (let rowIdx = 0; rowIdx < dimensions; rowIdx++) {
+        const rowEl = newElWithClass('tr', `picrossRow${rowIdx}`);
+        if (rowIdx === dimensions - 1) {
+          $(rowEl).addClass('bottomRow');
+        }
+
+        for (let colIdx = 0; colIdx < dimensions + 1; colIdx++) {
+          let el;
+          if (colIdx === 0) {
+            el = newElWithClass('td', 'pcrsHeader');
+            if (rowIdx === dimensions - 1) {
+              $(el).addClass('headerBottomLeft');
+            } else {
+              $(el).addClass('headerLeft');
+            }
+          } else {
+            el = document.createElement('td');
+            const dataPos = rowIdx * dimensions + colIdx - 1;
+            el.setAttribute('data-pos', dataPos);
+          }
+          rowEl.appendChild(el);
+        }
+
+        tbody.appendChild(rowEl);
+      }
+    }
+
+    // setTimeout(() => {
+    rebuildPicrossTableDom(dimensions);
+    // }, 1000);
 
     function initNewGame() {
       solved = false;
@@ -185,8 +246,10 @@
       const headerEls = document.querySelectorAll(
         '.picrossTable td.pcrsHeader'
       );
-      for (let i = 0; i < 10; i++) {
-        headerEls[i].innerHTML = headerNumbers[i].join(i < 5 ? '<br>' : ' ');
+      for (let i = 0; i < dimensions * 2; i++) {
+        headerEls[i].innerHTML = headerNumbers[i].join(
+          i < dimensions ? '<br>' : ' '
+        );
       }
     }
 

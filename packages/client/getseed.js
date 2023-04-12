@@ -215,6 +215,11 @@
         handleInvalidSeedPage();
       }
     }
+
+    $('#sectionProgress').toggle(true);
+    $('#sectionPlayPicross').toggle(true);
+
+    $('#playPicrossBtn').click();
   }
 
   function handleGenerationCompletedPage(inputJsonDataEl) {
