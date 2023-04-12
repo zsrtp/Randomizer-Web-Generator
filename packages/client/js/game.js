@@ -219,6 +219,24 @@
     let dimensions = parseInt(picrossDimensionsEl.value, 10);
     let gameInstance = new GameInstance(dimensions);
     let solved = false;
+
+    try {
+      const dimens = String(localStorage.getItem('picrossDimens'));
+
+      // Make sure dimens is a valid value;
+      for (let i = 0; i < picrossDimensionsEl.options.length; i++) {
+        const val = picrossDimensionsEl.options[i].value;
+        if (dimens === val) {
+          dimensions = parseInt(dimens, 10);
+          picrossDimensionsEl.value = val;
+          break;
+        }
+      }
+    } catch (e) {
+      console.error('Could not read picrossDimens from localStorage.');
+      console.error(e);
+    }
+
     rebuildPicrossTableDom(dimensions);
 
     picrossDimensionsEl.addEventListener('change', (e) => {
@@ -227,6 +245,13 @@
       solved = false;
       rebuildPicrossTableDom(dimensions);
       initNewGame();
+
+      try {
+        localStorage.setItem('picrossDimens', dimensions);
+      } catch (e) {
+        console.error('Could not set picrossDimens to localStorage.');
+        console.error(e);
+      }
     });
 
     function initNewGame() {
