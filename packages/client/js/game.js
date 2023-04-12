@@ -217,8 +217,6 @@
     const picrossDimensionsEl = document.getElementById('picrossDimensions');
 
     let dimensions = parseInt(picrossDimensionsEl.value, 10);
-    let gameInstance = new GameInstance(dimensions);
-    let solved = false;
 
     try {
       const dimens = String(localStorage.getItem('picrossDimens'));
@@ -237,6 +235,8 @@
       console.error(e);
     }
 
+    let gameInstance = new GameInstance(dimensions);
+    let solved = false;
     rebuildPicrossTableDom(dimensions);
 
     picrossDimensionsEl.addEventListener('change', (e) => {
