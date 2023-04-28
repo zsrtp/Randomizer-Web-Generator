@@ -39,8 +39,16 @@
               >Generator <i class="fa fa-caret-down"></i
             ></a>
             <ul>
-              <li><a href="https://generator.tprandomizer.com">Stable <sup>s2.0</sup></a></li>
-              <li><a href="http://rando.dimensionalsoftworks.net:60001">Development <sup>s2.0</sup></a></li>
+              <li>
+                <a href="https://generator.tprandomizer.com"
+                  >Stable <sup>s2.0</sup></a
+                >
+              </li>
+              <li>
+                <a href="http://rando.dimensionalsoftworks.net:60001"
+                  >Development <sup>s2.0</sup></a
+                >
+              </li>
             </ul>
           </li>
           <li><a href="https://wiki.tprandomizer.com">Wiki</a></li>
@@ -445,44 +453,43 @@
                 ><br />
               </div>
               <div
-              style="width: 90%"
-              data-tooltip-text="If enabled, map regions affected by certain settings/sequence skips are unlocked and can be warped to once the Shadow Crystal has been obtained. (Example: The Lanayru Region of the map is unlocked if Lanayru Twilight is skipped.)&#0010;"
-            >
-              <input
-                type="checkbox"
-                id="openMapCheckbox"
-                name="Open Map"
-                value=""
-              />
-              <label for="openMapCheckbox"> Unlock Map Regions </label
-              ><br />
-            </div>
-            <div
-              style="width: 90%"
-              data-tooltip-text="If enabled, the player can manually increase the speed of the spinner by holding a specified button while riding it. Note that any checks that can be obtained using this setting are not considered in logic.&#0010;&#0010;Gamecube: R&#0010;"
-            >
-              <input
-                type="checkbox"
-                id="spinnerSpeedCheckbox"
-                name="Spinner Speed"
-                value=""
-              />
-              <label for="spinnerSpeedCheckbox"> Increase Spinner Speed </label
-              ><br />
-            </div>
-            <div
-              style="width: 90%"
-              data-tooltip-text="If enabled,the Door of Time (the big door at the entrance) in the Temple of Time will be opened and the statue is moved to the entrance.&#0010;"
-            >
-              <input
-                type="checkbox"
-                id="openDotCheckbox"
-                name="Open Door of Time"
-                value=""
-              />
-              <label for="openDotCheckbox"> Open Door of Time </label
-              ><br />
-            </div>
+                style="width: 90%"
+                data-tooltip-text="If enabled, map regions affected by certain settings/sequence skips are unlocked and can be warped to once the Shadow Crystal has been obtained. (Example: The Lanayru Region of the map is unlocked if Lanayru Twilight is skipped.)&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="openMapCheckbox"
+                  name="Open Map"
+                  value=""
+                />
+                <label for="openMapCheckbox"> Unlock Map Regions </label><br />
+              </div>
+              <div
+                style="width: 90%"
+                data-tooltip-text="If enabled, the player can manually increase the speed of the spinner by holding a specified button while riding it. Note that any checks that can be obtained using this setting are not considered in logic.&#0010;&#0010;Gamecube: R&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="spinnerSpeedCheckbox"
+                  name="Spinner Speed"
+                  value=""
+                />
+                <label for="spinnerSpeedCheckbox">
+                  Increase Spinner Speed </label
+                ><br />
+              </div>
+              <div
+                style="width: 90%"
+                data-tooltip-text="If enabled,the Door of Time (the big door at the entrance) in the Temple of Time will be opened and the statue is moved to the entrance.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="openDotCheckbox"
+                  name="Open Door of Time"
+                  value=""
+                />
+                <label for="openDotCheckbox"> Open Door of Time </label><br />
+              </div>
             </fieldset>
           </div>
           <div class="tabColumn">
@@ -529,19 +536,12 @@
                   >Shop Models Show The Replaced Item</label
                 ><br />
               </div>
-              <!-- <div class="selectGroup" style="margin-top:8px;">
-								<label for="foolishItemFieldsetABC">Trap Items Type</label><br>
-								<select name="Foolish Items ABC" id="foolishItemFieldsetABC">
-									<option value="0">Ice Trap</option>
-								</select>
-							</div> -->
               <div class="selectGroup" style="margin-top: 8px">
-                <label for="foolishItemFieldset">Foolish Item Frequency</label
-                ><br />
+                <label for="trapItemFieldset">Trap Item Frequency</label><br />
                 <select
-                  name="Foolish Items"
-                  id="foolishItemFieldset"
-                  data-tooltip-text="'None': No foolish items are placed in the seed.&#0010;&#0010;'Few': A small chance for a foolish item to be placed when placing a junk item. (~12.5%)&#0010;&#0010;'Many': An increased chance for a foolish item to be placed when placing a junk item. (~39.1%).&#0010;&#0010;'Mayhem': A high chance of a foolish item to be placed when placing a junk item. (~62.7%)&#0010;&#0010;'Nightmare': All junk items are replaced with foolish items. (100%)&#0010;"
+                  name="Trap Items"
+                  id="trapItemFieldset"
+                  data-tooltip-text="'None': No trap items are placed in the seed.&#0010;&#0010;'Few': A small chance for a trap item to be placed when placing a junk item. (~12.5%)&#0010;&#0010;'Many': An increased chance for a trap item to be placed when placing a junk item. (~39.1%).&#0010;&#0010;'Mayhem': A high chance of a trap item to be placed when placing a junk item. (~62.7%)&#0010;&#0010;'Nightmare': All junk items are replaced with trap items. (100%)&#0010;"
                 >
                   <option value="0">None</option>
                   <option value="1">Few</option>
