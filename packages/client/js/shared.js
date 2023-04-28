@@ -364,7 +364,7 @@
       { id: 'transformAnywhereCheckbox' },
       { id: 'increaseWalletCheckbox' },
       { id: 'modifyShopModelsCheckbox' },
-      { id: 'foolishItemFieldset', bitLength: 3 },
+      { id: 'trapItemFieldset', bitLength: 3 },
       { id: 'barrenCheckbox' },
       { id: 'goronMinesEntranceFieldset', bitLength: 2 },
       { id: 'lakebedEntranceCheckbox' },
@@ -760,9 +760,9 @@
     }
     if (version >= 3) {
       // `openMap' and 'spinnerSpeed' and 'openDot' were added as options in version 3
-    processBasic({ id: 'openMap' });
-    processBasic({ id: 'increaseSpinnerSpeed' });
-    processBasic({ id: 'openDot' });
+      processBasic({ id: 'openMap' });
+      processBasic({ id: 'increaseSpinnerSpeed' });
+      processBasic({ id: 'openDot' });
     }
 
     res.startingItems = processor.nextEolList(9);
