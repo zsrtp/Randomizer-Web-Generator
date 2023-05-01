@@ -437,6 +437,7 @@ namespace TPRandomizer
                 Item.Filled_Bomb_Bag,
                 Item.Filled_Bomb_Bag,
                 Item.Filled_Bomb_Bag,
+                Item.Giant_Bomb_Bag,
                 Item.Zora_Armor,
                 Item.Progressive_Clawshot,
                 Item.Progressive_Clawshot,
@@ -471,6 +472,7 @@ namespace TPRandomizer
                 Item.Magic_Armor,
                 Item.Ordon_Shield,
                 Item.Hylian_Shield,
+                Item.Hawkeye,
             };
 
         public readonly List<Item> goldenBugs =
@@ -616,11 +618,9 @@ namespace TPRandomizer
                 Item.Orange_Rupee,
                 Item.Silver_Rupee,
                 Item.Silver_Rupee,
-                Item.Giant_Bomb_Bag,
                 Item.Sera_Bottle,
                 Item.Coro_Bottle,
                 Item.Jovani_Bottle,
-                Item.Hawkeye,
             };
 
         private readonly List<Item> vanillaJunkItems =
