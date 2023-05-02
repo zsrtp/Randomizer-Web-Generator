@@ -1,9 +1,0 @@
-{
-    "requirements": "true",
-    "hash": ["4584"],
-    "stageIDX": [38],
-    "dzxTag": ["TRES"],
-    "category": ["Overworld", "Chest", "Snowpeak Province", "DZX"],
-    "itemId": "Orange_Rupee",
-    "actrData": [["74", "62", "6F", "78", "42", "30", "00", "00", "FF", "1F", "F3", "C0", "C4", "4A", "AD", "7A", "C3", "96", "00", "00", "C5", "03", "50", "CE", "00", "00", "00", "00", "06", "FF", "FF", "FF"]]
-}

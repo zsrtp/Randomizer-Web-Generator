@@ -333,6 +333,57 @@
     }
   }
 
+  // Return value is an array of 16 colors like [ "69567a", "6d5980", ...]. If
+  // don't provide a baseHue or the provided value is invalid, picks a random
+  // baseHue.
+  function get16ColorsPalette(baseHue) {
+    if (typeof baseHue !== 'number' || baseHue < 0) {
+      baseHue = Math.random() * 360;
+    } else if (baseHue >= 360) {
+      baseHue = baseHue % 360;
+    }
+    baseHue = Math.floor(baseHue);
+
+    return (
+      new window.ColorScheme()
+        .from_hue(baseHue) // Start the scheme
+        .scheme('triade') // Use the 'tetrade' scheme, that is, colors
+        // selected from 3 points equidistant around
+        // the color wheel.
+        .variation('soft') // Use the 'soft' color variation
+        .distance(0.5)
+        .colors()
+    );
+  }
+
+  // `colorHex` does not have the '#' at the front.
+  function randomizeCosmeticSetting(elId, colorHex) {
+    const element = document.getElementById(elId);
+
+    if (elId.includes('ColorPicker')) {
+      // Is a custom color input.
+
+      // Set color input's value and trigger 'input' event.
+      const hexValue = '#' + colorHex;
+      element.value = hexValue;
+      element.setAttribute('value', hexValue);
+      element.dispatchEvent(new Event('input', { bubbles: true }));
+
+      // Change selected option to be the Custom one.
+      const selectEl = document.getElementById(elId.replace('ColorPicker', ''));
+      const $customOption = $(selectEl).find('option[data-custom-color]');
+      if ($customOption.length > 0) {
+        const customOption = $customOption[0];
+        $(selectEl).val(customOption.value);
+        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    } else {
+      // Is a plain select with no custom color option.
+      const items = element.getElementsByTagName('option');
+      element.selectedIndex = Math.floor(Math.random() * items.length);
+    }
+  }
+
   function renderBasicCheckbox({ parent, defaultChecked, text, checkboxId }) {
     const label = document.createElement('label');
     label.className = 'basicCheckboxLabel';
@@ -362,15 +413,19 @@
 
   function randomizeCosmetics() {
     const arrayOfCosmeticSettings = [
-      'linkHairColorFieldsetColorPicker',
-      'hTunicHatColorFieldsetColorPicker',
-      'hTunicBodyColorFieldsetColorPicker',
-      'hTunicSkirtColorFieldsetColorPicker',
-      'zTunicHatColorFieldsetColorPicker',
-      'zTunicHelmetColorFieldsetColorPicker',
-      'zTunicBodyColorFieldsetColorPicker',
-      'zTunicScalesColorFieldsetColorPicker',
-      'zTunicBootsColorFieldsetColorPicker',
+      [
+        'linkHairColorFieldsetColorPicker',
+        'hTunicHatColorFieldsetColorPicker',
+        'hTunicBodyColorFieldsetColorPicker',
+        'hTunicSkirtColorFieldsetColorPicker',
+      ],
+      [
+        'zTunicHatColorFieldsetColorPicker',
+        'zTunicHelmetColorFieldsetColorPicker',
+        'zTunicBodyColorFieldsetColorPicker',
+        'zTunicScalesColorFieldsetColorPicker',
+        'zTunicBootsColorFieldsetColorPicker',
+      ],
       'lanternColorFieldsetColorPicker',
       'heartColorFieldset',
       'aButtonColorFieldset',
@@ -384,33 +439,18 @@
     ];
 
     for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
-      const elId = arrayOfCosmeticSettings[i];
-      const element = document.getElementById(elId);
+      const cosmeticArrayEl = arrayOfCosmeticSettings[i];
+      if (Array.isArray(cosmeticArrayEl)) {
+        const colors = get16ColorsPalette();
 
-      if (elId.includes('ColorPicker')) {
-        // Is a custom color input.
-
-        // Set color input's value and trigger 'input' event.
-        const hexValue =
-          '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
-        element.value = hexValue;
-        element.setAttribute('value', hexValue);
-        element.dispatchEvent(new Event('input', { bubbles: true }));
-
-        // Change selected option to be the Custom one.
-        const selectEl = document.getElementById(
-          elId.replace('ColorPicker', '')
-        );
-        const $customOption = $(selectEl).find('option[data-custom-color]');
-        if ($customOption.length > 0) {
-          const customOption = $customOption[0];
-          $(selectEl).val(customOption.value);
-          selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+        for (let j = 0; j < cosmeticArrayEl.length; j++) {
+          const elId = cosmeticArrayEl[j];
+          const randomIndex = Math.floor(Math.random() * colors.length);
+          randomizeCosmeticSetting(elId, colors[randomIndex]);
         }
       } else {
-        // Is a plain select with no custom color option.
-        const items = element.getElementsByTagName('option');
-        element.selectedIndex = Math.floor(Math.random() * items.length);
+        const elId = arrayOfCosmeticSettings[i];
+        randomizeCosmeticSetting(elId, get16ColorsPalette()[0]);
       }
     }
   }

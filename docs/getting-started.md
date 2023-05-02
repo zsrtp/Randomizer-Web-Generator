@@ -149,6 +149,25 @@ _Note: This section will change after the client-side code is restructured in an
 
 Assuming you are just making changes to existing client code, you can make a change to the file, then reload the page in your browser.
 
+## Development Environment
+
+VSCode is the recommended tool for development.
+
+### Formatting
+
+#### Prettier
+
+In order to match the formatting, you should install the Prettier extension (the one with over 30 million installs): https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
+- Prettier will format several file types for you, including HTML, JS, JSON, and Markdown.
+- The `.prettierrc.json` file at the root of the repository defines the settings for Prettier.
+
+#### CSharpier
+
+For formatting CSharp code, you should install CSharpier: https://marketplace.visualstudio.com/items?itemName=csharpier.csharpier-vscode
+
+It is based on Prettier, hence the name.
+
 ## Next steps
 
 See [docker.md](./docker.md) for instructions on deploying a production build.
