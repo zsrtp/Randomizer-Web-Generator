@@ -1,0 +1,9 @@
+{
+    "requirements": "(Progressive_Fishing_Rod, 1)",
+    "arcOffsets": ["370F"],
+    "stageIDX": [65],
+    "fileDirectoryType": [1],
+    "replacementType": [0],
+    "category": ["Overworld", "Npc", "Ordona Province", "ARC"],
+    "itemId": "Sera_Bottle"
+}

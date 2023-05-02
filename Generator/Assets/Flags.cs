@@ -15,11 +15,11 @@ namespace TPRandomizer.Assets
         {
             { 0x2, 0x46 }, // Midna jump 1 mist area.
             { 0x2, 0x47 }, // Midna jump 1 mist area.
-            { 0x0, 0x47 }, // Picked Up Ordon Sword.
-            { 0x0, 0x45 }, // Picked up Ordon Shield.
             { 0x2, 0x5D }, // North Faron Portal.
             { 0x2, 0x98 }, // South Faron Portal.
             { 0x0, 0x6B }, // Ordon Spring Portal.
+            { 0x0, 0x44 }, // Midna Text after Ordon Shield (Spawns sword)
+            { 0x0, 0x46 }, // Midna Text after Ordon Sword
         };
 
         /// <summary>
@@ -33,6 +33,10 @@ namespace TPRandomizer.Assets
             { 0x3, 0x40 }, // Kakariko Village Portal
             { 0x3, 0x4A }, // Death Mountain Portal
             { 0x6, 0x4A }, // Give Gorge Portal
+            { 0x3, 0x67 }, // Ant house entered from top
+            { 0x3, 0x64 }, // Ant house box pushed
+            { 0x3, 0x5E }, // Defeated Ant house Tears of Light bug
+            { 0x3, 0x1E }, // Collected Tear from Ant house
         };
 
         /// <summary>
@@ -70,9 +74,8 @@ namespace TPRandomizer.Assets
             { 0x9, 0x7E }, // Jovani Chest CS
             { 0x3, 0xA7 }, // Unlock Jumps to top of Sanctuary
             { 0x3, 0x9A }, // Kakariko Village intro CS.
-            // { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
             { 0xA, 0x7F }, // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
-
+            { 0x0, 0x7E }, // Midna jumps to Shop unlocked
         };
 
         /// <summary>
@@ -250,7 +253,7 @@ namespace TPRandomizer.Assets
             { 0x13, 0x9C }, // Main room poes taking flames cs.
             { 0x13, 0x9A }, // Close poe door
             { 0x15, 0x54 }, // statue getting possessed for the first time cs
-            { 0x7,  0x43 }, // cs after pushing block human
+            { 0x7, 0x43 }, // cs after pushing block human
         };
 
         public static readonly byte[,] SmallKeyRegionFlags = new byte[,]
@@ -370,6 +373,7 @@ namespace TPRandomizer.Assets
             { 0x7, 0xBB }, // Sacred Grove Portal
             { 0x7, 0x5B }, // Block pushed down
             { 0x7, 0x42 }, // Midna text after block pushed down
+            { 0x7, 0x43 }, // cs after pushing block human
         };
         public static readonly byte[,] OpenGroveRegionFlags = new byte[,]
         {
@@ -378,6 +382,7 @@ namespace TPRandomizer.Assets
             { 0x7, 0xBB }, // Sacred Grove Portal
             { 0x7, 0x5B }, // Block pushed down
             { 0x7, 0x42 }, // Midna text after block pushed down
+            { 0x7, 0x43 }, // cs after pushing block human
         };
         public static readonly byte[,] OpenSnowpeakRegionFlags = new byte[,]
         {
@@ -390,6 +395,16 @@ namespace TPRandomizer.Assets
             { 0x3, 0x79 }, // moved death mountain rock to exit
             { 0x3, 0x8F }, // moved death mountain rock to hot spring water
             { 0x3, 0xB0 }, // Goron lets you enter elevator in sumo hall
+        };
+        public static readonly byte[,] OpenDotRegionFlags = new byte[,]
+        {
+            { 0x15, 0x59 }, // deactivate statue slot in room 1 (opens door and deactivates statue)
+            { 0x15, 0x80 }, // open big door in room 1 cs part 2
+            { 0x15, 0x81 }, // open big door in room 1 cs part 1
+            { 0x15, 0xBC }, // big door in room 1 opens
+            { 0x15, 0xBE }, // open big door in room 1 cs part 1 trigger
+            { 0x15, 0xBD }, // open big door in room 1 cs part 2 trigger
+            { 0x15, 0xBF }, // statue placed in slot in room 1
         };
 
         /// <summary>
@@ -413,6 +428,7 @@ namespace TPRandomizer.Assets
                 { 16, OpenToTRegionFlags },
                 { 18, OpenGroveRegionFlags },
                 { 19, OpenDMTRegionFlags },
+                { 20, OpenDotRegionFlags },
             };
 
         /// <summary>
@@ -420,7 +436,9 @@ namespace TPRandomizer.Assets
         /// </summary>
         public static readonly byte[,] BaseRandomizerEventFlags = new byte[,]
         {
+            { 0x3, 0x2 }, // Gave wooden sword to Talo.
             { 0x6, 0x9 }, // Tame Epona, KB1 trigger activated
+            { 0x12, 0x8 }, // Can use Sera's Shop.
             { 0x14, 0x10 }, // Put Bo outside, ready to wrestle
             { 0xA, 0x2F }, // Bridge of Eldin Stolen, KB1 defeated, KB1 started
             { 0xF, 0x9 }, // Bridge of Eldin Warped Back, coro gave lantern
@@ -444,6 +462,8 @@ namespace TPRandomizer.Assets
             { 0x3B, 0x40 }, // Won Snowboard race against Yeto.
             { 0x2F, 0x80 }, // Talked to Goron outside East Castle Town
             { 0x1C, 0x10 }, //Win Sumo round 1 against Bo
+            { 0x39, 0x2 }, // Released first caught fish in Ordon Day 2
+            { 0x10, 0x2 }, // Talked to Jaggle after climbing vines.
         };
 
         /// <summary>
@@ -454,7 +474,6 @@ namespace TPRandomizer.Assets
             { 0x5, 0x7F }, // Midna Charge Unlocked, Finished Sewers, Midna text after entering Faron Twilight, Met Zelda in sewers, Midna cut prison chain, Watched Sewers intro CS, Escaped cell in sewers.
             { 0x6, 0x10 }, // Cleared Faron Twilight
             { 0xC, 0x18 }, // Midna accompanies Wolf, sword and shield removed from wolf's back.
-            { 0x3, 0x2 }, // Gave Wooden Sword to Talo
             { 0x43, 0x8 }, // Senses unlocked
         };
 
@@ -484,13 +503,10 @@ namespace TPRandomizer.Assets
         {
             { 0x4, 0x4 }, // Talked to Uli Day 1.
             { 0x45, 0x10 }, // Saved Talo
-            { 0x10, 0x1 }, // Cat got Fish
-            { 0x3, 0x2 }, // Gave Wooden Sword to Talo
             { 0x4A, 0x60 }, // Completed Ordon Day 1 and Finished Sword Training.
             { 0x16, 0x1 }, // Completed Ordon Day 2.
             { 0x15, 0x80 }, // Watched CS for Goats 2 Done.
             { 0x46, 0x10 }, // Rode Epona back to Link's House
-            { 0x12, 0x8 }, // Can use Sera's Shop.
         };
 
         public static readonly byte[,] CutsceneEventFlags = new byte[,]
@@ -499,11 +515,12 @@ namespace TPRandomizer.Assets
             { 0x3, 0x90 }, // Jaggle Calls out to Link, talked to Squirrel as Wolf in Ordon.
             { 0x6, 0xC0 }, // CS After beating Ordon Shadow, CS after entering Faron Twilight.
             { 0x7, 0x2 }, // First Time Talking to Gor Coron in Sumo Hall
-            { 0x10, 0x2 }, // Talked to Jaggle after climbing vines.
+            { 0x15, 0x1 }, // Talked to Agitha for the first time.
             { 0xF, 0x40 }, // Talked to Doctor for the first time.
             { 0x5E, 0x10 }, // Midna text after beating Forest Temple.
             { 0x1D, 0x40 }, // Listened to Fyer at drained lake.
             { 0x22, 0x1 }, // Plumm initial CS watched.
+            { 0x23, 0x10 }, // STAR initial CS watched.
             { 0x26, 0x2 }, // Talked to Yeto on Snowpeak.
             { 0x28, 0x40 }, // Used Ooccoo for the first time.
             { 0x37, 0x4 }, // Postman twilight text.
@@ -620,6 +637,7 @@ namespace TPRandomizer.Assets
             /* 17 */RandomizerSettings.skipCityEntrance,
             /* 18 */RandomizerSettings.totEntrance == TotEntrance.OpenGrove,
             /* 19 */RandomizerSettings.goronMinesEntrance == GoronMinesEntrance.Open,
+            /* 20 */RandomizerSettings.openDot,
         };
     }
 }

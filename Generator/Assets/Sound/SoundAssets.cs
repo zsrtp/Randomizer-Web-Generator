@@ -48,7 +48,7 @@ namespace TPRandomizer.Assets
             }
             Dictionary<string, bgmData> dataList = JsonConvert.DeserializeObject<
                 Dictionary<string, bgmData>
-            >(File.ReadAllText(Global.CombineRootPath("./Assets/Sound/BackgroundMusic.json")));
+            >(File.ReadAllText(Global.CombineRootPath("./Assets/Sound/BackgroundMusic.jsonc")));
             if (seedData.fcSettings.randomizeBgm != RandomizeBgm.Off)
             {
                 foreach (KeyValuePair<string, bgmData> currentData in dataList)
@@ -156,7 +156,7 @@ namespace TPRandomizer.Assets
             {
                 Dictionary<string, bgmData> dataList = JsonConvert.DeserializeObject<
                     Dictionary<string, bgmData>
-                >(File.ReadAllText(Global.CombineRootPath("./Assets/Sound/BackgroundMusic.json")));
+                >(File.ReadAllText(Global.CombineRootPath("./Assets/Sound/BackgroundMusic.jsonc")));
                 foreach (KeyValuePair<string, bgmData> currentData in dataList)
                 {
                     if (currentData.Value.isFanfare == true && currentData.Value.bgmWave == 0)

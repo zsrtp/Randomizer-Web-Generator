@@ -1,0 +1,10 @@
+{
+    "requirements": "true",
+    "arcOffsets": ["26A7"],
+    "stageIDX": [65],
+    "fileDirectoryType": [1],
+    "replacementType": [0],
+    "flag": "10",
+    "category": ["Overworld", "Shop", "Ordona Province", "ARC"],
+    "itemId": "Slingshot"
+} 

@@ -1093,12 +1093,17 @@ namespace TPRandomizer
         /// <summary>
         /// summary text.
         /// </summary>
-          public static bool CanDefeatDangoro()
+        public static bool CanDefeatDangoro()
         {
             return (
-                (HasSword() || CanUse(Item.Shadow_Crystal)
-                || (CanDoNicheStuff() && CanUse(Item.Ball_and_Chain)|| ((getItemCount(Item.Progressive_Bow) >= 1) && hasBombs())))
-                && CanUse(Item.Iron_Boots)
+                (
+                    HasSword()
+                    || CanUse(Item.Shadow_Crystal)
+                    || (
+                        CanDoNicheStuff() && CanUse(Item.Ball_and_Chain)
+                        || ((getItemCount(Item.Progressive_Bow) >= 1) && hasBombs())
+                    )
+                ) && CanUse(Item.Iron_Boots)
             );
         }
 
@@ -1435,8 +1440,11 @@ namespace TPRandomizer
             return (
                 getItemCount(Item.Progressive_Bow) >= 1
                 || (
-                    CanDoNicheStuff() && hasBombs()
-                    || (HasSword() && getItemCount(Item.Progressive_Hidden_Skill) >= 6)
+                    CanDoNicheStuff()
+                    && (
+                        hasBombs()
+                        || (HasSword() && getItemCount(Item.Progressive_Hidden_Skill) >= 6)
+                    )
                 )
                 || (
                     Randomizer.SSettings.logicRules == LogicRules.Glitched
@@ -1504,6 +1512,7 @@ namespace TPRandomizer
                 (getItemCount(Item.Progressive_Bow) >= 1)
                 || (getItemCount(Item.Progressive_Clawshot) >= 1)
                 || CanUse(Item.Boomerang)
+                || CanUse(Item.Slingshot)
             );
         }
 
@@ -1568,14 +1577,14 @@ namespace TPRandomizer
         public static bool CanGetArrows()
         {
             return (
-                canLeaveForest() || Randomizer.Rooms.RoomDict["Lost Woods"].ReachedByPlaythrough
+                canClearForest() || Randomizer.Rooms.RoomDict["Lost Woods"].ReachedByPlaythrough
             );
         }
 
         /// <summary>
         /// summary text.
         /// </summary>
-        public static bool CanCompleteIntro()
+        public static bool canCompletePrologue()
         {
             return (
                 (
@@ -1601,13 +1610,13 @@ namespace TPRandomizer
         /// <summary>
         /// summary text.
         /// </summary>
-        public static bool canLeaveForest()
+        public static bool canClearForest()
         {
             return (
                 (
                     canCompleteForestTemple()
                     || (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Open)
-                ) && CanCompleteIntro()
+                ) && canCompletePrologue()
             );
         }
 
@@ -1617,7 +1626,7 @@ namespace TPRandomizer
         public static bool CanCompleteEldinTwilight()
         {
             return Randomizer.SSettings.eldinTwilightCleared
-                || (CanCompleteIntro() && canLeaveForest());
+                || (canCompletePrologue() && canClearForest());
         }
 
         /// <summary>
@@ -1947,10 +1956,10 @@ namespace TPRandomizer
             return hasBombs() || CanDoBSMoonBoots() || CanDoJSMoonBoots();
         }
 
-        public static bool CanLeaveForestGlitched()
+        public static bool canClearForestGlitched()
         {
             return (
-                CanCompleteIntro()
+                canCompletePrologue()
                 && (
                     (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Open)
                     || (canCompleteForestTemple() || CanDoLJA() || CanDoMapGlitch())
@@ -1963,7 +1972,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteEldinTwilightGlitched()
         {
-            return Randomizer.SSettings.eldinTwilightCleared || CanLeaveForestGlitched();
+            return Randomizer.SSettings.eldinTwilightCleared || canClearForestGlitched();
         }
 
         /// <summary>

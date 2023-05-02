@@ -286,7 +286,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.lanayruTwilightCleared,
                 randomizerSettings.skipMinorCutscenes,
                 randomizerSettings.skipMdh,
-                randomizerSettings.OpenMap //map bits
+                randomizerSettings.openMap //map bits
             };
             bool[] oneTimePatchSettingsArray =
             {
@@ -295,6 +295,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.modifyShopModels,
                 fcSettings.disableEnemyBgm,
                 randomizerSettings.instantText,
+                randomizerSettings.increaseSpinnerSpeed,
             };
             int patchOptions = 0x0;
             int bitwiseOperator = 0;
@@ -797,15 +798,8 @@ namespace TPRandomizer.Assets
                     listOfHiddenSkills.Add(Converter.GcByte(currentCheck.stageIDX[0]));
 
                     listOfHiddenSkills.Add(Converter.GcByte(currentCheck.roomIDX));
-                    listOfHiddenSkills.Add(
-                        Converter.GcByte(
-                            byte.Parse(
-                                currentCheck.flag,
-                                System.Globalization.NumberStyles.HexNumber
-                            )
-                        )
-                    );
                     listOfHiddenSkills.Add(Converter.GcByte((byte)currentCheck.itemId));
+                    listOfHiddenSkills.Add(Converter.GcByte(0x0)); // padding
 
                     count++;
                 }
@@ -980,8 +974,12 @@ namespace TPRandomizer.Assets
         private List<ARCReplacement> generateStaticArcReplacements()
         {
             List<ARCReplacement> listOfStaticReplacements = new();
-            listOfStaticReplacements.Add(new ARCReplacement("1A62", "00060064", 1, 3, 53, 0)); // Set Charlo Donation to check for 100 rupees.
-            listOfStaticReplacements.Add(new ARCReplacement("1ACC", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to 100
+
+            listOfStaticReplacements.Add(new ARCReplacement("1A62", "00060064", 1, 3, 53, 0)); // Set Charlo Donation to check Link's wallet for 100 rupees.
+
+            listOfStaticReplacements.Add(new ARCReplacement("1A84", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to increase donated amount by 100 rupees.
+
+            listOfStaticReplacements.Add(new ARCReplacement("1ACC", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to remove 100 rupees from Link's wallet.
             return listOfStaticReplacements;
         }
 

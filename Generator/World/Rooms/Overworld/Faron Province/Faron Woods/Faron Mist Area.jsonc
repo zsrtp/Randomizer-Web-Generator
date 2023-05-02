@@ -1,0 +1,23 @@
+{
+    "Neighbours": 
+    [
+        "South Faron Woods Cave", 
+        "Faron Mist Cave", 
+        "North Faron Woods"
+    ],
+  "NeighbourRequirements": [
+    "true",
+    "Lantern",
+    "canCompletePrologue and (Lantern or Shadow_Crystal)"
+  ],
+    "Checks": 
+    [
+        "Faron Mist Stump Chest",
+        "Faron Mist North Chest",
+        "Faron Mist South Chest",
+        "Faron Woods Owl Statue Chest",
+        "Faron Mist Poe"
+
+    ],
+    "Region": "Faron Woods"
+}

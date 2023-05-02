@@ -364,7 +364,7 @@
       { id: 'transformAnywhereCheckbox' },
       { id: 'increaseWalletCheckbox' },
       { id: 'modifyShopModelsCheckbox' },
-      { id: 'foolishItemFieldset', bitLength: 3 },
+      { id: 'trapItemFieldset', bitLength: 3 },
       { id: 'barrenCheckbox' },
       { id: 'goronMinesEntranceFieldset', bitLength: 2 },
       { id: 'lakebedEntranceCheckbox' },
@@ -373,7 +373,9 @@
       { id: 'totEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
       { id: 'instantTextCheckbox' },
-      { id: 'OpenMapCheckbox' },
+      { id: 'openMapCheckbox' },
+      { id: 'spinnerSpeedCheckbox' },
+      { id: 'openDotCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -757,8 +759,10 @@
       processBasic({ id: 'instantText' });
     }
     if (version >= 3) {
-      // `openMap' added as an option in version 3
-    processBasic({ id: 'OpenMap' });
+      // `openMap' and 'spinnerSpeed' and 'openDot' were added as options in version 3
+      processBasic({ id: 'openMap' });
+      processBasic({ id: 'increaseSpinnerSpeed' });
+      processBasic({ id: 'openDot' });
     }
 
     res.startingItems = processor.nextEolList(9);
@@ -828,6 +832,10 @@
   // }
 
   function decodeSettingsString(settingsString) {
+    if (settingsString) {
+      settingsString = settingsString.trim();
+    }
+
     const byType = breakUpSettingsString(settingsString);
 
     const result = {};
