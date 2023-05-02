@@ -306,6 +306,7 @@ document
   .getElementById('hiddenSkillsCheckbox')
   .addEventListener('click', setSettingsString);
 document.getElementById('foolishItemFieldset').onchange = setSettingsString;
+document.getElementById('ItemPoolFieldset').onchange = setSettingsString;
 document
   .getElementById('faronTwilightCheckbox')
   .addEventListener('click', setSettingsString);
@@ -483,6 +484,9 @@ function setSettingsString() {
   settingsStringRaw[38] = document.getElementById(
     'OpenMapCheckbox'
   ).checked;
+  settingsStringRaw[39] = document.getElementById(
+    'ItemPoolFieldset'
+  ).selectedIndex;
   // document.getElementById('settingsStringTextbox').value =
   document.getElementById('settingsStringTextbox').textContent =
     getSettingsString(settingsStringRaw);
@@ -643,6 +647,7 @@ var arrayOfSettingsItems = [
   'cityEntranceCheckbox',
   'instantTextCheckbox',
   'OpenMapCheckbox',
+  'ItemPoolFieldset'
 ];
 
 function parseSettingsString(settingsString) {
@@ -1194,6 +1199,7 @@ function populateSSettings(s) {
   $('#cityEntranceCheckbox').prop('checked', s.skipCityEntrance);
   $('#instantTextCheckbox').prop('checked', s.instantText);
   $('#OpenMapCheckbox').prop('checked', s.OpenMap);
+  $('#ItemPoolFieldset').val(s.itemPool);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {

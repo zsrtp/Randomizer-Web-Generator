@@ -376,6 +376,21 @@ namespace TPRandomizer
                 Item.Snowpeak_Ruins_Ordon_Pumpkin,
                 Item.Snowpeak_Ruins_Ordon_Goat_Cheese,
             };
+             private readonly List<Item> PlentifulRegionSmallKeys =
+            new()
+            {
+                Item.Forest_Temple_Small_Key,
+                Item.Goron_Mines_Small_Key,
+                Item.Lakebed_Temple_Small_Key,
+                Item.Arbiters_Grounds_Small_Key,
+                Item.Snowpeak_Ruins_Small_Key,
+                Item.Temple_of_Time_Small_Key,
+                Item.City_in_The_Sky_Small_Key,
+                Item.Palace_of_Twilight_Small_Key,
+                Item.Hyrule_Castle_Small_Key,
+                Item.Snowpeak_Ruins_Ordon_Pumpkin,
+                Item.Snowpeak_Ruins_Ordon_Goat_Cheese,
+            };
 
         internal List<Item> DungeonBigKeys =
             new()
@@ -383,6 +398,19 @@ namespace TPRandomizer
                 Item.Forest_Temple_Big_Key,
                 Item.Goron_Mines_Key_Shard,
                 Item.Goron_Mines_Key_Shard,
+                Item.Goron_Mines_Key_Shard,
+                Item.Lakebed_Temple_Big_Key,
+                Item.Arbiters_Grounds_Big_Key,
+                Item.Temple_of_Time_Big_Key,
+                Item.Snowpeak_Ruins_Bedroom_Key,
+                Item.City_in_The_Sky_Big_Key,
+                Item.Palace_of_Twilight_Big_Key,
+                Item.Hyrule_Castle_Big_Key,
+            };
+               private readonly List<Item> PlentifulDungeonBigKeys =
+            new()
+            {
+                Item.Forest_Temple_Big_Key,
                 Item.Goron_Mines_Key_Shard,
                 Item.Lakebed_Temple_Big_Key,
                 Item.Arbiters_Grounds_Big_Key,
@@ -474,6 +502,65 @@ namespace TPRandomizer
                 Item.Hylian_Shield,
                 Item.Hawkeye,
             };
+             private readonly List<Item> PlentifulImportantItems =
+            new()
+            {
+                Item.Progressive_Sword,
+                Item.Progressive_Wallet,
+                Item.Boomerang,
+                Item.Lantern,
+                Item.Slingshot,
+                Item.Progressive_Fishing_Rod,
+                Item.Iron_Boots,
+                Item.Progressive_Bow,
+                Item.Filled_Bomb_Bag,
+                Item.Giant_Bomb_Bag,
+                Item.Zora_Armor,
+                Item.Progressive_Clawshot,
+                Item.Shadow_Crystal,
+                Item.Aurus_Memo,
+                Item.Asheis_Sketch,
+                Item.Spinner,
+                Item.Ball_and_Chain,
+                Item.Progressive_Dominion_Rod,
+                Item.Progressive_Sky_Book,
+                Item.Empty_Bottle,
+                Item.Progressive_Hidden_Skill,
+                Item.Magic_Armor,
+                Item.Ordon_Shield,
+                Item.Hylian_Shield,
+                Item.Hawkeye,
+            };
+             private readonly List<Item> ScarceImportantItems =
+            new()
+            {
+                Item.Progressive_Wallet,
+                Item.Progressive_Bow,
+                Item.Filled_Bomb_Bag,
+                Item.Empty_Bottle,
+                Item.Progressive_Hidden_Skill,
+                Item.Progressive_Hidden_Skill,
+                Item.Progressive_Hidden_Skill,
+                Item.Progressive_Hidden_Skill,
+            };
+               private readonly List<Item> MinimalImportantItems =
+            new()
+            {
+                Item.Progressive_Wallet,
+                Item.Progressive_Bow,
+                Item.Progressive_Bow,
+                Item.Filled_Bomb_Bag,
+                Item.Filled_Bomb_Bag,
+                Item.Empty_Bottle,
+                Item.Progressive_Hidden_Skill,
+                Item.Progressive_Hidden_Skill,
+                Item.Progressive_Hidden_Skill,
+                Item.Progressive_Hidden_Skill,
+                Item.Progressive_Hidden_Skill,
+                Item.Progressive_Hidden_Skill,
+                Item.Hawkeye,
+            };
+            
 
         public readonly List<Item> goldenBugs =
             new()
@@ -797,6 +884,103 @@ namespace TPRandomizer
                     this.JunkItems.AddRange(this.vanillaJunkItems);
                     break;
                 }
+                
+            }
+            switch (parseSetting.itemPool)
+            {
+                case ItemPool.Minimal: // There is a small chance that a Foolish Item could appear
+                {
+
+                foreach(Item item in MinimalImportantItems) {
+                        {
+                            RandomizedImportantItems.Remove(item);
+                        }
+                    }
+                 
+                for (int i = 0; i < 9; i++)
+                {
+                    this.alwaysItems.Remove(Item.Heart_Container);
+                }
+
+                for (int i = 0; i < 44 ; i++)
+                {
+                    this.alwaysItems.Remove(Item.Piece_of_Heart);
+                }
+                    alwaysItems.Remove(Item.Sera_Bottle);
+                    alwaysItems.Remove(Item.Coro_Bottle);
+                    if(Randomizer.SSettings.barrenDungeons)
+                    {
+                    if ((Randomizer.RequiredDungeons & 0x80) ==0)
+                    {
+                   this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
+                    }
+                    }
+                if(Randomizer.SSettings.logicRules == LogicRules.Glitchless)
+                    {
+                        RandomizedImportantItems.Remove(Item.Magic_Armor);
+                    }
+
+                    break;
+                }
+
+                case ItemPool.Scarce: // There is an increased chance that a Foolish Item could appear
+                {
+                       for (int i = 0; i < 9; i++)
+                {
+                    this.alwaysItems.Remove(Item.Heart_Container);
+                }
+                    foreach(Item item in ScarceImportantItems) {
+                        {
+                            RandomizedImportantItems.Remove(item);
+                        }
+                    }
+                    if(Randomizer.SSettings.barrenDungeons)
+                    {
+                    if ((Randomizer.RequiredDungeons & 0x80) ==0)
+                {
+                   this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
+                }
+                    }
+                    break;
+                }
+
+                case ItemPool.Plentiful: // All Important items are duplicated
+                {
+                    this.RandomizedImportantItems.AddRange( this.PlentifulImportantItems);
+                      for (int i = 0; i < 46 ;i++)
+                {
+                    this.alwaysItems.Remove(Item.Piece_of_Heart);
+                }
+                   this.alwaysItems.AddRange(Enumerable.Repeat(Item.Heart_Container,9 ));
+                   
+                    if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
+                {
+                    this.RandomizedDungeonRegionItems.AddRange(this.PlentifulDungeonBigKeys);
+                }
+                   if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
+                {
+                    this.RandomizedImportantItems.AddRange(this.PlentifulDungeonBigKeys);
+                }
+             if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
+            {
+                this.RandomizedImportantItems.AddRange(this.PlentifulRegionSmallKeys);
+            }
+                
+             if (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
+                {
+                    this.RandomizedDungeonRegionItems.AddRange(this.PlentifulRegionSmallKeys);
+                }
+                    break;
+
+                }
+                
+
+                default:
+                {
+                    this.JunkItems.AddRange(this.vanillaJunkItems);
+                    break;
+                }
+                
             }
 
             foreach (Item startingItem in parseSetting.startingItems)

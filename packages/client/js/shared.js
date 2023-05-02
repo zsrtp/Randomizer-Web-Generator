@@ -374,6 +374,7 @@
       { id: 'cityEntranceCheckbox' },
       { id: 'instantTextCheckbox' },
       { id: 'OpenMapCheckbox' },
+      { id: 'ItemPoolFieldset', bitLength: 3 },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -721,6 +722,7 @@
     processBasic({ id: 'increaseWalletCapacity' });
     processBasic({ id: 'shopModelsShowTheReplacedItem' });
     processBasic({ id: 'trapItemsFrequency', bitLength: 3 });
+    processBasic({ id: 'itemPool', bitLength: 3 });
     processBasic({ id: 'barrenDungeons' });
     if (version >= 2) {
       // `goronMinesEntrance` changed from a checkbox to a select

@@ -427,6 +427,8 @@ namespace TPRandomizer
                 part2Settings.Add("instantText", SSettings.instantText);
             if (SSettings.OpenMap)
                 part2Settings.Add("OpenMap", SSettings.OpenMap);
+            if (SSettings.itemPool != ItemPool.Vanilla)
+                part2Settings.Add("itemPool", SSettings.itemPool);
 
             // Complex fields
             if (SSettings.startingItems?.Count > 0)

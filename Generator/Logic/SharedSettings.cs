@@ -48,6 +48,7 @@ namespace TPRandomizer
         public bool skipCityEntrance { get; set; }
         public bool instantText { get; set; }
         public bool OpenMap { get; set; }
+        public ItemPool itemPool { get; set; }
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
 
@@ -91,6 +92,7 @@ namespace TPRandomizer
             skipCityEntrance = processor.NextBool();
             instantText = processor.NextBool();
             OpenMap = processor.NextBool();
+            itemPool = (ItemPool)processor.NextInt(3);
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();

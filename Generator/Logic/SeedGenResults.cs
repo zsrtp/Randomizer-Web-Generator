@@ -303,6 +303,7 @@ namespace TPRandomizer
             result.Add("castleRequirements", sSettings.castleRequirements.ToString());
             result.Add("palaceRequirements", sSettings.palaceRequirements.ToString());
             result.Add("faronWoodsLogic", sSettings.faronWoodsLogic.ToString());
+            result.Add("itemPool", sSettings.itemPool.ToString());
             result.Add("shuffleGoldenBugs", sSettings.shuffleGoldenBugs);
             result.Add("shuffleSkyCharacters", sSettings.shuffleSkyCharacters);
             result.Add("shuffleNpcItems", sSettings.shuffleNpcItems);
