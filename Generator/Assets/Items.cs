@@ -886,9 +886,9 @@ namespace TPRandomizer
                 }
                 
             }
-            switch (parseSetting.itemPool)
+            switch (parseSetting.itemScarcity)
             {
-                case ItemPool.Minimal: // There is a small chance that a Foolish Item could appear
+                case ItemScarcity.Minimal: // There is a small chance that a Foolish Item could appear
                 {
 
                 foreach(Item item in MinimalImportantItems) {
@@ -923,7 +923,7 @@ namespace TPRandomizer
                     break;
                 }
 
-                case ItemPool.Scarce: // There is an increased chance that a Foolish Item could appear
+                case ItemScarcity.Scarce: // There is an increased chance that a Foolish Item could appear
                 {
                        for (int i = 0; i < 9; i++)
                 {
@@ -944,7 +944,7 @@ namespace TPRandomizer
                     break;
                 }
 
-                case ItemPool.Plentiful: // All Important items are duplicated
+                case ItemScarcity.Plentiful: // All Important items are duplicated
                 {
                     this.RandomizedImportantItems.AddRange( this.PlentifulImportantItems);
                       for (int i = 0; i < 46 ;i++)
@@ -952,24 +952,17 @@ namespace TPRandomizer
                     this.alwaysItems.Remove(Item.Piece_of_Heart);
                 }
                    this.alwaysItems.AddRange(Enumerable.Repeat(Item.Heart_Container,9 ));
-                   
-                    if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
-                {
-                    this.RandomizedDungeonRegionItems.AddRange(this.PlentifulDungeonBigKeys);
-                }
-                   if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
-                {
-                    this.RandomizedImportantItems.AddRange(this.PlentifulDungeonBigKeys);
-                }
-             if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
-            {
+            // Big keys
+            if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
+                this.RandomizedImportantItems.AddRange(this.PlentifulDungeonBigKeys);
+            else if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
+                this.RandomizedDungeonRegionItems.AddRange(this.PlentifulDungeonBigKeys);
+
+            // Small keys
+            if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
                 this.RandomizedImportantItems.AddRange(this.PlentifulRegionSmallKeys);
-            }
-                
-             if (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
-                {
-                    this.RandomizedDungeonRegionItems.AddRange(this.PlentifulRegionSmallKeys);
-                }
+            else if (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
+                this.RandomizedDungeonRegionItems.AddRange(this.PlentifulRegionSmallKeys);
                     break;
 
                 }

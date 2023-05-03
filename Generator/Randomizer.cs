@@ -426,8 +426,8 @@ namespace TPRandomizer
                 part2Settings.Add("skipCityEntrance", SSettings.skipCityEntrance);
             if (SSettings.instantText)
                 part2Settings.Add("instantText", SSettings.instantText);
-            if (SSettings.itemPool != ItemPool.Vanilla)
-                part2Settings.Add("itemPool", SSettings.itemPool);
+            if (SSettings.itemScarcity != ItemScarcity.Null)
+                part2Settings.Add("itemScarcity", SSettings.itemScarcity);
             if (SSettings.openMap)
                 part2Settings.Add("openMap", SSettings.openMap);
             if (SSettings.increaseSpinnerSpeed)

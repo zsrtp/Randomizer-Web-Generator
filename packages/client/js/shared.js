@@ -337,7 +337,7 @@
   function genSSettingsFromUi() {
     // Increment the version when you make changes to the format. Need to make
     // sure you don't break backwards compatibility!!
-    const sSettingsVersion = 3;
+    const sSettingsVersion = 4;
 
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
@@ -373,7 +373,7 @@
       { id: 'totEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
       { id: 'instantTextCheckbox' },
-      { id: 'ItemPoolFieldset', bitLength: 3 },
+      { id: 'itemScarcityFieldset', bitLength: 3 },
       { id: 'openMapCheckbox' },
       { id: 'spinnerSpeedCheckbox' },
       { id: 'openDotCheckbox' },
@@ -724,7 +724,6 @@
     processBasic({ id: 'increaseWalletCapacity' });
     processBasic({ id: 'shopModelsShowTheReplacedItem' });
     processBasic({ id: 'trapItemsFrequency', bitLength: 3 });
-    processBasic({ id: 'itemPool', bitLength: 3 });
     processBasic({ id: 'barrenDungeons' });
     if (version >= 2) {
       // `goronMinesEntrance` changed from a checkbox to a select
@@ -765,6 +764,11 @@
       processBasic({ id: 'openMap' });
       processBasic({ id: 'increaseSpinnerSpeed' });
       processBasic({ id: 'openDot' });
+    }
+    if (version >= 4) {
+      processBasic({ id: 'itemScarcity', bitLength: 3 });
+    } else {
+      res.itemScarcity = 1; // Vanilla
     }
 
     res.startingItems = processor.nextEolList(9);

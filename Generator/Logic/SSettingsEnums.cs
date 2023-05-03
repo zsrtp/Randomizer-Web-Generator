@@ -83,11 +83,12 @@ namespace TPRandomizer.SSettings.Enums
         NoWrestling = 1,
         Open = 2,
     }
-     public enum ItemPool
+     public enum ItemScarcity
     {
-        Vanilla = 0,
-        Minimal = 1,
-        Scarce = 2,
-        Plentiful = 3,
+        Null = 0,
+        Vanilla = 1,
+        Minimal = 2,
+        Scarce = 3,
+        Plentiful = 4,
     }
 }

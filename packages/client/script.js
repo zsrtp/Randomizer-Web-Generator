@@ -305,7 +305,7 @@ document
 document
   .getElementById('hiddenSkillsCheckbox')
   .addEventListener('click', setSettingsString);
-document.getElementById('ItemPoolFieldset').onchange = setSettingsString;
+document.getElementById('itemScarcityFieldset').onchange = setSettingsString;
 document.getElementById('trapItemFieldset').onchange = setSettingsString;
 document
   .getElementById('faronTwilightCheckbox')
@@ -490,10 +490,10 @@ function setSettingsString() {
   settingsStringRaw[39] = document.getElementById(
     'spinnerSpeedCheckbox'
   ).checked;
-  settingsStringRaw[40] = document.getElementById(
-    'ItemPoolFieldset'
+  settingsStringRaw[40] = document.getElementById('openDotCheckbox').checked;
+  settingsStringRaw[41] = document.getElementById(
+    'itemScarcityFieldset'
   ).selectedIndex;
-  settingsStringRaw[41] = document.getElementById('openDotCheckbox').checked;
   // document.getElementById('settingsStringTextbox').value =
   document.getElementById('settingsStringTextbox').textContent =
     getSettingsString(settingsStringRaw);
@@ -653,7 +653,7 @@ var arrayOfSettingsItems = [
   'totEntranceFieldset',
   'cityEntranceCheckbox',
   'instantTextCheckbox',
-  'ItemPoolFieldset',
+  'itemScarcityFieldset',
   'openMapCheckbox',
   'spinnerSpeedCheckbox',
   'openDotCheckbox',
@@ -1207,7 +1207,7 @@ function populateSSettings(s) {
   $('#totEntranceFieldset').val(s.totEntrance);
   $('#cityEntranceCheckbox').prop('checked', s.skipCityEntrance);
   $('#instantTextCheckbox').prop('checked', s.instantText);
-  $('#ItemPoolFieldset').val(s.itemPool);
+  $('#itemScarcityFieldset').val(s.itemScarcity);
   $('#openMapCheckbox').prop('checked', s.openMap);
   $('#spinnerSpeedCheckbox').prop('checked', s.increaseSpinnerSpeed);
   $('#openDotCheckbox').prop('checked', s.openDot);

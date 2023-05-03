@@ -48,7 +48,7 @@ namespace TPRandomizer
         public bool skipCityEntrance { get; set; }
         public bool instantText { get; set; }
         public bool openMap { get; set; }
-        public ItemPool itemPool { get; set; }
+        public ItemScarcity itemScarcity { get; set; }
         public bool increaseSpinnerSpeed { get; set; }
         public bool openDot { get; set; }
         public List<Item> startingItems { get; set; }
@@ -93,7 +93,7 @@ namespace TPRandomizer
             totEntrance = (TotEntrance)processor.NextInt(2);
             skipCityEntrance = processor.NextBool();
             instantText = processor.NextBool();
-            itemPool = (ItemPool)processor.NextInt(3);
+            itemScarcity = (ItemScarcity)processor.NextInt(3);
             openMap = processor.NextBool();
             increaseSpinnerSpeed = processor.NextBool();
             openDot = processor.NextBool();
