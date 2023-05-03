@@ -551,7 +551,6 @@ namespace TPRandomizer
                 Item.Progressive_Bow,
                 Item.Filled_Bomb_Bag,
                 Item.Filled_Bomb_Bag,
-                Item.Empty_Bottle,
                 Item.Progressive_Hidden_Skill,
                 Item.Progressive_Hidden_Skill,
                 Item.Progressive_Hidden_Skill,
@@ -888,7 +887,7 @@ namespace TPRandomizer
             }
             switch (parseSetting.itemScarcity)
             {
-                case ItemScarcity.Minimal: // There is a small chance that a Foolish Item could appear
+                case ItemScarcity.Minimal: // Remove all  unneccesary Items from the pool
                 {
 
                 foreach(Item item in MinimalImportantItems) {
@@ -897,17 +896,21 @@ namespace TPRandomizer
                         }
                     }
                  
+                //Remove all heart container
                 for (int i = 0; i < 9; i++)
                 {
                     this.alwaysItems.Remove(Item.Heart_Container);
                 }
-
+                //Reduce piece of Heart to 1
                 for (int i = 0; i < 44 ; i++)
                 {
                     this.alwaysItems.Remove(Item.Piece_of_Heart);
                 }
+                //Remove Bottles
                     alwaysItems.Remove(Item.Sera_Bottle);
                     alwaysItems.Remove(Item.Coro_Bottle);
+                    alwaysItems.Remove(Item.Jovani_Bottle);
+                // Remove one sword if palace is not required 
                     if(Randomizer.SSettings.barrenDungeons)
                     {
                     if ((Randomizer.RequiredDungeons & 0x80) ==0)
@@ -915,50 +918,63 @@ namespace TPRandomizer
                    this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
                     }
                     }
+                // Remove Magic Armor if Glitchless Logic
                 if(Randomizer.SSettings.logicRules == LogicRules.Glitchless)
                     {
                         RandomizedImportantItems.Remove(Item.Magic_Armor);
                     }
+                // Remove Wallet from the Pool if Increase Wallet
+                if(Randomizer.SSettings.increaseWallet == true)
+                    {
+                        RandomizedImportantItems.Remove(Item.Progressive_Wallet);
+                    }
 
                     break;
                 }
 
-                case ItemScarcity.Scarce: // There is an increased chance that a Foolish Item could appear
+                case ItemScarcity.Scarce:  // Remove One extra copy of items
                 {
-                       for (int i = 0; i < 9; i++)
-                {
-                    this.alwaysItems.Remove(Item.Heart_Container);
-                }
+
                     foreach(Item item in ScarceImportantItems) {
                         {
                             RandomizedImportantItems.Remove(item);
                         }
+                //Remove all heart container
+                       for (int i = 0; i < 9; i++)
+                {
+                    this.alwaysItems.Remove(Item.Heart_Container);
+                }
+                // Remove one sword if palace is not required 
                     }
                     if(Randomizer.SSettings.barrenDungeons)
-                    {
-                    if ((Randomizer.RequiredDungeons & 0x80) ==0)
                 {
+                    if ((Randomizer.RequiredDungeons & 0x80) ==0)
+                    {
                    this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
-                }
                     }
+                }
                     break;
                 }
 
-                case ItemScarcity.Plentiful: // All Important items are duplicated
+                case ItemScarcity.Plentiful: // All items are duplicated
                 {
-                    this.RandomizedImportantItems.AddRange( this.PlentifulImportantItems);
-                      for (int i = 0; i < 46 ;i++)
+                //Add One extra copy of items
+                this.RandomizedImportantItems.AddRange( this.PlentifulImportantItems);
+
+                //Remove all Piece of heart
+                for (int i = 0; i < 46 ;i++)
                 {
                     this.alwaysItems.Remove(Item.Piece_of_Heart);
                 }
+                // Add Heart container 
                    this.alwaysItems.AddRange(Enumerable.Repeat(Item.Heart_Container,9 ));
-            // Big keys
+                // Add Bigs keys 
             if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
                 this.RandomizedImportantItems.AddRange(this.PlentifulDungeonBigKeys);
             else if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
                 this.RandomizedDungeonRegionItems.AddRange(this.PlentifulDungeonBigKeys);
 
-            // Small keys
+                // Add Small keys 
             if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
                 this.RandomizedImportantItems.AddRange(this.PlentifulRegionSmallKeys);
             else if (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
@@ -970,7 +986,6 @@ namespace TPRandomizer
 
                 default:
                 {
-                    this.JunkItems.AddRange(this.vanillaJunkItems);
                     break;
                 }
                 
