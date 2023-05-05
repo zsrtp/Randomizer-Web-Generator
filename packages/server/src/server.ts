@@ -341,7 +341,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [48, 'Magic Armor'],
         [42, 'Ordon Shield'],
         [44, 'Hylian Shield'],
-        [62 ,'Hawkeye'],
+        [62, 'Hawkeye'],
       ];
 
       const startingItemsEls = startingItems.map((item) => {

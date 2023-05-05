@@ -376,7 +376,7 @@ namespace TPRandomizer
                 Item.Snowpeak_Ruins_Ordon_Pumpkin,
                 Item.Snowpeak_Ruins_Ordon_Goat_Cheese,
             };
-             private readonly List<Item> PlentifulRegionSmallKeys =
+        private readonly List<Item> PlentifulRegionSmallKeys =
             new()
             {
                 Item.Forest_Temple_Small_Key,
@@ -407,7 +407,7 @@ namespace TPRandomizer
                 Item.Palace_of_Twilight_Big_Key,
                 Item.Hyrule_Castle_Big_Key,
             };
-               private readonly List<Item> PlentifulDungeonBigKeys =
+        private readonly List<Item> PlentifulDungeonBigKeys =
             new()
             {
                 Item.Forest_Temple_Big_Key,
@@ -502,7 +502,7 @@ namespace TPRandomizer
                 Item.Hylian_Shield,
                 Item.Hawkeye,
             };
-             private readonly List<Item> PlentifulImportantItems =
+        private readonly List<Item> PlentifulImportantItems =
             new()
             {
                 Item.Progressive_Sword,
@@ -531,7 +531,7 @@ namespace TPRandomizer
                 Item.Hylian_Shield,
                 Item.Hawkeye,
             };
-             private readonly List<Item> ScarceImportantItems =
+        private readonly List<Item> ScarceImportantItems =
             new()
             {
                 Item.Progressive_Wallet,
@@ -543,7 +543,7 @@ namespace TPRandomizer
                 Item.Progressive_Hidden_Skill,
                 Item.Progressive_Hidden_Skill,
             };
-               private readonly List<Item> MinimalImportantItems =
+        private readonly List<Item> MinimalImportantItems =
             new()
             {
                 Item.Progressive_Wallet,
@@ -559,7 +559,6 @@ namespace TPRandomizer
                 Item.Progressive_Hidden_Skill,
                 Item.Hawkeye,
             };
-            
 
         public readonly List<Item> goldenBugs =
             new()
@@ -883,48 +882,47 @@ namespace TPRandomizer
                     this.JunkItems.AddRange(this.vanillaJunkItems);
                     break;
                 }
-                
             }
             switch (parseSetting.itemScarcity)
             {
                 case ItemScarcity.Minimal: // Remove all  unneccesary Items from the pool
                 {
-
-                foreach(Item item in MinimalImportantItems) {
+                    foreach (Item item in MinimalImportantItems)
+                    {
                         {
                             RandomizedImportantItems.Remove(item);
                         }
                     }
-                 
-                //Remove all heart container
-                for (int i = 0; i < 9; i++)
-                {
-                    this.alwaysItems.Remove(Item.Heart_Container);
-                }
-                //Reduce piece of Heart to 1
-                for (int i = 0; i < 44 ; i++)
-                {
-                    this.alwaysItems.Remove(Item.Piece_of_Heart);
-                }
-                //Remove Bottles
+
+                    //Remove all heart container
+                    for (int i = 0; i < 9; i++)
+                    {
+                        this.alwaysItems.Remove(Item.Heart_Container);
+                    }
+                    //Reduce piece of Heart to 1
+                    for (int i = 0; i < 44; i++)
+                    {
+                        this.alwaysItems.Remove(Item.Piece_of_Heart);
+                    }
+                    //Remove Bottles
                     alwaysItems.Remove(Item.Sera_Bottle);
                     alwaysItems.Remove(Item.Coro_Bottle);
                     alwaysItems.Remove(Item.Jovani_Bottle);
-                // Remove one sword if palace is not required 
-                    if(Randomizer.SSettings.barrenDungeons)
+                    // Remove one sword if palace is not required
+                    if (Randomizer.SSettings.barrenDungeons)
                     {
-                    if ((Randomizer.RequiredDungeons & 0x80) ==0)
-                    {
-                   this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
+                        if ((Randomizer.RequiredDungeons & 0x80) == 0)
+                        {
+                            this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
+                        }
                     }
-                    }
-                // Remove Magic Armor if Glitchless Logic
-                if(Randomizer.SSettings.logicRules == LogicRules.Glitchless)
+                    // Remove Magic Armor if Glitchless Logic
+                    if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
                     {
                         RandomizedImportantItems.Remove(Item.Magic_Armor);
                     }
-                // Remove Wallet from the Pool if Increase Wallet
-                if(Randomizer.SSettings.increaseWallet == true)
+                    // Remove Wallet from the Pool if Increase Wallet
+                    if (Randomizer.SSettings.increaseWallet == true)
                     {
                         RandomizedImportantItems.Remove(Item.Progressive_Wallet);
                     }
@@ -932,63 +930,60 @@ namespace TPRandomizer
                     break;
                 }
 
-                case ItemScarcity.Scarce:  // Remove One extra copy of items
+                case ItemScarcity.Scarce: // Remove One extra copy of items
                 {
-
-                    foreach(Item item in ScarceImportantItems) {
+                    foreach (Item item in ScarceImportantItems)
+                    {
                         {
                             RandomizedImportantItems.Remove(item);
                         }
-                //Remove all heart container
-                       for (int i = 0; i < 9; i++)
-                {
-                    this.alwaysItems.Remove(Item.Heart_Container);
-                }
-                // Remove one sword if palace is not required 
+                        //Remove all heart container
+                        for (int i = 0; i < 9; i++)
+                        {
+                            this.alwaysItems.Remove(Item.Heart_Container);
+                        }
+                        // Remove one sword if palace is not required
                     }
-                    if(Randomizer.SSettings.barrenDungeons)
-                {
-                    if ((Randomizer.RequiredDungeons & 0x80) ==0)
+                    if (Randomizer.SSettings.barrenDungeons)
                     {
-                   this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
+                        if ((Randomizer.RequiredDungeons & 0x80) == 0)
+                        {
+                            this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
+                        }
                     }
-                }
                     break;
                 }
 
                 case ItemScarcity.Plentiful: // All items are duplicated
                 {
-                //Add One extra copy of items
-                this.RandomizedImportantItems.AddRange( this.PlentifulImportantItems);
+                    //Add One extra copy of items
+                    this.RandomizedImportantItems.AddRange(this.PlentifulImportantItems);
 
-                //Remove all Piece of heart
-                for (int i = 0; i < 46 ;i++)
-                {
-                    this.alwaysItems.Remove(Item.Piece_of_Heart);
-                }
-                // Add Heart container 
-                   this.alwaysItems.AddRange(Enumerable.Repeat(Item.Heart_Container,9 ));
-                // Add Bigs keys 
-            if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
-                this.RandomizedImportantItems.AddRange(this.PlentifulDungeonBigKeys);
-            else if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
-                this.RandomizedDungeonRegionItems.AddRange(this.PlentifulDungeonBigKeys);
+                    //Remove all Piece of heart
+                    for (int i = 0; i < 46; i++)
+                    {
+                        this.alwaysItems.Remove(Item.Piece_of_Heart);
+                    }
+                    // Add Heart container
+                    this.alwaysItems.AddRange(Enumerable.Repeat(Item.Heart_Container, 9));
+                    // Add Bigs keys
+                    if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
+                        this.RandomizedImportantItems.AddRange(this.PlentifulDungeonBigKeys);
+                    else if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
+                        this.RandomizedDungeonRegionItems.AddRange(this.PlentifulDungeonBigKeys);
 
-                // Add Small keys 
-            if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
-                this.RandomizedImportantItems.AddRange(this.PlentifulRegionSmallKeys);
-            else if (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
-                this.RandomizedDungeonRegionItems.AddRange(this.PlentifulRegionSmallKeys);
+                    // Add Small keys
+                    if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
+                        this.RandomizedImportantItems.AddRange(this.PlentifulRegionSmallKeys);
+                    else if (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
+                        this.RandomizedDungeonRegionItems.AddRange(this.PlentifulRegionSmallKeys);
                     break;
-
                 }
-                
 
                 default:
                 {
                     break;
                 }
-                
             }
 
             foreach (Item startingItem in parseSetting.startingItems)

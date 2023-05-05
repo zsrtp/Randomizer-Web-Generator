@@ -83,7 +83,8 @@ namespace TPRandomizer.SSettings.Enums
         NoWrestling = 1,
         Open = 2,
     }
-     public enum ItemScarcity
+
+    public enum ItemScarcity
     {
         Null = 0,
         Vanilla = 1,
