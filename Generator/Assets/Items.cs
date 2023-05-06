@@ -847,6 +847,7 @@ namespace TPRandomizer
                 }
             }
 
+            // Adjust item pool based on itemScarcity setting.
             switch (parseSetting.itemScarcity)
             {
                 // Include as few items as possible.
@@ -926,6 +927,7 @@ namespace TPRandomizer
                     // Add Heart Containers
                     this.alwaysItems.AddRange(Enumerable.Repeat(Item.Heart_Container, 8));
 
+                    // Add extra copy of some items
                     List<Item> plentifulImportantItems =
                         new()
                         {
@@ -955,8 +957,6 @@ namespace TPRandomizer
                             Item.Hylian_Shield,
                             Item.Hawkeye,
                         };
-
-                    // Add extra copy of some items
                     RandomizedImportantItems.AddRange(plentifulImportantItems);
 
                     // Add big keys
