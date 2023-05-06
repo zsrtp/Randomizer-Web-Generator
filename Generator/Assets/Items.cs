@@ -502,35 +502,6 @@ namespace TPRandomizer
                 Item.Hylian_Shield,
                 Item.Hawkeye,
             };
-        private readonly List<Item> PlentifulImportantItems =
-            new()
-            {
-                Item.Progressive_Sword,
-                Item.Progressive_Wallet,
-                Item.Boomerang,
-                Item.Lantern,
-                Item.Slingshot,
-                Item.Progressive_Fishing_Rod,
-                Item.Iron_Boots,
-                Item.Progressive_Bow,
-                Item.Filled_Bomb_Bag,
-                Item.Giant_Bomb_Bag,
-                Item.Zora_Armor,
-                Item.Progressive_Clawshot,
-                Item.Shadow_Crystal,
-                Item.Aurus_Memo,
-                Item.Asheis_Sketch,
-                Item.Spinner,
-                Item.Ball_and_Chain,
-                Item.Progressive_Dominion_Rod,
-                Item.Progressive_Sky_Book,
-                Item.Empty_Bottle,
-                Item.Progressive_Hidden_Skill,
-                Item.Magic_Armor,
-                Item.Ordon_Shield,
-                Item.Hylian_Shield,
-                Item.Hawkeye,
-            };
 
         public readonly List<Item> goldenBugs =
             new()
@@ -880,6 +851,10 @@ namespace TPRandomizer
             {
                 case ItemScarcity.Minimal: // Include as few items as possible.
                 {
+                    // Note we leave in the empty bottle since it shows up in
+                    // the `Faron Field.jsonc` file. It might be required in
+                    // Entrance Rando at some point, so leaving it in for now.
+
                     // Update alwaysItems
                     HashSet<Item> alwaysItemsToRemove =
                         new()
@@ -974,29 +949,61 @@ namespace TPRandomizer
                     break;
                 }
 
-                case ItemScarcity.Plentiful: // All items are duplicated
+                case ItemScarcity.Plentiful: // Some items get extra copies
                 {
-                    //Add One extra copy of items
-                    this.RandomizedImportantItems.AddRange(this.PlentifulImportantItems);
+                    // Remove all Pieces of Heart
+                    this.alwaysItems = this.alwaysItems
+                        .Where(item => item != Item.Piece_of_Heart)
+                        .ToList();
 
-                    //Remove all Piece of heart
-                    for (int i = 0; i < 46; i++)
-                    {
-                        this.alwaysItems.Remove(Item.Piece_of_Heart);
-                    }
-                    // Add Heart container
-                    this.alwaysItems.AddRange(Enumerable.Repeat(Item.Heart_Container, 9));
-                    // Add Bigs keys
+                    // Add Heart Containers
+                    this.alwaysItems.AddRange(Enumerable.Repeat(Item.Heart_Container, 8));
+
+                    List<Item> plentifulImportantItems =
+                        new()
+                        {
+                            Item.Progressive_Sword,
+                            Item.Progressive_Wallet,
+                            Item.Boomerang,
+                            Item.Lantern,
+                            Item.Slingshot,
+                            Item.Progressive_Fishing_Rod,
+                            Item.Iron_Boots,
+                            Item.Progressive_Bow,
+                            Item.Filled_Bomb_Bag,
+                            Item.Giant_Bomb_Bag,
+                            Item.Zora_Armor,
+                            Item.Progressive_Clawshot,
+                            Item.Shadow_Crystal,
+                            Item.Aurus_Memo,
+                            Item.Asheis_Sketch,
+                            Item.Spinner,
+                            Item.Ball_and_Chain,
+                            Item.Progressive_Dominion_Rod,
+                            Item.Progressive_Sky_Book,
+                            Item.Empty_Bottle,
+                            Item.Progressive_Hidden_Skill,
+                            Item.Magic_Armor,
+                            Item.Ordon_Shield,
+                            Item.Hylian_Shield,
+                            Item.Hawkeye,
+                        };
+
+                    // Add extra copy of some items
+                    RandomizedImportantItems.AddRange(plentifulImportantItems);
+
+                    // Add big keys
                     if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
                         this.RandomizedImportantItems.AddRange(this.PlentifulDungeonBigKeys);
                     else if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
                         this.RandomizedDungeonRegionItems.AddRange(this.PlentifulDungeonBigKeys);
 
-                    // Add Small keys
+                    // Add small keys
                     if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
                         this.RandomizedImportantItems.AddRange(this.PlentifulRegionSmallKeys);
                     else if (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
                         this.RandomizedDungeonRegionItems.AddRange(this.PlentifulRegionSmallKeys);
+
                     break;
                 }
 
