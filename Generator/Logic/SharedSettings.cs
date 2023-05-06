@@ -93,7 +93,7 @@ namespace TPRandomizer
             totEntrance = (TotEntrance)processor.NextInt(2);
             skipCityEntrance = processor.NextBool();
             instantText = processor.NextBool();
-            itemScarcity = (ItemScarcity)processor.NextInt(3);
+            itemScarcity = (ItemScarcity)processor.NextInt(2);
             openMap = processor.NextBool();
             increaseSpinnerSpeed = processor.NextBool();
             openDot = processor.NextBool();

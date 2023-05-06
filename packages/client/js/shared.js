@@ -373,7 +373,7 @@
       { id: 'totEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
       { id: 'instantTextCheckbox' },
-      { id: 'itemScarcityFieldset', bitLength: 3 },
+      { id: 'itemScarcityFieldset', bitLength: 2 },
       { id: 'openMapCheckbox' },
       { id: 'spinnerSpeedCheckbox' },
       { id: 'openDotCheckbox' },
@@ -766,7 +766,7 @@
       processBasic({ id: 'openDot' });
     }
     if (version >= 4) {
-      processBasic({ id: 'itemScarcity', bitLength: 3 });
+      processBasic({ id: 'itemScarcity', bitLength: 2 });
     } else {
       res.itemScarcity = 1; // Vanilla
     }
