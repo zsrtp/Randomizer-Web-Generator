@@ -543,22 +543,6 @@ namespace TPRandomizer
                 Item.Progressive_Hidden_Skill,
                 Item.Progressive_Hidden_Skill,
             };
-        private readonly List<Item> MinimalImportantItems =
-            new()
-            {
-                Item.Progressive_Wallet,
-                Item.Progressive_Bow,
-                Item.Progressive_Bow,
-                Item.Filled_Bomb_Bag,
-                Item.Filled_Bomb_Bag,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Hawkeye,
-            };
 
         public readonly List<Item> goldenBugs =
             new()
@@ -780,6 +764,26 @@ namespace TPRandomizer
                 Item.Purple_Rupee
             };
 
+        // Mutates inputList
+        private void reduceItemToCount(List<Item> inputList, Item item, int desiredCount)
+        {
+            if (desiredCount < 0)
+                desiredCount = 0;
+
+            int currentCount = 0;
+            foreach (Item itemInList in inputList)
+            {
+                if (itemInList == item)
+                    currentCount += 1;
+            }
+
+            int numberToRemove = currentCount - desiredCount;
+            for (int i = 0; i < numberToRemove; i++)
+            {
+                inputList.Remove(item);
+            }
+        }
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -883,49 +887,65 @@ namespace TPRandomizer
                     break;
                 }
             }
+
             switch (parseSetting.itemScarcity)
             {
-                case ItemScarcity.Minimal: // Remove all  unneccesary Items from the pool
+                case ItemScarcity.Minimal: // Include as few items as possible.
                 {
-                    foreach (Item item in MinimalImportantItems)
-                    {
+                    // Update alwaysItems
+                    HashSet<Item> alwaysItemsToRemove =
+                        new()
                         {
-                            RandomizedImportantItems.Remove(item);
-                        }
+                            Item.Heart_Container,
+                            Item.Piece_of_Heart,
+                            Item.Sera_Bottle,
+                            Item.Coro_Bottle,
+                            Item.Jovani_Bottle
+                        };
+
+                    // Filter out certain items
+                    this.alwaysItems = this.alwaysItems
+                        .Where(item => !alwaysItemsToRemove.Contains(item))
+                        .ToList();
+
+                    // Update RandomizedImportantItems
+                    Dictionary<Item, int> importantItemToCount =
+                        new()
+                        {
+                            { Item.Progressive_Bow, 1 },
+                            { Item.Filled_Bomb_Bag, 1 },
+                            { Item.Progressive_Hidden_Skill, 1 },
+                            { Item.Hawkeye, 0 },
+                        };
+
+                    foreach (KeyValuePair<Item, int> kv in importantItemToCount)
+                    {
+                        reduceItemToCount(RandomizedImportantItems, kv.Key, kv.Value);
                     }
 
-                    //Remove all heart container
-                    for (int i = 0; i < 9; i++)
+                    // Reduce swords to 3 if barrenDungeons is on and Palace of
+                    // Twilight is not required.
+                    if (
+                        Randomizer.SSettings.barrenDungeons
+                        && (Randomizer.RequiredDungeons & 0x80) == 0
+                    )
                     {
-                        this.alwaysItems.Remove(Item.Heart_Container);
+                        reduceItemToCount(RandomizedImportantItems, Item.Progressive_Sword, 3);
                     }
-                    //Reduce piece of Heart to 1
-                    for (int i = 0; i < 44; i++)
-                    {
-                        this.alwaysItems.Remove(Item.Piece_of_Heart);
-                    }
-                    //Remove Bottles
-                    alwaysItems.Remove(Item.Sera_Bottle);
-                    alwaysItems.Remove(Item.Coro_Bottle);
-                    alwaysItems.Remove(Item.Jovani_Bottle);
-                    // Remove one sword if palace is not required
-                    if (Randomizer.SSettings.barrenDungeons)
-                    {
-                        if ((Randomizer.RequiredDungeons & 0x80) == 0)
-                        {
-                            this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
-                        }
-                    }
+
                     // Remove Magic Armor if Glitchless Logic
                     if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
                     {
-                        RandomizedImportantItems.Remove(Item.Magic_Armor);
+                        reduceItemToCount(RandomizedImportantItems, Item.Magic_Armor, 0);
                     }
-                    // Remove Wallet from the Pool if Increase Wallet
-                    if (Randomizer.SSettings.increaseWallet == true)
-                    {
-                        RandomizedImportantItems.Remove(Item.Progressive_Wallet);
-                    }
+
+                    // If wallet size is not increased, we need to be able to
+                    // find 1 wallet so we can afford the magic armor check.
+                    reduceItemToCount(
+                        RandomizedImportantItems,
+                        Item.Progressive_Wallet,
+                        Randomizer.SSettings.increaseWallet ? 0 : 1
+                    );
 
                     break;
                 }
@@ -981,9 +1001,7 @@ namespace TPRandomizer
                 }
 
                 default:
-                {
                     break;
-                }
             }
 
             foreach (Item startingItem in parseSetting.startingItems)
