@@ -86,10 +86,8 @@ namespace TPRandomizer.SSettings.Enums
 
     public enum ItemScarcity
     {
-        Null = 0,
-        Vanilla = 1,
-        Minimal = 2,
-        Scarce = 3,
-        Plentiful = 4,
+        Vanilla = 0,
+        Minimal = 1,
+        Plentiful = 2,
     }
 }

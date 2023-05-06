@@ -849,7 +849,8 @@ namespace TPRandomizer
 
             switch (parseSetting.itemScarcity)
             {
-                case ItemScarcity.Minimal: // Include as few items as possible.
+                // Include as few items as possible.
+                case ItemScarcity.Minimal:
                 {
                     // Note we leave in the empty bottle since it shows up in
                     // the `Faron Field.jsonc` file. It might be required in
@@ -879,6 +880,7 @@ namespace TPRandomizer
                             { Item.Filled_Bomb_Bag, 1 },
                             { Item.Progressive_Hidden_Skill, 1 },
                             { Item.Hawkeye, 0 },
+                            { Item.Giant_Bomb_Bag, 0 }
                         };
 
                     foreach (KeyValuePair<Item, int> kv in importantItemToCount)
@@ -913,43 +915,8 @@ namespace TPRandomizer
                     break;
                 }
 
-                case ItemScarcity.Scarce: // Remove a few items
-                {
-                    // Remove all Heart Containers
-                    this.alwaysItems = this.alwaysItems
-                        .Where(item => item != Item.Heart_Container)
-                        .ToList();
-
-                    // Update RandomizedImportantItems
-                    Dictionary<Item, int> importantItemToCount =
-                        new()
-                        {
-                            { Item.Progressive_Bow, 2 },
-                            { Item.Filled_Bomb_Bag, 2 },
-                            { Item.Progressive_Hidden_Skill, 3 },
-                            { Item.Progressive_Wallet, 1 },
-                            { Item.Empty_Bottle, 0 },
-                        };
-
-                    foreach (KeyValuePair<Item, int> kv in importantItemToCount)
-                    {
-                        reduceItemToCount(RandomizedImportantItems, kv.Key, kv.Value);
-                    }
-
-                    // Reduce swords to 3 if barrenDungeons is on and Palace of
-                    // Twilight is not required.
-                    if (
-                        Randomizer.SSettings.barrenDungeons
-                        && (Randomizer.RequiredDungeons & 0x80) == 0
-                    )
-                    {
-                        reduceItemToCount(RandomizedImportantItems, Item.Progressive_Sword, 3);
-                    }
-
-                    break;
-                }
-
-                case ItemScarcity.Plentiful: // Some items get extra copies
+                // Some items get extra copies; no Pieces of Heart
+                case ItemScarcity.Plentiful:
                 {
                     // Remove all Pieces of Heart
                     this.alwaysItems = this.alwaysItems
