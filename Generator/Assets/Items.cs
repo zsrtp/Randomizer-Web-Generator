@@ -531,18 +531,6 @@ namespace TPRandomizer
                 Item.Hylian_Shield,
                 Item.Hawkeye,
             };
-        private readonly List<Item> ScarceImportantItems =
-            new()
-            {
-                Item.Progressive_Wallet,
-                Item.Progressive_Bow,
-                Item.Filled_Bomb_Bag,
-                Item.Empty_Bottle,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-            };
 
         public readonly List<Item> goldenBugs =
             new()
@@ -950,27 +938,39 @@ namespace TPRandomizer
                     break;
                 }
 
-                case ItemScarcity.Scarce: // Remove One extra copy of items
+                case ItemScarcity.Scarce: // Remove a few items
                 {
-                    foreach (Item item in ScarceImportantItems)
+                    // Remove all Heart Containers
+                    this.alwaysItems = this.alwaysItems
+                        .Where(item => item != Item.Heart_Container)
+                        .ToList();
+
+                    // Update RandomizedImportantItems
+                    Dictionary<Item, int> importantItemToCount =
+                        new()
+                        {
+                            { Item.Progressive_Bow, 2 },
+                            { Item.Filled_Bomb_Bag, 2 },
+                            { Item.Progressive_Hidden_Skill, 3 },
+                            { Item.Progressive_Wallet, 1 },
+                            { Item.Empty_Bottle, 0 },
+                        };
+
+                    foreach (KeyValuePair<Item, int> kv in importantItemToCount)
                     {
-                        {
-                            RandomizedImportantItems.Remove(item);
-                        }
-                        //Remove all heart container
-                        for (int i = 0; i < 9; i++)
-                        {
-                            this.alwaysItems.Remove(Item.Heart_Container);
-                        }
-                        // Remove one sword if palace is not required
+                        reduceItemToCount(RandomizedImportantItems, kv.Key, kv.Value);
                     }
-                    if (Randomizer.SSettings.barrenDungeons)
+
+                    // Reduce swords to 3 if barrenDungeons is on and Palace of
+                    // Twilight is not required.
+                    if (
+                        Randomizer.SSettings.barrenDungeons
+                        && (Randomizer.RequiredDungeons & 0x80) == 0
+                    )
                     {
-                        if ((Randomizer.RequiredDungeons & 0x80) == 0)
-                        {
-                            this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
-                        }
+                        reduceItemToCount(RandomizedImportantItems, Item.Progressive_Sword, 3);
                     }
+
                     break;
                 }
 
