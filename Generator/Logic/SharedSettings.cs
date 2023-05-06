@@ -93,10 +93,10 @@ namespace TPRandomizer
             totEntrance = (TotEntrance)processor.NextInt(2);
             skipCityEntrance = processor.NextBool();
             instantText = processor.NextBool();
-            itemScarcity = (ItemScarcity)processor.NextInt(2);
             openMap = processor.NextBool();
             increaseSpinnerSpeed = processor.NextBool();
             openDot = processor.NextBool();
+            itemScarcity = (ItemScarcity)processor.NextInt(2);
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();

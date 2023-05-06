@@ -373,10 +373,10 @@
       { id: 'totEntranceFieldset', bitLength: 2 },
       { id: 'cityEntranceCheckbox' },
       { id: 'instantTextCheckbox' },
-      { id: 'itemScarcityFieldset', bitLength: 2 },
       { id: 'openMapCheckbox' },
       { id: 'spinnerSpeedCheckbox' },
       { id: 'openDotCheckbox' },
+      { id: 'itemScarcityFieldset', bitLength: 2 },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -768,7 +768,7 @@
     if (version >= 4) {
       processBasic({ id: 'itemScarcity', bitLength: 2 });
     } else {
-      res.itemScarcity = 1; // Vanilla
+      res.itemScarcity = 0; // Vanilla
     }
 
     res.startingItems = processor.nextEolList(9);
