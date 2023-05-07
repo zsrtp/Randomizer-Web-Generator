@@ -465,7 +465,6 @@ namespace TPRandomizer
                 Item.Filled_Bomb_Bag,
                 Item.Filled_Bomb_Bag,
                 Item.Filled_Bomb_Bag,
-                Item.Giant_Bomb_Bag,
                 Item.Zora_Armor,
                 Item.Progressive_Clawshot,
                 Item.Progressive_Clawshot,
@@ -500,7 +499,6 @@ namespace TPRandomizer
                 Item.Magic_Armor,
                 Item.Ordon_Shield,
                 Item.Hylian_Shield,
-                Item.Hawkeye,
             };
 
         public readonly List<Item> goldenBugs =
@@ -646,9 +644,11 @@ namespace TPRandomizer
                 Item.Orange_Rupee,
                 Item.Silver_Rupee,
                 Item.Silver_Rupee,
+                Item.Giant_Bomb_Bag,
                 Item.Sera_Bottle,
                 Item.Coro_Bottle,
                 Item.Jovani_Bottle,
+                Item.Hawkeye,
             };
 
         private readonly List<Item> vanillaJunkItems =
@@ -865,7 +865,9 @@ namespace TPRandomizer
                             Item.Piece_of_Heart,
                             Item.Sera_Bottle,
                             Item.Coro_Bottle,
-                            Item.Jovani_Bottle
+                            Item.Jovani_Bottle,
+                            Item.Hawkeye,
+                            Item.Giant_Bomb_Bag,
                         };
 
                     // Filter out certain items
@@ -880,8 +882,6 @@ namespace TPRandomizer
                             { Item.Progressive_Bow, 1 },
                             { Item.Filled_Bomb_Bag, 1 },
                             { Item.Progressive_Hidden_Skill, 1 },
-                            { Item.Hawkeye, 0 },
-                            { Item.Giant_Bomb_Bag, 0 }
                         };
 
                     foreach (KeyValuePair<Item, int> kv in importantItemToCount)
@@ -980,7 +980,11 @@ namespace TPRandomizer
 
             foreach (Item startingItem in parseSetting.startingItems)
             {
-                RandomizedImportantItems.Remove(startingItem);
+                bool didRemoveItem = RandomizedImportantItems.Remove(startingItem);
+                if (!didRemoveItem)
+                {
+                    alwaysItems.Remove(startingItem);
+                }
             }
 
             // If a poe is excluded, we still want to place the item that was in its location.
