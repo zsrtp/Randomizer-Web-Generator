@@ -957,8 +957,7 @@ namespace TPRandomizer
                             Item.Progressive_Clawshot,
                             Item.Shadow_Crystal,
                             Item.Aurus_Memo,
-                            // We don't give an extra Sketch because you can
-                            // potentially do the Ralis check twice.
+                            Item.Asheis_Sketch,
                             Item.Spinner,
                             Item.Ball_and_Chain,
                             Item.Progressive_Dominion_Rod,
