@@ -376,7 +376,7 @@ namespace TPRandomizer
                 Item.Snowpeak_Ruins_Ordon_Pumpkin,
                 Item.Snowpeak_Ruins_Ordon_Goat_Cheese,
             };
-             private readonly List<Item> PlentifulRegionSmallKeys =
+        private readonly List<Item> PlentifulRegionSmallKeys =
             new()
             {
                 Item.Forest_Temple_Small_Key,
@@ -407,7 +407,7 @@ namespace TPRandomizer
                 Item.Palace_of_Twilight_Big_Key,
                 Item.Hyrule_Castle_Big_Key,
             };
-               private readonly List<Item> PlentifulDungeonBigKeys =
+        private readonly List<Item> PlentifulDungeonBigKeys =
             new()
             {
                 Item.Forest_Temple_Big_Key,
@@ -465,7 +465,6 @@ namespace TPRandomizer
                 Item.Filled_Bomb_Bag,
                 Item.Filled_Bomb_Bag,
                 Item.Filled_Bomb_Bag,
-                Item.Giant_Bomb_Bag,
                 Item.Zora_Armor,
                 Item.Progressive_Clawshot,
                 Item.Progressive_Clawshot,
@@ -500,66 +499,7 @@ namespace TPRandomizer
                 Item.Magic_Armor,
                 Item.Ordon_Shield,
                 Item.Hylian_Shield,
-                Item.Hawkeye,
             };
-             private readonly List<Item> PlentifulImportantItems =
-            new()
-            {
-                Item.Progressive_Sword,
-                Item.Progressive_Wallet,
-                Item.Boomerang,
-                Item.Lantern,
-                Item.Slingshot,
-                Item.Progressive_Fishing_Rod,
-                Item.Iron_Boots,
-                Item.Progressive_Bow,
-                Item.Filled_Bomb_Bag,
-                Item.Giant_Bomb_Bag,
-                Item.Zora_Armor,
-                Item.Progressive_Clawshot,
-                Item.Shadow_Crystal,
-                Item.Aurus_Memo,
-                Item.Asheis_Sketch,
-                Item.Spinner,
-                Item.Ball_and_Chain,
-                Item.Progressive_Dominion_Rod,
-                Item.Progressive_Sky_Book,
-                Item.Empty_Bottle,
-                Item.Progressive_Hidden_Skill,
-                Item.Magic_Armor,
-                Item.Ordon_Shield,
-                Item.Hylian_Shield,
-                Item.Hawkeye,
-            };
-             private readonly List<Item> ScarceImportantItems =
-            new()
-            {
-                Item.Progressive_Wallet,
-                Item.Progressive_Bow,
-                Item.Filled_Bomb_Bag,
-                Item.Empty_Bottle,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-            };
-               private readonly List<Item> MinimalImportantItems =
-            new()
-            {
-                Item.Progressive_Wallet,
-                Item.Progressive_Bow,
-                Item.Progressive_Bow,
-                Item.Filled_Bomb_Bag,
-                Item.Filled_Bomb_Bag,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Progressive_Hidden_Skill,
-                Item.Hawkeye,
-            };
-            
 
         public readonly List<Item> goldenBugs =
             new()
@@ -704,9 +644,11 @@ namespace TPRandomizer
                 Item.Orange_Rupee,
                 Item.Silver_Rupee,
                 Item.Silver_Rupee,
+                Item.Giant_Bomb_Bag,
                 Item.Sera_Bottle,
                 Item.Coro_Bottle,
                 Item.Jovani_Bottle,
+                Item.Hawkeye,
             };
 
         private readonly List<Item> vanillaJunkItems =
@@ -780,6 +722,26 @@ namespace TPRandomizer
                 Item.Purple_Rupee,
                 Item.Purple_Rupee
             };
+
+        // Mutates inputList
+        private void reduceItemToCount(List<Item> inputList, Item item, int desiredCount)
+        {
+            if (desiredCount < 0)
+                desiredCount = 0;
+
+            int currentCount = 0;
+            foreach (Item itemInList in inputList)
+            {
+                if (itemInList == item)
+                    currentCount += 1;
+            }
+
+            int numberToRemove = currentCount - desiredCount;
+            for (int i = 0; i < numberToRemove; i++)
+            {
+                inputList.Remove(item);
+            }
+        }
 
         /// <summary>
         /// summary text.
@@ -883,117 +845,146 @@ namespace TPRandomizer
                     this.JunkItems.AddRange(this.vanillaJunkItems);
                     break;
                 }
-                
             }
+
+            // Adjust item pool based on itemScarcity setting.
             switch (parseSetting.itemScarcity)
             {
-                case ItemScarcity.Minimal: // Remove all  unneccesary Items from the pool
+                // Include as few items as possible.
+                case ItemScarcity.Minimal:
                 {
+                    // Note we leave in the empty bottle since it shows up in
+                    // the `Faron Field.jsonc` file. It might be required in
+                    // Entrance Rando at some point, so leaving it in for now.
 
-                foreach(Item item in MinimalImportantItems) {
+                    // Update alwaysItems
+                    HashSet<Item> alwaysItemsToRemove =
+                        new()
                         {
-                            RandomizedImportantItems.Remove(item);
-                        }
-                    }
-                 
-                //Remove all heart container
-                for (int i = 0; i < 9; i++)
-                {
-                    this.alwaysItems.Remove(Item.Heart_Container);
-                }
-                //Reduce piece of Heart to 1
-                for (int i = 0; i < 44 ; i++)
-                {
-                    this.alwaysItems.Remove(Item.Piece_of_Heart);
-                }
-                //Remove Bottles
-                    alwaysItems.Remove(Item.Sera_Bottle);
-                    alwaysItems.Remove(Item.Coro_Bottle);
-                    alwaysItems.Remove(Item.Jovani_Bottle);
-                // Remove one sword if palace is not required 
-                    if(Randomizer.SSettings.barrenDungeons)
-                    {
-                    if ((Randomizer.RequiredDungeons & 0x80) ==0)
-                    {
-                   this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
-                    }
-                    }
-                // Remove Magic Armor if Glitchless Logic
-                if(Randomizer.SSettings.logicRules == LogicRules.Glitchless)
-                    {
-                        RandomizedImportantItems.Remove(Item.Magic_Armor);
-                    }
-                // Remove Wallet from the Pool if Increase Wallet
-                if(Randomizer.SSettings.increaseWallet == true)
-                    {
-                        RandomizedImportantItems.Remove(Item.Progressive_Wallet);
-                    }
+                            Item.Heart_Container,
+                            Item.Piece_of_Heart,
+                            Item.Sera_Bottle,
+                            Item.Coro_Bottle,
+                            Item.Jovani_Bottle,
+                            Item.Hawkeye,
+                            Item.Giant_Bomb_Bag,
+                        };
 
-                    break;
-                }
+                    // Filter out certain items
+                    this.alwaysItems = this.alwaysItems
+                        .Where(item => !alwaysItemsToRemove.Contains(item))
+                        .ToList();
 
-                case ItemScarcity.Scarce:  // Remove One extra copy of items
-                {
-
-                    foreach(Item item in ScarceImportantItems) {
+                    // Update RandomizedImportantItems
+                    Dictionary<Item, int> importantItemToCount =
+                        new()
                         {
-                            RandomizedImportantItems.Remove(item);
-                        }
-                //Remove all heart container
-                       for (int i = 0; i < 9; i++)
-                {
-                    this.alwaysItems.Remove(Item.Heart_Container);
-                }
-                // Remove one sword if palace is not required 
-                    }
-                    if(Randomizer.SSettings.barrenDungeons)
-                {
-                    if ((Randomizer.RequiredDungeons & 0x80) ==0)
+                            { Item.Progressive_Bow, 1 },
+                            { Item.Filled_Bomb_Bag, 1 },
+                            { Item.Progressive_Hidden_Skill, 1 },
+                        };
+
+                    foreach (KeyValuePair<Item, int> kv in importantItemToCount)
                     {
-                   this.RandomizedImportantItems.Remove(Item.Progressive_Sword);
+                        reduceItemToCount(RandomizedImportantItems, kv.Key, kv.Value);
                     }
-                }
+
+                    // Reduce swords to 3 if barrenDungeons is on and Palace of
+                    // Twilight is not required.
+                    if (
+                        Randomizer.SSettings.barrenDungeons
+                        && (Randomizer.RequiredDungeons & 0x80) == 0
+                    )
+                    {
+                        reduceItemToCount(RandomizedImportantItems, Item.Progressive_Sword, 3);
+                    }
+
+                    // Remove Magic Armor if Glitchless Logic
+                    if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
+                    {
+                        reduceItemToCount(RandomizedImportantItems, Item.Magic_Armor, 0);
+                    }
+
+                    // If wallet size is not increased, we need to be able to
+                    // find 1 wallet so we can afford the magic armor check.
+                    reduceItemToCount(
+                        RandomizedImportantItems,
+                        Item.Progressive_Wallet,
+                        Randomizer.SSettings.increaseWallet ? 0 : 1
+                    );
+
                     break;
                 }
 
-                case ItemScarcity.Plentiful: // All items are duplicated
+                // Some items get extra copies; no Pieces of Heart
+                case ItemScarcity.Plentiful:
                 {
-                //Add One extra copy of items
-                this.RandomizedImportantItems.AddRange( this.PlentifulImportantItems);
+                    // Remove all Pieces of Heart
+                    this.alwaysItems = this.alwaysItems
+                        .Where(item => item != Item.Piece_of_Heart)
+                        .ToList();
 
-                //Remove all Piece of heart
-                for (int i = 0; i < 46 ;i++)
-                {
-                    this.alwaysItems.Remove(Item.Piece_of_Heart);
-                }
-                // Add Heart container 
-                   this.alwaysItems.AddRange(Enumerable.Repeat(Item.Heart_Container,9 ));
-                // Add Bigs keys 
-            if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
-                this.RandomizedImportantItems.AddRange(this.PlentifulDungeonBigKeys);
-            else if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
-                this.RandomizedDungeonRegionItems.AddRange(this.PlentifulDungeonBigKeys);
+                    // Add Heart Containers
+                    this.alwaysItems.AddRange(Enumerable.Repeat(Item.Heart_Container, 8));
 
-                // Add Small keys 
-            if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
-                this.RandomizedImportantItems.AddRange(this.PlentifulRegionSmallKeys);
-            else if (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
-                this.RandomizedDungeonRegionItems.AddRange(this.PlentifulRegionSmallKeys);
+                    // Add extra copy of some items
+                    List<Item> plentifulImportantItems =
+                        new()
+                        {
+                            Item.Progressive_Sword,
+                            Item.Progressive_Wallet,
+                            Item.Boomerang,
+                            Item.Lantern,
+                            Item.Slingshot,
+                            Item.Progressive_Fishing_Rod,
+                            Item.Iron_Boots,
+                            Item.Progressive_Bow,
+                            Item.Filled_Bomb_Bag,
+                            Item.Giant_Bomb_Bag,
+                            Item.Zora_Armor,
+                            Item.Progressive_Clawshot,
+                            Item.Shadow_Crystal,
+                            Item.Aurus_Memo,
+                            Item.Asheis_Sketch,
+                            Item.Spinner,
+                            Item.Ball_and_Chain,
+                            Item.Progressive_Dominion_Rod,
+                            Item.Progressive_Sky_Book,
+                            Item.Empty_Bottle,
+                            Item.Progressive_Hidden_Skill,
+                            Item.Magic_Armor,
+                            Item.Ordon_Shield,
+                            Item.Hylian_Shield,
+                            Item.Hawkeye,
+                        };
+                    RandomizedImportantItems.AddRange(plentifulImportantItems);
+
+                    // Add big keys
+                    if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
+                        this.RandomizedImportantItems.AddRange(this.PlentifulDungeonBigKeys);
+                    else if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
+                        this.RandomizedDungeonRegionItems.AddRange(this.PlentifulDungeonBigKeys);
+
+                    // Add small keys
+                    if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
+                        this.RandomizedImportantItems.AddRange(this.PlentifulRegionSmallKeys);
+                    else if (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
+                        this.RandomizedDungeonRegionItems.AddRange(this.PlentifulRegionSmallKeys);
+
                     break;
-
                 }
-                
 
                 default:
-                {
                     break;
-                }
-                
             }
 
             foreach (Item startingItem in parseSetting.startingItems)
             {
-                RandomizedImportantItems.Remove(startingItem);
+                bool didRemoveItem = RandomizedImportantItems.Remove(startingItem);
+                if (!didRemoveItem)
+                {
+                    alwaysItems.Remove(startingItem);
+                }
             }
 
             // If a poe is excluded, we still want to place the item that was in its location.

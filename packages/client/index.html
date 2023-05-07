@@ -191,7 +191,7 @@
           </div>
           <div class="tabColumn">
             <fieldset id="itemPoolOptionsFieldset">
-              <legend>Item Pool </legend>
+              <legend>Item Pool</legend>
               <div
                 data-tooltip-text="If checked, the golden bug locations across Hyrule are randomized.&#0010;"
                 style="width: 50%"
@@ -261,17 +261,15 @@
                 <label for="hiddenSkillsCheckbox"> Hidden Skills </label><br />
               </div>
               <div class="selectGroup" style="margin-top: 8px">
-                <label for="itemScarcityFieldset">Item Scarcity</label
-                ><br />
+                <label for="itemScarcityFieldset">Item Scarcity</label><br />
                 <select
                   name=""
                   id="itemScarcityFieldset"
-                  data-tooltip-text="'Vanilla': the regular item count.&#0010;&#0010;'Minimal':Only one of each major item.No Piece of Hearts or containers.&#0010;&#0010;'Scarce':One less of every major item .No Hearts Containers.&#0010;&#0010;'Plentiful':One extra copy of major items .Hearts Containers only.&#0010;&#0010;"
+                  data-tooltip-text="'Vanilla': No changes to the item pool.&#0010;&#0010;'Minimal': Removes unrequired items such as Heart Containers and Pieces, Hawkeye, etc. Has as few items as possible for Bomb Bags, Bows, Hidden Skills, Swords, and Wallets. No Magic Armor if Glitchless logic.&#0010;&#0010;'Plentiful': One extra copy of major items. There are 16 Heart Containers but no Pieces of Heart. Extra keys if `Keysanity` or `Any Dungeon`."
                 >
-                  <option value="1">Vanilla</option>
-                  <option value="2">Minimal</option>
-                  <option value="3">Scarce</option>
-                  <option value="4">Plentiful</option>
+                  <option value="0">Vanilla</option>
+                  <option value="1">Minimal</option>
+                  <option value="2">Plentiful</option>
                 </select>
               </div>
             </fieldset>

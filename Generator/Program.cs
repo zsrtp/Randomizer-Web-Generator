@@ -24,7 +24,7 @@ namespace TPRandomizer
                 {
                     // seedId, settingsString, isRaceSeed, seed
                     string seed = "";
-                    if (args.Length > 3)
+                    if (args.Length > 4)
                     {
                         seed = args[4];
                     }
