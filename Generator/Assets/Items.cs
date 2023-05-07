@@ -724,7 +724,7 @@ namespace TPRandomizer
             };
 
         // Mutates inputList
-        private void reduceItemToCount(List<Item> inputList, Item item, int desiredCount)
+        private void updateItemToCount(List<Item> inputList, Item item, int desiredCount)
         {
             if (desiredCount < 0)
                 desiredCount = 0;
@@ -736,10 +736,21 @@ namespace TPRandomizer
                     currentCount += 1;
             }
 
-            int numberToRemove = currentCount - desiredCount;
-            for (int i = 0; i < numberToRemove; i++)
+            if (desiredCount > currentCount)
             {
-                inputList.Remove(item);
+                int numberToAdd = desiredCount - currentCount;
+                for (int i = 0; i < numberToAdd; i++)
+                {
+                    inputList.Add(item);
+                }
+            }
+            else
+            {
+                int numberToRemove = currentCount - desiredCount;
+                for (int i = 0; i < numberToRemove; i++)
+                {
+                    inputList.Remove(item);
+                }
             }
         }
 
@@ -886,7 +897,7 @@ namespace TPRandomizer
 
                     foreach (KeyValuePair<Item, int> kv in importantItemToCount)
                     {
-                        reduceItemToCount(RandomizedImportantItems, kv.Key, kv.Value);
+                        updateItemToCount(RandomizedImportantItems, kv.Key, kv.Value);
                     }
 
                     // Reduce swords to 3 if barrenDungeons is on and Palace of
@@ -896,18 +907,18 @@ namespace TPRandomizer
                         && (Randomizer.RequiredDungeons & 0x80) == 0
                     )
                     {
-                        reduceItemToCount(RandomizedImportantItems, Item.Progressive_Sword, 3);
+                        updateItemToCount(RandomizedImportantItems, Item.Progressive_Sword, 3);
                     }
 
                     // Remove Magic Armor if Glitchless Logic
                     if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
                     {
-                        reduceItemToCount(RandomizedImportantItems, Item.Magic_Armor, 0);
+                        updateItemToCount(RandomizedImportantItems, Item.Magic_Armor, 0);
                     }
 
                     // If wallet size is not increased, we need to be able to
                     // find 1 wallet so we can afford the magic armor check.
-                    reduceItemToCount(
+                    updateItemToCount(
                         RandomizedImportantItems,
                         Item.Progressive_Wallet,
                         Randomizer.SSettings.increaseWallet ? 0 : 1
@@ -925,7 +936,9 @@ namespace TPRandomizer
                         .ToList();
 
                     // Add Heart Containers
-                    this.alwaysItems.AddRange(Enumerable.Repeat(Item.Heart_Container, 8));
+                    updateItemToCount(this.alwaysItems, Item.Heart_Container, 17);
+                    this.alwaysItems.Add(Item.Giant_Bomb_Bag);
+                    this.alwaysItems.Add(Item.Hawkeye);
 
                     // Add extra copy of some items
                     List<Item> plentifulImportantItems =
@@ -940,22 +953,22 @@ namespace TPRandomizer
                             Item.Iron_Boots,
                             Item.Progressive_Bow,
                             Item.Filled_Bomb_Bag,
-                            Item.Giant_Bomb_Bag,
                             Item.Zora_Armor,
                             Item.Progressive_Clawshot,
                             Item.Shadow_Crystal,
                             Item.Aurus_Memo,
-                            Item.Asheis_Sketch,
+                            // We don't give an extra Sketch because you can
+                            // potentially do the Ralis check twice.
                             Item.Spinner,
                             Item.Ball_and_Chain,
                             Item.Progressive_Dominion_Rod,
                             Item.Progressive_Sky_Book,
+                            Item.Gate_Keys,
                             Item.Empty_Bottle,
                             Item.Progressive_Hidden_Skill,
                             Item.Magic_Armor,
                             Item.Ordon_Shield,
                             Item.Hylian_Shield,
-                            Item.Hawkeye,
                         };
                     RandomizedImportantItems.AddRange(plentifulImportantItems);
 
