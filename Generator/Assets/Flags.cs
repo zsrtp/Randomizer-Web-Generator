@@ -464,6 +464,7 @@ namespace TPRandomizer.Assets
             { 0x1C, 0x10 }, //Win Sumo round 1 against Bo
             { 0x39, 0x2 }, // Released first caught fish in Ordon Day 2
             { 0x10, 0x2 }, // Talked to Jaggle after climbing vines.
+            { 0xB, 0x20 }, // Talked to Yeta in Snowpeak for the first time
         };
 
         /// <summary>
