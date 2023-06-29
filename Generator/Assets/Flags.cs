@@ -72,6 +72,7 @@ namespace TPRandomizer.Assets
             { 0x9, 0x76 }, // Jovani Chest CS 2
             { 0x9, 0x7F }, // Open Chest to Jovani
             { 0x9, 0x7E }, // Jovani Chest CS
+            { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
             { 0x3, 0xA7 }, // Unlock Jumps to top of Sanctuary
             { 0x3, 0x9A }, // Kakariko Village intro CS.
             { 0xA, 0x7F }, // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
