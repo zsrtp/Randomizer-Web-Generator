@@ -1206,11 +1206,7 @@ namespace TPRandomizer
         public static bool CanDefeatDeathSword()
         {
             return (
-                (
-                    HasSword()
-                    || CanUse(Item.Ball_and_Chain)
-                    || (CanDoNicheStuff() && CanUse(Item.Iron_Boots))
-                )
+                HasSword()
                 && (
                     CanUse(Item.Boomerang)
                     || (getItemCount(Item.Progressive_Bow) >= 1)
@@ -1590,7 +1586,6 @@ namespace TPRandomizer
                 (
                     HasSword()
                     && CanUse(Item.Slingshot)
-                    && (getItemCount(Item.Progressive_Fishing_Rod) >= 1)
                     && (
                         CanUse(Item.North_Faron_Woods_Gate_Key)
                         || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy)
