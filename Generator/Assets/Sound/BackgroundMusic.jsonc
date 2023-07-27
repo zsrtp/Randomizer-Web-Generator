@@ -178,7 +178,7 @@
         "bossBgm": false,
         "minigameBgm": false,
         "eventBgm": false,
-        "cutsceneBgm": true,
+        "cutsceneBgm": false,
         "isFanfare": false
     },
     "Z2BGM_BOSSBABA_1": {
@@ -2109,7 +2109,7 @@
         "minibossBgm": false,
         "bossBgm": false,
         "minigameBgm": false,
-        "eventBgm": true,
+        "eventBgm": false,
         "cutsceneBgm": false,
         "isFanfare": false
     },
@@ -2123,7 +2123,7 @@
         "minibossBgm": false,
         "bossBgm": false,
         "minigameBgm": false,
-        "eventBgm": true,
+        "eventBgm": false,
         "cutsceneBgm": false,
         "isFanfare": false
     },
