@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-	      "Mirror Chamber"
-    ],
-    "NeighbourRequirements": 
-    [
-        "CanDefeatStallord"
+      {
+        "RoomName": "Mirror Chamber",
+        "Requirements": "CanDefeatStallord"
+      }
     ],
     "Checks": 
     [

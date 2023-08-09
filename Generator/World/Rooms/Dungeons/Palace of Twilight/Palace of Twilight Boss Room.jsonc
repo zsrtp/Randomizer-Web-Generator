@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Palace of Twilight Entrance"
-    ],
-    "NeighbourRequirements":
-    [
-        "CanDefeatZant"
+      {
+        "ExitName": "Palace of Twilight Entrance",
+        "Requirements": "CanDefeatZant"
+      }
     ],
     "Checks": 
     [

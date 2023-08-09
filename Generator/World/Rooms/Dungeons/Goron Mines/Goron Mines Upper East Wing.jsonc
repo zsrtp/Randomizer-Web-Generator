@@ -1,13 +1,14 @@
 { 
-    "Neighbours": 
+    "Exits": 
     [
-        "Goron Mines Upper East Wing", 
-        "Goron Mines Magnet Room"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "Iron_Boots and CanDefeatDangoro and (Progressive_Bow, 1)"
+      {
+        "ExitName": "Goron Mines Upper East Wing",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Goron Mines Magnet Room",
+        "Requirements": "Iron_Boots and CanDefeatDangoro and (Progressive_Bow, 1)"
+      }
     ],
     "Checks": 
     [

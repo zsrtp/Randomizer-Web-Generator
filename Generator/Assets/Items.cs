@@ -705,9 +705,25 @@ namespace TPRandomizer
             Randomizer.Items.BaseItemPool.AddRange(this.VanillaDungeonRewards);
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);
 
-            if (parseSetting.shufflePoes)
+            switch (parseSetting.shufflePoes)
             {
-                this.RandomizedImportantItems.AddRange(Enumerable.Repeat(Item.Poe_Soul, 60));
+                case PoeSettings.Overworld:
+                {
+                    this.RandomizedImportantItems.AddRange(Enumerable.Repeat(Item.Poe_Soul, 49));
+                    break;
+                }
+
+                case PoeSettings.Dungeons:
+                {
+                    this.RandomizedImportantItems.AddRange(Enumerable.Repeat(Item.Poe_Soul, 11));
+                    break;
+                }
+
+                case PoeSettings.All:
+                {
+                    this.RandomizedImportantItems.AddRange(Enumerable.Repeat(Item.Poe_Soul, 60));
+                    break;
+                }
             }
 
             if (parseSetting.shuffleGoldenBugs)
@@ -809,9 +825,39 @@ namespace TPRandomizer
             {
                 if (Randomizer.Checks.CheckDict[excludedCheck].itemId == Item.Poe_Soul)
                 {
-                    if (!parseSetting.shufflePoes)
+                    switch (parseSetting.shufflePoes)
                     {
-                        Randomizer.Checks.CheckDict[excludedCheck].checkStatus = "Vanilla";
+                        case PoeSettings.Vanilla:
+                        {
+                            Randomizer.Checks.CheckDict[excludedCheck].checkStatus = "Vanilla";
+                            break;
+                        }
+
+                        case PoeSettings.Overworld:
+                        {
+                            if (
+                                !Randomizer.Checks.CheckDict[excludedCheck].category.Contains(
+                                    "Overworld"
+                                )
+                            )
+                            {
+                                Randomizer.Checks.CheckDict[excludedCheck].checkStatus = "Vanilla";
+                            }
+                            break;
+                        }
+
+                        case PoeSettings.Dungeons:
+                        {
+                            if (
+                                !Randomizer.Checks.CheckDict[excludedCheck].category.Contains(
+                                    "Dungeon"
+                                )
+                            )
+                            {
+                                Randomizer.Checks.CheckDict[excludedCheck].checkStatus = "Vanilla";
+                            }
+                            break;
+                        }
                     }
                 }
             }

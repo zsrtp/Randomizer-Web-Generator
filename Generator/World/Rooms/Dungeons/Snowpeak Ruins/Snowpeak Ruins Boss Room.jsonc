@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Snowpeak Summit"
-    ],
-    "NeighbourRequirements":
-    [
-        "CanDefeatBlizzeta"
+      {
+        "ExitName": "Snowpeak Summit",
+        "Requirements": "CanDefeatBlizzeta"
+      }
     ],
     "Checks": 
     [

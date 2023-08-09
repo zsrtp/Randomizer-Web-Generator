@@ -337,7 +337,7 @@
   function genSSettingsFromUi() {
     // Increment the version when you make changes to the format. Need to make
     // sure you don't break backwards compatibility!!
-    const sSettingsVersion = 3;
+    const sSettingsVersion = 4;
 
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
@@ -347,7 +347,7 @@
       { id: 'goldenBugsCheckbox' },
       { id: 'skyCharacterCheckbox' },
       { id: 'giftsFromNPCsCheckbox' },
-      { id: 'poesCheckbox' },
+      { id: 'poeSettingsFieldset', bitLength: 2 },
       { id: 'shopItemsCheckbox' },
       { id: 'hiddenSkillsCheckbox' },
       { id: 'smallKeyFieldset', bitLength: 3 },
@@ -705,7 +705,21 @@
     processBasic({ id: 'goldenBugs' });
     processBasic({ id: 'skyCharacters' });
     processBasic({ id: 'giftsFromNpcs' });
-    processBasic({ id: 'poes' });
+    if (version >= 4) {
+      // `poes` changed from a checkbox to a select
+      processBasic({ id: 'poes', bitLength: 2 });
+    } else {
+      const poeSettings = {
+        vanilla: 0,
+        overworld: 1,
+        dungeons: 2,
+        all: 3
+      };
+      const shufflePoes = processor.nextBoolean();
+      res.poes = shufflePoes
+        ? poeSettings.overworld
+        : poeSettings.vanilla;
+    }
     processBasic({ id: 'shopItems' });
     processBasic({ id: 'hiddenSkills' });
     processBasic({ id: 'smallKeys', bitLength: 3 });

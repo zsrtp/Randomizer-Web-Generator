@@ -1,13 +1,14 @@
 { 
-    "Neighbours": 
+    "Exits": 
     [
-        "Hyrule Castle Main Hall", 
-        "Hyrule Castle Third Floor Balcony"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut"
+      {
+        "ExitName": "Hyrule Castle Main Hall",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Hyrule Castle Third Floor Balcony",
+        "Requirements": "canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut"
+      }
     ],
     "Checks": [""], 
     "Region": "Hyrule Castle"

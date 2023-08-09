@@ -1,19 +1,23 @@
 {
-    "Neighbours": 
+  "Exits": 
     [
-        "City in The Sky Entrance", 
-        "City in The Sky East Wing", 
-        "City in The Sky West Wing", 
-        "City in The Sky North Wing"
+      {
+        "RoomName": "City in The Sky Entrance",
+        "Requirements": "true"
+      },
+      {
+        "RoomName": "City in The Sky East Wing",
+        "Requirements": "Spinner and ((City_in_The_Sky_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+      },
+      {
+        "RoomName": "City in The Sky West Wing",
+        "Requirements": "(Progressive_Clawshot, 2)"
+      },
+      {
+        "RoomName": "City in The Sky North Wing",
+        "Requirements": "(Progressive_Clawshot, 2) and CanDefeatBabaSerpent and CanDefeatKargarok and Shadow_Crystal and Iron_Boots"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "Spinner and ((City_in_The_Sky_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
-    "(Progressive_Clawshot, 2)",
-    "(Progressive_Clawshot, 2) and CanDefeatBabaSerpent and CanDefeatKargarok and Shadow_Crystal and Iron_Boots"
-  ],
-    "isStartingRoom": "false",
     "Checks": [""],
-    "visited": "false",
     "Region": "City in The Sky"
 }

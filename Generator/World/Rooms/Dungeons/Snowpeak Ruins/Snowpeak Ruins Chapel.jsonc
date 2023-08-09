@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Snowpeak Ruins West Courtyard"
-    ],
-    "NeighbourRequirements": 
-    [
-        "CanDefeatChilfos"
+      {
+        "ExitName": "Snowpeak Ruins West Courtyard",
+        "Requirements": "CanDefeatChilfos"
+      }
     ],
     "Checks": 
     [

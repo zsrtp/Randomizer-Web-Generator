@@ -1,13 +1,14 @@
 { 
-    "Neighbours": 
+    "Exits": 
     [
-        "Hyrule Castle Entrance", 
-        "Hyrule Castle Graveyard"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "Shadow_Crystal"
+      {
+        "ExitName": "Hyrule Castle Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Hyrule Castle Graveyard",
+        "Requirements": "Shadow_Crystal"
+      }
     ],
     "Checks": 
     [

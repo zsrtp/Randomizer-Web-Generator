@@ -1,13 +1,15 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Arbiters Grounds Lobby",
-        "Arbiters Grounds Boss Room"
+      {
+        "RoomName": "Arbiters Grounds Lobby",
+        "Requirements": "true"
+      },
+      {
+        "RoomName": "Arbiters Grounds Boss Room",
+        "Requirements": "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysy))"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysy))"
-  ],
     "Checks": 
     [
         "Arbiters Grounds Big Key Chest",

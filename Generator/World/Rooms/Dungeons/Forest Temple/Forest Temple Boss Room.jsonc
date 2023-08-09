@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
-    [ 
-        "South Faron Woods"
-    ],
-    "NeighbourRequirements": 
+    "Exits": 
     [
-        "CanDefeatDiababa"
+      {
+        "RoomName": "South Faron Woods",
+        "Requirements": "CanDefeatDiababa"
+      }
     ],
     "Checks": 
     [

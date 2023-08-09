@@ -1,17 +1,22 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Snowpeak Ruins Entrance", 
-        "Snowpeak Ruins Caged Freezard Room", 
-        "Snowpeak Ruins West Courtyard", 
-        "Snowpeak Ruins East Courtyard"
-    ],
-    "NeighbourRequirements":
-    [
-        "true",
-        "Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)",
-        "Snowpeak_Ruins_Ordon_Pumpkin or (Setting.smallKeySettings equals Keysy)",
-        "Shadow_Crystal or Ball_and_Chain"
+      {
+        "ExitName": "Snowpeak Ruins Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Snowpeak Ruins Caged Freezard Room",
+        "Requirements": "Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)"
+      },
+      {
+        "ExitName": "Snowpeak Ruins West Courtyard",
+        "Requirements": "Snowpeak_Ruins_Ordon_Pumpkin or (Setting.smallKeySettings equals Keysy)"
+      },
+      {
+        "ExitName": "Snowpeak Ruins East Courtyard",
+        "Requirements": "Shadow_Crystal or Ball_and_Chain"
+      }
     ],
     "Checks": 
     [

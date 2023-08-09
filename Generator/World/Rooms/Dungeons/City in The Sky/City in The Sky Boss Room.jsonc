@@ -1,11 +1,10 @@
 { 
-    "Neighbours": 
-    [ 
-        "City in The Sky Entrance"
-    ],
-    "NeighbourRequirements": 
+    "Exits": 
     [
-        "CanDefeatArgorok"
+      {
+        "RoomName": "City in The Sky Entrance",
+        "Requirements": "CanDefeatArgorok"
+      }
     ],
     "Checks": 
     [

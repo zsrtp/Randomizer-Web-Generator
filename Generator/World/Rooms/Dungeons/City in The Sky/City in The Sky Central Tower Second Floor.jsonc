@@ -1,13 +1,14 @@
 { 
-    "Neighbours": 
+    "Exits": 
     [
-        "City in The Sky West Wing", 
-        "City in The Sky Lobby"
-    ],
-    "NeighbourRequirements":
-    [
-        "(Progressive_Clawshot, 2)",
-        "true"
+      {
+        "RoomName": "City in The Sky West Wing",
+        "Requirements": "(Progressive_Clawshot, 2)"
+      },
+      {
+        "RoomName": "City in The Sky Lobby",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

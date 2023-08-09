@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Snowpeak Ruins West Courtyard"
-    ],
-    "NeighbourRequirements":
-    [
-        "CanDefeatDarkhammer"
+      {
+        "ExitName": "Snowpeak Ruins West Courtyard",
+        "Requirements": "CanDefeatDarkhammer"
+      }
     ],
     "Checks": 
     [

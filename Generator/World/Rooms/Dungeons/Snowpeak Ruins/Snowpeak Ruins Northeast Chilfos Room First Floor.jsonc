@@ -1,13 +1,14 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Snowpeak Ruins East Courtyard", 
-        "Snowpeak Ruins Yeto and Yeta"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "CanDefeatChilfos"
+      {
+        "ExitName": "Snowpeak Ruins East Courtyard",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Snowpeak Ruins Yeto and Yeta",
+        "Requirements": "CanDefeatChilfos"
+      }
     ],
     "Checks": 
     [

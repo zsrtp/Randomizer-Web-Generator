@@ -1,14 +1,15 @@
-{ 
-    "Neighbours": 
+{
+    "Exits": 
     [
-        "Snowpeak Ruins West Courtyard", 
-        "Snowpeak Ruins Wooden Beam Room"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "canSmash"
-    ],
+      {
+        "ExitName": "Snowpeak Ruins West Courtyard",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Snowpeak Ruins Wooden Beam Room",
+        "Requirements": "canSmash"
+      }
+    ], 
     "Checks": 
     [
         "Snowpeak Ruins West Cannon Room Central Chest",

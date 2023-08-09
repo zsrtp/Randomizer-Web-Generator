@@ -1,15 +1,19 @@
 {
-    "Neighbours": 
+  "Exits": 
     [
-        "Goron Mines Crystal Switch Room", 
-        "Goron Mines Upper East Wing", 
-        "Goron Mines Boss Room"
+      {
+        "ExitName": "Goron Mines Crystal Switch Room",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Goron Mines Upper East Wing",
+        "Requirements": "((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
+      },
+      {
+        "ExitName": "Goron Mines Boss Room",
+        "Requirements": "(Progressive_Bow, 1) and Iron_Boots and CanDefeatBulblin and ((Goron_Mines_Key_Shard, 3) or (Setting.bigKeySettings equals Keysy))"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))",
-    "(Progressive_Bow, 1) and Iron_Boots and CanDefeatBulblin and ((Goron_Mines_Key_Shard, 3) or (Setting.bigKeySettings equals Keysy))"
-  ],
     "Checks": 
     [
         "Goron Mines Outside Beamos Chest",

@@ -1,17 +1,23 @@
 {
-    "Neighbours":
+  "Exits": 
     [
-        "Castle Town",
-        "Hyrule Castle Main Hall",
-        "Hyrule Castle Outside West Wing",
-        "Hyrule Castle Outside East Wing"
+      {
+        "ExitName": "Castle Town",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Hyrule Castle Main Hall",
+        "Requirements": "((Hyrule_Castle_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+      },
+      {
+        "ExitName": "Hyrule Castle Outside West Wing",
+        "Requirements": "CanDefeatBokoblinRed"
+      },
+      {
+        "ExitName": "Hyrule Castle Outside East Wing",
+        "Requirements": "CanDefeatBokoblinRed"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "((Hyrule_Castle_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
-    "CanDefeatBokoblinRed",
-    "CanDefeatBokoblinRed"
-  ],
     "Checks": [""],
     "Region": "Hyrule Castle"
 }

@@ -1,11 +1,10 @@
 { 
-    "Neighbours": 
+    "Exits": 
     [
-        "Lake Hylia"
-    ],
-    "NeighbourRequirements":
-    [
-        "CanDefeatMorpheel"
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "CanDefeatMorpheel"
+      }
     ],
     "Checks": 
     [

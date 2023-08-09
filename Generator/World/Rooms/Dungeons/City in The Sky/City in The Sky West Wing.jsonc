@@ -1,13 +1,14 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "City in The Sky Lobby", 
-        "City in The Sky Central Tower Second Floor"
-    ],
-    "NeighbourRequirements": 
-    [
-        "(Progressive_Clawshot, 2)",
-        "(Progressive_Clawshot, 2)"
+      {
+        "RoomName": "City in The Sky Lobby",
+        "Requirements": "(Progressive_Clawshot, 2)"
+      },
+      {
+        "RoomName": "City in The Sky Central Tower Second Floor",
+        "Requirements": "(Progressive_Clawshot, 2)"
+      }
     ],
     "Checks": 
     [

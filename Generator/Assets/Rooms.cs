@@ -17,12 +17,7 @@ namespace TPRandomizer
         /// <summary>
         /// Gets or sets the room name of the rooms adjacent to the current room.
         /// </summary>
-        public List<string> Neighbours { get; set; }
-
-        /// <summary>
-        /// Gets or sets a list of list of requirements to enter each neighbouring roo.
-        /// </summary>
-        public List<string> NeighbourRequirements { get; set; }
+        public List<RoomExit> Exits { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the current room is the starting room. If true, this room will always be the starting point of the graph.
@@ -50,6 +45,31 @@ namespace TPRandomizer
         public string Region { get; set; }
     }
 
+    public class RoomExit
+    {
+        public string RoomName { get; set; }
+        public string Requirements { get; set; }
+    }
+
+    public class SpawnData
+    {
+        public string Stage { get; set; }
+        public int Room { get; set; }
+        public string Spawn { get; set; }
+        public string Type { get; set; }
+        public string Parameters { get; set; }
+    }
+
+    public class RoomSpawn
+    {
+        public string SpawnName { get; set; }
+        public SpawnData SpawnInfo { get; set; }
+        public string CoupledName { get; set; }
+        public string Type { get; set; }
+        public bool HasBeenShuffled { get; set; }
+        public bool HasBeenReferenced { get; set; }
+    }
+
     /// <summary>
     /// summary text.
     /// </summary>
@@ -59,6 +79,9 @@ namespace TPRandomizer
         /// A dictionary of all of the rooms that will be used to generate a playthrough graph.
         /// </summary>
         public Dictionary<string, Room> RoomDict = new();
+
+        public List<RoomSpawn> VanillaEntranceTable = new();
+        public List<RoomSpawn> RandoEntranceTable = new();
 
         /// <summary>
         /// summary text.

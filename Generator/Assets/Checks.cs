@@ -377,11 +377,39 @@ namespace TPRandomizer
                     }
                 }
 
-                if (!parseSetting.shufflePoes)
+                switch (parseSetting.shufflePoes)
                 {
-                    if (currentCheck.category.Contains("Poe"))
+                    case PoeSettings.Vanilla:
                     {
-                        currentCheck.checkStatus = "Vanilla";
+                        if (currentCheck.category.Contains("Poe"))
+                        {
+                            currentCheck.checkStatus = "Vanilla";
+                        }
+                        break;
+                    }
+
+                    case PoeSettings.Overworld:
+                    {
+                        if (
+                            currentCheck.category.Contains("Poe")
+                            && !currentCheck.category.Contains("Overworld")
+                        )
+                        {
+                            currentCheck.checkStatus = "Vanilla";
+                        }
+                        break;
+                    }
+
+                    case PoeSettings.Dungeons:
+                    {
+                        if (
+                            currentCheck.category.Contains("Poe")
+                            && !currentCheck.category.Contains("Dungeon")
+                        )
+                        {
+                            currentCheck.checkStatus = "Vanilla";
+                        }
+                        break;
                     }
                 }
 

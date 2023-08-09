@@ -1,19 +1,27 @@
 {
-    "Neighbours": 
+  "Exits": 
     [
-        "Lakebed Temple Entrance", 
-        "Lakebed Temple East Wing Second Floor", 
-        "Lakebed Temple East Wing First Floor", 
-        "Lakebed Temple West Wing", 
-        "Lakebed Temple Boss Room"
+      {
+        "ExitName": "Lakebed Temple Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lakebed Temple East Wing Second Floor",
+        "Requirements": "((Lakebed_Temple_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+      },
+      {
+        "ExitName": "Lakebed Temple East Wing First Floor",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lakebed Temple West Wing",
+        "Requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canSmash and (Progressive_Clawshot, 1)"
+      },
+      {
+        "ExitName": "Lakebed Temple Boss Room",
+        "Requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canLaunchBombs and (Progressive_Clawshot, 1) and (Lakebed_Temple_Big_Key or (Setting.bigKeySettings equals Keysy))"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "((Lakebed_Temple_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
-    "true",
-    "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canSmash and (Progressive_Clawshot, 1)",
-    "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canLaunchBombs and (Progressive_Clawshot, 1) and (Lakebed_Temple_Big_Key or (Setting.bigKeySettings equals Keysy))"
-  ],
     "Checks": 
     [
         "Lakebed Temple Central Room Small Chest",

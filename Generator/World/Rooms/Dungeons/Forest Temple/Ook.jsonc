@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Forest Temple West Wing"
-    ],
-    "NeighbourRequirements":
-    [
-        "CanDefeatOok and Boomerang"
+      {
+        "ExitName": "Forest Temple West Wing",
+        "Requirements": "CanDefeatOok and Boomerang"
+      }
     ],
     "Checks": ["Forest Temple Gale Boomerang"], 
     "Region": "Forest Temple"

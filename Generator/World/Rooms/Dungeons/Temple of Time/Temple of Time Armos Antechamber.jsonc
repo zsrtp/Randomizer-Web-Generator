@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Temple of Time Central Mechanical Platform"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true"
+      {
+        "ExitName": "Temple of Time Central Mechanical Platform",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

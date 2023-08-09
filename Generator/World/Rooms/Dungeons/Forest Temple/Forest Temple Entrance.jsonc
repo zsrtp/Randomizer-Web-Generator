@@ -1,13 +1,14 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "North Faron Woods", 
-        "Forest Temple Lobby"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage"
+      {
+        "RoomName": "North Faron Woods",
+        "Requirements": "true"
+      },
+      {
+        "RoomName": "Forest Temple Entrance -> Forest Temple Lobby",
+        "Requirements": "CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage"
+      }
     ],
     "Checks": 
     [

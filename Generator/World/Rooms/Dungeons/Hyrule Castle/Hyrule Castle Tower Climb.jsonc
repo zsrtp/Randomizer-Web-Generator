@@ -1,15 +1,19 @@
 {
-    "Neighbours": 
+  "Exits": 
     [
-        "Hyrule Castle Third Floor Balcony", 
-        "Hyrule Castle Treasure Room", 
-        "Ganondorf Castle"
+      {
+        "ExitName": "Hyrule Castle Third Floor Balcony",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Hyrule Castle Treasure Room",
+        "Requirements": "((Hyrule_Castle_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and Spinner and (Progressive_Clawshot, 2) and CanDefeatDarknut and CanDefeatLizalfos"
+      },
+      {
+        "ExitName": "Ganondorf Castle",
+        "Requirements": "Spinner and (Progressive_Clawshot, 2) and CanDefeatDarknut and CanDefeatLizalfos and (Hyrule_Castle_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatGanondorf"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "((Hyrule_Castle_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and Spinner and (Progressive_Clawshot, 2) and CanDefeatDarknut and CanDefeatLizalfos",
-    "Spinner and (Progressive_Clawshot, 2) and CanDefeatDarknut and CanDefeatLizalfos and (Hyrule_Castle_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatGanondorf"
-  ],
     "Checks": [""],
     "Region": "Hyrule Castle"
 }

@@ -1,13 +1,15 @@
 {
-    "Neighbours": 
+  "Exits": 
     [
-        "Goron Mines Magnet Room", 
-        "Goron Mines North Wing"
+      {
+        "ExitName": "Goron Mines Magnet Room",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Goron Mines North Wing",
+        "Requirements": "((Iron_Boots and HasSword) or (Progressive_Bow, 1)) and ((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "((Iron_Boots and HasSword) or (Progressive_Bow, 1)) and ((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
-  ],
     "Checks": 
     [
         "Goron Mines Crystal Switch Room Underwater Chest",

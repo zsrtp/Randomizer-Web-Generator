@@ -1,13 +1,14 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Lake Hylia", 
-        "City in The Sky Lobby"
-    ],
-    "NeighbourRequirements":
-    [
-        "(Progressive_Clawshot, 1)",
-        "(Progressive_Clawshot, 1)"
+      {
+        "RoomName": "Lake Hylia",
+        "Requirements": "(Progressive_Clawshot, 1)"
+      },
+      {
+        "RoomName": "City in The Sky Lobby",
+        "Requirements": "(Progressive_Clawshot, 1)"
+      }
     ],
     "Checks": 
     [

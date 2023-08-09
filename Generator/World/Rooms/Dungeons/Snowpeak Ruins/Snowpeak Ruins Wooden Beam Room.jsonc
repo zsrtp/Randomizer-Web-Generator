@@ -1,11 +1,10 @@
 { 
-    "Neighbours": 
+    "Exits": 
     [
-        "Snowpeak Ruins West Cannon Room"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true"
+      {
+        "ExitName": "Snowpeak Ruins West Cannon Room",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

@@ -1,17 +1,23 @@
-{ 
-    "Neighbours": 
+{
+  "Exits": 
     [
-        "Forest Temple Entrance", 
-        "Forest Temple East Wing", 
-        "Forest Temple West Wing", 
-        "Ook"
-    ],
-  "NeighbourRequirements": [
-    "true",
-    "true",
-    "canBurnWebs and ((((Forest_Temple_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)) and CanDefeatBokoblin) or (Progressive_Clawshot, 1))",
-    "Lantern and CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage and ((Forest_Temple_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
-  ],
+      {
+        "RoomName": "Forest Temple Entrance",
+        "Requirements": "true"
+      },
+      {
+        "RoomName": "Forest Temple East Wing",
+        "Requirements": "true"
+      },
+      {
+        "RoomName": "Forest Temple West Wing",
+        "Requirements": "canBurnWebs and ((((Forest_Temple_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)) and CanDefeatBokoblin) or (Progressive_Clawshot, 1))"
+      },
+      {
+        "RoomName": "Ook",
+        "Requirements": "Lantern and CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage and ((Forest_Temple_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
+      }
+    ], 
     "Checks": 
     [
         "Forest Temple Central Chest Behind Stairs",

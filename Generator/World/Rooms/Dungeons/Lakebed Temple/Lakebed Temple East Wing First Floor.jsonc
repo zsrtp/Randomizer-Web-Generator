@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Lakebed Temple Central Room"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true"
+      {
+        "ExitName": "Lakebed Temple Central Room",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

@@ -21,7 +21,7 @@ namespace TPRandomizer
         public bool shuffleGoldenBugs { get; set; }
         public bool shuffleSkyCharacters { get; set; }
         public bool shuffleNpcItems { get; set; }
-        public bool shufflePoes { get; set; }
+        public PoeSettings shufflePoes { get; set; }
         public bool shuffleShopItems { get; set; }
         public bool shuffleHiddenSkills { get; set; }
         public SmallKeySettings smallKeySettings { get; set; }
@@ -66,7 +66,7 @@ namespace TPRandomizer
             shuffleGoldenBugs = processor.NextBool();
             shuffleSkyCharacters = processor.NextBool();
             shuffleNpcItems = processor.NextBool();
-            shufflePoes = processor.NextBool();
+            shufflePoes = (PoeSettings)processor.NextInt(2);
             shuffleShopItems = processor.NextBool();
             shuffleHiddenSkills = processor.NextBool();
             smallKeySettings = (SmallKeySettings)processor.NextInt(3);

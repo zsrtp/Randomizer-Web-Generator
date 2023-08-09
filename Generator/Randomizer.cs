@@ -779,45 +779,48 @@ namespace TPRandomizer
                 }
                 while (roomsToExplore.Count > 0)
                 {
-                    for (int i = 0; i < roomsToExplore[0].Neighbours.Count; i++)
+                    for (int i = 0; i < roomsToExplore[0].Exits.Count; i++)
                     {
                         // If you can access the neighbour and it hasnt been visited yet.
                         if (
-                            Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]].Visited
+                            Randomizer.Rooms.RoomDict[roomsToExplore[0].Exits[i].RoomName].Visited
                             == false
                         )
                         {
                             // Parse the neighbour's requirements to find out if we can access it
                             var areNeighbourRequirementsMet = Logic.EvaluateRequirements(
                                 roomsToExplore[0].RoomName,
-                                roomsToExplore[0].NeighbourRequirements[i]
+                                roomsToExplore[0].Exits[i].Requirements
                             );
                             if ((bool)areNeighbourRequirementsMet == true)
                             {
                                 if (
                                     !Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Neighbours[i]
+                                        roomsToExplore[0].Exits[i].RoomName
                                     ].ReachedByPlaythrough
                                 )
                                 {
                                     availableRooms++;
                                     Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Neighbours[i]
+                                        roomsToExplore[0].Exits[i].RoomName
                                     ].ReachedByPlaythrough = true;
                                     playthroughGraph.Add(
-                                        Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]]
+                                        Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].RoomName
+                                        ]
                                     );
                                 }
                                 roomsToExplore.Add(
-                                    Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]]
+                                    Randomizer.Rooms.RoomDict[roomsToExplore[0].Exits[i].RoomName]
                                 );
-                                Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]].Visited =
-                                    true;
+                                Randomizer.Rooms.RoomDict[
+                                    roomsToExplore[0].Exits[i].RoomName
+                                ].Visited = true;
 
                                 /*Console.WriteLine(
                                     "Neighbour: "
                                         + Randomizer.Rooms.RoomDict[
-                                            roomsToExplore[0].Neighbours[i]
+                                            roomsToExplore[0].Exits[i].RoomName
                                         ].RoomName
                                         + " added to room list."
                                 );*/
@@ -1508,21 +1511,24 @@ namespace TPRandomizer
             {
                 string contents = File.ReadAllText(file);
                 string fileName = Path.GetFileNameWithoutExtension(file);
+
+                Console.WriteLine("Loading Room File: " + fileName);
+
                 Randomizer.Rooms.RoomDict.Add(fileName, new Room());
                 Randomizer.Rooms.RoomDict[fileName] = JsonConvert.DeserializeObject<Room>(contents);
                 Room currentRoom = Randomizer.Rooms.RoomDict[fileName];
                 currentRoom.RoomName = fileName;
                 currentRoom.Visited = false;
                 currentRoom.IsStartingRoom = false;
-                for (int i = 0; i < currentRoom.NeighbourRequirements.Count; i++)
+                for (int i = 0; i < currentRoom.Exits.Count; i++)
                 {
-                    currentRoom.NeighbourRequirements[i] =
-                        "(" + currentRoom.NeighbourRequirements[i] + ")";
+                    currentRoom.Exits[i].Requirements =
+                        "(" + currentRoom.Exits[i].Requirements + ")";
                 }
 
                 Randomizer.Rooms.RoomDict[fileName] = currentRoom;
 
-                // Console.WriteLine("Room File Loaded " + fileName);
+                Console.WriteLine("Room File Loaded " + fileName);
             }
         }
 

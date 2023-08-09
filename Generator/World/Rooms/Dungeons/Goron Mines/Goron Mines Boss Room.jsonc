@@ -1,11 +1,10 @@
 { 
-    "Neighbours": 
+    "Exits": 
     [
-        "Kakariko Village"
-    ],
-    "NeighbourRequirements": 
-    [
-        "CanDefeatFyrus"
+      {
+        "ExitName": "Kakariko Village",
+        "Requirements": "CanDefeatFyrus"
+      }
     ],
     "Checks": 
     [

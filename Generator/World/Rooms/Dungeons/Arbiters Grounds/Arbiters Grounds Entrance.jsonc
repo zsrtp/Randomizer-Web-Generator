@@ -1,14 +1,15 @@
 {
-    "name": "Arbiters Grounds Entrance",
-    "Neighbours": 
+    "Exits": 
     [
-        "Outside Arbiters Grounds",
-        "Arbiters Grounds Lobby"
+      {
+        "RoomName": "Outside Arbiters Grounds",
+        "Requirements": "true"
+      },
+      {
+        "RoomName": "Arbiters Grounds Lobby",
+        "Requirements": "((Arbiters_Grounds_Small_Key,1) or (Setting.smallKeySettings equals Keysy)) and Lantern"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "((Arbiters_Grounds_Small_Key,1) or (Setting.smallKeySettings equals Keysy)) and Lantern"
-  ],
     "Checks": 
     [
         "Arbiters Grounds Entrance Chest"

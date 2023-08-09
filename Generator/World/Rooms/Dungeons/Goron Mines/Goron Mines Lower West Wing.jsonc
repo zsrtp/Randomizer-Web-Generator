@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Goron Mines Magnet Room"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true"
+      {
+        "ExitName": "Goron Mines Magnet Room",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

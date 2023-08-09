@@ -221,12 +221,18 @@
                 <label for="giftsFromNPCsCheckbox"> Gifts From NPCs </label
                 ><br />
               </div>
-              <div
-                style="width: 50%"
-                data-tooltip-text="If checked, the souls recieved from Poes will be randomized.&#0010;"
-              >
-                <input type="checkbox" id="poesCheckbox" name="Poes" value="" />
-                <label for="poesCheckbox"> Poes </label><br />
+              <div class="selectGroup">
+                <label for="poeSettingsFieldset">Poe Souls:</label><br />
+                <select
+                  name="Poe Soul Settings"
+                  data-tooltip-text="'Vanilla': Poe Souls will not be randomized.&#0010;&#0010;'Overworld': Only Poes in the Overworld will have their souls shuffled.&#0010;&#0010;'Dungeon': Only Poes in Dungeons will have their souls shuffled.&#0010;&#0010;'All': All Poes will have their souls shuffled.&#0010;"
+                  id="poeSettingsFieldset"
+                >
+                  <option value="0" selected>Vanilla</option>
+                  <option value="1">Overworld</option>
+                  <option value="2">Dungeons</option>
+                  <option value="3">All</option>
+                </select>
               </div>
               <div
                 style="width: 50%"
@@ -855,7 +861,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/b/b8/Randomizer-1.0.0-stable.us.gci"
+                href="https://wiki.tprandomizer.com/images/3/3d/Randomizer-1.0.0.us.gci"
                 download
                 ><img class="blackbor flag" src="img/usa.jpg"
               /></a>
@@ -865,7 +871,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/2/25/Randomizer-1.0.0-stable.eu.gci"
+                href="https://wiki.tprandomizer.com/images/b/b9/Randomizer-1.0.0.eu.gci"
                 download
                 ><img class="blackbor flag" src="/img/eur.jpg"
               /></a>
@@ -875,7 +881,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/8/87/Randomizer-1.0.0-stable.jp.gci"
+                href="https://wiki.tprandomizer.com/images/f/fd/Randomizer-1.0.0.jp.gci"
                 download
                 ><img class="blackbor flag" src="/img/jpn.jpg"
               /></a>

@@ -1,13 +1,14 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Death Mountain Interiors", 
-        "Goron Mines Magnet Room"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "Iron_Boots and canBreakWoodenDoor"
+      {
+        "ExitName": "Death Mountain Interiors",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Goron Mines Magnet Room",
+        "Requirements": "Iron_Boots and canBreakWoodenDoor"
+      }
     ],
     "Checks": 
     [

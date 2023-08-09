@@ -296,9 +296,7 @@ document
 document
   .getElementById('giftsFromNPCsCheckbox')
   .addEventListener('click', setSettingsString);
-document
-  .getElementById('poesCheckbox')
-  .addEventListener('click', setSettingsString);
+document.getElementById('poeSettingsFieldset').onchange = setSettingsString;
 document
   .getElementById('shopItemsCheckbox')
   .addEventListener('click', setSettingsString);
@@ -398,7 +396,7 @@ function setSettingsString() {
     'mapAndCompassFieldset'
   ).selectedIndex;
   settingsStringRaw[9] = document.getElementById('goldenBugsCheckbox').checked;
-  settingsStringRaw[10] = document.getElementById('poesCheckbox').checked;
+  settingsStringRaw[10] = document.getElementById('poeSettingsFieldset').selectedIndex;
   settingsStringRaw[11] = document.getElementById(
     'giftsFromNPCsCheckbox'
   ).checked;
@@ -622,7 +620,7 @@ var arrayOfSettingsItems = [
   'bigKeyFieldset',
   'mapAndCompassFieldset',
   'goldenBugsCheckbox',
-  'poesCheckbox',
+  'poeSettingsFieldset',
   'giftsFromNPCsCheckbox',
   'shopItemsCheckbox',
   'faronTwilightCheckbox',
@@ -1173,7 +1171,7 @@ function populateSSettings(s) {
   $('#goldenBugsCheckbox').prop('checked', s.goldenBugs);
   $('#skyCharacterCheckbox').prop('checked', s.skyCharacters);
   $('#giftsFromNPCsCheckbox').prop('checked', s.giftsFromNpcs);
-  $('#poesCheckbox').prop('checked', s.poes);
+  $('#poeSettingsFieldset').val(s.poes);
   $('#shopItemsCheckbox').prop('checked', s.shopItems);
   $('#hiddenSkillsCheckbox').prop('checked', s.hiddenSkills);
   $('#smallKeyFieldset').val(s.smallKeys);

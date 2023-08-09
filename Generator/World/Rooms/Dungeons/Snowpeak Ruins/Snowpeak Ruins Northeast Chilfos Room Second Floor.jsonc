@@ -1,13 +1,14 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Snowpeak Ruins Northeast Chilfos Room First Floor", 
-        "Snowpeak Ruins Yeto and Yeta"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "Ball_and_Chain"
+      {
+        "ExitName": "Snowpeak Ruins Northeast Chilfos Room First Floor",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Snowpeak Ruins Yeto and Yeta",
+        "Requirements": "Ball_and_Chain"
+      }
     ],
     "Checks": 
     [

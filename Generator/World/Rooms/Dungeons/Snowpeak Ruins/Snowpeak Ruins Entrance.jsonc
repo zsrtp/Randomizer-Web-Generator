@@ -1,13 +1,14 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Snowpeak Summit", 
-        "Snowpeak Ruins Yeto and Yeta"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "true"
+      {
+        "ExitName": "Snowpeak Summit",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Snowpeak Ruins Yeto and Yeta",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

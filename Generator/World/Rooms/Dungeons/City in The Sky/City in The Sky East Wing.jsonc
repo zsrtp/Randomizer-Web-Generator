@@ -1,11 +1,10 @@
 { 
-    "Neighbours": 
+    "Exits": 
     [
-        "City in The Sky Lobby"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true"
+      {
+        "RoomName": "City in The Sky Lobby",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

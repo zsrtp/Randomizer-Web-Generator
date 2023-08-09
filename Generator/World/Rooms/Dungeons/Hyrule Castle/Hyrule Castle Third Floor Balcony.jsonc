@@ -1,15 +1,19 @@
 { 
-    "Neighbours": 
+  "Exits": 
     [
-        "Hyrule Castle Inside West Wing", 
-        "Hyrule Castle Inside East Wing", 
-        "Hyrule Castle Tower Climb"
+      {
+        "ExitName": "Hyrule Castle Inside West Wing",
+        "Requirements": "CanDefeatDarknut and CanDefeatLizalfos and canKnockDownHCPainting"
+      },
+      {
+        "ExitName": "Hyrule Castle Inside East Wing",
+        "Requirements": "Lantern and CanDefeatDinalfos"
+      },
+      {
+        "ExitName": "Hyrule Castle Tower Climb",
+        "Requirements": "((Hyrule_Castle_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
+      }
     ],
-  "NeighbourRequirements": [
-    "CanDefeatDarknut and CanDefeatLizalfos and canKnockDownHCPainting",
-    "Lantern and CanDefeatDinalfos",
-    "((Hyrule_Castle_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
-  ],
     "Checks": 
     [
         "Hyrule Castle Southeast Balcony Tower Chest",

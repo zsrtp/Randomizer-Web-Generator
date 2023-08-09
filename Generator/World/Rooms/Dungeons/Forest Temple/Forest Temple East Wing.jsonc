@@ -1,13 +1,14 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Forest Temple Lobby",
-        "Forest Temple North Wing"
-    ],
-    "NeighbourRequirements":
-    [
-        "true",
-        "true"
+      {
+        "RoomName": "Forest Temple Lobby",
+        "Requirements": "true"
+      },
+      {
+        "RoomName": "Forest Temple North Wing",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

@@ -1,13 +1,14 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Forest Temple Lobby",
-        "Ook"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "Boomerang"
+      {
+        "ExitName": "Forest Temple Lobby",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ook",
+        "Requirements": "Boomerang"
+      }
     ],
     "Checks": 
     [

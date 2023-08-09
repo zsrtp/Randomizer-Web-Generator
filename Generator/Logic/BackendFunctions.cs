@@ -872,5 +872,11 @@ namespace TPRandomizer
                 list[n] = value;
             }
         }
+
+        public static void Append<K, V>(this Dictionary<K, V> first, Dictionary<K, V> second)
+        {
+            List<KeyValuePair<K, V>> pairs = second.ToList();
+            pairs.ForEach(pair => first.Add(pair.Key, pair.Value));
+        }
     }
 }

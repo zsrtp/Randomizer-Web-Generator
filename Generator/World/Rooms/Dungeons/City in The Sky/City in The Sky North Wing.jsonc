@@ -1,13 +1,15 @@
 { 
-    "Neighbours": 
+  "Exits": 
     [
-        "City in The Sky Lobby", 
-        "City in The Sky Boss Room"
+      {
+        "RoomName": "City in The Sky Lobby",
+        "Requirements": "true"
+      },
+      {
+        "RoomName": "City in The Sky Boss Room",
+        "Requirements": "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bigKeySettings equals Keysy))"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bigKeySettings equals Keysy))"
-  ],
     "Checks": 
     [
         "City in The Sky Chest Behind North Fan"

@@ -1,15 +1,18 @@
 {
-    "Neighbours":
+    "Exits": 
     [
-        "Hyrule Castle Entrance",
-        "Hyrule Castle Inside East Wing",
-        "Hyrule Castle Inside West Wing"
-    ],
-    "NeighbourRequirements":
-    [
-        "true",
-        "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang",
-        "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang"
+      {
+        "ExitName": "Hyrule Castle Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Hyrule Castle Inside East Wing",
+        "Requirements": "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang"
+      },
+      {
+        "ExitName": "Hyrule Castle Inside West Wing",
+        "Requirements": "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang"
+      }
     ],
     "Checks":
     [

@@ -1,11 +1,10 @@
 { 
-    "Neighbours": 
+    "Exits": 
     [
-        "Hyrule Castle Tower Climb"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true"
+      {
+        "ExitName": "Hyrule Castle Tower Climb",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [
