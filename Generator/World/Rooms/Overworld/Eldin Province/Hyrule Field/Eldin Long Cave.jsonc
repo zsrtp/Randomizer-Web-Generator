@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Kakariko Gorge"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true"
+      {
+        "ExitName": "Kakariko Gorge",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

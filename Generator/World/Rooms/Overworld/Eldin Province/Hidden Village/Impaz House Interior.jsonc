@@ -1,0 +1,14 @@
+{
+    "Exits": 
+    [
+      {
+        "ExitName": "Hidden Village",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": 
+    [
+        "Skybook From Impaz"
+    ],
+    "Region": "Hidden Village"
+}

@@ -1,25 +1,39 @@
 {
-    "Neighbours": 
+  "Exits": 
     [
-        "Kakariko Gorge", 
-        "Kakariko Village", 
-        "Goron Stockcave", 
-        "Castle Town", 
-        "Lanayru Field", 
-        "Eldin Field Water Bomb Fish Grotto", 
-        "Eldin Field Bomskit Grotto",
-        "Eldin Field Stalfos Grotto"
+      {
+        "ExitName": "Kakariko Gorge",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Goron Stockcave",
+        "Requirements": "(Progressive_Clawshot, 1)"
+      },
+      {
+        "ExitName": "Castle Town",
+        "Requirements": "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy)))"
+      },
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Eldin Field Water Bomb Fish Grotto",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Eldin Field Bomskit Grotto",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Eldin Field Stalfos Grotto",
+        "Requirements": "(Shadow_Crystal and Spinner) and (canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy))))"
+      }
     ],
-  "NeighbourRequirements": [
-    "canSmash",
-    "true",
-    "(Progressive_Clawshot, 1)",
-    "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy)))",
-    "canSmash",
-    "Shadow_Crystal",
-    "Shadow_Crystal",
-    "(Shadow_Crystal and Spinner) and (canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy))))"
-  ],
     "Checks": 
     [
         "Eldin Field Bomb Rock Chest",

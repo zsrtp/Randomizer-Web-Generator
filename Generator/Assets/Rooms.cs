@@ -49,25 +49,25 @@ namespace TPRandomizer
     {
         public string RoomName { get; set; }
         public string Requirements { get; set; }
+        public bool Shuffled { get; set; }
     }
 
-    public class SpawnData
+    public class RoomSpawn
     {
-        public string Stage { get; set; }
+        public string SourceRoom { get; set; }
+        public string TargetRoom { get; set; }
+        public int Stage { get; set; }
         public int Room { get; set; }
         public string Spawn { get; set; }
         public string Type { get; set; }
         public string Parameters { get; set; }
     }
 
-    public class RoomSpawn
+    public class SpawnTableEntry
     {
-        public string SpawnName { get; set; }
-        public SpawnData SpawnInfo { get; set; }
-        public string CoupledName { get; set; }
         public string Type { get; set; }
-        public bool HasBeenShuffled { get; set; }
-        public bool HasBeenReferenced { get; set; }
+        public RoomSpawn SourceRoomSpawn { get; set; }
+        public RoomSpawn TargetRoomSpawn { get; set; }
     }
 
     /// <summary>
@@ -79,9 +79,6 @@ namespace TPRandomizer
         /// A dictionary of all of the rooms that will be used to generate a playthrough graph.
         /// </summary>
         public Dictionary<string, Room> RoomDict = new();
-
-        public List<RoomSpawn> VanillaEntranceTable = new();
-        public List<RoomSpawn> RandoEntranceTable = new();
 
         /// <summary>
         /// summary text.

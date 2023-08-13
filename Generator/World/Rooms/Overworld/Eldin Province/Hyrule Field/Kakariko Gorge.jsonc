@@ -1,17 +1,26 @@
-{ 
-    "Neighbours": 
+{
+    "Exits": 
     [
-        "Eldin Field", 
-        "Faron Field", 
-        "Kakariko Village", 
-        "Eldin Long Cave"
-    ],
-    "NeighbourRequirements": 
-    [
-        "canSmash",
-        "true",
-        "true",
-        "canSmash"
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Eldin Long Cave",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Kakariko Gorge Keese Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
     ],
     "Checks": 
     [

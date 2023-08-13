@@ -1,0 +1,24 @@
+{
+    "Exits": 
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "Gate_Keys and CanUseWaterBombs and Iron_Boots"
+      }
+    ],
+    "Checks": 
+    [ 
+        "Kakariko Graveyard Lantern Chest",
+        "Gift From Ralis",
+        "Rutelas Blessing",
+        "Kakariko Graveyard Male Ant",
+        "Kakariko Graveyard Grave Poe",
+        "Kakariko Graveyard Open Poe",
+        "Kakariko Graveyard Golden Wolf",
+    ],
+    "Region": "Kakariko Village"
+}

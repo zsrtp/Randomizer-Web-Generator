@@ -1,0 +1,15 @@
+{
+    "Exits": 
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Kakariko Village Bug House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+}

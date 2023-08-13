@@ -1,0 +1,19 @@
+{
+    "Exits": 
+    [
+      {
+        "ExitName": "Death Mountain Trail",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Death Mountain Elevator",
+        "Requirements": "(Room.Death_Mountain_Elevator or (Setting.goronMinesEntrance equals Open)) and Iron_Boots"
+      },
+      {
+        "ExitName": "Death Mountain Interiors From Death Mountain Volcano",
+        "Requirements": "Iron_Boots and CanDefeatGoron"
+      }
+    ],
+    "Checks": [""], 
+    "Region": "Death Mountain"
+}

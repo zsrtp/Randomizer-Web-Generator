@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Temple of Time Scales of Time"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true"
+      {
+        "ExitName": "Temple of Time Scales of Time",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

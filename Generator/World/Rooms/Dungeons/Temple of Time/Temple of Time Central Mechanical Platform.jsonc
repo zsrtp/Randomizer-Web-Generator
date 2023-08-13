@@ -1,15 +1,19 @@
 {
-    "Neighbours": 
+  "Exits": 
     [
-        "Temple of Time Connecting Corridors", 
-        "Temple of Time Armos Antechamber", 
-        "Temple of Time Moving Wall Hallways"
+      {
+        "ExitName": "Temple of Time Connecting Corridors",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Temple of Time Armos Antechamber",
+        "Requirements": "Spinner"
+      },
+      {
+        "ExitName": "Temple of Time Moving Wall Hallways",
+        "Requirements": "Spinner and ((Temple_of_Time_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "Spinner",
-    "Spinner and ((Temple_of_Time_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
-  ],
     "Checks": 
     [
         "Temple of Time Poe Behind Gate"

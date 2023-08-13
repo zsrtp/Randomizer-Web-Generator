@@ -1,0 +1,15 @@
+{
+    "Exits": 
+    [
+      {
+        "ExitName": "Death Mountain Volcano",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Death Mountain Sumo Hall From Death Mountain Elevator",
+        "Requirements": "Iron_Boots"
+      }
+    ],
+    "Checks": [""], 
+    "Region": "Death Mountain"
+}

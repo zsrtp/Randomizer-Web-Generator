@@ -1,13 +1,14 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Temple of Time Entrance", 
-        "Temple of Time Central Mechanical Platform"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "hasRangedItem and CanDefeatYoungGohma and CanDefeatLizalfos"
+      {
+        "ExitName": "Temple of Time Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Temple of Time Central Mechanical Platform",
+        "Requirements": "hasRangedItem and CanDefeatYoungGohma and CanDefeatLizalfos"
+      }
     ],
     "Checks": 
     [

@@ -1,11 +1,10 @@
-{ 
-    "Neighbours": 
+{
+    "Exits": 
     [
-        "Lanayru Field"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true"
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

@@ -1,13 +1,14 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Temple of Time Central Mechanical Platform", 
-        "Temple of Time Scales of Time"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "(Progressive_Bow, 1) and CanDefeatLizalfos and CanDefeatDinalfos"
+      {
+        "ExitName": "Temple of Time Central Mechanical Platform",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Temple of Time Scales of Time",
+        "Requirements": "(Progressive_Bow, 1) and CanDefeatLizalfos and CanDefeatDinalfos"
+      }
     ],
     "Checks": 
     [

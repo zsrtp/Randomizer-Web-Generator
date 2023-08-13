@@ -2,13 +2,10 @@
     "Exits": 
     [
       {
-        "ExitName": "Eldin Field",
+        "ExitName": "Kakariko Gorge",
         "Requirements": "true"
       }
     ],
-    "Checks": 
-    [
-        "Eldin Field Water Bomb Fish Grotto Chest"
-    ],
+    "Checks": [""],
     "Region": "Hyrule Field - Eldin Province"
 }

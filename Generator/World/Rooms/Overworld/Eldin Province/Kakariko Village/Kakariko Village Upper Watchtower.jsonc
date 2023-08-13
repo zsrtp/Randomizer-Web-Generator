@@ -1,0 +1,18 @@
+{
+    "Exits": 
+    [
+      {
+        "ExitName": "Upper Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Village Lower Watchtower",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": 
+    [    
+        "Kakariko Watchtower Chest"
+    ],
+    "Region": "Kakariko Village"
+}

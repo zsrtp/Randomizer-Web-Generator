@@ -1,11 +1,10 @@
-{ 
-    "Neighbours": 
+{
+    "Exits": 
     [
-        "Eldin Field"
-    ],
-    "NeighbourRequirements": 
-    [
-        "true"
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "true"
+      }
     ],
     "Checks": 
     [

@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Sacred Grove Temple of Time"
-    ],
-    "NeighbourRequirements":
-    [
-        "CanDefeatArmogohma"
+      {
+        "ExitName": "Sacred Grove Temple of Time",
+        "Requirements": "CanDefeatArmogohma"
+      }
     ],
     "Checks": 
     [

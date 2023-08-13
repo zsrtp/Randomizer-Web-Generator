@@ -1,15 +1,19 @@
-{ 
-    "Neighbours": 
+{
+  "Exits": 
     [
-        "Sacred Grove Temple of Time", 
-        "Temple of Time Connecting Corridors", 
-        "Temple of Time Crumbling Corridor"
+      {
+        "ExitName": "Sacred Grove Temple of Time",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Temple of Time Connecting Corridors",
+        "Requirements": "((Temple_of_Time_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+      },
+      {
+        "ExitName": "Temple of Time Crumbling Corridor",
+        "Requirements": "((Progressive_Dominion_Rod, 1) and (Progressive_Bow, 1) and Spinner and CanDefeatLizalfos and CanDefeatDinalfos and CanDefeatDarknut and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))) or (Setting.openDot equals True)"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "((Temple_of_Time_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
-    "((Progressive_Dominion_Rod, 1) and (Progressive_Bow, 1) and Spinner and CanDefeatLizalfos and CanDefeatDinalfos and CanDefeatDarknut and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))) or (Setting.openDot equals True)"
-  ],
     "Checks": 
     [
         "Temple of Time Lobby Lantern Chest"

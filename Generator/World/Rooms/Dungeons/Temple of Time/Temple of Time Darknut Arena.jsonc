@@ -1,11 +1,10 @@
 {
-    "Neighbours": 
+    "Exits": 
     [
-        "Temple of Time Upper Spike Trap Corridor"
-    ],
-    "NeighbourRequirements":
-    [
-        "CanDefeatDarknut and (Progressive_Dominion_Rod, 1)"
+      {
+        "ExitName": "Temple of Time Upper Spike Trap Corridor",
+        "Requirements": "CanDefeatDarknut and (Progressive_Dominion_Rod, 1)"
+      }
     ],
     "Checks": 
     [

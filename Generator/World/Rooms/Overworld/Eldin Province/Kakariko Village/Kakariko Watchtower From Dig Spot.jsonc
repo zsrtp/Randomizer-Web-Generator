@@ -1,0 +1,15 @@
+{
+    "Exits": 
+    [
+      {
+        "ExitName": "Upper Kakariko Village",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Kakariko Village Lower Watchtower",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+}

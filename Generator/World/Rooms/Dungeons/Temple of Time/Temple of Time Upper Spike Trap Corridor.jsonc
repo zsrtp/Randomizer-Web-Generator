@@ -1,13 +1,15 @@
 {
-    "Neighbours": 
+  "Exits": 
     [
-        "Temple of Time Upper Spike Trap Corridor", 
-        "Temple of Time Darknut Arena"
+      {
+        "ExitName": "Temple of Time Upper Spike Trap Corridor",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Temple of Time Darknut Arena",
+        "Requirements": "CanDefeatLizalfos and CanDefeatBabyGohma and CanDefeatYoungGohma and CanDefeatArmos and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
+      }
     ],
-  "NeighbourRequirements": [
-    "true",
-    "CanDefeatLizalfos and CanDefeatBabyGohma and CanDefeatYoungGohma and CanDefeatArmos and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
-  ],
     "Checks": 
     [
         "Temple of Time Gilloutine Chest",
