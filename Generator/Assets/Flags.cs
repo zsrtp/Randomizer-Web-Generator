@@ -72,6 +72,7 @@ namespace TPRandomizer.Assets
             { 0x9, 0x76 }, // Jovani Chest CS 2
             { 0x9, 0x7F }, // Open Chest to Jovani
             { 0x9, 0x7E }, // Jovani Chest CS
+            { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
             { 0x3, 0xA7 }, // Unlock Jumps to top of Sanctuary
             { 0x3, 0x9A }, // Kakariko Village intro CS.
             { 0xA, 0x7F }, // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
@@ -464,6 +465,7 @@ namespace TPRandomizer.Assets
             { 0x1C, 0x10 }, //Win Sumo round 1 against Bo
             { 0x39, 0x2 }, // Released first caught fish in Ordon Day 2
             { 0x10, 0x2 }, // Talked to Jaggle after climbing vines.
+            { 0xB, 0x20 }, // Talked to Yeta in Snowpeak for the first time
         };
 
         /// <summary>

@@ -11,7 +11,7 @@
         "true",
         "true",
         "true",
-        "(HasHeavyMod or Zora_Armor) or HasSword or Shadow_Crystal or (hasBombs and Spinner)"
+        "(HasHeavyMod and CanUseWaterBombs and Gate_Keys) or ((HasHeavyMod or Zora_Armor) and ((hasBombs and (HasSword or Spinner)) or CanDoLJA or CanDoMoonBoots))"
     ],
     "Checks":
     [
