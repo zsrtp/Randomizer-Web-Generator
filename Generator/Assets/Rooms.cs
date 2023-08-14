@@ -47,7 +47,7 @@ namespace TPRandomizer
 
     public class RoomExit
     {
-        public string RoomName { get; set; }
+        public string ExitName { get; set; }
         public string Requirements { get; set; }
         public bool Shuffled { get; set; }
     }
