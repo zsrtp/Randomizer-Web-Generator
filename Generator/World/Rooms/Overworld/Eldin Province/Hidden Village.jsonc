@@ -1,0 +1,39 @@
+[
+    {
+        "RoomName": "Hidden Village",
+        "Exits": 
+        [
+        {
+            "ExitName": "Lanayru Field",
+            "Requirements": "true"
+        },
+        {
+            "ExitName": "Impaz House Interior",
+            "Requirements": "(Progressive_Bow, 1) and (Progressive_Dominion_Rod, 1)"
+        }
+        ],
+        "Checks": 
+        [
+            "Cats Hide and Seek Minigame",
+            "Ilia Charm",
+            "Hidden Village Poe",
+            "Skybook From Impaz"
+        ],
+        "Region": "Hidden Village"
+    },
+    {
+        "RoomName": "Impaz House Interior",
+        "Exits": 
+        [
+        {
+            "ExitName": "Hidden Village",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": 
+        [
+            "Skybook From Impaz"
+        ],
+        "Region": "Hidden Village"
+}
+]
