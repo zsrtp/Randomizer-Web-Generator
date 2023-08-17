@@ -1,17 +1,19 @@
-{ 
-    "Neighbours": 
+[
+  {
+    "RoomName": "Gerudo Desert Rock Grotto",
+    "Exits":
     [
-        "Gerudo Desert"
+      {
+        "ExitName": "Gerudo Desert North East Ledge",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Gerudo Desert Rock Grotto Lantern Chest",
         "Gerudo Desert Rock Grotto First Poe",
         "Gerudo Desert Rock Grotto Second Poe"
     ],
     "Region": "Gerudo Desert"
-}
+  }
+]
