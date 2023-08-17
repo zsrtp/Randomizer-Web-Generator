@@ -1,16 +1,18 @@
-{ 
-    "Neighbours": 
+[
+  {
+    "RoomName": "Faron Mist Cave",
+    "Exits":
     [
-        "Faron Mist Area"
+      {
+        "ExitName": "Mist Area Outside Faron Mist Cave",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Faron Mist Cave Open Chest",
         "Faron Mist Cave Lantern Chest"
     ],
-    "Region": "Faron Woods"
-}
+    "Region": "Faron Mist Area"
+  }
+]
