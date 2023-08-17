@@ -1,20 +1,34 @@
-{ 
-    "Neighbours": 
+[
+  {
+    "RoomName": "North Faron Woods",
+    "Exits":
     [
-        "Faron Mist Area", 
-        "Forest Temple Entrance", 
-        "Lost Woods"
+      {
+        "ExitName": "Mist Area Near North Faron Woods",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "North Faron Woods Outside Lost Woods",
+        "Requirements": "Shadow_Crystal"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "true",
-        "Shadow_Crystal"
-    ],
-    "Checks": 
+    "Checks":
     [
         "North Faron Woods Deku Baba Chest",
         "Faron Woods Golden Wolf"
     ],
-    "Region": "Faron Woods"
-}
+    "Region": "North Faron Woods"
+  },
+  {
+    "RoomName": "North Faron Woods Outside Lost Woods",
+    "Exits":
+    [
+      {
+        "ExitName": "Lost Woods",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "North Faron Woods"
+  }
+]
