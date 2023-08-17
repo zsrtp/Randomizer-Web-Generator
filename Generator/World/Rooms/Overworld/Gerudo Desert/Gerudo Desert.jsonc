@@ -1,40 +1,120 @@
-{
-    "Neighbours": 
+[
+  {
+    "RoomName": "Gerudo Desert",
+    "Exits":
     [
-        "Cave of Ordeals Floors 01-11", 
-        "Bulblin Camp", 
-        "Gerudo Desert Rock Grotto", 
-        "Gerudo Desert Skulltula Grotto"
+      {
+        "ExitName": "Gerudo Desert Basin",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Gerudo Desert Cave of Ordeals Plateau",
+        "Requirements": "(getItemCount(Item.Progressive_Clawshot) >= 1)" // or portal?
+      }
+      {
+        "ExitName": "Gerudo Desert Skulltula Grotto",
+        "Requirements": "Shadow Crystal"
+      }
     ],
-    "NeighbourRequirements":
-    [
-        "CanDefeatShadowBeast and (Progressive_Clawshot, 1)",
-        "CanDefeatBulblin",
-        "Shadow_Crystal and (Progressive_Clawshot, 1)",
-        "Shadow_Crystal"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Gerudo Desert Peahat Ledge Chest",
         "Gerudo Desert East Canyon Chest",
         "Gerudo Desert Lone Small Chest",
         "Gerudo Desert West Canyon Chest",
-        "Gerudo Desert Northeast Chest Behind Gates",
         "Gerudo Desert South Chest Behind Wooden Gates",
-        "Gerudo Desert Campfire North Chest",
-        "Gerudo Desert Campfire East Chest",
-        "Gerudo Desert Campfire West Chest",
-        "Gerudo Desert Northwest Chest Behind Gates",
-        "Gerudo Desert North Small Chest Before Bulblin Camp",
         "Gerudo Desert Owl Statue Chest",
         "Gerudo Desert Owl Statue Sky Character",
         "Gerudo Desert Male Dayfly",
         "Gerudo Desert Female Dayfly",
-        "Gerudo Desert East Poe",
-        "Gerudo Desert North Peahat Poe",
-        "Gerudo Desert Poe Above Cave of Ordeals",
-        "Outside Bulblin Camp Poe",
-        "Gerudo Desert Golden Wolf"
+        "Gerudo Desert East Poe"
      ],
     "Region": "Gerudo Desert"
-}
+  },
+  {
+    "RoomName": "Gerudo Desert Basin",
+    "Exits":
+    [
+      {
+        "ExitName": "Gerudo Desert",
+        "Requirements": "canDefeatBulblin"
+      },
+      {
+        "ExitName": "Gerudo Desert Outside Bulblin Camp",
+        "Requirements": "canDefeatBulblin"
+      },
+      {
+        "ExitName": "Gerudo Desert North East Ledge",
+        "Requirements": "(getItemCount(Item.Progressive_Clawshot) >= 1)"
+      }
+    ],
+    "Checks": [
+        "Gerudo Desert Northeast Chest Behind Gates",
+        "Gerudo Desert Campfire North Chest",
+        "Gerudo Desert Campfire East Chest",
+        "Gerudo Desert Campfire West Chest",
+        "Gerudo Desert Northwest Chest Behind Gates"
+    ],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Gerudo Desert Cave of Ordeals Plateau",
+    "Exits":
+    [
+      {
+        "ExitName": "Gerudo Desert",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Cave of Ordeals Floors 01-11",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Gerudo Desert Poe Above Cave of Ordeals"
+    ],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Gerudo Desert North East Ledge",
+    "Exits":
+    [
+      {
+        "ExitName": "Gerudo Desert Basin",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Gerudo Desert Rock Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Gerudo Desert North Peahat Poe"
+    ],
+    "Region": "Gerudo Desert"
+  }
+// gerudo desert chu grotto (also as ExitName in one of the rooms above)
+  {
+    "RoomName": "Gerudo Desert Outside Bulblin Camp",
+    "Exits":
+    [
+      // {
+      //   "ExitName": "Gerudo Desert Basin",
+      //   "Requirements": "true"
+      // }, not sure if its possible to get to basin from there
+      {
+        "ExitName": "Bulblin Camp",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Gerudo Desert North Small Chest Before Bulblin Camp",
+        "Outside Bulblin Camp Poe",
+        "Gerudo Desert Golden Wolf"
+    ],
+    "Region": "Gerudo Desert"
+  }
+]
