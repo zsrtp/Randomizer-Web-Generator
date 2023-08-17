@@ -32,7 +32,7 @@
         "Requirements": "Lantern"
       },
       {
-        "ExitName": "Mist Area Outside Small Key Cave",
+        "ExitName": "Mist Area Outside Faron Mist Cave",
         "Requirements": "Lantern"
       },
       {
@@ -68,7 +68,7 @@
     "Region": "Faron Mist Area"
   }
   {
-    "RoomName": "Mist Area Outside Small Key Cave",
+    "RoomName": "Mist Area Outside Faron Mist Cave",
     "Exits":
     [
       {
