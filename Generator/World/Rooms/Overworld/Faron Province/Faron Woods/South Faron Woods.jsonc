@@ -1,22 +1,80 @@
-{ 
-    "Neighbours": 
+[
+  {
+    "RoomName": "South Faron Woods",
+    "Exits":
     [
-        "Ordon Province", 
-        "Faron Field", 
-        "South Faron Woods Cave", 
-        "Faron Mist Area"
+      {
+        "ExitName": "Ordon Spring",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "South Faron Woods Behind Gate",
+        "Requirements": "true" // Coro's key or crystal
+      },
+      {
+        "ExitName": "Farn Field",
+        "Requirements": "canClearForest"
+      },
+      {
+        "ExitName": "South Faron Woods Owl Statue Area",
+        "Requirements": "canSmash"
+      }
     ],
-    "NeighbourRequirements": 
+    "Checks":
     [
-        "true",
-        "canClearForest",
-        "true",
-        "canSmash and (Progressive_Dominion_Rod, 2) and Shadow_Crystal and canClearForest"
+        "Coro Bottle"
     ],
-    "Checks": 
+    "Region": "South Faron Woods"
+  },
+  {
+    "RoomName": "South Faron Woods Behind Gate",
+    "Exits":
     [
-        "Coro Bottle",
+      {
+        "ExitName": "South Faron Woods",
+        "Requirements": "true" // Coro's key or crystal
+      },
+      {
+        "ExitName": "South Faron Woods Cave",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "South Faron Woods"
+  },
+  {
+    "RoomName": "South Faron Woods Owl Statue Area",
+    "Exits":
+    [
+      {
+        "ExitName": "South Faron Woods",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "South Faron Woods Above Owl Statue",
+        "Requirements": "canClearForest and (getItemCount(Item.Progressive_Dominion_Rod) == 2) and Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
         "Faron Woods Owl Statue Sky Character"
-    ], 
-    "Region": "Faron Woods"
-}
+    ],
+    "Region": "South Faron Woods"
+  },
+  {
+    "RoomName": "South Faron Woods Above Owl Statue",
+    "Exits":
+    [
+      {
+        "ExitName": "Mist Area Near Owl Statue Chest",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "South Faron Woods Owl Statue Area",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "South Faron Woods"
+  }
+]
