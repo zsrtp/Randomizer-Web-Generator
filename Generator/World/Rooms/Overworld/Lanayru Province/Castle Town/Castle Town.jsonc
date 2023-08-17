@@ -139,6 +139,10 @@
         "ExitName": "Castle Town Center",
         "Requirements": "true"
       }
+      {
+        "ExitName": "Hyrule Castle Entrance",
+        "Requirements": "((Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons) and CanCompleteMDH)"
+      }
       // would probably split it into outside barrier and inside barrier rooms if HC is also going to be shuffled
     ],
     "Checks":
