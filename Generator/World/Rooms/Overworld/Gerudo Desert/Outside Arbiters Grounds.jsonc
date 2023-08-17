@@ -1,18 +1,22 @@
-{
-    "Neighbours": 
+[
+  {
+    "RoomName": "Outside Arbiters Grounds",
+    "Exits":
     [
-        "Bulblin Camp", 
-        "Arbiters Grounds Entrance"
+      {
+        "ExitName": "Bulblin Camp", // i think? no idea what happens if you enter camp from OAG before beating KB there
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Arbiters Grounds Entrance",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Outside Arbiters Grounds Lantern Chest",
         "Outside Arbiters Grounds Poe"
     ],
-    "Region": "Gerudo Desert"
-}
+    "Region": "Outside Arbiters Grounds"
+  }
+]
