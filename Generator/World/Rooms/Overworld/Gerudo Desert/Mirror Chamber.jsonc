@@ -1,14 +1,18 @@
-{
-    "Neighbours": 
+[
+  {
+    "RoomName": "Mirror Chamber",
+    "Exits":
     [
-        "Arbiters Grounds Boss Room", 
-        "Palace of Twilight Entrance"
+      {
+        "ExitName": "Arbiters Grounds Boss Room", // maybe another name? bc the gate after beating stallord may be closed, right?
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Palace of Twilight Entrance",
+        "Requirements": "((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky)) and CanDefeatShadowBeast"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky)) and CanDefeatShadowBeast"
-    ],
-    "Checks": [""], 
-    "Region": "Gerudo Desert"
-}
+    "Checks": [""],
+    "Region": "Mirror Chamber"
+  }
+]
