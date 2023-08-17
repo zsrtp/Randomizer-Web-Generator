@@ -1,5 +1,5 @@
 [
-    {
+  {
     "RoomName": "Faron Field Corner Grotto",
     "Exits":
     [
@@ -15,4 +15,5 @@
         "Faron Field Corner Grotto Rear Chest"
     ],
     "Region": "Hyrule Field - Faron Province"
+  }
 ]
