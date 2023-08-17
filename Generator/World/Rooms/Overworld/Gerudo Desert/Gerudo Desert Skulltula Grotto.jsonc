@@ -1,15 +1,17 @@
-{ 
-    "Neighbours": 
+[
+  {
+    "RoomName": "Gerudo Desert Skulltula Grotto",
+    "Exits":
     [
-        "Gerudo Desert"
+      {
+        "ExitName": "Gerudo Desert",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Gerudo Desert Skulltula Grotto Chest"
     ],
     "Region": "Gerudo Desert"
-}
+  }
+]
