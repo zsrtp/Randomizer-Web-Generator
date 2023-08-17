@@ -1,17 +1,18 @@
-{ 
-    "Neighbours": 
+[
+    {
+    "RoomName": "Faron Field Corner Grotto",
+    "Exits":
     [
-        "Faron Field"
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Faron Field Corner Grotto Right Chest",
         "Faron Field Corner Grotto Left Chest",
         "Faron Field Corner Grotto Rear Chest"
     ],
     "Region": "Hyrule Field - Faron Province"
-}
+]
