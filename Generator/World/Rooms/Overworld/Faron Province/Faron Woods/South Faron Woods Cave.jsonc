@@ -1,17 +1,21 @@
-{
-    "Neighbours": 
+[
+  {
+    "RoomName": "South Faron Woods Cave",
+    "Exits":
     [
-        "South Faron Woods", 
-        "Faron Mist Area"
+      {
+        "ExitName": "Mist Area Near South Faron Woods Cave",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "South Faron Woods Behind Gate",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "canBurnWebs or Shadow_Crystal or (Setting.skipPrologue equals True)",
-        "canBurnWebs or Shadow_Crystal or (Setting.skipPrologue equals True)"
-    ],
-    "Checks": 
+    "Checks":
     [
         "South Faron Cave Chest"
     ],
-    "Region": "Faron Woods"
-}
+    "Region": "South Faron Woods Cave"
+  }
+]
