@@ -66,21 +66,61 @@
     "Region": "Eldin Lantern Cave"
   },
   {
-    "RoomName": "Eldin Lava Cave",
+    "RoomName": "Eldin Lava Cave Upper",
     "Exits": 
     [
       {
         "ExitName": "Eldin Field",
         "Requirements": "true"
+      },
+      {
+        "ExitName": "Eldin Lava Cave Center",
+        "Requirements": "Iron_Boots"
       }
     ],
-    "Checks": 
+    "Checks": [""],
+    "Region": "Eldin Stockcave"
+  },
+  {
+    "RoomName": "Eldin Lava Cave Center",
+    "Exits":
     [
-        "Eldin Stockcave Upper Chest",
-        "Eldin Stockcave Lantern Chest",
+      {
+        "ExitName": "Eldin Lava Cave Lower",
+        "Requirements": "Iron Boots"
+      }
+    ],
+    "Checks": [
+        "Eldin Stockcave Upper Chest"
+    ],
+    "Region": "Eldin Stockcave"
+  },
+  {
+    "RoomName": "Eldin Lava Cave Lower",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field From Lava Cave Lower",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [
+        "Eldin Stockcave Lantern Chest Chest",
         "Eldin Stockcave Lowest Chest"
     ],
     "Region": "Eldin Stockcave"
+  },
+  {
+    "RoomName": "Eldin Field From Lava Cave Lower",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "(getItemCount(Item.Progressive_Clawshot) >= 1)"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Kakariko Gorge Keese Grotto",
@@ -144,7 +184,7 @@
         "Requirements": "true"
       },
       {
-        "ExitName": "Eldin Lava Cave",
+        "ExitName": "Eldin Lava Cave Upper",
         "Requirements": "(Progressive_Clawshot, 1)"
       },
       {
@@ -165,7 +205,7 @@
       },
       {
         "ExitName": "Eldin Field Stalfos Grotto",
-        "Requirements": "(Shadow_Crystal and Spinner) and (canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy))))"
+        "Requirements": "Shadow_Crystal and Spinner and (canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy))))"
       }
     ],
     "Checks": 
