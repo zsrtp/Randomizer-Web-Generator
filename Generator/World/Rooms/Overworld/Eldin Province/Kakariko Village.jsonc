@@ -37,7 +37,7 @@
         },
         {
           "ExitName": "Kakariko Village Malo Mart",
-          "Requirements": "true"
+          "Requirements": "true" // entrance is day-only, so need either access to a time-change area or shadow crystal
         },
         {
           "ExitName": "Kakariko Village Bug House Ceiling Hole",
@@ -49,11 +49,11 @@
         },
         {
           "ExitName": "Kakariko Village Elde Inn Exterior Left Door",
-          "Requirements": "true"
+          "Requirements": "true" // entrance is day-only, so need either access to a time-change area or shadow crystal
         },
         {
           "ExitName": "Kakariko Village Elde Inn Exterior Right Door",
-          "Requirements": "true"
+          "Requirements": "true" // entrance is day-only, so need either access to a time-change area or shadow crystal
         },
         {
           "ExitName": "Barnes Bomb Shop",
@@ -242,6 +242,10 @@
       {
         "ExitName": "Renados Sanctuary East Right Interior Door",
         "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Graveyard",
+        "Requirements": "Shadow_Crystal" // not 100% sure if there are more requirements
       }
     ],
     "Checks": 
