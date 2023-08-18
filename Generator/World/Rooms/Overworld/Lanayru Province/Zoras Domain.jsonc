@@ -70,11 +70,11 @@
       {
         "ExitName": "Upper Zoras River",
         "Requirements": "true"
-      },
+      } /* ,
       {
         "ExitName": "Lake Hylia",
         "Requirements": "(getItemCount(Item.Progressive_Bow) >= 1)" // not shuffled
-      }
+      } */
     ],
     "Checks":
     [
