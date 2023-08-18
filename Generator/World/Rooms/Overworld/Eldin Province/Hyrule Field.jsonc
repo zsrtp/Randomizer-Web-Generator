@@ -13,7 +13,7 @@
         "Eldin Field Bomskit Grotto Left Chest",
         "Eldin Field Bomskit Grotto Lantern Chest"
      ],
-    "Region": "Hyrule Field - Eldin Province"
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Eldin Field Stalfos Grotto",
@@ -30,7 +30,7 @@
         "Eldin Field Stalfos Grotto Left Small Chest",
         "Eldin Field Stalfos Grotto Stalfos Chest"
     ],
-    "Region": "Hyrule Field - Lanayru Province"
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Eldin Field Water Bomb Fish Grotto",
@@ -45,7 +45,7 @@
     [
         "Eldin Field Water Bomb Fish Grotto Chest"
     ],
-    "Region": "Hyrule Field - Eldin Province"
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Eldin Lantern Cave",
@@ -63,7 +63,7 @@
         "Eldin Lantern Cave Second Chest",
         "Eldin Lantern Cave Poe"
     ],
-    "Region": "Eldin Lantern Cave"
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Eldin Field Lava Cave Ledge",
@@ -79,7 +79,7 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Eldin Province"
+    "Region": "Hyrule Field - Eldin"
   }
   {
     "RoomName": "Eldin Lava Cave Upper",
@@ -95,7 +95,7 @@
       }
     ],
     "Checks": [""],
-    "Region": "Eldin Lava Cave"
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Eldin Lava Cave Center",
@@ -109,7 +109,7 @@
     "Checks": [
         "Eldin Lava Cave Upper Chest"
     ],
-    "Region": "Eldin Lava Cave"
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Eldin Lava Cave Lower",
@@ -124,7 +124,7 @@
         "Eldin Lava Cave Lantern Chest",
         "Eldin Lava Cave Lowest Chest"
     ],
-    "Region": "Eldin Lava Cave"
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Eldin Field From Lava Cave Lower",
@@ -136,7 +136,7 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Eldin Province"
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Kakariko Gorge Keese Grotto",
@@ -148,7 +148,7 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Eldin Province"
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Kakariko Gorge",
@@ -185,7 +185,7 @@
         "Kakariko Gorge Female Pill Bug",
         "Kakariko Gorge Poe"
     ],
-    "Region": "Hyrule Field - Eldin Province"
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Eldin Field",
@@ -239,7 +239,7 @@
         "Bridge of Eldin Male Phasmid",
         "Bridge of Eldin Female Phasmid"
     ],
-    "Region": "Hyrule Field - Eldin Province"
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Eldin Field Near Castle Town",
@@ -255,6 +255,6 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Eldin Province"
+    "Region": "Hyrule Field - Eldin"
   }
 ]
