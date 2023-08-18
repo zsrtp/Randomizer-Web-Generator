@@ -1,15 +1,17 @@
+[
 {
-    "Neighbours": 
+    "RoomName": "Lanayru Field Skulltula Grotto",
+    "Exits":
     [
-        "Lanayru Field"
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Lanayru Field Skulltula Grotto Chest"
     ],
     "Region": "Hyrule Field - Lanayru Province"
-}
+  }
+]
