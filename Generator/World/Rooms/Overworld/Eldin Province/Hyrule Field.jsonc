@@ -66,6 +66,22 @@
     "Region": "Eldin Lantern Cave"
   },
   {
+    "RoomName": "Eldin Field Lava Cave Ledge",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Eldin Lava Cave Upper",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin Province"
+  }
+  {
     "RoomName": "Eldin Lava Cave Upper",
     "Exits": 
     [
@@ -79,7 +95,7 @@
       }
     ],
     "Checks": [""],
-    "Region": "Eldin Stockcave"
+    "Region": "Eldin Lava Cave"
   },
   {
     "RoomName": "Eldin Lava Cave Center",
@@ -91,9 +107,9 @@
       }
     ],
     "Checks": [
-        "Eldin Stockcave Upper Chest"
+        "Eldin Lava Cave Upper Chest"
     ],
-    "Region": "Eldin Stockcave"
+    "Region": "Eldin Lava Cave"
   },
   {
     "RoomName": "Eldin Lava Cave Lower",
@@ -105,10 +121,10 @@
       }
     ],
     "Checks": [
-        "Eldin Stockcave Lantern Chest Chest",
-        "Eldin Stockcave Lowest Chest"
+        "Eldin Lava Cave Lantern Chest",
+        "Eldin Lava Cave Lowest Chest"
     ],
-    "Region": "Eldin Stockcave"
+    "Region": "Eldin Lava Cave"
   },
   {
     "RoomName": "Eldin Field From Lava Cave Lower",
@@ -192,6 +208,10 @@
         "Requirements": "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy)))"
       },
       {
+        "ExitName": "Eldin Field Near Castle Town",
+        "Requirements": "true" // no idea lol
+      },
+      {
         "ExitName": "Lanayru Field",
         "Requirements": "canSmash"
       },
@@ -219,6 +239,22 @@
         "Bridge of Eldin Male Phasmid",
         "Bridge of Eldin Female Phasmid"
     ],
+    "Region": "Hyrule Field - Eldin Province"
+  },
+  {
+    "RoomName": "Eldin Field Near Castle Town",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "true" // no idea lol
+      },
+      {
+        "ExitName": "Outside Castle Town East",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
     "Region": "Hyrule Field - Eldin Province"
   }
 ]
