@@ -1,0 +1,17 @@
+[
+  {
+    "RoomName": "Outside Castle Town West Helmasaur Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Outside Castle Town West Grotto Ledge",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "West Hyrule Field Helmasaur Grotto Chest"
+    ],
+    "Region": "Outside South Castle Town"
+  }
+]
