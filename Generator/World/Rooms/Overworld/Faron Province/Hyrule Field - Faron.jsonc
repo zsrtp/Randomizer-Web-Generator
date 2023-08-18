@@ -1,22 +1,5 @@
 [
   {
-    "RoomName": "Faron Field Corner Grotto",
-    "Exits":
-    [
-      {
-        "ExitName": "Faron Field",
-        "Requirements": "true"
-      }
-    ],
-    "Checks":
-    [
-        "Faron Field Corner Grotto Right Chest",
-        "Faron Field Corner Grotto Left Chest",
-        "Faron Field Corner Grotto Rear Chest"
-    ],
-    "Region": "Hyrule Field - Faron"
-  },
-  {
     "RoomName": "Faron Field",
     "Exits":
     [
@@ -34,15 +17,15 @@
       },
       {
         "ExitName": "Lake Hylia Bridge",
-        "Requirements": "Gate Keys"
-      }
+        "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)"
+      },
       {
         "ExitName": "Faron Field Corner Grotto",
         "Requirements": "Shadow Crystal"
-      }
+      },
       {
-        "ExitName": "Faron Field Fishing Hole Grotto",
-        "Requirements": "true" // Coro's key?
+        "ExitName": "Faron Field Fishing Grotto",
+        "Requirements": "Shadow_Crystal"
       }
     ],
     "Checks":
@@ -56,7 +39,24 @@
     "Region": "Hyrule Field - Faron"
   },
   {
-    "RoomName": "Faron Field Fishing Hole Grotto",
+    "RoomName": "Faron Field Corner Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Faron Field Corner Grotto Right Chest",
+        "Faron Field Corner Grotto Left Chest",
+        "Faron Field Corner Grotto Rear Chest"
+    ],
+    "Region": "Hyrule Field - Faron"
+  },
+  {
+    "RoomName": "Faron Field Fishing Grotto",
     "Exits":
     [
       {
