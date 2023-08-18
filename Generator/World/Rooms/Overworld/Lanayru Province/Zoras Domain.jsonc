@@ -1,0 +1,150 @@
+[
+  {
+    "RoomName": "Upper Zoras River",
+    "Exits":
+    [
+      {
+        "ExitName": "Zoras Domain",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "Shadow_Crystal" // not shuffled
+      },
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Upper Zoras River Fishing Hole",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Upper Zoras River Izas House",
+        "Requirements": "canDefeatShadowBeast"
+      }
+    ],
+    "Checks":
+    [
+        "Upper Zoras River Female Dragonfly",
+        "Upper Zoras River Poe"
+    ],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Upper Zoras River Fishing Hole",
+    "Exits":
+    [
+      {
+        "ExitName": "Upper Zoras River",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Upper Zoras River Fishing Hole House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Fishing Hole Heart Piece",
+        "Fishing Hole Bottle"
+    ],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Upper Zoras River Fishing Hole House",
+    "Exits":
+    [
+      {
+        "ExitName": "Upper Zoras River Fishing Hole",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Upper Zoras River Izas House",
+    "Exits":
+    [
+      {
+        "ExitName": "Upper Zoras River",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "(getItemCount(Item.Progressive_Bow) >= 1)" // not shuffled
+      }
+    ],
+    "Checks":
+    [
+        "Iza Helping Hand",
+        "Iza Raging Rapids Minigame"
+    ],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Zoras Domain",
+    "Exits":
+    [
+      {
+        "ExitName": "Upper Zoras River",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Zoras Domain West Ledge",
+        "Requirements": "(getItemCount(Item.Progressive_Clawshot) >= 1) or Shadow_Crystal or canSmash"
+      },
+      {
+        "ExitName": "Snowpeak Snowstorm Lower",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Zoras Throne Room",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Zoras Domain Chest By Mother and Child Isles",
+        "Zoras Domain Chest Behind Waterfall",
+        "Zoras Domain Male Dragonfly",
+        "Zoras Domain Mother and Child Isle Poe",
+        "Zoras Domain Waterfall Poe"
+    ],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Zoras Domain West Ledge",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Zoras Domain",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Zoras Throne Room",
+    "Exits":
+    [
+      {
+        "ExitName": "Zoras Domain",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Zoras Domain Light All Torches Chest",
+        "Zoras Domain Extinguish All Torches Chest",
+        "Zoras Domain Underwater Goron"
+    ],
+    "Region": "Zoras Domain"
+  }
+]
