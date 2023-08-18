@@ -1,51 +1,99 @@
-{
-    "Neighbours": 
+[
+  {
+    "RoomName": "Lake Hylia",
+    "Exits":
     [
-        "Gerudo Desert", 
-        "Lake Hylia Long Cave", 
-        "Lake Hylia Water Toadpoli Grotto", 
-        "Lake Hylia Shell Blade Grotto", 
-        "Lakebed Temple Entrance", 
-        "City in The Sky Entrance", 
-        "Lake Hylia Bridge", 
-        "Zoras Domain"
+      {
+        "ExitName": "Lake Hylia Bridge",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Gerudo Desert",
+        "Requirements": "Aurus_Memo"
+      },
+      {
+        "ExitName": "Upper Zoras River", // not shuffled
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Lake Hylia Lakebed Temple Entrance",
+        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and canUseWaterBombs))"
+      },
+      {
+        "ExitName": "Lanayru Spring",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia Long Cave",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Lake Hylia Shell Blade Grotto",
+        "Requirements": "Shadow_Crystal" // can use cannon and cucco to access the grotto ledge entirely without items
+      },
+      {
+        "ExitName": "Lake Hylia Water Toadpoli Grotto",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "City in The Sky Entrance",
+        "Requirements": "((getItemCount(Item.Progressive_Sky_Book) == 7) or (Setting.skipCityEntrance equals True)) and (getItemCount(Item.Progressive_Clawshot) >= 1)"
+      }
     ],
-    "NeighbourRequirements":
-    [
-        "Aurus_Memo",
-        "canSmash",
-        "Shadow_Crystal",
-        "Shadow_Crystal",
-        "((Iron_Boots and CanUseWaterBombs) or (Setting.skipLakebedEntrance equals True)) and Zora_Armor",
-        "(Progressive_Clawshot, 1) and ((Progressive_Sky_Book, 7) or (Setting.skipCityEntrance equals True))",
-        "true",
-        "Shadow_Crystal"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Lake Hylia Underwater Chest",
         "Outside Lanayru Spring Left Statue Chest",
         "Outside Lanayru Spring Right Statue Chest",
-        "Lanayru Spring Underwater Left Chest",
-        "Lanayru Spring Underwater Right Chest",
-        "Lanayru Spring Back Room Left Chest",
-        "Lanayru Spring Back Room Right Chest",
-        "Lanayru Spring Back Room Lantern Chest",
         "Flight By Fowl Top Platform Reward",
         "Flight By Fowl Second Platform Chest",
         "Flight By Fowl Third Platform Chest",
         "Flight By Fowl Fourth Platform Chest",
         "Flight By Fowl Fifth Platform Chest",
-        "Lanayru Spring East Double Clawshot Chest",
-        "Lanayru Spring West Double Clawshot Chest",
-        "Iza Helping Hand",
-        "Iza Raging Rapids Minigame",
         "Auru Gift To Fyer",
         "Flight By Fowl Ledge Poe",
         "Isle of Riches Poe",
         "Lake Hylia Alcove Poe",
         "Lake Hylia Dock Poe",
         "Lake Hylia Tower Poe"
-     ],
+    ],
     "Region": "Lake Hylia"
-}
+  },
+  {
+    "RoomName": "Lake Hylia Lakebed Temple Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and canUseWaterBombs))"
+      },
+      {
+        "ExitName": "Lakebed Temple Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Lake Hylia"
+  },
+  {
+    "RoomName": "Lanayru Spring",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Lanayru Spring Underwater Left Chest",
+        "Lanayru Spring Underwater Right Chest",
+        "Lanayru Spring Back Room Left Chest",
+        "Lanayru Spring Back Room Right Chest",
+        "Lanayru Spring Back Room Lantern Chest",
+        "Lanayru Spring East Double Clawshot Chest",
+        "Lanayru Spring West Double Clawshot Chest"
+    ],
+    "Region": "Lake Hylia"
+  }
+]
