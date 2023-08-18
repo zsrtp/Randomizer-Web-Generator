@@ -1,19 +1,26 @@
-{
-    "Neighbours": 
+[
+  {
+    "RoomName": "Outside Castle Town West",
+    "Exits":
     [
-        "Lake Hylia Bridge", 
-        "Lanayru Field", 
-        "Castle Town", 
-        "West Hyrule Field Helmasaur Grotto"
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia Bridge",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Outside Castle Town West Grotto Ledge",
+        "Requirements": "getItemCount(Item.Progressive_Clawshot) >= 1"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true",
-        "true",
-        "true",
-        "Shadow_Crystal and (Progressive_Clawshot, 1)"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Hyrule Field Amphitheater Owl Statue Chest",
         "Hyrule Field Amphitheater Owl Statue Sky Character",
@@ -22,5 +29,22 @@
         "Hyrule Field Amphitheater Poe",
         "West Hyrule Field Golden Wolf"
     ],
-    "Region": "Hyrule Field - Lanayru Province"
-}
+    "Region": "Outside Castle Town West"
+  },
+  {
+    "RoomName": "Outside Castle Town West Grotto Ledge",
+    "Exits":
+    [
+      {
+        "ExitName": "Outside Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Outside South Castle Town Tektite Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks": [""], // butterfly?
+    "Region": "Outside Castle Town West"
+  }
+]
