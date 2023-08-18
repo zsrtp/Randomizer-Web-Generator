@@ -153,23 +153,7 @@
         "Lanayru Field Bridge Poe"
     ],
     "Region": "Hyrule Field - Lanayru"
-  },
-  {
-    "RoomName": "Lanayru Field Grotto Platform",
-    "Exits":
-    [
-      {
-        "ExitName": "Lanayru Field",
-        "Requirements": "Spinner"
-      },
-      {
-        "ExitName": "Eldin Field Stalfos Grotto",
-        "Requirements": "Shadow_Crystal"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
-  },
+  }
   {
     "RoomName": "Lanayru Field Behind Bouler",
     "Exits":
