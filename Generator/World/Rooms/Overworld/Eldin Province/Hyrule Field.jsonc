@@ -209,7 +209,7 @@
       },
       {
         "ExitName": "Eldin Field Near Castle Town",
-        "Requirements": "true" // no idea lol
+        "Requirements": "true" // no idea. needs donation in malo mart and access to kak
       },
       {
         "ExitName": "Lanayru Field",
@@ -247,7 +247,7 @@
     [
       {
         "ExitName": "Eldin Field",
-        "Requirements": "true" // no idea lol
+        "Requirements": "true" // no idea. needs donation in malo mart and access to kak
       },
       {
         "ExitName": "Outside Castle Town East",
