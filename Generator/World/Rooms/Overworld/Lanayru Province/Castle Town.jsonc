@@ -1,0 +1,542 @@
+[
+  {
+    "RoomName": "Castle Town West",
+    "Exits":
+    [
+      {
+        "ExitName": "Outside Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Center",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town STAR Game",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Charlo Donation Blessing"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Center",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town North",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Goron House Outside Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Goron House Outside Right Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Malo Mart",
+        "Requirements": "true" // not sure at all whats actually required tbh (day-only? shoe cleaning or donation?)
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town East",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Center",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Outside Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Outside Left Door",
+        "Requirements": "true" // not sure
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Outside Right Door",
+        "Requirements": "true" // not sure
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town South",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Center",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Outside Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Agithas House",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Seer House",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Jovanis House Outside Dig Spot",
+        "Requirements": "true"
+      },
+      // jovani outside door required?
+      {
+        "ExitName": "Castle Town Telmas Bar",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town North",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Center",
+        "Requirements": "true"
+      }
+      {
+        "ExitName": "Hyrule Castle Entrance",
+        "Requirements": "((Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons) and CanCompleteMDH)"
+      }
+      // would probably split it into outside barrier and inside barrier rooms if HC is also going to be shuffled
+    ],
+    "Checks":
+    [
+        "North Castle Town Golden Wolf"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town STAR Game",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town West",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "STAR Prize 1",
+        "STAR Prize 2"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Goron House Outside Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Center",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Goron House Inside Left Door",
+        "Requirements": "true"
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Goron House Outside Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Center",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Goron House Inside Right Door",
+        "Requirements": "true"
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Goron House Inside Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Goron House Outside Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Goron House",
+        "Requirements": "true"
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Goron House Inside Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Goron House Outside Right Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Goron House",
+        "Requirements": "true"
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Goron House",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Goron House Inside Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Goron House Inside Right Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Malo Mart",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Center",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Castle Town Malo Mart Magic Armor"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Outside Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Inside Left Door",
+        "Requirements": "true"
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Outside Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Inside Right Door",
+        "Requirements": "true"
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Inside Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Doctors Office Outside Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Lower",
+        "Requirements": "true"
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Inside Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Doctors Office Outside Right Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Lower",
+        "Requirements": "true"
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Lower",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Doctors Office Inside Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Inside Right Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Upper",
+        "Requirements": "Invoice"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Upper",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Doctors Office Lower",
+        "Requirements": "Invoice" // i think??
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Inside Upper Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""], // scent does belong to this room if it gets a check one day
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Inside Upper Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Doctors Office Upper",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Outside Upper Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Outside Upper Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Doctors Office Inside Upper Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Balcony",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Balcony",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Doctors Office Outside Upper Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town East",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Doctors Office Balcony Chest"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Agithas House",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town South",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Agitha Female Ant Reward",
+        "Agitha Female Beetle Reward",
+        "Agitha Female Butterfly Reward",
+        "Agitha Female Dayfly Reward",
+        "Agitha Female Dragonfly Reward",
+        "Agitha Female Grasshopper Reward",
+        "Agitha Female Ladybug Reward",
+        "Agitha Female Mantis Reward",
+        "Agitha Female Phasmid Reward",
+        "Agitha Female Pill Bug Reward",
+        "Agitha Female Snail Reward",
+        "Agitha Female Stag Beetle Reward",
+        "Agitha Male Ant Reward",
+        "Agitha Male Beetle Reward",
+        "Agitha Male Butterfly Reward",
+        "Agitha Male Dayfly Reward",
+        "Agitha Male Dragonfly Reward",
+        "Agitha Male Grasshopper Reward",
+        "Agitha Male Ladybug Reward",
+        "Agitha Male Mantis Reward",
+        "Agitha Male Phasmid Reward",
+        "Agitha Male Pill Bug Reward",
+        "Agitha Male Snail Reward",
+        "Agitha Male Stag Beetle Reward"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Seer House",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town South",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Jovanis House Outside Dig Spot",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town South",
+        "Requirements": "true"
+      }
+      {
+        "ExitName": "Castle Town Jovanis House Inside Dig Spot",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Jovanis House Inside Dig Spot",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Jovanis House Outside Dig Spot",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Castle Town Jovanis House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Jovanis House Inside Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Jovanis House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Jovanis House",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Jovanis House Inside Dig Spot",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Jovanis House Inside Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Jovani House Poe",
+        "Jovani 20 Poe Soul Reward",
+        "Jovani 60 Poe Soul Reward"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Telmas Bar",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town South",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Telma Invoice"
+    ],
+    "Region": "Castle Town"
+  }
+]
