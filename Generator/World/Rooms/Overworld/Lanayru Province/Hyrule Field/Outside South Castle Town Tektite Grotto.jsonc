@@ -1,15 +1,17 @@
-{ 
-    "Neighbours": 
+[
+  {
+    "RoomName": "Outside South Castle Town Tektite Grotto",
+    "Exits":
     [
-        "Outside Castle Town South"
+      {
+        "ExitName": "Outside South Castle Town",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Outside South Castle Town Tektite Grotto Chest"
     ],
-    "Region": "Hyrule Field - Lanayru Province"
-}
+    "Region": "Outside South Castle Town"
+  }
+]
