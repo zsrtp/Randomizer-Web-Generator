@@ -1,15 +1,17 @@
-{
-    "Neighbours": 
+[
+  {
+    "RoomName": "Lake Hylia Water Toadpoli Grotto",
+    "Exits":
     [
-        "Lake Hylia"
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Lake Hylia Water Toadpoli Grotto Chest"
     ],
     "Region": "Lake Hylia"
-}
+  }
+]
