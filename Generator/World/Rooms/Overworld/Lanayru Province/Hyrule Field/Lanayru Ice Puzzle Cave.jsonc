@@ -1,15 +1,17 @@
-{ 
-    "Neighbours": 
+[
+  {
+    "RoomName": "Lanayru Ice Puzzle Cave",
+    "Exits":
     [
-        "Lanayru Field"
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Lanayru Ice Block Puzzle Cave Chest"
     ],
     "Region": "Hyrule Field - Lanayru Province"
-}
+  }
+]
