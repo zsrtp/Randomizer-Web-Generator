@@ -1,15 +1,17 @@
-{ 
-    "Neighbours": 
+[
+  {
+    "RoomName": "Lake Hylia Shell Blade Grotto",
+    "Exits":
     [
-        "Lake Hylia"
+      {
+        "ExitName": "Lake Hylia Flight By Fowl Ledge",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Lake Hylia Shell Blade Grotto Chest"
     ],
     "Region": "Lake Hylia"
-}
+  }
+]
