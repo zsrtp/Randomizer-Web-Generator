@@ -1,15 +1,15 @@
-{ 
-    "Neighbours": 
+{
+    "RoomName": "Lake Hylia Bridge Bubble Grotto",
+    "Exits":
     [
-        "Lake Hylia Bridge"
+      {
+        "ExitName": "Lake Hylia Bridge Grotto Ledge",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Lake Hylia Bridge Bubble Grotto Chest"
     ],
-    "Region": "Hyrule Field - Lanayru Province"
-}
+    "Region": "Hyrule Field - Lake Hylia Bridge"
+  }
