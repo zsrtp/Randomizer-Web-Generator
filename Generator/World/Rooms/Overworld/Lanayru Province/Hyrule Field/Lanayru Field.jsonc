@@ -1,33 +1,119 @@
-{ 
-    "Neighbours": 
+[
+  {
+    "RoomName": "Lanayru Field",
+    "Exits":
     [
-        "Eldin Field", 
-        "Zoras Domain", 
-        "Outside Castle Town West", 
-        "Lanayru Ice Puzzle Cave", 
-        "Lake Hylia Bridge", 
-        "Hidden Village", 
-        "Lanayru Field Skulltula Grotto", 
-        "Lanayru Field Poe Grotto"
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Lanayru Field Grotto Platform",
+        "Requirements": "Spinner"
+      },
+      {
+        "ExitName": "Hidden Village",
+        "Requirements": "Wooden_Statue" // and access to sanctuary
+      },
+      {
+        "ExitName": "Lanayru Field Behind Boulder", // to zoras domain
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Hyrule Field Near Spinner Rails",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Outside Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lanayru Ice Puzzle Cave",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Lanayru Field Skulltula Grotto",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Lanayru Field Poe Grotto",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Lanayru Field Chu Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "canSmash",
-        "canSmash",
-        "true",
-        "canSmash",
-        "canSmash",
-        "Wooden_Statue",
-        "Shadow_Crystal",
-        "Shadow_Crystal"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Lanayru Field Behind Gate Underwater Chest",
-        "Lanayru Field Spinner Track Chest",
         "Lanayru Field Male Stag Beetle",
         "Lanayru Field Female Stag Beetle",
         "Lanayru Field Bridge Poe"
     ],
     "Region": "Hyrule Field - Lanayru Province"
-}
+  },
+  {
+    "RoomName": "Lanayru Field Grotto Platform",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "Spinner"
+      },
+      {
+        "ExitName": "Eldin Field Stalfos Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin Province"
+  },
+  {
+    "RoomName": "Lanayru Field Behind Bouler",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Zoras Domain West Ledge",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Lanayru Province"
+  },
+  {
+    "RoomName": "Hyrule Field Near Spinner Rails",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Lake Hylia Bridge",
+        "Requirements": "canSmash"
+      }
+    ],
+    "Checks":
+    [
+        "Lanayru Field Spinner Track Chest"
+    ],
+    "Region": "Hyrule Field - Lanayru Province"
+  },
+  {
+    "RoomName": "Lanayru Field Chu Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Lanayru Province"
+  }
+]
