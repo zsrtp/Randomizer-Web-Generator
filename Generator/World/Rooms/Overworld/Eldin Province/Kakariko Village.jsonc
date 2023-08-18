@@ -242,10 +242,6 @@
       {
         "ExitName": "Renados Sanctuary East Right Interior Door",
         "Requirements": "true"
-      },
-      {
-        "ExitName": "Kakariko Graveyard",
-        "Requirements": "Shadow_Crystal" // not 100% sure if there are more requirements
       }
     ],
     "Checks": 
