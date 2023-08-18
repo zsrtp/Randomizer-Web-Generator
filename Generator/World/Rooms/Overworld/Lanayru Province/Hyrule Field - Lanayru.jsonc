@@ -1,0 +1,347 @@
+[
+  {
+    "RoomName": "Lake Hylia Bridge Bubble Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia Bridge Grotto Ledge",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Lake Hylia Bridge Bubble Grotto Chest"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lake Hylia Bridge",
+    "Exits":
+    [
+      {
+        "ExitName": "Hyrule Field Near Spinner Rails",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Outside Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)"
+      },
+      {
+        "ExitName": "Lake Hylia Bridge Grotto Ledge",
+        "Requirements": "hasBombs and (Boomerang or (getItemCount(Item.Progressive_Bow) >= 1)) and (getItemCount(Item.Progressive_Clawshot) >= 1)"
+      }
+    ],
+    "Checks":
+    [
+        "Lake Hylia Bridge Vines Chest",
+        "Lake Hylia Bridge Owl Statue Chest",
+        "Lake Hylia Bridge Owl Statue Sky Character",
+        "Lake Hylia Bridge Male Mantis",
+        "Lake Hylia Bridge Female Mantis"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lake Hylia Bridge Grotto Ledge",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia Bridge",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia Bridge Bubble Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Lake Hylia Bridge Cliff Chest",
+        "Lake Hylia Bridge Cliff Poe"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lanayru Field Poe Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Lanayru Field Poe Grotto Left Poe",
+        "Lanayru Field Poe Grotto Right Poe"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lanayru Field Skulltula Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Lanayru Field Skulltula Grotto Chest"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lanayru Field",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Lanayru Field Grotto Platform",
+        "Requirements": "Spinner"
+      },
+      {
+        "ExitName": "Hidden Village",
+        "Requirements": "Wooden_Statue" // and access to sanctuary
+      },
+      {
+        "ExitName": "Lanayru Field Behind Boulder", // to zoras domain
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Hyrule Field Near Spinner Rails",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Outside Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lanayru Ice Puzzle Cave",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Lanayru Field Skulltula Grotto",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Lanayru Field Poe Grotto",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Lanayru Field Chu Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Lanayru Field Behind Gate Underwater Chest",
+        "Lanayru Field Male Stag Beetle",
+        "Lanayru Field Female Stag Beetle",
+        "Lanayru Field Bridge Poe"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lanayru Field Grotto Platform",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "Spinner"
+      },
+      {
+        "ExitName": "Eldin Field Stalfos Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Lanayru Field Behind Bouler",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Zoras Domain West Ledge",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Hyrule Field Near Spinner Rails",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Lake Hylia Bridge",
+        "Requirements": "canSmash"
+      }
+    ],
+    "Checks":
+    [
+        "Lanayru Field Spinner Track Chest"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lanayru Field Chu Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lanayru Ice Puzzle Cave",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Lanayru Ice Block Puzzle Cave Chest"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Outside Castle Town South",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "true" // how to handle the bottle requirement here?
+      },
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Outside South Castle Town Tektite Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Outside South Castle Town Tightrope Chest",
+        "Outside South Castle Town Fountain Chest",
+        "Outside South Castle Town Double Clawshot Chasm Chest",
+        "Wooden Statue",
+        "Outside South Castle Town Male Ladybug",
+        "Outside South Castle Town Female Ladybug",
+        "Outside South Castle Town Poe",
+        "Outside South Castle Town Golden Wolf"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Outside Castle Town West Helmasaur Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Outside Castle Town West Grotto Ledge",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "West Hyrule Field Helmasaur Grotto Chest"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Outside Castle Town West",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia Bridge",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Outside Castle Town West Grotto Ledge",
+        "Requirements": "getItemCount(Item.Progressive_Clawshot) >= 1"
+      }
+    ],
+    "Checks":
+    [
+        "Hyrule Field Amphitheater Owl Statue Chest",
+        "Hyrule Field Amphitheater Owl Statue Sky Character",
+        "West Hyrule Field Male Butterfly",
+        "West Hyrule Field Female Butterfly",
+        "Hyrule Field Amphitheater Poe",
+        "West Hyrule Field Golden Wolf"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Outside Castle Town West Grotto Ledge",
+    "Exits":
+    [
+      {
+        "ExitName": "Outside Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Outside South Castle Town Tektite Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks": [""], // butterfly?
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Outside South Castle Town Tektite Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Outside South Castle Town",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Outside South Castle Town Tektite Grotto Chest"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  }
+]
