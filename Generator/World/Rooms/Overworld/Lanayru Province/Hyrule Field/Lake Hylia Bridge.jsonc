@@ -1,28 +1,57 @@
-{ 
-    "Neighbours": 
+[
+  {
+    "RoomName": "Lake Hylia Bridge",
+    "Exits":
     [
-        "Faron Field", 
-        "Lake Hylia", 
-        "Lanayru Field", 
-        "Outside Castle Town West", 
-        "Lake Hylia Bridge Bubble Grotto"
+      {
+        "ExitName": "Hyrule Field Near Spinner Rails",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Outside Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)"
+      },
+      {
+        "ExitName": "Lake Hylia Bridge Grotto Ledge",
+        "Requirements": "hasBombs and (Boomerang or (getItemCount(Item.Progressive_Bow) >= 1)) and (getItemCount(Item.Progressive_Clawshot) >= 1)"
+      }
     ],
-  "NeighbourRequirements": [
-    "(Gate_Keys or (Setting.smallKeySettings equals Keysy))",
-    "true",
-    "canSmash",
-    "true",
-    "Shadow_Crystal and canLaunchBombs and (Progressive_Clawshot, 1)"
-  ],
-    "Checks": 
+    "Checks":
     [
         "Lake Hylia Bridge Vines Chest",
-        "Lake Hylia Bridge Cliff Chest",
         "Lake Hylia Bridge Owl Statue Chest",
         "Lake Hylia Bridge Owl Statue Sky Character",
         "Lake Hylia Bridge Male Mantis",
-        "Lake Hylia Bridge Female Mantis",
+        "Lake Hylia Bridge Female Mantis"
+    ],
+    "Region": "Hyrule Field - Lake Hylia Bridge"
+  },
+  {
+    "RoomName": "Lake Hylia Bridge Grotto Ledge",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia Bridge",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia Bridge Bubble Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Lake Hylia Bridge Cliff Chest",
         "Lake Hylia Bridge Cliff Poe"
     ],
-    "Region": "Hyrule Field - Lanayru Province"
-}
+    "Region": "Hyrule Field - Lake Hylia Bridge"
+  }
+]
