@@ -1,0 +1,70 @@
+[
+  {
+    "RoomName": "Faron Field Corner Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Faron Field Corner Grotto Right Chest",
+        "Faron Field Corner Grotto Left Chest",
+        "Faron Field Corner Grotto Rear Chest"
+    ],
+    "Region": "Hyrule Field - Faron"
+  },
+  {
+    "RoomName": "Faron Field",
+    "Exits":
+    [
+      {
+        "ExitName": "South Faron Woods",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Gorge",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Outside Castle Town South",
+        "Requirements": "true" // how to handle the bottle requirement there? also if you enter faron field from there while the boulder is still there, you get stuck and are forced to savewarp or portal warp
+      },
+      {
+        "ExitName": "Lake Hylia Bridge",
+        "Requirements": "Gate Keys"
+      }
+      {
+        "ExitName": "Faron Field Corner Grotto",
+        "Requirements": "Shadow Crystal"
+      }
+      {
+        "ExitName": "Faron Field Fishing Hole Grotto",
+        "Requirements": "true" // Coro's key?
+      }
+    ],
+    "Checks":
+    [
+        "Faron Field Bridge Chest",
+        "Faron Field Tree Heart Piece",
+        "Faron Field Male Beetle",
+        "Faron Field Female Beetle",
+        "Faron Field Poe"
+    ],
+    "Region": "Hyrule Field - Faron"
+  },
+  {
+    "RoomName": "Faron Field Fishing Hole Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Faron"
+  }
+]
