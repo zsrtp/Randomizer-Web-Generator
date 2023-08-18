@@ -109,7 +109,7 @@
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Lanayru Field Grotto Platform",
+        "ExitName": "Eldin Field Grotto Platform",
         "Requirements": "Spinner"
       },
       {
@@ -153,7 +153,7 @@
         "Lanayru Field Bridge Poe"
     ],
     "Region": "Hyrule Field - Lanayru"
-  }
+  },
   {
     "RoomName": "Lanayru Field Behind Bouler",
     "Exits":
