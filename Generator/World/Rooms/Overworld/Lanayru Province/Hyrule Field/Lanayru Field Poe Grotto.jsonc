@@ -1,16 +1,18 @@
-{ 
-    "Neighbours": 
+[
+  {
+    "RoomName": "Lanayru Field Poe Grotto",
+    "Exits":
     [
-        "Lanayru Field"
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Lanayru Field Poe Grotto Left Poe",
         "Lanayru Field Poe Grotto Right Poe"
-    ], 
-    "Region": "Hyrule Field - Lanayru Province"
-}
+    ],
+    "Region": "Faron Mist Area"
+  }
+]
