@@ -1,106 +1,5 @@
 [
   {
-    "RoomName": "Lake Hylia Bridge Bubble Grotto",
-    "Exits":
-    [
-      {
-        "ExitName": "Lake Hylia Bridge Grotto Ledge",
-        "Requirements": "true"
-      }
-    ],
-    "Checks":
-    [
-        "Lake Hylia Bridge Bubble Grotto Chest"
-    ],
-    "Region": "Hyrule Field - Lanayru"
-  },
-  {
-    "RoomName": "Lake Hylia Bridge",
-    "Exits":
-    [
-      {
-        "ExitName": "Hyrule Field Near Spinner Rails",
-        "Requirements": "canSmash"
-      },
-      {
-        "ExitName": "Outside Castle Town East",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Lake Hylia",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Faron Field",
-        "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)"
-      },
-      {
-        "ExitName": "Lake Hylia Bridge Grotto Ledge",
-        "Requirements": "hasBombs and (Boomerang or (getItemCount(Item.Progressive_Bow) >= 1)) and (getItemCount(Item.Progressive_Clawshot) >= 1)"
-      }
-    ],
-    "Checks":
-    [
-        "Lake Hylia Bridge Vines Chest",
-        "Lake Hylia Bridge Owl Statue Chest",
-        "Lake Hylia Bridge Owl Statue Sky Character",
-        "Lake Hylia Bridge Male Mantis",
-        "Lake Hylia Bridge Female Mantis"
-    ],
-    "Region": "Hyrule Field - Lanayru"
-  },
-  {
-    "RoomName": "Lake Hylia Bridge Grotto Ledge",
-    "Exits":
-    [
-      {
-        "ExitName": "Lake Hylia Bridge",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Lake Hylia Bridge Bubble Grotto",
-        "Requirements": "Shadow_Crystal"
-      }
-    ],
-    "Checks":
-    [
-        "Lake Hylia Bridge Cliff Chest",
-        "Lake Hylia Bridge Cliff Poe"
-    ],
-    "Region": "Hyrule Field - Lanayru"
-  },
-  {
-    "RoomName": "Lanayru Field Poe Grotto",
-    "Exits":
-    [
-      {
-        "ExitName": "Lanayru Field",
-        "Requirements": "true"
-      }
-    ],
-    "Checks":
-    [
-        "Lanayru Field Poe Grotto Left Poe",
-        "Lanayru Field Poe Grotto Right Poe"
-    ],
-    "Region": "Hyrule Field - Lanayru"
-  },
-  {
-    "RoomName": "Lanayru Field Skulltula Grotto",
-    "Exits":
-    [
-      {
-        "ExitName": "Lanayru Field",
-        "Requirements": "true"
-      }
-    ],
-    "Checks":
-    [
-        "Lanayru Field Skulltula Grotto Chest"
-    ],
-    "Region": "Hyrule Field - Lanayru"
-  },
-  {
     "RoomName": "Lanayru Field",
     "Exits":
     [
@@ -190,18 +89,6 @@
     "Region": "Hyrule Field - Lanayru"
   },
   {
-    "RoomName": "Lanayru Field Chu Grotto",
-    "Exits":
-    [
-      {
-        "ExitName": "Lanayru Field",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Hyrule Field - Lanayru"
-  },
-  {
     "RoomName": "Lanayru Ice Puzzle Cave",
     "Exits":
     [
@@ -217,51 +104,45 @@
     "Region": "Hyrule Field - Lanayru"
   },
   {
-    "RoomName": "Outside Castle Town South",
+    "RoomName": "Lanayru Field Chu Grotto",
     "Exits":
     [
       {
-        "ExitName": "Castle Town South",
+        "ExitName": "Lanayru Field",
         "Requirements": "true"
-      },
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lanayru Field Skulltula Grotto",
+    "Exits":
+    [
       {
-        "ExitName": "Faron Field",
-        "Requirements": "true" // how to handle the bottle requirement here?
-      },
-      {
-        "ExitName": "Lake Hylia",
+        "ExitName": "Lanayru Field",
         "Requirements": "true"
-      },
-      {
-        "ExitName": "Outside South Castle Town Tektite Grotto",
-        "Requirements": "Shadow_Crystal"
       }
     ],
     "Checks":
     [
-        "Outside South Castle Town Tightrope Chest",
-        "Outside South Castle Town Fountain Chest",
-        "Outside South Castle Town Double Clawshot Chasm Chest",
-        "Wooden Statue",
-        "Outside South Castle Town Male Ladybug",
-        "Outside South Castle Town Female Ladybug",
-        "Outside South Castle Town Poe",
-        "Outside South Castle Town Golden Wolf"
+        "Lanayru Field Skulltula Grotto Chest"
     ],
     "Region": "Hyrule Field - Lanayru"
   },
   {
-    "RoomName": "Outside Castle Town West Helmasaur Grotto",
+    "RoomName": "Lanayru Field Poe Grotto",
     "Exits":
     [
       {
-        "ExitName": "Outside Castle Town West Grotto Ledge",
+        "ExitName": "Lanayru Field",
         "Requirements": "true"
       }
     ],
     "Checks":
     [
-        "West Hyrule Field Helmasaur Grotto Chest"
+        "Lanayru Field Poe Grotto Left Poe",
+        "Lanayru Field Poe Grotto Right Poe"
     ],
     "Region": "Hyrule Field - Lanayru"
   },
@@ -306,11 +187,79 @@
         "Requirements": "true"
       },
       {
-        "ExitName": "Outside South Castle Town Tektite Grotto",
+        "ExitName": "Outside Castle Town West Helmasaur Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
     "Checks": [""], // butterfly?
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Outside Castle Town West Helmasaur Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Outside Castle Town West Grotto Ledge",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "West Hyrule Field Helmasaur Grotto Chest"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Outside Castle Town East",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field Near Castle Town",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town East",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "East Castle Town Bridge Poe"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Outside Castle Town South",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "true" // how to handle the bottle requirement here?
+      },
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Outside South Castle Town Tektite Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Outside South Castle Town Tightrope Chest",
+        "Outside South Castle Town Fountain Chest",
+        "Outside South Castle Town Double Clawshot Chasm Chest",
+        "Wooden Statue",
+        "Outside South Castle Town Male Ladybug",
+        "Outside South Castle Town Female Ladybug",
+        "Outside South Castle Town Poe",
+        "Outside South Castle Town Golden Wolf"
+    ],
     "Region": "Hyrule Field - Lanayru"
   },
   {
@@ -325,6 +274,76 @@
     "Checks":
     [
         "Outside South Castle Town Tektite Grotto Chest"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lake Hylia Bridge",
+    "Exits":
+    [
+      {
+        "ExitName": "Hyrule Field Near Spinner Rails",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Outside Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)"
+      },
+      {
+        "ExitName": "Lake Hylia Bridge Grotto Ledge",
+        "Requirements": "hasBombs and (Boomerang or (getItemCount(Item.Progressive_Bow) >= 1)) and (getItemCount(Item.Progressive_Clawshot) >= 1)"
+      }
+    ],
+    "Checks":
+    [
+        "Lake Hylia Bridge Vines Chest",
+        "Lake Hylia Bridge Owl Statue Chest",
+        "Lake Hylia Bridge Owl Statue Sky Character",
+        "Lake Hylia Bridge Male Mantis",
+        "Lake Hylia Bridge Female Mantis"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lake Hylia Bridge Grotto Ledge",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia Bridge",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia Bridge Bubble Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Lake Hylia Bridge Cliff Chest",
+        "Lake Hylia Bridge Cliff Poe"
+    ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Lake Hylia Bridge Bubble Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia Bridge Grotto Ledge",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Lake Hylia Bridge Bubble Grotto Chest"
     ],
     "Region": "Hyrule Field - Lanayru"
   }
