@@ -1,13 +1,14 @@
-{
-    "Neighbours": 
+[
+  {
+    "RoomName": "Lake Hylia Long Cave",
+    "Exits":
     [
-        "Lake Hylia"
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      }
     ],
-    "NeighbourRequirements": 
-    [
-        "true"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Lake Lantern Cave First Chest",
         "Lake Lantern Cave Second Chest",
@@ -27,7 +28,7 @@
         "Lake Lantern Cave Final Poe",
         "Lake Lantern Cave First Poe",
         "Lake Lantern Cave Second Poe"
-
     ],
-    "Region": "Lake Lantern Cave"
-}
+    "Region": "Lake Hylia"
+  }
+]
