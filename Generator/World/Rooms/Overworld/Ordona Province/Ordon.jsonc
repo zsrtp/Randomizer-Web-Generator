@@ -1,0 +1,275 @@
+[
+{
+    "RoomName": "Outside Links House",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ordon Spring",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ordon Links House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Ordon"
+  },
+  {
+    "RoomName": "Ordon Links House",
+    "Exits":
+    [
+      {
+        "ExitName": "Outside Links House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Wooden Sword Chest",
+        "Links Basement Chest"
+    ],
+    "Region": "Ordon"
+  },
+  {
+    "RoomName": "Ordon Village",
+    "Exits":
+    [
+      {
+        "ExitName": "Outside Links House",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ordon Ranch Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ordon Sera Shop",
+        "Requirements": "true" // day-only iirc
+      },
+      {
+        "ExitName": "Ordon Shield House",
+        "Requirements": "true" // not sure
+      },
+      {
+        "ExitName": "Ordon Sword House",
+        "Requirements": "true" // not sure
+      },
+      {
+        "ExitName": "Ordon Bos House Outside Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ordon Bos House Outside Right Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Uli Cradle Delivery"
+    ],
+    "Region": "Ordon"
+  },
+  {
+    "RoomName": "Ordon Sera Shop",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Village",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Ordon Cat Rescue",
+        "Sera Shop Slingshot"
+    ],
+    "Region": "Ordon"
+  },
+  {
+    "RoomName": "Ordon Shield House",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Village",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Ordon Shield"
+    ],
+    "Region": "Ordon Village"
+  },
+  {
+    "RoomName": "Ordon Sword House",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Village",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Ordon Sword"
+    ],
+    "Region": "Ordon Village"
+  },
+  {
+    "RoomName": "Ordon Bos House Outside Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ordon Bos House Inside Left Door",
+        "Requirements": "true" // not sure
+      }
+    ],
+    "Checks": [""],
+    "Region": "Ordon"
+  },
+  {
+    "RoomName": "Ordon Bos House Outside Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ordon Bos House Inside Right Door",
+        "Requirements": "true" // not sure
+      }
+    ],
+    "Checks": [""],
+    "Region": "Ordon"
+  },
+  {
+    "RoomName": "Ordon Bos House Inside Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Bos House Outside Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ordon Bos House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Ordon"
+  },
+  {
+    "RoomName": "Ordon Bos House Inside Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Bos House Outside Right Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ordon Bos House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Ord,on"
+  },
+  {
+    "RoomName": "Ordon Bos House",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Bos House Inside Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ordon Bos House Inside Right Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Wrestling With Bo"
+    ],
+    "Region": "Ordon"
+  },
+  {
+    "RoomName": "Ordon Ranch Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Ordon Ranch",
+        "Requirements": "true" // day-only
+      }
+    ],
+    "Checks": [""],
+    "Region": "Ordon"
+  },
+  {
+    "RoomName": "Ordon Ranch",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Ranch Entrance",
+        "Requirements": "true" day-only
+      },
+      {
+        "ExitName": "Ordon Ranch Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Herding Goats Reward"
+    ],
+    "Region": "Ordon"
+  },
+  {
+    "RoomName": "Ordon Ranch Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Ordon Ranch",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Ordon Ranch Grotto Lantern Chest"
+    ],
+    "Region": "Ordon"
+  },
+  {
+    "RoomName": "Ordon Spring",
+    "Exits":
+    [
+      {
+        "ExitName": "Outside Links House",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "South Faron Woods",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Ordon Spring Golden Wolf"
+    ],
+    "Region": "Ordon"
+  }
+]
