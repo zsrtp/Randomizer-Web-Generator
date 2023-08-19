@@ -225,7 +225,7 @@
     [
       {
         "ExitName": "Ordon Ranch Entrance",
-        "Requirements": "true" day-only
+        "Requirements": "true" // day-only
       },
       {
         "ExitName": "Ordon Ranch Grotto",
