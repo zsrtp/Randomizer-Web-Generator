@@ -1,8 +1,10 @@
-{
-    "Exits": 
+[
+  {
+    "RoomName": "Goron Mines Entrance",
+    "Exits":
     [
       {
-        "ExitName": "Death Mountain Interiors",
+        "ExitName": "Death Mountain Sumo Hall From Goron Mines",
         "Requirements": "true"
       },
       {
@@ -10,9 +12,10 @@
         "Requirements": "Iron_Boots and canBreakWoodenDoor"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Goron Mines Entrance Chest"
     ],
     "Region": "Goron Mines"
-}
+  }
+]
