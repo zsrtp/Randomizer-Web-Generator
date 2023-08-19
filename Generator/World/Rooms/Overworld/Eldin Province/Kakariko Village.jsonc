@@ -45,11 +45,11 @@
         },
         {
           "ExitName": "Kakariko Elde Inn Outside Left Door",
-          "Requirements": "true" // entrance is day-only, so need either access to a time-change area or shadow crystal
+          "Requirements": "true"
         },
         {
           "ExitName": "Kakariko Elde Inn Outside Right Door",
-          "Requirements": "true" // entrance is day-only, so need either access to a time-change area or shadow crystal
+          "Requirements": "true"
         },
         {
           "ExitName": "Kakariko Bug House Outside Door",
@@ -335,7 +335,7 @@
       },
       {
         "ExitName": "Kakariko Elde Inn Inside Left Door",
-        "Requirements": "true"
+        "Requirements": "true" // entrance is day-only, so need either access to a time-change area or shadow crystal
       }
     ],
     "Checks": [""],
@@ -351,7 +351,7 @@
       },
       {
         "ExitName": "Kakariko Elde Inn Inside Right Door",
-        "Requirements": "true"
+        "Requirements": "true" // entrance is day-only, so need either access to a time-change area or shadow crystal
       }
     ],
     "Checks": [""],
@@ -647,7 +647,7 @@
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "Kakariko Watchtower Watchtower",
+        "ExitName": "Kakariko Watchtower",
         "Requirements": "true"
       }
     ],
