@@ -17,7 +17,7 @@
       },
 	  {
         "ExitName": "Faron Field",
-        "Requirements": "true"
+        "Requirements": "canClearForest"
       },
 	  {
         "ExitName": "Faron Woods Coros House",
@@ -123,6 +123,25 @@
       }
     ],
     "Checks": [""],
+    "Region": "Faron Woods"
+  },
+  {
+    "RoomName": "South Faron Woods Cave",
+    "Exits":
+    [
+      {
+        "ExitName": "South Faron Woods Cave Inside Southern Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "South Faron Woods Cave Inside Northern Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "South Faron Cave Chest"
+    ],
     "Region": "Faron Woods"
   },
   {
