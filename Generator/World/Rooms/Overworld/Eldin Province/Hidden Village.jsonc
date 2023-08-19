@@ -23,14 +23,14 @@
   },
   {
     "RoomName": "Hidden Village Impaz House Interior",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Hidden Village",
         "Requirements": "true"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Skybook From Impaz"
     ],
