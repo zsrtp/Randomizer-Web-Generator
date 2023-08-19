@@ -103,10 +103,10 @@
     "RoomName": "Gerudo Desert Outside Bulblin Camp",
     "Exits":
     [
-      // {
-      //   "ExitName": "Gerudo Desert Basin",
-      //   "Requirements": "true"
-      // }, not sure if its possible to get to basin from there
+      {
+        "ExitName": "Gerudo Desert Basin",
+        "Requirements": "Room.Gerudo_Desert_Basin and canDefeatBulblin"
+      },
       {
         "ExitName": "Bulblin Camp",
         "Requirements": "true"
@@ -173,7 +173,7 @@
         "Requirements": "true"
       },
       {
-        "ExitName": "Bulblin Camp Back",
+        "ExitName": "Bulblin Camp Back Entrance",
         "Requirements": "(Bulblin_Camp_Small_Key or (Setting.smallKeySettings equals Keysy)) and canDefeatKingBulblinDesert"
       }
     ],
@@ -209,11 +209,11 @@
     [
       {
         "ExitName": "Bulblin Camp",
-        "Requirements": "Room.Bulblin_Camp and ((Bulblin_Camp_Small_Key or (Setting.smallKeySettings equals Keysy)) and canDefeatKingBulblinDesert)"
+        "Requirements": "Room.Bulblin_Camp and (Bulblin_Camp_Small_Key or (Setting.smallKeySettings equals Keysy)) and canDefeatKingBulblinDesert"
       },
       {
         "ExitName": "Bulblin Camp Back Entrance",
-        "Requirements": "(Bulblin_Camp_Small_Key or (Setting.smallKeySettings equals Keysy)) and canDefeatKingBulblinDesert"
+        "Requirements": "Room.Bulblin_Camp and (Bulblin_Camp_Small_Key or (Setting.smallKeySettings equals Keysy)) and canDefeatKingBulblinDesert"
       }
     ],
     "Checks": [""],
@@ -244,7 +244,7 @@
     "Exits":
     [
       {
-        "ExitName": "Arbiters Grounds Boss Room", // maybe another name? bc the gate there before beating stallord may be closed, right?
+        "ExitName": "Arbiters Grounds Boss Room",
         "Requirements": "true"
       },
       {
