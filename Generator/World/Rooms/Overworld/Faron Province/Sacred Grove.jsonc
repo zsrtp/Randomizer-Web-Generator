@@ -1,0 +1,107 @@
+[
+  // somebody add lost woods here
+  {
+    "RoomName": "Lost Woods Baba Serpent Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Lost Woods", // ?
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Sacred Grove Baba Serpent Grotto Chest"
+    ],
+    "Region": "Sacred Grove"
+  },
+  {
+    "RoomName": "Sacred Grove Before Block",
+    "Exits":
+    [
+      {
+        "ExitName": "Lost Woods", // ?
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Sacred Grove Upper",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Sacred Grove"
+  },
+  {
+    "RoomName": "Sacred Grove Upper",
+    "Exits":
+    [
+      {
+        "ExitName": "Sacred Grove Lower",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Sacred Grove Temple of Time",
+        "Requirements": "(Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or (Room.Sacred_Grove_Lower and (getItemCount(Item.Progressive_Sword) >= 3) and canDefeatShadowBeast)"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Sacred Grove"
+  },
+  {
+    "RoomName": "Sacred Grove Lower",
+    "Exits":
+    [
+      {
+        "ExitName": "Lost Woods", // ?
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Sacred Grove Upper",
+        "Requirements": "Room.Sacred_Grove_Before_Block"
+      }
+    ],
+    "Checks":
+    [
+        "Sacred Grove Male Snail",
+        "Sacred Grove Master Sword Poe"
+    ],
+    "Region": "Sacred Grove"
+  },
+  {
+    "RoomName": "Sacred Grove Temple of Time",
+    "Exits":
+    [
+      {
+        "ExitName": "Sacred Grove Upper",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Sacred Grove Behind Window",
+        "Requirements": "(Setting.totEntrance equals Open) or (getItemCount(Item.Progressive_Sword) >= 3)"
+      }
+    ],
+    "Checks":
+    [
+        "Sacred Grove Past Owl Statue Chest",
+        "Sacred Grove Female Snail",
+        "Sacred Grove Temple of Time Owl Statue Poe"
+    ],
+    "Region": "Sacred Grove"
+  },
+  {
+    "RoomName": "Sacred Grove Temple of Time Behind Window",
+    "Exits":
+    [
+      {
+        "ExitName": "Sacred Grove Temple of Time",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Temple of Time Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Sacred Grove"
+  }
+]
