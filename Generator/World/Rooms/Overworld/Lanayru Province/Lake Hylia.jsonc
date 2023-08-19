@@ -12,7 +12,7 @@
         "Requirements": "Aurus_Memo"
       },
       {
-        "ExitName": "Upper Zoras River", // not shuffled
+        "ExitName": "Upper Zoras River",
         "Requirements": "Shadow_Crystal"
       },
       {
@@ -20,7 +20,7 @@
         "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and canUseWaterBombs))"
       },
       {
-        "ExitName": "Lanayru Spring",
+        "ExitName": "Lake Hylia Lanayru Spring",
         "Requirements": "true"
       },
       {
@@ -77,7 +77,7 @@
     "Region": "Lake Hylia"
   },
   {
-    "RoomName": "Lanayru Spring",
+    "RoomName": "Lake Hylia Lanayru Spring",
     "Exits":
     [
       {
