@@ -177,6 +177,22 @@
     "Region": "Hyrule Field - Eldin"
   },
   {
+    "RoomName": "Eldin Field Outside Hidden Village",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
+      },
+      {
+        "ExitName": "Hidden Village",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
     "RoomName": "Eldin Field Grotto Platform",
     "Exits":
     [
