@@ -13,10 +13,10 @@
       },
       {
         "ExitName": "Hidden Village",
-        "Requirements": "Wooden_Statue" // and access to sanctuary
+        "Requirements": "Room.Kakariko Renados Sanctuary and Wooden_Statue"
       },
       {
-        "ExitName": "Lanayru Field Behind Boulder", // to zoras domain
+        "ExitName": "Lanayru Field Behind Boulder",
         "Requirements": "canSmash"
       },
       {
@@ -151,6 +151,10 @@
     "Exits":
     [
       {
+        "ExitName": "Outside Castle Town West Grotto Ledge",
+        "Requirements": "getItemCount(Item.Progressive_Clawshot) >= 1"
+      },
+      {
         "ExitName": "Lanayru Field",
         "Requirements": "true"
       },
@@ -161,10 +165,6 @@
       {
         "ExitName": "Castle Town West",
         "Requirements": "true"
-      },
-      {
-        "ExitName": "Outside Castle Town West Grotto Ledge",
-        "Requirements": "getItemCount(Item.Progressive_Clawshot) >= 1"
       }
     ],
     "Checks":
@@ -237,8 +237,8 @@
         "Requirements": "true"
       },
       {
-        "ExitName": "Faron Field",
-        "Requirements": "true" // how to handle the bottle requirement here?
+        "ExitName": "Faron Field Behind Boulder",
+        "Requirements": "(getItemCount(Item.Bottle) >= 1)" // correct syntax for the bottle?
       },
       {
         "ExitName": "Lake Hylia",
@@ -260,6 +260,22 @@
         "Outside South Castle Town Poe",
         "Outside South Castle Town Golden Wolf"
     ],
+    "Region": "Hyrule Field - Lanayru"
+  },
+  {
+    "RoomName": "Outside Castle Town South Inside Boulder",
+    "Exits":
+    [
+      {
+        "ExitName": "Outside Castle Town South",
+        "Requirements": "Room.Outside_Castle_Town_South and (getItemCount(Item.Bottle) >= 1)" // correct syntax for the bottle?
+      },
+      {
+        "ExitName": "Faron Field Behind Boulder",
+        "Requirements": "Room.Outside_Castle_Town_South and (getItemCount(Item.Bottle) >= 1)" // correct syntax for the bottle?
+      }
+    ],
+    "Checks": [""],
     "Region": "Hyrule Field - Lanayru"
   },
   {
@@ -286,7 +302,7 @@
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Outside Castle Town East",
+        "ExitName": "Outside Castle Town West",
         "Requirements": "true"
       },
       {
