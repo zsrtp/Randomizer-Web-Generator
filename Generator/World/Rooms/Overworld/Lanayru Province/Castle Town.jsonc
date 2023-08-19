@@ -27,6 +27,22 @@
     "Region": "Castle Town"
   },
   {
+    "RoomName": "Castle Town STAR Game",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town West",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "STAR Prize 1",
+        "STAR Prize 2"
+    ],
+    "Region": "Castle Town"
+  },
+  {
     "RoomName": "Castle Town Center",
     "Exits":
     [
@@ -60,111 +76,6 @@
       }
     ],
     "Checks": [""],
-    "Region": "Castle Town"
-  },
-  {
-    "RoomName": "Castle Town East",
-    "Exits":
-    [
-      {
-        "ExitName": "Castle Town Center",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Outside Castle Town East",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Castle Town South",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Castle Town Doctors Office Outside Left Door",
-        "Requirements": "true" // not sure
-      },
-      {
-        "ExitName": "Castle Town Doctors Office Outside Right Door",
-        "Requirements": "true" // not sure
-      }
-    ],
-    "Checks": [""],
-    "Region": "Castle Town"
-  },
-  {
-    "RoomName": "Castle Town South",
-    "Exits":
-    [
-      {
-        "ExitName": "Castle Town West",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Castle Town Center",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Castle Town East",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Outside Castle Town South",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Castle Town Agithas House",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Castle Town Seer House",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Castle Town Jovanis House Outside Dig Spot",
-        "Requirements": "true"
-      },
-      // jovani outside door required?
-      {
-        "ExitName": "Castle Town Telmas Bar",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Castle Town"
-  },
-  {
-    "RoomName": "Castle Town North",
-    "Exits":
-    [
-      {
-        "ExitName": "Castle Town Center",
-        "Requirements": "true"
-      }
-      {
-        "ExitName": "Hyrule Castle Entrance",
-        "Requirements": "((Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons) and CanCompleteMDH)"
-      }
-      // would probably split it into outside barrier and inside barrier rooms if HC is also going to be shuffled
-    ],
-    "Checks":
-    [
-        "North Castle Town Golden Wolf"
-    ],
-    "Region": "Castle Town"
-  },
-  {
-    "RoomName": "Castle Town STAR Game",
-    "Exits":
-    [
-      {
-        "ExitName": "Castle Town West",
-        "Requirements": "true"
-      }
-    ],
-    "Checks":
-    [
-        "STAR Prize 1",
-        "STAR Prize 2"
-    ],
     "Region": "Castle Town"
   },
   {
@@ -259,6 +170,53 @@
     "Region": "Castle Town"
   },
   {
+    "RoomName": "Castle Town East",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Center",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Outside Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Outside Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Outside Right Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Balcony",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Doctors Office Outside Upper Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town East",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Doctors Office Balcony Chest"
+    ],
+    "Region": "Castle Town"
+  },
+  {
     "RoomName": "Castle Town Doctors Office Outside Left Door",
     "Exits":
     [
@@ -268,7 +226,7 @@
       },
       {
         "ExitName": "Castle Town Doctors Office Inside Left Door",
-        "Requirements": "true"
+        "Requirements": "true" // not sure
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -283,7 +241,23 @@
       },
       {
         "ExitName": "Castle Town Doctors Office Inside Right Door",
+        "Requirements": "true" // not sure
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Outside Upper Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Doctors Office Inside Upper Entrance",
         "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Balcony",
+        "Requirements": "true"
+      }
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -314,6 +288,22 @@
       {
         "ExitName": "Castle Town Doctors Office Lower",
         "Requirements": "true"
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Inside Upper Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Doctors Office Upper",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Doctors Office Outside Upper Entrance",
+        "Requirements": "true"
+      }
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -355,54 +345,44 @@
     "Region": "Castle Town"
   },
   {
-    "RoomName": "Castle Town Doctors Office Inside Upper Entrance",
+    "RoomName": "Castle Town South",
     "Exits":
     [
       {
-        "ExitName": "Castle Town Doctors Office Upper",
+        "ExitName": "Castle Town West",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Doctors Office Outside Upper Entrance",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Castle Town"
-  },
-  {
-    "RoomName": "Castle Town Doctors Office Outside Upper Entrance",
-    "Exits":
-    [
-      {
-        "ExitName": "Castle Town Doctors Office Inside Upper Entrance",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Castle Town Doctors Office Balcony",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Castle Town"
-  },
-  {
-    "RoomName": "Castle Town Doctors Office Balcony",
-    "Exits":
-    [
-      {
-        "ExitName": "Castle Town Doctors Office Outside Upper Entrance",
+        "ExitName": "Castle Town Center",
         "Requirements": "true"
       },
       {
         "ExitName": "Castle Town East",
         "Requirements": "true"
+      },
+      {
+        "ExitName": "Outside Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Agithas House",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Seer House",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Castle Town Jovanis House Outside Dig Spot",
+        "Requirements": "true"
+      },
+      // jovani outside door required?
+      {
+        "ExitName": "Castle Town Telmas Bar",
+        "Requirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Doctors Office Balcony Chest"
-    ],
+    "Checks": [""],
     "Region": "Castle Town"
   },
   {
@@ -536,6 +516,26 @@
     "Checks":
     [
         "Telma Invoice"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town North",
+    "Exits":
+    [
+      {
+        "ExitName": "Castle Town Center",
+        "Requirements": "true"
+      }
+      {
+        "ExitName": "Hyrule Castle Entrance",
+        "Requirements": "((Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons) and CanCompleteMDH)"
+      }
+      // would probably split it into outside barrier and inside barrier rooms if HC is also going to be shuffled
+    ],
+    "Checks":
+    [
+        "North Castle Town Golden Wolf"
     ],
     "Region": "Castle Town"
   }
