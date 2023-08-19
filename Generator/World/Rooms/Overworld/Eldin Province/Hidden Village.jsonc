@@ -4,8 +4,8 @@
     "Exits":
     [
       {
-        "ExitName": "Lanayru Field",
-        "Requirements": "true" // if you enter field from HV and the boulder is there, can you actually get to the field itemlessly?
+        "ExitName": "Eldin Field Outside Hidden Village",
+        "Requirements": "true"
       },
       {
         "ExitName": "Hidden Village Impaz House Interior",
