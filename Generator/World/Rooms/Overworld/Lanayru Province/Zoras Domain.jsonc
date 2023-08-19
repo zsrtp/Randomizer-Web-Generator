@@ -9,7 +9,7 @@
       },
       {
         "ExitName": "Lake Hylia",
-        "Requirements": "Shadow_Crystal" // not shuffled
+        "Requirements": "Shadow_Crystal"
       },
       {
         "ExitName": "Lanayru Field",
@@ -73,7 +73,7 @@
       } /* ,
       {
         "ExitName": "Lake Hylia",
-        "Requirements": "(getItemCount(Item.Progressive_Bow) >= 1)" // not shuffled
+        "Requirements": "(getItemCount(Item.Progressive_Bow) >= 1)"
       } */
     ],
     "Checks":
