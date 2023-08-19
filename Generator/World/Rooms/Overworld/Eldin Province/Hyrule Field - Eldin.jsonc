@@ -96,7 +96,7 @@
       },
       {
         "ExitName": "Eldin Field Near Castle Town",
-        "Requirements": "true" // no idea. needs donation in malo mart and access to kak
+        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village"
       },
       {
         "ExitName": "Eldin Field Lava Cave Ledge",
@@ -134,7 +134,7 @@
     [
       {
         "ExitName": "Eldin Field",
-        "Requirements": "true" // no idea. needs donation in malo mart and access to kak
+        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village"
       },
       {
         "ExitName": "Outside Castle Town East",
@@ -339,7 +339,7 @@
     "Exits": 
     [
       {
-        "ExitName": "Lanayru Field",
+        "ExitName": "Eldin Field Grotto Platform",
         "Requirements": "true"
       }
     ],
