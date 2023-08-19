@@ -1,7 +1,7 @@
 [
   {
     "RoomName": "Kakariko Gorge",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Faron Field",
@@ -24,7 +24,7 @@
         "Requirements": "Shadow_Crystal"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Kakariko Gorge Owl Statue Chest",
         "Kakariko Gorge Double Clawshot Chest",
@@ -54,14 +54,14 @@
   },
   {
     "RoomName": "Eldin Lantern Cave",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Gorge",
         "Requirements": "true"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Eldin Lantern Cave First Chest",
         "Eldin Lantern Cave Lantern Chest",
@@ -72,7 +72,7 @@
   },
   {
     "RoomName": "Kakariko Gorge Keese Grotto",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Gorge",
@@ -84,7 +84,7 @@
   },
   {
     "RoomName": "Eldin Field",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Gorge",
@@ -115,7 +115,7 @@
         "Requirements": "Shadow_Crystal"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Eldin Field Bomb Rock Chest",
         "Bridge of Eldin Owl Statue Chest",
@@ -321,14 +321,14 @@
   },
   {
     "RoomName": "Eldin Field Bomskit Grotto",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Eldin Field",
         "Requirements": "true"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Eldin Field Bomskit Grotto Left Chest",
         "Eldin Field Bomskit Grotto Lantern Chest"
@@ -337,14 +337,14 @@
   },
   {
     "RoomName": "Eldin Field Water Bomb Fish Grotto",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Eldin Field",
         "Requirements": "true"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Eldin Field Water Bomb Fish Grotto Chest"
     ],
@@ -352,14 +352,14 @@
   },
   {
     "RoomName": "Eldin Field Stalfos Grotto",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Eldin Field Grotto Platform",
         "Requirements": "true"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Eldin Field Stalfos Grotto Right Small Chest",
         "Eldin Field Stalfos Grotto Left Small Chest",
