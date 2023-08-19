@@ -1,7 +1,7 @@
 [
   {
       "RoomName": "Lower Kakariko Village",
-      "Exits": 
+      "Exits":
       [
         {
           "ExitName": "Kakariko Gorge Behind Gate",
@@ -64,7 +64,7 @@
           "Requirements": "true"
         }
       ],
-      "Checks": 
+      "Checks":
       [
           "Eldin Spring Underwater Chest",
           "Kakariko Village Bomb Rock Spire Heart Piece"
@@ -73,7 +73,7 @@
   },
   {
     "RoomName": "Upper Kakariko Village",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
@@ -96,7 +96,7 @@
         "Requirements": "true"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Kakariko Village Bomb Shop Poe",
         "Kakariko Village Watchtower Poe"
@@ -155,7 +155,7 @@
   },
   {
     "RoomName": "Kakariko Renados Sanctuary Outside Front Left Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
@@ -171,7 +171,7 @@
   },
   {
     "RoomName": "Kakariko Renados Sanctuary Outside Front Right Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
@@ -187,7 +187,7 @@
   },
   {
     "RoomName": "Kakariko Renados Sanctuary Outside Back Left Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
@@ -203,7 +203,7 @@
   },
   {
     "RoomName": "Kakariko Village Renado Sanctuary Outside Back Right Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
@@ -219,7 +219,7 @@
   },
   {
     "RoomName": "Kakariko Renados Sanctuary Inside Front Left Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Renados Sanctuary Outside Front Left Door",
@@ -235,7 +235,7 @@
   },
   {
     "RoomName": "Kakariko Renados Sanctuary Inside Front Right Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Renados Sanctuary Outside Front Right Door",
@@ -251,7 +251,7 @@
   },
   {
     "RoomName": "Kakariko Renados Sanctuary Inside Back Left Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Renados Sanctuary Outside Back Left Door",
@@ -267,7 +267,7 @@
   },
   {
     "RoomName": "Kakariko Village Renado Sanctuary Inside Back Right Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Renados Sanctuary Outside Back Right Door",
@@ -302,7 +302,7 @@
         "Requirements": "true"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Kakariko Renados Letter",
         "Ilia Memory Reward"
@@ -327,7 +327,7 @@
   },
   {
     "RoomName": "Kakariko Elde Inn Outside Left Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
@@ -391,7 +391,7 @@
   },
   {
     "RoomName": "Kakariko Elde Inn",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Elde Inn Inside Left Door",
@@ -402,7 +402,7 @@
         "Requirements": "true"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Kakariko Inn Chest"
     ],
@@ -426,7 +426,7 @@
   },
   {
     "RoomName": "Kakariko Bug House Outside Ceiling Hole",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
@@ -442,7 +442,7 @@
   },
   {
     "RoomName": "Kakariko Bug House Inside Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Bug House Outside Door",
@@ -458,7 +458,7 @@
   },
   {
     "RoomName": "Kakariko Bug House Inside Ceiling Hole",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Bug House Outside Ceiling Hole",
@@ -474,7 +474,7 @@
   },
   {
     "RoomName": "Kakariko Bug House",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Bug House Inside Door",
@@ -485,7 +485,7 @@
         "Requirements": "true"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Kakariko Village Female Ant"
     ],
@@ -493,7 +493,7 @@
   },
   {
     "RoomName": "Kakariko Barnes Bomb Shop Outside Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
@@ -509,7 +509,7 @@
   },
   {
     "RoomName": "Kakariko Barnes Bomb Shop Outside Upper Entrance",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Upper Kakariko Village",
@@ -525,7 +525,7 @@
   },
   {
     "RoomName": "Kakariko Barnes Bomb Shop Inside Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Barnes Bomb Shop Outside Door",
@@ -541,7 +541,7 @@
   },
   {
     "RoomName": "Kakariko Barnes Bomb Shop Inside Upper Entrance",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Barnes Bomb Shop Outside Upper Entrance",
@@ -557,7 +557,7 @@
   },
   {
     "RoomName": "Barnes Bomb Shop",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Barnes Bomb Shop Inside Door",
@@ -568,7 +568,7 @@
         "Requirements": "true"
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Barnes Bomb Bag"
     ],
@@ -576,7 +576,7 @@
   },
   {
     "RoomName": "Kakariko Watchtower Outside Lower Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Village Upper",
@@ -592,7 +592,7 @@
   },
   {
     "RoomName": "Kakariko Watchtower Outside Dig Spot",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Upper Kakariko Village",
@@ -608,7 +608,7 @@
   },
   {
     "RoomName": "Kakariko Watchtower Outside Upper Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Top of Watchtower",
@@ -624,7 +624,7 @@
   },
   {
     "RoomName": "Kakariko Watchtower Inside Lower Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Watchtower Outside Lower Door",
@@ -656,7 +656,7 @@
   },
   {
     "RoomName": "Kakariko Watchtower Inside Upper Door",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Watchtower Outside Upper Door",
@@ -672,7 +672,7 @@
   },
   {
     "RoomName": "Kakariko Watchtower",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Kakariko Watchtower Inside Lower Door",
@@ -687,7 +687,7 @@
         "Requirements": "true"
       },
     ],
-    "Checks": 
+    "Checks":
     [    
         "Kakariko Watchtower Chest"
     ],
@@ -695,7 +695,7 @@
   },
   {
     "RoomName": "Kakariko Graveyard",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
@@ -706,7 +706,7 @@
         "Requirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysy)) and Iron_Boots and CanUseWaterBombs"
       }
     ],
-    "Checks": 
+    "Checks":
     [ 
         "Kakariko Graveyard Lantern Chest",
         "Gift From Ralis",
