@@ -8,12 +8,12 @@
         "Requirements": "true"
       },
       {
-        "ExitName": "Kakariko Gorge",
-        "Requirements": "true"
+        "ExitName": "Faron Field Behind Boulder",
+        "Requirements": "Room.Outside_Castle_Town_South and (getItemCount(Item.Bottle) >= 1)" // correct syntax for the bottle? also the hot water expires, doesnt it?
       },
       {
-        "ExitName": "Outside Castle Town South",
-        "Requirements": "Room.Outside_Castle_Town_South and (getItemCount(Item.Bottle) >= 1)" // how to handle the bottle requirement there? also if you enter faron field from there while the boulder is still there, you get stuck and are forced to savewarp or portal warp
+        "ExitName": "Kakariko Gorge",
+        "Requirements": "true"
       },
       {
         "ExitName": "Lake Hylia Bridge",
@@ -36,6 +36,22 @@
         "Faron Field Female Beetle",
         "Faron Field Poe"
     ],
+    "Region": "Hyrule Field - Faron"
+  },
+  {
+    "RoomName": "Faron Field Behind Boulder",
+    "Exits":
+    [
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "Room.Outside_Castle_Town_South and (getItemCount(Item.Bottle) >= 1)" // correct syntax for the bottle? also the hot water expires, doesnt it?
+      },
+      {
+        "ExitName": "Outside Castle Town South Inside Boulder",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
     "Region": "Hyrule Field - Faron"
   },
   {
