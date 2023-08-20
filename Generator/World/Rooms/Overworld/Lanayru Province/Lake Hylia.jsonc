@@ -1,0 +1,162 @@
+[
+  {
+    "RoomName": "Lake Hylia",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia Bridge",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Gerudo Desert",
+        "Requirements": "Aurus_Memo"
+      },
+      {
+        "ExitName": "Upper Zoras River",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Lake Hylia Lakebed Temple Entrance",
+        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and canUseWaterBombs))"
+      },
+      {
+        "ExitName": "Lake Hylia Lanayru Spring",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lake Hylia Long Cave",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Lake Hylia Shell Blade Grotto",
+        "Requirements": "Shadow_Crystal" // can use cannon and cucco to access the grotto ledge entirely without items
+      },
+      {
+        "ExitName": "Lake Hylia Water Toadpoli Grotto",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "City in The Sky Entrance",
+        "Requirements": "((getItemCount(Item.Progressive_Sky_Book) == 7) or (Setting.skipCityEntrance equals True)) and (getItemCount(Item.Progressive_Clawshot) >= 1)"
+      }
+    ],
+    "Checks":
+    [
+        "Lake Hylia Underwater Chest",
+        "Outside Lanayru Spring Left Statue Chest",
+        "Outside Lanayru Spring Right Statue Chest",
+        "Flight By Fowl Top Platform Reward",
+        "Flight By Fowl Second Platform Chest",
+        "Flight By Fowl Third Platform Chest",
+        "Flight By Fowl Fourth Platform Chest",
+        "Flight By Fowl Fifth Platform Chest",
+        "Auru Gift To Fyer",
+        "Flight By Fowl Ledge Poe",
+        "Isle of Riches Poe",
+        "Lake Hylia Alcove Poe",
+        "Lake Hylia Dock Poe",
+        "Lake Hylia Tower Poe",
+        "Plumm Fruit Balloon Minigame"
+    ],
+    "Region": "Lake Hylia"
+  },
+  {
+    "RoomName": "Lake Hylia Lakebed Temple Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and canUseWaterBombs))"
+      },
+      {
+        "ExitName": "Lakebed Temple Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Lake Hylia"
+  },
+  {
+    "RoomName": "Lake Hylia Lanayru Spring",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Lanayru Spring Underwater Left Chest",
+        "Lanayru Spring Underwater Right Chest",
+        "Lanayru Spring Back Room Left Chest",
+        "Lanayru Spring Back Room Right Chest",
+        "Lanayru Spring Back Room Lantern Chest",
+        "Lanayru Spring East Double Clawshot Chest",
+        "Lanayru Spring West Double Clawshot Chest"
+    ],
+    "Region": "Lake Hylia"
+  },
+  {
+    "RoomName": "Lake Hylia Long Cave",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Lake Lantern Cave First Chest",
+        "Lake Lantern Cave Second Chest",
+        "Lake Lantern Cave Third Chest",
+        "Lake Lantern Cave Fourth Chest",
+        "Lake Lantern Cave Fifth Chest",
+        "Lake Lantern Cave Sixth Chest",
+        "Lake Lantern Cave Seventh Chest",
+        "Lake Lantern Cave Eighth Chest",
+        "Lake Lantern Cave Ninth Chest",
+        "Lake Lantern Cave Tenth Chest",
+        "Lake Lantern Cave Eleventh Chest",
+        "Lake Lantern Cave Twelfth Chest",
+        "Lake Lantern Cave Thirteenth Chest",
+        "Lake Lantern Cave Fourteenth Chest",
+        "Lake Lantern Cave End Lantern Chest",
+        "Lake Lantern Cave Final Poe",
+        "Lake Lantern Cave First Poe",
+        "Lake Lantern Cave Second Poe"
+    ],
+    "Region": "Lake Hylia"
+  },
+  {
+    "RoomName": "Lake Hylia Shell Blade Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Lake Hylia Shell Blade Grotto Chest"
+    ],
+    "Region": "Lake Hylia"
+  },
+  {
+    "RoomName": "Lake Hylia Water Toadpoli Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Lake Hylia",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Lake Hylia Water Toadpoli Grotto Chest"
+    ],
+    "Region": "Lake Hylia"
+  }
+]

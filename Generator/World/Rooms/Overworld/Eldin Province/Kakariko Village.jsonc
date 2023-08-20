@@ -1,10 +1,14 @@
 [
   {
       "RoomName": "Lower Kakariko Village",
-      "Exits": 
+      "Exits":
       [
         {
-          "ExitName": "Kakariko Gorge",
+          "ExitName": "Kakariko Gorge Behind Gate",
+          "Requirements": "true"
+        },
+        {
+          "ExitName": "Kakariko Graveyard",
           "Requirements": "true"
         },
         {
@@ -12,55 +16,55 @@
           "Requirements": "true"
         },
         {
-          "ExitName": "Eldin Field",
+          "ExitName": "Kakariko Village Behind Gate",
           "Requirements": "true"
         },
         {
-          "ExitName": "Upper Kakariko Village",
+          "ExitName": "Upper Kakariko Village With Cucco",
           "Requirements": "canSmash"
         },
         {
-          "ExitName": "Renados Sanctuary West Right Exterior Door",
+          "ExitName": "Kakariko Renados Sanctuary Outside Front Left Door",
           "Requirements": "true"
         },
         {
-          "ExitName": "Renados Sanctuary West Left Exterior Door",
+          "ExitName": "Kakariko Renados Sanctuary Outside Front Right Door",
           "Requirements": "true"
         },
         {
-          "ExitName": "Renados Sanctuary East Right Exterior Door",
+          "ExitName": "Kakariko Renados Sanctuary Outside Back Left Door",
           "Requirements": "true"
         },
         {
-          "ExitName": "Renados Sanctuary East Left Exterior Door",
+          "ExitName": "Kakariko Renados Sanctuary Outside Back Right Door",
           "Requirements": "true"
         },
         {
-          "ExitName": "Kakariko Village Malo Mart",
+          "ExitName": "Kakariko Malo Mart",
+          "Requirements": "true" // entrance is day-only, so need either access to a time-change area or shadow crystal
+        },
+        {
+          "ExitName": "Kakariko Elde Inn Outside Left Door",
           "Requirements": "true"
         },
         {
-          "ExitName": "Kakariko Village Bug House Ceiling Hole",
+          "ExitName": "Kakariko Elde Inn Outside Right Door",
           "Requirements": "true"
         },
         {
-          "ExitName": "Kakariko Village Bug House Door",
+          "ExitName": "Kakariko Bug House Outside Door",
           "Requirements": "true"
         },
         {
-          "ExitName": "Kakariko Village Elde Inn Exterior Left Door",
+          "ExitName": "Kakariko Bug House Outside Ceiling Hole",
           "Requirements": "true"
         },
         {
-          "ExitName": "Kakariko Village Elde Inn Exterior Right Door",
-          "Requirements": "true"
-        },
-        {
-          "ExitName": "Barnes Bomb Shop",
+          "ExitName": "Kakariko Barnes Bomb Shop Outside Door",
           "Requirements": "true"
         }
       ],
-      "Checks": 
+      "Checks":
       [
           "Eldin Spring Underwater Chest",
           "Kakariko Village Bomb Rock Spire Heart Piece"
@@ -68,194 +72,19 @@
       "Region": "Kakariko Village"
   },
   {
-    "RoomName": "Barnes Bomb Shop",
-    "Exits": 
-    [
-      {
-        "ExitName": "Upper Kakariko Village",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Lower Kakariko Village",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": 
-    [
-        "Barnes Bomb Bag"
-    ],
-    "Region": "Kakariko Village"
-  },
-  {
-    "RoomName": "Kakariko Graveyard",
-    "Exits": 
-    [
-      {
-        "ExitName": "Lower Kakariko Village",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Lake Hylia",
-        "Requirements": "Gate_Keys and CanUseWaterBombs and Iron_Boots"
-      }
-    ],
-    "Checks": 
-    [ 
-        "Kakariko Graveyard Lantern Chest",
-        "Gift From Ralis",
-        "Rutelas Blessing",
-        "Kakariko Graveyard Male Ant",
-        "Kakariko Graveyard Grave Poe",
-        "Kakariko Graveyard Open Poe",
-        "Kakariko Graveyard Golden Wolf"
-    ],
-    "Region": "Kakariko Village"
-  },
-  {
-    "RoomName": "Renados Sanctuary West Right Exterior Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Lower Kakariko Village",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Renados Sanctuary West Left Interior Door",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Renados Sanctuary West Left Exterior Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Lower Kakariko Village",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Renados Sanctuary West Right Interior Door",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Renados Sanctuary East Right Exterior Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Lower Kakariko Village",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Renados Sanctuary East Left Interior Door",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Renado Sanctuary East Left Exterior Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Lower Kakariko Village",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Renados Sanctuary East Right Interior Door",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Renados Sanctuary West Right Interior Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Renados Sanctuary West Left Exterior Door",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Renados Sanctuary",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Renados Sanctuary West Left Interior Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Renados Sanctuary West Right Exterior Door",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Renados Sanctuary",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Renados Sanctuary East Right Interior Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Renados Sanctuary East Left Exterior Door",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Renados Sanctuary",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Renado Sanctuary East Left Interior Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Renados Sanctuary East Right Exterior Door",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Renados Sanctuary",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Renados Sanctuary",
-    "Exits": 
-    [
-      {
-        "ExitName": "Renados Sanctuary West Left Interior Door",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Renados Sanctuary West Right Interior Door",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Renados Sanctuary East Left Interior Door",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Renados Sanctuary East Right Interior Door",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": 
-    [
-        "Renados Letter",
-        "Ilia Memory Reward"
-    ]
-  },
-  {
     "RoomName": "Upper Kakariko Village",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Top of Watchtower",
+        "Requirements": "true" // goron mines cleared
+      },
+      {
+        "ExitName": "Kakariko Watchtower Outside Lower Door",
         "Requirements": "true"
       },
       {
@@ -263,37 +92,546 @@
         "Requirements": "true"
       },
       {
-        "ExitName": "Kakariko Watchtower Lower Outside Door",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Barnes Bomb Shop",
+        "ExitName": "Kakariko Barnes Bomb Shop Outside Upper Entrance",
         "Requirements": "true"
       }
     ],
-    "Checks": 
+    "Checks":
     [
-        "Kakariko Watchtower Alcove Chest",
-        "Talo Sharpshooting",
         "Kakariko Village Bomb Shop Poe",
         "Kakariko Village Watchtower Poe"
     ],
     "Region": "Kakariko Village"
   },
   {
-    "RoomName": "Kakariko Village Lower Watchtower",
-    "Exits": 
+    "RoomName": "Upper Kakariko Village With Cucco",
+    "Exits":
     [
       {
-        "ExitName": "Kakariko Village Upper Watchtower",
+        "ExitName": "Upper Kakariko Village",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Kakariko Watchtower Alcove Chest"
+    ],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Top of Watchtower",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Watchtower Outside Upper Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Upper Kakariko Village",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Talo Sharpshooting"
+    ],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Village Behind Gate",
+    "Exits":
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysy))" // or access to epona
+      },
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Renados Sanctuary Outside Front Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Renados Sanctuary Inside Front Left Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Renados Sanctuary Outside Front Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Renados Sanctuary Inside Front Right Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Renados Sanctuary Outside Back Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Renados Sanctuary Inside Back Left Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Village Renado Sanctuary Outside Back Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Renados Sanctuary Inside Back Right Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Renados Sanctuary Inside Front Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Renados Sanctuary Outside Front Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Renados Sanctuary",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Renados Sanctuary Inside Front Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Renados Sanctuary Outside Front Right Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Renados Sanctuary",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Renados Sanctuary Inside Back Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Renados Sanctuary Outside Back Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Renados Sanctuary",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Village Renado Sanctuary Inside Back Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Renados Sanctuary Outside Back Right Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Renados Sanctuary",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Renados Sanctuary",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Renados Sanctuary Inside Front Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Renados Sanctuary Inside Front Right Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Renados Sanctuary Inside Back Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Renados Sanctuary Inside Back Right Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Kakariko Renados Letter",
+        "Ilia Memory Reward"
+    ],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Village Malo Mart",
+    "Exits":
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Kakariko Village Malo Mart Hylian Shield",
+        "Kakariko Village Malo Mart Hawkeye"
+    ],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Elde Inn Outside Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Elde Inn Inside Left Door",
+        "Requirements": "true" // entrance is day-only, so need either access to a time-change area or shadow crystal
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Elde Inn Outside Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Elde Inn Inside Right Door",
+        "Requirements": "true" // entrance is day-only, so need either access to a time-change area or shadow crystal
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Elde Inn Inside Left Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Elde Inn Outside Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Elde Inn",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Elde Inn Inside Right Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Elde Inn Outside Right Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Elde Inn",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Elde Inn",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Elde Inn Inside Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Elde Inn Inside Right Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Kakariko Inn Chest"
+    ],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Bug House Outside Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Bug House Inside Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Bug House Outside Ceiling Hole",
+    "Exits":
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Bug House Inside Ceiling Hole",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Bug House Inside Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Bug House Outside Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Bug House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Bug House Inside Ceiling Hole",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Bug House Outside Ceiling Hole",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Kakariko Bug House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Bug House",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Bug House Inside Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Bug House Inside Ceiling Hole",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Kakariko Village Female Ant"
+    ],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Barnes Bomb Shop Outside Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Barnes Bomb Shop Inside Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Barnes Bomb Shop Outside Upper Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Upper Kakariko Village",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Barnes Bomb Shop Inside Upper Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Barnes Bomb Shop Inside Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Barnes Bomb Shop Outside Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Barnes Bomb Shop",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Barnes Bomb Shop Inside Upper Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Barnes Bomb Shop Outside Upper Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Barnes Bomb Shop",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Barnes Bomb Shop",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Barnes Bomb Shop Inside Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Barnes Bomb Shop Inside Upper Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Barnes Bomb Bag"
+    ],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Watchtower Outside Lower Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Village Upper",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Watchtower Inside Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Watchtower Outside Dig Spot",
+    "Exits":
+    [
+      {
+        "ExitName": "Upper Kakariko Village",
         "Requirements": "true"
       },
       {
         "ExitName": "Kakariko Watchtower Inside Dig Spot",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Watchtower Outside Upper Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Top of Watchtower",
         "Requirements": "true"
       },
       {
-        "ExitName": "Kakariko Watchtower Lower Inside Door",
+        "ExitName": "Kakariko Watchtower Inside Upper Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Watchtower Inside Lower Door",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Watchtower Outside Lower Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Watchtower",
         "Requirements": "true"
       }
     ],
@@ -302,200 +640,81 @@
   },
   {
     "RoomName": "Kakariko Watchtower Inside Dig Spot",
-    "Exits": 
+    "Exits":
     [
-      {
-        "ExitName": "Kakariko Village Lower Watchtower",
-        "Requirements": "true"
-      },
       {
         "ExitName": "Kakariko Watchtower Outside Dig Spot",
         "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Kakariko Watchtower",
+        "Requirements": "true"
       }
-    ]
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
   },
   {
-    "RoomName": "Kakariko Watchtower Outside Dig Spot",
-    "Exits": 
+    "RoomName": "Kakariko Watchtower Inside Upper Door",
+    "Exits":
     [
       {
-        "ExitName": "Upper Kakariko Village",
+        "ExitName": "Kakariko Watchtower Outside Upper Door",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Kakariko Watchtower",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Kakariko Village"
+  },
+  {
+    "RoomName": "Kakariko Watchtower",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Watchtower Inside Lower Door",
         "Requirements": "true"
       },
       {
         "ExitName": "Kakariko Watchtower Inside Dig Spot",
-        "Requirements": "Shadow_Crystal"
-      }
-    ]
-  },
-  {
-    "RoomName": "Kakariko Watchtower Lower Outside Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Kakariko Village Lower Watchtower",
         "Requirements": "true"
       },
       {
-        "ExitName": "Upper Kakariko Village",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Kakariko Watchtower Lower Inside Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Kakariko Village Lower Watchtower",
+        "ExitName": "Kakariko Watchtower Inside Upper Door",
         "Requirements": "true"
       },
-      {
-        "ExitName": "Kakariko Watchtower Lower Outside Door",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Kakariko Watchtower Lower Outside Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Upper Kakariko Village",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Kakariko Watchtower Lower Inside Door",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Kakariko Village Upper Watchtower",
-    "Exits": 
-    [
-      {
-        "ExitName": "Upper Kakariko Village",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Kakariko Village Lower Watchtower",
-        "Requirements": "true"
-      }
     ],
-    "Checks": 
+    "Checks":
     [    
         "Kakariko Watchtower Chest"
     ],
     "Region": "Kakariko Village"
   },
   {
-    "RoomName": "Kakariko Village Elde Inn Left Door",
-    "Exits": 
+    "RoomName": "Kakariko Graveyard",
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
         "Requirements": "true"
       },
       {
-        "ExitName": "Kakariko Village Elde Inn",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Kakariko Village Elde Inn",
-    "Exits": 
-    [
-      {
-        "ExitName": "Kakariko Village Elde Inn Left Door",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Kakariko Village Elde Inn Right Door",
-        "Requirements": "true"
+        "ExitName": "Lake Hylia",
+        "Requirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysy)) and Iron_Boots and CanUseWaterBombs"
       }
     ],
-    "Checks": 
-    [
-        "Kakariko Inn Chest"
-    ],
-    "Region": "Kakariko Village"
-  },
-  {
-    "RoomName": "Kakariko Village Malo Mart",
-    "Exits": 
-    [
-      {
-        "ExitName": "Lower Kakariko Village",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": 
-    [
-        "Kakariko Village Malo Mart Hylian Shield",
-        "Kakariko Village Malo Mart Hawkeye"
-    ],
-    "Region": "Kakariko Village"
-  },
-  {
-    "RoomName": "Kakariko Watchtower Lower Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Kakariko Village Lower Watchtower",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Upper Kakariko Village",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Kakariko Village Bug House Door",
-    "Exits": 
-    [
-      {
-        "ExitName": "Kakariko Village Bug House",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Lower Kakariko Village",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Kakariko Village Bug House Ceiling Hole",
-    "Exits": 
-    [
-      {
-        "ExitName": "Kakariko Village Bug House",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Lower Kakariko Village",
-        "Requirements": "true"
-      }
-    ]
-  },
-  {
-    "RoomName": "Kakariko Village Bug House",
-    "Exits": 
-    [
-      {
-        "ExitName": "Kakariko Village Bug House Ceiling Hole",
-        "Requirements": "Shadow_Crystal"
-      },
-      {
-        "ExitName": "Kakariko Village Bug House Door",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": 
-    [
-        "Kakariko Village Female Ant"
+    "Checks":
+    [ 
+        "Kakariko Graveyard Lantern Chest",
+        "Gift From Ralis",
+        "Rutelas Blessing",
+        "Kakariko Graveyard Male Ant",
+        "Kakariko Graveyard Grave Poe",
+        "Kakariko Graveyard Open Poe",
+        "Kakariko Graveyard Golden Wolf"
     ],
     "Region": "Kakariko Village"
   }

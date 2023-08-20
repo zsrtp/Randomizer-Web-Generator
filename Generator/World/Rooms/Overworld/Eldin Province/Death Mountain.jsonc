@@ -1,7 +1,7 @@
 [
   {
     "RoomName": "Death Mountain Trail",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Lower Kakariko Village",
@@ -9,10 +9,10 @@
       },
       {
         "ExitName": "Death Mountain Volcano",
-        "Requirements": "Iron_Boots or Shadow_Crystal"
+        "Requirements": "Iron_Boots" // removed crystal bc it makes more sense to write down all portal warps elsewhere, bc you can warp like everywhere, not only from trail to volcano
       }
     ],
-    "Checks": 
+    "Checks":
     [
         "Death Mountain Alcove Chest",
         "Death Mountain Trail Poe"
@@ -20,8 +20,28 @@
     "Region": "Death Mountain"
   },
   {
-    "RoomName": "Death Mountain Sumo Hall",
-    "Exits": 
+    "RoomName": "Death Mountain Volcano",
+    "Exits":
+    [
+      {
+        "ExitName": "Death Mountain Trail",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Death Mountain Elevator",
+        "Requirements": "(Room.Death_Mountain_Elevator or (Setting.goronMinesEntrance equals Open)) and Iron_Boots"
+      },
+      {
+        "ExitName": "Death Mountain Sumo Hall",
+        "Requirements": "Iron_Boots and CanDefeatGoron"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Death Mountain"
+  },
+  {
+    "RoomName": "Death Mountain Elevator",
+    "Exits":
     [
       {
         "ExitName": "Death Mountain Volcano",
@@ -30,18 +50,51 @@
       {
         "ExitName": "Death Mountain Sumo Hall Elevator",
         "Requirements": "Iron_Boots"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Death Mountain"
+  },
+  {
+    "RoomName": "Death Mountain Sumo Hall",
+    "Exits":
+    [
+      {
+        "ExitName": "Death Mountain Volcano",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Death Mountain Sumo Hall Elevator",
+        "Requirements": "Iron_Boots" // isnt that actually "true"?
       },
       {
         "ExitName": "Goron Mines Entrance",
         "Requirements": "Iron_Boots or (Setting.skipMinesEntrance equals True)"
       }
     ],
-    "Checks": [""], 
+    "Checks": [""],
+    "Region": "Death Mountain"
+  },
+  {
+    "RoomName": "Death Mountain Sumo Hall Elevator",
+    "Exits":
+    [
+      {
+        "ExitName": "Death Mountain Elevator",
+        "Requirements": "Iron_Boots"
+      },
+      {
+        // Depending on settings, the Gorons can be blocking the way into the room. If this is the case, we need to make sure we can actually move the Gorons before we consider this a valid path.
+        "ExitName": "Death Mountain Sumo Hall",
+        "Requirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals True)" // why irons?
+      }
+    ],
+    "Checks": [""],
     "Region": "Death Mountain"
   },
   {
     "RoomName": "Death Mountain Sumo Hall From Goron Mines",
-    "Exits": 
+    "Exits":
     [
       {
         "ExitName": "Goron Mines Entrance",
@@ -50,63 +103,10 @@
       {
         // Depending on settings, the Gorons can be blocking the way into the room. If this is the case, we need to make sure we can actually move the Gorons before we consider this a valid path.
         "ExitName": "Death Mountain Sumo Hall",
-        "Requirements": "(Room.Death_Mountain_Sumo_Hall_From_Death_Mountain_Volcano and Iron_Boots) or (Setting.skipMinesEntrance equals True)"
+        "Requirements": "(Room.Death_Mountain_Sumo_Hall_From_Death_Mountain_Volcano and Iron_Boots) or (Setting.skipMinesEntrance equals True)" // "_From_Death_Mountain_Volcano" seems unneccessary, and isnt the path also open if just wrestling is skipped?
       }
     ],
-    "Checks": [""], 
+    "Checks": [""],
     "Region": "Death Mountain"
-  },
-  {
-    "RoomName": "Death Mountain Sumo Hall Elevator",
-    "Exits": 
-    [
-      {
-        "ExitName": "Death Mountain Elevator",
-        "Requirements": "true"
-      },
-      {
-        // Depending on settings, the Gorons can be blocking the way into the room. If this is the case, we need to make sure we can actually move the Gorons before we consider this a valid path.
-        "ExitName": "Death Mountain Sumo Hall",
-        "Requirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals True)"
-      }
-    ],
-    "Checks": [""], 
-    "Region": "Death Mountain"
-  },
-  {
-    "RoomName": "Death Mountain Elevator",
-    "Exits": 
-    [
-      {
-        "ExitName": "Death Mountain Volcano",
-        "Requirements": "true"
-      },
-      {
-        "ExitName": "Death Mountain Sumo Hall Elevator",
-        "Requirements": "Iron_Boots"
-      }
-    ],
-    "Checks": [""], 
-    "Region": "Death Mountain"
-  },
-  {
-    "RoomName": "Death Mountain Volcano",
-      "Exits": 
-      [
-        {
-          "ExitName": "Death Mountain Trail",
-          "Requirements": "true"
-        },
-        {
-          "ExitName": "Death Mountain Elevator",
-          "Requirements": "(Room.Death_Mountain_Elevator or (Setting.goronMinesEntrance equals Open)) and Iron_Boots"
-        },
-        {
-          "ExitName": "Death Mountain Sumo Hall",
-          "Requirements": "Iron_Boots and CanDefeatGoron"
-        }
-      ],
-      "Checks": [""], 
-      "Region": "Death Mountain"
   }
 ]

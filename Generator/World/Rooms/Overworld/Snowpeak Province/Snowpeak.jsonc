@@ -1,0 +1,113 @@
+[
+  {
+    "RoomName": "Snowpeak Climb Lower",
+    "Exits":
+    [
+      {
+        "ExitName": "Zoras Domain",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Snowpeak Climb Upper",
+        "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (getItemCount(Item.Progressive_Fising_Rod) == 2))) and Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Ashei Sketch"
+    ],
+    "Region": "Snowpeak"
+  },
+  {
+    "RoomName": "Snowpeak Climb Upper",
+    "Exits":
+    [
+      {
+        "ExitName": "Snowpeak Climb Lower",
+        "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (getItemCount(Item.Progressive_Fising_Rod) == 2))) and Shadow_Crystal"
+      },
+      {
+        "ExitName": "Snowpeak Summit Upper",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Snowpeak Ice Keese Grotto",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Snowpeak Freezard Grotto",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Snowpeak Above Freezard Grotto Poe",
+        "Snowpeak Blizzard Poe",
+        "Snowpeak Poe Among Trees"
+    ],
+    "Region": "Snowpeak"
+  },
+  {
+    "RoomName": "Snowpeak Ice Keese Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Snowpeak Climb Upper",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Snowpeak"
+  },
+  {
+    "RoomName": "Snowpeak Freezard Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Snowpeak Climb Upper",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Snowpeak Freezard Grotto Chest"
+    ],
+    "Region": "Snowpeak"
+  },
+  {
+    "RoomName": "Snowpeak Summit Upper",
+    "Exits":
+    [
+      {
+        "ExitName": "Snowpeak Climb Upper",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Snowpeak Summit Lower",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Snowpeak Cave Ice Lantern Chest",
+        "Snowboard Racing Prize",
+        "Snowpeak Cave Ice Poe"
+    ],
+    "Region": "Snowpeak"
+  },
+  {
+    "RoomName": "Snowpeak Summit Lower",
+    "Exits":
+    [
+      {
+        "ExitName": "Snowpeak Ruins Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Snowpeak Icy Summit Poe"
+    ],
+    "Region": "Snowpeak"
+  }
+]

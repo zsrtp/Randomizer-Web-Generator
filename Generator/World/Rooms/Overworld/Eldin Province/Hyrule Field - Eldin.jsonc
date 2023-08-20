@@ -1,0 +1,370 @@
+[
+  {
+    "RoomName": "Kakariko Gorge",
+    "Exits":
+    [
+      {
+        "ExitName": "Faron Field",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Kakariko Gorge Behind Gate",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Eldin Lantern Cave",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Kakariko Gorge Keese Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Kakariko Gorge Owl Statue Chest",
+        "Kakariko Gorge Double Clawshot Chest",
+        "Kakariko Gorge Spire Heart Piece",
+        "Kakariko Gorge Owl Statue Sky Character",
+        "Kakariko Gorge Male Pill Bug",
+        "Kakariko Gorge Female Pill Bug",
+        "Kakariko Gorge Poe"
+    ],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Kakariko Gorge Behind Gate",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Gorge",
+        "Requirements": "Shadow_Crystal or Gate_Keys or (Setting.smallKeySettings equals Keysy)" // or acccess to epona
+      },
+      {
+        "ExitName": "Lower Kakariko Village",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Lantern Cave",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Gorge",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Eldin Lantern Cave First Chest",
+        "Eldin Lantern Cave Lantern Chest",
+        "Eldin Lantern Cave Second Chest",
+        "Eldin Lantern Cave Poe"
+    ],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Kakariko Gorge Keese Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Gorge",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field",
+    "Exits":
+    [
+      {
+        "ExitName": "Kakariko Gorge",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Kakariko Village Behind Gate",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Eldin Field Near Castle Town",
+        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village"
+      },
+      {
+        "ExitName": "Eldin Field Lava Cave Ledge",
+        "Requirements": "(getItemCount(Item.Progressive_Clawshot) >= 1)"
+      },
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ExitName": "Eldin Field Bomskit Grotto",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ExitName": "Eldin Field Water Bomb Fish Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Eldin Field Bomb Rock Chest",
+        "Bridge of Eldin Owl Statue Chest",
+        "Goron Springwater Rush",
+        "Bridge of Eldin Owl Statue Sky Character",
+        "Eldin Field Male Grasshopper",
+        "Eldin Field Female Grasshopper",
+        "Bridge of Eldin Male Phasmid",
+        "Bridge of Eldin Female Phasmid"
+    ],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Near Castle Town",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village"
+      },
+      {
+        "ExitName": "Outside Castle Town East",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Lava Cave Ledge",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Eldin Lava Cave Outside Upper Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field From Lava Cave Lower",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "(getItemCount(Item.Progressive_Clawshot) >= 1)"
+      },
+      {
+        "ExitName": "Eldin Field Lava Cave Outside Lower Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Outside Hidden Village",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
+      },
+      {
+        "ExitName": "Hidden Village",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Grotto Platform",
+    "Exits":
+    [
+      {
+        "ExitName": "Lanayru Field",
+        "Requirements": "Spinner"
+      },
+      {
+        "ExitName": "Eldin Field Stalfos Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Lava Cave Outside Upper Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field Lava Cave Ledge",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Eldin Field Lava Cave Upper",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Lava Cave Outside Lower Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field From Lava Cave Lower",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Eldin Field Lava Cave Lower",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Lava Cave Inside Upper Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field Lava Cave Outside Upper Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Eldin Field Lava Cave Upper",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Lava Cave Inside Lower Entrance",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field Lava Cave Outside Lower Entrance",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Eldin Field Lava Cave Lower",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Lava Cave Upper",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field Lava Cave Inside Upper Entrance",
+        "Requirements": "true"
+      }
+      {
+        "ExitName": "Eldin Field Lava Cave Center",
+        "Requirements": "Iron_Boots"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Lava Cave Center",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field Lava Cave Lower",
+        "Requirements": "Iron_Boots"
+      }
+    ],
+    "Checks":
+    [
+        "Eldin Stockcave Upper Chest"
+    ],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Lava Cave Lower",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field Lava Cave Inside Lower Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Eldin Stockcave Lantern Chest",
+        "Eldin Stockcave Lowest Chest"
+    ],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Bomskit Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Eldin Field Bomskit Grotto Left Chest",
+        "Eldin Field Bomskit Grotto Lantern Chest"
+     ],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Water Bomb Fish Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Eldin Field Water Bomb Fish Grotto Chest"
+    ],
+    "Region": "Hyrule Field - Eldin"
+  },
+  {
+    "RoomName": "Eldin Field Stalfos Grotto",
+    "Exits":
+    [
+      {
+        "ExitName": "Eldin Field Grotto Platform",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Eldin Field Stalfos Grotto Right Small Chest",
+        "Eldin Field Stalfos Grotto Left Small Chest",
+        "Eldin Field Stalfos Grotto Stalfos Chest"
+    ],
+    "Region": "Hyrule Field - Eldin"
+  }
+]
