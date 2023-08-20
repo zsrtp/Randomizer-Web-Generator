@@ -1,5 +1,33 @@
 [
-  // somebody add lost woods here
+  {
+    "RoomName": "Lost Woods",
+    "Exits":
+    [
+      {
+        "ExitName": "North Faron Woods Near Lost Woods",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Sacred Grove Lower",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Lost Woods Baba Serpent Grotto",
+        "Requirements": "true"
+      },
+      {
+        "ExitName": "Sacred Grove Before Block", 
+        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
+      }
+    ],"Checks": 
+    [
+        "Lost Woods Lantern Chest",
+        "Lost Woods Boulder Poe",
+        "Lost Woods Waterfall Poe",
+        "Sacred Grove Spinner Chest"
+    ],
+    "Region": "Sacred Grove"
+  },
   {
     "RoomName": "Lost Woods Baba Serpent Grotto",
     "Exits":
@@ -41,7 +69,7 @@
       },
       {
         "ExitName": "Sacred Grove Temple of Time",
-        "Requirements": "(Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or (Room.Sacred_Grove_Lower and (getItemCount(Item.Progressive_Sword) >= 3) and canDefeatShadowBeast)"
+        "Requirements": "(Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or (Room.Sacred_Grove_Lower and (Progressive_Sword, 3) and CanDefeatShadowBeast)"
       }
     ],
     "Checks": [""],
@@ -76,8 +104,8 @@
         "Requirements": "true"
       },
       {
-        "ExitName": "Sacred Grove Behind Window",
-        "Requirements": "(Setting.totEntrance equals Open) or (getItemCount(Item.Progressive_Sword) >= 3)"
+        "ExitName": "Sacred Grove Temple of Time Behind Window",
+        "Requirements": "(Setting.totEntrance equals Open) or (Progressive_Sword, 3)"
       }
     ],
     "Checks":

@@ -96,11 +96,11 @@
       },
       {
         "ExitName": "Eldin Field Near Castle Town",
-        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village"
+        "Requirements": "Room.Kakariko_Village_Malo_Mart and Room.Lower_Kakariko_Village"
       },
       {
         "ExitName": "Eldin Field Lava Cave Ledge",
-        "Requirements": "(getItemCount(Item.Progressive_Clawshot) >= 1)"
+        "Requirements": "(Progressive_Clawshot, 1)"
       },
       {
         "ExitName": "Lanayru Field",
@@ -153,7 +153,7 @@
         "Requirements": "true"
       },
       {
-        "ExitName": "Eldin Lava Cave Outside Upper Entrance",
+        "ExitName": "Eldin Field Lava Cave Outside Upper Entrance",
         "Requirements": "true"
       }
     ],
@@ -166,7 +166,7 @@
     [
       {
         "ExitName": "Eldin Field",
-        "Requirements": "(getItemCount(Item.Progressive_Clawshot) >= 1)"
+        "Requirements": "(Progressive_Clawshot, 1)"
       },
       {
         "ExitName": "Eldin Field Lava Cave Outside Lower Entrance",
@@ -279,7 +279,7 @@
       {
         "ExitName": "Eldin Field Lava Cave Inside Upper Entrance",
         "Requirements": "true"
-      }
+      },
       {
         "ExitName": "Eldin Field Lava Cave Center",
         "Requirements": "Iron_Boots"

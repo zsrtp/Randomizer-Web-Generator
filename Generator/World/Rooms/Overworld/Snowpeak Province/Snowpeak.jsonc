@@ -9,7 +9,7 @@
       },
       {
         "ExitName": "Snowpeak Climb Upper",
-        "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (getItemCount(Item.Progressive_Fising_Rod) == 2))) and Shadow_Crystal"
+        "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) and Shadow_Crystal"
       }
     ],
     "Checks":
@@ -24,7 +24,7 @@
     [
       {
         "ExitName": "Snowpeak Climb Lower",
-        "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (getItemCount(Item.Progressive_Fising_Rod) == 2))) and Shadow_Crystal"
+        "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) and Shadow_Crystal"
       },
       {
         "ExitName": "Snowpeak Summit Upper",

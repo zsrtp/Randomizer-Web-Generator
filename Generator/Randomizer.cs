@@ -749,7 +749,7 @@ namespace TPRandomizer
                 {
                     if (LogicFunctions.CanUse(Item.Shadow_Crystal))
                     {
-                        availableRoom = Randomizer.Rooms.RoomDict["Snowpeak Summit"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Snowpeak Summit Upper"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
                     }
@@ -779,6 +779,7 @@ namespace TPRandomizer
                 }
                 while (roomsToExplore.Count > 0)
                 {
+                    //Console.WriteLine("Currently Exploring: " + roomsToExplore[0].RoomName);
                     for (int i = 0; i < roomsToExplore[0].Exits.Count; i++)
                     {
                         // If you can access the neighbour and it hasnt been visited yet.
@@ -789,9 +790,15 @@ namespace TPRandomizer
                         {
                             // Parse the neighbour's requirements to find out if we can access it
                             var areNeighbourRequirementsMet = false;
+                            /*Console.WriteLine(
+                                "Checking neighbor: "
+                                    + Randomizer.Rooms.RoomDict[
+                                        roomsToExplore[0].Exits[i].ExitName
+                                    ].RoomName
+                            );*/
                             if (SSettings.logicRules == LogicRules.No_Logic)
                             {
-                                areCheckRequirementsMet = true;
+                                areNeighbourRequirementsMet = true;
                             }
                             else
                             {
@@ -826,13 +833,13 @@ namespace TPRandomizer
                                     roomsToExplore[0].Exits[i].ExitName
                                 ].Visited = true;
 
-                                /*Console.WriteLine(
-                                    "Neighbour: "
-                                        + Randomizer.Rooms.RoomDict[
-                                            roomsToExplore[0].Exits[i].RoomName
-                                        ].RoomName
-                                        + " added to room list."
-                                );*/
+                                /* Console.WriteLine(
+                                     "Neighbour: "
+                                         + Randomizer.Rooms.RoomDict[
+                                             roomsToExplore[0].Exits[i].ExitName
+                                         ].RoomName
+                                         + " added to room list."
+                                 );*/
                             }
                         }
                     }
@@ -1006,7 +1013,7 @@ namespace TPRandomizer
                         foreach (Room graphRoom in currentPlaythroughGraph)
                         {
                             graphRoom.Visited = true;
-                            // Console.WriteLine("Currently Exploring: " + graphRoom.RoomName);
+                            //Console.WriteLine("Currently Exploring: " + graphRoom.RoomName);
                             for (int i = 0; i < graphRoom.Checks.Count; i++)
                             {
                                 // Create reference to the dictionary entry of the check whose logic we are evaluating
@@ -1446,9 +1453,9 @@ namespace TPRandomizer
                 Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
             }
 
-            Room startingRoom = Randomizer.Rooms.RoomDict["Ordon Province"];
+            Room startingRoom = Randomizer.Rooms.RoomDict["Outside Links House"];
             startingRoom.IsStartingRoom = true;
-            Randomizer.Rooms.RoomDict["Ordon Province"] = startingRoom;
+            Randomizer.Rooms.RoomDict["Outside Links House"] = startingRoom;
             return startingRoom;
         }
 

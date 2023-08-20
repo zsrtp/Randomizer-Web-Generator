@@ -4,11 +4,11 @@
         "Exits": 
         [
           {
-            "RoomName": "Outside Arbiters Grounds",
+            "ExitName": "Outside Arbiters Grounds",
             "Requirements": "true"
           },
           {
-            "RoomName": "Arbiters Grounds Lobby",
+            "ExitName": "Arbiters Grounds Lobby",
             "Requirements": "((Arbiters_Grounds_Small_Key,1) or (Setting.smallKeySettings equals Keysy)) and Lantern"
           }
         ],
@@ -23,19 +23,19 @@
         "Exits": 
           [
             {
-              "RoomName": "Arbiters Grounds Entrance",
+              "ExitName": "Arbiters Grounds Entrance",
               "Requirements": "true"
             },
             {
-              "RoomName": "Arbiters Grounds East Wing",
+              "ExitName": "Arbiters Grounds East Wing",
               "Requirements": "true"
             },
             {
-              "RoomName": "Arbiters Grounds West Wing",
+              "ExitName": "Arbiters Grounds West Wing",
               "Requirements": "true"
             },
             {
-              "RoomName": "Arbiters Grounds After Poe Gate",
+              "ExitName": "Arbiters Grounds After Poe Gate",
               "Requirements": "CanDefeatPoe and Shadow_Crystal and (Progressive_Clawshot, 1) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat and CanDefeatStalfos and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
             }
           ],
@@ -52,7 +52,7 @@
         "Exits": 
         [
           {
-            "RoomName": "Arbiters Grounds Lobby",
+            "ExitName": "Arbiters Grounds Lobby",
             "Requirements": "true"
           }
         ],
@@ -72,7 +72,7 @@
         "Exits": 
         [
           {
-            "RoomName": "Arbiters Grounds Lobby",
+            "ExitName": "Arbiters Grounds Lobby",
             "Requirements": "true"
           }
         ],
@@ -92,11 +92,11 @@
         "Exits": 
         [
           {
-            "RoomName": "Arbiters Grounds Lobby",
+            "ExitName": "Arbiters Grounds Lobby",
             "Requirements": "true"
           },
           {
-            "RoomName": "Arbiters Grounds Boss Room",
+            "ExitName": "Arbiters Grounds Boss Room",
             "Requirements": "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysy))"
           }
         ],
@@ -118,7 +118,7 @@
         "Exits": 
         [
           {
-            "RoomName": "Mirror Chamber",
+            "ExitName": "Mirror Chamber",
             "Requirements": "CanDefeatStallord"
           }
         ],

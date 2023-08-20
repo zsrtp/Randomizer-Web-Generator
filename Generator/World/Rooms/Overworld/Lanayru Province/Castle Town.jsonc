@@ -89,6 +89,7 @@
       {
         "ExitName": "Castle Town Goron House Inside Left Door",
         "Requirements": "true"
+      },
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -104,6 +105,7 @@
       {
         "ExitName": "Castle Town Goron House Inside Right Door",
         "Requirements": "true"
+      }
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -119,6 +121,7 @@
       {
         "ExitName": "Castle Town Goron House",
         "Requirements": "true"
+      }
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -134,6 +137,7 @@
       {
         "ExitName": "Castle Town Goron House",
         "Requirements": "true"
+      }
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -227,6 +231,7 @@
       {
         "ExitName": "Castle Town Doctors Office Inside Left Door",
         "Requirements": "true" // not sure
+      }
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -242,6 +247,7 @@
       {
         "ExitName": "Castle Town Doctors Office Inside Right Door",
         "Requirements": "true" // not sure
+      }
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -273,6 +279,7 @@
       {
         "ExitName": "Castle Town Doctors Office Lower",
         "Requirements": "true"
+      }
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -288,6 +295,7 @@
       {
         "ExitName": "Castle Town Doctors Office Lower",
         "Requirements": "true"
+      }
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -442,7 +450,7 @@
       {
         "ExitName": "Castle Town South",
         "Requirements": "true"
-      }
+      },
       {
         "ExitName": "Castle Town Jovanis House Inside Dig Spot",
         "Requirements": "Shadow_Crystal"
@@ -526,7 +534,7 @@
       {
         "ExitName": "Castle Town Center",
         "Requirements": "true"
-      }
+      },
       {
         "ExitName": "Hyrule Castle Entrance",
         "Requirements": "((Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons) and CanCompleteMDH)"

@@ -9,7 +9,7 @@
       },
       {
         "ExitName": "Faron Field Behind Boulder",
-        "Requirements": "Room.Outside_Castle_Town_South and (getItemCount(Item.Bottle) >= 1)" // correct syntax for the bottle? also the hot water expires, doesnt it?
+        "Requirements": "Room.Outside_Castle_Town_South and HasBottle"
       },
       {
         "ExitName": "Kakariko Gorge",
@@ -21,7 +21,7 @@
       },
       {
         "ExitName": "Faron Field Corner Grotto",
-        "Requirements": "Shadow Crystal"
+        "Requirements": "Shadow_Crystal"
       },
       {
         "ExitName": "Faron Field Fishing Grotto",
@@ -44,7 +44,7 @@
     [
       {
         "ExitName": "Faron Field",
-        "Requirements": "Room.Outside_Castle_Town_South and (getItemCount(Item.Bottle) >= 1)" // correct syntax for the bottle? also the hot water expires, doesnt it?
+        "Requirements": "Room.Outside_Castle_Town_South and HasBottle" // correct syntax for the bottle? also the hot water expires, doesnt it?
       },
       {
         "ExitName": "Outside Castle Town South Inside Boulder", // if you enter outside CT from there while the boulder is still there, you get stuck and are forced to save warp or portal warp

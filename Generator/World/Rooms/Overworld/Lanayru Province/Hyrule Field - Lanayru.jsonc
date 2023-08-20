@@ -13,7 +13,7 @@
       },
       {
         "ExitName": "Eldin Field Outside Hidden Village",
-        "Requirements": "Room.Kakariko Renados Sanctuary and Wooden_Statue"
+        "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
       },
       {
         "ExitName": "Lanayru Field Behind Boulder",
@@ -152,7 +152,7 @@
     [
       {
         "ExitName": "Outside Castle Town West Grotto Ledge",
-        "Requirements": "getItemCount(Item.Progressive_Clawshot) >= 1"
+        "Requirements": "(Progressive_Clawshot, 1)"
       },
       {
         "ExitName": "Lanayru Field",
@@ -238,7 +238,7 @@
       },
       {
         "ExitName": "Faron Field Behind Boulder",
-        "Requirements": "(getItemCount(Item.Bottle) >= 1)" // correct syntax for the bottle?
+        "Requirements": "HasBottle" // correct syntax for the bottle?
       },
       {
         "ExitName": "Lake Hylia",
@@ -268,11 +268,11 @@
     [
       {
         "ExitName": "Outside Castle Town South",
-        "Requirements": "Room.Outside_Castle_Town_South and (getItemCount(Item.Bottle) >= 1)" // correct syntax for the bottle?
+        "Requirements": "Room.Outside_Castle_Town_South and HasBottle" // correct syntax for the bottle?
       },
       {
         "ExitName": "Faron Field Behind Boulder",
-        "Requirements": "Room.Outside_Castle_Town_South and (getItemCount(Item.Bottle) >= 1)" // correct syntax for the bottle?
+        "Requirements": "Room.Outside_Castle_Town_South and HasBottle" // correct syntax for the bottle?
       }
     ],
     "Checks": [""],
@@ -283,7 +283,7 @@
     "Exits":
     [
       {
-        "ExitName": "Outside South Castle Town",
+        "ExitName": "Outside Castle Town South",
         "Requirements": "true"
       }
     ],
@@ -315,7 +315,7 @@
       },
       {
         "ExitName": "Lake Hylia Bridge Grotto Ledge",
-        "Requirements": "hasBombs and (Boomerang or (getItemCount(Item.Progressive_Bow) >= 1)) and (getItemCount(Item.Progressive_Clawshot) >= 1)"
+        "Requirements": "hasBombs and (Boomerang or (Progressive_Bow, 1)) and (Progressive_Clawshot, 1)"
       }
     ],
     "Checks":

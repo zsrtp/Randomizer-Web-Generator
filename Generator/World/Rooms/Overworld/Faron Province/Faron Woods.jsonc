@@ -56,7 +56,7 @@
       },
       {
         "ExitName": "South Faron Woods Above Owl Statue",
-        "Requirements": "canClearForest and (getItemCount(Item.Progressive_Dominion_Rod) >= 1) and Shadow_Crystal"
+        "Requirements": "canClearForest and (Progressive_Dominion_Rod, 2) and Shadow_Crystal"
       }
     ],
     "Checks":

@@ -17,7 +17,7 @@
       },
       {
         "ExitName": "Lake Hylia Lakebed Temple Entrance",
-        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and canUseWaterBombs))"
+        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and CanUseWaterBombs))"
       },
       {
         "ExitName": "Lake Hylia Lanayru Spring",
@@ -37,7 +37,7 @@
       },
       {
         "ExitName": "City in The Sky Entrance",
-        "Requirements": "((getItemCount(Item.Progressive_Sky_Book) == 7) or (Setting.skipCityEntrance equals True)) and (getItemCount(Item.Progressive_Clawshot) >= 1)"
+        "Requirements": "((Progressive_Sky_Book, 7) or (Setting.skipCityEntrance equals True)) and (Progressive_Clawshot, 1)"
       }
     ],
     "Checks":
@@ -66,7 +66,7 @@
     [
       {
         "ExitName": "Lake Hylia",
-        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and canUseWaterBombs))"
+        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and CanUseWaterBombs))"
       },
       {
         "ExitName": "Lakebed Temple Entrance",

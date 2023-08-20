@@ -40,7 +40,7 @@
           "Requirements": "true"
         },
         {
-          "ExitName": "Kakariko Malo Mart",
+          "ExitName": "Kakariko Village Malo Mart",
           "Requirements": "true" // entrance is day-only, so need either access to a time-change area or shadow crystal
         },
         {
@@ -202,7 +202,7 @@
     "Region": "Kakariko Village"
   },
   {
-    "RoomName": "Kakariko Village Renado Sanctuary Outside Back Right Door",
+    "RoomName": "Kakariko Renados Sanctuary Outside Back Right Door",
     "Exits":
     [
       {
@@ -266,7 +266,7 @@
     "Region": "Kakariko Village"
   },
   {
-    "RoomName": "Kakariko Village Renado Sanctuary Inside Back Right Door",
+    "RoomName": "Kakariko Renados Sanctuary Inside Back Right Door",
     "Exits":
     [
       {
@@ -304,7 +304,7 @@
     ],
     "Checks":
     [
-        "Kakariko Renados Letter",
+        "Renados Letter",
         "Ilia Memory Reward"
     ],
     "Region": "Kakariko Village"
@@ -532,7 +532,7 @@
         "Requirements": "true"
       },
       {
-        "ExitName": "Kakariko Barnes Bomb Shop",
+        "ExitName": "Barnes Bomb Shop",
         "Requirements": "true"
       }
     ],
@@ -548,7 +548,7 @@
         "Requirements": "true"
       },
       {
-        "ExitName": "Kakariko Barnes Bomb Shop",
+        "ExitName": "Barnes Bomb Shop",
         "Requirements": "true"
       }
     ],
@@ -579,11 +579,11 @@
     "Exits":
     [
       {
-        "ExitName": "Kakariko Village Upper",
+        "ExitName": "Upper Kakariko Village",
         "Requirements": "true"
       },
       {
-        "ExitName": "Kakariko Watchtower Inside Door",
+        "ExitName": "Kakariko Watchtower Inside Lower Door",
         "Requirements": "true"
       }
     ],
