@@ -4,7 +4,7 @@
         "Exits": 
         [
         {
-            "ExitName": "Lake Hylia",
+            "ConnectedArea": "Lake Hylia",
             "Requirements": "CanDefeatMorpheel"
         }
         ],
@@ -20,23 +20,23 @@
         "Exits": 
           [
             {
-              "ExitName": "Lakebed Temple Entrance",
+              "ConnectedArea": "Lakebed Temple Entrance",
               "Requirements": "true"
             },
             {
-              "ExitName": "Lakebed Temple East Wing Second Floor",
+              "ConnectedArea": "Lakebed Temple East Wing Second Floor",
               "Requirements": "((Lakebed_Temple_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
             },
             {
-              "ExitName": "Lakebed Temple East Wing First Floor",
+              "ConnectedArea": "Lakebed Temple East Wing First Floor",
               "Requirements": "true"
             },
             {
-              "ExitName": "Lakebed Temple West Wing",
+              "ConnectedArea": "Lakebed Temple West Wing",
               "Requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canSmash and (Progressive_Clawshot, 1)"
             },
             {
-              "ExitName": "Lakebed Temple Boss Room",
+              "ConnectedArea": "Lakebed Temple Boss Room",
               "Requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canLaunchBombs and (Progressive_Clawshot, 1) and (Lakebed_Temple_Big_Key or (Setting.bigKeySettings equals Keysy))"
             }
           ],
@@ -54,7 +54,7 @@
         "Exits": 
         [
           {
-            "ExitName": "Lakebed Temple Central Room",
+            "ConnectedArea": "Lakebed Temple Central Room",
             "Requirements": "true"
           }
         ],
@@ -74,11 +74,11 @@
         "Exits": 
         [
         {
-            "ExitName": "Lakebed Temple Central Room",
+            "ConnectedArea": "Lakebed Temple Central Room",
             "Requirements": "true"
         },
         {
-            "ExitName": "Lakebed Temple East Wing First Floor",
+            "ConnectedArea": "Lakebed Temple East Wing First Floor",
             "Requirements": "canLaunchBombs or (Progressive_Clawshot, 1)"
         }
         ],
@@ -96,11 +96,11 @@
         "Exits": 
         [
           {
-            "ExitName": "Lake Hylia Lakebed Temple Entrance",
+            "ConnectedArea": "Lake Hylia Lakebed Temple Entrance",
             "Requirements": "true"
           },
           {
-            "ExitName": "Lakebed Temple Central Room",
+            "ConnectedArea": "Lakebed Temple Central Room",
             "Requirements": "canLaunchBombs"
           }
         ],
@@ -117,7 +117,7 @@
         "Exits": 
         [
           {
-            "ExitName": "Lakebed Temple Central Room",
+            "ConnectedArea": "Lakebed Temple Central Room",
             "Requirements": "true"
           }
         ],

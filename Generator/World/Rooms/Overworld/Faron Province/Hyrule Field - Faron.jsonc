@@ -4,27 +4,27 @@
     "Exits":
     [
       {
-        "ExitName": "South Faron Woods",
+        "ConnectedArea": "South Faron Woods",
         "Requirements": "true"
       },
       {
-        "ExitName": "Faron Field Behind Boulder",
+        "ConnectedArea": "Faron Field Behind Boulder",
         "Requirements": "Room.Outside_Castle_Town_South and HasBottle"
       },
       {
-        "ExitName": "Kakariko Gorge",
+        "ConnectedArea": "Kakariko Gorge",
         "Requirements": "true"
       },
       {
-        "ExitName": "Lake Hylia Bridge",
+        "ConnectedArea": "Lake Hylia Bridge",
         "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)"
       },
       {
-        "ExitName": "Faron Field Corner Grotto",
+        "ConnectedArea": "Faron Field Corner Grotto",
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "Faron Field Fishing Grotto",
+        "ConnectedArea": "Faron Field Fishing Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -43,11 +43,11 @@
     "Exits":
     [
       {
-        "ExitName": "Faron Field",
+        "ConnectedArea": "Faron Field",
         "Requirements": "Room.Outside_Castle_Town_South and HasBottle" // correct syntax for the bottle? also the hot water expires, doesnt it?
       },
       {
-        "ExitName": "Outside Castle Town South Inside Boulder", // if you enter outside CT from there while the boulder is still there, you get stuck and are forced to save warp or portal warp
+        "ConnectedArea": "Outside Castle Town South Inside Boulder", // if you enter outside CT from there while the boulder is still there, you get stuck and are forced to save warp or portal warp
         "Requirements": "true"
       }
     ],
@@ -59,7 +59,7 @@
     "Exits":
     [
       {
-        "ExitName": "Faron Field",
+        "ConnectedArea": "Faron Field",
         "Requirements": "true"
       }
     ],
@@ -76,7 +76,7 @@
     "Exits":
     [
       {
-        "ExitName": "Faron Field",
+        "ConnectedArea": "Faron Field",
         "Requirements": "true"
       }
     ],

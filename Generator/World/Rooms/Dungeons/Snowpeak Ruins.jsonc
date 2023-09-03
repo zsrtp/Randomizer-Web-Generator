@@ -4,7 +4,7 @@
         "Exits": 
         [
           {
-            "ExitName": "Snowpeak Summit Lower",
+            "ConnectedArea": "Snowpeak Summit Lower",
             "Requirements": "CanDefeatBlizzeta"
           }
         ],
@@ -20,19 +20,19 @@
         "Exits": 
         [
         {
-            "ExitName": "Snowpeak Ruins Yeto and Yeta",
+            "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
             "Requirements": "true"
         },
         {
-            "ExitName": "Snowpeak Ruins Second Floor Mini Freezard Room",
+            "ConnectedArea": "Snowpeak Ruins Second Floor Mini Freezard Room",
             "Requirements": "Ball_and_Chain and ((Snowpeak_Ruins_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
         },
         {
-            "ExitName": "Snowpeak Ruins Wooden Beam Room",
+            "ConnectedArea": "Snowpeak Ruins Wooden Beam Room",
             "Requirements": "Ball_and_Chain"
         },
         {
-            "ExitName": "Snowpeak Ruins West Courtyard",
+            "ConnectedArea": "Snowpeak Ruins West Courtyard",
             "Requirements": "((Snowpeak_Ruins_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
         }
         ],
@@ -47,7 +47,7 @@
         "Exits": 
         [
           {
-            "ExitName": "Snowpeak Ruins West Courtyard",
+            "ConnectedArea": "Snowpeak Ruins West Courtyard",
             "Requirements": "CanDefeatChilfos"
           }
         ],
@@ -62,7 +62,7 @@
         "Exits": 
         [
           {
-            "ExitName": "Snowpeak Ruins West Courtyard",
+            "ConnectedArea": "Snowpeak Ruins West Courtyard",
             "Requirements": "CanDefeatDarkhammer"
           }
         ],
@@ -78,16 +78,16 @@
         "Exits": 
         [
           {
-            "ExitName": "Snowpeak Ruins Yeto and Yeta",
+            "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
             "Requirements": "Shadow_Crystal or Ball_and_Chain"
           },
           {
-            "ExitName": "Snowpeak Ruins West Courtyard",
+            "ConnectedArea": "Snowpeak Ruins West Courtyard",
             "Requirements": "Ball_and_Chain"
           },
           {
             //We consider both 1F and 2F entry here since on their own the requirements are greater than necessary. Regardless of where you use your 2nd key, assuming you waste the 1st on the gate, you can still access the room from either floor if you have Claw.
-            "ExitName": "Snowpeak Ruins Northeast Chilfos Room First Floor",
+            "ConnectedArea": "Snowpeak Ruins Northeast Chilfos Room First Floor",
             "Requirements": "(((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and CanDefeatMiniFreezard) or (((Snowpeak_Ruins_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)) and (Progressive_Clawshot, 1) and CanDefeatMiniFreezard)"
           }
         ],
@@ -103,11 +103,11 @@
         "Exits": 
         [
           {
-            "ExitName": "Snowpeak Summit Lower",
+            "ConnectedArea": "Snowpeak Summit Lower",
             "Requirements": "true"
           },
           {
-            "ExitName": "Snowpeak Ruins Yeto and Yeta",
+            "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
             "Requirements": "true"
           }
         ],
@@ -126,11 +126,11 @@
         "Exits": 
         [
           {
-            "ExitName": "Snowpeak Ruins East Courtyard",
+            "ConnectedArea": "Snowpeak Ruins East Courtyard",
             "Requirements": "true"
           },
           {
-            "ExitName": "Snowpeak Ruins Yeto and Yeta",
+            "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
             "Requirements": "CanDefeatChilfos"
           }
         ],
@@ -145,11 +145,11 @@
         "Exits": 
         [
           {
-            "ExitName": "Snowpeak Ruins Northeast Chilfos Room First Floor",
+            "ConnectedArea": "Snowpeak Ruins Northeast Chilfos Room First Floor",
             "Requirements": "true"
           },
           {
-            "ExitName": "Snowpeak Ruins Yeto and Yeta",
+            "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
             "Requirements": "Ball_and_Chain"
           }
         ],
@@ -164,19 +164,19 @@
         "Exits": 
           [
             {
-              "ExitName": "Snowpeak Ruins Entrance",
+              "ConnectedArea": "Snowpeak Ruins Entrance",
               "Requirements": "true"
             },
             {
-              "ExitName": "Snowpeak Ruins East Courtyard",
+              "ConnectedArea": "Snowpeak Ruins East Courtyard",
               "Requirements": "Shadow_Crystal or Ball_and_Chain"
             },
             {
-              "ExitName": "Snowpeak Ruins Northeast Chilfos Room Second Floor",
+              "ConnectedArea": "Snowpeak Ruins Northeast Chilfos Room Second Floor",
               "Requirements": "Ball_and_Chain and (Progressive_Clawshot, 1) and CanDefeatChilfos"
             },
             {
-              "ExitName": "Snowpeak Ruins Caged Freezard Room",
+              "ConnectedArea": "Snowpeak Ruins Caged Freezard Room",
               "Requirements": "((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
             }
           ],
@@ -191,11 +191,11 @@
         "Exits": 
         [
           {
-            "ExitName": "Snowpeak Ruins West Courtyard",
+            "ConnectedArea": "Snowpeak Ruins West Courtyard",
             "Requirements": "true"
           },
           {
-            "ExitName": "Snowpeak Ruins Wooden Beam Room",
+            "ConnectedArea": "Snowpeak Ruins Wooden Beam Room",
             "Requirements": "canSmash"
           }
         ], 
@@ -211,28 +211,28 @@
         "Exits": 
         [
           {
-            "ExitName": "Snowpeak Ruins Yeto and Yeta",
+            "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
             "Requirements": "true"
           },
           {
-            "ExitName": "Snowpeak Ruins East Courtyard",
+            "ConnectedArea": "Snowpeak Ruins East Courtyard",
             "Requirements": "Ball_and_Chain"
           },
           {
-            "ExitName": "Snowpeak Ruins West Cannon Room",
+            "ConnectedArea": "Snowpeak Ruins West Cannon Room",
             "Requirements": "true"
           },
           {
-            "ExitName": "Snowpeak Ruins Chapel",
+            "ConnectedArea": "Snowpeak Ruins Chapel",
             "Requirements": "(((Snowpeak_Ruins_Small_Key, 4) and Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)) and Ball_and_Chain and hasBombs"
           },
           {
-            "ExitName": "Snowpeak Ruins Darkhammer Room",
+            "ConnectedArea": "Snowpeak Ruins Darkhammer Room",
             //Don't require gate to be unlocked for cannonballs if we have Cheese since we can get to the other side by going through Yeta's room.
             "Requirements": "Ball_and_Chain or ((((Snowpeak_Ruins_Small_Key, 2) or Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)) and hasBombs)"
           },
           {
-            "ExitName": "Snowpeak Ruins Boss Room",
+            "ConnectedArea": "Snowpeak Ruins Boss Room",
             "Requirements": "(((Snowpeak_Ruins_Small_Key, 4) and Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)) and Ball_and_Chain and hasBombs and (Snowpeak_Ruins_Bedroom_Key or (Setting.bigKeySettings equals Keysy))"
           }
         ],
@@ -248,7 +248,7 @@
         "Exits": 
         [
         {
-            "ExitName": "Snowpeak Ruins West Cannon Room",
+            "ConnectedArea": "Snowpeak Ruins West Cannon Room",
             "Requirements": "true"
         }
         ],
@@ -265,19 +265,19 @@
         "Exits": 
         [
           {
-            "ExitName": "Snowpeak Ruins Entrance",
+            "ConnectedArea": "Snowpeak Ruins Entrance",
             "Requirements": "true"
           },
           {
-            "ExitName": "Snowpeak Ruins Caged Freezard Room",
+            "ConnectedArea": "Snowpeak Ruins Caged Freezard Room",
             "Requirements": "Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)"
           },
           {
-            "ExitName": "Snowpeak Ruins West Courtyard",
+            "ConnectedArea": "Snowpeak Ruins West Courtyard",
             "Requirements": "Snowpeak_Ruins_Ordon_Pumpkin or (Setting.smallKeySettings equals Keysy)"
           },
           {
-            "ExitName": "Snowpeak Ruins East Courtyard",
+            "ConnectedArea": "Snowpeak Ruins East Courtyard",
             "Requirements": "Shadow_Crystal or Ball_and_Chain"
           }
         ],

@@ -4,11 +4,11 @@
     "Exits":
     [
       {
-        "ExitName": "Zoras Domain",
+        "ConnectedArea": "Zoras Domain",
         "Requirements": "true"
       },
       {
-        "ExitName": "Snowpeak Climb Upper",
+        "ConnectedArea": "Snowpeak Climb Upper",
         "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) and Shadow_Crystal"
       }
     ],
@@ -23,19 +23,19 @@
     "Exits":
     [
       {
-        "ExitName": "Snowpeak Climb Lower",
+        "ConnectedArea": "Snowpeak Climb Lower",
         "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) and Shadow_Crystal"
       },
       {
-        "ExitName": "Snowpeak Summit Upper",
+        "ConnectedArea": "Snowpeak Summit Upper",
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "Snowpeak Ice Keese Grotto",
+        "ConnectedArea": "Snowpeak Ice Keese Grotto",
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "Snowpeak Freezard Grotto",
+        "ConnectedArea": "Snowpeak Freezard Grotto",
         "Requirements": "true"
       }
     ],
@@ -52,7 +52,7 @@
     "Exits":
     [
       {
-        "ExitName": "Snowpeak Climb Upper",
+        "ConnectedArea": "Snowpeak Climb Upper",
         "Requirements": "true"
       }
     ],
@@ -64,7 +64,7 @@
     "Exits":
     [
       {
-        "ExitName": "Snowpeak Climb Upper",
+        "ConnectedArea": "Snowpeak Climb Upper",
         "Requirements": "true"
       }
     ],
@@ -79,11 +79,11 @@
     "Exits":
     [
       {
-        "ExitName": "Snowpeak Climb Upper",
+        "ConnectedArea": "Snowpeak Climb Upper",
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "Snowpeak Summit Lower",
+        "ConnectedArea": "Snowpeak Summit Lower",
         "Requirements": "true"
       }
     ],
@@ -100,7 +100,7 @@
     "Exits":
     [
       {
-        "ExitName": "Snowpeak Ruins Entrance",
+        "ConnectedArea": "Snowpeak Ruins Entrance",
         "Requirements": "true"
       }
     ],

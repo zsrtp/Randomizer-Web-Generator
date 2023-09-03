@@ -4,19 +4,19 @@
     "Exits":
     [
       {
-        "ExitName": "North Faron Woods Near Lost Woods",
+        "ConnectedArea": "North Faron Woods Near Lost Woods",
         "Requirements": "true"
       },
       {
-        "ExitName": "Sacred Grove Lower",
+        "ConnectedArea": "Sacred Grove Lower",
         "Requirements": "true"
       },
       {
-        "ExitName": "Lost Woods Baba Serpent Grotto",
+        "ConnectedArea": "Lost Woods Baba Serpent Grotto",
         "Requirements": "true"
       },
       {
-        "ExitName": "Sacred Grove Before Block", 
+        "ConnectedArea": "Sacred Grove Before Block", 
         "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
       }
     ],"Checks": 
@@ -33,7 +33,7 @@
     "Exits":
     [
       {
-        "ExitName": "Lost Woods", // ?
+        "ConnectedArea": "Lost Woods", // ?
         "Requirements": "true"
       }
     ],
@@ -48,11 +48,11 @@
     "Exits":
     [
       {
-        "ExitName": "Lost Woods", // ?
+        "ConnectedArea": "Lost Woods", // ?
         "Requirements": "true"
       },
       {
-        "ExitName": "Sacred Grove Upper",
+        "ConnectedArea": "Sacred Grove Upper",
         "Requirements": "true"
       }
     ],
@@ -64,11 +64,11 @@
     "Exits":
     [
       {
-        "ExitName": "Sacred Grove Lower",
+        "ConnectedArea": "Sacred Grove Lower",
         "Requirements": "true"
       },
       {
-        "ExitName": "Sacred Grove Temple of Time",
+        "ConnectedArea": "Sacred Grove Temple of Time",
         "Requirements": "(Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or (Room.Sacred_Grove_Lower and (Progressive_Sword, 3) and CanDefeatShadowBeast)"
       }
     ],
@@ -80,11 +80,11 @@
     "Exits":
     [
       {
-        "ExitName": "Lost Woods", // ?
+        "ConnectedArea": "Lost Woods", // ?
         "Requirements": "true"
       },
       {
-        "ExitName": "Sacred Grove Upper",
+        "ConnectedArea": "Sacred Grove Upper",
         "Requirements": "Room.Sacred_Grove_Before_Block"
       }
     ],
@@ -100,11 +100,11 @@
     "Exits":
     [
       {
-        "ExitName": "Sacred Grove Upper",
+        "ConnectedArea": "Sacred Grove Upper",
         "Requirements": "true"
       },
       {
-        "ExitName": "Sacred Grove Temple of Time Behind Window",
+        "ConnectedArea": "Sacred Grove Temple of Time Behind Window",
         "Requirements": "(Setting.totEntrance equals Open) or (Progressive_Sword, 3)"
       }
     ],
@@ -121,11 +121,11 @@
     "Exits":
     [
       {
-        "ExitName": "Sacred Grove Temple of Time",
+        "ConnectedArea": "Sacred Grove Temple of Time",
         "Requirements": "true"
       },
       {
-        "ExitName": "Temple of Time Entrance",
+        "ConnectedArea": "Temple of Time Entrance",
         "Requirements": "true"
       }
     ],

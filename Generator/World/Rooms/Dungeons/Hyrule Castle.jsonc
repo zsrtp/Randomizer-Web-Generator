@@ -4,7 +4,7 @@
         "Exits": 
         [
             {
-                "ExitName": "Hyrule Castle Tower Climb",
+                "ConnectedArea": "Hyrule Castle Tower Climb",
                 "Requirements": "true"
             }
         ],
@@ -16,19 +16,19 @@
         "Exits": 
           [
             {
-              "ExitName": "Castle Town North",
+              "ConnectedArea": "Castle Town North",
               "Requirements": "true"
             },
             {
-              "ExitName": "Hyrule Castle Main Hall",
+              "ConnectedArea": "Hyrule Castle Main Hall",
               "Requirements": "((Hyrule_Castle_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
             },
             {
-              "ExitName": "Hyrule Castle Outside West Wing",
+              "ConnectedArea": "Hyrule Castle Outside West Wing",
               "Requirements": "CanDefeatBokoblinRed"
             },
             {
-              "ExitName": "Hyrule Castle Outside East Wing",
+              "ConnectedArea": "Hyrule Castle Outside East Wing",
               "Requirements": "CanDefeatBokoblinRed"
             }
           ],
@@ -40,7 +40,7 @@
         "Exits": 
         [
         {
-            "ExitName": "Hyrule Castle Outside East Wing",
+            "ConnectedArea": "Hyrule Castle Outside East Wing",
             "Requirements": "Shadow_Crystal"
         }
         ],
@@ -58,11 +58,11 @@
         "Exits": 
         [
         {
-            "ExitName": "Hyrule Castle Main Hall",
+            "ConnectedArea": "Hyrule Castle Main Hall",
             "Requirements": "true"
         },
         {
-            "ExitName": "Hyrule Castle Third Floor Balcony",
+            "ConnectedArea": "Hyrule Castle Third Floor Balcony",
             "Requirements": "Lantern and CanDefeatDinalfos"
         }
         ],
@@ -74,11 +74,11 @@
         "Exits": 
         [
         {
-            "ExitName": "Hyrule Castle Main Hall",
+            "ConnectedArea": "Hyrule Castle Main Hall",
             "Requirements": "true"
         },
         {
-            "ExitName": "Hyrule Castle Third Floor Balcony",
+            "ConnectedArea": "Hyrule Castle Third Floor Balcony",
             "Requirements": "canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut"
         }
         ],
@@ -90,15 +90,15 @@
         "Exits": 
         [
           {
-            "ExitName": "Hyrule Castle Entrance",
+            "ConnectedArea": "Hyrule Castle Entrance",
             "Requirements": "true"
           },
           {
-            "ExitName": "Hyrule Castle Inside East Wing",
+            "ConnectedArea": "Hyrule Castle Inside East Wing",
             "Requirements": "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang"
           },
           {
-            "ExitName": "Hyrule Castle Inside West Wing",
+            "ConnectedArea": "Hyrule Castle Inside West Wing",
             "Requirements": "CanDefeatBokoblin and  CanDefeatLizalfos and (Progressive_Clawshot, 2) and CanDefeatDarknut and Boomerang"
           }
         ],
@@ -116,11 +116,11 @@
         "Exits": 
         [
         {
-            "ExitName": "Hyrule Castle Entrance",
+            "ConnectedArea": "Hyrule Castle Entrance",
             "Requirements": "true"
         },
         {
-            "ExitName": "Hyrule Castle Graveyard",
+            "ConnectedArea": "Hyrule Castle Graveyard",
             "Requirements": "Shadow_Crystal"
         }
         ],
@@ -136,7 +136,7 @@
         "Exits": 
         [
         {
-            "ExitName": "Hyrule Castle Entrance",
+            "ConnectedArea": "Hyrule Castle Entrance",
             "Requirements": "true"
         }
         ],
@@ -153,15 +153,15 @@
         "Exits": 
         [
         {
-            "ExitName": "Hyrule Castle Inside West Wing",
+            "ConnectedArea": "Hyrule Castle Inside West Wing",
             "Requirements": "CanDefeatDarknut and CanDefeatLizalfos and canKnockDownHCPainting"
         },
         {
-            "ExitName": "Hyrule Castle Inside East Wing",
+            "ConnectedArea": "Hyrule Castle Inside East Wing",
             "Requirements": "Lantern and CanDefeatDinalfos"
         },
         {
-            "ExitName": "Hyrule Castle Tower Climb",
+            "ConnectedArea": "Hyrule Castle Tower Climb",
             "Requirements": "((Hyrule_Castle_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
         }
         ],
@@ -177,15 +177,15 @@
         "Exits": 
           [
             {
-              "ExitName": "Hyrule Castle Third Floor Balcony",
+              "ConnectedArea": "Hyrule Castle Third Floor Balcony",
               "Requirements": "true"
             },
             {
-              "ExitName": "Hyrule Castle Treasure Room",
+              "ConnectedArea": "Hyrule Castle Treasure Room",
               "Requirements": "((Hyrule_Castle_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and Spinner and (Progressive_Clawshot, 2) and CanDefeatDarknut and CanDefeatLizalfos"
             },
             {
-              "ExitName": "Ganondorf Castle",
+              "ConnectedArea": "Ganondorf Castle",
               "Requirements": "Spinner and (Progressive_Clawshot, 2) and CanDefeatDarknut and CanDefeatLizalfos and (Hyrule_Castle_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatGanondorf"
             }
           ],
@@ -197,7 +197,7 @@
         "Exits": 
         [
         {
-            "ExitName": "Hyrule Castle Tower Climb",
+            "ConnectedArea": "Hyrule Castle Tower Climb",
             "Requirements": "true"
         }
         ],

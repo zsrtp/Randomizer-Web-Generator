@@ -4,23 +4,23 @@
     "Exits":
     [
       {
-        "ExitName": "Faron Field",
+        "ConnectedArea": "Faron Field",
         "Requirements": "true"
       },
       {
-        "ExitName": "Eldin Field",
+        "ConnectedArea": "Eldin Field",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Kakariko Gorge Behind Gate",
+        "ConnectedArea": "Kakariko Gorge Behind Gate",
         "Requirements": "true"
       },
       {
-        "ExitName": "Eldin Lantern Cave",
+        "ConnectedArea": "Eldin Lantern Cave",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Kakariko Gorge Keese Grotto",
+        "ConnectedArea": "Kakariko Gorge Keese Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -41,11 +41,11 @@
     "Exits":
     [
       {
-        "ExitName": "Kakariko Gorge",
+        "ConnectedArea": "Kakariko Gorge",
         "Requirements": "Shadow_Crystal or Gate_Keys or (Setting.smallKeySettings equals Keysy)" // or acccess to epona
       },
       {
-        "ExitName": "Lower Kakariko Village",
+        "ConnectedArea": "Lower Kakariko Village",
         "Requirements": "true"
       }
     ],
@@ -57,7 +57,7 @@
     "Exits":
     [
       {
-        "ExitName": "Kakariko Gorge",
+        "ConnectedArea": "Kakariko Gorge",
         "Requirements": "true"
       }
     ],
@@ -75,7 +75,7 @@
     "Exits":
     [
       {
-        "ExitName": "Kakariko Gorge",
+        "ConnectedArea": "Kakariko Gorge",
         "Requirements": "true"
       }
     ],
@@ -87,31 +87,31 @@
     "Exits":
     [
       {
-        "ExitName": "Kakariko Gorge",
+        "ConnectedArea": "Kakariko Gorge",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Kakariko Village Behind Gate",
+        "ConnectedArea": "Kakariko Village Behind Gate",
         "Requirements": "true"
       },
       {
-        "ExitName": "Eldin Field Near Castle Town",
+        "ConnectedArea": "Eldin Field Near Castle Town",
         "Requirements": "Room.Kakariko_Village_Malo_Mart and Room.Lower_Kakariko_Village"
       },
       {
-        "ExitName": "Eldin Field Lava Cave Ledge",
+        "ConnectedArea": "Eldin Field Lava Cave Ledge",
         "Requirements": "(Progressive_Clawshot, 1)"
       },
       {
-        "ExitName": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Eldin Field Bomskit Grotto",
+        "ConnectedArea": "Eldin Field Bomskit Grotto",
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "Eldin Field Water Bomb Fish Grotto",
+        "ConnectedArea": "Eldin Field Water Bomb Fish Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -133,11 +133,11 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field",
+        "ConnectedArea": "Eldin Field",
         "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village"
       },
       {
-        "ExitName": "Outside Castle Town East",
+        "ConnectedArea": "Outside Castle Town East",
         "Requirements": "true"
       }
     ],
@@ -149,11 +149,11 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field",
+        "ConnectedArea": "Eldin Field",
         "Requirements": "true"
       },
       {
-        "ExitName": "Eldin Field Lava Cave Outside Upper Entrance",
+        "ConnectedArea": "Eldin Field Lava Cave Outside Upper Entrance",
         "Requirements": "true"
       }
     ],
@@ -165,11 +165,11 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field",
+        "ConnectedArea": "Eldin Field",
         "Requirements": "(Progressive_Clawshot, 1)"
       },
       {
-        "ExitName": "Eldin Field Lava Cave Outside Lower Entrance",
+        "ConnectedArea": "Eldin Field Lava Cave Outside Lower Entrance",
         "Requirements": "true"
       }
     ],
@@ -181,11 +181,11 @@
     "Exits":
     [
       {
-        "ExitName": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field",
         "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
       },
       {
-        "ExitName": "Hidden Village",
+        "ConnectedArea": "Hidden Village",
         "Requirements": "true"
       }
     ],
@@ -197,11 +197,11 @@
     "Exits":
     [
       {
-        "ExitName": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field",
         "Requirements": "Spinner"
       },
       {
-        "ExitName": "Eldin Field Stalfos Grotto",
+        "ConnectedArea": "Eldin Field Stalfos Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -213,11 +213,11 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field Lava Cave Ledge",
+        "ConnectedArea": "Eldin Field Lava Cave Ledge",
         "Requirements": "true"
       },
       {
-        "ExitName": "Eldin Field Lava Cave Upper",
+        "ConnectedArea": "Eldin Field Lava Cave Upper",
         "Requirements": "true"
       }
     ],
@@ -229,11 +229,11 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field From Lava Cave Lower",
+        "ConnectedArea": "Eldin Field From Lava Cave Lower",
         "Requirements": "true"
       },
       {
-        "ExitName": "Eldin Field Lava Cave Lower",
+        "ConnectedArea": "Eldin Field Lava Cave Lower",
         "Requirements": "true"
       }
     ],
@@ -245,11 +245,11 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field Lava Cave Outside Upper Entrance",
+        "ConnectedArea": "Eldin Field Lava Cave Outside Upper Entrance",
         "Requirements": "true"
       },
       {
-        "ExitName": "Eldin Field Lava Cave Upper",
+        "ConnectedArea": "Eldin Field Lava Cave Upper",
         "Requirements": "true"
       }
     ],
@@ -261,11 +261,11 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field Lava Cave Outside Lower Entrance",
+        "ConnectedArea": "Eldin Field Lava Cave Outside Lower Entrance",
         "Requirements": "true"
       },
       {
-        "ExitName": "Eldin Field Lava Cave Lower",
+        "ConnectedArea": "Eldin Field Lava Cave Lower",
         "Requirements": "true"
       }
     ],
@@ -277,11 +277,11 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field Lava Cave Inside Upper Entrance",
+        "ConnectedArea": "Eldin Field Lava Cave Inside Upper Entrance",
         "Requirements": "true"
       },
       {
-        "ExitName": "Eldin Field Lava Cave Center",
+        "ConnectedArea": "Eldin Field Lava Cave Center",
         "Requirements": "Iron_Boots"
       }
     ],
@@ -293,7 +293,7 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field Lava Cave Lower",
+        "ConnectedArea": "Eldin Field Lava Cave Lower",
         "Requirements": "Iron_Boots"
       }
     ],
@@ -308,7 +308,7 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field Lava Cave Inside Lower Entrance",
+        "ConnectedArea": "Eldin Field Lava Cave Inside Lower Entrance",
         "Requirements": "true"
       }
     ],
@@ -324,7 +324,7 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field",
+        "ConnectedArea": "Eldin Field",
         "Requirements": "true"
       }
     ],
@@ -340,7 +340,7 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field",
+        "ConnectedArea": "Eldin Field",
         "Requirements": "true"
       }
     ],
@@ -355,7 +355,7 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field Grotto Platform",
+        "ConnectedArea": "Eldin Field Grotto Platform",
         "Requirements": "true"
       }
     ],

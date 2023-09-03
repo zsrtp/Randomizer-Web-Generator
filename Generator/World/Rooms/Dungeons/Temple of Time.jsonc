@@ -4,7 +4,7 @@
         "Exits": 
         [
           {
-            "ExitName": "Temple of Time Central Mechanical Platform",
+            "ConnectedArea": "Temple of Time Central Mechanical Platform",
             "Requirements": "true"
           }
         ],
@@ -21,7 +21,7 @@
         "Exits": 
         [
           {
-            "ExitName": "Sacred Grove Temple of Time",
+            "ConnectedArea": "Sacred Grove Temple of Time",
             "Requirements": "CanDefeatArmogohma"
           }
         ],
@@ -37,15 +37,15 @@
         "Exits": 
           [
             {
-              "ExitName": "Temple of Time Connecting Corridors",
+              "ConnectedArea": "Temple of Time Connecting Corridors",
               "Requirements": "true"
             },
             {
-              "ExitName": "Temple of Time Armos Antechamber",
+              "ConnectedArea": "Temple of Time Armos Antechamber",
               "Requirements": "Spinner"
             },
             {
-              "ExitName": "Temple of Time Moving Wall Hallways",
+              "ConnectedArea": "Temple of Time Moving Wall Hallways",
               "Requirements": "Spinner and ((Temple_of_Time_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
             }
           ],
@@ -60,11 +60,11 @@
         "Exits": 
         [
           {
-            "ExitName": "Temple of Time Entrance",
+            "ConnectedArea": "Temple of Time Entrance",
             "Requirements": "true"
           },
           {
-            "ExitName": "Temple of Time Central Mechanical Platform",
+            "ConnectedArea": "Temple of Time Central Mechanical Platform",
             "Requirements": "hasRangedItem and CanDefeatYoungGohma and CanDefeatLizalfos"
           }
         ],
@@ -81,11 +81,11 @@
         "Exits": 
           [
             {
-              "ExitName": "Temple of Time Entrance",
+              "ConnectedArea": "Temple of Time Entrance",
               "Requirements": "true"
             },
             {
-              "ExitName": "Temple of Time Boss Room",
+              "ConnectedArea": "Temple of Time Boss Room",
               "Requirements": "(Progressive_Dominion_Rod, 1) and (Temple_of_Time_Big_Key or (Setting.bigKeySettings equals Keysy))"
             }
           ],
@@ -97,7 +97,7 @@
         "Exits": 
         [
           {
-            "ExitName": "Temple of Time Upper Spike Trap Corridor",
+            "ConnectedArea": "Temple of Time Upper Spike Trap Corridor",
             "Requirements": "CanDefeatDarknut and (Progressive_Dominion_Rod, 1)"
           }
         ],
@@ -112,15 +112,15 @@
         "Exits": 
           [
             {
-              "ExitName": "Sacred Grove Temple of Time",
+              "ConnectedArea": "Sacred Grove Temple of Time",
               "Requirements": "true"
             },
             {
-              "ExitName": "Temple of Time Connecting Corridors",
+              "ConnectedArea": "Temple of Time Connecting Corridors",
               "Requirements": "((Temple_of_Time_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
             },
             {
-              "ExitName": "Temple of Time Crumbling Corridor",
+              "ConnectedArea": "Temple of Time Crumbling Corridor",
               "Requirements": "((Progressive_Dominion_Rod, 1) and (Progressive_Bow, 1) and Spinner and CanDefeatLizalfos and CanDefeatDinalfos and CanDefeatDarknut and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))) or (Setting.openDot equals True)"
             }
           ],
@@ -135,7 +135,7 @@
         "Exits": 
         [
           {
-            "ExitName": "Temple of Time Scales of Time",
+            "ConnectedArea": "Temple of Time Scales of Time",
             "Requirements": "true"
           }
         ],
@@ -151,11 +151,11 @@
         "Exits": 
         [
           {
-            "ExitName": "Temple of Time Central Mechanical Platform",
+            "ConnectedArea": "Temple of Time Central Mechanical Platform",
             "Requirements": "true"
           },
           {
-            "ExitName": "Temple of Time Scales of Time",
+            "ConnectedArea": "Temple of Time Scales of Time",
             "Requirements": "(Progressive_Bow, 1) and CanDefeatLizalfos and CanDefeatDinalfos"
           }
         ],
@@ -171,15 +171,15 @@
         "Exits": 
         [
           {
-            "ExitName": "Temple of Time Moving Wall Hallways",
+            "ConnectedArea": "Temple of Time Moving Wall Hallways",
             "Requirements": "true"
           },
           {
-            "ExitName": "Temple of Time Floor Switch Puzzle Room",
+            "ConnectedArea": "Temple of Time Floor Switch Puzzle Room",
             "Requirements": "(Progressive_Clawshot, 1) and Spinner"
           },
           {
-            "ExitName": "Temple of Time Upper Spike Trap Corridor",
+            "ConnectedArea": "Temple of Time Upper Spike Trap Corridor",
             "Requirements": "true"
           }
         ],
@@ -196,11 +196,11 @@
         "Exits": 
           [
             {
-              "ExitName": "Temple of Time Upper Spike Trap Corridor",
+              "ConnectedArea": "Temple of Time Upper Spike Trap Corridor",
               "Requirements": "true"
             },
             {
-              "ExitName": "Temple of Time Darknut Arena",
+              "ConnectedArea": "Temple of Time Darknut Arena",
               "Requirements": "CanDefeatLizalfos and CanDefeatBabyGohma and CanDefeatYoungGohma and CanDefeatArmos and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
             }
           ],

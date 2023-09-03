@@ -4,39 +4,39 @@
     "Exits":
     [
       {
-        "ExitName": "Lake Hylia Bridge",
+        "ConnectedArea": "Lake Hylia Bridge",
         "Requirements": "true"
       },
       {
-        "ExitName": "Gerudo Desert",
+        "ConnectedArea": "Gerudo Desert",
         "Requirements": "Aurus_Memo"
       },
       {
-        "ExitName": "Upper Zoras River",
+        "ConnectedArea": "Upper Zoras River",
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "Lake Hylia Lakebed Temple Entrance",
+        "ConnectedArea": "Lake Hylia Lakebed Temple Entrance",
         "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and CanUseWaterBombs))"
       },
       {
-        "ExitName": "Lake Hylia Lanayru Spring",
+        "ConnectedArea": "Lake Hylia Lanayru Spring",
         "Requirements": "true"
       },
       {
-        "ExitName": "Lake Hylia Long Cave",
+        "ConnectedArea": "Lake Hylia Long Cave",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Lake Hylia Shell Blade Grotto",
+        "ConnectedArea": "Lake Hylia Shell Blade Grotto",
         "Requirements": "Shadow_Crystal" // can use cannon and cucco to access the grotto ledge entirely without items
       },
       {
-        "ExitName": "Lake Hylia Water Toadpoli Grotto",
+        "ConnectedArea": "Lake Hylia Water Toadpoli Grotto",
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "City in The Sky Entrance",
+        "ConnectedArea": "City in The Sky Entrance",
         "Requirements": "((Progressive_Sky_Book, 7) or (Setting.skipCityEntrance equals True)) and (Progressive_Clawshot, 1)"
       }
     ],
@@ -65,11 +65,11 @@
     "Exits":
     [
       {
-        "ExitName": "Lake Hylia",
+        "ConnectedArea": "Lake Hylia",
         "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and CanUseWaterBombs))"
       },
       {
-        "ExitName": "Lakebed Temple Entrance",
+        "ConnectedArea": "Lakebed Temple Entrance",
         "Requirements": "true"
       }
     ],
@@ -81,7 +81,7 @@
     "Exits":
     [
       {
-        "ExitName": "Lake Hylia",
+        "ConnectedArea": "Lake Hylia",
         "Requirements": "true"
       }
     ],
@@ -102,7 +102,7 @@
     "Exits":
     [
       {
-        "ExitName": "Lake Hylia",
+        "ConnectedArea": "Lake Hylia",
         "Requirements": "true"
       }
     ],
@@ -134,7 +134,7 @@
     "Exits":
     [
       {
-        "ExitName": "Lake Hylia",
+        "ConnectedArea": "Lake Hylia",
         "Requirements": "true"
       }
     ],
@@ -149,7 +149,7 @@
     "Exits":
     [
       {
-        "ExitName": "Lake Hylia",
+        "ConnectedArea": "Lake Hylia",
         "Requirements": "true"
       }
     ],

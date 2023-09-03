@@ -4,43 +4,43 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field",
+        "ConnectedArea": "Eldin Field",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Eldin Field Grotto Platform",
+        "ConnectedArea": "Eldin Field Grotto Platform",
         "Requirements": "Spinner"
       },
       {
-        "ExitName": "Eldin Field Outside Hidden Village",
+        "ConnectedArea": "Eldin Field Outside Hidden Village",
         "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
       },
       {
-        "ExitName": "Lanayru Field Behind Boulder",
+        "ConnectedArea": "Lanayru Field Behind Boulder",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Hyrule Field Near Spinner Rails",
+        "ConnectedArea": "Hyrule Field Near Spinner Rails",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Outside Castle Town West",
+        "ConnectedArea": "Outside Castle Town West",
         "Requirements": "true"
       },
       {
-        "ExitName": "Lanayru Ice Puzzle Cave",
+        "ConnectedArea": "Lanayru Ice Puzzle Cave",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Lanayru Field Skulltula Grotto",
+        "ConnectedArea": "Lanayru Field Skulltula Grotto",
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "Lanayru Field Poe Grotto",
+        "ConnectedArea": "Lanayru Field Poe Grotto",
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "Lanayru Field Chu Grotto",
+        "ConnectedArea": "Lanayru Field Chu Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -58,11 +58,11 @@
     "Exits":
     [
       {
-        "ExitName": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Zoras Domain West Ledge",
+        "ConnectedArea": "Zoras Domain West Ledge",
         "Requirements": "true"
       }
     ],
@@ -74,11 +74,11 @@
     "Exits":
     [
       {
-        "ExitName": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Lake Hylia Bridge",
+        "ConnectedArea": "Lake Hylia Bridge",
         "Requirements": "canSmash"
       }
     ],
@@ -93,7 +93,7 @@
     "Exits":
     [
       {
-        "ExitName": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field",
         "Requirements": "true"
       }
     ],
@@ -108,7 +108,7 @@
     "Exits":
     [
       {
-        "ExitName": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field",
         "Requirements": "true"
       }
     ],
@@ -120,7 +120,7 @@
     "Exits":
     [
       {
-        "ExitName": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field",
         "Requirements": "true"
       }
     ],
@@ -135,7 +135,7 @@
     "Exits":
     [
       {
-        "ExitName": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field",
         "Requirements": "true"
       }
     ],
@@ -151,19 +151,19 @@
     "Exits":
     [
       {
-        "ExitName": "Outside Castle Town West Grotto Ledge",
+        "ConnectedArea": "Outside Castle Town West Grotto Ledge",
         "Requirements": "(Progressive_Clawshot, 1)"
       },
       {
-        "ExitName": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field",
         "Requirements": "true"
       },
       {
-        "ExitName": "Lake Hylia Bridge",
+        "ConnectedArea": "Lake Hylia Bridge",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town West",
+        "ConnectedArea": "Castle Town West",
         "Requirements": "true"
       }
     ],
@@ -183,11 +183,11 @@
     "Exits":
     [
       {
-        "ExitName": "Outside Castle Town West",
+        "ConnectedArea": "Outside Castle Town West",
         "Requirements": "true"
       },
       {
-        "ExitName": "Outside Castle Town West Helmasaur Grotto",
+        "ConnectedArea": "Outside Castle Town West Helmasaur Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -199,7 +199,7 @@
     "Exits":
     [
       {
-        "ExitName": "Outside Castle Town West Grotto Ledge",
+        "ConnectedArea": "Outside Castle Town West Grotto Ledge",
         "Requirements": "true"
       }
     ],
@@ -214,11 +214,11 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field Near Castle Town",
+        "ConnectedArea": "Eldin Field Near Castle Town",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town East",
+        "ConnectedArea": "Castle Town East",
         "Requirements": "true"
       }
     ],
@@ -233,19 +233,19 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town South",
+        "ConnectedArea": "Castle Town South",
         "Requirements": "true"
       },
       {
-        "ExitName": "Faron Field Behind Boulder",
+        "ConnectedArea": "Faron Field Behind Boulder",
         "Requirements": "HasBottle" // correct syntax for the bottle?
       },
       {
-        "ExitName": "Lake Hylia",
+        "ConnectedArea": "Lake Hylia",
         "Requirements": "true"
       },
       {
-        "ExitName": "Outside South Castle Town Tektite Grotto",
+        "ConnectedArea": "Outside South Castle Town Tektite Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -267,11 +267,11 @@
     "Exits":
     [
       {
-        "ExitName": "Outside Castle Town South",
+        "ConnectedArea": "Outside Castle Town South",
         "Requirements": "Room.Outside_Castle_Town_South and HasBottle" // correct syntax for the bottle?
       },
       {
-        "ExitName": "Faron Field Behind Boulder",
+        "ConnectedArea": "Faron Field Behind Boulder",
         "Requirements": "Room.Outside_Castle_Town_South and HasBottle" // correct syntax for the bottle?
       }
     ],
@@ -283,7 +283,7 @@
     "Exits":
     [
       {
-        "ExitName": "Outside Castle Town South",
+        "ConnectedArea": "Outside Castle Town South",
         "Requirements": "true"
       }
     ],
@@ -298,23 +298,23 @@
     "Exits":
     [
       {
-        "ExitName": "Hyrule Field Near Spinner Rails",
+        "ConnectedArea": "Hyrule Field Near Spinner Rails",
         "Requirements": "canSmash"
       },
       {
-        "ExitName": "Outside Castle Town West",
+        "ConnectedArea": "Outside Castle Town West",
         "Requirements": "true"
       },
       {
-        "ExitName": "Lake Hylia",
+        "ConnectedArea": "Lake Hylia",
         "Requirements": "true"
       },
       {
-        "ExitName": "Faron Field",
+        "ConnectedArea": "Faron Field",
         "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)"
       },
       {
-        "ExitName": "Lake Hylia Bridge Grotto Ledge",
+        "ConnectedArea": "Lake Hylia Bridge Grotto Ledge",
         "Requirements": "hasBombs and (Boomerang or (Progressive_Bow, 1)) and (Progressive_Clawshot, 1)"
       }
     ],
@@ -333,11 +333,11 @@
     "Exits":
     [
       {
-        "ExitName": "Lake Hylia Bridge",
+        "ConnectedArea": "Lake Hylia Bridge",
         "Requirements": "true"
       },
       {
-        "ExitName": "Lake Hylia Bridge Bubble Grotto",
+        "ConnectedArea": "Lake Hylia Bridge Bubble Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -353,7 +353,7 @@
     "Exits":
     [
       {
-        "ExitName": "Lake Hylia Bridge Grotto Ledge",
+        "ConnectedArea": "Lake Hylia Bridge Grotto Ledge",
         "Requirements": "true"
       }
     ],

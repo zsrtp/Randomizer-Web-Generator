@@ -4,15 +4,15 @@
     "Exits":
     [
       {
-        "ExitName": "Gerudo Desert Cave of Ordeals Plateau",
+        "ConnectedArea": "Gerudo Desert Cave of Ordeals Plateau",
         "Requirements": "(Progressive_Clawshot, 1)"
       },
       {
-        "ExitName": "Gerudo Desert Basin",
+        "ConnectedArea": "Gerudo Desert Basin",
         "Requirements": "true"
       },
       {
-        "ExitName": "Gerudo Desert Skulltula Grotto",
+        "ConnectedArea": "Gerudo Desert Skulltula Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -36,11 +36,11 @@
     "Exits":
     [
       {
-        "ExitName": "Gerudo Desert",
+        "ConnectedArea": "Gerudo Desert",
         "Requirements": "true"
       },
       {
-        "ExitName": "Gerudo Desert Cave of Ordeals Floors 01-11",
+        "ConnectedArea": "Gerudo Desert Cave of Ordeals Floors 01-11",
         "Requirements": "true"
       }
     ],
@@ -55,19 +55,19 @@
     "Exits":
     [
       {
-        "ExitName": "Gerudo Desert",
+        "ConnectedArea": "Gerudo Desert",
         "Requirements": "CanDefeatBulblin"
       },
       {
-        "ExitName": "Gerudo Desert North East Ledge",
+        "ConnectedArea": "Gerudo Desert North East Ledge",
         "Requirements": "(Progressive_Clawshot, 1)"
       },
       {
-        "ExitName": "Gerudo Desert Outside Bulblin Camp",
+        "ConnectedArea": "Gerudo Desert Outside Bulblin Camp",
         "Requirements": "CanDefeatBulblin"
       },
       {
-        "ExitName": "Gerudo Desert Chu Grotto",
+        "ConnectedArea": "Gerudo Desert Chu Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -85,11 +85,11 @@
     "Exits":
     [
       {
-        "ExitName": "Gerudo Desert Basin",
+        "ConnectedArea": "Gerudo Desert Basin",
         "Requirements": "true"
       },
       {
-        "ExitName": "Gerudo Desert Rock Grotto",
+        "ConnectedArea": "Gerudo Desert Rock Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -104,11 +104,11 @@
     "Exits":
     [
       {
-        "ExitName": "Gerudo Desert Basin",
+        "ConnectedArea": "Gerudo Desert Basin",
         "Requirements": "Room.Gerudo_Desert_Basin and canDefeatBulblin"
       },
       {
-        "ExitName": "Bulblin Camp",
+        "ConnectedArea": "Bulblin Camp",
         "Requirements": "true"
       }
     ],
@@ -125,7 +125,7 @@
     "Exits":
     [
       {
-        "ExitName": "Gerudo Desert",
+        "ConnectedArea": "Gerudo Desert",
         "Requirements": "true"
       }
     ],
@@ -140,7 +140,7 @@
     "Exits":
     [
       {
-        "ExitName": "Gerudo Desert Basin",
+        "ConnectedArea": "Gerudo Desert Basin",
         "Requirements": "true"
       }
     ],
@@ -152,7 +152,7 @@
     "Exits":
     [
       {
-        "ExitName": "Gerudo Desert North East Ledge",
+        "ConnectedArea": "Gerudo Desert North East Ledge",
         "Requirements": "true"
       }
     ],
@@ -169,11 +169,11 @@
     "Exits":
     [
       {
-        "ExitName": "Gerudo Desert Outside Bulblin Camp",
+        "ConnectedArea": "Gerudo Desert Outside Bulblin Camp",
         "Requirements": "true"
       },
       {
-        "ExitName": "Bulblin Camp Back Entrance",
+        "ConnectedArea": "Bulblin Camp Back Entrance",
         "Requirements": "(Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy)) and CanDefeatKingBulblinDesert"
       }
     ],
@@ -192,11 +192,11 @@
     "Exits":
     [
       {
-        "ExitName": "Bulblin Camp",
+        "ConnectedArea": "Bulblin Camp",
         "Requirements": "true"
       },
       {
-        "ExitName": "Outside Arbiters Grounds",
+        "ConnectedArea": "Outside Arbiters Grounds",
         "Requirements": "true"
       }
     ],
@@ -208,11 +208,11 @@
     "Exits":
     [
       {
-        "ExitName": "Bulblin Camp",
+        "ConnectedArea": "Bulblin Camp",
         "Requirements": "Room.Bulblin_Camp and (Bulblin_Camp_Small_Key or (Setting.smallKeySettings equals Keysy)) and canDefeatKingBulblinDesert"
       },
       {
-        "ExitName": "Bulblin Camp Back Entrance",
+        "ConnectedArea": "Bulblin Camp Back Entrance",
         "Requirements": "Room.Bulblin_Camp and (Bulblin_Camp_Small_Key or (Setting.smallKeySettings equals Keysy)) and canDefeatKingBulblinDesert"
       }
     ],
@@ -224,11 +224,11 @@
     "Exits":
     [
       {
-        "ExitName": "Bulblin Camp Between Fences",
+        "ConnectedArea": "Bulblin Camp Between Fences",
         "Requirements": "true"
       },
       {
-        "ExitName": "Arbiters Grounds Entrance",
+        "ConnectedArea": "Arbiters Grounds Entrance",
         "Requirements": "true"
       }
     ],
@@ -244,11 +244,11 @@
     "Exits":
     [
       {
-        "ExitName": "Arbiters Grounds Boss Room",
+        "ConnectedArea": "Arbiters Grounds Boss Room",
         "Requirements": "true"
       },
       {
-        "ExitName": "Palace of Twilight Entrance",
+        "ConnectedArea": "Palace of Twilight Entrance",
         "Requirements": "CanDefeatShadowBeast and ((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky))"
       }
     ],

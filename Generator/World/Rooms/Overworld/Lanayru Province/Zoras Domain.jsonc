@@ -4,23 +4,23 @@
     "Exits":
     [
       {
-        "ExitName": "Zoras Domain",
+        "ConnectedArea": "Zoras Domain",
         "Requirements": "true"
       },
       {
-        "ExitName": "Lake Hylia",
+        "ConnectedArea": "Lake Hylia",
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field",
         "Requirements": "true"
       },
       {
-        "ExitName": "Upper Zoras River Fishing Hole",
+        "ConnectedArea": "Upper Zoras River Fishing Hole",
         "Requirements": "true"
       },
       {
-        "ExitName": "Upper Zoras River Izas House",
+        "ConnectedArea": "Upper Zoras River Izas House",
         "Requirements": "CanDefeatShadowBeast"
       }
     ],
@@ -36,11 +36,11 @@
     "Exits":
     [
       {
-        "ExitName": "Upper Zoras River",
+        "ConnectedArea": "Upper Zoras River",
         "Requirements": "true"
       },
       {
-        "ExitName": "Upper Zoras River Fishing Hole House",
+        "ConnectedArea": "Upper Zoras River Fishing Hole House",
         "Requirements": "true"
       }
     ],
@@ -56,7 +56,7 @@
     "Exits":
     [
       {
-        "ExitName": "Upper Zoras River Fishing Hole",
+        "ConnectedArea": "Upper Zoras River Fishing Hole",
         "Requirements": "true"
       }
     ],
@@ -68,11 +68,11 @@
     "Exits":
     [
       {
-        "ExitName": "Upper Zoras River",
+        "ConnectedArea": "Upper Zoras River",
         "Requirements": "true"
       },
       {
-        "ExitName": "Lake Hylia",
+        "ConnectedArea": "Lake Hylia",
         "Requirements": "(Progressive_Bow, 1)"
       }
     ],
@@ -88,19 +88,19 @@
     "Exits":
     [
       {
-        "ExitName": "Upper Zoras River",
+        "ConnectedArea": "Upper Zoras River",
         "Requirements": "true"
       },
       {
-        "ExitName": "Zoras Domain West Ledge",
+        "ConnectedArea": "Zoras Domain West Ledge",
         "Requirements": "(Progressive_Clawshot, 1) or Shadow_Crystal or canSmash"
       },
       {
-        "ExitName": "Snowpeak Climb Lower",
+        "ConnectedArea": "Snowpeak Climb Lower",
         "Requirements": "true"
       },
       {
-        "ExitName": "Zoras Throne Room",
+        "ConnectedArea": "Zoras Throne Room",
         "Requirements": "true"
       }
     ],
@@ -119,11 +119,11 @@
     "Exits":
     [
       {
-        "ExitName": "Lanayru Field Behind Boulder",
+        "ConnectedArea": "Lanayru Field Behind Boulder",
         "Requirements": "true"
       },
       {
-        "ExitName": "Zoras Domain",
+        "ConnectedArea": "Zoras Domain",
         "Requirements": "true"
       }
     ],
@@ -135,7 +135,7 @@
     "Exits":
     [
       {
-        "ExitName": "Zoras Domain",
+        "ConnectedArea": "Zoras Domain",
         "Requirements": "true"
       }
     ],

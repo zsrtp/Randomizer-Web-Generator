@@ -47,27 +47,8 @@ namespace TPRandomizer
 
     public class RoomExit
     {
-        public string ExitName { get; set; }
+        public string ConnectedArea { get; set; }
         public string Requirements { get; set; }
-        public bool Shuffled { get; set; }
-    }
-
-    public class RoomSpawn
-    {
-        public string SourceRoom { get; set; }
-        public string TargetRoom { get; set; }
-        public int Stage { get; set; }
-        public int Room { get; set; }
-        public string Spawn { get; set; }
-        public string Type { get; set; }
-        public string Parameters { get; set; }
-    }
-
-    public class SpawnTableEntry
-    {
-        public string Type { get; set; }
-        public RoomSpawn SourceRoomSpawn { get; set; }
-        public RoomSpawn TargetRoomSpawn { get; set; }
     }
 
     /// <summary>

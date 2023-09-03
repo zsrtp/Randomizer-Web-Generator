@@ -4,7 +4,7 @@
         "Exits": 
         [
           {
-            "ExitName": "City in The Sky Entrance",
+            "ConnectedArea": "City in The Sky Entrance",
             "Requirements": "CanDefeatArgorok"
           }
         ],
@@ -20,11 +20,11 @@
         "Exits": 
         [
         {
-            "ExitName": "City in The Sky West Wing",
+            "ConnectedArea": "City in The Sky West Wing",
             "Requirements": "(Progressive_Clawshot, 2)"
         },
         {
-            "ExitName": "City in The Sky Lobby",
+            "ConnectedArea": "City in The Sky Lobby",
             "Requirements": "true"
         }
         ],
@@ -43,7 +43,7 @@
         "Exits": 
         [
         {
-            "ExitName": "City in The Sky Lobby",
+            "ConnectedArea": "City in The Sky Lobby",
             "Requirements": "true"
         }
         ],
@@ -63,11 +63,11 @@
         "Exits": 
         [
           {
-            "ExitName": "Lake Hylia",
+            "ConnectedArea": "Lake Hylia",
             "Requirements": "(Progressive_Clawshot, 1)"
           },
           {
-            "ExitName": "City in The Sky Lobby",
+            "ConnectedArea": "City in The Sky Lobby",
             "Requirements": "(Progressive_Clawshot, 1)"
           }
         ],
@@ -83,19 +83,19 @@
         "Exits": 
         [
             {
-                "ExitName": "City in The Sky Entrance",
+                "ConnectedArea": "City in The Sky Entrance",
                 "Requirements": "true"
             },
             {
-                "ExitName": "City in The Sky East Wing",
+                "ConnectedArea": "City in The Sky East Wing",
                 "Requirements": "Spinner and ((City_in_The_Sky_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
             },
             {
-                "ExitName": "City in The Sky West Wing",
+                "ConnectedArea": "City in The Sky West Wing",
                 "Requirements": "(Progressive_Clawshot, 2)"
             },
             {
-                "ExitName": "City in The Sky North Wing",
+                "ConnectedArea": "City in The Sky North Wing",
                 "Requirements": "(Progressive_Clawshot, 2) and CanDefeatBabaSerpent and CanDefeatKargarok and Shadow_Crystal and Iron_Boots"
             }
         ],
@@ -107,11 +107,11 @@
         "Exits": 
         [
             {
-                "ExitName": "City in The Sky Lobby",
+                "ConnectedArea": "City in The Sky Lobby",
                 "Requirements": "true"
             },
             {
-                "ExitName": "City in The Sky Boss Room",
+                "ConnectedArea": "City in The Sky Boss Room",
                 "Requirements": "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bigKeySettings equals Keysy))"
             }
         ],
@@ -126,11 +126,11 @@
         "Exits": 
         [
           {
-            "ExitName": "City in The Sky Lobby",
+            "ConnectedArea": "City in The Sky Lobby",
             "Requirements": "(Progressive_Clawshot, 2)"
           },
           {
-            "ExitName": "City in The Sky Central Tower Second Floor",
+            "ConnectedArea": "City in The Sky Central Tower Second Floor",
             "Requirements": "(Progressive_Clawshot, 2)"
           }
         ],

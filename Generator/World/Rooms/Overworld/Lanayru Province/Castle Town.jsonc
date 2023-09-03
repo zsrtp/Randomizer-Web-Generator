@@ -4,19 +4,19 @@
     "Exits":
     [
       {
-        "ExitName": "Outside Castle Town West",
+        "ConnectedArea": "Outside Castle Town West",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Center",
+        "ConnectedArea": "Castle Town Center",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town South",
+        "ConnectedArea": "Castle Town South",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town STAR Game",
+        "ConnectedArea": "Castle Town STAR Game",
         "Requirements": "true"
       }
     ],
@@ -31,7 +31,7 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town West",
+        "ConnectedArea": "Castle Town West",
         "Requirements": "true"
       }
     ],
@@ -47,31 +47,31 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town West",
+        "ConnectedArea": "Castle Town West",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town East",
+        "ConnectedArea": "Castle Town East",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town South",
+        "ConnectedArea": "Castle Town South",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town North",
+        "ConnectedArea": "Castle Town North",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Goron House Outside Left Door",
+        "ConnectedArea": "Castle Town Goron House Outside Left Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Goron House Outside Right Door",
+        "ConnectedArea": "Castle Town Goron House Outside Right Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Malo Mart",
+        "ConnectedArea": "Castle Town Malo Mart",
         "Requirements": "true" // not sure at all whats actually required tbh (day-only? shoe cleaning or donation?)
       }
     ],
@@ -83,11 +83,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Center",
+        "ConnectedArea": "Castle Town Center",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Goron House Inside Left Door",
+        "ConnectedArea": "Castle Town Goron House Inside Left Door",
         "Requirements": "true"
       },
     ],
@@ -99,11 +99,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Center",
+        "ConnectedArea": "Castle Town Center",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Goron House Inside Right Door",
+        "ConnectedArea": "Castle Town Goron House Inside Right Door",
         "Requirements": "true"
       }
     ],
@@ -115,11 +115,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Goron House Outside Left Door",
+        "ConnectedArea": "Castle Town Goron House Outside Left Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Goron House",
+        "ConnectedArea": "Castle Town Goron House",
         "Requirements": "true"
       }
     ],
@@ -131,11 +131,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Goron House Outside Right Door",
+        "ConnectedArea": "Castle Town Goron House Outside Right Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Goron House",
+        "ConnectedArea": "Castle Town Goron House",
         "Requirements": "true"
       }
     ],
@@ -147,11 +147,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Goron House Inside Left Door",
+        "ConnectedArea": "Castle Town Goron House Inside Left Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Goron House Inside Right Door",
+        "ConnectedArea": "Castle Town Goron House Inside Right Door",
         "Requirements": "true"
       }
     ],
@@ -163,7 +163,7 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Center",
+        "ConnectedArea": "Castle Town Center",
         "Requirements": "true"
       }
     ],
@@ -178,23 +178,23 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Center",
+        "ConnectedArea": "Castle Town Center",
         "Requirements": "true"
       },
       {
-        "ExitName": "Outside Castle Town East",
+        "ConnectedArea": "Outside Castle Town East",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town South",
+        "ConnectedArea": "Castle Town South",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Doctors Office Outside Left Door",
+        "ConnectedArea": "Castle Town Doctors Office Outside Left Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Doctors Office Outside Right Door",
+        "ConnectedArea": "Castle Town Doctors Office Outside Right Door",
         "Requirements": "true"
       }
     ],
@@ -206,11 +206,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Doctors Office Outside Upper Entrance",
+        "ConnectedArea": "Castle Town Doctors Office Outside Upper Entrance",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town East",
+        "ConnectedArea": "Castle Town East",
         "Requirements": "true"
       }
     ],
@@ -225,11 +225,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town East",
+        "ConnectedArea": "Castle Town East",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Doctors Office Inside Left Door",
+        "ConnectedArea": "Castle Town Doctors Office Inside Left Door",
         "Requirements": "true" // not sure
       }
     ],
@@ -241,11 +241,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town East",
+        "ConnectedArea": "Castle Town East",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Doctors Office Inside Right Door",
+        "ConnectedArea": "Castle Town Doctors Office Inside Right Door",
         "Requirements": "true" // not sure
       }
     ],
@@ -257,11 +257,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Doctors Office Inside Upper Entrance",
+        "ConnectedArea": "Castle Town Doctors Office Inside Upper Entrance",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Doctors Office Balcony",
+        "ConnectedArea": "Castle Town Doctors Office Balcony",
         "Requirements": "true"
       }
     ],
@@ -273,11 +273,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Doctors Office Outside Left Door",
+        "ConnectedArea": "Castle Town Doctors Office Outside Left Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Doctors Office Lower",
+        "ConnectedArea": "Castle Town Doctors Office Lower",
         "Requirements": "true"
       }
     ],
@@ -289,11 +289,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Doctors Office Outside Right Door",
+        "ConnectedArea": "Castle Town Doctors Office Outside Right Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Doctors Office Lower",
+        "ConnectedArea": "Castle Town Doctors Office Lower",
         "Requirements": "true"
       }
     ],
@@ -305,11 +305,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Doctors Office Upper",
+        "ConnectedArea": "Castle Town Doctors Office Upper",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Doctors Office Outside Upper Entrance",
+        "ConnectedArea": "Castle Town Doctors Office Outside Upper Entrance",
         "Requirements": "true"
       }
     ],
@@ -321,15 +321,15 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Doctors Office Inside Left Door",
+        "ConnectedArea": "Castle Town Doctors Office Inside Left Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Doctors Office Inside Right Door",
+        "ConnectedArea": "Castle Town Doctors Office Inside Right Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Doctors Office Upper",
+        "ConnectedArea": "Castle Town Doctors Office Upper",
         "Requirements": "Invoice"
       }
     ],
@@ -341,11 +341,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Doctors Office Lower",
+        "ConnectedArea": "Castle Town Doctors Office Lower",
         "Requirements": "Invoice" // i think??
       },
       {
-        "ExitName": "Castle Town Doctors Office Inside Upper Entrance",
+        "ConnectedArea": "Castle Town Doctors Office Inside Upper Entrance",
         "Requirements": "true"
       }
     ],
@@ -357,36 +357,36 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town West",
+        "ConnectedArea": "Castle Town West",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Center",
+        "ConnectedArea": "Castle Town Center",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town East",
+        "ConnectedArea": "Castle Town East",
         "Requirements": "true"
       },
       {
-        "ExitName": "Outside Castle Town South",
+        "ConnectedArea": "Outside Castle Town South",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Agithas House",
+        "ConnectedArea": "Castle Town Agithas House",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Seer House",
+        "ConnectedArea": "Castle Town Seer House",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Jovanis House Outside Dig Spot",
+        "ConnectedArea": "Castle Town Jovanis House Outside Dig Spot",
         "Requirements": "true"
       },
       // jovani outside door required?
       {
-        "ExitName": "Castle Town Telmas Bar",
+        "ConnectedArea": "Castle Town Telmas Bar",
         "Requirements": "true"
       }
     ],
@@ -398,7 +398,7 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town South",
+        "ConnectedArea": "Castle Town South",
         "Requirements": "true"
       }
     ],
@@ -436,7 +436,7 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town South",
+        "ConnectedArea": "Castle Town South",
         "Requirements": "true"
       }
     ],
@@ -448,11 +448,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town South",
+        "ConnectedArea": "Castle Town South",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Jovanis House Inside Dig Spot",
+        "ConnectedArea": "Castle Town Jovanis House Inside Dig Spot",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -464,11 +464,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Jovanis House Outside Dig Spot",
+        "ConnectedArea": "Castle Town Jovanis House Outside Dig Spot",
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ExitName": "Castle Town Jovanis House",
+        "ConnectedArea": "Castle Town Jovanis House",
         "Requirements": "true"
       }
     ],
@@ -480,11 +480,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town South",
+        "ConnectedArea": "Castle Town South",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Jovanis House",
+        "ConnectedArea": "Castle Town Jovanis House",
         "Requirements": "true"
       }
     ],
@@ -496,11 +496,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Jovanis House Inside Dig Spot",
+        "ConnectedArea": "Castle Town Jovanis House Inside Dig Spot",
         "Requirements": "true"
       },
       {
-        "ExitName": "Castle Town Jovanis House Inside Door",
+        "ConnectedArea": "Castle Town Jovanis House Inside Door",
         "Requirements": "true"
       }
     ],
@@ -517,7 +517,7 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town South",
+        "ConnectedArea": "Castle Town South",
         "Requirements": "true"
       }
     ],
@@ -532,11 +532,11 @@
     "Exits":
     [
       {
-        "ExitName": "Castle Town Center",
+        "ConnectedArea": "Castle Town Center",
         "Requirements": "true"
       },
       {
-        "ExitName": "Hyrule Castle Entrance",
+        "ConnectedArea": "Hyrule Castle Entrance",
         "Requirements": "((Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons) and CanCompleteMDH)"
       }
       // would probably split it into outside barrier and inside barrier rooms if HC is also going to be shuffled

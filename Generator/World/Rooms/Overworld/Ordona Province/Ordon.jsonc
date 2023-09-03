@@ -4,15 +4,15 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Village",
+        "ConnectedArea": "Ordon Village",
         "Requirements": "true"
       },
       {
-        "ExitName": "Ordon Spring",
+        "ConnectedArea": "Ordon Spring",
         "Requirements": "true"
       },
       {
-        "ExitName": "Ordon Links House",
+        "ConnectedArea": "Ordon Links House",
         "Requirements": "true"
       }
     ],
@@ -24,7 +24,7 @@
     "Exits":
     [
       {
-        "ExitName": "Outside Links House",
+        "ConnectedArea": "Outside Links House",
         "Requirements": "true"
       }
     ],
@@ -40,31 +40,31 @@
     "Exits":
     [
       {
-        "ExitName": "Outside Links House",
+        "ConnectedArea": "Outside Links House",
         "Requirements": "true"
       },
       {
-        "ExitName": "Ordon Ranch Entrance",
+        "ConnectedArea": "Ordon Ranch Entrance",
         "Requirements": "true"
       },
       {
-        "ExitName": "Ordon Sera Shop",
+        "ConnectedArea": "Ordon Sera Shop",
         "Requirements": "true" // day-only iirc
       },
       {
-        "ExitName": "Ordon Shield House",
+        "ConnectedArea": "Ordon Shield House",
         "Requirements": "true" // not sure
       },
       {
-        "ExitName": "Ordon Sword House",
+        "ConnectedArea": "Ordon Sword House",
         "Requirements": "true" // not sure
       },
       {
-        "ExitName": "Ordon Bos House Outside Left Door",
+        "ConnectedArea": "Ordon Bos House Outside Left Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Ordon Bos House Outside Right Door",
+        "ConnectedArea": "Ordon Bos House Outside Right Door",
         "Requirements": "true"
       }
     ],
@@ -79,7 +79,7 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Village",
+        "ConnectedArea": "Ordon Village",
         "Requirements": "true"
       }
     ],
@@ -95,7 +95,7 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Village",
+        "ConnectedArea": "Ordon Village",
         "Requirements": "true"
       }
     ],
@@ -110,7 +110,7 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Village",
+        "ConnectedArea": "Ordon Village",
         "Requirements": "true"
       }
     ],
@@ -125,11 +125,11 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Village",
+        "ConnectedArea": "Ordon Village",
         "Requirements": "true"
       },
       {
-        "ExitName": "Ordon Bos House Inside Left Door",
+        "ConnectedArea": "Ordon Bos House Inside Left Door",
         "Requirements": "true" // not sure
       }
     ],
@@ -141,11 +141,11 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Village",
+        "ConnectedArea": "Ordon Village",
         "Requirements": "true"
       },
       {
-        "ExitName": "Ordon Bos House Inside Right Door",
+        "ConnectedArea": "Ordon Bos House Inside Right Door",
         "Requirements": "true" // not sure
       }
     ],
@@ -157,11 +157,11 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Bos House Outside Left Door",
+        "ConnectedArea": "Ordon Bos House Outside Left Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Ordon Bos House",
+        "ConnectedArea": "Ordon Bos House",
         "Requirements": "true"
       }
     ],
@@ -173,11 +173,11 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Bos House Outside Right Door",
+        "ConnectedArea": "Ordon Bos House Outside Right Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Ordon Bos House",
+        "ConnectedArea": "Ordon Bos House",
         "Requirements": "true"
       }
     ],
@@ -189,11 +189,11 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Bos House Inside Left Door",
+        "ConnectedArea": "Ordon Bos House Inside Left Door",
         "Requirements": "true"
       },
       {
-        "ExitName": "Ordon Bos House Inside Right Door",
+        "ConnectedArea": "Ordon Bos House Inside Right Door",
         "Requirements": "true"
       }
     ],
@@ -208,11 +208,11 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Village",
+        "ConnectedArea": "Ordon Village",
         "Requirements": "true"
       },
       {
-        "ExitName": "Ordon Ranch",
+        "ConnectedArea": "Ordon Ranch",
         "Requirements": "true" // day-only
       }
     ],
@@ -224,11 +224,11 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Ranch Entrance",
+        "ConnectedArea": "Ordon Ranch Entrance",
         "Requirements": "true" // day-only
       },
       {
-        "ExitName": "Ordon Ranch Grotto",
+        "ConnectedArea": "Ordon Ranch Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -243,7 +243,7 @@
     "Exits":
     [
       {
-        "ExitName": "Ordon Ranch",
+        "ConnectedArea": "Ordon Ranch",
         "Requirements": "true"
       }
     ],
@@ -258,11 +258,11 @@
     "Exits":
     [
       {
-        "ExitName": "Outside Links House",
+        "ConnectedArea": "Outside Links House",
         "Requirements": "true"
       },
       {
-        "ExitName": "South Faron Woods",
+        "ConnectedArea": "South Faron Woods",
         "Requirements": "true"
       }
     ],

@@ -4,11 +4,11 @@
     "Exits":
     [
       {
-        "ExitName": "Eldin Field Outside Hidden Village",
+        "ConnectedArea": "Eldin Field Outside Hidden Village",
         "Requirements": "true"
       },
       {
-        "ExitName": "Hidden Village Impaz House Interior",
+        "ConnectedArea": "Hidden Village Impaz House Interior",
         "Requirements": "(Progressive_Bow, 1) and (Progressive_Dominion_Rod, 1)"
       }
     ],
@@ -26,7 +26,7 @@
     "Exits":
     [
       {
-        "ExitName": "Hidden Village",
+        "ConnectedArea": "Hidden Village",
         "Requirements": "true"
       }
     ],

@@ -4,7 +4,7 @@
         "Exits": 
         [
           {
-            "ExitName": "South Faron Woods",
+            "ConnectedArea": "South Faron Woods",
             "Requirements": "CanDefeatDiababa"
           }
         ],
@@ -20,11 +20,11 @@
         "Exits": 
         [
           {
-            "ExitName": "Forest Temple Lobby",
+            "ConnectedArea": "Forest Temple Lobby",
             "Requirements": "true"
           },
           {
-            "ExitName": "Forest Temple North Wing",
+            "ConnectedArea": "Forest Temple North Wing",
             "Requirements": "true"
           }
         ],
@@ -41,11 +41,11 @@
         "Exits": 
         [
           {
-            "ExitName": "North Faron Woods",
+            "ConnectedArea": "North Faron Woods",
             "Requirements": "true"
           },
           {
-            "ExitName": "Forest Temple Lobby",
+            "ConnectedArea": "Forest Temple Lobby",
             "Requirements": "CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage"
           }
         ],
@@ -60,19 +60,19 @@
         "Exits": 
         [
             {
-              "ExitName": "Forest Temple Entrance",
+              "ConnectedArea": "Forest Temple Entrance",
                 "Requirements": "true"
             },
             {
-              "ExitName": "Forest Temple East Wing",
+              "ConnectedArea": "Forest Temple East Wing",
                 "Requirements": "true"
             },
             {
-              "ExitName": "Forest Temple West Wing",
+              "ConnectedArea": "Forest Temple West Wing",
                 "Requirements": "canBurnWebs and ((((Forest_Temple_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)) and CanDefeatBokoblin) or (Progressive_Clawshot, 1))"
             },
             {
-              "ExitName": "Ook",
+              "ConnectedArea": "Ook",
                 "Requirements": "Lantern and CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage and ((Forest_Temple_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
             }
         ], 
@@ -89,11 +89,11 @@
         "Exits": 
         [
             {
-              "ExitName": "Forest Temple East Wing",
+              "ConnectedArea": "Forest Temple East Wing",
               "Requirements": "true"
             },
             {
-              "ExitName": "Forest Temple Boss Room",
+              "ConnectedArea": "Forest Temple Boss Room",
               "Requirements": "(Forest_Temple_Big_Key or (Setting.bigKeySettings equals Keysy)) and Boomerang and (canFreeAllMonkeys or (Progressive_Clawshot, 1))"
             }
         ],
@@ -110,11 +110,11 @@
         "Exits": 
         [
           {
-            "ExitName": "Forest Temple Lobby",
+            "ConnectedArea": "Forest Temple Lobby",
             "Requirements": "true"
           },
           {
-            "ExitName": "Ook",
+            "ConnectedArea": "Ook",
             "Requirements": "Boomerang"
           }
         ],
@@ -133,7 +133,7 @@
         "Exits": 
         [
           {
-            "ExitName": "Forest Temple West Wing",
+            "ConnectedArea": "Forest Temple West Wing",
             "Requirements": "CanDefeatOok and Boomerang"
           }
         ],

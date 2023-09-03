@@ -41,6 +41,11 @@ namespace TPRandomizer
         public static readonly ItemFunctions Items = new();
 
         /// <summary>
+        /// A reference to all Entrance definitions and functions that need to be used by the randomizer.
+        /// </summary>
+        public static readonly EntranceRando EntranceRandomizer = new();
+
+        /// <summary>
         /// A reference to the sSettings.
         /// </summary>
         public static SharedSettings SSettings = new();
@@ -134,6 +139,10 @@ namespace TPRandomizer
             CheckFunctions.GenerateCheckList();
 
             // Generate the world based on the room class values and their neighbour values. If we want to randomize entrances, we would do it before this step.
+            Dictionary<string, Room> testGraph = Randomizer.EntranceRandomizer.RandomizeEntrances(
+                Randomizer.Rooms.RoomDict,
+                rnd
+            );
             Room startingRoom = SetupGraph();
             while (remainingGenerationAttempts > 0)
             {
@@ -784,8 +793,9 @@ namespace TPRandomizer
                     {
                         // If you can access the neighbour and it hasnt been visited yet.
                         if (
-                            Randomizer.Rooms.RoomDict[roomsToExplore[0].Exits[i].ExitName].Visited
-                            == false
+                            Randomizer.Rooms.RoomDict[
+                                roomsToExplore[0].Exits[i].ConnectedArea
+                            ].Visited == false
                         )
                         {
                             // Parse the neighbour's requirements to find out if we can access it
@@ -793,7 +803,7 @@ namespace TPRandomizer
                             /*Console.WriteLine(
                                 "Checking neighbor: "
                                     + Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Exits[i].ExitName
+                                        roomsToExplore[0].Exits[i].ConnectedArea
                                     ].RoomName
                             );*/
                             if (SSettings.logicRules == LogicRules.No_Logic)
@@ -812,31 +822,33 @@ namespace TPRandomizer
                             {
                                 if (
                                     !Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Exits[i].ExitName
+                                        roomsToExplore[0].Exits[i].ConnectedArea
                                     ].ReachedByPlaythrough
                                 )
                                 {
                                     availableRooms++;
                                     Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Exits[i].ExitName
+                                        roomsToExplore[0].Exits[i].ConnectedArea
                                     ].ReachedByPlaythrough = true;
                                     playthroughGraph.Add(
                                         Randomizer.Rooms.RoomDict[
-                                            roomsToExplore[0].Exits[i].ExitName
+                                            roomsToExplore[0].Exits[i].ConnectedArea
                                         ]
                                     );
                                 }
                                 roomsToExplore.Add(
-                                    Randomizer.Rooms.RoomDict[roomsToExplore[0].Exits[i].ExitName]
+                                    Randomizer.Rooms.RoomDict[
+                                        roomsToExplore[0].Exits[i].ConnectedArea
+                                    ]
                                 );
                                 Randomizer.Rooms.RoomDict[
-                                    roomsToExplore[0].Exits[i].ExitName
+                                    roomsToExplore[0].Exits[i].ConnectedArea
                                 ].Visited = true;
 
                                 /* Console.WriteLine(
                                      "Neighbour: "
                                          + Randomizer.Rooms.RoomDict[
-                                             roomsToExplore[0].Exits[i].ExitName
+                                             roomsToExplore[0].Exits[i].ConnectedArea
                                          ].RoomName
                                          + " added to room list."
                                  );*/

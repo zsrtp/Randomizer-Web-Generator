@@ -4,7 +4,7 @@
         "Exits": 
         [
         {
-            "ExitName": "Lower Kakariko Village",
+            "ConnectedArea": "Lower Kakariko Village",
             "Requirements": "CanDefeatFyrus"
         }
         ],
@@ -20,11 +20,11 @@
         "Exits": 
         [
             {
-              "ExitName": "Goron Mines Magnet Room",
+              "ConnectedArea": "Goron Mines Magnet Room",
               "Requirements": "true"
             },
             {
-              "ExitName": "Goron Mines North Wing",
+              "ConnectedArea": "Goron Mines North Wing",
               "Requirements": "((Iron_Boots and HasSword) or (Progressive_Bow, 1)) and ((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
             }
         ],
@@ -41,11 +41,11 @@
         "Exits":
         [
             {
-                "ExitName": "Death Mountain Sumo Hall From Goron Mines",
+                "ConnectedArea": "Death Mountain Sumo Hall From Goron Mines",
                 "Requirements": "true"
             },
             {
-                "ExitName": "Goron Mines Magnet Room",
+                "ConnectedArea": "Goron Mines Magnet Room",
                 "Requirements": "Iron_Boots and canBreakWoodenDoor"
             }
         ],
@@ -60,7 +60,7 @@
         "Exits": 
         [
           {
-            "ExitName": "Goron Mines Magnet Room",
+            "ConnectedArea": "Goron Mines Magnet Room",
             "Requirements": "true"
           }
         ],
@@ -78,15 +78,15 @@
         "Exits": 
         [
             {
-                "ExitName": "Goron Mines Entrance",
+                "ConnectedArea": "Goron Mines Entrance",
                 "Requirements": "true"
             },
             {
-                "ExitName": "Goron Mines Lower West Wing",
+                "ConnectedArea": "Goron Mines Lower West Wing",
                 "Requirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
             },
             {
-                "ExitName": "Goron Mines Crystal Switch Room",
+                "ConnectedArea": "Goron Mines Crystal Switch Room",
                 "Requirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy)) and Iron_Boots"
             }
         ],
@@ -102,15 +102,15 @@
         "Exits": 
         [
             {
-                "ExitName": "Goron Mines Crystal Switch Room",
+                "ConnectedArea": "Goron Mines Crystal Switch Room",
                 "Requirements": "true"
             },
             {
-                "ExitName": "Goron Mines Upper East Wing",
+                "ConnectedArea": "Goron Mines Upper East Wing",
                 "Requirements": "((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
             },
             {
-                "ExitName": "Goron Mines Boss Room",
+                "ConnectedArea": "Goron Mines Boss Room",
                 "Requirements": "(Progressive_Bow, 1) and Iron_Boots and CanDefeatBulblin and ((Goron_Mines_Key_Shard, 3) or (Setting.bigKeySettings equals Keysy))"
             }
         ],
@@ -127,11 +127,11 @@
         "Exits": 
         [
             {
-                "ExitName": "Goron Mines Upper East Wing",
+                "ConnectedArea": "Goron Mines Upper East Wing",
                 "Requirements": "true"
             },
             {
-                "ExitName": "Goron Mines Magnet Room",
+                "ConnectedArea": "Goron Mines Magnet Room",
                 "Requirements": "Iron_Boots and CanDefeatDangoro and (Progressive_Bow, 1)"
             }
         ],
