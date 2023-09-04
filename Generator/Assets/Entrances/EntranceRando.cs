@@ -37,9 +37,9 @@ namespace TPRandomizer
         public string OriginalConnectedArea { get; set; }
         public bool IsPrimary { get; set; }
         public EntranceType Type { get; set; }
-        public Entrance ReverseEntrance { get; set; } // either this needs to be a pointer to a global table, or we still reference a global table and just do EntranceTable[EntranceName] when referencing it.
+        public string ReverseEntrance { get; set; } // either this needs to be a pointer to a global table, or we still reference a global table and just do EntranceTable[EntranceName] when referencing it.
 
-        public Entrance getReverseEntrance()
+        public string getReverseEntrance()
         {
             return ReverseEntrance;
         }
@@ -48,10 +48,10 @@ namespace TPRandomizer
     public class EntrancePool
     {
         public EntranceType Type { get; set; }
-        public List<Entrance> EntranceList { get; set; }
+        public List<string> EntranceList { get; set; }
 
         // constructor
-        public EntrancePool(EntranceType type, List<Entrance> entranceList)
+        public EntrancePool(EntranceType type, List<string> entranceList)
         {
             Type = type;
             EntranceList = entranceList;
@@ -64,6 +64,7 @@ namespace TPRandomizer
     public class EntranceRando
     {
         public List<SpawnTableEntry> SpawnTable = new();
+        public Dictionary<string, Entrance> EntranceTable = new();
 
         public Dictionary<string, Room> RandomizeEntrances(
             Dictionary<string, Room> currentGraph,
@@ -74,13 +75,10 @@ namespace TPRandomizer
             DeserializeSpawnTable();
 
             // Once we have the spawn table created, we want to verify that the data in the table is valid and generate a list of entrances from it.
-            List<Entrance> entranceList = GetEntranceList(currentGraph);
+            GetEntranceList(currentGraph);
 
             // Now that we have a list of all entrances verified, we want to generate the Entrance pools for each entrance type
-            List<EntrancePool> shufflableEntrancePools = CreateEntrancePools(
-                currentGraph,
-                entranceList
-            );
+            List<EntrancePool> shufflableEntrancePools = CreateEntrancePools(currentGraph);
 
             return currentGraph;
         }
@@ -98,10 +96,7 @@ namespace TPRandomizer
             }
         }
 
-        List<EntrancePool> CreateEntrancePools(
-            Dictionary<string, Room> worldGraph,
-            List<Entrance> entranceTable
-        )
+        List<EntrancePool> CreateEntrancePools(Dictionary<string, Room> worldGraph)
         {
             List<EntrancePool> newEntrancePools = new();
 
@@ -113,20 +108,22 @@ namespace TPRandomizer
             if (isDungeonEREnabled)
             {
                 // If we are shuffling dungeon entrances, loop through the entrance table and make note of all of the dungeon entrances and add them to the pool.
-                List<Entrance> dungeonEntranceList = new();
-                foreach (Entrance entrance in entranceTable)
+                List<string> dungeonEntranceList = new();
+                foreach (
+                    KeyValuePair<
+                        string,
+                        Entrance
+                    > entranceList in Randomizer.EntranceRandomizer.EntranceTable.ToList()
+                )
                 {
+                    Entrance entrance = entranceList.Value;
                     if ((entrance.Type == EntranceType.Dungeon) && entrance.IsPrimary)
                     {
-                        dungeonEntranceList.Add(entrance);
+                        dungeonEntranceList.Add(entranceList.Key);
 
                         // DEBUG
                         Console.WriteLine(
-                            "Entrance: "
-                                + entrance.ParentArea
-                                + " -> "
-                                + entrance.OriginalConnectedArea
-                                + " is able to be randomized"
+                            "Entrance: " + entranceList.Key + " is able to be randomized"
                         );
                     }
                 }
@@ -155,10 +152,8 @@ namespace TPRandomizer
         }
         */
 
-        List<Entrance> GetEntranceList(Dictionary<string, Room> WorldGraph)
+        void GetEntranceList(Dictionary<string, Room> WorldGraph)
         {
-            List<Entrance> entranceList = new();
-
             foreach (SpawnTableEntry tableEntry in Randomizer.EntranceRandomizer.SpawnTable)
             {
                 // First we need to get the forward entry info and validate that it is valid.
@@ -202,22 +197,38 @@ namespace TPRandomizer
                     returnEntrance.OriginalConnectedArea = tableEntry.TargetRoomSpawn.TargetRoom;
                     returnEntrance.ConnectedArea = tableEntry.TargetRoomSpawn.TargetRoom;
                     returnEntrance.Type = EntranceType.Dungeon;
-                    forwardEntrance.ReverseEntrance = returnEntrance;
-                    entranceList.Add(returnEntrance);
+                    Randomizer.EntranceRandomizer.EntranceTable.Add(
+                        returnEntrance.ParentArea + " -> " + returnEntrance.OriginalConnectedArea,
+                        returnEntrance
+                    );
+                    forwardEntrance.ReverseEntrance =
+                        returnEntrance.ParentArea + " -> " + returnEntrance.OriginalConnectedArea;
                 }
 
-                entranceList.Add(forwardEntrance);
+                Randomizer.EntranceRandomizer.EntranceTable.Add(
+                    forwardEntrance.ParentArea + " -> " + forwardEntrance.OriginalConnectedArea,
+                    forwardEntrance
+                );
             }
 
             // Debug Statement
             Console.WriteLine("== DEBUG. Base Entrance Table: ==");
-            foreach (Entrance entrance in entranceList)
+            foreach (
+                KeyValuePair<
+                    string,
+                    Entrance
+                > entranceList in Randomizer.EntranceRandomizer.EntranceTable.ToList()
+            )
             {
+                Entrance currentEntrance = entranceList.Value;
                 Console.WriteLine(
-                    "== " + entrance.ParentArea + " -> " + entrance.ConnectedArea + " =="
+                    "== "
+                        + currentEntrance.ParentArea
+                        + " -> "
+                        + currentEntrance.ConnectedArea
+                        + " =="
                 );
             }
-            return entranceList;
         }
 
         /// <summary>
@@ -246,24 +257,15 @@ namespace TPRandomizer
             return retrievedEntrance;
         }
 
-        List<Entrance> GetReverseEntrances(List<Entrance> entranceList)
+        List<string> GetReverseEntrances(List<string> entranceList)
         {
-            List<Entrance> reverseEntrances = new();
+            List<string> reverseEntrances = new();
 
-            foreach (Entrance entrance in entranceList)
+            foreach (string entrance in entranceList)
             {
-                Entrance reverseEntrance = entrance.getReverseEntrance();
-                Console.WriteLine(
-                    "Entrance: "
-                        + reverseEntrance.ParentArea
-                        + " -> "
-                        + reverseEntrance.ConnectedArea
-                        + " is a reverse entrance of: "
-                        + entrance.ParentArea
-                        + " -> "
-                        + entrance.ConnectedArea
+                reverseEntrances.Add(
+                    Randomizer.EntranceRandomizer.EntranceTable[entrance].ReverseEntrance
                 );
-                reverseEntrances.Add(reverseEntrance);
             }
 
             return reverseEntrances;
