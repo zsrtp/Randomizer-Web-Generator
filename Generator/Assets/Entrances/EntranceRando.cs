@@ -26,22 +26,84 @@ namespace TPRandomizer
         public int Stage { get; set; }
         public int Room { get; set; }
         public string Spawn { get; set; }
-        public string Type { get; set; }
+        public string SpawnType { get; set; }
         public string Parameters { get; set; }
     }
 
     public class Entrance
     {
+        public string Requirements { get; set; }
         public string ParentArea { get; set; }
         public string ConnectedArea { get; set; }
         public string OriginalConnectedArea { get; set; }
         public bool IsPrimary { get; set; }
         public EntranceType Type { get; set; }
-        public string ReverseEntrance { get; set; } // either this needs to be a pointer to a global table, or we still reference a global table and just do EntranceTable[EntranceName] when referencing it.
+        public Entrance ReverseEntrance { get; set; } = null;
+        public Entrance ReplacedEntrance { get; set; } = null;
+        public Entrance AssumedEntrance { get; set; } = null;
+        public bool Decoupled { get; set; }
+        public int Stage { get; set; }
+        public int Room { get; set; }
+        public string Spawn { get; set; }
+        public string SpawnType { get; set; }
+        public string Parameters { get; set; }
 
-        public string getReverseEntrance()
+        public Entrance getReverseEntrance()
         {
             return ReverseEntrance;
+        }
+
+        public void SetEntranceType(string entranceType)
+        {
+            if (entranceType == "Dungeon")
+            {
+                Type = EntranceType.Dungeon;
+            }
+        }
+
+        Entrance GetNewTarget()
+        {
+            Entrance newExit = new();
+            newExit.ConnectedArea = ConnectedArea;
+            newExit.Requirements = "true";
+            Randomizer.Rooms.RoomDict["Root"].Exits.Add(newExit);
+            return newExit;
+        }
+
+        public void AssumeReachable()
+        {
+            if (AssumedEntrance == null)
+            {
+                AssumedEntrance = GetNewTarget();
+            }
+        }
+
+        public void Connect(string newConnectedArea)
+        {
+            ConnectedArea = newConnectedArea;
+        }
+
+        public string Disconnect()
+        {
+            string previouslyConnected = ConnectedArea;
+            ConnectedArea = "";
+            return previouslyConnected;
+        }
+
+        public void BindTwoWay(Entrance otherEntrance)
+        {
+            ReverseEntrance = otherEntrance;
+            otherEntrance.SetReverse(this);
+        }
+
+        Entrance GetReverse()
+        {
+            return ReverseEntrance;
+        }
+
+        void SetReverse(Entrance reverseEntrance)
+        {
+            ReverseEntrance = reverseEntrance;
         }
     }
 
@@ -78,7 +140,7 @@ namespace TPRandomizer
             GetEntranceList(currentGraph);
 
             // Now that we have a list of all entrances verified, we want to generate the Entrance pools for each entrance type
-            List<EntrancePool> shufflableEntrancePools = CreateEntrancePools(currentGraph);
+            //List<EntrancePool> shufflableEntrancePools = CreateEntrancePools(currentGraph);
 
             return currentGraph;
         }
@@ -96,6 +158,7 @@ namespace TPRandomizer
             }
         }
 
+        /*
         List<EntrancePool> CreateEntrancePools(Dictionary<string, Room> worldGraph)
         {
             List<EntrancePool> newEntrancePools = new();
@@ -103,35 +166,22 @@ namespace TPRandomizer
             // Keep track of the vanilla entrances as we could potentially rely on them later during the shuffling process.
             List<EntranceType> vanillaEntranceTypes = new();
 
+            // Keep track of the types we need to decouple to make things cleaner
+            List<EntranceType> typesToDecouple = new();
+
             // Placeholder until I get the settings actually created
             bool isDungeonEREnabled = true;
             if (isDungeonEREnabled)
             {
                 // If we are shuffling dungeon entrances, loop through the entrance table and make note of all of the dungeon entrances and add them to the pool.
                 List<string> dungeonEntranceList = new();
-                foreach (
-                    KeyValuePair<
-                        string,
-                        Entrance
-                    > entranceList in Randomizer.EntranceRandomizer.EntranceTable.ToList()
-                )
-                {
-                    Entrance entrance = entranceList.Value;
-                    if ((entrance.Type == EntranceType.Dungeon) && entrance.IsPrimary)
-                    {
-                        dungeonEntranceList.Add(entranceList.Key);
-
-                        // DEBUG
-                        Console.WriteLine(
-                            "Entrance: " + entranceList.Key + " is able to be randomized"
-                        );
-                    }
-                }
+                dungeonEntranceList.AddRange(GetShufflableEntrances(EntranceType.Dungeon));
 
                 bool decoupleEntrances = true;
                 if (decoupleEntrances)
                 {
                     dungeonEntranceList.AddRange(GetReverseEntrances(dungeonEntranceList));
+                    typesToDecouple.Add(EntranceType.Dungeon);
                 }
 
                 EntrancePool dungeonEntrancePool = new EntrancePool(
@@ -140,9 +190,48 @@ namespace TPRandomizer
                 );
                 newEntrancePools.Add(dungeonEntrancePool);
             }
+            else
+            {
+                vanillaEntranceTypes.Add(EntranceType.Dungeon)
+            }
+
+            // Set marked entrance types as decoupled
+            foreach (EntranceType type in typesToDecouple)
+            {
+                foreach (
+                    KeyValuePair<
+                        string,
+                        Entrance
+                    > entranceList in Randomizer.EntranceRandomizer.EntranceTable.ToList()
+                )
+                {
+                    Entrance entrance = entranceList.Value;
+                    if (entrance.Type == type)
+                    {
+                        entrance.Decoupled = true;
+                    }
+                }
+            }
+
+            // Assign vanilla entrances
+            foreach (EntranceType entranceType in vanillaEntranceTypes)
+            {
+                List<string> vanillaEntrances = GetShufflableEntrances(entranceType);
+                foreach (string vanillaEntrance in vanillaEntrances)
+                {
+                    //TODO
+                    // auto assumedForward = entrance->assumeReachable();
+                    Entrance entrance = Randomizer.EntranceRandomizer.EntranceTable[vanillaEntrance];
+                    if ((entrance.ReverseEntrance != "") && !entrance.Decoupled)
+                    {
+                        //auto assumedReturn = entrance->getReverse()->assumeReachable();
+                        //
+                    }
+                }
+            }
 
             return newEntrancePools;
-        }
+        } */
 
         /*
         List<Entrance> GetShufflableEntrances(Dictionary<string>, Room WorldGraph)
@@ -154,13 +243,13 @@ namespace TPRandomizer
 
         void GetEntranceList(Dictionary<string, Room> WorldGraph)
         {
+            // DEBUG
+            List<string> entranceList = new();
             foreach (SpawnTableEntry tableEntry in Randomizer.EntranceRandomizer.SpawnTable)
             {
                 // First we need to get the forward entry info and validate that it is valid.
-                Entrance forwardEntrance = GetEntranceFromTableEntry(
-                    tableEntry.SourceRoomSpawn.SourceRoom,
-                    tableEntry.SourceRoomSpawn.TargetRoom
-                );
+                Entrance forwardEntrance = GetEntranceFromTableEntry(tableEntry.SourceRoomSpawn);
+
                 if (forwardEntrance == null)
                 {
                     throw new Exception(
@@ -171,19 +260,23 @@ namespace TPRandomizer
                     );
                 }
 
-                forwardEntrance.ParentArea = tableEntry.SourceRoomSpawn.SourceRoom;
-                forwardEntrance.OriginalConnectedArea = tableEntry.SourceRoomSpawn.TargetRoom;
-                forwardEntrance.ConnectedArea = tableEntry.SourceRoomSpawn.TargetRoom;
-                forwardEntrance.Type = EntranceType.Dungeon;
+                forwardEntrance.SetEntranceType(tableEntry.Type);
+                forwardEntrance.Stage = tableEntry.SourceRoomSpawn.Stage;
+                forwardEntrance.Room = tableEntry.SourceRoomSpawn.Room;
+                forwardEntrance.Spawn = tableEntry.SourceRoomSpawn.Spawn;
+                forwardEntrance.SpawnType = tableEntry.SourceRoomSpawn.SpawnType;
+                forwardEntrance.Parameters = tableEntry.SourceRoomSpawn.Parameters;
                 forwardEntrance.IsPrimary = true;
+                entranceList.Add(
+                    tableEntry.SourceRoomSpawn.SourceRoom
+                        + " -> "
+                        + tableEntry.SourceRoomSpawn.TargetRoom
+                );
 
                 //Check to see if the entrance is a two-way, if it is, create an entrace entry for the other side.
                 if (tableEntry.TargetRoomSpawn != null)
                 {
-                    Entrance returnEntrance = GetEntranceFromTableEntry(
-                        tableEntry.TargetRoomSpawn.SourceRoom,
-                        tableEntry.TargetRoomSpawn.TargetRoom
-                    );
+                    Entrance returnEntrance = GetEntranceFromTableEntry(tableEntry.TargetRoomSpawn);
                     if (returnEntrance == null)
                     {
                         throw new Exception(
@@ -193,68 +286,77 @@ namespace TPRandomizer
                                 + tableEntry.TargetRoomSpawn.TargetRoom
                         );
                     }
-                    returnEntrance.ParentArea = tableEntry.TargetRoomSpawn.SourceRoom;
-                    returnEntrance.OriginalConnectedArea = tableEntry.TargetRoomSpawn.TargetRoom;
-                    returnEntrance.ConnectedArea = tableEntry.TargetRoomSpawn.TargetRoom;
-                    returnEntrance.Type = EntranceType.Dungeon;
-                    Randomizer.EntranceRandomizer.EntranceTable.Add(
-                        returnEntrance.ParentArea + " -> " + returnEntrance.OriginalConnectedArea,
-                        returnEntrance
+                    returnEntrance.SetEntranceType(tableEntry.Type);
+                    returnEntrance.Stage = tableEntry.TargetRoomSpawn.Stage;
+                    returnEntrance.Room = tableEntry.TargetRoomSpawn.Room;
+                    returnEntrance.Spawn = tableEntry.TargetRoomSpawn.Spawn;
+                    returnEntrance.SpawnType = tableEntry.TargetRoomSpawn.SpawnType;
+                    returnEntrance.Parameters = tableEntry.TargetRoomSpawn.Parameters;
+                    returnEntrance.IsPrimary = false;
+                    forwardEntrance.BindTwoWay(returnEntrance);
+                    entranceList.Add(
+                        tableEntry.TargetRoomSpawn.SourceRoom
+                            + " -> "
+                            + tableEntry.TargetRoomSpawn.TargetRoom
                     );
-                    forwardEntrance.ReverseEntrance =
-                        returnEntrance.ParentArea + " -> " + returnEntrance.OriginalConnectedArea;
                 }
-
-                Randomizer.EntranceRandomizer.EntranceTable.Add(
-                    forwardEntrance.ParentArea + " -> " + forwardEntrance.OriginalConnectedArea,
-                    forwardEntrance
-                );
             }
 
             // Debug Statement
             Console.WriteLine("== DEBUG. Base Entrance Table: ==");
-            foreach (
-                KeyValuePair<
-                    string,
-                    Entrance
-                > entranceList in Randomizer.EntranceRandomizer.EntranceTable.ToList()
-            )
+            foreach (string entrance in entranceList)
             {
-                Entrance currentEntrance = entranceList.Value;
-                Console.WriteLine(
-                    "== "
-                        + currentEntrance.ParentArea
-                        + " -> "
-                        + currentEntrance.ConnectedArea
-                        + " =="
-                );
+                Console.WriteLine("== " + entrance + " ==");
             }
         }
 
         /// <summary>
         /// summary text
         /// </summary>
-        Entrance GetEntranceFromTableEntry(string SourceRoom, string TargetRoom)
+        Entrance GetEntranceFromTableEntry(EntranceInfo entranceInfo)
         {
-            Entrance retrievedEntrance = null;
             Dictionary<string, Room> WorldGraph = Randomizer.Rooms.RoomDict;
             foreach (KeyValuePair<string, Room> roomEntry in WorldGraph)
             {
                 Room currentRoom = roomEntry.Value;
                 // We want to loop through every room until we find a match for the entrance information provided.
-                if (currentRoom.RoomName == SourceRoom)
+                if (currentRoom.RoomName == entranceInfo.SourceRoom)
                 {
-                    foreach (RoomExit exit in currentRoom.Exits)
+                    foreach (Entrance entrance in currentRoom.Exits)
                     {
-                        if (exit.ConnectedArea == TargetRoom)
+                        if (entrance.OriginalConnectedArea == entranceInfo.TargetRoom)
                         {
-                            retrievedEntrance = new();
-                            break;
+                            return entrance;
                         }
                     }
                 }
             }
-            return retrievedEntrance;
+            return null;
+        }
+
+        /*
+        List<string> GetShufflableEntrances(EntranceType entranceType)
+        {
+            List<string> shufflableEntrances = new();
+            foreach (
+                    KeyValuePair<
+                        string,
+                        Entrance
+                    > entranceList in Randomizer.EntranceRandomizer.EntranceTable.ToList()
+                )
+                {
+                    Entrance entrance = entranceList.Value;
+                    if ((entrance.Type == entranceType) && entrance.IsPrimary)
+                    {
+                        shufflableEntrances.Add(entranceList.Key);
+
+                        // DEBUG
+                        Console.WriteLine(
+                            "Entrance: " + entranceList.Key + " is able to be randomized"
+                        );
+                    }
+                }
+            return shufflableEntrances;
         }
 
         List<string> GetReverseEntrances(List<string> entranceList)
@@ -266,9 +368,51 @@ namespace TPRandomizer
                 reverseEntrances.Add(
                     Randomizer.EntranceRandomizer.EntranceTable[entrance].ReverseEntrance
                 );
+                // DEBUG
+                Console.WriteLine(
+                    "Entrance: "
+                        + Randomizer.EntranceRandomizer.EntranceTable[entrance].ReverseEntrance
+                        + " is a reverse entrance!"
+                );
             }
 
             return reverseEntrances;
-        }
+        } */
+
+        /*
+        void ChangeConnections()
+        {
+            Entrance areaToConnect = new();
+            //Get the entrance we need
+            foreach (
+                    KeyValuePair<
+                        string,
+                        Entrance
+                    > entranceList in Randomizer.EntranceRandomizer.EntranceTable.ToList()
+                )
+                {
+                    if (entranceList.Key == newConnectedArea)
+                    {
+                        areaToConnect = entranceList.Value;
+                        break;
+                    }
+                }
+
+            foreach (KeyValuePair<string, Room> roomEntry in WorldGraph)
+            {
+                Room currentRoom = roomEntry.Value;
+                if (currentRoom.RoomName == ParentArea)
+                {
+                    foreach(RoomExit exit in currentRoom.Exits)
+                    {
+                        if (exit.ConnectedArea == areaToConnect.OriginalConnectedArea)
+                        {
+                            ReplacedEntrance = ConnectedArea;
+                            exit.ConnectedArea = ConnectedArea;
+                        }
+                    }
+                }
+            }
+        }*/
     }
 }

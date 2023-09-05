@@ -1218,8 +1218,6 @@ namespace TPRandomizer
             }
 
             Randomizer.RequiredDungeons = 0;
-
-            Randomizer.Rooms.RoomDict["Ordon Province"].IsStartingRoom = true;
         }
 
         private static void CheckUnrequiredDungeons()
@@ -1465,10 +1463,15 @@ namespace TPRandomizer
                 Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
             }
 
+            // This line is just filler until we have a random starting room
             Room startingRoom = Randomizer.Rooms.RoomDict["Outside Links House"];
-            startingRoom.IsStartingRoom = true;
-            Randomizer.Rooms.RoomDict["Outside Links House"] = startingRoom;
-            return startingRoom;
+
+            Entrance rootExit = new();
+            rootExit.ConnectedArea = startingRoom.RoomName;
+            rootExit.Requirements = "(true)";
+
+            Randomizer.Rooms.RoomDict["Root"].Exits.Add(rootExit);
+            return Randomizer.Rooms.RoomDict["Root"];
         }
 
         private static void DeserializeChecks(SharedSettings SSettings)
@@ -1513,6 +1516,13 @@ namespace TPRandomizer
 
         private static void DeserializeRooms(SharedSettings SSettings)
         {
+            //Before anything, create an entry for the root of the world
+            Randomizer.Rooms.RoomDict.Add("Root", new Room());
+            Randomizer.Rooms.RoomDict["Root"].RoomName = "Root";
+            Randomizer.Rooms.RoomDict["Root"].Exits = new();
+            Randomizer.Rooms.RoomDict["Root"].Checks = new();
+            Randomizer.Rooms.RoomDict["Root"].Visited = false;
+
             string[] files;
             if (SSettings.logicRules == LogicRules.Glitchless)
             {
@@ -1540,7 +1550,7 @@ namespace TPRandomizer
                 string contents = File.ReadAllText(file);
                 string fileName = Path.GetFileNameWithoutExtension(file);
 
-                Console.WriteLine("Loading Room File: " + fileName);
+                //Console.WriteLine("Loading Room File: " + fileName);
 
                 List<Room> fileRooms = JsonConvert.DeserializeObject<List<Room>>(contents);
                 foreach (Room room in fileRooms)
@@ -1549,18 +1559,22 @@ namespace TPRandomizer
                     Randomizer.Rooms.RoomDict[room.RoomName] = room;
                     Room currentRoom = Randomizer.Rooms.RoomDict[room.RoomName];
                     currentRoom.Visited = false;
-                    currentRoom.IsStartingRoom = false;
                     for (int i = 0; i < currentRoom.Exits.Count; i++)
                     {
                         currentRoom.Exits[i].Requirements =
                             "(" + currentRoom.Exits[i].Requirements + ")";
+
+                        currentRoom.Exits[i].ParentArea = currentRoom.RoomName;
+                        currentRoom.Exits[i].OriginalConnectedArea = currentRoom.Exits[
+                            i
+                        ].ConnectedArea;
                     }
 
                     Randomizer.Rooms.RoomDict[room.RoomName] = currentRoom;
-                    Console.WriteLine("Room created: " + room.RoomName);
+                    //Console.WriteLine("Room created: " + room.RoomName);
                 }
 
-                Console.WriteLine("Room File Loaded " + fileName);
+                //Console.WriteLine("Room File Loaded " + fileName);
             }
         }
 

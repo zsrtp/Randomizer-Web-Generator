@@ -17,12 +17,7 @@ namespace TPRandomizer
         /// <summary>
         /// Gets or sets the room name of the rooms adjacent to the current room.
         /// </summary>
-        public List<RoomExit> Exits { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the current room is the starting room. If true, this room will always be the starting point of the graph.
-        /// </summary>
-        public bool IsStartingRoom { get; set; }
+        public List<Entrance> Exits { get; set; }
 
         /// <summary>
         /// Gets or sets a list of checks contained inside the room.
@@ -43,12 +38,6 @@ namespace TPRandomizer
         /// Gets or sets the logical region that the room is contained in.
         /// </summary>
         public string Region { get; set; }
-    }
-
-    public class RoomExit
-    {
-        public string ConnectedArea { get; set; }
-        public string Requirements { get; set; }
     }
 
     /// <summary>

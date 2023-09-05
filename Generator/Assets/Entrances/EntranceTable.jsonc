@@ -8,7 +8,7 @@
             "Stage": 52,
             "Room": 0,
             "Spawn": "32",
-            "Type": "D0",
+            "SpawnType": "D0",
             "Parameters": "F01F"
         },
         "TargetRoomSpawn":
@@ -18,7 +18,7 @@
             "Stage": 52,
             "Room": 0,
             "Spawn": "32",
-            "Type": "D0",
+            "SpawnType": "D0",
             "Parameters": "F01F"
         }  
     },
@@ -31,7 +31,7 @@
             "Stage": 52,
             "Room": 0,
             "Spawn": "32",
-            "Type": "D0",
+            "SpawnType": "D0",
             "Parameters": "F01F"
         },
         "TargetRoomSpawn":
@@ -41,7 +41,7 @@
             "Stage": 52,
             "Room": 0,
             "Spawn": "32",
-            "Type": "D0",
+            "SpawnType": "D0",
             "Parameters": "F01F"           
         }  
     }
