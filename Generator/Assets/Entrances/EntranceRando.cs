@@ -7,9 +7,21 @@ namespace TPRandomizer
     using System.IO;
     using TPRandomizer.FcSettings.Enums;
 
-    public enum EntranceType
+    public enum EntranceType : int
     {
-        Dungeon = 0
+        None = 0,
+        Boss,
+        Boss_Reverse,
+        Dungeon,
+        Dungeon_Reverse,
+        Cave,
+        Cave_Reverse,
+        Door,
+        Door_Reverse,
+        Misc,
+        Misc_Reverse,
+        Mixed,
+        All
     }
 
     public class SpawnTableEntry
@@ -53,6 +65,21 @@ namespace TPRandomizer
             return ReverseEntrance;
         }
 
+        public void SetParameters(string newParams)
+        {
+            Parameters = newParams;
+        }
+
+        public void SetAsDecoupled()
+        {
+            Decoupled = true;
+        }
+
+        public bool IsDecoupled()
+        {
+            return Decoupled;
+        }
+
         public void SetEntranceType(string entranceType)
         {
             if (entranceType == "Dungeon")
@@ -70,21 +97,30 @@ namespace TPRandomizer
             return newExit;
         }
 
-        public void AssumeReachable()
+        public Entrance AssumeReachable()
         {
             if (AssumedEntrance == null)
             {
                 AssumedEntrance = GetNewTarget();
+                Disconnect();
             }
+            return AssumedEntrance;
+        }
+
+        public Entrance GetReverse()
+        {
+            return ReverseEntrance;
         }
 
         public void Connect(string newConnectedArea)
         {
             ConnectedArea = newConnectedArea;
+            Randomizer.Rooms.RoomDict[ConnectedArea].Exits.Add(this);
         }
 
         public string Disconnect()
         {
+            Randomizer.Rooms.RoomDict[ConnectedArea].Exits.Remove(this);
             string previouslyConnected = ConnectedArea;
             ConnectedArea = "";
             return previouslyConnected;
@@ -96,11 +132,6 @@ namespace TPRandomizer
             otherEntrance.SetReverse(this);
         }
 
-        Entrance GetReverse()
-        {
-            return ReverseEntrance;
-        }
-
         void SetReverse(Entrance reverseEntrance)
         {
             ReverseEntrance = reverseEntrance;
@@ -109,15 +140,18 @@ namespace TPRandomizer
 
     public class EntrancePool
     {
-        public EntranceType Type { get; set; }
-        public List<string> EntranceList { get; set; }
+        public List<Entrance> EntranceList { get; set; }
 
-        // constructor
-        public EntrancePool(EntranceType type, List<string> entranceList)
+        public EntrancePool()
         {
-            Type = type;
-            EntranceList = entranceList;
+            EntranceList = new List<Entrance>(); // Initialize EntranceList in the constructor
         }
+    }
+
+    public class EntrancePools
+    {
+        public EntranceType Type { get; set; }
+        public EntrancePool EntrancePool { get; set; }
     }
 
     /// <summary>
@@ -140,7 +174,9 @@ namespace TPRandomizer
             GetEntranceList(currentGraph);
 
             // Now that we have a list of all entrances verified, we want to generate the Entrance pools for each entrance type
-            //List<EntrancePool> shufflableEntrancePools = CreateEntrancePools(currentGraph);
+            Dictionary<EntranceType, EntrancePool> shufflableEntrancePools = CreateEntrancePools(
+                currentGraph
+            );
 
             return currentGraph;
         }
@@ -158,10 +194,11 @@ namespace TPRandomizer
             }
         }
 
-        /*
-        List<EntrancePool> CreateEntrancePools(Dictionary<string, Room> worldGraph)
+        Dictionary<EntranceType, EntrancePool> CreateEntrancePools(
+            Dictionary<string, Room> worldGraph
+        )
         {
-            List<EntrancePool> newEntrancePools = new();
+            Dictionary<EntranceType, EntrancePool> newEntrancePools = new();
 
             // Keep track of the vanilla entrances as we could potentially rely on them later during the shuffling process.
             List<EntranceType> vanillaEntranceTypes = new();
@@ -174,64 +211,56 @@ namespace TPRandomizer
             if (isDungeonEREnabled)
             {
                 // If we are shuffling dungeon entrances, loop through the entrance table and make note of all of the dungeon entrances and add them to the pool.
-                List<string> dungeonEntranceList = new();
-                dungeonEntranceList.AddRange(GetShufflableEntrances(EntranceType.Dungeon));
+                newEntrancePools.Add(
+                    EntranceType.Dungeon,
+                    GetShufflableEntrances(EntranceType.Dungeon)
+                );
 
                 bool decoupleEntrances = true;
                 if (decoupleEntrances)
                 {
-                    dungeonEntranceList.AddRange(GetReverseEntrances(dungeonEntranceList));
+                    newEntrancePools.Add(
+                        EntranceType.Dungeon_Reverse,
+                        GetReverseEntrances(newEntrancePools, EntranceType.Dungeon)
+                    );
                     typesToDecouple.Add(EntranceType.Dungeon);
+                    typesToDecouple.Add(EntranceType.Dungeon_Reverse);
                 }
-
-                EntrancePool dungeonEntrancePool = new EntrancePool(
-                    EntranceType.Dungeon,
-                    dungeonEntranceList
-                );
-                newEntrancePools.Add(dungeonEntrancePool);
             }
             else
             {
-                vanillaEntranceTypes.Add(EntranceType.Dungeon)
+                vanillaEntranceTypes.Add(EntranceType.Dungeon);
             }
 
             // Set marked entrance types as decoupled
             foreach (EntranceType type in typesToDecouple)
             {
-                foreach (
-                    KeyValuePair<
-                        string,
-                        Entrance
-                    > entranceList in Randomizer.EntranceRandomizer.EntranceTable.ToList()
-                )
+                foreach (Entrance entrance in newEntrancePools[type].EntranceList)
                 {
-                    Entrance entrance = entranceList.Value;
-                    if (entrance.Type == type)
-                    {
-                        entrance.Decoupled = true;
-                    }
+                    entrance.SetAsDecoupled();
                 }
             }
 
             // Assign vanilla entrances
             foreach (EntranceType entranceType in vanillaEntranceTypes)
             {
-                List<string> vanillaEntrances = GetShufflableEntrances(entranceType);
-                foreach (string vanillaEntrance in vanillaEntrances)
+                EntrancePool vanillaEntrances = GetShufflableEntrances(entranceType);
+                foreach (Entrance vanillaEntrance in vanillaEntrances.EntranceList)
                 {
-                    //TODO
-                    // auto assumedForward = entrance->assumeReachable();
-                    Entrance entrance = Randomizer.EntranceRandomizer.EntranceTable[vanillaEntrance];
-                    if ((entrance.ReverseEntrance != "") && !entrance.Decoupled)
+                    Entrance assumedForward = vanillaEntrance.AssumeReachable();
+                    if ((vanillaEntrance.ReverseEntrance != null) && !vanillaEntrance.IsDecoupled())
                     {
-                        //auto assumedReturn = entrance->getReverse()->assumeReachable();
-                        //
+                        Entrance assumedReturn = vanillaEntrance.GetReverse().AssumeReachable();
+                        assumedForward.BindTwoWay(assumedReturn);
                     }
+                    //TODO
+                    // changeconnections(vanillaEntrance, assumedForward)
+                    // confirmReplacement(vanillaEntrance, assumedForward)
                 }
             }
 
             return newEntrancePools;
-        } */
+        }
 
         /*
         List<Entrance> GetShufflableEntrances(Dictionary<string>, Room WorldGraph)
@@ -334,50 +363,52 @@ namespace TPRandomizer
             return null;
         }
 
-        /*
-        List<string> GetShufflableEntrances(EntranceType entranceType)
+        EntrancePool GetShufflableEntrances(EntranceType entranceType)
         {
-            List<string> shufflableEntrances = new();
-            foreach (
-                    KeyValuePair<
-                        string,
-                        Entrance
-                    > entranceList in Randomizer.EntranceRandomizer.EntranceTable.ToList()
-                )
-                {
-                    Entrance entrance = entranceList.Value;
-                    if ((entrance.Type == entranceType) && entrance.IsPrimary)
-                    {
-                        shufflableEntrances.Add(entranceList.Key);
+            EntrancePool shufflableEntrances = new();
 
+            Console.WriteLine("Verifying Entrance shufflable");
+
+            foreach (KeyValuePair<string, Room> roomEntry in Randomizer.Rooms.RoomDict)
+            {
+                Room currentRoom = roomEntry.Value;
+                // We want to loop through every room until we find a match for the entrance information provided.
+                foreach (Entrance entrance in currentRoom.Exits)
+                {
+                    if (entrance.Type == entranceType)
+                    {
+                        shufflableEntrances.EntranceList.Add(entrance);
                         // DEBUG
                         Console.WriteLine(
-                            "Entrance: " + entranceList.Key + " is able to be randomized"
+                            "Entrance: "
+                                + entrance.ParentArea
+                                + " -> "
+                                + entrance.ConnectedArea
+                                + " is able to be randomized"
                         );
                     }
                 }
+            }
             return shufflableEntrances;
         }
 
-        List<string> GetReverseEntrances(List<string> entranceList)
+        EntrancePool GetReverseEntrances(
+            Dictionary<EntranceType, EntrancePool> entrancePool,
+            EntranceType type
+        )
         {
-            List<string> reverseEntrances = new();
+            EntrancePool reversePool = new();
 
-            foreach (string entrance in entranceList)
+            foreach (Entrance poolEntrance in entrancePool[type].EntranceList)
             {
-                reverseEntrances.Add(
-                    Randomizer.EntranceRandomizer.EntranceTable[entrance].ReverseEntrance
-                );
-                // DEBUG
-                Console.WriteLine(
-                    "Entrance: "
-                        + Randomizer.EntranceRandomizer.EntranceTable[entrance].ReverseEntrance
-                        + " is a reverse entrance!"
-                );
+                if (poolEntrance.Type == type)
+                {
+                    reversePool.EntranceList.Add(poolEntrance.GetReverse());
+                }
             }
 
-            return reverseEntrances;
-        } */
+            return reversePool;
+        }
 
         /*
         void ChangeConnections()
