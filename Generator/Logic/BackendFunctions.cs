@@ -18,7 +18,7 @@ namespace TPRandomizer
         /// <summary>
         /// summary text.
         /// </summary>
-        public static bool ValidatePlaythrough(Room startingRoom)
+        public static bool ValidatePlaythrough(Room startingRoom, bool printResults = false)
         {
             bool areAllChecksReachable = true;
             bool areAllRoomsReachable = true;
@@ -98,7 +98,10 @@ namespace TPRandomizer
                 if (!listedCheck.hasBeenReached)
                 {
                     areAllChecksReachable = false;
-                    Console.WriteLine(listedCheck.checkName + " is not reachable!");
+                    if (printResults)
+                    {
+                        Console.WriteLine(listedCheck.checkName + " is not reachable!");
+                    }
                 }
             }
 
@@ -108,12 +111,19 @@ namespace TPRandomizer
                 if (!currentRoom.Visited)
                 {
                     areAllRoomsReachable = false;
-                    Console.WriteLine(currentRoom.RoomName + " is not reachable!");
+                    if (printResults)
+                    {
+                        Console.WriteLine(currentRoom.RoomName + " is not reachable!");
+                    }
                 }
             }
 
             if (areAllChecksReachable && areAllRoomsReachable)
             {
+                if (printResults)
+                {
+                    Console.WriteLine("Playthrough Validated");
+                }
                 return true;
             }
             else

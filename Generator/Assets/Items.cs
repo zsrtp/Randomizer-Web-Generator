@@ -296,6 +296,8 @@ namespace TPRandomizer
         public List<Item> JunkItems = new(); // Extra junk items that are put in the pool if there are checks left and all items have been placed..
         public List<Item> BaseItemPool = new(); // The list of Items that have yet to be randomized..
         public List<Item> heldItems = new(); // The list of items that the player currently has. This is to be used when emulating the playthrough..
+
+        public List<Item> AllItems = new(); // A list of all of the items that Link can have. This is necessary for Entrance Randomization logic checking.
         public List<Item> ItemWheelItems =
             new()
             {
@@ -702,8 +704,14 @@ namespace TPRandomizer
         {
             SharedSettings parseSetting = Randomizer.SSettings;
             Randomizer.Items.RandomizedImportantItems.AddRange(this.ImportantItems);
+            Randomizer.Items.AllItems.AddRange(this.ImportantItems);
             Randomizer.Items.BaseItemPool.AddRange(this.VanillaDungeonRewards);
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);
+            Randomizer.Items.AllItems.AddRange(this.VanillaDungeonRewards);
+            Randomizer.Items.AllItems.AddRange(Enumerable.Repeat(Item.Poe_Soul, 60));
+            Randomizer.Items.AllItems.AddRange(this.goldenBugs);
+            Randomizer.Items.AllItems.AddRange(this.RegionSmallKeys);
+            Randomizer.Items.AllItems.AddRange(this.DungeonBigKeys);
 
             switch (parseSetting.shufflePoes)
             {

@@ -103,7 +103,7 @@
       {
         // Depending on settings, the Gorons can be blocking the way into the room. If this is the case, we need to make sure we can actually move the Gorons before we consider this a valid path.
         "ConnectedArea": "Death Mountain Sumo Hall",
-        "Requirements": "(Room.Death_Mountain_Sumo_Hall_From_Death_Mountain_Volcano and Iron_Boots) or (Setting.skipMinesEntrance equals True)" // "_From_Death_Mountain_Volcano" seems unneccessary, and isnt the path also open if just wrestling is skipped?
+        "Requirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals True)" // "_From_Death_Mountain_Volcano" seems unneccessary, and isnt the path also open if just wrestling is skipped?
       }
     ],
     "Checks": [""],

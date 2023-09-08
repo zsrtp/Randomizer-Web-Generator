@@ -139,11 +139,15 @@ namespace TPRandomizer
             CheckFunctions.GenerateCheckList();
 
             // Generate the world based on the room class values and their neighbour values. If we want to randomize entrances, we would do it before this step.
-            Dictionary<string, Room> testGraph = Randomizer.EntranceRandomizer.RandomizeEntrances(
-                Randomizer.Rooms.RoomDict,
-                rnd
-            );
+            foreach (Item startingItem in Randomizer.SSettings.startingItems)
+            {
+                Randomizer.Items.heldItems.Add(startingItem);
+            }
+            Randomizer.Items.heldItems.AddRange(Randomizer.Items.AllItems);
             Room startingRoom = SetupGraph();
+            Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
+            Randomizer.Items.heldItems.Clear();
+
             while (remainingGenerationAttempts > 0)
             {
                 foreach (Item startingItem in Randomizer.SSettings.startingItems)
@@ -227,7 +231,7 @@ namespace TPRandomizer
         {
             Randomizer.Items.GenerateItemPool();
 
-            bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom);
+            bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom, true);
             if (!isPlaythroughValid && (SSettings.logicRules != LogicRules.No_Logic))
             {
                 return null;
@@ -792,66 +796,80 @@ namespace TPRandomizer
                     for (int i = 0; i < roomsToExplore[0].Exits.Count; i++)
                     {
                         // If you can access the neighbour and it hasnt been visited yet.
-                        if (
-                            Randomizer.Rooms.RoomDict[
-                                roomsToExplore[0].Exits[i].ConnectedArea
-                            ].Visited == false
-                        )
+                        //Console.WriteLine("Exit: " + roomsToExplore[0].Exits[i].GetOriginalName());
+                        if (roomsToExplore[0].Exits[i].ConnectedArea != "")
                         {
-                            // Parse the neighbour's requirements to find out if we can access it
-                            var areNeighbourRequirementsMet = false;
-                            /*Console.WriteLine(
-                                "Checking neighbor: "
-                                    + Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Exits[i].ConnectedArea
-                                    ].RoomName
-                            );*/
-                            if (SSettings.logicRules == LogicRules.No_Logic)
+                            if (
+                                Randomizer.Rooms.RoomDict[
+                                    roomsToExplore[0].Exits[i].ConnectedArea
+                                ].Visited == false
+                            )
                             {
-                                areNeighbourRequirementsMet = true;
-                            }
-                            else
-                            {
-                                areNeighbourRequirementsMet = Logic.EvaluateRequirements(
-                                    roomsToExplore[0].RoomName,
-                                    roomsToExplore[0].Exits[i].Requirements
-                                );
-                            }
-
-                            if ((bool)areNeighbourRequirementsMet == true)
-                            {
-                                if (
-                                    !Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Exits[i].ConnectedArea
-                                    ].ReachedByPlaythrough
-                                )
+                                // Parse the neighbour's requirements to find out if we can access it
+                                var areNeighbourRequirementsMet = false;
+                                /*Console.WriteLine(
+                                    "Checking neighbor: "
+                                        + Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ].RoomName
+                                );*/
+                                if (SSettings.logicRules == LogicRules.No_Logic)
                                 {
-                                    availableRooms++;
-                                    Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Exits[i].ConnectedArea
-                                    ].ReachedByPlaythrough = true;
-                                    playthroughGraph.Add(
+                                    areNeighbourRequirementsMet = true;
+                                }
+                                else
+                                {
+                                    areNeighbourRequirementsMet = Logic.EvaluateRequirements(
+                                        roomsToExplore[0].RoomName,
+                                        roomsToExplore[0].Exits[i].Requirements
+                                    );
+                                }
+
+                                if ((bool)areNeighbourRequirementsMet == true)
+                                {
+                                    if (
+                                        !Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ].ReachedByPlaythrough
+                                    )
+                                    {
+                                        availableRooms++;
+                                        Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ].ReachedByPlaythrough = true;
+                                        playthroughGraph.Add(
+                                            Randomizer.Rooms.RoomDict[
+                                                roomsToExplore[0].Exits[i].ConnectedArea
+                                            ]
+                                        );
+                                    }
+                                    roomsToExplore.Add(
                                         Randomizer.Rooms.RoomDict[
                                             roomsToExplore[0].Exits[i].ConnectedArea
                                         ]
                                     );
-                                }
-                                roomsToExplore.Add(
                                     Randomizer.Rooms.RoomDict[
                                         roomsToExplore[0].Exits[i].ConnectedArea
-                                    ]
-                                );
-                                Randomizer.Rooms.RoomDict[
-                                    roomsToExplore[0].Exits[i].ConnectedArea
-                                ].Visited = true;
+                                    ].Visited = true;
 
-                                /* Console.WriteLine(
-                                     "Neighbour: "
-                                         + Randomizer.Rooms.RoomDict[
-                                             roomsToExplore[0].Exits[i].ConnectedArea
-                                         ].RoomName
-                                         + " added to room list."
-                                 );*/
+                                    /* Console.WriteLine(
+                                         "Neighbour: "
+                                             + Randomizer.Rooms.RoomDict[
+                                                 roomsToExplore[0].Exits[i].ConnectedArea
+                                             ].RoomName
+                                             + " added to room list."
+                                     );*/
+                                }
+                                /*else
+                                {
+                                    Console.WriteLine(
+                                        "Neighbour: "
+                                            + Randomizer.Rooms.RoomDict[
+                                                roomsToExplore[0].Exits[i].ConnectedArea
+                                            ].RoomName
+                                            + " requirement not met"
+                                    );
+                                }*/
                             }
                         }
                     }
