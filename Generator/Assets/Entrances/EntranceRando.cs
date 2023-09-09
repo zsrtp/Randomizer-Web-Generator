@@ -521,9 +521,9 @@ namespace TPRandomizer
                     {
                         shufflableEntrances.EntranceList.Add(entrance);
                         // DEBUG
-                        Console.WriteLine(
+                        /*Console.WriteLine(
                             "Entrance: " + entrance.GetOriginalName() + " is able to be randomized"
-                        );
+                        );*/
                     }
                 }
             }
@@ -541,9 +541,9 @@ namespace TPRandomizer
             {
                 if (poolEntrance.Type == type)
                 {
-                    Console.WriteLine(
+                    /*Console.WriteLine(
                         "Adding " + poolEntrance.GetReverse().GetOriginalName() + " to reverse pool"
-                    );
+                    );*/
                     reversePool.EntranceList.Add(poolEntrance.GetReverse());
                 }
             }
@@ -553,12 +553,12 @@ namespace TPRandomizer
 
         void ChangeConnections(Entrance entrance, Entrance targetEntrance)
         {
-            /*Console.WriteLine(
+            Console.WriteLine(
                 "Changing connections for "
                     + entrance.GetOriginalName()
                     + " and "
                     + targetEntrance.GetOriginalName()
-            );*/
+            );
             entrance.Connect(targetEntrance.Disconnect());
             entrance.SetReplacedEntrance(targetEntrance.GetReplacedEntrance());
             if ((entrance.GetReplacedEntrance() != null) && !entrance.IsDecoupled())
@@ -610,7 +610,7 @@ namespace TPRandomizer
                 foreach (Entrance entrance in currentPool.EntranceList)
                 {
                     entrance.SetAsShuffled();
-                    Console.WriteLine(entrance.GetOriginalName() + " has been shuffled");
+                    //Console.WriteLine(entrance.GetOriginalName() + " has been shuffled");
                     if (entrance.GetReverse() != null)
                     {
                         entrance.GetReverse().SetAsShuffled();
@@ -629,11 +629,11 @@ namespace TPRandomizer
                 targetEntrancePools.Add(entrancePool.Key, AssumeEntrancePool(entrancePool.Value));
 
                 //DEBUG
-                Console.WriteLine("Targets for entrance type: " + entrancePool.Key);
+                /*Console.WriteLine("Targets for entrance type: " + entrancePool.Key);
                 foreach (Entrance entrance in AssumeEntrancePool(entrancePool.Value).EntranceList)
                 {
                     Console.WriteLine("Target: " + entrance.GetOriginalName());
-                }
+                }*/
 
                 // DEBUG END
             }
@@ -643,6 +643,7 @@ namespace TPRandomizer
         EntrancePool AssumeEntrancePool(EntrancePool entrancePool)
         {
             EntrancePool assumedPool = new();
+            Console.WriteLine("Assuming Entrance Pool");
             foreach (Entrance entrance in entrancePool.EntranceList)
             {
                 Entrance assumedForward = entrance.AssumeReachable();

@@ -23,6 +23,7 @@ namespace TPRandomizer
             bool areAllChecksReachable = true;
             bool areAllRoomsReachable = true;
             List<Item> playthroughItems = new();
+            List<Item> validationItems = new();
             SharedSettings parseSetting = Randomizer.SSettings;
 
             // Console.WriteLine("Item to place: " + itemToPlace);
@@ -37,6 +38,11 @@ namespace TPRandomizer
             {
                 Randomizer.Items.heldItems.Add(startingItem);
             }
+
+            /*foreach (Item item in Randomizer.Items.heldItems)
+            {
+                Console.WriteLine(item);
+            }*/
 
             // Walk through the current graph and get a list of rooms that we can currently access
             // If we collect any items during the playthrough, we add them to the player's inventory
@@ -80,7 +86,9 @@ namespace TPRandomizer
                                 {
                                     playthroughItems.Add(currentCheck.itemId);
 
-                                    // Console.WriteLine("Added " + currentCheck.itemId + " to item list.");
+                                    /*Console.WriteLine(
+                                        "Added " + currentCheck.itemId + " to item list."
+                                    );*/
                                 }
 
                                 currentCheck.hasBeenReached = true;
@@ -90,6 +98,7 @@ namespace TPRandomizer
                 }
 
                 Randomizer.Items.heldItems.AddRange(playthroughItems);
+                validationItems.AddRange(playthroughItems);
             } while (playthroughItems.Count > 0);
 
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
@@ -116,6 +125,11 @@ namespace TPRandomizer
                         Console.WriteLine(currentRoom.RoomName + " is not reachable!");
                     }
                 }
+            }
+
+            foreach (Item item in validationItems)
+            {
+                Randomizer.Items.heldItems.Remove(item);
             }
 
             if (areAllChecksReachable && areAllRoomsReachable)

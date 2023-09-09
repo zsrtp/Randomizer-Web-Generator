@@ -69,11 +69,11 @@ namespace TPRandomizer
                 {
                     if (entrance.IsShuffled())
                     {
-                        /*Console.WriteLine(
+                        Console.WriteLine(
                             entrance.GetOriginalName()
                                 + " is shuffled with "
                                 + entrance.GetReplacedEntrance().GetOriginalName()
-                        );*/
+                        );
                         // Get the original entrance that the entrance leads to in vanilla
                         encodedString =
                             encodedString + entrance.GetReplacedEntrance().GetStage().ToString("X");

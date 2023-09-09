@@ -134,7 +134,7 @@
     [
       {
         "ConnectedArea": "Eldin Field",
-        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village"
+        "Requirements": "Room.Kakariko_Village_Malo_Mart and Room.Lower_Kakariko_Village"
       },
       {
         "ConnectedArea": "Outside Castle Town East",

@@ -876,11 +876,16 @@ namespace TPRandomizer
         private static void PlaceItemsInWorld(Room startingRoom, Random rnd)
         {
             // Any vanilla checks will be placed first for the sake of logic. Even if they aren't available to be randomized in the game yet, we may need to logically account for their placement.
+            Randomizer.Items.heldItems.Clear();
+            foreach (Item startingItem in Randomizer.SSettings.startingItems)
+            {
+                Randomizer.Items.heldItems.Add(startingItem);
+            }
+            Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
             Console.WriteLine("Placing Vanilla Checks.");
             PlaceVanillaChecks();
 
             // Once we have placed all vanilla checks, we want to give the player all of the items they should be searching for and then generate the world based on the room class values and their neighbour values.
-            Randomizer.Items.heldItems.AddRange(Randomizer.Items.AllItems);
             startingRoom = SetupGraph();
             Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
 
@@ -1211,7 +1216,7 @@ namespace TPRandomizer
             check.itemWasPlaced = true;
             check.itemId = item;
 
-            Console.WriteLine("Placed " + check.itemId + " in check " + check.checkName);
+            //Console.WriteLine("Placed " + check.itemId + " in check " + check.checkName);
         }
 
         private static void StartOver()
