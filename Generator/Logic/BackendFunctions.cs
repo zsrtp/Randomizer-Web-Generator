@@ -358,7 +358,7 @@ namespace TPRandomizer
                 sphereItems.Clear();
                 foreach (Room graphRoom in currentPlaythroughGraph)
                 {
-                    // Console.WriteLine("Currently Exploring: " + graphRoom.name);
+                    //Console.WriteLine("Currently Exploring: " + graphRoom.RoomName);
                     if (graphRoom.RoomName == "Ganondorf Castle")
                     {
                         graphRoom.Visited = true;
@@ -413,6 +413,7 @@ namespace TPRandomizer
                                             + currentCheck.itemId,
                                         currentCheck
                                     );
+                                    //Console.WriteLine("Picked up: " + currentCheck.itemId);
                                     hasCompletedSphere = true;
                                     currentCheck.isRequired = true;
                                 }

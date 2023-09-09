@@ -138,28 +138,13 @@ namespace TPRandomizer
             Randomizer.Items.GenerateItemPool();
             CheckFunctions.GenerateCheckList();
 
-            // Generate the world based on the room class values and their neighbour values. If we want to randomize entrances, we would do it before this step.
-            foreach (Item startingItem in Randomizer.SSettings.startingItems)
-            {
-                Randomizer.Items.heldItems.Add(startingItem);
-            }
-            Randomizer.Items.heldItems.AddRange(Randomizer.Items.AllItems);
-            Room startingRoom = SetupGraph();
-            Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
-            Randomizer.Items.heldItems.Clear();
-
             while (remainingGenerationAttempts > 0)
             {
-                foreach (Item startingItem in Randomizer.SSettings.startingItems)
-                {
-                    Randomizer.Items.heldItems.Add(startingItem);
-                }
-                Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
                 remainingGenerationAttempts--;
                 try
                 {
                     // Place the items in the world based on the starting room.
-                    PlaceItemsInWorld(startingRoom, rnd);
+                    PlaceItemsInWorld(Randomizer.Rooms.RoomDict["Root"], rnd);
                     generationStatus = true;
                     break;
                 }
@@ -197,7 +182,9 @@ namespace TPRandomizer
                     }
                 }
 
-                List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(startingRoom);
+                List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(
+                    Randomizer.Rooms.RoomDict["Root"]
+                );
 
                 string jsonContent = GenerateInputJsonContent(
                     settingsString,
@@ -888,9 +875,22 @@ namespace TPRandomizer
         /// <param name="startingRoom"> The room node that the generation algorithm will begin with. </param>
         private static void PlaceItemsInWorld(Room startingRoom, Random rnd)
         {
-            // Any vanilla checks will be placed first for the sake of logic. Even if they aren't available to be randomized in the game yet,
-            // we may need to logically account for their placement.
+            // Any vanilla checks will be placed first for the sake of logic. Even if they aren't available to be randomized in the game yet, we may need to logically account for their placement.
             Console.WriteLine("Placing Vanilla Checks.");
+            PlaceVanillaChecks();
+
+            // Once we have placed all vanilla checks, we want to give the player all of the items they should be searching for and then generate the world based on the room class values and their neighbour values.
+            Randomizer.Items.heldItems.AddRange(Randomizer.Items.AllItems);
+            startingRoom = SetupGraph();
+            Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
+
+            // Once we are done. Clear the player's held items and prepare the item pool for randomization. Because of this, we have to place the vanilla checks once again.
+            Randomizer.Items.heldItems.Clear();
+            foreach (Item startingItem in Randomizer.SSettings.startingItems)
+            {
+                Randomizer.Items.heldItems.Add(startingItem);
+            }
+            Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
             PlaceVanillaChecks();
 
             // Dungeon rewards have a very limited item pool, so we want to place them first to prevent the generator from putting
@@ -1211,7 +1211,7 @@ namespace TPRandomizer
             check.itemWasPlaced = true;
             check.itemId = item;
 
-            //Console.WriteLine("Placed " + check.itemId + " in check " + check.checkName);
+            Console.WriteLine("Placed " + check.itemId + " in check " + check.checkName);
         }
 
         private static void StartOver()

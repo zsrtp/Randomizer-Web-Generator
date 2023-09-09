@@ -709,9 +709,6 @@ namespace TPRandomizer
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);
             Randomizer.Items.AllItems.AddRange(this.VanillaDungeonRewards);
             Randomizer.Items.AllItems.AddRange(Enumerable.Repeat(Item.Poe_Soul, 60));
-            Randomizer.Items.AllItems.AddRange(this.goldenBugs);
-            Randomizer.Items.AllItems.AddRange(this.RegionSmallKeys);
-            Randomizer.Items.AllItems.AddRange(this.DungeonBigKeys);
 
             switch (parseSetting.shufflePoes)
             {
@@ -737,6 +734,8 @@ namespace TPRandomizer
             if (parseSetting.shuffleGoldenBugs)
             {
                 this.RandomizedImportantItems.AddRange(this.goldenBugs);
+
+                Randomizer.Items.AllItems.AddRange(this.goldenBugs);
             }
 
             // Check Small Key settings before adding them to the rando pool
@@ -747,10 +746,14 @@ namespace TPRandomizer
             {
                 this.RandomizedDungeonRegionItems.AddRange(this.RegionSmallKeys);
                 Randomizer.Items.BaseItemPool.AddRange(this.RegionSmallKeys);
+
+                Randomizer.Items.AllItems.AddRange(this.RegionSmallKeys);
             }
             else if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
             {
                 this.RandomizedImportantItems.AddRange(this.RegionSmallKeys);
+
+                Randomizer.Items.AllItems.AddRange(this.RegionSmallKeys);
             }
             else if (parseSetting.smallKeySettings == SmallKeySettings.Keysy)
             {
@@ -765,10 +768,14 @@ namespace TPRandomizer
             {
                 this.RandomizedDungeonRegionItems.AddRange(this.DungeonBigKeys);
                 Randomizer.Items.BaseItemPool.AddRange(this.DungeonBigKeys);
+
+                Randomizer.Items.AllItems.AddRange(this.DungeonBigKeys);
             }
             else if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
             {
                 this.RandomizedImportantItems.AddRange(this.DungeonBigKeys);
+
+                Randomizer.Items.AllItems.AddRange(this.DungeonBigKeys);
             }
 
             // Check Map and Compass settings before adding to pool
