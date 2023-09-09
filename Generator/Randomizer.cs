@@ -889,15 +889,6 @@ namespace TPRandomizer
             startingRoom = SetupGraph();
             Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
 
-            // Once we are done. Clear the player's held items and prepare the item pool for randomization. Because of this, we have to place the vanilla checks once again.
-            Randomizer.Items.heldItems.Clear();
-            foreach (Item startingItem in Randomizer.SSettings.startingItems)
-            {
-                Randomizer.Items.heldItems.Add(startingItem);
-            }
-            Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
-            PlaceVanillaChecks();
-
             // Dungeon rewards have a very limited item pool, so we want to place them first to prevent the generator from putting
             // an unnecessary item in one of the checks.
             placeDungeonRewards(Items.ShuffledDungeonRewards, rnd);
