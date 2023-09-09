@@ -28,6 +28,7 @@ namespace TPRandomizer
         public Dictionary<int, byte> itemPlacements { get; }
         public byte requiredDungeons { get; set; }
         public List<List<KeyValuePair<int, Item>>> spheres { get; }
+        public string entrances { get; }
 
         public SeedGenResults(string seedId, JObject inputJsonContents)
         {
@@ -55,6 +56,57 @@ namespace TPRandomizer
             this.itemPlacements = DecodeItemPlacements((string)output["itemPlacement"]);
             this.requiredDungeons = (byte)output["reqDungeons"];
             this.spheres = DecodeSpheres((string)output["spheres"]);
+            this.entrances = DecodeEntrances((string)output["entrances"]);
+        }
+
+        public static string EncodeEntrances()
+        {
+            string encodedString = "";
+            foreach (KeyValuePair<string, Room> roomEntry in Randomizer.Rooms.RoomDict)
+            {
+                //Console.WriteLine("checking room: " + roomEntry.Value.RoomName);
+                foreach (Entrance entrance in roomEntry.Value.Exits)
+                {
+                    if (entrance.IsShuffled())
+                    {
+                        //Console.WriteLine(entrance.GetOriginalName() + " is shuffled");
+                        // Get the original entrance that the entrance leads to in vanilla
+                        encodedString =
+                            encodedString + entrance.GetReplacedEntrance().GetStage().ToString("X");
+                        encodedString = encodedString + ",";
+                        encodedString =
+                            encodedString + entrance.GetReplacedEntrance().GetRoom().ToString("X");
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetReplacedEntrance().GetSpawn();
+                        encodedString = encodedString + ",";
+                        encodedString =
+                            encodedString + entrance.GetReplacedEntrance().GetSpawnType();
+                        encodedString = encodedString + ",";
+                        encodedString =
+                            encodedString + entrance.GetReplacedEntrance().GetParameters();
+                        encodedString = encodedString + ",";
+
+                        // Add new connection info
+                        encodedString = encodedString + entrance.GetStage().ToString("X");
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetRoom().ToString("X");
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetSpawn();
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetSpawnType();
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetParameters();
+                        encodedString = encodedString + ",";
+                        entrance.SetAsUnshuffled();
+                    }
+                }
+            }
+            return encodedString;
+        }
+
+        public static string DecodeEntrances(string encodeString)
+        {
+            return encodeString;
         }
 
         public static string EncodeItemPlacements(SortedDictionary<int, byte> checkNumIdToItemId)
@@ -334,7 +386,7 @@ namespace TPRandomizer
             result.Add("instantText", sSettings.instantText);
             result.Add("openMap", sSettings.openMap);
             result.Add("increaseSpinnerSpeed", sSettings.increaseSpinnerSpeed);
-            result.Add("openDot",sSettings.openDot);
+            result.Add("openDot", sSettings.openDot);
 
             result.Add("startingItems", sSettings.startingItems);
             result.Add("excludedChecks", sSettings.excludedChecks);
@@ -352,6 +404,7 @@ namespace TPRandomizer
             public byte requiredDungeons { get; set; }
             private string itemPlacement;
             private string spheres;
+            public string entrances;
 
             public Builder() { }
 
@@ -363,6 +416,16 @@ namespace TPRandomizer
             public void SetSpheres(List<List<KeyValuePair<int, Item>>> spheresList)
             {
                 spheres = EncodeSpheres(spheresList);
+            }
+
+            public void SetEntrances()
+            {
+                entrances = EncodeEntrances();
+            }
+
+            public string GetEntrances(string encodedString)
+            {
+                return DecodeEntrances(encodedString);
             }
 
             override public string ToString()
@@ -392,6 +455,7 @@ namespace TPRandomizer
                 outputObj.Add("itemPlacement", itemPlacement);
                 outputObj.Add("reqDungeons", requiredDungeons);
                 outputObj.Add("spheres", spheres);
+                outputObj.Add("entrances", entrances);
 
                 return JsonConvert.SerializeObject(inputJsonRoot);
             }

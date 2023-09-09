@@ -77,6 +77,31 @@ namespace TPRandomizer
         public string OriginalName { get; set; }
         public bool AlreadySetOriginalName { get; set; }
 
+        public int GetStage()
+        {
+            return Stage;
+        }
+
+        public int GetRoom()
+        {
+            return Room;
+        }
+
+        public string GetSpawn()
+        {
+            return Spawn;
+        }
+
+        public string GetSpawnType()
+        {
+            return SpawnType;
+        }
+
+        public string GetParameters()
+        {
+            return Parameters;
+        }
+
         public bool IsPrimary()
         {
             return Primary;
@@ -223,6 +248,11 @@ namespace TPRandomizer
         public void SetAsUnshuffled()
         {
             Shuffled = false;
+        }
+
+        public bool IsShuffled()
+        {
+            return Shuffled;
         }
     }
 
@@ -580,6 +610,7 @@ namespace TPRandomizer
                 foreach (Entrance entrance in currentPool.EntranceList)
                 {
                     entrance.SetAsShuffled();
+                    Console.WriteLine(entrance.GetOriginalName() + " has been shuffled");
                     if (entrance.GetReverse() != null)
                     {
                         entrance.GetReverse().SetAsShuffled();

@@ -346,7 +346,8 @@ namespace TPRandomizer
             builder.requiredDungeons = (byte)Randomizer.RequiredDungeons;
             builder.SetItemPlacements(checkNumIdToItemId);
             builder.SetSpheres(spheres);
-
+            builder.SetEntrances();
+            Console.WriteLine(builder.GetEntrances(builder.entrances));
             return builder.ToString();
         }
 
