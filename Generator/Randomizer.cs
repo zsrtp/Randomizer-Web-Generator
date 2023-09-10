@@ -1529,7 +1529,7 @@ namespace TPRandomizer
             }
         }
 
-        private static void DeserializeRooms(SharedSettings SSettings)
+        public static void DeserializeRooms(SharedSettings SSettings)
         {
             //Before anything, create an entry for the root of the world
             Randomizer.Rooms.RoomDict.Add("Root", new Room());

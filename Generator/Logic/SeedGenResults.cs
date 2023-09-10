@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TPRandomizer.Util;
 using TPRandomizer.Assets;
+using System.IO;
+using System.IO.Compression;
 
 namespace TPRandomizer
 {
@@ -279,6 +281,7 @@ namespace TPRandomizer
             if (!isRaceSeed || dangerouslyPrintFullRaceSpoiler)
             {
                 root.Add("requiredDungeons", GetRequiredDungeonsStringList());
+                root.Add("shuffledEntrances", GetShuffledEntrancesStringList());
                 root.Add("itemPlacements", sortedCheckNameToItemNameDict);
                 root.Add("spheres", GetSpheresForSpoiler());
             }
@@ -319,6 +322,78 @@ namespace TPRandomizer
             }
 
             return reqDungeonsList;
+        }
+
+        private List<string> GetShuffledEntrancesStringList()
+        {
+            EntranceRando entranceRando = new();
+            List<string> shuffledEntrances = new();
+
+            EntranceRando.DeserializeSpawnTable();
+
+            List<EntranceInfo> entranceInfo = new();
+            foreach (SpawnTableEntry entry in Randomizer.EntranceRandomizer.SpawnTable)
+            {
+                entranceInfo.Add(entry.SourceRoomSpawn);
+                entranceInfo.Add(entry.TargetRoomSpawn);
+            }
+            string[] entranceBytes = entrances.Split(",");
+            for (int i = 0; i < entranceBytes.Count() - 1; i++)
+            {
+                foreach (EntranceInfo entry in entranceInfo)
+                {
+                    if (entry.Stage.ToString("X") == entranceBytes[i])
+                    {
+                        if (entry.Room.ToString("X") == entranceBytes[i + 1])
+                        {
+                            if (entry.Spawn == entranceBytes[i + 2])
+                            {
+                                if (entry.SpawnType == entranceBytes[i + 3])
+                                {
+                                    if (entry.Parameters == entranceBytes[i + 4])
+                                    {
+                                        foreach (EntranceInfo entry2 in entranceInfo)
+                                        {
+                                            if (entry2.Stage.ToString("X") == entranceBytes[i + 5])
+                                            {
+                                                if (
+                                                    entry2.Room.ToString("X")
+                                                    == entranceBytes[i + 6]
+                                                )
+                                                {
+                                                    if (entry2.Spawn == entranceBytes[i + 7])
+                                                    {
+                                                        if (
+                                                            entry2.SpawnType == entranceBytes[i + 8]
+                                                        )
+                                                        {
+                                                            if (
+                                                                entry2.Parameters
+                                                                == entranceBytes[i + 9]
+                                                            )
+                                                            {
+                                                                shuffledEntrances.Add(
+                                                                    entry.SourceRoom
+                                                                        + " -> "
+                                                                        + entry2.TargetRoom
+                                                                );
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                i = i + 9;
+            }
+
+            return shuffledEntrances;
         }
 
         private Dictionary<string, Dictionary<string, string>> GetSpheresForSpoiler()

@@ -67,6 +67,7 @@ namespace TPRandomizer
         public Entrance ReverseEntrance { get; set; } = null;
         public Entrance ReplacedEntrance { get; set; } = null;
         public Entrance AssumedEntrance { get; set; } = null;
+        public Entrance PairedEntrance { get; set; } = null;
         public bool Decoupled { get; set; }
         public int Stage { get; set; }
         public int Room { get; set; }
@@ -76,6 +77,7 @@ namespace TPRandomizer
         public bool Shuffled { get; set; }
         public string OriginalName { get; set; }
         public bool AlreadySetOriginalName { get; set; }
+        public string PairedEntranceName { get; set; }
 
         public int GetStage()
         {
@@ -125,6 +127,11 @@ namespace TPRandomizer
         public Entrance GetReplacedEntrance()
         {
             return ReplacedEntrance;
+        }
+
+        public Entrance GetPairedEntrance()
+        {
+            return PairedEntrance;
         }
 
         public string GetOriginalName()
@@ -277,8 +284,8 @@ namespace TPRandomizer
     /// </summary>
     public class EntranceRando
     {
+        bool pairEntrances = false;
         public List<SpawnTableEntry> SpawnTable = new();
-        public Dictionary<string, Entrance> EntranceTable = new();
 
         public void RandomizeEntrances(Random rnd)
         {
@@ -288,6 +295,11 @@ namespace TPRandomizer
 
             // Once we have the spawn table created, we want to verify that the data in the table is valid and generate a list of entrances from it.
             GetEntranceList();
+
+            if (pairEntrances)
+            {
+                PairEntrances();
+            }
 
             // Now that we have a list of all entrances verified, we want to generate the Entrance pools for each entrance type
             Dictionary<EntranceType, EntrancePool> shufflableEntrancePools = CreateEntrancePools();
@@ -324,9 +336,9 @@ namespace TPRandomizer
             EntranceShuffleErrorCheck(err);
         }
 
-        private static void DeserializeSpawnTable()
+        public static void DeserializeSpawnTable()
         {
-            Console.WriteLine("Loading Entrance Table from file.");
+            //Console.WriteLine("Loading Entrance Table from file.");
 
             List<SpawnTableEntry> SpawnTable = JsonConvert.DeserializeObject<List<SpawnTableEntry>>(
                 File.ReadAllText(Global.CombineRootPath("./Assets/Entrances/EntranceTable.jsonc"))
@@ -405,7 +417,7 @@ namespace TPRandomizer
             return newEntrancePools;
         }
 
-        void GetEntranceList()
+        public void GetEntranceList()
         {
             // DEBUG
             List<string> entranceList = new();
@@ -470,11 +482,11 @@ namespace TPRandomizer
             }
 
             // Debug Statement
-            Console.WriteLine("== DEBUG. Base Entrance Table: ==");
-            foreach (string entrance in entranceList)
-            {
-                Console.WriteLine("== " + entrance + " ==");
-            }
+            //Console.WriteLine("== DEBUG. Base Entrance Table: ==");
+            //foreach (string entrance in entranceList)
+            //{
+            //    Console.WriteLine("== " + entrance + " ==");
+            //}
         }
 
         /// <summary>
@@ -571,6 +583,55 @@ namespace TPRandomizer
                     .GetReplacedEntrance()
                     .GetReverse()
                     .SetReplacedEntrance(entrance.GetReverse());
+            }
+
+            if (pairEntrances)
+            {
+                // Check to see if the entrances has a target
+                Entrance entrancePair = entrance.GetPairedEntrance();
+                Entrance targetPair = targetEntrance.GetPairedEntrance();
+
+                // We need to verify that we have a valid pair to be modifying, whether it belongs to the entrance or the target
+                if ((entrancePair != null) || (targetPair != null))
+                {
+                    // If the entrance has a valid pair but the target does not.
+                    if ((entrancePair != null) && (targetPair == null))
+                    {
+                        // Example: two doors lead to an area with a single entrance
+                        entrancePair.Connect(entrance.GetConnectedArea());
+                        entrancePair.SetReplacedEntrance(entrance.GetReplacedEntrance());
+                    }
+                    // If the target has a valid pair but the entrance does not
+                    else if ((entrancePair == null) && (targetPair != null))
+                    {
+                        // Example: a single area leads to a room with two doors
+                        targetPair.Connect(targetEntrance.GetConnectedArea());
+                        targetPair.SetReplacedEntrance(targetEntrance.GetReplacedEntrance());
+                    }
+                    // If both the entrance and the target have a valid pair
+                    else
+                    {
+                        // a room with two doors leads to a room with two doors
+                        entrancePair.Connect(targetPair.Disconnect());
+                        entrancePair.SetReplacedEntrance(targetPair.GetReplacedEntrance());
+                        if (
+                            (entrancePair.GetReplacedEntrance() != null)
+                            && !entrancePair.IsDecoupled()
+                        )
+                        {
+                            targetPair
+                                .GetReplacedEntrance()
+                                .GetReverse()
+                                .Connect(
+                                    entrancePair.GetReverse().GetAssumedEntrance().Disconnect()
+                                );
+                            targetPair
+                                .GetReplacedEntrance()
+                                .GetReverse()
+                                .SetReplacedEntrance(entrancePair.GetReverse());
+                        }
+                    }
+                }
             }
         }
 
@@ -773,6 +834,7 @@ namespace TPRandomizer
             err = CheckEntranceCompatibility(entrance, target, rollBacks);
             EntranceShuffleErrorCheck(err);
             ChangeConnections(entrance, target);
+
             err = ValidateWorld();
 
             // If the replacement produces an invalid world graph, then undo the connection and try again
@@ -847,6 +909,80 @@ namespace TPRandomizer
                     .GetAssumedEntrance()
                     .Connect(targetEntrance.GetReplacedEntrance().GetReverse().Disconnect());
                 targetEntrance.GetReplacedEntrance().GetReverse().SetReplacedEntrance(null);
+            }
+
+            if (pairEntrances)
+            {
+                // Check to see if the entrances has a target
+                Entrance entrancePair = entrance.GetPairedEntrance();
+                Entrance targetPair = targetEntrance.GetPairedEntrance();
+
+                // We need to verify that we have a valid pair to be modifying, whether it belongs to the entrance or the target
+                if ((entrancePair != null) || (targetPair != null))
+                {
+                    // If the entrance has a valid pair but the target does not.
+                    if ((entrancePair != null) && (targetPair == null))
+                    {
+                        // Example: two doors lead to an area with a single entrance
+                        entrancePair.SetReplacedEntrance(null);
+                    }
+                    // If the target has a valid pair but the entrance does not
+                    else if ((entrancePair == null) && (targetPair != null))
+                    {
+                        // Example: a single area leads to a room with two doors
+                        targetPair.Connect(targetEntrance.GetConnectedArea());
+                    }
+                    // If both the entrance and the target have a valid pair
+                    else
+                    {
+                        // a room with two doors leads to a room with two doors
+                        targetPair.Connect(entrancePair.Disconnect());
+                        entrancePair.SetReplacedEntrance(null);
+                        if ((entrancePair.GetReverse() != null) && !entrancePair.IsDecoupled())
+                        {
+                            entrancePair
+                                .GetReverse()
+                                .GetAssumedEntrance()
+                                .Connect(
+                                    targetPair.GetReplacedEntrance().GetReverse().Disconnect()
+                                );
+                            targetPair.GetReplacedEntrance().GetReverse().SetReplacedEntrance(null);
+                        }
+                    }
+                }
+            }
+        }
+
+        void PairEntrances()
+        {
+            Dictionary<string, Room> WorldGraph = Randomizer.Rooms.RoomDict;
+            foreach (KeyValuePair<string, Room> roomEntry in WorldGraph)
+            {
+                Room currentRoom = roomEntry.Value;
+                foreach (Entrance entrance in currentRoom.Exits)
+                {
+                    if (entrance.PairedEntranceName != "")
+                    {
+                        foreach (KeyValuePair<string, Room> secondEntry in WorldGraph)
+                        {
+                            Room secondRoom = secondEntry.Value;
+                            // We want to loop through every room until we find a match for the entrance information provided.
+                            foreach (Entrance secondEntrance in currentRoom.Exits)
+                            {
+                                if (entrance.PairedEntranceName == secondEntrance.GetOriginalName())
+                                {
+                                    entrance.PairedEntrance = secondEntrance;
+                                    Console.WriteLine(
+                                        "Paired "
+                                            + entrance.GetOriginalName()
+                                            + " with "
+                                            + secondEntrance.GetOriginalName()
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
