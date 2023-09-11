@@ -21,6 +21,7 @@ namespace TPRandomizer
         Misc,
         Misc_Reverse,
         Mixed,
+        Paired,
         All
     }
 
@@ -158,6 +159,11 @@ namespace TPRandomizer
             ReplacedEntrance = replacedEntrance;
         }
 
+        public void SetPairedEntrance(Entrance pairedEntrance)
+        {
+            PairedEntrance = pairedEntrance;
+        }
+
         public string GetConnectedArea()
         {
             return ConnectedArea;
@@ -188,6 +194,10 @@ namespace TPRandomizer
             if (entranceType == "Dungeon")
             {
                 Type = EntranceType.Dungeon;
+            }
+            else if (entranceType == "Paired")
+            {
+                Type = EntranceType.Paired;
             }
         }
 
@@ -326,6 +336,9 @@ namespace TPRandomizer
                     EntranceShuffleErrorCheck(err);
                 }
             }
+
+            // Once all of the entrances have been shuffled correctly, we want to update the connections on all of the paired entrances.
+            ShufflePairedEntrances();
 
             // Validate the world one last time to ensure that everything went okay
             err = ValidateWorld();
@@ -583,55 +596,6 @@ namespace TPRandomizer
                     .GetReplacedEntrance()
                     .GetReverse()
                     .SetReplacedEntrance(entrance.GetReverse());
-            }
-
-            if (pairEntrances)
-            {
-                // Check to see if the entrances has a target
-                Entrance entrancePair = entrance.GetPairedEntrance();
-                Entrance targetPair = targetEntrance.GetPairedEntrance();
-
-                // We need to verify that we have a valid pair to be modifying, whether it belongs to the entrance or the target
-                if ((entrancePair != null) || (targetPair != null))
-                {
-                    // If the entrance has a valid pair but the target does not.
-                    if ((entrancePair != null) && (targetPair == null))
-                    {
-                        // Example: two doors lead to an area with a single entrance
-                        entrancePair.Connect(entrance.GetConnectedArea());
-                        entrancePair.SetReplacedEntrance(entrance.GetReplacedEntrance());
-                    }
-                    // If the target has a valid pair but the entrance does not
-                    else if ((entrancePair == null) && (targetPair != null))
-                    {
-                        // Example: a single area leads to a room with two doors
-                        targetPair.Connect(targetEntrance.GetConnectedArea());
-                        targetPair.SetReplacedEntrance(targetEntrance.GetReplacedEntrance());
-                    }
-                    // If both the entrance and the target have a valid pair
-                    else
-                    {
-                        // a room with two doors leads to a room with two doors
-                        entrancePair.Connect(targetPair.Disconnect());
-                        entrancePair.SetReplacedEntrance(targetPair.GetReplacedEntrance());
-                        if (
-                            (entrancePair.GetReplacedEntrance() != null)
-                            && !entrancePair.IsDecoupled()
-                        )
-                        {
-                            targetPair
-                                .GetReplacedEntrance()
-                                .GetReverse()
-                                .Connect(
-                                    entrancePair.GetReverse().GetAssumedEntrance().Disconnect()
-                                );
-                            targetPair
-                                .GetReplacedEntrance()
-                                .GetReverse()
-                                .SetReplacedEntrance(entrancePair.GetReverse());
-                        }
-                    }
-                }
             }
         }
 
@@ -910,47 +874,6 @@ namespace TPRandomizer
                     .Connect(targetEntrance.GetReplacedEntrance().GetReverse().Disconnect());
                 targetEntrance.GetReplacedEntrance().GetReverse().SetReplacedEntrance(null);
             }
-
-            if (pairEntrances)
-            {
-                // Check to see if the entrances has a target
-                Entrance entrancePair = entrance.GetPairedEntrance();
-                Entrance targetPair = targetEntrance.GetPairedEntrance();
-
-                // We need to verify that we have a valid pair to be modifying, whether it belongs to the entrance or the target
-                if ((entrancePair != null) || (targetPair != null))
-                {
-                    // If the entrance has a valid pair but the target does not.
-                    if ((entrancePair != null) && (targetPair == null))
-                    {
-                        // Example: two doors lead to an area with a single entrance
-                        entrancePair.SetReplacedEntrance(null);
-                    }
-                    // If the target has a valid pair but the entrance does not
-                    else if ((entrancePair == null) && (targetPair != null))
-                    {
-                        // Example: a single area leads to a room with two doors
-                        targetPair.Connect(targetEntrance.GetConnectedArea());
-                    }
-                    // If both the entrance and the target have a valid pair
-                    else
-                    {
-                        // a room with two doors leads to a room with two doors
-                        targetPair.Connect(entrancePair.Disconnect());
-                        entrancePair.SetReplacedEntrance(null);
-                        if ((entrancePair.GetReverse() != null) && !entrancePair.IsDecoupled())
-                        {
-                            entrancePair
-                                .GetReverse()
-                                .GetAssumedEntrance()
-                                .Connect(
-                                    targetPair.GetReplacedEntrance().GetReverse().Disconnect()
-                                );
-                            targetPair.GetReplacedEntrance().GetReverse().SetReplacedEntrance(null);
-                        }
-                    }
-                }
-            }
         }
 
         void PairEntrances()
@@ -971,7 +894,9 @@ namespace TPRandomizer
                             {
                                 if (entrance.PairedEntranceName == secondEntrance.GetOriginalName())
                                 {
-                                    entrance.PairedEntrance = secondEntrance;
+                                    // If we have a match, we want to set the type to the 'Paired' type so that no other pools try to pick it up and use it.
+                                    secondEntrance.SetEntranceType("Paired");
+                                    entrance.SetPairedEntrance(secondEntrance);
                                     Console.WriteLine(
                                         "Paired "
                                             + entrance.GetOriginalName()
@@ -981,6 +906,23 @@ namespace TPRandomizer
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        void ShufflePairedEntrances()
+        {
+            Dictionary<string, Room> WorldGraph = Randomizer.Rooms.RoomDict;
+            foreach (KeyValuePair<string, Room> roomEntry in WorldGraph)
+            {
+                Room currentRoom = roomEntry.Value;
+                foreach (Entrance entrance in currentRoom.Exits)
+                {
+                    if (entrance.GetPairedEntrance() != null)
+                    {
+                        entrance.GetPairedEntrance().Connect(entrance.GetConnectedArea()); // Link the pair to the same entrance
+                        // See "notes" about this line
                     }
                 }
             }
