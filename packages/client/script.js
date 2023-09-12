@@ -305,7 +305,7 @@ document
 document
   .getElementById('hiddenSkillsCheckbox')
   .addEventListener('click', setSettingsString);
-document.getElementById('foolishItemFieldset').onchange = setSettingsString;
+document.getElementById('trapItemFieldset').onchange = setSettingsString;
 document
   .getElementById('faronTwilightCheckbox')
   .addEventListener('click', setSettingsString);
@@ -356,7 +356,7 @@ document
 document
   .getElementById('spinnerSpeedCheckbox')
   .addEventListener('click', setSettingsString);
-  document
+document
   .getElementById('openDotCheckbox')
   .addEventListener('click', setSettingsString);
 document
@@ -422,9 +422,8 @@ function setSettingsString() {
   settingsStringRaw[19] = document.getElementById(
     'transformAnywhereCheckbox'
   ).checked;
-  settingsStringRaw[20] = document.getElementById(
-    'foolishItemFieldset'
-  ).selectedIndex;
+  settingsStringRaw[20] =
+    document.getElementById('trapItemFieldset').selectedIndex;
   var listItem = document
     .getElementById('baseImportantItemsListbox')
     .getElementsByTagName('input');
@@ -486,15 +485,12 @@ function setSettingsString() {
   settingsStringRaw[37] = document.getElementById(
     'instantTextCheckbox'
   ).checked;
-  settingsStringRaw[38] = document.getElementById(
-    'openMapCheckbox'
-  ).checked;
+  settingsStringRaw[38] = document.getElementById('openMapCheckbox').checked;
   settingsStringRaw[39] = document.getElementById(
     'spinnerSpeedCheckbox'
   ).checked;
-  settingsStringRaw[40] = document.getElementById(
-    'openDotCheckbox'
-  ).checked;
+  settingsStringRaw[40] = document.getElementById('openDotCheckbox').checked;
+
   // document.getElementById('settingsStringTextbox').value =
   document.getElementById('settingsStringTextbox').textContent =
     getSettingsString(settingsStringRaw);
@@ -637,7 +633,7 @@ var arrayOfSettingsItems = [
   'fastIBCheckbox',
   'quickTransformCheckbox',
   'transformAnywhereCheckbox',
-  'foolishItemFieldset',
+  'trapItemFieldset',
   'baseImportantItemsListbox',
   'baseExcludedChecksListbox',
   'gameRegionFieldset',
@@ -656,7 +652,7 @@ var arrayOfSettingsItems = [
   'instantTextCheckbox',
   'openMapCheckbox',
   'spinnerSpeedCheckbox',
-  'openDotCheckbox'
+  'openDotCheckbox',
 ];
 
 function parseSettingsString(settingsString) {
@@ -1198,7 +1194,7 @@ function populateSSettings(s) {
     'checked',
     s.shopModelsShowTheReplacedItem
   );
-  $('#foolishItemFieldset').val(s.trapItemsFrequency);
+  $('#trapItemFieldset').val(s.trapItemsFrequency);
   $('#barrenCheckbox').prop('checked', s.barrenDungeons);
   $('#goronMinesEntranceFieldset').val(s.goronMinesEntrance);
   $('#lakebedEntranceCheckbox').prop('checked', s.skipLakebedEntrance);

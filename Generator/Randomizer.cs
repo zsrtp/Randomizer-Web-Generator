@@ -788,10 +788,18 @@ namespace TPRandomizer
                         )
                         {
                             // Parse the neighbour's requirements to find out if we can access it
-                            var areNeighbourRequirementsMet = Logic.EvaluateRequirements(
-                                roomsToExplore[0].RoomName,
-                                roomsToExplore[0].NeighbourRequirements[i]
-                            );
+                            var areNeighbourRequirementsMet = false;
+                            if (SSettings.logicRules == LogicRules.No_Logic)
+                            {
+                                areNeighbourRequirementsMet = true;
+                            }
+                            else
+                            {
+                                areNeighbourRequirementsMet = Logic.EvaluateRequirements(
+                                    roomsToExplore[0].RoomName,
+                                    roomsToExplore[0].NeighbourRequirements[i]
+                                );
+                            }
                             if ((bool)areNeighbourRequirementsMet == true)
                             {
                                 if (

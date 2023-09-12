@@ -1357,14 +1357,14 @@ table.picrossTable {
   border-bottom: 1px solid #707070;
 }
 
+/* Cells on the right edge
 .picrossTable td:nth-child(5n + 11) {
-  /* Cells on the right edge */
   border-right: 1px solid #707070;
-}
+} */
 
-.picrossTable tr.bottomRow td:nth-child(1n + 2) {
+/* .picrossTable tr.bottomRow td:nth-child(1n + 2) {
   border-bottom: 1px solid #707070;
-}
+} */
 
 ul.picrossExplanation li {
   list-style-type: decimal;
@@ -1391,6 +1391,7 @@ ul.picrossExplanation ul > li {
 .picrossBtnsWrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 8px 0 16px;
 }
 

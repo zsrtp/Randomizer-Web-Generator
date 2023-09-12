@@ -1206,11 +1206,7 @@ namespace TPRandomizer
         public static bool CanDefeatDeathSword()
         {
             return (
-                (
-                    HasSword()
-                    || CanUse(Item.Ball_and_Chain)
-                    || (CanDoNicheStuff() && CanUse(Item.Iron_Boots))
-                )
+                HasSword()
                 && (
                     CanUse(Item.Boomerang)
                     || (getItemCount(Item.Progressive_Bow) >= 1)
@@ -1440,8 +1436,11 @@ namespace TPRandomizer
             return (
                 getItemCount(Item.Progressive_Bow) >= 1
                 || (
-                    CanDoNicheStuff() && hasBombs()
-                    || (HasSword() && getItemCount(Item.Progressive_Hidden_Skill) >= 6)
+                    CanDoNicheStuff()
+                    && (
+                        hasBombs()
+                        || (HasSword() && getItemCount(Item.Progressive_Hidden_Skill) >= 6)
+                    )
                 )
                 || (
                     Randomizer.SSettings.logicRules == LogicRules.Glitched
@@ -1509,6 +1508,7 @@ namespace TPRandomizer
                 (getItemCount(Item.Progressive_Bow) >= 1)
                 || (getItemCount(Item.Progressive_Clawshot) >= 1)
                 || CanUse(Item.Boomerang)
+                || CanUse(Item.Slingshot)
             );
         }
 
@@ -1586,7 +1586,6 @@ namespace TPRandomizer
                 (
                     HasSword()
                     && CanUse(Item.Slingshot)
-                    && (getItemCount(Item.Progressive_Fishing_Rod) >= 1)
                     && (
                         CanUse(Item.North_Faron_Woods_Gate_Key)
                         || (Randomizer.SSettings.smallKeySettings == SmallKeySettings.Keysy)

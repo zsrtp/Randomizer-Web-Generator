@@ -1,5 +1,5 @@
 {
-    //This logic accounts for having either 2 keys and the ability to defeat Deku Toad or 3 keys. 
+    //This logic accounts for having either 2 keys and the ability to defeat Deku Toad or 3 keys. This does NOT logically require dropping from the first floor, but serves as a form of softlock prevention in case the user does and attempts to misuse their keys.
     "requirements": "(CanDefeatDekuToad and (Lakebed_Temple_Small_Key, 2) and Zora_Armor and Iron_Boots and CanUseWaterBombs and (Progressive_Clawshot, 1)) or (((Lakebed_Temple_Small_Key,3) or (Setting.smallKeySettings equals Keysy)) and (canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash)))",
     "arcOffsets": ["C64"],
     "stageIDX": [0],

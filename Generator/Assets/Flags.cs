@@ -33,6 +33,10 @@ namespace TPRandomizer.Assets
             { 0x3, 0x40 }, // Kakariko Village Portal
             { 0x3, 0x4A }, // Death Mountain Portal
             { 0x6, 0x4A }, // Give Gorge Portal
+            { 0x3, 0x67 }, // Ant house entered from top
+            { 0x3, 0x64 }, // Ant house box pushed
+            { 0x3, 0x5E }, // Defeated Ant house Tears of Light bug
+            { 0x3, 0x1E }, // Collected Tear from Ant house
         };
 
         /// <summary>
@@ -68,6 +72,7 @@ namespace TPRandomizer.Assets
             { 0x9, 0x76 }, // Jovani Chest CS 2
             { 0x9, 0x7F }, // Open Chest to Jovani
             { 0x9, 0x7E }, // Jovani Chest CS
+            { 0x9, 0x50 }, // Set flag for Midna breaking Barrier CS.
             { 0x3, 0xA7 }, // Unlock Jumps to top of Sanctuary
             { 0x3, 0x9A }, // Kakariko Village intro CS.
             { 0xA, 0x7F }, // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
@@ -432,6 +437,7 @@ namespace TPRandomizer.Assets
         /// </summary>
         public static readonly byte[,] BaseRandomizerEventFlags = new byte[,]
         {
+            { 0x3, 0x2 }, // Gave wooden sword to Talo.
             { 0x6, 0x9 }, // Tame Epona, KB1 trigger activated
             { 0x12, 0x8 }, // Can use Sera's Shop.
             { 0x14, 0x10 }, // Put Bo outside, ready to wrestle
@@ -458,6 +464,8 @@ namespace TPRandomizer.Assets
             { 0x2F, 0x80 }, // Talked to Goron outside East Castle Town
             { 0x1C, 0x10 }, //Win Sumo round 1 against Bo
             { 0x39, 0x2 }, // Released first caught fish in Ordon Day 2
+            { 0x10, 0x2 }, // Talked to Jaggle after climbing vines.
+            { 0xB, 0x20 }, // Talked to Yeta in Snowpeak for the first time
         };
 
         /// <summary>
@@ -468,7 +476,6 @@ namespace TPRandomizer.Assets
             { 0x5, 0x7F }, // Midna Charge Unlocked, Finished Sewers, Midna text after entering Faron Twilight, Met Zelda in sewers, Midna cut prison chain, Watched Sewers intro CS, Escaped cell in sewers.
             { 0x6, 0x10 }, // Cleared Faron Twilight
             { 0xC, 0x18 }, // Midna accompanies Wolf, sword and shield removed from wolf's back.
-            { 0x3, 0x2 }, // Gave Wooden Sword to Talo
             { 0x43, 0x8 }, // Senses unlocked
         };
 
@@ -498,7 +505,6 @@ namespace TPRandomizer.Assets
         {
             { 0x4, 0x4 }, // Talked to Uli Day 1.
             { 0x45, 0x10 }, // Saved Talo
-            { 0x3, 0x2 }, // Gave Wooden Sword to Talo
             { 0x4A, 0x60 }, // Completed Ordon Day 1 and Finished Sword Training.
             { 0x16, 0x1 }, // Completed Ordon Day 2.
             { 0x15, 0x80 }, // Watched CS for Goats 2 Done.
@@ -511,7 +517,6 @@ namespace TPRandomizer.Assets
             { 0x3, 0x90 }, // Jaggle Calls out to Link, talked to Squirrel as Wolf in Ordon.
             { 0x6, 0xC0 }, // CS After beating Ordon Shadow, CS after entering Faron Twilight.
             { 0x7, 0x2 }, // First Time Talking to Gor Coron in Sumo Hall
-            { 0x10, 0x2 }, // Talked to Jaggle after climbing vines.
             { 0x15, 0x1 }, // Talked to Agitha for the first time.
             { 0xF, 0x40 }, // Talked to Doctor for the first time.
             { 0x5E, 0x10 }, // Midna text after beating Forest Temple.
