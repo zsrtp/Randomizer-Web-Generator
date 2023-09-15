@@ -305,9 +305,6 @@ document
 document
   .getElementById('openDotCheckbox')
   .addEventListener('click', setSettingsString);
-  document
-  .getElementById('importSettingsStringButton')
-  .addEventListener('click', importSettingsString);
 document
   .getElementById('increaseWalletCheckbox')
   .addEventListener('click', setSettingsString);
