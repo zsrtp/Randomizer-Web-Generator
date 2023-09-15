@@ -214,6 +214,7 @@ for (
     [j].addEventListener('click', setSettingsString);
 }
 
+var settingsLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ23456789';
 document.getElementById('logicRulesFieldset').onchange = setSettingsString;
 document.getElementById('gameRegionFieldset').onchange = setSettingsString;
 document.getElementById('seedNumberFieldset').onchange = setSettingsString;
@@ -304,12 +305,23 @@ document
 document
   .getElementById('openDotCheckbox')
   .addEventListener('click', setSettingsString);
+  document
+  .getElementById('importSettingsStringButton')
+  .addEventListener('click', importSettingsString);
 document
   .getElementById('increaseWalletCheckbox')
   .addEventListener('click', setSettingsString);
 document
   .getElementById('modifyShopModelsCheckbox')
   .addEventListener('click', setSettingsString);
+
+  document
+  .getElementById('importSettingsStringButton')
+  .addEventListener('click', importSettingsString);
+
+function importSettingsString() {
+  parseSettingsString(document.getElementById('settingsStringTextbox').value);
+}
 
 function setSettingsString() {
   var settingsStringRaw = [];
