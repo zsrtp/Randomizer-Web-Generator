@@ -337,7 +337,7 @@
   function genSSettingsFromUi() {
     // Increment the version when you make changes to the format. Need to make
     // sure you don't break backwards compatibility!!
-    const sSettingsVersion = 3;
+    const sSettingsVersion = 4;
 
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
@@ -376,6 +376,7 @@
       { id: 'openMapCheckbox' },
       { id: 'spinnerSpeedCheckbox' },
       { id: 'openDotCheckbox' },
+      { id: 'itemScarcityFieldset', bitLength: 2 },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -763,6 +764,11 @@
       processBasic({ id: 'openMap' });
       processBasic({ id: 'increaseSpinnerSpeed' });
       processBasic({ id: 'openDot' });
+    }
+    if (version >= 4) {
+      processBasic({ id: 'itemScarcity', bitLength: 2 });
+    } else {
+      res.itemScarcity = 0; // Vanilla
     }
 
     res.startingItems = processor.nextEolList(9);
