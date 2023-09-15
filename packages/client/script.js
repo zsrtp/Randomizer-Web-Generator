@@ -312,6 +312,124 @@ document
   .addEventListener('click', setSettingsString);
 
 function setSettingsString() {
+  var settingsStringRaw = [];
+  settingsStringRaw[0] =
+    document.getElementById('logicRulesFieldset').selectedIndex;
+  settingsStringRaw[1] = document.getElementById(
+    'castleRequirementsFieldset'
+  ).selectedIndex;
+  settingsStringRaw[2] = document.getElementById(
+    'palaceRequirementsFieldset'
+  ).selectedIndex;
+  settingsStringRaw[3] =
+    document.getElementById('faronLogicFieldset').selectedIndex;
+  settingsStringRaw[4] = document.getElementById('mdhCheckbox').checked;
+  settingsStringRaw[5] = document.getElementById('introCheckbox').checked;
+  settingsStringRaw[6] =
+    document.getElementById('smallKeyFieldset').selectedIndex;
+  settingsStringRaw[7] =
+    document.getElementById('bigKeyFieldset').selectedIndex;
+  settingsStringRaw[8] = document.getElementById(
+    'mapAndCompassFieldset'
+  ).selectedIndex;
+  settingsStringRaw[9] = document.getElementById('goldenBugsCheckbox').checked;
+  settingsStringRaw[10] = document.getElementById('poesCheckbox').checked;
+  settingsStringRaw[11] = document.getElementById(
+    'giftsFromNPCsCheckbox'
+  ).checked;
+  settingsStringRaw[12] = document.getElementById('shopItemsCheckbox').checked;
+  settingsStringRaw[13] = document.getElementById(
+    'faronTwilightCheckbox'
+  ).checked;
+  settingsStringRaw[14] = document.getElementById(
+    'eldinTwilightCheckbox'
+  ).checked;
+  settingsStringRaw[15] = document.getElementById(
+    'lanayruTwilightCheckbox'
+  ).checked;
+  settingsStringRaw[16] = document.getElementById(
+    'skipMinorCutscenesCheckbox'
+  ).checked;
+  settingsStringRaw[17] = document.getElementById('fastIBCheckbox').checked;
+  settingsStringRaw[18] = document.getElementById(
+    'quickTransformCheckbox'
+  ).checked;
+  settingsStringRaw[19] = document.getElementById(
+    'transformAnywhereCheckbox'
+  ).checked;
+  settingsStringRaw[20] =
+    document.getElementById('trapItemFieldset').selectedIndex;
+  var listItem = document
+    .getElementById('baseImportantItemsListbox')
+    .getElementsByTagName('input');
+  var options = [];
+  for (var i = 0; i < listItem.length; i++) {
+    if (listItem[i].checked)
+      options.push(listItem[i].getAttribute('data-itemId'));
+  }
+  settingsStringRaw[21] = options;
+  listItem = document
+    .getElementById('baseExcludedChecksListbox')
+    .getElementsByTagName('input');
+  options = [];
+  for (var i = 0; i < listItem.length; i++) {
+    if (listItem[i].checked)
+      options.push(listItem[i].getAttribute('data-checkId'));
+  }
+  settingsStringRaw[22] = options;
+  // settingsStringRaw[23] =
+  //   document.getElementById('tunicColorFieldset').selectedIndex;
+  // settingsStringRaw[24] = document.getElementById(
+  //   'midnaHairColorFieldset'
+  // ).selectedIndex;
+
+  settingsStringRaw[25] = document.getElementById(
+    'hiddenSkillsCheckbox'
+  ).checked;
+  settingsStringRaw[26] = document.getElementById(
+    'skyCharacterCheckbox'
+  ).checked;
+  settingsStringRaw[27] =
+    document.getElementById('seedNumberFieldset').selectedIndex;
+  settingsStringRaw[28] = document.getElementById(
+    'increaseWalletCheckbox'
+  ).checked;
+  settingsStringRaw[29] = document.getElementById(
+    'modifyShopModelsCheckbox'
+  ).checked;
+  settingsStringRaw[30] = document.getElementById('barrenCheckbox').checked;
+
+  settingsStringRaw[31] = document.getElementById(
+    'goronMinesEntranceFieldset'
+  ).selectedIndex;
+  settingsStringRaw[32] = document.getElementById(
+    'lakebedEntranceCheckbox'
+  ).checked;
+  settingsStringRaw[33] = document.getElementById(
+    'arbitersEntranceCheckbox'
+  ).checked;
+  settingsStringRaw[34] = document.getElementById(
+    'snowpeakEntranceCheckbox'
+  ).checked;
+  settingsStringRaw[35] = document.getElementById(
+    'totEntranceFieldset'
+  ).selectedIndex;
+  settingsStringRaw[36] = document.getElementById(
+    'cityEntranceCheckbox'
+  ).checked;
+  settingsStringRaw[37] = document.getElementById(
+    'instantTextCheckbox'
+  ).checked;
+  settingsStringRaw[38] = document.getElementById('openMapCheckbox').checked;
+  settingsStringRaw[39] = document.getElementById(
+    'spinnerSpeedCheckbox'
+  ).checked;
+  settingsStringRaw[40] = document.getElementById('openDotCheckbox').checked;
+
+  // document.getElementById('settingsStringTextbox').value =
+  document.getElementById('settingsStringTextbox').textContent =
+    getSettingsString(settingsStringRaw);
+
   document.getElementById('combinedSettingsString').textContent =
     window.tpr.shared.genSSettingsFromUi();
 }
@@ -402,6 +520,140 @@ function bitStringToText(bits) {
     result += index_to_letter(byteValue);
   }
   return result;
+}
+
+function textToBitString(text) {
+  byteToBinary = '';
+  for (var i = 0; i < text.length; i++) {
+    var index = letter_to_index(text[i]);
+    byteToBinary += padBits((index >>> 0).toString(2), 5);
+  }
+  while (byteToBinary.length % 5 != 0) {
+    byteToBinary = byteToBinary.slice(0, byteToBinary.length - 1);
+  }
+  return byteToBinary;
+}
+
+function index_to_letter(index) {
+  var c = settingsLetters[index];
+  return c;
+}
+function letter_to_index(letter) {
+  for (var i = 0; i < settingsLetters.length; i++) {
+    if (letter == settingsLetters[i]) {
+      return i;
+    }
+  }
+  return 0;
+}
+
+var arrayOfSettingsItems = [
+  'logicRulesFieldset',
+  'castleRequirementsFieldset',
+  'palaceRequirementsFieldset',
+  'faronLogicFieldset',
+  'mdhCheckbox',
+  'introCheckbox',
+  'smallKeyFieldset',
+  'bigKeyFieldset',
+  'mapAndCompassFieldset',
+  'goldenBugsCheckbox',
+  'poesCheckbox',
+  'giftsFromNPCsCheckbox',
+  'shopItemsCheckbox',
+  'faronTwilightCheckbox',
+  'eldinTwilightCheckbox',
+  'lanayruTwilightCheckbox',
+  'skipMinorCutscenesCheckbox',
+  'fastIBCheckbox',
+  'quickTransformCheckbox',
+  'transformAnywhereCheckbox',
+  'trapItemFieldset',
+  'baseImportantItemsListbox',
+  'baseExcludedChecksListbox',
+  'gameRegionFieldset',
+  'hiddenSkillsCheckbox',
+  'skyCharacterCheckbox',
+  'seedNumberFieldset',
+  'increaseWalletCheckbox',
+  'modifyShopModelsCheckbox',
+  'barrenCheckbox',
+  'goronMinesEntranceFieldset',
+  'lakebedEntranceCheckbox',
+  'arbitersEntranceCheckbox',
+  'snowpeakEntranceCheckbox',
+  'totEntranceFieldset',
+  'cityEntranceCheckbox',
+  'instantTextCheckbox',
+  'openMapCheckbox',
+  'spinnerSpeedCheckbox',
+  'openDotCheckbox',
+];
+
+function parseSettingsString(settingsString) {
+  settingsString = atob(settingsString);
+  //Convert the settings string into a binary string to be interpreted.
+  var bitString = textToBitString(settingsString);
+  for (var i = 0; i < arrayOfSettingsItems.length; i++) {
+    var currentSettingsItem = arrayOfSettingsItems[i];
+    var evaluatedByteString = '';
+    var settingBitWidth = 0;
+    var reachedEndofList = false;
+    if (currentSettingsItem.includes('Checkbox')) {
+      var value = parseInt(bitString[0], 2);
+      if (value == 1) {
+        document.getElementById(currentSettingsItem).checked = true;
+      } else {
+        document.getElementById(currentSettingsItem).checked = false;
+      }
+      bitString = bitString.substring(1);
+    }
+    if (currentSettingsItem.includes('Fieldset')) {
+      settingBitWidth = 4;
+      //We want to get the binary values in the string in 4 bit pieces since that is what is was encrypted with.
+      for (var j = 0; j < settingBitWidth; j++) {
+        evaluatedByteString += bitString[0];
+        bitString = bitString.substring(1);
+      }
+      document.getElementById(currentSettingsItem).selectedIndex = parseInt(
+        evaluatedByteString,
+        2
+      );
+    }
+    if (currentSettingsItem.includes('Listbox')) {
+      var checkList = document
+        .getElementById(currentSettingsItem)
+        .getElementsByTagName('input');
+      for (var j = 0; j < checkList.length; j++) {
+        checkList[j].checked = false;
+      }
+      //We want to get the binary values in the string in 8 bit pieces since that is what is was encrypted with.
+      settingBitWidth = 9;
+      while (!reachedEndofList) {
+        for (var j = 0; j < settingBitWidth; j++) {
+          evaluatedByteString += bitString[0];
+          bitString = bitString.substring(1);
+        }
+        itemIndex = parseInt(evaluatedByteString, 2);
+        if (itemIndex != 511) {
+          //Checks for the padding that was put in place upon encryption to know it has reached the end of the list.
+          var checkList = document
+            .getElementById(currentSettingsItem)
+            .getElementsByTagName('input');
+          for (var j = 0; j < checkList.length; j++) {
+            if (itemIndex == checkList[j].id && !checkList[j].checked) {
+              checkList[j].checked = true;
+              break;
+            }
+          }
+        } else {
+          reachedEndofList = true;
+        }
+        evaluatedByteString = '';
+      }
+    }
+  }
+  return;
 }
 
 function encodeBits(bitString) {
