@@ -16,7 +16,7 @@ namespace TPRandomizer.Assets
         // See <add_documentation_reference_here> for the flowchart for
         // determining if you should increment the major or minor version.
         public static readonly UInt16 VersionMajor = 1;
-        public static readonly UInt16 VersionMinor = 0;
+        public static readonly UInt16 VersionMinor = 1;
 
         // For convenience. This does not include any sort of leading 'v', so
         // add that where you use this variable if you need it.
@@ -228,6 +228,20 @@ namespace TPRandomizer.Assets
             }
 
             seedHeader.Add(Converter.GcByte(mapBits));
+
+            switch (randomizerSettings.damageMagnification)
+            {
+                case SSettings.Enums.DamageMagnification.OHKO:
+                {
+                    seedHeader.Add(Converter.GcByte(80)); // In a OHKO situation, we will need to deal a maximum magnification of 80 to ensure Link dies if the original damage was 1/4 heart.
+                    break;
+                }
+                default:
+                {
+                    seedHeader.Add(Converter.GcByte((int)randomizerSettings.damageMagnification));
+                    break;
+                }
+            }
 
             while (seedHeader.Count < (SeedHeaderSize))
             {

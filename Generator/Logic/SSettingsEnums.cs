@@ -98,4 +98,13 @@ namespace TPRandomizer.SSettings.Enums
         Dungeons = 2,
         All = 3
     }
+
+    public enum DamageMagnification
+    {
+        Vanilla = 1,
+        Double = 2,
+        Triple = 3,
+        Quadruple = 4,
+        OHKO = 5,
+    }
 }

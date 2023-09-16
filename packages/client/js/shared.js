@@ -377,6 +377,7 @@
       { id: 'spinnerSpeedCheckbox' },
       { id: 'openDotCheckbox' },
       { id: 'itemScarcityFieldset', bitLength: 2 },
+      { id: 'damageMagFieldset', bitLength: 3 },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -781,8 +782,10 @@
     }
     if (version >= 4) {
       processBasic({ id: 'itemScarcity', bitLength: 2 });
+      processBasic({ id: 'damageMagnification', bitLength: 3 });
     } else {
       res.itemScarcity = 0; // Vanilla
+      res.damageMagnification = 1; // Vanilla
     }
 
     res.startingItems = processor.nextEolList(9);

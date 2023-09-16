@@ -249,6 +249,7 @@ document
   .getElementById('hiddenSkillsCheckbox')
   .addEventListener('click', setSettingsString);
 document.getElementById('itemScarcityFieldset').onchange = setSettingsString;
+document.getElementById('damageMagFieldset').onchange = setSettingsString;
 document.getElementById('trapItemFieldset').onchange = setSettingsString;
 document
   .getElementById('faronTwilightCheckbox')
@@ -1146,6 +1147,7 @@ function populateSSettings(s) {
   $('#cityEntranceCheckbox').prop('checked', s.skipCityEntrance);
   $('#instantTextCheckbox').prop('checked', s.instantText);
   $('#itemScarcityFieldset').val(s.itemScarcity);
+  $('#damageMagFieldset').val(s.damageMagnification);
   $('#openMapCheckbox').prop('checked', s.openMap);
   $('#spinnerSpeedCheckbox').prop('checked', s.increaseSpinnerSpeed);
   $('#openDotCheckbox').prop('checked', s.openDot);
