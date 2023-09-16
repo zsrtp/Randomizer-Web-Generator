@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal and Ball_and_Chain",
     "stageIDX": [27],
     "flag": "15",
-    "category": ["Overworld", "Poe", "Snowpeak Ruins"],
+    "category": ["Dungeon", "Poe", "Snowpeak Ruins"],
     "itemId": "Poe_Soul"
 }

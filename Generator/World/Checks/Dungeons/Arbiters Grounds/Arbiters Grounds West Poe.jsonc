@@ -2,6 +2,6 @@
   "requirements": "Shadow_Crystal and canSmash and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat",
   "stageIDX": [ 24 ],
   "flag": "21",
-  "category": [ "Overworld", "Poe", "Arbiters Grounds" ],
+  "category": [ "Dungeon", "Poe", "Arbiters Grounds" ],
   "itemId": "Poe_Soul"
 }

@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal and (Progressive_Clawshot, 1) and Spinner",
     "stageIDX": [9],
     "flag": "18",
-    "category": ["Overworld", "Poe", "Temple of Time"],
+    "category": ["Dungeon", "Poe", "Temple of Time"],
     "itemId": "Poe_Soul"
 }
