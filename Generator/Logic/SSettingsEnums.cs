@@ -90,4 +90,12 @@ namespace TPRandomizer.SSettings.Enums
         Minimal = 1,
         Plentiful = 2,
     }
+
+    public enum PoeSettings
+    {
+        Vanilla = 0,
+        Overworld = 1,
+        Dungeons = 2,
+        All = 3
+    }
 }

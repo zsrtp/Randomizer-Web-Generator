@@ -306,7 +306,7 @@ namespace TPRandomizer
             result.Add("shuffleGoldenBugs", sSettings.shuffleGoldenBugs);
             result.Add("shuffleSkyCharacters", sSettings.shuffleSkyCharacters);
             result.Add("shuffleNpcItems", sSettings.shuffleNpcItems);
-            result.Add("shufflePoes", sSettings.shufflePoes);
+            result.Add("shufflePoes", sSettings.shufflePoes.ToString());
             result.Add("shuffleShopItems", sSettings.shuffleShopItems);
             result.Add("shuffleHiddenSkills", sSettings.shuffleHiddenSkills);
             result.Add("itemScarcity", sSettings.itemScarcity.ToString());

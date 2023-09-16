@@ -223,13 +223,6 @@
               </div>
               <div
                 style="width: 50%"
-                data-tooltip-text="If checked, the souls recieved from Poes will be randomized.&#0010;"
-              >
-                <input type="checkbox" id="poesCheckbox" name="Poes" value="" />
-                <label for="poesCheckbox"> Poes </label><br />
-              </div>
-              <div
-                style="width: 50%"
                 data-tooltip-text="If checked, the items you can permanently buy from shops are randomized.&#0010;"
               >
                 <input
@@ -251,6 +244,19 @@
                   value=""
                 />
                 <label for="hiddenSkillsCheckbox"> Hidden Skills </label><br />
+              </div>
+              <div class="selectGroup">
+                <label for="poeSettingsFieldset">Poe Souls:</label><br />
+                <select
+                  name="Poe Soul Settings"
+                  data-tooltip-text="'Vanilla': Poe Souls will not be randomized.&#0010;&#0010;'Overworld': Only Poes in the Overworld will have their souls shuffled.&#0010;&#0010;'Dungeon': Only Poes in Dungeons will have their souls shuffled.&#0010;&#0010;'All': All Poes will have their souls shuffled.&#0010;"
+                  id="poeSettingsFieldset"
+                >
+                  <option value="0" selected>Vanilla</option>
+                  <option value="1">Overworld</option>
+                  <option value="2">Dungeons</option>
+                  <option value="3">All</option>
+                </select>
               </div>
               <div class="selectGroup" style="margin-top: 8px">
                 <label for="itemScarcityFieldset">Item Scarcity</label><br />
