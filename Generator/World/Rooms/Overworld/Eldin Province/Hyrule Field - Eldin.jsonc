@@ -4,11 +4,7 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Faron Field",
-        "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Eldin Field",
+        "ConnectedArea": "Kakariko Gorge Cave Entrance",
         "Requirements": "canSmash"
       },
       {
@@ -16,7 +12,11 @@
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Eldin Lantern Cave",
+        "ConnectedArea": "Faron Field",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Eldin Field",
         "Requirements": "canSmash"
       },
       {
@@ -34,7 +34,23 @@
         "Kakariko Gorge Female Pill Bug",
         "Kakariko Gorge Poe"
     ],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
+  },
+  {
+    "RoomName": "Kakariko Gorge Cave Entrance",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Kakariko Gorge",
+        "Requirements": "canSmash"
+      },
+      {
+        "ConnectedArea": "Eldin Lantern Cave",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Kakariko Gorge Behind Gate",
@@ -50,14 +66,14 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Lantern Cave",
     "Exits":
     [
       {
-        "ConnectedArea": "Kakariko Gorge",
+        "ConnectedArea": "Kakariko Gorge Cave Entrance",
         "Requirements": "true"
       }
     ],
@@ -68,7 +84,7 @@
         "Eldin Lantern Cave Second Chest",
         "Eldin Lantern Cave Poe"
     ],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Kakariko Gorge Keese Grotto",
@@ -80,12 +96,20 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field",
     "Exits":
     [
+      {
+        "ConnectedArea": "Eldin Field Near Castle Town",
+        "Requirements": "Room.Kakariko_Malo_Mart"
+      },
+      {
+        "ConnectedArea": "Eldin Field Lava Cave Ledge",
+        "Requirements": "(Progressive_Clawshot, 1)"
+      },
       {
         "ConnectedArea": "Kakariko Gorge",
         "Requirements": "canSmash"
@@ -93,14 +117,6 @@
       {
         "ConnectedArea": "Kakariko Village Behind Gate",
         "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Eldin Field Near Castle Town",
-        "Requirements": "Room.Kakariko_Village_Malo_Mart and Room.Lower_Kakariko_Village"
-      },
-      {
-        "ConnectedArea": "Eldin Field Lava Cave Ledge",
-        "Requirements": "(Progressive_Clawshot, 1)"
       },
       {
         "ConnectedArea": "Lanayru Field",
@@ -126,7 +142,7 @@
         "Bridge of Eldin Male Phasmid",
         "Bridge of Eldin Female Phasmid"
     ],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Near Castle Town",
@@ -134,7 +150,7 @@
     [
       {
         "ConnectedArea": "Eldin Field",
-        "Requirements": "Room.Kakariko_Village_Malo_Mart and Room.Lower_Kakariko_Village"
+        "Requirements": "Room.Kakariko_Malo_Mart"
       },
       {
         "ConnectedArea": "Outside Castle Town East",
@@ -142,7 +158,7 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Lava Cave Ledge",
@@ -153,12 +169,12 @@
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Eldin Field Lava Cave Outside Upper Entrance",
+        "ConnectedArea": "Eldin Field Lava Cave Upper",
         "Requirements": "true"
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field From Lava Cave Lower",
@@ -169,12 +185,12 @@
         "Requirements": "(Progressive_Clawshot, 1)"
       },
       {
-        "ConnectedArea": "Eldin Field Lava Cave Outside Lower Entrance",
+        "ConnectedArea": "Eldin Field Lava Cave Lower",
         "Requirements": "true"
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Outside Hidden Village",
@@ -190,7 +206,7 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Grotto Platform",
@@ -206,10 +222,10 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
-    "RoomName": "Eldin Field Lava Cave Outside Upper Entrance",
+    "RoomName": "Eldin Field Lava Cave Upper",
     "Exits":
     [
       {
@@ -217,98 +233,22 @@
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Eldin Field Lava Cave Upper",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
-  },
-  {
-    "RoomName": "Eldin Field Lava Cave Outside Lower Entrance",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Eldin Field From Lava Cave Lower",
-        "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Eldin Field Lava Cave Lower",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
-  },
-  {
-    "RoomName": "Eldin Field Lava Cave Inside Upper Entrance",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Eldin Field Lava Cave Outside Upper Entrance",
-        "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Eldin Field Lava Cave Upper",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
-  },
-  {
-    "RoomName": "Eldin Field Lava Cave Inside Lower Entrance",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Eldin Field Lava Cave Outside Lower Entrance",
-        "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Eldin Field Lava Cave Lower",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
-  },
-  {
-    "RoomName": "Eldin Field Lava Cave Upper",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Eldin Field Lava Cave Inside Upper Entrance",
-        "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Eldin Field Lava Cave Center",
-        "Requirements": "Iron_Boots"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Hyrule Field - Eldin"
-  },
-  {
-    "RoomName": "Eldin Field Lava Cave Center",
-    "Exits":
-    [
-      {
         "ConnectedArea": "Eldin Field Lava Cave Lower",
         "Requirements": "Iron_Boots"
       }
     ],
-    "Checks":
-    [
-        "Eldin Stockcave Upper Chest"
-    ],
-    "Region": "Hyrule Field - Eldin"
+    "Checks": 
+	[
+	    "Eldin Stockcave Upper Chest"
+	],
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Lava Cave Lower",
     "Exits":
     [
       {
-        "ConnectedArea": "Eldin Field Lava Cave Inside Lower Entrance",
+        "ConnectedArea": "Eldin Field From Lava Cave Lower",
         "Requirements": "true"
       }
     ],
@@ -317,7 +257,7 @@
         "Eldin Stockcave Lantern Chest",
         "Eldin Stockcave Lowest Chest"
     ],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Bomskit Grotto",
@@ -333,7 +273,7 @@
         "Eldin Field Bomskit Grotto Left Chest",
         "Eldin Field Bomskit Grotto Lantern Chest"
      ],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Water Bomb Fish Grotto",
@@ -348,7 +288,7 @@
     [
         "Eldin Field Water Bomb Fish Grotto Chest"
     ],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Stalfos Grotto",
@@ -365,6 +305,6 @@
         "Eldin Field Stalfos Grotto Left Small Chest",
         "Eldin Field Stalfos Grotto Stalfos Chest"
     ],
-    "Region": "Hyrule Field - Eldin"
+    "Region": "Hyrule Field - Eldin Province"
   }
 ]

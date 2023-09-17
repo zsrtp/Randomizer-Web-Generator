@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Fishing_Rod, 1)",
+    "requirements": "Room.Ordon_Village and (Progressive_Fishing_Rod, 1) and CanChangeTime",
     "arcOffsets": ["370F"],
     "stageIDX": [65],
     "fileDirectoryType": [1],

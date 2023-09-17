@@ -17,7 +17,7 @@
       }
     ],
     "Checks": [""],
-    "Region": "Ordon"
+    "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Links House",
@@ -33,7 +33,7 @@
         "Wooden Sword Chest",
         "Links Basement Chest"
     ],
-    "Region": "Ordon"
+    "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Village",
@@ -48,23 +48,23 @@
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Ordon Sera Shop",
-        "Requirements": "true" // day-only iirc
+        "ConnectedArea": "Ordon Seras Shop",
+        "Requirements": "CanChangeTime"
       },
       {
         "ConnectedArea": "Ordon Shield House",
-        "Requirements": "true" // not sure
+        "Requirements": "CanChangeTime"
       },
       {
         "ConnectedArea": "Ordon Sword House",
-        "Requirements": "true" // not sure
+        "Requirements": "CanChangeTime"
       },
       {
-        "ConnectedArea": "Ordon Bos House Outside Left Door",
+        "ConnectedArea": "Ordon Bos House Left Door",
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Ordon Bos House Outside Right Door",
+        "ConnectedArea": "Ordon Bos House Right Door",
         "Requirements": "true"
       }
     ],
@@ -72,10 +72,10 @@
     [
         "Uli Cradle Delivery"
     ],
-    "Region": "Ordon"
+    "Region": "Ordona Province"
   },
   {
-    "RoomName": "Ordon Sera Shop",
+    "RoomName": "Ordon Seras Shop",
     "Exits":
     [
       {
@@ -88,7 +88,7 @@
         "Ordon Cat Rescue",
         "Sera Shop Slingshot"
     ],
-    "Region": "Ordon"
+    "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Shield House",
@@ -121,43 +121,11 @@
     "Region": "Ordon Village"
   },
   {
-    "RoomName": "Ordon Bos House Outside Left Door",
+    "RoomName": "Ordon Bos House Left Door",
     "Exits":
     [
       {
         "ConnectedArea": "Ordon Village",
-        "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Ordon Bos House Inside Left Door",
-        "Requirements": "true" // not sure
-      }
-    ],
-    "Checks": [""],
-    "Region": "Ordon"
-  },
-  {
-    "RoomName": "Ordon Bos House Outside Right Door",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Ordon Village",
-        "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Ordon Bos House Inside Right Door",
-        "Requirements": "true" // not sure
-      }
-    ],
-    "Checks": [""],
-    "Region": "Ordon"
-  },
-  {
-    "RoomName": "Ordon Bos House Inside Left Door",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Ordon Bos House Outside Left Door",
         "Requirements": "true"
       },
       {
@@ -166,14 +134,14 @@
       }
     ],
     "Checks": [""],
-    "Region": "Ordon"
+    "Region": "Ordona Province"
   },
   {
-    "RoomName": "Ordon Bos House Inside Right Door",
+    "RoomName": "Ordon Bos House Right Door",
     "Exits":
     [
       {
-        "ConnectedArea": "Ordon Bos House Outside Right Door",
+        "ConnectedArea": "Ordon Village",
         "Requirements": "true"
       },
       {
@@ -182,42 +150,41 @@
       }
     ],
     "Checks": [""],
-    "Region": "Ord,on"
+    "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Bos House",
     "Exits":
     [
       {
-        "ConnectedArea": "Ordon Bos House Inside Left Door",
+        "ConnectedArea": "Ordon Bos House Left Door",
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Ordon Bos House Inside Right Door",
+        "ConnectedArea": "Ordon Bos House Right Door",
         "Requirements": "true"
       }
     ],
-    "Checks":
-    [
+    "Checks": [
         "Wrestling With Bo"
     ],
-    "Region": "Ordon"
+    "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Ranch Entrance",
     "Exits":
     [
       {
-        "ConnectedArea": "Ordon Village",
-        "Requirements": "true"
+        "ConnectedArea": "Ordon Ranch",
+        "Requirements": "CanChangeTime"
       },
       {
-        "ConnectedArea": "Ordon Ranch",
-        "Requirements": "true" // day-only
+        "ConnectedArea": "Ordon Village",
+        "Requirements": "true"
       }
     ],
     "Checks": [""],
-    "Region": "Ordon"
+    "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Ranch",
@@ -225,25 +192,41 @@
     [
       {
         "ConnectedArea": "Ordon Ranch Entrance",
-        "Requirements": "true" // day-only
+        "Requirements": "CanChangeTime"
       },
       {
-        "ConnectedArea": "Ordon Ranch Grotto",
-        "Requirements": "Shadow_Crystal"
+        "ConnectedArea": "Ordon Ranch Stable",
+        "Requirements": "CanChangeTime"
       }
     ],
     "Checks":
     [
         "Herding Goats Reward"
     ],
-    "Region": "Ordon"
+    "Region": "Ordona Province"
+  },
+  {
+    "RoomName": "Ordon Ranch Stable",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Ordon Ranch",
+        "Requirements": "CanChangeTime"
+      },
+      {
+        "ConnectedArea": "Ordon Ranch Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Ranch Grotto",
     "Exits":
     [
       {
-        "ConnectedArea": "Ordon Ranch",
+        "ConnectedArea": "Ordon Ranch Stable",
         "Requirements": "true"
       }
     ],
@@ -251,7 +234,7 @@
     [
         "Ordon Ranch Grotto Lantern Chest"
     ],
-    "Region": "Ordon"
+    "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Spring",
@@ -270,6 +253,6 @@
     [
         "Ordon Spring Golden Wolf"
     ],
-    "Region": "Ordon"
+    "Region": "Ordona Province"
   }
 ]

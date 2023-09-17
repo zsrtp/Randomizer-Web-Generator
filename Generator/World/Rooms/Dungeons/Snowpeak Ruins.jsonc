@@ -1,5 +1,37 @@
 [
     {
+        "RoomName": "Snowpeak Ruins Left Door",
+        "Exits": 
+        [
+		  {
+		    "ConnectedArea": "Snowpeak Ruins Entrance",
+			"Requirements": "true"
+		  },
+          {
+            "ConnectedArea": "Snowpeak Summit Lower",
+            "Requirements": "true"
+          }
+        ],
+        "Checks": [""],
+        "Region": "Snowpeak Ruins"
+    },
+	{
+        "RoomName": "Snowpeak Ruins Right Door",
+        "Exits": 
+        [
+		  {
+		    "ConnectedArea": "Snowpeak Ruins Entrance",
+			"Requirements": "true"
+		  },
+          {
+            "ConnectedArea": "Snowpeak Summit Lower",
+            "Requirements": "true"
+          }
+        ],
+        "Checks": [""],
+        "Region": "Snowpeak Ruins"
+    },
+    {
         "RoomName": "Snowpeak Ruins Boss Room",
         "Exits": 
         [
@@ -103,9 +135,13 @@
         "Exits": 
         [
           {
-            "ConnectedArea": "Snowpeak Summit Lower",
+            "ConnectedArea": "Snowpeak Ruins Left Door",
             "Requirements": "true"
           },
+		  {
+		    "ConnectedArea": "Snowpeak Ruins Right Door",
+			"Requirements": "true"
+		  },
           {
             "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
             "Requirements": "true"

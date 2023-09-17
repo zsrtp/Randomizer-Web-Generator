@@ -4,10 +4,6 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Zoras Domain",
-        "Requirements": "true"
-      },
-      {
         "ConnectedArea": "Lake Hylia",
         "Requirements": "Shadow_Crystal"
       },
@@ -16,12 +12,16 @@
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Upper Zoras River Fishing Hole",
+        "ConnectedArea": "Fishing Hole",
         "Requirements": "true"
       },
+	  {
+		  "ConnectedArea": "Zoras Domain",
+		  "Requirements": "true"
+	  },
       {
         "ConnectedArea": "Upper Zoras River Izas House",
-        "Requirements": "CanDefeatShadowBeast"
+        "Requirements": "HasSword or (CanDefeatShadowBeast and (Setting.transformAnywhere equals True))"
       }
     ],
     "Checks":
@@ -29,38 +29,6 @@
         "Upper Zoras River Female Dragonfly",
         "Upper Zoras River Poe"
     ],
-    "Region": "Zoras Domain"
-  },
-  {
-    "RoomName": "Upper Zoras River Fishing Hole",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Upper Zoras River",
-        "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Upper Zoras River Fishing Hole House",
-        "Requirements": "true"
-      }
-    ],
-    "Checks":
-    [
-        "Fishing Hole Heart Piece",
-        "Fishing Hole Bottle"
-    ],
-    "Region": "Zoras Domain"
-  },
-  {
-    "RoomName": "Upper Zoras River Fishing Hole House",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Upper Zoras River Fishing Hole",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": [""],
     "Region": "Zoras Domain"
   },
   {
@@ -84,7 +52,7 @@
     "Region": "Zoras Domain"
   },
   {
-    "RoomName": "Zoras Domain",
+    "RoomName": "Fishing Hole",
     "Exits":
     [
       {
@@ -92,15 +60,47 @@
         "Requirements": "true"
       },
       {
+        "ConnectedArea": "Fishing Hole House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Fishing Hole Heart Piece",
+        "Fishing Hole Bottle"
+    ],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Fishing Hole House",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Fishing Hole",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Zoras Domain",
+    "Exits":
+    [
+      {
         "ConnectedArea": "Zoras Domain West Ledge",
         "Requirements": "(Progressive_Clawshot, 1) or Shadow_Crystal or canSmash"
       },
       {
-        "ConnectedArea": "Snowpeak Climb Lower",
+        "ConnectedArea": "Upper Zoras River",
         "Requirements": "true"
       },
       {
         "ConnectedArea": "Zoras Throne Room",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Snowpeak Climb Lower",
         "Requirements": "true"
       }
     ],
@@ -119,11 +119,11 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Lanayru Field Behind Boulder",
+        "ConnectedArea": "Zoras Domain",
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Zoras Domain",
+        "ConnectedArea": "Lanayru Field Behind Boulder",
         "Requirements": "true"
       }
     ],

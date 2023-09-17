@@ -1,5 +1,5 @@
 {
-    "requirements": "(canCompleteGoronMines and (Progressive_Bow, 1))",
+    "requirements": "canCompleteGoronMines and Room.Kakariko_Top_of_Watchtower and (Progressive_Bow, 1)",
     "arcOffsets": ["21DF"],
     "stageIDX": [68],
     "fileDirectoryType": [1],

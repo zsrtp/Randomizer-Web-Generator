@@ -1,14 +1,14 @@
 [
     {
         "RoomName": "Palace of Twilight Boss Room",
-        "Exits": 
+        "Exits":
         [
           {
             "ConnectedArea": "Palace of Twilight Entrance",
             "Requirements": "CanDefeatZant"
           }
         ],
-        "Checks": 
+        "Checks":
         [
             "Palace of Twilight Zant Heart Container"
         ],

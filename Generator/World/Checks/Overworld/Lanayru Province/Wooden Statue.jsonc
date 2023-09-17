@@ -1,5 +1,5 @@
 {
-    "requirements": "Invoice",
+    "requirements": "Room.Castle_Town_Doctors_Office_Lower and Shadow_Crystal and Room.Castle_Town_South",
     "stageIDX": [57],
     "moduleID": ["2B3"],
     "overrideInstruction": ["38800000"],

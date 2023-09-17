@@ -16,7 +16,7 @@
         "Exits": 
           [
             {
-              "ConnectedArea": "Castle Town North",
+              "ConnectedArea": "Castle Town North Inside Barrier",
               "Requirements": "true"
             },
             {

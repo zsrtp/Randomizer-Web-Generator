@@ -271,7 +271,7 @@
             "TargetRoom": "Faron Field Behind Boulder",
             "Stage": 56,
             "Room": 6,
-            "Spawn": "1",
+            "Spawn": "01",
             "SpawnType": "00",
             "Parameters": "F01F"
         }
@@ -1030,7 +1030,8 @@
             "Room": 0,
             "Spawn": "01",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Ordon Village -> Ordon Bos House Right Door"
         },
         "TargetRoomSpawn":
         {
@@ -1040,7 +1041,8 @@
             "Room": 0,
             "Spawn": "0B",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Ordon Bos House Right Door -> Ordon Village"
         }
     },
     {
@@ -1053,7 +1055,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Ordon Village -> Ordon Bos House Left Door"
         },
         "TargetRoomSpawn":
         {
@@ -1063,7 +1066,8 @@
             "Room": 0,
             "Spawn": "04",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Ordon Bos House Left Door -> Ordon Village"
         }
     },
     {
@@ -1122,7 +1126,8 @@
             "Room": 0,
             "Spawn": "05",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Front Right Door"
         },
         "TargetRoomSpawn":
         {
@@ -1132,7 +1137,8 @@
             "Room": 0,
             "Spawn": "2E",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Renados Sanctuary Front Right Door -> Lower Kakariko Village"
         }
     },
     {
@@ -1145,7 +1151,8 @@
             "Room": 0,
             "Spawn": "06",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Front Left Door"
         },
         "TargetRoomSpawn":
         {
@@ -1155,7 +1162,8 @@
             "Room": 0,
             "Spawn": "30",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Renados Sanctuary Front Left Door -> Lower Kakariko Village"
         }
     },
     {
@@ -1168,7 +1176,8 @@
             "Room": 0,
             "Spawn": "08",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Back Right Door"
         },
         "TargetRoomSpawn":
         {
@@ -1178,7 +1187,8 @@
             "Room": 0,
             "Spawn": "33",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Renados Sanctuary Back Right Door -> Lower Kakariko Village"
         }
     },
     {
@@ -1191,7 +1201,8 @@
             "Room": 0,
             "Spawn": "07",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Back Left Door"
         },
         "TargetRoomSpawn":
         {
@@ -1201,7 +1212,8 @@
             "Room": 0,
             "Spawn": "32",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Renados Sanctuary Back Left Door -> Lower Kakariko Village"
         }
     },
     {
@@ -1237,7 +1249,8 @@
             "Room": 2,
             "Spawn": "00",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Elde Inn Right Door"
         },
         "TargetRoomSpawn":
         {
@@ -1247,7 +1260,8 @@
             "Room": 0,
             "Spawn": "2A",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Elde Inn Right Door -> Lower Kakariko Village"
         }
     },
     {
@@ -1260,7 +1274,8 @@
             "Room": 2,
             "Spawn": "02",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Elde Inn Left Door"
         },
         "TargetRoomSpawn":
         {
@@ -1270,7 +1285,8 @@
             "Room": 0,
             "Spawn": "31",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Elde Inn Left Door -> Lower Kakariko Village"
         }
     },
     {
@@ -1402,7 +1418,7 @@
         },
         "TargetRoomSpawn":
         {
-            "SourceRoom": "Kakariko Watchtower Upper Door", // unsure
+            "SourceRoom": "Kakariko Watchtower Upper Door",
             "TargetRoom": "Kakariko Top of Watchtower",
             "Stage": 46,
             "Room": 0,
@@ -1559,7 +1575,8 @@
             "Room": 4,
             "Spawn": "00",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Castle Town Center -> Castle Town Goron House Right Door"
         },
         "TargetRoomSpawn":
         {
@@ -1569,7 +1586,8 @@
             "Room": 0,
             "Spawn": "0E",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+			"PairedEntranceName": "Castle Town Goron House Right Door -> Castle Town Center"
         }
     },
     {
@@ -1582,7 +1600,8 @@
             "Room": 4,
             "Spawn": "02",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Castle Town Center -> Castle Town Goron House Left Door"
         },
         "TargetRoomSpawn":
         {
@@ -1592,7 +1611,8 @@
             "Room": 0,
             "Spawn": "10",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+			"PairedEntranceName": "Castle Town Goron House Left Door -> Castle Town Center"
         }
     },
     {
@@ -1628,7 +1648,8 @@
             "Room": 2,
             "Spawn": "00",
             "SpawnType": "B0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+			"PairedEntranceName": "Castle Town East -> Castle Town Doctors Office Right Door"
         },
         "TargetRoomSpawn":
         {
@@ -1638,7 +1659,8 @@
             "Room": 4,
             "Spawn": "03",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Castle Town Doctors Office Right Door -> Castle Town East"
         }
     },
     {
@@ -1651,7 +1673,8 @@
             "Room": 2,
             "Spawn": "01",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Castle Town East -> Castle Town Doctors Office Left Door"
         },
         "TargetRoomSpawn":
         {
@@ -1661,7 +1684,8 @@
             "Room": 4,
             "Spawn": "04",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+			"PairedEntranceName": "Castle Town Doctors Office Left Door -> Castle Town East"
         }
     },
     {
@@ -1802,7 +1826,7 @@
             "TargetRoom": "Faron Woods Cave Southern Entrance",
             "Stage": 40,
             "Room": 0,
-            "Spawn": "0",
+            "Spawn": "00",
             "SpawnType": "50",
             "Parameters": "F01F"
         },
@@ -1825,7 +1849,7 @@
             "TargetRoom": "Faron Woods Cave Northern Entrance",
             "Stage": 40,
             "Room": 0,
-            "Spawn": "0",
+            "Spawn": "00",
             "SpawnType": "50",
             "Parameters": "F01F"
         },
@@ -2606,22 +2630,49 @@
         "SourceRoomSpawn":
         {
             "SourceRoom": "Snowpeak Summit Lower",
-            "TargetRoom": "Snowpeak Ruins Entrance",
+            "TargetRoom": "Snowpeak Ruins Left Door",
+            "Stage": 27,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "A0",
+            "Parameters": "F01F",
+			"PairedEntranceName": "Snowpeak Summit Lower -> Snowpeak Ruins Right Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Ruins Left Door",
+            "TargetRoom": "Snowpeak Summit Lower",
+            "Stage": 51,
+            "Room": 1,
+            "Spawn": "09",
+            "SpawnType": "0B",
+            "Parameters": "F01F",
+			"PairedEntranceName": "Snowpeak Ruins Right Door -> Snowpeak Summit Lower"
+        }
+    },
+    {
+        "Type": "Dungeon",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Summit Lower",
+            "TargetRoom": "Snowpeak Ruins Right Door",
             "Stage": 27,
             "Room": 0,
             "Spawn": "02",
             "SpawnType": "A0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+			"PairedEntranceName": "Snowpeak Summit Lower -> Snowpeak Ruins Left Door"
         },
         "TargetRoomSpawn":
         {
-            "SourceRoom": "Snowpeak Ruins Entrance",
+            "SourceRoom": "Snowpeak Ruins Right Door",
             "TargetRoom": "Snowpeak Summit Lower",
             "Stage": 51,
             "Room": 1,
             "Spawn": "0A",
             "SpawnType": "0B",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+			"PairedEntranceName": "Snowpeak Ruins Left Door -> Snowpeak Summit Lower"
         }
     },
     {
@@ -2697,7 +2748,7 @@
         "Type": "Dungeon",
         "SourceRoomSpawn":
         {
-            "SourceRoom": "Castle Town North",
+            "SourceRoom": "Castle Town North Inside Barrier",
             "TargetRoom": "Hyrule Castle Entrance",
             "Stage": 20,
             "Room": 11,
@@ -2708,7 +2759,7 @@
         "TargetRoomSpawn":
         {
             "SourceRoom": "Hyrule Castle Entrance",
-            "TargetRoom": "Castle Town North",
+            "TargetRoom": "Castle Town North Inside Barrier",
             "Stage": 53,
             "Room": 1,
             "Spawn": "32",

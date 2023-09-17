@@ -4,10 +4,6 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Ordon Spring",
-        "Requirements": "true"
-      },
-      {
         "ConnectedArea": "South Faron Woods Behind Gate",
         "Requirements": "true" // coro key or crystal?
       },
@@ -15,12 +11,16 @@
         "ConnectedArea": "South Faron Woods Owl Statue Area",
         "Requirements": "canSmash"
       },
-	  {
+      {
+        "ConnectedArea": "Ordon Spring",
+        "Requirements": "true"
+      },
+      {
         "ConnectedArea": "Faron Field",
         "Requirements": "canClearForest"
       },
 	  {
-        "ConnectedArea": "Faron Woods Coros House",
+        "ConnectedArea": "Faron Woods Coros House Lower",
         "Requirements": "true" // i think?
       }
     ],
@@ -39,7 +39,23 @@
         "Requirements": "true" // coro key or crystal?
       },
       {
-        "ConnectedArea": "South Faron Woods Cave Outside Southern Entrance",
+        "ConnectedArea": "Faron Woods Cave Southern Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Faron Woods"
+  },
+  {
+    "RoomName": "South Faron Woods Coros Ledge",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "South Faron Woods",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Faron Woods Coros House Upper",
         "Requirements": "true"
       }
     ],
@@ -74,7 +90,7 @@
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Faron Woods Mist Area Near Owl Statue Chest",
+        "ConnectedArea": "Mist Area Near Owl Statue Chest",
         "Requirements": "true"
       }
     ],
@@ -82,9 +98,13 @@
     "Region": "Faron Woods"
   },
   {
-    "RoomName": "Faron Woods Coros House",
+    "RoomName": "Faron Woods Coros House Lower",
     "Exits":
     [
+	  {
+		"ConnectedArea": "Faron Woods Coros House Upper",
+		"Requirements": "Shadow_Crystal"
+	  },
       {
         "ConnectedArea": "South Faron Woods",
         "Requirements": "true"
@@ -94,7 +114,23 @@
     "Region": "Faron Woods"
   },
   {
-    "RoomName": "South Faron Woods Cave Outside Southern Entrance",
+    "RoomName": "Faron Woods Coros House Upper",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Faron Woods Coros House Lower",
+        "Requirements": "true"
+      },
+	  {
+		  "ConnectedArea": "South Faron Woods Coros Ledge",
+		  "Requirements": "true"
+	  }
+    ],
+    "Checks": [""],
+    "Region": "Faron Woods"
+  },
+  {
+    "RoomName": "Faron Woods Cave Southern Entrance",
     "Exits":
     [
       {
@@ -102,7 +138,7 @@
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "South Faron Woods Cave Inside Southern Entrance",
+        "ConnectedArea": "Faron Woods Cave",
         "Requirements": "true"
       }
     ],
@@ -110,31 +146,15 @@
     "Region": "Faron Woods"
   },
   {
-    "RoomName": "South Faron Woods Cave Inside Southern Entrance",
+    "RoomName": "Faron Woods Cave",
     "Exits":
     [
       {
-        "ConnectedArea": "South Faron Woods Cave Outside Southern Entrance",
+        "ConnectedArea": "Faron Woods Cave Southern Entrance",
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "South Faron Woods Cave",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Faron Woods"
-  },
-  {
-    "RoomName": "South Faron Woods Cave",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "South Faron Woods Cave Inside Southern Entrance",
-        "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "South Faron Woods Cave Inside Northern Entrance",
+        "ConnectedArea": "Faron Woods Cave Northern Entrance",
         "Requirements": "true"
       }
     ],
@@ -145,44 +165,44 @@
     "Region": "Faron Woods"
   },
   {
-    "RoomName": "Faron Woods Mist Area Near South Faron Woods Cave",
+    "RoomName": "Mist Area Near Faron Woods Cave",
     "Exits":
     [
       {
-        "ConnectedArea": "South Faron Woods Cave Outside Northern Entrance",
-        "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Faron Woods Mist Area Inside Mist",
+        "ConnectedArea": "Mist Area Inside Mist",
         "Requirements": "Lantern"
       },
       {
-        "ConnectedArea": "Faron Woods Mist Area Under Owl Statue Chest",
+        "ConnectedArea": "Mist Area Under Owl Statue Chest",
         "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ConnectedArea": "Faron Woods Cave Northern Entrance",
+        "Requirements": "true"
       }
     ],
     "Checks": [""],
     "Region": "Faron Woods"
   },
   {
-    "RoomName": "Faron Woods Mist Area Inside Mist",
+    "RoomName": "Mist Area Inside Mist",
     "Exits":
     [
       {
-        "ConnectedArea": "Faron Woods Mist Area Near South Faron Woods Cave",
+        "ConnectedArea": "Mist Area Near Faron Woods Cave",
         "Requirements": "Lantern"
       },
       {
-        "ConnectedArea": "Faron Woods Mist Area Outside Faron Mist Cave",
+        "ConnectedArea": "Mist Area Under Owl Statue Chest",
         "Requirements": "Lantern"
       },
       {
-        "ConnectedArea": "Faron Woods Mist Area Under Owl Statue Chest",
+        "ConnectedArea": "Mist Area Outside Faron Mist Cave",
         "Requirements": "Lantern"
       },
       {
-        "ConnectedArea": "Faron Woods Mist Area Near North Faron Woods",
-        "Requirements": "true"
+        "ConnectedArea": "Mist Area Near North Faron Woods",
+        "Requirements": "Lantern"
       }
     ],
     "Checks":
@@ -194,31 +214,15 @@
     "Region": "Faron Woods"
   },
   {
-    "RoomName": "Faron Woods Mist Area Outside Faron Mist Cave",
+    "RoomName": "Mist Area Under Owl Statue Chest",
     "Exits":
     [
       {
-        "ConnectedArea": "Faron Woods Mist Area Inside Mist",
+        "ConnectedArea": "Mist Area Inside Mist",
         "Requirements": "Lantern"
       },
       {
-        "ConnectedArea": "Faron Mist Cave",
-        "Requirements": "true"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Faron Woods"
-  },
-  {
-    "RoomName": "Faron Woods Mist Area Under Owl Statue Chest",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Faron Woods Mist Area Inside Mist",
-        "Requirements": "Lantern"
-      },
-      {
-        "ConnectedArea": "Faron Woods Mist Area Center Stump",
+        "ConnectedArea": "Mist Area Center Stump",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -226,50 +230,11 @@
     "Region": "Faron Woods"
   },
   {
-    "RoomName": "Faron Woods Mist Area Center Stump",
+    "RoomName": "Mist Area Near Owl Statue Chest",
     "Exits":
     [
       {
-        "ConnectedArea": "Faron Woods Mist Area Inside Mist",
-        "Requirements": "Lantern"
-      },
-      {
-        "ConnectedArea": "Faron Woods Mist Area Near North Faron Woods",
-        "Requirements": "Shadow_Crystal"
-      }
-    ],
-    "Checks":
-    [
-        "Faron Mist Poe"
-    ],
-    "Region": "Faron Woods"
-  },
-  {
-    "RoomName": "Faron Woods Mist Area Near North Faron Woods",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Faron Woods Mist Area Inside Mist",
-        "Requirements": "Lantern"
-      },
-      {
-        "ConnectedArea": "Faron Woods Mist Area Near South Faron Woods Cave",
-        "Requirements": "Shadow_Crystal"
-      },
-      {
-        "ConnectedArea": "North Faron Woods",
-        "Requirements": "true" // not sure about the key gate there
-      }
-    ],
-    "Checks": [""],
-    "Region": "Faron Woods"
-  },
-  {
-    "RoomName": "Faron Woods Mist Area Near Owl Statue Chest",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Faron Woods Mist Area Under Owl Statue Chest",
+        "ConnectedArea": "Mist Area Under Owl Statue Chest",
         "Requirements": "true"
       },
       {
@@ -284,15 +249,34 @@
     "Region": "Faron Woods"
   },
   {
-    "RoomName": "South Faron Woods Cave Outside Northern Entrance",
+    "RoomName": "Mist Area Center Stump",
     "Exits":
     [
       {
-        "ConnectedArea": "Faron Woods Mist Area Near South Faron Woods Cave",
-        "Requirements": "true"
+        "ConnectedArea": "Mist Area Inside Mist",
+        "Requirements": "Lantern"
       },
       {
-        "ConnectedArea": "South Faron Woods Cave Inside Northern Entrance",
+        "ConnectedArea": "Mist Area Near North Faron Woods",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Faron Mist Poe"
+    ],
+    "Region": "Faron Woods"
+  },
+  {
+    "RoomName": "Mist Area Outside Faron Mist Cave",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Mist Area Inside Mist",
+        "Requirements": "Lantern"
+      },
+      {
+        "ConnectedArea": "Mist Area Faron Mist Cave",
         "Requirements": "true"
       }
     ],
@@ -300,15 +284,35 @@
     "Region": "Faron Woods"
   },
   {
-    "RoomName": "South Faron Woods Cave Inside Northern Entrance",
+    "RoomName": "Mist Area Near North Faron Woods",
     "Exits":
     [
       {
-        "ConnectedArea": "South Faron Woods Cave Outside Northern Entrance",
+        "ConnectedArea": "Mist Area Inside Mist",
+        "Requirements": "Lantern"
+      },
+      {
+        "ConnectedArea": "Mist Area Near Faron Woods Cave",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ConnectedArea": "North Faron Woods",
+        "Requirements": "true" // not sure about the key gate there
+      }
+    ],
+    "Checks": [""],
+    "Region": "Faron Woods"
+  },
+  {
+    "RoomName": "Faron Woods Cave Northern Entrance",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Mist Area Near Faron Woods Cave",
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "South Faron Woods Cave",
+        "ConnectedArea": "Faron Woods Cave",
         "Requirements": "true"
       }
     ],
@@ -316,11 +320,11 @@
     "Region": "Faron Woods"
   },
   {
-    "RoomName": "Faron Mist Cave",
+    "RoomName": "Mist Area Faron Mist Cave",
     "Exits":
     [
       {
-        "ConnectedArea": "Faron Woods Mist Area Outside Faron Mist Cave",
+        "ConnectedArea": "Mist Area Outside Faron Mist Cave",
         "Requirements": "true"
       }
     ],
@@ -336,12 +340,12 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Faron Woods Mist Area Near North Faron Woods",
-        "Requirements": "true"
-      },
-      {
         "ConnectedArea": "North Faron Woods Near Lost Woods",
         "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ConnectedArea": "Mist Area Near North Faron Woods",
+        "Requirements": "true"
       },
       {
         "ConnectedArea": "Forest Temple Entrance",

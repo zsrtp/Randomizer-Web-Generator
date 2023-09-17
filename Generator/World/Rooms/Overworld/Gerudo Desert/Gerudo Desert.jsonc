@@ -5,7 +5,7 @@
     [
       {
         "ConnectedArea": "Gerudo Desert Cave of Ordeals Plateau",
-        "Requirements": "(Progressive_Clawshot, 1)"
+        "Requirements": "(Progressive_Clawshot, 1) and CanDefeatShadowBeast"
       },
       {
         "ConnectedArea": "Gerudo Desert Basin",
@@ -105,7 +105,7 @@
     [
       {
         "ConnectedArea": "Gerudo Desert Basin",
-        "Requirements": "Room.Gerudo_Desert_Basin and canDefeatBulblin"
+        "Requirements": "Room.Gerudo_Desert_Basin and CanDefeatBulblin"
       },
       {
         "ConnectedArea": "Bulblin Camp",
@@ -169,12 +169,12 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Gerudo Desert Outside Bulblin Camp",
-        "Requirements": "true"
+        "ConnectedArea": "Bulblin Camp Back Exit",
+        "Requirements": "(Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy)) and CanDefeatKingBulblinDesert"
       },
       {
-        "ConnectedArea": "Bulblin Camp Back Entrance",
-        "Requirements": "(Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy)) and CanDefeatKingBulblinDesert"
+        "ConnectedArea": "Gerudo Desert Outside Bulblin Camp",
+        "Requirements": "true"
       }
     ],
     "Checks":
@@ -188,7 +188,7 @@
     "Region": "Gerudo Desert"
   },
   {
-    "RoomName": "Bulblin Camp Back Entrance",
+    "RoomName": "Bulblin Camp Back Exit",
     "Exits":
     [
       {
@@ -204,16 +204,17 @@
     "Region": "Gerudo Desert"
   },
   {
-    "RoomName": "Bulblin Camp Between Fences", // entering camp from AG before camp is conquered makes you stuck between fences forced to save warp or portal warp
+    // Entering Bulblin Camp from Outside Arbiters Grounds before the camp is conquered makes you stuck between 2 wooden fences forced to save-warp or portal-warp.
+    "RoomName": "Bulblin Camp Between Fences",
     "Exits":
     [
       {
         "ConnectedArea": "Bulblin Camp",
-        "Requirements": "Room.Bulblin_Camp and (Bulblin_Camp_Small_Key or (Setting.smallKeySettings equals Keysy)) and canDefeatKingBulblinDesert"
+        "Requirements": "Room.Bulblin_Camp and (Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy)) and CanDefeatKingBulblinDesert"
       },
       {
-        "ConnectedArea": "Bulblin Camp Back Entrance",
-        "Requirements": "Room.Bulblin_Camp and (Bulblin_Camp_Small_Key or (Setting.smallKeySettings equals Keysy)) and canDefeatKingBulblinDesert"
+        "ConnectedArea": "Bulblin Camp Back Exit",
+        "Requirements": "Room.Bulblin_Camp and (Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy)) and CanDefeatKingBulblinDesert"
       }
     ],
     "Checks": [""],

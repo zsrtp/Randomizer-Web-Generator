@@ -55,6 +55,7 @@ namespace TPRandomizer
         public string Spawn { get; set; }
         public string SpawnType { get; set; }
         public string Parameters { get; set; }
+        public string PairedEntranceName { get; set; } = "";
     }
 
     public class Entrance
@@ -78,7 +79,7 @@ namespace TPRandomizer
         public bool Shuffled { get; set; }
         public string OriginalName { get; set; }
         public bool AlreadySetOriginalName { get; set; }
-        public string PairedEntranceName { get; set; }
+        public string PairedEntranceName { get; set; } = "";
 
         public int GetStage()
         {
@@ -294,7 +295,7 @@ namespace TPRandomizer
     /// </summary>
     public class EntranceRando
     {
-        bool pairEntrances = false;
+        bool pairEntrances = true;
         public List<SpawnTableEntry> SpawnTable = new();
 
         public void RandomizeEntrances(Random rnd)
@@ -306,13 +307,13 @@ namespace TPRandomizer
             // Once we have the spawn table created, we want to verify that the data in the table is valid and generate a list of entrances from it.
             GetEntranceList();
 
-            if (pairEntrances)
-            {
-                PairEntrances();
-            }
-
             // Now that we have a list of all entrances verified, we want to generate the Entrance pools for each entrance type
             Dictionary<EntranceType, EntrancePool> shufflableEntrancePools = CreateEntrancePools();
+
+            if (pairEntrances)
+            {
+                PairEntrances(shufflableEntrancePools);
+            }
             Dictionary<EntranceType, EntrancePool> targetEntrancePools = CreateTargetEntrances(
                 shufflableEntrancePools
             );
@@ -518,6 +519,7 @@ namespace TPRandomizer
                     {
                         if (entrance.OriginalConnectedArea == entranceInfo.TargetRoom)
                         {
+                            entrance.PairedEntranceName = entranceInfo.PairedEntranceName;
                             return entrance;
                         }
                     }
@@ -578,12 +580,12 @@ namespace TPRandomizer
 
         void ChangeConnections(Entrance entrance, Entrance targetEntrance)
         {
-            Console.WriteLine(
+            /*Console.WriteLine(
                 "Changing connections for "
                     + entrance.GetOriginalName()
                     + " and "
                     + targetEntrance.GetOriginalName()
-            );
+            );*/
             entrance.Connect(targetEntrance.Disconnect());
             entrance.SetReplacedEntrance(targetEntrance.GetReplacedEntrance());
             if ((entrance.GetReplacedEntrance() != null) && !entrance.IsDecoupled())
@@ -733,7 +735,7 @@ namespace TPRandomizer
             entrances.EntranceList.Shuffle(rnd);
             foreach (Entrance entrance in entrances.EntranceList)
             {
-                Console.WriteLine("Attempting to shuffle: " + entrance.GetOriginalName());
+                //Console.WriteLine("Attempting to shuffle: " + entrance.GetOriginalName());
                 EntranceShuffleError err = EntranceShuffleError.NONE;
                 if (entrance.GetConnectedArea() != "")
                 {
@@ -876,19 +878,23 @@ namespace TPRandomizer
             }
         }
 
-        void PairEntrances()
+        void PairEntrances(Dictionary<EntranceType, EntrancePool> shufflableEntrances)
         {
-            Dictionary<string, Room> WorldGraph = Randomizer.Rooms.RoomDict;
-            foreach (KeyValuePair<string, Room> roomEntry in WorldGraph)
+            foreach (KeyValuePair<EntranceType, EntrancePool> pool in shufflableEntrances)
             {
-                Room currentRoom = roomEntry.Value;
-                foreach (Entrance entrance in currentRoom.Exits)
+                List<Entrance> removablePairs = new();
+                foreach (Entrance entrance in pool.Value.EntranceList)
                 {
-                    if (entrance.PairedEntranceName != "")
+                    Console.WriteLine("Checking Pair for: " + entrance.GetOriginalName());
+                    if (
+                        (entrance.GetPairedEntrance() == null)
+                        && (entrance.GetEntranceType() != EntranceType.Paired)
+                    )
                     {
-                        foreach (KeyValuePair<string, Room> secondEntry in WorldGraph)
+                        Console.WriteLine("found pair: " + entrance.PairedEntranceName);
+                        foreach (KeyValuePair<string, Room> roomEntry in Randomizer.Rooms.RoomDict)
                         {
-                            Room secondRoom = secondEntry.Value;
+                            Room currentRoom = roomEntry.Value;
                             // We want to loop through every room until we find a match for the entrance information provided.
                             foreach (Entrance secondEntrance in currentRoom.Exits)
                             {
@@ -903,10 +909,15 @@ namespace TPRandomizer
                                             + " with "
                                             + secondEntrance.GetOriginalName()
                                     );
+                                    removablePairs.Add(secondEntrance); // A safety measure just to prevent endless looping or double pairing
                                 }
                             }
                         }
                     }
+                }
+                foreach (Entrance entrance in removablePairs)
+                {
+                    pool.Value.EntranceList.Remove(entrance);
                 }
             }
         }
@@ -917,13 +928,46 @@ namespace TPRandomizer
             foreach (KeyValuePair<string, Room> roomEntry in WorldGraph)
             {
                 Room currentRoom = roomEntry.Value;
+                List<Entrance> addedPairs = new();
+                List<string> addedConnectedAreas = new();
                 foreach (Entrance entrance in currentRoom.Exits)
                 {
-                    if (entrance.GetPairedEntrance() != null)
+                    /*Console.WriteLine(
+                        "checking pair for "
+                            + entrance.GetOriginalName()
+                            + " in "
+                            + currentRoom.RoomName
+                    );*/
+                    if (
+                        (entrance.GetPairedEntrance() != null)
+                        && (entrance.GetPairedEntrance().GetEntranceType() == EntranceType.Paired)
+                    )
                     {
-                        entrance.GetPairedEntrance().Connect(entrance.GetConnectedArea()); // Link the pair to the same entrance
-                        // See "notes" about this line
+                        /*Console.WriteLine(
+                            "match "
+                                + entrance.GetPairedEntrance().GetOriginalName()
+                                + " in "
+                                + currentRoom.RoomName
+                        );*/
+                        addedPairs.Add(entrance.GetPairedEntrance());
+                        addedConnectedAreas.Add(entrance.GetConnectedArea());
+                        entrance
+                            .GetPairedEntrance()
+                            .SetReplacedEntrance(entrance.GetReplacedEntrance());
+                        entrance
+                            .GetPairedEntrance()
+                            .SetEntranceType(entrance.GetEntranceType().ToString());
                     }
+                }
+                for (int i = 0; i < addedPairs.Count; i++)
+                {
+                    Console.WriteLine(
+                        "Pairing "
+                            + addedPairs[i].GetOriginalName()
+                            + " to "
+                            + addedConnectedAreas[i]
+                    );
+                    addedPairs[i].Connect(addedConnectedAreas[i]);
                 }
             }
         }

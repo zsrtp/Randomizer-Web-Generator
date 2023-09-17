@@ -4,16 +4,16 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Eldin Field",
-        "Requirements": "canSmash"
-      },
-      {
         "ConnectedArea": "Eldin Field Grotto Platform",
         "Requirements": "Spinner"
       },
       {
         "ConnectedArea": "Eldin Field Outside Hidden Village",
         "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
+      },
+      {
+        "ConnectedArea": "Lanayru Field Cave Entrance",
+        "Requirements": "canSmash"
       },
       {
         "ConnectedArea": "Lanayru Field Behind Boulder",
@@ -24,12 +24,16 @@
         "Requirements": "canSmash"
       },
       {
+        "ConnectedArea": "Eldin Field",
+        "Requirements": "canSmash"
+      },
+      {
         "ConnectedArea": "Outside Castle Town West",
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Lanayru Ice Puzzle Cave",
-        "Requirements": "canSmash"
+        "ConnectedArea": "Lanayru Field Chu Grotto",
+        "Requirements": "Shadow_Crystal"
       },
       {
         "ConnectedArea": "Lanayru Field Skulltula Grotto",
@@ -37,10 +41,6 @@
       },
       {
         "ConnectedArea": "Lanayru Field Poe Grotto",
-        "Requirements": "Shadow_Crystal"
-      },
-      {
-        "ConnectedArea": "Lanayru Field Chu Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -51,7 +51,23 @@
         "Lanayru Field Female Stag Beetle",
         "Lanayru Field Bridge Poe"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
+  },
+  {
+    "RoomName": "Lanayru Field Cave Entrance",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Lanayru Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ConnectedArea": "Lanayru Ice Puzzle Cave",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Lanayru Field Behind Boulder",
@@ -67,7 +83,7 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Hyrule Field Near Spinner Rails",
@@ -86,14 +102,14 @@
     [
         "Lanayru Field Spinner Track Chest"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Lanayru Ice Puzzle Cave",
     "Exits":
     [
       {
-        "ConnectedArea": "Lanayru Field",
+        "ConnectedArea": "Lanayru Field Cave Entrance",
         "Requirements": "true"
       }
     ],
@@ -101,7 +117,7 @@
     [
         "Lanayru Ice Block Puzzle Cave Chest"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Lanayru Field Chu Grotto",
@@ -113,7 +129,7 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Lanayru Field Skulltula Grotto",
@@ -128,7 +144,7 @@
     [
         "Lanayru Field Skulltula Grotto Chest"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Lanayru Field Poe Grotto",
@@ -144,7 +160,7 @@
         "Lanayru Field Poe Grotto Left Poe",
         "Lanayru Field Poe Grotto Right Poe"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Outside Castle Town West",
@@ -159,11 +175,11 @@
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Lake Hylia Bridge",
+        "ConnectedArea": "Castle Town West",
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Castle Town West",
+        "ConnectedArea": "Lake Hylia Bridge",
         "Requirements": "true"
       }
     ],
@@ -176,7 +192,7 @@
         "Hyrule Field Amphitheater Poe",
         "West Hyrule Field Golden Wolf"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Outside Castle Town West Grotto Ledge",
@@ -191,8 +207,8 @@
         "Requirements": "Shadow_Crystal"
       }
     ],
-    "Checks": [""], // butterfly?
-    "Region": "Hyrule Field - Lanayru"
+    "Checks": [""],
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Outside Castle Town West Helmasaur Grotto",
@@ -207,7 +223,7 @@
     [
         "West Hyrule Field Helmasaur Grotto Chest"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Outside Castle Town East",
@@ -226,7 +242,7 @@
     [
         "East Castle Town Bridge Poe"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Outside Castle Town South",
@@ -238,14 +254,14 @@
       },
       {
         "ConnectedArea": "Faron Field Behind Boulder",
-        "Requirements": "HasBottle" // correct syntax for the bottle?
+        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle"
       },
       {
         "ConnectedArea": "Lake Hylia",
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Outside South Castle Town Tektite Grotto",
+        "ConnectedArea": "Outside Castle Town South Tektite Grotto",
         "Requirements": "Shadow_Crystal"
       }
     ],
@@ -260,26 +276,23 @@
         "Outside South Castle Town Poe",
         "Outside South Castle Town Golden Wolf"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
+     // If you enter Outside Castle Town South from there while the boulder is still there, you get stuck and are forced to save-warp or portal-warp
     "RoomName": "Outside Castle Town South Inside Boulder",
     "Exits":
     [
       {
         "ConnectedArea": "Outside Castle Town South",
-        "Requirements": "Room.Outside_Castle_Town_South and HasBottle" // correct syntax for the bottle?
-      },
-      {
-        "ConnectedArea": "Faron Field Behind Boulder",
-        "Requirements": "Room.Outside_Castle_Town_South and HasBottle" // correct syntax for the bottle?
+        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle and Room.Outside_Castle_Town_South"
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
-    "RoomName": "Outside South Castle Town Tektite Grotto",
+    "RoomName": "Outside Castle Town South Tektite Grotto",
     "Exits":
     [
       {
@@ -291,12 +304,16 @@
     [
         "Outside South Castle Town Tektite Grotto Chest"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Lake Hylia Bridge",
     "Exits":
     [
+      {
+        "ConnectedArea": "Lake Hylia Bridge Grotto Ledge",
+        "Requirements": "canLaunchBombs and (Progressive_Clawshot, 1)"
+      },
       {
         "ConnectedArea": "Hyrule Field Near Spinner Rails",
         "Requirements": "canSmash"
@@ -312,10 +329,6 @@
       {
         "ConnectedArea": "Faron Field",
         "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)"
-      },
-      {
-        "ConnectedArea": "Lake Hylia Bridge Grotto Ledge",
-        "Requirements": "hasBombs and (Boomerang or (Progressive_Bow, 1)) and (Progressive_Clawshot, 1)"
       }
     ],
     "Checks":
@@ -326,7 +339,7 @@
         "Lake Hylia Bridge Male Mantis",
         "Lake Hylia Bridge Female Mantis"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Lake Hylia Bridge Grotto Ledge",
@@ -346,7 +359,7 @@
         "Lake Hylia Bridge Cliff Chest",
         "Lake Hylia Bridge Cliff Poe"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   },
   {
     "RoomName": "Lake Hylia Bridge Bubble Grotto",
@@ -361,6 +374,6 @@
     [
         "Lake Hylia Bridge Bubble Grotto Chest"
     ],
-    "Region": "Hyrule Field - Lanayru"
+    "Region": "Hyrule Field - Lanayru Province"
   }
 ]

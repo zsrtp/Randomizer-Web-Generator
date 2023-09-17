@@ -1,5 +1,5 @@
 {
-  "requirements": "canCompletePrologue",
+  "requirements": "canCompletePrologue and Room.Ordon_Bos_House and CanChangeTime",
   "arcOffsets": ["1A3F"],
     "stageIDX": [41],
   "fileDirectoryType": [ 1 ],

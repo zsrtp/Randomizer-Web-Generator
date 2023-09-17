@@ -4,28 +4,59 @@
     "Exits":
     [
       {
+        "ConnectedArea": "Lost Woods Lower Battle Arena",
+        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)" // not sure
+      },
+      {
+        "ConnectedArea": "Lost Woods Upper Battle Arena",
+        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)" // not sure
+      },
+      {
         "ConnectedArea": "North Faron Woods Near Lost Woods",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": 
+    [
+        "Lost Woods Lantern Chest",
+        "Lost Woods Waterfall Poe"
+    ],
+    "Region": "Sacred Grove"
+  },
+  {
+    "RoomName": "Lost Woods Lower Battle Arena",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Lost Woods",
         "Requirements": "true"
       },
       {
         "ConnectedArea": "Sacred Grove Lower",
-        "Requirements": "true"
+        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
       },
       {
         "ConnectedArea": "Lost Woods Baba Serpent Grotto",
-        "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Sacred Grove Before Block", 
-        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
+        "Requirements": "canSmash and Shadow_Crystal"
       }
-    ],"Checks": 
-    [
-        "Lost Woods Lantern Chest",
-        "Lost Woods Boulder Poe",
-        "Lost Woods Waterfall Poe",
-        "Sacred Grove Spinner Chest"
     ],
+    "Checks":
+    [
+        "Sacred Grove Spinner Chest",
+        "Lost Woods Boulder Poe"
+    ],
+    "Region": "Sacred Grove"
+  },
+  {
+    "RoomName": "Lost Woods Upper Battle Arena",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Sacred Grove Before Block",
+        "Requirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
+      }
+    ],
+    "Checks": [""],
     "Region": "Sacred Grove"
   },
   {
@@ -33,7 +64,7 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Lost Woods", // ?
+        "ConnectedArea": "Lost Woods Lower Battle Arena",
         "Requirements": "true"
       }
     ],
@@ -48,7 +79,7 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Lost Woods", // ?
+        "ConnectedArea": "Lost Woods Upper Battle Arena",
         "Requirements": "true"
       },
       {
@@ -68,7 +99,7 @@
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Sacred Grove Temple of Time",
+        "ConnectedArea": "Sacred Grove Past",
         "Requirements": "(Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or (Room.Sacred_Grove_Lower and (Progressive_Sword, 3) and CanDefeatShadowBeast)"
       }
     ],
@@ -80,7 +111,7 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Lost Woods", // ?
+        "ConnectedArea": "Lost Woods Lower Battle Arena",
         "Requirements": "true"
       },
       {
@@ -96,16 +127,16 @@
     "Region": "Sacred Grove"
   },
   {
-    "RoomName": "Sacred Grove Temple of Time",
+    "RoomName": "Sacred Grove Past",
     "Exits":
     [
       {
-        "ConnectedArea": "Sacred Grove Upper",
-        "Requirements": "true"
+        "ConnectedArea": "Sacred Grove Past Behind Window",
+        "Requirements": "(Setting.totEntrance equals Open) or (Progressive_Sword, 3)"
       },
       {
-        "ConnectedArea": "Sacred Grove Temple of Time Behind Window",
-        "Requirements": "(Setting.totEntrance equals Open) or (Progressive_Sword, 3)"
+        "ConnectedArea": "Sacred Grove Upper",
+        "Requirements": "true"
       }
     ],
     "Checks":
@@ -117,11 +148,11 @@
     "Region": "Sacred Grove"
   },
   {
-    "RoomName": "Sacred Grove Temple of Time Behind Window",
+    "RoomName": "Sacred Grove Past Behind Window",
     "Exits":
     [
       {
-        "ConnectedArea": "Sacred Grove Temple of Time",
+        "ConnectedArea": "Sacred Grove Past",
         "Requirements": "true"
       },
       {

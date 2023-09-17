@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and Room.Snowpeak_Climb_Upper and ((Progressive_Fishing_Rod, 2) or (Setting.skipSnowpeakEntrance equals True))",
+    "requirements": "Shadow_Crystal and Room.Snowpeak_Climb_Upper",
     "stageIDX": [48],
     "roomIDX": 0,
     "flag": "9F",

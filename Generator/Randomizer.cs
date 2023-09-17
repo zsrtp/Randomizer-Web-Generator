@@ -138,6 +138,20 @@ namespace TPRandomizer
             Randomizer.Items.GenerateItemPool();
             CheckFunctions.GenerateCheckList();
 
+            // Any vanilla checks will be placed first for the sake of logic. Even if they aren't available to be randomized in the game yet, we may need to logically account for their placement.
+            Randomizer.Items.heldItems.Clear();
+            foreach (Item startingItem in Randomizer.SSettings.startingItems)
+            {
+                Randomizer.Items.heldItems.Add(startingItem);
+            }
+            Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
+            Console.WriteLine("Placing Vanilla Checks.");
+            PlaceVanillaChecks();
+
+            // Once we have placed all vanilla checks, we want to give the player all of the items they should be searching for and then generate the world based on the room class values and their neighbour values.
+            SetupGraph();
+            Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
+
             while (remainingGenerationAttempts > 0)
             {
                 remainingGenerationAttempts--;
@@ -714,7 +728,7 @@ namespace TPRandomizer
                 {
                     if (LogicFunctions.CanUse(Item.Shadow_Crystal))
                     {
-                        availableRoom = Randomizer.Rooms.RoomDict["Kakariko Village"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Lower Kakariko Village"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
 
@@ -740,7 +754,7 @@ namespace TPRandomizer
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
 
-                        availableRoom = Randomizer.Rooms.RoomDict["Zoras Domain"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Zoras Throne Room"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
                     }
@@ -760,7 +774,7 @@ namespace TPRandomizer
                 {
                     if (LogicFunctions.CanUse(Item.Shadow_Crystal))
                     {
-                        availableRoom = Randomizer.Rooms.RoomDict["Sacred Grove Master Sword"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Sacred Grove Lower"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
                     }
@@ -875,20 +889,6 @@ namespace TPRandomizer
         /// <param name="startingRoom"> The room node that the generation algorithm will begin with. </param>
         private static void PlaceItemsInWorld(Room startingRoom, Random rnd)
         {
-            // Any vanilla checks will be placed first for the sake of logic. Even if they aren't available to be randomized in the game yet, we may need to logically account for their placement.
-            Randomizer.Items.heldItems.Clear();
-            foreach (Item startingItem in Randomizer.SSettings.startingItems)
-            {
-                Randomizer.Items.heldItems.Add(startingItem);
-            }
-            Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
-            Console.WriteLine("Placing Vanilla Checks.");
-            PlaceVanillaChecks();
-
-            // Once we have placed all vanilla checks, we want to give the player all of the items they should be searching for and then generate the world based on the room class values and their neighbour values.
-            startingRoom = SetupGraph();
-            Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
-
             // Dungeon rewards have a very limited item pool, so we want to place them first to prevent the generator from putting
             // an unnecessary item in one of the checks.
             placeDungeonRewards(Items.ShuffledDungeonRewards, rnd);
@@ -1468,7 +1468,7 @@ namespace TPRandomizer
             }
         }
 
-        private static Room SetupGraph()
+        private static void SetupGraph()
         {
             // We want to be safe and make sure that the room classes are prepped and ready to be linked together. Then we define our starting room.
             foreach (KeyValuePair<string, Room> roomList in Randomizer.Rooms.RoomDict.ToList())
@@ -1486,7 +1486,6 @@ namespace TPRandomizer
             rootExit.Requirements = "(true)";
 
             Randomizer.Rooms.RoomDict["Root"].Exits.Add(rootExit);
-            return Randomizer.Rooms.RoomDict["Root"];
         }
 
         private static void DeserializeChecks(SharedSettings SSettings)

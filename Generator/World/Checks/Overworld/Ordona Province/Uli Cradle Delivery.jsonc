@@ -1,5 +1,5 @@
 {
-    "requirements": "true",
+    "requirements": "CanChangeTime",
     "arcOffsets": ["C8F"],
     "stageIDX": [43],
     "fileDirectoryType": [1],

@@ -1,5 +1,5 @@
 {
-    "requirements": "Iron_Boots",
+    "requirements": "true",
     "arcOffsets": ["E90"],
     "stageIDX": [34],
     "roomIDX": 10,

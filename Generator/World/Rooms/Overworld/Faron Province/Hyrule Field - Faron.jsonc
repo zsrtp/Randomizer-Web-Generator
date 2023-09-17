@@ -4,12 +4,12 @@
     "Exits":
     [
       {
-        "ConnectedArea": "South Faron Woods",
-        "Requirements": "true"
+        "ConnectedArea": "Faron Field Behind Boulder",
+        "Requirements": "Room.Castle_Town_South and HasBottle and Room.Outside_Castle_Town_South"
       },
       {
-        "ConnectedArea": "Faron Field Behind Boulder",
-        "Requirements": "Room.Outside_Castle_Town_South and HasBottle"
+        "ConnectedArea": "South Faron Woods",
+        "Requirements": "true"
       },
       {
         "ConnectedArea": "Kakariko Gorge",
@@ -36,7 +36,7 @@
         "Faron Field Female Beetle",
         "Faron Field Poe"
     ],
-    "Region": "Hyrule Field - Faron"
+    "Region": "Hyrule Field - Faron Province"
   },
   {
     "RoomName": "Faron Field Behind Boulder",
@@ -44,15 +44,16 @@
     [
       {
         "ConnectedArea": "Faron Field",
-        "Requirements": "Room.Outside_Castle_Town_South and HasBottle" // correct syntax for the bottle? also the hot water expires, doesnt it?
+        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle and Room.Outside_Castle_Town_South" // How to handle the fact, that the hot water expires? My idea would be removing (or increasing?) its timer.
       },
       {
-        "ConnectedArea": "Outside Castle Town South Inside Boulder", // if you enter outside CT from there while the boulder is still there, you get stuck and are forced to save warp or portal warp
+         // If you enter Outside Castle Town from there while the boulder is still there, you get stuck and are forced to save-warp or portal-warp.
+        "ConnectedArea": "Outside Castle Town South Inside Boulder",
         "Requirements": "true"
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Faron"
+    "Region": "Hyrule Field - Faron Province"
   },
   {
     "RoomName": "Faron Field Corner Grotto",
@@ -69,7 +70,7 @@
         "Faron Field Corner Grotto Left Chest",
         "Faron Field Corner Grotto Rear Chest"
     ],
-    "Region": "Hyrule Field - Faron"
+    "Region": "Hyrule Field - Faron Province"
   },
   {
     "RoomName": "Faron Field Fishing Grotto",
@@ -81,6 +82,6 @@
       }
     ],
     "Checks": [""],
-    "Region": "Hyrule Field - Faron"
+    "Region": "Hyrule Field - Faron Province"
   }
 ]

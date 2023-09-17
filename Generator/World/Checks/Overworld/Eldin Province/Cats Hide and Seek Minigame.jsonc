@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and (Progressive_Clawshot, 1) and Ilias_Charm and (Progressive_Bow, 1) and (Progressive_Dominion_Rod, 1)",
+    "requirements": "(Progressive_Bow, 1) and Room.Kakariko_Renados_Sanctuary and Ilias_Charm and Shadow_Crystal and (Progressive_Clawshot, 1)",
     "hash": ["9E3C"],
     "stageIDX": [63],
     "dzxTag": ["ACTR"],

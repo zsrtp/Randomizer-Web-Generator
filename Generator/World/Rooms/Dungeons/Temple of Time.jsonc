@@ -21,7 +21,7 @@
         "Exits": 
         [
           {
-            "ConnectedArea": "Sacred Grove Temple of Time",
+            "ConnectedArea": "Sacred Grove Past",
             "Requirements": "CanDefeatArmogohma"
           }
         ],
@@ -112,7 +112,7 @@
         "Exits": 
           [
             {
-              "ConnectedArea": "Sacred Grove Temple of Time",
+              "ConnectedArea": "Sacred Grove Past Behind Window",
               "Requirements": "true"
             },
             {

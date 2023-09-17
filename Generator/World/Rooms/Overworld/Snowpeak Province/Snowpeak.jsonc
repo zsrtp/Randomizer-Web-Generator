@@ -4,19 +4,19 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Zoras Domain",
-        "Requirements": "true"
-      },
-      {
         "ConnectedArea": "Snowpeak Climb Upper",
         "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) and Shadow_Crystal"
+      },
+      {
+        "ConnectedArea": "Zoras Domain",
+        "Requirements": "true"
       }
     ],
     "Checks":
     [
         "Ashei Sketch"
     ],
-    "Region": "Snowpeak"
+    "Region": "Snowpeak Province"
   },
   {
     "RoomName": "Snowpeak Climb Upper",
@@ -45,7 +45,7 @@
         "Snowpeak Blizzard Poe",
         "Snowpeak Poe Among Trees"
     ],
-    "Region": "Snowpeak"
+    "Region": "Snowpeak Province"
   },
   {
     "RoomName": "Snowpeak Ice Keese Grotto",
@@ -57,7 +57,7 @@
       }
     ],
     "Checks": [""],
-    "Region": "Snowpeak"
+    "Region": "Snowpeak Province"
   },
   {
     "RoomName": "Snowpeak Freezard Grotto",
@@ -72,19 +72,19 @@
     [
         "Snowpeak Freezard Grotto Chest"
     ],
-    "Region": "Snowpeak"
+    "Region": "Snowpeak Province"
   },
   {
     "RoomName": "Snowpeak Summit Upper",
     "Exits":
     [
       {
-        "ConnectedArea": "Snowpeak Climb Upper",
-        "Requirements": "Shadow_Crystal"
+        "ConnectedArea": "Snowpeak Summit Lower",
+        "Requirements": "CanDefeatShadowBeast"
       },
       {
-        "ConnectedArea": "Snowpeak Summit Lower",
-        "Requirements": "true"
+        "ConnectedArea": "Snowpeak Climb Upper",
+        "Requirements": "Shadow_Crystal"
       }
     ],
     "Checks":
@@ -93,21 +93,25 @@
         "Snowboard Racing Prize",
         "Snowpeak Cave Ice Poe"
     ],
-    "Region": "Snowpeak"
+    "Region": "Snowpeak Province"
   },
   {
     "RoomName": "Snowpeak Summit Lower",
     "Exits":
     [
       {
-        "ConnectedArea": "Snowpeak Ruins Entrance",
+        "ConnectedArea": "Snowpeak Ruins Left Door",
         "Requirements": "true"
-      }
+      },
+	  {
+	    "ConnectedArea": "Snowpeak Ruins Right Door",
+		"Requirements": "true"
+	  }
     ],
     "Checks":
     [
         "Snowpeak Icy Summit Poe"
     ],
-    "Region": "Snowpeak"
+    "Region": "Snowpeak Province"
   }
 ]

@@ -1,5 +1,5 @@
 {
-    "requirements": "canLaunchBombs and Boomerang",
+    "requirements": "hasBombs and Boomerang",
     "hash": ["A573"],
     "stageIDX": [46],
     "dzxTag": ["ACTR"],

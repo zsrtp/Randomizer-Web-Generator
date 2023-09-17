@@ -4,6 +4,14 @@
     "Exits":
     [
       {
+        "ConnectedArea": "Lake Hylia Cave Entrance",
+        "Requirements": "canSmash"
+      },
+      {
+        "ConnectedArea": "Lake Hylia Lakebed Temple Entrance",
+        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and CanUseWaterBombs))"
+      },
+      {
         "ConnectedArea": "Lake Hylia Bridge",
         "Requirements": "true"
       },
@@ -16,20 +24,13 @@
         "Requirements": "Shadow_Crystal"
       },
       {
-        "ConnectedArea": "Lake Hylia Lakebed Temple Entrance",
-        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and CanUseWaterBombs))"
-      },
-      {
         "ConnectedArea": "Lake Hylia Lanayru Spring",
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Lake Hylia Long Cave",
-        "Requirements": "canSmash"
-      },
-      {
+        // You can use the cannon and a cucco to reach the grotto ledge without any requirements.
         "ConnectedArea": "Lake Hylia Shell Blade Grotto",
-        "Requirements": "Shadow_Crystal" // can use cannon and cucco to access the grotto ledge entirely without items
+        "Requirements": "Shadow_Crystal"
       },
       {
         "ConnectedArea": "Lake Hylia Water Toadpoli Grotto",
@@ -59,6 +60,22 @@
         "Plumm Fruit Balloon Minigame"
     ],
     "Region": "Lake Hylia"
+  },
+  {
+    "RoomName": "Lake Hylia Cave Entrance",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Lake Hylia",
+        "Requirements": "canSmash"
+      },
+      {
+        "ConnectedArea": "Lake Hylia Long Cave",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin"
   },
   {
     "RoomName": "Lake Hylia Lakebed Temple Entrance",
@@ -102,7 +119,7 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Lake Hylia",
+        "ConnectedArea": "Lake Hylia Cave Entrance",
         "Requirements": "true"
       }
     ],
@@ -123,9 +140,9 @@
         "Lake Lantern Cave Thirteenth Chest",
         "Lake Lantern Cave Fourteenth Chest",
         "Lake Lantern Cave End Lantern Chest",
-        "Lake Lantern Cave Final Poe",
         "Lake Lantern Cave First Poe",
-        "Lake Lantern Cave Second Poe"
+        "Lake Lantern Cave Second Poe",
+        "Lake Lantern Cave Final Poe"
     ],
     "Region": "Lake Hylia"
   },
