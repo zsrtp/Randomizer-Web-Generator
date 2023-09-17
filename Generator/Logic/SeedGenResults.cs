@@ -335,10 +335,13 @@ namespace TPRandomizer
             foreach (SpawnTableEntry entry in Randomizer.EntranceRandomizer.SpawnTable)
             {
                 entranceInfo.Add(entry.SourceRoomSpawn);
-                entranceInfo.Add(entry.TargetRoomSpawn);
+                if (entry.TargetRoomSpawn != null)
+                {
+                    entranceInfo.Add(entry.TargetRoomSpawn);
+                }
             }
             string[] entranceBytes = entrances.Split(",");
-            for (int i = 0; i < entranceBytes.Count() - 1; i++)
+            for (int i = 0; i < entranceBytes.Length; i++)
             {
                 foreach (EntranceInfo entry in entranceInfo)
                 {
