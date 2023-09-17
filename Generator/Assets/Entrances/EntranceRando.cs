@@ -968,6 +968,7 @@ namespace TPRandomizer
                             + addedConnectedAreas[i]
                     );
                     addedPairs[i].Connect(addedConnectedAreas[i]);
+                    addedPairs[i].SetAsShuffled();
                 }
             }
         }

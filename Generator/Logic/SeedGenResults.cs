@@ -77,6 +77,19 @@ namespace TPRandomizer
                                 + entrance.GetReplacedEntrance().GetOriginalName()
                         );
                         // Get the original entrance that the entrance leads to in vanilla
+                        encodedString = encodedString + entrance.GetStage().ToString("X");
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetRoom().ToString("X");
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetSpawn();
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetSpawnType();
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetParameters();
+                        encodedString = encodedString + ",";
+
+                        // Add new connection info
+
                         encodedString =
                             encodedString + entrance.GetReplacedEntrance().GetStage().ToString("X");
                         encodedString = encodedString + ",";
@@ -92,17 +105,6 @@ namespace TPRandomizer
                             encodedString + entrance.GetReplacedEntrance().GetParameters();
                         encodedString = encodedString + ",";
 
-                        // Add new connection info
-                        encodedString = encodedString + entrance.GetStage().ToString("X");
-                        encodedString = encodedString + ",";
-                        encodedString = encodedString + entrance.GetRoom().ToString("X");
-                        encodedString = encodedString + ",";
-                        encodedString = encodedString + entrance.GetSpawn();
-                        encodedString = encodedString + ",";
-                        encodedString = encodedString + entrance.GetSpawnType();
-                        encodedString = encodedString + ",";
-                        encodedString = encodedString + entrance.GetParameters();
-                        encodedString = encodedString + ",";
                         entrance.SetAsUnshuffled();
                     }
                 }
@@ -341,20 +343,64 @@ namespace TPRandomizer
                 }
             }
             string[] entranceBytes = entrances.Split(",");
-            for (int i = 0; i < entranceBytes.Length; i++)
+            //Console.WriteLine(entrances);
+            for (int i = 0; i < entranceBytes.Length - 1; i++)
             {
+                //Console.WriteLine(i);
+                /*Console.WriteLine(
+                    "testing spoiler spawn: "
+                        + entranceBytes[i]
+                        + ","
+                        + entranceBytes[i + 1]
+                        + ","
+                        + entranceBytes[i + 2]
+                        + ","
+                        + entranceBytes[i + 3]
+                        + ","
+                        + entranceBytes[i + 4]
+                );*/
                 foreach (EntranceInfo entry in entranceInfo)
                 {
+                    /*Console.WriteLine(
+                        "testing: "
+                            + entry.SourceRoom
+                            + " testing stage: "
+                            + entry.Stage.ToString("X")
+                    );*/
                     if (entry.Stage.ToString("X") == entranceBytes[i])
                     {
+                        /*Console.WriteLine(
+                            "stage match for: " + entry.SourceRoom + " testing room: " + entry.Room
+                        );*/
                         if (entry.Room.ToString("X") == entranceBytes[i + 1])
                         {
+                            /* Console.WriteLine(
+                                 "room match for: "
+                                     + entry.SourceRoom
+                                     + " testing spawn: "
+                                     + entry.Spawn
+                                     + " against: "
+                                     + entranceBytes[i + 2]
+                             );*/
                             if (entry.Spawn == entranceBytes[i + 2])
                             {
+                                /*Console.WriteLine(
+                                    "spawn match for: "
+                                        + entry.SourceRoom
+                                        + " testing spawn type: "
+                                        + entry.SpawnType
+                                );*/
                                 if (entry.SpawnType == entranceBytes[i + 3])
                                 {
+                                    /*Console.WriteLine(
+                                        "spawn type match for: "
+                                            + entry.SourceRoom
+                                            + " testing params: "
+                                            + entry.Parameters
+                                    );*/
                                     if (entry.Parameters == entranceBytes[i + 4])
                                     {
+                                        //Console.WriteLine("param match for: " + entry.SourceRoom);
                                         foreach (EntranceInfo entry2 in entranceInfo)
                                         {
                                             if (entry2.Stage.ToString("X") == entranceBytes[i + 5])
@@ -380,6 +426,11 @@ namespace TPRandomizer
                                                                         + " -> "
                                                                         + entry2.TargetRoom
                                                                 );
+                                                                /*Console.WriteLine(
+                                                                    entry.SourceRoom
+                                                                        + " -> "
+                                                                        + entry2.TargetRoom
+                                                                );*/
                                                             }
                                                         }
                                                     }
