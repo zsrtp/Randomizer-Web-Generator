@@ -240,7 +240,12 @@ namespace TPRandomizer
             // method outputs
             root.Add(
                 "version",
-                "s" + Assets.SeedData.VersionMajor + "." + Assets.SeedData.VersionMinor
+                "s"
+                    + Assets.SeedData.VersionMajor
+                    + "."
+                    + Assets.SeedData.VersionMinor
+                    + "."
+                    + Assets.SeedData.VersionPatch
             );
 
             if (prettyPrint || dangerouslyPrintFullRaceSpoiler)
