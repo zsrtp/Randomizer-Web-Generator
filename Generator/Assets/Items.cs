@@ -908,7 +908,6 @@ namespace TPRandomizer
                         {
                             { Item.Progressive_Bow, 1 },
                             { Item.Filled_Bomb_Bag, 1 },
-                            { Item.Progressive_Hidden_Skill, 1 },
                         };
 
                     foreach (KeyValuePair<Item, int> kv in importantItemToCount)
@@ -930,6 +929,7 @@ namespace TPRandomizer
                     if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
                     {
                         updateItemToCount(RandomizedImportantItems, Item.Magic_Armor, 0);
+                        updateItemToCount(RandomizedImportantItems,Item.Progressive_Hidden_Skill,1);
                     }
 
                     // If wallet size is not increased, we need to be able to
