@@ -2679,56 +2679,6 @@
         "Type": "Dungeon",
         "SourceRoomSpawn":
         {
-            "SourceRoom": "Snowpeak Ruins Left Door",
-            "TargetRoom": "Snowpeak Summit Lower",
-            "Stage": 51,
-            "Room": 1,
-            "Spawn": "09",
-            "SpawnType": "0B",
-            "Parameters": "F01F",
-			"PairedEntranceName": "Snowpeak Ruins Right Door -> Snowpeak Summit Lower"
-        },
-        "TargetRoomSpawn":
-        {
-            "SourceRoom": "Snowpeak Summit Lower",
-            "TargetRoom": "Snowpeak Ruins Left Door",
-            "Stage": 27,
-            "Room": 0,
-            "Spawn": "01",
-            "SpawnType": "A0",
-            "Parameters": "F01F",
-			"PairedEntranceName": "Snowpeak Summit Lower -> Snowpeak Ruins Right Door"
-        }
-    },
-    {
-        "Type": "Dungeon",
-        "SourceRoomSpawn":
-        {
-            "SourceRoom": "Snowpeak Ruins Right Door",
-            "TargetRoom": "Snowpeak Summit Lower",
-            "Stage": 51,
-            "Room": 1,
-            "Spawn": "0A",
-            "SpawnType": "0B",
-            "Parameters": "F01F",
-			"PairedEntranceName": "Snowpeak Ruins Left Door -> Snowpeak Summit Lower"
-        },
-        "TargetRoomSpawn":
-        {
-            "SourceRoom": "Snowpeak Summit Lower",
-            "TargetRoom": "Snowpeak Ruins Right Door",
-            "Stage": 27,
-            "Room": 0,
-            "Spawn": "02",
-            "SpawnType": "A0",
-            "Parameters": "F01F",
-			"PairedEntranceName": "Snowpeak Summit Lower -> Snowpeak Ruins Left Door"
-        }
-    },
-    {
-        "Type": "Dungeon",
-        "SourceRoomSpawn":
-        {
             "SourceRoom": "Sacred Grove Past Behind Window",
             "TargetRoom": "Temple of Time Entrance",
             "Stage": 9,
