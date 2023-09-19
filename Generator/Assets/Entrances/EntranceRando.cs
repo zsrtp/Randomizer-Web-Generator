@@ -295,8 +295,8 @@ namespace TPRandomizer
     /// </summary>
     public class EntranceRando
     {
-        bool pairEntrances = true;
-        bool decoupleEntrances = false;
+        bool pairEntrances = false;
+        bool decoupleEntrances = true;
         public List<SpawnTableEntry> SpawnTable = new();
 
         public void RandomizeEntrances(Random rnd)
@@ -936,13 +936,13 @@ namespace TPRandomizer
                 // We want to loop through every room until we find a match for the entrance information provided.
                 foreach (Entrance entrance in currentRoom1.Exits)
                 {
-                    Console.WriteLine("Checking Pair for: " + entrance.GetOriginalName());
+                    //Console.WriteLine("Checking Pair for: " + entrance.GetOriginalName());
                     if (
                         (entrance.GetPairedEntrance() == null)
                         && (entrance.GetEntranceType() != EntranceType.Paired)
                     )
                     {
-                        Console.WriteLine("found pair: " + entrance.PairedEntranceName);
+                        //Console.WriteLine("found pair: " + entrance.PairedEntranceName);
                         foreach (KeyValuePair<string, Room> roomEntry2 in Randomizer.Rooms.RoomDict)
                         {
                             Room currentRoom2 = roomEntry2.Value;
@@ -978,12 +978,12 @@ namespace TPRandomizer
                 List<string> addedConnectedAreas = new();
                 foreach (Entrance entrance in currentRoom.Exits)
                 {
-                    Console.WriteLine(
+                    /*Console.WriteLine(
                         "checking pair for "
                             + entrance.GetOriginalName()
                             + " in "
                             + currentRoom.RoomName
-                    );
+                    );*/
                     if (
                         (entrance.GetPairedEntrance() != null)
                         && (entrance.GetPairedEntrance().GetEntranceType() == EntranceType.Paired)
