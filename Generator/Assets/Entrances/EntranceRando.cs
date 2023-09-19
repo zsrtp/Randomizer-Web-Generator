@@ -295,7 +295,8 @@ namespace TPRandomizer
     /// </summary>
     public class EntranceRando
     {
-        bool pairEntrances = true;
+        bool pairEntrances = false;
+        bool decoupleEntrances = false;
         public List<SpawnTableEntry> SpawnTable = new();
 
         public void RandomizeEntrances(Random rnd)
@@ -383,7 +384,6 @@ namespace TPRandomizer
                     GetShufflableEntrances(EntranceType.Dungeon, true)
                 );
 
-                bool decoupleEntrances = true;
                 if (decoupleEntrances)
                 {
                     newEntrancePools.Add(
@@ -452,7 +452,6 @@ namespace TPRandomizer
 
                 forwardEntrance.SetEntranceType(tableEntry.Type);
                 forwardEntrance.SetOriginalName();
-                forwardEntrance.OriginalConnectedArea = forwardEntrance.GetConnectedArea();
                 forwardEntrance.Stage = tableEntry.SourceRoomSpawn.Stage;
                 forwardEntrance.Room = tableEntry.SourceRoomSpawn.Room;
                 forwardEntrance.Spawn = tableEntry.SourceRoomSpawn.Spawn;
@@ -480,7 +479,6 @@ namespace TPRandomizer
                     }
                     returnEntrance.SetEntranceType(tableEntry.Type);
                     returnEntrance.SetOriginalName();
-                    returnEntrance.OriginalConnectedArea = forwardEntrance.GetConnectedArea();
                     returnEntrance.Stage = tableEntry.TargetRoomSpawn.Stage;
                     returnEntrance.Room = tableEntry.TargetRoomSpawn.Room;
                     returnEntrance.Spawn = tableEntry.TargetRoomSpawn.Spawn;
@@ -515,8 +513,15 @@ namespace TPRandomizer
                 // We want to loop through every room until we find a match for the entrance information provided.
                 if (currentRoom.RoomName == entranceInfo.SourceRoom)
                 {
+                    //Console.WriteLine("we matching in " + currentRoom.RoomName);
                     foreach (Entrance entrance in currentRoom.Exits)
                     {
+                        /*Console.WriteLine(
+                            "checking match for room in "
+                                + entrance.OriginalConnectedArea
+                                + " -> "
+                                + entranceInfo.TargetRoom
+                        );*/
                         if (entrance.OriginalConnectedArea == entranceInfo.TargetRoom)
                         {
                             entrance.PairedEntranceName = entranceInfo.PairedEntranceName;
@@ -580,12 +585,12 @@ namespace TPRandomizer
 
         void ChangeConnections(Entrance entrance, Entrance targetEntrance)
         {
-            /*Console.WriteLine(
+            Console.WriteLine(
                 "Changing connections for "
                     + entrance.GetOriginalName()
                     + " and "
                     + targetEntrance.GetOriginalName()
-            );*/
+            );
             entrance.Connect(targetEntrance.Disconnect());
             entrance.SetReplacedEntrance(targetEntrance.GetReplacedEntrance());
             if ((entrance.GetReplacedEntrance() != null) && !entrance.IsDecoupled())
@@ -799,6 +804,10 @@ namespace TPRandomizer
             EntranceShuffleError err = EntranceShuffleError.NONE;
             err = CheckEntranceCompatibility(entrance, target, rollBacks);
             EntranceShuffleErrorCheck(err);
+            if (err != EntranceShuffleError.NONE)
+            {
+                return err;
+            }
             ChangeConnections(entrance, target);
 
             err = ValidateWorld();
@@ -885,7 +894,7 @@ namespace TPRandomizer
                 List<Entrance> removablePairs = new();
                 foreach (Entrance entrance in pool.Value.EntranceList)
                 {
-                    Console.WriteLine("Checking Pair for: " + entrance.GetOriginalName());
+                    //Console.WriteLine("Checking Pair for: " + entrance.GetOriginalName());
                     if (
                         (entrance.GetPairedEntrance() == null)
                         && (entrance.GetEntranceType() != EntranceType.Paired)
@@ -943,12 +952,12 @@ namespace TPRandomizer
                         && (entrance.GetPairedEntrance().GetEntranceType() == EntranceType.Paired)
                     )
                     {
-                        /*Console.WriteLine(
+                        Console.WriteLine(
                             "match "
                                 + entrance.GetPairedEntrance().GetOriginalName()
                                 + " in "
                                 + currentRoom.RoomName
-                        );*/
+                        );
                         addedPairs.Add(entrance.GetPairedEntrance());
                         addedConnectedAreas.Add(entrance.GetConnectedArea());
                         entrance

@@ -3,10 +3,10 @@
         "RoomName": "Snowpeak Ruins Left Door",
         "Exits": 
         [
-		  {
-		    "ConnectedArea": "Snowpeak Ruins Entrance",
-			"Requirements": "true"
-		  },
+          {
+            "ConnectedArea": "Snowpeak Ruins Entrance",
+          "Requirements": "true"
+          },
           {
             "ConnectedArea": "Snowpeak Summit Lower",
             "Requirements": "true"
