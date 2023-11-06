@@ -244,6 +244,8 @@ namespace TPRandomizer.Assets
                 }
             }
 
+            seedHeader.Add(Converter.GcByte(randomizerSettings.bonksDoDamage ? 1 : 0));
+
             while (seedHeader.Count < (SeedHeaderSize))
             {
                 seedHeader.Add((byte)0x0);

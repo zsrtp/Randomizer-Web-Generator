@@ -316,6 +316,7 @@ namespace TPRandomizer
             result.Add("shuffleHiddenSkills", sSettings.shuffleHiddenSkills);
             result.Add("itemScarcity", sSettings.itemScarcity.ToString());
             result.Add("damageMagnification", sSettings.damageMagnification.ToString());
+            result.Add("bonksDoDamage", sSettings.bonksDoDamage.ToString());
             result.Add("smallKeySettings", sSettings.smallKeySettings.ToString());
             result.Add("bigKeySettings", sSettings.bigKeySettings.ToString());
             result.Add("mapAndCompassSettings", sSettings.mapAndCompassSettings.ToString());

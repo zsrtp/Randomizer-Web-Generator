@@ -50,6 +50,7 @@ namespace TPRandomizer
         public bool openMap { get; set; }
         public ItemScarcity itemScarcity { get; set; }
         public DamageMagnification damageMagnification { get; set; }
+        public bool bonksDoDamage { get; set; }
         public bool increaseSpinnerSpeed { get; set; }
         public bool openDot { get; set; }
         public List<Item> startingItems { get; set; }
@@ -99,6 +100,7 @@ namespace TPRandomizer
             openDot = processor.NextBool();
             itemScarcity = (ItemScarcity)processor.NextInt(2);
             damageMagnification = (DamageMagnification)processor.NextInt(3);
+            bonksDoDamage = processor.NextBool();
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();
