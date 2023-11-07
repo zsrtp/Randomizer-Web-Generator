@@ -290,7 +290,7 @@ namespace TPRandomizer
                                     tokens.Add(new EqualsToken(), potentialKeyword.ToString());
                                     break;
                                 case "not_equal":
-                                    tokens.Add(new EqualsToken(), potentialKeyword.ToString());
+                                    tokens.Add(new NegationToken(), potentialKeyword.ToString());
                                     break;
                                 default:
                                     if (Enum.IsDefined(typeof(Item), potentialKeyword))
