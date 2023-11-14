@@ -1695,7 +1695,10 @@ namespace TPRandomizer
                     currentCheck = kvp.Value;
                     if (
                         currentCheck.category.Contains("Dungeon Reward")
-                        || Randomizer.SSettings.shuffleRewards
+                        || (
+                            Randomizer.SSettings.shuffleRewards
+                            && (currentCheck.checkStatus == "Ready")
+                        )
                     )
                     {
                         dungeonRewards.Add(currentCheck);
