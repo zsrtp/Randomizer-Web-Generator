@@ -674,6 +674,8 @@
       Progressive_Hidden_Skill: true,
       Magic_Armor: true,
       Ordon_Shield: true,
+      Progressive_Fused_Shadow: true,
+      Progressive_Mirror_Shard: true,
     };
 
     function isItemImportant(itemId) {
