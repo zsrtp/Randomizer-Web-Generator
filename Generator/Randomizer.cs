@@ -855,7 +855,20 @@ namespace TPRandomizer
 
             // Dungeon rewards have a very limited item pool, so we want to place them first to prevent the generator from putting
             // an unnecessary item in one of the checks.
-            placeDungeonRewards(Items.ShuffledDungeonRewards, rnd);
+            if (SSettings.shuffleRewards)
+            {
+                PlaceItemsRestricted(
+                    startingRoom,
+                    Items.ShuffledDungeonRewards,
+                    Randomizer.Items.heldItems,
+                    string.Empty,
+                    rnd
+                );
+            }
+            else
+            {
+                placeDungeonRewards(Items.ShuffledDungeonRewards, rnd);
+            }
 
             /*
             // This is the old dungeon item placing code

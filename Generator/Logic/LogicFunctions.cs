@@ -1405,6 +1405,23 @@ namespace TPRandomizer
             );
         }
 
+        public static bool CanUseBottledFairy()
+        {
+            return (
+                (
+                    CanUse(Item.Jovani_Bottle)
+                    || CanUse(Item.Sera_Bottle)
+                    || CanUse(Item.Empty_Bottle)
+                    || CanUseOilBottle()
+                ) && Randomizer.Rooms.RoomDict["Lake Hylia"].ReachedByPlaythrough
+            );
+        }
+
+        public static bool CanUseOilBottle()
+        {
+            return CanUse(Item.Lantern) && CanUse(Item.Coro_Bottle);
+        }
+
         /// <summary>
         /// summary text.
         /// </summary>

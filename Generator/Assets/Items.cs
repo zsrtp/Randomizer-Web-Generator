@@ -489,6 +489,9 @@ namespace TPRandomizer
                 Item.Horse_Call,
                 Item.Gate_Keys,
                 Item.Empty_Bottle,
+                Item.Sera_Bottle,
+                Item.Coro_Bottle,
+                Item.Jovani_Bottle,
                 Item.Progressive_Hidden_Skill,
                 Item.Progressive_Hidden_Skill,
                 Item.Progressive_Hidden_Skill,
@@ -645,9 +648,6 @@ namespace TPRandomizer
                 Item.Silver_Rupee,
                 Item.Silver_Rupee,
                 Item.Giant_Bomb_Bag,
-                Item.Sera_Bottle,
-                Item.Coro_Bottle,
-                Item.Jovani_Bottle,
                 Item.Hawkeye,
             };
 
@@ -904,11 +904,7 @@ namespace TPRandomizer
 
                     // Update RandomizedImportantItems
                     Dictionary<Item, int> importantItemToCount =
-                        new()
-                        {
-                            { Item.Progressive_Bow, 1 },
-                            { Item.Filled_Bomb_Bag, 1 },
-                        };
+                        new() { { Item.Progressive_Bow, 1 }, { Item.Filled_Bomb_Bag, 1 }, };
 
                     foreach (KeyValuePair<Item, int> kv in importantItemToCount)
                     {
@@ -929,7 +925,11 @@ namespace TPRandomizer
                     if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
                     {
                         updateItemToCount(RandomizedImportantItems, Item.Magic_Armor, 0);
-                        updateItemToCount(RandomizedImportantItems,Item.Progressive_Hidden_Skill,1);
+                        updateItemToCount(
+                            RandomizedImportantItems,
+                            Item.Progressive_Hidden_Skill,
+                            1
+                        );
                     }
 
                     // If wallet size is not increased, we need to be able to
