@@ -1407,14 +1407,12 @@ namespace TPRandomizer
 
         public static bool CanUseBottledFairy()
         {
-            return (
-                (
-                    CanUse(Item.Jovani_Bottle)
-                    || CanUse(Item.Sera_Bottle)
-                    || CanUse(Item.Empty_Bottle)
-                    || CanUseOilBottle()
-                ) && Randomizer.Rooms.RoomDict["Lake Hylia"].ReachedByPlaythrough
-            );
+            return HasBottle() && Randomizer.Rooms.RoomDict["Lake Hylia"].ReachedByPlaythrough;
+        }
+
+        public static bool CanUseBottledFairies()
+        {
+            return HasBottles() && Randomizer.Rooms.RoomDict["Lake Hylia"].ReachedByPlaythrough;
         }
 
         public static bool CanUseOilBottle()
@@ -1812,6 +1810,36 @@ namespace TPRandomizer
                     || CanUse(Item.Jovani_Bottle)
                     || CanUse(Item.Coro_Bottle)
                 ) && CanUse(Item.Lantern);
+        }
+
+        public static bool HasBottles()
+        {
+            int n = 0;
+            if (CanUse(Item.Lantern))
+            {
+                if (CanUse(Item.Empty_Bottle))
+                {
+                    n++;
+                }
+                if (CanUse(Item.Sera_Bottle))
+                {
+                    n++;
+                }
+                if (CanUse(Item.Jovani_Bottle))
+                {
+                    n++;
+                }
+                if (CanUse(Item.Coro_Bottle))
+                {
+                    n++;
+                }
+
+                if (n > 1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>

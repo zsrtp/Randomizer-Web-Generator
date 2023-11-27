@@ -918,7 +918,7 @@ namespace TPRandomizer
             // Next we will place the "always" items. Basically the constants in every seed, so Heart Pieces, Heart Containers, etc.
             // These items do not affect logic at all so there is very little constraint to this method.
             Console.WriteLine("Placing Non Impact Items.");
-            PlaceNonImpactItems(Items.alwaysItems, rnd);
+            PlaceNonImpactItems(Randomizer.Items.alwaysItems, rnd);
 
             // Any extra checks that have not been filled at this point are filled with "junk" items such as ammunition, foolish items, etc.
             Console.WriteLine("Placing Junk Items.");
@@ -987,6 +987,8 @@ namespace TPRandomizer
                 List<Item> playthroughItems = new();
                 List<Item> currentItemPool = new();
                 currentItemPool.AddRange(itemPool);
+
+                // The itemGroup list is intended to be readonly so we want to make a copy of it and modify the copy.
                 itemsToBeRandomized.AddRange(itemGroup);
 
                 while (itemsToBeRandomized.Count > 0)
@@ -1125,11 +1127,15 @@ namespace TPRandomizer
         /// Places all items in a list into the world with no restrictions.
         /// </summary>
         /// <param name="itemsToBeRandomized"> The group of items that are to be randomized. </param>
-        private static void PlaceNonImpactItems(List<Item> itemsToBeRandomized, Random rnd)
+        private static void PlaceNonImpactItems(List<Item> itemGroup, Random rnd)
         {
             List<string> availableChecks = new();
             Item itemToPlace;
             Check checkToReciveItem;
+
+            // The itemGroup list is intended to be readonly so we want to make a copy of it and modify the copy.
+            List<Item> itemsToBeRandomized = new();
+            itemsToBeRandomized.AddRange(itemGroup);
 
             while (itemsToBeRandomized.Count > 0)
             {
