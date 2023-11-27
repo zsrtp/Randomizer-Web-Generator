@@ -1443,6 +1443,16 @@ namespace TPRandomizer
             );
         }
 
+        public static int GetPlayerHealth()
+        {
+            double playerHealth = 3.0; // start at 3 since we have 3 hearts.
+
+            playerHealth = playerHealth + (getItemCount(Item.Piece_of_Heart) * 0.2); //Pieces of heart are 1/5 of a heart.
+            playerHealth = playerHealth + getItemCount(Item.Heart_Container);
+
+            return (int)playerHealth;
+        }
+
         /// <summary>
         /// summary text.
         /// </summary>
