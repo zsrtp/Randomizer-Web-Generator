@@ -721,7 +721,7 @@
       };
       const shufflePoes = processor.nextBoolean();
       res.poes = shufflePoes
-        ? poeSettings.overworld
+        ? poeSettings.all
         : poeSettings.vanilla;
     }
     processBasic({ id: 'shopItems' });
