@@ -7,7 +7,7 @@
     "NeighbourRequirements":
     [
         "Shadow_Crystal",
-        "CanDefeatShadowBeast"
+        "CanDefeatShadowBeast and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy)))"
     ],
     "Checks": 
     [

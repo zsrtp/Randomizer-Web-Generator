@@ -17,6 +17,7 @@ namespace TPRandomizer.Assets
         // determining if you should increment the major or minor version.
         public static readonly UInt16 VersionMajor = 1;
         public static readonly UInt16 VersionMinor = 1;
+        public static readonly UInt16 VersionPatch = 0;
 
         // For convenience. This does not include any sort of leading 'v', so
         // add that where you use this variable if you need it.
@@ -242,6 +243,8 @@ namespace TPRandomizer.Assets
                     break;
                 }
             }
+
+            seedHeader.Add(Converter.GcByte(randomizerSettings.bonksDoDamage ? 1 : 0));
 
             while (seedHeader.Count < (SeedHeaderSize))
             {

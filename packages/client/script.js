@@ -310,8 +310,13 @@ document
 document
   .getElementById('modifyShopModelsCheckbox')
   .addEventListener('click', setSettingsString);
-
-  document
+document
+  .getElementById('bonksDoDamageCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('shuffleRewardsCheckbox')
+  .addEventListener('click', setSettingsString);
+document
   .getElementById('importSettingsStringButton')
   .addEventListener('click', importSettingsString);
 
@@ -1148,6 +1153,8 @@ function populateSSettings(s) {
   $('#instantTextCheckbox').prop('checked', s.instantText);
   $('#itemScarcityFieldset').val(s.itemScarcity);
   $('#damageMagFieldset').val(s.damageMagnification);
+  $('#bonksDoDamageCheckbox').prop('checked', s.bonksDoDamage);
+  $('#shuffleRewardsCheckbox').prop('checked', s.shuffleRewards);
   $('#openMapCheckbox').prop('checked', s.openMap);
   $('#spinnerSpeedCheckbox').prop('checked', s.increaseSpinnerSpeed);
   $('#openDotCheckbox').prop('checked', s.openDot);
