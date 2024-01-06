@@ -21,7 +21,7 @@ namespace TPRandomizer
         public bool shuffleGoldenBugs { get; set; }
         public bool shuffleSkyCharacters { get; set; }
         public bool shuffleNpcItems { get; set; }
-        public bool shufflePoes { get; set; }
+        public PoeSettings shufflePoes { get; set; }
         public bool shuffleShopItems { get; set; }
         public bool shuffleHiddenSkills { get; set; }
         public SmallKeySettings smallKeySettings { get; set; }
@@ -48,6 +48,10 @@ namespace TPRandomizer
         public bool skipCityEntrance { get; set; }
         public bool instantText { get; set; }
         public bool openMap { get; set; }
+        public ItemScarcity itemScarcity { get; set; }
+        public DamageMagnification damageMagnification { get; set; }
+        public bool bonksDoDamage { get; set; }
+        public bool shuffleRewards { get; set; }
         public bool increaseSpinnerSpeed { get; set; }
         public bool openDot { get; set; }
         public List<Item> startingItems { get; set; }
@@ -66,7 +70,7 @@ namespace TPRandomizer
             shuffleGoldenBugs = processor.NextBool();
             shuffleSkyCharacters = processor.NextBool();
             shuffleNpcItems = processor.NextBool();
-            shufflePoes = processor.NextBool();
+            shufflePoes = (PoeSettings)processor.NextInt(2);
             shuffleShopItems = processor.NextBool();
             shuffleHiddenSkills = processor.NextBool();
             smallKeySettings = (SmallKeySettings)processor.NextInt(3);
@@ -95,6 +99,10 @@ namespace TPRandomizer
             openMap = processor.NextBool();
             increaseSpinnerSpeed = processor.NextBool();
             openDot = processor.NextBool();
+            itemScarcity = (ItemScarcity)processor.NextInt(2);
+            damageMagnification = (DamageMagnification)processor.NextInt(3);
+            bonksDoDamage = processor.NextBool();
+            shuffleRewards = processor.NextBool();
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();

@@ -240,7 +240,12 @@ namespace TPRandomizer
             // method outputs
             root.Add(
                 "version",
-                "s" + Assets.SeedData.VersionMajor + "." + Assets.SeedData.VersionMinor
+                "s"
+                    + Assets.SeedData.VersionMajor
+                    + "."
+                    + Assets.SeedData.VersionMinor
+                    + "."
+                    + Assets.SeedData.VersionPatch
             );
 
             if (prettyPrint || dangerouslyPrintFullRaceSpoiler)
@@ -306,9 +311,13 @@ namespace TPRandomizer
             result.Add("shuffleGoldenBugs", sSettings.shuffleGoldenBugs);
             result.Add("shuffleSkyCharacters", sSettings.shuffleSkyCharacters);
             result.Add("shuffleNpcItems", sSettings.shuffleNpcItems);
-            result.Add("shufflePoes", sSettings.shufflePoes);
+            result.Add("shufflePoes", sSettings.shufflePoes.ToString());
             result.Add("shuffleShopItems", sSettings.shuffleShopItems);
             result.Add("shuffleHiddenSkills", sSettings.shuffleHiddenSkills);
+            result.Add("itemScarcity", sSettings.itemScarcity.ToString());
+            result.Add("damageMagnification", sSettings.damageMagnification.ToString());
+            result.Add("bonksDoDamage", sSettings.bonksDoDamage.ToString());
+            result.Add("shuffleRewards", sSettings.shuffleRewards.ToString());
             result.Add("smallKeySettings", sSettings.smallKeySettings.ToString());
             result.Add("bigKeySettings", sSettings.bigKeySettings.ToString());
             result.Add("mapAndCompassSettings", sSettings.mapAndCompassSettings.ToString());
@@ -334,7 +343,7 @@ namespace TPRandomizer
             result.Add("instantText", sSettings.instantText);
             result.Add("openMap", sSettings.openMap);
             result.Add("increaseSpinnerSpeed", sSettings.increaseSpinnerSpeed);
-            result.Add("openDot",sSettings.openDot);
+            result.Add("openDot", sSettings.openDot);
 
             result.Add("startingItems", sSettings.startingItems);
             result.Add("excludedChecks", sSettings.excludedChecks);

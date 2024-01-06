@@ -337,7 +337,7 @@
   function genSSettingsFromUi() {
     // Increment the version when you make changes to the format. Need to make
     // sure you don't break backwards compatibility!!
-    const sSettingsVersion = 3;
+    const sSettingsVersion = 4;
 
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
@@ -347,7 +347,7 @@
       { id: 'goldenBugsCheckbox' },
       { id: 'skyCharacterCheckbox' },
       { id: 'giftsFromNPCsCheckbox' },
-      { id: 'poesCheckbox' },
+      { id: 'poeSettingsFieldset', bitLength: 2 },
       { id: 'shopItemsCheckbox' },
       { id: 'hiddenSkillsCheckbox' },
       { id: 'smallKeyFieldset', bitLength: 3 },
@@ -376,6 +376,10 @@
       { id: 'openMapCheckbox' },
       { id: 'spinnerSpeedCheckbox' },
       { id: 'openDotCheckbox' },
+      { id: 'itemScarcityFieldset', bitLength: 2 },
+      { id: 'damageMagFieldset', bitLength: 3 },
+      { id: 'bonksDoDamageCheckbox' },
+      { id: 'shuffleRewardsCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -705,7 +709,21 @@
     processBasic({ id: 'goldenBugs' });
     processBasic({ id: 'skyCharacters' });
     processBasic({ id: 'giftsFromNpcs' });
-    processBasic({ id: 'poes' });
+    if (version >= 4) {
+      // `poes` changed from a checkbox to a select
+      processBasic({ id: 'poes', bitLength: 2 });
+    } else {
+      const poeSettings = {
+        vanilla: 0,
+        overworld: 1,
+        dungeons: 2,
+        all: 3
+      };
+      const shufflePoes = processor.nextBoolean();
+      res.poes = shufflePoes
+        ? poeSettings.all
+        : poeSettings.vanilla;
+    }
     processBasic({ id: 'shopItems' });
     processBasic({ id: 'hiddenSkills' });
     processBasic({ id: 'smallKeys', bitLength: 3 });
@@ -763,6 +781,17 @@
       processBasic({ id: 'openMap' });
       processBasic({ id: 'increaseSpinnerSpeed' });
       processBasic({ id: 'openDot' });
+    }
+    if (version >= 4) {
+      processBasic({ id: 'itemScarcity', bitLength: 2 });
+      processBasic({ id: 'damageMagnification', bitLength: 3 });
+      processBasic({ id: 'bonksDoDamage' });
+      processBasic({ id: 'shuffleRewards' });
+    } else {
+      res.itemScarcity = 0; // Vanilla
+      res.damageMagnification = 1; // Vanilla
+      res.bonksDoDamage = 0; // Vanilla
+      res.shuffleRewards = 0; // Vanilla
     }
 
     res.startingItems = processor.nextEolList(9);

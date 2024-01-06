@@ -83,4 +83,28 @@ namespace TPRandomizer.SSettings.Enums
         NoWrestling = 1,
         Open = 2,
     }
+
+    public enum ItemScarcity
+    {
+        Vanilla = 0,
+        Minimal = 1,
+        Plentiful = 2,
+    }
+
+    public enum PoeSettings
+    {
+        Vanilla = 0,
+        Overworld = 1,
+        Dungeons = 2,
+        All = 3
+    }
+
+    public enum DamageMagnification
+    {
+        Vanilla = 1,
+        Double = 2,
+        Triple = 3,
+        Quadruple = 4,
+        OHKO = 5,
+    }
 }

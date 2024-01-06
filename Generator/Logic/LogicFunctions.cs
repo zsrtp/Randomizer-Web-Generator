@@ -1405,6 +1405,21 @@ namespace TPRandomizer
             );
         }
 
+        public static bool CanUseBottledFairy()
+        {
+            return HasBottle() && Randomizer.Rooms.RoomDict["Lake Hylia"].ReachedByPlaythrough;
+        }
+
+        public static bool CanUseBottledFairies()
+        {
+            return HasBottles() && Randomizer.Rooms.RoomDict["Lake Hylia"].ReachedByPlaythrough;
+        }
+
+        public static bool CanUseOilBottle()
+        {
+            return CanUse(Item.Lantern) && CanUse(Item.Coro_Bottle);
+        }
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -1426,6 +1441,16 @@ namespace TPRandomizer
                 || CanUse(Item.Boomerang)
                 || CanUse(Item.Ball_and_Chain)
             );
+        }
+
+        public static int GetPlayerHealth()
+        {
+            double playerHealth = 3.0; // start at 3 since we have 3 hearts.
+
+            playerHealth = playerHealth + (getItemCount(Item.Piece_of_Heart) * 0.2); //Pieces of heart are 1/5 of a heart.
+            playerHealth = playerHealth + getItemCount(Item.Heart_Container);
+
+            return (int)playerHealth;
         }
 
         /// <summary>
@@ -1795,6 +1820,36 @@ namespace TPRandomizer
                     || CanUse(Item.Jovani_Bottle)
                     || CanUse(Item.Coro_Bottle)
                 ) && CanUse(Item.Lantern);
+        }
+
+        public static bool HasBottles()
+        {
+            int n = 0;
+            if (CanUse(Item.Lantern))
+            {
+                if (CanUse(Item.Empty_Bottle))
+                {
+                    n++;
+                }
+                if (CanUse(Item.Sera_Bottle))
+                {
+                    n++;
+                }
+                if (CanUse(Item.Jovani_Bottle))
+                {
+                    n++;
+                }
+                if (CanUse(Item.Coro_Bottle))
+                {
+                    n++;
+                }
+
+                if (n > 1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
