@@ -295,8 +295,11 @@ namespace TPRandomizer
     /// </summary>
     public class EntranceRando
     {
+        // If disabled, a randomized double door can lead to a different location, depending on which door you use.
         bool pairEntrances = false;
-        bool decoupleEntrances = true;
+
+        // If enabled, all entrances are "one way" so if you go through Faron Woods -> FT Entrance and end up in GM, going back the way you came may not lead you to Faron Woods.
+        bool decoupleEntrances = false;
         public List<SpawnTableEntry> SpawnTable = new();
 
         public void RandomizeEntrances(Random rnd)
@@ -376,7 +379,7 @@ namespace TPRandomizer
             List<EntranceType> typesToDecouple = new();
 
             // Placeholder until I get the settings actually created
-            bool isDungeonEREnabled = true;
+            bool isDungeonEREnabled = false;
             if (isDungeonEREnabled)
             {
                 // If we are shuffling dungeon entrances, loop through the entrance table and make note of all of the dungeon entrances and add them to the pool.
