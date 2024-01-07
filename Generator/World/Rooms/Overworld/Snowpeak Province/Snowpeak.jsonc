@@ -80,7 +80,7 @@
     [
       {
         "ConnectedArea": "Snowpeak Summit Lower",
-        "Requirements": "CanDefeatShadowBeast"
+        "Requirements": "CanDefeatShadowBeast and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy)))"
       },
       {
         "ConnectedArea": "Snowpeak Climb Upper",

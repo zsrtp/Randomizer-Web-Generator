@@ -1741,7 +1741,14 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteMDH()
         {
-            return (canCompleteLakebedTemple() || (Randomizer.SSettings.skipMdh == true));
+            return (
+                (Randomizer.SSettings.skipMdh == true)
+                || (
+                    canCompleteLakebedTemple()
+                    && Randomizer.Rooms.RoomDict["Castle Town South"].ReachedByPlaythrough
+                )
+            );
+            //return (canCompleteLakebedTemple() || (Randomizer.SSettings.skipMdh == true));
         }
 
         /// <summary>
