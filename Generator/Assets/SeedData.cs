@@ -1169,20 +1169,21 @@ namespace TPRandomizer.Assets
                     if (currentCheck.category.Contains("ARC")) // If the chest is an ARC check, so we need to add a new ARC replacement entry.
                     {
                         string offset = (
-                            uint.Parse(
-                                currentCheck.arcOffsets[0],
-                                System.Globalization.NumberStyles.HexNumber
-                            ) - 0x17
-                        ).ToString();
+                            (UInt32)
+                                uint.Parse(
+                                    currentCheck.arcOffsets[0],
+                                    System.Globalization.NumberStyles.HexNumber
+                                ) - 0x18
+                        ).ToString("X");
                         string value = "";
 
                         if (Randomizer.Items.RandomizedImportantItems.Contains(currentCheck.itemId))
                         {
-                            value = "B0000000"; // Big Blue Chest. Value is padded to a u32
+                            value = "42300000"; // Big Blue Chest. Value is padded to a u32
                         }
                         else
                         {
-                            value = "A0000000"; // Small Brown Chest. Value is padded to a u32
+                            value = "41300000"; // Small Brown Chest. Value is padded to a u32
                         }
 
                         listOfArcReplacements.Add(
@@ -1190,7 +1191,7 @@ namespace TPRandomizer.Assets
                                 offset,
                                 value,
                                 0,
-                                0,
+                                3,
                                 currentCheck.stageIDX[0],
                                 currentCheck.roomIDX
                             )
