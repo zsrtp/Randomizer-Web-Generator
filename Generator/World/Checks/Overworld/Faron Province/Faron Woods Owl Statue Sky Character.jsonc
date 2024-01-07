@@ -1,5 +1,5 @@
 {
-  "requirements": "canSmash and (Progressive_Dominion_Rod, 2) and canClearForest",
+  "requirements": "canClearForest and (Progressive_Dominion_Rod, 2)",
   "stageIDX": [ 45 ],
   "roomIDX": 8,
   "category": [ "Overworld", "Faron Woods", "Sky Book" ],

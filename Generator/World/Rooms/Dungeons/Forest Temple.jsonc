@@ -1,0 +1,143 @@
+[
+    {
+        "RoomName": "Forest Temple Boss Room",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "South Faron Woods",
+            "Requirements": "CanDefeatDiababa"
+          }
+        ],
+        "Checks": 
+        [
+            "Forest Temple Diababa Heart Container",
+            "Forest Temple Dungeon Reward"
+        ], 
+        "Region": "Forest Temple"
+    },
+    {
+        "RoomName": "Forest Temple East Wing",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "Forest Temple Lobby",
+            "Requirements": "true"
+          },
+          {
+            "ConnectedArea": "Forest Temple North Wing",
+            "Requirements": "true"
+          }
+        ],
+        "Checks": 
+        [
+            "Forest Temple Second Monkey Under Bridge Chest",
+            "Forest Temple Big Key Chest",
+            "Forest Temple East Water Cave Chest"
+        ],
+        "Region": "Forest Temple"
+    },
+    {
+        "RoomName": "Forest Temple Entrance",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "North Faron Woods",
+            "Requirements": "true"
+          },
+          {
+            "ConnectedArea": "Forest Temple Lobby",
+            "Requirements": "CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage"
+          }
+        ],
+        "Checks": 
+        [
+            "Forest Temple Entrance Vines Chest"
+        ],
+        "Region": "Forest Temple"
+    },
+    {
+        "RoomName": "Forest Temple Lobby",
+        "Exits": 
+        [
+            {
+              "ConnectedArea": "Forest Temple Entrance",
+                "Requirements": "true"
+            },
+            {
+              "ConnectedArea": "Forest Temple East Wing",
+                "Requirements": "true"
+            },
+            {
+              "ConnectedArea": "Forest Temple West Wing",
+                "Requirements": "canBurnWebs and ((((Forest_Temple_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)) and CanDefeatBokoblin) or (Progressive_Clawshot, 1))"
+            },
+            {
+              "ConnectedArea": "Ook",
+                "Requirements": "Lantern and CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage and ((Forest_Temple_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
+            }
+        ], 
+        "Checks": 
+        [
+            "Forest Temple Central Chest Behind Stairs",
+            "Forest Temple Central North Chest",
+            "Forest Temple Central Chest Hanging From Web"
+        ],
+        "Region": "Forest Temple"
+    },
+    {
+        "RoomName": "Forest Temple North Wing",
+        "Exits": 
+        [
+            {
+              "ConnectedArea": "Forest Temple East Wing",
+              "Requirements": "true"
+            },
+            {
+              "ConnectedArea": "Forest Temple Boss Room",
+              "Requirements": "(Forest_Temple_Big_Key or (Setting.bigKeySettings equals Keysy)) and Boomerang and (canFreeAllMonkeys or (Progressive_Clawshot, 1))"
+            }
+        ],
+        "Checks": 
+        [
+            "Forest Temple Windless Bridge Chest",
+            "Forest Temple North Deku Like Chest",
+            "Forest Temple East Tile Worm Chest"
+        ], 
+        "Region": "Forest Temple"
+    },
+    {
+        "RoomName": "Forest Temple West Wing",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "Forest Temple Lobby",
+            "Requirements": "true"
+          },
+          {
+            "ConnectedArea": "Ook",
+            "Requirements": "Boomerang"
+          }
+        ],
+        "Checks": 
+        [
+            "Forest Temple West Deku Like Chest",
+            "Forest Temple Totem Pole Chest",
+            "Forest Temple West Tile Worm Room Vines Chest",
+            "Forest Temple West Tile Worm Chest Behind Stairs",
+            "Forest Temple Big Baba Key"
+        ],
+        "Region": "Forest Temple"
+    },
+    {
+        "RoomName": "Ook",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "Forest Temple West Wing",
+            "Requirements": "CanDefeatOok and Boomerang"
+          }
+        ],
+        "Checks": ["Forest Temple Gale Boomerang"], 
+        "Region": "Forest Temple"
+    }
+]

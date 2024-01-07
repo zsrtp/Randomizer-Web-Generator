@@ -1,0 +1,87 @@
+[
+  {
+    "RoomName": "Faron Field",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Faron Field Behind Boulder",
+        "Requirements": "Room.Castle_Town_South and HasBottle and Room.Outside_Castle_Town_South"
+      },
+      {
+        "ConnectedArea": "South Faron Woods",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Kakariko Gorge",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Lake Hylia Bridge",
+        "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)"
+      },
+      {
+        "ConnectedArea": "Faron Field Corner Grotto",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ConnectedArea": "Faron Field Fishing Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Faron Field Bridge Chest",
+        "Faron Field Tree Heart Piece",
+        "Faron Field Male Beetle",
+        "Faron Field Female Beetle",
+        "Faron Field Poe"
+    ],
+    "Region": "Hyrule Field - Faron Province"
+  },
+  {
+    "RoomName": "Faron Field Behind Boulder",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Faron Field",
+        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle and Room.Outside_Castle_Town_South" // How to handle the fact, that the hot water expires? My idea would be removing (or increasing?) its timer.
+      },
+      {
+         // If you enter Outside Castle Town from there while the boulder is still there, you get stuck and are forced to save-warp or portal-warp.
+        "ConnectedArea": "Outside Castle Town South Inside Boulder",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Faron Province"
+  },
+  {
+    "RoomName": "Faron Field Corner Grotto",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Faron Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Faron Field Corner Grotto Right Chest",
+        "Faron Field Corner Grotto Left Chest",
+        "Faron Field Corner Grotto Rear Chest"
+    ],
+    "Region": "Hyrule Field - Faron Province"
+  },
+  {
+    "RoomName": "Faron Field Fishing Grotto",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Faron Field",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Faron Province"
+  }
+]

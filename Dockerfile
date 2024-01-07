@@ -36,6 +36,8 @@ RUN cp -R World /app/generator/World
 RUN cp -R Glitched-World /app/generator/Glitched-World
 RUN mkdir -p /app/generator/Assets/Sound
 RUN cp -R Assets/Sound/BackgroundMusic.jsonc /app/generator/Assets/Sound/BackgroundMusic.jsonc
+RUN mkdir -p /app/generator/Assets/Entrances
+RUN cp -R Assets/Entrances/EntranceTable.jsonc /app/generator/Assets/Entrances/EntranceTable.jsonc
 
 FROM node:lts-alpine as node_base
 FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine

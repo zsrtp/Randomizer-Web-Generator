@@ -18,11 +18,12 @@ namespace TPRandomizer
         /// <summary>
         /// summary text.
         /// </summary>
-        public static bool ValidatePlaythrough(Room startingRoom)
+        public static bool ValidatePlaythrough(Room startingRoom, bool printResults = false)
         {
             bool areAllChecksReachable = true;
             bool areAllRoomsReachable = true;
             List<Item> playthroughItems = new();
+            List<Item> validationItems = new();
             SharedSettings parseSetting = Randomizer.SSettings;
 
             // Console.WriteLine("Item to place: " + itemToPlace);
@@ -38,6 +39,11 @@ namespace TPRandomizer
                 Randomizer.Items.heldItems.Add(startingItem);
             }
 
+            /*foreach (Item item in Randomizer.Items.heldItems)
+            {
+                Console.WriteLine(item);
+            }*/
+
             // Walk through the current graph and get a list of rooms that we can currently access
             // If we collect any items during the playthrough, we add them to the player's inventory
             // and try walking through the graph again until we have collected every item that we can.
@@ -49,7 +55,8 @@ namespace TPRandomizer
                 );
                 foreach (Room graphRoom in currentPlaythroughGraph)
                 {
-                    // Console.WriteLine("Currently Exploring: " + graphRoom.name);
+                    graphRoom.Visited = true;
+                    //Console.WriteLine("Currently Exploring: " + graphRoom.RoomName);
                     for (int i = 0; i < graphRoom.Checks.Count; i++)
                     {
                         // Create reference to the dictionary entry of the check whose logic we are evaluating
@@ -79,7 +86,9 @@ namespace TPRandomizer
                                 {
                                     playthroughItems.Add(currentCheck.itemId);
 
-                                    // Console.WriteLine("Added " + currentCheck.itemId + " to item list.");
+                                    /*Console.WriteLine(
+                                        "Added " + currentCheck.itemId + " to item list."
+                                    );*/
                                 }
 
                                 currentCheck.hasBeenReached = true;
@@ -89,6 +98,7 @@ namespace TPRandomizer
                 }
 
                 Randomizer.Items.heldItems.AddRange(playthroughItems);
+                validationItems.AddRange(playthroughItems);
             } while (playthroughItems.Count > 0);
 
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
@@ -97,7 +107,10 @@ namespace TPRandomizer
                 if (!listedCheck.hasBeenReached)
                 {
                     areAllChecksReachable = false;
-                    Console.WriteLine(listedCheck.checkName + " is not reachable!");
+                    if (printResults)
+                    {
+                        Console.WriteLine(listedCheck.checkName + " is not reachable!");
+                    }
                 }
             }
 
@@ -107,12 +120,24 @@ namespace TPRandomizer
                 if (!currentRoom.Visited)
                 {
                     areAllRoomsReachable = false;
-                    Console.WriteLine(currentRoom.RoomName + " is not reachable!");
+                    if (printResults)
+                    {
+                        Console.WriteLine(currentRoom.RoomName + " is not reachable!");
+                    }
                 }
+            }
+
+            foreach (Item item in validationItems)
+            {
+                Randomizer.Items.heldItems.Remove(item);
             }
 
             if (areAllChecksReachable && areAllRoomsReachable)
             {
+                if (printResults)
+                {
+                    Console.WriteLine("Playthrough Validated");
+                }
                 return true;
             }
             else
@@ -347,7 +372,7 @@ namespace TPRandomizer
                 sphereItems.Clear();
                 foreach (Room graphRoom in currentPlaythroughGraph)
                 {
-                    // Console.WriteLine("Currently Exploring: " + graphRoom.name);
+                    //Console.WriteLine("Currently Exploring: " + graphRoom.RoomName);
                     if (graphRoom.RoomName == "Ganondorf Castle")
                     {
                         graphRoom.Visited = true;
@@ -402,6 +427,7 @@ namespace TPRandomizer
                                             + currentCheck.itemId,
                                         currentCheck
                                     );
+                                    //Console.WriteLine("Picked up: " + currentCheck.itemId);
                                     hasCompletedSphere = true;
                                     currentCheck.isRequired = true;
                                 }
@@ -855,6 +881,28 @@ namespace TPRandomizer
             }
             // Dispose of the object when we are done
             zip.Dispose();
+        }
+    }
+
+    public static class Extensions
+    {
+        public static void Shuffle<T>(this IList<T> list, Random rng)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
+        public static void Append<K, V>(this Dictionary<K, V> first, Dictionary<K, V> second)
+        {
+            List<KeyValuePair<K, V>> pairs = second.ToList();
+            pairs.ForEach(pair => first.Add(pair.Key, pair.Value));
         }
     }
 

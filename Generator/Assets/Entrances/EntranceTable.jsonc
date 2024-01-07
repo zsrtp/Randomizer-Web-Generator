@@ -1,0 +1,2899 @@
+[   // unsure at ToT boss room and at stallord -> mirror chamber
+    // Overworld Exits
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Outside Links House",
+            "TargetRoom": "Ordon Village",
+            "Stage": 43,
+            "Room": 1,
+            "Spawn": "01",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Ordon Village",
+            "TargetRoom": "Outside Links House",
+            "Stage": 43,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "10",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Ordon Village",
+            "TargetRoom": "Ordon Ranch Entrance",
+            "Stage": 41,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Ordon Ranch Entrance",
+            "TargetRoom": "Ordon Village",
+            "Stage": 43,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Outside Links House",
+            "TargetRoom": "Ordon Spring",
+            "Stage": 44,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Ordon Spring",
+            "TargetRoom": "Outside Links House",
+            "Stage": 43,
+            "Room": 1,
+            "Spawn": "02",
+            "SpawnType": "50",
+            "Parameters": "3091"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Ordon Spring",
+            "TargetRoom": "South Faron Woods",
+            "Stage": 45,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "South Faron Woods",
+            "TargetRoom": "Ordon Spring",
+            "Stage": 44,
+            "Room": 1,
+            "Spawn": "01",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "South Faron Woods Above Owl Statue",
+            "TargetRoom": "Mist Area Near Owl Statue Chest",
+            "Stage": 45,
+            "Room": 5,
+            "Spawn": "62",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Mist Area Near Owl Statue Chest",
+            "TargetRoom": "South Faron Woods Above Owl Statue",
+            "Stage": 45,
+            "Room": 8,
+            "Spawn": "02",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Mist Area Near North Faron Woods",
+            "TargetRoom": "North Faron Woods",
+            "Stage": 45,
+            "Room": 6,
+            "Spawn": "02",
+            "SpawnType": "00",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "North Faron Woods",
+            "TargetRoom": "Mist Area Near North Faron Woods",
+            "Stage": 45,
+            "Room": 11,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "North Faron Woods Near Lost Woods",
+            "TargetRoom": "Lost Woods",
+            "Stage": 54,
+            "Room": 3,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lost Woods",
+            "TargetRoom": "North Faron Woods Near Lost Woods",
+            "Stage": 45,
+            "Room": 6,
+            "Spawn": "03",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lost Woods Lower Battle Arena",
+            "TargetRoom": "Sacred Grove Lower",
+            "Stage": 54,
+            "Room": 1,
+            "Spawn": "03",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Sacred Grove Lower",
+            "TargetRoom": "Lost Woods Lower Battle Arena",
+            "Stage": 54,
+            "Room": 3,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lost Woods Upper Battle Arena",
+            "TargetRoom": "Sacred Grove Before Block",
+            "Stage": 54,
+            "Room": 1,
+            "Spawn": "06",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Sacred Grove Before Block",
+            "TargetRoom": "Lost Woods Upper Battle Arena",
+            "Stage": 54,
+            "Room": 3,
+            "Spawn": "02",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Sacred Grove Upper",
+            "TargetRoom": "Sacred Grove Past",
+            "Stage": 54,
+            "Room": 2,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F012"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Sacred Grove Past",
+            "TargetRoom": "Sacred Grove Upper",
+            "Stage": 54,
+            "Room": 1,
+            "Spawn": "05",
+            "SpawnType": "10",
+            "Parameters": "F032"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "South Faron Woods",
+            "TargetRoom": "Faron Field",
+            "Stage": 56,
+            "Room": 6,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Faron Field",
+            "TargetRoom": "South Faron Woods",
+            "Stage": 45,
+            "Room": 4,
+            "Spawn": "08",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Faron Field Behind Boulder",
+            "TargetRoom": "Outside Castle Town South Inside Boulder",
+            "Stage": 57,
+            "Room": 16,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town South",
+            "TargetRoom": "Faron Field Behind Boulder",
+            "Stage": 56,
+            "Room": 6,
+            "Spawn": "01",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Gorge Behind Gate",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "3C",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Gorge Behind Gate",
+            "Stage": 56,
+            "Room": 3,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Graveyard",
+            "Stage": 48,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Graveyard",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "06",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Death Mountain Near Kakariko",
+            "Stage": 47,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Death Mountain Near Kakariko",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Village Behind Gate",
+            "TargetRoom": "Eldin Field",
+            "Stage": 56,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field",
+            "TargetRoom": "Kakariko Village Behind Gate",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "08",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field Near Castle Town",
+            "TargetRoom": "Outside Castle Town East",
+            "Stage": 57,
+            "Room": 17,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town East",
+            "TargetRoom": "Eldin Field Near Castle Town",
+            "Stage": 56,
+            "Room": 0,
+            "Spawn": "07",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field Outside Hidden Village",
+            "TargetRoom": "Hidden Village",
+            "Stage": 63,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Hidden Village",
+            "TargetRoom": "Eldin Field Outside Hidden Village",
+            "Stage": 56,
+            "Room": 7,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lanayru Field Behind Boulder",
+            "TargetRoom": "Zoras Domain West Ledge",
+            "Stage": 50,
+            "Room": 1,
+            "Spawn": "0F",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Zoras Domain West Ledge",
+            "TargetRoom": "Lanayru Field Behind Boulder",
+            "Stage": 56,
+            "Room": 10,
+            "Spawn": "03",
+            "SpawnType": "00",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Upper Zoras River",
+            "TargetRoom": "Fishing Hole",
+            "Stage": 62,
+            "Room": 0,
+            "Spawn": "02",
+            "SpawnType": "B0",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Fishing Hole",
+            "TargetRoom": "Upper Zoras River",
+            "Stage": 61,
+            "Room": 0,
+            "Spawn": "0A",
+            "SpawnType": "A0",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Upper Zoras River",
+            "TargetRoom": "Zoras Domain",
+            "Stage": 50,
+            "Room": 1,
+            "Spawn": "0A",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Zoras Domain",
+            "TargetRoom": "Upper Zoras River",
+            "Stage": 61,
+            "Room": 0,
+            "Spawn": "07",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Zoras Domain",
+            "TargetRoom": "Zoras Throne Room",
+            "Stage": 50,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Zoras Throne Room",
+            "TargetRoom": "Zoras Domain",
+            "Stage": 50,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Zoras Domain",
+            "TargetRoom": "Snowpeak Climb Lower",
+            "Stage": 51,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Climb Lower",
+            "TargetRoom": "Zoras Domain",
+            "Stage": 50,
+            "Room": 1,
+            "Spawn": "06",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Climb Upper",
+            "TargetRoom": "Snowpeak Summit Upper",
+            "Stage": 51,
+            "Room": 2,
+            "Spawn": "08",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Summit Upper",
+            "TargetRoom": "Snowpeak Climb Upper",
+            "Stage": 51,
+            "Room": 0,
+            "Spawn": "0F",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lanayru Field",
+            "TargetRoom": "Outside Castle Town West",
+            "Stage": 57,
+            "Room": 8,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town West",
+            "TargetRoom": "Lanayru Field",
+            "Stage": 56,
+            "Room": 10,
+            "Spawn": "04",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town West",
+            "TargetRoom": "Castle Town West",
+            "Stage": 53,
+            "Room": 2,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town West",
+            "TargetRoom": "Outside Castle Town West",
+            "Stage": 57,
+            "Room": 8,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town West",
+            "TargetRoom": "Castle Town Center",
+            "Stage": 53,
+            "Room": 0,
+            "Spawn": "04",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Center",
+            "TargetRoom": "Castle Town West",
+            "Stage": 53,
+            "Room": 2,
+            "Spawn": "02",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town West",
+            "TargetRoom": "Castle Town South",
+            "Stage": 53,
+            "Room": 3,
+            "Spawn": "08",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town South",
+            "TargetRoom": "Castle Town West",
+            "Stage": 53,
+            "Room": 2,
+            "Spawn": "03",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Center",
+            "TargetRoom": "Castle Town North",
+            "Stage": 53,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town North",
+            "TargetRoom": "Castle Town Center",
+            "Stage": 53,
+            "Room": 0,
+            "Spawn": "03",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Center",
+            "TargetRoom": "Castle Town East",
+            "Stage": 53,
+            "Room": 4,
+            "Spawn": "02",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town East",
+            "TargetRoom": "Castle Town Center",
+            "Stage": 53,
+            "Room": 0,
+            "Spawn": "06",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Center",
+            "TargetRoom": "Castle Town South",
+            "Stage": 53,
+            "Room": 3,
+            "Spawn": "02",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town South",
+            "TargetRoom": "Castle Town Center",
+            "Stage": 53,
+            "Room": 0,
+            "Spawn": "05",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town East",
+            "TargetRoom": "Outside Castle Town East",
+            "Stage": 57,
+            "Room": 17,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town East",
+            "TargetRoom": "Castle Town East",
+            "Stage": 53,
+            "Room": 4,
+            "Spawn": "00",
+            "SpawnType": "10",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town East",
+            "TargetRoom": "Castle Town South",
+            "Stage": 53,
+            "Room": 3,
+            "Spawn": "09",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town South",
+            "TargetRoom": "Castle Town East",
+            "Stage": 53,
+            "Room": 4,
+            "Spawn": "06",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town South",
+            "TargetRoom": "Outside Castle Town South",
+            "Stage": 57,
+            "Room": 16,
+            "Spawn": "01",
+            "SpawnType": "05",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town South",
+            "TargetRoom": "Castle Town South",
+            "Stage": 53,
+            "Room": 3,
+            "Spawn": "00",
+            "SpawnType": "10",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town West",
+            "TargetRoom": "Lake Hylia Bridge",
+            "Stage": 56,
+            "Room": 12,
+            "Spawn": "01",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia Bridge",
+            "TargetRoom": "Outside Castle Town West",
+            "Stage": 57,
+            "Room": 8,
+            "Spawn": "02",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia Bridge",
+            "TargetRoom": "Lake Hylia",
+            "Stage": 52,
+            "Room": 0,
+            "Spawn": "08",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia",
+            "TargetRoom": "Lake Hylia Bridge",
+            "Stage": 56,
+            "Room": 13,
+            "Spawn": "01",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Gerudo Desert Outside Bulblin Camp",
+            "TargetRoom": "Bulblin Camp",
+            "Stage": 55,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Bulblin Camp",
+            "TargetRoom": "Gerudo Desert Outside Bulblin Camp",
+            "Stage": 59,
+            "Room": 0,
+            "Spawn": "02",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Bulblin Camp Back Exit",
+            "TargetRoom": "Outside Arbiters Grounds",
+            "Stage": 55,
+            "Room": 3,
+            "Spawn": "07",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Outside Arbiters Grounds",
+            "TargetRoom": "Bulblin Camp Between Fences",
+            "Stage": 55,
+            "Room": 1,
+            "Spawn": "02",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    // Overworld One-Way Exits
+    {
+        "Type": "Overworld One-Way",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Graveyard",
+            "TargetRoom": "Lake Hylia",
+            "Stage": 52,
+            "Room": 0,
+            "Spawn": "19",
+            "SpawnType": "D0",
+            "Parameters": "00FF"
+        }
+    },
+    {
+        "Type": "Overworld One-Way",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Upper Zoras River",
+            "TargetRoom": "Lanayru Field",
+            "Stage": 56,
+            "Room": 10,
+            "Spawn": "02",
+            "SpawnType": "D0",
+            "Parameters": "00FF"
+        }
+    },
+    {
+        "Type": "Overworld One-Way",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town South",
+            "TargetRoom": "Lake Hylia",
+            "Stage": 52,
+            "Room": 0,
+            "Spawn": "11",
+            "SpawnType": "C0",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Overworld One-Way",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia",
+            "TargetRoom": "Gerudo Desert",
+            "Stage": 59,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F018"
+        }
+    },
+	// Interior Exits
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Outside Links House",
+            "TargetRoom": "Ordon Links House",
+            "Stage": 65,
+            "Room": 4,
+            "Spawn": "00",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Ordon Links House",
+            "TargetRoom": "Outside Links House",
+            "Stage": 43,
+            "Room": 1,
+            "Spawn": "03",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Ordon Village",
+            "TargetRoom": "Ordon Seras Shop",
+            "Stage": 65,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "10",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Ordon Seras Shop",
+            "TargetRoom": "Ordon Village",
+            "Stage": 43,
+            "Room": 0,
+            "Spawn": "05",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Ordon Village",
+            "TargetRoom": "Ordon Shield House",
+            "Stage": 65,
+            "Room": 2,
+            "Spawn": "00",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Ordon Shield House",
+            "TargetRoom": "Ordon Village",
+            "Stage": 43,
+            "Room": 0,
+            "Spawn": "06",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Ordon Village",
+            "TargetRoom": "Ordon Sword House",
+            "Stage": 65,
+            "Room": 5,
+            "Spawn": "00",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Ordon Sword House",
+            "TargetRoom": "Ordon Village",
+            "Stage": 43,
+            "Room": 0,
+            "Spawn": "09",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Ordon Village",
+            "TargetRoom": "Ordon Bos House Left Door",
+            "Stage": 65,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "B0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Ordon Village -> Ordon Bos House Right Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Ordon Bos House Left Door",
+            "TargetRoom": "Ordon Village",
+            "Stage": 43,
+            "Room": 0,
+            "Spawn": "0B",
+            "SpawnType": "B0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Ordon Bos House Right Door -> Ordon Village"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Ordon Village",
+            "TargetRoom": "Ordon Bos House Right Door",
+            "Stage": 65,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Ordon Village -> Ordon Bos House Left Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Ordon Bos House Right Door",
+            "TargetRoom": "Ordon Village",
+            "Stage": 43,
+            "Room": 0,
+            "Spawn": "04",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Ordon Bos House Left Door -> Ordon Village"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "South Faron Woods",
+            "TargetRoom": "Faron Woods Coros House Lower",
+            "Stage": 67,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Faron Woods Coros House Lower",
+            "TargetRoom": "South Faron Woods",
+            "Stage": 45,
+            "Room": 4,
+            "Spawn": "01",
+            "SpawnType": "A0",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "South Faron Woods Coros Ledge",
+            "TargetRoom": "Faron Woods Coros House Upper",
+            "Stage": 67,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F05F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Faron Woods Coros House Upper",
+            "TargetRoom": "South Faron Woods Coros Ledge",
+            "Stage": 45,
+            "Room": 4,
+            "Spawn": "09",
+            "SpawnType": "00",
+            "Parameters": "F05F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Renados Sanctuary Front Left Door",
+            "Stage": 68,
+            "Room": 0,
+            "Spawn": "05",
+            "SpawnType": "B0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Front Right Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Renados Sanctuary Front Left Door",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "2E",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Renados Sanctuary Front Right Door -> Lower Kakariko Village"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Renados Sanctuary Front Right Door",
+            "Stage": 68,
+            "Room": 0,
+            "Spawn": "06",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Front Left Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Renados Sanctuary Front Right Door",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "30",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Renados Sanctuary Front Left Door -> Lower Kakariko Village"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Renados Sanctuary Back Left Door",
+            "Stage": 68,
+            "Room": 0,
+            "Spawn": "08",
+            "SpawnType": "B0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Back Right Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Renados Sanctuary Back Left Door",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "33",
+            "SpawnType": "B0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Renados Sanctuary Back Right Door -> Lower Kakariko Village"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Renados Sanctuary Back Right Door",
+            "Stage": 68,
+            "Room": 0,
+            "Spawn": "07",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Back Left Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Renados Sanctuary Back Right Door",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "32",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Renados Sanctuary Back Left Door -> Lower Kakariko Village"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Malo Mart",
+            "Stage": 68,
+            "Room": 3,
+            "Spawn": "00",
+            "SpawnType": "10",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Malo Mart",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "28",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Elde Inn Left Door",
+            "Stage": 68,
+            "Room": 2,
+            "Spawn": "00",
+            "SpawnType": "B0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Elde Inn Right Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Elde Inn Left Door",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "2A",
+            "SpawnType": "B0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Elde Inn Right Door -> Lower Kakariko Village"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Elde Inn Right Door",
+            "Stage": 68,
+            "Room": 2,
+            "Spawn": "02",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Elde Inn Left Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Elde Inn Right Door",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "31",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Kakariko Elde Inn Left Door -> Lower Kakariko Village"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Bug House Door",
+            "Stage": 68,
+            "Room": 6,
+            "Spawn": "05",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Bug House Door",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "29",
+            "SpawnType": "90",
+            "Parameters": "F03F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Barnes Bomb Shop Lower",
+            "Stage": 68,
+            "Room": 1,
+            "Spawn": "02",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Barnes Bomb Shop Lower",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "2C",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Upper Kakariko Village",
+            "TargetRoom": "Kakariko Barnes Bomb Shop Upper",
+            "Stage": 68,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Barnes Bomb Shop Upper",
+            "TargetRoom": "Upper Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "0A",
+            "SpawnType": "10",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Upper Kakariko Village",
+            "TargetRoom": "Kakariko Watchtower Lower Door",
+            "Stage": 68,
+            "Room": 4,
+            "Spawn": "00",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Watchtower Lower Door",
+            "TargetRoom": "Upper Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "2D",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Upper Kakariko Village",
+            "TargetRoom": "Kakariko Watchtower Dig Spot",
+            "Stage": 68,
+            "Room": 4,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Watchtower Dig Spot",
+            "TargetRoom": "Upper Kakariko Village",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "03",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Top of Watchtower",
+            "TargetRoom": "Kakariko Watchtower Upper Door",
+            "Stage": 68,
+            "Room": 4,
+            "Spawn": "02",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Watchtower Upper Door",
+            "TargetRoom": "Kakariko Top of Watchtower",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "2D",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Death Mountain Outside Sumo Hall",
+            "TargetRoom": "Death Mountain Sumo Hall",
+            "Stage": 69,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Death Mountain Sumo Hall",
+            "TargetRoom": "Death Mountain Outside Sumo Hall",
+            "Stage": 47,
+            "Room": 3,
+            "Spawn": "01",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Death Mountain Elevator Lower",
+            "TargetRoom": "Death Mountain Sumo Hall Elevator",
+            "Stage": 69,
+            "Room": 0,
+            "Spawn": "03",
+            "SpawnType": "E0",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Death Mountain Sumo Hall Elevator",
+            "TargetRoom": "Death Mountain Elevator Lower",
+            "Stage": 47,
+            "Room": 3,
+            "Spawn": "03",
+            "SpawnType": "E0",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Hidden Village",
+            "TargetRoom": "Hidden Village Impaz House",
+            "Stage": 72,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Hidden Village Impaz House",
+            "TargetRoom": "Hidden Village",
+            "Stage": 63,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Upper Zoras River",
+            "TargetRoom": "Upper Zoras River Izas House",
+            "Stage": 49,
+            "Room": 1,
+            "Spawn": "01",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Upper Zoras River Izas House",
+            "TargetRoom": "Upper Zoras River",
+            "Stage": 61,
+            "Room": 0,
+            "Spawn": "04",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Fishing Hole",
+            "TargetRoom": "Fishing Hole House",
+            "Stage": 71,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "A0",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Fishing Hole House",
+            "TargetRoom": "Fishing Hole",
+            "Stage": 62,
+            "Room": 0,
+            "Spawn": "03",
+            "SpawnType": "B0",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town West",
+            "TargetRoom": "Castle Town STAR Game",
+            "Stage": 74,
+            "Room": 7,
+            "Spawn": "03",
+            "SpawnType": "10",
+            "Parameters": "F090"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town STAR Game",
+            "TargetRoom": "Castle Town West",
+            "Stage": 53,
+            "Room": 2,
+            "Spawn": "01",
+            "SpawnType": "10",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Center",
+            "TargetRoom": "Castle Town Goron House Left Door",
+            "Stage": 73,
+            "Room": 4,
+            "Spawn": "00",
+            "SpawnType": "B0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Castle Town Center -> Castle Town Goron House Right Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Goron House Left Door",
+            "TargetRoom": "Castle Town Center",
+            "Stage": 53,
+            "Room": 0,
+            "Spawn": "0E",
+            "SpawnType": "00",
+            "Parameters": "F01F",
+			"PairedEntranceName": "Castle Town Goron House Right Door -> Castle Town Center"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Center",
+            "TargetRoom": "Castle Town Goron House Right Door",
+            "Stage": 73,
+            "Room": 4,
+            "Spawn": "02",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Castle Town Center -> Castle Town Goron House Left Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Goron House Right Door",
+            "TargetRoom": "Castle Town Center",
+            "Stage": 53,
+            "Room": 0,
+            "Spawn": "10",
+            "SpawnType": "00",
+            "Parameters": "F01F",
+			"PairedEntranceName": "Castle Town Goron House Left Door -> Castle Town Center"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Center",
+            "TargetRoom": "Castle Town Malo Mart",
+            "Stage": 73,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Malo Mart",
+            "TargetRoom": "Castle Town Center",
+            "Stage": 53,
+            "Room": 0,
+            "Spawn": "0C",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town East",
+            "TargetRoom": "Castle Town Doctors Office Left Door",
+            "Stage": 73,
+            "Room": 2,
+            "Spawn": "00",
+            "SpawnType": "B0",
+            "Parameters": "F01F",
+			"PairedEntranceName": "Castle Town East -> Castle Town Doctors Office Right Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Doctors Office Left Door",
+            "TargetRoom": "Castle Town East",
+            "Stage": 53,
+            "Room": 4,
+            "Spawn": "03",
+            "SpawnType": "B0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Castle Town Doctors Office Right Door -> Castle Town East"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town East",
+            "TargetRoom": "Castle Town Doctors Office Right Door",
+            "Stage": 73,
+            "Room": 2,
+            "Spawn": "01",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Castle Town East -> Castle Town Doctors Office Left Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Doctors Office Right Door",
+            "TargetRoom": "Castle Town East",
+            "Stage": 53,
+            "Room": 4,
+            "Spawn": "04",
+            "SpawnType": "A0",
+            "Parameters": "F09F",
+			"PairedEntranceName": "Castle Town Doctors Office Left Door -> Castle Town East"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Doctors Office Balcony",
+            "TargetRoom": "Castle Town Doctors Office Upper",
+            "Stage": 73,
+            "Room": 2,
+            "Spawn": "02",
+            "SpawnType": "10",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Doctors Office Upper",
+            "TargetRoom": "Castle Town Doctors Office Balcony",
+            "Stage": 53,
+            "Room": 4,
+            "Spawn": "05",
+            "SpawnType": "00",
+            "Parameters": "F05F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town South",
+            "TargetRoom": "Castle Town Agithas House",
+            "Stage": 73,
+            "Room": 3,
+            "Spawn": "01",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Agithas House",
+            "TargetRoom": "Castle Town South",
+            "Stage": 53,
+            "Room": 3,
+            "Spawn": "05",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+	},
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town South",
+            "TargetRoom": "Castle Town Seer House",
+            "Stage": 73,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "10",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Seer House",
+            "TargetRoom": "Castle Town South",
+            "Stage": 53,
+            "Room": 3,
+            "Spawn": "04",
+            "SpawnType": "A0",
+            "Parameters": "F09F"
+        }
+	},
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town South",
+            "TargetRoom": "Castle Town Jovanis House",
+            "Stage": 73,
+            "Room": 5,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Jovanis House",
+            "TargetRoom": "Castle Town South",
+            "Stage": 53,
+            "Room": 3,
+            "Spawn": "0A",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town South",
+            "TargetRoom": "Castle Town Telmas Bar",
+            "Stage": 70,
+            "Room": 5,
+            "Spawn": "00",
+            "SpawnType": "B0",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Castle Town Telmas Bar",
+            "TargetRoom": "Castle Town South",
+            "Stage": 53,
+            "Room": 3,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+	// Interior One-Way Exits
+    {
+        "Type": "Interior One-Way",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Bug House Ceiling Hole",
+            "Stage": 68,
+            "Room": 6,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F03F"
+        }
+    },
+	// Cave Exits
+    {
+        "Type": "Cave",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "South Faron Woods Behind Gate",
+            "TargetRoom": "Faron Woods Cave Southern Entrance",
+            "Stage": 40,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Faron Woods Cave Southern Entrance",
+            "TargetRoom": "South Faron Woods Behind Gate",
+            "Stage": 45,
+            "Room": 3,
+            "Spawn": "63",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Cave",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Mist Area Near Faron Woods Cave",
+            "TargetRoom": "Faron Woods Cave Northern Entrance",
+            "Stage": 40,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Faron Woods Cave Northern Entrance",
+            "TargetRoom": "Mist Area Near Faron Woods Cave",
+            "Stage": 45,
+            "Room": 5,
+            "Spawn": "04",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Cave",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Mist Area Outside Faron Mist Cave",
+            "TargetRoom": "Mist Area Faron Mist Cave",
+            "Stage": 45,
+            "Room": 14,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Mist Area Faron Mist Cave",
+            "TargetRoom": "Mist Area Outside Faron Mist Cave",
+            "Stage": 45,
+            "Room": 5,
+            "Spawn": "06",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Cave",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Gorge Cave Entrance",
+            "TargetRoom": "Eldin Lantern Cave",
+            "Stage": 32,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Eldin Lantern Cave",
+            "TargetRoom": "Kakariko Gorge Cave Entrance",
+            "Stage": 56,
+            "Room": 3,
+            "Spawn": "0F",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Cave",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field Lava Cave Ledge",
+            "TargetRoom": "Eldin Field Lava Cave Upper",
+            "Stage": 34,
+            "Room": 10,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field Lava Cave Upper",
+            "TargetRoom": "Eldin Field Lava Cave Ledge",
+            "Stage": 56,
+            "Room": 0,
+            "Spawn": "14",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Cave",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field From Lava Cave Lower",
+            "TargetRoom": "Eldin Field Lava Cave Lower",
+            "Stage": 34,
+            "Room": 10,
+            "Spawn": "01",
+            "SpawnType": "00",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field Lava Cave Lower",
+            "TargetRoom": "Eldin Field From Lava Cave Lower",
+            "Stage": 56,
+            "Room": 0,
+            "Spawn": "15",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    {
+        "Type": "Cave",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lanayru Field Cave Entrance",
+            "TargetRoom": "Lanayru Ice Puzzle Cave",
+            "Stage": 30,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lanayru Ice Puzzle Cave",
+            "TargetRoom": "Lanayru Field Cave Entrance",
+            "Stage": 56,
+            "Room": 10,
+            "Spawn": "0F",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Cave",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia",
+            "TargetRoom": "Lake Hylia Lanayru Spring",
+            "Stage": 52,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "C000"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia Lanayru Spring",
+            "TargetRoom": "Lake Hylia",
+            "Stage": 52,
+            "Room": 0,
+            "Spawn": "07",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+	},
+    {
+        "Type": "Cave",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia Cave Entrance",
+            "TargetRoom": "Lake Hylia Long Cave",
+            "Stage": 33,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia Long Cave",
+            "TargetRoom": "Lake Hylia Cave Entrance",
+            "Stage": 52,
+            "Room": 0,
+            "Spawn": "1D",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Cave",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Gerudo Desert Cave of Ordeals Plateau",
+            "TargetRoom": "Gerudo Desert Cave of Ordeals Floors 01-11",
+            "Stage": 31,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Gerudo Desert Cave of Ordeals Floors 01-11",
+            "TargetRoom": "Gerudo Desert Cave of Ordeals Plateau",
+            "Stage": 59,
+            "Room": 0,
+            "Spawn": "06",
+            "SpawnType": "50",
+            "Parameters": "F09F"
+        }
+    },
+    // Grotto Exits
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Ordon Ranch Stable",
+            "TargetRoom": "Ordon Ranch Grotto",
+            "Stage": 35,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Ordon Ranch Grotto",
+            "TargetRoom": "Ordon Ranch Stable",
+            "Stage": 41,
+            "Room": 0,
+            "Spawn": "05",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lost Woods Lower Battle Arena",
+            "TargetRoom": "Lost Woods Baba Serpent Grotto",
+            "Stage": 37,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lost Woods Baba Serpent Grotto",
+            "TargetRoom": "Lost Woods Lower Battle Arena",
+            "Stage": 54,
+            "Room": 3,
+            "Spawn": "05",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Faron Field",
+            "TargetRoom": "Faron Field Corner Grotto",
+            "Stage": 36,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Faron Field Corner Grotto",
+            "TargetRoom": "Faron Field",
+            "Stage": 56,
+            "Room": 6,
+            "Spawn": "02",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Faron Field",
+            "TargetRoom": "Faron Field Fishing Grotto",
+            "Stage": 39,
+            "Room": 4,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F010"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Faron Field Fishing Grotto",
+            "TargetRoom": "Faron Field",
+            "Stage": 56,
+            "Room": 6,
+            "Spawn": "03",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Gorge",
+            "TargetRoom": "Kakariko Gorge Keese Grotto",
+            "Stage": 36,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Gorge Keese Grotto",
+            "TargetRoom": "Kakariko Gorge",
+            "Stage": 56,
+            "Room": 3,
+            "Spawn": "04",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field",
+            "TargetRoom": "Eldin Field Bomskit Grotto",
+            "Stage": 36,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field Bomskit Grotto",
+            "TargetRoom": "Eldin Field",
+            "Stage": 56,
+            "Room": 0,
+            "Spawn": "0C",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field",
+            "TargetRoom": "Eldin Field Water Bomb Fish Grotto",
+            "Stage": 39,
+            "Room": 4,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F010"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field Water Bomb Fish Grotto",
+            "TargetRoom": "Eldin Field",
+            "Stage": 56,
+            "Room": 0,
+            "Spawn": "0D",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field Grotto Platform",
+            "TargetRoom": "Eldin Field Stalfos Grotto",
+            "Stage": 36,
+            "Room": 1,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Eldin Field Stalfos Grotto",
+            "TargetRoom": "Eldin Field Grotto Platform",
+            "Stage": 56,
+            "Room": 7,
+            "Spawn": "02",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lanayru Field",
+            "TargetRoom": "Lanayru Field Chu Grotto",
+            "Stage": 37,
+            "Room": 2,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lanayru Field Chu Grotto",
+            "TargetRoom": "Lanayru Field",
+            "Stage": 56,
+            "Room": 10,
+            "Spawn": "08",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lanayru Field",
+            "TargetRoom": "Lanayru Field Skulltula Grotto",
+            "Stage": 38,
+            "Room": 3,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lanayru Field Skulltula Grotto",
+            "TargetRoom": "Lanayru Field",
+            "Stage": 56,
+            "Room": 10,
+            "Spawn": "06",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lanayru Field",
+            "TargetRoom": "Lanayru Field Poe Grotto",
+            "Stage": 35,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lanayru Field Poe Grotto",
+            "TargetRoom": "Lanayru Field",
+            "Stage": 56,
+            "Room": 10,
+            "Spawn": "07",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Climb Upper",
+            "TargetRoom": "Snowpeak Ice Keese Grotto",
+            "Stage": 37,
+            "Room": 2,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Ice Keese Grotto",
+            "TargetRoom": "Snowpeak Climb Upper",
+            "Stage": 51,
+            "Room": 0,
+            "Spawn": "02",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Climb Upper",
+            "TargetRoom": "Snowpeak Freezard Grotto",
+            "Stage": 38,
+            "Room": 3,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Freezard Grotto",
+            "TargetRoom": "Snowpeak Climb Upper",
+            "Stage": 51,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town West Grotto Ledge",
+            "TargetRoom": "Outside Castle Town West Helmasaur Grotto",
+            "Stage": 35,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town West Helmasaur Grotto",
+            "TargetRoom": "Outside Castle Town West Grotto Ledge",
+            "Stage": 57,
+            "Room": 8,
+            "Spawn": "05",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town South",
+            "TargetRoom": "Outside Castle Town South Tektite Grotto",
+            "Stage": 39,
+            "Room": 4,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F010"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Outside Castle Town South Tektite Grotto",
+            "TargetRoom": "Outside Castle Town South",
+            "Stage": 57,
+            "Room": 16,
+            "Spawn": "03",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia Bridge Grotto Ledge",
+            "TargetRoom": "Lake Hylia Bridge Bubble Grotto",
+            "Stage": 38,
+            "Room": 3,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia Bridge Bubble Grotto",
+            "TargetRoom": "Lake Hylia Bridge Grotto Ledge",
+            "Stage": 56,
+            "Room": 13,
+            "Spawn": "03",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia",
+            "TargetRoom": "Lake Hylia Shell Blade Grotto",
+            "Stage": 39,
+            "Room": 4,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F010"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia Shell Blade Grotto",
+            "TargetRoom": "Lake Hylia",
+            "Stage": 52,
+            "Room": 0,
+            "Spawn": "03",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia",
+            "TargetRoom": "Lake Hylia Water Toadpoli Grotto",
+            "Stage": 39,
+            "Room": 4,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F010"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia Water Toadpoli Grotto",
+            "TargetRoom": "Lake Hylia",
+            "Stage": 52,
+            "Room": 0,
+            "Spawn": "04",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Gerudo Desert",
+            "TargetRoom": "Gerudo Desert Skulltula Grotto",
+            "Stage": 38,
+            "Room": 3,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Gerudo Desert Skulltula Grotto",
+            "TargetRoom": "Gerudo Desert",
+            "Stage": 59,
+            "Room": 0,
+            "Spawn": "08",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Gerudo Desert Basin",
+            "TargetRoom": "Gerudo Desert Chu Grotto",
+            "Stage": 37,
+            "Room": 2,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Gerudo Desert Chu Grotto",
+            "TargetRoom": "Gerudo Desert Basin",
+            "Stage": 59,
+            "Room": 0,
+            "Spawn": "0A",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Grotto",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Gerudo Desert North East Ledge",
+            "TargetRoom": "Gerudo Desert Rock Grotto",
+            "Stage": 37,
+            "Room": 2,
+            "Spawn": "00",
+            "SpawnType": "C0",
+            "Parameters": "F013"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Gerudo Desert Rock Grotto",
+            "TargetRoom": "Gerudo Desert North East Ledge",
+            "Stage": 59,
+            "Room": 0,
+            "Spawn": "09",
+            "SpawnType": "90",
+            "Parameters": "F01F"
+        }
+    },
+	// Dungeon Exits
+    {
+        "Type": "Dungeon",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "North Faron Woods",
+            "TargetRoom": "Forest Temple Entrance",
+            "Stage": 6,
+            "Room": 22,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Forest Temple Entrance",
+            "TargetRoom": "North Faron Woods",
+            "Stage": 45,
+            "Room": 6,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Dungeon",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Death Mountain Sumo Hall Goron Mines Tunnel",
+            "TargetRoom": "Goron Mines Entrance",
+            "Stage": 3,
+            "Room": 1,
+            "Spawn": "01",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Goron Mines Entrance",
+            "TargetRoom": "Death Mountain Sumo Hall Goron Mines Tunnel",
+            "Stage": 69,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F01F"           
+        }
+    },
+    {
+        "Type": "Dungeon",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia Lakebed Temple Entrance",
+            "TargetRoom": "Lakebed Temple Entrance",
+            "Stage": 0,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F09F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Lakebed Temple Entrance",
+            "TargetRoom": "Lake Hylia Lakebed Temple Entrance",
+            "Stage": 52,
+            "Room": 0,
+            "Spawn": "0B",
+            "SpawnType": "D0",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Dungeon",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Outside Arbiters Grounds",
+            "TargetRoom": "Arbiters Grounds Entrance",
+            "Stage": 24,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Arbiters Grounds Entrance",
+            "TargetRoom": "Outside Arbiters Grounds",
+            "Stage": 55,
+            "Room": 3,
+            "Spawn": "03",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Dungeon",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Summit Lower",
+            "TargetRoom": "Snowpeak Ruins Left Door",
+            "Stage": 27,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "A0",
+            "Parameters": "F01F",
+			"PairedEntranceName": "Snowpeak Summit Lower -> Snowpeak Ruins Right Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Ruins Left Door",
+            "TargetRoom": "Snowpeak Summit Lower",
+            "Stage": 51,
+            "Room": 1,
+            "Spawn": "09",
+            "SpawnType": "0B",
+            "Parameters": "F01F",
+			"PairedEntranceName": "Snowpeak Ruins Right Door -> Snowpeak Summit Lower"
+        }
+    },
+    {
+        "Type": "Dungeon",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Summit Lower",
+            "TargetRoom": "Snowpeak Ruins Right Door",
+            "Stage": 27,
+            "Room": 0,
+            "Spawn": "02",
+            "SpawnType": "A0",
+            "Parameters": "F01F",
+			"PairedEntranceName": "Snowpeak Summit Lower -> Snowpeak Ruins Left Door"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Ruins Right Door",
+            "TargetRoom": "Snowpeak Summit Lower",
+            "Stage": 51,
+            "Room": 1,
+            "Spawn": "0A",
+            "SpawnType": "0B",
+            "Parameters": "F01F",
+			"PairedEntranceName": "Snowpeak Ruins Left Door -> Snowpeak Summit Lower"
+        }
+    },
+    {
+        "Type": "Dungeon",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Sacred Grove Past Behind Window",
+            "TargetRoom": "Temple of Time Entrance",
+            "Stage": 9,
+            "Room": 0,
+            "Spawn": "00",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Temple of Time Entrance",
+            "TargetRoom": "Sacred Grove Past Behind Window",
+            "Stage": 54,
+            "Room": 2,
+            "Spawn": "01",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Dungeon",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lake Hylia",
+            "TargetRoom": "City in The Sky Entrance",
+            "Stage": 12,
+            "Room": 0,
+            "Spawn": "02",
+            "SpawnType": "00",
+            "Parameters": "C00F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "City in The Sky Entrance",
+            "TargetRoom": "Lake Hylia",
+            "Stage": 52,
+            "Room": 0,
+            "Spawn": "4D",
+            "SpawnType": "40",
+            "Parameters": "C00F"
+        }
+    },
+    {
+        "Type": "Dungeons",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Mirror Chamber",
+            "TargetRoom": "Palace of Twilight Entrance",
+            "Stage": 15,
+            "Room": 0,
+            "Spawn": "0A",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Palace of Twilight Entrance",
+            "TargetRoom": "Mirror Chamber",
+            "Stage": 60,
+            "Room": 4,
+            "Spawn": "04",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Dungeon",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Castle Town North Inside Barrier",
+            "TargetRoom": "Hyrule Castle Entrance",
+            "Stage": 20,
+            "Room": 11,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Hyrule Castle Entrance",
+            "TargetRoom": "Castle Town North Inside Barrier",
+            "Stage": 53,
+            "Room": 1,
+            "Spawn": "32",
+            "SpawnType": "10",
+            "Parameters": "F01F"
+        }
+    },
+	// Boss Room Exits
+    {
+        "Type": "Boss Room",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Forest Temple North Wing",
+            "TargetRoom": "Forest Temple Boss Room",
+            "Stage": 7,
+            "Room": 50,
+            "Spawn": "01",
+            "SpawnType": "60",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Boss Room",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Goron Mines North Wing",
+            "TargetRoom": "Goron Mines Boss Room",
+            "Stage": 4,
+            "Room": 50,
+            "Spawn": "01",
+            "SpawnType": "60",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Boss Room",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lakebed Temple Central Room",
+            "TargetRoom": "Lakebed Temple Boss Room",
+            "Stage": 1,
+            "Room": 50,
+            "Spawn": "01",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Boss Room",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Arbiters Grounds After Poe Gate",
+            "TargetRoom": "Arbiters Grounds Boss Room",
+            "Stage": 25,
+            "Room": 50,
+            "Spawn": "00",
+            "SpawnType": "60",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Boss Room",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Snowpeak Ruins West Courtyard",
+            "TargetRoom": "Snowpeak Ruins Boss Room",
+            "Stage": 27,
+            "Room": 0,
+            "Spawn": "01",
+            "SpawnType": "60",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Boss Room",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Temple of Time Crumbling Corridor",
+            "TargetRoom": "Temple of Time Boss Room",
+            "Stage": 10,
+            "Room": 50,
+            "Spawn": "00",
+            "SpawnType": "60",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Boss Room",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "City in The Sky North Wing",
+            "TargetRoom": "City in The Sky Boss Room",
+            "Stage": 13,
+            "Room": 50,
+            "Spawn": "01",
+            "SpawnType": "60",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Boss Room",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Palace of Twilight North Tower",
+            "TargetRoom": "Palace of Twilight Boss Room",
+            "Stage": 16,
+            "Room": 10,
+            "Spawn": "00",
+            "SpawnType": "60",
+            "Parameters": "F01F"
+        }
+    },
+	// Boss Room Second Exit
+    {
+        "Type": "Boss Room Second Exit",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Arbiters Grounds Boss Room",
+            "TargetRoom": "Mirror Chamber",
+            "Stage": 60,
+            "Room": 4,
+            "Spawn": "06",
+            "SpawnType": "10",
+            "Parameters": "501F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Mirror Chamber",
+            "TargetRoom": "Arbiters Grounds Boss Room",
+            "Stage": 25,
+            "Room": 50,
+            "Spawn": "03",
+            "SpawnType": "00",
+            "Parameters": "F01F"
+        }
+    }
+]

@@ -28,6 +28,7 @@ namespace TPRandomizer
         public Dictionary<int, byte> itemPlacements { get; }
         public byte requiredDungeons { get; set; }
         public List<List<KeyValuePair<int, Item>>> spheres { get; }
+        public string entrances { get; }
 
         public SeedGenResults(string seedId, JObject inputJsonContents)
         {
@@ -55,6 +56,63 @@ namespace TPRandomizer
             this.itemPlacements = DecodeItemPlacements((string)output["itemPlacement"]);
             this.requiredDungeons = (byte)output["reqDungeons"];
             this.spheres = DecodeSpheres((string)output["spheres"]);
+            this.entrances = DecodeEntrances((string)output["entrances"]);
+        }
+
+        public static string EncodeEntrances()
+        {
+            string encodedString = "";
+            foreach (KeyValuePair<string, Room> roomEntry in Randomizer.Rooms.RoomDict)
+            {
+                //Console.WriteLine("checking room: " + roomEntry.Value.RoomName);
+                foreach (Entrance entrance in roomEntry.Value.Exits)
+                {
+                    if (entrance.IsShuffled())
+                    {
+                        Console.WriteLine(
+                            entrance.GetOriginalName()
+                                + " is shuffled with "
+                                + entrance.GetReplacedEntrance().GetOriginalName()
+                        );
+                        // Get the original entrance that the entrance leads to in vanilla
+                        encodedString = encodedString + entrance.GetStage().ToString("X");
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetRoom().ToString("X");
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetSpawn();
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetSpawnType();
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetParameters();
+                        encodedString = encodedString + ",";
+
+                        // Add new connection info
+
+                        encodedString =
+                            encodedString + entrance.GetReplacedEntrance().GetStage().ToString("X");
+                        encodedString = encodedString + ",";
+                        encodedString =
+                            encodedString + entrance.GetReplacedEntrance().GetRoom().ToString("X");
+                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetReplacedEntrance().GetSpawn();
+                        encodedString = encodedString + ",";
+                        encodedString =
+                            encodedString + entrance.GetReplacedEntrance().GetSpawnType();
+                        encodedString = encodedString + ",";
+                        encodedString =
+                            encodedString + entrance.GetReplacedEntrance().GetParameters();
+                        encodedString = encodedString + ",";
+
+                        entrance.SetAsUnshuffled();
+                    }
+                }
+            }
+            return encodedString;
+        }
+
+        public static string DecodeEntrances(string encodeString)
+        {
+            return encodeString;
         }
 
         public static string EncodeItemPlacements(SortedDictionary<int, byte> checkNumIdToItemId)
@@ -223,6 +281,7 @@ namespace TPRandomizer
             if (!isRaceSeed || dangerouslyPrintFullRaceSpoiler)
             {
                 root.Add("requiredDungeons", GetRequiredDungeonsStringList());
+                root.Add("shuffledEntrances", GetShuffledEntrancesStringList());
                 root.Add("itemPlacements", sortedCheckNameToItemNameDict);
                 root.Add("spheres", GetSpheresForSpoiler());
             }
@@ -268,6 +327,130 @@ namespace TPRandomizer
             }
 
             return reqDungeonsList;
+        }
+
+        private List<string> GetShuffledEntrancesStringList()
+        {
+            EntranceRando entranceRando = new();
+            List<string> shuffledEntrances = new();
+
+            EntranceRando.DeserializeSpawnTable();
+
+            List<EntranceInfo> entranceInfo = new();
+            foreach (SpawnTableEntry entry in Randomizer.EntranceRandomizer.SpawnTable)
+            {
+                entranceInfo.Add(entry.SourceRoomSpawn);
+                if (entry.TargetRoomSpawn != null)
+                {
+                    entranceInfo.Add(entry.TargetRoomSpawn);
+                }
+            }
+            string[] entranceBytes = entrances.Split(",");
+            //Console.WriteLine(entrances);
+            for (int i = 0; i < entranceBytes.Length - 1; i++)
+            {
+                //Console.WriteLine(i);
+                /*Console.WriteLine(
+                    "testing spoiler spawn: "
+                        + entranceBytes[i]
+                        + ","
+                        + entranceBytes[i + 1]
+                        + ","
+                        + entranceBytes[i + 2]
+                        + ","
+                        + entranceBytes[i + 3]
+                        + ","
+                        + entranceBytes[i + 4]
+                );*/
+                foreach (EntranceInfo entry in entranceInfo)
+                {
+                    /*Console.WriteLine(
+                        "testing: "
+                            + entry.SourceRoom
+                            + " testing stage: "
+                            + entry.Stage.ToString("X")
+                    );*/
+                    if (entry.Stage.ToString("X") == entranceBytes[i])
+                    {
+                        /*Console.WriteLine(
+                            "stage match for: " + entry.SourceRoom + " testing room: " + entry.Room
+                        );*/
+                        if (entry.Room.ToString("X") == entranceBytes[i + 1])
+                        {
+                            /* Console.WriteLine(
+                                 "room match for: "
+                                     + entry.SourceRoom
+                                     + " testing spawn: "
+                                     + entry.Spawn
+                                     + " against: "
+                                     + entranceBytes[i + 2]
+                             );*/
+                            if (entry.Spawn == entranceBytes[i + 2])
+                            {
+                                /*Console.WriteLine(
+                                    "spawn match for: "
+                                        + entry.SourceRoom
+                                        + " testing spawn type: "
+                                        + entry.SpawnType
+                                );*/
+                                if (entry.SpawnType == entranceBytes[i + 3])
+                                {
+                                    /*Console.WriteLine(
+                                        "spawn type match for: "
+                                            + entry.SourceRoom
+                                            + " testing params: "
+                                            + entry.Parameters
+                                    );*/
+                                    if (entry.Parameters == entranceBytes[i + 4])
+                                    {
+                                        //Console.WriteLine("param match for: " + entry.SourceRoom);
+                                        foreach (EntranceInfo entry2 in entranceInfo)
+                                        {
+                                            if (entry2.Stage.ToString("X") == entranceBytes[i + 5])
+                                            {
+                                                if (
+                                                    entry2.Room.ToString("X")
+                                                    == entranceBytes[i + 6]
+                                                )
+                                                {
+                                                    if (entry2.Spawn == entranceBytes[i + 7])
+                                                    {
+                                                        if (
+                                                            entry2.SpawnType == entranceBytes[i + 8]
+                                                        )
+                                                        {
+                                                            if (
+                                                                entry2.Parameters
+                                                                == entranceBytes[i + 9]
+                                                            )
+                                                            {
+                                                                shuffledEntrances.Add(
+                                                                    entry.SourceRoom
+                                                                        + " -> "
+                                                                        + entry2.TargetRoom
+                                                                );
+                                                                /*Console.WriteLine(
+                                                                    entry.SourceRoom
+                                                                        + " -> "
+                                                                        + entry2.TargetRoom
+                                                                );*/
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                i = i + 9;
+            }
+
+            return shuffledEntrances;
         }
 
         private Dictionary<string, Dictionary<string, string>> GetSpheresForSpoiler()
@@ -361,6 +544,7 @@ namespace TPRandomizer
             public byte requiredDungeons { get; set; }
             private string itemPlacement;
             private string spheres;
+            public string entrances;
 
             public Builder() { }
 
@@ -372,6 +556,16 @@ namespace TPRandomizer
             public void SetSpheres(List<List<KeyValuePair<int, Item>>> spheresList)
             {
                 spheres = EncodeSpheres(spheresList);
+            }
+
+            public void SetEntrances()
+            {
+                entrances = EncodeEntrances();
+            }
+
+            public string GetEntrances(string encodedString)
+            {
+                return DecodeEntrances(encodedString);
             }
 
             override public string ToString()
@@ -401,6 +595,7 @@ namespace TPRandomizer
                 outputObj.Add("itemPlacement", itemPlacement);
                 outputObj.Add("reqDungeons", requiredDungeons);
                 outputObj.Add("spheres", spheres);
+                outputObj.Add("entrances", entrances);
 
                 return JsonConvert.SerializeObject(inputJsonRoot);
             }

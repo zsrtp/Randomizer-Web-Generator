@@ -1,5 +1,5 @@
 {
-    "requirements": "Lantern and Iron_Boots",
+    "requirements": "Lantern",
     "arcOffsets": ["ED0"],
     "stageIDX": [34],
     "roomIDX": 10,

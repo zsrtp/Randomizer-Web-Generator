@@ -438,7 +438,6 @@ function setSettingsString() {
     'spinnerSpeedCheckbox'
   ).checked;
   settingsStringRaw[40] = document.getElementById('openDotCheckbox').checked;
-
   // document.getElementById('settingsStringTextbox').value =
   document.getElementById('settingsStringTextbox').textContent =
     getSettingsString(settingsStringRaw);

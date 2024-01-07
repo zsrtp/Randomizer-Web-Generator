@@ -1,5 +1,5 @@
 {
-    "requirements": "canSmash and Spinner",
+    "requirements": "Spinner",
     "arcOffsets": ["5D4"],
     "stageIDX": [56],
     "roomIDX": 11,

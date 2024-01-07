@@ -1,0 +1,449 @@
+[
+  {
+    "RoomName": "Castle Town West",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Outside Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Center",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town STAR Game",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Charlo Donation Blessing"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town STAR Game",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town West",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "STAR Prize 1",
+        "STAR Prize 2"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Center",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town North",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Goron House Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Goron House Right Door",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Malo Mart",
+        "Requirements": "true" // not sure at all whats actually required tbh (day-only? shoe cleaning or donation?)
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Goron House Left Door",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town Center",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Goron House",
+        "Requirements": "true"
+      },
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Goron House Right Door",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town Center",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Goron House",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Goron House",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town Goron House Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Goron House Right Door",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Malo Mart",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town Center",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Castle Town Malo Mart Magic Armor"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town North",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town North Behind First Door",
+        "Requirements": "CanCompleteMDH"
+      },
+      {
+        "ConnectedArea": "Castle Town Center",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town North Behind First Door",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town North",
+        "Requirements": "CanCompleteMDH"
+      },
+      {
+        "ConnectedArea": "Castle Town North Inside Barrier",
+        "Requirements": "(Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons)"
+      }
+    ],
+    "Checks":
+    [
+        "North Castle Town Golden Wolf"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town North Inside Barrier",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town North Behind First Door",
+        "Requirements": "(Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons)" // i think?
+      },
+      {
+        "ConnectedArea": "Hyrule Castle Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town East",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town Center",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Outside Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Doctors Office Left Door",
+        "Requirements": "true" // not sure
+      },
+      {
+        "ConnectedArea": "Castle Town Doctors Office Right Door",
+        "Requirements": "true" // not sure
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Balcony",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Doctors Office Upper",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Doctors Office Balcony Chest"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Left Door",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Doctors Office Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Right Door",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Doctors Office Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Entrance",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town Doctors Office Left Door",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Doctors Office Right Door",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Doctors Office Lower",
+        "Requirements": "Invoice"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Lower",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town Doctors Office Entrance",
+        "Requirements": "Invoice"
+      },
+      {
+        "ConnectedArea": "Castle Town Doctors Office Upper",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks": [""], // scent does belong to this room if it gets a check one day
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Doctors Office Upper",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town Doctors Office Lower",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Doctors Office Balcony",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town South",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town West",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Center",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town East",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Outside Castle Town South",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Agithas House",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Seer House",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Jovanis House",
+        "Requirements": "Shadow_Crystal"
+      },
+      {
+        "ConnectedArea": "Castle Town Telmas Bar",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Agithas House",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town South",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Agitha Female Ant Reward",
+        "Agitha Female Beetle Reward",
+        "Agitha Female Butterfly Reward",
+        "Agitha Female Dayfly Reward",
+        "Agitha Female Dragonfly Reward",
+        "Agitha Female Grasshopper Reward",
+        "Agitha Female Ladybug Reward",
+        "Agitha Female Mantis Reward",
+        "Agitha Female Phasmid Reward",
+        "Agitha Female Pill Bug Reward",
+        "Agitha Female Snail Reward",
+        "Agitha Female Stag Beetle Reward",
+        "Agitha Male Ant Reward",
+        "Agitha Male Beetle Reward",
+        "Agitha Male Butterfly Reward",
+        "Agitha Male Dayfly Reward",
+        "Agitha Male Dragonfly Reward",
+        "Agitha Male Grasshopper Reward",
+        "Agitha Male Ladybug Reward",
+        "Agitha Male Mantis Reward",
+        "Agitha Male Phasmid Reward",
+        "Agitha Male Pill Bug Reward",
+        "Agitha Male Snail Reward",
+        "Agitha Male Stag Beetle Reward"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Seer House",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town South",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Jovanis House",
+    "Exits":
+    [
+      {
+	    // The door and the dig spot lead to the exact same entrance, so there technically is only one way out, which is always accessible.
+        "ConnectedArea": "Castle Town South",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Jovani House Poe",
+        "Jovani 20 Poe Soul Reward",
+        "Jovani 60 Poe Soul Reward"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Telmas Bar",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town South",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Telma Invoice"
+    ],
+    "Region": "Castle Town"
+  }
+]

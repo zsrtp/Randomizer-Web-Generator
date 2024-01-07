@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and (Progressive_Clawshot, 1) and CanDefeatShadowBeast",
+    "requirements": "Shadow_Crystal",
     "stageIDX": [59],
     "flag": "5D",
     "category": ["Overworld", "Poe", "Gerudo Desert"],

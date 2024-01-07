@@ -336,7 +336,7 @@ namespace TPRandomizer
                         }
                         else
                         {
-                            var remainingText = _reader.ToString() ?? string.Empty;
+                            var remainingText = new string(_reader) ?? string.Empty;
                             throw new Exception(string.Format("Unknown Grammar: " + remainingText));
                         }
                         break;

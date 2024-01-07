@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatBulblin",
+    "requirements": "true",
     "arcOffsets": ["1618"],
     "stageIDX": [59],
     "roomIDX": 0,

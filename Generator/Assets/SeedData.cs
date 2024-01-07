@@ -37,6 +37,8 @@ namespace TPRandomizer.Assets
         public FileCreationSettings fcSettings { get; }
         public BgmHeader BgmHeaderRaw = new();
 
+        private static List<byte> EntranceDataRaw = new();
+
         private SeedData(SeedGenResults seedGenResults, FileCreationSettings fcSettings)
         {
             this.seedGenResults = seedGenResults;
@@ -53,7 +55,7 @@ namespace TPRandomizer.Assets
             return seedData.GenerateSeedDataBytesInternal(regionOverride);
         }
 
-        private byte[] GenerateSeedDataBytesInternal(GameRegion regionOverride)
+        public byte[] GenerateSeedDataBytesInternal(GameRegion regionOverride)
         {
             /*
             * General Note: offset sizes are handled as two bytes. Because of this,
@@ -72,6 +74,7 @@ namespace TPRandomizer.Assets
             CheckDataRaw = new();
             BannerDataRaw = new();
             SeedHeaderRaw = new();
+            EntranceDataRaw = new();
 
             // First we need to generate
             SharedSettings randomizerSettings = Randomizer.SSettings;
@@ -141,6 +144,13 @@ namespace TPRandomizer.Assets
             {
                 CheckDataRaw.Add(Converter.GcByte(0x0));
             }
+
+            List<byte> entranceBytes = GenerateEntranceTable();
+            if (entranceBytes != null)
+            {
+                SeedHeaderRaw.shuffledEntranceInfoDataOffset = (UInt16)CheckDataRaw.Count();
+                CheckDataRaw.AddRange(entranceBytes);
+            }
             List<byte> clr0Bytes = ParseClr0Bytes();
             if (clr0Bytes != null)
             {
@@ -180,6 +190,7 @@ namespace TPRandomizer.Assets
                 + currentBgmData.Count
                 + currentMessageHeader.Count
                 + currentMessageData.Count
+                + EntranceDataRaw.Count
             );
 
             // Generate Seed Data
@@ -1036,6 +1047,86 @@ namespace TPRandomizer.Assets
             return debugInfoBytes;
         }
 
+        private List<byte> GenerateEntranceTable()
+        {
+            Console.WriteLine(seedGenResults.entrances);
+            List<byte> entranceTable = new();
+            string[] entranceBytes = seedGenResults.entrances.Split(",");
+            for (int i = 0; i < entranceBytes.Count() - 1; i++)
+            {
+                Console.WriteLine("Start: " + entranceBytes[i]);
+                entranceTable.Add(
+                    Converter.GcByte(
+                        byte.Parse(entranceBytes[i], System.Globalization.NumberStyles.HexNumber)
+                    )
+                );
+                i++;
+                entranceTable.Add(
+                    Converter.GcByte(
+                        byte.Parse(entranceBytes[i], System.Globalization.NumberStyles.HexNumber)
+                    )
+                );
+                i++;
+                entranceTable.Add(
+                    Converter.GcByte(
+                        byte.Parse(entranceBytes[i], System.Globalization.NumberStyles.HexNumber)
+                    )
+                );
+                i++;
+                entranceTable.Add(
+                    Converter.GcByte(
+                        byte.Parse(entranceBytes[i], System.Globalization.NumberStyles.HexNumber)
+                    )
+                );
+                i++;
+                entranceTable.AddRange(
+                    Converter.GcBytes(
+                        (UInt16)
+                            short.Parse(
+                                entranceBytes[i],
+                                System.Globalization.NumberStyles.HexNumber
+                            )
+                    )
+                );
+                i++;
+                entranceTable.Add(
+                    Converter.GcByte(
+                        byte.Parse(entranceBytes[i], System.Globalization.NumberStyles.HexNumber)
+                    )
+                );
+                i++;
+                entranceTable.Add(
+                    Converter.GcByte(
+                        byte.Parse(entranceBytes[i], System.Globalization.NumberStyles.HexNumber)
+                    )
+                );
+                i++;
+                entranceTable.Add(
+                    Converter.GcByte(
+                        byte.Parse(entranceBytes[i], System.Globalization.NumberStyles.HexNumber)
+                    )
+                );
+                i++;
+                entranceTable.Add(
+                    Converter.GcByte(
+                        byte.Parse(entranceBytes[i], System.Globalization.NumberStyles.HexNumber)
+                    )
+                );
+                i++;
+                entranceTable.AddRange(
+                    Converter.GcBytes(
+                        (UInt16)
+                            short.Parse(
+                                entranceBytes[i],
+                                System.Globalization.NumberStyles.HexNumber
+                            )
+                    )
+                );
+                SeedHeaderRaw.shuffledEntranceInfoNumEntries++;
+            }
+            return entranceTable;
+        }
+
         private List<ARCReplacement> generateStaticArcReplacements()
         {
             List<ARCReplacement> listOfStaticReplacements = new();
@@ -1280,6 +1371,8 @@ namespace TPRandomizer.Assets
             public UInt16 shopCheckInfoDataOffset { get; set; }
             public UInt16 startingItemInfoNumEntries { get; set; }
             public UInt16 startingItemInfoDataOffset { get; set; }
+            public UInt16 shuffledEntranceInfoNumEntries { get; set; }
+            public UInt16 shuffledEntranceInfoDataOffset { get; set; }
             public UInt16 bgmHeaderOffset { get; set; }
             public UInt16 clr0Offset { get; set; }
             public UInt16 customTextHeaderSize { get; set; }

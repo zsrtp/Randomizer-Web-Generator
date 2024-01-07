@@ -17,17 +17,7 @@ namespace TPRandomizer
         /// <summary>
         /// Gets or sets the room name of the rooms adjacent to the current room.
         /// </summary>
-        public List<string> Neighbours { get; set; }
-
-        /// <summary>
-        /// Gets or sets a list of list of requirements to enter each neighbouring roo.
-        /// </summary>
-        public List<string> NeighbourRequirements { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the current room is the starting room. If true, this room will always be the starting point of the graph.
-        /// </summary>
-        public bool IsStartingRoom { get; set; }
+        public List<Entrance> Exits { get; set; }
 
         /// <summary>
         /// Gets or sets a list of checks contained inside the room.

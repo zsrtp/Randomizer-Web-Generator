@@ -1,5 +1,5 @@
 {
-    "requirements": "canCompleteSnowpeakRuins",
+    "requirements": "canCompleteSnowpeakRuins and CanDefeatShadowBeast",
     "arcOffsets": ["17D7"],
     "stageIDX": [51],
     "fileDirectoryType": [1],

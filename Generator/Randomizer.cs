@@ -41,6 +41,11 @@ namespace TPRandomizer
         public static readonly ItemFunctions Items = new();
 
         /// <summary>
+        /// A reference to all Entrance definitions and functions that need to be used by the randomizer.
+        /// </summary>
+        public static readonly EntranceRando EntranceRandomizer = new();
+
+        /// <summary>
         /// A reference to the sSettings.
         /// </summary>
         public static SharedSettings SSettings = new();
@@ -133,20 +138,27 @@ namespace TPRandomizer
             Randomizer.Items.GenerateItemPool();
             CheckFunctions.GenerateCheckList();
 
-            // Generate the world based on the room class values and their neighbour values. If we want to randomize entrances, we would do it before this step.
-            Room startingRoom = SetupGraph();
+            // Any vanilla checks will be placed first for the sake of logic. Even if they aren't available to be randomized in the game yet, we may need to logically account for their placement.
+            Randomizer.Items.heldItems.Clear();
+            foreach (Item startingItem in Randomizer.SSettings.startingItems)
+            {
+                Randomizer.Items.heldItems.Add(startingItem);
+            }
+            Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
+            Console.WriteLine("Placing Vanilla Checks.");
+            PlaceVanillaChecks();
+
+            // Once we have placed all vanilla checks, we want to give the player all of the items they should be searching for and then generate the world based on the room class values and their neighbour values.
+            SetupGraph();
+            Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
+
             while (remainingGenerationAttempts > 0)
             {
-                foreach (Item startingItem in Randomizer.SSettings.startingItems)
-                {
-                    Randomizer.Items.heldItems.Add(startingItem);
-                }
-                Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
                 remainingGenerationAttempts--;
                 try
                 {
                     // Place the items in the world based on the starting room.
-                    PlaceItemsInWorld(startingRoom, rnd);
+                    PlaceItemsInWorld(Randomizer.Rooms.RoomDict["Root"], rnd);
                     generationStatus = true;
                     break;
                 }
@@ -184,7 +196,9 @@ namespace TPRandomizer
                     }
                 }
 
-                List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(startingRoom);
+                List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(
+                    Randomizer.Rooms.RoomDict["Root"]
+                );
 
                 string jsonContent = GenerateInputJsonContent(
                     settingsString,
@@ -218,7 +232,7 @@ namespace TPRandomizer
         {
             Randomizer.Items.GenerateItemPool();
 
-            bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom);
+            bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom, true);
             if (!isPlaythroughValid && (SSettings.logicRules != LogicRules.No_Logic))
             {
                 return null;
@@ -333,7 +347,8 @@ namespace TPRandomizer
             builder.requiredDungeons = (byte)Randomizer.RequiredDungeons;
             builder.SetItemPlacements(checkNumIdToItemId);
             builder.SetSpheres(spheres);
-
+            builder.SetEntrances();
+            Console.WriteLine(builder.GetEntrances(builder.entrances));
             return builder.ToString();
         }
 
@@ -715,7 +730,7 @@ namespace TPRandomizer
                 {
                     if (LogicFunctions.CanUse(Item.Shadow_Crystal))
                     {
-                        availableRoom = Randomizer.Rooms.RoomDict["Kakariko Village"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Lower Kakariko Village"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
 
@@ -741,7 +756,7 @@ namespace TPRandomizer
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
 
-                        availableRoom = Randomizer.Rooms.RoomDict["Zoras Domain"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Zoras Throne Room"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
                     }
@@ -751,7 +766,7 @@ namespace TPRandomizer
                 {
                     if (LogicFunctions.CanUse(Item.Shadow_Crystal))
                     {
-                        availableRoom = Randomizer.Rooms.RoomDict["Snowpeak Summit"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Snowpeak Summit Upper"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
                     }
@@ -761,7 +776,7 @@ namespace TPRandomizer
                 {
                     if (LogicFunctions.CanUse(Item.Shadow_Crystal))
                     {
-                        availableRoom = Randomizer.Rooms.RoomDict["Sacred Grove Master Sword"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Sacred Grove Lower"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
                     }
@@ -781,56 +796,84 @@ namespace TPRandomizer
                 }
                 while (roomsToExplore.Count > 0)
                 {
-                    for (int i = 0; i < roomsToExplore[0].Neighbours.Count; i++)
+                    //Console.WriteLine("Currently Exploring: " + roomsToExplore[0].RoomName);
+                    for (int i = 0; i < roomsToExplore[0].Exits.Count; i++)
                     {
                         // If you can access the neighbour and it hasnt been visited yet.
-                        if (
-                            Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]].Visited
-                            == false
-                        )
+                        //Console.WriteLine("Exit: " + roomsToExplore[0].Exits[i].GetOriginalName());
+                        if (roomsToExplore[0].Exits[i].ConnectedArea != "")
                         {
-                            // Parse the neighbour's requirements to find out if we can access it
-                            var areNeighbourRequirementsMet = false;
-                            if (SSettings.logicRules == LogicRules.No_Logic)
+                            if (
+                                Randomizer.Rooms.RoomDict[
+                                    roomsToExplore[0].Exits[i].ConnectedArea
+                                ].Visited == false
+                            )
                             {
-                                areNeighbourRequirementsMet = true;
-                            }
-                            else
-                            {
-                                areNeighbourRequirementsMet = Logic.EvaluateRequirements(
-                                    roomsToExplore[0].RoomName,
-                                    roomsToExplore[0].NeighbourRequirements[i]
-                                );
-                            }
-                            if ((bool)areNeighbourRequirementsMet == true)
-                            {
-                                if (
-                                    !Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Neighbours[i]
-                                    ].ReachedByPlaythrough
-                                )
+                                // Parse the neighbour's requirements to find out if we can access it
+                                var areNeighbourRequirementsMet = false;
+                                /*Console.WriteLine(
+                                    "Checking neighbor: "
+                                        + Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ].RoomName
+                                );*/
+                                if (SSettings.logicRules == LogicRules.No_Logic)
                                 {
-                                    availableRooms++;
-                                    Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Neighbours[i]
-                                    ].ReachedByPlaythrough = true;
-                                    playthroughGraph.Add(
-                                        Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]]
+                                    areNeighbourRequirementsMet = true;
+                                }
+                                else
+                                {
+                                    areNeighbourRequirementsMet = Logic.EvaluateRequirements(
+                                        roomsToExplore[0].RoomName,
+                                        roomsToExplore[0].Exits[i].Requirements
                                     );
                                 }
-                                roomsToExplore.Add(
-                                    Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]]
-                                );
-                                Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]].Visited =
-                                    true;
 
-                                /*Console.WriteLine(
-                                    "Neighbour: "
-                                        + Randomizer.Rooms.RoomDict[
-                                            roomsToExplore[0].Neighbours[i]
-                                        ].RoomName
-                                        + " added to room list."
-                                );*/
+                                if ((bool)areNeighbourRequirementsMet == true)
+                                {
+                                    if (
+                                        !Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ].ReachedByPlaythrough
+                                    )
+                                    {
+                                        availableRooms++;
+                                        Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ].ReachedByPlaythrough = true;
+                                        playthroughGraph.Add(
+                                            Randomizer.Rooms.RoomDict[
+                                                roomsToExplore[0].Exits[i].ConnectedArea
+                                            ]
+                                        );
+                                    }
+                                    roomsToExplore.Add(
+                                        Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ]
+                                    );
+                                    Randomizer.Rooms.RoomDict[
+                                        roomsToExplore[0].Exits[i].ConnectedArea
+                                    ].Visited = true;
+
+                                    /* Console.WriteLine(
+                                         "Neighbour: "
+                                             + Randomizer.Rooms.RoomDict[
+                                                 roomsToExplore[0].Exits[i].ConnectedArea
+                                             ].RoomName
+                                             + " added to room list."
+                                     );*/
+                                }
+                                /*else
+                                {
+                                    Console.WriteLine(
+                                        "Neighbour: "
+                                            + Randomizer.Rooms.RoomDict[
+                                                roomsToExplore[0].Exits[i].ConnectedArea
+                                            ].RoomName
+                                            + " requirement not met"
+                                    );
+                                }*/
                             }
                         }
                     }
@@ -848,11 +891,6 @@ namespace TPRandomizer
         /// <param name="startingRoom"> The room node that the generation algorithm will begin with. </param>
         private static void PlaceItemsInWorld(Room startingRoom, Random rnd)
         {
-            // Any vanilla checks will be placed first for the sake of logic. Even if they aren't available to be randomized in the game yet,
-            // we may need to logically account for their placement.
-            Console.WriteLine("Placing Vanilla Checks.");
-            PlaceVanillaChecks();
-
             // Dungeon rewards have a very limited item pool, so we want to place them first to prevent the generator from putting
             // an unnecessary item in one of the checks.
             if (SSettings.shuffleRewards)
@@ -1019,7 +1057,7 @@ namespace TPRandomizer
                         foreach (Room graphRoom in currentPlaythroughGraph)
                         {
                             graphRoom.Visited = true;
-                            // Console.WriteLine("Currently Exploring: " + graphRoom.RoomName);
+                            //Console.WriteLine("Currently Exploring: " + graphRoom.RoomName);
                             for (int i = 0; i < graphRoom.Checks.Count; i++)
                             {
                                 // Create reference to the dictionary entry of the check whose logic we are evaluating
@@ -1216,8 +1254,6 @@ namespace TPRandomizer
             }
 
             Randomizer.RequiredDungeons = 0;
-
-            Randomizer.Rooms.RoomDict["Ordon Province"].IsStartingRoom = true;
         }
 
         private static void CheckUnrequiredDungeons()
@@ -1481,7 +1517,7 @@ namespace TPRandomizer
             }
         }
 
-        private static Room SetupGraph()
+        private static void SetupGraph()
         {
             // We want to be safe and make sure that the room classes are prepped and ready to be linked together. Then we define our starting room.
             foreach (KeyValuePair<string, Room> roomList in Randomizer.Rooms.RoomDict.ToList())
@@ -1491,10 +1527,14 @@ namespace TPRandomizer
                 Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
             }
 
-            Room startingRoom = Randomizer.Rooms.RoomDict["Ordon Province"];
-            startingRoom.IsStartingRoom = true;
-            Randomizer.Rooms.RoomDict["Ordon Province"] = startingRoom;
-            return startingRoom;
+            // This line is just filler until we have a random starting room
+            Room startingRoom = Randomizer.Rooms.RoomDict["Outside Links House"];
+
+            Entrance rootExit = new();
+            rootExit.ConnectedArea = startingRoom.RoomName;
+            rootExit.Requirements = "(true)";
+
+            Randomizer.Rooms.RoomDict["Root"].Exits.Add(rootExit);
         }
 
         private static void DeserializeChecks(SharedSettings SSettings)
@@ -1537,8 +1577,15 @@ namespace TPRandomizer
             }
         }
 
-        private static void DeserializeRooms(SharedSettings SSettings)
+        public static void DeserializeRooms(SharedSettings SSettings)
         {
+            //Before anything, create an entry for the root of the world
+            Randomizer.Rooms.RoomDict.Add("Root", new Room());
+            Randomizer.Rooms.RoomDict["Root"].RoomName = "Root";
+            Randomizer.Rooms.RoomDict["Root"].Exits = new();
+            Randomizer.Rooms.RoomDict["Root"].Checks = new();
+            Randomizer.Rooms.RoomDict["Root"].Visited = false;
+
             string[] files;
             if (SSettings.logicRules == LogicRules.Glitchless)
             {
@@ -1565,21 +1612,32 @@ namespace TPRandomizer
             {
                 string contents = File.ReadAllText(file);
                 string fileName = Path.GetFileNameWithoutExtension(file);
-                Randomizer.Rooms.RoomDict.Add(fileName, new Room());
-                Randomizer.Rooms.RoomDict[fileName] = JsonConvert.DeserializeObject<Room>(contents);
-                Room currentRoom = Randomizer.Rooms.RoomDict[fileName];
-                currentRoom.RoomName = fileName;
-                currentRoom.Visited = false;
-                currentRoom.IsStartingRoom = false;
-                for (int i = 0; i < currentRoom.NeighbourRequirements.Count; i++)
+
+                //Console.WriteLine("Loading Room File: " + fileName);
+
+                List<Room> fileRooms = JsonConvert.DeserializeObject<List<Room>>(contents);
+                foreach (Room room in fileRooms)
                 {
-                    currentRoom.NeighbourRequirements[i] =
-                        "(" + currentRoom.NeighbourRequirements[i] + ")";
+                    Randomizer.Rooms.RoomDict.Add(room.RoomName, new Room());
+                    Randomizer.Rooms.RoomDict[room.RoomName] = room;
+                    Room currentRoom = Randomizer.Rooms.RoomDict[room.RoomName];
+                    currentRoom.Visited = false;
+                    for (int i = 0; i < currentRoom.Exits.Count; i++)
+                    {
+                        currentRoom.Exits[i].Requirements =
+                            "(" + currentRoom.Exits[i].Requirements + ")";
+
+                        currentRoom.Exits[i].ParentArea = currentRoom.RoomName;
+                        currentRoom.Exits[i].OriginalConnectedArea = currentRoom.Exits[
+                            i
+                        ].ConnectedArea;
+                    }
+
+                    Randomizer.Rooms.RoomDict[room.RoomName] = currentRoom;
+                    //Console.WriteLine("Room created: " + room.RoomName);
                 }
 
-                Randomizer.Rooms.RoomDict[fileName] = currentRoom;
-
-                // Console.WriteLine("Room File Loaded " + fileName);
+                //Console.WriteLine("Room File Loaded " + fileName);
             }
         }
 

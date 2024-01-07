@@ -1,5 +1,5 @@
 {
-    "requirements": "Invoice and Shadow_Crystal",
+    "requirements": "true",
     "arcOffsets": ["1588"],
     "stageIDX": [53],
     "roomIDX": 4,
