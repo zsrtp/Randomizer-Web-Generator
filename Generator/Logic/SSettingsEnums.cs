@@ -34,14 +34,6 @@ namespace TPRandomizer.SSettings.Enums
         Closed = 1
     }
 
-    public enum PoeSettings
-    {
-        Vanilla = 0,
-        Overworld = 1,
-        Dungeons = 2,
-        All = 3
-    }
-
     public enum SmallKeySettings
     {
         Vanilla = 0,
