@@ -376,6 +376,10 @@
       { id: 'openMapCheckbox' },
       { id: 'spinnerSpeedCheckbox' },
       { id: 'openDotCheckbox' },
+      { id: 'itemScarcityFieldset', bitLength: 2 },
+      { id: 'damageMagFieldset', bitLength: 3 },
+      { id: 'bonksDoDamageCheckbox' },
+      { id: 'shuffleRewardsCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -717,7 +721,7 @@
       };
       const shufflePoes = processor.nextBoolean();
       res.poes = shufflePoes
-        ? poeSettings.overworld
+        ? poeSettings.all
         : poeSettings.vanilla;
     }
     processBasic({ id: 'shopItems' });
@@ -777,6 +781,17 @@
       processBasic({ id: 'openMap' });
       processBasic({ id: 'increaseSpinnerSpeed' });
       processBasic({ id: 'openDot' });
+    }
+    if (version >= 4) {
+      processBasic({ id: 'itemScarcity', bitLength: 2 });
+      processBasic({ id: 'damageMagnification', bitLength: 3 });
+      processBasic({ id: 'bonksDoDamage' });
+      processBasic({ id: 'shuffleRewards' });
+    } else {
+      res.itemScarcity = 0; // Vanilla
+      res.damageMagnification = 1; // Vanilla
+      res.bonksDoDamage = 0; // Vanilla
+      res.shuffleRewards = 0; // Vanilla
     }
 
     res.startingItems = processor.nextEolList(9);

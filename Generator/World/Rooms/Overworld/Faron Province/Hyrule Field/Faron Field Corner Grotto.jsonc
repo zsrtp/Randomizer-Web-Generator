@@ -1,0 +1,17 @@
+{ 
+    "Neighbours": 
+    [
+        "Faron Field"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Faron Field Corner Grotto Right Chest",
+        "Faron Field Corner Grotto Left Chest",
+        "Faron Field Corner Grotto Rear Chest"
+    ],
+    "Region": "Hyrule Field - Faron Province"
+}

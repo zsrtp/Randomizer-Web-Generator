@@ -1,0 +1,15 @@
+{
+    "Neighbours": 
+    [
+        "Lake Hylia"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Lake Hylia Water Toadpoli Grotto Chest"
+    ],
+    "Region": "Lake Hylia"
+}

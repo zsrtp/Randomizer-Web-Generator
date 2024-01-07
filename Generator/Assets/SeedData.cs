@@ -16,7 +16,8 @@ namespace TPRandomizer.Assets
         // See <add_documentation_reference_here> for the flowchart for
         // determining if you should increment the major or minor version.
         public static readonly UInt16 VersionMajor = 1;
-        public static readonly UInt16 VersionMinor = 0;
+        public static readonly UInt16 VersionMinor = 1;
+        public static readonly UInt16 VersionPatch = 0;
 
         // For convenience. This does not include any sort of leading 'v', so
         // add that where you use this variable if you need it.
@@ -25,10 +26,12 @@ namespace TPRandomizer.Assets
         private static List<byte> CheckDataRaw = new();
         private static List<byte> BannerDataRaw = new();
         private static SeedHeader SeedHeaderRaw = new();
+        private static CustomTextHeader CustomMessageHeaderRaw = new();
         public static readonly int DebugInfoSize = 0x20;
         public static readonly int ImageDataSize = 0x1400;
         private static readonly short SeedHeaderSize = 0x160;
         private static readonly byte BgmHeaderSize = 0xC;
+        private static short MessageHeaderSize = 0x4;
 
         private SeedGenResults seedGenResults;
         public FileCreationSettings fcSettings { get; }
@@ -62,6 +65,8 @@ namespace TPRandomizer.Assets
             * Check Data
             * Bgm Header
             * Bgm Data
+            * Message Header
+            * Message Data
             */
 
             // Reset buffers (needed for when generating multiple files in a
@@ -71,12 +76,55 @@ namespace TPRandomizer.Assets
             SeedHeaderRaw = new();
             EntranceDataRaw = new();
 
+            // First we need to generate
             SharedSettings randomizerSettings = Randomizer.SSettings;
+            Randomizer.Items.GenerateItemPool();
             List<byte> currentGCIData = new();
             List<byte> currentSeedHeader = new();
             List<byte> currentSeedData = new();
             List<byte> currentBgmData = new();
+            List<byte> currentMessageHeader = new();
+            List<byte> currentMessageData = new();
+            List<byte> currentMessageEntryInfo = new();
+            TPRandomizer.Assets.CustomMessages customMessage = new();
+            Dictionary<byte, CustomMessages.MessageEntry[]> seedDictionary = new();
 
+            seedDictionary.Add(0, CustomMessages.englishMessages);
+
+            // If generating for all regions, we use the region passed in as an
+            // argument rather than reading from fcSettings.
+            GameRegion gameRegion =
+                fcSettings.gameRegion == GameRegion.All ? regionOverride : fcSettings.gameRegion;
+
+            char region;
+            switch (gameRegion)
+            {
+                case GameRegion.USA:
+                    region = 'E';
+                    CustomMessageHeaderRaw.totalLanguages = 1;
+                    seedDictionary = customMessage.CustomUSMessageDictionary;
+                    break;
+                case GameRegion.EUR:
+                {
+                    region = 'P';
+                    CustomMessageHeaderRaw.totalLanguages = 1;
+                    seedDictionary = customMessage.CustomUSMessageDictionary;
+                    break;
+                }
+                case GameRegion.JAP:
+                {
+                    region = 'J';
+                    CustomMessageHeaderRaw.totalLanguages = 1;
+                    seedDictionary = customMessage.CustomUSMessageDictionary;
+                    break;
+                }
+                default:
+                {
+                    throw new Exception("Did not specify which region the output should be for.");
+                }
+            }
+
+            // Raw Check Data
             // Raw Check Data
             CheckDataRaw.AddRange(GeneratePatchSettings());
             CheckDataRaw.AddRange(GenerateEventFlags());
@@ -116,11 +164,32 @@ namespace TPRandomizer.Assets
             BgmHeaderRaw.fanfareTableOffset = (UInt16)(BgmHeaderSize + currentBgmData.Count);
             currentBgmData.AddRange(SoundAssets.GenerateFanfareData(this));
 
+            // Custom Message Info
+            CustomMessageHeaderRaw.entry = new CustomMessageTableInfo[
+                CustomMessageHeaderRaw.totalLanguages
+            ];
+            for (int i = 0; i < CustomMessageHeaderRaw.totalLanguages; i++)
+            {
+                CustomMessageHeaderRaw.entry[i] = new CustomMessageTableInfo();
+                currentMessageData.AddRange(
+                    ParseCustomMessageData(i, currentMessageData, seedDictionary)
+                );
+                while (currentMessageData.Count % 0x4 != 0)
+                {
+                    currentMessageData.Add(Converter.GcByte(0x0));
+                }
+                currentMessageEntryInfo.AddRange(GenerateMessageTableInfo(i));
+            }
+
+            currentMessageHeader.AddRange(GenerateMessageHeader(currentMessageEntryInfo));
+
             SeedHeaderRaw.totalSize = (uint)(
                 SeedHeaderSize
                 + CheckDataRaw.Count
                 + BgmHeaderSize
                 + currentBgmData.Count
+                + currentMessageHeader.Count
+                + currentMessageData.Count
                 + EntranceDataRaw.Count
             );
 
@@ -130,6 +199,8 @@ namespace TPRandomizer.Assets
             currentSeedData.AddRange(CheckDataRaw);
             currentSeedData.AddRange(GenerateBgmHeader());
             currentSeedData.AddRange(currentBgmData);
+            currentSeedData.AddRange(currentMessageHeader);
+            currentSeedData.AddRange(currentMessageData);
             while (currentSeedData.Count % 0x20 != 0)
             {
                 currentSeedData.Add(Converter.GcByte(0x0));
@@ -140,33 +211,6 @@ namespace TPRandomizer.Assets
             //     "rando-data" + randomizerSettings.seedNumber,
             //     currentSeedData.ToArray()
             // );
-
-            // If generating for all regions, we use the region passed in as an
-            // argument rather than reading from fcSettings.
-            GameRegion gameRegion =
-                fcSettings.gameRegion == GameRegion.All ? regionOverride : fcSettings.gameRegion;
-
-            char region;
-            switch (gameRegion)
-            {
-                case GameRegion.USA:
-                    region = 'E';
-                    break;
-                case GameRegion.EUR:
-                {
-                    region = 'P';
-                    break;
-                }
-                case GameRegion.JAP:
-                {
-                    region = 'J';
-                    break;
-                }
-                default:
-                {
-                    throw new Exception("Did not specify which region the output should be for.");
-                }
-            }
 
             // Add seed banner
             BannerDataRaw.AddRange(GenerateDebugInfoChunk(seedGenResults.seedId));
@@ -193,6 +237,8 @@ namespace TPRandomizer.Assets
             SeedHeaderRaw.dataSize = (ushort)CheckDataRaw.Count;
             SeedHeaderRaw.versionMajor = VersionMajor;
             SeedHeaderRaw.versionMinor = VersionMinor;
+            SeedHeaderRaw.customTextHeaderSize = (ushort)MessageHeaderSize;
+            SeedHeaderRaw.customTextHeaderOffset = (ushort)(CheckDataRaw.Count + 0xC);
             SeedHeaderRaw.requiredDungeons = (uint)seedGenResults.requiredDungeons;
             PropertyInfo[] seedHeaderProperties = SeedHeaderRaw.GetType().GetProperties();
             foreach (PropertyInfo headerObject in seedHeaderProperties)
@@ -242,6 +288,22 @@ namespace TPRandomizer.Assets
             }
 
             seedHeader.Add(Converter.GcByte(mapBits));
+
+            switch (randomizerSettings.damageMagnification)
+            {
+                case SSettings.Enums.DamageMagnification.OHKO:
+                {
+                    seedHeader.Add(Converter.GcByte(80)); // In a OHKO situation, we will need to deal a maximum magnification of 80 to ensure Link dies if the original damage was 1/4 heart.
+                    break;
+                }
+                default:
+                {
+                    seedHeader.Add(Converter.GcByte((int)randomizerSettings.damageMagnification));
+                    break;
+                }
+            }
+
+            seedHeader.Add(Converter.GcByte(randomizerSettings.bonksDoDamage ? 1 : 0));
 
             while (seedHeader.Count < (SeedHeaderSize))
             {
@@ -1074,7 +1136,201 @@ namespace TPRandomizer.Assets
             listOfStaticReplacements.Add(new ARCReplacement("1A84", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to increase donated amount by 100 rupees.
 
             listOfStaticReplacements.Add(new ARCReplacement("1ACC", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to remove 100 rupees from Link's wallet.
+
+            listOfStaticReplacements.AddRange(ModifyChestAppearanceARC());
             return listOfStaticReplacements;
+        }
+
+        private static List<byte> ParseMessageIDTables(
+            int currentLanguage,
+            List<byte> currentMessageData,
+            Dictionary<byte, CustomMessages.MessageEntry[]> seedDictionary
+        )
+        {
+            List<byte> listOfCustomMsgIDs = new();
+            ushort count = 0;
+            CustomMessageHeaderRaw.entry[currentLanguage].language = seedDictionary
+                .ElementAt(currentLanguage)
+                .Key;
+            CustomMessageHeaderRaw.entry[currentLanguage].msgIdTableOffset = (ushort)(
+                (0x10 * (CustomMessageHeaderRaw.totalLanguages - currentLanguage))
+                + currentMessageData.Count
+            );
+            foreach (
+                CustomMessages.MessageEntry messageEntry in seedDictionary
+                    .ElementAt(currentLanguage)
+                    .Value
+            )
+            {
+                listOfCustomMsgIDs.Add(Converter.GcByte(messageEntry.stageIDX));
+                listOfCustomMsgIDs.Add(Converter.GcByte(messageEntry.roomIDX));
+                listOfCustomMsgIDs.AddRange(Converter.GcBytes((UInt16)messageEntry.messageID));
+                count++;
+            }
+            CustomMessageHeaderRaw.entry[currentLanguage].totalEntries = count;
+            return listOfCustomMsgIDs;
+        }
+
+        private static List<byte> ParseCustomMessageData(
+            int currentLanguage,
+            List<byte> currentMessageData,
+            Dictionary<byte, CustomMessages.MessageEntry[]> seedDictionary
+        )
+        {
+            TPRandomizer.Assets.CustomMessages customMessage = new();
+            List<byte> customMessageData = new();
+            List<byte> listOfCustomMessages = new();
+            List<byte> listOfMsgOffsets = new();
+            List<byte> customMsgIDTables = new();
+
+            customMsgIDTables.AddRange(
+                ParseMessageIDTables(currentLanguage, currentMessageData, seedDictionary)
+            );
+
+            foreach (
+                CustomMessages.MessageEntry messageEntry in seedDictionary
+                    .ElementAt(currentLanguage)
+                    .Value
+            )
+            {
+                listOfMsgOffsets.AddRange(Converter.GcBytes((UInt32)listOfCustomMessages.Count));
+                listOfCustomMessages.AddRange(Converter.MessageStringBytes(messageEntry.message));
+                listOfCustomMessages.Add(Converter.GcByte(0x0));
+            }
+            CustomMessageHeaderRaw.entry[currentLanguage].msgTableSize = (ushort)(
+                listOfCustomMessages.Count
+            );
+
+            customMessageData.AddRange(customMsgIDTables);
+            customMessageData.AddRange(listOfMsgOffsets);
+            customMessageData.AddRange(listOfCustomMessages);
+            return customMessageData;
+        }
+
+        private static List<byte> GenerateMessageHeader(List<byte> messageTableInfo)
+        {
+            TPRandomizer.Assets.CustomMessages customMessage = new();
+            List<byte> messageHeader = new();
+            CustomMessageHeaderRaw.padding = 0x0;
+            messageHeader.AddRange(Converter.GcBytes((UInt16)(0x4 + messageTableInfo.Count))); // header size
+            messageHeader.Add(Converter.GcByte(CustomMessageHeaderRaw.totalLanguages));
+            messageHeader.Add(Converter.GcByte(0x0)); // padding
+            messageHeader.AddRange(messageTableInfo);
+
+            MessageHeaderSize = (short)messageHeader.Count;
+
+            return messageHeader;
+        }
+
+        private static List<byte> GenerateMessageTableInfo(int currentLanguage)
+        {
+            List<byte> messageTableInfo = new();
+            messageTableInfo.Add(
+                Converter.GcByte(CustomMessageHeaderRaw.entry[currentLanguage].language)
+            );
+            messageTableInfo.Add(Converter.GcByte(0x0)); // padding
+            messageTableInfo.AddRange(
+                Converter.GcBytes(
+                    (UInt16)CustomMessageHeaderRaw.entry[currentLanguage].totalEntries
+                )
+            );
+            messageTableInfo.AddRange(
+                Converter.GcBytes(
+                    (UInt32)CustomMessageHeaderRaw.entry[currentLanguage].msgTableSize
+                )
+            );
+            messageTableInfo.AddRange(
+                Converter.GcBytes(
+                    (UInt32)CustomMessageHeaderRaw.entry[currentLanguage].msgIdTableOffset
+                )
+            );
+
+            return messageTableInfo;
+        }
+
+        private static List<ARCReplacement> ModifyChestAppearanceARC()
+        {
+            List<ARCReplacement> listOfArcReplacements = new();
+            // Loop through all checks.
+            foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
+            {
+                Check currentCheck = checkList.Value;
+                if (currentCheck.category.Contains("Chest"))
+                {
+                    if (currentCheck.category.Contains("ARC")) // If the chest is an ARC check, so we need to add a new ARC replacement entry.
+                    {
+                        string offset = (
+                            (UInt32)
+                                uint.Parse(
+                                    currentCheck.arcOffsets[0],
+                                    System.Globalization.NumberStyles.HexNumber
+                                ) - 0x18
+                        ).ToString("X");
+                        string value = "";
+
+                        if (Randomizer.Items.RandomizedImportantItems.Contains(currentCheck.itemId))
+                        {
+                            value = "42300000"; // Big Blue Chest. Value is padded to a u32
+                        }
+                        else
+                        {
+                            value = "41300000"; // Small Brown Chest. Value is padded to a u32
+                        }
+
+                        listOfArcReplacements.Add(
+                            new ARCReplacement(
+                                offset,
+                                value,
+                                0,
+                                3,
+                                currentCheck.stageIDX[0],
+                                currentCheck.roomIDX
+                            )
+                        );
+                    }
+                }
+            }
+            return listOfArcReplacements;
+        }
+
+        private static void ModifyChestAppearanceDZX()
+        {
+            // Loop through all checks.
+            foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
+            {
+                Check currentCheck = checkList.Value;
+                if (currentCheck.category.Contains("Chest"))
+                {
+                    if (currentCheck.category.Contains("DZX")) // If the check is a DZX replacement/override, we only need to change the actor name
+                    {
+                        for (int i = 0; i < currentCheck.dzxTag.Count; i++)
+                            if (currentCheck.dzxTag[i] == "TRES")
+                            {
+                                if (
+                                    Randomizer.Items.RandomizedImportantItems.Contains(
+                                        currentCheck.itemId
+                                    )
+                                )
+                                {
+                                    currentCheck.actrData[i][4] = "41"; // Hex for 'B'
+                                    currentCheck.actrData[i][5] = "30"; // Hex for '0'
+                                    Console.WriteLine(
+                                        "doing the thing for " + currentCheck.checkName
+                                    );
+                                }
+                                else
+                                {
+                                    currentCheck.actrData[i][4] = "41"; // Hex for 'A'
+                                    currentCheck.actrData[i][5] = "30"; // Hex for '0'
+                                    Console.WriteLine(
+                                        "doing the not thing for " + currentCheck.checkName
+                                    );
+                                }
+                            }
+                    }
+                }
+            }
+            return;
         }
 
         private class SeedHeader
@@ -1119,6 +1375,25 @@ namespace TPRandomizer.Assets
             public UInt16 shuffledEntranceInfoDataOffset { get; set; }
             public UInt16 bgmHeaderOffset { get; set; }
             public UInt16 clr0Offset { get; set; }
+            public UInt16 customTextHeaderSize { get; set; }
+            public UInt16 customTextHeaderOffset { get; set; }
+        }
+
+        internal class CustomTextHeader
+        {
+            public UInt16 headerSize { get; set; }
+            public byte totalLanguages { get; set; }
+            public byte padding { get; set; }
+            public CustomMessageTableInfo[] entry { get; set; }
+        }
+
+        internal class CustomMessageTableInfo
+        {
+            public byte language { get; set; }
+            public byte padding { get; set; }
+            public UInt16 totalEntries { get; set; }
+            public UInt32 msgTableSize { get; set; }
+            public UInt32 msgIdTableOffset { get; set; }
         }
     }
 

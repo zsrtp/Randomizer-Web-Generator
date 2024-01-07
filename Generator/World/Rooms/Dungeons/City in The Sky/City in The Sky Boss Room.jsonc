@@ -1,0 +1,16 @@
+{ 
+    "Neighbours": 
+    [ 
+        "City in The Sky Entrance"
+    ],
+    "NeighbourRequirements": 
+    [
+        "CanDefeatArgorok"
+    ],
+    "Checks": 
+    [
+        "City in The Sky Argorok Heart Container",
+        "City in The Sky Dungeon Reward"
+    ], 
+    "Region": "City in The Sky"
+}

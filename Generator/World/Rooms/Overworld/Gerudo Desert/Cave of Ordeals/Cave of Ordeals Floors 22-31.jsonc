@@ -1,0 +1,14 @@
+{ 
+    "Neighbours": 
+    [
+        "South Faron Woods", 
+        "Cave of Ordeals Floors 32-41"
+    ],
+    "NeighbourRequirements":
+    [
+        "(Progressive_Clawshot, 1)",
+        "CanDefeatBokoblin and CanDefeatIceKeese and Ball_and_Chain and CanDefeatKeese and CanDefeatRat and CanDefeatGhoulRat and CanDefeatStalchild and CanDefeatRedeadKnight and CanDefeatBulblin and CanDefeatStalfos and CanDefeatSkulltula and CanDefeatBubble and CanDefeatLizalfos and CanDefeatFireBubble"
+    ],
+    "Checks": [""], 
+    "Region": "Cave of Ordeals"
+}

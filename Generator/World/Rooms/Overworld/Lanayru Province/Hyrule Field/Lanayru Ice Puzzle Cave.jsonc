@@ -1,0 +1,15 @@
+{ 
+    "Neighbours": 
+    [
+        "Lanayru Field"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Lanayru Ice Block Puzzle Cave Chest"
+    ],
+    "Region": "Hyrule Field - Lanayru Province"
+}

@@ -5,8 +5,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TPRandomizer.Util;
 using TPRandomizer.Assets;
-using System.IO;
-using System.IO.Compression;
 
 namespace TPRandomizer
 {
@@ -301,7 +299,12 @@ namespace TPRandomizer
             // method outputs
             root.Add(
                 "version",
-                "s" + Assets.SeedData.VersionMajor + "." + Assets.SeedData.VersionMinor
+                "s"
+                    + Assets.SeedData.VersionMajor
+                    + "."
+                    + Assets.SeedData.VersionMinor
+                    + "."
+                    + Assets.SeedData.VersionPatch
             );
 
             if (prettyPrint || dangerouslyPrintFullRaceSpoiler)
@@ -491,9 +494,13 @@ namespace TPRandomizer
             result.Add("shuffleGoldenBugs", sSettings.shuffleGoldenBugs);
             result.Add("shuffleSkyCharacters", sSettings.shuffleSkyCharacters);
             result.Add("shuffleNpcItems", sSettings.shuffleNpcItems);
-            result.Add("shufflePoes", sSettings.shufflePoes);
+            result.Add("shufflePoes", sSettings.shufflePoes.ToString());
             result.Add("shuffleShopItems", sSettings.shuffleShopItems);
             result.Add("shuffleHiddenSkills", sSettings.shuffleHiddenSkills);
+            result.Add("itemScarcity", sSettings.itemScarcity.ToString());
+            result.Add("damageMagnification", sSettings.damageMagnification.ToString());
+            result.Add("bonksDoDamage", sSettings.bonksDoDamage);
+            result.Add("shuffleRewards", sSettings.shuffleRewards);
             result.Add("smallKeySettings", sSettings.smallKeySettings.ToString());
             result.Add("bigKeySettings", sSettings.bigKeySettings.ToString());
             result.Add("mapAndCompassSettings", sSettings.mapAndCompassSettings.ToString());

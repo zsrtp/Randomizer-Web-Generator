@@ -221,19 +221,6 @@
                 <label for="giftsFromNPCsCheckbox"> Gifts From NPCs </label
                 ><br />
               </div>
-              <div class="selectGroup">
-                <label for="poeSettingsFieldset">Poe Souls:</label><br />
-                <select
-                  name="Poe Soul Settings"
-                  data-tooltip-text="'Vanilla': Poe Souls will not be randomized.&#0010;&#0010;'Overworld': Only Poes in the Overworld will have their souls shuffled.&#0010;&#0010;'Dungeon': Only Poes in Dungeons will have their souls shuffled.&#0010;&#0010;'All': All Poes will have their souls shuffled.&#0010;"
-                  id="poeSettingsFieldset"
-                >
-                  <option value="0" selected>Vanilla</option>
-                  <option value="1">Overworld</option>
-                  <option value="2">Dungeons</option>
-                  <option value="3">All</option>
-                </select>
-              </div>
               <div
                 style="width: 50%"
                 data-tooltip-text="If checked, the items you can permanently buy from shops are randomized.&#0010;"
@@ -257,6 +244,31 @@
                   value=""
                 />
                 <label for="hiddenSkillsCheckbox"> Hidden Skills </label><br />
+              </div>
+              <div class="selectGroup">
+                <label for="poeSettingsFieldset">Poe Souls:</label><br />
+                <select
+                  name="Poe Soul Settings"
+                  data-tooltip-text="'Vanilla': Poe Souls will not be randomized.&#0010;&#0010;'Overworld': Only Poes in the Overworld will have their souls shuffled.&#0010;&#0010;'Dungeon': Only Poes in Dungeons will have their souls shuffled.&#0010;&#0010;'All': All Poes will have their souls shuffled.&#0010;"
+                  id="poeSettingsFieldset"
+                >
+                  <option value="0" selected>Vanilla</option>
+                  <option value="1">Overworld</option>
+                  <option value="2">Dungeons</option>
+                  <option value="3">All</option>
+                </select>
+              </div>
+              <div class="selectGroup" style="margin-top: 8px">
+                <label for="itemScarcityFieldset">Item Scarcity</label><br />
+                <select
+                  name=""
+                  id="itemScarcityFieldset"
+                  data-tooltip-text="'Vanilla': No changes to the item pool.&#0010;&#0010;'Minimal': Removes unrequired items such as Heart Containers and Pieces, Hawkeye, etc. Has as few items as possible for Bomb Bags, Bows, Hidden Skills, Swords, and Wallets. No Magic Armor and 1 hidden skills if Glitchless logic.&#0010;&#0010;'Plentiful': One extra copy of major items. There are 17 Heart Containers but no Pieces of Heart. Extra keys if `Keysanity` or `Any Dungeon`."
+                >
+                  <option value="0">Vanilla</option>
+                  <option value="1">Minimal</option>
+                  <option value="2">Plentiful</option>
+                </select>
               </div>
             </fieldset>
           </div>
@@ -308,6 +320,17 @@
                   <option value="3">Anywhere</option>
                   <option value="4">Start With</option>
                 </select>
+              </div>
+              <div
+                data-tooltip-text="If checked, the Fused Shadows and Mirror Shards that normally appear at the end of Dungeons can be found anywhere in the game.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="shuffleRewardsCheckbox"
+                  name="Shuffle Rewards"
+                  value=""
+                />
+                <label for="shuffleRewardsCheckbox"> Dungeon Rewards Can Be Anywhere </label><br />
               </div>
             </fieldset>
           </div>
@@ -534,6 +557,19 @@
                   >Shop Models Show The Replaced Item</label
                 ><br />
               </div>
+              <div
+                data-tooltip-text="If checked, rolling into walls as Link will do damage. Additionally, dashing into or attacking a wall as Wolf will also do damage. Note, this damage does stack with the damage multiplier.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="bonksDoDamageCheckbox"
+                  name="Bonks Do Damage Checkbox"
+                  value=""
+                />
+                <label for="bonksDoDamageCheckbox"
+                  >Bonks Do Damage</label
+                ><br />
+              </div>
               <div class="selectGroup" style="margin-top: 8px">
                 <label for="trapItemFieldset">Trap Item Frequency</label><br />
                 <select
@@ -546,6 +582,20 @@
                   <option value="2">Many</option>
                   <option value="3">Mayhem</option>
                   <option value="4">Nightmare</option>
+                </select>
+              </div>
+              <div class="selectGroup" style="margin-top: 8px">
+                <label for="damageMagFieldset">Damage Multiplier</label><br />
+                <select
+                  name="Damage Multiplier"
+                  id="damageMagFieldset"
+                  data-tooltip-text="'Vanilla': Link takes normal damage.&#0010;&#0010;'Double': Link will take 2x damage.&#0010;&#0010;'Triple': Link will take 3x damage.&#0010;&#0010;'Quadruple': Link will take 4x damage.&#0010;&#0010;'OHKO (One-Hit KO)': Any damage taken will kill Link.&#0010;"
+                >
+                <option value="1">Vanilla</option>
+                <option value="2">Double</option>
+                <option value="3">Triple</option>
+                <option value="4">Quadruple</option>
+                <option value="5">OHKO</option>
                 </select>
               </div>
             </fieldset>
@@ -861,7 +911,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/3/3d/Randomizer-1.0.0.us.gci"
+                href="https://wiki.tprandomizer.com/images/0/0c/Randomizer-1.1.0.us.gci"
                 download
                 ><img class="blackbor flag" src="img/usa.jpg"
               /></a>
@@ -871,7 +921,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/b/b9/Randomizer-1.0.0.eu.gci"
+                href="https://wiki.tprandomizer.com/images/9/98/Randomizer-1.1.0.eu.gci"
                 download
                 ><img class="blackbor flag" src="/img/eur.jpg"
               /></a>
@@ -881,7 +931,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/f/fd/Randomizer-1.0.0.jp.gci"
+                href="https://wiki.tprandomizer.com/images/9/9d/Randomizer-1.1.0.jp.gci"
                 download
                 ><img class="blackbor flag" src="/img/jpn.jpg"
               /></a>
@@ -891,7 +941,7 @@
             <td style="text-align: center">
               <a
                 target="_blank"
-                href="https://drive.google.com/file/d/102sBpJKY_CIpd8wYTpfXt6PqVwsO7z4-/view?usp=share_link"
+                href="https://tprandomizer.com/downloads/relpatch.zip"
                 download
                 ><img class="blackbor flag" src="/img/folder.png"
               /></a>

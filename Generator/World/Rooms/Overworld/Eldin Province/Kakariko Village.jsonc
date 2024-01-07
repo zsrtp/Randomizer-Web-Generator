@@ -461,7 +461,7 @@
       {
         "ConnectedArea": "Kakariko Watchtower Upper Door",
         "Requirements": "true"
-      },
+      }
     ],
     "Checks":
     [    

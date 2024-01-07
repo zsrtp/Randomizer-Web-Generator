@@ -1,0 +1,16 @@
+{ 
+    "Neighbours": 
+    [
+        "Faron Mist Area"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true"
+    ],
+    "Checks": 
+    [
+        "Faron Mist Cave Open Chest",
+        "Faron Mist Cave Lantern Chest"
+    ],
+    "Region": "Faron Woods"
+}

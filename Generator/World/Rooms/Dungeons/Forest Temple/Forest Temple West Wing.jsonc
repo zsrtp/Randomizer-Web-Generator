@@ -1,0 +1,21 @@
+{
+    "Neighbours": 
+    [
+        "Forest Temple Lobby",
+        "Ook"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true",
+        "Boomerang"
+    ],
+    "Checks": 
+    [
+        "Forest Temple West Deku Like Chest",
+        "Forest Temple Totem Pole Chest",
+        "Forest Temple West Tile Worm Room Vines Chest",
+        "Forest Temple West Tile Worm Chest Behind Stairs",
+        "Forest Temple Big Baba Key"
+    ],
+    "Region": "Forest Temple"
+}

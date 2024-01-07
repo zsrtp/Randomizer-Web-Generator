@@ -1,0 +1,19 @@
+{
+    "Neighbours": 
+    [
+        "Sacred Grove Master Sword", 
+        "Temple of Time Entrance"
+    ],
+    "NeighbourRequirements": 
+    [
+        "true",
+        "(Progressive_Sword, 3) or (Setting.totEntrance equals Open)"
+    ],
+    "Checks": 
+    [
+        "Sacred Grove Past Owl Statue Chest",
+        "Sacred Grove Female Snail",
+        "Sacred Grove Temple of Time Owl Statue Poe"
+    ],
+    "Region": "Sacred Grove"
+}

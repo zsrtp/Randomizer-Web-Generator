@@ -1,0 +1,18 @@
+{
+    "Neighbours": 
+    [
+        "Temple of Time Connecting Corridors", 
+        "Temple of Time Armos Antechamber", 
+        "Temple of Time Moving Wall Hallways"
+    ],
+  "NeighbourRequirements": [
+    "true",
+    "Spinner",
+    "Spinner and ((Temple_of_Time_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
+  ],
+    "Checks": 
+    [
+        "Temple of Time Poe Behind Gate"
+    ], 
+    "Region": "Temple of Time"
+}

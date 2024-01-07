@@ -8,6 +8,7 @@
   "NeighbourRequirements": [
     "true",
     "Lantern or CanDoMapGlitch",
+    // Crystal is in logic for North Faron Access no matter what via Epona OoB. This will have to change slightly for ER but is fine for now.
 	"(CanDoMapGlitch) or (North_Faron_Woods_Gate_Key or (Setting.smallKeySettings equals Keysy) or (Shadow_Crystal and (Setting.faronTwilightCleared equals True)) or (Setting.skipPrologue equals True)) and (Lantern or Shadow_Crystal)"
   ],
     "Checks":

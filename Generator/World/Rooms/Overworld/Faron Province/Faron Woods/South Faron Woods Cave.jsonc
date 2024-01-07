@@ -1,0 +1,17 @@
+{
+    "Neighbours": 
+    [
+        "South Faron Woods", 
+        "Faron Mist Area"
+    ],
+    "NeighbourRequirements": 
+    [
+        "canBurnWebs or Shadow_Crystal or (Setting.skipPrologue equals True)",
+        "canBurnWebs or Shadow_Crystal or (Setting.skipPrologue equals True)"
+    ],
+    "Checks": 
+    [
+        "South Faron Cave Chest"
+    ],
+    "Region": "Faron Woods"
+}
