@@ -264,6 +264,9 @@ document
   .getElementById('skipMinorCutscenesCheckbox')
   .addEventListener('click', setSettingsString);
 document
+  .getElementById('skipMajorCutscenesCheckbox')
+  .addEventListener('click', setSettingsString);
+document
   .getElementById('fastIBCheckbox')
   .addEventListener('click', setSettingsString);
 document
@@ -1133,6 +1136,7 @@ function populateSSettings(s) {
   $('#lanayruTwilightCheckbox').prop('checked', s.lanayruTwilightCleared);
   $('#mdhCheckbox').prop('checked', s.skipMdh);
   $('#skipMinorCutscenesCheckbox').prop('checked', s.skipMinorCutscenes);
+  $('#skipMajorCutscenesCheckbox').prop('checked', s.skipMajorCutscenes);
   $('#fastIBCheckbox').prop('checked', s.fastIronBoots);
   $('#quickTransformCheckbox').prop('checked', s.quickTransform);
   $('#transformAnywhereCheckbox').prop('checked', s.transformAnywhere);

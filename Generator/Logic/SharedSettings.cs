@@ -52,6 +52,7 @@ namespace TPRandomizer
         public DamageMagnification damageMagnification { get; set; }
         public bool bonksDoDamage { get; set; }
         public bool shuffleRewards { get; set; }
+        public bool skipMajorCutscenes { get; set; }
         public bool increaseSpinnerSpeed { get; set; }
         public bool openDot { get; set; }
         public List<Item> startingItems { get; set; }
@@ -103,6 +104,7 @@ namespace TPRandomizer
             damageMagnification = (DamageMagnification)processor.NextInt(3);
             bonksDoDamage = processor.NextBool();
             shuffleRewards = processor.NextBool();
+            skipMajorCutscenes = processor.NextBool();
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();

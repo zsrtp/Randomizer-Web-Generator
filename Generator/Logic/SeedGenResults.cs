@@ -510,6 +510,7 @@ namespace TPRandomizer
             result.Add("lanayruTwilightCleared", sSettings.lanayruTwilightCleared);
             result.Add("skipMdh", sSettings.skipMdh);
             result.Add("skipMinorCutscenes", sSettings.skipMinorCutscenes);
+            result.Add("skipMajorCutscenes", sSettings.skipMajorCutscenes);
             result.Add("fastIronBoots", sSettings.fastIronBoots);
             result.Add("quickTransform", sSettings.quickTransform);
             result.Add("transformAnywhere", sSettings.transformAnywhere);

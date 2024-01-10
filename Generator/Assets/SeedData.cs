@@ -372,6 +372,7 @@ namespace TPRandomizer.Assets
                 fcSettings.disableEnemyBgm,
                 randomizerSettings.instantText,
                 randomizerSettings.increaseSpinnerSpeed,
+                randomizerSettings.skipMajorCutscenes,
             };
             int patchOptions = 0x0;
             int bitwiseOperator = 0;
@@ -574,6 +575,11 @@ namespace TPRandomizer.Assets
                     // We will use the number of hashes to count DZX replacements per check for now.
                     for (int i = 0; i < currentCheck.hash.Count; i++)
                     {
+                        bool chestAppearanceMatchesContent = true;
+                        if (chestAppearanceMatchesContent)
+                        {
+                            ModifyChestAppearanceDZX(currentCheck);
+                        }
                         byte[] dataArray = new byte[32];
                         for (int j = 0; j < currentCheck.actrData[i].Length; j++)
                         {
@@ -1293,43 +1299,25 @@ namespace TPRandomizer.Assets
             return listOfArcReplacements;
         }
 
-        private static void ModifyChestAppearanceDZX()
+        private static void ModifyChestAppearanceDZX(Check currentCheck)
         {
-            // Loop through all checks.
-            foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
-            {
-                Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("Chest"))
+            for (int i = 0; i < currentCheck.dzxTag.Count; i++)
+                if (currentCheck.dzxTag[i] == "TRES")
                 {
-                    if (currentCheck.category.Contains("DZX")) // If the check is a DZX replacement/override, we only need to change the actor name
+                    if (Randomizer.Items.RandomizedImportantItems.Contains(currentCheck.itemId))
                     {
-                        for (int i = 0; i < currentCheck.dzxTag.Count; i++)
-                            if (currentCheck.dzxTag[i] == "TRES")
-                            {
-                                if (
-                                    Randomizer.Items.RandomizedImportantItems.Contains(
-                                        currentCheck.itemId
-                                    )
-                                )
-                                {
-                                    currentCheck.actrData[i][4] = "41"; // Hex for 'B'
-                                    currentCheck.actrData[i][5] = "30"; // Hex for '0'
-                                    Console.WriteLine(
-                                        "doing the thing for " + currentCheck.checkName
-                                    );
-                                }
-                                else
-                                {
-                                    currentCheck.actrData[i][4] = "41"; // Hex for 'A'
-                                    currentCheck.actrData[i][5] = "30"; // Hex for '0'
-                                    Console.WriteLine(
-                                        "doing the not thing for " + currentCheck.checkName
-                                    );
-                                }
-                            }
+                        currentCheck.actrData[i][4] = "41"; // Hex for 'B'
+                        currentCheck.actrData[i][5] = "30"; // Hex for '0'
+                        Console.WriteLine("doing the thing for " + currentCheck.checkName);
+                    }
+                    else
+                    {
+                        currentCheck.actrData[i][4] = "41"; // Hex for 'A'
+                        currentCheck.actrData[i][5] = "30"; // Hex for '0'
+                        Console.WriteLine("doing the not thing for " + currentCheck.checkName);
                     }
                 }
-            }
+
             return;
         }
 

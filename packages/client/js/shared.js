@@ -337,7 +337,7 @@
   function genSSettingsFromUi() {
     // Increment the version when you make changes to the format. Need to make
     // sure you don't break backwards compatibility!!
-    const sSettingsVersion = 4;
+    const sSettingsVersion = 5;
 
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
@@ -380,6 +380,7 @@
       { id: 'damageMagFieldset', bitLength: 3 },
       { id: 'bonksDoDamageCheckbox' },
       { id: 'shuffleRewardsCheckbox' },
+      { id: 'skipMajorCutscenesCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -792,6 +793,11 @@
       res.damageMagnification = 1; // Vanilla
       res.bonksDoDamage = 0; // Vanilla
       res.shuffleRewards = 0; // Vanilla
+    }
+    if (version >= 5) {
+      processBasic({ id: 'skipMajorCutscenes' });
+    } else {
+      res.skipMajorCutscenes = 1; // Vanilla
     }
 
     res.startingItems = processor.nextEolList(9);

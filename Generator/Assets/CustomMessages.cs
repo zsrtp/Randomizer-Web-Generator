@@ -28,6 +28,8 @@ namespace TPRandomizer.Assets
         static string messageOption3 = "\x1A\x06\x00\x00\x09\x03";
 
         public static string hylianShieldShopItemText = Item.Hylian_Shield.ToString();
+        public static string barnesBombShopItemText = Item.Filled_Bomb_Bag.ToString();
+        public static string charloDonationItemText = Item.Piece_of_Heart.ToString();
 
         //static string messageIconR = "\x1A\x05\x00\x00\x0E";
         //static string messageIconA = "\x1A\x05\x00\x00\x0A";
@@ -991,6 +993,38 @@ namespace TPRandomizer.Assets
                     + "200 Rupees\n"
                     + messageColorWhite
                     + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            },
+            new MessageEntry
+            {
+                stageIDX = 0xFF,
+                roomIDX = 0xFF,
+                messageID = 0x30E, // Barnes Bomb Bag Text. Need to update messageID
+                message =
+                    "I've got a special offer goin' right\nnow: my "
+                    + messageColorRed
+                    + barnesBombShopItemText
+                    + ",\njust "
+                    + messageColorPurple
+                    + "120 Rupees"
+                    + messageColorWhite
+                    + "! How 'bout that?"
+            },
+            new MessageEntry
+            {
+                stageIDX = 0xFF,
+                roomIDX = 0xFF,
+                messageID = 0x30E, // Charlo Donation Text. Need to update messageID
+                message =
+                    "For a "
+                    + messageColorRed
+                    + charloDonationItemText
+                    + "...\nWould you please make a donation?"
+                    + messageOption1
+                    + "100 Rupees\n"
+                    + messageOption2
+                    + "50 Rupees\n"
+                    + messageOption3
+                    + "Sorry..."
             },
         };
         public static MessageEntry[] germanMessages =
