@@ -28,8 +28,16 @@ namespace TPRandomizer.Assets
         static string messageOption3 = "\x1A\x06\x00\x00\x09\x03";
 
         public static string hylianShieldShopItemText = Item.Hylian_Shield.ToString();
+        public static string slingshotShopItemText = Item.Slingshot.ToString();
+        public static string magicArmorShopItemText = Item.Magic_Armor.ToString();
         public static string barnesBombShopItemText = Item.Filled_Bomb_Bag.ToString();
         public static string charloDonationItemText = Item.Piece_of_Heart.ToString();
+
+        public static string[][] foolishShopItemNames =
+        [
+            [ Item.Hylian_Shield.ToString(), "Highlian Shield", "Hilan Shield", "Hylian Sheeld" ],
+            [ Item.Slingshot.ToString(), "Slongshut" ]
+        ];
 
         //static string messageIconR = "\x1A\x05\x00\x00\x0E";
         //static string messageIconA = "\x1A\x05\x00\x00\x0A";
@@ -1025,6 +1033,34 @@ namespace TPRandomizer.Assets
                     + "50 Rupees\n"
                     + messageOption3
                     + "Sorry..."
+            },
+            new MessageEntry
+            {
+                stageIDX = 0xFF,
+                roomIDX = 0xFF,
+                messageID = 0x30E, // Slingshot Check
+                message =
+                    messageColorOrange
+                    + slingshotShopItemText
+                    + ": "
+                    + messageColorPurple
+                    + "30 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            },
+            new MessageEntry
+            {
+                stageIDX = 0xFF,
+                roomIDX = 0xFF,
+                messageID = 0x30E, // Magic Armor Check
+                message =
+                    messageColorOrange
+                    + magicArmorShopItemText
+                    + ": "
+                    + messageColorPurple
+                    + "598 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
             },
         };
         public static MessageEntry[] germanMessages =

@@ -21,7 +21,7 @@ COPY ./packages/client/ ./packages/client
 
 #####
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 WORKDIR /usr/app/generatorSrc
 
 # copy csproj and restore as distinct layers
