@@ -77,6 +77,7 @@ namespace TPRandomizer.Assets
             { 0x3, 0x9A }, // Kakariko Village intro CS.
             { 0xA, 0x7F }, // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
             { 0x0, 0x7E }, // Midna jumps to Shop unlocked
+            { 0x17, 0x5E }, // Palace of Twilight intro CS and removes the invisible waterfall wall with a custom ARC patch.
         };
 
         /// <summary>
@@ -230,7 +231,6 @@ namespace TPRandomizer.Assets
             { 0x16, 0x67 }, // City in The Sky intro CS.
             { 0x16, 0x6E }, // East bridge extended CS.
             { 0x17, 0x4D }, // Phantom Zant 1 CS.
-            { 0x17, 0x5E }, // Palace of Twilight intro CS.
             { 0x17, 0x66 }, // Midna text when west hand steals sol.
             { 0x17, 0x6F }, // Midna text about black fog in west room.
             { 0x17, 0x70 }, // Midna text after finding west sol.

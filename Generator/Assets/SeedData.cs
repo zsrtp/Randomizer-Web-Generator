@@ -1143,11 +1143,60 @@ namespace TPRandomizer.Assets
         {
             List<ARCReplacement> listOfStaticReplacements = new();
 
-            listOfStaticReplacements.Add(new ARCReplacement("1A62", "00060064", 1, 3, 53, 0)); // Set Charlo Donation to check Link's wallet for 100 rupees.
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "1A62",
+                    "00060064",
+                    (byte)FileDirectory.Message,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Castle_Town,
+                    0
+                )
+            ); // Set Charlo Donation to check Link's wallet for 100 rupees.
 
-            listOfStaticReplacements.Add(new ARCReplacement("1A84", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to increase donated amount by 100 rupees.
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "1A84",
+                    "00000064",
+                    (byte)FileDirectory.Message,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Castle_Town,
+                    0
+                )
+            ); // Set Charlo Donation to increase donated amount by 100 rupees.
 
-            listOfStaticReplacements.Add(new ARCReplacement("1ACC", "00000064", 1, 3, 53, 0)); // Set Charlo Donation to remove 100 rupees from Link's wallet.
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "1ACC",
+                    "00000064",
+                    (byte)FileDirectory.Message,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Castle_Town,
+                    0
+                )
+            ); // Set Charlo Donation to remove 100 rupees from Link's wallet.
+
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "1ACC",
+                    "00000064",
+                    (byte)FileDirectory.Message,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Castle_Town,
+                    0
+                )
+            ); // Set Charlo Donation to remove 100 rupees from Link's wallet.
+
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "1324",
+                    "00000181",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Palace_of_Twilight,
+                    0
+                )
+            ); // Remove the invisible wall from Palace
 
             listOfStaticReplacements.AddRange(ModifyChestAppearanceARC());
             return listOfStaticReplacements;
@@ -1292,8 +1341,8 @@ namespace TPRandomizer.Assets
                             new ARCReplacement(
                                 offset,
                                 value,
-                                0,
-                                3,
+                                (byte)FileDirectory.Room,
+                                (byte)ReplacementType.Instruction,
                                 currentCheck.stageIDX[0],
                                 currentCheck.roomIDX
                             )
@@ -1457,4 +1506,22 @@ namespace TPRandomizer.Assets
             set { roomID = value; }
         } // The room number for chests/room based dzr checks.
     }
+
+    enum FileDirectory : byte
+    {
+        Room = 0x0,
+        Message = 0x1,
+        Object = 0x2,
+        Stage = 0x3,
+    };
+
+    enum ReplacementType : byte
+    {
+        Item = 0x0, // Standard item replacement
+        HiddenSkill = 0x1, // Hidden Skill checks check for the room last loaded into.
+        ItemMessage = 0x2, // Replaces messages for item IDs
+        Instruction = 0x3, // Replaces a u32 instruction
+        AlwaysLoaded = 0x4, // Replaces values specifically in the bmgres archive which is always loaded.
+        MessageResource = 0x5, // Replaces values in the MESG section of a bmgres archive file.
+    };
 }
