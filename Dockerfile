@@ -40,7 +40,7 @@ RUN mkdir -p /app/generator/Assets/Entrances
 RUN cp -R Assets/Entrances/EntranceTable.jsonc /app/generator/Assets/Entrances/EntranceTable.jsonc
 
 FROM node:lts-alpine as node_base
-FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine
+FROM mcr.microsoft.com/dotnet/runtime:8.0-alpine
 COPY --from=node_base . .
 
 # Install nginx. Maybe don't need curl and vim, though vim could potentially be handy.

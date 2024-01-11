@@ -76,7 +76,7 @@ namespace TPRandomizer.Assets
             SeedHeaderRaw = new();
             EntranceDataRaw = new();
 
-            // First we need to generate
+            // First we need to generate the buffers for the various byte lists that will be used to populate the seed data.
             SharedSettings randomizerSettings = Randomizer.SSettings;
             Randomizer.Items.GenerateItemPool();
             List<byte> currentGCIData = new();
@@ -86,10 +86,16 @@ namespace TPRandomizer.Assets
             List<byte> currentMessageHeader = new();
             List<byte> currentMessageData = new();
             List<byte> currentMessageEntryInfo = new();
+            Dictionary<byte, List<CustomMessages.MessageEntry>> seedDictionary = new();
             TPRandomizer.Assets.CustomMessages customMessage = new();
-            Dictionary<byte, CustomMessages.MessageEntry[]> seedDictionary = new();
 
-            seedDictionary.Add(0, CustomMessages.englishMessages);
+            // We only modify the shop item text if the models are being replaced because we don't want to spoil it.
+            if (Randomizer.SSettings.modifyShopModels)
+            {
+                customMessage.englishMessages.AddRange(customMessage.englishShopMessages);
+            }
+
+            seedDictionary.Add(0, customMessage.englishMessages);
 
             // If generating for all regions, we use the region passed in as an
             // argument rather than reading from fcSettings.
@@ -102,20 +108,20 @@ namespace TPRandomizer.Assets
                 case GameRegion.USA:
                     region = 'E';
                     CustomMessageHeaderRaw.totalLanguages = 1;
-                    seedDictionary = customMessage.CustomUSMessageDictionary;
+                    seedDictionary = new() { { 0, customMessage.englishMessages }, };
                     break;
                 case GameRegion.EUR:
                 {
                     region = 'P';
                     CustomMessageHeaderRaw.totalLanguages = 1;
-                    seedDictionary = customMessage.CustomUSMessageDictionary;
+                    seedDictionary = new() { { 0, customMessage.englishMessages }, };
                     break;
                 }
                 case GameRegion.JAP:
                 {
                     region = 'J';
                     CustomMessageHeaderRaw.totalLanguages = 1;
-                    seedDictionary = customMessage.CustomUSMessageDictionary;
+                    seedDictionary = new() { { 0, customMessage.englishMessages }, };
                     break;
                 }
                 default:
@@ -1150,7 +1156,7 @@ namespace TPRandomizer.Assets
         private static List<byte> ParseMessageIDTables(
             int currentLanguage,
             List<byte> currentMessageData,
-            Dictionary<byte, CustomMessages.MessageEntry[]> seedDictionary
+            Dictionary<byte, List<CustomMessages.MessageEntry>> seedDictionary
         )
         {
             List<byte> listOfCustomMsgIDs = new();
@@ -1180,7 +1186,7 @@ namespace TPRandomizer.Assets
         private static List<byte> ParseCustomMessageData(
             int currentLanguage,
             List<byte> currentMessageData,
-            Dictionary<byte, CustomMessages.MessageEntry[]> seedDictionary
+            Dictionary<byte, List<CustomMessages.MessageEntry>> seedDictionary
         )
         {
             TPRandomizer.Assets.CustomMessages customMessage = new();
@@ -1215,7 +1221,6 @@ namespace TPRandomizer.Assets
 
         private static List<byte> GenerateMessageHeader(List<byte> messageTableInfo)
         {
-            TPRandomizer.Assets.CustomMessages customMessage = new();
             List<byte> messageHeader = new();
             CustomMessageHeaderRaw.padding = 0x0;
             messageHeader.AddRange(Converter.GcBytes((UInt16)(0x4 + messageTableInfo.Count))); // header size

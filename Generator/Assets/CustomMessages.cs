@@ -26,13 +26,9 @@ namespace TPRandomizer.Assets
         static string messageOption1 = "\x1A\x06\x00\x00\x09\x01";
         static string messageOption2 = "\x1A\x06\x00\x00\x09\x02";
         static string messageOption3 = "\x1A\x06\x00\x00\x09\x03";
+        static string shopOption = "\x1A\x05\x00\x00\x20";
 
-        public static string hylianShieldShopItemText = Item.Hylian_Shield.ToString();
-        public static string slingshotShopItemText = Item.Slingshot.ToString();
-        public static string magicArmorShopItemText = Item.Magic_Armor.ToString();
-        public static string barnesBombShopItemText = Item.Filled_Bomb_Bag.ToString();
-        public static string charloDonationItemText = Item.Piece_of_Heart.ToString();
-
+        // Unused for now but who knows.
         public static string[][] foolishShopItemNames =
         [
             [ Item.Hylian_Shield.ToString(), "Highlian Shield", "Hilan Shield", "Hylian Sheeld" ],
@@ -52,33 +48,8 @@ namespace TPRandomizer.Assets
             public string message;
         }
 
-        public Dictionary<byte, MessageEntry[]> CustomPALMessageDictionary =
-            new()
-            {
-                { 0, englishMessages },
-                { 1, germanMessages },
-                { 2, frenchMessages },
-                { 3, spanishMessages },
-                { 4, italianMessages }
-            };
 
-        List<MessageEntry[]> listOfLanguageEntries =
-            new()
-            {
-                englishMessages,
-                germanMessages,
-                frenchMessages,
-                spanishMessages,
-                italianMessages,
-                japaneseMessages
-            };
-
-        public Dictionary<byte, MessageEntry[]> CustomUSMessageDictionary =
-            new() { { 0, englishMessages }, };
-        public Dictionary<byte, MessageEntry[]> CustomJPMessageDictionary =
-            new() { { 0, japaneseMessages } };
-
-        public static MessageEntry[] englishMessages =
+        public List<MessageEntry> englishMessages = new List<MessageEntry>
         {
             new MessageEntry
             {
@@ -988,44 +959,33 @@ namespace TPRandomizer.Assets
                     + messageOption3
                     + "Change time of day"
             },
+           
             new MessageEntry
             {
-                stageIDX = 0xFF,
-                roomIDX = 0xFF,
-                messageID = 0x30E, // Hylian Shield Check
-                message =
-                    messageColorOrange
-                    + hylianShieldShopItemText
-                    + ": "
-                    + messageColorPurple
-                    + "200 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },
-            new MessageEntry
-            {
-                stageIDX = 0xFF,
-                roomIDX = 0xFF,
-                messageID = 0x30E, // Barnes Bomb Bag Text. Need to update messageID
+                stageIDX = 68,
+                roomIDX = 1,
+                messageID = 0x9B, // Barnes Bomb Bag Text. 
                 message =
                     "I've got a special offer goin' right\nnow: my "
                     + messageColorRed
-                    + barnesBombShopItemText
+                    + Randomizer.Checks.CheckDict["Barnes Bomb Bag"].itemId.ToString().Replace('_', ' ')
+                    + messageColorWhite
                     + ",\njust "
                     + messageColorPurple
                     + "120 Rupees"
                     + messageColorWhite
                     + "! How 'bout that?"
+                    + shopOption
             },
             new MessageEntry
             {
-                stageIDX = 0xFF,
-                roomIDX = 0xFF,
-                messageID = 0x30E, // Charlo Donation Text. Need to update messageID
+                stageIDX = 53,
+                roomIDX = 2,
+                messageID = 0x355, // Charlo Donation Text. Need to update messageID
                 message =
                     "For a "
                     + messageColorRed
-                    + charloDonationItemText
+                    + Randomizer.Checks.CheckDict["Charlo Donation Blessing"].itemId.ToString().Replace('_', ' ')
                     + "...\nWould you please make a donation?"
                     + messageOption1
                     + "100 Rupees\n"
@@ -1034,34 +994,7 @@ namespace TPRandomizer.Assets
                     + messageOption3
                     + "Sorry..."
             },
-            new MessageEntry
-            {
-                stageIDX = 0xFF,
-                roomIDX = 0xFF,
-                messageID = 0x30E, // Slingshot Check
-                message =
-                    messageColorOrange
-                    + slingshotShopItemText
-                    + ": "
-                    + messageColorPurple
-                    + "30 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },
-            new MessageEntry
-            {
-                stageIDX = 0xFF,
-                roomIDX = 0xFF,
-                messageID = 0x30E, // Magic Armor Check
-                message =
-                    messageColorOrange
-                    + magicArmorShopItemText
-                    + ": "
-                    + messageColorPurple
-                    + "598 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },
+            
         };
         public static MessageEntry[] germanMessages =
         {
@@ -5690,6 +5623,84 @@ namespace TPRandomizer.Assets
                     + "9,999 Rupees"
                     + messageColorWhite
                     + "!"
+            },
+        };
+
+        public List<MessageEntry> englishShopMessages = new List<MessageEntry>
+        {
+            new MessageEntry
+            {
+                stageIDX = 0xFF,
+                roomIDX = 0xFF,
+                messageID = 0x30E, // Slingshot Check
+                message =
+                    messageColorOrange
+                    + Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId.ToString().Replace('_', ' ')
+                    + ": "
+                    + messageColorPurple
+                    + "30 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            },
+            new MessageEntry
+            {
+                stageIDX = 0xFF,
+                roomIDX = 0xFF,
+                messageID = 0x125, // Magic Armor Check
+                message =
+                    messageColorOrange
+                    + Randomizer.Checks.CheckDict["Castle Town Malo Mart Magic Armor"].itemId.ToString().Replace('_', ' ')
+                    + ": "
+                    + messageColorPurple
+                    + "598 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            },
+             new MessageEntry
+            {
+                stageIDX = 68,
+                roomIDX = 3,
+                messageID = 0x30E, // Hylian Shield Check
+                message =
+                    messageColorOrange
+                    + Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Hylian Shield"].itemId.ToString().Replace('_', ' ')
+                    + ": "
+                    + messageColorPurple
+                    + "200 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            },
+             new MessageEntry
+            {
+                stageIDX = 68,
+                roomIDX = 3,
+                messageID = 0x2CB, // Hylian Shield Confirmation
+                message =
+                    "Are you sure?"
+                    + shopOption
+            },
+            new MessageEntry
+            {
+                stageIDX = 68,
+                roomIDX = 3,
+                messageID = 0x307, // Hawkeye Display
+                message =
+                    messageColorOrange
+                    + Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Hawkeye"].itemId.ToString().Replace('_', ' ')
+                    + ": "
+                    + messageColorPurple
+                    + "100 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            },
+            new MessageEntry
+            {
+                stageIDX = 68,
+                roomIDX = 3,
+                messageID = 0x2D2, // Hawkeye Confirmation
+                message =
+                    "Are you sure?"
+                    + shopOption
             },
         };
 
