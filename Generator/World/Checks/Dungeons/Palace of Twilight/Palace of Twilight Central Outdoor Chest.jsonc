@@ -1,5 +1,5 @@
 {
-  "requirements": "CanDefeatZantHead and ((Palace_of_Twilight_Small_Key, 5) or (Setting.smallKeySettings equals Keysy)) and (Progressive_Sword, 4)",
+  "requirements": "CanDefeatZantHead",
   "arcOffsets": ["C6C"],
     "stageIDX": [15],
     "roomIDX": 11,

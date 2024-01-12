@@ -1,16 +1,48 @@
 [
+    
     {
-        "RoomName": "Palace of Twilight Boss Room",
-        "Exits":
+      "RoomName": "Palace of Twilight Entrance",
+      "Exits": 
         [
           {
-            "ConnectedArea": "Palace of Twilight Entrance",
-            "Requirements": "CanDefeatZant"
+            "ConnectedArea": "Mirror Chamber",
+            "Requirements": "true"
+          },
+          {
+            "ConnectedArea": "Palace of Twilight West Wing",
+            "Requirements": "true"
+          },
+          {
+            "ConnectedArea": "Palace of Twilight East Wing",
+            "Requirements": "CanDefeatPhantomZant and (Progressive_Clawshot, 1) and CanDefeatZantHead and ((Palace_of_Twilight_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
+          },
+          {
+            "ConnectedArea": "Palace of Twilight North Tower",
+            "Requirements": "(Progressive_Sword, 4)"
           }
         ],
-        "Checks":
+        "Checks": 
         [
-            "Palace of Twilight Zant Heart Container"
+            "Palace of Twilight Collect Both Sols"
+        ],
+        "Region": "Palace of Twilight"
+    },
+    { 
+        "RoomName": "Palace of Twilight West Wing",
+        "Exits": 
+        [
+        {
+            "ConnectedArea": "Palace of Twilight Entrance",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": 
+        [
+            "Palace of Twilight West Wing First Room Central Chest",
+            "Palace of Twilight West Wing Chest Behind Wall of Darkness",
+            "Palace of Twilight West Wing Second Room Central Chest",
+            "Palace of Twilight West Wing Second Room Lower South Chest",
+            "Palace of Twilight West Wing Second Room Southeast Chest"
         ],
         "Region": "Palace of Twilight"
     },
@@ -36,35 +68,8 @@
         ],
         "Region": "Palace of Twilight"
     },
-    {
-        "RoomName": "Palace of Twilight Entrance",
-        "Exits": 
-          [
-            {
-              "ConnectedArea": "Mirror Chamber",
-              "Requirements": "true"
-            },
-            {
-              "ConnectedArea": "Palace of Twilight West Wing",
-              "Requirements": "true"
-            },
-            {
-              "ConnectedArea": "Palace of Twilight East Wing",
-              "Requirements": "CanDefeatPhantomZant and (Progressive_Clawshot, 1) and CanDefeatZantHead and ((Palace_of_Twilight_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
-            },
-            {
-              "ConnectedArea": "Palace of Twilight North Tower",
-              "Requirements": "(Progressive_Sword, 4) and CanDefeatPhantomZant and (Progressive_Clawshot, 1) and CanDefeatZantHead and ((Palace_of_Twilight_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and CanDefeatShadowBeast"
-            }
-          ],
-          "Checks": 
-          [
-              "Palace of Twilight Collect Both Sols"
-           ],
-          "Region": "Palace of Twilight"
-    },
     { 
-        "RoomName": "Palace of Twilight North Tower",
+        "RoomName": "Palace of Twilight Central First Room",
         "Exits": 
         [
         {
@@ -72,36 +77,68 @@
             "Requirements": "true"
         },
         {
-            "ConnectedArea": "Palace of Twilight Boss Room",
-            "Requirements": "((Palace_of_Twilight_Small_Key, 7) or (Setting.smallKeySettings equals Keysy)) and CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatShadowBeast"
+            "ConnectedArea": "Palace of Twilight Outside Room",
+            "Requirements": "((Palace_of_Twilight_Small_Key, 5) or (Setting.smallKeySettings equals Keysy)) and (Progressive_Sword, 4)"
         }
         ],
         "Checks": 
         [
-            "Palace of Twilight Central First Room Chest",
-            "Palace of Twilight Big Key Chest",
-            "Palace of Twilight Central Outdoor Chest",
-            "Palace of Twilight Central Tower Chest"
+            "Palace of Twilight Central First Room Chest"
         ],
         "Region": "Palace of Twilight"
     },
     { 
-        "RoomName": "Palace of Twilight West Wing",
+        "RoomName": "Palace of Twilight Outside Room",
         "Exits": 
         [
         {
-            "ConnectedArea": "Palace of Twilight Entrance",
+            "ConnectedArea": "Palace of Twilight Central First Room",
             "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Palace of Twilight North Tower",
+            "Requirements": "((Palace_of_Twilight_Small_Key, 6) or (Setting.smallKeySettings equals Keysy))"
         }
         ],
         "Checks": 
         [
-            "Palace of Twilight West Wing First Room Central Chest",
-            "Palace of Twilight West Wing Chest Behind Wall of Darkness",
-            "Palace of Twilight West Wing Second Room Central Chest",
-            "Palace of Twilight West Wing Second Room Lower South Chest",
-            "Palace of Twilight West Wing Second Room Southeast Chest"
+            "Palace of Twilight Big Key Chest",
+            "Palace of Twilight Central Outdoor Chest"
         ],
         "Region": "Palace of Twilight"
-    }
+    },
+    { 
+        "RoomName": "Palace of Twilight North Tower",
+        "Exits": 
+        [
+        {
+            "ConnectedArea": "Palace of Twilight Outside Room",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Palace of Twilight Boss Room",
+            "Requirements": "CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatShadowBeast and (Progressive_Clawshot, 2)"
+        }
+        ],
+        "Checks": 
+        [
+            "Palace of Twilight Central Tower Chest"
+        ],
+        "Region": "Palace of Twilight"
+    },
+    {
+      "RoomName": "Palace of Twilight Boss Room",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Palace of Twilight Entrance",
+          "Requirements": "CanDefeatZant"
+        }
+      ],
+      "Checks":
+      [
+          "Palace of Twilight Zant Heart Container"
+      ],
+      "Region": "Palace of Twilight"
+  }
 ]
