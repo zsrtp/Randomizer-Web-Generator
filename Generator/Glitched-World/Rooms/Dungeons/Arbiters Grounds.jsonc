@@ -1,0 +1,131 @@
+[
+    {
+        "RoomName": "Arbiters Grounds Entrance",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "Outside Arbiters Grounds",
+            "Requirements": "true"
+          },
+          {
+            "ConnectedArea": "Arbiters Grounds Lobby",
+            "Requirements": "((Arbiters_Grounds_Small_Key,1) or (Setting.smallKeySettings equals Keysy)) and Lantern"
+          }
+        ],
+        "Checks": 
+        [
+            "Arbiters Grounds Entrance Chest"
+        ],
+        "Region": "Arbiters Grounds"
+    },
+    {
+        "RoomName": "Arbiters Grounds Lobby",
+        "Exits": 
+          [
+            {
+              "ConnectedArea": "Arbiters Grounds Entrance",
+              "Requirements": "true"
+            },
+            {
+              "ConnectedArea": "Arbiters Grounds East Wing",
+              "Requirements": "true"
+            },
+            {
+              "ConnectedArea": "Arbiters Grounds West Wing",
+              "Requirements": "true"
+            },
+            {
+              "ConnectedArea": "Arbiters Grounds After Poe Gate",
+              "Requirements": "CanDefeatPoe and Shadow_Crystal and (Progressive_Clawshot, 1) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat and CanDefeatStalfos and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
+            }
+          ],
+          "Checks": 
+          [
+              "Arbiters Grounds Torch Room East Chest",
+              "Arbiters Grounds Torch Room West Chest",
+              "Arbiters Grounds Torch Room Poe"
+          ],
+          "Region": "Arbiters Grounds"
+      },
+      {
+        "RoomName": "Arbiters Grounds East Wing",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "Arbiters Grounds Lobby",
+            "Requirements": "true"
+          }
+        ],
+        "Checks": 
+        [
+            "Arbiters Grounds East Lower Turnable Redead Chest",
+            "Arbiters Grounds East Upper Turnable Chest",
+            "Arbiters Grounds East Upper Turnable Redead Chest",
+            "Arbiters Grounds Ghoul Rat Room Chest",
+            "Arbiters Grounds East Turning Room Poe",
+            "Arbiters Grounds Hidden Wall Poe"
+         ],
+        "Region": "Arbiters Grounds"
+    },
+    {
+        "RoomName": "Arbiters Grounds West Wing",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "Arbiters Grounds Lobby",
+            "Requirements": "true"
+          }
+        ],
+        "Checks": 
+        [
+            "Arbiters Grounds West Small Chest Behind Block",
+            "Arbiters Grounds West Chandelier Chest",
+                "Arbiters Grounds West Stalfos West Chest",
+            "Arbiters Grounds West Stalfos Northeast Chest",
+            "Arbiters Grounds West Poe"
+            
+         ],
+        "Region": "Arbiters Grounds"
+    },
+    {
+        "RoomName": "Arbiters Grounds After Poe Gate",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "Arbiters Grounds Lobby",
+            "Requirements": "true"
+          },
+          {
+            "ConnectedArea": "Arbiters Grounds Boss Room",
+            "Requirements": "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysy))"
+          }
+        ],
+        "Checks": 
+        [
+            "Arbiters Grounds Big Key Chest",
+            "Arbiters Grounds North Turning Room Chest",
+            "Arbiters Grounds Death Sword Chest",
+            "Arbiters Grounds Spinner Room First Small Chest",
+            "Arbiters Grounds Spinner Room Second Small Chest",
+            "Arbiters Grounds Spinner Room Lower Central Small Chest",
+            "Arbiters Grounds Spinner Room Stalfos Alcove Chest",
+            "Arbiters Grounds Spinner Room Lower North Chest"
+        ], 
+        "Region": "Arbiters Grounds"
+    },
+    {
+        "RoomName": "Arbiters Grounds Boss Room",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "Mirror Chamber",
+            "Requirements": "CanDefeatStallord"
+          }
+        ],
+        "Checks": 
+        [
+              "Arbiters Grounds Stallord Heart Container"
+        ], 
+        "Region": "Arbiters Grounds"
+    }
+]

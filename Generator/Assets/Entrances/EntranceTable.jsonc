@@ -866,7 +866,7 @@
         "TargetRoomSpawn":
         {
             "SourceRoom": "Outside Arbiters Grounds",
-            "TargetRoom": "Bulblin Camp Between Fences",
+            "TargetRoom": "Bulblin Camp Back Exit",
             "Stage": 55,
             "Room": 1,
             "Spawn": "02",
@@ -1214,6 +1214,29 @@
             "SpawnType": "A0",
             "Parameters": "F09F",
 			"PairedEntranceName": "Kakariko Renados Sanctuary Back Left Door -> Lower Kakariko Village"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Renados Sanctuary",
+            "TargetRoom": "Kakariko Renados Sanctuary Basement",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "FF",
+            "SpawnType": "FF",
+            "Parameters": "FFFF"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Renados Sanctuary Basement",
+            "TargetRoom": "Kakariko Renados Sanctuary",
+            "Stage": 46,
+            "Room": 0,
+            "Spawn": "FF",
+            "SpawnType": "FF",
+            "Parameters": "FFFF"
         }
     },
     {

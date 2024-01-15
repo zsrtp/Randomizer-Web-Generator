@@ -5,11 +5,11 @@
     [
       {
         "ConnectedArea": "Lost Woods Lower Battle Arena",
-        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)" // not sure
+        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
       },
       {
         "ConnectedArea": "Lost Woods Upper Battle Arena",
-        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)" // not sure
+        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
       },
       {
         "ConnectedArea": "North Faron Woods Near Lost Woods",
@@ -33,7 +33,7 @@
       },
       {
         "ConnectedArea": "Sacred Grove Lower",
-        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
+        "Requirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
       },
       {
         "ConnectedArea": "Lost Woods Baba Serpent Grotto",
@@ -51,6 +51,10 @@
     "RoomName": "Lost Woods Upper Battle Arena",
     "Exits":
     [
+      {
+        "ConnectedArea": "Lost Woods",
+        "Requirements": "true"
+      },
       {
         "ConnectedArea": "Sacred Grove Before Block",
         "Requirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
@@ -116,7 +120,7 @@
       },
       {
         "ConnectedArea": "Sacred Grove Upper",
-        "Requirements": "Room.Sacred_Grove_Before_Block"
+        "Requirements": "Room.Sacred_Grove_Before_Block or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
       }
     ],
     "Checks":

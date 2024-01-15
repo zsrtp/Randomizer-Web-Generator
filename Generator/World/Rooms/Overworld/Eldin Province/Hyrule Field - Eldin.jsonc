@@ -119,7 +119,7 @@
         "Requirements": "true"
       },
       {
-        "ConnectedArea": "Lanayru Field",
+        "ConnectedArea": "North Eldin Field",
         "Requirements": "canSmash"
       },
       {
@@ -193,11 +193,32 @@
     "Region": "Hyrule Field - Eldin Province"
   },
   {
+    // This is the area between Lanayru Field Wall of Twilight and the Bridge of Eldin Rocks
+    "RoomName": "North Eldin Field",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Eldin Field",
+        "Requirements": "canSmash"
+      },
+      {
+        "ConnectedArea": "Eldin Field Outside Hidden Village",
+        "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
+      },
+      {
+        "ConnectedArea": "Eldin Field Grotto Platform",
+        "Requirements": "Spinner"
+      },
+    ],
+    "Checks": [""],
+    "Region": "Hyrule Field - Eldin Province"
+},
+  {
     "RoomName": "Eldin Field Outside Hidden Village",
     "Exits":
     [
       {
-        "ConnectedArea": "Lanayru Field",
+        "ConnectedArea": "North Eldin Field",
         "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
       },
       {
@@ -213,7 +234,7 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Lanayru Field",
+        "ConnectedArea": "North Eldin Field",
         "Requirements": "Spinner"
       },
       {

@@ -170,7 +170,6 @@ namespace TPRandomizer
                     "Gerudo Desert Outside Bulblin Camp"
                 ].ReachedByPlaythrough
                 || Randomizer.Rooms.RoomDict["Bulblin Camp"].ReachedByPlaythrough
-                || Randomizer.Rooms.RoomDict["Bulblin Camp Between Fences"].ReachedByPlaythrough
                 || Randomizer.Rooms.RoomDict["Bulblin Camp Back Exit"].ReachedByPlaythrough
                 || Randomizer.Rooms.RoomDict["Mirror Chamber"].ReachedByPlaythrough;
         }
@@ -2228,6 +2227,7 @@ namespace TPRandomizer
             parse.ParserReset();
             Randomizer.Logic.TokenDict = new Tokenizer(expression).Tokenize();
             parse.checkedLogicItem = location + " with logic: " + expression;
+            //Console.WriteLine(parse.checkedLogicItem);
             return parse.Parse();
         }
     }

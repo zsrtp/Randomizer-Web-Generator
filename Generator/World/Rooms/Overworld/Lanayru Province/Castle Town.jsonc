@@ -72,7 +72,7 @@
       },
       {
         "ConnectedArea": "Castle Town Malo Mart",
-        "Requirements": "true" // not sure at all whats actually required tbh (day-only? shoe cleaning or donation?)
+        "Requirements": "true" 
       }
     ],
     "Checks": [""],
@@ -89,7 +89,7 @@
       {
         "ConnectedArea": "Castle Town Goron House",
         "Requirements": "true"
-      },
+      }
     ],
     "Checks": [""],
     "Region": "Castle Town"
@@ -182,7 +182,7 @@
     [
       {
         "ConnectedArea": "Castle Town North Behind First Door",
-        "Requirements": "(Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons)" // i think?
+        "Requirements": "CanCompleteMDH" // Barrier is one-way. If coming from HC to Castle Town, you just have to be able to go through the doors. 
       },
       {
         "ConnectedArea": "Hyrule Castle Entrance",
@@ -210,11 +210,11 @@
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Left Door",
-        "Requirements": "true" // not sure
+        "Requirements": "true" 
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Right Door",
-        "Requirements": "true" // not sure
+        "Requirements": "true" 
       }
     ],
     "Checks": [""],
@@ -418,7 +418,7 @@
     "Exits":
     [
       {
-	    // The door and the dig spot lead to the exact same entrance, so there technically is only one way out, which is always accessible.
+        // The door and the dig spot lead to the exact same entrance, so there technically is only one way out, which is always accessible.
         "ConnectedArea": "Castle Town South",
         "Requirements": "true"
       }

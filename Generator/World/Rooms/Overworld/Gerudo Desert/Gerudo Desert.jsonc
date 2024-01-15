@@ -170,7 +170,7 @@
     [
       {
         "ConnectedArea": "Bulblin Camp Back Exit",
-        "Requirements": "(Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy)) and CanDefeatKingBulblinDesert"
+        "Requirements": "((Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy)) and CanDefeatKingBulblinDesert) or (Setting.skipArbitersEntrance equals True)"
       },
       {
         "ConnectedArea": "Gerudo Desert Outside Bulblin Camp",
@@ -204,28 +204,11 @@
     "Region": "Gerudo Desert"
   },
   {
-    // Entering Bulblin Camp from Outside Arbiters Grounds before the camp is conquered makes you stuck between 2 wooden fences forced to save-warp or portal-warp.
-    "RoomName": "Bulblin Camp Between Fences",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Bulblin Camp",
-        "Requirements": "Room.Bulblin_Camp and (Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy)) and CanDefeatKingBulblinDesert"
-      },
-      {
-        "ConnectedArea": "Bulblin Camp Back Exit",
-        "Requirements": "Room.Bulblin_Camp and (Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy)) and CanDefeatKingBulblinDesert"
-      }
-    ],
-    "Checks": [""],
-    "Region": "Gerudo Desert"
-  },
-  {
     "RoomName": "Outside Arbiters Grounds",
     "Exits":
     [
       {
-        "ConnectedArea": "Bulblin Camp Between Fences",
+        "ConnectedArea": "Bulblin Camp Back Exit",
         "Requirements": "true"
       },
       {

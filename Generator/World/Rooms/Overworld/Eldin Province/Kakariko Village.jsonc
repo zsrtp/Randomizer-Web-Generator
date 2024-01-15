@@ -5,11 +5,7 @@
     [
       {
         "ConnectedArea": "Upper Kakariko Village",
-        "Requirements": "canCompleteGoronMines"
-      },
-      {
-        "ConnectedArea": "Upper Kakariko Village With Cucco",
-        "Requirements": "canSmash"
+        "Requirements": "canCompleteGoronMines or canSmash"
       },
       {
         "ConnectedArea": "Kakariko Village Behind Gate",
@@ -103,21 +99,7 @@
     "Checks":
     [
         "Kakariko Village Bomb Shop Poe",
-        "Kakariko Village Watchtower Poe"
-    ],
-    "Region": "Kakariko Village"
-  },
-  {
-    "RoomName": "Upper Kakariko Village With Cucco",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Upper Kakariko Village",
-        "Requirements": "true"
-      }
-    ],
-    "Checks":
-    [
+        "Kakariko Village Watchtower Poe",
         "Kakariko Watchtower Alcove Chest"
     ],
     "Region": "Kakariko Village"
@@ -240,7 +222,11 @@
       {
         "ConnectedArea": "Kakariko Renados Sanctuary Back Right Door",
         "Requirements": "true"
-      }
+      },     
+      {
+        "ConnectedArea": "Kakariko Renados Sanctuary Basement",
+        "Requirements": "true"
+    }
     ],
     "Checks":
     [
@@ -249,6 +235,21 @@
     ],
     "Region": "Kakariko Village"
   },
+  {
+    "RoomName": "Kakariko Renados Sanctuary Basement",
+    "Exits":
+    [
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary",
+            "Requirements": "true"
+        }
+    ],
+    "Checks":
+    [
+        ""
+    ],
+    "Region": "Kakariko Village"
+},
   {
     "RoomName": "Kakariko Malo Mart",
     "Exits":

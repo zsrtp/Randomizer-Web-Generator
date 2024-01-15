@@ -4,14 +4,6 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Eldin Field Grotto Platform",
-        "Requirements": "Spinner"
-      },
-      {
-        "ConnectedArea": "Eldin Field Outside Hidden Village",
-        "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
-      },
-      {
         "ConnectedArea": "Lanayru Field Cave Entrance",
         "Requirements": "canSmash"
       },
@@ -24,8 +16,8 @@
         "Requirements": "canSmash"
       },
       {
-        "ConnectedArea": "Eldin Field",
-        "Requirements": "canSmash"
+        "ConnectedArea": "North Eldin Field",
+        "Requirements": "true"
       },
       {
         "ConnectedArea": "Outside Castle Town West",

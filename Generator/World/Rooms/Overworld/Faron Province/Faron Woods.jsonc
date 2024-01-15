@@ -5,7 +5,7 @@
     [
       {
         "ConnectedArea": "South Faron Woods Behind Gate",
-        "Requirements": "true" // coro key or crystal?
+        "Requirements": "true" // Coro Key is Vanilla if forest is closed. Gate is open otherwise. 
       },
       {
         "ConnectedArea": "South Faron Woods Owl Statue Area",
@@ -21,7 +21,7 @@
       },
 	  {
         "ConnectedArea": "Faron Woods Coros House Lower",
-        "Requirements": "true" // i think?
+        "Requirements": "true"
       }
     ],
     "Checks":
@@ -36,7 +36,7 @@
     [
       {
         "ConnectedArea": "South Faron Woods",
-        "Requirements": "true" // coro key or crystal?
+        "Requirements": "Room.South_Faron_Woods or Shadow_Crystal or canClearForest" 
       },
       {
         "ConnectedArea": "Faron Woods Cave Southern Entrance",
@@ -174,7 +174,7 @@
       },
       {
         "ConnectedArea": "Mist Area Under Owl Statue Chest",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Lantern or Shadow_Crystal"
       },
       {
         "ConnectedArea": "Faron Woods Cave Northern Entrance",
@@ -297,7 +297,7 @@
       },
       {
         "ConnectedArea": "North Faron Woods",
-        "Requirements": "true" // not sure about the key gate there
+        "Requirements": "North_Faron_Woods_Gate_Key or (Setting.skipPrologue equals True)"
       }
     ],
     "Checks": [""],

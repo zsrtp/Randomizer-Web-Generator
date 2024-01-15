@@ -25,7 +25,7 @@
         },
         {
             "ConnectedArea": "City in The Sky Lobby",
-            "Requirements": "((Progressive_Clawshot, 1) and Iron_Boots and Shadow_Crystal) or (Setting.damageMagnification not_equal OHKO)"
+            "Requirements": "((Progressive_Clawshot, 1) and Iron_Boots and (Shadow_Crystal or CanDoLJA)) or (Setting.damageMagnification not_equal OHKO)"
         }
         ],
         "Checks": 
@@ -68,7 +68,7 @@
           },
           {
             "ConnectedArea": "City in The Sky Lobby",
-            "Requirements": "(Progressive_Clawshot, 1)"
+            "Requirements": "(Progressive_Clawshot, 1) or ((Progressive_Bow, 1) and CanDoLJA)"
           }
         ],
         "Checks": 
@@ -96,7 +96,12 @@
             },
             {
                 "ConnectedArea": "City in The Sky North Wing",
-                "Requirements": "(Progressive_Clawshot, 2) and CanDefeatBabaSerpent and CanDefeatKargarok and Shadow_Crystal and Iron_Boots"
+                "Requirements": "(Progressive_Clawshot, 2) and ((Shadow_Crystal and Iron_Boots) or CanDoLJA)"
+            },
+            // Fan skip
+            {
+                "ConnectedArea": "City in The Sky Central Tower Second Floor",
+                "Requirements": "Progressive_Clawshot and Shadow_Crystal"
             }
         ],
         "Checks": [""],
