@@ -209,6 +209,10 @@
         "ConnectedArea": "Eldin Field Grotto Platform",
         "Requirements": "Spinner"
       },
+      {
+        "ConnectedArea": "Lanayru Field",
+        "Requirements": "true"
+      }
     ],
     "Checks": [""],
     "Region": "Hyrule Field - Eldin Province"

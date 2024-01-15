@@ -52,10 +52,6 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Lost Woods",
-        "Requirements": "true"
-      },
-      {
         "ConnectedArea": "Sacred Grove Before Block",
         "Requirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
       }

@@ -37,6 +37,7 @@ namespace TPRandomizer.Assets
             { 0x3, 0x64 }, // Ant house box pushed
             { 0x3, 0x5E }, // Defeated Ant house Tears of Light bug
             { 0x3, 0x1E }, // Collected Tear from Ant house
+            { 0x3, 0xBD }, // Done Midna jumps in ant house.
         };
 
         /// <summary>
