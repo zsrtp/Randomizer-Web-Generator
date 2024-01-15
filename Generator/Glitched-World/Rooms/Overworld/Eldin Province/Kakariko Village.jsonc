@@ -371,7 +371,7 @@
         },
         {
             "ConnectedArea": "Kakariko Bug House Ceiling Hole",
-            "Requirements": "true"
+            "Requirements": "Shadow_Crystal"
         }
         ],
         "Checks":
