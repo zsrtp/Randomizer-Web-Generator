@@ -340,6 +340,10 @@
       {
         "ConnectedArea": "Kakariko Bug House",
         "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Lower Kakariko Village",
+        "Requirements": "true"
       }
     ],
     "Checks": [""],
@@ -355,7 +359,7 @@
       },
       {
         "ConnectedArea": "Kakariko Bug House Ceiling Hole",
-        "Requirements": "true"
+        "Requirements": "Shadow_Crystal"
       }
     ],
     "Checks":

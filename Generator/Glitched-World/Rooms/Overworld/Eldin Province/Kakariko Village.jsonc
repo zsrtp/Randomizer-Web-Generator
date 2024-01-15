@@ -356,6 +356,10 @@
         {
             "ConnectedArea": "Kakariko Bug House",
             "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
         }
         ],
         "Checks": [""],
