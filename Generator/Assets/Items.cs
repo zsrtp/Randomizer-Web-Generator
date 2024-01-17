@@ -1098,7 +1098,7 @@ namespace TPRandomizer
 
         private void AddGoldenBugs(SharedSettings sSettings)
         {
-            Dictionary<string, Item> bugRewardCheckToItem =
+            Dictionary<string, Item> agithaCheckToItem =
                 new()
                 {
                     { "Agitha Female Ant Reward", Item.Female_Ant },
@@ -1129,11 +1129,11 @@ namespace TPRandomizer
 
             foreach (string excludedCheckName in sSettings.excludedChecks)
             {
-                if (bugRewardCheckToItem.ContainsKey(excludedCheckName))
-                    bugRewardCheckToItem.Remove(excludedCheckName);
+                if (agithaCheckToItem.ContainsKey(excludedCheckName))
+                    agithaCheckToItem.Remove(excludedCheckName);
             }
 
-            foreach (KeyValuePair<string, Item> pair in bugRewardCheckToItem)
+            foreach (KeyValuePair<string, Item> pair in agithaCheckToItem)
             {
                 Item bug = pair.Value;
                 this.RandomizedImportantItems.Add(bug);
