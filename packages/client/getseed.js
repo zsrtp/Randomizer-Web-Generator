@@ -56,6 +56,8 @@
     bitString: 'bitString',
     xBitNum: 'xBitNum',
     rgb: 'rgb',
+    midnaHairBase: 'midnaHairBase',
+    midnaHairTips: 'midnaHairTips',
   };
 
   const RecolorId = {
@@ -357,10 +359,10 @@
   }
 
   // `colorHex` does not have the '#' at the front.
-  function randomizeCosmeticSetting(elId, colorHex) {
+  function randomizeCosmeticSetting(elId, colorHex, preventCustomColor) {
     const element = document.getElementById(elId);
 
-    if (elId.includes('ColorPicker')) {
+    if (!preventCustomColor && elId.includes('ColorPicker')) {
       // Is a custom color input.
 
       // Set color input's value and trigger 'input' event.
@@ -378,9 +380,27 @@
         selectEl.dispatchEvent(new Event('change', { bubbles: true }));
       }
     } else {
-      // Is a plain select with no custom color option.
-      const items = element.getElementsByTagName('option');
-      element.selectedIndex = Math.floor(Math.random() * items.length);
+      const options = element.getElementsByTagName('option');
+
+      if (preventCustomColor) {
+        let possibleIndexes = [];
+        for (let i = 0; i < options.length; i++) {
+          if (options[i].getAttribute('data-custom-color') !== 'true') {
+            possibleIndexes.push(i);
+          }
+        }
+
+        const indexIndex = Math.floor(Math.random() * possibleIndexes.length);
+        element.selectedIndex = possibleIndexes[indexIndex];
+
+        // Trigger event so color picker input hides.
+        const selectEl = document.getElementById(
+          elId.replace('ColorPicker', '')
+        );
+        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+      } else {
+        element.selectedIndex = Math.floor(Math.random() * options.length);
+      }
     }
   }
 
@@ -433,20 +453,24 @@
       'xButtonColorFieldset',
       'yButtonColorFieldset',
       'zButtonColorFieldset',
-      'midnaHairBaseColorFieldset',
-      'midnaHairTipColorFieldset',
+      { id: 'midnaHairBaseColorFieldset', preventCustomColor: true },
+      { id: 'midnaHairTipColorFieldset', preventCustomColor: true },
       'midnaDomeRingColorFieldset',
     ];
 
     for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
-      const cosmeticArrayEl = arrayOfCosmeticSettings[i];
-      if (Array.isArray(cosmeticArrayEl)) {
+      const entry = arrayOfCosmeticSettings[i];
+      if (Array.isArray(entry)) {
         const colors = get16ColorsPalette();
 
-        for (let j = 0; j < cosmeticArrayEl.length; j++) {
-          const elId = cosmeticArrayEl[j];
+        for (let j = 0; j < entry.length; j++) {
+          const elId = entry[j];
           const randomIndex = Math.floor(Math.random() * colors.length);
           randomizeCosmeticSetting(elId, colors[randomIndex]);
+        }
+      } else if (typeof entry === 'object') {
+        if (entry) {
+          randomizeCosmeticSetting(entry.id, null, entry.preventCustomColor);
         }
       } else {
         const elId = arrayOfCosmeticSettings[i];
@@ -1166,11 +1190,11 @@
         { id: 'xButtonColorFieldset', rgb: true },
         { id: 'yButtonColorFieldset', rgb: true },
         { id: 'zButtonColorFieldset', rgb: true },
-        { id: 'midnaHairBaseColorFieldset', bitLength: 4 },
-        { id: 'midnaHairTipColorFieldset', bitLength: 4 },
+        { id: 'midnaHairBaseColorFieldset', midnaHairBase: true },
+        { id: 'midnaHairTipColorFieldset', midnaHairTips: true },
         { id: 'midnaDomeRingColorFieldset', rgb: true },
         { id: 'linkHairColorFieldset', rgb: true },
-      ].map(({ id, bitLength, rgb }) => {
+      ].map(({ id, bitLength, rgb, midnaHairBase, midnaHairTips }) => {
         if (bitLength) {
           // select
           return {
@@ -1186,6 +1210,21 @@
           return {
             type: RawSettingType.rgb,
             value,
+          };
+        } else if (midnaHairBase || midnaHairTips) {
+          const selVal = getVal(id);
+          const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
+          const rgbVal = $option[0].getAttribute('data-rgb');
+          const isCustomColor =
+            $option[0].getAttribute('data-custom-color') === 'true';
+
+          return {
+            type: midnaHairTips
+              ? RawSettingType.midnaHairTips
+              : RawSettingType.midnaHairBase,
+            valueNum: parseInt(selVal, 10),
+            rgbVal,
+            isCustomColor,
           };
         }
         // checkbox
@@ -1224,22 +1263,80 @@
         if (value === null) {
           // triple-equals here is intentional for now
           bitString += '0';
-        } else if (value.type === RawSettingType.bitString) {
-          bitString += value.bitString;
-        } else if (value.type === RawSettingType.xBitNum) {
-          bitString += numToPaddedBits(value.value, value.bitLength);
-        } else if (value.type === RawSettingType.rgb) {
-          if (value.value == null) {
-            bitString += '0';
-          } else {
-            bitString += '1';
-            bitString += hexStrToBits(value.value);
+        } else {
+          switch (value.type) {
+            case RawSettingType.bitString:
+              bitString += value.bitString;
+              break;
+            case RawSettingType.xBitNum:
+              bitString += numToPaddedBits(value.value, value.bitLength);
+              break;
+            case RawSettingType.rgb: {
+              if (value.value == null) {
+                bitString += '0';
+              } else {
+                bitString += '1';
+                bitString += hexStrToBits(value.value);
+              }
+              break;
+            }
+            case RawSettingType.midnaHairBase:
+              bitString += encodeMidnaHairBase(value);
+              break;
+            case RawSettingType.midnaHairTips:
+              bitString += encodeMidnaHairTips(value);
+              break;
           }
         }
       }
     });
 
     return encodeBitStringTo6BitsString(bitString);
+  }
+
+  function encodeMidnaHairBase({ valueNum, rgbVal, isCustomColor }) {
+    if (!isCustomColor) {
+      return '0' + numToPaddedBits(valueNum, 4);
+    }
+
+    let ret = '1';
+
+    let sixCharHex = rgbVal;
+    if (sixCharHex.length > 6) {
+      sixCharHex = sixCharHex.substring(sixCharHex.length - 6);
+    }
+
+    const colors = window.MidnaHairColors.calcBaseAndGlow(sixCharHex);
+
+    ret += hexStrToBits(colors.midnaHairBaseLightWorldInactive);
+    ret += hexStrToBits(colors.midnaHairBaseDarkWorldInactive);
+    ret += hexStrToBits(colors.midnaHairBaseAnyWorldActive);
+    ret += hexStrToBits(colors.midnaHairGlowAnyWorldInactive);
+    ret += hexStrToBits(sixCharHex); // midnaHairGlowLightWorldActive
+    ret += hexStrToBits(colors.midnaHairGlowDarkWorldActive);
+
+    return ret;
+  }
+
+  function encodeMidnaHairTips({ valueNum, rgbVal, isCustomColor }) {
+    if (!isCustomColor) {
+      return '0' + numToPaddedBits(valueNum, 4);
+    }
+
+    let ret = '1';
+
+    let sixCharHex = rgbVal;
+    if (sixCharHex.length > 6) {
+      sixCharHex = sixCharHex.substring(sixCharHex.length - 6);
+    }
+
+    const colors = window.MidnaHairColors.calcTips(sixCharHex);
+
+    ret += hexStrToBits(sixCharHex); // midnaHairTipsLightWorldInactive
+    ret += hexStrToBits(colors.midnaHairTipsDarkWorldAnyActive);
+    ret += hexStrToBits(colors.midnaHairTipsLightWorldActive);
+
+    return ret;
   }
 
   function _base64ToUint8Array(base64Str) {
@@ -1785,6 +1882,8 @@
       'zTunicScalesColorFieldset',
       'zTunicBootsColorFieldset',
       'lanternColorFieldset',
+      'midnaHairBaseColorFieldset',
+      'midnaHairTipColorFieldset',
     ].forEach((selectId) => {
       const colorInputId = selectId + 'ColorPicker';
       initCustomColorPickerPair(selectId, colorInputId);
