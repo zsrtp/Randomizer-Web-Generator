@@ -78,22 +78,45 @@ namespace TPRandomizer
             yBtnColor = processor.NextClr0Entry(RecolorId.None);
             zBtnColor = processor.NextClr0Entry(RecolorId.None);
 
-            int midnaHairBaseColor = processor.NextInt(4);
+            bool isCustomMidnaHairBaseColor = processor.NextBool();
+            if (isCustomMidnaHairBaseColor)
+            {
+                midnaHairBaseLightWorldInactive = processor.NextInt(24);
+                midnaHairBaseDarkWorldInactive = processor.NextInt(24);
+                midnaHairBaseAnyWorldActive = processor.NextInt(24);
+                midnaHairGlowAnyWorldInactive = processor.NextInt(24);
+                midnaHairGlowLightWorldActive = processor.NextInt(24);
+                midnaHairGlowDarkWorldActive = processor.NextInt(24);
+            }
+            else
+            {
+                int midnaHairBaseColor = processor.NextInt(4);
 
-            int[] baseAndGlowArr = ColorArrays.MidnaHairBaseAndGlowColors[midnaHairBaseColor];
-            midnaHairBaseLightWorldInactive = baseAndGlowArr[0];
-            midnaHairBaseDarkWorldInactive = baseAndGlowArr[1];
-            midnaHairBaseAnyWorldActive = baseAndGlowArr[2];
-            midnaHairGlowAnyWorldInactive = baseAndGlowArr[3];
-            midnaHairGlowLightWorldActive = baseAndGlowArr[4];
-            midnaHairGlowDarkWorldActive = baseAndGlowArr[5];
+                int[] baseAndGlowArr = ColorArrays.MidnaHairBaseAndGlowColors[midnaHairBaseColor];
+                midnaHairBaseLightWorldInactive = baseAndGlowArr[0];
+                midnaHairBaseDarkWorldInactive = baseAndGlowArr[1];
+                midnaHairBaseAnyWorldActive = baseAndGlowArr[2];
+                midnaHairGlowAnyWorldInactive = baseAndGlowArr[3];
+                midnaHairGlowLightWorldActive = baseAndGlowArr[4];
+                midnaHairGlowDarkWorldActive = baseAndGlowArr[5];
+            }
 
-            int midnaHairTipsColor = processor.NextInt(4);
+            bool isCustomMidnaHairTipsColor = processor.NextBool();
+            if (isCustomMidnaHairTipsColor)
+            {
+                midnaHairTipsLightWorldInactive = processor.NextInt(24);
+                midnaHairTipsDarkWorldAnyActive = processor.NextInt(24);
+                midnaHairTipsLightWorldActive = processor.NextInt(24);
+            }
+            else
+            {
+                int midnaHairTipsColor = processor.NextInt(4);
 
-            int[] tipsArr = ColorArrays.MidnaHairTipsColors[midnaHairTipsColor];
-            midnaHairTipsLightWorldInactive = tipsArr[0];
-            midnaHairTipsDarkWorldAnyActive = tipsArr[1];
-            midnaHairTipsLightWorldActive = tipsArr[2];
+                int[] tipsArr = ColorArrays.MidnaHairTipsColors[midnaHairTipsColor];
+                midnaHairTipsLightWorldInactive = tipsArr[0];
+                midnaHairTipsDarkWorldAnyActive = tipsArr[1];
+                midnaHairTipsLightWorldActive = tipsArr[2];
+            }
 
             midnaDomeRingColor = processor.NextClr0Entry(RecolorId.None);
             linkHairColor = processor.NextClr0Entry(RecolorId.CMPR);

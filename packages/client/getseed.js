@@ -1189,7 +1189,7 @@
             type: RawSettingType.rgb,
             value,
           };
-        } else if (midnaHairBase) {
+        } else if (midnaHairBase || midnaHairTips) {
           const selVal = getVal(id);
           const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
           const rgbVal = $option[0].getAttribute('data-rgb');
@@ -1197,21 +1197,10 @@
             $option[0].getAttribute('data-custom-color') === 'true';
 
           return {
-            type: RawSettingType.midnaHairBase,
-            value: selVal,
-            rgbVal,
-            isCustomColor,
-          };
-        } else if (midnaHairTips) {
-          const selVal = getVal(id);
-          const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
-          const rgbVal = $option[0].getAttribute('data-rgb');
-          const isCustomColor =
-            $option[0].getAttribute('data-custom-color') === 'true';
-
-          return {
-            type: RawSettingType.midnaHairTips,
-            value: selVal,
+            type: midnaHairTips
+              ? RawSettingType.midnaHairTips
+              : RawSettingType.midnaHairBase,
+            valueNum: parseInt(selVal, 10),
             rgbVal,
             isCustomColor,
           };
@@ -1266,7 +1255,7 @@
         } else if (value.type === RawSettingType.midnaHairBase) {
           bitString += encodeMidnaHairBase(value);
         } else if (value.type === RawSettingType.midnaHairTips) {
-          bitString = bits;
+          bitString += encodeMidnaHairTips(value);
         }
       }
     });
@@ -1274,14 +1263,47 @@
     return encodeBitStringTo6BitsString(bitString);
   }
 
-  function encodeMidnaHairBase({ value, rgbVal, isCustomColor }) {
+  function encodeMidnaHairBase({ valueNum, rgbVal, isCustomColor }) {
     if (!isCustomColor) {
-      return '0' + numToPaddedBits(value, 4);
+      return '0' + numToPaddedBits(valueNum, 4);
     }
 
     let ret = '1';
 
-    // func stuff
+    let sixCharHex = rgbVal;
+    if (sixCharHex.length > 6) {
+      sixCharHex = sixCharHex.substring(sixCharHex.length - 6);
+    }
+
+    const colors = window.MidnaHairColors.calcBaseAndGlow(sixCharHex);
+
+    ret += hexStrToBits(colors.midnaHairBaseLightWorldInactive);
+    ret += hexStrToBits(colors.midnaHairBaseDarkWorldInactive);
+    ret += hexStrToBits(colors.midnaHairBaseAnyWorldActive);
+    ret += hexStrToBits(colors.midnaHairGlowAnyWorldInactive);
+    ret += hexStrToBits(sixCharHex); // midnaHairGlowLightWorldActive
+    ret += hexStrToBits(colors.midnaHairGlowDarkWorldActive);
+
+    return ret;
+  }
+
+  function encodeMidnaHairTips({ valueNum, rgbVal, isCustomColor }) {
+    if (!isCustomColor) {
+      return '0' + numToPaddedBits(valueNum, 4);
+    }
+
+    let ret = '1';
+
+    let sixCharHex = rgbVal;
+    if (sixCharHex.length > 6) {
+      sixCharHex = sixCharHex.substring(sixCharHex.length - 6);
+    }
+
+    const colors = window.MidnaHairColors.calcTips(sixCharHex);
+
+    ret += hexStrToBits(sixCharHex); // midnaHairTipsLightWorldInactive
+    ret += hexStrToBits(colors.midnaHairTipsDarkWorldAnyActive);
+    ret += hexStrToBits(colors.midnaHairTipsLightWorldActive);
 
     return ret;
   }

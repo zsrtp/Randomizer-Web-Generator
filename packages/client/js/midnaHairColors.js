@@ -209,10 +209,10 @@
 
     return {
       midnaHairBaseLightWorldInactive: rgbArrToHexStr(hctToRgbArr(primaryHct)),
+      midnaHairBaseDarkWorldInactive: rgbArrToHexStr(primaryDwArr),
       midnaHairBaseAnyWorldActive: rgbArrToHexStr(
         hctToRgbArr(hctPrimaryActive)
       ),
-      midnaHairBaseDarkWorldInactive: rgbArrToHexStr(primaryDwArr),
       midnaHairGlowAnyWorldInactive: rgbArrToHexStr(glow),
       midnaHairGlowDarkWorldActive: rgbArrToHexStr([
         glowActiveDwR,
