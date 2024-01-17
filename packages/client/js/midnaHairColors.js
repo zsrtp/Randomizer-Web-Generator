@@ -94,11 +94,7 @@
     return str;
   }
 
-  function rgbArrToInt(arr) {
-    return (arr[0] << 16) + (arr[1] << 8) + arr[2];
-  }
-
-  function getGlowFromActiveGlow(activeGlowHex) {
+  function midnaHairColorsBaseAndGlow(activeGlowHex) {
     const activeGlowNum = colorHexToU24(activeGlowHex);
 
     const activeGlowR = (activeGlowNum & 0xff0000) >> 16;
@@ -108,10 +104,7 @@
     const hctActiveGlow = Hct.fromInt(0xff000000 | activeGlowNum);
 
     const hctGlow = Hct.fromInt(0xff000000 | activeGlowNum);
-    // hctGlow.hue = (hctActiveGlow.hue + 360 - 21.776860078480574) % 360;
-    // hctGlow.hue = hctActiveGlow.hue;
     hctGlow.tone = 13.858842702172808;
-    // hctGlow.tone = 20;
 
     const huesGivingChromaApexes = [
       27.274268318411323, 141.9452969622818, 283.0112923058967,
@@ -129,14 +122,13 @@
       }
     });
 
-    console.log(selectedDiffIdx);
+    // console.log(selectedDiffIdx);
 
-    // const kMaxHueDiff = 30;
     const kMaxHueDiff = 10;
 
     if (diffs[selectedDiffIdx] <= kMaxHueDiff) {
       hctGlow.hue = huesGivingChromaApexes[selectedDiffIdx];
-      // can just set hue to match apex.
+      // Can just set hue to match apex.
     } else {
       const currentHue = hctGlow.hue;
       const idealHue = huesGivingChromaApexes[selectedDiffIdx];
@@ -145,7 +137,7 @@
       } else {
         hctGlow.hue -= kMaxHueDiff;
       }
-      console.log(`actualHue:${currentHue};newHue:${hctGlow.hue}`);
+      // console.log(`actualHue:${currentHue};newHue:${hctGlow.hue}`);
     }
 
     let glow = hctToRgbArr(hctGlow);
@@ -182,7 +174,7 @@
       }
     }
 
-    console.log(scaledUpGlow);
+    // console.log(scaledUpGlow);
 
     const primaryR = primaryFromGlowAndActiveGlow(scaledUpGlow[0], activeGlowR);
     const primaryG = primaryFromGlowAndActiveGlow(scaledUpGlow[1], activeGlowG);
@@ -193,18 +185,11 @@
       // Don't shift hue if primary is close to white.
       primaryHct.hue = hctActiveGlow.hue;
       primaryHct.tone = 95;
-      // glow = hctToRgbArr(hctGlow);
     }
-    // else if (primaryHct.tone < 80) {
-    //   primaryHct.tone = 80;
-    // }
 
     if (Math.abs(primaryHct.hue - hctActiveGlow.hue) >= kMaxHueDiff) {
       primaryHct.hue = hctActiveGlow.hue;
     }
-
-    // For green, use #012b00
-    // For blue, use #07097d
 
     const hctPrimaryActive = cloneHct(hctActiveGlow);
     hctPrimaryActive.tone = 3;
@@ -217,42 +202,24 @@
       return Math.round(val * dwCoeffs[i]);
     });
 
-    // const secondaryHct = Hct.fromInt(0xff000000 | colorHexToU24(secondaryHex));
-    // const secondaryArr = hctToRgbArr(secondaryHct);
-
-    // const secDwCoeffs = [1, 1, 0xc3 / 0xeb];
-
-    // const secondaryDwArr = secondaryArr.map((val, i) => {
-    //   return Math.round(val * secDwCoeffs[i]);
-    // });
-
-    // const secActiveHct = tipsActiveFromTips(secondaryHct);
-
     // glowActiveDw
-
     const glowActiveDwR = activeGlowR;
     const glowActiveDwG = Math.round((activeGlowG * 0x64) / 0x78);
     const glowActiveDwB = Math.round((activeGlowB * 0x87 + 0xff * 0x78) / 0xff);
-    // const glowActiveDwB = activeGlowB;
 
     return {
-      primary: rgbArrToHexStr(hctToRgbArr(primaryHct)),
-      primary2: rgbArrToInt(hctToRgbArr(primaryHct)),
-      glow: rgbArrToHexStr(glow),
-      primaryActive: rgbArrToHexStr(hctToRgbArr(hctPrimaryActive)),
-      primaryDw: rgbArrToHexStr(primaryDwArr),
-      // secondaryDw: rgbArrToHexStr(secondaryDwArr),
-      // secondaryActive: rgbArrToHexStr(hctToRgbArr(secActiveHct)),
-      glowActiveDw: rgbArrToHexStr([
+      midnaHairBaseLightWorldInactive: rgbArrToHexStr(hctToRgbArr(primaryHct)),
+      midnaHairBaseAnyWorldActive: rgbArrToHexStr(
+        hctToRgbArr(hctPrimaryActive)
+      ),
+      midnaHairBaseDarkWorldInactive: rgbArrToHexStr(primaryDwArr),
+      midnaHairGlowAnyWorldInactive: rgbArrToHexStr(glow),
+      midnaHairGlowDarkWorldActive: rgbArrToHexStr([
         glowActiveDwR,
         glowActiveDwG,
         glowActiveDwB,
       ]),
     };
-  }
-
-  function midnaHairColorsBaseAndGlow(primaryHex) {
-    return getGlowFromActiveGlow(primaryHex);
   }
 
   function midnaHairColorsTips(tipsHex) {
@@ -268,8 +235,8 @@
     const tipsActiveHct = tipsActiveFromTips(tipsHct);
 
     return {
-      secondaryDw: rgbArrToHexStr(tipsDarkWorldArr),
-      secondaryActive: rgbArrToHexStr(hctToRgbArr(tipsActiveHct)),
+      midnaHairTipsDarkWorldAnyActive: rgbArrToHexStr(tipsDarkWorldArr),
+      midnaHairTipsLightWorldActive: rgbArrToHexStr(hctToRgbArr(tipsActiveHct)),
     };
   }
 
