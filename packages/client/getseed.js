@@ -359,10 +359,10 @@
   }
 
   // `colorHex` does not have the '#' at the front.
-  function randomizeCosmeticSetting(elId, colorHex) {
+  function randomizeCosmeticSetting(elId, colorHex, preventCustomColor) {
     const element = document.getElementById(elId);
 
-    if (elId.includes('ColorPicker')) {
+    if (!preventCustomColor && elId.includes('ColorPicker')) {
       // Is a custom color input.
 
       // Set color input's value and trigger 'input' event.
@@ -380,9 +380,21 @@
         selectEl.dispatchEvent(new Event('change', { bubbles: true }));
       }
     } else {
-      // Is a plain select with no custom color option.
-      const items = element.getElementsByTagName('option');
-      element.selectedIndex = Math.floor(Math.random() * items.length);
+      const options = element.getElementsByTagName('option');
+
+      if (preventCustomColor) {
+        let possibleIndexes = [];
+        for (let i = 0; i < options.length; i++) {
+          if (options[i].getAttribute('data-custom-color') !== 'true') {
+            possibleIndexes.push(i);
+          }
+        }
+
+        const indexIndex = Math.floor(Math.random() * possibleIndexes.length);
+        element.selectedIndex = possibleIndexes[indexIndex];
+      } else {
+        element.selectedIndex = Math.floor(Math.random() * options.length);
+      }
     }
   }
 
@@ -435,20 +447,24 @@
       'xButtonColorFieldset',
       'yButtonColorFieldset',
       'zButtonColorFieldset',
-      'midnaHairBaseColorFieldset',
-      'midnaHairTipColorFieldset',
+      { id: 'midnaHairBaseColorFieldset', preventCustomColor: true },
+      { id: 'midnaHairTipColorFieldset', preventCustomColor: true },
       'midnaDomeRingColorFieldset',
     ];
 
     for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
-      const cosmeticArrayEl = arrayOfCosmeticSettings[i];
-      if (Array.isArray(cosmeticArrayEl)) {
+      const entry = arrayOfCosmeticSettings[i];
+      if (Array.isArray(entry)) {
         const colors = get16ColorsPalette();
 
-        for (let j = 0; j < cosmeticArrayEl.length; j++) {
-          const elId = cosmeticArrayEl[j];
+        for (let j = 0; j < entry.length; j++) {
+          const elId = entry[j];
           const randomIndex = Math.floor(Math.random() * colors.length);
           randomizeCosmeticSetting(elId, colors[randomIndex]);
+        }
+      } else if (typeof entry === 'object') {
+        if (entry) {
+          randomizeCosmeticSetting(entry.id, null, entry.preventCustomColor);
         }
       } else {
         const elId = arrayOfCosmeticSettings[i];
