@@ -33,8 +33,19 @@ namespace TPRandomizer
         public Clr0Entry xBtnColor { get; }
         public Clr0Entry yBtnColor { get; }
         public Clr0Entry zBtnColor { get; }
-        public int midnaHairBaseColor { get; }
-        public int midnaHairTipsColor { get; }
+
+        // Midna Hair (24-bit RGB vals)
+        public int midnaHairBaseLightWorldInactive { get; }
+        public int midnaHairBaseDarkWorldInactive { get; }
+        public int midnaHairBaseAnyWorldActive { get; }
+        public int midnaHairGlowAnyWorldInactive { get; }
+        public int midnaHairGlowLightWorldActive { get; }
+        public int midnaHairGlowDarkWorldActive { get; }
+        public int midnaHairTipsLightWorldInactive { get; }
+        public int midnaHairTipsDarkWorldAnyActive { get; }
+        public int midnaHairTipsLightWorldActive { get; }
+
+        // End Midna Hair
         public Clr0Entry midnaDomeRingColor { get; }
 
         public Clr0Entry linkHairColor { get; }
@@ -66,8 +77,24 @@ namespace TPRandomizer
             xBtnColor = processor.NextClr0Entry(RecolorId.None);
             yBtnColor = processor.NextClr0Entry(RecolorId.None);
             zBtnColor = processor.NextClr0Entry(RecolorId.None);
-            midnaHairBaseColor = (int)processor.NextInt(4);
-            midnaHairTipsColor = (int)processor.NextInt(4);
+
+            int midnaHairBaseColor = processor.NextInt(4);
+
+            int[] baseAndGlowArr = ColorArrays.MidnaHairBaseAndGlowColors[midnaHairBaseColor];
+            midnaHairBaseLightWorldInactive = baseAndGlowArr[0];
+            midnaHairBaseDarkWorldInactive = baseAndGlowArr[1];
+            midnaHairBaseAnyWorldActive = baseAndGlowArr[2];
+            midnaHairGlowAnyWorldInactive = baseAndGlowArr[3];
+            midnaHairGlowLightWorldActive = baseAndGlowArr[4];
+            midnaHairGlowDarkWorldActive = baseAndGlowArr[5];
+
+            int midnaHairTipsColor = processor.NextInt(4);
+
+            int[] tipsArr = ColorArrays.MidnaHairTipsColors[midnaHairTipsColor];
+            midnaHairTipsLightWorldInactive = tipsArr[0];
+            midnaHairTipsDarkWorldAnyActive = tipsArr[1];
+            midnaHairTipsLightWorldActive = tipsArr[2];
+
             midnaDomeRingColor = processor.NextClr0Entry(RecolorId.None);
             linkHairColor = processor.NextClr0Entry(RecolorId.CMPR);
         }

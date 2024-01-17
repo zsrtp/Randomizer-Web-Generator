@@ -445,11 +445,10 @@ namespace TPRandomizer.Assets
                     {
                         listOfArcReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.arcOffsets[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.arcOffsets[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         if (currentCheck.replacementType[i] != 3)
@@ -462,11 +461,10 @@ namespace TPRandomizer.Assets
                         {
                             listOfArcReplacements.AddRange(
                                 Converter.GcBytes(
-                                    (UInt32)
-                                        uint.Parse(
-                                            currentCheck.overrideInstruction[i],
-                                            System.Globalization.NumberStyles.HexNumber
-                                        )
+                                    (UInt32)uint.Parse(
+                                        currentCheck.overrideInstruction[i],
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                                 )
                             );
                         }
@@ -495,20 +493,18 @@ namespace TPRandomizer.Assets
             {
                 listOfArcReplacements.AddRange(
                     Converter.GcBytes(
-                        (UInt32)
-                            uint.Parse(
-                                arcReplacement.Offset,
-                                System.Globalization.NumberStyles.HexNumber
-                            )
+                        (UInt32)uint.Parse(
+                            arcReplacement.Offset,
+                            System.Globalization.NumberStyles.HexNumber
+                        )
                     )
                 );
                 listOfArcReplacements.AddRange(
                     Converter.GcBytes(
-                        (UInt32)
-                            uint.Parse(
-                                arcReplacement.ReplacementValue,
-                                System.Globalization.NumberStyles.HexNumber
-                            )
+                        (UInt32)uint.Parse(
+                            arcReplacement.ReplacementValue,
+                            System.Globalization.NumberStyles.HexNumber
+                        )
                     )
                 );
                 listOfArcReplacements.Add(Converter.GcByte(arcReplacement.Directory));
@@ -536,11 +532,10 @@ namespace TPRandomizer.Assets
                     {
                         listOfArcReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.arcOffsets[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.arcOffsets[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfArcReplacements.AddRange(
@@ -606,11 +601,10 @@ namespace TPRandomizer.Assets
 
                         listOfDZXReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt16)
-                                    ushort.Parse(
-                                        currentCheck.hash[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt16)ushort.Parse(
+                                    currentCheck.hash[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfDZXReplacements.Add(Converter.GcByte(currentCheck.stageIDX[i]));
@@ -688,20 +682,18 @@ namespace TPRandomizer.Assets
                         );
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.moduleID[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.moduleID[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)
-                                    uint.Parse(
-                                        currentCheck.relOffsets[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt32)uint.Parse(
+                                    currentCheck.relOffsets[i],
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         Console.WriteLine(currentCheck.checkName);
@@ -720,77 +712,50 @@ namespace TPRandomizer.Assets
                 }
             }
 
-            //The below code block is temporary until the Midna Hair stuff is fully flushed out with dynamic color picking, etc.
-
-
-            int[] midnaBaseOffsets = { 0xA438, 0xA424, 0xA434 }; //lightworld inactive, darkworld inactive, bothworld active
-            for (int i = 0; i < midnaBaseOffsets.Length; i++) // since we don't need to have any values for default, the values at array index 0 are for color 1, etc.
+            List<KeyValuePair<int, int>> midnaHairBytes = BuildMidnaHairBytes();
+            foreach (KeyValuePair<int, int> pair in midnaHairBytes)
             {
                 listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0x3)); // replacement type
                 listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0xFF)); // stageIDX
                 listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)0x33)); // moduleID
-                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)midnaBaseOffsets[i])); // offset
-                listOfRELReplacements.AddRange(
-                    Converter.GcBytes(
-                        (UInt32)
-                            uint.Parse(
-                                Assets.CLR0.ColorArrays.MidnaBaseHairColors[
-                                    fcSettings.midnaHairBaseColor
-                                ][i],
-                                System.Globalization.NumberStyles.HexNumber
-                            )
-                    )
-                );
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)pair.Key)); // offset
+                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)pair.Value));
                 count++;
             }
-
-            int[] midnaGlowOffsets = { 0xA41C, 0xA420, 0xA440, 0xA444, 0xA42C, 0xA430 }; //bothworld inactive, lightworld active, darkworld active
-            for (int i = 0; i < midnaGlowOffsets.Length; i++) // since we don't need to have any values for default, the values at array index 0 are for color 1, etc.
-            {
-                listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0x3)); // replacement type
-                listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0xFF)); // stageIDX
-                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)0x33)); // moduleID
-                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)midnaGlowOffsets[i])); // offset
-                listOfRELReplacements.AddRange(
-                    Converter.GcBytes(
-                        (UInt32)
-                            uint.Parse(
-                                Assets.CLR0.ColorArrays.MidnaGlowHairColors[
-                                    fcSettings.midnaHairBaseColor
-                                ][i],
-                                System.Globalization.NumberStyles.HexNumber
-                            )
-                    )
-                );
-                count++;
-            }
-
-            int[] midnaTipOffsets = { 0xA43C, 0xA428, 0xA448 }; // lightworld inactive, darkworld anyactive, lightworld active
-            for (int i = 0; i < midnaTipOffsets.Length; i++) // since we don't need to have any values for default, the values at array index 0 are for color 1, etc.
-            {
-                listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0x3)); // replacement type
-                listOfRELReplacements.AddRange(Converter.GcBytes((UInt16)0xFF)); // stageIDX
-                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)0x33)); // moduleID
-                listOfRELReplacements.AddRange(Converter.GcBytes((UInt32)midnaTipOffsets[i])); // offset
-                listOfRELReplacements.AddRange(
-                    Converter.GcBytes(
-                        (UInt32)
-                            uint.Parse(
-                                Assets.CLR0.ColorArrays.MidnaTipsHairColors[
-                                    fcSettings.midnaHairTipsColor
-                                ][i],
-                                System.Globalization.NumberStyles.HexNumber
-                            )
-                    )
-                ); // replacement value
-                count++;
-            }
-
-            // end of midna hair stuff
 
             SeedHeaderRaw.relCheckInfoNumEntries = count;
             SeedHeaderRaw.relCheckInfoDataOffset = (ushort)(CheckDataRaw.Count);
             return listOfRELReplacements;
+        }
+
+        private List<KeyValuePair<int, int>> BuildMidnaHairBytes()
+        {
+            int[] glowAnyWorldInactive = MidnaGlowToInts(fcSettings.midnaHairGlowAnyWorldInactive);
+            int[] glowLightWorldActive = MidnaGlowToInts(fcSettings.midnaHairGlowLightWorldActive);
+            int[] glowDarkWorldActive = MidnaGlowToInts(fcSettings.midnaHairGlowDarkWorldActive);
+
+            return new()
+            {
+                new(0xA438, fcSettings.midnaHairBaseLightWorldInactive << 8),
+                new(0xA424, fcSettings.midnaHairBaseDarkWorldInactive << 8),
+                new(0xA434, fcSettings.midnaHairBaseAnyWorldActive << 8),
+                new(0xA41C, glowAnyWorldInactive[0]),
+                new(0xA420, glowAnyWorldInactive[1]),
+                new(0xA440, glowLightWorldActive[0]),
+                new(0xA444, glowLightWorldActive[1]),
+                new(0xA42C, glowDarkWorldActive[0]),
+                new(0xA430, glowDarkWorldActive[1]),
+                new(0xA43C, fcSettings.midnaHairTipsLightWorldInactive << 8),
+                new(0xA428, fcSettings.midnaHairTipsDarkWorldAnyActive << 8),
+                new(0xA448, fcSettings.midnaHairTipsLightWorldActive << 8)
+            };
+        }
+
+        private int[] MidnaGlowToInts(int glowRgb)
+        {
+            // returns 00RR00GG 00BB0000
+            int[] ret = { (glowRgb & 0xFF0000) | (glowRgb & 0xFF00) >> 8, (glowRgb & 0xFF) << 16 };
+            return ret;
         }
 
         private List<byte> ParseBossReplacements()
@@ -831,11 +796,10 @@ namespace TPRandomizer.Assets
                     {
                         listOfBugRewards.AddRange(
                             Converter.GcBytes(
-                                (UInt16)
-                                    byte.Parse(
-                                        currentCheck.flag,
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                (UInt16)byte.Parse(
+                                    currentCheck.flag,
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                             )
                         );
                         listOfBugRewards.AddRange(
@@ -909,11 +873,10 @@ namespace TPRandomizer.Assets
                 {
                     listOfShopItems.AddRange(
                         Converter.GcBytes(
-                            (UInt16)
-                                short.Parse(
-                                    currentCheck.flag,
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                            (UInt16)short.Parse(
+                                currentCheck.flag,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
                         )
                     );
                     listOfShopItems.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
@@ -1093,11 +1056,10 @@ namespace TPRandomizer.Assets
                 i++;
                 entranceTable.AddRange(
                     Converter.GcBytes(
-                        (UInt16)
-                            short.Parse(
-                                entranceBytes[i],
-                                System.Globalization.NumberStyles.HexNumber
-                            )
+                        (UInt16)short.Parse(
+                            entranceBytes[i],
+                            System.Globalization.NumberStyles.HexNumber
+                        )
                     )
                 );
                 i++;
@@ -1127,11 +1089,10 @@ namespace TPRandomizer.Assets
                 i++;
                 entranceTable.AddRange(
                     Converter.GcBytes(
-                        (UInt16)
-                            short.Parse(
-                                entranceBytes[i],
-                                System.Globalization.NumberStyles.HexNumber
-                            )
+                        (UInt16)short.Parse(
+                            entranceBytes[i],
+                            System.Globalization.NumberStyles.HexNumber
+                        )
                     )
                 );
                 SeedHeaderRaw.shuffledEntranceInfoNumEntries++;
@@ -1320,11 +1281,10 @@ namespace TPRandomizer.Assets
                     if (currentCheck.category.Contains("ARC")) // If the chest is an ARC check, so we need to add a new ARC replacement entry.
                     {
                         string offset = (
-                            (UInt32)
-                                uint.Parse(
-                                    currentCheck.arcOffsets[0],
-                                    System.Globalization.NumberStyles.HexNumber
-                                ) - 0x18
+                            (UInt32)uint.Parse(
+                                currentCheck.arcOffsets[0],
+                                System.Globalization.NumberStyles.HexNumber
+                            ) - 0x18
                         ).ToString("X");
                         string value = "";
 

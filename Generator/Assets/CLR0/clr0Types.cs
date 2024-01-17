@@ -138,52 +138,37 @@ namespace TPRandomizer.Assets.CLR0
 
     public class ColorArrays
     {
-        public static readonly string[][] MidnaBaseHairColors = new string[][]
+        public static readonly int[][] MidnaHairBaseAndGlowColors = new int[][]
         {
-            // put the actual RGB values here.
-            // Colors are lightworld inactive, darkworld inactive, bothworld active
-            new[] { "FFDC0000", "B4870000", "50000000" }, // Default
-            new[] { "F5CFF300", "AD7F7F00", "1B002000" }, // Pink
-            new[] { "E4654100", "A13E2200", "21000000" }, // Red
-            new[] { "91830E00", "66500700", "0E0B0000" }, // Yellow
-            new[] { "35795300", "254A2B00", "000E0500" }, // Green
-            new[] { "0072FF00", "00468500", "00082800" }, // Blue
-            new[] { "6F34FF00", "4E208500", "0D003400" }, // Purple
-            new[] { "00000000", "00000000", "1A050000" }, // Brown
-            new[] { "F0F1F100", "A9947E00", "090B0C00" }, // White
-            new[] { "00000000", "00000000", "0B0B0B00" }, // Black
+            // Array color order is:
+            // BaseLightWorldInactive, BaseDarkWorldInactive, BaseAnyWorldActive,
+            // GlowAnyWorldInactive, GlowLightWorldActive, GlowDarkWorldActive
+            new[] { 0xFFDC00, 0xB48700, 0x500000, 0x500000, 0xFF7800, 0xFF6478 }, // Default
+            new[] { 0xF5CFF3, 0xAD7F7F, 0x1B0020, 0x3C0258, 0xE372F2, 0xE35FF8 }, // Pink
+            new[] { 0xE46541, 0xA13E22, 0x210000, 0x4F0201, 0xF03A25, 0xF0308C }, // Red
+            new[] { 0x91830E, 0x665007, 0x0E0B00, 0x242502, 0xCBB700, 0xCB9978 }, // Yellow
+            new[] { 0x357953, 0x254A2B, 0x000E05, 0x0A2910, 0x00B66F, 0x0098B3 }, // Green
+            new[] { 0x0072FF, 0x004685, 0x000828, 0x161B5D, 0x0060FF, 0x0050FF }, // Blue
+            new[] { 0x6F34FF, 0x4E2085, 0x0D0034, 0x150879, 0x6200FF, 0x6200FF }, // Purple
+            new[] { 0x000000, 0x000000, 0x1A0500, 0x3C190E, 0x3F1D0B, 0x3F187E }, // Brown
+            new[] { 0xF0F1F1, 0xA9947E, 0x090B0C, 0x222424, 0xFFFFFF, 0xFFD5FF }, // White
+            new[] { 0x000000, 0x000000, 0x0B0B0B, 0x232323, 0x000000, 0x000078 }, // Black
         };
 
-        public static readonly string[][] MidnaTipsHairColors = new string[][]
+        public static readonly int[][] MidnaHairTipsColors = new int[][]
         {
-            // put the actual RGB values here.
-            // Colors are lightworld inactive, darkworld anyactive, lightworld active
-            new[] { "00C3EB00", "C3C30000", "AAFFC300" }, // Default
-            new[] { "DD00EB00", "DD00C300", "F64CFF00" }, // Pink
-            new[] { "EB000000", "EB000000", "FF4F3A00" }, // Red
-            new[] { "EBDE0000", "EBDE0000", "FFF8BF00" }, // Yellow
-            new[] { "1FEB0000", "1FEB0000", "9AFF8100" }, // Green
-            new[] { "0048EB00", "0048C300", "3A66FF00" }, // Blue
-            new[] { "7B00EB00", "7B00C300", "943EFF00" }, // Purple
-            new[] { "3F1D0B00", "3F1D0900", "59321E00" }, // Brown
-            new[] { "EAEAEA00", "EAEAC200", "F3F3F300" }, // White
-            new[] { "00000000", "00000000", "00000000", }, // Black
-        };
-
-        public static readonly string[][] MidnaGlowHairColors = new string[][]
-        {
-            // put the actual RGB values here.
-            // Colors are bothworld inactive, lightworld active, darkworld active
-            new[] { "00500000", "00000000", "00FF0078", "00000000", "00FF0064", "00780000" }, // Default
-            new[] { "003C0002", "00580000", "00E30072", "00F20000", "00E3005F", "00F80000" }, // Pink
-            new[] { "004F0002", "00010000", "00F0003A", "00250000", "00F00030", "008C0000" }, // Red
-            new[] { "00240025", "00020000", "00CB00B7", "00000000", "00CB0099", "00780000" }, // Yellow
-            new[] { "000A0029", "00100000", "000000B6", "006F0000", "00000098", "00B30000" }, // Green
-            new[] { "0016001B", "005D0000", "00000060", "00FF0000", "00000050", "00FF0000" }, // Blue
-            new[] { "00150008", "00790000", "00620000", "00FF0000", "00620000", "00FF0000" }, // Purple
-            new[] { "003C0019", "000E0000", "003F001D", "000B0000", "003F0018", "007E0000" }, // Brown
-            new[] { "00220024", "00240000", "00FF00FF", "00FF0000", "00FF00D5", "00FF0000" }, // White
-            new[] { "00230023", "00230000", "00000000", "00000000", "00000000", "00780000" }, // Black
+            // Array color order is:
+            // TipsLightWorldInactive, TipsDarkWorldAnyActive, TipsLightWorldActive
+            new[] { 0x00C3EB, 0xC3C300, 0xAAFFC3 }, // Default
+            new[] { 0xDD00EB, 0xDD00C3, 0xF64CFF }, // Pink
+            new[] { 0xEB0000, 0xEB0000, 0xFF4F3A }, // Red
+            new[] { 0xEBDE00, 0xEBDE00, 0xFFF8BF }, // Yellow
+            new[] { 0x1FEB00, 0x1FEB00, 0x9AFF81 }, // Green
+            new[] { 0x0048EB, 0x0048C3, 0x3A66FF }, // Blue
+            new[] { 0x7B00EB, 0x7B00C3, 0x943EFF }, // Purple
+            new[] { 0x3F1D0B, 0x3F1D09, 0x59321E }, // Brown
+            new[] { 0xEAEAEA, 0xEAEAC2, 0xF3F3F3 }, // White
+            new[] { 0x000000, 0x000000, 0x000000, }, // Black
         };
     }
 }
