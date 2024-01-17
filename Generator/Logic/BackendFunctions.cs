@@ -20,7 +20,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool ValidatePlaythrough(Room startingRoom, bool printResults = false)
         {
-            bool areAllChecksReachable = true;
+            bool failedToReachDesiredCheck = false;
             bool areAllRoomsReachable = true;
             List<Item> playthroughItems = new();
             List<Item> validationItems = new();
@@ -33,6 +33,8 @@ namespace TPRandomizer
                 currentCheck.hasBeenReached = false;
                 Randomizer.Checks.CheckDict[currentCheck.checkName] = currentCheck;
             }
+
+            HashSet<string> allowedUnreachableChecks = CalcAllowedUnreachableChecks(parseSetting);
 
             foreach (Item startingItem in parseSetting.startingItems)
             {
@@ -106,10 +108,21 @@ namespace TPRandomizer
                 Check listedCheck = checkList.Value;
                 if (!listedCheck.hasBeenReached)
                 {
-                    areAllChecksReachable = false;
-                    if (printResults)
+                    if (allowedUnreachableChecks.Contains(listedCheck.checkName))
                     {
-                        Console.WriteLine(listedCheck.checkName + " is not reachable!");
+                        if (printResults)
+                            Console.WriteLine(
+                                listedCheck.checkName
+                                    + " is not reachable, and this is allowed for this check."
+                            );
+                    }
+                    else
+                    {
+                        failedToReachDesiredCheck = true;
+                        if (printResults)
+                            Console.WriteLine(
+                                listedCheck.checkName + " is not reachable! (unexpected)"
+                            );
                     }
                 }
             }
@@ -132,7 +145,7 @@ namespace TPRandomizer
                 Randomizer.Items.heldItems.Remove(item);
             }
 
-            if (areAllChecksReachable && areAllRoomsReachable)
+            if (!failedToReachDesiredCheck && areAllRoomsReachable)
             {
                 if (printResults)
                 {
@@ -144,6 +157,58 @@ namespace TPRandomizer
             {
                 return false;
             }
+        }
+
+        private static HashSet<string> CalcAllowedUnreachableChecks(SharedSettings sSettings)
+        {
+            // Can revisit where this code lives once we develop a "Guarantee
+            // Reachable Locations" feature.
+            HashSet<string> allowedUnreachableChecks = new();
+
+            if (sSettings.shuffleGoldenBugs)
+            {
+                // Any Agitha check which is excluded is unreachable since the
+                // corresponding bug is not in the pool. This allows us to
+                // include any number of Agitha checks (not just 0 or 24)
+                // without having to memorize which bugs are valid or invalid.
+
+                HashSet<string> agithaChecks =
+                    new()
+                    {
+                        "Agitha Female Ant Reward",
+                        "Agitha Female Beetle Reward",
+                        "Agitha Female Butterfly Reward",
+                        "Agitha Female Dayfly Reward",
+                        "Agitha Female Dragonfly Reward",
+                        "Agitha Female Grasshopper Reward",
+                        "Agitha Female Ladybug Reward",
+                        "Agitha Female Mantis Reward",
+                        "Agitha Female Phasmid Reward",
+                        "Agitha Female Pill Bug Reward",
+                        "Agitha Female Snail Reward",
+                        "Agitha Female Stag Beetle Reward",
+                        "Agitha Male Ant Reward",
+                        "Agitha Male Beetle Reward",
+                        "Agitha Male Butterfly Reward",
+                        "Agitha Male Dayfly Reward",
+                        "Agitha Male Dragonfly Reward",
+                        "Agitha Male Grasshopper Reward",
+                        "Agitha Male Ladybug Reward",
+                        "Agitha Male Mantis Reward",
+                        "Agitha Male Phasmid Reward",
+                        "Agitha Male Pill Bug Reward",
+                        "Agitha Male Snail Reward",
+                        "Agitha Male Stag Beetle Reward",
+                    };
+
+                foreach (string excludedCheckName in sSettings.excludedChecks)
+                {
+                    if (agithaChecks.Contains(excludedCheckName))
+                        allowedUnreachableChecks.Add(excludedCheckName);
+                }
+            }
+
+            return allowedUnreachableChecks;
         }
 
         /// <summary>

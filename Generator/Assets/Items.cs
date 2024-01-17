@@ -792,9 +792,7 @@ namespace TPRandomizer
 
             if (parseSetting.shuffleGoldenBugs)
             {
-                this.RandomizedImportantItems.AddRange(this.goldenBugs);
-
-                Randomizer.Items.AllItems.AddRange(this.goldenBugs);
+                this.AddGoldenBugs(parseSetting);
             }
 
             // Check Small Key settings before adding them to the rando pool
@@ -1096,6 +1094,51 @@ namespace TPRandomizer
 
             Randomizer.Items.BaseItemPool.AddRange(this.RandomizedImportantItems);
             return;
+        }
+
+        private void AddGoldenBugs(SharedSettings sSettings)
+        {
+            Dictionary<string, Item> bugRewardCheckToItem =
+                new()
+                {
+                    { "Agitha Female Ant Reward", Item.Female_Ant },
+                    { "Agitha Female Beetle Reward", Item.Female_Beetle },
+                    { "Agitha Female Butterfly Reward", Item.Female_Butterfly },
+                    { "Agitha Female Dayfly Reward", Item.Female_Dayfly },
+                    { "Agitha Female Dragonfly Reward", Item.Female_Dragonfly },
+                    { "Agitha Female Grasshopper Reward", Item.Female_Grasshopper },
+                    { "Agitha Female Ladybug Reward", Item.Female_Ladybug },
+                    { "Agitha Female Mantis Reward", Item.Female_Mantis },
+                    { "Agitha Female Phasmid Reward", Item.Female_Phasmid },
+                    { "Agitha Female Pill Bug Reward", Item.Female_Pill_Bug },
+                    { "Agitha Female Snail Reward", Item.Female_Snail },
+                    { "Agitha Female Stag Beetle Reward", Item.Female_Stag_Beetle },
+                    { "Agitha Male Ant Reward", Item.Male_Ant },
+                    { "Agitha Male Beetle Reward", Item.Male_Beetle },
+                    { "Agitha Male Butterfly Reward", Item.Male_Butterfly },
+                    { "Agitha Male Dayfly Reward", Item.Male_Dayfly },
+                    { "Agitha Male Dragonfly Reward", Item.Male_Dragonfly },
+                    { "Agitha Male Grasshopper Reward", Item.Male_Grasshopper },
+                    { "Agitha Male Ladybug Reward", Item.Male_Ladybug },
+                    { "Agitha Male Mantis Reward", Item.Male_Mantis },
+                    { "Agitha Male Phasmid Reward", Item.Male_Phasmid },
+                    { "Agitha Male Pill Bug Reward", Item.Male_Pill_Bug },
+                    { "Agitha Male Snail Reward", Item.Male_Snail },
+                    { "Agitha Male Stag Beetle Reward", Item.Male_Stag_Beetle }
+                };
+
+            foreach (string excludedCheckName in sSettings.excludedChecks)
+            {
+                if (bugRewardCheckToItem.ContainsKey(excludedCheckName))
+                    bugRewardCheckToItem.Remove(excludedCheckName);
+            }
+
+            foreach (KeyValuePair<string, Item> pair in bugRewardCheckToItem)
+            {
+                Item bug = pair.Value;
+                this.RandomizedImportantItems.Add(bug);
+                Randomizer.Items.AllItems.Add(bug);
+            }
         }
     }
 }
