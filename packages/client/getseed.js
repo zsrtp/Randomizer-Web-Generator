@@ -392,6 +392,12 @@
 
         const indexIndex = Math.floor(Math.random() * possibleIndexes.length);
         element.selectedIndex = possibleIndexes[indexIndex];
+
+        // Trigger event so color picker input hides.
+        const selectEl = document.getElementById(
+          elId.replace('ColorPicker', '')
+        );
+        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
       } else {
         element.selectedIndex = Math.floor(Math.random() * options.length);
       }
@@ -1877,6 +1883,7 @@
       'zTunicBootsColorFieldset',
       'lanternColorFieldset',
       'midnaHairBaseColorFieldset',
+      'midnaHairTipColorFieldset',
     ].forEach((selectId) => {
       const colorInputId = selectId + 'ColorPicker';
       initCustomColorPickerPair(selectId, colorInputId);
