@@ -1241,21 +1241,30 @@
         if (value === null) {
           // triple-equals here is intentional for now
           bitString += '0';
-        } else if (value.type === RawSettingType.bitString) {
-          bitString += value.bitString;
-        } else if (value.type === RawSettingType.xBitNum) {
-          bitString += numToPaddedBits(value.value, value.bitLength);
-        } else if (value.type === RawSettingType.rgb) {
-          if (value.value == null) {
-            bitString += '0';
-          } else {
-            bitString += '1';
-            bitString += hexStrToBits(value.value);
+        } else {
+          switch (value.type) {
+            case RawSettingType.bitString:
+              bitString += value.bitString;
+              break;
+            case RawSettingType.xBitNum:
+              bitString += numToPaddedBits(value.value, value.bitLength);
+              break;
+            case RawSettingType.rgb: {
+              if (value.value == null) {
+                bitString += '0';
+              } else {
+                bitString += '1';
+                bitString += hexStrToBits(value.value);
+              }
+              break;
+            }
+            case RawSettingType.midnaHairBase:
+              bitString += encodeMidnaHairBase(value);
+              break;
+            case RawSettingType.midnaHairTips:
+              bitString += encodeMidnaHairTips(value);
+              break;
           }
-        } else if (value.type === RawSettingType.midnaHairBase) {
-          bitString += encodeMidnaHairBase(value);
-        } else if (value.type === RawSettingType.midnaHairTips) {
-          bitString += encodeMidnaHairTips(value);
         }
       }
     });
