@@ -297,7 +297,6 @@ namespace TPRandomizer
         public List<Item> BaseItemPool = new(); // The list of Items that have yet to be randomized..
         public List<Item> heldItems = new(); // The list of items that the player currently has. This is to be used when emulating the playthrough..
 
-        public List<Item> AllItems = new(); // A list of all of the items that Link can have. This is necessary for Entrance Randomization logic checking.
         public List<Item> ItemWheelItems =
             new()
             {
@@ -763,11 +762,8 @@ namespace TPRandomizer
         {
             SharedSettings parseSetting = Randomizer.SSettings;
             Randomizer.Items.RandomizedImportantItems.AddRange(this.ImportantItems);
-            Randomizer.Items.AllItems.AddRange(this.ImportantItems);
             Randomizer.Items.BaseItemPool.AddRange(this.VanillaDungeonRewards);
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);
-            Randomizer.Items.AllItems.AddRange(this.VanillaDungeonRewards);
-            Randomizer.Items.AllItems.AddRange(Enumerable.Repeat(Item.Poe_Soul, 60));
 
             switch (parseSetting.shufflePoes)
             {
@@ -803,14 +799,10 @@ namespace TPRandomizer
             {
                 this.RandomizedDungeonRegionItems.AddRange(this.RegionSmallKeys);
                 Randomizer.Items.BaseItemPool.AddRange(this.RegionSmallKeys);
-
-                Randomizer.Items.AllItems.AddRange(this.RegionSmallKeys);
             }
             else if (parseSetting.smallKeySettings == SmallKeySettings.Anywhere)
             {
                 this.RandomizedImportantItems.AddRange(this.RegionSmallKeys);
-
-                Randomizer.Items.AllItems.AddRange(this.RegionSmallKeys);
             }
             else if (parseSetting.smallKeySettings == SmallKeySettings.Keysy)
             {
@@ -825,14 +817,10 @@ namespace TPRandomizer
             {
                 this.RandomizedDungeonRegionItems.AddRange(this.DungeonBigKeys);
                 Randomizer.Items.BaseItemPool.AddRange(this.DungeonBigKeys);
-
-                Randomizer.Items.AllItems.AddRange(this.DungeonBigKeys);
             }
             else if (parseSetting.bigKeySettings == BigKeySettings.Anywhere)
             {
                 this.RandomizedImportantItems.AddRange(this.DungeonBigKeys);
-
-                Randomizer.Items.AllItems.AddRange(this.DungeonBigKeys);
             }
 
             // Check Map and Compass settings before adding to pool
@@ -1139,7 +1127,6 @@ namespace TPRandomizer
             {
                 Item bug = pair.Value;
                 this.RandomizedImportantItems.Add(bug);
-                Randomizer.Items.AllItems.Add(bug);
             }
         }
     }
