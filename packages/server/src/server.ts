@@ -342,6 +342,8 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [42, 'Ordon Shield'],
         [44, 'Hylian Shield'],
         [62, 'Hawkeye'],
+        [249, 'Goron Mines Key Shard'],
+        [249, 'Goron Mines Key Shard'],
       ];
 
       const startingItemsEls = startingItems.map((item) => {
