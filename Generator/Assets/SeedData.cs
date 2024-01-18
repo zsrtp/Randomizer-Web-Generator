@@ -445,10 +445,11 @@ namespace TPRandomizer.Assets
                     {
                         listOfArcReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)uint.Parse(
-                                    currentCheck.arcOffsets[i],
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt32)
+                                    uint.Parse(
+                                        currentCheck.arcOffsets[i],
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
                         if (currentCheck.replacementType[i] != 3)
@@ -461,10 +462,11 @@ namespace TPRandomizer.Assets
                         {
                             listOfArcReplacements.AddRange(
                                 Converter.GcBytes(
-                                    (UInt32)uint.Parse(
-                                        currentCheck.overrideInstruction[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
+                                    (UInt32)
+                                        uint.Parse(
+                                            currentCheck.overrideInstruction[i],
+                                            System.Globalization.NumberStyles.HexNumber
+                                        )
                                 )
                             );
                         }
@@ -493,18 +495,20 @@ namespace TPRandomizer.Assets
             {
                 listOfArcReplacements.AddRange(
                     Converter.GcBytes(
-                        (UInt32)uint.Parse(
-                            arcReplacement.Offset,
-                            System.Globalization.NumberStyles.HexNumber
-                        )
+                        (UInt32)
+                            uint.Parse(
+                                arcReplacement.Offset,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
                     )
                 );
                 listOfArcReplacements.AddRange(
                     Converter.GcBytes(
-                        (UInt32)uint.Parse(
-                            arcReplacement.ReplacementValue,
-                            System.Globalization.NumberStyles.HexNumber
-                        )
+                        (UInt32)
+                            uint.Parse(
+                                arcReplacement.ReplacementValue,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
                     )
                 );
                 listOfArcReplacements.Add(Converter.GcByte(arcReplacement.Directory));
@@ -532,10 +536,11 @@ namespace TPRandomizer.Assets
                     {
                         listOfArcReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)uint.Parse(
-                                    currentCheck.arcOffsets[i],
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt32)
+                                    uint.Parse(
+                                        currentCheck.arcOffsets[i],
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
                         listOfArcReplacements.AddRange(
@@ -601,10 +606,11 @@ namespace TPRandomizer.Assets
 
                         listOfDZXReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt16)ushort.Parse(
-                                    currentCheck.hash[i],
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt16)
+                                    ushort.Parse(
+                                        currentCheck.hash[i],
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
                         listOfDZXReplacements.Add(Converter.GcByte(currentCheck.stageIDX[i]));
@@ -682,18 +688,20 @@ namespace TPRandomizer.Assets
                         );
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)uint.Parse(
-                                    currentCheck.moduleID[i],
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt32)
+                                    uint.Parse(
+                                        currentCheck.moduleID[i],
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
                         listOfRELReplacements.AddRange(
                             Converter.GcBytes(
-                                (UInt32)uint.Parse(
-                                    currentCheck.relOffsets[i],
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt32)
+                                    uint.Parse(
+                                        currentCheck.relOffsets[i],
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
                         Console.WriteLine(currentCheck.checkName);
@@ -796,10 +804,11 @@ namespace TPRandomizer.Assets
                     {
                         listOfBugRewards.AddRange(
                             Converter.GcBytes(
-                                (UInt16)byte.Parse(
-                                    currentCheck.flag,
-                                    System.Globalization.NumberStyles.HexNumber
-                                )
+                                (UInt16)
+                                    byte.Parse(
+                                        currentCheck.flag,
+                                        System.Globalization.NumberStyles.HexNumber
+                                    )
                             )
                         );
                         listOfBugRewards.AddRange(
@@ -873,10 +882,11 @@ namespace TPRandomizer.Assets
                 {
                     listOfShopItems.AddRange(
                         Converter.GcBytes(
-                            (UInt16)short.Parse(
-                                currentCheck.flag,
-                                System.Globalization.NumberStyles.HexNumber
-                            )
+                            (UInt16)
+                                short.Parse(
+                                    currentCheck.flag,
+                                    System.Globalization.NumberStyles.HexNumber
+                                )
                         )
                     );
                     listOfShopItems.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
@@ -1056,10 +1066,11 @@ namespace TPRandomizer.Assets
                 i++;
                 entranceTable.AddRange(
                     Converter.GcBytes(
-                        (UInt16)short.Parse(
-                            entranceBytes[i],
-                            System.Globalization.NumberStyles.HexNumber
-                        )
+                        (UInt16)
+                            short.Parse(
+                                entranceBytes[i],
+                                System.Globalization.NumberStyles.HexNumber
+                            )
                     )
                 );
                 i++;
@@ -1089,10 +1100,11 @@ namespace TPRandomizer.Assets
                 i++;
                 entranceTable.AddRange(
                     Converter.GcBytes(
-                        (UInt16)short.Parse(
-                            entranceBytes[i],
-                            System.Globalization.NumberStyles.HexNumber
-                        )
+                        (UInt16)
+                            short.Parse(
+                                entranceBytes[i],
+                                System.Globalization.NumberStyles.HexNumber
+                            )
                     )
                 );
                 SeedHeaderRaw.shuffledEntranceInfoNumEntries++;
@@ -1158,6 +1170,113 @@ namespace TPRandomizer.Assets
                     0
                 )
             ); // Remove the invisible wall from Palace
+
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "608",
+                    "FF3AFFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    3
+                )
+            ); // Add a flag to the wooden shield item.
+
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "688",
+                    "3D33FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    3
+                )
+            ); // Add a flag to the arrows item.
+
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "6C8",
+                    "3E3DFFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    3
+                )
+            ); // Change the flag of the Hawkeye item
+
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "708",
+                    "3976FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    3
+                )
+            ); // Add a flag to the red potion item.
+
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "648",
+                    "76FFFFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    3
+                )
+            ); // Change the flag of the Hylian Shield sold out sign.
+
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "624",
+                    "01478000",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    3
+                )
+            ); // Change the Hawkeye sold out to a Hylian Shield sold out.
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "628",
+                    "33FFFFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    3
+                )
+            ); // Change the flag of the new Hylian shield sold out.
+
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "694",
+                    "01FFFFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    3
+                )
+            );
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "6A4",
+                    "014B8000",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    3
+                )
+            );
+            listOfStaticReplacements.Add(
+                new ARCReplacement(
+                    "6A8",
+                    "0BFFFFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    3
+                )
+            ); // Replace left side red potion with a copy of the hawkeye sign.
 
             listOfStaticReplacements.AddRange(ModifyChestAppearanceARC());
             return listOfStaticReplacements;
@@ -1281,10 +1400,11 @@ namespace TPRandomizer.Assets
                     if (currentCheck.category.Contains("ARC")) // If the chest is an ARC check, so we need to add a new ARC replacement entry.
                     {
                         string offset = (
-                            (UInt32)uint.Parse(
-                                currentCheck.arcOffsets[0],
-                                System.Globalization.NumberStyles.HexNumber
-                            ) - 0x18
+                            (UInt32)
+                                uint.Parse(
+                                    currentCheck.arcOffsets[0],
+                                    System.Globalization.NumberStyles.HexNumber
+                                ) - 0x18
                         ).ToString("X");
                         string value = "";
 

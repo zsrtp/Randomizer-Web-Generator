@@ -138,23 +138,20 @@ namespace TPRandomizer
             Randomizer.Items.GenerateItemPool();
             CheckFunctions.GenerateCheckList();
 
-            // Any vanilla checks will be placed first for the sake of logic. Even if they aren't available to be randomized in the game yet, we may need to logically account for their placement.
-            Randomizer.Items.heldItems.Clear();
-            foreach (Item startingItem in Randomizer.SSettings.startingItems)
-            {
-                Randomizer.Items.heldItems.Add(startingItem);
-            }
-            Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
-            Console.WriteLine("Placing Vanilla Checks.");
-            PlaceVanillaChecks();
-
-            // Once we have placed all vanilla checks, we want to give the player all of the items they should be searching for and then generate the world based on the room class values and their neighbour values.
-            SetupGraph();
-            Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
-
             while (remainingGenerationAttempts > 0)
             {
                 remainingGenerationAttempts--;
+                foreach (Item startingItem in Randomizer.SSettings.startingItems)
+                {
+                    Randomizer.Items.heldItems.Add(startingItem);
+                }
+                Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
+                Console.WriteLine("Placing Vanilla Checks.");
+                PlaceVanillaChecks();
+
+                // Once we have placed all vanilla checks, we want to give the player all of the items they should be searching for and then generate the world based on the room class values and their neighbour values.
+                SetupGraph();
+                Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
                 try
                 {
                     // Place the items in the world based on the starting room.

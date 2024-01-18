@@ -14,7 +14,7 @@
           },
           {
             "ConnectedArea": "Palace of Twilight East Wing",
-            "Requirements": "(CanDefeatPhantomZant and (Progressive_Clawshot, 1) and CanDefeatZantHead and ((Palace_of_Twilight_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))) or CanDoLJA"
+            "Requirements": "true"
           },
           {
             "ConnectedArea": "Palace of Twilight North Tower",
@@ -117,7 +117,7 @@
         },
         {
             "ConnectedArea": "Palace of Twilight Boss Room",
-            "Requirements": "CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatShadowBeast and (Progressive_Clawshot, 1)"
+            "Requirements": "CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatShadowBeast and (Progressive_Clawshot, 1) and ((Palace_of_Twilight_Small_Key, 7) or (Setting.smallKeySettings equals Keysy))"
         }
         ],
         "Checks": 

@@ -79,7 +79,8 @@ namespace TPRandomizer.Assets
             { 0xA, 0x7F }, // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
             { 0x0, 0x7E }, // Midna jumps to Shop unlocked
             { 0x17, 0x5E }, // Palace of Twilight intro CS and removes the invisible waterfall wall with a custom ARC patch.
-            { 0x17, 0x57 }, // Unlock door for PoT Tower -> Before Zant Boss Room
+            { 0x17, 0x65 }, // East platform to palace active.
+            { 0x3, 0x54 }, // Custom flag. Sets the sign in Kak Malo mart slot 1 to appear.
         };
 
         /// <summary>

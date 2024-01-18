@@ -499,6 +499,9 @@ namespace TPRandomizer
                 "Bulblin Camp Roasted Boar",
                 "Faron Woods Golden Wolf",
                 "Jovani 60 Poe Soul Reward",
+                "Kakariko Village Malo Mart Red Potion",
+                "Kakariko Village Malo Mart Arrows",
+                "Kakariko Village Malo Mart Wooden Shield"
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.
