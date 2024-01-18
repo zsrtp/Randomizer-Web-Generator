@@ -1100,7 +1100,6 @@ namespace TPRandomizer
         {
             // Only add bugs to pool if their corresponding Agitha check is not
             // excluded.
-
             Dictionary<string, Item> agithaCheckToItem =
                 new()
                 {
