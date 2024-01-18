@@ -466,14 +466,6 @@ namespace TPRandomizer
                 }
             }
 
-            if (parseSetting.skipPrologue)
-            {
-                Randomizer.Items.RandomizedImportantItems.Remove(Item.North_Faron_Woods_Gate_Key);
-                Randomizer.Items.RandomizedDungeonRegionItems.Remove(
-                    Item.North_Faron_Woods_Gate_Key
-                );
-            }
-
             // Vanilla until all of the flag issues are figured out.
             Randomizer.Checks.CheckDict["Renados Letter"].checkStatus = "Vanilla";
             Randomizer.Checks.CheckDict["Telma Invoice"].checkStatus = "Vanilla";
