@@ -1114,9 +1114,8 @@ namespace TPRandomizer.Assets
 
         private List<ARCReplacement> generateStaticArcReplacements()
         {
-            List<ARCReplacement> listOfStaticReplacements = new();
-
-            listOfStaticReplacements.Add(
+            List<ARCReplacement> listOfStaticReplacements =
+            [
                 new ARCReplacement(
                     "1A62",
                     "00060064",
@@ -1124,10 +1123,8 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Castle_Town,
                     0
-                )
-            ); // Set Charlo Donation to check Link's wallet for 100 rupees.
+                ), // Set Charlo Donation to check Link's wallet for 100 rupees.
 
-            listOfStaticReplacements.Add(
                 new ARCReplacement(
                     "1A84",
                     "00000064",
@@ -1135,10 +1132,8 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Castle_Town,
                     0
-                )
-            ); // Set Charlo Donation to increase donated amount by 100 rupees.
+                ), // Set Charlo Donation to increase donated amount by 100 rupees.
 
-            listOfStaticReplacements.Add(
                 new ARCReplacement(
                     "1ACC",
                     "00000064",
@@ -1146,10 +1141,8 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Castle_Town,
                     0
-                )
-            ); // Set Charlo Donation to remove 100 rupees from Link's wallet.
+                ), // Set Charlo Donation to remove 100 rupees from Link's wallet.
 
-            listOfStaticReplacements.Add(
                 new ARCReplacement(
                     "1ACC",
                     "00000064",
@@ -1157,10 +1150,8 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Castle_Town,
                     0
-                )
-            ); // Set Charlo Donation to remove 100 rupees from Link's wallet.
+                ), // Set Charlo Donation to remove 100 rupees from Link's wallet.
 
-            listOfStaticReplacements.Add(
                 new ARCReplacement(
                     "1324",
                     "00000181",
@@ -1168,10 +1159,8 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Palace_of_Twilight,
                     0
-                )
-            ); // Remove the invisible wall from Palace
+                ), // Remove the invisible wall from Palace
 
-            listOfStaticReplacements.Add(
                 new ARCReplacement(
                     "608",
                     "FF3AFFFF",
@@ -1179,10 +1168,8 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
                     3
-                )
-            ); // Add a flag to the wooden shield item.
-
-            listOfStaticReplacements.Add(
+                ), // Add a flag to the kak wooden shield shop item.
+                /*listOfStaticReplacements.Add(
                 new ARCReplacement(
                     "688",
                     "3D33FFFF",
@@ -1191,9 +1178,7 @@ namespace TPRandomizer.Assets
                     (int)StageIDs.Kakariko_Village_Interiors,
                     3
                 )
-            ); // Add a flag to the arrows item.
-
-            listOfStaticReplacements.Add(
+            ), // Add a flag to the kak arrows shop item.*/
                 new ARCReplacement(
                     "6C8",
                     "3E3DFFFF",
@@ -1201,10 +1186,8 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
                     3
-                )
-            ); // Change the flag of the Hawkeye item
+                ), // Change the flag of the Hawkeye item
 
-            listOfStaticReplacements.Add(
                 new ARCReplacement(
                     "708",
                     "3976FFFF",
@@ -1212,10 +1195,8 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
                     3
-                )
-            ); // Add a flag to the red potion item.
+                ), // Add a flag to the kak red potion shop item.
 
-            listOfStaticReplacements.Add(
                 new ARCReplacement(
                     "648",
                     "76FFFFFF",
@@ -1223,10 +1204,8 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
                     3
-                )
-            ); // Change the flag of the Hylian Shield sold out sign.
+                ), // Change the flag of the Kak Hylian Shield sold out sign.
 
-            listOfStaticReplacements.Add(
                 new ARCReplacement(
                     "624",
                     "01478000",
@@ -1234,9 +1213,8 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
                     3
-                )
-            ); // Change the Hawkeye sold out to a Hylian Shield sold out.
-            listOfStaticReplacements.Add(
+                ), // Change the kak Hawkeye sold out to a Hylian Shield sold out.
+
                 new ARCReplacement(
                     "628",
                     "33FFFFFF",
@@ -1244,10 +1222,8 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
                     3
-                )
-            ); // Change the flag of the new Hylian shield sold out.
+                ), // Change the flag of the new Hylian shield sold out.
 
-            listOfStaticReplacements.Add(
                 new ARCReplacement(
                     "694",
                     "01FFFFFF",
@@ -1255,9 +1231,7 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
                     3
-                )
-            );
-            listOfStaticReplacements.Add(
+                ),
                 new ARCReplacement(
                     "6A4",
                     "014B8000",
@@ -1265,9 +1239,7 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
                     3
-                )
-            );
-            listOfStaticReplacements.Add(
+                ),
                 new ARCReplacement(
                     "6A8",
                     "0BFFFFFF",
@@ -1275,10 +1247,72 @@ namespace TPRandomizer.Assets
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
                     3
-                )
-            ); // Replace left side red potion with a copy of the hawkeye sign.
+                ), // Replace kak left side red potion with a copy of the hawkeye sign.
 
-            listOfStaticReplacements.AddRange(ModifyChestAppearanceARC());
+                /*
+                // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here. 
+                new ARCReplacement(
+                    "3014",
+                    "FF05FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Death_Mountain,
+                    3
+                ),
+                new ARCReplacement(
+                    "3950",
+                    "FF05FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Death_Mountain,
+                    3
+                ), // Add flag to DM milk shop item
+
+                new ARCReplacement(
+                    "3034",
+                    "FF28FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Death_Mountain,
+                    3
+                ),
+                new ARCReplacement(
+                    "3970",
+                    "FF28FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Death_Mountain,
+                    3
+                ), // Add flag to DM wooden shield shop item
+
+                new ARCReplacement(
+                    "3054",
+                    "FF04FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Death_Mountain,
+                    3
+                ),
+                new ARCReplacement(
+                    "3990",
+                    "FF04FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Death_Mountain,
+                    3
+                ), // Add flag to DM oil shop item
+
+                new ARCReplacement(
+                    "49C",
+                    "FF3CFFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Castle_Town_Shops,
+                    0
+                ), // Add flag to CT Red Potion */
+
+                .. ModifyChestAppearanceARC(),
+            ];
             return listOfStaticReplacements;
         }
 

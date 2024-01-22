@@ -132,7 +132,7 @@ namespace TPRandomizer.Assets
             },
              new MessageEntry
             {
-                stageIDX = 68,
+                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
                 roomIDX = 3,
                 messageID = 0x30E, // Hylian Shield Check
                 message =
@@ -145,7 +145,7 @@ namespace TPRandomizer.Assets
             },
              new MessageEntry
             {
-                stageIDX = 68,
+                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
                 roomIDX = 3,
                 messageID = 0x2CB, // Hylian Shield Confirmation
                 message =
@@ -154,7 +154,7 @@ namespace TPRandomizer.Assets
             },
             new MessageEntry
             {
-                stageIDX = 68,
+                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
                 roomIDX = 3,
                 messageID = 0x307, // Hawkeye Display
                 message =
@@ -167,7 +167,7 @@ namespace TPRandomizer.Assets
             },
             new MessageEntry
             {
-                stageIDX = 68,
+                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
                 roomIDX = 3,
                 messageID = 0x2D2, // Hawkeye Confirmation
                 message =

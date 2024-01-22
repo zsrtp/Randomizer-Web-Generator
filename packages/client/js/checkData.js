@@ -1165,6 +1165,14 @@ window.tpr.checkData = {
     category: ['Overworld', 'Kakariko Village', 'ARC', 'Shop'],
     itemId: 'Hylian_Shield',
   },
+  'Kakariko Village Malo Mart Red Potion': {
+    category: ['Overworld', 'Kakariko Village', 'ARC', 'Shop'],
+    itemId: 'Red_Potion',
+  },
+  'Kakariko Village Malo Mart Wooden Shield': {
+    category: ['Overworld', 'Kakariko Village', 'ARC', 'Shop'],
+    itemId: 'Wooden_Shield',
+  },
   'Kakariko Village Watchtower Poe': {
     category: ['Overworld', 'Poe', 'Kakariko Village'],
     itemId: 'Poe_Soul',
@@ -1510,6 +1518,10 @@ window.tpr.checkData = {
   'Lost Woods Waterfall Poe': {
     category: ['Overworld', 'Poe', 'Sacred Grove'],
     itemId: 'Poe_Soul',
+  },
+  'Mirror Chamber Mirror Shard': {
+    category: ['Dungeon', 'Arbiters Grounds', 'Dungeon Reward', 'DZX'],
+    itemId: 'Progressive_Mirror_Shard',
   },
   'North Castle Town Golden Wolf': {
     category: ['Overworld', 'Hidden Skill', 'Castle Town', 'ARC'],
