@@ -210,11 +210,11 @@
         },
         {
           "ConnectedArea": "Castle Town Doctors Office Left Door",
-          "Requirements": "true" // not sure
+          "Requirements": "true" 
         },
         {
           "ConnectedArea": "Castle Town Doctors Office Right Door",
-          "Requirements": "true" // not sure
+          "Requirements": "true" 
         }
       ],
       "Checks": [""],

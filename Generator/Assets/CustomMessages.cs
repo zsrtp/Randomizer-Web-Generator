@@ -174,6 +174,15 @@ namespace TPRandomizer.Assets
                     "Are you sure?"
                     + shopOption
             },
+
+            new MessageEntry
+            {
+                stageIDX = 0xFF,
+                roomIDX = 0xFF,
+                messageID = 0x1369, // Hint Message
+                message =
+                    "This is a test hint"
+            },
         };
 
         private static string getShortenedItemName(Item item)

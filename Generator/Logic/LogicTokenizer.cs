@@ -106,6 +106,10 @@ namespace TPRandomizer
                     throw new Exception(
                         "Expecting Closing Parenthesis but got: "
                             + Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key
+                            + ": "
+                            + Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value
+                            + " at index: "
+                            + tokenValue
                     );
                 }
 

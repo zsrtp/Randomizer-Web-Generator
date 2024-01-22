@@ -335,11 +335,11 @@ namespace TPRandomizer
                 );
                 if (err != EntranceShuffleError.NONE)
                 {
-                    Console.WriteLine(
+                    EntranceShuffleErrorCheck(err);
+                    throw new Exception(
                         "Encountered an error when shuffling the following pool type: "
                             + entrancePool.Key
                     );
-                    EntranceShuffleErrorCheck(err);
                 }
             }
 
@@ -348,11 +348,12 @@ namespace TPRandomizer
 
             // Validate the world one last time to ensure that everything went okay
             err = ValidateWorld();
-            if (err == EntranceShuffleError.NONE)
+            if (err != EntranceShuffleError.NONE)
             {
-                Console.WriteLine("World validated");
+                EntranceShuffleErrorCheck(err);
+                throw new Exception("World not validated!");
             }
-            EntranceShuffleErrorCheck(err);
+            Console.WriteLine("World validated");
         }
 
         public static void DeserializeSpawnTable()

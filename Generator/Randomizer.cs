@@ -151,7 +151,17 @@ namespace TPRandomizer
 
                 // Once we have placed all vanilla checks, we want to give the player all of the items they should be searching for and then generate the world based on the room class values and their neighbour values.
                 SetupGraph();
-                Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
+                try
+                {
+                    Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Randomizer.Rooms.RoomDict.Clear();
+                    DeserializeRooms(SSettings);
+                    continue;
+                }
                 try
                 {
                     // Place the items in the world based on the starting room.
@@ -196,6 +206,11 @@ namespace TPRandomizer
                 List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(
                     Randomizer.Rooms.RoomDict["Root"]
                 );
+
+                if (spheres == null)
+                {
+                    throw new Exception("Error! Playthrough not valid.");
+                }
 
                 string jsonContent = GenerateInputJsonContent(
                     settingsString,

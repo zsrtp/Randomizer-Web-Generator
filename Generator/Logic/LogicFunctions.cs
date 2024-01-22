@@ -1759,8 +1759,45 @@ namespace TPRandomizer
                 (
                     canCompleteForestTemple()
                     || (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Open)
-                ) && canCompletePrologue()
+                )
+                && canCompletePrologue()
+                && CanCompleteFaronTwilight()
             );
+        }
+
+        /// <summary>
+        /// Can complete Faron twilight
+        /// </summary>
+        public static bool CanCompleteFaronTwilight()
+        {
+            return Randomizer.SSettings.faronTwilightCleared
+                || (
+                    canCompletePrologue()
+                    && Randomizer.Rooms.RoomDict["South Faron Woods"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict[
+                        "Faron Woods Coros House Lower"
+                    ].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict[
+                        "Mist Area Near Faron Woods Cave"
+                    ].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["North Faron Woods"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Ordon Sword House"].ReachedByPlaythrough
+                    && (
+                        Randomizer.Rooms.RoomDict["Ordon Shield House"].ReachedByPlaythrough
+                        && (
+                            !Randomizer.SSettings.bonksDoDamage
+                            || (
+                                Randomizer.SSettings.bonksDoDamage
+                                && (
+                                    (
+                                        Randomizer.SSettings.damageMagnification
+                                        != DamageMagnification.OHKO
+                                    ) || CanUseBottledFairies()
+                                )
+                            )
+                        )
+                    )
+                );
         }
 
         /// <summary>
