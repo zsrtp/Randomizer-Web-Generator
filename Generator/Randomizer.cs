@@ -1144,6 +1144,19 @@ namespace TPRandomizer
                                                         availableChecks.Add(currentCheck.checkName);
                                                     }
                                                 }
+                                                else if (Randomizer.SSettings.noSmallKeysOnBosses)
+                                                {
+                                                    if (
+                                                        !ItemFunctions.IsSmallKeyOnBossCheck(
+                                                            itemToPlace,
+                                                            currentCheck
+                                                        )
+                                                    )
+                                                    {
+                                                        // Console.WriteLine("Added " + currentCheck.checkName + " to check list.");
+                                                        availableChecks.Add(currentCheck.checkName);
+                                                    }
+                                                }
                                                 else
                                                 {
                                                     // Console.WriteLine("Added " + currentCheck.checkName + " to check list.");

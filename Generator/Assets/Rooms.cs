@@ -148,10 +148,7 @@ namespace TPRandomizer
             {
                 if (
                     Randomizer.SSettings.noSmallKeysOnBosses
-                    && (
-                        currentCheck.category.Contains("Heart Container")
-                        || currentCheck.category.Contains("Dungeon Reward")
-                    )
+                    && ItemFunctions.IsSmallKeyOnBossCheck(itemToPlace, currentCheck)
                 )
                 {
                     return false;

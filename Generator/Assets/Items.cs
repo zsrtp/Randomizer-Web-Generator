@@ -1091,5 +1091,14 @@ namespace TPRandomizer
                 this.RandomizedImportantItems.Add(bug);
             }
         }
+
+        public static bool IsSmallKeyOnBossCheck(Item item, Check currentCheck)
+        {
+            return Randomizer.Items.RegionSmallKeys.Contains(item)
+                && (
+                    currentCheck.category.Contains("Heart Container")
+                    || currentCheck.category.Contains("Dungeon Reward")
+                );
+        }
     }
 }
