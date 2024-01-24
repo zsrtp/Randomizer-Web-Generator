@@ -147,6 +147,17 @@ namespace TPRandomizer
             if (Randomizer.Items.RegionSmallKeys.Contains(itemToPlace))
             {
                 if (
+                    Randomizer.SSettings.noSmallKeysOnBosses
+                    && (
+                        currentCheck.category.Contains("Heart Container")
+                        || currentCheck.category.Contains("Dungeon Reward")
+                    )
+                )
+                {
+                    return false;
+                }
+
+                if (
                     (parseSetting.smallKeySettings == SmallKeySettings.Own_Dungeon)
                     && itemName.Contains(currentRoom.Region)
                 )
