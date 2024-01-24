@@ -1092,12 +1092,12 @@ namespace TPRandomizer
             }
         }
 
-        public static bool IsSmallKeyOnBossCheck(Item item, Check currentCheck)
+        public static bool IsSmallKeyOnBossCheck(Item item, Check check)
         {
             return Randomizer.Items.RegionSmallKeys.Contains(item)
                 && (
-                    currentCheck.category.Contains("Heart Container")
-                    || currentCheck.category.Contains("Dungeon Reward")
+                    check.category.Contains("Heart Container")
+                    || check.category.Contains("Dungeon Reward")
                 );
         }
     }
