@@ -204,6 +204,18 @@
         }
       });
 
+    $('#baseImportantItemsListbox')
+      .find('input[type="range"]')
+      .each(function () {
+        const val = parseInt(this.value, 10);
+        if (!Number.isNaN(val)) {
+          const itemId = parseInt($(this).attr('data-itemId'), 10);
+          for (let i = 0; i < val; i++) {
+            bits += numToPaddedBits(itemId, 9);
+          }
+        }
+      });
+
     bits += '111111111';
 
     return {
@@ -718,12 +730,10 @@
         vanilla: 0,
         overworld: 1,
         dungeons: 2,
-        all: 3
+        all: 3,
       };
       const shufflePoes = processor.nextBoolean();
-      res.poes = shufflePoes
-        ? poeSettings.all
-        : poeSettings.vanilla;
+      res.poes = shufflePoes ? poeSettings.all : poeSettings.vanilla;
     }
     processBasic({ id: 'shopItems' });
     processBasic({ id: 'hiddenSkills' });

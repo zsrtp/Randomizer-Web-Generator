@@ -344,10 +344,16 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [62, 'Hawkeye'],
         [249, 'Goron Mines Key Shard'],
         [249, 'Goron Mines Key Shard'],
+        [249, 'Goron Mines Key Shard'],
+        [0xe0, 'Poe Soul', 60],
       ];
 
       const startingItemsEls = startingItems.map((item) => {
-        return `<li><label><input type='checkbox' data-itemId='${item[0]}'>${item[1]}</label> </li>`;
+        if (item.length < 3) {
+          return `<li><label><input type='checkbox' data-itemId='${item[0]}'>${item[1]}</label> </li>`;
+        } else {
+          return `<li class="liSlider"><label><div>${item[1]}</div><div class="liSlider-inputRow"><input type='range' value='0' min='0' max='${item[2]}' data-itemId='${item[0]}'><span class="liSlider-inputRowText"></span></div></label></li>`;
+        }
       });
 
       msg = msg.replace('<!-- STARTING_ITEMS -->', startingItemsEls.join('\n'));

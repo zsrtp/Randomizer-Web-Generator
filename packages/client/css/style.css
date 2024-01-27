@@ -1704,3 +1704,16 @@ header .navbar ul li:hover > ul {
 tr td select {
   width: 100%;
 }
+
+.liSlider {
+  margin-top: 2px;
+}
+
+.liSlider-inputRow {
+  display: flex;
+  align-items: center;
+}
+
+.liSlider-inputRowText {
+  margin-left: 4px;
+}

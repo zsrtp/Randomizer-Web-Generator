@@ -119,7 +119,12 @@ function onDomContentLoaded() {
 
   initTabButtons();
 
+  // Set default settings string in UI.
   setSettingsString();
+  // If returning back from the seed page, the browser will fill in the state.
+  // This updates the string after the browser updates all of the fields to
+  // their previous values.
+  window.addEventListener('load', setSettingsString, { once: true });
 
   initSettingsModal();
   initGeneratingModal();
@@ -200,19 +205,37 @@ for (
     .getElementsByTagName('input')
     [j].addEventListener('click', setSettingsString);
 }
-for (
-  var j = 0;
-  j <
-  document
-    .getElementById('baseImportantItemsListbox')
-    .getElementsByTagName('input').length;
-  j++
-) {
-  document
-    .getElementById('baseImportantItemsListbox')
-    .getElementsByTagName('input')
-    [j].addEventListener('click', setSettingsString);
-}
+
+// Starting item checkboxes
+$('#baseImportantItemsListbox input[type="checkbox"]').each(function () {
+  this.addEventListener('click', setSettingsString);
+});
+
+// Starting item sliders
+$('#baseImportantItemsListbox .liSlider').each(function () {
+  const inputEl = this.querySelector('input');
+  const textEl = this.querySelector('.liSlider-inputRowText');
+
+  // Handles page load and when returning from next page.
+  window.addEventListener(
+    'load',
+    () => {
+      textEl.textContent = inputEl.value;
+    },
+    { once: true }
+  );
+
+  // Every change
+  inputEl.addEventListener('input', (e) => {
+    textEl.textContent = e.target.value;
+  });
+
+  // User releases mouse (or is using keyboard)
+  inputEl.addEventListener('change', (e) => {
+    textEl.textContent = e.target.value;
+    setSettingsString();
+  });
+});
 
 var settingsLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ23456789';
 document.getElementById('logicRulesFieldset').onchange = setSettingsString;
@@ -349,7 +372,9 @@ function setSettingsString() {
     'mapAndCompassFieldset'
   ).selectedIndex;
   settingsStringRaw[9] = document.getElementById('goldenBugsCheckbox').checked;
-  settingsStringRaw[10] = document.getElementById('poeSettingsFieldset').selectedIndex;
+  settingsStringRaw[10] = document.getElementById(
+    'poeSettingsFieldset'
+  ).selectedIndex;
   settingsStringRaw[11] = document.getElementById(
     'giftsFromNPCsCheckbox'
   ).checked;
@@ -1182,11 +1207,21 @@ function populateSSettings(s) {
       const count = byId[id];
 
       const checkboxes = $startingItemsParent.find(
-        `input[data-itemid="${id}"]`
+        `input[type="checkbox"][data-itemid="${id}"]`
       );
 
       for (let i = 0; i < count && i < checkboxes.length; i++) {
         checkboxes[i].checked = true;
+      }
+
+      const inputRanges = $startingItemsParent.find(
+        `input[type="range"][data-itemid="${id}"]`
+      );
+
+      for (let i = 0; i < inputRanges.length; i++) {
+        const inputRange = inputRanges[i];
+        inputRange.value = count;
+        inputRange.dispatchEvent(new Event('input', { bubbles: true }));
       }
     });
   }
