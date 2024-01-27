@@ -39,8 +39,16 @@
               >Generator <i class="fa fa-caret-down"></i
             ></a>
             <ul>
-              <li><a href="https://generator.tprandomizer.com">Stable <sup>1.0</sup></a></li>
-              <li><a href="http://rando.dimensionalsoftworks.net:60001">Development <sup>1.0</sup></a></li>
+              <li>
+                <a href="https://generator.tprandomizer.com"
+                  >Stable <sup>1.0</sup></a
+                >
+              </li>
+              <li>
+                <a href="http://rando.dimensionalsoftworks.net:60001"
+                  >Development <sup>1.0</sup></a
+                >
+              </li>
             </ul>
           </li>
           <li><a href="https://wiki.tprandomizer.com">Wiki</a></li>
@@ -330,7 +338,9 @@
                   name="Shuffle Rewards"
                   value=""
                 />
-                <label for="shuffleRewardsCheckbox"> Dungeon Rewards Can Be Anywhere </label><br />
+                <label for="shuffleRewardsCheckbox">
+                  Dungeon Rewards Can Be Anywhere </label
+                ><br />
               </div>
             </fieldset>
           </div>
@@ -580,8 +590,19 @@
                   name="Bonks Do Damage Checkbox"
                   value=""
                 />
-                <label for="bonksDoDamageCheckbox"
-                  >Bonks Do Damage</label
+                <label for="bonksDoDamageCheckbox">Bonks Do Damage</label><br />
+              </div>
+              <div
+                data-tooltip-text="If checked, the following items will not appear on Heart Container or Dungeon Reward checks:&#0010;&#0010;Dungeon small keys, Snowpeak Ruins Ordon Pumpkin, Snowpeak Ruins Ordon Goat Cheese, Gerudo Desert Bulblin Camp Key, and North Faron Woods Gate Key&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="noSmallKeysOnBossesCheckbox"
+                  name="No Small Keys On Bosses Checkbox"
+                  value=""
+                />
+                <label for="noSmallKeysOnBossesCheckbox"
+                  >No Small Keys On Bosses</label
                 ><br />
               </div>
               <div class="selectGroup" style="margin-top: 8px">
@@ -605,11 +626,11 @@
                   id="damageMagFieldset"
                   data-tooltip-text="'Vanilla': Link takes normal damage.&#0010;&#0010;'Double': Link will take 2x damage.&#0010;&#0010;'Triple': Link will take 3x damage.&#0010;&#0010;'Quadruple': Link will take 4x damage.&#0010;&#0010;'OHKO (One-Hit KO)': Any damage taken will kill Link.&#0010;"
                 >
-                <option value="1">Vanilla</option>
-                <option value="2">Double</option>
-                <option value="3">Triple</option>
-                <option value="4">Quadruple</option>
-                <option value="5">OHKO</option>
+                  <option value="1">Vanilla</option>
+                  <option value="2">Double</option>
+                  <option value="3">Triple</option>
+                  <option value="4">Quadruple</option>
+                  <option value="5">OHKO</option>
                 </select>
               </div>
             </fieldset>

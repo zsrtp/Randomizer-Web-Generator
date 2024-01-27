@@ -381,6 +381,7 @@
       { id: 'bonksDoDamageCheckbox' },
       { id: 'shuffleRewardsCheckbox' },
       { id: 'skipMajorCutscenesCheckbox' },
+      { id: 'noSmallKeysOnBossesCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -718,12 +719,10 @@
         vanilla: 0,
         overworld: 1,
         dungeons: 2,
-        all: 3
+        all: 3,
       };
       const shufflePoes = processor.nextBoolean();
-      res.poes = shufflePoes
-        ? poeSettings.all
-        : poeSettings.vanilla;
+      res.poes = shufflePoes ? poeSettings.all : poeSettings.vanilla;
     }
     processBasic({ id: 'shopItems' });
     processBasic({ id: 'hiddenSkills' });
@@ -796,8 +795,10 @@
     }
     if (version >= 5) {
       processBasic({ id: 'skipMajorCutscenes' });
+      processBasic({ id: 'noSmallKeysOnBosses' });
     } else {
       res.skipMajorCutscenes = 1; // Vanilla
+      res.noSmallKeysOnBosses = false;
     }
 
     res.startingItems = processor.nextEolList(9);
