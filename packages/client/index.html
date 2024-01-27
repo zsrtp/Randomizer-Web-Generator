@@ -39,8 +39,16 @@
               >Generator <i class="fa fa-caret-down"></i
             ></a>
             <ul>
-              <li><a href="https://generator.tprandomizer.com">Stable <sup>1.0</sup></a></li>
-              <li><a href="http://rando.dimensionalsoftworks.net:60001">Development <sup>1.0</sup></a></li>
+              <li>
+                <a href="https://generator.tprandomizer.com"
+                  >Stable <sup>1.0</sup></a
+                >
+              </li>
+              <li>
+                <a href="http://rando.dimensionalsoftworks.net:60001"
+                  >Development <sup>1.0</sup></a
+                >
+              </li>
             </ul>
           </li>
           <li><a href="https://wiki.tprandomizer.com">Wiki</a></li>
@@ -330,7 +338,9 @@
                   name="Shuffle Rewards"
                   value=""
                 />
-                <label for="shuffleRewardsCheckbox"> Dungeon Rewards Can Be Anywhere </label><br />
+                <label for="shuffleRewardsCheckbox">
+                  Dungeon Rewards Can Be Anywhere </label
+                ><br />
               </div>
             </fieldset>
           </div>
@@ -580,9 +590,7 @@
                   name="Bonks Do Damage Checkbox"
                   value=""
                 />
-                <label for="bonksDoDamageCheckbox"
-                  >Bonks Do Damage</label
-                ><br />
+                <label for="bonksDoDamageCheckbox">Bonks Do Damage</label><br />
               </div>
               <div class="selectGroup" style="margin-top: 8px">
                 <label for="trapItemFieldset">Trap Item Frequency</label><br />
@@ -605,11 +613,11 @@
                   id="damageMagFieldset"
                   data-tooltip-text="'Vanilla': Link takes normal damage.&#0010;&#0010;'Double': Link will take 2x damage.&#0010;&#0010;'Triple': Link will take 3x damage.&#0010;&#0010;'Quadruple': Link will take 4x damage.&#0010;&#0010;'OHKO (One-Hit KO)': Any damage taken will kill Link.&#0010;"
                 >
-                <option value="1">Vanilla</option>
-                <option value="2">Double</option>
-                <option value="3">Triple</option>
-                <option value="4">Quadruple</option>
-                <option value="5">OHKO</option>
+                  <option value="1">Vanilla</option>
+                  <option value="2">Double</option>
+                  <option value="3">Triple</option>
+                  <option value="4">Quadruple</option>
+                  <option value="5">OHKO</option>
                 </select>
               </div>
             </fieldset>
@@ -803,14 +811,8 @@
         </div>
         <br />
 
-        <div style="display: flex; align-items: flex-end">
-          <div class="labelValueGroup">
-            <div class="settingsStringLabel">Settings String</div>
-            <span
-              id="combinedSettingsString"
-              class="settingsStringValue"
-            ></span>
-          </div>
+        <div class="settingsStringLabel">Settings String</div>
+        <div style="display: flex; align-items: center; min-width: 0">
           <button
             id="editSettingsBtn"
             class="settingsEditBtnPos css-1egpgfe"
@@ -829,6 +831,7 @@
               ></path>
             </svg>
           </button>
+          <span id="combinedSettingsString" class="settingsStringValue"></span>
         </div>
 
         <!-- <div>SSettings (display only):</div>
