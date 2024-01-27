@@ -340,6 +340,9 @@ document
   .getElementById('bonksDoDamageCheckbox')
   .addEventListener('click', setSettingsString);
 document
+  .getElementById('noSmallKeysOnBossesCheckbox')
+  .addEventListener('click', setSettingsString);
+document
   .getElementById('shuffleRewardsCheckbox')
   .addEventListener('click', setSettingsString);
 document
@@ -1186,6 +1189,7 @@ function populateSSettings(s) {
   $('#openMapCheckbox').prop('checked', s.openMap);
   $('#spinnerSpeedCheckbox').prop('checked', s.increaseSpinnerSpeed);
   $('#openDotCheckbox').prop('checked', s.openDot);
+  $('#noSmallKeysOnBossesCheckbox').prop('checked', s.noSmallKeysOnBosses);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {

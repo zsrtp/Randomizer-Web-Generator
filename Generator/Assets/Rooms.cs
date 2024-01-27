@@ -147,6 +147,14 @@ namespace TPRandomizer
             if (Randomizer.Items.RegionSmallKeys.Contains(itemToPlace))
             {
                 if (
+                    Randomizer.SSettings.noSmallKeysOnBosses
+                    && ItemFunctions.IsSmallKeyOnBossCheck(itemToPlace, currentCheck)
+                )
+                {
+                    return false;
+                }
+
+                if (
                     (parseSetting.smallKeySettings == SmallKeySettings.Own_Dungeon)
                     && itemName.Contains(currentRoom.Region)
                 )

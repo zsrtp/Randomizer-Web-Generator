@@ -1076,6 +1076,7 @@ namespace TPRandomizer
             }
         }
 
+
         private int SetupItemPoolPoes(SharedSettings parseSetting)
         {
             int vanillaPoes = 60;
@@ -1118,6 +1119,15 @@ namespace TPRandomizer
             // from the BaseItemPool when they are placed. Starting Poes are
             // added automatically in Randomizer.cs, so they are not added here.
             return vanillaPoes + poesToShuffle;
+
+        public static bool IsSmallKeyOnBossCheck(Item item, Check check)
+        {
+            return Randomizer.Items.RegionSmallKeys.Contains(item)
+                && (
+                    check.category.Contains("Heart Container")
+                    || check.category.Contains("Dungeon Reward")
+                );
+
         }
     }
 }

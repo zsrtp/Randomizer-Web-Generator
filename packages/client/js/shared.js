@@ -393,6 +393,7 @@
       { id: 'bonksDoDamageCheckbox' },
       { id: 'shuffleRewardsCheckbox' },
       { id: 'skipMajorCutscenesCheckbox' },
+      { id: 'noSmallKeysOnBossesCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -806,8 +807,10 @@
     }
     if (version >= 5) {
       processBasic({ id: 'skipMajorCutscenes' });
+      processBasic({ id: 'noSmallKeysOnBosses' });
     } else {
       res.skipMajorCutscenes = 1; // Vanilla
+      res.noSmallKeysOnBosses = false;
     }
 
     res.startingItems = processor.nextEolList(9);
