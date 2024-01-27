@@ -368,6 +368,7 @@ ul {
 
 .settingsStringValue {
   padding: 4px 0;
+  overflow-wrap: anywhere;
 }
 
 .primaryButton {
@@ -520,7 +521,7 @@ ul {
   /* position: absolute;
   top: 50%;
   left: 100%; */
-  margin-left: 8px;
+  margin-right: 8px;
 }
 
 /* Temp basic modal start */
@@ -1703,4 +1704,18 @@ header .navbar ul li:hover > ul {
 
 tr td select {
   width: 100%;
+}
+
+.liSlider {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.liSlider-inputRow {
+  display: flex;
+  align-items: center;
+}
+
+.liSlider-inputRowText {
+  margin-left: 4px;
 }

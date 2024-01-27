@@ -764,26 +764,8 @@ namespace TPRandomizer
             Randomizer.Items.RandomizedImportantItems.AddRange(this.ImportantItems);
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);
 
-            switch (parseSetting.shufflePoes)
-            {
-                case PoeSettings.Overworld:
-                {
-                    this.RandomizedImportantItems.AddRange(Enumerable.Repeat(Item.Poe_Soul, 49));
-                    break;
-                }
-
-                case PoeSettings.Dungeons:
-                {
-                    this.RandomizedImportantItems.AddRange(Enumerable.Repeat(Item.Poe_Soul, 11));
-                    break;
-                }
-
-                case PoeSettings.All:
-                {
-                    this.RandomizedImportantItems.AddRange(Enumerable.Repeat(Item.Poe_Soul, 60));
-                    break;
-                }
-            }
+            // Handle poes
+            int numPoesForBaseItemPool = SetupItemPoolPoes(parseSetting);
 
             if (parseSetting.shuffleGoldenBugs)
             {
@@ -1031,6 +1013,8 @@ namespace TPRandomizer
             Randomizer.Items.BaseItemPool.AddRange(this.ShuffledDungeonRewards);
             Randomizer.Items.BaseItemPool.AddRange(this.RandomizedImportantItems);
             Randomizer.Items.BaseItemPool.AddRange(this.RandomizedDungeonRegionItems);
+            // Adjust Poe souls for BaseItemPool to match calculated value
+            updateItemToCount(Randomizer.Items.BaseItemPool, Item.Poe_Soul, numPoesForBaseItemPool);
             return;
         }
 
@@ -1092,6 +1076,50 @@ namespace TPRandomizer
             }
         }
 
+
+        private int SetupItemPoolPoes(SharedSettings parseSetting)
+        {
+            int vanillaPoes = 60;
+            switch (parseSetting.shufflePoes)
+            {
+                case PoeSettings.Overworld:
+                    vanillaPoes -= 49;
+                    break;
+                case PoeSettings.Dungeons:
+                    vanillaPoes -= 11;
+                    break;
+                case PoeSettings.All:
+                    vanillaPoes = 0;
+                    break;
+            }
+
+            int startingPoes = 0;
+            foreach (Item item in parseSetting.startingItems)
+            {
+                if (item == Item.Poe_Soul)
+                    startingPoes += 1;
+            }
+
+            int poesToShuffle = 60 - vanillaPoes - startingPoes;
+            if (poesToShuffle > 0)
+            {
+                // Add in startingPoes since GenerateItemPool automatically
+                // reduces by this amount.
+                this.RandomizedImportantItems.AddRange(
+                    Enumerable.Repeat(Item.Poe_Soul, poesToShuffle + startingPoes)
+                );
+            }
+            else
+            {
+                poesToShuffle = 0;
+            }
+
+            // Return how many Poes should be put in the BaseItemPool. We
+            // include extra souls for the vanilla Poes since they are removed
+            // from the BaseItemPool when they are placed. Starting Poes are
+            // added automatically in Randomizer.cs, so they are not added here.
+            return vanillaPoes + poesToShuffle;
+
         public static bool IsSmallKeyOnBossCheck(Item item, Check check)
         {
             return Randomizer.Items.RegionSmallKeys.Contains(item)
@@ -1099,6 +1127,7 @@ namespace TPRandomizer
                     check.category.Contains("Heart Container")
                     || check.category.Contains("Dungeon Reward")
                 );
+
         }
     }
 }

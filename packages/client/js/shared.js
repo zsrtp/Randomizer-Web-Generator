@@ -204,6 +204,18 @@
         }
       });
 
+    $('#baseImportantItemsListbox')
+      .find('input[type="range"]')
+      .each(function () {
+        const val = parseInt(this.value, 10);
+        if (!Number.isNaN(val)) {
+          const itemId = parseInt($(this).attr('data-itemId'), 10);
+          for (let i = 0; i < val; i++) {
+            bits += numToPaddedBits(itemId, 9);
+          }
+        }
+      });
+
     bits += '111111111';
 
     return {
