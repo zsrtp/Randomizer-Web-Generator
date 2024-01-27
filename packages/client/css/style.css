@@ -1706,7 +1706,8 @@ tr td select {
 }
 
 .liSlider {
-  margin-top: 2px;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 .liSlider-inputRow {
