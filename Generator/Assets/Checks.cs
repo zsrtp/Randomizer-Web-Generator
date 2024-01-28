@@ -33,7 +33,7 @@ namespace TPRandomizer
 
         public List<string[]> actrData { get; set; } // Used by DZX checks. The data structure that will replace the current loaded ACTR.
 
-        public string flag { get; set; } // Used by POE and SKILL checks. The flag to check to determine which check to replace.
+        public string flag { get; set; } // Used by POE, Event and SKILL checks. The flag to check to determine which check to replace.
 
         public List<byte> fileDirectoryType { get; set; } // Used by ARC checks. The type of file directory where the item is stored.
 
@@ -150,6 +150,7 @@ namespace TPRandomizer
             {
                 "Arbiters Grounds Big Key Chest",
                 "Arbiters Grounds Death Sword Chest",
+                "Arbiters Grounds Dungeon Reward",
                 "Arbiters Grounds East Lower Turnable Redead Chest",
                 "Arbiters Grounds East Turning Room Poe",
                 "Arbiters Grounds East Upper Turnable Chest",

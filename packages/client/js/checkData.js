@@ -169,7 +169,6 @@ window.tpr.checkData = {
       'Arbiters Grounds',
       'Dungeon',
       'Boss',
-      'Dungeon Reward',
     ],
     itemId: 'Heart_Container',
   },
@@ -1519,8 +1518,8 @@ window.tpr.checkData = {
     category: ['Overworld', 'Poe', 'Sacred Grove'],
     itemId: 'Poe_Soul',
   },
-  'Mirror Chamber Mirror Shard': {
-    category: ['Dungeon', 'Arbiters Grounds', 'Dungeon Reward', 'DZX'],
+  'Arbiters Grounds Dungeon Reward': {
+    category: ['Dungeon', 'Arbiters Grounds', 'Dungeon Reward', 'Event'],
     itemId: 'Progressive_Mirror_Shard',
   },
   'North Castle Town Golden Wolf': {

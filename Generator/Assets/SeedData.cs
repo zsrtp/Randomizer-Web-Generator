@@ -145,6 +145,7 @@ namespace TPRandomizer.Assets
             CheckDataRaw.AddRange(ParseBugRewards());
             CheckDataRaw.AddRange(ParseSkyCharacters());
             CheckDataRaw.AddRange(ParseShopItems());
+            CheckDataRaw.AddRange(ParseEventItems());
             CheckDataRaw.AddRange(ParseStartingItems());
             while (CheckDataRaw.Count % 0x10 != 0)
             {
@@ -899,6 +900,38 @@ namespace TPRandomizer.Assets
             return listOfShopItems;
         }
 
+        private List<byte> ParseEventItems()
+        {
+            List<byte> listOfEventItems = new();
+            ushort count = 0;
+            foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
+            {
+                Check currentCheck = checkList.Value;
+                if (currentCheck.category.Contains("Event"))
+                {
+                    
+                    listOfEventItems.Add(Converter.GcByte((byte)currentCheck.itemId));
+                    
+                    listOfEventItems.Add(Converter.GcByte((byte)currentCheck.stageIDX[0]));
+                    
+                    listOfEventItems.Add(Converter.GcByte((byte)currentCheck.roomIDX));
+                    listOfEventItems.Add(
+                        Converter.GcByte(
+                            byte.Parse(
+                                currentCheck.flag,
+                                System.Globalization.NumberStyles.HexNumber
+                            )
+                        )
+                    );
+                    count++;
+                }
+            }
+
+            SeedHeaderRaw.eventCheckInfoNumEntries = count;
+            SeedHeaderRaw.eventCheckInfoDataOffset = (ushort)(CheckDataRaw.Count);
+            return listOfEventItems;
+        }
+
         private List<byte> ParseStartingItems()
         {
             SharedSettings randomizerSettings = Randomizer.SSettings;
@@ -1525,6 +1558,8 @@ namespace TPRandomizer.Assets
             public UInt16 skyCharacterCheckInfoDataOffset { get; set; }
             public UInt16 shopCheckInfoNumEntries { get; set; }
             public UInt16 shopCheckInfoDataOffset { get; set; }
+            public UInt16 eventCheckInfoNumEntries { get; set; }
+            public UInt16 eventCheckInfoDataOffset { get; set; }
             public UInt16 startingItemInfoNumEntries { get; set; }
             public UInt16 startingItemInfoDataOffset { get; set; }
             public UInt16 shuffledEntranceInfoNumEntries { get; set; }

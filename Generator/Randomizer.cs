@@ -1307,8 +1307,7 @@ namespace TPRandomizer
             requiredDungeons forestTemple = new("Forest Temple Dungeon Reward", false, null);
             requiredDungeons goronMines = new("Goron Mines Dungeon Reward", false, null);
             requiredDungeons lakebedTemple = new("Lakebed Temple Dungeon Reward", false, null);
-            requiredDungeons arbitersGrounds =
-                new("Arbiters Grounds Stallord Heart Container", false, null);
+            requiredDungeons arbitersGrounds = new("Arbiters Grounds Dungeon Reward", false, null);
             requiredDungeons snowpeakRuins = new("Snowpeak Ruins Dungeon Reward", false, null);
             requiredDungeons templeOfTime = new("Temple of Time Dungeon Reward", false, null);
             requiredDungeons cityInTheSky = new("City in The Sky Dungeon Reward", false, null);
