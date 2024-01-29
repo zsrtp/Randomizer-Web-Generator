@@ -311,6 +311,7 @@ namespace TPRandomizer.Assets
             }
 
             seedHeader.Add(Converter.GcByte(randomizerSettings.bonksDoDamage ? 1 : 0));
+            seedHeader.Add(Converter.GcByte((int)randomizerSettings.startingToD));
 
             while (seedHeader.Count < (SeedHeaderSize))
             {
@@ -582,9 +583,10 @@ namespace TPRandomizer.Assets
                     // We will use the number of hashes to count DZX replacements per check for now.
                     for (int i = 0; i < currentCheck.hash.Count; i++)
                     {
-                        bool chestAppearanceMatchesContent = true;
+                        bool chestAppearanceMatchesContent = false;
                         if (chestAppearanceMatchesContent)
                         {
+                            // This is still in development
                             ModifyChestAppearanceDZX(currentCheck);
                         }
                         byte[] dataArray = new byte[32];
@@ -1344,7 +1346,7 @@ namespace TPRandomizer.Assets
                     0
                 ), // Add flag to CT Red Potion */
 
-                .. ModifyChestAppearanceARC(),
+                //.. ModifyChestAppearanceARC(), This is still in development
             ];
             return listOfStaticReplacements;
         }

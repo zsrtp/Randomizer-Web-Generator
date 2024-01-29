@@ -107,4 +107,12 @@ namespace TPRandomizer.SSettings.Enums
         Quadruple = 4,
         OHKO = 5,
     }
+
+    public enum StartingToD
+    {
+        Morning = 0,
+        Noon = 1,
+        Evening = 2,
+        Night = 3,
+    }
 }

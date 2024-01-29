@@ -394,6 +394,7 @@
       { id: 'shuffleRewardsCheckbox' },
       { id: 'skipMajorCutscenesCheckbox' },
       { id: 'noSmallKeysOnBossesCheckbox' },
+      { id: 'todFieldset', bitLength: 3 },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -808,9 +809,11 @@
     if (version >= 5) {
       processBasic({ id: 'skipMajorCutscenes' });
       processBasic({ id: 'noSmallKeysOnBosses' });
+      processBasic({ id: 'startingToD', bitLength: 3  });
     } else {
       res.skipMajorCutscenes = 1; // Vanilla
       res.noSmallKeysOnBosses = false;
+      res.startingToD = 1; // Noon, which the previous rando versions used.
     }
 
     res.startingItems = processor.nextEolList(9);

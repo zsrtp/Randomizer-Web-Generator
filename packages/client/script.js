@@ -273,6 +273,7 @@ document
   .addEventListener('click', setSettingsString);
 document.getElementById('itemScarcityFieldset').onchange = setSettingsString;
 document.getElementById('damageMagFieldset').onchange = setSettingsString;
+document.getElementById('todFieldset').onchange = setSettingsString;
 document.getElementById('trapItemFieldset').onchange = setSettingsString;
 document
   .getElementById('faronTwilightCheckbox')
@@ -1190,6 +1191,7 @@ function populateSSettings(s) {
   $('#spinnerSpeedCheckbox').prop('checked', s.increaseSpinnerSpeed);
   $('#openDotCheckbox').prop('checked', s.openDot);
   $('#noSmallKeysOnBossesCheckbox').prop('checked', s.noSmallKeysOnBosses);
+  $('#todFieldset').val(s.startingToD);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {

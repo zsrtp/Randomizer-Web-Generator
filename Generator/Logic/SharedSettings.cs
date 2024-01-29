@@ -56,6 +56,7 @@ namespace TPRandomizer
         public bool increaseSpinnerSpeed { get; set; }
         public bool openDot { get; set; }
         public bool noSmallKeysOnBosses { get; set; }
+        public StartingToD startingToD { get; set; }
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
 
@@ -107,6 +108,7 @@ namespace TPRandomizer
             shuffleRewards = processor.NextBool();
             skipMajorCutscenes = processor.NextBool();
             noSmallKeysOnBosses = processor.NextBool();
+            startingToD = (StartingToD)processor.NextInt(3);
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();
