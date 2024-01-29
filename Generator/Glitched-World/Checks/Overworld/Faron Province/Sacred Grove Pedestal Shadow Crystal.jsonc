@@ -1,0 +1,8 @@
+{
+    "requirements": "true",
+    "stageIDX": [54],
+    "roomIDX": 1,
+    "flag": "32",
+    "category": ["Overworld", "Sacred Grove", "Event"],
+    "itemId": "Shadow_Crystal"
+}

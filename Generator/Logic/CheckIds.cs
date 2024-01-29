@@ -501,7 +501,9 @@ namespace TPRandomizer
                 "Jovani 60 Poe Soul Reward",
                 "Kakariko Village Malo Mart Red Potion",
                 "Kakariko Village Malo Mart Wooden Shield",
-                "Arbiters Grounds Dungeon Reward"
+                "Arbiters Grounds Dungeon Reward",
+                "Sacred Grove Pedestal Master Sword",
+                "Sacred Grove Pedestal Shadow Crystal"
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.

@@ -1738,6 +1738,14 @@ window.tpr.checkData = {
     category: ['Overworld', 'Chest', 'Sacred Grove', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
+  'Sacred Grove Pedestal Master Sword': {
+    category: ['Overworld', 'Event', 'Sacred Grove'],
+    itemId: 'Master_Sword',
+  },
+  'Sacred Grove Pedestal Shadow Crystal': {
+    category: ['Overworld', 'Event', 'Sacred Grove'],
+    itemId: 'Shadow_Crystal',
+  },
   'Sacred Grove Spinner Chest': {
     category: ['Overworld', 'Chest', 'Sacred Grove', 'ARC'],
     itemId: 'Orange_Rupee',

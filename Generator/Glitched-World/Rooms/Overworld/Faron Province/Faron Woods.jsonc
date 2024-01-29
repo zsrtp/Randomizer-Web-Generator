@@ -363,9 +363,14 @@
       "Exits":
       [
         {
-          "ConnectedArea": "Lost Woods",
-          "Requirements": "true"
-        }
+        "ConnectedArea": "Lost Woods",
+        "Requirements": "true"
+      },
+      // You can save warp to North Faron Woods
+      {
+        "ConnectedArea": "North Faron Woods",
+        "Requirements": "true"
+      }
       ],
       "Checks": [""],
       "Region": "Faron Woods"
