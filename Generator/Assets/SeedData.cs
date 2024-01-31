@@ -31,7 +31,7 @@ namespace TPRandomizer.Assets
         public static readonly int ImageDataSize = 0x1400;
         private static readonly short SeedHeaderSize = 0x160;
         private static readonly byte BgmHeaderSize = 0xC;
-        private static short MessageHeaderSize = 0x4;
+        private static short MessageHeaderSize = 0xC;
 
         private SeedGenResults seedGenResults;
         public FileCreationSettings fcSettings { get; }
@@ -57,6 +57,7 @@ namespace TPRandomizer.Assets
 
         public byte[] GenerateSeedDataBytesInternal(GameRegion regionOverride)
         {
+            Assets.CustomMessages.MessageLanguage hintLanguage = Assets.CustomMessages.MessageLanguage.English;
             /*
             * General Note: offset sizes are handled as two bytes. Because of this,
             * any seed bigger than 7 blocks will not work with this method. The seed structure is as follows:
@@ -89,13 +90,33 @@ namespace TPRandomizer.Assets
             Dictionary<byte, List<CustomMessages.MessageEntry>> seedDictionary = new();
             TPRandomizer.Assets.CustomMessages customMessage = new();
 
+            
+            List<CustomMessages.MessageEntry> seedMessages = new();
+            List<CustomMessages.MessageEntry> seedShopMessages = new();
+            switch (hintLanguage)
+            {
+                case CustomMessages.MessageLanguage.English:
+                {
+                    seedMessages = customMessage.englishMessages;
+                    seedShopMessages = customMessage.englishShopMessages;
+                    break;
+                }
+
+                default:
+                {
+                    break;
+                }
+            }
+
             // We only modify the shop item text if the models are being replaced because we don't want to spoil it.
             if (Randomizer.SSettings.modifyShopModels)
             {
-                customMessage.englishMessages.AddRange(customMessage.englishShopMessages);
+                seedMessages = customMessage.englishMessages;
+                seedMessages.AddRange(seedShopMessages);
             }
+            seedDictionary.Add((byte)hintLanguage, seedMessages);
 
-            seedDictionary.Add(0, customMessage.englishMessages);
+            
 
             // If generating for all regions, we use the region passed in as an
             // argument rather than reading from fcSettings.
@@ -107,21 +128,15 @@ namespace TPRandomizer.Assets
             {
                 case GameRegion.USA:
                     region = 'E';
-                    CustomMessageHeaderRaw.totalLanguages = 1;
-                    seedDictionary = new() { { 0, customMessage.englishMessages }, };
                     break;
                 case GameRegion.EUR:
                 {
                     region = 'P';
-                    CustomMessageHeaderRaw.totalLanguages = 1;
-                    seedDictionary = new() { { 0, customMessage.englishMessages }, };
                     break;
                 }
                 case GameRegion.JAP:
                 {
                     region = 'J';
-                    CustomMessageHeaderRaw.totalLanguages = 1;
-                    seedDictionary = new() { { 0, customMessage.englishMessages }, };
                     break;
                 }
                 default:
@@ -172,21 +187,17 @@ namespace TPRandomizer.Assets
             currentBgmData.AddRange(SoundAssets.GenerateFanfareData(this));
 
             // Custom Message Info
-            CustomMessageHeaderRaw.entry = new CustomMessageTableInfo[
-                CustomMessageHeaderRaw.totalLanguages
-            ];
-            for (int i = 0; i < CustomMessageHeaderRaw.totalLanguages; i++)
-            {
-                CustomMessageHeaderRaw.entry[i] = new CustomMessageTableInfo();
+            
+                
                 currentMessageData.AddRange(
-                    ParseCustomMessageData(i, currentMessageData, seedDictionary)
+                    ParseCustomMessageData((int)hintLanguage, currentMessageData, seedDictionary)
                 );
                 while (currentMessageData.Count % 0x4 != 0)
                 {
                     currentMessageData.Add(Converter.GcByte(0x0));
                 }
-                currentMessageEntryInfo.AddRange(GenerateMessageTableInfo(i));
-            }
+                currentMessageEntryInfo.AddRange(GenerateMessageTableInfo((int)hintLanguage));
+            
 
             currentMessageHeader.AddRange(GenerateMessageHeader(currentMessageEntryInfo));
 
@@ -245,7 +256,7 @@ namespace TPRandomizer.Assets
             SeedHeaderRaw.versionMajor = VersionMajor;
             SeedHeaderRaw.versionMinor = VersionMinor;
             SeedHeaderRaw.customTextHeaderSize = (ushort)MessageHeaderSize;
-            SeedHeaderRaw.customTextHeaderOffset = (ushort)(CheckDataRaw.Count + 0xC);
+            SeedHeaderRaw.customTextHeaderOffset = (ushort)(CheckDataRaw.Count + MessageHeaderSize);
             SeedHeaderRaw.requiredDungeons = (uint)seedGenResults.requiredDungeons;
             PropertyInfo[] seedHeaderProperties = SeedHeaderRaw.GetType().GetProperties();
             foreach (PropertyInfo headerObject in seedHeaderProperties)
@@ -1359,11 +1370,8 @@ namespace TPRandomizer.Assets
         {
             List<byte> listOfCustomMsgIDs = new();
             ushort count = 0;
-            CustomMessageHeaderRaw.entry[currentLanguage].language = seedDictionary
-                .ElementAt(currentLanguage)
-                .Key;
-            CustomMessageHeaderRaw.entry[currentLanguage].msgIdTableOffset = (ushort)(
-                (0x10 * (CustomMessageHeaderRaw.totalLanguages - currentLanguage))
+            CustomMessageHeaderRaw.msgIdTableOffset = (ushort)(
+                MessageHeaderSize
                 + currentMessageData.Count
             );
             foreach (
@@ -1377,7 +1385,7 @@ namespace TPRandomizer.Assets
                 listOfCustomMsgIDs.AddRange(Converter.GcBytes((UInt16)messageEntry.messageID));
                 count++;
             }
-            CustomMessageHeaderRaw.entry[currentLanguage].totalEntries = count;
+            CustomMessageHeaderRaw.totalEntries = count;
             return listOfCustomMsgIDs;
         }
 
@@ -1407,7 +1415,7 @@ namespace TPRandomizer.Assets
                 listOfCustomMessages.AddRange(Converter.MessageStringBytes(messageEntry.message));
                 listOfCustomMessages.Add(Converter.GcByte(0x0));
             }
-            CustomMessageHeaderRaw.entry[currentLanguage].msgTableSize = (ushort)(
+            CustomMessageHeaderRaw.msgTableSize = (ushort)(
                 listOfCustomMessages.Count
             );
 
@@ -1420,13 +1428,8 @@ namespace TPRandomizer.Assets
         private static List<byte> GenerateMessageHeader(List<byte> messageTableInfo)
         {
             List<byte> messageHeader = new();
-            CustomMessageHeaderRaw.padding = 0x0;
-            messageHeader.AddRange(Converter.GcBytes((UInt16)(0x4 + messageTableInfo.Count))); // header size
-            messageHeader.Add(Converter.GcByte(CustomMessageHeaderRaw.totalLanguages));
-            messageHeader.Add(Converter.GcByte(0x0)); // padding
+            messageHeader.AddRange(Converter.GcBytes((UInt16)(messageTableInfo.Count))); 
             messageHeader.AddRange(messageTableInfo);
-
-            MessageHeaderSize = (short)messageHeader.Count;
 
             return messageHeader;
         }
@@ -1434,23 +1437,19 @@ namespace TPRandomizer.Assets
         private static List<byte> GenerateMessageTableInfo(int currentLanguage)
         {
             List<byte> messageTableInfo = new();
-            messageTableInfo.Add(
-                Converter.GcByte(CustomMessageHeaderRaw.entry[currentLanguage].language)
-            );
-            messageTableInfo.Add(Converter.GcByte(0x0)); // padding
             messageTableInfo.AddRange(
                 Converter.GcBytes(
-                    (UInt16)CustomMessageHeaderRaw.entry[currentLanguage].totalEntries
+                    (UInt16)CustomMessageHeaderRaw.totalEntries
                 )
             );
             messageTableInfo.AddRange(
                 Converter.GcBytes(
-                    (UInt32)CustomMessageHeaderRaw.entry[currentLanguage].msgTableSize
+                    (UInt32)CustomMessageHeaderRaw.msgTableSize
                 )
             );
             messageTableInfo.AddRange(
                 Converter.GcBytes(
-                    (UInt32)CustomMessageHeaderRaw.entry[currentLanguage].msgIdTableOffset
+                    (UInt32)CustomMessageHeaderRaw.msgIdTableOffset
                 )
             );
 
@@ -1575,15 +1574,6 @@ namespace TPRandomizer.Assets
         internal class CustomTextHeader
         {
             public UInt16 headerSize { get; set; }
-            public byte totalLanguages { get; set; }
-            public byte padding { get; set; }
-            public CustomMessageTableInfo[] entry { get; set; }
-        }
-
-        internal class CustomMessageTableInfo
-        {
-            public byte language { get; set; }
-            public byte padding { get; set; }
             public UInt16 totalEntries { get; set; }
             public UInt32 msgTableSize { get; set; }
             public UInt32 msgIdTableOffset { get; set; }

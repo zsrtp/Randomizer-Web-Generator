@@ -341,5 +341,15 @@ namespace TPRandomizer.Assets
         * string test = "Vous obtenez une petite clé! Elle peut être utilisée au Château d'Hyrule.";
         * test = Regex.Replace(test, @"(?<=\G.{30})", "\r\n");
         */
+
+        public enum MessageLanguage
+        {
+            English = 0,
+            French = 1,
+            Spanish,
+            Italian,
+            German,
+            Japanese
+        };
     }
 }
