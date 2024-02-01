@@ -7,7 +7,7 @@
             "SourceRoom": "Outside Links House",
             "TargetRoom": "Ordon Village",
             "Stage": 43,
-            "Room": 1,
+            "Room": 0,
             "Spawn": "01",
             "SpawnType": "00",
             "Parameters": "F01F"
