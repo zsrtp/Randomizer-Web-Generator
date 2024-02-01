@@ -2754,7 +2754,7 @@
         }
     },
     {
-        "Type": "Dungeons",
+        "Type": "Dungeon",
         "SourceRoomSpawn":
         {
             "SourceRoom": "Mirror Chamber",
