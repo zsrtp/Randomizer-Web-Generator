@@ -1340,6 +1340,29 @@
         "SourceRoomSpawn":
         {
             "SourceRoom": "Lower Kakariko Village",
+            "TargetRoom": "Kakariko Bug House Ceiling Hole",
+            "Stage": 68,
+            "Room": 6,
+            "Spawn": "00",
+            "SpawnType": "00",
+            "Parameters": "F03F"
+        },
+        "TargetRoomSpawn":
+        {
+            "SourceRoom": "Kakariko Bug House Ceiling Hole",
+            "TargetRoom": "Lower Kakariko Village",
+            "Stage": 68,
+            "Room": 0,
+            "Spawn": "04",
+            "SpawnType": "50",
+            "Parameters": "F01F"
+        }
+    },
+    {
+        "Type": "Interior",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Lower Kakariko Village",
             "TargetRoom": "Kakariko Barnes Bomb Shop Lower",
             "Stage": 68,
             "Room": 1,
@@ -1824,29 +1847,6 @@
             "Spawn": "01",
             "SpawnType": "50",
             "Parameters": "F01F"
-        }
-    },
-    {
-        "Type": "Interior",
-        "SourceRoomSpawn":
-        {
-            "SourceRoom": "Lower Kakariko Village",
-            "TargetRoom": "Kakariko Bug House Ceiling Hole",
-            "Stage": 68,
-            "Room": 6,
-            "Spawn": "00",
-            "SpawnType": "00",
-            "Parameters": "F03F"
-        },
-        "TargetRoomSpawn":
-        {
-            "SourceRoom": "Kakariko Bug House Ceiling Hole",
-            "TargetRoom": "Lower Kakariko Village",
-            "Stage": 53, // Needs updated
-            "Room": 3, // Needs updated
-            "Spawn": "01", // Needs updated
-            "SpawnType": "50", // Needs updated
-            "Parameters": "F01F" // Needs updated
         }
     },
 	// Cave Exits
