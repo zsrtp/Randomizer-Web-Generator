@@ -373,7 +373,7 @@ namespace TPRandomizer
             List<EntranceType> typesToDecouple = new();
 
             // Placeholder until I get the settings actually created
-            bool isDungeonEREnabled = true;
+            bool isDungeonEREnabled = false;
             if (isDungeonEREnabled)
             {
                 // If we are shuffling dungeon entrances, loop through the entrance table and make note of all of the dungeon entrances and add them to the pool.
