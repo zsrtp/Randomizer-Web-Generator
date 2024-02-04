@@ -53,8 +53,7 @@ namespace TPRandomizer
         public int Stage { get; set; }
         public int Room { get; set; }
         public string Spawn { get; set; }
-        public string SpawnType { get; set; }
-        public string Parameters { get; set; }
+        public string State { get; set; }
         public string PairedEntranceName { get; set; } = "";
     }
 
@@ -74,8 +73,7 @@ namespace TPRandomizer
         public int Stage { get; set; }
         public int Room { get; set; }
         public string Spawn { get; set; }
-        public string SpawnType { get; set; }
-        public string Parameters { get; set; }
+        public string State { get; set; }
         public bool Shuffled { get; set; }
         public string OriginalName { get; set; }
         public bool AlreadySetOriginalName { get; set; }
@@ -96,14 +94,9 @@ namespace TPRandomizer
             return Spawn;
         }
 
-        public string GetSpawnType()
+        public string GetState()
         {
-            return SpawnType;
-        }
-
-        public string GetParameters()
-        {
-            return Parameters;
+            return State;
         }
 
         public bool IsPrimary()
@@ -175,9 +168,9 @@ namespace TPRandomizer
             return ParentArea;
         }
 
-        public void SetParameters(string newParams)
+        public void SetState(string newState)
         {
-            Parameters = newParams;
+            State = newState;
         }
 
         public void SetAsDecoupled()
@@ -380,7 +373,7 @@ namespace TPRandomizer
             List<EntranceType> typesToDecouple = new();
 
             // Placeholder until I get the settings actually created
-            bool isDungeonEREnabled = false;
+            bool isDungeonEREnabled = true;
             if (isDungeonEREnabled)
             {
                 // If we are shuffling dungeon entrances, loop through the entrance table and make note of all of the dungeon entrances and add them to the pool.
@@ -460,8 +453,7 @@ namespace TPRandomizer
                 forwardEntrance.Stage = tableEntry.SourceRoomSpawn.Stage;
                 forwardEntrance.Room = tableEntry.SourceRoomSpawn.Room;
                 forwardEntrance.Spawn = tableEntry.SourceRoomSpawn.Spawn;
-                forwardEntrance.SpawnType = tableEntry.SourceRoomSpawn.SpawnType;
-                forwardEntrance.Parameters = tableEntry.SourceRoomSpawn.Parameters;
+                forwardEntrance.State = tableEntry.SourceRoomSpawn.State;
                 forwardEntrance.SetAsPrimary();
                 entranceList.Add(
                     tableEntry.SourceRoomSpawn.SourceRoom
@@ -487,8 +479,7 @@ namespace TPRandomizer
                     returnEntrance.Stage = tableEntry.TargetRoomSpawn.Stage;
                     returnEntrance.Room = tableEntry.TargetRoomSpawn.Room;
                     returnEntrance.Spawn = tableEntry.TargetRoomSpawn.Spawn;
-                    returnEntrance.SpawnType = tableEntry.TargetRoomSpawn.SpawnType;
-                    returnEntrance.Parameters = tableEntry.TargetRoomSpawn.Parameters;
+                    returnEntrance.State = tableEntry.TargetRoomSpawn.State;
                     forwardEntrance.BindTwoWay(returnEntrance);
                     entranceList.Add(
                         tableEntry.TargetRoomSpawn.SourceRoom

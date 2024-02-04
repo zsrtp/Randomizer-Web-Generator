@@ -1110,16 +1110,6 @@ namespace TPRandomizer.Assets
                     )
                 );
                 i++;
-                entranceTable.AddRange(
-                    Converter.GcBytes(
-                        (UInt16)
-                            short.Parse(
-                                entranceBytes[i],
-                                System.Globalization.NumberStyles.HexNumber
-                            )
-                    )
-                );
-                i++;
                 entranceTable.Add(
                     Converter.GcByte(
                         byte.Parse(entranceBytes[i], System.Globalization.NumberStyles.HexNumber)
@@ -1141,16 +1131,6 @@ namespace TPRandomizer.Assets
                 entranceTable.Add(
                     Converter.GcByte(
                         byte.Parse(entranceBytes[i], System.Globalization.NumberStyles.HexNumber)
-                    )
-                );
-                i++;
-                entranceTable.AddRange(
-                    Converter.GcBytes(
-                        (UInt16)
-                            short.Parse(
-                                entranceBytes[i],
-                                System.Globalization.NumberStyles.HexNumber
-                            )
                     )
                 );
                 SeedHeaderRaw.shuffledEntranceInfoNumEntries++;

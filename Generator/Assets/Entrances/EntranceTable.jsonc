@@ -10,7 +10,8 @@
             "Room": 0,
             "Spawn": "01",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -20,7 +21,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "10",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -33,7 +35,8 @@
             "Room": 0,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -43,7 +46,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -56,7 +60,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -66,7 +71,8 @@
             "Room": 1,
             "Spawn": "02",
             "SpawnType": "50",
-            "Parameters": "3091"
+            "Parameters": "3091",
+            "State": "FF"
         }
     },
     {
@@ -79,7 +85,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -89,7 +96,8 @@
             "Room": 1,
             "Spawn": "01",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -102,7 +110,8 @@
             "Room": 5,
             "Spawn": "62",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -112,7 +121,8 @@
             "Room": 8,
             "Spawn": "02",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -125,7 +135,8 @@
             "Room": 6,
             "Spawn": "02",
             "SpawnType": "00",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -135,7 +146,8 @@
             "Room": 11,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -148,7 +160,8 @@
             "Room": 3,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -158,7 +171,8 @@
             "Room": 6,
             "Spawn": "03",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -171,7 +185,8 @@
             "Room": 1,
             "Spawn": "03",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -181,7 +196,8 @@
             "Room": 3,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -194,7 +210,8 @@
             "Room": 1,
             "Spawn": "06",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -204,7 +221,8 @@
             "Room": 3,
             "Spawn": "02",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -217,7 +235,8 @@
             "Room": 2,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F012"
+            "Parameters": "F012",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -227,7 +246,8 @@
             "Room": 1,
             "Spawn": "05",
             "SpawnType": "10",
-            "Parameters": "F032"
+            "Parameters": "F032",
+            "State": "FF"
         }
     },
     {
@@ -240,7 +260,8 @@
             "Room": 6,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -250,7 +271,8 @@
             "Room": 4,
             "Spawn": "08",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -263,7 +285,8 @@
             "Room": 16,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -273,7 +296,8 @@
             "Room": 6,
             "Spawn": "01",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -286,7 +310,8 @@
             "Room": 0,
             "Spawn": "3C",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -296,7 +321,8 @@
             "Room": 3,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -309,7 +335,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -319,7 +346,8 @@
             "Room": 0,
             "Spawn": "06",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -332,7 +360,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -342,7 +371,8 @@
             "Room": 0,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -355,7 +385,8 @@
             "Room": 0,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -365,7 +396,8 @@
             "Room": 0,
             "Spawn": "08",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -378,7 +410,8 @@
             "Room": 17,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -388,7 +421,8 @@
             "Room": 0,
             "Spawn": "07",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -401,7 +435,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -411,7 +446,8 @@
             "Room": 7,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -424,7 +460,8 @@
             "Room": 1,
             "Spawn": "0F",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -434,7 +471,8 @@
             "Room": 10,
             "Spawn": "03",
             "SpawnType": "00",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -447,7 +485,8 @@
             "Room": 0,
             "Spawn": "02",
             "SpawnType": "B0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -457,7 +496,8 @@
             "Room": 0,
             "Spawn": "0A",
             "SpawnType": "A0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -470,7 +510,8 @@
             "Room": 1,
             "Spawn": "0A",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -480,7 +521,8 @@
             "Room": 0,
             "Spawn": "07",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -493,7 +535,8 @@
             "Room": 0,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -503,7 +546,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -516,7 +560,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -526,7 +571,8 @@
             "Room": 1,
             "Spawn": "06",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -539,7 +585,8 @@
             "Room": 2,
             "Spawn": "08",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -549,7 +596,8 @@
             "Room": 0,
             "Spawn": "0F",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -562,7 +610,8 @@
             "Room": 8,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -572,7 +621,8 @@
             "Room": 10,
             "Spawn": "04",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -585,7 +635,8 @@
             "Room": 2,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -595,7 +646,8 @@
             "Room": 8,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -608,7 +660,8 @@
             "Room": 0,
             "Spawn": "04",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -618,7 +671,8 @@
             "Room": 2,
             "Spawn": "02",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -631,7 +685,8 @@
             "Room": 3,
             "Spawn": "08",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -641,7 +696,8 @@
             "Room": 2,
             "Spawn": "03",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -654,7 +710,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -664,7 +721,8 @@
             "Room": 0,
             "Spawn": "03",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -677,7 +735,8 @@
             "Room": 4,
             "Spawn": "02",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -687,7 +746,8 @@
             "Room": 0,
             "Spawn": "06",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -700,7 +760,8 @@
             "Room": 3,
             "Spawn": "02",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -710,7 +771,8 @@
             "Room": 0,
             "Spawn": "05",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -723,7 +785,8 @@
             "Room": 17,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -733,7 +796,8 @@
             "Room": 4,
             "Spawn": "00",
             "SpawnType": "10",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -746,7 +810,8 @@
             "Room": 3,
             "Spawn": "09",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -756,7 +821,8 @@
             "Room": 4,
             "Spawn": "06",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -769,7 +835,8 @@
             "Room": 16,
             "Spawn": "01",
             "SpawnType": "05",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -779,7 +846,8 @@
             "Room": 3,
             "Spawn": "00",
             "SpawnType": "10",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -792,7 +860,8 @@
             "Room": 12,
             "Spawn": "01",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -802,7 +871,8 @@
             "Room": 8,
             "Spawn": "02",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -815,7 +885,8 @@
             "Room": 0,
             "Spawn": "08",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -825,7 +896,8 @@
             "Room": 13,
             "Spawn": "01",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -838,7 +910,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -848,7 +921,8 @@
             "Room": 0,
             "Spawn": "02",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -861,7 +935,8 @@
             "Room": 3,
             "Spawn": "07",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -871,7 +946,8 @@
             "Room": 1,
             "Spawn": "02",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     // Overworld One-Way Exits
@@ -885,7 +961,8 @@
             "Room": 0,
             "Spawn": "19",
             "SpawnType": "D0",
-            "Parameters": "00FF"
+            "Parameters": "00FF",
+            "State": "FF"
         }
     },
     {
@@ -898,7 +975,8 @@
             "Room": 10,
             "Spawn": "02",
             "SpawnType": "D0",
-            "Parameters": "00FF"
+            "Parameters": "00FF",
+            "State": "FF"
         }
     },
     {
@@ -911,7 +989,8 @@
             "Room": 0,
             "Spawn": "11",
             "SpawnType": "C0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -924,7 +1003,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F018"
+            "Parameters": "F018",
+            "State": "FF"
         }
     },
 	// Interior Exits
@@ -938,7 +1018,8 @@
             "Room": 4,
             "Spawn": "00",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -948,7 +1029,8 @@
             "Room": 1,
             "Spawn": "03",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -961,7 +1043,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "10",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -971,7 +1054,8 @@
             "Room": 0,
             "Spawn": "05",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -984,7 +1068,8 @@
             "Room": 2,
             "Spawn": "00",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -994,7 +1079,8 @@
             "Room": 0,
             "Spawn": "06",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1007,7 +1093,8 @@
             "Room": 5,
             "Spawn": "00",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1017,7 +1104,8 @@
             "Room": 0,
             "Spawn": "09",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1031,7 +1119,8 @@
             "Spawn": "01",
             "SpawnType": "B0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Ordon Village -> Ordon Bos House Right Door"
+			"PairedEntranceName": "Ordon Village -> Ordon Bos House Right Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1042,7 +1131,8 @@
             "Spawn": "0B",
             "SpawnType": "B0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Ordon Bos House Right Door -> Ordon Village"
+			"PairedEntranceName": "Ordon Bos House Right Door -> Ordon Village",
+            "State": "FF"
         }
     },
     {
@@ -1056,7 +1146,8 @@
             "Spawn": "00",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Ordon Village -> Ordon Bos House Left Door"
+			"PairedEntranceName": "Ordon Village -> Ordon Bos House Left Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1067,7 +1158,8 @@
             "Spawn": "04",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Ordon Bos House Left Door -> Ordon Village"
+			"PairedEntranceName": "Ordon Bos House Left Door -> Ordon Village",
+            "State": "FF"
         }
     },
     {
@@ -1080,7 +1172,8 @@
             "Room": 0,
             "Spawn": "01",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1090,7 +1183,8 @@
             "Room": 4,
             "Spawn": "01",
             "SpawnType": "A0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -1103,7 +1197,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F05F"
+            "Parameters": "F05F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1113,7 +1208,8 @@
             "Room": 4,
             "Spawn": "09",
             "SpawnType": "00",
-            "Parameters": "F05F"
+            "Parameters": "F05F",
+            "State": "FF"
         }
     },
     {
@@ -1127,7 +1223,8 @@
             "Spawn": "05",
             "SpawnType": "B0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Front Right Door"
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Front Right Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1138,7 +1235,8 @@
             "Spawn": "2E",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Kakariko Renados Sanctuary Front Right Door -> Lower Kakariko Village"
+			"PairedEntranceName": "Kakariko Renados Sanctuary Front Right Door -> Lower Kakariko Village",
+            "State": "FF"
         }
     },
     {
@@ -1152,7 +1250,8 @@
             "Spawn": "06",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Front Left Door"
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Front Left Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1163,7 +1262,8 @@
             "Spawn": "30",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Kakariko Renados Sanctuary Front Left Door -> Lower Kakariko Village"
+			"PairedEntranceName": "Kakariko Renados Sanctuary Front Left Door -> Lower Kakariko Village",
+            "State": "FF"
         }
     },
     {
@@ -1177,7 +1277,8 @@
             "Spawn": "08",
             "SpawnType": "B0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Back Right Door"
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Back Right Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1188,7 +1289,8 @@
             "Spawn": "33",
             "SpawnType": "B0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Kakariko Renados Sanctuary Back Right Door -> Lower Kakariko Village"
+			"PairedEntranceName": "Kakariko Renados Sanctuary Back Right Door -> Lower Kakariko Village",
+            "State": "FF"
         }
     },
     {
@@ -1202,7 +1304,8 @@
             "Spawn": "07",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Back Left Door"
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Renados Sanctuary Back Left Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1213,7 +1316,8 @@
             "Spawn": "32",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Kakariko Renados Sanctuary Back Left Door -> Lower Kakariko Village"
+			"PairedEntranceName": "Kakariko Renados Sanctuary Back Left Door -> Lower Kakariko Village",
+            "State": "FF"
         }
     },
     {
@@ -1226,7 +1330,8 @@
             "Room": 0,
             "Spawn": "FF",
             "SpawnType": "FF",
-            "Parameters": "FFFF"
+            "Parameters": "FFFF",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1236,7 +1341,8 @@
             "Room": 0,
             "Spawn": "FF",
             "SpawnType": "FF",
-            "Parameters": "FFFF"
+            "Parameters": "FFFF",
+            "State": "FF"
         }
     },
     {
@@ -1249,7 +1355,8 @@
             "Room": 3,
             "Spawn": "00",
             "SpawnType": "10",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1259,7 +1366,8 @@
             "Room": 0,
             "Spawn": "28",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1273,7 +1381,8 @@
             "Spawn": "00",
             "SpawnType": "B0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Elde Inn Right Door"
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Elde Inn Right Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1284,7 +1393,8 @@
             "Spawn": "2A",
             "SpawnType": "B0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Kakariko Elde Inn Right Door -> Lower Kakariko Village"
+			"PairedEntranceName": "Kakariko Elde Inn Right Door -> Lower Kakariko Village",
+            "State": "FF"
         }
     },
     {
@@ -1298,7 +1408,8 @@
             "Spawn": "02",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Elde Inn Left Door"
+			"PairedEntranceName": "Lower Kakariko Village -> Kakariko Elde Inn Left Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1309,7 +1420,8 @@
             "Spawn": "31",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Kakariko Elde Inn Left Door -> Lower Kakariko Village"
+			"PairedEntranceName": "Kakariko Elde Inn Left Door -> Lower Kakariko Village",
+            "State": "FF"
         }
     },
     {
@@ -1322,7 +1434,8 @@
             "Room": 6,
             "Spawn": "05",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1332,7 +1445,8 @@
             "Room": 0,
             "Spawn": "29",
             "SpawnType": "90",
-            "Parameters": "F03F"
+            "Parameters": "F03F",
+            "State": "FF"
         }
     },
     {
@@ -1345,7 +1459,8 @@
             "Room": 6,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F03F"
+            "Parameters": "F03F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1355,7 +1470,8 @@
             "Room": 0,
             "Spawn": "04",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -1368,7 +1484,8 @@
             "Room": 1,
             "Spawn": "02",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1378,7 +1495,8 @@
             "Room": 0,
             "Spawn": "2C",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1391,7 +1509,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1401,7 +1520,8 @@
             "Room": 0,
             "Spawn": "0A",
             "SpawnType": "10",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1414,7 +1534,8 @@
             "Room": 4,
             "Spawn": "00",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1424,7 +1545,8 @@
             "Room": 0,
             "Spawn": "2D",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1437,7 +1559,8 @@
             "Room": 4,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1447,7 +1570,8 @@
             "Room": 0,
             "Spawn": "03",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -1460,7 +1584,8 @@
             "Room": 4,
             "Spawn": "02",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1470,7 +1595,8 @@
             "Room": 0,
             "Spawn": "2D",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -1483,7 +1609,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1493,7 +1620,8 @@
             "Room": 3,
             "Spawn": "01",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -1506,7 +1634,8 @@
             "Room": 0,
             "Spawn": "03",
             "SpawnType": "E0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1516,7 +1645,8 @@
             "Room": 3,
             "Spawn": "03",
             "SpawnType": "E0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -1529,7 +1659,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1539,7 +1670,8 @@
             "Room": 0,
             "Spawn": "01",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1552,7 +1684,8 @@
             "Room": 1,
             "Spawn": "01",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1562,7 +1695,8 @@
             "Room": 0,
             "Spawn": "04",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1575,7 +1709,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "A0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1585,7 +1720,8 @@
             "Room": 0,
             "Spawn": "03",
             "SpawnType": "B0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -1598,7 +1734,8 @@
             "Room": 7,
             "Spawn": "03",
             "SpawnType": "10",
-            "Parameters": "F090"
+            "Parameters": "F090",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1608,7 +1745,8 @@
             "Room": 2,
             "Spawn": "01",
             "SpawnType": "10",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -1622,7 +1760,8 @@
             "Spawn": "00",
             "SpawnType": "B0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Castle Town Center -> Castle Town Goron House Right Door"
+			"PairedEntranceName": "Castle Town Center -> Castle Town Goron House Right Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1633,7 +1772,8 @@
             "Spawn": "0E",
             "SpawnType": "00",
             "Parameters": "F01F",
-			"PairedEntranceName": "Castle Town Goron House Right Door -> Castle Town Center"
+			"PairedEntranceName": "Castle Town Goron House Right Door -> Castle Town Center",
+            "State": "FF"
         }
     },
     {
@@ -1647,7 +1787,8 @@
             "Spawn": "02",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Castle Town Center -> Castle Town Goron House Left Door"
+			"PairedEntranceName": "Castle Town Center -> Castle Town Goron House Left Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1658,7 +1799,8 @@
             "Spawn": "10",
             "SpawnType": "00",
             "Parameters": "F01F",
-			"PairedEntranceName": "Castle Town Goron House Left Door -> Castle Town Center"
+			"PairedEntranceName": "Castle Town Goron House Left Door -> Castle Town Center",
+            "State": "FF"
         }
     },
     {
@@ -1671,7 +1813,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1681,7 +1824,8 @@
             "Room": 0,
             "Spawn": "0C",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1695,7 +1839,8 @@
             "Spawn": "00",
             "SpawnType": "B0",
             "Parameters": "F01F",
-			"PairedEntranceName": "Castle Town East -> Castle Town Doctors Office Right Door"
+			"PairedEntranceName": "Castle Town East -> Castle Town Doctors Office Right Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1706,7 +1851,8 @@
             "Spawn": "03",
             "SpawnType": "B0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Castle Town Doctors Office Right Door -> Castle Town East"
+			"PairedEntranceName": "Castle Town Doctors Office Right Door -> Castle Town East",
+            "State": "FF"
         }
     },
     {
@@ -1720,7 +1866,8 @@
             "Spawn": "01",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Castle Town East -> Castle Town Doctors Office Left Door"
+			"PairedEntranceName": "Castle Town East -> Castle Town Doctors Office Left Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1731,7 +1878,8 @@
             "Spawn": "04",
             "SpawnType": "A0",
             "Parameters": "F09F",
-			"PairedEntranceName": "Castle Town Doctors Office Left Door -> Castle Town East"
+			"PairedEntranceName": "Castle Town Doctors Office Left Door -> Castle Town East",
+            "State": "FF"
         }
     },
     {
@@ -1744,7 +1892,8 @@
             "Room": 2,
             "Spawn": "02",
             "SpawnType": "10",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1754,7 +1903,8 @@
             "Room": 4,
             "Spawn": "05",
             "SpawnType": "00",
-            "Parameters": "F05F"
+            "Parameters": "F05F",
+            "State": "FF"
         }
     },
     {
@@ -1767,7 +1917,8 @@
             "Room": 3,
             "Spawn": "01",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1777,7 +1928,8 @@
             "Room": 3,
             "Spawn": "05",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
 	},
     {
@@ -1790,7 +1942,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "10",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1800,7 +1953,8 @@
             "Room": 3,
             "Spawn": "04",
             "SpawnType": "A0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
 	},
     {
@@ -1813,7 +1967,8 @@
             "Room": 5,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1823,7 +1978,8 @@
             "Room": 3,
             "Spawn": "0A",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -1836,7 +1992,8 @@
             "Room": 5,
             "Spawn": "00",
             "SpawnType": "B0",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1846,7 +2003,8 @@
             "Room": 3,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
 	// Cave Exits
@@ -1860,7 +2018,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1870,7 +2029,8 @@
             "Room": 3,
             "Spawn": "63",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1883,7 +2043,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1893,7 +2054,8 @@
             "Room": 5,
             "Spawn": "04",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -1906,7 +2068,8 @@
             "Room": 14,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1916,7 +2079,8 @@
             "Room": 5,
             "Spawn": "06",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1929,7 +2093,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1939,7 +2104,8 @@
             "Room": 3,
             "Spawn": "0F",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -1952,7 +2118,8 @@
             "Room": 10,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1962,7 +2129,8 @@
             "Room": 0,
             "Spawn": "14",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1975,7 +2143,8 @@
             "Room": 10,
             "Spawn": "01",
             "SpawnType": "00",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -1985,7 +2154,8 @@
             "Room": 0,
             "Spawn": "15",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
@@ -1998,7 +2168,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2008,7 +2179,8 @@
             "Room": 10,
             "Spawn": "0F",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2021,7 +2193,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "C000"
+            "Parameters": "C000",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2031,7 +2204,8 @@
             "Room": 0,
             "Spawn": "07",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
 	},
     {
@@ -2044,7 +2218,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2054,7 +2229,8 @@
             "Room": 0,
             "Spawn": "1D",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2067,7 +2243,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2077,7 +2254,8 @@
             "Room": 0,
             "Spawn": "06",
             "SpawnType": "50",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     // Grotto Exits
@@ -2091,7 +2269,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2101,7 +2280,8 @@
             "Room": 0,
             "Spawn": "05",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2114,7 +2294,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2124,7 +2305,8 @@
             "Room": 3,
             "Spawn": "05",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2137,7 +2319,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2147,7 +2330,8 @@
             "Room": 6,
             "Spawn": "02",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2160,7 +2344,8 @@
             "Room": 4,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F010"
+            "Parameters": "F010",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2170,7 +2355,8 @@
             "Room": 6,
             "Spawn": "03",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2183,7 +2369,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2193,7 +2380,8 @@
             "Room": 3,
             "Spawn": "04",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2206,7 +2394,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2216,7 +2405,8 @@
             "Room": 0,
             "Spawn": "0C",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2229,7 +2419,8 @@
             "Room": 4,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F010"
+            "Parameters": "F010",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2239,7 +2430,8 @@
             "Room": 0,
             "Spawn": "0D",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2252,7 +2444,8 @@
             "Room": 1,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2262,7 +2455,8 @@
             "Room": 7,
             "Spawn": "02",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2275,7 +2469,8 @@
             "Room": 2,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2285,7 +2480,8 @@
             "Room": 10,
             "Spawn": "08",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2298,7 +2494,8 @@
             "Room": 3,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2308,7 +2505,8 @@
             "Room": 10,
             "Spawn": "06",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2321,7 +2519,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2331,7 +2530,8 @@
             "Room": 10,
             "Spawn": "07",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2344,7 +2544,8 @@
             "Room": 2,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2354,7 +2555,8 @@
             "Room": 0,
             "Spawn": "02",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2367,7 +2569,8 @@
             "Room": 3,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2377,7 +2580,8 @@
             "Room": 0,
             "Spawn": "01",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2390,7 +2594,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2400,7 +2605,8 @@
             "Room": 8,
             "Spawn": "05",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2413,7 +2619,8 @@
             "Room": 4,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F010"
+            "Parameters": "F010",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2423,7 +2630,8 @@
             "Room": 16,
             "Spawn": "03",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2436,7 +2644,8 @@
             "Room": 3,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2446,7 +2655,8 @@
             "Room": 13,
             "Spawn": "03",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2459,7 +2669,8 @@
             "Room": 4,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F010"
+            "Parameters": "F010",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2469,7 +2680,8 @@
             "Room": 0,
             "Spawn": "03",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2482,7 +2694,8 @@
             "Room": 4,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F010"
+            "Parameters": "F010",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2492,7 +2705,8 @@
             "Room": 0,
             "Spawn": "04",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2505,7 +2719,8 @@
             "Room": 3,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2515,7 +2730,8 @@
             "Room": 0,
             "Spawn": "08",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2528,7 +2744,8 @@
             "Room": 2,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2538,7 +2755,8 @@
             "Room": 0,
             "Spawn": "0A",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2551,7 +2769,8 @@
             "Room": 2,
             "Spawn": "00",
             "SpawnType": "C0",
-            "Parameters": "F013"
+            "Parameters": "F013",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2561,7 +2780,8 @@
             "Room": 0,
             "Spawn": "09",
             "SpawnType": "90",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
 	// Dungeon Exits
@@ -2575,7 +2795,8 @@
             "Room": 22,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2585,7 +2806,8 @@
             "Room": 6,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2598,7 +2820,8 @@
             "Room": 1,
             "Spawn": "01",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2608,7 +2831,8 @@
             "Room": 0,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F01F"           
+            "Parameters": "F01F",
+            "State": "FF"           
         }
     },
     {
@@ -2621,7 +2845,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F09F"
+            "Parameters": "F09F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2631,7 +2856,8 @@
             "Room": 0,
             "Spawn": "0B",
             "SpawnType": "D0",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2644,7 +2870,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2654,7 +2881,8 @@
             "Room": 3,
             "Spawn": "03",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2668,7 +2896,8 @@
             "Spawn": "01",
             "SpawnType": "A0",
             "Parameters": "F01F",
-			"PairedEntranceName": "Snowpeak Summit Lower -> Snowpeak Ruins Right Door"
+			"PairedEntranceName": "Snowpeak Summit Lower -> Snowpeak Ruins Right Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2679,7 +2908,8 @@
             "Spawn": "09",
             "SpawnType": "0B",
             "Parameters": "F01F",
-			"PairedEntranceName": "Snowpeak Ruins Right Door -> Snowpeak Summit Lower"
+			"PairedEntranceName": "Snowpeak Ruins Right Door -> Snowpeak Summit Lower",
+            "State": "FF"
         }
     },
     {
@@ -2693,7 +2923,8 @@
             "Spawn": "02",
             "SpawnType": "A0",
             "Parameters": "F01F",
-			"PairedEntranceName": "Snowpeak Summit Lower -> Snowpeak Ruins Left Door"
+			"PairedEntranceName": "Snowpeak Summit Lower -> Snowpeak Ruins Left Door",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2704,7 +2935,8 @@
             "Spawn": "0A",
             "SpawnType": "0B",
             "Parameters": "F01F",
-			"PairedEntranceName": "Snowpeak Ruins Left Door -> Snowpeak Summit Lower"
+			"PairedEntranceName": "Snowpeak Ruins Left Door -> Snowpeak Summit Lower",
+            "State": "FF"
         }
     },
     {
@@ -2717,7 +2949,8 @@
             "Room": 0,
             "Spawn": "00",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2727,7 +2960,8 @@
             "Room": 2,
             "Spawn": "01",
             "SpawnType": "50",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2740,7 +2974,8 @@
             "Room": 0,
             "Spawn": "02",
             "SpawnType": "00",
-            "Parameters": "C00F"
+            "Parameters": "C00F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2750,7 +2985,8 @@
             "Room": 0,
             "Spawn": "4D",
             "SpawnType": "40",
-            "Parameters": "C00F"
+            "Parameters": "C00F",
+            "State": "FF"
         }
     },
     {
@@ -2763,7 +2999,8 @@
             "Room": 0,
             "Spawn": "0A",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "E"
         },
         "TargetRoomSpawn":
         {
@@ -2773,7 +3010,8 @@
             "Room": 4,
             "Spawn": "04",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2786,7 +3024,8 @@
             "Room": 11,
             "Spawn": "00",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2796,7 +3035,8 @@
             "Room": 1,
             "Spawn": "32",
             "SpawnType": "10",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
 	// Boss Room Exits
@@ -2810,7 +3050,8 @@
             "Room": 50,
             "Spawn": "01",
             "SpawnType": "60",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2823,7 +3064,8 @@
             "Room": 50,
             "Spawn": "01",
             "SpawnType": "60",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2836,7 +3078,8 @@
             "Room": 50,
             "Spawn": "01",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2849,7 +3092,8 @@
             "Room": 50,
             "Spawn": "00",
             "SpawnType": "60",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2859,10 +3103,11 @@
             "SourceRoom": "Snowpeak Ruins West Courtyard",
             "TargetRoom": "Snowpeak Ruins Boss Room",
             "Stage": 27,
-            "Room": 0,
+            "Room": 4,
             "Spawn": "01",
             "SpawnType": "60",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2875,7 +3120,8 @@
             "Room": 50,
             "Spawn": "00",
             "SpawnType": "60",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2888,7 +3134,8 @@
             "Room": 50,
             "Spawn": "01",
             "SpawnType": "60",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
     {
@@ -2901,7 +3148,8 @@
             "Room": 10,
             "Spawn": "00",
             "SpawnType": "60",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     },
 	// Boss Room Second Exit
@@ -2915,7 +3163,8 @@
             "Room": 4,
             "Spawn": "06",
             "SpawnType": "10",
-            "Parameters": "501F"
+            "Parameters": "501F",
+            "State": "FF"
         },
         "TargetRoomSpawn":
         {
@@ -2925,7 +3174,8 @@
             "Room": 50,
             "Spawn": "03",
             "SpawnType": "00",
-            "Parameters": "F01F"
+            "Parameters": "F01F",
+            "State": "FF"
         }
     }
 ]

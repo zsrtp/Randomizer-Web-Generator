@@ -81,9 +81,7 @@ namespace TPRandomizer
                         encodedString = encodedString + ",";
                         encodedString = encodedString + entrance.GetSpawn();
                         encodedString = encodedString + ",";
-                        encodedString = encodedString + entrance.GetSpawnType();
-                        encodedString = encodedString + ",";
-                        encodedString = encodedString + entrance.GetParameters();
+                        encodedString = encodedString + entrance.GetState();
                         encodedString = encodedString + ",";
 
                         // Add new connection info
@@ -96,11 +94,7 @@ namespace TPRandomizer
                         encodedString = encodedString + ",";
                         encodedString = encodedString + entrance.GetReplacedEntrance().GetSpawn();
                         encodedString = encodedString + ",";
-                        encodedString =
-                            encodedString + entrance.GetReplacedEntrance().GetSpawnType();
-                        encodedString = encodedString + ",";
-                        encodedString =
-                            encodedString + entrance.GetReplacedEntrance().GetParameters();
+                        encodedString = encodedString + entrance.GetReplacedEntrance().GetState();
                         encodedString = encodedString + ",";
 
                         entrance.SetAsUnshuffled();
@@ -393,7 +387,7 @@ namespace TPRandomizer
                                         + " testing spawn type: "
                                         + entry.SpawnType
                                 );*/
-                                if (entry.SpawnType == entranceBytes[i + 3])
+                                if (entry.State == entranceBytes[i + 3])
                                 {
                                     /*Console.WriteLine(
                                         "spawn type match for: "
@@ -401,41 +395,27 @@ namespace TPRandomizer
                                             + " testing params: "
                                             + entry.Parameters
                                     );*/
-                                    if (entry.Parameters == entranceBytes[i + 4])
+                                    //Console.WriteLine("param match for: " + entry.SourceRoom);
+                                    foreach (EntranceInfo entry2 in entranceInfo)
                                     {
-                                        //Console.WriteLine("param match for: " + entry.SourceRoom);
-                                        foreach (EntranceInfo entry2 in entranceInfo)
+                                        if (entry2.Stage.ToString("X") == entranceBytes[i + 4])
                                         {
-                                            if (entry2.Stage.ToString("X") == entranceBytes[i + 5])
+                                            if (entry2.Room.ToString("X") == entranceBytes[i + 5])
                                             {
-                                                if (
-                                                    entry2.Room.ToString("X")
-                                                    == entranceBytes[i + 6]
-                                                )
+                                                if (entry2.Spawn == entranceBytes[i + 6])
                                                 {
-                                                    if (entry2.Spawn == entranceBytes[i + 7])
+                                                    if (entry2.State == entranceBytes[i + 7])
                                                     {
-                                                        if (
-                                                            entry2.SpawnType == entranceBytes[i + 8]
-                                                        )
-                                                        {
-                                                            if (
-                                                                entry2.Parameters
-                                                                == entranceBytes[i + 9]
-                                                            )
-                                                            {
-                                                                shuffledEntrances.Add(
-                                                                    entry.SourceRoom
-                                                                        + " -> "
-                                                                        + entry2.TargetRoom
-                                                                );
-                                                                /*Console.WriteLine(
-                                                                    entry.SourceRoom
-                                                                        + " -> "
-                                                                        + entry2.TargetRoom
-                                                                );*/
-                                                            }
-                                                        }
+                                                        shuffledEntrances.Add(
+                                                            entry.SourceRoom
+                                                                + " -> "
+                                                                + entry2.TargetRoom
+                                                        );
+                                                        /*Console.WriteLine(
+                                                            entry.SourceRoom
+                                                                + " -> "
+                                                                + entry2.TargetRoom
+                                                        );*/
                                                     }
                                                 }
                                             }
@@ -447,7 +427,7 @@ namespace TPRandomizer
                     }
                 }
 
-                i = i + 9;
+                i = i + 7;
             }
 
             return shuffledEntrances;
