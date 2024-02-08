@@ -244,6 +244,26 @@
     };
   }
 
+  function genPlandoBits() {
+    let bits = '';
+	// Shadow crystal in agitha female ant
+    $('.plandoCheckSelect').each(function() {
+      itemId = parseInt($(this).find('option').filter(':selected').val(), 10);
+      if(itemId != -1) {
+        checkId = parseInt($(this).attr('data-checkId'), 10);
+        bits += numToPaddedBits(checkId, 9);
+        bits += numToPaddedBits(itemId, 9);
+      }
+    })
+    bits += '111111111';
+
+    return {
+      type: RawSettingType.bitString,
+      bitString: bits,
+    };
+  }
+
+
   function getVal(id) {
     const $el = $('#' + id);
     if ($el.prop('nodeName') === 'INPUT' && $el.attr('type') === 'checkbox') {
@@ -411,6 +431,8 @@
 
     values.push(genStartingItemsBits());
     values.push(genExcludedChecksBits());
+
+    values.push(genPlandoBits());
 
     return encodeSettings(sSettingsVersion, 's', values);
   }
@@ -818,6 +840,11 @@
 
     res.startingItems = processor.nextEolList(9);
     res.excludedChecks = processor.nextEolList(9);
+    plandoList = processor.nextEolList(9);
+    res.plando = [];
+    for(i = 0; i < plandoList.length; i += 2) {
+      res.plando.push([plandoList[i], plandoList[i+1]]);
+    }
 
     return res;
   }

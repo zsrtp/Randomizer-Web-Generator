@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TPRandomizer.Util;
 using TPRandomizer.SSettings.Enums;
+using System.Linq;
 
 namespace TPRandomizer
 {
@@ -59,6 +60,7 @@ namespace TPRandomizer
         public StartingToD startingToD { get; set; }
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
+        public List<(string, Item)> plandoChecks { get; set; }
 
         public SharedSettings() { }
 
@@ -117,6 +119,9 @@ namespace TPRandomizer
             // StringComparer is needed because the default sort order is
             // different on Linux and Windows
             excludedChecks.Sort(StringComparer.Ordinal);
+            plandoChecks = processor.NextPlandoChecksList();
+            // Sort by check name, using the same StringComparer as excludedChecks
+            plandoChecks = plandoChecks.OrderBy(i => i.Item1, StringComparer.Ordinal).ToList();
         }
 
         // Note: this function MUST be able to parse old versions of sSettings

@@ -137,6 +137,11 @@ namespace TPRandomizer
             // Generate the item pool based on user settings/input.
             Randomizer.Items.GenerateItemPool();
             CheckFunctions.GenerateCheckList();
+            foreach ((string checkName, Item item) in SSettings.plandoChecks)
+            {
+                Randomizer.Checks.CheckDict[checkName].checkStatus = "Plando";
+                Randomizer.Checks.CheckDict[checkName].itemId = item;
+            }
 
             while (remainingGenerationAttempts > 0)
             {
@@ -146,6 +151,10 @@ namespace TPRandomizer
                     Randomizer.Items.heldItems.Add(startingItem);
                 }
                 Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
+
+                // Place plando checks first
+                PlacePlandoChecks();
+
                 Console.WriteLine("Placing Vanilla Checks.");
                 PlaceVanillaChecks();
 
@@ -973,6 +982,11 @@ namespace TPRandomizer
             // Any extra checks that have not been filled at this point are filled with "junk" items such as ammunition, foolish items, etc.
             Console.WriteLine("Placing Junk Items.");
             PlaceJunkItems(Items.JunkItems, rnd);
+
+            if (!BackendFunctions.ValidatePlaythrough(startingRoom))
+            {
+                throw new ArgumentOutOfRangeException();
+            }
         }
 
         /// <summary>
@@ -1006,6 +1020,22 @@ namespace TPRandomizer
                         Items.JunkItems[rnd.Next(Items.JunkItems.Count)],
                         currentCheck
                     );
+                }
+            }
+        }
+
+        /// <summary>
+        /// Places manually placed items where the user specifies
+        /// </summary>
+        private static void PlacePlandoChecks()
+        {
+            foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
+            {
+                Check currentCheck = checkList.Value;
+                if (currentCheck.checkStatus.Contains("Plando"))
+                {
+                    Randomizer.Items.heldItems.Remove(currentCheck.itemId);
+                    PlaceItemInCheck(currentCheck.itemId, currentCheck);
                 }
             }
         }
@@ -1116,6 +1146,7 @@ namespace TPRandomizer
                                             if (
                                                 (restriction == "Region")
                                                 && (currentCheck.checkStatus != "Excluded")
+                                                && (currentCheck.checkStatus != "Plando")
                                             )
                                             {
                                                 if (

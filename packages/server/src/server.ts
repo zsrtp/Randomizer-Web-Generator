@@ -272,6 +272,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
       console.log(err);
       res.status(500).send({ error: 'Internal server error.' });
     } else {
+       // This is so terrible, why are we doing it like this????
       let msg = data.toString();
       msg = msg.replace(
         '<!-- IMAGE_VERSION -->',
@@ -388,6 +389,198 @@ app.get('/', (req: express.Request, res: express.Response) => {
       });
 
       msg = msg.replace('<!-- STARTING_ITEMS -->', startingItemsEls.join('\n'));
+
+      const plandoItems = [
+        // Let the generator decide based on other settings
+        [-1, 'Random'],
+    
+        // Rupees
+        ['FirstCategory', 'Rupees'],
+        [1, 'Green_Rupee'],
+        [2, 'Blue_Rupee'],
+        [3, 'Yellow_Rupee'],
+        [4, 'Red_Rupee'],
+        [5, 'Purple_Rupee'],
+        [6, 'Orange_Rupee'],
+        [7, 'Silver_Rupee'],
+        [237, 'Purple_Rupee_Links_House'],
+    
+        // Ammo
+        ['Category', 'Ammo'],
+        [10, 'Bombs_5'],
+        [11, 'Bombs_10'],
+        [12, 'Bombs_20'],
+        [13, 'Bombs_30'],
+        [17, 'Arrows_1'],
+        [14, 'Arrows_10'],
+        [15, 'Arrows_20'],
+        [16, 'Arrows_30'],
+        [18, 'Seeds_50'],
+        [25, 'Water_Bombs_3'],
+        [22, 'Water_Bombs_5'],
+        [23, 'Water_Bombs_10'],
+        [24, 'Water_Bombs_15'],
+        [29, 'Bombling_1'],
+        [28, 'Bomblings_3'],
+        [26, 'Bomblings_5'],
+        [27, 'Bomblings_10'],
+    
+        // Progression Items
+        ['Category', 'Progression Items'],
+        [48, 'Magic_Armor'],
+        [49, 'Zora_Armor'],
+        [50, 'Shadow_Crystal'],
+        [53, 'Progressive_Wallet'],
+        [62, 'Hawkeye'],
+        [63, 'Progressive_Sword'],
+        [64, 'Boomerang'],
+        [65, 'Spinner'],
+        [66, 'Ball_and_Chain'],
+        [67, 'Progressive_Bow'],
+        [68, 'Progressive_Clawshot'],
+        [69, 'Iron_Boots'],
+        [70, 'Progressive_Dominion_Rod'],
+        [72, 'Lantern'],
+        [74, 'Progressive_Fishing_Rod'],
+        [75, 'Slingshot'],
+		    [81, 'Filled_Bomb_Bag'],
+        [144, 'Aurus_Memo'],
+        [145, 'Asheis_Sketch'],
+        [233, 'Progressive_Sky_Book'],
+    
+        // Small Keys
+        ['Category', 'Small Keys'],
+        [133, 'Forest_Temple_Small_Key'],
+        [134, 'Goron_Mines_Small_Key'],
+        [135, 'Lakebed_Temple_Small_Key'],
+        [136, 'Arbiters_Grounds_Small_Key'],
+        [137, 'Snowpeak_Ruins_Small_Key'],
+        [138, 'Temple_of_Time_Small_Key'],
+        [139, 'City_in_The_Sky_Small_Key'],
+        [140, 'Palace_of_Twilight_Small_Key'],
+        [141, 'Hyrule_Castle_Small_Key'],
+        [142, 'Gerudo_Desert_Bulblin_Camp_Key'],
+        [238, 'North_Faron_Woods_Gate_Key'],
+        [243, 'Gate_Keys'],
+        [244, 'Snowpeak_Ruins_Ordon_Pumpkin'],
+        [245, 'Snowpeak_Ruins_Ordon_Goat_Cheese'],
+    
+        // Big Keys
+        ['Category', 'Big Keys'],
+        [146, 'Forest_Temple_Big_Key'],
+        [147, 'Lakebed_Temple_Big_Key'],
+        [148, 'Arbiters_Grounds_Big_Key'],
+        [246, 'Snowpeak_Ruins_Bedroom_Key'],
+        [149, 'Temple_of_Time_Big_Key'],
+        [150, 'City_in_The_Sky_Big_Key'],
+        [151, 'Palace_of_Twilight_Big_Key'],
+        [152, 'Hyrule_Castle_Big_Key'],
+        [249, 'Goron_Mines_Key_Shard'],
+    
+        // Compasses
+        ['Category', 'Compasses'],
+        [153, 'Forest_Temple_Compass'],
+        [154, 'Goron_Mines_Compass'],
+        [155, 'Lakebed_Temple_Compass'],
+        [168, 'Arbiters_Grounds_Compass'],
+        [169, 'Snowpeak_Ruins_Compass'],
+        [170, 'Temple_of_Time_Compass'],
+        [171, 'City_in_The_Sky_Compass'],
+        [172, 'Palace_of_Twilight_Compass'],
+        [173, 'Hyrule_Castle_Compass'],
+    
+        //Maps
+        ['Category', 'Maps'],
+        [182, 'Forest_Temple_Dungeon_Map'],
+        [183, 'Goron_Mines_Dungeon_Map'],
+        [184, 'Lakebed_Temple_Dungeon_Map'],
+        [185, 'Arbiters_Grounds_Dungeon_Map'],
+        [186, 'Snowpeak_Ruins_Dungeon_Map'],
+        [187, 'Temple_of_Time_Dungeon_Map'],
+        [188, 'City_in_The_Sky_Dungeon_Map'],
+        [189, 'Palace_of_Twilight_Dungeon_Map'],
+        [190, 'Hyrule_Castle_Dungeon_Map'],
+    
+        // Bugs
+        ['Category', 'Bugs'],
+        [192, 'Male_Beetle'],
+        [193, 'Female_Beetle'],
+        [194, 'Male_Butterfly'],
+        [195, 'Female_Butterfly'],
+        [196, 'Male_Stag_Beetle'],
+        [197, 'Female_Stag_Beetle'],
+        [198, 'Male_Grasshopper'],
+        [199, 'Female_Grasshopper'],
+        [200, 'Male_Phasmid'],
+        [201, 'Female_Phasmid'],
+        [202, 'Male_Pill_Bug'],
+        [203, 'Female_Pill_Bug'],
+        [204, 'Male_Mantis'],
+        [205, 'Female_Mantis'],
+        [206, 'Male_Ladybug'],
+        [207, 'Female_Ladybug'],
+        [208, 'Male_Snail'],
+        [209, 'Female_Snail'],
+        [210, 'Male_Dragonfly'],
+        [211, 'Female_Dragonfly'],
+        [212, 'Male_Ant'],
+        [213, 'Female_Ant'],
+        [214, 'Male_Dayfly'],
+        [215, 'Female_Dayfly'],
+    
+        // Skills
+        ['Category', 'Skills'],
+        [225, 'Progressive_Hidden_Skill'],
+        [226, 'Shield_Attack'],
+        [227, 'Back_Slice'],
+        [228, 'Helm_Splitter'],
+        [229, 'Mortal_Draw'],
+        [230, 'Jump_Strike'],
+        [231, 'Great_Spin'],
+    
+        // Boss Items
+        ['Category', 'Dungeon Rewards'],
+        [165, 'Progressive_Mirror_Shard'],
+        [216, 'Progressive_Fused_Shadow'],
+    
+        // Misc
+        ['Category', 'Misc'],
+        [42, 'Ordon_Shield'],
+        [43, 'Wooden_Shield'],
+        [44, 'Hylian_Shield'],
+        [79, 'Giant_Bomb_Bag'],
+        [96, 'Empty_Bottle'],
+        [132, 'Horse_Call'],
+        [224, 'Poe_Soul'],
+        [0, 'Recovery_Heart'],
+        [33, 'Piece_of_Heart'],
+        [34, 'Heart_Container'],
+        [19, 'Foolish_Item'],
+        [20, 'Foolish_Item_2'],
+        [21, 'Foolish_Item_3'],
+        ]
+    
+        const plandoItemEls = plandoItems.map((item) => {
+        // This is pretty bad, but 
+        if(item[0] == 'FirstCategory') {
+          return `<optgroup label='${item[1]}'>`
+        }
+        else if(item[0] == 'Category') {
+          return `</optgroup><optgroup label='${item[1]}'>`
+        }
+        else {
+          return `<option value='${item[0]}'>${item[1]}</option>`;
+        }
+        }).join("\n");
+        const plandoEls = Object.keys(excludedChecksList).map((key) => {
+            return `<li class='plandoListItem'>
+              <label>${key}</label>
+              <select class='plandoCheckSelect' data-checkId='${excludedChecksList[key]}'>${plandoItemEls}</optgroup></select>
+            </li>`;
+          });
+    
+        msg = msg.replace('<!-- PLANDO -->', plandoEls.join('\n'));
+    
 
       res.send(msg);
     }
