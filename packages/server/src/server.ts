@@ -391,9 +391,6 @@ app.get('/', (req: express.Request, res: express.Response) => {
       msg = msg.replace('<!-- STARTING_ITEMS -->', startingItemsEls.join('\n'));
 
       const plandoItems = [
-        // Let the generator decide based on other settings
-        [-1, 'Random'],
-    
         // Rupees
         ['FirstCategory', 'Rupees'],
         [1, 'Green_Rupee'],
@@ -561,7 +558,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
         ]
     
         const plandoItemEls = plandoItems.map((item) => {
-        // This is pretty bad, but 
+        // This is pretty bad, but it'll work for now
         if(item[0] == 'FirstCategory') {
           return `<optgroup label='${item[1]}'>`
         }
@@ -572,16 +569,17 @@ app.get('/', (req: express.Request, res: express.Response) => {
           return `<option value='${item[0]}'>${item[1]}</option>`;
         }
         }).join("\n");
-        const plandoEls = Object.keys(excludedChecksList).map((key) => {
-            return `<li class='plandoListItem'>
-              <label>${key}</label>
-              <select class='plandoCheckSelect' data-checkId='${excludedChecksList[key]}'>${plandoItemEls}</optgroup></select>
-            </li>`;
-          });
+        const plandoChecksEls = Object.keys(excludedChecksList).map((key) => {
+          return `<option value='${excludedChecksList[key]}'>${key}</option>`;
+            // return `<li class='plandoListItem'>
+            //   <label>${key}</label>
+            //   <select class='plandoCheckSelect' data-checkId='${excludedChecksList[key]}'>${plandoItemEls}</optgroup></select>
+            // </li>`;
+          }).join("\n");
+      var plandoStr = `<select id=plandoCheckSelect>${plandoChecksEls}</select>
+                        <select id=plandoItemSelect>${plandoItemEls}</select>`;
+      msg = msg.replace('<!-- PLANDO -->', plandoStr);
     
-        msg = msg.replace('<!-- PLANDO -->', plandoEls.join('\n'));
-    
-
       res.send(msg);
     }
   });
