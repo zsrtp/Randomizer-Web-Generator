@@ -308,5 +308,34 @@ namespace TPRandomizer.Util
             byte b = NextByte();
             return new RgbEntry(recolorId, r, g, b);
         }
+
+        public List<(string, Item)> NextPlandoChecksList()
+        {
+            List<(string, Item)> list = new();
+
+            while (true)
+            {
+                int checkIdNum = NextInt(9);
+                string checkName;
+                if (checkIdNum >= 0 && checkIdNum < 0x1FF)
+                {
+                    checkName = CheckIdClass.GetCheckName(checkIdNum);
+                }
+                else
+                {
+                    break;
+                }
+
+                int itemId = NextInt(9);
+                if (!(itemId >= 0 && itemId < 0x1FF))
+                {
+                    break;
+                }
+
+                list.Add((checkName, (Item)itemId));
+            }
+
+            return list;
+        }
     }
 }

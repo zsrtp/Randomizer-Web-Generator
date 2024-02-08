@@ -117,6 +117,9 @@
           <button id="startingInventoryTabBtn" class="tablinks">
             Starting Inventory
           </button>
+          <button id="plandoTabBtn" class="tablinks">
+                Plando
+          </button>
           <button id="gameplaySettingsTabBtn" class="tablinks">Other</button>
           <!-- <button id="cosmeticsAndQuirksTabBtn" class="tablinks">Cosmetics and Quirks</button> -->
           <!-- <button id="legacyTabBtn" class="tablinks">Legacy</button> -->
@@ -753,6 +756,7 @@
               width="20%"
               data-tooltip-text="Any checks selected will be excluded, meaning that they cannot contain important items. Please note that settings take priority, so if a check is excluded, but a setting has the check set to be vanilla, it will be vanilla.&#0010;"
             >
+            <!-- This is terrible, but see server.ts in the server for where this is being populated -->
               <!-- CHECK_IDS -->
 
               <!-- <?php
@@ -787,7 +791,35 @@
               width="20%"
               data-tooltip-text="The player will start with any items selected and the playthrough will take them into account for logic.&#0010;"
             >
+            <!-- This is terrible, but see server.ts in the server for where this is being populated -->
               <!-- STARTING_ITEMS -->
+
+              <!-- <?php
+							$important_items = file_get_contents("Resources/StartingItems.txt");
+							$important_items = explode("\n", $important_items);
+							foreach ($important_items as $important_item)
+							{
+								list($value, $name) = explode(",", $important_item);
+								$name = str_replace("_"," ", $name);
+								echo "<li><label><input type='checkbox' data-itemId='$value'>".$name."</label> </li>";
+							}
+						?> -->
+            </ul>
+          </fieldset>
+        </div>
+
+        <div id="plandoTab" class="tabcontent">
+          <fieldset class="checkboxFieldset">
+            <legend>Plando</legend>
+            <ul
+              id="basePlandoListbox"
+              multiple="multiple"
+              size="10"
+              width="20%"
+              data-tooltip-text="Any items selected will be placed in the set locations. These items will be accounted for when the seed is generated.&#0010;"
+            >
+			  <!-- This is terrible, but see server.ts in the server for where this is being populated -->
+              <!-- PLANDO -->
 
               <!-- <?php
 							$important_items = file_get_contents("Resources/StartingItems.txt");

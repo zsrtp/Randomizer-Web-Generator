@@ -92,6 +92,7 @@ function initTabButtons() {
     'gameplaySettingsTab',
     'excludedChecksTab',
     'startingInventoryTab',
+    'plandoTab',
     // 'legacyTab',
   ].forEach((id) => {
     byId(id + 'Btn').addEventListener('click', genOnTabClick(id));
@@ -191,6 +192,9 @@ function openCurrAccordion(e) {
     }
   }
 }
+
+// This is a much cleaner way to add the event listener since we're already using jquery
+$(document).on('change', '.plandoCheckSelect', setSettingsString);
 
 for (
   var j = 0;
@@ -1231,6 +1235,11 @@ function populateSSettings(s) {
       }
     });
   }
+  s.plando.forEach((p) => {
+    checkId = p[0];
+    itemId = p[1];
+    $('select[data-checkid=' + checkId + ']').val(itemId);
+  })
 }
 
 function testProgressFunc(id) {

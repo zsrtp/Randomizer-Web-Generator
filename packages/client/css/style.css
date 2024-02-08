@@ -1719,3 +1719,8 @@ tr td select {
 .liSlider-inputRowText {
   margin-left: 4px;
 }
+
+.plandoListItem {
+	display: flex;
+	justify-content: space-between
+}

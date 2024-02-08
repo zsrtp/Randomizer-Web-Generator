@@ -1,5 +1,6 @@
 namespace TPRandomizer
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Newtonsoft.Json;
@@ -763,6 +764,20 @@ namespace TPRandomizer
             SharedSettings parseSetting = Randomizer.SSettings;
             Randomizer.Items.RandomizedImportantItems.AddRange(this.ImportantItems);
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);
+
+            foreach ((string plandoCheck, Item plandoItem) in parseSetting.plandoChecks)
+            {
+                Console.WriteLine(plandoItem.ToString());
+                bool didRemoveItem = RandomizedImportantItems.Remove(plandoItem);
+                if (!didRemoveItem)
+                {
+                    didRemoveItem = alwaysItems.Remove(plandoItem);
+                    if (!didRemoveItem)
+                    {
+                        ShuffledDungeonRewards.Remove(plandoItem);
+                    }
+                }
+            }
 
             // Handle poes
             int numPoesForBaseItemPool = SetupItemPoolPoes(parseSetting);
