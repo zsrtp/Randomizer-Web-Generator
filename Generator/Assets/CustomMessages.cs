@@ -100,6 +100,16 @@ namespace TPRandomizer.Assets
                     + " or\ncans here! The fish are CRYING!\n\nKeep the fishing hole clean!"
             },
             
+
+            new MessageEntry
+            {
+                stageIDX = 0xFF,
+                roomIDX = 0xFF,
+                messageID = 0x1369, // Hint Message
+                message =
+                    "This is a test hint"
+            },
+            
         };
 
         public List<MessageEntry> englishShopMessages = new List<MessageEntry>
@@ -173,15 +183,6 @@ namespace TPRandomizer.Assets
                 message =
                     "Are you sure?"
                     + shopOption
-            },
-
-            new MessageEntry
-            {
-                stageIDX = 0xFF,
-                roomIDX = 0xFF,
-                messageID = 0x1369, // Hint Message
-                message =
-                    "This is a test hint"
             },
         };
 

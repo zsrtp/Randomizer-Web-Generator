@@ -4,10 +4,6 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Lake Hylia",
-        "Requirements": "Shadow_Crystal"
-      },
-      {
         "ConnectedArea": "Lanayru Field",
         "Requirements": "true"
       },
