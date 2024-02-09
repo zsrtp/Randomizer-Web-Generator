@@ -765,18 +765,9 @@ namespace TPRandomizer
             Randomizer.Items.RandomizedImportantItems.AddRange(this.ImportantItems);
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);
 
-            foreach ((string plandoCheck, Item plandoItem) in parseSetting.plandoChecks)
+            foreach ((string checkName, Item item) in parseSetting.plandoChecks)
             {
-                Console.WriteLine(plandoItem.ToString());
-                bool didRemoveItem = RandomizedImportantItems.Remove(plandoItem);
-                if (!didRemoveItem)
-                {
-                    didRemoveItem = alwaysItems.Remove(plandoItem);
-                    if (!didRemoveItem)
-                    {
-                        ShuffledDungeonRewards.Remove(plandoItem);
-                    }
-                }
+                RemoveItem(item);
             }
 
             // Handle poes
@@ -1036,7 +1027,13 @@ namespace TPRandomizer
         private void RemoveItem(Item item)
         {
             List<List<Item>> lists =
-                new() { RandomizedImportantItems, alwaysItems, RandomizedDungeonRegionItems };
+                new()
+                {
+                    RandomizedImportantItems,
+                    alwaysItems,
+                    RandomizedDungeonRegionItems,
+                    ShuffledDungeonRewards
+                };
 
             for (int i = 0; i < lists.Count; i++)
             {

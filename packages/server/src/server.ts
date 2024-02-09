@@ -272,7 +272,6 @@ app.get('/', (req: express.Request, res: express.Response) => {
       console.log(err);
       res.status(500).send({ error: 'Internal server error.' });
     } else {
-       // This is so terrible, why are we doing it like this????
       let msg = data.toString();
       msg = msg.replace(
         '<!-- IMAGE_VERSION -->',
@@ -393,7 +392,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
       const plandoItems = [
         // Let the generator decide based on other settings
         [-1, 'Random'],
-    
+
         // Rupees
         ['FirstCategory', 'Rupees'],
         [1, 'Green_Rupee'],
@@ -404,7 +403,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [6, 'Orange_Rupee'],
         [7, 'Silver_Rupee'],
         [237, 'Purple_Rupee_Links_House'],
-    
+
         // Ammo
         ['Category', 'Ammo'],
         [10, 'Bombs_5'],
@@ -424,7 +423,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [28, 'Bomblings_3'],
         [26, 'Bomblings_5'],
         [27, 'Bomblings_10'],
-    
+
         // Progression Items
         ['Category', 'Progression Items'],
         [48, 'Magic_Armor'],
@@ -443,11 +442,11 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [72, 'Lantern'],
         [74, 'Progressive_Fishing_Rod'],
         [75, 'Slingshot'],
-		    [81, 'Filled_Bomb_Bag'],
+        [81, 'Filled_Bomb_Bag'],
         [144, 'Aurus_Memo'],
         [145, 'Asheis_Sketch'],
         [233, 'Progressive_Sky_Book'],
-    
+
         // Small Keys
         ['Category', 'Small Keys'],
         [133, 'Forest_Temple_Small_Key'],
@@ -464,7 +463,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [243, 'Gate_Keys'],
         [244, 'Snowpeak_Ruins_Ordon_Pumpkin'],
         [245, 'Snowpeak_Ruins_Ordon_Goat_Cheese'],
-    
+
         // Big Keys
         ['Category', 'Big Keys'],
         [146, 'Forest_Temple_Big_Key'],
@@ -476,7 +475,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [151, 'Palace_of_Twilight_Big_Key'],
         [152, 'Hyrule_Castle_Big_Key'],
         [249, 'Goron_Mines_Key_Shard'],
-    
+
         // Compasses
         ['Category', 'Compasses'],
         [153, 'Forest_Temple_Compass'],
@@ -488,7 +487,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [171, 'City_in_The_Sky_Compass'],
         [172, 'Palace_of_Twilight_Compass'],
         [173, 'Hyrule_Castle_Compass'],
-    
+
         //Maps
         ['Category', 'Maps'],
         [182, 'Forest_Temple_Dungeon_Map'],
@@ -500,7 +499,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [188, 'City_in_The_Sky_Dungeon_Map'],
         [189, 'Palace_of_Twilight_Dungeon_Map'],
         [190, 'Hyrule_Castle_Dungeon_Map'],
-    
+
         // Bugs
         ['Category', 'Bugs'],
         [192, 'Male_Beetle'],
@@ -527,7 +526,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [213, 'Female_Ant'],
         [214, 'Male_Dayfly'],
         [215, 'Female_Dayfly'],
-    
+
         // Skills
         ['Category', 'Skills'],
         [225, 'Progressive_Hidden_Skill'],
@@ -537,12 +536,12 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [229, 'Mortal_Draw'],
         [230, 'Jump_Strike'],
         [231, 'Great_Spin'],
-    
+
         // Boss Items
         ['Category', 'Dungeon Rewards'],
         [165, 'Progressive_Mirror_Shard'],
         [216, 'Progressive_Fused_Shadow'],
-    
+
         // Misc
         ['Category', 'Misc'],
         [42, 'Ordon_Shield'],
@@ -558,29 +557,27 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [19, 'Foolish_Item'],
         [20, 'Foolish_Item_2'],
         [21, 'Foolish_Item_3'],
-        ]
-    
-        const plandoItemEls = plandoItems.map((item) => {
-        // This is pretty bad, but 
-        if(item[0] == 'FirstCategory') {
-          return `<optgroup label='${item[1]}'>`
-        }
-        else if(item[0] == 'Category') {
-          return `</optgroup><optgroup label='${item[1]}'>`
-        }
-        else {
-          return `<option value='${item[0]}'>${item[1]}</option>`;
-        }
-        }).join("\n");
-        const plandoEls = Object.keys(excludedChecksList).map((key) => {
-            return `<li class='plandoListItem'>
+      ];
+
+      const plandoItemEls = plandoItems
+        .map((item) => {
+          if (item[0] == 'FirstCategory') {
+            return `<optgroup label='${item[1]}'>`;
+          } else if (item[0] == 'Category') {
+            return `</optgroup><optgroup label='${item[1]}'>`;
+          } else {
+            return `<option value='${item[0]}'>${item[1]}</option>`;
+          }
+        })
+        .join('\n');
+      const plandoEls = Object.keys(excludedChecksList).map((key) => {
+        return `<li class='plandoListItem'>
               <label>${key}</label>
               <select class='plandoCheckSelect' data-checkId='${excludedChecksList[key]}'>${plandoItemEls}</optgroup></select>
             </li>`;
-          });
-    
-        msg = msg.replace('<!-- PLANDO -->', plandoEls.join('\n'));
-    
+      });
+
+      msg = msg.replace('<!-- PLANDO -->', plandoEls.join('\n'));
 
       res.send(msg);
     }

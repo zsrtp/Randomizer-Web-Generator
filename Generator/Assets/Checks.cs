@@ -488,6 +488,12 @@ namespace TPRandomizer
             Randomizer.Items.RandomizedImportantItems.Remove(
                 Randomizer.Checks.CheckDict["Ilia Memory Reward"].itemId
             );
+
+            foreach ((string checkName, Item item) in parseSetting.plandoChecks)
+            {
+                Randomizer.Checks.CheckDict[checkName].checkStatus = "Plando";
+                Randomizer.Checks.CheckDict[checkName].itemId = item;
+            }
         }
     }
 }

@@ -316,21 +316,16 @@ namespace TPRandomizer.Util
             while (true)
             {
                 int checkIdNum = NextInt(9);
-                string checkName;
-                if (checkIdNum >= 0 && checkIdNum < 0x1FF)
-                {
-                    checkName = CheckIdClass.GetCheckName(checkIdNum);
-                }
-                else
-                {
+                string checkName = CheckIdClass.GetCheckName(checkIdNum);
+                // Expected to fail once the checkIdNum is 0x1FF.
+                if (checkName == null)
                     break;
-                }
 
                 int itemId = NextInt(9);
-                if (!(itemId >= 0 && itemId < 0x1FF))
-                {
-                    break;
-                }
+                if (itemId > 0xFF)
+                    throw new Exception(
+                        $"Failed to parse valid itemId from plando list. Value was '{itemId}'."
+                    );
 
                 list.Add((checkName, (Item)itemId));
             }
