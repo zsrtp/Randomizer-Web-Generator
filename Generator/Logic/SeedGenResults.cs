@@ -25,6 +25,7 @@ namespace TPRandomizer
 
         // output
         public string playthroughName { get; set; }
+        public string wiiPlaythroughName { get; set; }
         public Dictionary<int, byte> itemPlacements { get; }
         public byte requiredDungeons { get; set; }
         public List<List<KeyValuePair<int, Item>>> spheres { get; }
@@ -53,6 +54,7 @@ namespace TPRandomizer
 
             JObject output = (JObject)inputJsonContents["output"];
             this.playthroughName = (string)output["name"];
+            this.wiiPlaythroughName = (string)output["wiiName"];
             this.itemPlacements = DecodeItemPlacements((string)output["itemPlacement"]);
             this.requiredDungeons = (byte)output["reqDungeons"];
             this.spheres = DecodeSpheres((string)output["spheres"]);
@@ -267,6 +269,7 @@ namespace TPRandomizer
             }
 
             root.Add("playthroughName", playthroughName);
+            root.Add("wiiPlaythroughName", wiiPlaythroughName);
             root.Add("isRaceSeed", isRaceSeed);
             root.Add("seedString", seed);
             root.Add("settingsString", settingsString);
@@ -524,6 +527,7 @@ namespace TPRandomizer
             public bool isRaceSeed { get; set; }
             public string seedHashString { get; set; }
             public string playthroughName { get; set; }
+            public string wiiPlaythroughName { get; set; }
             public byte requiredDungeons { get; set; }
             private string itemPlacement;
             private string spheres;
@@ -575,6 +579,7 @@ namespace TPRandomizer
                 inputJsonRoot.Add("output", outputObj);
                 outputObj.Add("seedHash", seedHashString);
                 outputObj.Add("name", playthroughName);
+                outputObj.Add("wiiName", wiiPlaythroughName);
                 outputObj.Add("itemPlacement", itemPlacement);
                 outputObj.Add("reqDungeons", requiredDungeons);
                 outputObj.Add("spheres", spheres);
