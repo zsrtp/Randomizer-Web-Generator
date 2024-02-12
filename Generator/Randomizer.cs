@@ -333,7 +333,7 @@ namespace TPRandomizer
             );
 
             int filenameBits = Util.Hash.CalculateMD5(filenameInput);
-            string playthroughName = Util.PlaythroughName.GenName(filenameBits);
+            List<string> playthroughNames = Util.PlaythroughName.GenNames(filenameBits);
 
             // When generating the filename, the following should be taken into account:
 
@@ -364,7 +364,8 @@ namespace TPRandomizer
             builder.isRaceSeed = isRaceSeed;
             // outputs
             builder.seedHashString = seedHashAsString;
-            builder.playthroughName = playthroughName;
+            builder.playthroughName = playthroughNames[0];
+            builder.wiiPlaythroughName = playthroughNames[1];
             builder.requiredDungeons = (byte)Randomizer.RequiredDungeons;
             builder.SetItemPlacements(checkNumIdToItemId);
             builder.SetSpheres(spheres);
