@@ -95,9 +95,6 @@ namespace TPRandomizer
                     "Mist Area Near North Faron Woods"
                 ].ReachedByPlaythrough
                 || Randomizer.Rooms.RoomDict["North Faron Woods"].ReachedByPlaythrough
-                || Randomizer.Rooms.RoomDict[
-                    "North Faron Woods Near Lost Woods"
-                ].ReachedByPlaythrough
                 || Randomizer.Rooms.RoomDict["Lost Woods"].ReachedByPlaythrough
                 || Randomizer.Rooms.RoomDict["Lost Woods Lower Battle Arena"].ReachedByPlaythrough
                 || Randomizer.Rooms.RoomDict["Lost Woods Upper Battle Arena"].ReachedByPlaythrough
@@ -170,8 +167,9 @@ namespace TPRandomizer
                     "Gerudo Desert Outside Bulblin Camp"
                 ].ReachedByPlaythrough
                 || Randomizer.Rooms.RoomDict["Bulblin Camp"].ReachedByPlaythrough
-                || Randomizer.Rooms.RoomDict["Bulblin Camp Back Exit"].ReachedByPlaythrough
-                || Randomizer.Rooms.RoomDict["Mirror Chamber"].ReachedByPlaythrough;
+                || Randomizer.Rooms.RoomDict["Mirror Chamber Lower"].ReachedByPlaythrough
+                || Randomizer.Rooms.RoomDict["Mirror Chamber Upper"].ReachedByPlaythrough
+                || Randomizer.Rooms.RoomDict["Mirror Chamber Portal"].ReachedByPlaythrough;
         }
 
         /// <summary>
