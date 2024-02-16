@@ -117,9 +117,7 @@
           <button id="startingInventoryTabBtn" class="tablinks">
             Starting Inventory
           </button>
-          <button id="plandoTabBtn" class="tablinks">
-                Plando
-          </button>
+          <button id="plandoTabBtn" class="tablinks">Plando</button>
           <button id="gameplaySettingsTabBtn" class="tablinks">Other</button>
           <!-- <button id="cosmeticsAndQuirksTabBtn" class="tablinks">Cosmetics and Quirks</button> -->
           <!-- <button id="legacyTabBtn" class="tablinks">Legacy</button> -->
@@ -154,14 +152,14 @@
                 ><br />
                 <select
                   name="Castle Requirements"
-                  data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'All Dungeons': The player must complete all dungeons.&#0010;&#0010;'Vanilla': The player must complete Palace of Twilight.&#0010;&#0010;Note that all Castle requirements include completing Midna's Desperate Hour. Visit the 'Other' tab to adjust your MDH settings."
+                  data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'All Dungeons': The player must complete all dungeons.&#0010;&#0010;'Vanilla (beat PoT)': The player must complete Palace of Twilight.&#0010;&#0010;Note that all Castle requirements include completing Midna's Desperate Hour. Visit the 'Other' tab to adjust your MDH settings."
                   id="castleRequirementsFieldset"
                 >
                   <option value="0">Open</option>
                   <option value="1">Fused Shadows</option>
                   <option value="2">Mirror Shards</option>
                   <option value="3">All Dungeons</option>
-                  <option value="4" selected>Vanilla</option>
+                  <option value="4" selected>Vanilla (beat PoT)</option>
                 </select>
               </div>
               <div class="selectGroup">
@@ -170,13 +168,13 @@
                 ><br />
                 <select
                   name="Palace Requirements"
-                  data-tooltip-text="'Open': The mirror is assembled from the beginning and the entrance to the dungeon is open.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'Vanilla': The player must complete City in the Sky.&#0010;"
+                  data-tooltip-text="'Open': The mirror is assembled from the beginning and the entrance to the dungeon is open.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'Vanilla (beat CitS)': The player must complete City in the Sky.&#0010;"
                   id="palaceRequirementsFieldset"
                 >
                   <option value="0">Open</option>
                   <option value="1">Fused Shadows</option>
                   <option value="2">Mirror Shards</option>
-                  <option value="3" selected>Vanilla</option>
+                  <option value="3" selected>Vanilla (beat CitS)</option>
                 </select>
               </div>
               <div class="selectGroup">
@@ -607,7 +605,6 @@
                 <label for="noSmallKeysOnBossesCheckbox"
                   >No Small Keys On Bosses</label
                 ><br />
-
               </div>
               <div class="selectGroup" style="margin-top: 8px">
                 <label for="trapItemFieldset">Trap Item Frequency</label><br />
@@ -756,7 +753,7 @@
               width="20%"
               data-tooltip-text="Any checks selected will be excluded, meaning that they cannot contain important items. Please note that settings take priority, so if a check is excluded, but a setting has the check set to be vanilla, it will be vanilla.&#0010;"
             >
-            <!-- This is terrible, but see server.ts in the server for where this is being populated -->
+              <!-- This is terrible, but see server.ts in the server for where this is being populated -->
               <!-- CHECK_IDS -->
 
               <!-- <?php
@@ -791,7 +788,7 @@
               width="20%"
               data-tooltip-text="The player will start with any items selected and the playthrough will take them into account for logic.&#0010;"
             >
-            <!-- This is terrible, but see server.ts in the server for where this is being populated -->
+              <!-- This is terrible, but see server.ts in the server for where this is being populated -->
               <!-- STARTING_ITEMS -->
 
               <!-- <?php
@@ -818,7 +815,7 @@
               width="20%"
               data-tooltip-text="Any items selected will be placed in the set locations. These items will be accounted for when the seed is generated.&#0010;"
             >
-			  <!-- This is terrible, but see server.ts in the server for where this is being populated -->
+              <!-- This is terrible, but see server.ts in the server for where this is being populated -->
               <!-- PLANDO -->
 
               <!-- <?php
