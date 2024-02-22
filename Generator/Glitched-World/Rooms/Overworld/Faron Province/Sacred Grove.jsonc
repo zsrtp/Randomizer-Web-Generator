@@ -12,7 +12,7 @@
           "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
         },
         {
-          "ConnectedArea": "North Faron Woods Near Lost Woods",
+          "ConnectedArea": "North Faron Woods",
           "Requirements": "true"
         }
       ],

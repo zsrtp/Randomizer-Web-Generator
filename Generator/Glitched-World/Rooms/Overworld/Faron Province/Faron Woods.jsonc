@@ -340,7 +340,7 @@
       "Exits":
       [
         {
-          "ConnectedArea": "North Faron Woods Near Lost Woods",
+          "ConnectedArea": "Lost Woods",
           "Requirements": "Shadow_Crystal or (hasBombs and CanDoLJA)"
         },
         {
@@ -356,23 +356,6 @@
           "North Faron Woods Deku Baba Chest",
           "Faron Woods Golden Wolf"
       ],
-      "Region": "Faron Woods"
-    },
-    {
-      "RoomName": "North Faron Woods Near Lost Woods",
-      "Exits":
-      [
-        {
-        "ConnectedArea": "Lost Woods",
-        "Requirements": "true"
-      },
-      // You can save warp to North Faron Woods
-      {
-        "ConnectedArea": "North Faron Woods",
-        "Requirements": "true"
-      }
-      ],
-      "Checks": [""],
       "Region": "Faron Woods"
     }
   ]

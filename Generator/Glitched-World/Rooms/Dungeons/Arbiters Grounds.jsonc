@@ -118,7 +118,7 @@
         "Exits": 
         [
           {
-            "ConnectedArea": "Mirror Chamber",
+            "ConnectedArea": "Mirror Chamber Lower",
             "Requirements": "CanDefeatStallord"
           }
         ],

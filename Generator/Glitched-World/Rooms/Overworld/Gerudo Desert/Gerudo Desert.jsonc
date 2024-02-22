@@ -169,7 +169,7 @@
       "Exits":
       [
         {
-          "ConnectedArea": "Bulblin Camp Back Exit",
+          "ConnectedArea": "Outside Arbiters Grounds",
           "Requirements": "(CanDefeatKingBulblinDesert and (Gerudo_Desert_Bulblin_Camp_Key or ((CanDoMapGlitch and HasSword) or (Setting.smallKeySettings equals Keysy)))) or (Setting.skipArbitersEntrance equals True)"
         },
         {
@@ -188,27 +188,11 @@
       "Region": "Gerudo Desert"
     },
     {
-      "RoomName": "Bulblin Camp Back Exit",
-      "Exits":
-      [
-        {
-          "ConnectedArea": "Bulblin Camp",
-          "Requirements": "true"
-        },
-        {
-          "ConnectedArea": "Outside Arbiters Grounds",
-          "Requirements": "true"
-        }
-      ],
-      "Checks": [""],
-      "Region": "Gerudo Desert"
-    },
-    {
       "RoomName": "Outside Arbiters Grounds",
       "Exits":
       [
         {
-          "ConnectedArea": "Bulblin Camp Back Exit",
+          "ConnectedArea": "Bulblin Camp",
           "Requirements": "true"
         },
         {
@@ -224,7 +208,7 @@
       "Region": "Gerudo Desert"
     },
     {
-      "RoomName": "Mirror Chamber",
+      "RoomName": "Mirror Chamber Lower",
       "Exits":
       [
         {
@@ -232,8 +216,40 @@
           "Requirements": "true"
         },
         {
-          "ConnectedArea": "Palace of Twilight Entrance",
+          "ConnectedArea": "Mirror Chamber Upper",
+          "Requirements": "true"
+        }
+      ],
+      "Checks": [""],
+      "Region": "Gerudo Desert"
+    },
+    {
+      "RoomName": "Mirror Chamber Upper",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Mirror Chamber Lower",
+          "Requirements": "CanDefeatShadowBeast"
+        },
+        {
+          "ConnectedArea": "Mirror Chamber Portal",
           "Requirements": "CanDefeatShadowBeast and ((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky))"
+        }
+      ],
+      "Checks": [""],
+      "Region": "Gerudo Desert"
+    },
+    {
+      "RoomName": "Mirror Chamber Portal",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Mirror Chamber Upper",
+          "Requirements": "CanDefeatShadowBeast"
+        },
+        {
+          "ConnectedArea": "Palace of Twilight Entrance",
+          "Requirements": "true"
         }
       ],
       "Checks": [""],
