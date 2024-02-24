@@ -111,33 +111,6 @@ namespace TPRandomizer.Assets
                     + "\n60 Soul Reward: "
                     + getShortenedItemName(Randomizer.Checks.CheckDict["Jovani 60 Poe Soul Reward"].itemId)
             },
-
-            new MessageEntry
-            {
-                stageIDX = 0xFF,
-                roomIDX = 0xFF,
-                messageID = 0x1369, // Hint Message
-                message =
-                    "This is a test hint"
-            },
-            
-        };
-
-        public List<MessageEntry> englishShopMessages = new List<MessageEntry>
-        {
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Ordon_Village_Interiors,
-                roomIDX = 1,
-                messageID = 0x5AD, // Slingshot Check
-                message =
-                    getShortenedItemName(Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "30 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },
             new MessageEntry
             {
                 stageIDX = (byte)StageIDs.Ordon_Village_Interiors,
@@ -154,19 +127,6 @@ namespace TPRandomizer.Assets
                 messageID = 0x5AE, // Slingshot Confirmation - Not enough money
                 message =
                     "You don't have enough money!"
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Castle_Town_Shops,
-                roomIDX = 0,
-                messageID = 0x125, // Magic Armor Check
-                message =
-                    getShortenedItemName(Randomizer.Checks.CheckDict["Castle Town Malo Mart Magic Armor"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "598 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
             },
             new MessageEntry
             {
@@ -201,18 +161,14 @@ namespace TPRandomizer.Assets
                 message =
                     "You don't have enough money!"
             },
-             new MessageEntry
+
+            new MessageEntry
             {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x30E, // Hylian Shield Check
+                stageIDX = 0xFF,
+                roomIDX = 0xFF,
+                messageID = 0x1369, // Hint Message
                 message =
-                    getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Hylian Shield"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "200 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+                    "This is a test hint"
             },
             new MessageEntry
             {
@@ -230,19 +186,6 @@ namespace TPRandomizer.Assets
                 message =
                     "Are you sure?"
                     + shopOption
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x307, // Hawkeye Display
-                message =
-                    getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Hawkeye"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "100 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
             },
             new MessageEntry
             {
@@ -278,20 +221,7 @@ namespace TPRandomizer.Assets
                 message =
                     "You don't have enough money!"
             },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x30D, // Wooden Shield text
-                message =
-                getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Wooden Shield"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "50 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },
-            new MessageEntry
+             new MessageEntry
             {
                 stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
                 roomIDX = 3,
@@ -337,19 +267,6 @@ namespace TPRandomizer.Assets
             {
                 stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
                 roomIDX = 3,
-                messageID = 0x305, // Red Potion Text
-                message =
-                getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Red Potion"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "30 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
                 messageID = 0x2D7, // Red Potion confirmation
                 message =
                     "Are you sure?"
@@ -370,6 +287,88 @@ namespace TPRandomizer.Assets
                 messageID = 0x2D8, // Red Potion after buying
                 message =
                     "Thank you for your purchase..."
+            },
+        };
+
+        public List<MessageEntry> englishShopMessages = new List<MessageEntry>
+        {
+            new MessageEntry
+            {
+                stageIDX = (byte)StageIDs.Ordon_Village_Interiors,
+                roomIDX = 1,
+                messageID = 0x5AD, // Slingshot Check
+                message =
+                    getShortenedItemName(Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId)
+                    + ": "
+                    + messageColorPurple
+                    + "30 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            },       
+            new MessageEntry
+            {
+                stageIDX = (byte)StageIDs.Castle_Town_Shops,
+                roomIDX = 0,
+                messageID = 0x125, // Magic Armor Check
+                message =
+                    getShortenedItemName(Randomizer.Checks.CheckDict["Castle Town Malo Mart Magic Armor"].itemId)
+                    + ": "
+                    + messageColorPurple
+                    + "598 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            },         
+             new MessageEntry
+            {
+                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+                roomIDX = 3,
+                messageID = 0x30E, // Hylian Shield Check
+                message =
+                    getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Hylian Shield"].itemId)
+                    + ": "
+                    + messageColorPurple
+                    + "200 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            },         
+            new MessageEntry
+            {
+                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+                roomIDX = 3,
+                messageID = 0x307, // Hawkeye Display
+                message =
+                    getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Hawkeye"].itemId)
+                    + ": "
+                    + messageColorPurple
+                    + "100 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            },   
+            new MessageEntry
+            {
+                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+                roomIDX = 3,
+                messageID = 0x30D, // Wooden Shield text
+                message =
+                getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Wooden Shield"].itemId)
+                    + ": "
+                    + messageColorPurple
+                    + "50 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            },   
+            new MessageEntry
+            {
+                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+                roomIDX = 3,
+                messageID = 0x305, // Red Potion Text
+                message =
+                getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Red Potion"].itemId)
+                    + ": "
+                    + messageColorPurple
+                    + "30 Rupees\n"
+                    + messageColorWhite
+                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
             },
         };
 
