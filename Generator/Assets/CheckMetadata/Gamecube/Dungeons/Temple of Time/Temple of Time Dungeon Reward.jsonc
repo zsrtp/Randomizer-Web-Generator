@@ -1,0 +1,11 @@
+{
+    "moduleID": ["5B"],
+    "stageIDX": [10],
+    "relOffsets": ["1880"],
+    "overrideInstruction": ["38600000"],
+    "arcOffsets": ["383E"],
+    "fileDirectoryType": [3],
+    "replacementType": [2],
+    "relReplacementType": [0],
+    "dataCategory": ["Dungeon", "Temple of Time", "Dungeon Reward", "REL", "ARC"]
+}

@@ -1,0 +1,8 @@
+{
+    "moduleID": ["26D"],
+    "stageIDX": [6],
+    "relOffsets": ["155C"],
+    "overrideInstruction": ["38800000"],
+    "relReplacementType": [0],
+    "dataCategory": ["Small Key", "Dungeon", "Forest Temple", "REL"]
+}

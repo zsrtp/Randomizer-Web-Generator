@@ -1,0 +1,8 @@
+{
+    "arcOffsets": ["C64"],
+    "stageIDX": [0],
+    "roomIDX": 9,
+    "fileDirectoryType": [0],
+    "replacementType": [0],
+    "dataCategory": ["Chest", "Dungeon", "Lakebed Temple", "Small Key", "ARC"]
+}

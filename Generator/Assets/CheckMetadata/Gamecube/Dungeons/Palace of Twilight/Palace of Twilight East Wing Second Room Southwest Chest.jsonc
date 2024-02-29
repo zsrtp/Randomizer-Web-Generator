@@ -1,0 +1,8 @@
+{
+  "arcOffsets": ["D20"],
+    "stageIDX": [15],
+    "roomIDX": 5,
+  "fileDirectoryType": [ 0 ],
+  "replacementType": [ 0 ],
+  "dataCategory": [ "Chest", "Dungeon", "Palace of Twilight", "Dungeon Items", "Dungeon Map", "ARC" ]
+}

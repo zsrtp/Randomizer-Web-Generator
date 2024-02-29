@@ -1,0 +1,8 @@
+{
+  "moduleID": ["284"],
+  "stageIDX": [65],
+  "relOffsets": ["6A8"],
+  "overrideInstruction": ["38800000"],
+  "relReplacementType": [0],
+  "dataCategory": [ "Overworld", "Ordona Province", "REL" ]
+}

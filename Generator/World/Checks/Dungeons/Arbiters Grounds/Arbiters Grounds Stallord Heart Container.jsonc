@@ -1,6 +1,5 @@
 {
     "requirements": "CanDefeatStallord",
-    "stageIDX": [25],
-    "category": ["Heart Container", "Arbiters Grounds", "Dungeon", "Boss"],
+    "checkCategory": ["Heart Container", "Arbiters Grounds", "Dungeon", "Boss"],
     "itemId": "Heart_Container"
 }

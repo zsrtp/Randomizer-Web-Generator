@@ -1,9 +1,5 @@
 {
     "requirements": "canCompleteSnowpeakRuins and CanDefeatShadowBeast",
-    "arcOffsets": ["17D7"],
-    "stageIDX": [51],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "category": ["Overworld", "Npc", "Snowpeak Province", "ARC"],
+    "checkCategory": ["Overworld", "Npc", "Snowpeak Province", "ARC"],
     "itemId": "Piece_of_Heart"
 }

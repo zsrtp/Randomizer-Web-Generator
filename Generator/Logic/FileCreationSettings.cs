@@ -54,7 +54,7 @@ namespace TPRandomizer
         {
             BitsProcessor processor = new BitsProcessor(bits);
 
-            gameRegion = (GameRegion)processor.NextInt(2);
+            gameRegion = (GameRegion)processor.NextInt(3);
             includeSpoilerLog = processor.NextBool();
 
             randomizeBgm = (RandomizeBgm)processor.NextInt(2);

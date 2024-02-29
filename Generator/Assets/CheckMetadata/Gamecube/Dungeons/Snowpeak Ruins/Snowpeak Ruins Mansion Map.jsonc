@@ -1,0 +1,8 @@
+{
+    "arcOffsets": ["1E57", "2B4"],
+    "stageIDX": [27, 27],
+    "fileDirectoryType": [1, 1],
+    "replacementType": [0, 3],
+    "overrideInstruction": ["0", "00780046"],
+    "dataCategory": ["Npc", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Dungeon Map", "ARC"]
+}

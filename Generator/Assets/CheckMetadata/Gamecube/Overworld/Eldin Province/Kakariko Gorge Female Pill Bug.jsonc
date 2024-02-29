@@ -1,0 +1,8 @@
+{
+    "hash": ["0398"],
+    "stageIDX": [56],
+    "dzxTag": ["ACTR"],
+    "magicByte": ["FE"],
+    "dataCategory": ["Overworld", "Golden Bug", "Hyrule Field - Eldin Province","DZX"],
+    "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "94", "CB", "43", "FA", "00", "00", "C5", "BF", "2F", "8C", "47", "71", "04", "00", "00", "00", "80", "00", "00", "00", "FF", "FF"]]
+}

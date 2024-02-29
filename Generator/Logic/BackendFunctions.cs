@@ -806,7 +806,10 @@ namespace TPRandomizer
             foreach (KeyValuePair<string, Check> check in Randomizer.Checks.CheckDict)
             {
                 currentCheck = check.Value;
-                if (currentCheck.itemWasPlaced && currentCheck.category.Contains("Dungeon Reward"))
+                if (
+                    currentCheck.itemWasPlaced
+                    && currentCheck.checkCategory.Contains("Dungeon Reward")
+                )
                 {
                     file.WriteLine(currentCheck.checkName + ": " + currentCheck.itemId);
                 }

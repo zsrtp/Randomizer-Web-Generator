@@ -1,7 +1,5 @@
 {
     "requirements": "Shadow_Crystal",
-    "stageIDX": [54],
-    "flag": "0F",
-    "category": ["Overworld", "Poe", "Sacred Grove"],
+    "checkCategory": ["Overworld", "Poe", "Sacred Grove"],
     "itemId": "Poe_Soul"
 }

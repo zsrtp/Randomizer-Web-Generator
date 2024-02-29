@@ -164,7 +164,7 @@ namespace TPRandomizer
                 else if (
                     (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
                     && (
-                        currentCheck.category.Contains("Dungeon")
+                        currentCheck.checkCategory.Contains("Dungeon")
                         || itemName.Contains(currentRoom.Region)
                     )
                 )
@@ -183,7 +183,7 @@ namespace TPRandomizer
                 }
                 else if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
                 {
-                    if (currentCheck.category.Contains("Dungeon"))
+                    if (currentCheck.checkCategory.Contains("Dungeon"))
                     {
                         return checkBarrenRegionLocation(currentRoom, currentCheck, itemName);
                     }
@@ -200,7 +200,7 @@ namespace TPRandomizer
                 }
                 else if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Any_Dungeon)
                 {
-                    if (currentCheck.category.Contains("Dungeon"))
+                    if (currentCheck.checkCategory.Contains("Dungeon"))
                     {
                         return true;
                     }

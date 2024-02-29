@@ -1139,8 +1139,8 @@ namespace TPRandomizer
         {
             return Randomizer.Items.RegionSmallKeys.Contains(item)
                 && (
-                    check.category.Contains("Heart Container")
-                    || check.category.Contains("Dungeon Reward")
+                    check.checkCategory.Contains("Heart Container")
+                    || check.checkCategory.Contains("Dungeon Reward")
                 );
         }
     }

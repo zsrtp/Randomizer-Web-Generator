@@ -1,9 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["C17"],
-    "stageIDX": [52],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "category": ["Overworld", "Npc", "Lake Hylia", "ARC"],
+    "checkCategory": ["Overworld", "Npc", "Lake Hylia", "ARC"],
     "itemId": "Aurus_Memo"
 }

@@ -1,7 +1,5 @@
 {
     "requirements": "CanCompleteMDH and Shadow_Crystal",
-    "stageIDX": [56],
-    "flag": "3B",
-    "category": ["Overworld", "Poe", "Hyrule Field - Lanayru Province"],
+    "checkCategory": ["Overworld", "Poe", "Hyrule Field - Lanayru Province"],
     "itemId": "Poe_Soul"
 }

@@ -3,6 +3,7 @@ namespace TPRandomizer.Assets
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using TPRandomizer.FcSettings.Enums;
     using TPRandomizer.Util;
 
     /// <summary>
@@ -40,7 +41,12 @@ namespace TPRandomizer.Assets
         /// <param name="seedRegion">The region of the game that the seed is being generated for.</param>
         /// <param name="seedData">Any data that needs to be read into the GCI file.</param>
         /// <returns> The inserted value as a byte. </returns>
-        public Gci(char regionCode, List<byte> seedData, string playthroughName)
+        public Gci(
+            char regionCode,
+            List<byte> seedData,
+            string playthroughName,
+            FileCreationSettings FcSettings
+        )
         {
             gciHeader = new List<byte>();
             gciData = new List<byte>();
@@ -84,11 +90,26 @@ namespace TPRandomizer.Assets
                 Converter.GcBytes((UInt32)(SeedData.DebugInfoSize + SeedData.ImageDataSize))
             ); // Comments Offset
 
-            gciFile.AddRange(gciHeader);
+            switch (FcSettings.gameRegion)
+            {
+                case GameRegion.GC_USA:
+                case GameRegion.GC_EUR:
+                case GameRegion.GC_JAP:
+                {
+                    gciFile.AddRange(gciHeader);
+                    break;
+                }
+
+                default:
+                {
+                    break;
+                }
+            }
+
             gciFile.AddRange(seedData);
 
             // Pad
-            while (gciFile.Count < (4 * 0x2000) + 0x40) // Pad to 2 blocks.
+            while (gciFile.Count < (4 * 0x2000) + 0x40) // Pad to 4 blocks.
                 gciFile.Add((byte)0x0);
         }
 

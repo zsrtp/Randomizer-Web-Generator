@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["109C"],
-    "stageIDX": [24],
-    "roomIDX": 2,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Arbiters Grounds", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Arbiters Grounds", "ARC"],
     "itemId": "Piece_of_Heart"
 }

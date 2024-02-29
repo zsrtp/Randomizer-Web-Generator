@@ -1,10 +1,5 @@
 {
     "requirements": "(Progressive_Clawshot, 1) or Boomerang",
-    "hash": ["4894"],
-    "stageIDX": [56],
-    "dzxTag": ["ACTR"],
-    "magicByte": ["FE"],
-    "category": ["Overworld", "Golden Bug", "Hyrule Field - Eldin Province","DZX"],
-    "itemId": "Male_Phasmid",
-    "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "97", "C8", "47", "09", "3F", "00", "43", "7E", "62", "90", "C6", "6C", "2D", "09", "C0", "00", "40", "00", "00", "00", "FF", "FF"]]
+    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Eldin Province","DZX"],
+    "itemId": "Male_Phasmid"
 }

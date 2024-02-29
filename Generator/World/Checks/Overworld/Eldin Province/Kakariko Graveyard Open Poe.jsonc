@@ -1,7 +1,5 @@
 {
     "requirements": "Shadow_Crystal",
-    "stageIDX": [48],
-    "flag": "58",
-    "category": ["Overworld", "Poe", "Kakariko Graveyard"],
+    "checkCategory": ["Overworld", "Poe", "Kakariko Graveyard"],
     "itemId": "Poe_Soul"
 }

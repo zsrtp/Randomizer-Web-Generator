@@ -1,10 +1,5 @@
 {
   "requirements": "canBreakWoodenDoor and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat",
-  "arcOffsets": ["6AC"],
-  "stageIDX": [24],
-  "roomIDX": 7,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Arbiters Grounds", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds", "ARC" ],
   "itemId": "Bombs_5"
 }

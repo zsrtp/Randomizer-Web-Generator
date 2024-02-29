@@ -82,6 +82,7 @@ namespace TPRandomizer.Assets
             { 0x17, 0x65 }, // East platform to palace active.
             { 0x3, 0x54 }, // Custom flag. Sets the sign in Kak Malo mart slot 1 to appear.
             { 0x3, 0x99 }, // Remove wooden shield from Kak Malo Mart counter.
+            { 0x0, 0x63 }, // Spawn the Chest in Link's House
         };
 
         /// <summary>
@@ -101,7 +102,6 @@ namespace TPRandomizer.Assets
         /// </summary>
         public static readonly byte[,] IntroRegionFlags = new byte[,]
         {
-            { 0x0, 0x63 }, // Spawn the Chest in Link's House
             { 0x2, 0x4B }, // Unlock North Faron Woods Gate
         };
 

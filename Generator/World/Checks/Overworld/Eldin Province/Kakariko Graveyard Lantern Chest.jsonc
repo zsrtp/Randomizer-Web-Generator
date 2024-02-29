@@ -1,10 +1,5 @@
 {
     "requirements": "Lantern",
-    "arcOffsets": ["20F8"],
-    "stageIDX": [48],
-    "roomIDX": 0,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Kakariko Graveyard", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Kakariko Graveyard", "ARC"],
     "itemId": "Purple_Rupee"
 }

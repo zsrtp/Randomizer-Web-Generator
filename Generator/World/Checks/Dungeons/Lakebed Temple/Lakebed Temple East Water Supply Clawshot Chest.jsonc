@@ -1,10 +1,5 @@
 {
   "requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and (Progressive_Clawshot, 1) and canSmash and Iron_Boots",
-  "arcOffsets": ["110C"],
-    "stageIDX": [0],
-    "roomIDX": 10,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Lakebed Temple", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Lakebed Temple", "ARC" ],
   "itemId": "Purple_Rupee"
 }

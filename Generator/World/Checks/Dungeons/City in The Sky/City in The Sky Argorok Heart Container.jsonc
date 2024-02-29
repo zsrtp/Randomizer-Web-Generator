@@ -1,6 +1,5 @@
 {
     "requirements": "CanDefeatArgorok",
-    "stageIDX": [13],
-    "category": ["Heart Container", "Dungeon", "City in The Sky", "Boss"],
+    "checkCategory": ["Heart Container", "Dungeon", "City in The Sky", "Boss"],
     "itemId": "Heart_Container"
 }

@@ -1,0 +1,8 @@
+{
+    "stageIDX": [57],
+    "moduleID": ["2B3"],
+    "overrideInstruction": ["38800000"],
+    "relReplacementType": [0],
+    "relOffsets": ["F24"],
+    "dataCategory": ["Overworld", "Npc", "Hyrule Field - Lanayru Province", "REL"]
+}

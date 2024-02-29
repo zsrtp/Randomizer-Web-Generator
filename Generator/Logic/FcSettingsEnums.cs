@@ -3,9 +3,12 @@ namespace TPRandomizer.FcSettings.Enums
     public enum GameRegion
     {
         All = 0,
-        USA = 1,
-        EUR = 2,
-        JAP = 3,
+        GC_USA = 1,
+        GC_EUR = 2,
+        GC_JAP = 3,
+        WII_10_USA = 4,
+        WII_10_EU = 5,
+        WII_10_JP = 6,
     }
 
     public enum RandomizeBgm

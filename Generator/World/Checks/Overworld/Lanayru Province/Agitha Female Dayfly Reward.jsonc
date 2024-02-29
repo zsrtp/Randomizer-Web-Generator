@@ -1,6 +1,5 @@
 {
     "requirements": "Female_Dayfly",
-    "flag": "D7",
-    "category": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
+    "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
     "itemId": "Orange_Rupee"
 }
