@@ -3,6 +3,6 @@
     "stageIDX": [61],
     "dzxTag": ["ACTR"],
     "magicByte": ["FE"],
-    "dataCategory": ["Overworld", "Golden Bug", "Upper Zoras River", "DZX"],
+    "dataCategory": ["DZX"],
     "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "9E", "D3", "45", "B8", "CC", "66", "42", "A1", "8D", "2A", "C4", "8C", "27", "48", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
 }

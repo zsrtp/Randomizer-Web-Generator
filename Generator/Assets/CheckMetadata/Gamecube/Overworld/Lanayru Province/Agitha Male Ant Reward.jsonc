@@ -1,6 +1,4 @@
 {
-    "requirements": "Male_Ant",
     "flag": "D4",
-    "dataCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
-    "itemId": "Orange_Rupee"
+    "dataCategory": ["Bug Reward"]
 }

@@ -3,6 +3,6 @@
     "stageIDX": [59],
     "dzxTag": ["ACTR"],
     "magicByte": ["FE"],
-    "dataCategory": ["Overworld", "Golden Bug", "Gerudo Desert", "DZX"],
+    "dataCategory": ["DZX"],
     "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "99", "D6", "46", "E3", "43", "90", "43", "CE", "13", "D9", "47", "66", "69", "93", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
 }

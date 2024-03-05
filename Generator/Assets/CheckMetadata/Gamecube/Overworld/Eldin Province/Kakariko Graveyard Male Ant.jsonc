@@ -3,6 +3,6 @@
     "stageIDX": [48],
     "dzxTag": ["ACTR"],
     "magicByte": ["FE"],
-    "dataCategory": ["Overworld", "Golden Bug", "Kakariko Graveyard", "DZX"],
+    "dataCategory": ["DZX"],
     "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "91", "D4", "46", "84", "4A", "9C", "43", "FA", "00", "00", "C4", "40", "4A", "BC", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
 }

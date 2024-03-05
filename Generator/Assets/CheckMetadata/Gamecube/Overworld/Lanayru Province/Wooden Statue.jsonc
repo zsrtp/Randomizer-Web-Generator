@@ -4,5 +4,5 @@
     "overrideInstruction": ["38800000"],
     "relReplacementType": [0],
     "relOffsets": ["F24"],
-    "dataCategory": ["Overworld", "Npc", "Hyrule Field - Lanayru Province", "REL"]
+    "dataCategory": ["REL"]
 }

@@ -2,5 +2,5 @@
     "arcOffsets": ["D3C2"],
     "fileName": "Prayer",
     "stageIDX": [53],
-    "dataCategory": ["Overworld", "Npc", "Castle Town", "ObjectARC", "Boss"]
+    "dataCategory": ["ObjectARC", "Boss"]
 }

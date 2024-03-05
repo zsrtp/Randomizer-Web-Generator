@@ -8,5 +8,5 @@
     "overrideInstruction": ["38600000"], 
     "relReplacementType": [0],
     "relOffsets": ["7D40"],
-    "dataCategory": ["Overworld", "Fishing Hole", "ARC", "REL"]
+    "dataCategory": ["ARC", "REL"]
 }
