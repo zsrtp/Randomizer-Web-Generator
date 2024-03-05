@@ -2,5 +2,5 @@
     "stageIDX": [25],
     "roomIDX": 50,
     "flag": "53",
-    "dataCategory": ["Overworld", "Mirror Chamber", "Event", "Dungeon Reward"]
+    "dataCategory": ["Event"]
 }

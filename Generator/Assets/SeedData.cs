@@ -598,12 +598,6 @@ namespace TPRandomizer.Assets
                     // We will use the number of hashes to count DZX replacements per check for now.
                     for (int i = 0; i < currentCheck.hash.Count; i++)
                     {
-                        bool chestAppearanceMatchesContent = false;
-                        if (chestAppearanceMatchesContent)
-                        {
-                            // This is still in development
-                            ModifyChestAppearanceDZX(currentCheck);
-                        }
                         byte[] dataArray = new byte[32];
                         for (int j = 0; j < currentCheck.actrData[i].Length; j++)
                         {
@@ -616,6 +610,24 @@ namespace TPRandomizer.Assets
                         if (currentCheck.dzxTag[i] == "TRES")
                         {
                             dataArray[28] = (byte)currentCheck.itemId;
+                            /* This is still in development.
+                            bool chestAppearanceMatchesContent = false;
+                            if (chestAppearanceMatchesContent)
+                            {
+                                if (Randomizer.Items.RandomizedImportantItems.Contains(currentCheck.itemId))
+                                {
+                                    dataArray[4] = byte.Parse("41",System.Globalization.NumberStyles.HexNumber); // Hex for 'B'
+                                    dataArray[5] = byte.Parse("30",System.Globalization.NumberStyles.HexNumber);  // Hex for '0'
+                                    Console.WriteLine("doing the thing for " + currentCheck.checkName);
+                                }
+                                else
+                                {
+                                    dataArray[4] = byte.Parse("41",System.Globalization.NumberStyles.HexNumber); // Hex for 'A'
+                                    dataArray[5] = byte.Parse("30",System.Globalization.NumberStyles.HexNumber); // Hex for '0'
+                                    Console.WriteLine("doing the not thing for " + currentCheck.checkName);
+                                }
+                            }*/
+                        
                         }
                         else if (currentCheck.dzxTag[i] == "ACTR")
                         {
@@ -1483,28 +1495,6 @@ namespace TPRandomizer.Assets
                 }
             }
             return listOfArcReplacements;
-        }
-
-        private static void ModifyChestAppearanceDZX(Check currentCheck)
-        {
-            for (int i = 0; i < currentCheck.dzxTag.Count; i++)
-                if (currentCheck.dzxTag[i] == "TRES")
-                {
-                    if (Randomizer.Items.RandomizedImportantItems.Contains(currentCheck.itemId))
-                    {
-                        currentCheck.actrData[i][4] = "41"; // Hex for 'B'
-                        currentCheck.actrData[i][5] = "30"; // Hex for '0'
-                        Console.WriteLine("doing the thing for " + currentCheck.checkName);
-                    }
-                    else
-                    {
-                        currentCheck.actrData[i][4] = "41"; // Hex for 'A'
-                        currentCheck.actrData[i][5] = "30"; // Hex for '0'
-                        Console.WriteLine("doing the not thing for " + currentCheck.checkName);
-                    }
-                }
-
-            return;
         }
 
         private class SeedHeader

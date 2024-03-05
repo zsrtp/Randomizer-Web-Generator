@@ -4,5 +4,5 @@
     "roomIDX": 5,
   "fileDirectoryType": [ 0 ],
   "replacementType": [ 0 ],
-  "dataCategory": [ "Chest", "Dungeon", "Palace of Twilight", "Dungeon Items", "Dungeon Map", "ARC" ]
+  "dataCategory": [ "Chest", "ARC" ]
 }

@@ -4,5 +4,5 @@
     "roomIDX": 13,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "dataCategory": ["Chest", "Dungeon", "Lakebed Temple", "Dungeon Items", "Compass", "ARC"]
+    "dataCategory": ["Chest", "ARC"]
 }

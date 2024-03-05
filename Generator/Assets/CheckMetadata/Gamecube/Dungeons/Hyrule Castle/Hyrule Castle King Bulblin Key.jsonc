@@ -4,5 +4,5 @@
     "relOffsets": ["367C"],
     "overrideInstruction": ["38000000"],
     "relReplacementType": [0],
-    "dataCategory": ["Npc", "Small Key", "Dungeon", "Hyrule Castle", "REL"]
+    "dataCategory": ["REL"]
 }
