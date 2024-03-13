@@ -1,5 +1,5 @@
 {
   "requirements": "CanDefeatBubble and CanDefeatStalchild and CanDefeatRedeadKnight and ((Arbiters_Grounds_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))",
-  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds", "Small Key", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds", "Small Key" ],
   "itemId": "Arbiters_Grounds_Small_Key"
 }

@@ -1,5 +1,5 @@
 {
   "requirements": "((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and Shadow_Crystal",
-  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds" ],
   "itemId": "Red_Rupee"
 }
