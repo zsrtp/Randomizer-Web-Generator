@@ -14,7 +14,8 @@ namespace TPRandomizer
 
         public string checkStatus { get; set; } // Identifies if the check is excluded or not. We can write the randomizer to not place important items in excluded checks
 
-        public List<string> category { get; set; } // Allows grouping of checks to make it easier to randomize them based on their type, region, exclusion status, etc.
+        public List<string> checkCategory { get; set; } // Allows grouping of checks to make it easier to randomize them based on their type, region, exclusion status, etc.
+        public List<string> dataCategory { get; set; } // Allows grouping of checks to make it easier to randomize them based on their type, region, exclusion status, etc.
 
         public bool itemWasPlaced { get; set; } // Identifies if we already placed an item on this check.
 
@@ -314,7 +315,7 @@ namespace TPRandomizer
 
                 if (
                     (parseSetting.smallKeySettings == SmallKeySettings.Vanilla)
-                    && currentCheck.category.Contains("Small Key")
+                    && currentCheck.checkCategory.Contains("Small Key")
                 )
                 {
                     currentCheck.checkStatus = "Vanilla";
@@ -322,7 +323,7 @@ namespace TPRandomizer
 
                 if (
                     (parseSetting.bigKeySettings == BigKeySettings.Vanilla)
-                    && currentCheck.category.Contains("Big Key")
+                    && currentCheck.checkCategory.Contains("Big Key")
                 )
                 {
                     currentCheck.checkStatus = "Vanilla";
@@ -331,8 +332,8 @@ namespace TPRandomizer
                 if (
                     (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Vanilla)
                     && (
-                        currentCheck.category.Contains("Dungeon Map")
-                        || currentCheck.category.Contains("Compass")
+                        currentCheck.checkCategory.Contains("Dungeon Map")
+                        || currentCheck.checkCategory.Contains("Compass")
                     )
                 )
                 {
@@ -341,16 +342,16 @@ namespace TPRandomizer
 
                 if (!parseSetting.shuffleNpcItems)
                 {
-                    if (currentCheck.category.Contains("Npc"))
+                    if (currentCheck.checkCategory.Contains("Npc"))
                     {
                         if (
                             (
                                 (parseSetting.smallKeySettings == SmallKeySettings.Keysy)
-                                && currentCheck.category.Contains("Small Key")
+                                && currentCheck.checkCategory.Contains("Small Key")
                             )
                             || (
                                 (parseSetting.bigKeySettings == BigKeySettings.Keysy)
-                                && currentCheck.category.Contains("Big Key")
+                                && currentCheck.checkCategory.Contains("Big Key")
                             )
                             || (
                                 (
@@ -358,8 +359,8 @@ namespace TPRandomizer
                                     == MapAndCompassSettings.Start_With
                                 )
                                 && (
-                                    currentCheck.category.Contains("Dungeon Map")
-                                    || currentCheck.category.Contains("Compass")
+                                    currentCheck.checkCategory.Contains("Dungeon Map")
+                                    || currentCheck.checkCategory.Contains("Compass")
                                 )
                             )
                         )
@@ -382,7 +383,7 @@ namespace TPRandomizer
                 {
                     case PoeSettings.Vanilla:
                     {
-                        if (currentCheck.category.Contains("Poe"))
+                        if (currentCheck.checkCategory.Contains("Poe"))
                         {
                             currentCheck.checkStatus = "Vanilla";
                         }
@@ -392,8 +393,8 @@ namespace TPRandomizer
                     case PoeSettings.Overworld:
                     {
                         if (
-                            currentCheck.category.Contains("Poe")
-                            && !currentCheck.category.Contains("Overworld")
+                            currentCheck.checkCategory.Contains("Poe")
+                            && !currentCheck.checkCategory.Contains("Overworld")
                         )
                         {
                             currentCheck.checkStatus = "Vanilla";
@@ -404,8 +405,8 @@ namespace TPRandomizer
                     case PoeSettings.Dungeons:
                     {
                         if (
-                            currentCheck.category.Contains("Poe")
-                            && !currentCheck.category.Contains("Dungeon")
+                            currentCheck.checkCategory.Contains("Poe")
+                            && !currentCheck.checkCategory.Contains("Dungeon")
                         )
                         {
                             currentCheck.checkStatus = "Vanilla";
@@ -416,7 +417,7 @@ namespace TPRandomizer
 
                 if (!parseSetting.shuffleGoldenBugs)
                 {
-                    if (currentCheck.category.Contains("Golden Bug"))
+                    if (currentCheck.checkCategory.Contains("Golden Bug"))
                     {
                         currentCheck.checkStatus = "Vanilla";
                     }
@@ -424,7 +425,7 @@ namespace TPRandomizer
 
                 if (!parseSetting.shuffleHiddenSkills)
                 {
-                    if (currentCheck.category.Contains("Hidden Skill"))
+                    if (currentCheck.checkCategory.Contains("Hidden Skill"))
                     {
                         currentCheck.checkStatus = "Vanilla";
                         Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
@@ -433,7 +434,7 @@ namespace TPRandomizer
 
                 if (!parseSetting.shuffleSkyCharacters)
                 {
-                    if (currentCheck.category.Contains("Sky Book"))
+                    if (currentCheck.checkCategory.Contains("Sky Book"))
                     {
                         if (parseSetting.skipCityEntrance)
                         {
@@ -450,7 +451,7 @@ namespace TPRandomizer
 
                 if (!parseSetting.shuffleShopItems)
                 {
-                    if (currentCheck.category.Contains("Shop"))
+                    if (currentCheck.checkCategory.Contains("Shop"))
                     {
                         currentCheck.checkStatus = "Vanilla";
                         Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
@@ -488,6 +489,12 @@ namespace TPRandomizer
             Randomizer.Items.RandomizedImportantItems.Remove(
                 Randomizer.Checks.CheckDict["Ilia Memory Reward"].itemId
             );
+
+            foreach ((string checkName, Item item) in parseSetting.plandoChecks)
+            {
+                Randomizer.Checks.CheckDict[checkName].checkStatus = "Plando";
+                Randomizer.Checks.CheckDict[checkName].itemId = item;
+            }
         }
     }
 }

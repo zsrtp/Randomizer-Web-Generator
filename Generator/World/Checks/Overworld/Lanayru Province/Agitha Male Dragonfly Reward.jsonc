@@ -1,6 +1,5 @@
 {
     "requirements": "Male_Dragonfly",
-    "flag": "D2",
-    "category": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
+    "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
     "itemId": "Purple_Rupee"
 }

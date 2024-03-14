@@ -753,27 +753,7 @@
               width="20%"
               data-tooltip-text="Any checks selected will be excluded, meaning that they cannot contain important items. Please note that settings take priority, so if a check is excluded, but a setting has the check set to be vanilla, it will be vanilla.&#0010;"
             >
-              <!-- This is terrible, but see server.ts in the server for where this is being populated -->
               <!-- CHECK_IDS -->
-
-              <!-- <?php
-							$cmd = "dotnet Generator/bin/Debug/net6.0/TPRandomizer.dll print_check_ids";
-							$proc = popen($cmd, 'r'); // for Windows, use popen("start /B ". $cmd, 'r');
-							$log = "";
-							while (!feof($proc))
-							{
-									$chunk = fread($proc, 4096);
-									$log .= $chunk;
-									flush();
-									ob_flush();
-							}
-
-							$json = json_decode($log);
-							foreach ($json as $key => $value)
-							{
-								echo "<li><label><input type='checkbox' data-checkId='$value'>".$key."</label></li>";
-							}
-						?> -->
             </ul>
           </fieldset>
         </div>
@@ -788,19 +768,7 @@
               width="20%"
               data-tooltip-text="The player will start with any items selected and the playthrough will take them into account for logic.&#0010;"
             >
-              <!-- This is terrible, but see server.ts in the server for where this is being populated -->
               <!-- STARTING_ITEMS -->
-
-              <!-- <?php
-							$important_items = file_get_contents("Resources/StartingItems.txt");
-							$important_items = explode("\n", $important_items);
-							foreach ($important_items as $important_item)
-							{
-								list($value, $name) = explode(",", $important_item);
-								$name = str_replace("_"," ", $name);
-								echo "<li><label><input type='checkbox' data-itemId='$value'>".$name."</label> </li>";
-							}
-						?> -->
             </ul>
           </fieldset>
         </div>
@@ -813,21 +781,9 @@
               multiple="multiple"
               size="10"
               width="20%"
-              data-tooltip-text="Any items selected will be placed in the set locations. These items will be accounted for when the seed is generated.&#0010;"
+              data-tooltip-text="Specify the contents of any given check.&#0010;&#0010;It is possible that seed generation fails for invalid Plando combinations.&#0010;"
             >
-              <!-- This is terrible, but see server.ts in the server for where this is being populated -->
               <!-- PLANDO -->
-
-              <!-- <?php
-							$important_items = file_get_contents("Resources/StartingItems.txt");
-							$important_items = explode("\n", $important_items);
-							foreach ($important_items as $important_item)
-							{
-								list($value, $name) = explode(",", $important_item);
-								$name = str_replace("_"," ", $name);
-								echo "<li><label><input type='checkbox' data-itemId='$value'>".$name."</label> </li>";
-							}
-						?> -->
             </ul>
           </fieldset>
         </div>

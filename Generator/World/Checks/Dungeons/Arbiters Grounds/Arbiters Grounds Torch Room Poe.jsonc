@@ -1,7 +1,5 @@
 {
     "requirements": "Shadow_Crystal",
-    "stageIDX": [24],
-    "flag": "1E",
-    "category": ["Dungeon", "Poe", "Arbiters Grounds"],
+    "checkCategory": ["Dungeon", "Poe", "Arbiters Grounds"],
     "itemId": "Poe_Soul"
 }

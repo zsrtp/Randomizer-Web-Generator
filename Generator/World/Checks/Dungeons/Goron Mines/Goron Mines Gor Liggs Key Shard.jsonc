@@ -1,9 +1,5 @@
 {
     "requirements": "Iron_Boots and CanDefeatDangoro and (Progressive_Bow, 1)",
-    "arcOffsets": ["1257"],
-    "stageIDX": [3],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "category": ["Npc", "Dungeon", "Goron Mines", "Dungeon Items", "Big Key", "ARC"],
+    "checkCategory": ["Npc", "Dungeon", "Goron Mines", "Dungeon Items", "Big Key", "ARC"],
     "itemId": "Goron_Mines_Key_Shard"
 }

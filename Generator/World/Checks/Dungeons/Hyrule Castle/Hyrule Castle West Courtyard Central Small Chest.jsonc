@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatBokoblin",
-    "arcOffsets": ["320"],
-    "stageIDX": [20],
-    "roomIDX": 13,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Hyrule Castle", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle", "ARC"],
     "itemId": "Red_Rupee"
 }

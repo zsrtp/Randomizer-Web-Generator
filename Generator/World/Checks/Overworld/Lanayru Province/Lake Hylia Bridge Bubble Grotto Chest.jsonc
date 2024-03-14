@@ -1,9 +1,5 @@
 {
     "requirements": "CanDefeatBubble and CanDefeatFireBubble and CanDefeatIceBubble",
-    "hash": ["6D05"],
-    "stageIDX": [38],
-    "dzxTag": ["TRES"],
-    "category": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "DZX"],
-    "itemId": "Orange_Rupee",
-    "actrData": [["74", "62", "6F", "78", "42", "31", "00", "00", "FF", "10", "41", "01", "C4", "84", "A9", "81", "C3", "04", "41", "58", "C5", "3E", "D9", "B7", "00", "0F", "00", "00", "06", "FF", "FF", "FF"]]
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "DZX"],
+    "itemId": "Orange_Rupee"
 }

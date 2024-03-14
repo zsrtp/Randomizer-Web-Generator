@@ -137,11 +137,6 @@ namespace TPRandomizer
             // Generate the item pool based on user settings/input.
             Randomizer.Items.GenerateItemPool();
             CheckFunctions.GenerateCheckList();
-            foreach ((string checkName, Item item) in SSettings.plandoChecks)
-            {
-                Randomizer.Checks.CheckDict[checkName].checkStatus = "Plando";
-                Randomizer.Checks.CheckDict[checkName].itemId = item;
-            }
 
             while (remainingGenerationAttempts > 0)
             {
@@ -200,8 +195,7 @@ namespace TPRandomizer
                 foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
                 {
                     Check check = checkList.Value;
-
-                    if (check.itemWasPlaced && check.category.Contains("Dungeon Reward"))
+                    if (check.itemWasPlaced && check.checkCategory.Contains("Dungeon Reward"))
                     {
                         dungeonRewards.Add(
                             new KeyValuePair<int, Item>(
@@ -303,7 +297,7 @@ namespace TPRandomizer
                     // For storing placements in json file.
                     checkNumIdToItemId.Add(checkIdNum, itemIdByte);
 
-                    if (check.category.Contains("Dungeon Reward"))
+                    if (check.checkCategory.Contains("Dungeon Reward"))
                     {
                         dungeonRewards.Add(
                             new KeyValuePair<int, Item>(
@@ -503,7 +497,7 @@ namespace TPRandomizer
             SSettings = SharedSettings.FromString(seedGenResults.settingsString);
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.
-            DeserializeChecks(SSettings);
+            DeserializeCheckData(SSettings, fcSettings);
             DeserializeRooms(SSettings);
 
             foreach (KeyValuePair<int, byte> kvp in seedGenResults.itemPlacements.ToList())
@@ -602,13 +596,13 @@ namespace TPRandomizer
             string gameVer;
             switch (gameRegionOverride)
             {
-                case GameRegion.USA:
+                case GameRegion.GC_USA:
                     gameVer = "E";
                     break;
-                case GameRegion.EUR:
+                case GameRegion.GC_EUR:
                     gameVer = "P";
                     break;
-                case GameRegion.JAP:
+                case GameRegion.GC_JAP:
                     gameVer = "J";
                     break;
                 default:
@@ -1167,7 +1161,7 @@ namespace TPRandomizer
                                                 if (restriction == "Dungeon Rewards")
                                                 {
                                                     if (
-                                                        currentCheck.category.Contains(
+                                                        currentCheck.checkCategory.Contains(
                                                             "Dungeon Reward"
                                                         )
                                                     )
@@ -1616,6 +1610,77 @@ namespace TPRandomizer
             // Sort so that the item placement algorithm produces the exact same
             // result in production and development.
             Array.Sort(files, new FilenameComparer());
+            if (Checks.CheckDict.Count == 0)
+            {
+                foreach (string file in files)
+                {
+                    string contents = File.ReadAllText(file);
+                    string fileName = Path.GetFileNameWithoutExtension(file);
+                    Checks.CheckDict.Add(fileName, new Check());
+                    Checks.CheckDict[fileName] = JsonConvert.DeserializeObject<Check>(contents);
+                    Check currentCheck = Checks.CheckDict[fileName];
+                    currentCheck.checkName = fileName;
+                    currentCheck.requirements = "(" + currentCheck.requirements + ")";
+                    currentCheck.checkStatus = "Ready";
+                    currentCheck.itemWasPlaced = false;
+                    currentCheck.isRequired = false;
+                    Checks.CheckDict[fileName] = currentCheck;
+                }
+            }
+            else
+            {
+                foreach (string file in files)
+                {
+                    string contents = File.ReadAllText(file);
+                    string fileName = Path.GetFileNameWithoutExtension(file);
+                    Check currentCheck = JsonConvert.DeserializeObject<Check>(contents);
+                    Checks.CheckDict[fileName].requirements = "(" + currentCheck.requirements + ")";
+                    Checks.CheckDict[fileName].checkCategory = currentCheck.checkCategory;
+                    Checks.CheckDict[fileName].checkName = fileName;
+                    Checks.CheckDict[fileName].checkStatus = "Ready";
+                    Checks.CheckDict[fileName].itemWasPlaced = false;
+                    Checks.CheckDict[fileName].isRequired = false;
+                    Checks.CheckDict[fileName].itemId = currentCheck.itemId;
+                }
+            }
+        }
+
+        private static void DeserializeCheckData(
+            SharedSettings SSettings,
+            FileCreationSettings FcSettings
+        )
+        {
+            string[] files = null;
+            switch (FcSettings.gameRegion)
+            {
+                case GameRegion.GC_USA:
+                case GameRegion.GC_EUR:
+                case GameRegion.GC_JAP:
+                {
+                    files = System.IO.Directory.GetFiles(
+                        Global.CombineRootPath("./Assets/CheckMetadata/Gamecube/"),
+                        "*",
+                        SearchOption.AllDirectories
+                    );
+                    break;
+                }
+
+                case GameRegion.WII_10_USA:
+                case GameRegion.WII_10_EU:
+                case GameRegion.WII_10_JP:
+                {
+                    files = System.IO.Directory.GetFiles(
+                        Global.CombineRootPath("./Assets/CheckMetadata/Wii1.0/"),
+                        "*",
+                        SearchOption.AllDirectories
+                    );
+                    break;
+                }
+            }
+
+            // Sort so that the item placement algorithm produces the exact same
+            // result in production and development.
+            Array.Sort(files, new FilenameComparer());
 
             foreach (string file in files)
             {
@@ -1631,6 +1696,8 @@ namespace TPRandomizer
                 currentCheck.isRequired = false;
                 Checks.CheckDict[fileName] = currentCheck;
             }
+
+            DeserializeChecks(SSettings);
         }
 
         public static void DeserializeRooms(SharedSettings SSettings)
@@ -1800,7 +1867,7 @@ namespace TPRandomizer
                     check.itemId = (Item)seedGenResults.itemPlacements[checkIdNum];
                 }
 
-                if (!sharedSettings.shuffleNpcItems && check.category.Contains("Bug Reward"))
+                if (!sharedSettings.shuffleNpcItems && check.checkCategory.Contains("Bug Reward"))
                 {
                     checkNameToItemName[check.checkName] = "Vanilla";
                 }
@@ -1827,7 +1894,7 @@ namespace TPRandomizer
                 {
                     currentCheck = kvp.Value;
                     if (
-                        currentCheck.category.Contains("Dungeon Reward")
+                        currentCheck.checkCategory.Contains("Dungeon Reward")
                         || (
                             Randomizer.SSettings.shuffleRewards
                             && (currentCheck.checkStatus == "Ready")
@@ -1848,7 +1915,7 @@ namespace TPRandomizer
                     currentItem = itemsToBeRandomized[rnd.Next(itemsToBeRandomized.Count)];
 
                     // We don't want to lock ourselves out of Palace
-                    if (currentCheck.category.Contains("Palace of Twilight"))
+                    if (currentCheck.checkCategory.Contains("Palace of Twilight"))
                     {
                         if (
                             Randomizer.SSettings.palaceRequirements

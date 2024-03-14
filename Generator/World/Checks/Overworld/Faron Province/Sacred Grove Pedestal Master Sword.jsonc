@@ -1,8 +1,5 @@
 {
     "requirements": "true",
-    "stageIDX": [54],
-    "roomIDX": 1,
-    "flag": "29",
-    "category": ["Overworld", "Sacred Grove", "Event"],
+    "checkCategory": ["Overworld", "Sacred Grove", "Event"],
     "itemId": "Master_Sword"
 }

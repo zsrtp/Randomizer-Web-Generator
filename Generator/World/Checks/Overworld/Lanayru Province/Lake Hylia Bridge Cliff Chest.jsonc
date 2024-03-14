@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["E04"],
-    "stageIDX": [56],
-    "roomIDX": 13,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "ARC"],
     "itemId": "Purple_Rupee"
 }

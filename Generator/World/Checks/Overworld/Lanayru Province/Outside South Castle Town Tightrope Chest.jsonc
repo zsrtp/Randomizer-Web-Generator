@@ -1,10 +1,5 @@
 {
     "requirements": "(Progressive_Clawshot, 1) and Shadow_Crystal",
-    "arcOffsets": ["217C"],
-    "stageIDX": [57],
-    "roomIDX": 16,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "ARC"],
     "itemId": "Orange_Rupee"
 }

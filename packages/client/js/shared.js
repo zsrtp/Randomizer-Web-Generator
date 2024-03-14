@@ -246,23 +246,29 @@
 
   function genPlandoBits() {
     let bits = '';
-	// Shadow crystal in agitha female ant
-    $('.plandoCheckSelect').each(function() {
-      itemId = parseInt($(this).find('option').filter(':selected').val(), 10);
-      if(itemId != -1) {
-        checkId = parseInt($(this).attr('data-checkId'), 10);
+    $('.plandoCheckSelect').each(function () {
+      const itemId = parseInt(
+        $(this).find('option').filter(':selected').val(),
+        10
+      );
+      if (itemId >= 0) {
+        const checkId = parseInt($(this).attr('data-checkId'), 10);
         bits += numToPaddedBits(checkId, 9);
         bits += numToPaddedBits(itemId, 9);
       }
-    })
-    bits += '111111111';
+    });
+
+    if (bits.length < 1) {
+      bits = '0';
+    } else {
+      bits = '1' + bits + '111111111';
+    }
 
     return {
       type: RawSettingType.bitString,
       bitString: bits,
     };
   }
-
 
   function getVal(id) {
     const $el = $('#' + id);
@@ -431,7 +437,6 @@
 
     values.push(genStartingItemsBits());
     values.push(genExcludedChecksBits());
-
     values.push(genPlandoBits());
 
     return encodeSettings(sSettingsVersion, 's', values);
@@ -831,7 +836,7 @@
     if (version >= 5) {
       processBasic({ id: 'skipMajorCutscenes' });
       processBasic({ id: 'noSmallKeysOnBosses' });
-      processBasic({ id: 'startingToD', bitLength: 3  });
+      processBasic({ id: 'startingToD', bitLength: 3 });
     } else {
       res.skipMajorCutscenes = 1; // Vanilla
       res.noSmallKeysOnBosses = false;
@@ -840,10 +845,17 @@
 
     res.startingItems = processor.nextEolList(9);
     res.excludedChecks = processor.nextEolList(9);
-    plandoList = processor.nextEolList(9);
-    res.plando = [];
-    for(i = 0; i < plandoList.length; i += 2) {
-      res.plando.push([plandoList[i], plandoList[i+1]]);
+    if (version >= 5) {
+      res.plando = [];
+      const hasPlando = processor.nextBoolean();
+      if (hasPlando) {
+        const plandoList = processor.nextEolList(9);
+        for (i = 0; i < plandoList.length; i += 2) {
+          res.plando.push([plandoList[i], plandoList[i + 1]]);
+        }
+      }
+    } else {
+      res.plando = [];
     }
 
     return res;

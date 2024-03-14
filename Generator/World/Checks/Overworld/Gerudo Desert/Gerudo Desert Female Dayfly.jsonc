@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "hash": ["2909"],
-    "stageIDX": [59],
-    "dzxTag": ["ACTR"],
-    "magicByte": ["FE"],
-    "category": ["Overworld", "Golden Bug", "Gerudo Desert", "DZX"],
-    "itemId": "Female_Dayfly",
-    "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "98", "D7", "46", "36", "21", "DC", "43", "0D", "2E", "13", "47", "58", "4E", "24", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
+    "checkCategory": ["Overworld", "Golden Bug", "Gerudo Desert", "DZX"],
+    "itemId": "Female_Dayfly"
 }

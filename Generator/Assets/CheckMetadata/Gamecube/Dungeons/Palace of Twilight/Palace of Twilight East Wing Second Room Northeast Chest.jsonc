@@ -1,0 +1,8 @@
+{
+  "arcOffsets": ["CE0"],
+    "stageIDX": [15],
+    "roomIDX": 5,
+  "fileDirectoryType": [ 0 ],
+  "replacementType": [ 0 ],
+  "dataCategory": [ "Chest", "ARC" ]
+}
