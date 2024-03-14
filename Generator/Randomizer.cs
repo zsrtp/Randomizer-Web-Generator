@@ -137,11 +137,6 @@ namespace TPRandomizer
             // Generate the item pool based on user settings/input.
             Randomizer.Items.GenerateItemPool();
             CheckFunctions.GenerateCheckList();
-            foreach ((string checkName, Item item) in SSettings.plandoChecks)
-            {
-                Randomizer.Checks.CheckDict[checkName].checkStatus = "Plando";
-                Randomizer.Checks.CheckDict[checkName].itemId = item;
-            }
 
             while (remainingGenerationAttempts > 0)
             {
