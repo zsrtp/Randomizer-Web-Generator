@@ -14,6 +14,7 @@ namespace TPRandomizer
     using System.Reflection;
     using Assets;
     using System.ComponentModel;
+    using Hints;
 
     /// <summary>
     /// Generates a randomizer seed given a settings string.
@@ -206,13 +207,41 @@ namespace TPRandomizer
                     }
                 }
 
-                List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(
+                // List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(
+                //     Randomizer.Rooms.RoomDict["Root"]
+                // );
+
+                // if (spheres == null)
+                // {
+                //     throw new Exception("Error! Playthrough not valid.");
+                // }
+
+                PlaythroughSpheres playthroughSpheres = GenerateSpoilerLog(
                     Randomizer.Rooms.RoomDict["Root"]
                 );
 
-                if (spheres == null)
+                if (playthroughSpheres.spheres == null)
                 {
                     throw new Exception("Error! Playthrough not valid.");
+                }
+
+                List<HintSpot> hintSpots = new();
+                try
+                {
+                    // TODO: temp test code
+                    HintGenerator gen = new HintGenerator(
+                        rnd,
+                        SSettings,
+                        playthroughSpheres,
+                        Randomizer.Rooms.RoomDict["Root"]
+                    );
+
+                    hintSpots = gen.Generate();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
                 }
 
                 string jsonContent = GenerateInputJsonContent(
@@ -220,7 +249,7 @@ namespace TPRandomizer
                     seed,
                     seedHash,
                     isRaceSeed,
-                    spheres
+                    playthroughSpheres.spheres
                 );
 
                 try
@@ -243,14 +272,14 @@ namespace TPRandomizer
             return generationStatus;
         }
 
-        private static List<List<KeyValuePair<int, Item>>> GenerateSpoilerLog(Room startingRoom)
+        public static PlaythroughSpheres GenerateSpoilerLog(Room startingRoom)
         {
             Randomizer.Items.GenerateItemPool();
 
             bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom, true);
             if (!isPlaythroughValid && (SSettings.logicRules != LogicRules.No_Logic))
             {
-                return null;
+                return new PlaythroughSpheres(null, null, null);
             }
 
             return BackendFunctions.CalculateOptimalPlaythrough2(startingRoom);

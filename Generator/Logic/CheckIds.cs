@@ -579,6 +579,16 @@ namespace TPRandomizer
             return -1;
         }
 
+        public static bool IsValidCheckId(int idNumber)
+        {
+            return GetCheckName(idNumber) != null;
+        }
+
+        public static bool IsValidCheckName(string checkName)
+        {
+            return GetCheckIdNum(checkName) >= 0;
+        }
+
         public static SortedDictionary<string, int> GetNameToIdNumDictionary()
         {
             SortedDictionary<string, int> nameToIdNum = new();

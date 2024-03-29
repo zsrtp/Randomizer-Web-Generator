@@ -653,7 +653,7 @@ namespace TPRandomizer
                 Item.Hawkeye,
             };
 
-        private readonly List<Item> vanillaJunkItems =
+        public readonly List<Item> vanillaJunkItems =
             new() // Junk items from the vanilla pool
             {
                 Item.Bombs_5,
