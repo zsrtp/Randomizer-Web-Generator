@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
 
 namespace TPRandomizer
 {
@@ -14,46 +18,25 @@ namespace TPRandomizer
         [STAThread]
         static void Main(string[] args)
         {
-            Global.Init();
+            // Prepare localization service before entering the main part of the
+            // code.
 
-            string command = args[0];
+            HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
-            switch (command)
-            {
-                case "generate2":
+            builder.Services.AddLocalization(
+                options =>
                 {
-                    // seedId, settingsString, isRaceSeed, seed
-                    string seed = "";
-                    if (args.Length > 4)
-                    {
-                        seed = args[4];
-                    }
-                    Randomizer.CreateInputJson(args[1], args[2], args[3], seed);
-                    break;
+                    // This path is added to the root "Generator" dir to find
+                    // the folder which contains the resx files.
+                    options.ResourcesPath = "Translations";
                 }
-                case "generate_final_output2":
-                    // seedId, fileCreationSettingsString
-                    Randomizer.GenerateFinalOutput2(args[1], args[2]);
-                    break;
-                case "print_check_ids":
-                    Console.WriteLine(
-                        JsonConvert.SerializeObject(CheckIdClass.GetNameToIdNumDictionary())
-                    );
-                    break;
-                case "print_seed_gen_results":
-                    // seedId
-                    Console.WriteLine(Randomizer.GetSeedGenResultsJson(args[1], false));
-                    break;
-                // "dangerously_print_full_race_spoiler" should only ever be
-                // called by a human manually from the command line. The website
-                // must never call this code.
-                case "dangerously_print_full_race_spoiler":
-                    // seedId
-                    Console.WriteLine(Randomizer.GetSeedGenResultsJson(args[1], true, true));
-                    break;
-                default:
-                    throw new Exception("Unrecognized command.");
-            }
+            );
+            builder.Services.AddSingleton<Translations>();
+
+            IHost host = builder.Build();
+
+            Worker worker = ActivatorUtilities.CreateInstance<Worker>(host.Services);
+            worker.Run(args);
         }
     }
 }
