@@ -10,23 +10,23 @@ namespace TPRandomizer.Assets
     /// </summary>
     public class CustomMessages
     {
-        static string messageSpeedFast = "\x1A\x05\x00\x00\x01";
-        static string messageSpeedSlow = "\x1A\x05\x00\x00\x02";
-        static string messageColorWhite = "\x1A\x06\xFF\x00\x00\x00";
-        static string messageColorRed = "\x1A\x06\xFF\x00\x00\x01";
-        static string messageColorGreen = "\x1A\x06\xFF\x00\x00\x02";
-        static string messageColorLightBlue = "\x1A\x06\xFF\x00\x00\x03";
-        static string messageColorYellow = "\x1A\x06\xFF\x00\x00\x04";
-        static string messageColorPurple = "\x1A\x06\xFF\x00\x00\x06";
-        static string messageColorOrange = "\x1A\x06\xFF\x00\x00\x08";
-        static string messageColorDarkGreen = "\x1A\x06\xFF\x00\x00\x09";
-        static string messageColorBlue = "\x1A\x06\xFF\x00\x00\x0A";
-        static string messageColorSilver = "\x1A\x06\xFF\x00\x00\x0B";
-        static string playerName = "\x1A\x05\x00\x00\x00";
-        static string messageOption1 = "\x1A\x06\x00\x00\x09\x01";
-        static string messageOption2 = "\x1A\x06\x00\x00\x09\x02";
-        static string messageOption3 = "\x1A\x06\x00\x00\x09\x03";
-        static string shopOption = "\x1A\x05\x00\x00\x20";
+        public static string messageSpeedFast = "\x1A\x05\x00\x00\x01";
+        public static string messageSpeedSlow = "\x1A\x05\x00\x00\x02";
+        public static string messageColorWhite = "\x1A\x06\xFF\x00\x00\x00";
+        public static string messageColorRed = "\x1A\x06\xFF\x00\x00\x01";
+        public static string messageColorGreen = "\x1A\x06\xFF\x00\x00\x02";
+        public static string messageColorLightBlue = "\x1A\x06\xFF\x00\x00\x03";
+        public static string messageColorYellow = "\x1A\x06\xFF\x00\x00\x04";
+        public static string messageColorPurple = "\x1A\x06\xFF\x00\x00\x06";
+        public static string messageColorOrange = "\x1A\x06\xFF\x00\x00\x08";
+        public static string messageColorDarkGreen = "\x1A\x06\xFF\x00\x00\x09";
+        public static string messageColorBlue = "\x1A\x06\xFF\x00\x00\x0A";
+        public static string messageColorSilver = "\x1A\x06\xFF\x00\x00\x0B";
+        public static string playerName = "\x1A\x05\x00\x00\x00";
+        public static string messageOption1 = "\x1A\x06\x00\x00\x09\x01";
+        public static string messageOption2 = "\x1A\x06\x00\x00\x09\x02";
+        public static string messageOption3 = "\x1A\x06\x00\x00\x09\x03";
+        public static string shopOption = "\x1A\x05\x00\x00\x20";
 
         // Unused for now but who knows.
         public static string[][] foolishShopItemNames =
@@ -46,6 +46,13 @@ namespace TPRandomizer.Assets
             public byte stageIDX;
             public byte roomIDX;
             public string message;
+
+            public MessageEntry(StageIDs stageIdx, byte roomIdx, short messageId)
+            {
+                messageID = messageId;
+                stageIDX = (byte)stageIdx;
+                roomIDX = roomIdx;
+            }
         }
 
 
@@ -383,7 +390,7 @@ namespace TPRandomizer.Assets
             // },
         };
 
-        private static string getShortenedItemName(Item item)
+        public static string getShortenedItemName(Item item)
         {
            string shortName = "";
 

@@ -8,6 +8,8 @@ namespace TPRandomizer
     using TPRandomizer.Util;
     using System.Linq;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using MessageEntry = Assets.CustomMessages.MessageEntry;
+    using TPRandomizer.Assets;
 
     public class CustomMsgData
     {
@@ -235,6 +237,57 @@ namespace TPRandomizer
             {
                 return new(this);
             }
+        }
+
+        public List<MessageEntry> GenMessageEntries()
+        {
+            List<MessageEntry> results = new();
+
+            GenStaticEntries(results);
+
+            // handle shop text first
+            if (updateShopText)
+            {
+                GenShopItemText(results);
+            }
+
+            // There are some static things that should always be applied which
+            // do not depend on the item.
+
+
+            // handle self-hinters next
+
+            // then handle custom hint signs
+
+            return results;
+        }
+
+        private void GenStaticEntries(List<MessageEntry> results)
+        {
+            // Note: we always update these since the "can't afford" message
+            // references the price.
+            MessageEntry entry1 = CustomMsgUtils.GetEntry(MessageId.SeraSlingshotCantAfford);
+            entry1.message = "You don't have enough money!";
+            results.Add(entry1);
+
+            MessageEntry entry = CustomMsgUtils.GetEntry(MessageId.SeraSlingshotConfirmBuy);
+            entry.message = "Are you sure?" + CustomMessages.shopOption;
+            results.Add(entry);
+        }
+
+        private void GenShopItemText(List<MessageEntry> results)
+        {
+            MessageEntry entry = CustomMsgUtils.GetEntry(MessageId.SeraSlingshotSlot);
+            entry.message =
+                CustomMessages.getShortenedItemName(
+                    Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId
+                )
+                + ": "
+                + CustomMessages.messageColorPurple
+                + "30 Rupees\n"
+                + CustomMessages.messageColorWhite
+                + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!";
+            results.Add(entry);
         }
     }
 }

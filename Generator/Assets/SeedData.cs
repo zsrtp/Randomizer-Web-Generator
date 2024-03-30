@@ -92,29 +92,31 @@ namespace TPRandomizer.Assets
             TPRandomizer.Assets.CustomMessages customMessage = new();
 
             
-            List<CustomMessages.MessageEntry> seedMessages = new();
-            List<CustomMessages.MessageEntry> seedShopMessages = new();
-            switch (hintLanguage)
-            {
-                case CustomMessages.MessageLanguage.English:
-                {
-                    seedMessages = customMessage.englishMessages;
-                    seedShopMessages = customMessage.englishShopMessages;
-                    break;
-                }
+            List<CustomMessages.MessageEntry> seedMessages = seedGenResults.customMsgData.GenMessageEntries();
 
-                default:
-                {
-                    break;
-                }
-            }
+            // List<CustomMessages.MessageEntry> seedMessages = new();
+            // List<CustomMessages.MessageEntry> seedShopMessages = new();
+            // switch (hintLanguage)
+            // {
+            //     case CustomMessages.MessageLanguage.English:
+            //     {
+            //         seedMessages = customMessage.englishMessages;
+            //         seedShopMessages = customMessage.englishShopMessages;
+            //         break;
+            //     }
 
-            // We only modify the shop item text if the models are being replaced because we don't want to spoil it.
-            if (Randomizer.SSettings.modifyShopModels)
-            {
-                seedMessages = customMessage.englishMessages;
-                seedMessages.AddRange(seedShopMessages);
-            }
+            //     default:
+            //     {
+            //         break;
+            //     }
+            // }
+
+            // // We only modify the shop item text if the models are being replaced because we don't want to spoil it.
+            // if (Randomizer.SSettings.modifyShopModels)
+            // {
+            //     seedMessages = customMessage.englishMessages;
+            //     seedMessages.AddRange(seedShopMessages);
+            // }
             seedDictionary.Add((byte)hintLanguage, seedMessages);
 
             
