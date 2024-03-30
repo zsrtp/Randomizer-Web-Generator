@@ -30,10 +30,17 @@ namespace TPRandomizer.Hints
             this.genData = new HintGenData(rnd, sSettings, playthroughSpheres, startingRoom);
         }
 
-        public List<HintSpot> Generate()
+        public CustomMsgData Generate()
         {
+            CustomMsgData.Builder customMsgDataBuilder = new(genData.sSettings);
+
+            // If user specified that there are no hintSettings, then we should return the default customMsgData settings.
+
             hintSettings = HintSettings.fromPath(genData);
             mutableGroups = hintSettings.createMutableGroups();
+
+            // Adjust selfHinters if able
+            customMsgDataBuilder.ApplyInvalidSelfHinters(hintSettings.invalidSelfHinters);
 
             if (hintSettings.starting.excludeFromGroups)
                 removeSpotFromMutableGroups(hintSettings.starting.spot);
@@ -376,7 +383,8 @@ namespace TPRandomizer.Hints
             CreateBeyondPointHints(specialSpotToHints, true);
 
             List<HintSpot> ret = CreateHintSpotList(specialSpotToHints, normalSpotToHints);
-            return ret;
+            customMsgDataBuilder.SetHintSpots(ret);
+            return customMsgDataBuilder.Build();
         }
 
         private List<Hint> getAgithaHint()

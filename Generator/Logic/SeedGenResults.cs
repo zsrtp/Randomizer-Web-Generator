@@ -30,6 +30,7 @@ namespace TPRandomizer
         public byte requiredDungeons { get; set; }
         public List<List<KeyValuePair<int, Item>>> spheres { get; }
         public string entrances { get; }
+        public CustomMsgData customMsgData { get; }
 
         public SeedGenResults(string seedId, JObject inputJsonContents)
         {
@@ -59,6 +60,7 @@ namespace TPRandomizer
             this.requiredDungeons = (byte)output["reqDungeons"];
             this.spheres = DecodeSpheres((string)output["spheres"]);
             this.entrances = DecodeEntrances((string)output["entrances"]);
+            this.customMsgData = CustomMsgData.Decode(itemPlacements, (string)output["customMsg"]);
         }
 
         public static string EncodeEntrances()
@@ -532,6 +534,7 @@ namespace TPRandomizer
             private string itemPlacement;
             private string spheres;
             public string entrances;
+            public string customMsgData;
 
             public Builder() { }
 
@@ -553,6 +556,11 @@ namespace TPRandomizer
             public string GetEntrances(string encodedString)
             {
                 return DecodeEntrances(encodedString);
+            }
+
+            public void SetCustomMsgData(CustomMsgData customMsgData)
+            {
+                this.customMsgData = customMsgData.Encode();
             }
 
             override public string ToString()
@@ -584,6 +592,7 @@ namespace TPRandomizer
                 outputObj.Add("reqDungeons", requiredDungeons);
                 outputObj.Add("spheres", spheres);
                 outputObj.Add("entrances", entrances);
+                outputObj.Add("customMsg", customMsgData);
 
                 return JsonConvert.SerializeObject(inputJsonRoot);
             }

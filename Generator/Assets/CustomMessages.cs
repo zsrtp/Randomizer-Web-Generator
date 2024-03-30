@@ -50,326 +50,337 @@ namespace TPRandomizer.Assets
 
 
         public List<MessageEntry> englishMessages = new List<MessageEntry>
-        { 
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 1,
-                messageID = 0x9B, // Barnes Bomb Bag Text. 
-                message =
-                    "I've got a special offer goin' right\nnow: my "
-                    + getShortenedItemName(Randomizer.Checks.CheckDict["Barnes Bomb Bag"].itemId)
-                    + messageColorWhite
-                    + ", just\n"
-                    + messageColorPurple
-                    + "120 Rupees"
-                    + messageColorWhite
-                    + "! How 'bout that?"
-                    + shopOption
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Castle_Town,
-                roomIDX = 2,
-                messageID = 0x355, // Charlo Donation Text.
-                message =
-                    "For a "
-                    + getShortenedItemName(Randomizer.Checks.CheckDict["Charlo Donation Blessing"].itemId)
-                    + messageColorWhite
-                    + "...\nWould you please make a donation?"
-                    + messageOption1
-                    + "100 Rupees\n"
-                    + messageOption2
-                    + "50 Rupees\n"
-                    + messageOption3
-                    + "Sorry..."
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Fishing_Pond,
-                roomIDX = 0,
-                messageID = 0x47A, // Fishing Hole Bottle Sign
-                message =
-                    "           "
-                    + messageColorRed
-                    + "DON'T LITTER!\n"
-                    + messageColorWhite
-                    + "Do NOT toss a "
-                    + getShortenedItemName(Randomizer.Checks.CheckDict["Fishing Hole Bottle"].itemId)
-                    + messageColorWhite
-                    + " or\ncans here! The fish are CRYING!\n\nKeep the fishing hole clean!"
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Castle_Town,
-                roomIDX = 3,
-                messageID = 0x457, // Jovani House Sign
-                message =
-                    "20 Soul Reward: "
-                    + getShortenedItemName(Randomizer.Checks.CheckDict["Jovani 20 Poe Soul Reward"].itemId)
-                    + messageColorWhite
-                    + "\n60 Soul Reward: "
-                    + getShortenedItemName(Randomizer.Checks.CheckDict["Jovani 60 Poe Soul Reward"].itemId)
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Ordon_Village_Interiors,
-                roomIDX = 1,
-                messageID = 0x5B4, // Slingshot Confirmation
-                message =
-                    "Are you sure?"
-                    + shopOption
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Ordon_Village_Interiors,
-                roomIDX = 1,
-                messageID = 0x5AE, // Slingshot Confirmation - Not enough money
-                message =
-                    "You don't have enough money!"
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Castle_Town_Shops,
-                roomIDX = 0,
-                messageID = 0x119, // Magic Armor Confirmation
-                message =
-                    "Are you sure?"
-                    + shopOption
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Castle_Town_Shops,
-                roomIDX = 0,
-                messageID = 0x11E, // Magic Armor Confirmation after purchase
-                message =
-                    "We have sold out!"
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Castle_Town_Shops,
-                roomIDX = 0,
-                messageID = 0x130, // Magic Armor sold out
-                message =
-                    "-SOLD OUT-\nThis item has been discontinued."
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Castle_Town_Shops,
-                roomIDX = 0,
-                messageID = 0x11C, // Magic Armor Confirmation - not enough money
-                message =
-                    "You don't have enough money!"
-            },
+        {
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 1,
+            //     messageID = 0x9B, // Barnes Bomb Bag Text.
+            //     message =
+            //         "I've got a special offer goin' right\nnow: my "
+            //         + getShortenedItemName(Randomizer.Checks.CheckDict["Barnes Bomb Bag"].itemId)
+            //         + messageColorWhite
+            //         + ", just\n"
+            //         + messageColorPurple
+            //         + "120 Rupees"
+            //         + messageColorWhite
+            //         + "! How 'bout that?"
+            //         + shopOption
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Castle_Town,
+            //     roomIDX = 2,
+            //     messageID = 0x355, // Charlo Donation Text.
+            //     message =
+            //         "For a "
+            //         + getShortenedItemName(Randomizer.Checks.CheckDict["Charlo Donation Blessing"].itemId)
+            //         + messageColorWhite
+            //         + "...\nWould you please make a donation?"
+            //         + messageOption1
+            //         + "100 Rupees\n"
+            //         + messageOption2
+            //         + "50 Rupees\n"
+            //         + messageOption3
+            //         + "Sorry..."
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Fishing_Pond,
+            //     roomIDX = 0,
+            //     messageID = 0x47A, // Fishing Hole Bottle Sign
+            //     message =
+            //         "           "
+            //         + messageColorRed
+            //         + "DON'T LITTER!\n"
+            //         + messageColorWhite
+            //         + "Do NOT toss a "
+            //         + getShortenedItemName(Randomizer.Checks.CheckDict["Fishing Hole Bottle"].itemId)
+            //         + messageColorWhite
+            //         + " or\ncans here! The fish are CRYING!\n\nKeep the fishing hole clean!"
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Castle_Town,
+            //     roomIDX = 3,
+            //     messageID = 0x457, // Jovani House Sign
+            //     message =
+            //         "20 Soul Reward: "
+            //         + getShortenedItemName(Randomizer.Checks.CheckDict["Jovani 20 Poe Soul Reward"].itemId)
+            //         + messageColorWhite
+            //         + "\n60 Soul Reward: "
+            //         + getShortenedItemName(Randomizer.Checks.CheckDict["Jovani 60 Poe Soul Reward"].itemId)
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Ordon_Village_Interiors,
+            //     roomIDX = 1,
+            //     messageID = 0x5B4, // Slingshot Confirmation
+            //     message =
+            //         "Are you sure?"
+            //         + shopOption
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Ordon_Village_Interiors,
+            //     roomIDX = 1,
+            //     messageID = 0x5AE, // Slingshot Confirmation - Not enough money
+            //     message =
+            //         "You don't have enough money!"
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Castle_Town_Shops,
+            //     roomIDX = 0,
+            //     messageID = 0x119, // Magic Armor Confirmation
+            //     message =
+            //         "Are you sure?"
+            //         + shopOption
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Castle_Town_Shops,
+            //     roomIDX = 0,
+            //     messageID = 0x11E, // Magic Armor Confirmation after purchase
+            //     message =
+            //         "We have sold out!"
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Castle_Town_Shops,
+            //     roomIDX = 0,
+            //     messageID = 0x130, // Magic Armor sold out
+            //     message =
+            //         "-SOLD OUT-\nThis item has been discontinued."
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Castle_Town_Shops,
+            //     roomIDX = 0,
+            //     messageID = 0x11C, // Magic Armor Confirmation - not enough money
+            //     message =
+            //         "You don't have enough money!"
+            // },
 
-            new MessageEntry
-            {
-                stageIDX = 0xFF,
-                roomIDX = 0xFF,
-                messageID = 0x1369, // Hint Message
-                message =
-                    "This is a test hint"
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2CC, // Hylian Shield Confirmation - Not enough money
-                message =
-                    "You don't have enough money!"
-            },
-             new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2CB, // Hylian Shield Confirmation
-                message =
-                    "Are you sure?"
-                    + shopOption
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2D2, // Hawkeye Confirmation
-                message =
-                    "Are you sure?"
-                    + shopOption
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x306, // coming soon sign
-                message =
-                messageColorOrange+
-                    "COMING SOON"
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2D4, // coming soon sign read
-                message =
-                    "Can't you read?\nWe don't have that in stock yet."
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2D3, // Hawkeye Confirmation - Not enough money
-                message =
-                    "You don't have enough money!"
-            },
-             new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2C8, // Wooden Shield confirmation - not enough money
-                message =
-                    "You don't have enough money!"
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2C7, // Wooden Shield confirmation
-                message =
-                    "Are you sure?"
-                    + shopOption
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x30B, // Sold out sign
-                message =
-                messageColorOrange+
-                    "-SOLD OUT-\nThis item has been discontinued."
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2E0, // red potion sold out sign read
-                message =
-                    "Can't you read?\nThat item is out of stock."
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2D0, // wooden shield sold out sign read
-                message =
-                    "Can't you read?\nThat item is out of stock."
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2D7, // Red Potion confirmation
-                message =
-                    "Are you sure?"
-                    + shopOption
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2D6, // Red Potion confirmation - not enough money
-                message =
-                    "You don't have enough money!"
-            },
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x2D8, // Red Potion after buying
-                message =
-                    "Thank you for your purchase..."
-            },
+            // new MessageEntry
+            // {
+            //     stageIDX = 54,
+            //     roomIDX = 1,
+            //     messageID = 0x1369, // Hint Message
+            //     message =
+            //         "This is a test hint\nfor Sacred Grove\nonly\na b c d\ne f g h i j k l"
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = 0xFF,
+            //     roomIDX = 0xFF,
+            //     messageID = 0x1369, // Hint Message
+            //     message =
+            //         $"They say that there is nothing to\nbe found in {messageColorPurple}Kakariko Village{messageColorWhite}.\n\n\n1 " + messageColorOrange + "2 3 4" + messageColorWhite + " 5 6 7 8 9\nThis is a test hint\n\n\n1 1 2 3 4 5 6 7 8 9\nThis is a\ntest hint\n\n2 1 2 3 4 5 6 7 8 9\nThis is a\ntest hint\n0 1 2 3 4 5 6 7 8 9\nThis is a test hint\n0 1 2 3 4 5 6 7 8\n9 This is a\ntest hint\n3 1 2 3 4 5 6\n7 8 9"
+            // },
+
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2CC, // Hylian Shield Confirmation - Not enough money
+            //     message =
+            //         "You don't have enough money!"
+            // },
+            //  new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2CB, // Hylian Shield Confirmation
+            //     message =
+            //         "Are you sure?"
+            //         + shopOption
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2D2, // Hawkeye Confirmation
+            //     message =
+            //         "Are you sure?"
+            //         + shopOption
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x306, // coming soon sign
+            //     message =
+            //     messageColorOrange+
+            //         "COMING SOON"
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2D4, // coming soon sign read
+            //     message =
+            //         "Can't you read?\nWe don't have that in stock yet."
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2D3, // Hawkeye Confirmation - Not enough money
+            //     message =
+            //         "You don't have enough money!"
+            // },
+            //  new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2C8, // Wooden Shield confirmation - not enough money
+            //     message =
+            //         "You don't have enough money!"
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2C7, // Wooden Shield confirmation
+            //     message =
+            //         "Are you sure?"
+            //         + shopOption
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x30B, // Sold out sign
+            //     message =
+            //     messageColorOrange+
+            //         "-SOLD OUT-\nThis item has been discontinued."
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2E0, // red potion sold out sign read
+            //     message =
+            //         "Can't you read?\nThat item is out of stock."
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2D0, // wooden shield sold out sign read
+            //     message =
+            //         "Can't you read?\nThat item is out of stock."
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2D7, // Red Potion confirmation
+            //     message =
+            //         "Are you sure?"
+            //         + shopOption
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2D6, // Red Potion confirmation - not enough money
+            //     message =
+            //         "You don't have enough money!"
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x2D8, // Red Potion after buying
+            //     message =
+            //         "Thank you for your purchase..."
+            // },
         };
 
         public List<MessageEntry> englishShopMessages = new List<MessageEntry>
         {
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Ordon_Village_Interiors,
-                roomIDX = 1,
-                messageID = 0x5AD, // Slingshot Check
-                message =
-                    getShortenedItemName(Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "30 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },       
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Castle_Town_Shops,
-                roomIDX = 0,
-                messageID = 0x125, // Magic Armor Check
-                message =
-                    getShortenedItemName(Randomizer.Checks.CheckDict["Castle Town Malo Mart Magic Armor"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "598 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },         
-             new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x30E, // Hylian Shield Check
-                message =
-                    getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Hylian Shield"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "200 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },         
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x307, // Hawkeye Display
-                message =
-                    getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Hawkeye"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "100 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },   
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x30D, // Wooden Shield text
-                message =
-                getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Wooden Shield"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "50 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },   
-            new MessageEntry
-            {
-                stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                roomIDX = 3,
-                messageID = 0x305, // Red Potion Text
-                message =
-                getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Red Potion"].itemId)
-                    + ": "
-                    + messageColorPurple
-                    + "30 Rupees\n"
-                    + messageColorWhite
-                    + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-            },
+            // This is the far right one which should be 0x5AE!
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Ordon_Village_Interiors,
+            //     roomIDX = 1,
+            //     // messageID = 0x5AD, // Slingshot Check
+            //     messageID = 0x5AE, // Slingshot Check
+            //     message =
+            //         getShortenedItemName(Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId)
+            //         + ": "
+            //         + messageColorPurple
+            //         + "30 Rupees\n"
+            //         + messageColorWhite
+            //         + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Castle_Town_Shops,
+            //     roomIDX = 0,
+            //     messageID = 0x125, // Magic Armor Check
+            //     message =
+            //         getShortenedItemName(Randomizer.Checks.CheckDict["Castle Town Malo Mart Magic Armor"].itemId)
+            //         + ": "
+            //         + messageColorPurple
+            //         + "598 Rupees\n"
+            //         + messageColorWhite
+            //         + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            // },
+            //  new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x30E, // Hylian Shield Check
+            //     message =
+            //         getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Hylian Shield"].itemId)
+            //         + ": "
+            //         + messageColorPurple
+            //         + "200 Rupees\n"
+            //         + messageColorWhite
+            //         + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x307, // Hawkeye Display
+            //     message =
+            //         getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Hawkeye"].itemId)
+            //         + ": "
+            //         + messageColorPurple
+            //         + "100 Rupees\n"
+            //         + messageColorWhite
+            //         + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x30D, // Wooden Shield text
+            //     message =
+            //     getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Wooden Shield"].itemId)
+            //         + ": "
+            //         + messageColorPurple
+            //         + "50 Rupees\n"
+            //         + messageColorWhite
+            //         + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            // },
+            // new MessageEntry
+            // {
+            //     stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //     roomIDX = 3,
+            //     messageID = 0x305, // Red Potion Text
+            //     message =
+            //     getShortenedItemName(Randomizer.Checks.CheckDict["Kakariko Village Malo Mart Red Potion"].itemId)
+            //         + ": "
+            //         + messageColorPurple
+            //         + "30 Rupees\n"
+            //         + messageColorWhite
+            //         + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
+            // },
         };
 
         private static string getShortenedItemName(Item item)
@@ -402,9 +413,9 @@ namespace TPRandomizer.Assets
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("Forest Temple", "FT");
                     shortName = messageColorGreen + shortName;
-                    break; 
+                    break;
                 }
-                
+
                 case Item.Goron_Mines_Key_Shard:
                 case Item.Goron_Mines_Compass:
                 case Item.Goron_Mines_Dungeon_Map:
@@ -412,7 +423,7 @@ namespace TPRandomizer.Assets
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("Goron Mines", "GM");
                     shortName = messageColorRed + shortName;
-                    break; 
+                    break;
                 }
 
                 case Item.Lakebed_Temple_Big_Key:
@@ -422,7 +433,7 @@ namespace TPRandomizer.Assets
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("Lakebed Temple", "LBT");
                     shortName = messageColorBlue + shortName;
-                    break; 
+                    break;
                 }
 
                 case Item.Arbiters_Grounds_Big_Key:
@@ -432,7 +443,7 @@ namespace TPRandomizer.Assets
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("Arbiters Grounds", "AG");
                     shortName = messageColorOrange + shortName;
-                    break; 
+                    break;
                 }
 
                 case Item.Snowpeak_Ruins_Bedroom_Key:
@@ -442,7 +453,7 @@ namespace TPRandomizer.Assets
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("Snowpeak Ruins", "SPR");
                     shortName = messageColorLightBlue + shortName;
-                    break; 
+                    break;
                 }
 
                 case Item.Snowpeak_Ruins_Ordon_Goat_Cheese:
@@ -450,7 +461,7 @@ namespace TPRandomizer.Assets
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("Snowpeak Ruins", "SPR").Replace("Ordon ", "");
                     shortName = messageColorLightBlue + shortName;
-                    break; 
+                    break;
                 }
 
                 case Item.Temple_of_Time_Big_Key:
@@ -460,7 +471,7 @@ namespace TPRandomizer.Assets
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("Temple of Time", "ToT");
                     shortName = messageColorDarkGreen + shortName;
-                    break; 
+                    break;
                 }
 
                 case Item.City_in_The_Sky_Big_Key:
@@ -470,7 +481,7 @@ namespace TPRandomizer.Assets
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("City in The Sky", "CitS");
                     shortName = messageColorYellow + shortName;
-                    break; 
+                    break;
                 }
 
                 case Item.Palace_of_Twilight_Big_Key:
@@ -480,7 +491,7 @@ namespace TPRandomizer.Assets
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("Palace of Twilight", "PoT");
                     shortName = messageColorPurple + shortName;
-                    break; 
+                    break;
                 }
 
                 case Item.Hyrule_Castle_Big_Key:
@@ -490,30 +501,30 @@ namespace TPRandomizer.Assets
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("Hyrule Castle", "HC");
                     shortName = messageColorSilver + shortName;
-                    break; 
+                    break;
                 }
 
                 case Item.Gerudo_Desert_Bulblin_Camp_Key:
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("Gerudo Desert ", "");
                     shortName = messageColorOrange + shortName;
-                    break; 
+                    break;
                 }
 
                 case Item.North_Faron_Woods_Gate_Key:
                 {
                    shortName = item.ToString().Replace('_', ' ').Replace("North Faron Woods", "Faron");
                     shortName = messageColorOrange + shortName;
-                    break; 
+                    break;
                 }
 
                 case Item.Purple_Rupee_Links_House:
                 {
                     shortName = "Link's Rupee";
                     shortName = messageColorPurple + shortName;
-                    break; 
+                    break;
                 }
-                
+
                 default:
                 {
                     shortName = item.ToString().Replace('_', ' ');
@@ -521,7 +532,7 @@ namespace TPRandomizer.Assets
                     break;
                 }
            }
-           return shortName; 
+           return shortName;
         }
 
         /* length test:

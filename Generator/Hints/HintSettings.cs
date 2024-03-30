@@ -1208,6 +1208,7 @@ namespace TPRandomizer.Hints.Settings
         public bool agitha { get; private set; }
         public Jovani jovani { get; private set; }
         public bool caveOfOrdeals { get; private set; }
+        public HashSet<string> invalidSelfHinters { get; private set; }
         public Dungeons dungeons { get; private set; }
         public HashSet<Zone> beyondPointZones { get; private set; }
         public Always always { get; private set; }
@@ -1239,6 +1240,7 @@ namespace TPRandomizer.Hints.Settings
             ret.agitha = HintSettingUtils.getOptionalBool(root, "agitha", true);
             ret.jovani = Jovani.fromJToken(root["jovani"]);
             ret.caveOfOrdeals = HintSettingUtils.getOptionalBool(root, "caveOfOrdeals", true);
+            ret.invalidSelfHinters = loadInvalidSelfHinters(root);
             ret.dungeons = Dungeons.fromJToken(root["dungeons"]);
             ret.beyondPointZones = loadBeyondPointZones(root);
             ret.always = Always.fromJToken(root["always"], ret, genData);
@@ -1362,6 +1364,42 @@ namespace TPRandomizer.Hints.Settings
                 HintSettingUtils.parseItem,
                 null
             );
+        }
+
+        private static HashSet<string> loadInvalidSelfHinters(JObject root)
+        {
+            HashSet<string> result = null;
+
+            List<string> strList = HintSettingUtils.getOptionalStringList(
+                root,
+                "invalidSelfHinters",
+                null
+            );
+
+            if (!ListUtils.isEmpty(strList))
+            {
+                foreach (string str in strList)
+                {
+                    if (StringUtils.isEmpty(str))
+                        throw new Exception("Expected selfHinter string to not be empty.");
+
+                    if (str.StartsWith("alias:"))
+                    {
+                        if (str != "alias:all")
+                            throw new Exception($"Invalid selfHinter alias '{str}'.");
+
+                        result.Add(str);
+                    }
+                    else
+                    {
+                        if (!CheckIdClass.IsValidCheckName(str))
+                            throw new Exception($"checkname '{str}' is invalid.");
+                        result.Add(str);
+                    }
+                }
+            }
+
+            return result;
         }
 
         private static HashSet<Zone> loadBeyondPointZones(JObject root)

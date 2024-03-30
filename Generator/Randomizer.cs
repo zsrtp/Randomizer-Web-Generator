@@ -225,7 +225,7 @@ namespace TPRandomizer
                     throw new Exception("Error! Playthrough not valid.");
                 }
 
-                List<HintSpot> hintSpots = new();
+                CustomMsgData customMsgData = null;
                 try
                 {
                     // TODO: temp test code
@@ -236,7 +236,7 @@ namespace TPRandomizer
                         Randomizer.Rooms.RoomDict["Root"]
                     );
 
-                    hintSpots = gen.Generate();
+                    customMsgData = gen.Generate();
                 }
                 catch (Exception e)
                 {
@@ -249,7 +249,8 @@ namespace TPRandomizer
                     seed,
                     seedHash,
                     isRaceSeed,
-                    playthroughSpheres.spheres
+                    playthroughSpheres.spheres,
+                    customMsgData
                 );
 
                 try
@@ -290,7 +291,8 @@ namespace TPRandomizer
             string seed,
             int seedHash,
             bool isRaceSeed,
-            List<List<KeyValuePair<int, Item>>> spheres
+            List<List<KeyValuePair<int, Item>>> spheres,
+            CustomMsgData customMsgData
         )
         {
             Dictionary<string, Item> checkIdToItemId = new();
@@ -393,6 +395,7 @@ namespace TPRandomizer
             builder.SetItemPlacements(checkNumIdToItemId);
             builder.SetSpheres(spheres);
             builder.SetEntrances();
+            builder.SetCustomMsgData(customMsgData);
             Console.WriteLine(builder.GetEntrances(builder.entrances));
             return builder.ToString();
         }
