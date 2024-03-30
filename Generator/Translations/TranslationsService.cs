@@ -135,13 +135,13 @@ namespace TPRandomizer
         {
             EnsureDictionary();
 
+            for (int i = 0; i < resourcesList.Count; i++)
+            {
+                LocalizedString localeString = resourcesList[i].TryGetValue(name);
+                if (localeString != null && !localeString.ResourceNotFound)
+                    return localeString.Value;
+            }
             return null;
-
-            // LocaleString localeString;
-            // bool found = simpleResDict.TryGetValue(name, out localeString);
-            // if (found && !localeString.localizedString.ResourceNotFound)
-            //     return localeString.localizedString;
-            // return null;
         }
 
         public string GetMsg(string name, Dictionary<string, object> options)
@@ -199,6 +199,13 @@ namespace TPRandomizer
         {
             if (!StringUtils.isEmpty(resourceKey) && !dict.ContainsKey(resourceKey))
                 dict[resourceKey] = locStr;
+        }
+
+        public LocalizedString TryGetValue(string resourceKey)
+        {
+            if (!StringUtils.isEmpty(resourceKey) && dict.ContainsKey(resourceKey))
+                return dict[resourceKey];
+            return null;
         }
 
         public bool IsEmpty()

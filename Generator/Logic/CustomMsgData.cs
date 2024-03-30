@@ -10,6 +10,9 @@ namespace TPRandomizer
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using MessageEntry = Assets.CustomMessages.MessageEntry;
     using TPRandomizer.Assets;
+    using System.Linq.Expressions;
+    using System.Text;
+    using System.Text.RegularExpressions;
 
     public class CustomMsgData
     {
@@ -277,17 +280,63 @@ namespace TPRandomizer
 
         private void GenShopItemText(List<MessageEntry> results)
         {
+            string abc = Res.Msg("shop.basic-slot");
+
+            Res.ParsedRes abcd = Res.ParseVal(abc);
+
+            Item item = Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId;
+
+            string itemText = GenItemText(item, abcd.other["item"]);
+
+            string aaaaa = abcd.Substitute(new() { { "item", itemText }, { "price", "30" } });
+            string bb = "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!";
+            string cc = Regex.Unescape(aaaaa);
+
+            // We know that the resource requires 'item' and 'price' because
+            // those are the known params for that resource.
+
+            // Our job is to put an item and price into each slot.
+
+            // We need to extract any additional context from "item" and provide
+            // it to the item resolution.
+
             MessageEntry entry = CustomMsgUtils.GetEntry(MessageId.SeraSlingshotSlot);
-            entry.message =
-                CustomMessages.getShortenedItemName(
-                    Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId
-                )
-                + ": "
-                + CustomMessages.messageColorPurple
-                + "30 Rupees\n"
-                + CustomMessages.messageColorWhite
-                + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!";
+            // entry.message = aaaaa;
+            entry.message = cc;
+            // entry.message =
+            //     CustomMessages.getShortenedItemName(
+            //         Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId
+            //     )
+            //     + ": "
+            //     + CustomMessages.messageColorPurple
+            //     + "30 Rupees\n"
+            //     + CustomMessages.messageColorWhite
+            //     + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!";
             results.Add(entry);
+        }
+
+        private string GenItemText(Item item, Dictionary<string, string> other)
+        {
+            bool isShopItem = false;
+            if (!ListUtils.isEmpty(other))
+            {
+                if (other.TryGetValue("shop", out string shopVal) && shopVal == "true")
+                    isShopItem = true;
+            }
+
+            string result = "";
+
+            if (isShopItem)
+                result += CustomMessages.messageColorOrange;
+            else
+                result += CustomMessages.messageColorRed;
+
+            result += item;
+            if (isShopItem)
+                result += ":";
+            result += CustomMessages.messageColorWhite;
+
+            return result;
         }
     }
 }

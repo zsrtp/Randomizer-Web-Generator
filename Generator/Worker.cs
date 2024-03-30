@@ -22,7 +22,7 @@ namespace TPRandomizer
         {
             Global.Init(provider);
 
-            string abc = Res.Msg();
+            // string abc = Res.Msg();
 
             // string def = messageService.GetMsg(
             //     "item.progressive-clawshot",
@@ -31,7 +31,7 @@ namespace TPRandomizer
 
             Res.UpdateCultureInfo("fr-FR-DOG");
 
-            string abc2 = Res.Msg();
+            // string abc2 = Res.Msg();
 
             string command = args[0];
 
