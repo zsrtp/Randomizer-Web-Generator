@@ -46,25 +46,38 @@ namespace TPRandomizer
 
         public static string Msg(string resKey, Dictionary<string, string> interpolation = null)
         {
+            // Pass the interpolation to the translationsService so that it can
+            // build the stack of keys based on the current language it is
+            // trying to check as it goes through its list.
+
+
             // Need to handle interpolation "count" when doing the initial
             // grabbing of the resource.
 
             // ParsedRes parsedRes = ParseVal(resKey);
             // parsedRes.Substitute();
 
-            MsgResult msgResult = translations.GetMsg(resKey);
-            if (msgResult == null)
-                return null;
+            // MsgResult msgResult = translations.GetMsg(resKey, interpolation);
 
-            return null;
+            ParsedRes parsedRes = ParseVal(resKey, interpolation);
+
+            return parsedRes.Substitute(interpolation);
+
+            // if (msgResult == null)
+            //     return null;
+
+            // return null;
 
             // return translations.GetMsg(resKey);
             // return translations.GetGreetingMessage();
         }
 
-        public static ParsedRes ParseVal(string resKey)
+        public static ParsedRes ParseVal(
+            string resKey,
+            Dictionary<string, string> interpolation = null
+        )
         {
-            MsgResult msgResult = translations.GetMsg(resKey);
+            MsgResult msgResult = translations.GetMsg(resKey, interpolation);
             if (msgResult == null)
                 return null;
 
@@ -160,27 +173,72 @@ namespace TPRandomizer
             // 'ja': 3
             // 'fr': 9
 
-            public static string GetSuffix(int number)
+            public static string GetSuffix(string langCode, int number, bool ord = false)
             {
-                return GetSuffix(Math.Abs(number).ToString());
+                return GetSuffix(
+                    langCode,
+                    Math.Abs(number).ToString(CultureInfo.InvariantCulture),
+                    ord
+                );
             }
 
-            public static string GetSuffix(double number)
+            public static string GetSuffix(string langCode, double number, bool ord = false)
             {
-                return GetSuffix(Math.Abs(number).ToString());
+                return GetSuffix(
+                    langCode,
+                    Math.Abs(number).ToString(CultureInfo.InvariantCulture),
+                    ord
+                );
             }
 
-            public static string GetSuffix(string val, bool ord = false)
+            public static string GetSuffix(string langCode, string val, bool ord = false)
             {
                 if (StringUtils.isEmpty(val))
                     return "other";
+
+                switch (langCode)
+                {
+                    case "en":
+                        return GetSuffixEn(val, ord);
+                    case "es":
+                        return GetSuffixEs(val, ord);
+                    case "fr":
+                        return GetSuffixFr(val, ord);
+                    default:
+                        throw new Exception($"'{langCode}' is not a supported langCode.");
+                }
 
                 // We need to know which langauge we are looking at. This
                 // depends on the resource sinc it is possible we are resolving
                 // an English resource for French if it has not yet been defined
                 // for French yet (or never will be).
+            }
 
-                return GetSuffixEs(val, ord);
+            private static string GetSuffixEn(string val, bool ord)
+            {
+                string[] s = val.Split('.');
+
+                uint wholeNumVal = StringUtils.isEmpty(s[0]) ? 0 : Convert.ToUInt32(s[0]);
+
+                bool hasDecimals =
+                    s.Length > 1 && !StringUtils.isEmpty(s[1]) && Convert.ToUInt32(s[1]) != 0;
+
+                if (ord)
+                {
+                    uint n10 = wholeNumVal % 10;
+                    uint n100 = wholeNumVal % 100;
+
+                    if (n10 == 1 && n100 != 11)
+                        return "one";
+                    else if (n10 == 2 && n100 != 12)
+                        return "two";
+                    else if (n10 == 3 && n100 != 13)
+                        return "few";
+                    else
+                        return "other";
+                }
+
+                return wholeNumVal == 1 && !hasDecimals ? "one" : "other";
             }
 
             private static string GetSuffixEs(string val, bool ord)
@@ -202,6 +260,32 @@ namespace TPRandomizer
                     else if (wholeNumVal != 0 && ((wholeNumVal % 1000000) == 0))
                         return "many";
                 }
+
+                return "other";
+            }
+
+            private static string GetSuffixFr(string val, bool ord)
+            {
+                string[] s = val.Split('.');
+
+                uint wholeNumVal = StringUtils.isEmpty(s[0]) ? 0 : Convert.ToUInt32(s[0]);
+
+                bool hasDecimals =
+                    s.Length > 1 && !StringUtils.isEmpty(s[1]) && Convert.ToUInt32(s[1]) != 0;
+
+                if (ord)
+                {
+                    if (wholeNumVal == 1 && !hasDecimals)
+                        return "one";
+                    return "other";
+                }
+
+                // 1.5 intentionally converts to "one".
+                if (wholeNumVal == 0 || wholeNumVal == 1)
+                    return "one";
+
+                if (!hasDecimals && wholeNumVal != 0 && ((wholeNumVal % 1000000) == 0))
+                    return "many";
 
                 return "other";
             }
@@ -248,39 +332,39 @@ namespace TPRandomizer
                 return rule != null && rule.numbers.Length > 1;
             }
 
-            public static List<string> GetPluralFormsOfKey(string code, string key)
-            {
-                return GetSuffixes(code).Select((suffix) => $"{key}{suffix}").ToList();
-            }
+            // public static List<string> GetPluralFormsOfKey(string code, string key)
+            // {
+            //     return GetSuffixes(code).Select((suffix) => $"{key}{suffix}").ToList();
+            // }
 
-            public static List<string> GetSuffixes(string code)
-            {
-                List<string> result = new();
-                Rule rule = GetRule(code);
+            // public static List<string> GetSuffixes(string code)
+            // {
+            //     List<string> result = new();
+            //     Rule rule = GetRule(code);
 
-                if (rule == null)
-                    return result;
+            //     if (rule == null)
+            //         return result;
 
-                foreach (int number in rule.numbers)
-                {
-                    result.Add(GetSuffix(code, number));
-                }
+            //     foreach (int number in rule.numbers)
+            //     {
+            //         result.Add(GetSuffix(code, number));
+            //     }
 
-                return result;
-            }
+            //     return result;
+            // }
 
-            public static string GetSuffix(string code, int count)
-            {
-                Rule rule = GetRule(code);
+            // public static string GetSuffix(string code, int count)
+            // {
+            //     Rule rule = GetRule(code);
 
-                if (rule != null)
-                {
-                    return GetSuffixRetroCompatible(rule, count);
-                }
+            //     if (rule != null)
+            //     {
+            //         return GetSuffixRetroCompatible(rule, count);
+            //     }
 
-                // this.logger.warn(`no plural rule found for: ${code}`);
-                return "";
-            }
+            //     // this.logger.warn(`no plural rule found for: ${code}`);
+            //     return "";
+            // }
 
             public static string GetSuffixRetroCompatible(Rule rule, int count)
             {

@@ -138,15 +138,15 @@
     <comment/>
   </data>
   <data name="shop.basic-slot" xml:space="preserve">
-    <value>{item(shop:true,sera:true)} {price}\n     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!</value>
+    <value>{item(shop:true)} {price}\n     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!</value>
     <comment/>
   </data>
   <data name="shop.price" xml:space="preserve">
-    <value>{price} Rupee</value>
+    <value>{count} Rupee</value>
     <comment/>
   </data>
   <data name="shop.price#other" xml:space="preserve">
-    <value>{price} Rupees</value>
+    <value>{count} Rupees</value>
     <comment/>
   </data>
 </root>

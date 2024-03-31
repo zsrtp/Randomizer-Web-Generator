@@ -13,6 +13,7 @@ namespace TPRandomizer
     using System.Linq.Expressions;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Globalization;
 
     public class CustomMsgData
     {
@@ -285,11 +286,13 @@ namespace TPRandomizer
             // Res.ParsedRes abcd = Res.ParseVal(abc);
 
             Res.ParsedRes abcd = Res.ParseVal("shop.basic-slot");
+            // TODO: add param so can pass in "sera: true" for example. The
+            // basic-slot does not default to having this be true.
 
             Item item = Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId;
 
             string itemText = GenItemText(item, abcd.other["item"]);
-            string priceText = GenShopPriceText(34);
+            string priceText = GenShopPriceText(30);
 
             string aaaaa = abcd.Substitute(new() { { "item", itemText }, { "price", priceText } });
             string cc = Regex.Unescape(aaaaa);
@@ -352,16 +355,11 @@ namespace TPRandomizer
         {
             string result = CustomMessages.messageColorPurple;
 
-            result += amount;
-            // substitute in to resource
-
-            string suf = Res.PluralResolver.GetSuffix("0001.00");
-
-            List<string> abc = Res.PluralResolver.GetPluralFormsOfKey("fr", "shop.price");
-
-            // Resource should have single, other, etc. amounts for "Rupee" vs
-            // "Rupees"
-
+            string shopText = Res.Msg(
+                "shop.price",
+                new() { { "count", amount.ToString(CultureInfo.InvariantCulture) } }
+            );
+            result += shopText;
 
             result += CustomMessages.messageColorWhite;
             return result;
@@ -371,7 +369,7 @@ namespace TPRandomizer
         {
             if (ListUtils.isEmpty(other))
                 return false;
-            return other.TryGetValue("shop", out string shopVal) && shopVal == "true";
+            return other.TryGetValue(key, out string value) && value == "true";
         }
     }
 }

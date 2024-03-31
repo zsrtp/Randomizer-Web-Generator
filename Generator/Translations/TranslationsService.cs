@@ -131,18 +131,89 @@ namespace TPRandomizer
             return localizedString;
         }
 
-        public MsgResult GetMsg(string name)
+        public MsgResult GetMsg(string key, Dictionary<string, string> interpolation = null)
         {
             EnsureDictionary();
 
             for (int i = 0; i < resourcesList.Count; i++)
             {
                 LocaleResources resources = resourcesList[i];
-                LocalizedString localeString = resources.TryGetValue(name);
-                if (localeString != null && !localeString.ResourceNotFound)
-                    return new MsgResult(resources.GetLangCode(), localeString.Value);
+
+                string langCode = NormalizeLangCode(resources.GetLangCode());
+                List<string> keysToTry = GenKeysToCheck(langCode, key, interpolation);
+
+                for (int keyIdx = keysToTry.Count - 1; keyIdx >= 0; keyIdx--)
+                {
+                    string keyToTry = keysToTry[keyIdx];
+
+                    LocalizedString localeString = resources.TryGetValue(keyToTry);
+                    if (localeString != null && !localeString.ResourceNotFound)
+                        return new MsgResult(langCode, localeString.Value);
+                }
             }
             return null;
+        }
+
+        private string NormalizeLangCode(string langCode)
+        {
+            if (StringUtils.isEmpty(langCode) || langCode == "iv")
+                return "en";
+            return langCode;
+        }
+
+        private List<string> GenKeysToCheck(
+            string langCode,
+            string key,
+            Dictionary<string, string> interpolation
+        )
+        {
+            if (StringUtils.isEmpty(key))
+                throw new Exception("key must not be empty.");
+
+            List<string> keys = new() { key };
+
+            if (ListUtils.isEmpty(interpolation))
+                return keys;
+
+            bool needsPluralHandling = false;
+            double countAsDouble = -1;
+            if (interpolation.TryGetValue("count", out string count))
+            {
+                needsPluralHandling = true;
+                countAsDouble = double.Parse(count, CultureInfo.InvariantCulture);
+            }
+
+            bool isOrdinal = GetOtherBool(interpolation, "ordinal");
+
+            bool needsZeroSuffixLookup = needsPluralHandling && !isOrdinal && countAsDouble == 0;
+
+            string pluralSuffix = null;
+            if (needsPluralHandling)
+                pluralSuffix = "#" + Res.PluralResolver.GetSuffix(langCode, count, isOrdinal);
+            string zeroSuffix = "#zero";
+            string ordinalPrefix = "#ordinal#";
+            if (needsPluralHandling)
+            {
+                keys.Add(key + pluralSuffix);
+                if (isOrdinal && pluralSuffix.IndexOf(ordinalPrefix) == 0)
+                    keys.Add(pluralSuffix.Replace(ordinalPrefix, "#"));
+            }
+            if (needsZeroSuffixLookup)
+                keys.Add(key + zeroSuffix);
+
+            // bool needsPluralHandling = options.count !== undefined && typeof options.count !== 'string';
+
+
+            // do stuff here
+
+            return keys;
+        }
+
+        private static bool GetOtherBool(Dictionary<string, string> other, string key)
+        {
+            if (ListUtils.isEmpty(other))
+                return false;
+            return other.TryGetValue(key, out string value) && value == "true";
         }
 
         public string GetMsg(string name, Dictionary<string, object> options)

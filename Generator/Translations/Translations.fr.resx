@@ -169,4 +169,8 @@
     <value>Lanterne</value>
     <comment/>
   </data>
+  <data name="shop.price" xml:space="preserve">
+    <value>{count} rubis</value>
+    <comment>Confirmed by link1183 on 2024/03/31 that all should be "rubis".</comment>
+  </data>
 </root>
