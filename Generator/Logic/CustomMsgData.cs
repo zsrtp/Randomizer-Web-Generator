@@ -280,9 +280,11 @@ namespace TPRandomizer
 
         private void GenShopItemText(List<MessageEntry> results)
         {
-            string abc = Res.Msg("shop.basic-slot");
+            // string abc = Res.Msg("shop.basic-slot");
 
-            Res.ParsedRes abcd = Res.ParseVal(abc);
+            // Res.ParsedRes abcd = Res.ParseVal(abc);
+
+            Res.ParsedRes abcd = Res.ParseVal("shop.basic-slot");
 
             Item item = Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId;
 
@@ -352,6 +354,10 @@ namespace TPRandomizer
 
             result += amount;
             // substitute in to resource
+
+            string suf = Res.PluralResolver.GetSuffix("0001.00");
+
+            List<string> abc = Res.PluralResolver.GetPluralFormsOfKey("fr", "shop.price");
 
             // Resource should have single, other, etc. amounts for "Rupee" vs
             // "Rupees"

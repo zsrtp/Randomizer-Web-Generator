@@ -9,6 +9,7 @@ namespace TPRandomizer
     using TPRandomizer.Util;
     using System.Text.RegularExpressions;
     using System.Linq;
+    using Microsoft.CodeAnalysis;
 
     public partial class Res
     {
@@ -43,14 +44,32 @@ namespace TPRandomizer
             translations.OnCultureChange();
         }
 
-        public static string Msg(string resKey)
+        public static string Msg(string resKey, Dictionary<string, string> interpolation = null)
         {
-            return translations.GetMsg(resKey);
+            // Need to handle interpolation "count" when doing the initial
+            // grabbing of the resource.
+
+            // ParsedRes parsedRes = ParseVal(resKey);
+            // parsedRes.Substitute();
+
+            MsgResult msgResult = translations.GetMsg(resKey);
+            if (msgResult == null)
+                return null;
+
+            return null;
+
+            // return translations.GetMsg(resKey);
             // return translations.GetGreetingMessage();
         }
 
-        public static ParsedRes ParseVal(string resVal)
+        public static ParsedRes ParseVal(string resKey)
         {
+            MsgResult msgResult = translations.GetMsg(resKey);
+            if (msgResult == null)
+                return null;
+
+            string resVal = msgResult.msg;
+
             Dictionary<string, Dictionary<string, string>> other = new();
             if (StringUtils.isEmpty(resVal))
                 return null;
@@ -87,6 +106,7 @@ namespace TPRandomizer
 
             // match with regex, then for each one provide the values.
             ParsedRes parsedRes = new ParsedRes();
+            parsedRes.langCode = msgResult.langCode;
             parsedRes.value = newVal;
             parsedRes.other = other;
 
@@ -122,8 +142,178 @@ namespace TPRandomizer
             return result;
         }
 
+        public class Rule
+        {
+            public int[] numbers;
+            public Func<int, int> plurals;
+
+            public Rule(int[] numbers, int fc)
+            {
+                this.numbers = numbers;
+                this.plurals = PluralResolver._rulesPluralsTypes[fc];
+            }
+        }
+
+        public class PluralResolver
+        {
+            // 'en', 'de', 'es', 'it': 2
+            // 'ja': 3
+            // 'fr': 9
+
+            public static string GetSuffix(int number)
+            {
+                return GetSuffix(Math.Abs(number).ToString());
+            }
+
+            public static string GetSuffix(double number)
+            {
+                return GetSuffix(Math.Abs(number).ToString());
+            }
+
+            public static string GetSuffix(string val, bool ord = false)
+            {
+                if (StringUtils.isEmpty(val))
+                    return "other";
+
+                // We need to know which langauge we are looking at. This
+                // depends on the resource sinc it is possible we are resolving
+                // an English resource for French if it has not yet been defined
+                // for French yet (or never will be).
+
+                return GetSuffixEs(val, ord);
+            }
+
+            private static string GetSuffixEs(string val, bool ord)
+            {
+                if (ord)
+                    return "other";
+
+                string[] s = val.Split('.');
+
+                uint wholeNumVal = StringUtils.isEmpty(s[0]) ? 0 : Convert.ToUInt32(s[0]);
+
+                bool hasDecimals =
+                    s.Length > 1 && !StringUtils.isEmpty(s[1]) && Convert.ToUInt32(s[1]) != 0;
+
+                if (!hasDecimals)
+                {
+                    if (wholeNumVal == 1)
+                        return "one";
+                    else if (wholeNumVal != 0 && ((wholeNumVal % 1000000) == 0))
+                        return "many";
+                }
+
+                return "other";
+            }
+
+            // private static string SliceFromEnd(string str, int numChars)
+            // {
+            //     if (StringUtils.isEmpty(str))
+            //         return str;
+
+            //     int startIdx = Math.Max(str.Length - numChars, 0);
+            //     return str.Substring(startIdx);
+            // }
+
+            public static readonly Dictionary<int, Func<int, int>> _rulesPluralsTypes =
+                new()
+                {
+                    { 2, (n) => n != 1 ? 1 : 0 },
+                    { 3, (n) => 0 },
+                    { 9, (n) => n >= 2 ? 1 : 0 },
+                };
+
+            public static readonly Dictionary<string, Rule> rules =
+                new()
+                {
+                    { "en", new(new[] { 1, 2 }, 2) },
+                    { "ja", new(new[] { 1 }, 3) },
+                    { "de", new(new[] { 1, 2 }, 2) },
+                    { "es", new(new[] { 1, 2 }, 2) },
+                    { "fr", new(new[] { 1, 2 }, 9) },
+                    { "it", new(new[] { 1, 2 }, 2) },
+                };
+
+            public static Rule GetRule(string code)
+            {
+                if (rules.TryGetValue(code, out Rule rule))
+                    return rule;
+                return null;
+            }
+
+            public static bool NeedsPlural(string code)
+            {
+                Rule rule = GetRule(code);
+
+                return rule != null && rule.numbers.Length > 1;
+            }
+
+            public static List<string> GetPluralFormsOfKey(string code, string key)
+            {
+                return GetSuffixes(code).Select((suffix) => $"{key}{suffix}").ToList();
+            }
+
+            public static List<string> GetSuffixes(string code)
+            {
+                List<string> result = new();
+                Rule rule = GetRule(code);
+
+                if (rule == null)
+                    return result;
+
+                foreach (int number in rule.numbers)
+                {
+                    result.Add(GetSuffix(code, number));
+                }
+
+                return result;
+            }
+
+            public static string GetSuffix(string code, int count)
+            {
+                Rule rule = GetRule(code);
+
+                if (rule != null)
+                {
+                    return GetSuffixRetroCompatible(rule, count);
+                }
+
+                // this.logger.warn(`no plural rule found for: ${code}`);
+                return "";
+            }
+
+            public static string GetSuffixRetroCompatible(Rule rule, int count)
+            {
+                // int idx = rule.noAbs ? rule.plurals(count) : rule.plurals(Math.abs(count));
+                int idx = rule.plurals(Math.Abs(count));
+                // int suffix = rule.numbers[idx];
+
+                // const returnSuffix = () => (
+                //   this.options.prepend && suffix.toString() ? this.options.prepend + suffix.toString() : suffix.toString()
+                // );
+
+                // // COMPATIBILITY JSON
+                // // v1
+                // if (this.options.compatibilityJSON === 'v1') {
+                //   if (suffix === 1) return '';
+                //   if (typeof suffix === 'number') return `_plural_${suffix.toString()}`;
+                //   return returnSuffix();
+                //   // eslint-disable-next-line no-else-return
+                // } else if (/* v2 */ this.options.compatibilityJSON === 'v2') {
+                //   return returnSuffix();
+                // } else if (/* v3 - gettext index */ this.options.simplifyPluralSuffix && rule.numbers.length === 2 && rule.numbers[0] === 1) {
+                //   return returnSuffix();
+                // }
+
+                // return this.options.prepend && idx.toString() ? this.options.prepend + idx.toString() : idx.toString();
+
+                return idx.ToString();
+            }
+        }
+
         public class ParsedRes
         {
+            public string langCode;
             public string value;
             public Dictionary<string, Dictionary<string, string>> other = new();
 

@@ -131,15 +131,16 @@ namespace TPRandomizer
             return localizedString;
         }
 
-        public string GetMsg(string name)
+        public MsgResult GetMsg(string name)
         {
             EnsureDictionary();
 
             for (int i = 0; i < resourcesList.Count; i++)
             {
-                LocalizedString localeString = resourcesList[i].TryGetValue(name);
+                LocaleResources resources = resourcesList[i];
+                LocalizedString localeString = resources.TryGetValue(name);
                 if (localeString != null && !localeString.ResourceNotFound)
-                    return localeString.Value;
+                    return new MsgResult(resources.GetLangCode(), localeString.Value);
             }
             return null;
         }
@@ -195,6 +196,11 @@ namespace TPRandomizer
             this.cultureInfo = cultureInfo;
         }
 
+        public string GetLangCode()
+        {
+            return cultureInfo.TwoLetterISOLanguageName;
+        }
+
         public void TryAddResource(string resourceKey, LocalizedString locStr)
         {
             if (!StringUtils.isEmpty(resourceKey) && !dict.ContainsKey(resourceKey))
@@ -211,6 +217,22 @@ namespace TPRandomizer
         public bool IsEmpty()
         {
             return dict.Count < 1;
+        }
+    }
+
+    public class MsgResult
+    {
+        public string langCode;
+        public string msg;
+
+        public MsgResult(string langCode, string msg)
+        {
+            if (StringUtils.isEmpty(langCode) || langCode == "iv")
+                this.langCode = "en";
+            else
+                this.langCode = langCode;
+
+            this.msg = msg;
         }
     }
 }
