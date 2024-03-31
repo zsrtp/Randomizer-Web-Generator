@@ -287,9 +287,9 @@ namespace TPRandomizer
             Item item = Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId;
 
             string itemText = GenItemText(item, abcd.other["item"]);
+            string priceText = GenShopPriceText(34);
 
-            string aaaaa = abcd.Substitute(new() { { "item", itemText }, { "price", "30" } });
-            string bb = "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!";
+            string aaaaa = abcd.Substitute(new() { { "item", itemText }, { "price", priceText } });
             string cc = Regex.Unescape(aaaaa);
 
             // We know that the resource requires 'item' and 'price' because
@@ -317,26 +317,55 @@ namespace TPRandomizer
 
         private string GenItemText(Item item, Dictionary<string, string> other)
         {
-            bool isShopItem = false;
-            if (!ListUtils.isEmpty(other))
-            {
-                if (other.TryGetValue("shop", out string shopVal) && shopVal == "true")
-                    isShopItem = true;
-            }
+            bool isShopItem = GetOtherBool(other, "shop");
+            bool isSeraShop = GetOtherBool(other, "sera");
 
             string result = "";
+
+            // TODO: this should use the shop color as a fallback for when there
+            // is no provided "prioritize this specific color".
 
             if (isShopItem)
                 result += CustomMessages.messageColorOrange;
             else
+            {
                 result += CustomMessages.messageColorRed;
+            }
 
             result += item;
+
             if (isShopItem)
-                result += ":";
+            {
+                if (isSeraShop)
+                    result += " ";
+                else
+                    result += ":";
+            }
             result += CustomMessages.messageColorWhite;
 
             return result;
+        }
+
+        private string GenShopPriceText(uint amount)
+        {
+            string result = CustomMessages.messageColorPurple;
+
+            result += amount;
+            // substitute in to resource
+
+            // Resource should have single, other, etc. amounts for "Rupee" vs
+            // "Rupees"
+
+
+            result += CustomMessages.messageColorWhite;
+            return result;
+        }
+
+        private bool GetOtherBool(Dictionary<string, string> other, string key)
+        {
+            if (ListUtils.isEmpty(other))
+                return false;
+            return other.TryGetValue("shop", out string shopVal) && shopVal == "true";
         }
     }
 }

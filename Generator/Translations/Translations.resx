@@ -138,7 +138,7 @@
     <comment/>
   </data>
   <data name="shop.basic-slot" xml:space="preserve">
-    <value>{item(shop:true,fish:apple,abc:7)} {price}\n     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!</value>
+    <value>{item(shop:true,sera:true)} {price}\n     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!</value>
     <comment/>
   </data>
 </root>
