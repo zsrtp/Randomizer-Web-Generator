@@ -149,4 +149,116 @@
     <value>{count} Rupees</value>
     <comment/>
   </data>
+  <data name="item.progressive_clawshot@plural:s,article:a" xml:space="preserve">
+    <value>Clawshot</value>
+    <comment/>
+  </data>
+  <data name="item.progressive_clawshot#other" xml:space="preserve">
+    <value>Clawshots</value>
+    <comment/>
+  </data>
+  <data name="item.progressive_clawshot--def#other" xml:space="preserve">
+    <value>the {cs}Clawshots{ce}</value>
+    <comment/>
+  </data>
+  <data name="item.progressive_clawshot--indef" xml:space="preserve">
+    <value>a {cs}Clawshot{ce}</value>
+    <comment/>
+  </data>
+  <data name="item.progressive_clawshot--def" xml:space="preserve">
+    <value>the {cs}Clawshot{ce}</value>
+    <comment/>
+  </data>
+  <data name="hint.item" xml:space="preserve">
+    <value>They say that {item} can be found {area-preposition}.</value>
+    <comment/>
+  </data>
+  <data name="hint.numiteminarea" xml:space="preserve">
+    <value>They say that {item} can be found {area-preposition}.</value>
+    <comment/>
+  </data>
+  <data name="hint.path" xml:space="preserve">
+    <value>They say that {area} is on the path to {goal}.</value>
+    <comment/>
+  </data>
+  <data name="hint.woth" xml:space="preserve">
+    <value>They say that {area} is on the Way of the Hero.</value>
+    <comment/>
+  </data>
+  <data name="zone.beside_castle_town" xml:space="preserve">
+    <value>(area-preposition:none)Beside Castle Town</value>
+    <comment/>
+  </data>
+  <data name="zone.castle_town" xml:space="preserve">
+    <value>Castle Town</value>
+    <comment/>
+  </data>
+  <data name="province.ordona_province" xml:space="preserve">
+    <value>Ordona Province</value>
+    <comment/>
+  </data>
+  <data name="province.peak_province" xml:space="preserve">
+    <value>Peak Province</value>
+    <comment/>
+  </data>
+  <data name="category.purple_mist" xml:space="preserve">
+    <value>(area-preposition:behind)Purple Mist</value>
+    <comment/>
+  </data>
+  <data name="zone.long_minigames" xml:space="preserve">
+    <value>(area-preposition:from)Long Minigames</value>
+    <comment/>
+  </data>
+  <data name="area-preposition" xml:space="preserve">
+    <value>at {area}</value>
+    <comment/>
+  </data>
+  <data name="area-preposition--behind" xml:space="preserve">
+    <value>behind {area}</value>
+    <comment/>
+  </data>
+  <data name="area-preposition--from" xml:space="preserve">
+    <value>from {area}</value>
+    <comment/>
+  </data>
+  <data name="area-preposition--none" xml:space="preserve">
+    <value>{area}</value>
+    <comment/>
+  </data>
+  <data name="province.dungeons" xml:space="preserve">
+    <value>(area-preposition:in)Dungeons</value>
+    <comment/>
+  </data>
+  <data name="area-preposition--in" xml:space="preserve">
+    <value>in {area}</value>
+    <comment/>
+  </data>
+  <data name="item.progressive_clawshot--count#other" xml:space="preserve">
+    <value>{cs}{count} Clawshots{ce}</value>
+    <comment/>
+  </data>
+  <data name="hint.tradechain" xml:space="preserve">
+    <value>They say that {item} leads to {tgtItem}.</value>
+    <comment/>
+  </data>
+  <data name="hint.tradechain--with-area" xml:space="preserve">
+    <value>They say that {item} found {area-preposition} leads to {tgtItem}.</value>
+    <comment/>
+  </data>
+  <data name="zone.agithas_castle" xml:space="preserve">
+    <value>Agitha's Castle</value>
+    <comment/>
+  </data>
+  <data name="category.owl_statues" xml:space="preserve">
+    <value>(area-preposition:behind)Owl Statues</value>
+    <comment/>
+  </data>
+  <data name="category.owl_statues#one" xml:space="preserve">
+    <value>(area-preposition:behind)an {cs}Owl Statue{ce}</value>
+    <comment/>
+  </data>
+  <data name="hint.barren" xml:space="preserve">
+    <value>They say that there is nothing to be found {area-preposition}.</value>
+    <comment/>
+  </data>
 </root>

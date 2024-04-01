@@ -281,6 +281,41 @@ namespace TPRandomizer
 
         private void GenShopItemText(List<MessageEntry> results)
         {
+            // TODO: fill out all of the itemIds for English. The name should
+            // match exactly (after lowercase change) with the keys which are in
+            // the Item enum. The text on the other hand should match what shows
+            // in the game. We should replace the contents of the wooden chest
+            // with RAM modifications for fast testing and to see if there are
+            // any color overrides for that item (for example, rupee text
+            // normally matches the color of the rupee; also see what happens
+            // for a silver rupee). Then we need to figure out an @ function to
+            // put at the end of the base resource to handle generating the
+            // variations (such as 'a {cs}Clawshot{ce}', 'the {cs}Clawshot{ce}',
+            // '{cs}Clawshots{ce}', 'the {cs}Clawshots{ce}').
+
+            // TODO: need to adjust the regex for the keys to be like:
+            // item.progressive_clawshot--context#count@func
+
+            // We can define a single function at the end of a thing. If we need
+            // another function, then we should either manually define the
+            // resources if it is a fairly unique exception (mouse => mice; or
+            // maybe some things don't get a/an or a plural, such as "Milk"
+            // maybe? The function should be able to handle different params
+            // within reason), or we should create different functions to handle
+            // different use-cases. For example, generating the plurals/articles
+            // for an English item (or really just a noun) is one func. If we
+            // are doing something completely different, then we should use a
+            // different function rather than trying to handle combining an
+            // arbitrary amount of funcs.
+
+            // Also should make a yarn command you can run from the root which
+            // will sort the Translations resx files alphabetically for the
+            // 'data' elements based on the value of the 'name' attribute.
+            // Probably do this first since will need to use it. Should go under
+            // packages, but the yarn command should be at the top level so it
+            // is easy to use.
+
+
             // string abc = Res.Msg("shop.basic-slot");
 
             // Res.ParsedRes abcd = Res.ParseVal(abc);
