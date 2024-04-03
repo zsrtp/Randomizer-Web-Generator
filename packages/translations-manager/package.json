@@ -1,0 +1,13 @@
+{
+  "name": "translations-manager",
+  "packageManager": "yarn@3.2.1",
+  "devDependencies": {
+    "@types/node": "^20.12.3",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.3.6",
+    "fs-extra": "^11.2.0"
+  }
+}
