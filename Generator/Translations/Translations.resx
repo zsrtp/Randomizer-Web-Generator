@@ -737,16 +737,36 @@
     <value>Clawshots</value>
     <comment></comment>
   </data>
-  <data name="province.dungeons" xml:space="preserve">
+  <data name="province.desert" xml:space="preserve">
+    <value>Desert Province</value>
+    <comment></comment>
+  </data>
+  <data name="province.dungeon" xml:space="preserve">
     <value>(area-preposition:in)Dungeons</value>
     <comment></comment>
   </data>
-  <data name="province.ordona_province" xml:space="preserve">
+  <data name="province.eldin" xml:space="preserve">
+    <value>Eldin Province</value>
+    <comment></comment>
+  </data>
+  <data name="province.faron" xml:space="preserve">
+    <value>Faron Province</value>
+    <comment></comment>
+  </data>
+  <data name="province.lanayru" xml:space="preserve">
+    <value>Lanayru Province</value>
+    <comment></comment>
+  </data>
+  <data name="province.ordona" xml:space="preserve">
     <value>Ordona Province</value>
     <comment></comment>
   </data>
-  <data name="province.peak_province" xml:space="preserve">
+  <data name="province.peak" xml:space="preserve">
     <value>Peak Province</value>
+    <comment></comment>
+  </data>
+  <data name="province.split" xml:space="preserve">
+    <value>Split Province</value>
     <comment></comment>
   </data>
   <data name="shop.basic-slot" xml:space="preserve">
