@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
     Microsoft ResX Schema
@@ -60,45 +60,45 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"></xsd:import>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"></xsd:element>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="mimetype" type="xsd:string"></xsd:attribute>
+              <xsd:attribute ref="xml:space"></xsd:attribute>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="name" type="xsd:string"></xsd:attribute>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"></xsd:element>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"></xsd:attribute>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"></xsd:attribute>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"></xsd:attribute>
+              <xsd:attribute ref="xml:space"></xsd:attribute>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -109,7 +109,7 @@
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>2.0</value>
+    <value>2</value>
   </resheader>
   <resheader name="reader">
     <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -117,148 +117,148 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cat" xml:space="preserve">
-    <value>the cat</value>
-    <comment/>
-  </data>
-  <data name="dog" xml:space="preserve">
-    <value>the dog</value>
-    <comment/>
-  </data>
-  <data name="GreetingMessage" xml:space="preserve">
-    <value>greetingBase</value>
-    <comment/>
-  </data>
-  <data name="shops.confirm-buy" xml:space="preserve">
-    <value>ab</value>
-    <comment/>
-  </data>
-  <data name="dog2" xml:space="preserve">
-    <value>en-dog</value>
-    <comment/>
-  </data>
-  <data name="shop.basic-slot" xml:space="preserve">
-    <value>{item(shop:true)} {price}\n     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!</value>
-    <comment/>
-  </data>
-  <data name="shop.price" xml:space="preserve">
-    <value>{count} Rupee</value>
-    <comment/>
-  </data>
-  <data name="shop.price#other" xml:space="preserve">
-    <value>{count} Rupees</value>
-    <comment/>
-  </data>
-  <data name="item.progressive_clawshot@plural:s,article:a" xml:space="preserve">
-    <value>Clawshot</value>
-    <comment/>
-  </data>
-  <data name="item.progressive_clawshot#other" xml:space="preserve">
-    <value>Clawshots</value>
-    <comment/>
-  </data>
-  <data name="item.progressive_clawshot--def#other" xml:space="preserve">
-    <value>the {cs}Clawshots{ce}</value>
-    <comment/>
-  </data>
-  <data name="item.progressive_clawshot--indef" xml:space="preserve">
-    <value>a {cs}Clawshot{ce}</value>
-    <comment/>
-  </data>
-  <data name="item.progressive_clawshot--def" xml:space="preserve">
-    <value>the {cs}Clawshot{ce}</value>
-    <comment/>
-  </data>
-  <data name="hint.item" xml:space="preserve">
-    <value>They say that {item} can be found {area-preposition}.</value>
-    <comment/>
-  </data>
-  <data name="hint.numiteminarea" xml:space="preserve">
-    <value>They say that {item} can be found {area-preposition}.</value>
-    <comment/>
-  </data>
-  <data name="hint.path" xml:space="preserve">
-    <value>They say that {area} is on the path to {goal}.</value>
-    <comment/>
-  </data>
-  <data name="hint.woth" xml:space="preserve">
-    <value>They say that {area} is on the Way of the Hero.</value>
-    <comment/>
-  </data>
-  <data name="zone.beside_castle_town" xml:space="preserve">
-    <value>(area-preposition:none)Beside Castle Town</value>
-    <comment/>
-  </data>
-  <data name="zone.castle_town" xml:space="preserve">
-    <value>Castle Town</value>
-    <comment/>
-  </data>
-  <data name="province.ordona_province" xml:space="preserve">
-    <value>Ordona Province</value>
-    <comment/>
-  </data>
-  <data name="province.peak_province" xml:space="preserve">
-    <value>Peak Province</value>
-    <comment/>
-  </data>
-  <data name="category.purple_mist" xml:space="preserve">
-    <value>(area-preposition:behind)Purple Mist</value>
-    <comment/>
-  </data>
-  <data name="zone.long_minigames" xml:space="preserve">
-    <value>(area-preposition:from)Long Minigames</value>
-    <comment/>
-  </data>
   <data name="area-preposition" xml:space="preserve">
     <value>at {area}</value>
-    <comment/>
+    <comment></comment>
   </data>
   <data name="area-preposition--behind" xml:space="preserve">
     <value>behind {area}</value>
-    <comment/>
+    <comment></comment>
   </data>
   <data name="area-preposition--from" xml:space="preserve">
     <value>from {area}</value>
-    <comment/>
-  </data>
-  <data name="area-preposition--none" xml:space="preserve">
-    <value>{area}</value>
-    <comment/>
-  </data>
-  <data name="province.dungeons" xml:space="preserve">
-    <value>(area-preposition:in)Dungeons</value>
-    <comment/>
+    <comment></comment>
   </data>
   <data name="area-preposition--in" xml:space="preserve">
     <value>in {area}</value>
-    <comment/>
+    <comment></comment>
   </data>
-  <data name="item.progressive_clawshot--count#other" xml:space="preserve">
-    <value>{cs}{count} Clawshots{ce}</value>
-    <comment/>
+  <data name="area-preposition--none" xml:space="preserve">
+    <value>{area}</value>
+    <comment></comment>
   </data>
-  <data name="hint.tradechain" xml:space="preserve">
-    <value>They say that {item} leads to {tgtItem}.</value>
-    <comment/>
-  </data>
-  <data name="hint.tradechain--with-area" xml:space="preserve">
-    <value>They say that {item} found {area-preposition} leads to {tgtItem}.</value>
-    <comment/>
-  </data>
-  <data name="zone.agithas_castle" xml:space="preserve">
-    <value>Agitha's Castle</value>
-    <comment/>
+  <data name="cat" xml:space="preserve">
+    <value>the cat</value>
+    <comment></comment>
   </data>
   <data name="category.owl_statues" xml:space="preserve">
     <value>(area-preposition:behind)Owl Statues</value>
-    <comment/>
+    <comment></comment>
   </data>
   <data name="category.owl_statues#one" xml:space="preserve">
     <value>(area-preposition:behind)an {cs}Owl Statue{ce}</value>
-    <comment/>
+    <comment></comment>
+  </data>
+  <data name="category.purple_mist" xml:space="preserve">
+    <value>(area-preposition:behind)Purple Mist</value>
+    <comment></comment>
+  </data>
+  <data name="dog" xml:space="preserve">
+    <value>the dog</value>
+    <comment></comment>
+  </data>
+  <data name="dog2" xml:space="preserve">
+    <value>en-dog</value>
+    <comment></comment>
+  </data>
+  <data name="GreetingMessage" xml:space="preserve">
+    <value>greetingBase</value>
+    <comment></comment>
   </data>
   <data name="hint.barren" xml:space="preserve">
     <value>They say that there is nothing to be found {area-preposition}.</value>
-    <comment/>
+    <comment></comment>
+  </data>
+  <data name="hint.item" xml:space="preserve">
+    <value>They say that {item} can be found {area-preposition}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint.numiteminarea" xml:space="preserve">
+    <value>They say that {item} can be found {area-preposition}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint.path" xml:space="preserve">
+    <value>They say that {area} is on the path to {goal}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint.tradechain" xml:space="preserve">
+    <value>They say that {item} leads to {tgtItem}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint.tradechain--with-area" xml:space="preserve">
+    <value>They say that {item} found {area-preposition} leads to {tgtItem}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint.woth" xml:space="preserve">
+    <value>They say that {area} is on the Way of the Hero.</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive_clawshot--count#other" xml:space="preserve">
+    <value>{cs}{count} Clawshots{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive_clawshot--def" xml:space="preserve">
+    <value>the {cs}Clawshot{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive_clawshot--def#other" xml:space="preserve">
+    <value>the {cs}Clawshots{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive_clawshot--indef" xml:space="preserve">
+    <value>a {cs}Clawshot{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive_clawshot@plural:s,article:a" xml:space="preserve">
+    <value>Clawshot</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive_clawshot#other" xml:space="preserve">
+    <value>Clawshots</value>
+    <comment></comment>
+  </data>
+  <data name="province.dungeons" xml:space="preserve">
+    <value>(area-preposition:in)Dungeons</value>
+    <comment></comment>
+  </data>
+  <data name="province.ordona_province" xml:space="preserve">
+    <value>Ordona Province</value>
+    <comment></comment>
+  </data>
+  <data name="province.peak_province" xml:space="preserve">
+    <value>Peak Province</value>
+    <comment></comment>
+  </data>
+  <data name="shop.basic-slot" xml:space="preserve">
+    <value>{item(shop:true)} {price}\n     LIMITED SUPPLY!\nDon&apos;t let them sell out before you\nbuy one!</value>
+    <comment></comment>
+  </data>
+  <data name="shop.price" xml:space="preserve">
+    <value>{count} Rupee</value>
+    <comment></comment>
+  </data>
+  <data name="shop.price#other" xml:space="preserve">
+    <value>{count} Rupees</value>
+    <comment></comment>
+  </data>
+  <data name="shops.confirm-buy" xml:space="preserve">
+    <value>ab</value>
+    <comment></comment>
+  </data>
+  <data name="zone.agithas_castle" xml:space="preserve">
+    <value>Agitha&apos;s Castle</value>
+    <comment></comment>
+  </data>
+  <data name="zone.beside_castle_town" xml:space="preserve">
+    <value>(area-preposition:none)Beside Castle Town</value>
+    <comment></comment>
+  </data>
+  <data name="zone.castle_town" xml:space="preserve">
+    <value>Castle Town</value>
+    <comment></comment>
+  </data>
+  <data name="zone.long_minigames" xml:space="preserve">
+    <value>(area-preposition:from)Long Minigames</value>
+    <comment></comment>
   </data>
 </root>

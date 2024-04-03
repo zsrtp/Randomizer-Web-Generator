@@ -1,6 +1,9 @@
 {
   "name": "translations-manager",
   "packageManager": "yarn@3.2.1",
+  "scripts": {
+    "sort": "tsx src/translations-manager.ts"
+  },
   "devDependencies": {
     "@types/node": "^20.12.3",
     "tsx": "^4.7.1",

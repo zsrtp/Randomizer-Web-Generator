@@ -40,7 +40,6 @@ const options = {
 };
 const parser = new XMLParser(options);
 const jObj = parser.parse(contents);
-console.log(jObj);
 
 const arr = jObj[1].root;
 
@@ -70,9 +69,4 @@ unsortedData.forEach((el) => {
 const builder = new XMLBuilder(options);
 
 const xmlOutput = builder.build(jObj);
-
-// const outputPath = path.join(__dirname, 'dog.xml');
-// fs.writeFileSync(outputPath, xmlOutput);
 fs.writeFileSync(filePath, xmlOutput);
-
-console.log('dog');
