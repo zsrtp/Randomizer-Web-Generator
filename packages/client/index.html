@@ -343,6 +343,19 @@
                   Dungeon Rewards Can Be Anywhere </label
                 ><br />
               </div>
+              <div
+                data-tooltip-text="Helps prevent needing to reenter a dungeon after defeating the boss when small keys are Own Dungeon.&#0010;&#0010;If checked, the following items will not appear on Heart Container or Dungeon Reward checks: Dungeon small keys, Snowpeak Ruins Ordon Pumpkin, Snowpeak Ruins Ordon Goat Cheese, Gerudo Desert Bulblin Camp Key, and North Faron Woods Gate Key&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="noSmallKeysOnBossesCheckbox"
+                  name="No Small Keys On Bosses Checkbox"
+                  value=""
+                />
+                <label for="noSmallKeysOnBossesCheckbox"
+                  >No Small Keys On Bosses</label
+                >
+              </div>
             </fieldset>
           </div>
         </div>
@@ -593,19 +606,6 @@
                 />
                 <label for="bonksDoDamageCheckbox">Bonks Do Damage</label><br />
               </div>
-              <div
-                data-tooltip-text="If checked, the following items will not appear on Heart Container or Dungeon Reward checks:&#0010;&#0010;Dungeon small keys, Snowpeak Ruins Ordon Pumpkin, Snowpeak Ruins Ordon Goat Cheese, Gerudo Desert Bulblin Camp Key, and North Faron Woods Gate Key&#0010;"
-              >
-                <input
-                  type="checkbox"
-                  id="noSmallKeysOnBossesCheckbox"
-                  name="No Small Keys On Bosses Checkbox"
-                  value=""
-                />
-                <label for="noSmallKeysOnBossesCheckbox"
-                  >No Small Keys On Bosses</label
-                ><br />
-              </div>
               <div class="selectGroup" style="margin-top: 8px">
                 <label for="trapItemFieldset">Trap Item Frequency</label><br />
                 <select
@@ -642,7 +642,7 @@
                   data-tooltip-text="If the prologue is skipped, sets the starting time of day of a new save file to the specified value."
                 >
                   <option value="0">Morning</option>
-                  <option value="1">Noon</option>
+                  <option value="1" selected="selected">Noon</option>
                   <option value="2">Evening</option>
                   <option value="3">Night</option>
                 </select>
