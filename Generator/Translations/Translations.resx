@@ -137,10 +137,6 @@
     <value>{area}</value>
     <comment/>
   </data>
-  <data name="cat" xml:space="preserve">
-    <value>the cat</value>
-    <comment/>
-  </data>
   <data name="category.owl_statues" xml:space="preserve">
     <value>(area-preposition:behind)Owl Statues</value>
     <comment/>
@@ -151,18 +147,6 @@
   </data>
   <data name="category.purple_mist" xml:space="preserve">
     <value>(area-preposition:behind)Purple Mist</value>
-    <comment/>
-  </data>
-  <data name="dog" xml:space="preserve">
-    <value>the dog</value>
-    <comment/>
-  </data>
-  <data name="dog2" xml:space="preserve">
-    <value>en-dog</value>
-    <comment/>
-  </data>
-  <data name="GreetingMessage" xml:space="preserve">
-    <value>greetingBase</value>
     <comment/>
   </data>
   <data name="hint.barren" xml:space="preserve">
