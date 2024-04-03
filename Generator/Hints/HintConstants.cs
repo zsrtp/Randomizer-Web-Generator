@@ -218,7 +218,7 @@ namespace TPRandomizer.Hints
         public static readonly Dictionary<string, Province> zoneToProvince =
             new()
             {
-                { "Agitha", Province.Lanayru },
+                { "Agitha's Castle", Province.Lanayru },
                 { "Golden Wolf", Province.Split },
                 { "Ordon", Province.Ordona },
                 { "Sacred Grove", Province.Faron },

@@ -57,7 +57,7 @@ namespace TPRandomizer.Hints
                     Province.Lanayru,
                     new()
                     {
-                        Zone.Agitha,
+                        Zone.Agithas_Castle,
                         Zone.Castle_Town,
                         Zone.Great_Bridge_of_Hylia,
                         Zone.Lake_Hylia,

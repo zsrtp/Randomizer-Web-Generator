@@ -311,7 +311,7 @@ namespace TPRandomizer.Hints.HintCreator
             {
                 // Always remove Agitha if Agitha hints are on.
                 if (hintSettings.agitha)
-                    result.Remove(AreaId.Zone(Zone.Agitha));
+                    result.Remove(AreaId.Zone(Zone.Agithas_Castle));
 
                 // Remove CoO if CoO hints are on.
                 if (hintSettings.caveOfOrdeals)

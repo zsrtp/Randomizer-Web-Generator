@@ -668,7 +668,7 @@ namespace TPRandomizer.Hints
             Province province = HintUtils.checkNameToHintProvince(checkName);
             string zoneName = HintUtils.checkNameToHintZone(checkName);
             if (
-                zoneName == "Agitha"
+                zoneName == "Agitha's Castle"
                 || province == Province.Dungeon
                 || itemToChecksList[item].Count > 1
             )
@@ -682,7 +682,7 @@ namespace TPRandomizer.Hints
             Province province = HintUtils.checkNameToHintProvince(startCheckName);
             string zoneName = HintUtils.checkNameToHintZone(startCheckName);
             if (
-                zoneName == "Agitha"
+                zoneName == "Agitha's Castle"
                 || province == Province.Dungeon
                 || itemToChecksList[item].Count > 1
             )

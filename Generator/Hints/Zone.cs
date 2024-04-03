@@ -21,7 +21,7 @@ namespace TPRandomizer.Hints
         Beside_Castle_Town = 13,
         South_of_Castle_Town = 14,
         Castle_Town = 15,
-        Agitha = 16,
+        Agithas_Castle = 16,
         Great_Bridge_of_Hylia = 17,
         Lake_Hylia = 18,
         Lake_Lantern_Cave = 19,
@@ -390,7 +390,7 @@ namespace TPRandomizer.Hints
                     }
                 },
                 {
-                    "Agitha",
+                    "Agitha's Castle",
                     new[]
                     {
                         "Agitha Female Ant Reward",
@@ -893,7 +893,7 @@ namespace TPRandomizer.Hints
                 { Zone.Beside_Castle_Town, "Beside Castle Town" },
                 { Zone.South_of_Castle_Town, "South of Castle Town" },
                 { Zone.Castle_Town, "Castle Town" },
-                { Zone.Agitha, "Agitha" },
+                { Zone.Agithas_Castle, "Agitha's Castle" },
                 { Zone.Great_Bridge_of_Hylia, "Great Bridge of Hylia" },
                 { Zone.Lake_Hylia, "Lake Hylia" },
                 { Zone.Lake_Lantern_Cave, "Lake Lantern Cave" },
