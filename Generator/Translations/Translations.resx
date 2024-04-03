@@ -193,6 +193,22 @@
     <value>They say that {area} is on the Way of the Hero.</value>
     <comment></comment>
   </data>
+  <data name="item.01_green_rupee" xml:space="preserve">
+    <value>green Rupee</value>
+    <comment></comment>
+  </data>
+  <data name="item.02_blue_rupee" xml:space="preserve">
+    <value>blue Rupee</value>
+    <comment></comment>
+  </data>
+  <data name="item.03_yellow_rupee" xml:space="preserve">
+    <value>yellow Rupee</value>
+    <comment></comment>
+  </data>
+  <data name="item.03_yellow_rupee--uc" xml:space="preserve">
+    <value>Yellow Rupee</value>
+    <comment></comment>
+  </data>
   <data name="item.progressive_clawshot--count#other" xml:space="preserve">
     <value>{cs}{count} Clawshots{ce}</value>
     <comment></comment>

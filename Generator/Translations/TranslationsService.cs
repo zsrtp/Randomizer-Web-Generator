@@ -22,7 +22,7 @@ namespace TPRandomizer
     public sealed partial class Translations
     {
         [GeneratedRegex(
-            "^([0-9a-z-.]+)(?:_([0-9a-z-.,]+))?(?:#([0-9a-z-.]+))?$",
+            "^([0-9a-z-_.]+)(?:--([0-9a-z-.,]+))?(?:#([0-9a-z-.]+))?$",
             RegexOptions.IgnoreCase
         )]
         private static partial Regex ResKeyRegex();

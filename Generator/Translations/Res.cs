@@ -77,15 +77,23 @@ namespace TPRandomizer
             Dictionary<string, string> interpolation = null
         )
         {
+            ParsedRes parsedRes = new();
             MsgResult msgResult = translations.GetMsg(resKey, interpolation);
-            if (msgResult == null)
-                return null;
+            if (msgResult == null || StringUtils.isEmpty(msgResult.msg))
+            {
+                if (msgResult == null)
+                    parsedRes.langCode = "en";
+                else
+                    parsedRes.langCode = msgResult.langCode;
+                parsedRes.foundValue = false;
+                parsedRes.value = resKey;
+                parsedRes.other = new();
+                return parsedRes;
+            }
 
             string resVal = msgResult.msg;
 
             Dictionary<string, Dictionary<string, string>> other = new();
-            if (StringUtils.isEmpty(resVal))
-                return null;
 
             HashSet<string> seenInterpolationKeys = new();
 
@@ -118,8 +126,8 @@ namespace TPRandomizer
                 );
 
             // match with regex, then for each one provide the values.
-            ParsedRes parsedRes = new ParsedRes();
             parsedRes.langCode = msgResult.langCode;
+            parsedRes.foundValue = true;
             parsedRes.value = newVal;
             parsedRes.other = other;
 
@@ -397,6 +405,7 @@ namespace TPRandomizer
 
         public class ParsedRes
         {
+            public bool foundValue;
             public string langCode;
             public string value;
             public Dictionary<string, Dictionary<string, string>> other = new();

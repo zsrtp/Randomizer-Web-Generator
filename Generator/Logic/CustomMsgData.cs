@@ -369,10 +369,13 @@ namespace TPRandomizer
                 result += CustomMessages.messageColorOrange;
             else
             {
+                // TODO: should have a getDefaultColor of item func which
+                // returns Red from its default case.
                 result += CustomMessages.messageColorRed;
             }
 
-            result += item;
+            // result += item;
+            result += Res.Msg(GetItemResKey(item));
 
             if (isShopItem)
             {
@@ -384,6 +387,11 @@ namespace TPRandomizer
             result += CustomMessages.messageColorWhite;
 
             return result;
+        }
+
+        private string GetItemResKey(Item item)
+        {
+            return "item." + ((byte)item).ToString("x2") + "_" + item.ToString().ToLowerInvariant();
         }
 
         private string GenShopPriceText(uint amount)

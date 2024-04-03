@@ -137,6 +137,30 @@
     <value>On dit que {{item}} peut être trouvé à {{area}}.</value>
     <comment></comment>
   </data>
+  <data name="item.02_blue_rupee" xml:space="preserve">
+    <value>rubis bleu</value>
+    <comment></comment>
+  </data>
+  <data name="item.03_yellow_rupee" xml:space="preserve">
+    <value>rubis jaune</value>
+    <comment></comment>
+  </data>
+  <data name="item.04_red_rupee" xml:space="preserve">
+    <value>rubis rouge</value>
+    <comment></comment>
+  </data>
+  <data name="item.05_purple_rupee" xml:space="preserve">
+    <value>rubis violet</value>
+    <comment></comment>
+  </data>
+  <data name="item.06_orange_rupee" xml:space="preserve">
+    <value>rubis orange</value>
+    <comment></comment>
+  </data>
+  <data name="item.07_silver_rupee" xml:space="preserve">
+    <value>rubis argent</value>
+    <comment></comment>
+  </data>
   <data name="item.lantern--article(fem)" xml:space="preserve">
     <value>Lanterne</value>
     <comment></comment>
