@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
     Microsoft ResX Schema
@@ -60,45 +60,45 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"></xsd:import>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"></xsd:element>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="mimetype" type="xsd:string"></xsd:attribute>
+              <xsd:attribute ref="xml:space"></xsd:attribute>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="name" type="xsd:string"></xsd:attribute>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"></xsd:element>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"></xsd:attribute>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"></xsd:attribute>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"></xsd:attribute>
+              <xsd:attribute ref="xml:space"></xsd:attribute>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -109,7 +109,7 @@
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>2.0</value>
+    <value>2</value>
   </resheader>
   <resheader name="reader">
     <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -119,58 +119,58 @@
   </resheader>
   <data name="dog" xml:space="preserve">
     <value>fr dog</value>
-    <comment/>
-  </data>
-  <data name="GreetingMessage" xml:space="preserve">
-    <value>greetingFrench</value>
-    <comment/>
+    <comment></comment>
   </data>
   <data name="dog2" xml:space="preserve">
     <value>fr dog 2</value>
-    <comment/>
-  </data>
-  <data name="item.progressive-sword" xml:space="preserve">
-    <value>Épée</value>
-    <comment/>
-  </data>
-  <data name="hints.item-found-at-area" xml:space="preserve">
-    <value>On dit que {{item}} peut être trouvé à {{area}}.</value>
-    <comment/>
-  </data>
-  <data name="item.progressive-clawshot" xml:space="preserve">
-    <value>Grappin</value>
-    <comment/>
-  </data>
-  <data name="item.progressive-clawshot_def" xml:space="preserve">
-    <value>le Grappin</value>
-    <comment/>
-  </data>
-  <data name="item.progressive-clawshot_indef" xml:space="preserve">
-    <value>un Grappin</value>
-    <comment/>
-  </data>
-  <data name="item.progressive-clawshot#other" xml:space="preserve">
-    <value>abc Grappin</value>
-    <comment/>
-  </data>
-  <data name="item.progressive-clawshot_fish,cat#other" xml:space="preserve">
-    <value>def Grappin</value>
-    <comment/>
-  </data>
-  <data name="item.progressive-clawshot_dog#other" xml:space="preserve">
-    <value>ghi Grappin</value>
-    <comment/>
+    <comment></comment>
   </data>
   <data name="fasdhfio#ashfoi#" xml:space="preserve">
     <value>asdhsdhAndYes</value>
-    <comment/>
+    <comment></comment>
+  </data>
+  <data name="GreetingMessage" xml:space="preserve">
+    <value>greetingFrench</value>
+    <comment></comment>
+  </data>
+  <data name="hints.item-found-at-area" xml:space="preserve">
+    <value>On dit que {{item}} peut être trouvé à {{area}}.</value>
+    <comment></comment>
   </data>
   <data name="item.lantern--article(fem)" xml:space="preserve">
     <value>Lanterne</value>
-    <comment/>
+    <comment></comment>
+  </data>
+  <data name="item.progressive-clawshot" xml:space="preserve">
+    <value>Grappin</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive-clawshot_def" xml:space="preserve">
+    <value>le Grappin</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive-clawshot_dog#other" xml:space="preserve">
+    <value>ghi Grappin</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive-clawshot_fish,cat#other" xml:space="preserve">
+    <value>def Grappin</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive-clawshot_indef" xml:space="preserve">
+    <value>un Grappin</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive-clawshot#other" xml:space="preserve">
+    <value>abc Grappin</value>
+    <comment></comment>
+  </data>
+  <data name="item.progressive-sword" xml:space="preserve">
+    <value>Épée</value>
+    <comment></comment>
   </data>
   <data name="shop.price" xml:space="preserve">
     <value>{count} rubis</value>
-    <comment>Confirmed by link1183 on 2024/03/31 that all should be "rubis".</comment>
+    <comment>Confirmed by link1183 on 2024/03/31 that all should be &quot;rubis&quot;.</comment>
   </data>
 </root>

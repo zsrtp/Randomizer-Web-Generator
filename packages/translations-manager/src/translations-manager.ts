@@ -27,46 +27,67 @@ if (typeof rootDirRaw !== 'string')
   throw new Error('rootDirRaw was not a string.');
 
 const rootDir = rootDirRaw as string;
-const filePath = path.join(rootDir, 'Generator/Translations/Translations.resx');
+const translationsFolder = path.join(rootDir, 'Generator/Translations');
 
-const contents = fs.readFileSync(filePath, { encoding: 'utf8' });
+const abc = fs.readdirSync(translationsFolder);
 
-const options = {
-  commentPropName: '#comment',
-  ignoreAttributes: false,
-  allowBooleanAttributes: true,
-  preserveOrder: true,
-  format: true,
-};
-const parser = new XMLParser(options);
-const jObj = parser.parse(contents);
+const nonEnglishFilePaths: string[] = [];
+const nonEnRegex = /^Translations\.[a-zA-Z-]+\.resx$/;
 
-const arr = jObj[1].root;
-
-const newArr = [];
-const unsortedData = [];
-
-for (let i = 0; i < arr.length; i++) {
-  const el = arr[i];
-  if (el.hasOwnProperty('data')) {
-    unsortedData.push(el);
-  } else {
-    newArr.push(el);
+abc.forEach((fileName) => {
+  if (nonEnRegex.test(fileName)) {
+    nonEnglishFilePaths.push(path.join(translationsFolder, fileName));
   }
+});
+
+const enFilePath = path.join(translationsFolder, 'Translations.resx');
+
+function sortFile(filePath: string) {
+  const contents = fs.readFileSync(filePath, { encoding: 'utf8' });
+
+  const options = {
+    commentPropName: '#comment',
+    ignoreAttributes: false,
+    allowBooleanAttributes: true,
+    preserveOrder: true,
+    format: true,
+  };
+  const parser = new XMLParser(options);
+  const jObj = parser.parse(contents);
+
+  const arr = jObj[1].root;
+
+  const newArr = [];
+  const unsortedData = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    const el = arr[i];
+    if (el.hasOwnProperty('data')) {
+      unsortedData.push(el);
+    } else {
+      newArr.push(el);
+    }
+  }
+
+  unsortedData.sort((a, b) => {
+    const aName = a[':@']['@_name'];
+    const bName = b[':@']['@_name'];
+    return aName.localeCompare(bName, 'en');
+  });
+
+  jObj[1].root = newArr;
+  unsortedData.forEach((el) => {
+    newArr.push(el);
+  });
+
+  const builder = new XMLBuilder(options);
+
+  const xmlOutput = builder.build(jObj);
+  fs.writeFileSync(filePath, xmlOutput);
 }
 
-unsortedData.sort((a, b) => {
-  const aName = a[':@']['@_name'];
-  const bName = b[':@']['@_name'];
-  return aName.localeCompare(bName, 'en');
+sortFile(enFilePath);
+
+nonEnglishFilePaths.forEach((filePath) => {
+  sortFile(filePath);
 });
-
-jObj[1].root = newArr;
-unsortedData.forEach((el) => {
-  newArr.push(el);
-});
-
-const builder = new XMLBuilder(options);
-
-const xmlOutput = builder.build(jObj);
-fs.writeFileSync(filePath, xmlOutput);
