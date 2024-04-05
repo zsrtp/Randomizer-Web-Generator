@@ -137,12 +137,28 @@
     <value>On dit que {{item}} peut être trouvé à {{area}}.</value>
     <comment></comment>
   </data>
-  <data name="item.02_blue_rupee" xml:space="preserve">
+  <data name="item.01_green_rupee@ac(m)" xml:space="preserve">
+    <value>rubis vert</value>
+    <comment></comment>
+  </data>
+  <data name="item.01_green_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis verts</value>
+    <comment></comment>
+  </data>
+  <data name="item.02_blue_rupee@ac(m)" xml:space="preserve">
     <value>rubis bleu</value>
     <comment></comment>
   </data>
-  <data name="item.03_yellow_rupee" xml:space="preserve">
+  <data name="item.02_blue_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis bleus</value>
+    <comment></comment>
+  </data>
+  <data name="item.03_yellow_rupee@ac(m)" xml:space="preserve">
     <value>rubis jaune</value>
+    <comment></comment>
+  </data>
+  <data name="item.03_yellow_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis jaunes</value>
     <comment></comment>
   </data>
   <data name="item.04_red_rupee" xml:space="preserve">
@@ -159,6 +175,10 @@
   </data>
   <data name="item.07_silver_rupee" xml:space="preserve">
     <value>rubis argent</value>
+    <comment></comment>
+  </data>
+  <data name="item.48_lantern" xml:space="preserve">
+    <value>Lanterne@art(fem)</value>
     <comment></comment>
   </data>
   <data name="item.lantern--article(fem)" xml:space="preserve">

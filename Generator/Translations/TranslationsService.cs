@@ -21,8 +21,10 @@ namespace TPRandomizer
     // public sealed class Translations(IStringLocalizer<Translations> localizer)
     public sealed partial class Translations
     {
+        // "^([0-9a-z-_.]+)(?:--([0-9a-z-.,]+))?(?:#([0-9a-z-.]+))?$",
         [GeneratedRegex(
-            "^([0-9a-z-_.]+)(?:--([0-9a-z-.,]+))?(?:#([0-9a-z-.]+))?$",
+            // @"^([0-9a-z-_.]+)(?:\$([0-9a-z-,]+))?(#ordinal)?(?:#([a-z]+))?(?:@([0-9a-z-_]+\([a-z-_,]+\)))?$",
+            @"^([0-9a-z-_.]+)(?:\$([0-9a-z-,]+))?(#ordinal)?(?:#([a-z]+))?(?:@([0-9a-z-_]+)\(([a-z-_,]*)\))?$",
             RegexOptions.IgnoreCase
         )]
         private static partial Regex ResKeyRegex();
@@ -58,13 +60,20 @@ namespace TPRandomizer
                 bool shouldBreak = false;
 
                 LocaleResources resources = new(CultureInfo.CurrentCulture);
+                string langCode = NormalizeLangCode(resources.GetLangCode());
 
                 try
                 {
                     foreach (LocalizedString locStr in localizer.GetAllStrings(false))
                     {
-                        string resKey = ResolveResourceKey(locStr);
-                        resources.TryAddResource(resKey, locStr);
+                        List<KeyValuePair<string, string>> resKvPairs = ResolveResourceKey(
+                            langCode,
+                            locStr
+                        );
+                        foreach (KeyValuePair<string, string> pair in resKvPairs)
+                        {
+                            resources.TryAddResource(pair.Key, pair.Value);
+                        }
                     }
                 }
                 catch (Exception) { }
@@ -95,30 +104,258 @@ namespace TPRandomizer
             CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = startingCultureInfo;
         }
 
-        private static string ResolveResourceKey(LocalizedString locStr)
+        private static List<KeyValuePair<string, string>> ResolveResourceKey(
+            string langCode,
+            LocalizedString locStr
+        )
         {
             Match match = ResKeyRegex().Match(locStr.Name);
 
             if (!match.Success)
                 return null;
 
-            string resKey = match.Groups[1].Value;
+            ResKeyParts resKeyParts = new(langCode, locStr.Value, match);
+            List<KeyValuePair<string, string>> resKvPairs = resKeyParts.GenOutputKeyValPairs();
+            return resKvPairs;
 
-            Group contextGroup = match.Groups[2];
-            if (contextGroup.Success)
+            // string resKey = match.Groups[1].Value;
+
+            // Group contextGroup = match.Groups[2];
+            // if (contextGroup.Success)
+            // {
+            //     string[] contextChunks = contextGroup.Value.Split(',');
+            //     Array.Sort(contextChunks, StringComparer.Ordinal);
+            //     resKey += "$" + string.Join(",", contextChunks);
+            // }
+
+            // Group ordinalGroup = match.Groups[3];
+            // if (ordinalGroup.Success)
+            //     resKey += ordinalGroup.Value; // already includes leading '#'
+
+            // string countName = null;
+            // Group countGroup = match.Groups[4];
+            // if (countGroup.Success)
+            // {
+            //     countName = countGroup.Value;
+            //     resKey += "#" + countGroup.Value;
+            // }
+
+            // string genFn = null;
+            // Group genFnGroup = match.Groups[5];
+            // if (genFnGroup.Success)
+            //     genFn = genFnGroup.Value;
+
+            // string[] genFnArgs = null;
+            // Group genFnArgsGroup = match.Groups[6];
+            // if (genFnArgsGroup.Success)
+            //     genFnArgs = genFnArgsGroup.Value.Split(',');
+
+            // List<KeyValuePair<string, string>> outputKeyAndVal = new();
+            // outputKeyAndVal.Add(new(resKey, locStr.Value));
+
+            // if (!StringUtils.isEmpty(genFn))
+            // {
+            //     switch (langCode)
+            //     {
+            //         case "fr":
+            //             FrGenFunction(outputKeyAndVal, genFn, genFnArgs, resKey, countName);
+            //             break;
+            //         default:
+            //             // do nothing
+            //             break;
+            //     }
+            // }
+
+            // return resKey;
+            // return null;
+        }
+
+        private class ResKeyParts
+        {
+            private string langCode;
+            private string baseValue;
+            private string resKeyBase;
+            private List<string> origContextList = new();
+            private List<string> activeContextList = new();
+            private string ordinal;
+            private string count;
+            private string genFnName;
+            private string[] genFnArgs;
+
+            public ResKeyParts(string langCode, string baseValue, Match match)
             {
-                string[] contextChunks = contextGroup.Value.Split(',');
-                Array.Sort(contextChunks, StringComparer.Ordinal);
-                resKey += "_" + string.Join(",", contextChunks);
+                this.langCode = langCode;
+                this.baseValue = baseValue;
+                resKeyBase = match.Groups[1].Value;
+
+                Group contextGroup = match.Groups[2];
+                if (contextGroup.Success)
+                {
+                    string[] contextChunks = contextGroup.Value.Split(',');
+                    Array.Sort(contextChunks, StringComparer.Ordinal);
+                    origContextList = new(contextChunks);
+                }
+
+                Group ordinalGroup = match.Groups[3];
+                if (ordinalGroup.Success)
+                    ordinal = ordinalGroup.Value;
+
+                Group countGroup = match.Groups[4];
+                if (countGroup.Success)
+                    count = countGroup.Value;
+
+                Group genFnGroup = match.Groups[5];
+                if (genFnGroup.Success)
+                    genFnName = genFnGroup.Value;
+
+                Group genFnArgsGroup = match.Groups[6];
+                if (genFnArgsGroup.Success)
+                    genFnArgs = genFnArgsGroup.Value.Split(',');
+
+                ChangeContext();
             }
 
-            Group countGroup = match.Groups[3];
-            if (countGroup.Success)
+            public List<KeyValuePair<string, string>> GenOutputKeyValPairs()
             {
-                resKey += "#" + countGroup.Value;
+                List<KeyValuePair<string, string>> result = new();
+
+                if (!StringUtils.isEmpty(genFnName))
+                {
+                    switch (langCode)
+                    {
+                        case "fr":
+                            FrGenFunction(result);
+                            break;
+                        default:
+                            // do nothing
+                            break;
+                    }
+                }
+
+                // Add the base key if nothing was added by the generator fn.
+                if (ListUtils.isEmpty(result))
+                    result.Add(new(GenCurrentResKey(), baseValue));
+
+                return result;
             }
 
-            return resKey;
+            private void ChangeContext(string additionalContext = null)
+            {
+                activeContextList = new(origContextList);
+                if (!StringUtils.isEmpty(additionalContext))
+                    activeContextList.Add(additionalContext);
+            }
+
+            private string GenCurrentResKey()
+            {
+                string ret = resKeyBase;
+
+                if (!ListUtils.isEmpty(activeContextList))
+                {
+                    activeContextList.Sort(StringComparer.Ordinal);
+                    ret += "$" + string.Join(",", activeContextList);
+                }
+
+                if (!StringUtils.isEmpty(ordinal))
+                    ret += ordinal; // already starts with '#'
+
+                if (!StringUtils.isEmpty(count))
+                    ret += "#" + count;
+
+                return ret;
+            }
+
+            private void FrGenFunction(List<KeyValuePair<string, string>> result)
+            {
+                if (genFnName != "ac")
+                    throw new Exception($"Expected genFn to be 'ac', but was '{genFnName}'.");
+                if (!StringUtils.isEmpty(count) && count != "other")
+                    throw new Exception(
+                        $"Expected countName to be 'other' or empty, but was '{count}'."
+                    );
+                if (genFnArgs == null || genFnArgs.Length < 1)
+                    throw new Exception($"Expected genFnArgs to be non-empty.");
+
+                if (genFnArgs[0] != "m" && genFnArgs[0] != "f")
+                    throw new Exception(
+                        $"Expected genFnArgs[0] to be 'm' or 'f', but was '{genFnArgs[0]}'."
+                    );
+
+                bool isMasculine = genFnArgs[0] == "m";
+                string metaPrefix = $"$(gender:{genFnArgs[0]})";
+
+                if (count == "other")
+                {
+                    // Plural
+                    if (genFnArgs.Length != 1)
+                        throw new Exception(
+                            $"Expected genFnArgs to be 1 element for plural, but was '{genFnArgs.Length}'."
+                        );
+
+                    // Base
+                    result.Add(new(GenCurrentResKey(), metaPrefix + baseValue));
+
+                    // Definite article
+                    ChangeContext("def");
+                    string defVal = metaPrefix + "les " + baseValue;
+                    result.Add(new(GenCurrentResKey(), defVal));
+
+                    // Indefinite article
+                    ChangeContext("indef");
+                    string indefVal = metaPrefix + "des " + baseValue;
+                    result.Add(new(GenCurrentResKey(), indefVal));
+
+                    // Count
+                    ChangeContext("count");
+                    string countVal = metaPrefix + "{count} " + baseValue;
+                    result.Add(new(GenCurrentResKey(), countVal));
+                }
+                else
+                {
+                    // Non-plural
+                    if (genFnArgs.Length > 2)
+                        throw new Exception(
+                            $"Expected genFnArgs to be 1 or 2 elements, but was '{genFnArgs.Length}'."
+                        );
+
+                    bool usesLApostrophe = false;
+                    if (genFnArgs.Length > 1)
+                    {
+                        if (genFnArgs[1] != "true" && genFnArgs[1] != "false")
+                            throw new Exception(
+                                $"Expected genFnArgs[1] to be missing, 'true', or 'false', but was '{genFnArgs[1]}'."
+                            );
+                        usesLApostrophe = genFnArgs[1] == "true";
+                    }
+
+                    // Base
+                    result.Add(new(GenCurrentResKey(), metaPrefix + baseValue));
+
+                    // Definite article
+                    ChangeContext("def");
+                    string defPrefix = "l'";
+                    if (!usesLApostrophe)
+                    {
+                        if (isMasculine)
+                            defPrefix = "le ";
+                        else
+                            defPrefix = "la ";
+                    }
+                    string defVal = metaPrefix + defPrefix + baseValue;
+                    result.Add(new(GenCurrentResKey(), defVal));
+
+                    // Indefinite article
+                    ChangeContext("indef");
+                    string indefPrefix = isMasculine ? "un " : "une ";
+                    string indefVal = metaPrefix + indefPrefix + baseValue;
+                    result.Add(new(GenCurrentResKey(), indefVal));
+
+                    // Count
+                    ChangeContext("count");
+                    string countVal = metaPrefix + "{count} " + baseValue;
+                    result.Add(new(GenCurrentResKey(), countVal));
+                }
+            }
         }
 
         public string GetGreetingMessage()
@@ -146,9 +383,13 @@ namespace TPRandomizer
                 {
                     string keyToTry = keysToTry[keyIdx];
 
-                    LocalizedString localeString = resources.TryGetValue(keyToTry);
-                    if (localeString != null && !localeString.ResourceNotFound)
-                        return new MsgResult(langCode, localeString.Value);
+                    // LocalizedString localeString = resources.TryGetValue(keyToTry);
+                    // if (localeString != null && !localeString.ResourceNotFound)
+                    //     return new MsgResult(langCode, localeString.Value);
+
+                    string value = resources.TryGetValue(keyToTry);
+                    if (value != null)
+                        return new MsgResult(langCode, value);
                 }
             }
             return null;
@@ -260,7 +501,7 @@ namespace TPRandomizer
     public class LocaleResources
     {
         private CultureInfo cultureInfo;
-        private Dictionary<string, LocalizedString> dict = new();
+        private Dictionary<string, string> dict = new();
 
         public LocaleResources(CultureInfo cultureInfo)
         {
@@ -272,13 +513,13 @@ namespace TPRandomizer
             return cultureInfo.TwoLetterISOLanguageName;
         }
 
-        public void TryAddResource(string resourceKey, LocalizedString locStr)
+        public void TryAddResource(string resourceKey, string locStr)
         {
             if (!StringUtils.isEmpty(resourceKey) && !dict.ContainsKey(resourceKey))
                 dict[resourceKey] = locStr;
         }
 
-        public LocalizedString TryGetValue(string resourceKey)
+        public string TryGetValue(string resourceKey)
         {
             if (!StringUtils.isEmpty(resourceKey) && dict.ContainsKey(resourceKey))
                 return dict[resourceKey];
