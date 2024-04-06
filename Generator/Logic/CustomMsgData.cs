@@ -338,8 +338,7 @@ namespace TPRandomizer
                 "Lake Hylia Dock Poe",
                 // Item.Progressive_Bow,
                 // Item.Lantern,
-                Item.Fused_Shadow_2,
-                true
+                Item.Fused_Shadow_2
             );
 
             itemHint.toHintTextList();

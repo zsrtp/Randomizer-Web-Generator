@@ -7,25 +7,21 @@ namespace TPRandomizer.Hints
     {
         public AreaId areaId { get; }
         public string checkName { get; }
-        public bool isPositive { get; }
 
         public Item item { get; }
 
-        public ItemHint(AreaId areaId, string checkName, Item item, bool isPositive)
+        public ItemHint(AreaId areaId, string checkName, Item item)
         {
             this.type = HintType.Item;
             this.areaId = areaId;
             this.checkName = checkName;
-            this.isPositive = isPositive;
 
             this.item = item;
         }
 
         public override List<HintText> toHintTextList()
         {
-            // string negativeText = isPositive ? "" : " NOT";
-
-            // context depends on if only copy of item.
+            // def/indef context depends on if only 1 copy of item.
 
             // Need to get context based on how many of the item can be found.
             // We should use a static method which takes in the genData (as seen
@@ -51,7 +47,6 @@ namespace TPRandomizer.Hints
             HintText hintText = new HintText();
             hintText.text =
                 $"They say that {{{item}}} can be found at {{{areaId.tempToString()}}}.";
-            // hintText.text = $"{item.ToString()} is {negativeText} at {id}.";
             return new List<HintText> { hintText };
         }
 
@@ -64,7 +59,6 @@ namespace TPRandomizer.Hints
                 CheckIdClass.GetCheckIdNum(checkName),
                 bitLengths.checkId
             );
-            result += isPositive ? "1" : "0";
             return result;
         }
 
@@ -77,9 +71,8 @@ namespace TPRandomizer.Hints
             AreaId areaId = AreaId.decode(bitLengths, processor);
             int checkId = processor.NextInt(bitLengths.checkId);
             string checkName = CheckIdClass.GetCheckName(checkId);
-            bool isPositive = processor.NextBool();
             Item item = (Item)itemPlacements[checkId];
-            return new ItemHint(areaId, checkName, item, isPositive);
+            return new ItemHint(areaId, checkName, item);
         }
     }
 }

@@ -231,7 +231,7 @@ namespace TPRandomizer.Hints.HintCreator
 
                 AreaId areaId = genData.GetRecommendedAreaId(selectedCheckName);
 
-                ItemHint hint = new ItemHint(areaId, selectedCheckName, selectedItem, true);
+                ItemHint hint = new ItemHint(areaId, selectedCheckName, selectedItem);
                 results.Add(hint);
 
                 // Update hinted
