@@ -187,6 +187,28 @@ namespace TPRandomizer
                 checkNumIdToItemId[checkId] = itemId;
             }
 
+            // Randomizer.CheckDict - need to iterate through entire list. Any
+            // that aren't in itemPlacements get inserted into dict with their
+            // vanilla contents. We need this since we don't always encode 100%
+            // of the checks, and an old seed might have been created before new
+            // checks exist as well.
+            foreach (KeyValuePair<string, Check> pair in Randomizer.Checks.CheckDict)
+            {
+                int checkId = CheckIdClass.GetCheckIdNum(pair.Key);
+                if (!checkNumIdToItemId.ContainsKey(checkId))
+                    checkNumIdToItemId[checkId] = (byte)pair.Value.itemId;
+            }
+            // Ensure we have a mapping for all checkIds.
+            int currCheckId = 0;
+            while (CheckIdClass.IsValidCheckId(currCheckId))
+            {
+                if (!checkNumIdToItemId.ContainsKey(currCheckId))
+                    throw new Exception(
+                        $"Expected checkNumToItemId to contain key '{currCheckId}', but was missing."
+                    );
+                currCheckId++;
+            }
+
             return checkNumIdToItemId;
         }
 
