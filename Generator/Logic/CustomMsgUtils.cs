@@ -51,11 +51,12 @@ namespace TPRandomizer
                 },
             };
 
-        public static MessageEntry GetEntry(MessageId messageId)
+        public static MessageEntry GetEntry(MessageId messageId, string message)
         {
             if (!dog.TryGetValue(messageId, out MessageEntry entry))
                 throw new Exception($"Failed to find MessageEntry for '{messageId}'.");
 
+            entry.message = message;
             return entry;
         }
     }

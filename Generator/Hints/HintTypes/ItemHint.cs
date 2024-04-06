@@ -88,7 +88,7 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList()
         {
-            string itemText = CustomMsgData.GenItemText2(
+            string itemText = CustomMsgData.GenItemText(
                 out Dictionary<string, string> meta,
                 item,
                 useDefiniteArticle ? "def" : "indef"

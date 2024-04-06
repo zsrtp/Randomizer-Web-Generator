@@ -254,7 +254,7 @@ namespace TPRandomizer
             // handle shop text first
             if (updateShopText)
             {
-                GenShopItemText(results);
+                GenShopItemEntries(results);
             }
 
             // There are some static things that should always be applied which
@@ -271,17 +271,23 @@ namespace TPRandomizer
         private void GenStaticEntries(List<MessageEntry> results)
         {
             // Note: we always update these since the "can't afford" message
-            // references the price.
-            MessageEntry entry1 = CustomMsgUtils.GetEntry(MessageId.SeraSlingshotCantAfford);
-            entry1.message = "You don't have enough money!";
-            results.Add(entry1);
+            // references the vanilla item.
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MessageId.SeraSlingshotCantAfford,
+                    "You don't have enough money!"
+                )
+            );
 
-            MessageEntry entry = CustomMsgUtils.GetEntry(MessageId.SeraSlingshotConfirmBuy);
-            entry.message = "Are you sure?" + CustomMessages.shopOption;
-            results.Add(entry);
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MessageId.SeraSlingshotConfirmBuy,
+                    "Are you sure?" + CustomMessages.shopOption
+                )
+            );
         }
 
-        private void GenShopItemText(List<MessageEntry> results)
+        private void GenShopItemEntries(List<MessageEntry> results)
         {
             // TODO: fill out all of the itemIds for English. The name should
             // match exactly (after lowercase change) with the keys which are in
@@ -322,7 +328,6 @@ namespace TPRandomizer
 
             // Res.ParsedRes abcd = Res.ParseVal(abc);
 
-            Res.ParsedRes abcd = Res.ParseVal("shop.basic-slot");
             // TODO: add param so can pass in "sera: true" for example. The
             // basic-slot does not default to having this be true.
 
@@ -333,23 +338,15 @@ namespace TPRandomizer
             // use all of the meta which is passed back as the context for the
             // sentence.
 
-            ItemHint itemHint = ItemHint.Create(
-                null,
-                AreaId.Zone(Zone.Lake_Hylia),
-                "Lake Hylia Dock Poe"
-            );
 
-            itemHint.toHintTextList();
+            // ItemHint itemHint = ItemHint.Create(
+            //     null,
+            //     AreaId.Zone(Zone.Lake_Hylia),
+            //     "Lake Hylia Dock Poe"
+            // );
+            // itemHint.toHintTextList();
 
-            string bbb = GenItemText2(Item.Progressive_Bow, "def", isShop: true, isSeraShop: true);
-
-            Item item = Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId;
-
-            string itemText = GenItemText(item, abcd.slotMeta["item"]);
-            string priceText = GenShopPriceText(30);
-
-            string aaaaa = abcd.Substitute(new() { { "item", itemText }, { "price", priceText } });
-            string cc = Regex.Unescape(aaaaa);
+            ;
 
             // We know that the resource requires 'item' and 'price' because
             // those are the known params for that resource.
@@ -359,19 +356,33 @@ namespace TPRandomizer
             // We need to extract any additional context from "item" and provide
             // it to the item resolution.
 
-            MessageEntry entry = CustomMsgUtils.GetEntry(MessageId.SeraSlingshotSlot);
-            // entry.message = aaaaa;
-            entry.message = cc;
-            // entry.message =
-            //     CustomMessages.getShortenedItemName(
-            //         Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId
-            //     )
-            //     + ": "
-            //     + CustomMessages.messageColorPurple
-            //     + "30 Rupees\n"
-            //     + CustomMessages.messageColorWhite
-            //     + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!";
-            results.Add(entry);
+            // MessageEntry entry = CustomMsgUtils.GetEntry(MessageId.SeraSlingshotSlot);
+            // entry.message = GenBasicShopMsg("Sera Shop Slingshot", 30, true);
+            // results.Add(entry);
+
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MessageId.SeraSlingshotSlot,
+                    GenBasicShopMsg("Sera Shop Slingshot", 30, true)
+                )
+            );
+        }
+
+        private string GenBasicShopMsg(string checkName, uint price, bool isSeraShop = false)
+        {
+            Res.ParsedRes abcd = Res.ParseVal("shop.basic-slot");
+
+            string itemText = GenItemText2(
+                HintUtils.getCheckContents(checkName),
+                isShop: true,
+                isSeraShop: isSeraShop
+            );
+
+            string priceText = GenShopPriceText(price);
+
+            string aaaaa = abcd.Substitute(new() { { "item", itemText }, { "price", priceText } });
+            string cc = Regex.Unescape(aaaaa);
+            return cc;
         }
 
         public static string BuildContextFromMeta(Dictionary<string, string> meta)
@@ -390,18 +401,18 @@ namespace TPRandomizer
 
         public static string GenItemText2(
             Item item,
-            string contextIn,
+            string contextIn = null,
             bool isShop = false,
             bool isSeraShop = false
         )
         {
-            return GenItemText2(out _, item, contextIn, isShop, isSeraShop);
+            return GenItemText(out _, item, contextIn, isShop, isSeraShop);
         }
 
-        public static string GenItemText2(
+        public static string GenItemText(
             out Dictionary<string, string> meta,
             Item item,
-            string contextIn,
+            string contextIn = null,
             bool isShop = false,
             bool isSeraShop = false
         )
@@ -450,39 +461,6 @@ namespace TPRandomizer
                 coloredItem = startColor + abc.Substitute(null) + itemSuffix;
 
             return coloredItem;
-        }
-
-        private string GenItemText(Item item, Dictionary<string, string> other)
-        {
-            bool isShopItem = GetOtherBool(other, "shop");
-            bool isSeraShop = GetOtherBool(other, "sera");
-
-            string result = "";
-
-            // TODO: this should use the shop color as a fallback for when there
-            // is no provided "prioritize this specific color".
-
-            if (isShopItem)
-                result += CustomMessages.messageColorOrange;
-            else
-            {
-                // TODO: should have a getDefaultColor of item func which
-                // returns Red from its default case.
-                result += CustomMessages.messageColorRed;
-            }
-
-            result += Res.Msg(GetItemResKey(item));
-
-            if (isShopItem)
-            {
-                if (isSeraShop)
-                    result += " ";
-                else
-                    result += ":";
-            }
-            result += CustomMessages.messageColorWhite;
-
-            return result;
         }
 
         private static string GetItemResKey(Item item)

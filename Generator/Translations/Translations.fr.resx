@@ -60,45 +60,45 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"></xsd:import>
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"></xsd:element>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"></xsd:attribute>
-              <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
-              <xsd:attribute name="mimetype" type="xsd:string"></xsd:attribute>
-              <xsd:attribute ref="xml:space"></xsd:attribute>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"></xsd:attribute>
-              <xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"></xsd:element>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"></xsd:attribute>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"></xsd:attribute>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"></xsd:attribute>
-              <xsd:attribute ref="xml:space"></xsd:attribute>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -109,7 +109,7 @@
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>2</value>
+    <value>2.0</value>
   </resheader>
   <resheader name="reader">
     <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -119,66 +119,66 @@
   </resheader>
   <data name="hint-type.item" xml:space="preserve">
     <value>Il est dit que {item} peut être trouvé au Temple Abyssal.</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="hint-type.item$gender-f" xml:space="preserve">
     <value>Il est dit que {item} peut être trouvée au Temple Abyssal.</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="hints.item-found-at-area" xml:space="preserve">
     <value>On dit que {{item}} peut être trouvé à {{area}}.</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.01_green_rupee@ac(m)" xml:space="preserve">
+  <data name="item.01-green_rupee@ac(m)" xml:space="preserve">
     <value>rubis vert</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.01_green_rupee#other@ac(m)" xml:space="preserve">
+  <data name="item.01-green_rupee#other@ac(m)" xml:space="preserve">
     <value>rubis verts</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.02_blue_rupee@ac(m)" xml:space="preserve">
+  <data name="item.02-blue_rupee@ac(m)" xml:space="preserve">
     <value>rubis bleu</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.02_blue_rupee#other@ac(m)" xml:space="preserve">
+  <data name="item.02-blue_rupee#other@ac(m)" xml:space="preserve">
     <value>rubis bleus</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.03_yellow_rupee@ac(m)" xml:space="preserve">
+  <data name="item.03-yellow_rupee@ac(m)" xml:space="preserve">
     <value>rubis jaune</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.03_yellow_rupee#other@ac(m)" xml:space="preserve">
+  <data name="item.03-yellow_rupee#other@ac(m)" xml:space="preserve">
     <value>rubis jaunes</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.04_red_rupee" xml:space="preserve">
+  <data name="item.04-red_rupee" xml:space="preserve">
     <value>rubis rouge</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.05_purple_rupee" xml:space="preserve">
+  <data name="item.05-purple_rupee" xml:space="preserve">
     <value>rubis violet</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.06_orange_rupee" xml:space="preserve">
+  <data name="item.06-orange_rupee" xml:space="preserve">
     <value>rubis orange</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.07_silver_rupee" xml:space="preserve">
+  <data name="item.07-silver_rupee" xml:space="preserve">
     <value>rubis argent</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.43_progressive_bow@ac(m,true)" xml:space="preserve">
+  <data name="item.43-progressive_bow@ac(m,true)" xml:space="preserve">
     <value>arc</value>
-    <comment></comment>
+    <comment/>
   </data>
-  <data name="item.48_lantern@ac(f)" xml:space="preserve">
+  <data name="item.48-lantern@ac(f)" xml:space="preserve">
     <value>Lanterne</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="shop.price" xml:space="preserve">
     <value>{count} rubis</value>
-    <comment>Confirmed by link1183 on 2024/03/31 that all should be &quot;rubis&quot;.</comment>
+    <comment>Confirmed by link1183 on 2024/03/31 that all should be "rubis".</comment>
   </data>
 </root>
