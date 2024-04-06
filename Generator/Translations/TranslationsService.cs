@@ -418,6 +418,13 @@ namespace TPRandomizer
             Dictionary<string, string> interpolation
         )
         {
+            // Based on:
+            // https://github.com/i18next/i18next/blob/002268b0249a3670367d8f2d65bd7e665712036b/src/Translator.js#L448
+            // except we give ordinal plurals priority over non-ordinals. If you
+            // specifically ask for an ordinal, then I am not sure why this
+            // would not have higher priority over the less specific
+            // non-ordinal. -isaac
+
             if (StringUtils.isEmpty(key))
                 throw new Exception("key must not be empty.");
 
@@ -438,19 +445,44 @@ namespace TPRandomizer
 
             bool needsZeroSuffixLookup = needsPluralHandling && !isOrdinal && countAsDouble == 0;
 
+            bool needsContextHandling =
+                interpolation.TryGetValue("context", out string context)
+                && !StringUtils.isEmpty(context);
+
             string pluralSuffix = null;
             if (needsPluralHandling)
                 pluralSuffix = "#" + Res.PluralResolver.GetSuffix(langCode, count, isOrdinal);
             string zeroSuffix = "#zero";
             string ordinalPrefix = "#ordinal#";
+
             if (needsPluralHandling)
             {
-                keys.Add(key + pluralSuffix);
+                // If ordinal is true, we append the non-ordinal first (lower
+                // priority).
                 if (isOrdinal && pluralSuffix.IndexOf(ordinalPrefix) == 0)
-                    keys.Add(pluralSuffix.Replace(ordinalPrefix, "#"));
+                    keys.Add(key + pluralSuffix.Replace(ordinalPrefix, "#"));
+                keys.Add(key + pluralSuffix);
             }
             if (needsZeroSuffixLookup)
                 keys.Add(key + zeroSuffix);
+
+            // Repeat for with context
+            if (needsContextHandling)
+            {
+                string contextKey = key + "$" + context;
+                keys.Add(contextKey);
+
+                if (needsPluralHandling)
+                {
+                    // If ordinal is true, we append the non-ordinal first
+                    // (lower priority).
+                    if (isOrdinal && pluralSuffix.IndexOf(ordinalPrefix) == 0)
+                        keys.Add(contextKey + pluralSuffix.Replace(ordinalPrefix, "#"));
+                    keys.Add(contextKey + pluralSuffix);
+                }
+                if (needsZeroSuffixLookup)
+                    keys.Add(contextKey + zeroSuffix);
+            }
 
             // TODO: handle context
 

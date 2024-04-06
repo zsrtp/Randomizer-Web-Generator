@@ -416,7 +416,7 @@ namespace TPRandomizer
 
             Res.ParsedRes abc = Res.ParseVal(
                 resKey,
-                new Dictionary<string, string>() { { "context", context } }
+                new Dictionary<string, string>() { { "context", context }, }
             );
 
             meta = abc.meta;

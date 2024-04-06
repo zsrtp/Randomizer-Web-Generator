@@ -224,14 +224,19 @@ namespace TPRandomizer
                 if (StringUtils.isEmpty(val))
                     return "other";
 
+                string result = ord ? "ordinal#" : "";
+
                 switch (langCode)
                 {
                     case "en":
-                        return GetSuffixEn(val, ord);
+                        result += GetSuffixEn(val, ord);
+                        break;
                     case "es":
-                        return GetSuffixEs(val, ord);
+                        result += GetSuffixEs(val, ord);
+                        break;
                     case "fr":
-                        return GetSuffixFr(val, ord);
+                        result += GetSuffixFr(val, ord);
+                        break;
                     default:
                         throw new Exception($"'{langCode}' is not a supported langCode.");
                 }
@@ -240,6 +245,7 @@ namespace TPRandomizer
                 // depends on the resource sinc it is possible we are resolving
                 // an English resource for French if it has not yet been defined
                 // for French yet (or never will be).
+                return result;
             }
 
             private static string GetSuffixEn(string val, bool ord)

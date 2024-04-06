@@ -27,6 +27,10 @@ namespace TPRandomizer.Hints
 
             // context depends on if only copy of item.
 
+            // Need to get context based on how many of the item can be found.
+            // We should use a static method which takes in the genData (as seen
+            // in LocationHint). Also, let's get rid of isPositive and only add
+            // it if we will use it which is probably not going to happen.
 
             string itemText = CustomMsgData.GenItemText2(
                 out Dictionary<string, string> meta,
