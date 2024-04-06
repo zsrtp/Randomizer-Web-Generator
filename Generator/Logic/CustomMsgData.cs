@@ -372,7 +372,7 @@ namespace TPRandomizer
         {
             Res.ParsedRes abcd = Res.ParseVal("shop.basic-slot");
 
-            string itemText = GenItemText2(
+            string itemText = GenItemText(
                 HintUtils.getCheckContents(checkName),
                 isShop: true,
                 isSeraShop: isSeraShop
@@ -399,7 +399,7 @@ namespace TPRandomizer
             return string.Join(',', chunks);
         }
 
-        public static string GenItemText2(
+        public static string GenItemText(
             Item item,
             string contextIn = null,
             bool isShop = false,
