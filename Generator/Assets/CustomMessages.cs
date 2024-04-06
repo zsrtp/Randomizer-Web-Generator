@@ -10,8 +10,8 @@ namespace TPRandomizer.Assets
     /// </summary>
     public class CustomMessages
     {
-        static string messageSpeedFast = "\x1A\x05\x00\x00\x01";
-        static string messageSpeedSlow = "\x1A\x05\x00\x00\x02";
+        //static string messageSpeedFast = "\x1A\x05\x00\x00\x01";
+        //static string messageSpeedSlow = "\x1A\x05\x00\x00\x02";
         static string messageColorWhite = "\x1A\x06\xFF\x00\x00\x00";
         static string messageColorRed = "\x1A\x06\xFF\x00\x00\x01";
         static string messageColorGreen = "\x1A\x06\xFF\x00\x00\x02";
@@ -22,7 +22,7 @@ namespace TPRandomizer.Assets
         static string messageColorDarkGreen = "\x1A\x06\xFF\x00\x00\x09";
         static string messageColorBlue = "\x1A\x06\xFF\x00\x00\x0A";
         static string messageColorSilver = "\x1A\x06\xFF\x00\x00\x0B";
-        static string playerName = "\x1A\x05\x00\x00\x00";
+        //static string playerName = "\x1A\x05\x00\x00\x00";
         static string messageOption1 = "\x1A\x06\x00\x00\x09\x01";
         static string messageOption2 = "\x1A\x06\x00\x00\x09\x02";
         static string messageOption3 = "\x1A\x06\x00\x00\x09\x03";

@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal",
+    "requirements": "Shadow_Crystal and CanChangeTime",
     "checkCategory": ["Overworld", "Poe", "Kakariko Graveyard"],
     "itemId": "Poe_Soul"
 }
