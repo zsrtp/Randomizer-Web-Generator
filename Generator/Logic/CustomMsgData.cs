@@ -333,12 +333,10 @@ namespace TPRandomizer
             // use all of the meta which is passed back as the context for the
             // sentence.
 
-            ItemHint itemHint = new ItemHint(
+            ItemHint itemHint = ItemHint.Create(
+                null,
                 AreaId.Zone(Zone.Lake_Hylia),
-                "Lake Hylia Dock Poe",
-                // Item.Progressive_Bow,
-                // Item.Lantern,
-                Item.Fused_Shadow_2
+                "Lake Hylia Dock Poe"
             );
 
             itemHint.toHintTextList();

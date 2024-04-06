@@ -1036,7 +1036,7 @@ namespace TPRandomizer.Hints
                         else
                         {
                             AreaId areaId = GetAreaIdForBigKeyHint(zone, checkName, totalNeeded);
-                            ItemHint hint = new ItemHint(areaId, checkName, bigKeyItem);
+                            ItemHint hint = ItemHint.Create(genData, areaId, checkName);
                             potentialHints.Add(hint);
 
                             // Update hinted
