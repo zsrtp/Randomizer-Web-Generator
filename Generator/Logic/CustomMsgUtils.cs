@@ -11,7 +11,7 @@ namespace TPRandomizer
     using MessageEntry = Assets.CustomMessages.MessageEntry;
     using TPRandomizer.Assets;
 
-    public enum MessageId
+    public enum MsgEntryId
     {
         SeraSlingshotSlot,
         SeraSlingshotCantAfford,
@@ -20,7 +20,7 @@ namespace TPRandomizer
 
     public class CustomMsgUtils
     {
-        private static readonly Dictionary<MessageId, MessageEntry> dog =
+        private static readonly Dictionary<MsgEntryId, MessageEntry> idToEntry =
             new()
             {
                 // new MessageEntry
@@ -38,22 +38,22 @@ namespace TPRandomizer
                 //         + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
                 // },
                 {
-                    MessageId.SeraSlingshotSlot,
+                    MsgEntryId.SeraSlingshotSlot,
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5AE)
                 },
                 {
-                    MessageId.SeraSlingshotCantAfford,
+                    MsgEntryId.SeraSlingshotCantAfford,
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5B3)
                 },
                 {
-                    MessageId.SeraSlingshotConfirmBuy,
+                    MsgEntryId.SeraSlingshotConfirmBuy,
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5B4)
                 },
             };
 
-        public static MessageEntry GetEntry(MessageId messageId, string message)
+        public static MessageEntry GetEntry(MsgEntryId messageId, string message)
         {
-            if (!dog.TryGetValue(messageId, out MessageEntry entry))
+            if (!idToEntry.TryGetValue(messageId, out MessageEntry entry))
                 throw new Exception($"Failed to find MessageEntry for '{messageId}'.");
 
             entry.message = message;

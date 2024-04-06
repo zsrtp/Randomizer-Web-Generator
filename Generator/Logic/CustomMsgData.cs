@@ -274,14 +274,17 @@ namespace TPRandomizer
             // references the vanilla item.
             results.Add(
                 CustomMsgUtils.GetEntry(
-                    MessageId.SeraSlingshotCantAfford,
+                    MsgEntryId.SeraSlingshotCantAfford,
+                    // TODO: use resource
                     "You don't have enough money!"
                 )
             );
 
             results.Add(
                 CustomMsgUtils.GetEntry(
-                    MessageId.SeraSlingshotConfirmBuy,
+                    MsgEntryId.SeraSlingshotConfirmBuy,
+                    // TODO: use resource (add CustomMessages.shopOption) here
+                    // since always needed at end regardless of language.
                     "Are you sure?" + CustomMessages.shopOption
                 )
             );
@@ -362,7 +365,7 @@ namespace TPRandomizer
 
             results.Add(
                 CustomMsgUtils.GetEntry(
-                    MessageId.SeraSlingshotSlot,
+                    MsgEntryId.SeraSlingshotSlot,
                     GenBasicShopMsg("Sera Shop Slingshot", 30, true)
                 )
             );
