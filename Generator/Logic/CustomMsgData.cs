@@ -333,6 +333,15 @@ namespace TPRandomizer
             // use all of the meta which is passed back as the context for the
             // sentence.
 
+            ItemHint itemHint = new ItemHint(
+                AreaId.Zone(Zone.Lake_Hylia),
+                "Lake Hylia Dock Poe",
+                // Item.Progressive_Bow,
+                Item.Lantern,
+                true
+            );
+
+            itemHint.toHintTextList();
 
             string bbb = GenItemText2(Item.Progressive_Bow, "def", isShop: true, isSeraShop: true);
 
@@ -367,20 +376,50 @@ namespace TPRandomizer
             results.Add(entry);
         }
 
-        private string GenItemText2(
+        public static string BuildContextFromMeta(Dictionary<string, string> meta)
+        {
+            if (ListUtils.isEmpty(meta))
+                return null;
+
+            List<string> chunks = new(meta.Count);
+            foreach (KeyValuePair<string, string> pair in meta)
+            {
+                chunks.Add(pair.Key + "-" + pair.Value);
+            }
+            chunks.Sort(StringComparer.Ordinal);
+            return string.Join(',', chunks);
+        }
+
+        public static string GenItemText2(
             Item item,
             string contextIn,
             bool isShop = false,
             bool isSeraShop = false
         )
         {
+            return GenItemText2(out _, item, contextIn, isShop, isSeraShop);
+        }
+
+        public static string GenItemText2(
+            out Dictionary<string, string> meta,
+            Item item,
+            string contextIn,
+            bool isShop = false,
+            bool isSeraShop = false
+        )
+        {
+            // Needs a way to pass the meta out.
+
             string context = isShop ? "" : contextIn;
-            string resKey = GetItemResKey(item, context: context);
+            // string resKey = GetItemResKey(item, context: context);
+            string resKey = GetItemResKey(item);
 
             Res.ParsedRes abc = Res.ParseVal(
                 resKey,
                 new Dictionary<string, string>() { { "context", context } }
             );
+
+            meta = abc.meta;
 
             if (isShop)
                 abc.CapitalizeFirstValidChar();
@@ -457,7 +496,7 @@ namespace TPRandomizer
             return result;
         }
 
-        private string GetItemResKey(
+        private static string GetItemResKey(
             Item item,
             string context = null,
             bool ordinal = false,

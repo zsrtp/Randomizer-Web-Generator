@@ -60,45 +60,45 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"></xsd:import>
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"></xsd:element>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"></xsd:attribute>
-              <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
-              <xsd:attribute name="mimetype" type="xsd:string"></xsd:attribute>
-              <xsd:attribute ref="xml:space"></xsd:attribute>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"></xsd:attribute>
-              <xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"></xsd:element>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"></xsd:attribute>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"></xsd:attribute>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"></xsd:attribute>
-              <xsd:attribute ref="xml:space"></xsd:attribute>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -109,7 +109,7 @@
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>2</value>
+    <value>2.0</value>
   </resheader>
   <resheader name="reader">
     <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -119,802 +119,778 @@
   </resheader>
   <data name="area-preposition" xml:space="preserve">
     <value>at {area}</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="area-preposition--behind" xml:space="preserve">
     <value>behind {area}</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="area-preposition--from" xml:space="preserve">
     <value>from {area}</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="area-preposition--in" xml:space="preserve">
     <value>in {area}</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="area-preposition--none" xml:space="preserve">
     <value>{area}</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="category.owl_statues" xml:space="preserve">
     <value>(area-preposition:behind)Owl Statues</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="category.owl_statues#one" xml:space="preserve">
     <value>(area-preposition:behind)an {cs}Owl Statue{ce}</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="category.purple_mist" xml:space="preserve">
     <value>(area-preposition:behind)Purple Mist</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="hint.barren" xml:space="preserve">
     <value>They say that there is nothing to be found {area-preposition}.</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="hint.item" xml:space="preserve">
     <value>They say that {item} can be found {area-preposition}.</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="hint.numiteminarea" xml:space="preserve">
     <value>They say that {item} can be found {area-preposition}.</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="hint.path" xml:space="preserve">
     <value>They say that {area} is on the path to {goal}.</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="hint.tradechain" xml:space="preserve">
     <value>They say that {item} leads to {tgtItem}.</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="hint.tradechain--with-area" xml:space="preserve">
     <value>They say that {item} found {area-preposition} leads to {tgtItem}.</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="hint.woth" xml:space="preserve">
     <value>They say that {area} is on the Way of the Hero.</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.01_green_rupee" xml:space="preserve">
     <value>green Rupee</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.02_blue_rupee" xml:space="preserve">
     <value>blue Rupee (5)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.03_yellow_rupee" xml:space="preserve">
     <value>yellow Rupee (10)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.04_red_rupee" xml:space="preserve">
     <value>red Rupee (20)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.05_purple_rupee" xml:space="preserve">
     <value>purple Rupee (50)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.06_orange_rupee" xml:space="preserve">
     <value>orange Rupee (100)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.07_silver_rupee" xml:space="preserve">
     <value>silver Rupee (200)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.0a_bombs_5" xml:space="preserve">
     <value>bombs (5)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.0b_bombs_10" xml:space="preserve">
     <value>bombs (10)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.0c_bombs_20" xml:space="preserve">
     <value>bombs (20)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.0d_bombs_30" xml:space="preserve">
     <value>bombs (30)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.0e_arrows_10" xml:space="preserve">
     <value>arrows (10)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.0f_arrows_20" xml:space="preserve">
     <value>arrows (20)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.10_arrows_30" xml:space="preserve">
     <value>arrows (30)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.12_seeds_50" xml:space="preserve">
     <value>seeds (50)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.13_foolish_item" xml:space="preserve">
     <value>trap</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.14_foolish_item_2" xml:space="preserve">
     <value>trap2</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.15_foolish_item_3" xml:space="preserve">
     <value>trap3</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.16_water_bombs_5" xml:space="preserve">
     <value>water bombs (5)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.17_water_bombs_10" xml:space="preserve">
     <value>water bombs (10)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.18_water_bombs_15" xml:space="preserve">
     <value>water bombs (15)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.19_water_bombs_3" xml:space="preserve">
     <value>water bombs (3)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.1a_bomblings_5" xml:space="preserve">
     <value>bomblings (5)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.1b_bomblings_10" xml:space="preserve">
     <value>bomblings (10)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.1c_bomblings_3" xml:space="preserve">
     <value>bomblings (3)</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.21_piece_of_heart" xml:space="preserve">
     <value>Piece of Heart</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.22_heart_container" xml:space="preserve">
     <value>Heart Container</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.2a_ordon_shield" xml:space="preserve">
     <value>Ordon shield</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.2b_wooden_shield" xml:space="preserve">
     <value>wooden shield</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.2c_hylian_shield" xml:space="preserve">
     <value>Hylian shield</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.30_magic_armor" xml:space="preserve">
     <value>magic armor</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.31_zora_armor" xml:space="preserve">
     <value>Zora armor</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.32_shadow_crystal" xml:space="preserve">
     <value>Shadow Crystal</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.35_progressive_wallet" xml:space="preserve">
     <value>wallet</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.3e_hawkeye" xml:space="preserve">
     <value>Hawkeye</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.3f_progressive_sword" xml:space="preserve">
     <value>sword</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.40_boomerang" xml:space="preserve">
     <value>Gale Boomerang</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.41_spinner" xml:space="preserve">
     <value>Spinner</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.42_ball_and_chain" xml:space="preserve">
     <value>Ball and Chain</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.43_progressive_bow" xml:space="preserve">
     <value>bow</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.44_progressive_clawshot" xml:space="preserve">
     <value>Clawshot</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.45_iron_boots" xml:space="preserve">
     <value>Iron Boots</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.46_progressive_dominion_rod" xml:space="preserve">
     <value>Dominion Rod</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.48_lantern" xml:space="preserve">
     <value>Lantern</value>
-    <comment>&quot;lantern&quot; is more correct, but a lowercase letter for this item is a crime. -isaac</comment>
+    <comment>"lantern" is more correct, but a lowercase letter for this item is a crime. -isaac</comment>
   </data>
   <data name="item.4a_progressive_fishing_rod" xml:space="preserve">
     <value>fishing rod</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.4b_slingshot" xml:space="preserve">
     <value>slingshot</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.4f_giant_bomb_bag" xml:space="preserve">
     <value>giant bomb bags</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.51_filled_bomb_bag" xml:space="preserve">
     <value>bomb bag</value>
-    <comment>&quot;bag with bombs&quot; is more correct, but &quot;bomb bag&quot; seems more straightforward. -isaac</comment>
+    <comment>"bag with bombs" is more correct, but "bomb bag" seems more straightforward. -isaac</comment>
   </data>
   <data name="item.60_empty_bottle" xml:space="preserve">
     <value>empty bottle</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.65_sera_bottle" xml:space="preserve">
     <value>half-empty milk bottle</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.75_jovani_bottle" xml:space="preserve">
-    <value>bottle of Great Fairy&apos;s Tears</value>
-    <comment></comment>
+    <value>bottle of Great Fairy's Tears</value>
+    <comment/>
   </data>
   <data name="item.80_renados_letter" xml:space="preserve">
-    <value>Renado&apos;s Letter</value>
-    <comment></comment>
+    <value>Renado's Letter</value>
+    <comment/>
   </data>
   <data name="item.81_invoice" xml:space="preserve">
     <value>invoice</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.82_wooden_statue" xml:space="preserve">
     <value>wooden statue</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.83_ilias_charm" xml:space="preserve">
-    <value>Ilia&apos;s charm</value>
-    <comment></comment>
+    <value>Ilia's charm</value>
+    <comment/>
   </data>
   <data name="item.84_horse_call" xml:space="preserve">
     <value>horse call</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.85_forest_temple_small_key" xml:space="preserve">
     <value>Forest Temple small key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.86_goron_mines_small_key" xml:space="preserve">
     <value>Goron Mines small key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.87_lakebed_temple_small_key" xml:space="preserve">
     <value>Lakebed Temple small key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.88_arbiters_grounds_small_key" xml:space="preserve">
-    <value>Arbiter&apos;s Grounds small key</value>
-    <comment></comment>
+    <value>Arbiter's Grounds small key</value>
+    <comment/>
   </data>
   <data name="item.89_snowpeak_ruins_small_key" xml:space="preserve">
     <value>Snowpeak Ruins small key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.8a_temple_of_time_small_key" xml:space="preserve">
     <value>Temple of Time small key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.8b_city_in_the_sky_small_key" xml:space="preserve">
     <value>City in the Sky small key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.8c_palace_of_twilight_small_key" xml:space="preserve">
     <value>Palace of Twilight small key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.8d_hyrule_castle_small_key" xml:space="preserve">
     <value>Hyrule Castle small key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.8e_gerudo_desert_bulblin_camp_key" xml:space="preserve">
     <value>Bulblin camp key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.90_aurus_memo" xml:space="preserve">
-    <value>Auru&apos;s memo</value>
-    <comment></comment>
+    <value>Auru's memo</value>
+    <comment/>
   </data>
   <data name="item.91_asheis_sketch" xml:space="preserve">
-    <value>Ashei&apos;s sketch</value>
-    <comment></comment>
+    <value>Ashei's sketch</value>
+    <comment/>
   </data>
   <data name="item.92_forest_temple_big_key" xml:space="preserve">
     <value>Forest Temple big key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.93_lakebed_temple_big_key" xml:space="preserve">
     <value>Lakebed Temple big key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.94_arbiters_grounds_big_key" xml:space="preserve">
-    <value>Arbiter&apos;s Grounds big key</value>
-    <comment></comment>
+    <value>Arbiter's Grounds big key</value>
+    <comment/>
   </data>
   <data name="item.95_temple_of_time_big_key" xml:space="preserve">
     <value>Temple of Time big key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.96_city_in_the_sky_big_key" xml:space="preserve">
     <value>City in the Sky big key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.97_palace_of_twilight_big_key" xml:space="preserve">
     <value>Palace of Twilight big key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.98_hyrule_castle_big_key" xml:space="preserve">
     <value>Hyrule Castle big key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.99_forest_temple_compass" xml:space="preserve">
     <value>Forest Temple compass</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.9a_goron_mines_compass" xml:space="preserve">
     <value>Goron Mines compass</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.9b_lakebed_temple_compass" xml:space="preserve">
     <value>Lakebed Temple compass</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.9d_coro_bottle" xml:space="preserve">
     <value>bottle of oil</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.a5_progressive_mirror_shard" xml:space="preserve">
     <value>Mirror Shard</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.a8_arbiters_grounds_compass" xml:space="preserve">
-    <value>Arbiter&apos;s Grounds compass</value>
-    <comment></comment>
+    <value>Arbiter's Grounds compass</value>
+    <comment/>
   </data>
   <data name="item.a9_snowpeak_ruins_compass" xml:space="preserve">
     <value>Snowpeak Ruins compass</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.aa_temple_of_time_compass" xml:space="preserve">
     <value>Temple of Time compass</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.ab_city_in_the_sky_compass" xml:space="preserve">
     <value>City in the Sky compass</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.ac_palace_of_twilight_compass" xml:space="preserve">
     <value>Palace of Twilight compass</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.ad_hyrule_castle_compass" xml:space="preserve">
     <value>Hyrule Castle compass</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.b6_forest_temple_dungeon_map" xml:space="preserve">
     <value>Forest Temple dungeon map</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.b7_goron_mines_dungeon_map" xml:space="preserve">
     <value>Goron Mines dungeon map</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.b8_lakebed_temple_dungeon_map" xml:space="preserve">
     <value>Lakebed Temple dungeon map</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.b9_arbiters_grounds_dungeon_map" xml:space="preserve">
-    <value>Arbiter&apos;s Grounds dungeon map</value>
-    <comment></comment>
+    <value>Arbiter's Grounds dungeon map</value>
+    <comment/>
   </data>
   <data name="item.ba_snowpeak_ruins_dungeon_map" xml:space="preserve">
     <value>Snowpeak Ruins dungeon map</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.bb_temple_of_time_dungeon_map" xml:space="preserve">
     <value>Temple of Time dungeon map</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.bc_city_in_the_sky_dungeon_map" xml:space="preserve">
     <value>City in the Sky dungeon map</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.bd_palace_of_twilight_dungeon_map" xml:space="preserve">
     <value>Palace of Twilight dungeon map</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.be_hyrule_castle_dungeon_map" xml:space="preserve">
     <value>Hyrule Castle dungeon map</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.c0_male_beetle" xml:space="preserve">
     <value>ms beetle</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.c1_female_beetle" xml:space="preserve">
     <value>fs beetle</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.c2_male_butterfly" xml:space="preserve">
     <value>ms butterfly</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.c3_female_butterfly" xml:space="preserve">
     <value>fs butterfly</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.c4_male_stag_beetle" xml:space="preserve">
     <value>ms stag beetle</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.c5_female_stag_beetle" xml:space="preserve">
     <value>fs stag beetle</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.c6_male_grasshopper" xml:space="preserve">
     <value>ms grasshopper</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.c7_female_grasshopper" xml:space="preserve">
     <value>fs grasshopper</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.c8_male_phasmid" xml:space="preserve">
     <value>ms phasmid</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.c9_female_phasmid" xml:space="preserve">
     <value>fs phasmid</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.ca_male_pill_bug" xml:space="preserve">
     <value>ms pill bug</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.cb_female_pill_bug" xml:space="preserve">
     <value>fs pill bug</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.cc_male_mantis" xml:space="preserve">
     <value>ms mantis</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.cd_female_mantis" xml:space="preserve">
     <value>fs mantis</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.ce_male_ladybug" xml:space="preserve">
     <value>ms ladybug</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.cf_female_ladybug" xml:space="preserve">
     <value>fs ladybug</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.d0_male_snail" xml:space="preserve">
     <value>ms snail</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.d1_female_snail" xml:space="preserve">
     <value>fs snail</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.d2_male_dragonfly" xml:space="preserve">
     <value>ms dragonfly</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.d3_female_dragonfly" xml:space="preserve">
     <value>fs dragonfly</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.d4_male_ant" xml:space="preserve">
     <value>ms ant</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.d5_female_ant" xml:space="preserve">
     <value>fs ant</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.d6_male_dayfly" xml:space="preserve">
     <value>ms dayfly</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.d7_female_dayfly" xml:space="preserve">
     <value>fs dayfly</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.d8_progressive_fused_shadow" xml:space="preserve">
     <value>Fused Shadow</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.e0_poe_soul" xml:space="preserve">
-    <value>Poe&apos;s soul</value>
-    <comment></comment>
+    <value>Poe's soul</value>
+    <comment/>
   </data>
   <data name="item.e1_progressive_hidden_skill" xml:space="preserve">
     <value>Hidden Skill</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.e9_progressive_sky_book" xml:space="preserve">
     <value>Sky character</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.ed_purple_rupee_links_house" xml:space="preserve">
-    <value>pn&apos;s Rupee</value>
-    <comment></comment>
+    <value>pn's Rupee</value>
+    <comment/>
   </data>
   <data name="item.ee_north_faron_woods_gate_key" xml:space="preserve">
     <value>Faron Woods key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.f3_gate_keys" xml:space="preserve">
     <value>gate keys</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.f4_snowpeak_ruins_ordon_pumpkin" xml:space="preserve">
     <value>Ordon pumpkin</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.f5_snowpeak_ruins_ordon_goat_cheese" xml:space="preserve">
     <value>Ordon goat cheese</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.f6_snowpeak_ruins_bedroom_key" xml:space="preserve">
     <value>bedroom key</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="item.f9_goron_mines_key_shard" xml:space="preserve">
     <value>Goron Mines key shard</value>
-    <comment></comment>
-  </data>
-  <data name="item.progressive_clawshot--count#other" xml:space="preserve">
-    <value>{cs}{count} Clawshots{ce}</value>
-    <comment></comment>
-  </data>
-  <data name="item.progressive_clawshot--def" xml:space="preserve">
-    <value>the {cs}Clawshot{ce}</value>
-    <comment></comment>
-  </data>
-  <data name="item.progressive_clawshot--def#other" xml:space="preserve">
-    <value>the {cs}Clawshots{ce}</value>
-    <comment></comment>
-  </data>
-  <data name="item.progressive_clawshot--indef" xml:space="preserve">
-    <value>a {cs}Clawshot{ce}</value>
-    <comment></comment>
-  </data>
-  <data name="item.progressive_clawshot@plural:s,article:a" xml:space="preserve">
-    <value>Clawshot</value>
-    <comment></comment>
-  </data>
-  <data name="item.progressive_clawshot#other" xml:space="preserve">
-    <value>Clawshots</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="province.desert" xml:space="preserve">
     <value>Desert Province</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="province.dungeon" xml:space="preserve">
     <value>(area-preposition:in)Dungeons</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="province.eldin" xml:space="preserve">
     <value>Eldin Province</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="province.faron" xml:space="preserve">
     <value>Faron Province</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="province.lanayru" xml:space="preserve">
     <value>Lanayru Province</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="province.ordona" xml:space="preserve">
     <value>Ordona Province</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="province.peak" xml:space="preserve">
     <value>Peak Province</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="province.split" xml:space="preserve">
     <value>Split Province</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="shop.basic-slot" xml:space="preserve">
-    <value>{item(shop:true)} {price}\n     LIMITED SUPPLY!\nDon&apos;t let them sell out before you\nbuy one!</value>
-    <comment></comment>
+    <value>{item(shop:true)} {price}\n     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!</value>
+    <comment/>
   </data>
   <data name="shop.price" xml:space="preserve">
     <value>{count} Rupee</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="shop.price#other" xml:space="preserve">
     <value>{count} Rupees</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="shops.confirm-buy" xml:space="preserve">
     <value>ab</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.agithas_castle" xml:space="preserve">
-    <value>Agitha&apos;s Castle</value>
-    <comment></comment>
+    <value>Agitha's Castle</value>
+    <comment/>
   </data>
   <data name="zone.arbiters_grounds" xml:space="preserve">
-    <value>Arbiter&apos;s Ground</value>
-    <comment></comment>
+    <value>Arbiter's Ground</value>
+    <comment/>
   </data>
   <data name="zone.beside_castle_town" xml:space="preserve">
     <value>Beside Castle Town</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.bulblin_camp" xml:space="preserve">
     <value>Bulblin Camp</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.castle_town" xml:space="preserve">
     <value>Castle Town</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.cave_of_ordeals" xml:space="preserve">
     <value>Cave of Ordeals</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.city_in_the_sky" xml:space="preserve">
     <value>City in the Sky</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.death_mountain" xml:space="preserve">
     <value>Death Mountain</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.eldin_field" xml:space="preserve">
     <value>Eldin Field</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.faron_field" xml:space="preserve">
     <value>Faron Field</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.faron_woods" xml:space="preserve">
     <value>Faron Woods</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.forest_temple" xml:space="preserve">
     <value>Forest Temple</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.gerudo_desert" xml:space="preserve">
     <value>Gerudo Desert</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.golden_wolf" xml:space="preserve">
     <value>Golden Wolf</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.goron_mines" xml:space="preserve">
     <value>Goron Mines</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.great_bridge_of_hylia" xml:space="preserve">
     <value>Great Bridge of Hylia</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.hidden_village" xml:space="preserve">
     <value>Hidden Village</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.hyrule_castle" xml:space="preserve">
     <value>Hyrule Castle</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.kakariko_gorge" xml:space="preserve">
     <value>Kakariko Gorge</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.kakariko_graveyard" xml:space="preserve">
     <value>Kakariko Graveyard</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.kakariko_village" xml:space="preserve">
     <value>Kakariko Village</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.lake_hylia" xml:space="preserve">
     <value>Lake Hylia</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.lake_lantern_cave" xml:space="preserve">
     <value>Lake Lantern Cave</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.lakebed_temple" xml:space="preserve">
     <value>Lakebed Temple</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.lanayru_field" xml:space="preserve">
     <value>Lanayru Field</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.lanayru_spring" xml:space="preserve">
     <value>Lanayru Spring</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.long_minigames" xml:space="preserve">
     <value>(area-preposition:from)Long Minigames</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.north_eldin" xml:space="preserve">
     <value>North Eldin</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.ordon" xml:space="preserve">
     <value>Ordon</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.palace_of_twilight" xml:space="preserve">
     <value>Palace of Twilight</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.sacred_grove" xml:space="preserve">
     <value>Sacred Grove</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.snowpeak" xml:space="preserve">
     <value>Snowpeak</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.snowpeak_ruins" xml:space="preserve">
     <value>Snowpeak Ruins</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.south_of_castle_town" xml:space="preserve">
     <value>South of Castle Town</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.temple_of_time" xml:space="preserve">
     <value>Temple of Time</value>
-    <comment></comment>
+    <comment/>
   </data>
   <data name="zone.upper_zoras_river" xml:space="preserve">
-    <value>Upper Zora&apos;s River</value>
-    <comment></comment>
+    <value>Upper Zora's River</value>
+    <comment/>
   </data>
   <data name="zone.zoras_domain" xml:space="preserve">
-    <value>Zora&apos;s Domain</value>
-    <comment></comment>
+    <value>Zora's Domain</value>
+    <comment/>
   </data>
 </root>

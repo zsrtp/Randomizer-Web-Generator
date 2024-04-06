@@ -5,6 +5,7 @@
 // https://github.com/aspnet/Localization/issues/340 -isaac
 namespace TPRandomizer
 {
+    using System.Resources;
     using System.Globalization;
     using System.Text.RegularExpressions;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -21,9 +22,7 @@ namespace TPRandomizer
     // public sealed class Translations(IStringLocalizer<Translations> localizer)
     public sealed partial class Translations
     {
-        // "^([0-9a-z-_.]+)(?:--([0-9a-z-.,]+))?(?:#([0-9a-z-.]+))?$",
         [GeneratedRegex(
-            // @"^([0-9a-z-_.]+)(?:\$([0-9a-z-,]+))?(#ordinal)?(?:#([a-z]+))?(?:@([0-9a-z-_]+\([a-z-_,]+\)))?$",
             @"^([0-9a-z-_.]+)(?:\$([0-9a-z-,]+))?(#ordinal)?(?:#([a-z]+))?(?:@([0-9a-z-_]+)\(([a-z-_,]*)\))?$",
             RegexOptions.IgnoreCase
         )]
@@ -62,10 +61,23 @@ namespace TPRandomizer
                 LocaleResources resources = new(CultureInfo.CurrentCulture);
                 string langCode = NormalizeLangCode(resources.GetLangCode());
 
-                try
+                using (var enumerator = localizer.GetAllStrings(false).GetEnumerator())
                 {
-                    foreach (LocalizedString locStr in localizer.GetAllStrings(false))
+                    while (true)
                     {
+                        bool didMoveNext = false;
+                        try
+                        {
+                            didMoveNext = enumerator.MoveNext();
+                        }
+                        catch (Exception)
+                        { // do nothing
+                        }
+                        if (!didMoveNext)
+                            break;
+
+                        LocalizedString locStr = enumerator.Current;
+
                         List<KeyValuePair<string, string>> resKvPairs = ResolveResourceKey(
                             langCode,
                             locStr
@@ -76,18 +88,15 @@ namespace TPRandomizer
                         }
                     }
                 }
-                catch (Exception) { }
-                finally
-                {
-                    resourcesList.Add(resources);
 
-                    if (CultureInfo.CurrentCulture.ThreeLetterISOLanguageName == "ivl")
-                        shouldBreak = true;
-                    else
-                        CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = CultureInfo
-                            .CurrentCulture
-                            .Parent;
-                }
+                resourcesList.Add(resources);
+
+                if (CultureInfo.CurrentCulture.ThreeLetterISOLanguageName == "ivl")
+                    shouldBreak = true;
+                else
+                    CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = CultureInfo
+                        .CurrentCulture
+                        .Parent;
 
                 if (shouldBreak)
                     break;
@@ -443,8 +452,7 @@ namespace TPRandomizer
             if (needsZeroSuffixLookup)
                 keys.Add(key + zeroSuffix);
 
-            // bool needsPluralHandling = options.count !== undefined && typeof options.count !== 'string';
-
+            // TODO: handle context
 
             // do stuff here
 

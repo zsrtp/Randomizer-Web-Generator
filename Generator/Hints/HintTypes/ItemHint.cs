@@ -25,6 +25,25 @@ namespace TPRandomizer.Hints
         {
             // string negativeText = isPositive ? "" : " NOT";
 
+            // context depends on if only copy of item.
+
+
+            string itemText = CustomMsgData.GenItemText2(
+                out Dictionary<string, string> meta,
+                item,
+                "def"
+            );
+
+            string context = CustomMsgData.BuildContextFromMeta(meta);
+
+            // get resource from context
+            Res.ParsedRes parsedRes = Res.ParseVal(
+                "hint-type.item",
+                new() { { "context", context } }
+            );
+
+            string text = parsedRes.Substitute(new() { { "item", itemText } });
+
             HintText hintText = new HintText();
             hintText.text =
                 $"They say that {{{item}}} can be found at {{{areaId.tempToString()}}}.";
