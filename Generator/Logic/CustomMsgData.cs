@@ -406,17 +406,9 @@ namespace TPRandomizer
             bool isSeraShop = false
         )
         {
-            // Needs a way to pass the meta out.
-
             string context = isShop ? "" : contextIn;
-            // string resKey = GetItemResKey(item, context: context);
-            string resKey = GetItemResKey(item);
 
-            Res.ParsedRes abc = Res.ParseVal(
-                resKey,
-                new Dictionary<string, string>() { { "context", context }, }
-            );
-
+            Res.ParsedRes abc = Res.ParseVal(GetItemResKey(item), new() { { "context", context } });
             meta = abc.meta;
 
             if (isShop)
@@ -441,9 +433,9 @@ namespace TPRandomizer
             if (isShop)
             {
                 if (isSeraShop)
-                    itemSuffix += " ";
+                    itemSuffix = " ";
                 else
-                    itemSuffix += ":";
+                    itemSuffix = ":";
             }
             itemSuffix += CustomMessages.messageColorWhite;
 
@@ -479,7 +471,6 @@ namespace TPRandomizer
                 result += CustomMessages.messageColorRed;
             }
 
-            // result += item;
             result += Res.Msg(GetItemResKey(item));
 
             if (isShopItem)
@@ -494,22 +485,9 @@ namespace TPRandomizer
             return result;
         }
 
-        private static string GetItemResKey(
-            Item item,
-            string context = null,
-            bool ordinal = false,
-            int? count = null
-        )
+        private static string GetItemResKey(Item item)
         {
-            string ret =
-                "item." + ((byte)item).ToString("x2") + "_" + item.ToString().ToLowerInvariant();
-            if (!StringUtils.isEmpty(context))
-                ret += "$" + context;
-            if (ordinal)
-                ret += "#ordinal";
-            if (count != null)
-                ret += "#" + count;
-            return ret;
+            return "item." + ((byte)item).ToString("x2") + "-" + item.ToString().ToLowerInvariant();
         }
 
         private string GenShopPriceText(uint amount)
