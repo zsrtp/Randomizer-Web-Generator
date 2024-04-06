@@ -105,8 +105,9 @@ namespace TPRandomizer.Hints
             string text = parsedRes.Substitute(new() { { "item", itemText } });
 
             HintText hintText = new HintText();
-            hintText.text =
-                $"They say that {{{item}}} can be found at {{{areaId.tempToString()}}}.";
+            hintText.text = text;
+            // hintText.text =
+            //     $"They say that {{{item}}} can be found at {{{areaId.tempToString()}}}.";
             return new List<HintText> { hintText };
         }
     }

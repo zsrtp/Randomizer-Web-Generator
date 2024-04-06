@@ -34,6 +34,11 @@ namespace TPRandomizer
 
         public SeedGenResults(string seedId, JObject inputJsonContents)
         {
+            if (Randomizer.Checks.CheckDict.Count < 1)
+                throw new Exception(
+                    "Tried to decode SeedGenResults, but CheckDict was not initialized."
+                );
+
             this.seedId = seedId;
 
             // Can read `version` as well if format ever changes and we need to

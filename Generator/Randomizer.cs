@@ -523,14 +523,15 @@ namespace TPRandomizer
             string fileContents = File.ReadAllText(inputJsonPath);
             JObject json = JsonConvert.DeserializeObject<JObject>(fileContents);
 
-            SeedGenResults seedGenResults = new SeedGenResults(id, json);
-
             FileCreationSettings fcSettings = FileCreationSettings.FromString(fcSettingsString);
-            SSettings = SharedSettings.FromString(seedGenResults.settingsString);
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.
             DeserializeCheckData(SSettings, fcSettings);
             DeserializeRooms(SSettings);
+
+            SeedGenResults seedGenResults = new SeedGenResults(id, json);
+
+            SSettings = SharedSettings.FromString(seedGenResults.settingsString);
 
             foreach (KeyValuePair<int, byte> kvp in seedGenResults.itemPlacements.ToList())
             {
@@ -1843,6 +1844,11 @@ namespace TPRandomizer
 
             string fileContents = File.ReadAllText(inputPath);
             JObject json = JsonConvert.DeserializeObject<JObject>(fileContents);
+
+            if (Checks.CheckDict.Count < 1)
+            {
+                DeserializeChecks(SSettings);
+            }
 
             SeedGenResults seedGenResults = new SeedGenResults(seedId, json);
 
