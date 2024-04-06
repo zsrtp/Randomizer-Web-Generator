@@ -14,6 +14,8 @@ namespace TPRandomizer
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Globalization;
+    using Microsoft.Extensions.Logging.Abstractions;
+    using Microsoft.Win32.SafeHandles;
 
     public class CustomMsgData
     {
@@ -324,9 +326,19 @@ namespace TPRandomizer
             // TODO: add param so can pass in "sera: true" for example. The
             // basic-slot does not default to having this be true.
 
+            // When we get item text, it should return back the meta in addition
+            // to the value with the color inserted. This is so we can tell if
+            // it is masc or fem for example, so we can use that context to pick
+            // the sentence. This should be general based on the language, so we
+            // use all of the meta which is passed back as the context for the
+            // sentence.
+
+
+            string bbb = GenItemText2(Item.Progressive_Bow, "def", isShop: true, isSeraShop: true);
+
             Item item = Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId;
 
-            string itemText = GenItemText(item, abcd.other["item"]);
+            string itemText = GenItemText(item, abcd.slotMeta["item"]);
             string priceText = GenShopPriceText(30);
 
             string aaaaa = abcd.Substitute(new() { { "item", itemText }, { "price", priceText } });
@@ -353,6 +365,62 @@ namespace TPRandomizer
             //     + CustomMessages.messageColorWhite
             //     + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!";
             results.Add(entry);
+        }
+
+        private string GenItemText2(
+            Item item,
+            string contextIn,
+            bool isShop = false,
+            bool isSeraShop = false
+        )
+        {
+            string context = isShop ? "" : contextIn;
+            string resKey = GetItemResKey(item, context: context);
+
+            Res.ParsedRes abc = Res.ParseVal(
+                resKey,
+                new Dictionary<string, string>() { { "context", context } }
+            );
+
+            if (isShop)
+                abc.CapitalizeFirstValidChar();
+
+            // Pick the color
+            string startColor;
+            if (isShop)
+                startColor = CustomMessages.messageColorOrange;
+            else
+            {
+                // TODO: shop gets the highest priority, but the preferred color
+                // can be passed in which is used ahead of the default fallback
+                // color.
+
+                // TODO: should have a getDefaultColor of item func which
+                // returns Red from its default case.
+                startColor = CustomMessages.messageColorRed;
+            }
+
+            string itemSuffix = "";
+            if (isShop)
+            {
+                if (isSeraShop)
+                    itemSuffix += " ";
+                else
+                    itemSuffix += ":";
+            }
+            itemSuffix += CustomMessages.messageColorWhite;
+
+            string coloredItem;
+
+            if (isShop)
+                coloredItem =
+                    startColor + abc.Substitute(new() { { "cs", "" }, { "ce", "" } }) + itemSuffix;
+            else if (abc.value.Contains("{cs}"))
+                coloredItem = abc.Substitute(new() { { "cs", startColor }, { "ce", itemSuffix }, });
+            else
+                coloredItem = startColor + abc.Substitute(null) + itemSuffix;
+
+            return coloredItem;
         }
 
         private string GenItemText(Item item, Dictionary<string, string> other)
@@ -389,9 +457,22 @@ namespace TPRandomizer
             return result;
         }
 
-        private string GetItemResKey(Item item)
+        private string GetItemResKey(
+            Item item,
+            string context = null,
+            bool ordinal = false,
+            int? count = null
+        )
         {
-            return "item." + ((byte)item).ToString("x2") + "_" + item.ToString().ToLowerInvariant();
+            string ret =
+                "item." + ((byte)item).ToString("x2") + "_" + item.ToString().ToLowerInvariant();
+            if (!StringUtils.isEmpty(context))
+                ret += "$" + context;
+            if (ordinal)
+                ret += "#ordinal";
+            if (count != null)
+                ret += "#" + count;
+            return ret;
         }
 
         private string GenShopPriceText(uint amount)

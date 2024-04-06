@@ -283,6 +283,7 @@ namespace TPRandomizer
 
                 bool isMasculine = genFnArgs[0] == "m";
                 string metaPrefix = $"$(gender:{genFnArgs[0]})";
+                string wrappedBase = $"{{cs}}{baseValue}{{ce}}";
 
                 if (count == "other")
                 {
@@ -293,21 +294,21 @@ namespace TPRandomizer
                         );
 
                     // Base
-                    result.Add(new(GenCurrentResKey(), metaPrefix + baseValue));
+                    result.Add(new(GenCurrentResKey(), metaPrefix + wrappedBase));
 
                     // Definite article
                     ChangeContext("def");
-                    string defVal = metaPrefix + "les " + baseValue;
+                    string defVal = metaPrefix + "les " + wrappedBase;
                     result.Add(new(GenCurrentResKey(), defVal));
 
                     // Indefinite article
                     ChangeContext("indef");
-                    string indefVal = metaPrefix + "des " + baseValue;
+                    string indefVal = metaPrefix + "des " + wrappedBase;
                     result.Add(new(GenCurrentResKey(), indefVal));
 
                     // Count
                     ChangeContext("count");
-                    string countVal = metaPrefix + "{count} " + baseValue;
+                    string countVal = metaPrefix + "{count} " + wrappedBase;
                     result.Add(new(GenCurrentResKey(), countVal));
                 }
                 else
@@ -329,7 +330,7 @@ namespace TPRandomizer
                     }
 
                     // Base
-                    result.Add(new(GenCurrentResKey(), metaPrefix + baseValue));
+                    result.Add(new(GenCurrentResKey(), metaPrefix + wrappedBase));
 
                     // Definite article
                     ChangeContext("def");
@@ -341,18 +342,18 @@ namespace TPRandomizer
                         else
                             defPrefix = "la ";
                     }
-                    string defVal = metaPrefix + defPrefix + baseValue;
+                    string defVal = metaPrefix + defPrefix + wrappedBase;
                     result.Add(new(GenCurrentResKey(), defVal));
 
                     // Indefinite article
                     ChangeContext("indef");
                     string indefPrefix = isMasculine ? "un " : "une ";
-                    string indefVal = metaPrefix + indefPrefix + baseValue;
+                    string indefVal = metaPrefix + indefPrefix + wrappedBase;
                     result.Add(new(GenCurrentResKey(), indefVal));
 
                     // Count
                     ChangeContext("count");
-                    string countVal = metaPrefix + "{count} " + baseValue;
+                    string countVal = metaPrefix + "{count} " + wrappedBase;
                     result.Add(new(GenCurrentResKey(), countVal));
                 }
             }
@@ -389,7 +390,7 @@ namespace TPRandomizer
 
                     string value = resources.TryGetValue(keyToTry);
                     if (value != null)
-                        return new MsgResult(langCode, value);
+                        return new MsgResult(resources.cultureInfo, resources.GetLangCode(), value);
                 }
             }
             return null;
@@ -500,7 +501,7 @@ namespace TPRandomizer
 
     public class LocaleResources
     {
-        private CultureInfo cultureInfo;
+        public CultureInfo cultureInfo { get; private set; }
         private Dictionary<string, string> dict = new();
 
         public LocaleResources(CultureInfo cultureInfo)
@@ -534,11 +535,13 @@ namespace TPRandomizer
 
     public class MsgResult
     {
+        public CultureInfo cultureInfo;
         public string langCode;
         public string msg;
 
-        public MsgResult(string langCode, string msg)
+        public MsgResult(CultureInfo cultureInfo, string langCode, string msg)
         {
+            this.cultureInfo = cultureInfo;
             if (StringUtils.isEmpty(langCode) || langCode == "iv")
                 this.langCode = "en";
             else

@@ -13,8 +13,14 @@ namespace TPRandomizer
 
     public partial class Res
     {
-        [GeneratedRegex(@"{([a-z0-9]+)(?:\(([a-z0-9:,]*)\))?}", RegexOptions.IgnoreCase)]
+        [GeneratedRegex(@"{([a-z0-9]+)(?:\(([a-z0-9:,]*)\))?}")]
         private static partial Regex ResourceVal();
+
+        [GeneratedRegex(@"^\$\(([a-z0-9:,]*)\)")]
+        private static partial Regex MetaVal();
+
+        [GeneratedRegex(@"^(?:\{[^}]*\})+(.)")]
+        private static partial Regex UppercaseVal();
 
         private static Translations translations;
 
@@ -77,8 +83,8 @@ namespace TPRandomizer
             Dictionary<string, string> interpolation = null
         )
         {
-            ParsedRes parsedRes = new();
             MsgResult msgResult = translations.GetMsg(resKey, interpolation);
+            ParsedRes parsedRes = new(msgResult.cultureInfo);
             if (msgResult == null || StringUtils.isEmpty(msgResult.msg))
             {
                 if (msgResult == null)
@@ -87,11 +93,25 @@ namespace TPRandomizer
                     parsedRes.langCode = msgResult.langCode;
                 parsedRes.foundValue = false;
                 parsedRes.value = resKey;
-                parsedRes.other = new();
+                parsedRes.slotMeta = new();
                 return parsedRes;
             }
 
             string resVal = msgResult.msg;
+
+            resVal = MetaVal()
+                .Replace(
+                    resVal,
+                    (match) =>
+                    {
+                        if (match.Success)
+                        {
+                            string metaRaw = match.Groups[1].Value;
+                            parsedRes.meta = ParseOtherGroup(metaRaw);
+                        }
+                        return "";
+                    }
+                );
 
             Dictionary<string, Dictionary<string, string>> other = new();
 
@@ -129,7 +149,7 @@ namespace TPRandomizer
             parsedRes.langCode = msgResult.langCode;
             parsedRes.foundValue = true;
             parsedRes.value = newVal;
-            parsedRes.other = other;
+            parsedRes.slotMeta = other;
 
             return parsedRes;
         }
@@ -407,8 +427,50 @@ namespace TPRandomizer
         {
             public bool foundValue;
             public string langCode;
+            public readonly CultureInfo cultureInfo;
             public string value;
-            public Dictionary<string, Dictionary<string, string>> other = new();
+            public Dictionary<string, string> meta = new();
+            public Dictionary<string, Dictionary<string, string>> slotMeta = new();
+
+            public ParsedRes(CultureInfo cultureInfo)
+            {
+                this.cultureInfo = cultureInfo;
+            }
+
+            public void CapitalizeFirstValidChar()
+            {
+                if (StringUtils.isEmpty(value))
+                    return;
+
+                if (value[0] == '{')
+                {
+                    // Search using regex
+                    value = UppercaseVal()
+                        .Replace(
+                            value,
+                            (match) =>
+                            {
+                                string fullVal = match.Groups[0].Value;
+                                int index = match.Groups[1].Index;
+
+                                return string.Concat(
+                                    fullVal.AsSpan(0, index),
+                                    fullVal.Substring(index, 1).ToUpper(cultureInfo),
+                                    fullVal.AsSpan(index + 1)
+                                );
+                                // return match.Groups[1].Value.ToUpper(cultureInfo);
+                            }
+                        );
+                }
+                else
+                {
+                    value = string.Concat(
+                        value.Substring(0, 1).ToUpper(cultureInfo),
+                        value.AsSpan(1)
+                    );
+                }
+                //
+            }
 
             public string Substitute(Dictionary<string, string> interpolation)
             {
