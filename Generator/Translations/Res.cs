@@ -84,20 +84,16 @@ namespace TPRandomizer
         )
         {
             MsgResult msgResult = translations.GetMsg(resKey, interpolation);
-            ParsedRes parsedRes = new(msgResult.cultureInfo);
-            if (msgResult == null || StringUtils.isEmpty(msgResult.msg))
+            ParsedRes parsedRes = new(msgResult.cultureInfo, msgResult.langCode);
+            string resVal = msgResult.msg;
+
+            if (!msgResult.foundValue)
             {
-                if (msgResult == null)
-                    parsedRes.langCode = "en";
-                else
-                    parsedRes.langCode = msgResult.langCode;
-                parsedRes.foundValue = false;
-                parsedRes.value = resKey;
-                parsedRes.slotMeta = new();
+                parsedRes.value = resVal;
                 return parsedRes;
             }
 
-            string resVal = msgResult.msg;
+            HashSet<string> seenInterpolationKeys = new();
 
             resVal = MetaVal()
                 .Replace(
@@ -113,11 +109,7 @@ namespace TPRandomizer
                     }
                 );
 
-            Dictionary<string, Dictionary<string, string>> other = new();
-
-            HashSet<string> seenInterpolationKeys = new();
-
-            string newVal = ResourceVal()
+            resVal = ResourceVal()
                 .Replace(
                     resVal,
                     (match) =>
@@ -136,7 +128,7 @@ namespace TPRandomizer
                         if (otherGroup.Success)
                         {
                             Dictionary<string, string> dict = ParseOtherGroup(otherGroup.Value);
-                            other[keyVal] = dict;
+                            parsedRes.slotMeta[keyVal] = dict;
                         }
 
                         seenInterpolationKeys.Add(keyVal);
@@ -145,11 +137,8 @@ namespace TPRandomizer
                     }
                 );
 
-            // match with regex, then for each one provide the values.
-            parsedRes.langCode = msgResult.langCode;
             parsedRes.foundValue = true;
-            parsedRes.value = newVal;
-            parsedRes.slotMeta = other;
+            parsedRes.value = resVal;
 
             return parsedRes;
         }
@@ -431,16 +420,17 @@ namespace TPRandomizer
 
         public class ParsedRes
         {
+            public CultureInfo cultureInfo { get; private set; }
+            public string langCode { get; private set; }
             public bool foundValue;
-            public string langCode;
-            public readonly CultureInfo cultureInfo;
             public string value;
             public Dictionary<string, string> meta = new();
             public Dictionary<string, Dictionary<string, string>> slotMeta = new();
 
-            public ParsedRes(CultureInfo cultureInfo)
+            public ParsedRes(CultureInfo cultureInfo, string langCode)
             {
                 this.cultureInfo = cultureInfo;
+                this.langCode = langCode;
             }
 
             public void CapitalizeFirstValidChar()

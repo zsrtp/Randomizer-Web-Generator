@@ -17,6 +17,7 @@ namespace TPRandomizer
     using System;
     using TPRandomizer.Properties;
     using System.Linq;
+    using System.Text;
 
     // public sealed class Translations(IStringLocalizer<Translations> localizer)
     // public sealed class Translations(IStringLocalizer<Translations> localizer)
@@ -59,7 +60,7 @@ namespace TPRandomizer
                 bool shouldBreak = false;
 
                 LocaleResources resources = new(CultureInfo.CurrentCulture);
-                string langCode = NormalizeLangCode(resources.GetLangCode());
+                string langCode = resources.GetLangCode();
 
                 using (var enumerator = localizer.GetAllStrings(false).GetEnumerator())
                 {
@@ -386,30 +387,21 @@ namespace TPRandomizer
             {
                 LocaleResources resources = resourcesList[i];
 
-                string langCode = NormalizeLangCode(resources.GetLangCode());
+                string langCode = resources.GetLangCode();
                 List<string> keysToTry = GenKeysToCheck(langCode, key, interpolation);
 
                 for (int keyIdx = keysToTry.Count - 1; keyIdx >= 0; keyIdx--)
                 {
                     string keyToTry = keysToTry[keyIdx];
 
-                    // LocalizedString localeString = resources.TryGetValue(keyToTry);
-                    // if (localeString != null && !localeString.ResourceNotFound)
-                    //     return new MsgResult(langCode, localeString.Value);
-
                     string value = resources.TryGetValue(keyToTry);
                     if (value != null)
-                        return new MsgResult(resources.cultureInfo, resources.GetLangCode(), value);
+                        return new MsgResult(resources.cultureInfo, value, true);
                 }
             }
-            return null;
-        }
 
-        private string NormalizeLangCode(string langCode)
-        {
-            if (StringUtils.isEmpty(langCode) || langCode == "iv")
-                return "en";
-            return langCode;
+            LocaleResources finalResources = resourcesList[^1];
+            return new MsgResult(finalResources.cultureInfo, key, false);
         }
 
         private List<string> GenKeysToCheck(
@@ -484,10 +476,6 @@ namespace TPRandomizer
                     keys.Add(contextKey + zeroSuffix);
             }
 
-            // TODO: handle context
-
-            // do stuff here
-
             return keys;
         }
 
@@ -551,7 +539,7 @@ namespace TPRandomizer
 
         public string GetLangCode()
         {
-            return cultureInfo.TwoLetterISOLanguageName;
+            return MsgResult.NormalizeLangCode(cultureInfo.TwoLetterISOLanguageName);
         }
 
         public void TryAddResource(string resourceKey, string locStr)
@@ -578,16 +566,21 @@ namespace TPRandomizer
         public CultureInfo cultureInfo;
         public string langCode;
         public string msg;
+        public bool foundValue;
 
-        public MsgResult(CultureInfo cultureInfo, string langCode, string msg)
+        public MsgResult(CultureInfo cultureInfo, string msg, bool foundValue)
         {
             this.cultureInfo = cultureInfo;
-            if (StringUtils.isEmpty(langCode) || langCode == "iv")
-                this.langCode = "en";
-            else
-                this.langCode = langCode;
-
+            this.langCode = NormalizeLangCode(cultureInfo.TwoLetterISOLanguageName);
             this.msg = msg;
+            this.foundValue = foundValue;
+        }
+
+        public static string NormalizeLangCode(string twoCharLangCode)
+        {
+            if (StringUtils.isEmpty(twoCharLangCode) || twoCharLangCode == "iv")
+                return "en";
+            return twoCharLangCode;
         }
     }
 }

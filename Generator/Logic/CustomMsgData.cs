@@ -337,7 +337,8 @@ namespace TPRandomizer
                 AreaId.Zone(Zone.Lake_Hylia),
                 "Lake Hylia Dock Poe",
                 // Item.Progressive_Bow,
-                Item.Lantern,
+                // Item.Lantern,
+                Item.Fused_Shadow_2,
                 true
             );
 
