@@ -1223,7 +1223,7 @@ namespace TPRandomizer.Hints.Settings
 
         public static HintSettings fromPath(HintGenData genData)
         {
-            string jsonPath = Global.CombineRootPath("./Hints/Distributions/q0.jsonc");
+            string jsonPath = Global.CombineRootPath("./Hints/Distributions/blossom.jsonc");
 
             string contents = File.ReadAllText(jsonPath);
 

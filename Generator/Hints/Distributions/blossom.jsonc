@@ -194,10 +194,14 @@
               },
               {
                 "iterations": 99,
+                "selectionType": "randomOrder",
                 "hintDef": [
                   {
-                    // Additional bug hint if possible. Prioritized over the
-                    // other random "Interesting" hint types.
+                    // Additional bug hint if possible. Weight 1.6 makes this
+                    // have a 10% chance of being selected last instead of 20%.
+                    // Not hard-prioritized so that we are more likely to get
+                    // ItemToItemPath hints where the target is a bug.
+                    "weight": 1.6,
                     "selectionType": "randomOrder",
                     "maxPicks": 1,
                     "hintDef": [
@@ -220,27 +224,22 @@
                     ]
                   },
                   {
-                    "selectionType": "randomOrder",
-                    "hintDef": [
-                      {
-                        // Num clawshots in dungeons
-                        "hintType": "numItemInArea",
-                        "options": {
-                          "item": "Progressive_Clawshot",
-                          "areaType": "province",
-                          "validAreas": ["Dungeon"]
-                        }
-                      },
-                      { "hintType": "item" },
-                      { "hintType": "itemToItemPath" },
-                      {
-                        // Ex: Owl Statues are junk
-                        "hintType": "barren",
-                        "options": {
-                          "areaType": "category"
-                        }
-                      }
-                    ]
+                    // Num clawshots in dungeons
+                    "hintType": "numItemInArea",
+                    "options": {
+                      "item": "Progressive_Clawshot",
+                      "areaType": "province",
+                      "validAreas": ["Dungeon"]
+                    }
+                  },
+                  { "hintType": "item" },
+                  { "hintType": "itemToItemPath" },
+                  {
+                    // Ex: Owl Statues are junk
+                    "hintType": "barren",
+                    "options": {
+                      "areaType": "category"
+                    }
                   }
                 ]
               }
