@@ -9,6 +9,8 @@ namespace TPRandomizer
     using TPRandomizer.Util;
     using System.Text.RegularExpressions;
     using System.Text;
+    using TPRandomizer.Assets;
+    using System.Linq;
 
     public partial class Res
     {
@@ -274,37 +276,23 @@ namespace TPRandomizer
                                 string secondVal = chunks[i + 2].val;
                                 if (secondVal == "un")
                                 {
-                                    List<(int, string)> newEscSequences = new();
-                                    newEscSequences.AddRange(TransformEscSeqList(chunk, 0, 2));
-                                    newEscSequences.AddRange(
-                                        TransformEscSeqList(chunks[i + 1], 3, 3)
-                                    );
-                                    newEscSequences.AddRange(
-                                        TransformEscSeqList(chunks[i + 2], 3, 5)
-                                    );
-
                                     TextChunk newChunk = new();
+                                    TransformEscSeqList(chunk, newChunk, 0, 2);
+                                    TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
+                                    TransformEscSeqList(chunks[i + 2], newChunk, 3, 5);
                                     newChunk.textType = TextChunk.Type.Text;
                                     newChunk.val = "qu'un";
-                                    newChunk.escapesAtIndexes = newEscSequences;
                                     chunks.RemoveRange(i, 3);
                                     chunks.Insert(i, newChunk);
                                 }
                                 else if (secondVal == "une")
                                 {
-                                    List<(int, string)> newEscSequences = new();
-                                    newEscSequences.AddRange(TransformEscSeqList(chunk, 0, 2));
-                                    newEscSequences.AddRange(
-                                        TransformEscSeqList(chunks[i + 1], 3, 3)
-                                    );
-                                    newEscSequences.AddRange(
-                                        TransformEscSeqList(chunks[i + 2], 3, 6)
-                                    );
-
                                     TextChunk newChunk = new();
+                                    TransformEscSeqList(chunk, newChunk, 0, 2);
+                                    TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
+                                    TransformEscSeqList(chunks[i + 2], newChunk, 3, 6);
                                     newChunk.textType = TextChunk.Type.Text;
                                     newChunk.val = "qu'une";
-                                    newChunk.escapesAtIndexes = newEscSequences;
                                     chunks.RemoveRange(i, 3);
                                     chunks.Insert(i, newChunk);
                                 }
@@ -317,33 +305,58 @@ namespace TPRandomizer
 
             // TODO: replace certain spaces in whitespace ones with linebreaks as appropriate.
 
-            // TODO: build the final string by processing each chunk.
+            string result = "";
+            foreach (TextChunk chunk in chunks)
+            {
+                for (int i = 0; i <= chunk.val.Length; i++)
+                {
+                    if (chunk.escapesAtIndexes.TryGetValue(i, out List<string> escapeSequences))
+                    {
+                        foreach (string seq in escapeSequences)
+                        {
+                            result += seq;
+                        }
+                    }
 
-            return input;
+                    if (i < chunk.val.Length)
+                        result += chunk.val[i];
+                }
+            }
+
+            return result;
         }
 
-        private static List<(int, string)> TransformEscSeqList(
-            TextChunk textChunk,
+        private static void TransformEscSeqList(
+            TextChunk oldTextChunk,
+            TextChunk newTextChunk,
             int newStart,
             int newCap
         )
         {
-            List<(int, string)> oldList = textChunk.escapesAtIndexes;
-            if (ListUtils.isEmpty(oldList))
-                return oldList;
+            Dictionary<int, List<string>> oldDict = oldTextChunk.escapesAtIndexes;
+            if (ListUtils.isEmpty(oldDict))
+                return;
 
-            List<(int, string)> newList = new();
-            for (int i = 0; i < oldList.Count; i++)
+            Dictionary<int, List<string>> newDict = newTextChunk.escapesAtIndexes;
+
+            List<int> keyNumbers = oldDict.Keys.ToList();
+            keyNumbers.Sort();
+
+            // foreach (int key in  KeyValuePair<int, List<string>> pair in oldDict)
+            foreach (int key in keyNumbers)
             {
-                (int, string) pair = oldList[i];
+                int newKey = key + newStart;
+                if (newKey > newCap)
+                    newKey = newCap;
 
-                pair.Item1 += newStart;
-                if (pair.Item1 > newCap)
-                    pair.Item1 = newCap;
+                if (!newDict.TryGetValue(key, out List<string> values))
+                {
+                    values = new();
+                    newDict[newKey] = values;
+                }
 
-                newList.Add(pair);
+                values.AddRange(oldDict[key]);
             }
-            return newList;
         }
 
         private class TextChunk
@@ -357,7 +370,7 @@ namespace TPRandomizer
 
             public Type textType = Type.Unknown;
             public string val;
-            public List<(int, string)> escapesAtIndexes = new();
+            public Dictionary<int, List<string>> escapesAtIndexes = new();
 
             private StringBuilder builder = new();
 
@@ -368,8 +381,13 @@ namespace TPRandomizer
 
             public void AddEscapeSequence(string sequence)
             {
-                (int, string) esc = (builder.Length, sequence);
-                escapesAtIndexes.Add(esc);
+                int key = builder.Length;
+                if (!escapesAtIndexes.TryGetValue(key, out List<string> values))
+                {
+                    values = new();
+                    escapesAtIndexes[key] = values;
+                }
+                values.Add(sequence);
             }
 
             public void BuildVal()
