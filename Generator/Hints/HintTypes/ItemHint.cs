@@ -92,8 +92,8 @@ namespace TPRandomizer.Hints
             string itemText = CustomMsgData.GenItemText(
                 out Dictionary<string, string> meta,
                 item,
-                useDefiniteArticle ? "def" : "indef"
-            // "indef"
+                useDefiniteArticle ? "def" : "indef",
+                prefStartColor: CustomMessages.messageColorGreen
             );
 
             string context = CustomMsgData.BuildContextFromMeta(meta);

@@ -369,6 +369,16 @@ namespace TPRandomizer
                 // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
                 )
             );
+
+            results.Add(
+                new MessageEntry
+                {
+                    stageIDX = 0xFF,
+                    roomIDX = 0xFF,
+                    messageID = 0x1369, // Hint Message
+                    message = tt
+                }
+            );
         }
 
         private string GenBasicShopMsg(string checkName, uint price, bool isSeraShop = false)
@@ -417,7 +427,8 @@ namespace TPRandomizer
             Item item,
             string contextIn = null,
             bool isShop = false,
-            bool isSeraShop = false
+            bool isSeraShop = false,
+            string prefStartColor = null
         )
         {
             string context = isShop ? "" : contextIn;
@@ -432,6 +443,8 @@ namespace TPRandomizer
             string startColor;
             if (isShop)
                 startColor = CustomMessages.messageColorOrange;
+            else if (!StringUtils.isEmpty(prefStartColor))
+                startColor = prefStartColor;
             else
             {
                 // TODO: shop gets the highest priority, but the preferred color
