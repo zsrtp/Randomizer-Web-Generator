@@ -92,17 +92,40 @@ namespace TPRandomizer.Hints
                 out Dictionary<string, string> meta,
                 item,
                 useDefiniteArticle ? "def" : "indef"
+            // "indef"
             );
 
             string context = CustomMsgData.BuildContextFromMeta(meta);
 
+            Res.ParsedRes aa = Res.ParseVal(areaId.GenResKey());
+
+            Res.ParsedRes parsedRes2 = Res.ParseVal($"area-phrase.{aa.meta["ap"]}");
+            string areaPhrase = parsedRes2.Substitute(new() { { "area", aa.value } });
+
             // get resource from context
-            Res.ParsedRes parsedRes = Res.ParseVal(
+            string text = Res.Msg(
                 "hint-type.item",
-                new() { { "context", context } }
+                new()
+                {
+                    { "context", context },
+                    { "item", itemText },
+                    { "area-phrase", areaPhrase },
+                }
             );
 
-            string text = parsedRes.Substitute(new() { { "item", itemText } });
+            // Then we need to do language specific substitutions:
+
+            // For example, if it is french for "hint-type.item", then we need
+            // to go through and convert any "que un" or "que une" to "qu'un" or
+            // "qu'une" as well as "du une" to "d'une", etc.
+
+            // ^ Need to figure out how to preserve the positions of escaped
+            // sequences when doing this.
+
+            // Once we have the finalized text (including the colors), then we
+            // can do the adding the line breaks part. This could potentially be
+            // done per language as well, but it is more of a question of "is
+            // the game JP" or not as opposed to the resource languages, etc.
 
             HintText hintText = new HintText();
             hintText.text = text;

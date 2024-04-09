@@ -342,14 +342,13 @@ namespace TPRandomizer
             // sentence.
 
 
-            // ItemHint itemHint = ItemHint.Create(
-            //     null,
-            //     AreaId.Zone(Zone.Lake_Hylia),
-            //     "Lake Hylia Dock Poe"
-            // );
-            // itemHint.toHintTextList();
-
-            ;
+            ItemHint itemHint = ItemHint.Create(
+                null,
+                // AreaId.Zone(Zone.North_Eldin),
+                AreaId.Zone(Zone.Lake_Hylia),
+                "Lake Hylia Dock Poe"
+            );
+            itemHint.toHintTextList();
 
             // We know that the resource requires 'item' and 'price' because
             // those are the known params for that resource.

@@ -498,6 +498,9 @@ namespace TPRandomizer
                                     );
                                     hasCompletedSphere = true;
                                     currentCheck.isRequired = true;
+                                    Console.WriteLine(
+                                        $"Did check '{currentCheck.checkName}' which had item '{currentCheck.itemId}'."
+                                    );
                                 }
                             }
                         }

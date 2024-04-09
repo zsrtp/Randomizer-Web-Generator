@@ -74,6 +74,28 @@ namespace TPRandomizer.Hints
             return $"{type.ToString()}:{stringId}";
         }
 
+        public string GenResKey()
+        {
+            switch (type)
+            {
+                case AreaType.Zone:
+                    Zone zone = ZoneUtils.StringToId(stringId);
+                    return $"zone.{zone}".ToLowerInvariant();
+                case AreaType.Category:
+                    HintCategory category = HintCategoryUtils.StringToId(stringId);
+                    return $"category.{category}".ToLowerInvariant();
+                case AreaType.Province:
+                    Province province = ProvinceUtils.StringToId(stringId);
+                    return $"province.{province}".ToLowerInvariant();
+                case AreaType.Check:
+                    return $"check.{stringId}".ToLowerInvariant();
+                default:
+                    throw new Exception(
+                        $"Failed to convert stringId to number for \"{stringId}\"."
+                    );
+            }
+        }
+
         public string encodeAsBits(HintEncodingBitLengths bitLengths)
         {
             int id;
