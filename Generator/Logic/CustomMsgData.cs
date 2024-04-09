@@ -348,7 +348,7 @@ namespace TPRandomizer
                 AreaId.Zone(Zone.Lake_Hylia),
                 "Lake Hylia Dock Poe"
             );
-            itemHint.toHintTextList();
+            string tt = itemHint.toHintTextList()[0].text;
 
             // We know that the resource requires 'item' and 'price' because
             // those are the known params for that resource.
@@ -365,7 +365,8 @@ namespace TPRandomizer
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.SeraSlingshotSlot,
-                    GenBasicShopMsg("Sera Shop Slingshot", 30, true)
+                    tt
+                // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
                 )
             );
         }

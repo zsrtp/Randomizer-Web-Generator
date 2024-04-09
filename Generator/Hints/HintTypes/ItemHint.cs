@@ -1,6 +1,7 @@
 namespace TPRandomizer.Hints
 {
     using System.Collections.Generic;
+    using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
     public class ItemHint : Hint
@@ -98,9 +99,16 @@ namespace TPRandomizer.Hints
             string context = CustomMsgData.BuildContextFromMeta(meta);
 
             Res.ParsedRes aa = Res.ParseVal(areaId.GenResKey());
+            string areaString = aa.Substitute(
+                new()
+                {
+                    { "cs", CustomMessages.messageColorRed },
+                    { "ce", CustomMessages.messageColorWhite }
+                }
+            );
 
             Res.ParsedRes parsedRes2 = Res.ParseVal($"area-phrase.{aa.meta["ap"]}");
-            string areaPhrase = parsedRes2.Substitute(new() { { "area", aa.value } });
+            string areaPhrase = parsedRes2.Substitute(new() { { "area", areaString }, });
 
             // get resource from context
             string text = Res.Msg(
@@ -131,7 +139,7 @@ namespace TPRandomizer.Hints
             // the game JP" or not as opposed to the resource languages, etc.
 
             HintText hintText = new HintText();
-            hintText.text = text;
+            hintText.text = normalizedText;
             // hintText.text =
             //     $"They say that {{{item}}} can be found at {{{areaId.tempToString()}}}.";
             return new List<HintText> { hintText };

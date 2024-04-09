@@ -303,7 +303,7 @@ namespace TPRandomizer
                 }
             }
 
-            // TODO: replace certain spaces in whitespace ones with linebreaks as appropriate.
+            AddLineBreaksToChunks(chunks);
 
             string result = "";
             foreach (TextChunk chunk in chunks)
@@ -342,7 +342,6 @@ namespace TPRandomizer
             List<int> keyNumbers = oldDict.Keys.ToList();
             keyNumbers.Sort();
 
-            // foreach (int key in  KeyValuePair<int, List<string>> pair in oldDict)
             foreach (int key in keyNumbers)
             {
                 int newKey = key + newStart;
@@ -357,6 +356,105 @@ namespace TPRandomizer
 
                 values.AddRange(oldDict[key]);
             }
+        }
+
+        private static void AddLineBreaksToChunks(List<TextChunk> chunks)
+        {
+            // If any '\n' show up in the chunks, then we need to not add any
+            // linebreaks before them no matter what.
+
+            // Start from the back. Iterate until we find a Whitespace one which
+            // contains a linebreak. Starting from after the last line break in
+            // this one, we go forward in order to determine where to place
+            // linebreaks.
+
+            int firstAllowedIndex = 0;
+            int breakIndex = 0;
+            for (int i = chunks.Count - 1; i >= 0; i--)
+            {
+                TextChunk chunk = chunks[i];
+                if (chunk.textType == TextChunk.Type.Whitespace)
+                {
+                    int lastBreakIndex = chunk.val.LastIndexOf('\n');
+                    if (lastBreakIndex >= 0)
+                    {
+                        breakIndex = lastBreakIndex;
+                        firstAllowedIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            // Need to start at first chunk and count up characters.
+
+            int currChars = 0;
+            // Need to look at current length based on previous chunks.
+
+            // Then we add the length for this chunk and up to the next text
+            // chunk. If it would be more than the cutoff for breaking, then we
+            // need to
+
+            // For now, let's not worry about a case where someone has a
+            // whitespace chunk that is 50 spaces in a row. This should never
+            // occur and it would complicate the code a lot. -isaac
+
+            // foreach (TextChunk chunk in chunks)
+            for (int i = 0; i < chunks.Count; i++)
+            {
+                TextChunk chunk = chunks[i];
+                if (chunk.textType == TextChunk.Type.Text)
+                {
+                    currChars += GetTextTypeChunkLength(chunk);
+                }
+                else if (chunk.textType == TextChunk.Type.Whitespace)
+                {
+                    int lastBreakIndex = chunk.val.LastIndexOf('\n');
+                    if (lastBreakIndex >= 0)
+                    {
+                        currChars = chunk.val.Length - 1 - lastBreakIndex;
+                        continue;
+                    }
+                    else
+                    {
+                        currChars += chunk.val.Length;
+                    }
+
+                    if (i >= firstAllowedIndex && i + 1 < chunks.Count)
+                    {
+                        int wouldBeLength =
+                            currChars + chunk.val.Length + GetTextTypeChunkLength(chunks[i + 1]);
+
+                        if (wouldBeLength > 35)
+                        {
+                            // Need to break;
+                            chunk.val = "\n" + chunk.val[1..];
+                            currChars = chunk.val.Length - 1;
+                        }
+                    }
+                }
+                // need to iterate through
+
+            }
+
+            int abc = 7;
+        }
+
+        private static int GetTextTypeChunkLength(TextChunk textChunk)
+        {
+            if (textChunk.textType == TextChunk.Type.Text)
+            {
+                int length = textChunk.val.Length;
+                foreach (KeyValuePair<int, List<string>> pair in textChunk.escapesAtIndexes)
+                {
+                    foreach (string val in pair.Value)
+                    {
+                        if (val == CustomMessages.playerName)
+                            length += 8;
+                    }
+                }
+                return length;
+            }
+            return 0;
         }
 
         private class TextChunk

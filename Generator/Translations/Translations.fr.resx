@@ -138,11 +138,11 @@
     <comment/>
   </data>
   <data name="hint-type.item" xml:space="preserve">
-    <value>Il est dit que {item} peut\nêtre trouvé {area-phrase}.</value>
+    <value>Il est dit que {item} peut être trouvé {area-phrase}.</value>
     <comment/>
   </data>
   <data name="hint-type.item$gender-f" xml:space="preserve">
-    <value>Il est dit que {item} peut\nêtre trouvée {area-phrase}.</value>
+    <value>Il est dit que {item} peut être trouvée {area-phrase}.</value>
     <comment/>
   </data>
   <data name="hints.item-found-at-area" xml:space="preserve">
@@ -206,7 +206,7 @@
     <comment>Confirmed by link1183 on 2024/03/31 that all should be "rubis".</comment>
   </data>
   <data name="zone.lake_hylia" xml:space="preserve">
-    <value>$(ap:au)Lac Hylia</value>
+    <value>$(ap:au){cs}Lac Hylia{ce}</value>
     <comment/>
   </data>
   <data name="zone.north_eldin" xml:space="preserve">
