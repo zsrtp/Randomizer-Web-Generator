@@ -113,6 +113,9 @@ namespace TPRandomizer.Hints
                 }
             );
 
+            // Find how to pass in the languages
+            string normalizedText = Res.LangSpecificNormalize(text);
+
             // Then we need to do language specific substitutions:
 
             // For example, if it is french for "hint-type.item", then we need

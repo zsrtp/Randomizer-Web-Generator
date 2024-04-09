@@ -8,8 +8,7 @@ namespace TPRandomizer
     using Microsoft.Extensions.DependencyInjection;
     using TPRandomizer.Util;
     using System.Text.RegularExpressions;
-    using System.Linq;
-    using Microsoft.CodeAnalysis;
+    using System.Text;
 
     public partial class Res
     {
@@ -21,6 +20,9 @@ namespace TPRandomizer
 
         [GeneratedRegex(@"^(?:\{[^}]*\})+(.)")]
         private static partial Regex UppercaseVal();
+
+        [GeneratedRegex(@"^\s")]
+        private static partial Regex WhiteSpaceChar();
 
         private static Translations translations;
 
@@ -170,6 +172,211 @@ namespace TPRandomizer
             }
 
             return result;
+        }
+
+        public static string LangSpecificNormalize(string valIn)
+        {
+            string input = Regex.Unescape(valIn);
+
+            // List<string> escapedList = new();
+            List<TextChunk> chunks = new();
+
+            int index = 0;
+            // StringBuilder sb = new();
+            TextChunk currentChunk = new TextChunk();
+            while (index < input.Length)
+            {
+                string currentChar = input.Substring(index, 1);
+                byte byteVal = (byte)currentChar[0];
+
+                if (byteVal == 0x1A)
+                {
+                    // determine how many chars to pull out.
+                    byte escLength = (byte)input[index + 1];
+
+                    // For Japanese only (since non-ja is always one byte per
+                    // char), we may need to convert the string to bytes and
+                    // process that way since an escape sequence (with furigana
+                    // for example) will have fewer chars in it that the actual
+                    // byte length of the sequence.
+                    string escapeSequence = input.Substring(index, escLength);
+                    currentChunk.AddEscapeSequence(escapeSequence);
+                    // currentChunk.escapedList.Add(escapeSequence);
+                    index += escLength;
+                    continue;
+                }
+
+                if (WhiteSpaceChar().IsMatch(currentChar))
+                {
+                    if (currentChunk.textType == TextChunk.Type.Text)
+                    {
+                        currentChunk.BuildVal();
+                        chunks.Add(currentChunk);
+
+                        currentChunk = new();
+                        currentChunk.textType = TextChunk.Type.Whitespace;
+                        currentChunk.AddChar(currentChar);
+                    }
+                    else
+                    {
+                        currentChunk.textType = TextChunk.Type.Whitespace;
+                        currentChunk.AddChar(currentChar);
+                    }
+                }
+                else
+                {
+                    if (currentChunk.textType == TextChunk.Type.Whitespace)
+                    {
+                        currentChunk.BuildVal();
+                        chunks.Add(currentChunk);
+
+                        currentChunk = new();
+                        currentChunk.textType = TextChunk.Type.Text;
+                        currentChunk.AddChar(currentChar);
+                    }
+                    else
+                    {
+                        currentChunk.textType = TextChunk.Type.Text;
+                        currentChunk.AddChar(currentChar);
+                    }
+                }
+
+                index += 1;
+            }
+
+            // Expected to always add unless the string was just empty.
+            if (currentChunk.textType != TextChunk.Type.Unknown)
+            {
+                currentChunk.BuildVal();
+                chunks.Add(currentChunk);
+            }
+
+            // Let's assume french right now.
+
+            // Need to break into chunks (and preserve whitespace). We also need
+            // to maintain the position escaped sequences. We also need to
+            // probably run the thing to convert '\\n' as 2 chars to '\n' first.
+
+            // Now we should handle converting any "que" + whitespace + "une" to "qu'une"
+
+            // To do this, we iterate over the chunks.
+            for (int i = 0; i < chunks.Count - 2; i++)
+            {
+                TextChunk chunk = chunks[i];
+                if (chunk.textType == TextChunk.Type.Text)
+                {
+                    switch (chunk.val)
+                    {
+                        case "que":
+                        {
+                            if (chunks[i + 1].textType == TextChunk.Type.Whitespace)
+                            {
+                                string secondVal = chunks[i + 2].val;
+                                if (secondVal == "un")
+                                {
+                                    List<(int, string)> newEscSequences = new();
+                                    newEscSequences.AddRange(TransformEscSeqList(chunk, 0, 2));
+                                    newEscSequences.AddRange(
+                                        TransformEscSeqList(chunks[i + 1], 3, 3)
+                                    );
+                                    newEscSequences.AddRange(
+                                        TransformEscSeqList(chunks[i + 2], 3, 5)
+                                    );
+
+                                    TextChunk newChunk = new();
+                                    newChunk.textType = TextChunk.Type.Text;
+                                    newChunk.val = "qu'un";
+                                    newChunk.escapesAtIndexes = newEscSequences;
+                                    chunks.RemoveRange(i, 3);
+                                    chunks.Insert(i, newChunk);
+                                }
+                                else if (secondVal == "une")
+                                {
+                                    List<(int, string)> newEscSequences = new();
+                                    newEscSequences.AddRange(TransformEscSeqList(chunk, 0, 2));
+                                    newEscSequences.AddRange(
+                                        TransformEscSeqList(chunks[i + 1], 3, 3)
+                                    );
+                                    newEscSequences.AddRange(
+                                        TransformEscSeqList(chunks[i + 2], 3, 6)
+                                    );
+
+                                    TextChunk newChunk = new();
+                                    newChunk.textType = TextChunk.Type.Text;
+                                    newChunk.val = "qu'une";
+                                    newChunk.escapesAtIndexes = newEscSequences;
+                                    chunks.RemoveRange(i, 3);
+                                    chunks.Insert(i, newChunk);
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // TODO: replace certain spaces in whitespace ones with linebreaks as appropriate.
+
+            // TODO: build the final string by processing each chunk.
+
+            return input;
+        }
+
+        private static List<(int, string)> TransformEscSeqList(
+            TextChunk textChunk,
+            int newStart,
+            int newCap
+        )
+        {
+            List<(int, string)> oldList = textChunk.escapesAtIndexes;
+            if (ListUtils.isEmpty(oldList))
+                return oldList;
+
+            List<(int, string)> newList = new();
+            for (int i = 0; i < oldList.Count; i++)
+            {
+                (int, string) pair = oldList[i];
+
+                pair.Item1 += newStart;
+                if (pair.Item1 > newCap)
+                    pair.Item1 = newCap;
+
+                newList.Add(pair);
+            }
+            return newList;
+        }
+
+        private class TextChunk
+        {
+            public enum Type
+            {
+                Unknown,
+                Whitespace,
+                Text,
+            }
+
+            public Type textType = Type.Unknown;
+            public string val;
+            public List<(int, string)> escapesAtIndexes = new();
+
+            private StringBuilder builder = new();
+
+            public void AddChar(string character)
+            {
+                builder.Append(character);
+            }
+
+            public void AddEscapeSequence(string sequence)
+            {
+                (int, string) esc = (builder.Length, sequence);
+                escapesAtIndexes.Add(esc);
+            }
+
+            public void BuildVal()
+            {
+                val = builder.ToString();
+                builder.Clear();
+            }
         }
 
         public class Rule
