@@ -16,14 +16,6 @@ namespace TPRandomizer.Hints
             this.checkName = checkName;
         }
 
-        public override List<HintText> toHintTextList()
-        {
-            HintText hintText = new HintText();
-            hintText.text =
-                $"The {{Spirits of Light}} guide the hero chosen by the gods to {{{areaId.tempToString()}}}.";
-            return new List<HintText> { hintText };
-        }
-
         // Need to encode the kind of id, the id, and the checkName. A single
         // checkName could be in multiple categories, so need the categoryId. It
         // is not possible to determine the checkName with just the area, so
@@ -49,6 +41,14 @@ namespace TPRandomizer.Hints
             int checkId = processor.NextInt(bitLengths.checkId);
             string checkName = CheckIdClass.GetCheckName(checkId);
             return new WothHint(areaId, checkName);
+        }
+
+        public override List<HintText> toHintTextList()
+        {
+            HintText hintText = new HintText();
+            hintText.text =
+                $"The {{Spirits of Light}} guide the hero chosen by the gods to {{{areaId.tempToString()}}}.";
+            return new List<HintText> { hintText };
         }
     }
 }

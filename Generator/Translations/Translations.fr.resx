@@ -117,28 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="area-phrase.a" xml:space="preserve">
+  <data name="area-phrase.default" xml:space="preserve">
     <value>à {area}</value>
-    <comment/>
-  </data>
-  <data name="area-phrase.au" xml:space="preserve">
-    <value>au {area}</value>
-    <comment/>
-  </data>
-  <data name="area-phrase.aux" xml:space="preserve">
-    <value>aux {area}</value>
     <comment/>
   </data>
   <data name="area-phrase.dans" xml:space="preserve">
     <value>dans {area}</value>
     <comment/>
   </data>
-  <data name="area-phrase.grace-au" xml:space="preserve">
-    <value>grâce au {area}</value>
-    <comment/>
-  </data>
   <data name="hint-type.item" xml:space="preserve">
-    <value>Il est dit que {item} peut être trouvé {area-phrase}.</value>
+    <value>Il est dit que {item} {verb(name:can-be-found)} {area-phrase}.</value>
     <comment/>
   </data>
   <data name="hint-type.item$gender-f" xml:space="preserve">
@@ -206,11 +194,15 @@
     <comment>Confirmed by link1183 on 2024/03/31 that all should be "rubis".</comment>
   </data>
   <data name="zone.lake_hylia" xml:space="preserve">
-    <value>$(ap:au){cs}Lac Hylia{ce}</value>
+    <value>le {cs}Lac Hylia{ce}</value>
     <comment/>
   </data>
   <data name="zone.north_eldin" xml:space="preserve">
-    <value>$(ap:a)Ordinn Nord</value>
+    <value>{que-transform}Ordinn Nord</value>
+    <comment/>
+  </data>
+  <data name="hint-type.woth" xml:space="preserve">
+    <value>Il est dit que {area} {verb} sur la voie du héros.</value>
     <comment/>
   </data>
 </root>

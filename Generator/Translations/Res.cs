@@ -299,6 +299,36 @@ namespace TPRandomizer
                             }
                             break;
                         }
+                        case "à":
+                        {
+                            if (chunks[i + 1].textType == TextChunk.Type.Whitespace)
+                            {
+                                string secondVal = chunks[i + 2].val;
+                                if (secondVal == "le")
+                                {
+                                    TextChunk newChunk = new();
+                                    TransformEscSeqList(chunk, newChunk, 0, 0);
+                                    TransformEscSeqList(chunks[i + 1], newChunk, 2, 2);
+                                    TransformEscSeqList(chunks[i + 2], newChunk, 2, 2);
+                                    newChunk.textType = TextChunk.Type.Text;
+                                    newChunk.val = "au";
+                                    chunks.RemoveRange(i, 3);
+                                    chunks.Insert(i, newChunk);
+                                }
+                                else if (secondVal == "les")
+                                {
+                                    TextChunk newChunk = new();
+                                    TransformEscSeqList(chunk, newChunk, 0, 0);
+                                    TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
+                                    TransformEscSeqList(chunks[i + 2], newChunk, 3, 3);
+                                    newChunk.textType = TextChunk.Type.Text;
+                                    newChunk.val = "aux";
+                                    chunks.RemoveRange(i, 3);
+                                    chunks.Insert(i, newChunk);
+                                }
+                            }
+                            break;
+                        }
                     }
                 }
             }
@@ -811,6 +841,14 @@ namespace TPRandomizer
                     );
 
                 return result;
+            }
+
+            public string ResolveWithColors(string startColor, string endColor)
+            {
+                if (value.Contains("{cs}"))
+                    return Substitute(new() { { "cs", startColor }, { "ce", endColor }, });
+
+                return startColor + Substitute(null) + endColor;
             }
         }
     }

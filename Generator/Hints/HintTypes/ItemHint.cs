@@ -99,16 +99,16 @@ namespace TPRandomizer.Hints
             string context = CustomMsgData.BuildContextFromMeta(meta);
 
             Res.ParsedRes aa = Res.ParseVal(areaId.GenResKey());
-            string areaString = aa.Substitute(
-                new()
-                {
-                    { "cs", CustomMessages.messageColorRed },
-                    { "ce", CustomMessages.messageColorWhite }
-                }
+            string areaString = aa.ResolveWithColors(
+                CustomMessages.messageColorRed,
+                CustomMessages.messageColorWhite
             );
 
-            Res.ParsedRes parsedRes2 = Res.ParseVal($"area-phrase.{aa.meta["ap"]}");
-            string areaPhrase = parsedRes2.Substitute(new() { { "area", areaString }, });
+            if (!aa.meta.TryGetValue("ap", out string areaPhraseKey))
+                areaPhraseKey = "default";
+
+            Res.ParsedRes parsedRes2 = Res.ParseVal($"area-phrase.{areaPhraseKey}");
+            string areaPhrase = parsedRes2.Substitute(new() { { "area", areaString } });
 
             // get resource from context
             string text = Res.Msg(

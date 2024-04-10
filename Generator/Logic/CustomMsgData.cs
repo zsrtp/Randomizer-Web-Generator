@@ -344,8 +344,8 @@ namespace TPRandomizer
 
             ItemHint itemHint = ItemHint.Create(
                 null,
-                // AreaId.Zone(Zone.North_Eldin),
-                AreaId.Zone(Zone.Lake_Hylia),
+                AreaId.Zone(Zone.North_Eldin),
+                // AreaId.Zone(Zone.Lake_Hylia),
                 "Lake Hylia Dock Poe"
             );
             string tt = itemHint.toHintTextList()[0].text;
