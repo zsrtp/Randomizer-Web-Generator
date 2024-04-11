@@ -351,14 +351,14 @@ namespace TPRandomizer
                 // AreaId.Zone(Zone.Lake_Hylia),
                 "Lake Hylia Dock Poe"
             );
-            string tt = itemHint.toHintTextList()[0].text;
+            string itemHintText = itemHint.toHintTextList()[0].text;
 
             NumItemInAreaHint hhint = new NumItemInAreaHint(
-                2,
-                Item.Poe_Soul,
+                0,
+                Item.Bombs_5,
                 AreaId.Province(Province.Dungeon)
             );
-            string hhintText = hhint.toHintTextList()[0].text;
+            string niiaHintText = hhint.toHintTextList()[0].text;
 
             WothHint wothHint = new WothHint(
                 AreaId.Zone(Zone.Kakariko_Gorge),
@@ -381,7 +381,7 @@ namespace TPRandomizer
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.SeraSlingshotSlot,
-                    tt
+                    itemHintText
                 // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
                 )
             );
@@ -392,10 +392,10 @@ namespace TPRandomizer
                     stageIDX = 0xFF,
                     roomIDX = 0xFF,
                     messageID = 0x1369, // Hint Message
-                    // message = tt
+                    message = itemHintText
                     // message = wothHintText
-                    // message = hhintText
-                    message = bht
+                    // message = niiaHintText
+                    // message = bht
                 }
             );
         }

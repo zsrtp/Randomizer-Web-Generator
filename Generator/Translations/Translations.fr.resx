@@ -221,6 +221,14 @@
     <value>rubis argentés</value>
     <comment></comment>
   </data>
+  <data name="item.0a-bombs_5" xml:space="preserve">
+    <value>$(gender:m)5 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0a-bombs_5$count" xml:space="preserve">
+    <value>$(gender:m){count} bombes (5)</value>
+    <comment></comment>
+  </data>
   <data name="item.43-progressive_bow@ac(m,true)" xml:space="preserve">
     <value>arc</value>
     <comment></comment>

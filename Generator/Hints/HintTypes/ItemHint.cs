@@ -51,6 +51,9 @@ namespace TPRandomizer.Hints
                 item = HintUtils.getCheckContents(checkName);
             }
 
+            // TEST CODE
+            item = Item.Bombs_5;
+
             if (genData != null)
             {
                 // Do calc rather than use input value.
