@@ -262,74 +262,93 @@ namespace TPRandomizer
             // Now we should handle converting any "que" + whitespace + "une" to "qu'une"
 
             // To do this, we iterate over the chunks.
-            for (int i = 0; i < chunks.Count - 2; i++)
+            for (int i = 0; i < chunks.Count; i++)
             {
                 TextChunk chunk = chunks[i];
-                if (chunk.textType == TextChunk.Type.Text)
+                if (i < chunks.Count - 2)
                 {
-                    switch (chunk.val)
+                    if (chunk.textType == TextChunk.Type.Text)
                     {
-                        case "que":
+                        switch (chunk.val)
                         {
-                            if (chunks[i + 1].textType == TextChunk.Type.Whitespace)
+                            case "que":
                             {
-                                string secondVal = chunks[i + 2].val;
-                                if (secondVal == "un")
+                                if (chunks[i + 1].textType == TextChunk.Type.Whitespace)
                                 {
-                                    TextChunk newChunk = new();
-                                    TransformEscSeqList(chunk, newChunk, 0, 2);
-                                    TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
-                                    TransformEscSeqList(chunks[i + 2], newChunk, 3, 5);
-                                    newChunk.textType = TextChunk.Type.Text;
-                                    newChunk.val = "qu'un";
-                                    chunks.RemoveRange(i, 3);
-                                    chunks.Insert(i, newChunk);
+                                    string secondVal = chunks[i + 2].val;
+                                    if (secondVal == "un")
+                                    {
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 2);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
+                                        TransformEscSeqList(chunks[i + 2], newChunk, 3, 5);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "qu'un";
+                                        chunks.RemoveRange(i, 3);
+                                        chunks.Insert(i, newChunk);
+                                    }
+                                    else if (secondVal == "une")
+                                    {
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 2);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
+                                        TransformEscSeqList(chunks[i + 2], newChunk, 3, 6);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "qu'une";
+                                        chunks.RemoveRange(i, 3);
+                                        chunks.Insert(i, newChunk);
+                                    }
+                                    else if (secondVal.StartsWith("{que-transform}"))
+                                    {
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 2);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "qu'";
+                                        chunks.RemoveRange(i, 2);
+                                        chunks.Insert(i, newChunk);
+                                    }
                                 }
-                                else if (secondVal == "une")
-                                {
-                                    TextChunk newChunk = new();
-                                    TransformEscSeqList(chunk, newChunk, 0, 2);
-                                    TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
-                                    TransformEscSeqList(chunks[i + 2], newChunk, 3, 6);
-                                    newChunk.textType = TextChunk.Type.Text;
-                                    newChunk.val = "qu'une";
-                                    chunks.RemoveRange(i, 3);
-                                    chunks.Insert(i, newChunk);
-                                }
+                                break;
                             }
-                            break;
-                        }
-                        case "à":
-                        {
-                            if (chunks[i + 1].textType == TextChunk.Type.Whitespace)
+                            case "à":
                             {
-                                string secondVal = chunks[i + 2].val;
-                                if (secondVal == "le")
+                                if (chunks[i + 1].textType == TextChunk.Type.Whitespace)
                                 {
-                                    TextChunk newChunk = new();
-                                    TransformEscSeqList(chunk, newChunk, 0, 0);
-                                    TransformEscSeqList(chunks[i + 1], newChunk, 2, 2);
-                                    TransformEscSeqList(chunks[i + 2], newChunk, 2, 2);
-                                    newChunk.textType = TextChunk.Type.Text;
-                                    newChunk.val = "au";
-                                    chunks.RemoveRange(i, 3);
-                                    chunks.Insert(i, newChunk);
+                                    string secondVal = chunks[i + 2].val;
+                                    if (secondVal == "le")
+                                    {
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 0);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 2, 2);
+                                        TransformEscSeqList(chunks[i + 2], newChunk, 2, 2);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "au";
+                                        chunks.RemoveRange(i, 3);
+                                        chunks.Insert(i, newChunk);
+                                    }
+                                    else if (secondVal == "les")
+                                    {
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 0);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
+                                        TransformEscSeqList(chunks[i + 2], newChunk, 3, 3);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "aux";
+                                        chunks.RemoveRange(i, 3);
+                                        chunks.Insert(i, newChunk);
+                                    }
                                 }
-                                else if (secondVal == "les")
-                                {
-                                    TextChunk newChunk = new();
-                                    TransformEscSeqList(chunk, newChunk, 0, 0);
-                                    TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
-                                    TransformEscSeqList(chunks[i + 2], newChunk, 3, 3);
-                                    newChunk.textType = TextChunk.Type.Text;
-                                    newChunk.val = "aux";
-                                    chunks.RemoveRange(i, 3);
-                                    chunks.Insert(i, newChunk);
-                                }
+                                break;
                             }
-                            break;
                         }
                     }
+                }
+
+                if (chunk.textType == TextChunk.Type.Text)
+                {
+                    if (chunk.val.StartsWith("{que-transform}"))
+                        chunk.RemoveRange(0, "{que-transform}".Length);
                 }
             }
 
@@ -522,6 +541,32 @@ namespace TPRandomizer
             {
                 val = builder.ToString();
                 builder.Clear();
+            }
+
+            public void RemoveRange(int startIndex, int count)
+            {
+                if (startIndex < 0 || startIndex >= val.Length)
+                    throw new Exception("TextChunk startIndex out of range");
+                if (startIndex + count > val.Length)
+                    throw new Exception("TextChunk count out of range");
+
+                List<char> charList = val.ToList();
+                charList.RemoveRange(startIndex, count);
+                val = string.Join("", charList);
+
+                if (!ListUtils.isEmpty(escapesAtIndexes))
+                {
+                    Dictionary<int, List<string>> newDict = new();
+                    foreach (KeyValuePair<int, List<string>> pair in escapesAtIndexes)
+                    {
+                        int newKey = pair.Key;
+                        if (newKey > startIndex)
+                            newKey -= count;
+
+                        newDict[newKey] = pair.Value;
+                    }
+                    escapesAtIndexes = newDict;
+                }
             }
         }
 
