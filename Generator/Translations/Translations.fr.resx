@@ -149,6 +149,10 @@
     <value>{que-transform}Ordinn Nord</value>
     <comment></comment>
   </data>
+  <data name="hint-type.barren" xml:space="preserve">
+    <value>Il est dit qu&apos;il n&apos;y a rien à trouver {area-phrase}.</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.item" xml:space="preserve">
     <value>Il est dit que {item} {verb(name:can-be-found)} {area-phrase}.</value>
     <comment></comment>
