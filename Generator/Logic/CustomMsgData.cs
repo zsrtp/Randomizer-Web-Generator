@@ -341,6 +341,13 @@ namespace TPRandomizer
             // use all of the meta which is passed back as the context for the
             // sentence.
 
+            NumItemInAreaHint hhint = new NumItemInAreaHint(
+                2,
+                Item.Poe_Soul,
+                AreaId.Province(Province.Dungeon)
+            );
+            string hhintText = hhint.toHintTextList()[0].text;
+
             WothHint wothHint = new WothHint(
                 AreaId.Zone(Zone.Kakariko_Gorge),
                 "Lake Hylia Dock Poe"
@@ -383,7 +390,8 @@ namespace TPRandomizer
                     roomIDX = 0xFF,
                     messageID = 0x1369, // Hint Message
                     // message = tt
-                    message = wothHintText
+                    // message = wothHintText
+                    message = hhintText
                 }
             );
         }
@@ -425,17 +433,19 @@ namespace TPRandomizer
         public static string GenItemText(
             Item item,
             string contextIn = null,
+            string count = null,
             bool isShop = false,
             bool isSeraShop = false
         )
         {
-            return GenItemText(out _, item, contextIn, isShop, isSeraShop);
+            return GenItemText(out _, item, contextIn, count, isShop, isSeraShop);
         }
 
         public static string GenItemText(
             out Dictionary<string, string> meta,
             Item item,
             string contextIn = null,
+            string count = null,
             bool isShop = false,
             bool isSeraShop = false,
             string prefStartColor = null
@@ -443,7 +453,10 @@ namespace TPRandomizer
         {
             string context = isShop ? "" : contextIn;
 
-            Res.ParsedRes abc = Res.ParseVal(GetItemResKey(item), new() { { "context", context } });
+            Res.ParsedRes abc = Res.ParseVal(
+                GetItemResKey(item),
+                new() { { "context", context }, { "count", count } }
+            );
             meta = abc.meta;
 
             if (isShop)
@@ -477,14 +490,26 @@ namespace TPRandomizer
             itemSuffix += CustomMessages.messageColorWhite;
 
             string coloredItem;
+            Dictionary<string, string> interpolation = new();
+            if (count != null)
+                interpolation.Add("count", count);
 
             if (isShop)
-                coloredItem =
-                    startColor + abc.Substitute(new() { { "cs", "" }, { "ce", "" } }) + itemSuffix;
+            {
+                interpolation["cs"] = "";
+                interpolation["ce"] = "";
+                coloredItem = startColor + abc.Substitute(interpolation) + itemSuffix;
+            }
             else if (abc.value.Contains("{cs}"))
-                coloredItem = abc.Substitute(new() { { "cs", startColor }, { "ce", itemSuffix }, });
+            {
+                interpolation["cs"] = startColor;
+                interpolation["ce"] = itemSuffix;
+                coloredItem = abc.Substitute(interpolation);
+            }
             else
-                coloredItem = startColor + abc.Substitute(null) + itemSuffix;
+            {
+                coloredItem = startColor + abc.Substitute(interpolation) + itemSuffix;
+            }
 
             return coloredItem;
         }

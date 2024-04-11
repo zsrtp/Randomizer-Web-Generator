@@ -27,7 +27,7 @@ namespace TPRandomizer
             @"^([0-9a-z-_.]+)(?:\$([0-9a-z-,]+))?(#ordinal)?(?:#([a-z]+))?(?:@([0-9a-z-_]+)\(([a-z-_,]*)\))?$",
             RegexOptions.IgnoreCase
         )]
-        private static partial Regex ResKeyRegex();
+        public static partial Regex ResKeyRegex();
 
         private IStringLocalizer<Translations> localizer;
         List<LocaleResources> resourcesList;
@@ -292,11 +292,12 @@ namespace TPRandomizer
                     );
 
                 bool isMasculine = genFnArgs[0] == "m";
-                string metaPrefix = $"$(gender:{genFnArgs[0]})";
                 string wrappedBase = $"{{cs}}{baseValue}{{ce}}";
 
                 if (count == "other")
                 {
+                    string metaPrefix = $"$(gender:{genFnArgs[0]},plural)";
+
                     // Plural
                     if (genFnArgs.Length != 1)
                         throw new Exception(
@@ -318,11 +319,13 @@ namespace TPRandomizer
 
                     // Count
                     ChangeContext("count");
-                    string countVal = metaPrefix + "{count} " + wrappedBase;
+                    string countVal = metaPrefix + "{cs}{count} " + baseValue + "{ce}";
                     result.Add(new(GenCurrentResKey(), countVal));
                 }
                 else
                 {
+                    string metaPrefix = $"$(gender:{genFnArgs[0]})";
+
                     // Non-plural
                     if (genFnArgs.Length > 2)
                         throw new Exception(
@@ -363,7 +366,7 @@ namespace TPRandomizer
 
                     // Count
                     ChangeContext("count");
-                    string countVal = metaPrefix + "{count} " + wrappedBase;
+                    string countVal = metaPrefix + "{cs}{count} " + baseValue + "{ce}";
                     result.Add(new(GenCurrentResKey(), countVal));
                 }
             }
@@ -427,7 +430,7 @@ namespace TPRandomizer
 
             bool needsPluralHandling = false;
             double countAsDouble = -1;
-            if (interpolation.TryGetValue("count", out string count))
+            if (interpolation.TryGetValue("count", out string count) && !StringUtils.isEmpty(count))
             {
                 needsPluralHandling = true;
                 countAsDouble = double.Parse(count, CultureInfo.InvariantCulture);
@@ -525,6 +528,13 @@ namespace TPRandomizer
 
             // return null;
         }
+
+        public HashSet<string> GetKeysWithStart(string start)
+        {
+            // Only operate on ideal language. Ideally we should not be using
+            // fallbacks anyway.
+            return resourcesList[0].GetKeysWithStart(start);
+        }
     }
 
     public class LocaleResources
@@ -558,6 +568,33 @@ namespace TPRandomizer
         public bool IsEmpty()
         {
             return dict.Count < 1;
+        }
+
+        public HashSet<string> GetKeysWithStart(string start)
+        {
+            HashSet<string> results = new();
+            foreach (KeyValuePair<string, string> pair in dict)
+            {
+                string resKey = pair.Key;
+                if (resKey.StartsWith(start))
+                {
+                    // parse out any context. If there is any, add each one to the results.
+                    Match match = Translations.ResKeyRegex().Match(resKey);
+                    if (match.Success)
+                    {
+                        Group contextGroup = match.Groups[2];
+                        if (contextGroup.Success)
+                        {
+                            string[] chunks = contextGroup.Value.Split(",");
+                            foreach (string chunk in chunks)
+                            {
+                                results.Add(chunk);
+                            }
+                        }
+                    }
+                }
+            }
+            return results;
         }
     }
 

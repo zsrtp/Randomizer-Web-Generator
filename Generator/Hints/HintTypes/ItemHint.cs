@@ -93,6 +93,8 @@ namespace TPRandomizer.Hints
                 out Dictionary<string, string> meta,
                 item,
                 useDefiniteArticle ? "def" : "indef",
+                // contextIn: "count",
+                // count: "2",
                 prefStartColor: CustomMessages.messageColorGreen
             );
 

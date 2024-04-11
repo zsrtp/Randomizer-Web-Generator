@@ -80,15 +80,15 @@ namespace TPRandomizer.Hints
             {
                 case AreaType.Zone:
                     Zone zone = ZoneUtils.StringToId(stringId);
-                    return $"zone.{zone}".ToLowerInvariant();
+                    return $"area.zone.{zone}".ToLowerInvariant();
                 case AreaType.Category:
                     HintCategory category = HintCategoryUtils.StringToId(stringId);
-                    return $"category.{category}".ToLowerInvariant();
+                    return $"area.category.{category}".ToLowerInvariant();
                 case AreaType.Province:
                     Province province = ProvinceUtils.StringToId(stringId);
-                    return $"province.{province}".ToLowerInvariant();
+                    return $"area.province.{province}".ToLowerInvariant();
                 case AreaType.Check:
-                    return $"check.{stringId}".ToLowerInvariant();
+                    return $"area.check.{stringId}".ToLowerInvariant();
                 default:
                     throw new Exception(
                         $"Failed to convert stringId to number for \"{stringId}\"."

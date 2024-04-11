@@ -54,6 +54,31 @@ namespace TPRandomizer
             translations.OnCultureChange();
         }
 
+        public static Dictionary<string, string> FilterToRelevantContext(
+            string baseResKey,
+            Dictionary<string, string> context
+        )
+        {
+            Dictionary<string, string> filteredContext = new();
+            if (StringUtils.isEmpty(baseResKey) || ListUtils.isEmpty(context))
+                return filteredContext;
+
+            HashSet<string> relevantContextVals = translations.GetKeysWithStart(baseResKey);
+            foreach (KeyValuePair<string, string> pair in context)
+            {
+                string key;
+                if (pair.Value == "true")
+                    key = pair.Key;
+                else
+                    key = pair.Key + "-" + pair.Value;
+
+                if (relevantContextVals.Contains(key))
+                    filteredContext[pair.Key] = pair.Value;
+            }
+
+            return filteredContext;
+        }
+
         public static string Msg(string resKey, Dictionary<string, string> interpolation = null)
         {
             // Pass the interpolation to the translationsService so that it can
@@ -80,6 +105,24 @@ namespace TPRandomizer
 
             // return translations.GetMsg(resKey);
             // return translations.GetGreetingMessage();
+        }
+
+        public static ParsedRes ParseValRelevantContext(
+            string resKey,
+            Dictionary<string, string> fullContext
+        )
+        {
+            string context = "default";
+            if (!ListUtils.isEmpty(fullContext))
+            {
+                Dictionary<string, string> contextDict = Res.FilterToRelevantContext(
+                    resKey,
+                    fullContext
+                );
+                context = CustomMsgData.BuildContextFromMeta(contextDict);
+            }
+
+            return ParseVal(resKey, new() { { "context", context } });
         }
 
         public static ParsedRes ParseVal(
