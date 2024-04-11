@@ -341,10 +341,16 @@ namespace TPRandomizer
             // use all of the meta which is passed back as the context for the
             // sentence.
 
+            WothHint wothHint = new WothHint(
+                AreaId.Zone(Zone.Kakariko_Gorge),
+                "Lake Hylia Dock Poe"
+            );
+            string wothHintText = wothHint.toHintTextList()[0].text;
 
             ItemHint itemHint = ItemHint.Create(
                 null,
-                AreaId.Zone(Zone.North_Eldin),
+                AreaId.Zone(Zone.Kakariko_Gorge),
+                // AreaId.Zone(Zone.North_Eldin),
                 // AreaId.Zone(Zone.Lake_Hylia),
                 "Lake Hylia Dock Poe"
             );
@@ -376,7 +382,8 @@ namespace TPRandomizer
                     stageIDX = 0xFF,
                     roomIDX = 0xFF,
                     messageID = 0x1369, // Hint Message
-                    message = tt
+                    // message = tt
+                    message = wothHintText
                 }
             );
         }
@@ -406,7 +413,10 @@ namespace TPRandomizer
             List<string> chunks = new(meta.Count);
             foreach (KeyValuePair<string, string> pair in meta)
             {
-                chunks.Add(pair.Key + "-" + pair.Value);
+                if (pair.Value == "true")
+                    chunks.Add(pair.Key);
+                else
+                    chunks.Add(pair.Key + "-" + pair.Value);
             }
             chunks.Sort(StringComparer.Ordinal);
             return string.Join(',', chunks);

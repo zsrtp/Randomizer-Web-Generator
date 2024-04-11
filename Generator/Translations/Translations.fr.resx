@@ -130,7 +130,7 @@
     <comment></comment>
   </data>
   <data name="hint-type.woth" xml:space="preserve">
-    <value>Il est dit que {area} {verb} sur la voie du héros.</value>
+    <value>Il est dit que {area} {verb(name:is)} sur la voie du héros.</value>
     <comment></comment>
   </data>
   <data name="hints.item-found-at-area" xml:space="preserve">
@@ -199,6 +199,18 @@
   </data>
   <data name="verb.can-be-found$gender-f" xml:space="preserve">
     <value>peut être trouvée</value>
+    <comment></comment>
+  </data>
+  <data name="verb.is" xml:space="preserve">
+    <value>est</value>
+    <comment></comment>
+  </data>
+  <data name="verb.is$plural" xml:space="preserve">
+    <value>sont</value>
+    <comment></comment>
+  </data>
+  <data name="zone.kakariko_gorge" xml:space="preserve">
+    <value>$(plural)les {cs}Gorges de Cocorico{ce}</value>
     <comment></comment>
   </data>
   <data name="zone.lake_hylia" xml:space="preserve">

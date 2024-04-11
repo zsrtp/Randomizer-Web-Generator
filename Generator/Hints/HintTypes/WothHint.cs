@@ -1,6 +1,7 @@
 namespace TPRandomizer.Hints
 {
     using System.Collections.Generic;
+    using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
     public class WothHint : Hint
@@ -45,9 +46,34 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList()
         {
+            Res.ParsedRes ppp = Res.ParseVal(areaId.GenResKey());
+
+            string verbContext = CustomMsgData.BuildContextFromMeta(ppp.meta);
+
+            string areaText = ppp.ResolveWithColors(
+                CustomMessages.messageColorYellow,
+                CustomMessages.messageColorWhite
+            );
+
+            Res.ParsedRes hintParsedRes = Res.ParseVal("hint-type.woth");
+
+            string verb = "";
+            if (hintParsedRes.slotMeta.TryGetValue("verb", out Dictionary<string, string> verbMeta))
+            {
+                if (verbMeta.TryGetValue("name", out string verbName))
+                {
+                    verb = Res.Msg("verb." + verbName, new() { { "context", verbContext } });
+                }
+            }
+
+            string text = hintParsedRes.Substitute(
+                new() { { "area", areaText }, { "verb", verb } }
+            );
+
+            string normalizedText = Res.LangSpecificNormalize(text);
+
             HintText hintText = new HintText();
-            hintText.text =
-                $"The {{Spirits of Light}} guide the hero chosen by the gods to {{{areaId.tempToString()}}}.";
+            hintText.text = normalizedText;
             return new List<HintText> { hintText };
         }
     }

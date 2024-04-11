@@ -158,11 +158,14 @@ namespace TPRandomizer
             foreach (string chunk in chunks)
             {
                 string[] chunkHalves = chunk.Split(":");
-                if (chunkHalves.Length != 2)
-                    throw new Exception("Invalid chunkHalves for 'val'.");
+
+                if (chunkHalves.Length < 1 || chunkHalves.Length > 2)
+                    throw new Exception(
+                        $"Invalid chunkHalves length '{chunkHalves.Length}' for 'val'."
+                    );
 
                 string key = chunkHalves[0];
-                string value = chunkHalves[1];
+                string value = chunkHalves.Length == 2 ? chunkHalves[1] : "true";
 
                 if (StringUtils.isEmpty(key) || StringUtils.isEmpty(value))
                     throw new Exception("chunkHalf was empty.");
