@@ -110,15 +110,19 @@ namespace TPRandomizer.Hints
             Res.ParsedRes parsedRes2 = Res.ParseVal($"area-phrase.{areaPhraseKey}");
             string areaPhrase = parsedRes2.Substitute(new() { { "area", areaString } });
 
-            // get resource from context
-            string text = Res.Msg(
-                "hint-type.item",
-                new()
+            Res.ParsedRes hintParsedRes = Res.ParseVal("hint-type.item");
+
+            string verb = "";
+            if (hintParsedRes.slotMeta.TryGetValue("verb", out Dictionary<string, string> verbMeta))
+            {
+                if (verbMeta.TryGetValue("name", out string verbName))
                 {
-                    { "context", context },
-                    { "item", itemText },
-                    { "area-phrase", areaPhrase },
+                    verb = Res.Msg("verb." + verbName, new() { { "context", context } });
                 }
+            }
+
+            string text = hintParsedRes.Substitute(
+                new() { { "item", itemText }, { "verb", verb }, { "area-phrase", areaPhrase }, }
             );
 
             // Find how to pass in the languages

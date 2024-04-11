@@ -14,7 +14,7 @@ namespace TPRandomizer
 
     public partial class Res
     {
-        [GeneratedRegex(@"{([a-z0-9-]+)(?:\(([a-z0-9:,]*)\))?}")]
+        [GeneratedRegex(@"{([a-z0-9-]+)(?:\(([a-z0-9-:,]*)\))?}")]
         private static partial Regex ResourceVal();
 
         [GeneratedRegex(@"^\$\(([a-z0-9:,]*)\)")]
