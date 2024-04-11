@@ -93,35 +93,18 @@ namespace TPRandomizer.Hints
                 out Dictionary<string, string> meta,
                 item,
                 useDefiniteArticle ? "def" : "indef",
-                // contextIn: "count",
-                // count: "2",
                 prefStartColor: CustomMessages.messageColorGreen
             );
 
-            string context = CustomMsgData.BuildContextFromMeta(meta);
-
-            Res.Result aa = Res.ParseVal(areaId.GenResKey());
-            string areaString = aa.ResolveWithColor(
-                CustomMessages.messageColorRed,
-                CustomMessages.messageColorWhite
+            string areaPhrase = CustomMsgData.GenAreaPhrase(
+                areaId,
+                meta,
+                CustomMessages.messageColorRed
             );
-
-            if (!aa.meta.TryGetValue("ap", out string areaPhraseKey))
-                areaPhraseKey = "default";
-
-            Res.Result parsedRes2 = Res.ParseVal($"area-phrase.{areaPhraseKey}");
-            string areaPhrase = parsedRes2.Substitute(new() { { "area", areaString } });
 
             Res.Result hintParsedRes = Res.ParseVal("hint-type.item");
 
-            string verb = "";
-            if (hintParsedRes.slotMeta.TryGetValue("verb", out Dictionary<string, string> verbMeta))
-            {
-                if (verbMeta.TryGetValue("name", out string verbName))
-                {
-                    verb = Res.SimpleMsgOld("verb." + verbName, new() { { "context", context } });
-                }
-            }
+            string verb = CustomMsgData.GenVerb(hintParsedRes, meta);
 
             string text = hintParsedRes.Substitute(
                 new() { { "item", itemText }, { "verb", verb }, { "area-phrase", areaPhrase }, }
@@ -146,8 +129,6 @@ namespace TPRandomizer.Hints
 
             HintText hintText = new HintText();
             hintText.text = normalizedText;
-            // hintText.text =
-            //     $"They say that {{{item}}} can be found at {{{areaId.tempToString()}}}.";
             return new List<HintText> { hintText };
         }
     }

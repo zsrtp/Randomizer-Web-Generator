@@ -341,6 +341,16 @@ namespace TPRandomizer
             // use all of the meta which is passed back as the context for the
             // sentence.
 
+
+            ItemHint itemHint = ItemHint.Create(
+                null,
+                AreaId.Zone(Zone.Kakariko_Gorge),
+                // AreaId.Zone(Zone.North_Eldin),
+                // AreaId.Zone(Zone.Lake_Hylia),
+                "Lake Hylia Dock Poe"
+            );
+            string tt = itemHint.toHintTextList()[0].text;
+
             NumItemInAreaHint hhint = new NumItemInAreaHint(
                 2,
                 Item.Poe_Soul,
@@ -353,15 +363,6 @@ namespace TPRandomizer
                 "Lake Hylia Dock Poe"
             );
             string wothHintText = wothHint.toHintTextList()[0].text;
-
-            ItemHint itemHint = ItemHint.Create(
-                null,
-                AreaId.Zone(Zone.Kakariko_Gorge),
-                // AreaId.Zone(Zone.North_Eldin),
-                // AreaId.Zone(Zone.Lake_Hylia),
-                "Lake Hylia Dock Poe"
-            );
-            string tt = itemHint.toHintTextList()[0].text;
 
             // We know that the resource requires 'item' and 'price' because
             // those are the known params for that resource.
@@ -389,9 +390,9 @@ namespace TPRandomizer
                     stageIDX = 0xFF,
                     roomIDX = 0xFF,
                     messageID = 0x1369, // Hint Message
-                    // message = tt
+                    message = tt
                     // message = wothHintText
-                    message = hhintText
+                    // message = hhintText
                 }
             );
         }
@@ -583,6 +584,23 @@ namespace TPRandomizer
             string areaPhrase = areaPhraseRes.Substitute(new() { { "area", areaString } });
 
             return areaPhrase;
+        }
+
+        public static string GenVerb(
+            Res.Result hintResResult,
+            Dictionary<string, string> subjectMeta = null
+        )
+        {
+            string verb = "";
+            if (hintResResult.slotMeta.TryGetValue("verb", out Dictionary<string, string> verbMeta))
+            {
+                if (verbMeta.TryGetValue("name", out string verbName))
+                {
+                    verb = Res.Msg("verb." + verbName, null, subjectMeta).Substitute(null);
+                }
+            }
+
+            return verb;
         }
     }
 }
