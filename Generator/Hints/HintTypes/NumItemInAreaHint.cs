@@ -54,14 +54,11 @@ namespace TPRandomizer.Hints
                 prefStartColor: CustomMessages.messageColorGreen
             );
 
-            Res.Result areaRes = Res.Msg(areaId.GenResKey(), null, itemMeta);
-            string areaString = areaRes.ResolveWithColor(CustomMessages.messageColorRed);
-
-            if (!areaRes.meta.TryGetValue("ap", out string areaPhraseKey))
-                areaPhraseKey = "default";
-
-            Res.Result areaPhraseRes = Res.ParseVal($"area-phrase.{areaPhraseKey}");
-            string areaPhrase = areaPhraseRes.Substitute(new() { { "area", areaString } });
+            string areaPhrase = CustomMsgData.GenAreaPhrase(
+                areaId,
+                itemMeta,
+                CustomMessages.messageColorRed
+            );
 
             Res.Result hintTypeRes = Res.ParseVal("hint-type.item");
 

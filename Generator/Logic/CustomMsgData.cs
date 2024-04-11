@@ -342,7 +342,7 @@ namespace TPRandomizer
             // sentence.
 
             NumItemInAreaHint hhint = new NumItemInAreaHint(
-                0,
+                2,
                 Item.Poe_Soul,
                 AreaId.Province(Province.Dungeon)
             );
@@ -565,6 +565,24 @@ namespace TPRandomizer
             if (ListUtils.isEmpty(other))
                 return false;
             return other.TryGetValue(key, out string value) && value == "true";
+        }
+
+        public static string GenAreaPhrase(
+            AreaId areaId,
+            Dictionary<string, string> subjectMeta = null,
+            string color = null
+        )
+        {
+            Res.Result areaRes = Res.Msg(areaId.GenResKey(), null, subjectMeta);
+            string areaString = areaRes.ResolveWithColor(color);
+
+            if (!areaRes.meta.TryGetValue("ap", out string areaPhraseKey))
+                areaPhraseKey = "default";
+
+            Res.Result areaPhraseRes = Res.ParseVal($"area-phrase.{areaPhraseKey}");
+            string areaPhrase = areaPhraseRes.Substitute(new() { { "area", areaString } });
+
+            return areaPhrase;
         }
     }
 }
