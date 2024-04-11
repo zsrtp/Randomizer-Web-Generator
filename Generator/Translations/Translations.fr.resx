@@ -189,20 +189,36 @@
     <value>rubis jaunes</value>
     <comment></comment>
   </data>
-  <data name="item.04-red_rupee" xml:space="preserve">
+  <data name="item.04-red_rupee@ac(m)" xml:space="preserve">
     <value>rubis rouge</value>
     <comment></comment>
   </data>
-  <data name="item.05-purple_rupee" xml:space="preserve">
+  <data name="item.04-red_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis rouges</value>
+    <comment></comment>
+  </data>
+  <data name="item.05-purple_rupee@ac(m)" xml:space="preserve">
     <value>rubis violet</value>
     <comment></comment>
   </data>
-  <data name="item.06-orange_rupee" xml:space="preserve">
+  <data name="item.05-purple_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis violets</value>
+    <comment></comment>
+  </data>
+  <data name="item.06-orange_rupee@ac(m)" xml:space="preserve">
     <value>rubis orange</value>
     <comment></comment>
   </data>
-  <data name="item.07-silver_rupee" xml:space="preserve">
-    <value>rubis argent</value>
+  <data name="item.06-orange_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis oranges</value>
+    <comment></comment>
+  </data>
+  <data name="item.07-silver_rupee@ac(m)" xml:space="preserve">
+    <value>rubis argenté</value>
+    <comment></comment>
+  </data>
+  <data name="item.07-silver_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis argentés</value>
     <comment></comment>
   </data>
   <data name="item.43-progressive_bow@ac(m,true)" xml:space="preserve">
