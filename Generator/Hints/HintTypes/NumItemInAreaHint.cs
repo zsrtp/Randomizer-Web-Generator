@@ -50,55 +50,32 @@ namespace TPRandomizer.Hints
                 out Dictionary<string, string> itemMeta,
                 item,
                 contextIn: "count",
-                count: count.ToString(),
+                count: count,
                 prefStartColor: CustomMessages.messageColorGreen
             );
 
-            // Construct hashSet of relevant contexts for a given key.
+            Res.Result areaRes = Res.Msg(areaId.GenResKey(), null, itemMeta);
+            string areaString = areaRes.ResolveWithColor(CustomMessages.messageColorRed);
 
-            // string areaResKey = areaId.GenResKey();
-
-            // string areaResContext = "default";
-            // if (!ListUtils.isEmpty(itemMeta))
-            // {
-            //     Dictionary<string, string> areaResContextDict = Res.FilterToRelevantContext(
-            //         areaResKey,
-            //         itemMeta
-            //     );
-            //     areaResContext = CustomMsgData.BuildContextFromMeta(areaResContextDict);
-            // }
-
-            Res.ParsedRes aa2 = Res.ParseValRelevantContext(areaId.GenResKey(), itemMeta);
-
-            // Res.ParsedRes aa = Res.ParseVal(
-            //     areaId.GenResKey(),
-            //     new() { { "context", areaResContext } }
-            // );
-            string areaString = aa2.ResolveWithColors(
-                CustomMessages.messageColorRed,
-                CustomMessages.messageColorWhite
-            );
-
-            string context = CustomMsgData.BuildContextFromMeta(itemMeta);
-
-            if (!aa2.meta.TryGetValue("ap", out string areaPhraseKey))
+            if (!areaRes.meta.TryGetValue("ap", out string areaPhraseKey))
                 areaPhraseKey = "default";
 
-            Res.ParsedRes parsedRes2 = Res.ParseVal($"area-phrase.{areaPhraseKey}");
-            string areaPhrase = parsedRes2.Substitute(new() { { "area", areaString } });
+            Res.Result areaPhraseRes = Res.ParseVal($"area-phrase.{areaPhraseKey}");
+            string areaPhrase = areaPhraseRes.Substitute(new() { { "area", areaString } });
 
-            Res.ParsedRes hintParsedRes = Res.ParseVal("hint-type.item");
+            Res.Result hintTypeRes = Res.ParseVal("hint-type.item");
 
             string verb = "";
-            if (hintParsedRes.slotMeta.TryGetValue("verb", out Dictionary<string, string> verbMeta))
+            if (hintTypeRes.slotMeta.TryGetValue("verb", out Dictionary<string, string> verbMeta))
             {
                 if (verbMeta.TryGetValue("name", out string verbName))
                 {
-                    verb = Res.Msg("verb." + verbName, new() { { "context", context } });
+                    string verbResKey = "verb." + verbName;
+                    verb = Res.SimpleMsg(verbResKey, null, itemMeta);
                 }
             }
 
-            string text = hintParsedRes.Substitute(
+            string text = hintTypeRes.Substitute(
                 new() { { "item", itemText }, { "verb", verb }, { "area-phrase", areaPhrase }, }
             );
 
@@ -121,8 +98,6 @@ namespace TPRandomizer.Hints
 
             HintText hintText = new HintText();
             hintText.text = normalizedText;
-            // hintText.text =
-            //     $"They say that {{{item}}} can be found at {{{areaId.tempToString()}}}.";
             return new List<HintText> { hintText };
         }
     }

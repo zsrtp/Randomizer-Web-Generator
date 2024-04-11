@@ -342,7 +342,7 @@ namespace TPRandomizer
             // sentence.
 
             NumItemInAreaHint hhint = new NumItemInAreaHint(
-                2,
+                0,
                 Item.Poe_Soul,
                 AreaId.Province(Province.Dungeon)
             );
@@ -398,7 +398,7 @@ namespace TPRandomizer
 
         private string GenBasicShopMsg(string checkName, uint price, bool isSeraShop = false)
         {
-            Res.ParsedRes abcd = Res.ParseVal("shop.basic-slot");
+            Res.Result abcd = Res.ParseVal("shop.basic-slot");
 
             string itemText = GenItemText(
                 HintUtils.getCheckContents(checkName),
@@ -430,10 +430,36 @@ namespace TPRandomizer
             return string.Join(',', chunks);
         }
 
+        public static string BuildContextWithMeta(
+            HashSet<string> chunksIn,
+            Dictionary<string, string> meta
+        )
+        {
+            HashSet<string> chunks;
+            if (!ListUtils.isEmpty(chunksIn))
+                chunks = new(chunksIn);
+            else
+                chunks = new();
+
+            if (!ListUtils.isEmpty(meta))
+            {
+                foreach (KeyValuePair<string, string> pair in meta)
+                {
+                    if (pair.Value == "true")
+                        chunks.Add(pair.Key);
+                    else
+                        chunks.Add(pair.Key + "-" + pair.Value);
+                }
+            }
+
+            chunks.ToList().Sort(StringComparer.Ordinal);
+            return string.Join(',', chunks);
+        }
+
         public static string GenItemText(
             Item item,
             string contextIn = null,
-            string count = null,
+            int? count = null,
             bool isShop = false,
             bool isSeraShop = false
         )
@@ -445,17 +471,18 @@ namespace TPRandomizer
             out Dictionary<string, string> meta,
             Item item,
             string contextIn = null,
-            string count = null,
+            int? count = null,
             bool isShop = false,
             bool isSeraShop = false,
             string prefStartColor = null
         )
         {
             string context = isShop ? "" : contextIn;
+            string countStr = count?.ToString();
 
-            Res.ParsedRes abc = Res.ParseVal(
+            Res.Result abc = Res.ParseVal(
                 GetItemResKey(item),
-                new() { { "context", context }, { "count", count } }
+                new() { { "context", context }, { "count", countStr } }
             );
             meta = abc.meta;
 
@@ -492,7 +519,7 @@ namespace TPRandomizer
             string coloredItem;
             Dictionary<string, string> interpolation = new();
             if (count != null)
-                interpolation.Add("count", count);
+                interpolation.Add("count", countStr);
 
             if (isShop)
             {
@@ -523,7 +550,7 @@ namespace TPRandomizer
         {
             string result = CustomMessages.messageColorPurple;
 
-            string shopText = Res.Msg(
+            string shopText = Res.SimpleMsgOld(
                 "shop.price",
                 new() { { "count", amount.ToString(CultureInfo.InvariantCulture) } }
             );

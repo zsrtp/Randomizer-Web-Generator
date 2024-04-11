@@ -63,7 +63,9 @@ namespace TPRandomizer
             if (StringUtils.isEmpty(baseResKey) || ListUtils.isEmpty(context))
                 return filteredContext;
 
-            HashSet<string> relevantContextVals = translations.GetKeysWithStart(baseResKey);
+            HashSet<string> relevantContextVals = translations.GetRelevantContextForBaseKey(
+                baseResKey
+            );
             foreach (KeyValuePair<string, string> pair in context)
             {
                 string key;
@@ -79,7 +81,10 @@ namespace TPRandomizer
             return filteredContext;
         }
 
-        public static string Msg(string resKey, Dictionary<string, string> interpolation = null)
+        public static string SimpleMsgOld(
+            string resKey,
+            Dictionary<string, string> interpolation = null
+        )
         {
             // Pass the interpolation to the translationsService so that it can
             // build the stack of keys based on the current language it is
@@ -94,7 +99,7 @@ namespace TPRandomizer
 
             // MsgResult msgResult = translations.GetMsg(resKey, interpolation);
 
-            ParsedRes parsedRes = ParseVal(resKey, interpolation);
+            Result parsedRes = ParseVal(resKey, interpolation);
 
             return parsedRes.Substitute(interpolation);
 
@@ -107,31 +112,50 @@ namespace TPRandomizer
             // return translations.GetGreetingMessage();
         }
 
-        public static ParsedRes ParseValRelevantContext(
+        public static string SimpleMsg(
             string resKey,
-            Dictionary<string, string> fullContext
+            Dictionary<string, string> interpolationIn,
+            Dictionary<string, string> optionalContextMeta = null
         )
         {
-            string context = "default";
-            if (!ListUtils.isEmpty(fullContext))
-            {
-                Dictionary<string, string> contextDict = Res.FilterToRelevantContext(
-                    resKey,
-                    fullContext
-                );
-                context = CustomMsgData.BuildContextFromMeta(contextDict);
-            }
-
-            return ParseVal(resKey, new() { { "context", context } });
+            Result result = Msg(resKey, interpolationIn, optionalContextMeta);
+            return result.Substitute(null);
         }
 
-        public static ParsedRes ParseVal(
+        public static Result Msg(
+            string resKey,
+            Dictionary<string, string> interpolationIn,
+            Dictionary<string, string> optionalContextMeta = null
+        )
+        {
+            Dictionary<string, string> interpolation;
+            if (!ListUtils.isEmpty(interpolationIn))
+                interpolation = new(interpolationIn);
+            else
+                interpolation = new();
+
+            // Build context by combining static and optional for resKey
+            HashSet<string> contextParts = null;
+            if (interpolation.TryGetValue("context", out string staticContext))
+                contextParts = new(staticContext.Split(","));
+
+            Dictionary<string, string> contextDict = null;
+            if (!ListUtils.isEmpty(optionalContextMeta))
+                contextDict = FilterToRelevantContext(resKey, optionalContextMeta);
+
+            string context = CustomMsgData.BuildContextWithMeta(contextParts, contextDict);
+            interpolation["context"] = context;
+
+            return ParseVal(resKey, interpolation);
+        }
+
+        public static Result ParseVal(
             string resKey,
             Dictionary<string, string> interpolation = null
         )
         {
             MsgResult msgResult = translations.GetMsg(resKey, interpolation);
-            ParsedRes parsedRes = new(msgResult.cultureInfo, msgResult.langCode);
+            Result parsedRes = new(msgResult.cultureInfo, msgResult.langCode);
             string resVal = msgResult.msg;
 
             if (!msgResult.foundValue)
@@ -862,7 +886,7 @@ namespace TPRandomizer
             }
         }
 
-        public class ParsedRes
+        public class Result
         {
             public CultureInfo cultureInfo { get; private set; }
             public string langCode { get; private set; }
@@ -871,7 +895,7 @@ namespace TPRandomizer
             public Dictionary<string, string> meta = new();
             public Dictionary<string, Dictionary<string, string>> slotMeta = new();
 
-            public ParsedRes(CultureInfo cultureInfo, string langCode)
+            public Result(CultureInfo cultureInfo, string langCode)
             {
                 this.cultureInfo = cultureInfo;
                 this.langCode = langCode;
@@ -934,8 +958,11 @@ namespace TPRandomizer
                 return result;
             }
 
-            public string ResolveWithColors(string startColor, string endColor)
+            public string ResolveWithColor(string startColor, string endColor = null)
             {
+                if (StringUtils.isEmpty(endColor))
+                    endColor = CustomMessages.messageColorWhite;
+
                 if (value.Contains("{cs}"))
                     return Substitute(new() { { "cs", startColor }, { "ce", endColor }, });
 

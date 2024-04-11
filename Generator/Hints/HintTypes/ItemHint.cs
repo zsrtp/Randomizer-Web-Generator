@@ -100,8 +100,8 @@ namespace TPRandomizer.Hints
 
             string context = CustomMsgData.BuildContextFromMeta(meta);
 
-            Res.ParsedRes aa = Res.ParseVal(areaId.GenResKey());
-            string areaString = aa.ResolveWithColors(
+            Res.Result aa = Res.ParseVal(areaId.GenResKey());
+            string areaString = aa.ResolveWithColor(
                 CustomMessages.messageColorRed,
                 CustomMessages.messageColorWhite
             );
@@ -109,17 +109,17 @@ namespace TPRandomizer.Hints
             if (!aa.meta.TryGetValue("ap", out string areaPhraseKey))
                 areaPhraseKey = "default";
 
-            Res.ParsedRes parsedRes2 = Res.ParseVal($"area-phrase.{areaPhraseKey}");
+            Res.Result parsedRes2 = Res.ParseVal($"area-phrase.{areaPhraseKey}");
             string areaPhrase = parsedRes2.Substitute(new() { { "area", areaString } });
 
-            Res.ParsedRes hintParsedRes = Res.ParseVal("hint-type.item");
+            Res.Result hintParsedRes = Res.ParseVal("hint-type.item");
 
             string verb = "";
             if (hintParsedRes.slotMeta.TryGetValue("verb", out Dictionary<string, string> verbMeta))
             {
                 if (verbMeta.TryGetValue("name", out string verbName))
                 {
-                    verb = Res.Msg("verb." + verbName, new() { { "context", context } });
+                    verb = Res.SimpleMsgOld("verb." + verbName, new() { { "context", context } });
                 }
             }
 

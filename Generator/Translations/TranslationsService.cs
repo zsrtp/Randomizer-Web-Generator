@@ -80,12 +80,20 @@ namespace TPRandomizer
                         LocalizedString locStr = enumerator.Current;
 
                         List<KeyValuePair<string, string>> resKvPairs = ResolveResourceKey(
+                            out ResKeyParts resKeyParts,
                             langCode,
                             locStr
                         );
                         foreach (KeyValuePair<string, string> pair in resKvPairs)
                         {
                             resources.TryAddResource(pair.Key, pair.Value);
+                        }
+                        if (resKeyParts != null)
+                        {
+                            resources.AddBaseKeyToContextParts(
+                                resKeyParts.resKeyBase,
+                                resKeyParts.relevantContexts
+                            );
                         }
                     }
                 }
@@ -115,6 +123,7 @@ namespace TPRandomizer
         }
 
         private static List<KeyValuePair<string, string>> ResolveResourceKey(
+            out ResKeyParts resKeyParts,
             string langCode,
             LocalizedString locStr
         )
@@ -122,9 +131,12 @@ namespace TPRandomizer
             Match match = ResKeyRegex().Match(locStr.Name);
 
             if (!match.Success)
+            {
+                resKeyParts = null;
                 return null;
+            }
 
-            ResKeyParts resKeyParts = new(langCode, locStr.Value, match);
+            resKeyParts = new(langCode, locStr.Value, match);
             List<KeyValuePair<string, string>> resKvPairs = resKeyParts.GenOutputKeyValPairs();
             return resKvPairs;
 
@@ -184,9 +196,10 @@ namespace TPRandomizer
         {
             private string langCode;
             private string baseValue;
-            private string resKeyBase;
+            public string resKeyBase;
             private List<string> origContextList = new();
             private List<string> activeContextList = new();
+            public HashSet<string> relevantContexts = new();
             private string ordinal;
             private string count;
             private string genFnName;
@@ -254,6 +267,8 @@ namespace TPRandomizer
                 activeContextList = new(origContextList);
                 if (!StringUtils.isEmpty(additionalContext))
                     activeContextList.Add(additionalContext);
+
+                relevantContexts.UnionWith(activeContextList);
             }
 
             private string GenCurrentResKey()
@@ -529,11 +544,11 @@ namespace TPRandomizer
             // return null;
         }
 
-        public HashSet<string> GetKeysWithStart(string start)
+        public HashSet<string> GetRelevantContextForBaseKey(string start)
         {
             // Only operate on ideal language. Ideally we should not be using
             // fallbacks anyway.
-            return resourcesList[0].GetKeysWithStart(start);
+            return resourcesList[0].GetRelevantContextForBaseKey(start);
         }
     }
 
@@ -541,6 +556,7 @@ namespace TPRandomizer
     {
         public CultureInfo cultureInfo { get; private set; }
         private Dictionary<string, string> dict = new();
+        private Dictionary<string, HashSet<string>> baseResKeyToContextParts = new();
 
         public LocaleResources(CultureInfo cultureInfo)
         {
@@ -570,31 +586,27 @@ namespace TPRandomizer
             return dict.Count < 1;
         }
 
-        public HashSet<string> GetKeysWithStart(string start)
+        public void AddBaseKeyToContextParts(string baseResKey, HashSet<string> contextParts)
         {
-            HashSet<string> results = new();
-            foreach (KeyValuePair<string, string> pair in dict)
+            if (StringUtils.isEmpty(baseResKey) || ListUtils.isEmpty(contextParts))
+                return;
+
+            if (!baseResKeyToContextParts.TryGetValue(baseResKey, out HashSet<string> current))
             {
-                string resKey = pair.Key;
-                if (resKey.StartsWith(start))
-                {
-                    // parse out any context. If there is any, add each one to the results.
-                    Match match = Translations.ResKeyRegex().Match(resKey);
-                    if (match.Success)
-                    {
-                        Group contextGroup = match.Groups[2];
-                        if (contextGroup.Success)
-                        {
-                            string[] chunks = contextGroup.Value.Split(",");
-                            foreach (string chunk in chunks)
-                            {
-                                results.Add(chunk);
-                            }
-                        }
-                    }
-                }
+                current = new();
+                baseResKeyToContextParts[baseResKey] = current;
             }
-            return results;
+            current.UnionWith(contextParts);
+        }
+
+        public HashSet<string> GetRelevantContextForBaseKey(string baseKey)
+        {
+            if (
+                !StringUtils.isEmpty(baseKey)
+                && baseResKeyToContextParts.TryGetValue(baseKey, out HashSet<string> result)
+            )
+                return result;
+            return new();
         }
     }
 

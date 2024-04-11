@@ -46,23 +46,26 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList()
         {
-            Res.ParsedRes ppp = Res.ParseVal(areaId.GenResKey());
+            Res.Result ppp = Res.ParseVal(areaId.GenResKey());
 
             string verbContext = CustomMsgData.BuildContextFromMeta(ppp.meta);
 
-            string areaText = ppp.ResolveWithColors(
+            string areaText = ppp.ResolveWithColor(
                 CustomMessages.messageColorYellow,
                 CustomMessages.messageColorWhite
             );
 
-            Res.ParsedRes hintParsedRes = Res.ParseVal("hint-type.woth");
+            Res.Result hintParsedRes = Res.ParseVal("hint-type.woth");
 
             string verb = "";
             if (hintParsedRes.slotMeta.TryGetValue("verb", out Dictionary<string, string> verbMeta))
             {
                 if (verbMeta.TryGetValue("name", out string verbName))
                 {
-                    verb = Res.Msg("verb." + verbName, new() { { "context", verbContext } });
+                    verb = Res.SimpleMsgOld(
+                        "verb." + verbName,
+                        new() { { "context", verbContext } }
+                    );
                 }
             }
 
