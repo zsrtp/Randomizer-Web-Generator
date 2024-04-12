@@ -469,6 +469,102 @@
     <value>Liens de l&apos;amitié</value>
     <comment></comment>
   </data>
+  <data name="item.85-forest_temple_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.85-forest_temple_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.86-goron_mines_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.86-goron_mines_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.87-lakebed_temple_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.87-lakebed_temple_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.88-arbiters_grounds_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.88-arbiters_grounds_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.89-snowpeak_ruins_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.89-snowpeak_ruins_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.8a-temple_of_time_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.8a-temple_of_time_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.8b-city_in_the_sky_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.8b-city_in_the_sky_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.8c-palace_of_twilight_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.8c-palace_of_twilight_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.8d-hyrule_castle_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé du Château d&apos;Hyule</value>
+    <comment></comment>
+  </data>
+  <data name="item.8d-hyrule_castle_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés du Château d&apos;Hyule</value>
+    <comment></comment>
+  </data>
+  <data name="item.8e-gerudo_desert_bulblin_camp_key@ac(f)" xml:space="preserve">
+    <value>clé du Camp des Bulblins</value>
+    <comment></comment>
+  </data>
+  <data name="item.8e-gerudo_desert_bulblin_camp_key#other@ac(f)" xml:space="preserve">
+    <value>clés du Camp des Bulblins</value>
+    <comment></comment>
+  </data>
+  <data name="item.90-aurus_memo@ac(f)" xml:space="preserve">
+    <value>note de Lafrel</value>
+    <comment></comment>
+  </data>
+  <data name="item.90-aurus_memo#other@ac(f)" xml:space="preserve">
+    <value>notes de Lafrel</value>
+    <comment></comment>
+  </data>
+  <data name="item.91-asheis_sketch@ac(m)" xml:space="preserve">
+    <value>croquis du yéti</value>
+    <comment></comment>
+  </data>
+  <data name="item.91-asheis_sketch#other@ac(m)" xml:space="preserve">
+    <value>croquis du yéti</value>
+    <comment></comment>
+  </data>
   <data name="item.d0-male_snail@ac(m,true)" xml:space="preserve">
     <value>escargot♂</value>
     <comment></comment>
