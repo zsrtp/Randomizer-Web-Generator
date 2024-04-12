@@ -765,6 +765,134 @@
     <value>cartes du Château d&apos;Hyrule</value>
     <comment></comment>
   </data>
+  <data name="item.c0-male_beetle@ac(m)" xml:space="preserve">
+    <value>scarabée♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c0-male_beetle#other@ac(m)" xml:space="preserve">
+    <value>scarabées♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c1-female_beetle@ac(m)" xml:space="preserve">
+    <value>scarabée♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c1-female_beetle#other@ac(m)" xml:space="preserve">
+    <value>scarabées♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c2-male_butterfly@ac(m)" xml:space="preserve">
+    <value>papillon♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c2-male_butterfly#other@ac(m)" xml:space="preserve">
+    <value>papillons♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c3-female_butterfly@ac(m)" xml:space="preserve">
+    <value>papillon♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c3-female_butterfly#other@ac(m)" xml:space="preserve">
+    <value>papillons♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c4-male_stag_beetle@ac(f)" xml:space="preserve">
+    <value>luncane♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c4-male_stag_beetle#other@ac(f)" xml:space="preserve">
+    <value>luncanes♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c5-female_stag_beetle@ac(f)" xml:space="preserve">
+    <value>luncane♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c5-female_stag_beetle#other@ac(f)" xml:space="preserve">
+    <value>luncanes♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c6-male_grasshopper@ac(f)" xml:space="preserve">
+    <value>sauterelle♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c6-male_grasshopper#other@ac(f)" xml:space="preserve">
+    <value>sauterelles♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c7-female_grasshopper@ac(f)" xml:space="preserve">
+    <value>sauterelle♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c7-female_grasshopper#other@ac(f)" xml:space="preserve">
+    <value>sauterelles♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c8-male_phasmid@ac(m)" xml:space="preserve">
+    <value>phasme♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c8-male_phasmid#other@ac(m)" xml:space="preserve">
+    <value>phasmes♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c9-female_phasmid@ac(m)" xml:space="preserve">
+    <value>phasme♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c9-female_phasmid#other@ac(m)" xml:space="preserve">
+    <value>phasmes♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.ca-male_pill_bug@ac(m)" xml:space="preserve">
+    <value>cloporte♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.ca-male_pill_bug#other@ac(m)" xml:space="preserve">
+    <value>cloportes♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.cb-female_pill_bug@ac(m)" xml:space="preserve">
+    <value>cloporte♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.cb-female_pill_bug#other@ac(m)" xml:space="preserve">
+    <value>cloportes♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.cc-male_mantis@ac(f)" xml:space="preserve">
+    <value>mante♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.cc-male_mantis#other@ac(f)" xml:space="preserve">
+    <value>mantes♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.cd-female_mantis@ac(f)" xml:space="preserve">
+    <value>mante♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.cd-female_mantis#other@ac(f)" xml:space="preserve">
+    <value>mantes♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.ce-male_ladybug@ac(f)" xml:space="preserve">
+    <value>coccinelle♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.ce-male_ladybug#other@ac(f)" xml:space="preserve">
+    <value>coccinelles♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.cf-female_ladybug@ac(f)" xml:space="preserve">
+    <value>coccinelle♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.cf-female_ladybug#other@ac(f)" xml:space="preserve">
+    <value>coccinelles♀</value>
+    <comment></comment>
+  </data>
   <data name="item.d0-male_snail@ac(m,true)" xml:space="preserve">
     <value>escargot♂</value>
     <comment></comment>
@@ -779,6 +907,62 @@
   </data>
   <data name="item.d1-female_snail#other@ac(m)" xml:space="preserve">
     <value>escargots♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d2-male_dragonfly@ac(f)" xml:space="preserve">
+    <value>libellule♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d2-male_dragonfly#other@ac(f)" xml:space="preserve">
+    <value>libellules♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d3-female_dragonfly@ac(f)" xml:space="preserve">
+    <value>libellule♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d3-female_dragonfly#other@ac(f)" xml:space="preserve">
+    <value>libellules♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d4-male_ant@ac(f)" xml:space="preserve">
+    <value>fourmi♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d4-male_ant#other@ac(f)" xml:space="preserve">
+    <value>fourmis♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d5-female_ant@ac(f)" xml:space="preserve">
+    <value>fourmi♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d5-female_ant#other@ac(f)" xml:space="preserve">
+    <value>fourmis♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d6-male_dayfly@ac(m,true)" xml:space="preserve">
+    <value>éphémère♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d6-male_dayfly#other@ac(m)" xml:space="preserve">
+    <value>éphémères♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d7-female_dayfly@ac(m,true)" xml:space="preserve">
+    <value>éphémère♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d7-female_dayfly#other@ac(m)" xml:space="preserve">
+    <value>éphémères♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d8-progressive_fused_shadow@ac(m)" xml:space="preserve">
+    <value>Cristal d&apos;Ombre</value>
+    <comment></comment>
+  </data>
+  <data name="item.d8-progressive_fused_shadow#other@ac(m)" xml:space="preserve">
+    <value>Cristaux d&apos;Ombre</value>
     <comment></comment>
   </data>
   <data name="item.e0-poe_soul@ac(f,true)" xml:space="preserve">
