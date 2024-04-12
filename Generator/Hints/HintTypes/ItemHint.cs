@@ -52,7 +52,7 @@ namespace TPRandomizer.Hints
             }
 
             // TEST CODE
-            item = Item.Bombs_5;
+            item = Item.Jovani_Bottle;
 
             if (genData != null)
             {

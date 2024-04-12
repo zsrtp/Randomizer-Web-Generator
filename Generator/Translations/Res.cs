@@ -487,22 +487,25 @@ namespace TPRandomizer
             // this one, we go forward in order to determine where to place
             // linebreaks.
 
+            // int firstAllowedIndex = 0;
+            // // int breakIndex = 0;
+            // for (int i = chunks.Count - 1; i >= 0; i--)
+            // {
+            //     TextChunk chunk = chunks[i];
+            //     if (chunk.textType == TextChunk.Type.Whitespace)
+            //     {
+            //         int lastBreakIndex = chunk.val.LastIndexOf('\n');
+            //         if (lastBreakIndex >= 0)
+            //         {
+            //             // breakIndex = lastBreakIndex;
+            //             firstAllowedIndex = i;
+            //             break;
+            //         }
+            //     }
+            // }
             int firstAllowedIndex = 0;
-            int breakIndex = 0;
-            for (int i = chunks.Count - 1; i >= 0; i--)
-            {
-                TextChunk chunk = chunks[i];
-                if (chunk.textType == TextChunk.Type.Whitespace)
-                {
-                    int lastBreakIndex = chunk.val.LastIndexOf('\n');
-                    if (lastBreakIndex >= 0)
-                    {
-                        breakIndex = lastBreakIndex;
-                        firstAllowedIndex = i;
-                        break;
-                    }
-                }
-            }
+            // Trying with allowing wrap at any point. Needed for French shop
+            // text line when it is super long (half milk bottle)
 
             // Need to start at first chunk and count up characters.
 

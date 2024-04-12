@@ -445,6 +445,10 @@
     <value>âmes de spectre</value>
     <comment></comment>
   </data>
+  <data name="shop.basic-slot" xml:space="preserve">
+    <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
+    <comment></comment>
+  </data>
   <data name="shop.price" xml:space="preserve">
     <value>{count} rubis</value>
     <comment>Confirmed by link1183 on 2024/03/31 that all should be &quot;rubis&quot;.</comment>

@@ -381,8 +381,9 @@ namespace TPRandomizer
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.SeraSlingshotSlot,
-                    itemHintText
-                // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
+                    // itemHintText
+                    // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
+                    GenBasicShopMsg("Lake Lantern Cave Twelfth Chest", 30, true)
                 )
             );
 
@@ -414,7 +415,8 @@ namespace TPRandomizer
 
             string aaaaa = abcd.Substitute(new() { { "item", itemText }, { "price", priceText } });
             string cc = Regex.Unescape(aaaaa);
-            return cc;
+            string dd = Res.LangSpecificNormalize(cc);
+            return dd;
         }
 
         public static string BuildContextFromMeta(Dictionary<string, string> meta)
