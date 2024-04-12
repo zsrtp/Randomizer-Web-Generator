@@ -565,6 +565,62 @@
     <value>croquis du yéti</value>
     <comment></comment>
   </data>
+  <data name="item.92-forest_temple_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.92-forest_temple_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.93-lakebed_temple_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.93-lakebed_temple_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.94-arbiters_grounds_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.94-arbiters_grounds_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.95-temple_of_time_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.95-temple_of_time_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.96-city_in_the_sky_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.96-city_in_the_sky_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.97-palace_of_twilight_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.97-palace_of_twilight_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.98-hyrule_castle_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
+  <data name="item.98-hyrule_castle_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
   <data name="item.d0-male_snail@ac(m,true)" xml:space="preserve">
     <value>escargot♂</value>
     <comment></comment>
