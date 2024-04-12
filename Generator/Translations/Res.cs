@@ -26,6 +26,9 @@ namespace TPRandomizer
         [GeneratedRegex(@"^\s")]
         private static partial Regex WhiteSpaceChar();
 
+        [GeneratedRegex(@"\u2642|\u2640")]
+        private static partial Regex MaleOrFemSign();
+
         private static Translations translations;
 
         static Res()
@@ -249,6 +252,22 @@ namespace TPRandomizer
         public static string LangSpecificNormalize(string valIn)
         {
             string input = Regex.Unescape(valIn);
+            input = MaleOrFemSign()
+                .Replace(
+                    input,
+                    (match) =>
+                    {
+                        if (match.Success)
+                        {
+                            string character = match.Value;
+                            if (character == "♂")
+                                return CustomMessages.maleSign;
+                            else if (character == "♀")
+                                return CustomMessages.femaleSign;
+                        }
+                        return "";
+                    }
+                );
 
             // List<string> escapedList = new();
             List<TextChunk> chunks = new();

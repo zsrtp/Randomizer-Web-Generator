@@ -437,6 +437,54 @@
     <value>lettres de Reynald</value>
     <comment></comment>
   </data>
+  <data name="item.81-invoice@ac(f)" xml:space="preserve">
+    <value>facture de la taverne</value>
+    <comment></comment>
+  </data>
+  <data name="item.81-invoice#other@ac(f)" xml:space="preserve">
+    <value>factures de la tarvene</value>
+    <comment></comment>
+  </data>
+  <data name="item.82-wooden_statue@ac(f)" xml:space="preserve">
+    <value>statuette en bois</value>
+    <comment></comment>
+  </data>
+  <data name="item.82-wooden_statue#other@ac(f)" xml:space="preserve">
+    <value>statuettes en bois</value>
+    <comment></comment>
+  </data>
+  <data name="item.83-ilias_charm@ac(m)" xml:space="preserve">
+    <value>collier d&apos;Iria</value>
+    <comment></comment>
+  </data>
+  <data name="item.83-ilias_charm#other@ac(m)" xml:space="preserve">
+    <value>colliers d&apos;Iria</value>
+    <comment></comment>
+  </data>
+  <data name="item.84-horse_call@ac(m)" xml:space="preserve">
+    <value>Lien de l&apos;amitié</value>
+    <comment></comment>
+  </data>
+  <data name="item.84-horse_call#other@ac(m)" xml:space="preserve">
+    <value>Liens de l&apos;amitié</value>
+    <comment></comment>
+  </data>
+  <data name="item.d0-male_snail@ac(m,true)" xml:space="preserve">
+    <value>escargot♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d0-male_snail#other@ac(m)" xml:space="preserve">
+    <value>escargots♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d1-female_snail@ac(m,true)" xml:space="preserve">
+    <value>escargot♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d1-female_snail#other@ac(m)" xml:space="preserve">
+    <value>escargots♀</value>
+    <comment></comment>
+  </data>
   <data name="item.e0-poe_soul@ac(f,true)" xml:space="preserve">
     <value>âme de spectre</value>
     <comment></comment>

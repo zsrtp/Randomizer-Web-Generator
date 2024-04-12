@@ -27,6 +27,8 @@ namespace TPRandomizer.Assets
         public static string messageOption2 = "\x1A\x06\x00\x00\x09\x02";
         public static string messageOption3 = "\x1A\x06\x00\x00\x09\x03";
         public static string shopOption = "\x1A\x05\x00\x00\x20";
+        public static string maleSign = "\x1A\x05\x06\x00\x02";
+        public static string femaleSign = "\x1A\x05\x06\x00\x03";
 
         // Unused for now but who knows.
         public static string[][] foolishShopItemNames =
