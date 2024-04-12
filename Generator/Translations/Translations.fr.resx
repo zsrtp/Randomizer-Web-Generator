@@ -989,6 +989,70 @@
     <value>âmes de spectre</value>
     <comment></comment>
   </data>
+  <data name="item.e1-progressive_hidden_skill@ac(f)" xml:space="preserve">
+    <value>Botte Secrète</value>
+    <comment></comment>
+  </data>
+  <data name="item.e1-progressive_hidden_skill#other@ac(f)" xml:space="preserve">
+    <value>Bottes Secrètes</value>
+    <comment></comment>
+  </data>
+  <data name="item.e9-progressive_sky_book@ac(m)" xml:space="preserve">
+    <value>glyphe célestien</value>
+    <comment></comment>
+  </data>
+  <data name="item.e9-progressive_sky_book#other@ac(m)" xml:space="preserve">
+    <value>glyphes célestien</value>
+    <comment></comment>
+  </data>
+  <data name="item.ee-north_faron_woods_gate_key@ac" xml:space="preserve">
+    <value>clé de la Forêt de Firone</value>
+    <comment></comment>
+  </data>
+  <data name="item.ee-north_faron_woods_gate_key#other@ac" xml:space="preserve">
+    <value>clés de la Forêt de Firone</value>
+    <comment></comment>
+  </data>
+  <data name="item.f3-gate_keys@ac(f)" xml:space="preserve">
+    <value>clé du portail</value>
+    <comment>The name of the thing you get is just &quot;la clé du portail&quot;.</comment>
+  </data>
+  <data name="item.f3-gate_keys#other@ac(f)" xml:space="preserve">
+    <value>clés du portail</value>
+    <comment></comment>
+  </data>
+  <data name="item.f4-snowpeak_ruins_ordon_pumpkin@ac(m)" xml:space="preserve">
+    <value>potiron toalien</value>
+    <comment></comment>
+  </data>
+  <data name="item.f4-snowpeak_ruins_ordon_pumpkin#other@ac(m)" xml:space="preserve">
+    <value>potirons toalien</value>
+    <comment></comment>
+  </data>
+  <data name="item.f5-snowpeak_ruins_ordon_goat_cheese@ac(m)" xml:space="preserve">
+    <value>fromage toalien</value>
+    <comment></comment>
+  </data>
+  <data name="item.f5-snowpeak_ruins_ordon_goat_cheese#other@ac(m)" xml:space="preserve">
+    <value>fromages toalien</value>
+    <comment></comment>
+  </data>
+  <data name="item.f6-snowpeak_ruins_bedroom_key@ac(f)" xml:space="preserve">
+    <value>clé de la chambre</value>
+    <comment></comment>
+  </data>
+  <data name="item.f6-snowpeak_ruins_bedroom_key#other@ac(f)" xml:space="preserve">
+    <value>clés de la chambre</value>
+    <comment></comment>
+  </data>
+  <data name="item.f9-goron_mines_key_shard@ac(m)" xml:space="preserve">
+    <value>fragment de clé des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.f9-goron_mines_key_shard#other@ac(m)" xml:space="preserve">
+    <value>fragments de clé des Mines Gorons</value>
+    <comment></comment>
+  </data>
   <data name="shop.basic-slot" xml:space="preserve">
     <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
     <comment></comment>
