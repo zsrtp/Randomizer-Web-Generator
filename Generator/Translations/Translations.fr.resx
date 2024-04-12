@@ -349,8 +349,92 @@
     <value>arcs</value>
     <comment></comment>
   </data>
+  <data name="item.44-progressive_clawshot@ac(m)" xml:space="preserve">
+    <value>grappin</value>
+    <comment></comment>
+  </data>
+  <data name="item.44-progressive_clawshot#other@ac(m)" xml:space="preserve">
+    <value>grappins</value>
+    <comment></comment>
+  </data>
+  <data name="item.46-progressive_dominion_rod@ac(m)" xml:space="preserve">
+    <value>bâton Anima</value>
+    <comment></comment>
+  </data>
+  <data name="item.46-progressive_dominion_rod#other@ac(m)" xml:space="preserve">
+    <value>bâtons Anima</value>
+    <comment></comment>
+  </data>
   <data name="item.48-lantern@ac(f)" xml:space="preserve">
-    <value>Lanterne</value>
+    <value>lanterne</value>
+    <comment></comment>
+  </data>
+  <data name="item.48-lantern#other@ac(f)" xml:space="preserve">
+    <value>lanternes</value>
+    <comment></comment>
+  </data>
+  <data name="item.4a-progressive_fishing_rod@ac(f)" xml:space="preserve">
+    <value>canne à pêche</value>
+    <comment></comment>
+  </data>
+  <data name="item.4a-progressive_fishing_rod#other@ac(f)" xml:space="preserve">
+    <value>cannes à pêche</value>
+    <comment></comment>
+  </data>
+  <data name="item.4b-slingshot@ac(m)" xml:space="preserve">
+    <value>lance-pierre</value>
+    <comment></comment>
+  </data>
+  <data name="item.4b-slingshot#other@ac(m)" xml:space="preserve">
+    <value>lance-pierres</value>
+    <comment></comment>
+  </data>
+  <data name="item.4f-giant_bomb_bag@ac(m)" xml:space="preserve">
+    <value>sac de bombes géant</value>
+    <comment></comment>
+  </data>
+  <data name="item.4f-giant_bomb_bag#other@ac(m)" xml:space="preserve">
+    <value>sacs de bombes géants</value>
+    <comment></comment>
+  </data>
+  <data name="item.51-filled_bomb_bag@ac(m)" xml:space="preserve">
+    <value>sac de bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.51-filled_bomb_bag#other@ac(m)" xml:space="preserve">
+    <value>sacs de bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.60-empty_bottle@ac(m)" xml:space="preserve">
+    <value>flacon</value>
+    <comment></comment>
+  </data>
+  <data name="item.60-empty_bottle#other@ac(m)" xml:space="preserve">
+    <value>flacons</value>
+    <comment></comment>
+  </data>
+  <data name="item.65-sera_bottle@ac(f)" xml:space="preserve">
+    <value>bouteille de lait à moitiée remplie</value>
+    <comment></comment>
+  </data>
+  <data name="item.65-sera_bottle#other@ac(f)" xml:space="preserve">
+    <value>bouteilles de lait à moitiée remplie</value>
+    <comment></comment>
+  </data>
+  <data name="item.75-jovani_bottle@ac(f)" xml:space="preserve">
+    <value>bouteille de larmes de Fée</value>
+    <comment></comment>
+  </data>
+  <data name="item.75-jovani_bottle#other@ac(f)" xml:space="preserve">
+    <value>bouteilles de larmes de Fée</value>
+    <comment></comment>
+  </data>
+  <data name="item.80-renados_letter@ac(f)" xml:space="preserve">
+    <value>lettre de Reynald</value>
+    <comment></comment>
+  </data>
+  <data name="item.80-renados_letter#other@ac(f)" xml:space="preserve">
+    <value>lettres de Reynald</value>
     <comment></comment>
   </data>
   <data name="item.e0-poe_soul@ac(f,true)" xml:space="preserve">
