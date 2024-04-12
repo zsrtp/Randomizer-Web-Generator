@@ -621,6 +621,150 @@
     <value>grandes clés du Château d&apos;Hyrule</value>
     <comment></comment>
   </data>
+  <data name="item.99-forest_temple_compass@ac(f)" xml:space="preserve">
+    <value>boussole du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.99-forest_temple_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.9a-goron_mines_compass@ac(f)" xml:space="preserve">
+    <value>boussole des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.9a-goron_mines_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.9b-lakebed_temple_compass@ac(f)" xml:space="preserve">
+    <value>boussole du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.9b-lakebed_temple_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.a8-arbiters_grounds_compass@ac(f)" xml:space="preserve">
+    <value>boussole de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.a8-arbiters_grounds_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.a9-snowpeak_ruins_compass@ac(f)" xml:space="preserve">
+    <value>boussole des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.a9-snowpeak_ruins_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.aa-temple_of_time_compass@ac(f)" xml:space="preserve">
+    <value>boussole du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.aa-temple_of_time_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.ab-city_in_the_sky_compass@ac(f)" xml:space="preserve">
+    <value>boussole de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.ab-city_in_the_sky_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.ac-palace_of_twilight_compass@ac(f)" xml:space="preserve">
+    <value>boussole du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.ac-palace_of_twilight_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.ad-hyrule_castle_compass@ac(f)" xml:space="preserve">
+    <value>boussole du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
+  <data name="item.ad-hyrule_castle_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
+  <data name="item.b6-forest_temple_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.b6-forest_temple_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.b7-goron_mines_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.b7-goron_mines_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>carte des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.b8-lakebed_temple_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.b8-lakebed_temple_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.b9-arbiters_grounds_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.b9-arbiters_grounds_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.ba-snowpeak_ruins_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.ba-snowpeak_ruins_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.bb-temple_of_time_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.bb-temple_of_time_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.bc-city_in_the_sky_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.bc-city_in_the_sky_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.bd-palace_of_twilight_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.bd-palace_of_twilight_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.be-hyrule_castle_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
+  <data name="item.be-hyrule_castle_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
   <data name="item.d0-male_snail@ac(m,true)" xml:space="preserve">
     <value>escargot♂</value>
     <comment></comment>
