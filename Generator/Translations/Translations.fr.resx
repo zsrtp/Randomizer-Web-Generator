@@ -645,6 +645,22 @@
     <value>boussoles du Temple Abyssal</value>
     <comment></comment>
   </data>
+  <data name="item.9d-coro_bottle@ac(m)" xml:space="preserve">
+    <value>flacon d&apos;huile</value>
+    <comment></comment>
+  </data>
+  <data name="item.9d-coro_bottle#other@ac(m)" xml:space="preserve">
+    <value>flacons d&apos;huile</value>
+    <comment></comment>
+  </data>
+  <data name="item.a5-progressive_mirror_shard@ac(m)" xml:space="preserve">
+    <value>fragment du Miroir des Ombres</value>
+    <comment></comment>
+  </data>
+  <data name="item.a5-progressive_mirror_shard#other@ac(m)" xml:space="preserve">
+    <value>fragments du Miroir des Ombres</value>
+    <comment></comment>
+  </data>
   <data name="item.a8-arbiters_grounds_compass@ac(f)" xml:space="preserve">
     <value>boussole de la Tour du Jugement</value>
     <comment></comment>
