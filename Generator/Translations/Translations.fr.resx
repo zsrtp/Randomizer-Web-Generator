@@ -161,16 +161,148 @@
     <value>la {cs}Région des Pics Blancs{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.agithas_castle" xml:space="preserve">
+    <value>le {cs}Château de Machaon{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.arbiters_grounds" xml:space="preserve">
+    <value>la {cs}Tour du Jugement{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.beside_castle_town" xml:space="preserve">
+    <value>$(plural)les {cs}Abords de la Citadelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.bulblin_camp" xml:space="preserve">
+    <value>le {cs}Camp des Bulblins{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.castle_town" xml:space="preserve">
+    <value>la {cs}Citadelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.cave_of_ordeals" xml:space="preserve">
+    <value>la {cs}Caverne de l&apos;Ordalie{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.city_in_the_sky" xml:space="preserve">
+    <value>Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.death_mountain" xml:space="preserve">
+    <value>la {cs}Montagne de la Mort{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.eldin_field" xml:space="preserve">
+    <value>la {cs}Plaine de Ordinn{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.faron_field" xml:space="preserve">
+    <value>la {cs}Plaine de Firone{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.faron_woods" xml:space="preserve">
+    <value>la {cs}Forêt de Firone{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.forest_temple" xml:space="preserve">
+    <value>le {cs}Temple Sylvestre{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.gerudo_desert" xml:space="preserve">
+    <value>le {cs}Désert Gerudo{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.goron_mines" xml:space="preserve">
+    <value>$(plural)les {cs}Mines Gorons{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.great_bridge_of_hylia" xml:space="preserve">
+    <value>le {cs}Viaduc d&apos;Hylia{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.hidden_village" xml:space="preserve">
+    <value>le {cs}Village oublié{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.hyrule_castle" xml:space="preserve">
+    <value>le {cs}Château d&apos;Hyrule{ce}</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.kakariko_gorge" xml:space="preserve">
     <value>$(plural)les {cs}Gorges de Cocorico{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.kakariko_graveyard" xml:space="preserve">
+    <value>le {cs}Cimetière de Cocorico{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.kakariko_village" xml:space="preserve">
+    <value>le {cs}Village Cocorico{ce}</value>
     <comment></comment>
   </data>
   <data name="area.zone.lake_hylia" xml:space="preserve">
     <value>le {cs}Lac Hylia{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.lake_lantern_cave" xml:space="preserve">
+    <value>la {cs}Grotte Laterne du Lac{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lakebed_temple" xml:space="preserve">
+    <value>le {cs}Temple Abyssal{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lanayru_field" xml:space="preserve">
+    <value>la {cs}Plaine de Lanelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lanayru_spring" xml:space="preserve">
+    <value>la {cs}Source de Lanelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.multizone_minigames" xml:space="preserve">
+    <value>$(plural)les {cs}mini-jeux multizones{ce}</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.north_eldin" xml:space="preserve">
     <value>{que-transform}Ordinn Nord</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.ordon" xml:space="preserve">
+    <value>Toal</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.palace_of_twilight" xml:space="preserve">
+    <value>le {cs}Palais du Crépuscule{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.sacred_grove" xml:space="preserve">
+    <value>le {cs}Sanctuaire de la Forêt{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.snowpeak" xml:space="preserve">
+    <value>$(plural)les {cs}Pics Blancs{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.snowpeak_ruins" xml:space="preserve">
+    <value>$(plural)les {cs}Ruines des Pics Blancs{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.south_of_castle_town" xml:space="preserve">
+    <value>le {cs}Sud de la Citadelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.temple_of_time" xml:space="preserve">
+    <value>le {cs}Temple du Temps{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.upper_zoras_river" xml:space="preserve">
+    <value>l&apos;{cs}Amont de la Rivière Zora{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.zoras_domain" xml:space="preserve">
+    <value>le {cs}Domaine Zora{ce}</value>
     <comment></comment>
   </data>
   <data name="hint-type.barren" xml:space="preserve">

@@ -344,7 +344,8 @@ namespace TPRandomizer
 
             ItemHint itemHint = ItemHint.Create(
                 null,
-                AreaId.Zone(Zone.Kakariko_Gorge),
+                // AreaId.Zone(Zone.Kakariko_Gorge),
+                AreaId.Zone(Zone.Bulblin_Camp),
                 // AreaId.Zone(Zone.North_Eldin),
                 // AreaId.Zone(Zone.Lake_Hylia),
                 "Lake Hylia Dock Poe"
@@ -358,7 +359,7 @@ namespace TPRandomizer
                 2,
                 Item.Bombs_5,
                 // AreaId.Province(Province.Dungeon)
-                AreaId.Province(Province.Desert)
+                AreaId.Zone(Zone.Snowpeak)
             );
             string niiaHintText = hhint.toHintTextList()[0].text;
 
