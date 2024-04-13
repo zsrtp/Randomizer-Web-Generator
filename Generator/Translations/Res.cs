@@ -614,22 +614,13 @@ namespace TPRandomizer
                         }
                     }
                 }
-                // need to iterate through
-
             }
-
-            int abc = 7;
         }
 
         private static int GetTextTypeChunkLength(TextChunk textChunk)
         {
             if (textChunk.textType == TextChunk.Type.Text)
             {
-                // We need to add the length, then subtract 1 for each found \x1A.
-                // Then we add the lengths from all of the things in the renderedDict
-
-                // Actually, we can just subtract 1 for each thing we find in the dict.
-
                 int length = textChunk.val.Length;
 
                 // Add lengths for any rendered escSequences.
@@ -637,19 +628,9 @@ namespace TPRandomizer
                 {
                     string renderedEscSeq = pair.Value;
                     int renderedLength = GetEscRenderedCharLength(renderedEscSeq);
-                    // subtract to offset the \x1A that we keep in the val.
+                    // Subtract 1 in order to offset the \x1A that we keep in the val.
                     length += renderedLength - 1;
                 }
-
-                // int length = textChunk.val.Length;
-                // foreach (KeyValuePair<int, List<string>> pair in textChunk.escapesAtIndexes)
-                // {
-                //     foreach (string val in pair.Value)
-                //     {
-                //         if (val == CustomMessages.playerName)
-                //             length += 8;
-                //     }
-                // }
                 return length;
             }
             return 0;
@@ -669,7 +650,7 @@ namespace TPRandomizer
             public Dictionary<int, List<string>> escapesAtIndexes = new();
             public Dictionary<int, string> indexToRenderedEsc = new();
 
-            private StringBuilder builder = new();
+            private readonly StringBuilder builder = new();
 
             public void AddChar(string character)
             {
