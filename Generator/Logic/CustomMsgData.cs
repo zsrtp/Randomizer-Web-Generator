@@ -341,8 +341,6 @@ namespace TPRandomizer
             // use all of the meta which is passed back as the context for the
             // sentence.
 
-            BarrenHint barrenHint = new BarrenHint(AreaId.Zone(Zone.Kakariko_Gorge));
-            string bht = barrenHint.toHintTextList()[0].text;
 
             ItemHint itemHint = ItemHint.Create(
                 null,
@@ -352,6 +350,9 @@ namespace TPRandomizer
                 "Lake Hylia Dock Poe"
             );
             string itemHintText = itemHint.toHintTextList()[0].text;
+
+            BarrenHint barrenHint = new BarrenHint(AreaId.Zone(Zone.Kakariko_Gorge));
+            string bht = barrenHint.toHintTextList()[0].text;
 
             NumItemInAreaHint hhint = new NumItemInAreaHint(
                 0,

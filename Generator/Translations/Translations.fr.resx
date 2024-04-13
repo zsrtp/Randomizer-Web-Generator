@@ -1005,11 +1005,19 @@
     <value>glyphes célestien</value>
     <comment></comment>
   </data>
-  <data name="item.ee-north_faron_woods_gate_key@ac" xml:space="preserve">
+  <data name="item.ed-purple_rupee_links_house@ac(m)" xml:space="preserve">
+    <value>rubis de #(player-name)</value>
+    <comment></comment>
+  </data>
+  <data name="item.ed-purple_rupee_links_house#other@ac(m)" xml:space="preserve">
+    <value>rubis de #(player-name)</value>
+    <comment></comment>
+  </data>
+  <data name="item.ee-north_faron_woods_gate_key@ac(f)" xml:space="preserve">
     <value>clé de la Forêt de Firone</value>
     <comment></comment>
   </data>
-  <data name="item.ee-north_faron_woods_gate_key#other@ac" xml:space="preserve">
+  <data name="item.ee-north_faron_woods_gate_key#other@ac(f)" xml:space="preserve">
     <value>clés de la Forêt de Firone</value>
     <comment></comment>
   </data>

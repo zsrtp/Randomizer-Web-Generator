@@ -249,6 +249,23 @@ namespace TPRandomizer
             return result;
         }
 
+        private static int GetEscRenderedCharLength(string escapeSequence)
+        {
+            if (StringUtils.isEmpty(escapeSequence))
+                throw new Exception($"Did not expect an empty escSequence.");
+
+            switch (escapeSequence)
+            {
+                case CustomMessages.maleSign:
+                case CustomMessages.femaleSign:
+                    return 1;
+                case CustomMessages.playerName:
+                    return 8;
+                default:
+                    return 0;
+            }
+        }
+
         public static string LangSpecificNormalize(string valIn)
         {
             string input = Regex.Unescape(valIn);
@@ -280,24 +297,38 @@ namespace TPRandomizer
                 string currentChar = input.Substring(index, 1);
                 byte byteVal = (byte)currentChar[0];
 
+                string renderedEsc = null;
+                bool hasRenderedEsc = false;
+                byte escLength = 0;
+
                 if (byteVal == 0x1A)
                 {
                     // determine how many chars to pull out.
-                    byte escLength = (byte)input[index + 1];
-
+                    escLength = (byte)input[index + 1];
                     // For Japanese only (since non-ja is always one byte per
                     // char), we may need to convert the string to bytes and
                     // process that way since an escape sequence (with furigana
                     // for example) will have fewer chars in it that the actual
                     // byte length of the sequence.
                     string escapeSequence = input.Substring(index, escLength);
-                    currentChunk.AddEscapeSequence(escapeSequence);
-                    // currentChunk.escapedList.Add(escapeSequence);
                     index += escLength;
-                    continue;
+
+                    if (GetEscRenderedCharLength(escapeSequence) > 0)
+                    {
+                        // currentChunk.AddRenderedEscapeSequence(escapeSequence);
+                        renderedEsc = escapeSequence;
+                        hasRenderedEsc = true;
+                    }
+                    else
+                    {
+                        // If non-rendered escSequence (like text color change),
+                        // add normal way.
+                        currentChunk.AddEscapeSequence(escapeSequence);
+                        continue;
+                    }
                 }
 
-                if (WhiteSpaceChar().IsMatch(currentChar))
+                if (!hasRenderedEsc && WhiteSpaceChar().IsMatch(currentChar))
                 {
                     if (currentChunk.textType == TextChunk.Type.Text)
                     {
@@ -305,14 +336,10 @@ namespace TPRandomizer
                         chunks.Add(currentChunk);
 
                         currentChunk = new();
-                        currentChunk.textType = TextChunk.Type.Whitespace;
-                        currentChunk.AddChar(currentChar);
                     }
-                    else
-                    {
-                        currentChunk.textType = TextChunk.Type.Whitespace;
-                        currentChunk.AddChar(currentChar);
-                    }
+
+                    currentChunk.textType = TextChunk.Type.Whitespace;
+                    currentChunk.AddChar(currentChar);
                 }
                 else
                 {
@@ -322,22 +349,24 @@ namespace TPRandomizer
                         chunks.Add(currentChunk);
 
                         currentChunk = new();
-                        currentChunk.textType = TextChunk.Type.Text;
-                        currentChunk.AddChar(currentChar);
                     }
+
+                    currentChunk.textType = TextChunk.Type.Text;
+                    if (hasRenderedEsc)
+                        currentChunk.AddRenderedEscapeSequence(renderedEsc);
                     else
-                    {
-                        currentChunk.textType = TextChunk.Type.Text;
                         currentChunk.AddChar(currentChar);
-                    }
                 }
 
-                index += 1;
+                if (!hasRenderedEsc)
+                    index += 1;
             }
 
-            // Expected to always add unless the string was just empty.
             if (currentChunk.textType != TextChunk.Type.Unknown)
             {
+                // Add the leftover chunk which was not added when context
+                // swapped to a different type. The only time we would not add
+                // this is when we did no work (the string was empty).
                 currentChunk.BuildVal();
                 chunks.Add(currentChunk);
             }
@@ -457,7 +486,19 @@ namespace TPRandomizer
                     }
 
                     if (i < chunk.val.Length)
-                        result += chunk.val[i];
+                    {
+                        char character = chunk.val[i];
+                        if (character == '\x1A')
+                        {
+                            if (!chunk.indexToRenderedEsc.TryGetValue(i, out string escSeq))
+                                throw new Exception(
+                                    $"Failed to get rendered escSeq for '{chunk.val}' at index {i}."
+                                );
+                            result += escSeq;
+                        }
+                        else
+                            result += chunk.val[i];
+                    }
                 }
             }
 
@@ -584,15 +625,31 @@ namespace TPRandomizer
         {
             if (textChunk.textType == TextChunk.Type.Text)
             {
+                // We need to add the length, then subtract 1 for each found \x1A.
+                // Then we add the lengths from all of the things in the renderedDict
+
+                // Actually, we can just subtract 1 for each thing we find in the dict.
+
                 int length = textChunk.val.Length;
-                foreach (KeyValuePair<int, List<string>> pair in textChunk.escapesAtIndexes)
+
+                // Add lengths for any rendered escSequences.
+                foreach (KeyValuePair<int, string> pair in textChunk.indexToRenderedEsc)
                 {
-                    foreach (string val in pair.Value)
-                    {
-                        if (val == CustomMessages.playerName)
-                            length += 8;
-                    }
+                    string renderedEscSeq = pair.Value;
+                    int renderedLength = GetEscRenderedCharLength(renderedEscSeq);
+                    // subtract to offset the \x1A that we keep in the val.
+                    length += renderedLength - 1;
                 }
+
+                // int length = textChunk.val.Length;
+                // foreach (KeyValuePair<int, List<string>> pair in textChunk.escapesAtIndexes)
+                // {
+                //     foreach (string val in pair.Value)
+                //     {
+                //         if (val == CustomMessages.playerName)
+                //             length += 8;
+                //     }
+                // }
                 return length;
             }
             return 0;
@@ -610,12 +667,19 @@ namespace TPRandomizer
             public Type textType = Type.Unknown;
             public string val;
             public Dictionary<int, List<string>> escapesAtIndexes = new();
+            public Dictionary<int, string> indexToRenderedEsc = new();
 
             private StringBuilder builder = new();
 
             public void AddChar(string character)
             {
                 builder.Append(character);
+            }
+
+            public void AddRenderedEscapeSequence(string sequence)
+            {
+                builder.Append('\x1A');
+                indexToRenderedEsc[builder.Length - 1] = sequence;
             }
 
             public void AddEscapeSequence(string sequence)
@@ -654,10 +718,41 @@ namespace TPRandomizer
                         int newKey = pair.Key;
                         if (newKey > startIndex)
                             newKey -= count;
+                        if (newKey < startIndex)
+                            newKey = startIndex;
 
                         newDict[newKey] = pair.Value;
                     }
                     escapesAtIndexes = newDict;
+                }
+
+                if (!ListUtils.isEmpty(indexToRenderedEsc))
+                {
+                    Dictionary<int, string> newDict = new();
+                    foreach (KeyValuePair<int, string> pair in indexToRenderedEsc)
+                    {
+                        int oldIdx = pair.Key;
+
+                        if (oldIdx >= startIndex + count)
+                        {
+                            // If index is after the range, decrease the key by
+                            // the number of removed chars.
+                            newDict[pair.Key - count] = pair.Value;
+                        }
+                        else if (oldIdx >= startIndex)
+                        {
+                            // If index pointed to a char which was in the
+                            // range, then we just filter it out since the char
+                            // is no longer there.
+                            continue;
+                        }
+                        else
+                        {
+                            // If index is before the range, then do nothing.
+                            newDict[pair.Key] = pair.Value;
+                        }
+                    }
+                    indexToRenderedEsc = newDict;
                 }
             }
         }
@@ -973,7 +1068,12 @@ namespace TPRandomizer
                             if (!key.Success)
                                 throw new Exception("Unexpected regex failure.");
 
-                            return interpolation[key.Value];
+                            if (interpolation.TryGetValue(key.Value, out string valToPut))
+                            {
+                                return valToPut;
+                            }
+                            // If not in interpolation, return the value back.
+                            return match.Value;
                         }
                     );
 

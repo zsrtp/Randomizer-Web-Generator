@@ -18,6 +18,8 @@ namespace TPRandomizer
     using TPRandomizer.Properties;
     using System.Linq;
     using System.Text;
+    using TPRandomizer.Assets;
+    using System.Linq.Expressions;
 
     // public sealed class Translations(IStringLocalizer<Translations> localizer)
     // public sealed class Translations(IStringLocalizer<Translations> localizer)
@@ -28,6 +30,9 @@ namespace TPRandomizer
             RegexOptions.IgnoreCase
         )]
         public static partial Regex ResKeyRegex();
+
+        [GeneratedRegex(@"(?:#\(([a-z0-9-]+)\))")]
+        private static partial Regex EscSeqAlias();
 
         private IStringLocalizer<Translations> localizer;
         List<LocaleResources> resourcesList;
@@ -207,6 +212,32 @@ namespace TPRandomizer
 
             public ResKeyParts(string langCode, string baseValue, Match match)
             {
+                // Transform baseValue if it contains escapeSequence aliases.
+                if (!StringUtils.isEmpty(baseValue))
+                {
+                    baseValue = EscSeqAlias()
+                        .Replace(
+                            baseValue,
+                            (match) =>
+                            {
+                                if (match.Success)
+                                {
+                                    string escSeqAlias = match.Groups[1].Value;
+                                    switch (escSeqAlias)
+                                    {
+                                        case "player-name":
+                                            return CustomMessages.playerName;
+                                        default:
+                                            throw new Exception(
+                                                $"Failed to understand escSeqAlias '{escSeqAlias}'."
+                                            );
+                                    }
+                                }
+                                throw new Exception("Unexpected error in EscSeqAlias Replace.");
+                            }
+                        );
+                }
+
                 this.langCode = langCode;
                 this.baseValue = baseValue;
                 resKeyBase = match.Groups[1].Value;

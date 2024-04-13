@@ -52,7 +52,7 @@ namespace TPRandomizer.Hints
             }
 
             // TEST CODE
-            item = Item.Male_Snail;
+            item = Item.Purple_Rupee_Links_House;
 
             if (genData != null)
             {

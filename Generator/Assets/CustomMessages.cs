@@ -22,13 +22,13 @@ namespace TPRandomizer.Assets
         public static string messageColorDarkGreen = "\x1A\x06\xFF\x00\x00\x09";
         public static string messageColorBlue = "\x1A\x06\xFF\x00\x00\x0A";
         public static string messageColorSilver = "\x1A\x06\xFF\x00\x00\x0B";
-        public static string playerName = "\x1A\x05\x00\x00\x00";
+        public const string playerName = "\x1A\x05\x00\x00\x00";
         public static string messageOption1 = "\x1A\x06\x00\x00\x09\x01";
         public static string messageOption2 = "\x1A\x06\x00\x00\x09\x02";
         public static string messageOption3 = "\x1A\x06\x00\x00\x09\x03";
         public static string shopOption = "\x1A\x05\x00\x00\x20";
-        public static string maleSign = "\x1A\x05\x06\x00\x02";
-        public static string femaleSign = "\x1A\x05\x06\x00\x03";
+        public const string maleSign = "\x1A\x05\x06\x00\x02";
+        public const string femaleSign = "\x1A\x05\x06\x00\x03";
 
         // Unused for now but who knows.
         public static string[][] foolishShopItemNames =
