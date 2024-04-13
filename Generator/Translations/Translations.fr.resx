@@ -418,11 +418,11 @@
     <comment></comment>
   </data>
   <data name="item.65-sera_bottle@ac(f)" xml:space="preserve">
-    <value>bouteille de lait à moitiée remplie</value>
+    <value>bouteille de lait à moitié vide</value>
     <comment></comment>
   </data>
   <data name="item.65-sera_bottle#other@ac(f)" xml:space="preserve">
-    <value>bouteilles de lait à moitiée remplie</value>
+    <value>bouteilles de lait à moitié vide</value>
     <comment></comment>
   </data>
   <data name="item.75-jovani_bottle@ac(f)" xml:space="preserve">
