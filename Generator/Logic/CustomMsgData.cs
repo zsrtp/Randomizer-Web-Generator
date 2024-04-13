@@ -357,12 +357,14 @@ namespace TPRandomizer
             NumItemInAreaHint hhint = new NumItemInAreaHint(
                 2,
                 Item.Bombs_5,
-                AreaId.Province(Province.Dungeon)
+                // AreaId.Province(Province.Dungeon)
+                AreaId.Province(Province.Desert)
             );
             string niiaHintText = hhint.toHintTextList()[0].text;
 
             WothHint wothHint = new WothHint(
-                AreaId.Zone(Zone.Kakariko_Gorge),
+                // AreaId.Zone(Zone.Kakariko_Gorge),
+                AreaId.Province(Province.Peak),
                 "Lake Hylia Dock Poe"
             );
             string wothHintText = wothHint.toHintTextList()[0].text;

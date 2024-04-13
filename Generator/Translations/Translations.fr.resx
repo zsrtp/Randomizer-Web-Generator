@@ -125,6 +125,10 @@
     <value>à {area}</value>
     <comment></comment>
   </data>
+  <data name="area.province.desert" xml:space="preserve">
+    <value>la {cs}Région du Désert Gerudo{ce}</value>
+    <comment></comment>
+  </data>
   <data name="area.province.dungeon" xml:space="preserve">
     <value>$(ap:dans)un {cs}Donjon{ce}</value>
     <comment></comment>
@@ -135,6 +139,26 @@
   </data>
   <data name="area.province.dungeon$plural" xml:space="preserve">
     <value>$(ap:dans,plural)les {cs}Donjons{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.eldin" xml:space="preserve">
+    <value>la {cs}Région d&apos;Ordinn{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.faron" xml:space="preserve">
+    <value>la {cs}Région de Firone{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.lanayru" xml:space="preserve">
+    <value>la {cs}Région de Lanelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.ordona" xml:space="preserve">
+    <value>Latouane</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.peak" xml:space="preserve">
+    <value>la {cs}Région des Pics Blancs{ce}</value>
     <comment></comment>
   </data>
   <data name="area.zone.kakariko_gorge" xml:space="preserve">
