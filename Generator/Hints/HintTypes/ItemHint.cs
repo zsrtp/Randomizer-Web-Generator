@@ -93,21 +93,36 @@ namespace TPRandomizer.Hints
         public override List<HintText> toHintTextList()
         {
             string itemText = CustomMsgData.GenItemText(
-                out Dictionary<string, string> meta,
+                out Dictionary<string, string> itemMeta,
                 item,
                 useDefiniteArticle ? "def" : "indef",
                 prefStartColor: CustomMessages.messageColorGreen
             );
 
+            Dictionary<string, string> metaForArea = new();
+            foreach (KeyValuePair<string, string> pair in itemMeta)
+            {
+                // We are only ever hinting one instance of an item for this
+                // hint, so the area should not be forced to plural. For
+                // example, if we are hinting the French "5 bombes" (bombs (5))
+                // item is in a Grotto, then we do not want the fact that "5
+                // bombes" is plural (which is used to pick the correct verb) to
+                // have an impact on if we say "in a grotto" or "in grottos".
+                // For this type of hint, we are always talking about a single
+                // check which would be in a single grotto/dungeon/etc.
+                if (pair.Key != "plural")
+                    metaForArea[pair.Key] = pair.Value;
+            }
+
             string areaPhrase = CustomMsgData.GenAreaPhrase(
                 areaId,
-                meta,
+                metaForArea,
                 CustomMessages.messageColorRed
             );
 
             Res.Result hintParsedRes = Res.ParseVal("hint-type.item");
 
-            string verb = CustomMsgData.GenVerb(hintParsedRes, meta);
+            string verb = CustomMsgData.GenVerb(hintParsedRes, itemMeta);
 
             string text = hintParsedRes.Substitute(
                 new() { { "item", itemText }, { "verb", verb }, { "area-phrase", areaPhrase }, }
