@@ -1054,11 +1054,11 @@
     <comment></comment>
   </data>
   <data name="item.f9-goron_mines_key_shard@ac(m)" xml:space="preserve">
-    <value>fragment de clé des Mines Gorons</value>
+    <value>fragment de clé</value>
     <comment></comment>
   </data>
   <data name="item.f9-goron_mines_key_shard#other@ac(m)" xml:space="preserve">
-    <value>fragments de clé des Mines Gorons</value>
+    <value>fragments de clé</value>
     <comment></comment>
   </data>
   <data name="shop.basic-slot" xml:space="preserve">
