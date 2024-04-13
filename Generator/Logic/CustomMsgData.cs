@@ -355,7 +355,7 @@ namespace TPRandomizer
             string bht = barrenHint.toHintTextList()[0].text;
 
             NumItemInAreaHint hhint = new NumItemInAreaHint(
-                0,
+                2,
                 Item.Bombs_5,
                 AreaId.Province(Province.Dungeon)
             );
@@ -394,9 +394,9 @@ namespace TPRandomizer
                     stageIDX = 0xFF,
                     roomIDX = 0xFF,
                     messageID = 0x1369, // Hint Message
-                    message = itemHintText
+                    // message = itemHintText
                     // message = wothHintText
-                    // message = niiaHintText
+                    message = niiaHintText
                     // message = bht
                 }
             );

@@ -52,7 +52,7 @@ namespace TPRandomizer.Hints
             }
 
             // TEST CODE
-            item = Item.Purple_Rupee_Links_House;
+            item = Item.Bombs_5;
 
             if (genData != null)
             {
