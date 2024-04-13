@@ -46,7 +46,7 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList()
         {
-            Res.Result ppp = Res.ParseVal(areaId.GenResKey());
+            Res.Result ppp = Res.Msg(areaId.GenResKey(), new() { { "context", "default" } });
 
             string verbContext = CustomMsgData.BuildContextFromMeta(ppp.meta);
 

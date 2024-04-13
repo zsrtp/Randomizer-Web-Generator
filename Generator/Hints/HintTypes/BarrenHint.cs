@@ -37,7 +37,7 @@ namespace TPRandomizer.Hints
 
             string areaPhrase = CustomMsgData.GenAreaPhrase(
                 areaId,
-                null,
+                new() { { "default", "true" } },
                 CustomMessages.messageColorPurple
             );
 

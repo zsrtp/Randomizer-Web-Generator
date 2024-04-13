@@ -125,6 +125,18 @@
     <value>à {area}</value>
     <comment></comment>
   </data>
+  <data name="area.category.grotto" xml:space="preserve">
+    <value>$(ap:dans)une {cs}Grotte secrète{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto$default" xml:space="preserve">
+    <value>$(ap:dans,plural)les {cs}Grottes secrètes{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto$plural" xml:space="preserve">
+    <value>$(ap:dans,plural)les {cs}Grottes secrètes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="area.province.desert" xml:space="preserve">
     <value>la {cs}Région du Désert Gerudo{ce}</value>
     <comment></comment>

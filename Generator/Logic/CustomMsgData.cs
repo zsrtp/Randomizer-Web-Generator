@@ -345,27 +345,29 @@ namespace TPRandomizer
             ItemHint itemHint = ItemHint.Create(
                 null,
                 // AreaId.Zone(Zone.Kakariko_Gorge),
-                AreaId.Zone(Zone.Bulblin_Camp),
+                AreaId.Category(HintCategory.Grotto),
                 // AreaId.Zone(Zone.North_Eldin),
                 // AreaId.Zone(Zone.Lake_Hylia),
                 "Lake Hylia Dock Poe"
             );
             string itemHintText = itemHint.toHintTextList()[0].text;
 
-            BarrenHint barrenHint = new BarrenHint(AreaId.Zone(Zone.Kakariko_Gorge));
+            BarrenHint barrenHint = new BarrenHint(AreaId.Category(HintCategory.Grotto));
             string bht = barrenHint.toHintTextList()[0].text;
 
             NumItemInAreaHint hhint = new NumItemInAreaHint(
-                2,
+                1,
                 Item.Bombs_5,
                 // AreaId.Province(Province.Dungeon)
-                AreaId.Zone(Zone.Snowpeak)
+                AreaId.Category(HintCategory.Grotto)
             );
             string niiaHintText = hhint.toHintTextList()[0].text;
 
             WothHint wothHint = new WothHint(
                 // AreaId.Zone(Zone.Kakariko_Gorge),
-                AreaId.Province(Province.Peak),
+                // AreaId.Category(HintCategory.Grotto),
+                // AreaId.Province(Province.Dungeon),
+                AreaId.Category(HintCategory.Grotto),
                 "Lake Hylia Dock Poe"
             );
             string wothHintText = wothHint.toHintTextList()[0].text;
