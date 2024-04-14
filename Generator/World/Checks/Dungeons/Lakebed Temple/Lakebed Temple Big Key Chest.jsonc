@@ -1,10 +1,5 @@
 {
     "requirements": "(Progressive_Clawshot, 1) and CanUseWaterBombs and Zora_Armor and canLaunchBombs and Iron_Boots",
-    "arcOffsets": ["D00"],
-    "stageIDX": [0],
-    "roomIDX": 6,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Lakebed Temple", "Big Key", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Big Key", "ARC"],
     "itemId": "Lakebed_Temple_Big_Key"
 }

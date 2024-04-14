@@ -1263,6 +1263,8 @@ function populateSSettings(s) {
       }
     });
   }
+
+  const $plandoTab = $('#plandoTab');
   s.plando.forEach((p) => {
 
     checkId = p[0];

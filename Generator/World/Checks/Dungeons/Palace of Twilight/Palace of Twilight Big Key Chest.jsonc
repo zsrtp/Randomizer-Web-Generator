@@ -1,10 +1,5 @@
 {
   "requirements": "(Progressive_Sword, 4) and (Progressive_Clawshot, 2) and CanDefeatZantHead",
-  "arcOffsets": ["C4C"],
-    "stageIDX": [15],
-    "roomIDX": 11,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Palace of Twilight", "Big Key", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Palace of Twilight", "Big Key", "ARC" ],
   "itemId": "Palace_of_Twilight_Big_Key"
 }

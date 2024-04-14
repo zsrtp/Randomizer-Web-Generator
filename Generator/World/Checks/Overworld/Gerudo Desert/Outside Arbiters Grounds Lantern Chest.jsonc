@@ -1,10 +1,5 @@
 {
     "requirements": "Lantern",
-    "arcOffsets": ["7FC"],
-    "stageIDX": [55],
-    "roomIDX": 3,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Bulblin Camp", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Bulblin Camp", "ARC"],
     "itemId": "Purple_Rupee"
 }

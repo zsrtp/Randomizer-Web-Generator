@@ -1,4 +1,4 @@
-[   // unsure at ToT boss room and at stallord -> mirror chamber
+[   // unsure at ToT boss room
     // Overworld Exits
     {
         "Type": "Overworld",
@@ -154,7 +154,7 @@
         "Type": "Overworld",
         "SourceRoomSpawn":
         {
-            "SourceRoom": "North Faron Woods Near Lost Woods",
+            "SourceRoom": "North Faron Woods",
             "TargetRoom": "Lost Woods",
             "Stage": 54,
             "Room": 3,
@@ -166,7 +166,7 @@
         "TargetRoomSpawn":
         {
             "SourceRoom": "Lost Woods",
-            "TargetRoom": "North Faron Woods Near Lost Woods",
+            "TargetRoom": "North Faron Woods",
             "Stage": 45,
             "Room": 6,
             "Spawn": "03",
@@ -929,7 +929,7 @@
         "Type": "Overworld",
         "SourceRoomSpawn":
         {
-            "SourceRoom": "Bulblin Camp Back Exit",
+            "SourceRoom": "Bulblin Camp",
             "TargetRoom": "Outside Arbiters Grounds",
             "Stage": 55,
             "Room": 3,
@@ -941,7 +941,7 @@
         "TargetRoomSpawn":
         {
             "SourceRoom": "Outside Arbiters Grounds",
-            "TargetRoom": "Bulblin Camp Back Exit",
+            "TargetRoom": "Bulblin Camp",
             "Stage": 55,
             "Room": 1,
             "Spawn": "02",
@@ -1326,9 +1326,9 @@
         {
             "SourceRoom": "Kakariko Renados Sanctuary",
             "TargetRoom": "Kakariko Renados Sanctuary Basement",
-            "Stage": 46,
-            "Room": 0,
-            "Spawn": "FF",
+            "Stage": 75,
+            "Room": 7,
+            "Spawn": "00",
             "SpawnType": "FF",
             "Parameters": "FFFF",
             "State": "FF"
@@ -1337,9 +1337,9 @@
         {
             "SourceRoom": "Kakariko Renados Sanctuary Basement",
             "TargetRoom": "Kakariko Renados Sanctuary",
-            "Stage": 46,
+            "Stage": 68,
             "Room": 0,
-            "Spawn": "FF",
+            "Spawn": "02",
             "SpawnType": "FF",
             "Parameters": "FFFF",
             "State": "FF"
@@ -1593,7 +1593,7 @@
             "TargetRoom": "Kakariko Top of Watchtower",
             "Stage": 46,
             "Room": 0,
-            "Spawn": "2D",
+            "Spawn": "2F",
             "SpawnType": "00",
             "Parameters": "F01F",
             "State": "FF"
@@ -2041,7 +2041,7 @@
             "TargetRoom": "Faron Woods Cave Northern Entrance",
             "Stage": 40,
             "Room": 0,
-            "Spawn": "00",
+            "Spawn": "01",
             "SpawnType": "50",
             "Parameters": "F01F",
             "State": "FF"
@@ -2993,7 +2993,7 @@
         "Type": "Dungeon",
         "SourceRoomSpawn":
         {
-            "SourceRoom": "Mirror Chamber",
+            "SourceRoom": "Mirror Chamber Portal",
             "TargetRoom": "Palace of Twilight Entrance",
             "Stage": 15,
             "Room": 0,
@@ -3005,7 +3005,7 @@
         "TargetRoomSpawn":
         {
             "SourceRoom": "Palace of Twilight Entrance",
-            "TargetRoom": "Mirror Chamber",
+            "TargetRoom": "Mirror Chamber Upper",
             "Stage": 60,
             "Room": 4,
             "Spawn": "04",
@@ -3158,17 +3158,17 @@
         "SourceRoomSpawn":
         {
             "SourceRoom": "Arbiters Grounds Boss Room",
-            "TargetRoom": "Mirror Chamber",
+            "TargetRoom": "Mirror Chamber Lower",
             "Stage": 60,
             "Room": 4,
-            "Spawn": "06",
+            "Spawn": "00",
             "SpawnType": "10",
             "Parameters": "501F",
             "State": "FF"
         },
         "TargetRoomSpawn":
         {
-            "SourceRoom": "Mirror Chamber",
+            "SourceRoom": "Mirror Chamber Lower",
             "TargetRoom": "Arbiters Grounds Boss Room",
             "Stage": 25,
             "Room": 50,

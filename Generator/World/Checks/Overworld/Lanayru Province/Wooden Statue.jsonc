@@ -1,10 +1,5 @@
 {
     "requirements": "Room.Castle_Town_Doctors_Office_Lower and Shadow_Crystal and Room.Castle_Town_South",
-    "stageIDX": [57],
-    "moduleID": ["2B3"],
-    "overrideInstruction": ["38800000"],
-    "relReplacementType": [0],
-    "relOffsets": ["F24"],
-    "category": ["Overworld", "Npc", "Hyrule Field - Lanayru Province", "REL"],
+    "checkCategory": ["Overworld", "Npc", "Hyrule Field - Lanayru Province", "REL"],
     "itemId": "Wooden_Statue"
 }

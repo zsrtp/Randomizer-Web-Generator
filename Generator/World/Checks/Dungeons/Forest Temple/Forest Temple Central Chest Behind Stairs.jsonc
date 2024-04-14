@@ -1,10 +1,5 @@
 {
     "requirements": "Boomerang",
-    "arcOffsets": ["108C"],
-    "stageIDX": [6],
-    "roomIDX": 0,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Forest Temple", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "ARC"],
     "itemId": "Red_Rupee"
 }

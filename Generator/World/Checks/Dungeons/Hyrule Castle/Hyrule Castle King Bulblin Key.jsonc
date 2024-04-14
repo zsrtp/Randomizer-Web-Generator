@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatKingBulblinCastle",
-    "moduleID": ["E0"],
-    "stageIDX": [20],
-    "relOffsets": ["367C"],
-    "overrideInstruction": ["38000000"],
-    "relReplacementType": [0],
-    "category": ["Npc", "Small Key", "Dungeon", "Hyrule Castle", "REL"],
+    "checkCategory": ["Npc", "Small Key", "Dungeon", "Hyrule Castle", "REL"],
     "itemId": "Hyrule_Castle_Small_Key"
 }

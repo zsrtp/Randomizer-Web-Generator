@@ -122,9 +122,7 @@
           <button id="startingInventoryTabBtn" class="tablinks">
             Starting Inventory
           </button>
-          <button id="plandoTabBtn" class="tablinks">
-                Plando
-          </button>
+          <button id="plandoTabBtn" class="tablinks">Plando</button>
           <button id="gameplaySettingsTabBtn" class="tablinks">Other</button>
           <!-- <button id="cosmeticsAndQuirksTabBtn" class="tablinks">Cosmetics and Quirks</button> -->
           <!-- <button id="legacyTabBtn" class="tablinks">Legacy</button> -->
@@ -159,14 +157,14 @@
                 ><br />
                 <select
                   name="Castle Requirements"
-                  data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'All Dungeons': The player must complete all dungeons.&#0010;&#0010;'Vanilla': The player must complete Palace of Twilight.&#0010;&#0010;Note that all Castle requirements include completing Midna's Desperate Hour. Visit the 'Other' tab to adjust your MDH settings."
+                  data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'All Dungeons': The player must complete all dungeons.&#0010;&#0010;'Vanilla (beat PoT)': The player must complete Palace of Twilight.&#0010;&#0010;Note that all Castle requirements include completing Midna's Desperate Hour. Visit the 'Other' tab to adjust your MDH settings."
                   id="castleRequirementsFieldset"
                 >
                   <option value="0">Open</option>
                   <option value="1">Fused Shadows</option>
                   <option value="2">Mirror Shards</option>
                   <option value="3">All Dungeons</option>
-                  <option value="4" selected>Vanilla</option>
+                  <option value="4" selected>Vanilla (beat PoT)</option>
                 </select>
               </div>
               <div class="selectGroup">
@@ -175,13 +173,13 @@
                 ><br />
                 <select
                   name="Palace Requirements"
-                  data-tooltip-text="'Open': The mirror is assembled from the beginning and the entrance to the dungeon is open.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'Vanilla': The player must complete City in the Sky.&#0010;"
+                  data-tooltip-text="'Open': The mirror is assembled from the beginning and the entrance to the dungeon is open.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'Vanilla (beat CitS)': The player must complete City in the Sky.&#0010;"
                   id="palaceRequirementsFieldset"
                 >
                   <option value="0">Open</option>
                   <option value="1">Fused Shadows</option>
                   <option value="2">Mirror Shards</option>
-                  <option value="3" selected>Vanilla</option>
+                  <option value="3" selected>Vanilla (beat CitS)</option>
                 </select>
               </div>
               <div class="selectGroup">
@@ -349,6 +347,19 @@
                 <label for="shuffleRewardsCheckbox">
                   Dungeon Rewards Can Be Anywhere </label
                 ><br />
+              </div>
+              <div
+                data-tooltip-text="Helps prevent needing to reenter a dungeon after defeating the boss when small keys are Own Dungeon.&#0010;&#0010;If checked, the following items will not appear on Heart Container or Dungeon Reward checks: Dungeon small keys, Snowpeak Ruins Ordon Pumpkin, Snowpeak Ruins Ordon Goat Cheese, Gerudo Desert Bulblin Camp Key, and North Faron Woods Gate Key&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="noSmallKeysOnBossesCheckbox"
+                  name="No Small Keys On Bosses Checkbox"
+                  value=""
+                />
+                <label for="noSmallKeysOnBossesCheckbox"
+                  >No Small Keys On Bosses</label
+                >
               </div>
             </fieldset>
           </div>
@@ -600,20 +611,6 @@
                 />
                 <label for="bonksDoDamageCheckbox">Bonks Do Damage</label><br />
               </div>
-              <div
-                data-tooltip-text="If checked, the following items will not appear on Heart Container or Dungeon Reward checks:&#0010;&#0010;Dungeon small keys, Snowpeak Ruins Ordon Pumpkin, Snowpeak Ruins Ordon Goat Cheese, Gerudo Desert Bulblin Camp Key, and North Faron Woods Gate Key&#0010;"
-              >
-                <input
-                  type="checkbox"
-                  id="noSmallKeysOnBossesCheckbox"
-                  name="No Small Keys On Bosses Checkbox"
-                  value=""
-                />
-                <label for="noSmallKeysOnBossesCheckbox"
-                  >No Small Keys On Bosses</label
-                ><br />
-
-              </div>
               <div class="selectGroup" style="margin-top: 8px">
                 <label for="trapItemFieldset">Trap Item Frequency</label><br />
                 <select
@@ -650,7 +647,7 @@
                   data-tooltip-text="If the prologue is skipped, sets the starting time of day of a new save file to the specified value."
                 >
                   <option value="0">Morning</option>
-                  <option value="1">Noon</option>
+                  <option value="1" selected="selected">Noon</option>
                   <option value="2">Evening</option>
                   <option value="3">Night</option>
                 </select>
@@ -761,27 +758,7 @@
               width="20%"
               data-tooltip-text="Any checks selected will be excluded, meaning that they cannot contain important items. Please note that settings take priority, so if a check is excluded, but a setting has the check set to be vanilla, it will be vanilla.&#0010;"
             >
-            <!-- This is terrible, but see server.ts in the server for where this is being populated -->
               <!-- CHECK_IDS -->
-
-              <!-- <?php
-							$cmd = "dotnet Generator/bin/Debug/net6.0/TPRandomizer.dll print_check_ids";
-							$proc = popen($cmd, 'r'); // for Windows, use popen("start /B ". $cmd, 'r');
-							$log = "";
-							while (!feof($proc))
-							{
-									$chunk = fread($proc, 4096);
-									$log .= $chunk;
-									flush();
-									ob_flush();
-							}
-
-							$json = json_decode($log);
-							foreach ($json as $key => $value)
-							{
-								echo "<li><label><input type='checkbox' data-checkId='$value'>".$key."</label></li>";
-							}
-						?> -->
             </ul>
           </fieldset>
         </div>
@@ -796,19 +773,7 @@
               width="20%"
               data-tooltip-text="The player will start with any items selected and the playthrough will take them into account for logic.&#0010;"
             >
-            <!-- This is terrible, but see server.ts in the server for where this is being populated -->
               <!-- STARTING_ITEMS -->
-
-              <!-- <?php
-							$important_items = file_get_contents("Resources/StartingItems.txt");
-							$important_items = explode("\n", $important_items);
-							foreach ($important_items as $important_item)
-							{
-								list($value, $name) = explode(",", $important_item);
-								$name = str_replace("_"," ", $name);
-								echo "<li><label><input type='checkbox' data-itemId='$value'>".$name."</label> </li>";
-							}
-						?> -->
             </ul>
           </fieldset>
         </div>

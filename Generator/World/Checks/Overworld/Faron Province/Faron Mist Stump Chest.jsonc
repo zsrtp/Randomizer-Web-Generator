@@ -1,9 +1,5 @@
 {
   "requirements": "Lantern and canCompletePrologue",
-  "hash": [ "411C" ],
-  "stageIDX": [ 45 ],
-  "dzxTag": [ "TRES" ],
-  "category": [ "Overworld", "Chest", "Faron Woods", "DZX" ],
-  "itemId": "Red_Rupee",
-  "actrData": [ [ "74", "62", "6F", "78", "41", "30", "00", "00", "FF", "0F", "F7", "00", "C6", "C9", "7C", "38", "43", "A5", "00", "00", "C6", "9B", "05", "DF", "00", "00", "10", "5B", "04", "FF", "FF", "FF" ] ]
+  "checkCategory": [ "Overworld", "Chest", "Faron Woods", "DZX" ],
+  "itemId": "Red_Rupee"
 }

@@ -1,7 +1,5 @@
 {
-    "requirements": "Shadow_Crystal",
-    "stageIDX": [46],
-    "flag": "5F",
-    "category": ["Overworld", "Poe", "Kakariko Village"],
+    "requirements": "Shadow_Crystal and CanChangeTime",
+    "checkCategory": ["Overworld", "Poe", "Kakariko Village"],
     "itemId": "Poe_Soul"
 }

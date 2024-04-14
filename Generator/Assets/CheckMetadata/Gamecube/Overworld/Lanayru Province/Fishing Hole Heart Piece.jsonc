@@ -1,0 +1,12 @@
+{
+    "arcOffsets": ["C1F", "375C", "3644"],
+    "fileDirectoryType": [0, 1, 1],
+    "replacementType": [0, 5, 5],
+    "stageIDX": [62, 62, 62],
+    "roomIDX": 0,
+    "moduleID": ["32"],
+    "overrideInstruction": ["38600000"], 
+    "relReplacementType": [0],
+    "relOffsets": ["7D40"],
+    "dataCategory": ["ARC", "REL"]
+}

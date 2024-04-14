@@ -27,6 +27,7 @@ namespace TPRandomizer.Assets
         private static List<byte> BannerDataRaw = new();
         private static SeedHeader SeedHeaderRaw = new();
         private static CustomTextHeader CustomMessageHeaderRaw = new();
+        private static List<byte> BGMDataRaw = new();
         public static readonly int DebugInfoSize = 0x20;
         public static readonly int ImageDataSize = 0x1400;
         private static readonly short SeedHeaderSize = 0x160;
@@ -76,6 +77,7 @@ namespace TPRandomizer.Assets
             BannerDataRaw = new();
             SeedHeaderRaw = new();
             EntranceDataRaw = new();
+            BGMDataRaw = new();
 
             // First we need to generate the buffers for the various byte lists that will be used to populate the seed data.
             SharedSettings randomizerSettings = Randomizer.SSettings;
@@ -83,7 +85,6 @@ namespace TPRandomizer.Assets
             List<byte> currentGCIData = new();
             List<byte> currentSeedHeader = new();
             List<byte> currentSeedData = new();
-            List<byte> currentBgmData = new();
             List<byte> currentMessageHeader = new();
             List<byte> currentMessageData = new();
             List<byte> currentMessageEntryInfo = new();
@@ -126,15 +127,18 @@ namespace TPRandomizer.Assets
             char region;
             switch (gameRegion)
             {
-                case GameRegion.USA:
+                case GameRegion.GC_USA:
+                case GameRegion.WII_10_USA:
                     region = 'E';
                     break;
-                case GameRegion.EUR:
+                case GameRegion.GC_EUR:
+                case GameRegion.WII_10_EU:
                 {
                     region = 'P';
                     break;
                 }
-                case GameRegion.JAP:
+                case GameRegion.GC_JAP:
+                case GameRegion.WII_10_JP:
                 {
                     region = 'J';
                     break;
@@ -182,9 +186,9 @@ namespace TPRandomizer.Assets
 
             // BGM Table info
             BgmHeaderRaw.bgmTableOffset = (UInt16)BgmHeaderSize;
-            currentBgmData.AddRange(SoundAssets.GenerateBgmData(this));
-            BgmHeaderRaw.fanfareTableOffset = (UInt16)(BgmHeaderSize + currentBgmData.Count);
-            currentBgmData.AddRange(SoundAssets.GenerateFanfareData(this));
+            BGMDataRaw.AddRange(SoundAssets.GenerateBgmData(this));
+            BgmHeaderRaw.fanfareTableOffset = (UInt16)(BgmHeaderSize + BGMDataRaw.Count);
+            BGMDataRaw.AddRange(SoundAssets.GenerateFanfareData(this));
 
             // Custom Message Info
             
@@ -205,7 +209,7 @@ namespace TPRandomizer.Assets
                 SeedHeaderSize
                 + CheckDataRaw.Count
                 + BgmHeaderSize
-                + currentBgmData.Count
+                + BGMDataRaw.Count
                 + currentMessageHeader.Count
                 + currentMessageData.Count
                 + EntranceDataRaw.Count
@@ -216,7 +220,7 @@ namespace TPRandomizer.Assets
             currentSeedData.AddRange(currentSeedHeader);
             currentSeedData.AddRange(CheckDataRaw);
             currentSeedData.AddRange(GenerateBgmHeader());
-            currentSeedData.AddRange(currentBgmData);
+            currentSeedData.AddRange(BGMDataRaw);
             currentSeedData.AddRange(currentMessageHeader);
             currentSeedData.AddRange(currentMessageData);
             while (currentSeedData.Count % 0x20 != 0)
@@ -242,7 +246,7 @@ namespace TPRandomizer.Assets
             // Generate GCI Files
             currentGCIData.AddRange(BannerDataRaw);
             currentGCIData.AddRange(currentSeedData);
-            var gci = new Gci(region, currentGCIData, seedGenResults.playthroughName);
+            var gci = new Gci(region, currentGCIData, seedGenResults.playthroughName, fcSettings);
             return gci.gciFile.ToArray();
             // File.WriteAllBytes(playthroughName, gci.gciFile.ToArray());
         }
@@ -256,7 +260,7 @@ namespace TPRandomizer.Assets
             SeedHeaderRaw.versionMajor = VersionMajor;
             SeedHeaderRaw.versionMinor = VersionMinor;
             SeedHeaderRaw.customTextHeaderSize = (ushort)MessageHeaderSize;
-            SeedHeaderRaw.customTextHeaderOffset = (ushort)(CheckDataRaw.Count + MessageHeaderSize);
+            SeedHeaderRaw.customTextHeaderOffset = (ushort)(CheckDataRaw.Count + MessageHeaderSize + BGMDataRaw.Count);
             SeedHeaderRaw.requiredDungeons = (uint)seedGenResults.requiredDungeons;
             PropertyInfo[] seedHeaderProperties = SeedHeaderRaw.GetType().GetProperties();
             foreach (PropertyInfo headerObject in seedHeaderProperties)
@@ -452,7 +456,7 @@ namespace TPRandomizer.Assets
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("ARC"))
+                if (currentCheck.dataCategory.Contains("ARC"))
                 {
                     for (int i = 0; i < currentCheck.arcOffsets.Count; i++)
                     {
@@ -543,7 +547,7 @@ namespace TPRandomizer.Assets
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("ObjectARC"))
+                if (currentCheck.dataCategory.Contains("ObjectARC"))
                 {
                     for (int i = 0; i < currentCheck.arcOffsets.Count; i++)
                     {
@@ -589,17 +593,11 @@ namespace TPRandomizer.Assets
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("DZX"))
+                if (currentCheck.dataCategory.Contains("DZX"))
                 {
                     // We will use the number of hashes to count DZX replacements per check for now.
                     for (int i = 0; i < currentCheck.hash.Count; i++)
                     {
-                        bool chestAppearanceMatchesContent = false;
-                        if (chestAppearanceMatchesContent)
-                        {
-                            // This is still in development
-                            ModifyChestAppearanceDZX(currentCheck);
-                        }
                         byte[] dataArray = new byte[32];
                         for (int j = 0; j < currentCheck.actrData[i].Length; j++)
                         {
@@ -612,6 +610,24 @@ namespace TPRandomizer.Assets
                         if (currentCheck.dzxTag[i] == "TRES")
                         {
                             dataArray[28] = (byte)currentCheck.itemId;
+                            /* This is still in development.
+                            bool chestAppearanceMatchesContent = false;
+                            if (chestAppearanceMatchesContent)
+                            {
+                                if (Randomizer.Items.RandomizedImportantItems.Contains(currentCheck.itemId))
+                                {
+                                    dataArray[4] = byte.Parse("41",System.Globalization.NumberStyles.HexNumber); // Hex for 'B'
+                                    dataArray[5] = byte.Parse("30",System.Globalization.NumberStyles.HexNumber);  // Hex for '0'
+                                    Console.WriteLine("doing the thing for " + currentCheck.checkName);
+                                }
+                                else
+                                {
+                                    dataArray[4] = byte.Parse("41",System.Globalization.NumberStyles.HexNumber); // Hex for 'A'
+                                    dataArray[5] = byte.Parse("30",System.Globalization.NumberStyles.HexNumber); // Hex for '0'
+                                    Console.WriteLine("doing the not thing for " + currentCheck.checkName);
+                                }
+                            }*/
+                        
                         }
                         else if (currentCheck.dzxTag[i] == "ACTR")
                         {
@@ -662,7 +678,7 @@ namespace TPRandomizer.Assets
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("Poe"))
+                if (currentCheck.dataCategory.Contains("Poe"))
                 {
                     listOfPOEReplacements.Add(Converter.GcByte(currentCheck.stageIDX[0]));
                     listOfPOEReplacements.Add(
@@ -690,7 +706,7 @@ namespace TPRandomizer.Assets
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("REL"))
+                if (currentCheck.dataCategory.Contains("REL"))
                 {
                     for (int i = 0; i < currentCheck.moduleID.Count; i++)
                     {
@@ -787,7 +803,7 @@ namespace TPRandomizer.Assets
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("Boss"))
+                if (currentCheck.dataCategory.Contains("Boss"))
                 {
                     listOfBossReplacements.AddRange(
                         Converter.GcBytes((UInt16)currentCheck.stageIDX[0])
@@ -814,7 +830,7 @@ namespace TPRandomizer.Assets
                 )
                 {
                     Check currentCheck = checkList.Value;
-                    if (currentCheck.category.Contains("Bug Reward"))
+                    if (currentCheck.dataCategory.Contains("Bug Reward"))
                     {
                         listOfBugRewards.AddRange(
                             Converter.GcBytes(
@@ -845,7 +861,7 @@ namespace TPRandomizer.Assets
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("Sky Book"))
+                if (currentCheck.dataCategory.Contains("Sky Book"))
                 {
                     listOfSkyCharacters.Add(Converter.GcByte((byte)currentCheck.itemId));
                     listOfSkyCharacters.AddRange(
@@ -868,7 +884,7 @@ namespace TPRandomizer.Assets
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("Hidden Skill"))
+                if (currentCheck.dataCategory.Contains("Hidden Skill"))
                 {
                     listOfHiddenSkills.Add(Converter.GcByte(currentCheck.stageIDX[0]));
 
@@ -892,7 +908,7 @@ namespace TPRandomizer.Assets
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("Shop"))
+                if (currentCheck.dataCategory.Contains("Shop"))
                 {
                     listOfShopItems.AddRange(
                         Converter.GcBytes(
@@ -920,7 +936,7 @@ namespace TPRandomizer.Assets
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("Event"))
+                if (currentCheck.dataCategory.Contains("Event"))
                 {
                     
                     listOfEventItems.Add(Converter.GcByte((byte)currentCheck.itemId));
@@ -1443,9 +1459,9 @@ namespace TPRandomizer.Assets
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.category.Contains("Chest"))
+                if (currentCheck.dataCategory.Contains("Chest"))
                 {
-                    if (currentCheck.category.Contains("ARC")) // If the chest is an ARC check, so we need to add a new ARC replacement entry.
+                    if (currentCheck.dataCategory.Contains("ARC")) // If the chest is an ARC check, so we need to add a new ARC replacement entry.
                     {
                         string offset = (
                             (UInt32)
@@ -1479,28 +1495,6 @@ namespace TPRandomizer.Assets
                 }
             }
             return listOfArcReplacements;
-        }
-
-        private static void ModifyChestAppearanceDZX(Check currentCheck)
-        {
-            for (int i = 0; i < currentCheck.dzxTag.Count; i++)
-                if (currentCheck.dzxTag[i] == "TRES")
-                {
-                    if (Randomizer.Items.RandomizedImportantItems.Contains(currentCheck.itemId))
-                    {
-                        currentCheck.actrData[i][4] = "41"; // Hex for 'B'
-                        currentCheck.actrData[i][5] = "30"; // Hex for '0'
-                        Console.WriteLine("doing the thing for " + currentCheck.checkName);
-                    }
-                    else
-                    {
-                        currentCheck.actrData[i][4] = "41"; // Hex for 'A'
-                        currentCheck.actrData[i][5] = "30"; // Hex for '0'
-                        Console.WriteLine("doing the not thing for " + currentCheck.checkName);
-                    }
-                }
-
-            return;
         }
 
         private class SeedHeader

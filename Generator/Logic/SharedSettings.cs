@@ -119,9 +119,16 @@ namespace TPRandomizer
             // StringComparer is needed because the default sort order is
             // different on Linux and Windows
             excludedChecks.Sort(StringComparer.Ordinal);
-            plandoChecks = processor.NextPlandoChecksList();
-            // Sort by check name, using the same StringComparer as excludedChecks
-            plandoChecks = plandoChecks.OrderBy(i => i.Item1, StringComparer.Ordinal).ToList();
+
+            bool hasPlandoList = processor.NextBool();
+            if (hasPlandoList)
+            {
+                plandoChecks = processor.NextPlandoChecksList();
+                // Sort by check name, using the same StringComparer as excludedChecks
+                plandoChecks = plandoChecks.OrderBy(i => i.Item1, StringComparer.Ordinal).ToList();
+            }
+            else
+                plandoChecks = new();
         }
 
         // Note: this function MUST be able to parse old versions of sSettings

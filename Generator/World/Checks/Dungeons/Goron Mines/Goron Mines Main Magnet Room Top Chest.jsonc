@@ -1,10 +1,5 @@
 {
   "requirements": "(Progressive_Bow, 1) and Iron_Boots and CanDefeatDangoro and ((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))",
-  "arcOffsets": ["169C"],
-    "stageIDX": [3],
-    "roomIDX": 3,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Goron Mines", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Goron Mines", "ARC" ],
   "itemId": "Purple_Rupee"
 }

@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatDinalfos and (Progressive_Dominion_Rod, 1) and (Progressive_Bow, 1)",
-    "arcOffsets": ["BFC"],
-    "stageIDX": [9],
-    "roomIDX": 4,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Temple of Time", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Temple of Time", "ARC"],
     "itemId": "Piece_of_Heart"
 }

@@ -1,10 +1,5 @@
 {
     "requirements": "Zora_Armor",
-    "arcOffsets": ["A38"],
-    "stageIDX": [0],
-    "roomIDX": 0,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Lakebed Temple", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "ARC"],
     "itemId": "Water_Bombs_10"
 }

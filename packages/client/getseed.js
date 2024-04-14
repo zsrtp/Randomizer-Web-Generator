@@ -1083,6 +1083,12 @@
       .join(' -- ');
 
     byId('filename').textContent = pageData.output.name;
+    const wiiFilenameEl = byId('wiiFilename');
+    if (pageData.output.wiiName) {
+      wiiFilenameEl.textContent = `Wii: ${pageData.output.wiiName}`;
+    } else {
+      wiiFilenameEl.style.display = 'none';
+    }
   }
 
   // Parse SSetting to object.

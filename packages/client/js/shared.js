@@ -260,7 +260,6 @@
     };
   }
 
-
   function getVal(id) {
     const $el = $('#' + id);
     if ($el.prop('nodeName') === 'INPUT' && $el.attr('type') === 'checkbox') {
@@ -428,7 +427,6 @@
 
     values.push(genStartingItemsBits());
     values.push(genExcludedChecksBits());
-
     values.push(genPlandoBits());
 
     return encodeSettings(sSettingsVersion, 's', values);
@@ -828,7 +826,7 @@
     if (version >= 5) {
       processBasic({ id: 'skipMajorCutscenes' });
       processBasic({ id: 'noSmallKeysOnBosses' });
-      processBasic({ id: 'startingToD', bitLength: 3  });
+      processBasic({ id: 'startingToD', bitLength: 3 });
     } else {
       res.skipMajorCutscenes = 1; // Vanilla
       res.noSmallKeysOnBosses = false;
@@ -837,10 +835,17 @@
 
     res.startingItems = processor.nextEolList(9);
     res.excludedChecks = processor.nextEolList(9);
-    plandoList = processor.nextEolList(9);
-    res.plando = [];
-    for(i = 0; i < plandoList.length; i += 2) {
-      res.plando.push([plandoList[i], plandoList[i+1]]);
+    if (version >= 5) {
+      res.plando = [];
+      const hasPlando = processor.nextBoolean();
+      if (hasPlando) {
+        const plandoList = processor.nextEolList(9);
+        for (i = 0; i < plandoList.length; i += 2) {
+          res.plando.push([plandoList[i], plandoList[i + 1]]);
+        }
+      }
+    } else {
+      res.plando = [];
     }
 
     return res;

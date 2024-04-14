@@ -1,0 +1,11 @@
+{
+    "arcOffsets": ["139C8"],
+    "fileDirectoryType": [0],
+    "replacementType": [4],
+    "stageIDX": [62],
+    "moduleID": ["32"],
+    "relOffsets": ["B2AC"],
+    "overrideInstruction": ["38600000"],
+    "relReplacementType": [0],
+    "dataCategory": ["ARC", "REL"]
+}

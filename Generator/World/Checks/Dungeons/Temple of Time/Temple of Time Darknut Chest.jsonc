@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatDarknut",
-    "arcOffsets": ["4AC"],
-    "stageIDX": [11],
-    "roomIDX": 51,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Temple of Time", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Temple of Time", "ARC"],
     "itemId": "Progressive_Dominion_Rod"
 }

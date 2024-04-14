@@ -1,10 +1,5 @@
 {
     "requirements": "(Progressive_Dominion_Rod, 2)",
-    "arcOffsets": ["1D68"],
-    "stageIDX": [57],
-    "roomIDX": 8,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "ARC"],
     "itemId": "Orange_Rupee"
 }

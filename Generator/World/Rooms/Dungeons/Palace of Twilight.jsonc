@@ -5,7 +5,7 @@
       "Exits": 
         [
           {
-            "ConnectedArea": "Mirror Chamber",
+            "ConnectedArea": "Mirror Chamber Upper",
             "Requirements": "true"
           },
           {

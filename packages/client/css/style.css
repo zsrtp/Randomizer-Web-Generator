@@ -1722,8 +1722,8 @@ tr td select {
 }
 
 .plandoListItem {
-	display: flex;
-	justify-content: space-between
+  display: flex;
+  justify-content: space-between
 }
 
 .select2-results__options {
