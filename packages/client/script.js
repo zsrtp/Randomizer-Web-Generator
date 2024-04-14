@@ -152,7 +152,12 @@ $(document).on('click', '#plandoBtnAdd', function() {
   if($(`.plandoListItem[data-checkid=${checkId}]`).length > 0 ) {
     $(`.plandoListItem[data-checkid=${checkId}]`).remove();
   }
-  $("#basePlandoListbox").append(`<li class="plandoListItem plandoEntry" data-itemid="${itemId}" data-checkid="${checkId}">${checkName}: ${itemName} <button type="button" class="plandoItemDeleteBtn">x</button></li>`)
+  $("#basePlandoListbox").append(`<li class="plandoListItem plandoEntry" data-itemid="${itemId}" data-checkid="${checkId}">
+                                    <div>
+                                      <button type="button" class="plandoItemDeleteBtn">✖</button>
+                                      ${checkName}: ${itemName}
+                                    </div>
+                                  </li>`)
 })
 
 $(document).on('click', '#plandoBtnClear', function() {
@@ -160,7 +165,7 @@ $(document).on('click', '#plandoBtnClear', function() {
 })
 
 $(document).on('click', '.plandoItemDeleteBtn', function() {
-  $(this).parent().remove();
+  $(this).parent().parent().remove();
 })
 
 function initJwt() {

@@ -252,7 +252,11 @@
       bits += numToPaddedBits(checkId, 9);
       bits += numToPaddedBits(itemId, 9);
     })
-    bits += '111111111';
+    if (bits.length < 1) {
+      bits = '0';
+    } else {
+      bits = '1' + bits + '111111111';
+    }
 
     return {
       type: RawSettingType.bitString,
