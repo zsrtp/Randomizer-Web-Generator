@@ -1,5 +1,5 @@
 {
     "requirements": "true",
-    "checkCategory": ["Overworld", "Npc", "Kakariko Village", "ARC"],
+    "checkCategory": ["Overworld", "Npc - Shop", "Kakariko Village", "ARC"],
     "itemId": "Filled_Bomb_Bag"
 }
