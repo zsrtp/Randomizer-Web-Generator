@@ -1721,12 +1721,18 @@ tr td select {
   margin-left: 4px;
 }
 
+.plandoHelperText {
+  margin: 4px 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+}
+
 .plandoListItem {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5em
+  margin-bottom: 0.5em;
 }
 
 .select2-results__options {
-  color: #444 !important;
+  color: #444;
 }
