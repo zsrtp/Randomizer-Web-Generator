@@ -246,18 +246,12 @@
 
   function genPlandoBits() {
     let bits = '';
-    $('.plandoCheckSelect').each(function () {
-      const itemId = parseInt(
-        $(this).find('option').filter(':selected').val(),
-        10
-      );
-      if (itemId >= 0) {
-        const checkId = parseInt($(this).attr('data-checkId'), 10);
-        bits += numToPaddedBits(checkId, 9);
-        bits += numToPaddedBits(itemId, 9);
-      }
-    });
-
+    $('.plandoEntry').each(function() {
+      itemId = parseInt($(this).attr('data-itemid'), 10);
+      checkId = parseInt($(this).attr('data-checkid'), 10);
+      bits += numToPaddedBits(checkId, 9);
+      bits += numToPaddedBits(itemId, 9);
+    })
     if (bits.length < 1) {
       bits = '0';
     } else {

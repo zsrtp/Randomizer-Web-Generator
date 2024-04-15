@@ -134,7 +134,39 @@ function onDomContentLoaded() {
     const { value } = e.target;
     e.target.value = normalizeStringToMax128Bytes(value);
   });
+
+
 }
+
+$(document).ready(function() {
+  $('#plandoCheckSelect').select2({width: '50%'});
+  $('#plandoItemSelect').select2({width: '50%'});
+})
+
+$(document).on('click', '#plandoBtnAdd', function() {
+  checkName = $("#plandoCheckSelect option:selected").text();
+  checkId = $("#plandoCheckSelect").val();
+
+  itemName = $("#plandoItemSelect option:selected").text();
+  itemId = $("#plandoItemSelect").val();
+  if($(`.plandoListItem[data-checkid=${checkId}]`).length > 0 ) {
+    $(`.plandoListItem[data-checkid=${checkId}]`).remove();
+  }
+  $("#basePlandoListbox").append(`<li class="plandoListItem plandoEntry" data-itemid="${itemId}" data-checkid="${checkId}">
+                                    <div>
+                                      <button type="button" class="plandoItemDeleteBtn">✖</button>
+                                      ${checkName}: ${itemName}
+                                    </div>
+                                  </li>`)
+})
+
+$(document).on('click', '#plandoBtnClear', function() {
+  $(".plandoEntry").remove();
+})
+
+$(document).on('click', '.plandoItemDeleteBtn', function() {
+  $(this).parent().parent().remove();
+})
 
 function initJwt() {
   try {
@@ -193,8 +225,10 @@ function openCurrAccordion(e) {
   }
 }
 
-$('#plandoTab').on('change', '.plandoCheckSelect', setSettingsString);
-
+// This is a much cleaner way to add the event listener since we're already using jquery
+$(document).on('click', '#plandoBtnAdd', setSettingsString);
+$(document).on('click', '#plandoBtnClear', setSettingsString);
+$(document).on('click', '.plandoItemDeleteBtn', setSettingsString);
 for (
   var j = 0;
   j <
@@ -1237,10 +1271,18 @@ function populateSSettings(s) {
 
   const $plandoTab = $('#plandoTab');
   s.plando.forEach((p) => {
-    const checkId = p[0];
-    const itemId = p[1];
-    $plandoTab.find('select[data-checkid=' + checkId + ']').val(itemId);
-  });
+
+    checkId = p[0];
+    itemId = p[1];
+
+    checkName = $(`#plandoCheckSelect option[value=${checkId}]`).text();
+    itemName = $(`#plandoItemSelect option[value=${itemId}]`).text();
+
+    if($(`.plandoListItem[data-checkid=${checkId}]`).length > 0 ) {
+      $(`.plandoListItem[data-checkid=${checkId}]`).remove();
+    }
+    $("#basePlandoListbox").append(`<li class="plandoListItem plandoEntry" data-itemid="${itemId}" data-checkid="${checkId}">${checkName}: ${itemName} <button type="button" class="plandoItemDeleteBtn">x</button></li>`)
+  })
 }
 
 function testProgressFunc(id) {
