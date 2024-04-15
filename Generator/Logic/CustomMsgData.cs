@@ -357,7 +357,7 @@ namespace TPRandomizer
 
             NumItemInAreaHint hhint = new NumItemInAreaHint(
                 0,
-                Item.Bombs_5,
+                Item.Seeds_50,
                 // Item.Hyrule_Castle_Small_Key,
                 // Item.Progressive_Bow,
                 // AreaId.Province(Province.Dungeon)
