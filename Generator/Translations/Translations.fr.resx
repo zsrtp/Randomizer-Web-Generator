@@ -757,6 +757,30 @@
     <value>grappins</value>
     <comment></comment>
   </data>
+  <data name="item.45-iron_boots" xml:space="preserve">
+    <value>$(gender:f,plural)Bottes de Fer</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots$count" xml:space="preserve">
+    <value>$(gender:f){count} paire de Bottes de Fer</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots$count#other" xml:space="preserve">
+    <value>$(gender:f,plural){count} paires de Bottes de Fer</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots$count#zero" xml:space="preserve">
+    <value>$(gender:f,negative)aucune paire de Bottes de Fer</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots$def" xml:space="preserve">
+    <value>$(gender:f,plural)les {cs}Bottes de Fer{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots$indef" xml:space="preserve">
+    <value>$(gender:f,plural)des {cs}Bottes de Fer{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.46-progressive_dominion_rod@ac(m)" xml:space="preserve">
     <value>bâton Anima</value>
     <comment></comment>
