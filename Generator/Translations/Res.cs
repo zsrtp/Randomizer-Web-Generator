@@ -416,6 +416,28 @@ namespace TPRandomizer
                                         chunks.RemoveRange(i, 3);
                                         chunks.Insert(i, newChunk);
                                     }
+                                    else if (secondVal == "aucun")
+                                    {
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 2);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
+                                        TransformEscSeqList(chunks[i + 2], newChunk, 3, 8);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "qu'aucun";
+                                        chunks.RemoveRange(i, 3);
+                                        chunks.Insert(i, newChunk);
+                                    }
+                                    else if (secondVal == "aucune")
+                                    {
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 2);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
+                                        TransformEscSeqList(chunks[i + 2], newChunk, 3, 9);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "qu'aucune";
+                                        chunks.RemoveRange(i, 3);
+                                        chunks.Insert(i, newChunk);
+                                    }
                                     else if (secondVal.StartsWith("{que-transform}"))
                                     {
                                         TextChunk newChunk = new();
