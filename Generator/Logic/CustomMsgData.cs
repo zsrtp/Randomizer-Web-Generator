@@ -356,8 +356,10 @@ namespace TPRandomizer
             string bht = barrenHint.toHintTextList()[0].text;
 
             NumItemInAreaHint hhint = new NumItemInAreaHint(
-                1,
+                0,
                 Item.Bombs_5,
+                // Item.Hyrule_Castle_Small_Key,
+                // Item.Progressive_Bow,
                 // AreaId.Province(Province.Dungeon)
                 AreaId.Category(HintCategory.Grotto)
             );

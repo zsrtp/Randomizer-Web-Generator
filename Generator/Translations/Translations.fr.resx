@@ -401,6 +401,10 @@
     <value>$(gender:f,plural){count} bombes (5)</value>
     <comment></comment>
   </data>
+  <data name="item.0a-bombs_5$count#zero" xml:space="preserve">
+    <value>$(gender:f,negative)aucune bombes (5)</value>
+    <comment></comment>
+  </data>
   <data name="item.21-piece_of_heart@ac(m)" xml:space="preserve">
     <value>fragment de cœur</value>
     <comment></comment>
@@ -1249,8 +1253,16 @@
     <value>peut être trouvée</value>
     <comment></comment>
   </data>
+  <data name="verb.can-be-found$gender-f,negative" xml:space="preserve">
+    <value>ne peut être trouvée</value>
+    <comment></comment>
+  </data>
   <data name="verb.can-be-found$gender-f,plural" xml:space="preserve">
     <value>peuvent être trouvées</value>
+    <comment></comment>
+  </data>
+  <data name="verb.can-be-found$gender-m,negative" xml:space="preserve">
+    <value>ne peut être trouvé</value>
     <comment></comment>
   </data>
   <data name="verb.can-be-found$gender-m,plural" xml:space="preserve">

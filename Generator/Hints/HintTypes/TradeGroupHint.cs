@@ -79,31 +79,6 @@ namespace TPRandomizer.Hints
             }
         }
 
-        public override List<HintText> toHintTextList()
-        {
-            HintText hintText = new HintText();
-
-            string text = $"They say that {{{tradeGroup}}} ";
-            if (status == Status.Required)
-            {
-                text += "is on the {way of the hero}.";
-            }
-            else if (status == Status.Important)
-            {
-                if (vagueness == Vagueness.Named)
-                    text += $"lead to {{{destItem}}}.";
-                else
-                    text += "lead to {something good}.";
-            }
-            else if (status == Status.Bad)
-            {
-                text += "lead to {nothing}.";
-            }
-
-            hintText.text = text;
-            return new List<HintText> { hintText };
-        }
-
         public override string encodeAsBits(HintEncodingBitLengths bitLengths)
         {
             string result = base.encodeAsBits(bitLengths);
@@ -138,6 +113,35 @@ namespace TPRandomizer.Hints
                 new(tradeGroup, vagueness, status, checkName, itemPlacements, privateObj);
 
             return hint;
+        }
+
+        public override List<HintText> toHintTextList()
+        {
+            HintText hintText = new HintText();
+
+            // They say that bringing {male bugs} to Agitha {leads to nothing /
+            // is on the way of the hero / leads to {item} / leads to something
+            // good}.
+
+            string text = $"They say that {{{tradeGroup}}} ";
+            if (status == Status.Required)
+            {
+                text += "is on the {way of the hero}.";
+            }
+            else if (status == Status.Important)
+            {
+                if (vagueness == Vagueness.Named)
+                    text += $"lead to {{{destItem}}}.";
+                else
+                    text += "lead to {something good}.";
+            }
+            else if (status == Status.Bad)
+            {
+                text += "lead to {nothing}.";
+            }
+
+            hintText.text = text;
+            return new List<HintText> { hintText };
         }
     }
 }

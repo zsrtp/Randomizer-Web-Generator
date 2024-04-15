@@ -371,6 +371,7 @@ namespace TPRandomizer
                 else
                 {
                     string metaPrefix = $"$(gender:{genFnArgs[0]})";
+                    string negativeMetaPrefix = $"$(gender:{genFnArgs[0]},negative)";
 
                     // Non-plural
                     if (genFnArgs.Length > 2)
@@ -414,6 +415,12 @@ namespace TPRandomizer
                     ChangeContext("count");
                     string countVal = metaPrefix + "{cs}{count} " + baseValue + "{ce}";
                     result.Add(new(GenCurrentResKey(), countVal));
+
+                    // Handle 'count' context and 'zero' count
+                    count = "zero";
+                    string noneWord = isMasculine ? "aucun" : "aucune";
+                    string noneCountVal = $"{negativeMetaPrefix}{{cs}}{noneWord} {baseValue}{{ce}}";
+                    result.Add(new(GenCurrentResKey(), noneCountVal));
                 }
             }
         }
