@@ -517,6 +517,30 @@
     <value>$(gender:f,negative)aucune graines (50)</value>
     <comment></comment>
   </data>
+  <data name="item.13-foolish_item@ac(m)" xml:space="preserve">
+    <value>piège</value>
+    <comment></comment>
+  </data>
+  <data name="item.13-foolish_item#other@ac(m)" xml:space="preserve">
+    <value>pièges</value>
+    <comment></comment>
+  </data>
+  <data name="item.14-foolish_item_2@ac(m)" xml:space="preserve">
+    <value>piège2</value>
+    <comment></comment>
+  </data>
+  <data name="item.14-foolish_item_2#other@ac(m)" xml:space="preserve">
+    <value>pièges2</value>
+    <comment></comment>
+  </data>
+  <data name="item.15-foolish_item_3@ac(m)" xml:space="preserve">
+    <value>piège3</value>
+    <comment></comment>
+  </data>
+  <data name="item.15-foolish_item_3#other@ac(m)" xml:space="preserve">
+    <value>pièges3</value>
+    <comment></comment>
+  </data>
   <data name="item.16-water_bombs_5" xml:space="preserve">
     <value>$(gender:f,plural)5 hydro-bombes</value>
     <comment></comment>

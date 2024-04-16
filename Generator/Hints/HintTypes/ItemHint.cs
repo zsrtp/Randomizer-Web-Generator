@@ -52,7 +52,7 @@ namespace TPRandomizer.Hints
             }
 
             // TEST CODE
-            item = Item.Iron_Boots;
+            item = Item.Foolish_Item_3;
 
             if (genData != null)
             {
