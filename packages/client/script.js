@@ -1281,7 +1281,12 @@ function populateSSettings(s) {
     if($(`.plandoListItem[data-checkid=${checkId}]`).length > 0 ) {
       $(`.plandoListItem[data-checkid=${checkId}]`).remove();
     }
-    $("#basePlandoListbox").append(`<li class="plandoListItem plandoEntry" data-itemid="${itemId}" data-checkid="${checkId}">${checkName}: ${itemName} <button type="button" class="plandoItemDeleteBtn">x</button></li>`)
+    $("#basePlandoListbox").append(`<li class="plandoListItem plandoEntry" data-itemid="${itemId}" data-checkid="${checkId}">
+    <div>
+      <button type="button" class="plandoItemDeleteBtn">✖</button>
+      ${checkName}: ${itemName}
+    </div>
+  </li>`)
   })
 }
 
