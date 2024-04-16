@@ -341,6 +341,13 @@ namespace TPRandomizer
             // use all of the meta which is passed back as the context for the
             // sentence.
 
+            LocationHint locationHint = LocationHint.Create(
+                null,
+                "Wrestling With Bo",
+                display: CheckStatusDisplay.RequiredOrNot
+            );
+            string locationHintText = locationHint.toHintTextList()[0].text;
+
             TradeGroupHint tradeGroupHint = new TradeGroupHint(
                 TradeGroup.Mantises,
                 TradeGroupHint.Vagueness.Named,
@@ -537,6 +544,132 @@ namespace TPRandomizer
                     itemSuffix = ":";
             }
             itemSuffix += CustomMessages.messageColorWhite;
+
+            string coloredItem;
+            Dictionary<string, string> interpolation = new();
+            if (count != null)
+                interpolation.Add("count", countStr);
+
+            if (isShop)
+            {
+                interpolation["cs"] = "";
+                interpolation["ce"] = "";
+                coloredItem = startColor + abc.Substitute(interpolation) + itemSuffix;
+            }
+            else if (abc.value.Contains("{cs}"))
+            {
+                interpolation["cs"] = startColor;
+                interpolation["ce"] = itemSuffix;
+                coloredItem = abc.Substitute(interpolation);
+            }
+            else
+            {
+                coloredItem = startColor + abc.Substitute(interpolation) + itemSuffix;
+            }
+
+            return coloredItem;
+        }
+
+        public static string GenItemText3(
+            out Dictionary<string, string> meta,
+            Item item,
+            CheckStatus checkStatus,
+            string contextIn = null,
+            int? count = null,
+            bool isShop = false,
+            bool isSeraShop = false,
+            string prefStartColor = null,
+            CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.None
+        )
+        {
+            string context = isShop ? "" : contextIn;
+            string countStr = count?.ToString();
+
+            Res.Result abc = Res.ParseVal(
+                GetItemResKey(item),
+                new() { { "context", context }, { "count", countStr } }
+            );
+            meta = abc.meta;
+
+            if (isShop)
+                abc.CapitalizeFirstValidChar();
+
+            // Pick the color
+            string startColor;
+            string postItemText = "";
+            if (isShop)
+                startColor = CustomMessages.messageColorOrange;
+            else if (!StringUtils.isEmpty(prefStartColor))
+                startColor = prefStartColor;
+            else
+            {
+                // Pick the default color here based on checkStatus and display.
+
+                if (checkStatusDisplay == CheckStatusDisplay.RequiredOrNot)
+                {
+                    if (checkStatus == CheckStatus.Required)
+                    {
+                        startColor = CustomMessages.messageColorBlue;
+                        postItemText = " (required)";
+                    }
+                    else
+                    {
+                        postItemText = " (not required)";
+                        if (checkStatus == CheckStatus.Bad)
+                            startColor = CustomMessages.messageColorPurple;
+                        else
+                            startColor = CustomMessages.messageColorGreen;
+                    }
+                }
+                else if (checkStatusDisplay == CheckStatusDisplay.GoodOrNot)
+                {
+                    if (checkStatus == CheckStatus.Bad)
+                        startColor = CustomMessages.messageColorPurple;
+                    else
+                        startColor = CustomMessages.messageColorGreen;
+                }
+                else if (checkStatusDisplay == CheckStatusDisplay.Automatic)
+                {
+                    if (HintUtils.IsTradeItem(item))
+                    {
+                        if (checkStatus == CheckStatus.Bad)
+                            postItemText = " (bad)";
+                        else
+                            postItemText = " (good)";
+                    }
+
+                    if (checkStatus == CheckStatus.Bad)
+                        startColor = CustomMessages.messageColorPurple;
+                    else
+                        startColor = CustomMessages.messageColorGreen;
+                }
+                else
+                {
+                    startColor = CustomMessages.messageColorGreen;
+                }
+
+                //
+
+                // TODO: shop gets the highest priority, but the preferred color
+                // can be passed in which is used ahead of the default fallback
+                // color.
+
+                // TODO: should have a getDefaultColor of item func which
+                // returns Red from its default case.
+                // startColor = CustomMessages.messageColorRed;
+            }
+
+            string itemSuffix = "";
+            if (isShop)
+            {
+                if (isSeraShop)
+                    itemSuffix = " ";
+                else
+                    itemSuffix = ":";
+            }
+            itemSuffix += CustomMessages.messageColorWhite;
+            if (!StringUtils.isEmpty(postItemText))
+                itemSuffix += postItemText;
 
             string coloredItem;
             Dictionary<string, string> interpolation = new();

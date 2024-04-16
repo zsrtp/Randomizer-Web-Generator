@@ -8,6 +8,21 @@ namespace TPRandomizer.Hints
     using TPRandomizer.Util;
     using TPRandomizer.SSettings.Enums;
 
+    public enum CheckStatus
+    {
+        Bad = 0,
+        Good = 1,
+        Required = 2,
+    }
+
+    public enum CheckStatusDisplay
+    {
+        None = 0,
+        Automatic = 1,
+        GoodOrNot = 2,
+        RequiredOrNot = 3,
+    }
+
     public enum TradeGroup
     {
         Invalid = 0,

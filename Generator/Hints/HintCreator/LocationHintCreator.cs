@@ -20,7 +20,7 @@ namespace TPRandomizer.Hints.HintCreator
         protected HashSet<string> invalidChecks = new();
         protected HashSet<Item> validItems = new();
         protected HashSet<Item> invalidItems = new();
-        protected HashSet<LocationHint.Status> validStatuses;
+        protected HashSet<CheckStatus> validStatuses;
         protected bool vague = false;
         protected bool markAsSometimes = false;
         protected List<string> namedChecks = null;
@@ -90,7 +90,7 @@ namespace TPRandomizer.Hints.HintCreator
                     inst.validStatuses = new();
                     foreach (string str in validStatusesList)
                     {
-                        LocationHint.Status status;
+                        CheckStatus status;
                         bool success = Enum.TryParse(str, true, out status);
                         if (success)
                             inst.validStatuses.Add(status);
@@ -196,7 +196,14 @@ namespace TPRandomizer.Hints.HintCreator
                         continue;
                 }
 
-                Hint hint = LocationHint.Create(genData, checkName, vague, markAsSometimes);
+                // TODO: fix this to not hardcode unspecified
+                Hint hint = LocationHint.Create(
+                    genData,
+                    checkName,
+                    vague,
+                    CheckStatusDisplay.Automatic,
+                    markAsSometimes
+                );
                 hints.Add(hint);
                 hintedChecks.Add(checkName);
 
@@ -276,7 +283,7 @@ namespace TPRandomizer.Hints.HintCreator
         )
         {
             Item item = HintUtils.getCheckContents(checkName);
-            LocationHint.Status status = LocationHint.CalcStatus(genData, checkName);
+            CheckStatus status = LocationHint.CalcStatus(genData, checkName);
 
             return (
                 genData.checkCanBeLocationHinted(checkName)
