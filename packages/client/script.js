@@ -139,12 +139,19 @@ function onDomContentLoaded() {
   $(document).on('select2:open', () => {
     document.querySelector('.select2-search__field').focus();
   });
+
+  $('#plandoCheckSelect').select2();
+  $('#plandoItemSelect').select2();
 }
 
-$(document).ready(function () {
-  $('#plandoCheckSelect').select2({ width: '50%' });
-  $('#plandoItemSelect').select2({ width: '50%' });
-});
+function buildPlandoListItemElStr(checkId, checkName, itemId, itemName) {
+  return `<li class="plandoListItem" data-itemid="${itemId}" data-checkid="${checkId}">
+  <div>
+    <button type="button" class="plandoItemDeleteBtn">✖</button>
+    <span>${checkName} => ${itemName}</span>
+  </div>
+</li>`;
+}
 
 $('#plandoBtnAdd').on('click', function () {
   const checkName = $('#plandoCheckSelect option:selected').text();
@@ -152,21 +159,20 @@ $('#plandoBtnAdd').on('click', function () {
 
   const itemName = $('#plandoItemSelect option:selected').text();
   const itemId = $('#plandoItemSelect').val();
-  if ($(`.plandoListItem[data-checkid=${checkId}]`).length > 0) {
-    $(`.plandoListItem[data-checkid=${checkId}]`).remove();
-  }
-  $(
-    '#basePlandoListbox'
-  ).prepend(`<li class="plandoListItem plandoEntry" data-itemid="${itemId}" data-checkid="${checkId}">
-                                    <div>
-                                      <button type="button" class="plandoItemDeleteBtn">✖</button>
-                                      ${checkName}: ${itemName}
-                                    </div>
-                                  </li>`);
+
+  // First remove row if already there.
+  $(`.plandoListItem[data-checkid=${checkId}]`).remove();
+
+  $('#basePlandoListbox').prepend(
+    buildPlandoListItemElStr(checkId, checkName, itemId, itemName)
+  );
+
+  setSettingsString();
 });
 
 $(document).on('click', '.plandoItemDeleteBtn', function () {
   $(this).parent().parent().remove();
+  setSettingsString();
 });
 
 function initJwt() {
@@ -226,8 +232,6 @@ function openCurrAccordion(e) {
   }
 }
 
-$(document).on('click', '#plandoBtnAdd', setSettingsString);
-$(document).on('click', '.plandoItemDeleteBtn', setSettingsString);
 for (
   var j = 0;
   j <
@@ -1268,7 +1272,7 @@ function populateSSettings(s) {
     });
   }
 
-  const $plandoTab = $('#plandoTab');
+  $('#basePlandoListbox').empty();
   s.plando.forEach((p) => {
     const checkId = p[0];
     const itemId = p[1];
@@ -1276,11 +1280,8 @@ function populateSSettings(s) {
     const checkName = $(`#plandoCheckSelect option[value=${checkId}]`).text();
     const itemName = $(`#plandoItemSelect option[value=${itemId}]`).text();
 
-    if ($(`.plandoListItem[data-checkid=${checkId}]`).length > 0) {
-      $(`.plandoListItem[data-checkid=${checkId}]`).remove();
-    }
     $('#basePlandoListbox').append(
-      `<li class="plandoListItem plandoEntry" data-itemid="${itemId}" data-checkid="${checkId}">${checkName}: ${itemName} <button type="button" class="plandoItemDeleteBtn">x</button></li>`
+      buildPlandoListItemElStr(checkId, checkName, itemId, itemName)
     );
   });
 }

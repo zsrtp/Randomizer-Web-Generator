@@ -1722,15 +1722,29 @@ tr td select {
 }
 
 .plandoHelperText {
-  margin: 4px 0;
+  margin: 4px 0 8px;
   color: rgba(255, 255, 255, 0.9);
   font-style: italic;
 }
 
-.plandoListItem {
+.plandoEntryRow {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5em;
+  width: 100%;
+  min-width: 0px;
+}
+
+.plandoEntryRow > .select2-container {
+  flex: 1;
+  min-width: 0px;
+  margin-right: 8px;
+}
+
+.plandoEntryRowBtn {
+  flex: 0 0 auto;
+}
+
+.plandoListItem {
+  margin-bottom: 8px;
 }
 
 .select2-results__options {
