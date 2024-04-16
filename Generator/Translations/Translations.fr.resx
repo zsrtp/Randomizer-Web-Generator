@@ -325,6 +325,22 @@
     <value>Il est dit que {item} {verb(name:can-be-found)} {area-phrase}.</value>
     <comment></comment>
   </data>
+  <data name="hint-type.trade-group" xml:space="preserve">
+    <value>Il est dit qu&apos;apporter des {group} à Machaon mène à {item}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-group$barren" xml:space="preserve">
+    <value>Il est dit qu&apos;apporter des {group} à Machaon ne mène à rien.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-group$good" xml:space="preserve">
+    <value>Il est dit qu&apos;apporter des {group} à Machaon mène à {something-good}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-group$woth" xml:space="preserve">
+    <value>Il est dit qu&apos;apporter des {group} à Machaon est sur la voie du héros.</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.woth" xml:space="preserve">
     <value>Il est dit que {area} {verb(name:is)} sur la voie du héros.</value>
     <comment></comment>
@@ -1262,19 +1278,19 @@
     <comment></comment>
   </data>
   <data name="item.c4-male_stag_beetle@ac(f)" xml:space="preserve">
-    <value>luncane♂</value>
+    <value>lucane♂</value>
     <comment></comment>
   </data>
   <data name="item.c4-male_stag_beetle#other@ac(f)" xml:space="preserve">
-    <value>luncanes♂</value>
+    <value>lucanes♂</value>
     <comment></comment>
   </data>
   <data name="item.c5-female_stag_beetle@ac(f)" xml:space="preserve">
-    <value>luncane♀</value>
+    <value>lucane♀</value>
     <comment></comment>
   </data>
   <data name="item.c5-female_stag_beetle#other@ac(f)" xml:space="preserve">
-    <value>luncanes♀</value>
+    <value>lucanes♀</value>
     <comment></comment>
   </data>
   <data name="item.c6-male_grasshopper@ac(f)" xml:space="preserve">
@@ -1509,6 +1525,10 @@
     <value>fragments de clé</value>
     <comment></comment>
   </data>
+  <data name="noun.something-good" xml:space="preserve">
+    <value>quelque chose de bien</value>
+    <comment></comment>
+  </data>
   <data name="shop.basic-slot" xml:space="preserve">
     <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
     <comment></comment>
@@ -1516,6 +1536,62 @@
   <data name="shop.price" xml:space="preserve">
     <value>{count} rubis</value>
     <comment>Confirmed by link1183 on 2024/03/31 that all should be &quot;rubis&quot;.</comment>
+  </data>
+  <data name="trade-group.ants" xml:space="preserve">
+    <value>fourmis</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.beetles" xml:space="preserve">
+    <value>scarabées</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.butterflies" xml:space="preserve">
+    <value>papillons</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.dayflies" xml:space="preserve">
+    <value>éphémères</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.dragonflies" xml:space="preserve">
+    <value>libellules</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.female_bugs" xml:space="preserve">
+    <value>insectes femelles</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.grasshoppers" xml:space="preserve">
+    <value>sauterelles</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.ladybugs" xml:space="preserve">
+    <value>coccinelles</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.male_bugs" xml:space="preserve">
+    <value>insectes mâles</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.mantises" xml:space="preserve">
+    <value>mantes</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.phasmids" xml:space="preserve">
+    <value>phasmes</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.pill_bugs" xml:space="preserve">
+    <value>cloportes</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.snails" xml:space="preserve">
+    <value>escargots</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.stag_beetles" xml:space="preserve">
+    <value>lucanes</value>
+    <comment></comment>
   </data>
   <data name="verb.can-be-found" xml:space="preserve">
     <value>peut être trouvé</value>

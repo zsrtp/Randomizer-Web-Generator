@@ -341,6 +341,13 @@ namespace TPRandomizer
             // use all of the meta which is passed back as the context for the
             // sentence.
 
+            TradeGroupHint tradeGroupHint = new TradeGroupHint(
+                TradeGroup.Mantises,
+                TradeGroupHint.Vagueness.Named,
+                TradeGroupHint.Status.Bad,
+                "Wooden Sword Chest"
+            );
+            string tradeGroupHintText = tradeGroupHint.toHintTextList()[0].text;
 
             ItemHint itemHint = ItemHint.Create(
                 null,
@@ -403,7 +410,7 @@ namespace TPRandomizer
                     messageID = 0x1369, // Hint Message
                     // message = itemHintText
                     // message = wothHintText
-                    message = niiaHintText
+                    message = tradeGroupHintText
                     // message = bht
                 }
             );
@@ -475,10 +482,11 @@ namespace TPRandomizer
             string contextIn = null,
             int? count = null,
             bool isShop = false,
-            bool isSeraShop = false
+            bool isSeraShop = false,
+            string prefStartColor = null
         )
         {
-            return GenItemText(out _, item, contextIn, count, isShop, isSeraShop);
+            return GenItemText(out _, item, contextIn, count, isShop, isSeraShop, prefStartColor);
         }
 
         public static string GenItemText(

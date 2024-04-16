@@ -227,6 +227,26 @@ namespace TPRandomizer
                                     {
                                         case "player-name":
                                             return CustomMessages.playerName;
+                                        case "white":
+                                            return CustomMessages.messageColorWhite;
+                                        case "red":
+                                            return CustomMessages.messageColorRed;
+                                        case "green":
+                                            return CustomMessages.messageColorGreen;
+                                        case "light-blue":
+                                            return CustomMessages.messageColorLightBlue;
+                                        case "yellow":
+                                            return CustomMessages.messageColorYellow;
+                                        case "purple":
+                                            return CustomMessages.messageColorPurple;
+                                        case "orange":
+                                            return CustomMessages.messageColorOrange;
+                                        case "dark-green":
+                                            return CustomMessages.messageColorDarkGreen;
+                                        case "dark-blue":
+                                            return CustomMessages.messageColorBlue;
+                                        case "silver":
+                                            return CustomMessages.messageColorSilver;
                                         default:
                                             throw new Exception(
                                                 $"Failed to understand escSeqAlias '{escSeqAlias}'."

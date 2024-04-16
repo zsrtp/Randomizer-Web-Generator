@@ -122,7 +122,7 @@ namespace TPRandomizer
         )
         {
             Result result = Msg(resKey, interpolationIn, optionalContextMeta);
-            return result.Substitute(null);
+            return result.Substitute(interpolationIn);
         }
 
         public static Result Msg(

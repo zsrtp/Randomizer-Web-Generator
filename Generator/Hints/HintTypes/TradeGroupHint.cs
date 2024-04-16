@@ -1,6 +1,7 @@
 namespace TPRandomizer.Hints
 {
     using System.Collections.Generic;
+    using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
     public class TradeGroupHint : Hint
@@ -119,28 +120,61 @@ namespace TPRandomizer.Hints
         {
             HintText hintText = new HintText();
 
-            // They say that bringing {male bugs} to Agitha {leads to nothing /
-            // is on the way of the hero / leads to {item} / leads to something
-            // good}.
+            string groupKey = TradeGroupUtils.GenResKey(tradeGroup);
+            Res.Result groupRes = Res.Msg(groupKey, null);
 
-            string text = $"They say that {{{tradeGroup}}} ";
+            string text = "";
             if (status == Status.Required)
             {
-                text += "is on the {way of the hero}.";
+                string group = groupRes.ResolveWithColor(CustomMessages.messageColorBlue);
+                text = Res.SimpleMsg(
+                    "hint-type.trade-group",
+                    new() { { "group", group }, { "context", "woth" } }
+                );
             }
             else if (status == Status.Important)
             {
+                string group = groupRes.ResolveWithColor(CustomMessages.messageColorYellow);
                 if (vagueness == Vagueness.Named)
-                    text += $"lead to {{{destItem}}}.";
+                {
+                    // Gen item text.
+                    string itemText = CustomMsgData.GenItemText(
+                        destItem,
+                        // useDefiniteArticle ? "def" : "indef", // TODO: we DO need to actually know this.
+                        "def",
+                        prefStartColor: CustomMessages.messageColorGreen
+                    );
+
+                    text = Res.Msg("hint-type.trade-group", null)
+                        .Substitute(new() { { "group", group }, { "item", itemText } });
+                }
                 else
-                    text += "lead to {something good}.";
+                {
+                    string somethingGood = Res.Msg("noun.something-good", null)
+                        .ResolveWithColor(CustomMessages.messageColorDarkGreen);
+
+                    text = Res.SimpleMsg(
+                        "hint-type.trade-group",
+                        new()
+                        {
+                            { "context", "good" },
+                            { "group", group },
+                            { "something-good", somethingGood }
+                        }
+                    );
+                }
             }
             else if (status == Status.Bad)
             {
-                text += "lead to {nothing}.";
+                string group = groupRes.ResolveWithColor(CustomMessages.messageColorPurple);
+                text = Res.SimpleMsg(
+                    "hint-type.trade-group",
+                    new() { { "group", group }, { "context", "barren" } }
+                );
             }
 
-            hintText.text = text;
+            string normalizedText = Res.LangSpecificNormalize(text);
+            hintText.text = normalizedText;
             return new List<HintText> { hintText };
         }
     }

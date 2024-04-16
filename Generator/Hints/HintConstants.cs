@@ -153,6 +153,11 @@ namespace TPRandomizer.Hints
                 throw new Exception($"Failed to resolve TradeGroup '{tradeGroup}' to items.");
             return tradeGroupToItems[tradeGroup];
         }
+
+        public static string GenResKey(TradeGroup tradeGroup)
+        {
+            return $"trade-group.{tradeGroup.ToString().ToLowerInvariant()}";
+        }
     }
 
     public class BeyondPointObj
