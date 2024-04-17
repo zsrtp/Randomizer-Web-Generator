@@ -96,6 +96,8 @@ namespace TPRandomizer.Hints
             if (sSettings.logicRules != LogicRules.Glitchless)
                 preventBarrenItemSet.Add(Item.Magic_Armor);
 
+            // TODO: handle wallets
+
             // Add items which show up in the spheres. This handles only adding
             // items which are relevant based on the selected dungeons (such as
             // big keys, sky chars, etc.)
@@ -654,6 +656,13 @@ namespace TPRandomizer.Hints
                 return false;
 
             Item item = HintUtils.getCheckContents(checkName);
+            // Note that this handles tradeItems correctly because any
+            // tradeItems that lead to a required check or a preventBarren item
+            // which is not an an allowBarren check are said to preventBarren.
+            // Therefore when you ask it a check which reward Male_Ant for
+            // example is good, you will receive an accurate response. We do not
+            // allow players to manually determine if tradeItems preventBarren
+            // or not (they are derived based off of other items).
             return preventBarrenItems.Contains(item);
         }
 

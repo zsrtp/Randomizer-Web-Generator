@@ -28,7 +28,7 @@ namespace TPRandomizer.Hints
         {
             // CheckStatus status = CalcStatus(genData, checkName);
             // TODO: undo temp test code
-            CheckStatus status = CheckStatus.Bad;
+            CheckStatus status = CheckStatus.Required;
 
             LocationHint hint = new(genData, checkName, vague, status, display, markAsSometimes);
             return hint;
@@ -73,6 +73,10 @@ namespace TPRandomizer.Hints
                 // When creating hint during generation
                 contents = HintUtils.getCheckContents(checkName);
             }
+
+            // TODO: TEMP TEST CODE
+            vague = true;
+            contents = Item.Orange_Rupee;
 
             // When creating hint during generation
             if (genData != null)
@@ -150,7 +154,85 @@ namespace TPRandomizer.Hints
             // string statusText = "";
             string text = "";
 
-            if (vague) { }
+            if (vague)
+            {
+                bool showVagueGoodText = false;
+                bool showUnrequiredText = false;
+                bool showVagueBadText = false;
+
+                if (display == CheckStatusDisplay.RequiredOrNot)
+                {
+                    if (status == CheckStatus.Required)
+                    {
+                        Res.Result hintTypeRes = Res.Msg("hint-type.location.vague-required", null);
+
+                        string checkNameStr =
+                            CustomMessages.messageColorBlue
+                            + checkName
+                            + CustomMessages.messageColorWhite;
+
+                        text = hintTypeRes.Substitute(new() { { "check-name", checkNameStr } });
+                    }
+                    else if (status == CheckStatus.Good)
+                    {
+                        showVagueGoodText = true;
+                        showUnrequiredText = true;
+                    }
+                    else
+                        showVagueBadText = true;
+                }
+                else
+                {
+                    if (status == CheckStatus.Bad)
+                        showVagueBadText = true;
+                    else
+                        showVagueGoodText = true;
+                }
+
+                if (showVagueGoodText)
+                {
+                    Res.Result hintTypeRes = Res.Msg("hint-type.location.vague-good", null);
+
+                    string checkNameStr =
+                        CustomMessages.messageColorRed
+                        + checkName
+                        + CustomMessages.messageColorWhite;
+
+                    string noun = CustomMsgData.GenResWithSlotName(
+                        hintTypeRes,
+                        "noun",
+                        null,
+                        CustomMessages.messageColorGreen
+                    );
+
+                    if (showUnrequiredText)
+                        noun += " " + Res.SimpleMsg("description.unrequired-check", null);
+
+                    text = hintTypeRes.Substitute(
+                        new() { { "check-name", checkNameStr }, { "noun", noun } }
+                    );
+                }
+                else if (showVagueBadText)
+                {
+                    Res.Result hintTypeRes = Res.Msg("hint-type.location.vague-bad", null);
+
+                    string checkNameStr =
+                        CustomMessages.messageColorRed
+                        + checkName
+                        + CustomMessages.messageColorWhite;
+
+                    string noun = CustomMsgData.GenResWithSlotName(
+                        hintTypeRes,
+                        "noun",
+                        null,
+                        CustomMessages.messageColorPurple
+                    );
+
+                    text = hintTypeRes.Substitute(
+                        new() { { "check-name", checkNameStr }, { "noun", noun } }
+                    );
+                }
+            }
             else
             {
                 Res.Result hintTypeRes = Res.Msg("hint-type.location", null);
@@ -164,7 +246,8 @@ namespace TPRandomizer.Hints
                     out Dictionary<string, string> meta,
                     contents,
                     status,
-                    contextIn: useDefiniteArticle ? "def" : "indef",
+                    // contextIn: useDefiniteArticle ? "def" : "indef",
+                    contextIn: "indef",
                     checkStatusDisplay: display
                 );
 

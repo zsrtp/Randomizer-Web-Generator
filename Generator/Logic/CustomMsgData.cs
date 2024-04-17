@@ -341,9 +341,14 @@ namespace TPRandomizer
             // use all of the meta which is passed back as the context for the
             // sentence.
 
+            // TODO: fix the rendering of the oe char (and I'm assuming capital
+            // OE) in the game (currently renders as "S").
+
             LocationHint locationHint = LocationHint.Create(
                 null,
-                "Wrestling With Bo",
+                // "Outside Lanayru Spring Left Statue Chest",
+                "Death Mountain Alcove Chest",
+                // "Plumm Fruit Balloon Minigame",
                 display: CheckStatusDisplay.RequiredOrNot
             );
             string locationHintText = locationHint.toHintTextList()[0].text;
@@ -417,7 +422,8 @@ namespace TPRandomizer
                     messageID = 0x1369, // Hint Message
                     // message = itemHintText
                     // message = wothHintText
-                    message = tradeGroupHintText
+                    // message = tradeGroupHintText
+                    message = locationHintText
                     // message = bht
                 }
             );
@@ -610,11 +616,11 @@ namespace TPRandomizer
                     if (checkStatus == CheckStatus.Required)
                     {
                         startColor = CustomMessages.messageColorBlue;
-                        postItemText = " (required)";
+                        postItemText = " " + Res.SimpleMsg("description.required-check", null);
                     }
                     else
                     {
-                        postItemText = " (not required)";
+                        postItemText = " " + Res.SimpleMsg("description.unrequired-check", null);
                         if (checkStatus == CheckStatus.Bad)
                             startColor = CustomMessages.messageColorPurple;
                         else
@@ -633,9 +639,9 @@ namespace TPRandomizer
                     if (HintUtils.IsTradeItem(item))
                     {
                         if (checkStatus == CheckStatus.Bad)
-                            postItemText = " (bad)";
+                            postItemText = " " + Res.SimpleMsg("description.bad-check", null);
                         else
-                            postItemText = " (good)";
+                            postItemText = " " + Res.SimpleMsg("description.good-check", null);
                     }
 
                     if (checkStatus == CheckStatus.Bad)
@@ -738,6 +744,31 @@ namespace TPRandomizer
             string areaPhrase = areaPhraseRes.Substitute(new() { { "area", areaString } });
 
             return areaPhrase;
+        }
+
+        public static string GenResWithSlotName(
+            Res.Result hintResResult,
+            string resKeyStart,
+            Dictionary<string, string> subjectMeta = null,
+            string startColor = ""
+        )
+        {
+            if (StringUtils.isEmpty(startColor))
+                startColor = "";
+
+            string result = "";
+            if (
+                hintResResult.slotMeta.TryGetValue(resKeyStart, out Dictionary<string, string> meta)
+            )
+            {
+                if (meta.TryGetValue("name", out string verbName))
+                {
+                    result = Res.Msg(resKeyStart + "." + verbName, null, subjectMeta)
+                        .ResolveWithColor(startColor);
+                }
+            }
+
+            return result;
         }
 
         public static string GenVerb(
