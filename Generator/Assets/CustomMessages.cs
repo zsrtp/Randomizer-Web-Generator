@@ -55,6 +55,13 @@ namespace TPRandomizer.Assets
                 stageIDX = (byte)stageIdx;
                 roomIDX = roomIdx;
             }
+
+            public MessageEntry(byte stageIdx, byte roomIdx, short messageId)
+            {
+                messageID = messageId;
+                stageIDX = (byte)stageIdx;
+                roomIDX = roomIdx;
+            }
         }
 
 

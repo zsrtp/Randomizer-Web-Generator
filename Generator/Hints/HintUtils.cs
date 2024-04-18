@@ -563,10 +563,13 @@ namespace TPRandomizer.Hints
             // removed in isolation and the playthrough is still valid.
             foreach (Item item in items)
             {
-                List<string> checkNames = itemToChecks[item];
-                if (checkNames == null || checkNames.Count < 1)
+                // TODO: this needs to handle when the item does not show up.
+                // For example, when the player starts with the only Boomerang.
+                itemToChecks.TryGetValue(item, out List<string> checkNames);
+                if (ListUtils.isEmpty(checkNames))
                 {
                     results[item] = new();
+                    checkNames = new();
                 }
                 List<Item> originalContentsList = new();
 

@@ -264,6 +264,7 @@ namespace TPRandomizer
             // handle self-hinters next
 
             // then handle custom hint signs
+            GenHintSignEntries(results);
 
             return results;
         }
@@ -274,7 +275,7 @@ namespace TPRandomizer
             // references the vanilla item.
             results.Add(
                 CustomMsgUtils.GetEntry(
-                    MsgEntryId.SeraSlingshotCantAfford,
+                    MsgEntryId.Sera_Slingshot_Cant_Afford,
                     // TODO: use resource
                     "You don't have enough money!"
                 )
@@ -282,7 +283,7 @@ namespace TPRandomizer
 
             results.Add(
                 CustomMsgUtils.GetEntry(
-                    MsgEntryId.SeraSlingshotConfirmBuy,
+                    MsgEntryId.Sera_Slingshot_Confirm_Buy,
                     // TODO: use resource (add CustomMessages.shopOption) here
                     // since always needed at end regardless of language.
                     "Are you sure?" + CustomMessages.shopOption
@@ -344,6 +345,31 @@ namespace TPRandomizer
             // TODO: fix the rendering of the oe char (and I'm assuming capital
             // OE) in the game (currently renders as "S").
 
+
+            // We know that the resource requires 'item' and 'price' because
+            // those are the known params for that resource.
+
+            // Our job is to put an item and price into each slot.
+
+            // We need to extract any additional context from "item" and provide
+            // it to the item resolution.
+
+            // MessageEntry entry = CustomMsgUtils.GetEntry(MessageId.SeraSlingshotSlot);
+            // entry.message = GenBasicShopMsg("Sera Shop Slingshot", 30, true);
+            // results.Add(entry);
+
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Sera_Slingshot_Slot,
+                    // itemHintText
+                    GenBasicShopMsg("Sera Shop Slingshot", 30, true)
+                // GenBasicShopMsg("Lake Lantern Cave Twelfth Chest", 30, true)
+                )
+            );
+        }
+
+        private void GenHintSignEntries(List<MessageEntry> results)
+        {
             LocationHint locationHint = LocationHint.Create(
                 null,
                 // "Outside Lanayru Spring Left Statue Chest",
@@ -393,39 +419,219 @@ namespace TPRandomizer
             );
             string wothHintText = wothHint.toHintTextList()[0].text;
 
-            // We know that the resource requires 'item' and 'price' because
-            // those are the known params for that resource.
+            // Confirmed that if you do not make an entry for the Jovani's house
+            // text, then it displays the default stuff (at least confirmed for
+            // US).
 
-            // Our job is to put an item and price into each slot.
+            // results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Jovani_House_Sign, "jovani house sign"));
 
-            // We need to extract any additional context from "item" and provide
-            // it to the item resolution.
-
-            // MessageEntry entry = CustomMsgUtils.GetEntry(MessageId.SeraSlingshotSlot);
-            // entry.message = GenBasicShopMsg("Sera Shop Slingshot", 30, true);
-            // results.Add(entry);
-
+            results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Ordon, "Custom_Sign_Ordon"));
             results.Add(
                 CustomMsgUtils.GetEntry(
-                    MsgEntryId.SeraSlingshotSlot,
-                    // itemHintText
-                    // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
-                    GenBasicShopMsg("Lake Lantern Cave Twelfth Chest", 30, true)
+                    MsgEntryId.Custom_Sign_Sacred_Grove,
+                    "Custom_Sign_Sacred_Grove"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Faron_Field,
+                    "Custom_Sign_Faron_Field"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Faron_Woods,
+                    "Custom_Sign_Faron_Woods"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Kakariko_Gorge,
+                    "Custom_Sign_Kakariko_Gorge"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Kakariko_Village,
+                    "Custom_Sign_Kakariko_Village"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Kakariko_Graveyard,
+                    "Custom_Sign_Kakariko_Graveyard"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Eldin_Field,
+                    "Custom_Sign_Eldin_Field"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_North_Eldin,
+                    "Custom_Sign_North_Eldin"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Death_Mountain,
+                    "Custom_Sign_Death_Mountain"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Hidden_Village,
+                    "Custom_Sign_Hidden_Village"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Lanayru_Field,
+                    "Custom_Sign_Lanayru_Field"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Beside_Castle_Town,
+                    "Custom_Sign_Beside_Castle_Town"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_South_of_Castle_Town,
+                    "Custom_Sign_South_of_Castle_Town"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Great_Bridge_of_Hylia,
+                    "Custom_Sign_Great_Bridge_of_Hylia"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Lake_Hylia, "Custom_Sign_Lake_Hylia")
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Lake_Lantern_Cave,
+                    "Custom_Sign_Lake_Lantern_Cave"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Lanayru_Spring,
+                    "Custom_Sign_Lanayru_Spring"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Zoras_Domain,
+                    "Custom_Sign_Zoras_Domain"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Upper_Zoras_River,
+                    "Custom_Sign_Upper_Zoras_River"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Gerudo_Desert,
+                    "Custom_Sign_Gerudo_Desert"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Bulblin_Camp,
+                    "Custom_Sign_Bulblin_Camp"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Snowpeak, "Custom_Sign_Snowpeak")
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Cave_of_Ordeals,
+                    "Custom_Sign_Cave_of_Ordeals"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Forest_Temple,
+                    "Custom_Sign_Forest_Temple"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Goron_Mines,
+                    "Custom_Sign_Goron_Mines"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Lakebed_Temple,
+                    "Custom_Sign_Lakebed_Temple"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Arbiters_Grounds,
+                    "Custom_Sign_Arbiters_Grounds"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Snowpeak_Ruins,
+                    "Custom_Sign_Snowpeak_Ruins"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Temple_of_Time,
+                    "Custom_Sign_Temple_of_Time"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Temple_of_Time_Midpoint,
+                    "Custom_Sign_Temple_of_Time_Midpoint"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_City_in_the_Sky,
+                    "Custom_Sign_City_in_the_Sky"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Palace_of_Twilight,
+                    "Custom_Sign_Palace_of_Twilight"
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Hyrule_Castle,
+                    "Custom_Sign_Hyrule_Castle"
                 )
             );
 
             results.Add(
-                new MessageEntry
-                {
-                    stageIDX = 0xFF,
-                    roomIDX = 0xFF,
-                    messageID = 0x1369, // Hint Message
-                    // message = itemHintText
-                    // message = wothHintText
-                    // message = tradeGroupHintText
-                    message = locationHintText
-                    // message = bht
-                }
+                CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Fallback, "...")
+            // new MessageEntry
+            // {
+            //     stageIDX = 0xFF,
+            //     roomIDX = 0xFF,
+            //     messageID = 0x1369, // Hint Message
+            //     // message = itemHintText
+            //     // message = wothHintText
+            //     // message = tradeGroupHintText
+            //     message = "abc"
+            //     // message = bht
+            // }
             );
         }
 
