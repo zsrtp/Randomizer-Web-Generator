@@ -51,12 +51,10 @@ namespace TPRandomizer.Hints
                 item = HintUtils.getCheckContents(checkName);
             }
 
-            // TEST CODE
-            item = Item.Foolish_Item_3;
-
+            // When creating the hint during generation, we calculate rather
+            // than use input value.
             if (genData != null)
             {
-                // Do calc rather than use input value.
                 if (genData.itemToChecksList.TryGetValue(item, out List<string> checksGivingItem))
                 {
                     useDefiniteArticle = checksGivingItem.Count == 1;
