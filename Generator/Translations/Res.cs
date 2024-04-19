@@ -11,6 +11,7 @@ namespace TPRandomizer
     using System.Text;
     using TPRandomizer.Assets;
     using System.Linq;
+    using System.Runtime.InteropServices;
 
     public partial class Res
     {
@@ -525,6 +526,43 @@ namespace TPRandomizer
             }
 
             return result;
+        }
+
+        public static string NormalizeForMergingOnSign(string input)
+        {
+            if (StringUtils.isEmpty(input))
+                return input;
+
+            string output = input;
+            int numNewLines = 0;
+            for (int i = 0; i < input.Length; i++)
+            {
+                char c = input[i];
+                if (c == '\x1A')
+                {
+                    byte escLength = (byte)input[i + 1];
+                    i += escLength - 1;
+                    continue;
+                }
+
+                if (c == '\n')
+                    numNewLines += 1;
+            }
+
+            // Pad to a multiple of 4 newlines, with 0 requiring another 4
+            // rather than 0. Would need to handle this differently for JP.
+            int numToAdd;
+            if (numNewLines == 0)
+                numToAdd = 4;
+            else
+                numToAdd = 4 - (numNewLines % 4);
+
+            for (int i = 0; i < numToAdd; i++)
+            {
+                output += '\n';
+            }
+
+            return output;
         }
 
         private static void TransformEscSeqList(

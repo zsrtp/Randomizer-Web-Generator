@@ -236,8 +236,7 @@ namespace TPRandomizer.Hints
                     out Dictionary<string, string> meta,
                     contents,
                     status,
-                    // contextIn: useDefiniteArticle ? "def" : "indef",
-                    contextIn: "indef",
+                    contextIn: useDefiniteArticle ? "def" : "indef",
                     checkStatusDisplay: display
                 );
 

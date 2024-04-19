@@ -330,7 +330,7 @@
     <comment></comment>
   </data>
   <data name="description.unrequired-check" xml:space="preserve">
-    <value>(not required)</value>
+    <value>(non obligatoire)</value>
     <comment></comment>
   </data>
   <data name="hint-type.barren" xml:space="preserve">

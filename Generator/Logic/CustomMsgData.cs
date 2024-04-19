@@ -387,6 +387,32 @@ namespace TPRandomizer
             );
             string tradeGroupHintText = tradeGroupHint.toHintTextList()[0].text;
 
+            if (ListUtils.isEmpty(hintSpots))
+                return;
+
+            foreach (HintSpot hintSpot in hintSpots)
+            {
+                List<Hint> hints = hintSpot.hints;
+                MessageEntry messageEntry = CustomMsgUtils.GetEntryForSpotId(hintSpot.location);
+                StringBuilder sb = new();
+
+                for (int i = 0; i < hints.Count; i++)
+                {
+                    Hint hint = hints[i];
+
+                    string text = hint.toHintTextList()[0].text;
+                    if (i < hints.Count - 1)
+                        text = Res.NormalizeForMergingOnSign(text);
+
+                    sb.Append(text);
+                }
+
+                string textForSign = sb.ToString();
+                messageEntry.message = textForSign;
+
+                results.Add(messageEntry);
+            }
+
             ItemHint itemHint = ItemHint.Create(
                 null,
                 // AreaId.Zone(Zone.Kakariko_Gorge),
@@ -423,204 +449,204 @@ namespace TPRandomizer
             // text, then it displays the default stuff (at least confirmed for
             // US).
 
-            results.Add(
-                CustomMsgUtils.GetEntry(MsgEntryId.Agithas_Castle_Sign, "Agithas_Castle_Sign")
-            );
-            results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Jovani_House_Sign, "Jovani_House_Sign"));
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(MsgEntryId.Agithas_Castle_Sign, "Agithas_Castle_Sign")
+            // );
+            // results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Jovani_House_Sign, "Jovani_House_Sign"));
 
-            results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Ordon, "Custom_Sign_Ordon"));
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Sacred_Grove,
-                    "Custom_Sign_Sacred_Grove"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Faron_Field,
-                    "Custom_Sign_Faron_Field"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Faron_Woods,
-                    "Custom_Sign_Faron_Woods"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Kakariko_Gorge,
-                    "Custom_Sign_Kakariko_Gorge"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Kakariko_Village,
-                    "Custom_Sign_Kakariko_Village"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Kakariko_Graveyard,
-                    "Custom_Sign_Kakariko_Graveyard"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Eldin_Field,
-                    "Custom_Sign_Eldin_Field"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_North_Eldin,
-                    "Custom_Sign_North_Eldin"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Death_Mountain,
-                    "Custom_Sign_Death_Mountain"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Hidden_Village,
-                    "Custom_Sign_Hidden_Village"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Lanayru_Field,
-                    "Custom_Sign_Lanayru_Field"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Beside_Castle_Town,
-                    "Custom_Sign_Beside_Castle_Town"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_South_of_Castle_Town,
-                    "Custom_Sign_South_of_Castle_Town"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Great_Bridge_of_Hylia,
-                    "Custom_Sign_Great_Bridge_of_Hylia"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Lake_Hylia, "Custom_Sign_Lake_Hylia")
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Lake_Lantern_Cave,
-                    "Custom_Sign_Lake_Lantern_Cave"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Lanayru_Spring,
-                    "Custom_Sign_Lanayru_Spring"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Zoras_Domain,
-                    "Custom_Sign_Zoras_Domain"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Upper_Zoras_River,
-                    "Custom_Sign_Upper_Zoras_River"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Gerudo_Desert,
-                    "Custom_Sign_Gerudo_Desert"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Bulblin_Camp,
-                    "Custom_Sign_Bulblin_Camp"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Snowpeak, "Custom_Sign_Snowpeak")
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Cave_of_Ordeals,
-                    "Custom_Sign_Cave_of_Ordeals"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Forest_Temple,
-                    "Custom_Sign_Forest_Temple"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Goron_Mines,
-                    "Custom_Sign_Goron_Mines"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Lakebed_Temple,
-                    "Custom_Sign_Lakebed_Temple"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Arbiters_Grounds,
-                    "Custom_Sign_Arbiters_Grounds"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Snowpeak_Ruins,
-                    "Custom_Sign_Snowpeak_Ruins"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Temple_of_Time,
-                    "Custom_Sign_Temple_of_Time"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Temple_of_Time_Midpoint,
-                    "Custom_Sign_Temple_of_Time_Midpoint"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_City_in_the_Sky,
-                    "Custom_Sign_City_in_the_Sky"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Palace_of_Twilight,
-                    "Custom_Sign_Palace_of_Twilight"
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Hyrule_Castle,
-                    "Custom_Sign_Hyrule_Castle"
-                )
-            );
+            // results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Ordon, "Custom_Sign_Ordon"));
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Sacred_Grove,
+            //         "Custom_Sign_Sacred_Grove"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Faron_Field,
+            //         "Custom_Sign_Faron_Field"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Faron_Woods,
+            //         "Custom_Sign_Faron_Woods"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Kakariko_Gorge,
+            //         "Custom_Sign_Kakariko_Gorge"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Kakariko_Village,
+            //         "Custom_Sign_Kakariko_Village"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Kakariko_Graveyard,
+            //         "Custom_Sign_Kakariko_Graveyard"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Eldin_Field,
+            //         "Custom_Sign_Eldin_Field"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_North_Eldin,
+            //         "Custom_Sign_North_Eldin"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Death_Mountain,
+            //         "Custom_Sign_Death_Mountain"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Hidden_Village,
+            //         "Custom_Sign_Hidden_Village"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Lanayru_Field,
+            //         "Custom_Sign_Lanayru_Field"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Beside_Castle_Town,
+            //         "Custom_Sign_Beside_Castle_Town"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_South_of_Castle_Town,
+            //         "Custom_Sign_South_of_Castle_Town"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Great_Bridge_of_Hylia,
+            //         "Custom_Sign_Great_Bridge_of_Hylia"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Lake_Hylia, "Custom_Sign_Lake_Hylia")
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Lake_Lantern_Cave,
+            //         "Custom_Sign_Lake_Lantern_Cave"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Lanayru_Spring,
+            //         "Custom_Sign_Lanayru_Spring"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Zoras_Domain,
+            //         "Custom_Sign_Zoras_Domain"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Upper_Zoras_River,
+            //         "Custom_Sign_Upper_Zoras_River"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Gerudo_Desert,
+            //         "Custom_Sign_Gerudo_Desert"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Bulblin_Camp,
+            //         "Custom_Sign_Bulblin_Camp"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Snowpeak, "Custom_Sign_Snowpeak")
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Cave_of_Ordeals,
+            //         "Custom_Sign_Cave_of_Ordeals"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Forest_Temple,
+            //         "Custom_Sign_Forest_Temple"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Goron_Mines,
+            //         "Custom_Sign_Goron_Mines"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Lakebed_Temple,
+            //         "Custom_Sign_Lakebed_Temple"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Arbiters_Grounds,
+            //         "Custom_Sign_Arbiters_Grounds"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Snowpeak_Ruins,
+            //         "Custom_Sign_Snowpeak_Ruins"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Temple_of_Time,
+            //         "Custom_Sign_Temple_of_Time"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Temple_of_Time_Midpoint,
+            //         "Custom_Sign_Temple_of_Time_Midpoint"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_City_in_the_Sky,
+            //         "Custom_Sign_City_in_the_Sky"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Palace_of_Twilight,
+            //         "Custom_Sign_Palace_of_Twilight"
+            //     )
+            // );
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         MsgEntryId.Custom_Sign_Hyrule_Castle,
+            //         "Custom_Sign_Hyrule_Castle"
+            //     )
+            // );
 
             results.Add(
                 CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Fallback, "...")

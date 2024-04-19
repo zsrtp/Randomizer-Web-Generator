@@ -59,6 +59,50 @@ namespace TPRandomizer
 
     public class CustomMsgUtils
     {
+        private static readonly Dictionary<SpotId, MsgEntryId> spotIdToEntry =
+            new()
+            {
+                { SpotId.Agithas_Castle_Sign, MsgEntryId.Agithas_Castle_Sign },
+                { SpotId.Ordon_Sign, MsgEntryId.Custom_Sign_Ordon },
+                { SpotId.Sacred_Grove_Sign, MsgEntryId.Custom_Sign_Sacred_Grove },
+                { SpotId.Faron_Field_Sign, MsgEntryId.Custom_Sign_Faron_Field },
+                { SpotId.Faron_Woods_Sign, MsgEntryId.Custom_Sign_Faron_Woods },
+                { SpotId.Kakariko_Gorge_Sign, MsgEntryId.Custom_Sign_Kakariko_Gorge },
+                { SpotId.Kakariko_Village_Sign, MsgEntryId.Custom_Sign_Kakariko_Village },
+                { SpotId.Kakariko_Graveyard_Sign, MsgEntryId.Custom_Sign_Kakariko_Graveyard },
+                { SpotId.Eldin_Field_Sign, MsgEntryId.Custom_Sign_Eldin_Field },
+                { SpotId.North_Eldin_Sign, MsgEntryId.Custom_Sign_North_Eldin },
+                { SpotId.Death_Mountain_Sign, MsgEntryId.Custom_Sign_Death_Mountain },
+                { SpotId.Hidden_Village_Sign, MsgEntryId.Custom_Sign_Hidden_Village },
+                { SpotId.Lanayru_Field_Sign, MsgEntryId.Custom_Sign_Lanayru_Field },
+                { SpotId.Beside_Castle_Town_Sign, MsgEntryId.Custom_Sign_Beside_Castle_Town },
+                { SpotId.South_of_Castle_Town_Sign, MsgEntryId.Custom_Sign_South_of_Castle_Town },
+                { SpotId.Castle_Town_Sign, MsgEntryId.Jovani_House_Sign },
+                { SpotId.Great_Bridge_of_Hylia_Sign, MsgEntryId.Custom_Sign_Great_Bridge_of_Hylia },
+                { SpotId.Lake_Hylia_Sign, MsgEntryId.Custom_Sign_Lake_Hylia },
+                { SpotId.Lake_Lantern_Cave_Sign, MsgEntryId.Custom_Sign_Lake_Lantern_Cave },
+                { SpotId.Lanayru_Spring_Sign, MsgEntryId.Custom_Sign_Lanayru_Spring },
+                { SpotId.Zoras_Domain_Sign, MsgEntryId.Custom_Sign_Zoras_Domain },
+                { SpotId.Upper_Zoras_River_Sign, MsgEntryId.Custom_Sign_Upper_Zoras_River },
+                { SpotId.Gerudo_Desert_Sign, MsgEntryId.Custom_Sign_Gerudo_Desert },
+                { SpotId.Bulblin_Camp_Sign, MsgEntryId.Custom_Sign_Bulblin_Camp },
+                { SpotId.Snowpeak_Sign, MsgEntryId.Custom_Sign_Snowpeak },
+                { SpotId.Cave_of_Ordeals_Sign, MsgEntryId.Custom_Sign_Cave_of_Ordeals },
+                { SpotId.Forest_Temple_Sign, MsgEntryId.Custom_Sign_Forest_Temple },
+                { SpotId.Goron_Mines_Sign, MsgEntryId.Custom_Sign_Goron_Mines },
+                { SpotId.Lakebed_Temple_Sign, MsgEntryId.Custom_Sign_Lakebed_Temple },
+                { SpotId.Arbiters_Grounds_Sign, MsgEntryId.Custom_Sign_Arbiters_Grounds },
+                { SpotId.Snowpeak_Ruins_Sign, MsgEntryId.Custom_Sign_Snowpeak_Ruins },
+                { SpotId.Temple_of_Time_Sign, MsgEntryId.Custom_Sign_Temple_of_Time },
+                { SpotId.City_in_the_Sky_Sign, MsgEntryId.Custom_Sign_City_in_the_Sky },
+                { SpotId.Palace_of_Twilight_Sign, MsgEntryId.Custom_Sign_Palace_of_Twilight },
+                { SpotId.Hyrule_Castle_Sign, MsgEntryId.Custom_Sign_Hyrule_Castle },
+                {
+                    SpotId.Temple_of_Time_Beyond_Point_Sign,
+                    MsgEntryId.Custom_Sign_Temple_of_Time_Midpoint
+                },
+            };
+
         private static readonly Dictionary<MsgEntryId, MessageEntry> idToEntry =
             new()
             {
@@ -160,12 +204,22 @@ namespace TPRandomizer
                 { MsgEntryId.Custom_Sign_Fallback, new(0xFF, 0xFF, 0x1369) },
             };
 
-        public static MessageEntry GetEntry(MsgEntryId messageId, string message)
+        public static MessageEntry GetEntryForSpotId(SpotId spotId)
+        {
+            if (!spotIdToEntry.TryGetValue(spotId, out MsgEntryId msgEntryId))
+                throw new Exception($"Failed to find MsgEntryId for SpotId '{spotId}'.");
+            return GetEntry(msgEntryId);
+        }
+
+        public static MessageEntry GetEntry(MsgEntryId messageId, string message = null)
         {
             if (!idToEntry.TryGetValue(messageId, out MessageEntry entry))
                 throw new Exception($"Failed to find MessageEntry for '{messageId}'.");
 
-            entry.message = message;
+            if (!StringUtils.isEmpty(message))
+                entry.message = message;
+            else
+                entry.message = "";
             return entry;
         }
     }
