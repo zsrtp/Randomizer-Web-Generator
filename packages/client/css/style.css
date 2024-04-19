@@ -259,6 +259,7 @@ img.flag {
 
 .checkboxFieldset {
   max-height: 300px;
+  width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -1722,5 +1723,10 @@ tr td select {
 
 .plandoListItem {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  margin-bottom: 0.5em
+}
+
+.select2-results__options {
+  color: #444 !important;
 }

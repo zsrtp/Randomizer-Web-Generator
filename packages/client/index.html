@@ -23,9 +23,14 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link 
+      rel="stylesheet" 
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"  
+    />
     <script src="/js/lib/lodash.toarray.js"></script>
     <script src="/js/lib/jquery-3.6.0.js"></script>
     <script src="/js/shared.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   </head>
   <body>
     <header>
@@ -343,6 +348,19 @@
                   Dungeon Rewards Can Be Anywhere </label
                 ><br />
               </div>
+              <div
+                data-tooltip-text="Helps prevent needing to reenter a dungeon after defeating the boss when small keys are Own Dungeon.&#0010;&#0010;If checked, the following items will not appear on Heart Container or Dungeon Reward checks: Dungeon small keys, Snowpeak Ruins Ordon Pumpkin, Snowpeak Ruins Ordon Goat Cheese, Gerudo Desert Bulblin Camp Key, and North Faron Woods Gate Key&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="noSmallKeysOnBossesCheckbox"
+                  name="No Small Keys On Bosses Checkbox"
+                  value=""
+                />
+                <label for="noSmallKeysOnBossesCheckbox"
+                  >No Small Keys On Bosses</label
+                >
+              </div>
             </fieldset>
           </div>
         </div>
@@ -526,7 +544,7 @@
               </div>
               <div
                 style="width: 90%"
-                data-tooltip-text="If enabled,the Door of Time (the big door at the entrance) in the Temple of Time will be opened and the statue is moved to the entrance.&#0010;"
+                data-tooltip-text="WARNING: you will need to save and quit the game to exit the Darknut room since the statue is gone.&#0010;&#0010;If enabled, the Door of Time (the big door at the entrance) in the Temple of Time will be opened and the statue is moved to the entrance."
               >
                 <input
                   type="checkbox"
@@ -593,19 +611,6 @@
                 />
                 <label for="bonksDoDamageCheckbox">Bonks Do Damage</label><br />
               </div>
-              <div
-                data-tooltip-text="If checked, the following items will not appear on Heart Container or Dungeon Reward checks:&#0010;&#0010;Dungeon small keys, Snowpeak Ruins Ordon Pumpkin, Snowpeak Ruins Ordon Goat Cheese, Gerudo Desert Bulblin Camp Key, and North Faron Woods Gate Key&#0010;"
-              >
-                <input
-                  type="checkbox"
-                  id="noSmallKeysOnBossesCheckbox"
-                  name="No Small Keys On Bosses Checkbox"
-                  value=""
-                />
-                <label for="noSmallKeysOnBossesCheckbox"
-                  >No Small Keys On Bosses</label
-                ><br />
-              </div>
               <div class="selectGroup" style="margin-top: 8px">
                 <label for="trapItemFieldset">Trap Item Frequency</label><br />
                 <select
@@ -642,7 +647,7 @@
                   data-tooltip-text="If the prologue is skipped, sets the starting time of day of a new save file to the specified value."
                 >
                   <option value="0">Morning</option>
-                  <option value="1">Noon</option>
+                  <option value="1" selected="selected">Noon</option>
                   <option value="2">Evening</option>
                   <option value="3">Night</option>
                 </select>
@@ -781,9 +786,24 @@
               multiple="multiple"
               size="10"
               width="20%"
-              data-tooltip-text="Specify the contents of any given check.&#0010;&#0010;It is possible that seed generation fails for invalid Plando combinations.&#0010;"
             >
-              <!-- PLANDO -->
+              <li class="plandoListItem">
+                <!-- This is terrible, but see server.ts in the server for where this is being populated -->
+                <!-- PLANDO -->
+
+                <button type="button" data-tooltip-text="Add item/check combo." id="plandoBtnAdd">Add</button>
+                <button type="button" data-tooltip-text="Clear all plando settings." id="plandoBtnClear">Clear</button>
+              </li>
+              <!-- <?php
+							$important_items = file_get_contents("Resources/StartingItems.txt");
+							$important_items = explode("\n", $important_items);
+							foreach ($important_items as $important_item)
+							{
+								list($value, $name) = explode(",", $important_item);
+								$name = str_replace("_"," ", $name);
+								echo "<li><label><input type='checkbox' data-itemId='$value'>".$name."</label> </li>";
+							}
+						?> -->
             </ul>
           </fieldset>
         </div>

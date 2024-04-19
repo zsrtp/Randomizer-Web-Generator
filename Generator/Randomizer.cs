@@ -110,7 +110,7 @@ namespace TPRandomizer
             Random rnd = new Random(seedHash);
 
             bool generationStatus = false;
-            int remainingGenerationAttempts = 30;
+            int remainingGenerationAttempts = 10;
 
             Console.WriteLine("SeedData Version: " + SeedData.VersionString);
 
@@ -276,6 +276,11 @@ namespace TPRandomizer
         public static PlaythroughSpheres GenerateSpoilerLog(Room startingRoom)
         {
             Randomizer.Items.GenerateItemPool();
+
+            foreach (Item startingItem in Randomizer.SSettings.startingItems)
+            {
+                Randomizer.Items.heldItems.Add(startingItem);
+            }
 
             bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom, true);
             if (!isPlaythroughValid && (SSettings.logicRules != LogicRules.No_Logic))
@@ -1062,7 +1067,6 @@ namespace TPRandomizer
                 Check currentCheck = checkList.Value;
                 if (currentCheck.checkStatus.Contains("Plando"))
                 {
-                    Randomizer.Items.heldItems.Remove(currentCheck.itemId);
                     PlaceItemInCheck(currentCheck.itemId, currentCheck);
                 }
             }
@@ -1317,7 +1321,10 @@ namespace TPRandomizer
 
         private static void StartOver()
         {
+            // If we are restarting we want to empty the player's inventory since we don't know what items we have and it won't matter if we are restarting.
             Randomizer.Items.heldItems.Clear();
+
+            // Next we want to change any checks that were marked as unrequired since the generator could select different dungeons next time. We also want to make all checks available to be placed again.
             foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
@@ -1330,13 +1337,12 @@ namespace TPRandomizer
                 Checks.CheckDict[currentCheck.checkName] = currentCheck;
             }
 
-            foreach (KeyValuePair<string, Room> roomList in Randomizer.Rooms.RoomDict.ToList())
-            {
-                Room currentRoom = roomList.Value;
-                currentRoom.Visited = false;
-                Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
-            }
+            // Next for Entrance rando, we want to clear the current room and entrance tables since they will be re-generated as the generator will try to re-shuffle the entrances a different way to find a placement that is successful.
+            Randomizer.Rooms.RoomDict.Clear();
+            DeserializeRooms(SSettings);
+            Randomizer.EntranceRandomizer.SpawnTable.Clear();
 
+            // Finally set the required dungeons to 0 since the value may change during the next attempt.
             Randomizer.RequiredDungeons = 0;
         }
 
@@ -1623,6 +1629,8 @@ namespace TPRandomizer
         private static void DeserializeChecks(SharedSettings SSettings)
         {
             string[] files;
+
+            // We keep the logic files seperate based on their logic. GC and Wii should use the same logic.
             if (SSettings.logicRules == LogicRules.Glitchless)
             {
                 files = System.IO.Directory.GetFiles(
@@ -1642,6 +1650,7 @@ namespace TPRandomizer
 
             // Sort so that the item placement algorithm produces the exact same
             // result in production and development.
+            // If we have already generated a dictionary from DeserializeCheckMetadata, then we only need to apply the logic data from the files.
             Array.Sort(files, new FilenameComparer());
             if (Checks.CheckDict.Count == 0)
             {
@@ -1684,6 +1693,8 @@ namespace TPRandomizer
         )
         {
             string[] files = null;
+
+            // The GC/Wii files have different offsets for the data that is needed to replace certain checks.
             switch (FcSettings.gameRegion)
             {
                 case GameRegion.GC_USA:
@@ -1721,13 +1732,7 @@ namespace TPRandomizer
                 string fileName = Path.GetFileNameWithoutExtension(file);
                 Checks.CheckDict.Add(fileName, new Check());
                 Checks.CheckDict[fileName] = JsonConvert.DeserializeObject<Check>(contents);
-                Check currentCheck = Checks.CheckDict[fileName];
-                currentCheck.checkName = fileName;
-                currentCheck.requirements = "(" + currentCheck.requirements + ")";
-                currentCheck.checkStatus = "Ready";
-                currentCheck.itemWasPlaced = false;
-                currentCheck.isRequired = false;
-                Checks.CheckDict[fileName] = currentCheck;
+                Checks.CheckDict[fileName].checkName = fileName;
             }
 
             DeserializeChecks(SSettings);

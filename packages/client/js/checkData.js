@@ -220,7 +220,7 @@ window.tpr.checkData = {
     itemId: 'Aurus_Memo',
   },
   'Barnes Bomb Bag': {
-    category: ['Overworld', 'Npc', 'Kakariko Village', 'ARC'],
+    category: ['Overworld', 'Shop', 'Kakariko Village', 'ARC'],
     itemId: 'Filled_Bomb_Bag',
   },
   'Bridge of Eldin Female Phasmid': {
