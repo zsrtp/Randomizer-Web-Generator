@@ -370,14 +370,14 @@ namespace TPRandomizer
 
         private void GenHintSignEntries(List<MessageEntry> results)
         {
-            LocationHint locationHint = LocationHint.Create(
-                null,
-                // "Outside Lanayru Spring Left Statue Chest",
-                "Death Mountain Alcove Chest",
-                // "Plumm Fruit Balloon Minigame",
-                display: CheckStatusDisplay.Required_Or_Not
-            );
-            string locationHintText = locationHint.toHintTextList()[0].text;
+            // LocationHint locationHint = LocationHint.Create(
+            //     null,
+            //     // "Outside Lanayru Spring Left Statue Chest",
+            //     "Death Mountain Alcove Chest",
+            //     // "Plumm Fruit Balloon Minigame",
+            //     display: CheckStatusDisplay.Required_Or_Not
+            // );
+            // string locationHintText = locationHint.toHintTextList()[0].text;
 
             TradeGroupHint tradeGroupHint = new TradeGroupHint(
                 TradeGroup.Mantises,
@@ -423,7 +423,10 @@ namespace TPRandomizer
             // text, then it displays the default stuff (at least confirmed for
             // US).
 
-            // results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Jovani_House_Sign, "jovani house sign"));
+            results.Add(
+                CustomMsgUtils.GetEntry(MsgEntryId.Agithas_Castle_Sign, "Agithas_Castle_Sign")
+            );
+            results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Jovani_House_Sign, "Jovani_House_Sign"));
 
             results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Ordon, "Custom_Sign_Ordon"));
             results.Add(

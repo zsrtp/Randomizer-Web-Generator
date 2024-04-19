@@ -16,9 +16,8 @@ namespace TPRandomizer
         Sera_Slingshot_Slot,
         Sera_Slingshot_Cant_Afford,
         Sera_Slingshot_Confirm_Buy,
+        Agithas_Castle_Sign,
         Jovani_House_Sign,
-
-        //TODO: Agitha's castle sign
         Custom_Sign_Ordon,
         Custom_Sign_Sacred_Grove,
         Custom_Sign_Faron_Field,
@@ -89,6 +88,7 @@ namespace TPRandomizer
                     MsgEntryId.Sera_Slingshot_Confirm_Buy,
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5B4)
                 },
+                { MsgEntryId.Agithas_Castle_Sign, new(StageIDs.Castle_Town, 3, 0x456) },
                 { MsgEntryId.Jovani_House_Sign, new(StageIDs.Castle_Town, 3, 0x457) },
                 { MsgEntryId.Custom_Sign_Ordon, new(StageIDs.Ordon_Village, 1, 0x1369) },
                 { MsgEntryId.Custom_Sign_Sacred_Grove, new(StageIDs.Sacred_Grove, 1, 0x1369) },
