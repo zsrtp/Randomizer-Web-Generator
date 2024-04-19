@@ -247,6 +247,11 @@ namespace TPRandomizer
         {
             Randomizer.Items.GenerateItemPool();
 
+            foreach (Item startingItem in Randomizer.SSettings.startingItems)
+            {
+                Randomizer.Items.heldItems.Add(startingItem);
+            }
+
             bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom, true);
             if (!isPlaythroughValid && (SSettings.logicRules != LogicRules.No_Logic))
             {
