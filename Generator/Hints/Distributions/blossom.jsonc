@@ -16,6 +16,7 @@
   "beyondPointZones": ["alias:all"],
   "always": {
     "monopolizeSpots": true,
+    "checkStatusDisplay": "required_or_not",
     "idealNumSpots": 3,
     "idealNumExplicitlyHinted": 3,
     "copies": 2,

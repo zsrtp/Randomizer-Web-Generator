@@ -22,13 +22,11 @@ namespace TPRandomizer.Hints
             HintGenData genData,
             string checkName,
             bool vague = false,
-            CheckStatusDisplay display = CheckStatusDisplay.None,
+            CheckStatusDisplay display = CheckStatusDisplay.Automatic,
             bool markAsSometimes = false
         )
         {
-            // CheckStatus status = CalcStatus(genData, checkName);
-            // TODO: undo temp test code
-            CheckStatus status = CheckStatus.Required;
+            CheckStatus status = CalcStatus(genData, checkName);
 
             LocationHint hint = new(genData, checkName, vague, status, display, markAsSometimes);
             return hint;
@@ -59,10 +57,6 @@ namespace TPRandomizer.Hints
 
         private void CalcDerived(HintGenData genData, Dictionary<int, byte> itemPlacements)
         {
-            // // TODO: undo temp test code
-            // contents = Item.Progressive_Clawshot;
-            // return;
-
             if (itemPlacements != null)
             {
                 // When decoding hint from string
@@ -74,14 +68,10 @@ namespace TPRandomizer.Hints
                 contents = HintUtils.getCheckContents(checkName);
             }
 
-            // TODO: TEMP TEST CODE
-            vague = true;
-            contents = Item.Orange_Rupee;
-
-            // When creating hint during generation
+            // When creating the hint during generation, we calculate rather
+            // than use input value.
             if (genData != null)
             {
-                // Do calc rather than use input value.
                 if (
                     genData.itemToChecksList.TryGetValue(
                         contents,
@@ -160,7 +150,7 @@ namespace TPRandomizer.Hints
                 bool showUnrequiredText = false;
                 bool showVagueBadText = false;
 
-                if (display == CheckStatusDisplay.RequiredOrNot)
+                if (display == CheckStatusDisplay.Required_Or_Not)
                 {
                     if (status == CheckStatus.Required)
                     {

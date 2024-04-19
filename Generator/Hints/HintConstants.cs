@@ -10,17 +10,21 @@ namespace TPRandomizer.Hints
 
     public enum CheckStatus
     {
-        Bad = 0,
-        Good = 1,
-        Required = 2,
+        // `Unknown` is mainly for no-logic where we have a hard time saying if
+        // a check is good or not, and we really cannot say if it is required or
+        // not.
+        Unknown = 0,
+        Bad = 1,
+        Good = 2,
+        Required = 3,
     }
 
     public enum CheckStatusDisplay
     {
-        None = 0,
-        Automatic = 1,
-        GoodOrNot = 2,
-        RequiredOrNot = 3,
+        Automatic = 0,
+        None = 1,
+        Good_Or_Not = 2,
+        Required_Or_Not = 3,
     }
 
     public enum TradeGroup

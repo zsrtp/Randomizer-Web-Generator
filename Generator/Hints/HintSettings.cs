@@ -291,6 +291,29 @@ namespace TPRandomizer.Hints.Settings
                 throw new Exception($"Failed to parse itemName '{itemName}' to Item enum.");
         }
 
+        public static CheckStatusDisplay getOptionalCheckStatusDisplay(
+            JObject obj,
+            string propertyName,
+            CheckStatusDisplay defaultVal
+        )
+        {
+            if (!obj.ContainsKey(propertyName))
+                return defaultVal;
+
+            JToken token = obj[propertyName];
+            if (token.Type != JTokenType.String)
+                throw new Exception(
+                    $"Expected checkStatusDisplay token to be a string, but was '{token.Type}'."
+                );
+
+            if (Enum.TryParse((string)token, true, out CheckStatusDisplay checkStatusDisplay))
+                return checkStatusDisplay;
+            else
+                throw new Exception(
+                    $"Failed to parse CheckStatusDisplay '{propertyName}' to enum."
+                );
+        }
+
         public static HashSet<Item> getItemSet(JObject obj, string propertyName)
         {
             HashSet<Item> items = new();
@@ -488,6 +511,7 @@ namespace TPRandomizer.Hints.Settings
         public bool starting { get; private set; } = false;
         public string groupId { get; private set; }
         public bool monopolizeSpots { get; private set; } = true;
+        public CheckStatusDisplay checkStatusDisplay { get; private set; }
         public int? idealNumSpots { get; private set; }
         public int? idealNumExplicitlyHinted { get; private set; }
         public int copies { get; private set; } = 1;
@@ -523,6 +547,12 @@ namespace TPRandomizer.Hints.Settings
                 obj,
                 "monopolizeSpots",
                 inst.monopolizeSpots
+            );
+
+            inst.checkStatusDisplay = HintSettingUtils.getOptionalCheckStatusDisplay(
+                obj,
+                "checkStatusDisplay",
+                inst.checkStatusDisplay
             );
 
             inst.idealNumSpots = HintSettingUtils.getOptionalNullableInt(

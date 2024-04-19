@@ -375,7 +375,7 @@ namespace TPRandomizer
                 // "Outside Lanayru Spring Left Statue Chest",
                 "Death Mountain Alcove Chest",
                 // "Plumm Fruit Balloon Minigame",
-                display: CheckStatusDisplay.RequiredOrNot
+                display: CheckStatusDisplay.Required_Or_Not
             );
             string locationHintText = locationHint.toHintTextList()[0].text;
 
@@ -816,8 +816,13 @@ namespace TPRandomizer
             else
             {
                 // Pick the default color here based on checkStatus and display.
-
-                if (checkStatusDisplay == CheckStatusDisplay.RequiredOrNot)
+                if (checkStatus == CheckStatus.Unknown)
+                {
+                    // If we do not know the status of the check, then display
+                    // the default green.
+                    startColor = CustomMessages.messageColorGreen;
+                }
+                else if (checkStatusDisplay == CheckStatusDisplay.Required_Or_Not)
                 {
                     if (checkStatus == CheckStatus.Required)
                     {
@@ -833,7 +838,7 @@ namespace TPRandomizer
                             startColor = CustomMessages.messageColorGreen;
                     }
                 }
-                else if (checkStatusDisplay == CheckStatusDisplay.GoodOrNot)
+                else if (checkStatusDisplay == CheckStatusDisplay.Good_Or_Not)
                 {
                     if (checkStatus == CheckStatus.Bad)
                         startColor = CustomMessages.messageColorPurple;
@@ -857,18 +862,9 @@ namespace TPRandomizer
                 }
                 else
                 {
+                    // Display the default green.
                     startColor = CustomMessages.messageColorGreen;
                 }
-
-                //
-
-                // TODO: shop gets the highest priority, but the preferred color
-                // can be passed in which is used ahead of the default fallback
-                // color.
-
-                // TODO: should have a getDefaultColor of item func which
-                // returns Red from its default case.
-                // startColor = CustomMessages.messageColorRed;
             }
 
             string itemSuffix = "";

@@ -850,7 +850,15 @@ namespace TPRandomizer.Hints
                 if (failedMinSouls || failedMinFoundSouls)
                     continue;
 
-                LocationHint hint = LocationHint.Create(genData, checkName);
+                // Can add user configuration for this later. For now, indicate
+                // requiredOrNot for the 60 reward only since it would be pretty
+                // cruel not to.
+                CheckStatusDisplay display =
+                    soulsForCheck == 60
+                        ? CheckStatusDisplay.Required_Or_Not
+                        : CheckStatusDisplay.Automatic;
+
+                LocationHint hint = LocationHint.Create(genData, checkName, display: display);
 
                 genData.hinted.alreadyCheckContentsHinted.Add(checkName);
                 spotToHints.addHintToSpot(SpotId.Castle_Town_Sign, hint);
@@ -876,7 +884,13 @@ namespace TPRandomizer.Hints
                 if (HintUtils.checkIsPlayerKnownStatus(checkName))
                     continue;
 
-                LocationHint hint = LocationHint.Create(genData, checkName);
+                // Can add user configuration later. For now, indicate
+                // requiredOrNot for all of thse checks.
+                LocationHint hint = LocationHint.Create(
+                    genData,
+                    checkName,
+                    display: CheckStatusDisplay.Required_Or_Not
+                );
 
                 genData.hinted.alreadyCheckContentsHinted.Add(checkName);
                 spotToHints.addHintToSpot(SpotId.Cave_of_Ordeals_Sign, hint);
@@ -1089,7 +1103,9 @@ namespace TPRandomizer.Hints
             List<Hint> locationHints = new();
             foreach (string checkName in checksToHint)
             {
-                locationHints.Add(LocationHint.Create(genData, checkName));
+                locationHints.Add(
+                    LocationHint.Create(genData, checkName, display: always.checkStatusDisplay)
+                );
             }
 
             if (always.starting)
