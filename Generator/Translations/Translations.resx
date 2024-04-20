@@ -729,6 +729,42 @@
     <value>Split Province</value>
     <comment></comment>
   </data>
+  <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
+    <value>Arbiter&apos;s Grounds</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.city-in-the-sky" xml:space="preserve">
+    <value>City in the Sky</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.forest-temple" xml:space="preserve">
+    <value>Forest Temple</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.goron-mines" xml:space="preserve">
+    <value>Goron Mines</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.lakebed-temple" xml:space="preserve">
+    <value>Lakebed Temple</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.none" xml:space="preserve">
+    <value>No dungeons required</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.palace-of-twilight" xml:space="preserve">
+    <value>Palace of Twilight</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.snowpeak-ruins" xml:space="preserve">
+    <value>Snowpeak Ruins</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.temple-of-time" xml:space="preserve">
+    <value>Temple of Time</value>
+    <comment></comment>
+  </data>
   <data name="shop.basic-slot" xml:space="preserve">
     <value>{item(shop:true)} {price}\n     LIMITED SUPPLY!\nDon&apos;t let them sell out before you\nbuy one!</value>
     <comment></comment>

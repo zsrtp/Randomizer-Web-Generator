@@ -13,6 +13,7 @@ namespace TPRandomizer
 
     public enum MsgEntryId
     {
+        Link_House_Sign,
         Sera_Slingshot_Slot,
         Sera_Slingshot_Cant_Afford,
         Sera_Slingshot_Confirm_Buy,
@@ -121,10 +122,8 @@ namespace TPRandomizer
                 //         + messageColorWhite
                 //         + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
                 // },
-                {
-                    MsgEntryId.Sera_Slingshot_Slot,
-                    new(StageIDs.Ordon_Village_Interiors, 1, 0x5AE)
-                },
+                { MsgEntryId.Link_House_Sign, new(StageIDs.Ordon_Village, 1, 0x658) },
+                { MsgEntryId.Sera_Slingshot_Slot, new(StageIDs.Ordon_Village_Interiors, 1, 0x5AE) },
                 {
                     MsgEntryId.Sera_Slingshot_Cant_Afford,
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5B3)

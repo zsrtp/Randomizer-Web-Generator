@@ -23,6 +23,7 @@ namespace TPRandomizer
         // decoding the data.
         private static readonly ushort latestEncodingVersion = 0;
 
+        private byte requiredDungeons;
         private bool updateShopText;
         private HashSet<string> selfHinterChecks;
         private List<HintSpot> hintSpots;
@@ -33,6 +34,7 @@ namespace TPRandomizer
 
         private CustomMsgData(Builder builder)
         {
+            requiredDungeons = builder.requiredDungeons;
             updateShopText = builder.updateShopText;
             selfHinterChecks = builder.GetSelfHinterChecks();
             hintSpots = builder.hintSpots;
@@ -44,6 +46,9 @@ namespace TPRandomizer
 
             HintEncodingBitLengths bitLengths = HintUtils.GetHintEncodingBitLengths(hintSpots);
             result += bitLengths.encodeAsBits();
+
+            // Encode required dungeons
+            result += SettingsEncoder.EncodeNumAsBits(requiredDungeons, 8);
 
             // Encode updateShopText
             result += updateShopText ? "1" : "0";
@@ -108,6 +113,9 @@ namespace TPRandomizer
 
             ushort version = processor.NextVlq16();
             HintEncodingBitLengths bitLengths = HintEncodingBitLengths.decode(processor);
+
+            // Decode requiredDungeons
+            inst.requiredDungeons = processor.NextByte();
 
             // Decode updateShopText
             inst.updateShopText = processor.NextBool();
@@ -188,14 +196,16 @@ namespace TPRandomizer
 
         public class Builder
         {
+            public byte requiredDungeons { get; private set; }
             public bool updateShopText { get; private set; } = true;
             private bool forceNotUpdateShopText = false;
             private HashSet<string> selfHinterChecks =
                 new() { "Barnes Bomb Bag", "Charlo Donation Blessing", "Fishing Hole Bottle" };
             public List<HintSpot> hintSpots { get; private set; } = new();
 
-            public Builder(SharedSettings sSettings)
+            public Builder(byte requiredDungeons, SharedSettings sSettings)
             {
+                this.requiredDungeons = requiredDungeons;
                 if (!sSettings.modifyShopModels)
                 {
                     updateShopText = false;
@@ -250,6 +260,7 @@ namespace TPRandomizer
             List<MessageEntry> results = new();
 
             GenStaticEntries(results);
+            GenLinkHouseSignText(results);
 
             // handle shop text first
             if (updateShopText)
@@ -265,16 +276,6 @@ namespace TPRandomizer
 
             // then handle custom hint signs
             GenHintSignEntries(results);
-
-            results.Add(
-                new MessageEntry
-                {
-                    stageIDX = (byte)StageIDs.Ordon_Village,
-                    roomIDX = 1,
-                    messageID = 0x658, // Link house sign
-                    message = "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16"
-                }
-            );
 
             results.Add(
                 new MessageEntry
@@ -357,6 +358,42 @@ namespace TPRandomizer
                     "Are you sure?" + CustomMessages.shopOption
                 )
             );
+        }
+
+        private void GenLinkHouseSignText(List<MessageEntry> results)
+        {
+            List<(string, byte, string)> dungeonData =
+                new()
+                {
+                    ("required-dungeon.forest-temple", 0x01, CustomMessages.messageColorGreen),
+                    ("required-dungeon.goron-mines", 0x02, CustomMessages.messageColorRed),
+                    ("required-dungeon.lakebed-temple", 0x04, CustomMessages.messageColorBlue),
+                    ("required-dungeon.arbiters-grounds", 0x08, CustomMessages.messageColorOrange),
+                    ("required-dungeon.snowpeak-ruins", 0x10, CustomMessages.messageColorLightBlue),
+                    ("required-dungeon.temple-of-time", 0x20, CustomMessages.messageColorDarkGreen),
+                    ("required-dungeon.city-in-the-sky", 0x40, CustomMessages.messageColorYellow),
+                    ("required-dungeon.palace-of-twilight", 0x80, CustomMessages.messageColorPurple)
+                };
+
+            StringBuilder sb = new();
+            foreach (var tuple in dungeonData)
+            {
+                if ((requiredDungeons & tuple.Item2) != 0)
+                {
+                    if (sb.Length > 0)
+                        sb.Append('\n');
+                    sb.Append(Res.Msg(tuple.Item1, null).ResolveWithColor(tuple.Item3));
+                }
+            }
+
+            string text;
+            if (sb.Length > 0)
+                text = sb.ToString();
+            else
+                text = Res.SimpleMsg("required-dungeon.none", null);
+
+            string normalized = Res.LangSpecificNormalize(text);
+            results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Link_House_Sign, normalized));
         }
 
         private void GenShopItemEntries(List<MessageEntry> results)
