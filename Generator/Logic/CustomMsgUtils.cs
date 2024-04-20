@@ -32,6 +32,7 @@ namespace TPRandomizer
         Custom_Sign_Lanayru_Field,
         Custom_Sign_Beside_Castle_Town,
         Custom_Sign_South_of_Castle_Town,
+        Custom_Sign_Castle_Town,
         Custom_Sign_Great_Bridge_of_Hylia,
         Custom_Sign_Lake_Hylia,
         Custom_Sign_Lake_Lantern_Cave,
@@ -77,7 +78,7 @@ namespace TPRandomizer
                 { SpotId.Lanayru_Field_Sign, MsgEntryId.Custom_Sign_Lanayru_Field },
                 { SpotId.Beside_Castle_Town_Sign, MsgEntryId.Custom_Sign_Beside_Castle_Town },
                 { SpotId.South_of_Castle_Town_Sign, MsgEntryId.Custom_Sign_South_of_Castle_Town },
-                { SpotId.Castle_Town_Sign, MsgEntryId.Jovani_House_Sign },
+                { SpotId.Castle_Town_Sign, MsgEntryId.Custom_Sign_Castle_Town },
                 { SpotId.Great_Bridge_of_Hylia_Sign, MsgEntryId.Custom_Sign_Great_Bridge_of_Hylia },
                 { SpotId.Lake_Hylia_Sign, MsgEntryId.Custom_Sign_Lake_Hylia },
                 { SpotId.Lake_Lantern_Cave_Sign, MsgEntryId.Custom_Sign_Lake_Lantern_Cave },
@@ -160,6 +161,7 @@ namespace TPRandomizer
                     MsgEntryId.Custom_Sign_South_of_Castle_Town,
                     new(StageIDs.Outside_Castle_Town, 16, 0x1369)
                 },
+                { MsgEntryId.Custom_Sign_Castle_Town, new(StageIDs.Castle_Town, 0, 0x1369) },
                 {
                     MsgEntryId.Custom_Sign_Great_Bridge_of_Hylia,
                     new(StageIDs.Hyrule_Field, 13, 0x1369)

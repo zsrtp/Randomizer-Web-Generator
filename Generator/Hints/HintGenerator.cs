@@ -41,6 +41,12 @@ namespace TPRandomizer.Hints
 
             // Adjust selfHinters if able
             customMsgDataBuilder.ApplyInvalidSelfHinters(hintSettings.invalidSelfHinters);
+            foreach (string checkName in customMsgDataBuilder.GetSelfHinterChecks())
+            {
+                // TODO: mark as checkContents already hinted. Need to do a more
+                // thorough test of this and clean up the code.
+                genData.hinted.alreadyCheckContentsHinted.Add(checkName);
+            }
 
             if (hintSettings.starting.excludeFromGroups)
                 removeSpotFromMutableGroups(hintSettings.starting.spot);

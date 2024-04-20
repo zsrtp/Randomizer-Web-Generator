@@ -266,6 +266,74 @@ namespace TPRandomizer
             // then handle custom hint signs
             GenHintSignEntries(results);
 
+            results.Add(
+                new MessageEntry
+                {
+                    stageIDX = (byte)StageIDs.Ordon_Village,
+                    roomIDX = 1,
+                    messageID = 0x658, // Link house sign
+                    message = "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16"
+                }
+            );
+
+            results.Add(
+                new MessageEntry
+                {
+                    stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+                    roomIDX = 1,
+                    messageID = 0x9B, // Barnes Bomb Bag Text.
+                    message =
+                        "I've got a special offer goin' right\nnow: my "
+                        // + getShortenedItemName(Randomizer.Checks.CheckDict["Barnes Bomb Bag"].itemId)
+                        + Randomizer.Checks.CheckDict["Barnes Bomb Bag"].itemId
+                        + CustomMessages.messageColorWhite
+                        + ", just\n"
+                        + CustomMessages.messageColorPurple
+                        + "120 Rupees"
+                        + CustomMessages.messageColorWhite
+                        + "! How 'bout that?"
+                        + CustomMessages.shopOption
+                }
+            );
+            results.Add(
+                new MessageEntry
+                {
+                    stageIDX = (byte)StageIDs.Castle_Town,
+                    roomIDX = 2,
+                    messageID = 0x355, // Charlo Donation Text.
+                    message =
+                        "For a "
+                        // + getShortenedItemName(Randomizer.Checks.CheckDict["Charlo Donation Blessing"].itemId)
+                        + Randomizer.Checks.CheckDict["Charlo Donation Blessing"].itemId
+                        + CustomMessages.messageColorWhite
+                        + "...\nWould you please make a donation?"
+                        + CustomMessages.messageOption1
+                        + "100 Rupees\n"
+                        + CustomMessages.messageOption2
+                        + "50 Rupees\n"
+                        + CustomMessages.messageOption3
+                        + "Sorry..."
+                }
+            );
+            results.Add(
+                new MessageEntry
+                {
+                    stageIDX = (byte)StageIDs.Fishing_Pond,
+                    roomIDX = 0,
+                    messageID = 0x47A, // Fishing Hole Bottle Sign
+                    message =
+                        "           "
+                        + CustomMessages.messageColorRed
+                        + "DON'T LITTER!\n"
+                        + CustomMessages.messageColorWhite
+                        + "Do NOT toss a "
+                        // + getShortenedItemName(Randomizer.Checks.CheckDict["Fishing Hole Bottle"].itemId)
+                        + Randomizer.Checks.CheckDict["Fishing Hole Bottle"].itemId
+                        + CustomMessages.messageColorWhite
+                        + " or\ncans here! The fish are CRYING!\n\nKeep the fishing hole clean!"
+                }
+            );
+
             return results;
         }
 
