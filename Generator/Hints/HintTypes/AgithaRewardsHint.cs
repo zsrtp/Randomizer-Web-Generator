@@ -33,7 +33,7 @@ namespace TPRandomizer.Hints
                 text += "\n" + string.Join(", ", items);
 
             HintText hintText = new HintText();
-            hintText.text = text;
+            hintText.text = Res.LangSpecificNormalize(text);
             return new List<HintText> { hintText };
         }
 

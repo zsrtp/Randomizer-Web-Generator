@@ -49,8 +49,11 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList()
         {
+            string text = $"They say that {{{srcItem}}} is on the path to {{{tgtItem}}}.";
+
             HintText hintText = new HintText();
-            hintText.text = $"They say that {{{srcItem}}} is on the path to {{{tgtItem}}}.";
+            // hintText.text = $"They say that {{{srcItem}}} is on the path to {{{tgtItem}}}.";
+            hintText.text = Res.LangSpecificNormalize(text);
             return new List<HintText> { hintText };
         }
 

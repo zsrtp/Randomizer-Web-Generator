@@ -127,7 +127,8 @@ namespace TPRandomizer.Hints
             // TODO: handle temp reward end stuff. Vagueness needs to be looked at.
             text += $"leads to {{{destItem}}}.";
 
-            hintText.text = text;
+            // hintText.text = text;
+            hintText.text = Res.LangSpecificNormalize(text);
             // $"They say that TradeItemChain {{{srcItem}}} is on the path to {{{destItem}}}.";
             return new List<HintText> { hintText };
         }
