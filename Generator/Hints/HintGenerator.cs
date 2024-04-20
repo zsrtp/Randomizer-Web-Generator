@@ -1083,15 +1083,19 @@ namespace TPRandomizer.Hints
             int numToFind
         )
         {
+            // TODO: testing with it always showing the zone
             string checkZoneName = HintUtils.checkNameToHintZone(checkForBigKey);
-            Province checkProvince = HintUtils.checkNameToHintProvince(checkForBigKey);
+            return AreaId.ZoneStr(checkZoneName);
 
-            return
-                dungeonZoneInQuestion == Zone.Hyrule_Castle
-                || numToFind > 1
-                || checkProvince == Province.Dungeon
-              ? AreaId.ZoneStr(checkZoneName)
-              : AreaId.Province(checkProvince);
+            // string checkZoneName = HintUtils.checkNameToHintZone(checkForBigKey);
+            // Province checkProvince = HintUtils.checkNameToHintProvince(checkForBigKey);
+
+            // return
+            //     dungeonZoneInQuestion == Zone.Hyrule_Castle
+            //     || numToFind > 1
+            //     || checkProvince == Province.Dungeon
+            //   ? AreaId.ZoneStr(checkZoneName)
+            //   : AreaId.Province(checkProvince);
         }
 
         private List<List<Hint>> PrepareAlwaysHints(SpotToHints spotToHints)
