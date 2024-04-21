@@ -12,6 +12,7 @@ namespace TPRandomizer.Hints.HintCreator
     public class ItemHintCreator : HintCreator
     {
         private List<Item> validItems = null;
+        protected HashSet<string> invalidChecks = new();
         private bool badItemsHintable = false;
         private bool itemsOrdered = false;
 
@@ -103,6 +104,20 @@ namespace TPRandomizer.Hints.HintCreator
                         inst.badItemsHintable = true;
                 }
 
+                List<string> invalidChecks = HintSettingUtils.getOptionalStringList(
+                    options,
+                    "invalidChecks",
+                    new()
+                );
+                foreach (string name in invalidChecks)
+                {
+                    if (!HintSettingUtils.IsValidCheckResolutionFormat(name))
+                        throw new Exception(
+                            $"'{name}' is not a valid format to resolve to checks."
+                        );
+                }
+                inst.invalidChecks = new(invalidChecks);
+
                 inst.badItemsHintable = HintSettingUtils.getOptionalBool(
                     options,
                     "badItemsHintable",
@@ -133,11 +148,7 @@ namespace TPRandomizer.Hints.HintCreator
             HashSet<Item> validItemsSet;
             if (!ListUtils.isEmpty(validItems))
             {
-                validItemsSet = new();
-                foreach (Item item in validItems)
-                {
-                    validItemsSet.Add(item);
-                }
+                validItemsSet = new(validItems);
             }
             else
             {
@@ -157,6 +168,13 @@ namespace TPRandomizer.Hints.HintCreator
                 };
             }
 
+            HashSet<string> invalidCheckNames = new();
+            foreach (string name in invalidChecks)
+            {
+                HashSet<string> res = genData.ResolveToChecks(name);
+                invalidCheckNames.UnionWith(res);
+            }
+
             Dictionary<Item, HashSet<string>> itemToHintableChecks = new();
 
             foreach (KeyValuePair<string, Check> pair in Randomizer.Checks.CheckDict)
@@ -164,7 +182,8 @@ namespace TPRandomizer.Hints.HintCreator
                 string checkName = pair.Value.checkName;
                 Item item = HintUtils.getCheckContents(checkName);
                 if (
-                    validItemsSet.Contains(item)
+                    !invalidCheckNames.Contains(checkName)
+                    && validItemsSet.Contains(item)
                     && (badItemsHintable || genData.CheckIsGood(checkName))
                     && CheckIsItemHintable(genData, checkName)
                 )
