@@ -167,8 +167,8 @@ namespace TPRandomizer.Hints.HintCreator
                 // ^ We want to punish target items which would resolve in a
                 // simple and uninteresting way (only 1 srcItem), and we want to
                 // improve the chances of a hint that might take a while to
-                // resolve. For example, Lantern to Zora Armor and ZA is in a
-                // sphere1 Lantern check. In this case, it is not that unlikely
+                // resolve. For example, in the case of Lantern to Zora Armor
+                // and ZA is in a sphere1 Lantern check, it is not that unlikely
                 // that someone would find Lantern and get ZA before they ever
                 // even come across the ItemToItemPath hint.
 
