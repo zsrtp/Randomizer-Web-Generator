@@ -56,6 +56,36 @@ namespace TPRandomizer.Hints.HintCreator
                     Item.Progressive_Dominion_Rod,
                 };
 
+            // Remove any baseSrcItems which have a check that is already
+            // directedToward. Similar to with tradeItems, we do not want to
+            // double up with other hints. For example, I had a seed where Ordon
+            // was path to LBT and also Spinner is path to Zora Armor, and the
+            // very first chest had a Spinner in it. In this case, the normal
+            // Path hint directed toward the Ordon check, and the ItemToItemPath
+            // hint directed toward the ZA check in Stalfos Grotto. Technically
+            // there was nothing wrong, but it definitely felt wrong and like a
+            // waste. We were already requiring that the srcChecks not be
+            // directedToward for tradeItems, so the change was made to have
+            // that be the behavior for everything. -isaac
+            for (int i = baseSrcItems.Count - 1; i >= 0; i--)
+            {
+                Item item = baseSrcItems[i];
+                if (!genData.itemToChecksList.TryGetValue(item, out List<string> srcCheckNames))
+                {
+                    baseSrcItems.RemoveAt(i);
+                }
+                else
+                {
+                    // Check that none of the checkNames have been directedToward.
+                    bool srcItemNotDirectedToward = srcCheckNames.All(
+                        (checkName) =>
+                            !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
+                    );
+                    if (!srcItemNotDirectedToward)
+                        baseSrcItems.RemoveAt(i);
+                }
+            }
+
             // Add any chainStarter tradeItems that lead to a required
             // uniqueItem as long as there is no checkName rewarding that
             // tradeItem that is already directedToward. For example, if KGY is
@@ -77,8 +107,8 @@ namespace TPRandomizer.Hints.HintCreator
                     string chainStart = pair.Key;
                     Item startItem = HintUtils.getCheckContents(chainStart);
 
-                    List<string> checkNames = genData.itemToChecksList[startItem];
-                    bool srcItemNotDirectedToward = checkNames.All(
+                    List<string> checks = genData.itemToChecksList[startItem];
+                    bool srcItemNotDirectedToward = checks.All(
                         (checkName) =>
                             !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
                     );
@@ -172,16 +202,13 @@ namespace TPRandomizer.Hints.HintCreator
             // Update hinted
             genData.hinted.alreadyCheckDirectedToward.Add(tgtCheckName);
 
-            // If srcItem is a tradeItem, mark all checks which reward this item
-            // as directedToward so that we do not get other hints that
-            // directToward the same item (path, tradeChain, etc.).
-            if (HintUtils.IsTradeItem(selectedSrcItem))
+            // Mark all checks which reward this item as directedToward so that
+            // we do not get other hints that directToward the same item (path,
+            // tradeChain, etc.).
+            List<string> checkNames = genData.itemToChecksList[selectedSrcItem];
+            foreach (string checkName in checkNames)
             {
-                List<string> checkNames = genData.itemToChecksList[selectedSrcItem];
-                foreach (string checkName in checkNames)
-                {
-                    genData.hinted.alreadyCheckDirectedToward.Add(checkName);
-                }
+                genData.hinted.alreadyCheckDirectedToward.Add(checkName);
             }
 
             // TODO: do iterations instead of returning a single hint.
