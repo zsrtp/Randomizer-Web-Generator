@@ -235,7 +235,34 @@
                       "validAreas": ["Dungeon"]
                     }
                   },
-                  { "hintType": "item" },
+                  {
+                    "hintType": "item",
+                    "options": {
+                      "validStatuses": ["required"],
+                      "checkStatusDisplay": "required_or_not",
+                      "validItems": [
+                        // "Progressive_Sword",
+                        "Boomerang",
+                        "Lantern",
+                        "Slingshot",
+                        "Progressive_Fishing_Rod",
+                        "Iron_Boots",
+                        // "Progressive_Bow",
+                        // "Filled_Bomb_Bag",
+                        "Zora_Armor",
+                        // "Progressive_Clawshot",
+                        "Shadow_Crystal",
+                        "Aurus_Memo",
+                        "Asheis_Sketch",
+                        "Spinner",
+                        "Ball_and_Chain",
+                        "Progressive_Dominion_Rod",
+                        "Progressive_Sky_Book",
+                        "Gate_Keys",
+                        "Magic_Armor"
+                      ]
+                    }
+                  },
                   { "hintType": "itemToItemPath" },
                   {
                     // Ex: Owl Statues are junk

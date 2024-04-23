@@ -627,6 +627,16 @@ namespace TPRandomizer.Hints
             );
         }
 
+        public CheckStatus CalcCheckStatus(string checkName)
+        {
+            CheckStatus status = CheckStatus.Bad;
+            if (requiredChecks.Contains(checkName))
+                status = CheckStatus.Required;
+            else if (CheckIsGood(checkName))
+                status = CheckStatus.Good;
+            return status;
+        }
+
         // For almost all cases, you should not bypassIgnoredChecks. The purpose
         // of this is for checking if the final bug reward in a tradeChain would
         // be considered good (ignoring the fact that it should be ignored by

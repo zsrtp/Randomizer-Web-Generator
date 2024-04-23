@@ -283,12 +283,20 @@ namespace TPRandomizer.Hints.Settings
 
         public static Item parseItem(string itemName)
         {
-            Item item;
-            bool success = Enum.TryParse<Item>(itemName, out item);
-            if (success)
+            if (Enum.TryParse(itemName, true, out Item item))
                 return item;
             else
                 throw new Exception($"Failed to parse itemName '{itemName}' to Item enum.");
+        }
+
+        public static CheckStatus parseCheckStatus(string statusStr)
+        {
+            if (Enum.TryParse(statusStr, true, out CheckStatus status))
+                return status;
+            else
+                throw new Exception(
+                    $"Failed to parse statusStr '{statusStr}' to CheckStatus enum."
+                );
         }
 
         public static CheckStatusDisplay getOptionalCheckStatusDisplay(

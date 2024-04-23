@@ -8,22 +8,33 @@ namespace TPRandomizer.Hints
     {
         public AreaId areaId { get; }
         public string checkName { get; }
+        public CheckStatusDisplay statusDisplay { get; }
 
         // derived but encoded
+        public CheckStatus status { get; }
         public bool useDefiniteArticle { get; private set; }
 
         // always derived
         public Item item { get; private set; }
 
-        public static ItemHint Create(HintGenData genData, AreaId areaId, string checkName)
+        public static ItemHint Create(
+            HintGenData genData,
+            AreaId areaId,
+            string checkName,
+            CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Automatic
+        )
         {
-            ItemHint hint = new(areaId, checkName, genData: genData);
+            CheckStatus status = genData.CalcCheckStatus(checkName);
+
+            ItemHint hint = new(areaId, checkName, status, checkStatusDisplay, genData: genData);
             return hint;
         }
 
         private ItemHint(
             AreaId areaId,
             string checkName,
+            CheckStatus status,
+            CheckStatusDisplay statusDisplay,
             bool useDefiniteArticle = false,
             Dictionary<int, byte> itemPlacements = null,
             HintGenData genData = null
@@ -33,6 +44,8 @@ namespace TPRandomizer.Hints
 
             this.areaId = areaId;
             this.checkName = checkName;
+            this.status = status;
+            this.statusDisplay = statusDisplay;
             this.useDefiniteArticle = useDefiniteArticle;
 
             CalcDerived(genData, itemPlacements);
@@ -71,6 +84,8 @@ namespace TPRandomizer.Hints
                 CheckIdClass.GetCheckIdNum(checkName),
                 bitLengths.checkId
             );
+            result += SettingsEncoder.EncodeNumAsBits((byte)status, 2);
+            result += SettingsEncoder.EncodeNumAsBits((byte)statusDisplay, 2);
             result += useDefiniteArticle ? "1" : "0";
             return result;
         }
@@ -83,18 +98,28 @@ namespace TPRandomizer.Hints
         {
             AreaId areaId = AreaId.decode(bitLengths, processor);
             int checkId = processor.NextInt(bitLengths.checkId);
+            CheckStatus status = (CheckStatus)processor.NextInt(2);
+            CheckStatusDisplay statusDisplay = (CheckStatusDisplay)processor.NextInt(2);
             bool useDefiniteArticle = processor.NextBool();
             string checkName = CheckIdClass.GetCheckName(checkId);
-            return new ItemHint(areaId, checkName, useDefiniteArticle, itemPlacements);
+            return new ItemHint(
+                areaId,
+                checkName,
+                status,
+                statusDisplay,
+                useDefiniteArticle,
+                itemPlacements
+            );
         }
 
         public override List<HintText> toHintTextList()
         {
-            string itemText = CustomMsgData.GenItemText(
+            string itemText = CustomMsgData.GenItemText3(
                 out Dictionary<string, string> itemMeta,
                 item,
+                status,
                 useDefiniteArticle ? "def" : "indef",
-                prefStartColor: CustomMessages.messageColorGreen
+                checkStatusDisplay: statusDisplay
             );
 
             Dictionary<string, string> metaForArea = new();

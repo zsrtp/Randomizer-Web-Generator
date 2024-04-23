@@ -13,7 +13,8 @@ namespace TPRandomizer.Hints.HintCreator
     {
         private List<Item> validItems = null;
         protected HashSet<string> invalidChecks = new();
-        private bool badItemsHintable = false;
+        private HashSet<CheckStatus> validStatuses = new() { CheckStatus.Good };
+        private CheckStatusDisplay statusDisplay = CheckStatusDisplay.Automatic;
         private bool itemsOrdered = false;
 
         // Creates item hints with the following properties:
@@ -73,6 +74,30 @@ namespace TPRandomizer.Hints.HintCreator
             {
                 JObject options = (JObject)obj["options"];
 
+                inst.statusDisplay = HintSettingUtils.getOptionalCheckStatusDisplay(
+                    options,
+                    "checkStatusDisplay",
+                    inst.statusDisplay
+                );
+
+                bool userDidSpecifyStatuses = false;
+                List<string> validStatusesStrList = HintSettingUtils.getOptionalStringList(
+                    options,
+                    "validStatuses",
+                    null
+                );
+                if (!ListUtils.isEmpty(validStatusesStrList))
+                {
+                    userDidSpecifyStatuses = true;
+                    inst.validStatuses = new();
+
+                    foreach (string statusStr in validStatusesStrList)
+                    {
+                        CheckStatus checkStatus = HintSettingUtils.parseCheckStatus(statusStr);
+                        inst.validStatuses.Add(checkStatus);
+                    }
+                }
+
                 List<string> validItemsStrList = HintSettingUtils.getOptionalStringList(
                     options,
                     "validItems",
@@ -97,11 +122,14 @@ namespace TPRandomizer.Hints.HintCreator
                         }
                     }
 
-                    // If user specifies validItems, by default treat any item
-                    // they specify as hintable (even if they say "Purple_Rupee"
-                    // for example).
-                    if (!ListUtils.isEmpty(inst.validItems))
-                        inst.badItemsHintable = true;
+                    // If user specifies validItems but does not specify
+                    // validStatuses, then we should allow Bad checks to be
+                    // hintable as well (if they explicitly say "Purple_Rupee"
+                    // for example, then we should allow Purple_Rupee checks
+                    // which are Bad to be hinted since they specifically asked
+                    // for purple rupees).
+                    if (!userDidSpecifyStatuses && !ListUtils.isEmpty(inst.validItems))
+                        inst.validStatuses.Add(CheckStatus.Bad);
                 }
 
                 List<string> invalidChecks = HintSettingUtils.getOptionalStringList(
@@ -118,12 +146,6 @@ namespace TPRandomizer.Hints.HintCreator
                 }
                 inst.invalidChecks = new(invalidChecks);
 
-                inst.badItemsHintable = HintSettingUtils.getOptionalBool(
-                    options,
-                    "badItemsHintable",
-                    inst.badItemsHintable
-                );
-
                 inst.itemsOrdered = HintSettingUtils.getOptionalBool(
                     options,
                     "itemsOrdered",
@@ -131,7 +153,13 @@ namespace TPRandomizer.Hints.HintCreator
                 );
             }
 
-            // TODO: load options and use them.
+            if (inst.validStatuses.Contains(CheckStatus.Good))
+            {
+                // If Good is valid, then a check which resolves to Required is
+                // also valid.
+                inst.validStatuses.Add(CheckStatus.Required);
+            }
+
             return inst;
         }
 
@@ -180,11 +208,12 @@ namespace TPRandomizer.Hints.HintCreator
             foreach (KeyValuePair<string, Check> pair in Randomizer.Checks.CheckDict)
             {
                 string checkName = pair.Value.checkName;
+                CheckStatus checkStatus = genData.CalcCheckStatus(checkName);
                 Item item = HintUtils.getCheckContents(checkName);
                 if (
                     !invalidCheckNames.Contains(checkName)
                     && validItemsSet.Contains(item)
-                    && (badItemsHintable || genData.CheckIsGood(checkName))
+                    && validStatuses.Contains(checkStatus)
                     && CheckIsItemHintable(genData, checkName)
                 )
                 {
@@ -250,7 +279,7 @@ namespace TPRandomizer.Hints.HintCreator
 
                 AreaId areaId = genData.GetRecommendedAreaId(selectedCheckName);
 
-                ItemHint hint = ItemHint.Create(genData, areaId, selectedCheckName);
+                ItemHint hint = ItemHint.Create(genData, areaId, selectedCheckName, statusDisplay);
                 results.Add(hint);
 
                 // Update hinted

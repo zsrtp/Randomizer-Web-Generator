@@ -518,15 +518,15 @@ namespace TPRandomizer
                 results.Add(messageEntry);
             }
 
-            ItemHint itemHint = ItemHint.Create(
-                null,
-                // AreaId.Zone(Zone.Kakariko_Gorge),
-                AreaId.Category(HintCategory.Grotto),
-                // AreaId.Zone(Zone.North_Eldin),
-                // AreaId.Zone(Zone.Lake_Hylia),
-                "Lake Hylia Dock Poe"
-            );
-            string itemHintText = itemHint.toHintTextList()[0].text;
+            // ItemHint itemHint = ItemHint.Create(
+            //     null,
+            //     // AreaId.Zone(Zone.Kakariko_Gorge),
+            //     AreaId.Category(HintCategory.Grotto),
+            //     // AreaId.Zone(Zone.North_Eldin),
+            //     // AreaId.Zone(Zone.Lake_Hylia),
+            //     "Lake Hylia Dock Poe"
+            // );
+            // string itemHintText = itemHint.toHintTextList()[0].text;
 
             BarrenHint barrenHint = new BarrenHint(AreaId.Category(HintCategory.Grotto));
             string bht = barrenHint.toHintTextList()[0].text;
