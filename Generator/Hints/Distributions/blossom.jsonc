@@ -19,8 +19,8 @@
   "always": {
     "monopolizeSpots": true,
     "checkStatusDisplay": "required_or_not",
-    "idealNumSpots": 3,
-    "idealNumExplicitlyHinted": 3,
+    "idealNumSpots": 5,
+    "idealNumExplicitlyHinted": 5,
     "copies": 2,
     "starting": false,
     "groupId": "overworld"
@@ -180,9 +180,9 @@
             "starting": 1
           },
           {
-            // We pick 5 "Interesting" hints.
+            // We pick 4 "Interesting" hints.
             "starting": 1,
-            "maxPicks": 5,
+            "maxPicks": 4,
             "hintDef": [
               {
                 // Num swords in province with most swords (or tied for most).
@@ -200,11 +200,12 @@
                 "selectionType": "randomOrder",
                 "hintDef": [
                   {
-                    // Additional bug hint if possible. Weight 1.6 makes this
-                    // have a 10% chance of being selected last instead of 20%.
-                    // Not hard-prioritized so that we are more likely to get
-                    // ItemToItemPath hints where the target is a bug.
-                    "weight": 1.6,
+                    // Additional bug hint if possible. Weight 1.73 makes this
+                    // have a 12.5% chance of being selected last instead of
+                    // 25%. Not hard-prioritized so that we are more likely to
+                    // generate an ItemToItemPath hint where the target is a
+                    // bug.
+                    // "weight": 1.725942,
                     "selectionType": "randomOrder",
                     "maxPicks": 1,
                     "hintDef": [
@@ -215,26 +216,36 @@
                           "validGroups": ["male_bugs", "female_bugs"],
                           "validStatuses": ["bad"]
                         }
-                      },
-                      {
-                        // Ex: bug at Area leads to Item
-                        "hintType": "tradeChain",
-                        "options": {
-                          "vagueSourceItem": true,
-                          "requiredChainItems": ["alias:bugs"]
-                        }
                       }
+                      // Testing this with no extra weighting and with no
+                      // tradeChain since the other hints can handle this pretty
+                      // well. ItemToItemPath for bugs is good. An Item hint for
+                      // a named bug in a province or dungeon without saying
+                      // what it leads to seems better than one where we say
+                      // what it leads to and where it might not even be
+                      // required. The bad gender part is good though. This also
+                      // makes it easier to explain when there are actually only
+                      // 4 things.
+
+                      // {
+                      //   // Ex: bug at Area leads to Item
+                      //   "hintType": "tradeChain",
+                      //   "options": {
+                      //     "vagueSourceItem": true,
+                      //     "requiredChainItems": ["alias:bugs"]
+                      //   }
+                      // }
                     ]
                   },
-                  {
-                    // Num clawshots in dungeons
-                    "hintType": "numItemInArea",
-                    "options": {
-                      "item": "Progressive_Clawshot",
-                      "areaType": "province",
-                      "validAreas": ["Dungeon"]
-                    }
-                  },
+                  // {
+                  //   // Num clawshots in dungeons
+                  //   "hintType": "numItemInArea",
+                  //   "options": {
+                  //     "item": "Progressive_Clawshot",
+                  //     "areaType": "province",
+                  //     "validAreas": ["Dungeon"]
+                  //   }
+                  // },
                   {
                     "hintType": "item",
                     "options": {
@@ -259,7 +270,32 @@
                         "Progressive_Dominion_Rod",
                         "Progressive_Sky_Book",
                         "Gate_Keys",
-                        "Magic_Armor"
+                        "Magic_Armor",
+                        // TODO: probably make alias for bugs
+                        "Male_Beetle",
+                        "Female_Beetle",
+                        "Male_Butterfly",
+                        "Female_Butterfly",
+                        "Male_Stag_Beetle",
+                        "Female_Stag_Beetle",
+                        "Male_Grasshopper",
+                        "Female_Grasshopper",
+                        "Male_Phasmid",
+                        "Female_Phasmid",
+                        "Male_Pill_Bug",
+                        "Female_Pill_Bug",
+                        "Male_Mantis",
+                        "Female_Mantis",
+                        "Male_Ladybug",
+                        "Female_Ladybug",
+                        "Male_Snail",
+                        "Female_Snail",
+                        "Male_Dragonfly",
+                        "Female_Dragonfly",
+                        "Male_Ant",
+                        "Female_Ant",
+                        "Male_Dayfly",
+                        "Female_Dayfly"
                       ]
                     }
                   },
@@ -283,7 +319,7 @@
       "groupId": "overworld",
       "hintDef": {
         "starting": 1,
-        "copies": 3,
+        "copies": 2,
         "hintDef": [
           {
             "hintType": "item",
@@ -327,8 +363,8 @@
           },
           {
             "hintType": "sometimes",
-            "iterations": 99,
-            "minCopies": 1
+            "iterations": 99
+            // "minCopies": 1
           }
         ]
       }
