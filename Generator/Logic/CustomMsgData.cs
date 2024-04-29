@@ -460,22 +460,26 @@ namespace TPRandomizer
             // entry.message = GenBasicShopMsg("Sera Shop Slingshot", 30, true);
             // results.Add(entry);
 
+            AreaId areaId = AreaId.Category(HintCategory.Llc_Lantern_Chests);
+
             ItemHint itemHint = ItemHint.Create(
                 null,
                 // "Outside Lanayru Spring Left Statue Chest",
-                AreaId.Category(HintCategory.Owl_Statue),
+                areaId,
                 "Wooden Sword Chest"
             // "Plumm Fruit Balloon Minigame",
             // display: CheckStatusDisplay.Required_Or_Not
             );
             string itemHintText = itemHint.toHintTextList()[0].text;
 
-            NumItemInAreaHint niiaHint = new NumItemInAreaHint(
-                2,
-                Item.Progressive_Sword,
-                AreaId.Category(HintCategory.Owl_Statue)
-            );
+            NumItemInAreaHint niiaHint = new NumItemInAreaHint(2, Item.Progressive_Sword, areaId);
             string niiaText = niiaHint.toHintTextList()[0].text;
+
+            WothHint wothHint = new WothHint(areaId, "Wooden Sword Chest");
+            string wothHintText = wothHint.toHintTextList()[0].text;
+
+            BarrenHint barrenHint = new BarrenHint(areaId);
+            string barrenHintText = barrenHint.toHintTextList()[0].text;
 
             TradeGroupHint tradeGroupHint = new TradeGroupHint(
                 TradeGroup.Mantises,
@@ -491,7 +495,7 @@ namespace TPRandomizer
                     MsgEntryId.Custom_Sign_Ordon,
                     // itemHintText
                     // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
-                    itemHintText
+                    niiaText
                 // GenBasicShopMsg("Lake Lantern Cave Twelfth Chest", 30, true)
                 )
             );

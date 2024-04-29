@@ -48,26 +48,14 @@ namespace TPRandomizer.Hints
         {
             Res.Result ppp = Res.Msg(areaId.GenResKey(), new() { { "context", "default" } });
 
-            string verbContext = CustomMsgData.BuildContextFromMeta(ppp.meta);
-
             string areaText = ppp.ResolveWithColor(
-                CustomMessages.messageColorYellow,
+                CustomMessages.messageColorBlue,
                 CustomMessages.messageColorWhite
             );
 
             Res.Result hintParsedRes = Res.ParseVal("hint-type.woth");
 
-            string verb = "";
-            if (hintParsedRes.slotMeta.TryGetValue("verb", out Dictionary<string, string> verbMeta))
-            {
-                if (verbMeta.TryGetValue("name", out string verbName))
-                {
-                    verb = Res.SimpleMsgOld(
-                        "verb." + verbName,
-                        new() { { "context", verbContext } }
-                    );
-                }
-            }
+            string verb = CustomMsgData.GenVerb(hintParsedRes, ppp.meta);
 
             string text = hintParsedRes.Substitute(
                 new() { { "area", areaText }, { "verb", verb } }

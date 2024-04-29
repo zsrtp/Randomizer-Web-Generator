@@ -145,6 +145,18 @@
     <value>$(ap:dans,plural)les {cs}Grottes secrètes{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.llc_lantern_chests" xml:space="preserve">
+    <value>$(ap:dans)un {cs}Coffre Lanterne de la Grotte Lanterne du Lac{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.llc_lantern_chests$default" xml:space="preserve">
+    <value>$(ap:dans,plural)les {cs}Coffres Lanternes de la Grotte Lanterne du Lac{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.llc_lantern_chests$plural" xml:space="preserve">
+    <value>$(ap:dans,plural)les {cs}Coffres Lanternes de la Grotte Lanterne du Lac{ce}</value>
+    <comment></comment>
+  </data>
   <data name="area.category.mist" xml:space="preserve">
     <value>$(ap:derriere)le {cs}Brouillard Mauve{ce}</value>
     <comment></comment>
