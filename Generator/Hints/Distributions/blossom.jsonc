@@ -195,6 +195,9 @@
                   "order": "desc"
                 }
               },
+              // Promoted since usually the most interesting hint every time it
+              // shows up.
+              { "hintType": "itemToItemPath" },
               {
                 "iterations": 99,
                 "selectionType": "randomOrder",
@@ -299,7 +302,6 @@
                       ]
                     }
                   },
-                  { "hintType": "itemToItemPath" },
                   {
                     // Ex: Owl Statues are junk
                     "hintType": "barren",
