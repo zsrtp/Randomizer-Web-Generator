@@ -27,6 +27,7 @@ namespace TPRandomizer.Hints
         Forest_Temple_West_Wing = 16,
         Snowpeak_Ruins_2nd_Floor = 17,
         Snowpeak_Beyond_This_Point = 18,
+        Golden_Wolf = 19,
     }
 
     public class HintCategoryUtils
@@ -309,6 +310,19 @@ namespace TPRandomizer.Hints
                         "Snowpeak Ruins Northeast Chandelier Chest",
                         "Snowpeak Ruins Wooden Beam Chandelier Chest",
                     }
+                },
+                {
+                    HintCategory.Golden_Wolf,
+                    new[]
+                    {
+                        "Faron Woods Golden Wolf",
+                        "Gerudo Desert Golden Wolf",
+                        "Kakariko Graveyard Golden Wolf",
+                        "North Castle Town Golden Wolf",
+                        "Ordon Spring Golden Wolf",
+                        "Outside South Castle Town Golden Wolf",
+                        "West Hyrule Field Golden Wolf"
+                    }
                 }
             };
 
@@ -333,6 +347,7 @@ namespace TPRandomizer.Hints
                 { HintCategory.Lakebed_Temple_2nd_Wing, "Lakebed_Temple_2nd_Wing" },
                 { HintCategory.Snowpeak_Ruins_2nd_Floor, "Snowpeak_Ruins_2nd_Floor" },
                 { HintCategory.Snowpeak_Beyond_This_Point, "Snowpeak_Beyond_This_Point" },
+                { HintCategory.Golden_Wolf, "Golden_Wolf" },
             };
 
             strToEnum = new();

@@ -460,7 +460,7 @@ namespace TPRandomizer
             // entry.message = GenBasicShopMsg("Sera Shop Slingshot", 30, true);
             // results.Add(entry);
 
-            AreaId areaId = AreaId.Category(HintCategory.Underwater);
+            AreaId areaId = AreaId.Category(HintCategory.Golden_Wolf);
 
             ItemHint itemHint = ItemHint.Create(
                 null,
