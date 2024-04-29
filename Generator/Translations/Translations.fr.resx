@@ -337,10 +337,6 @@
     <value>la {cs}Source de Lanelle{ce}</value>
     <comment></comment>
   </data>
-  <data name="area.zone.multizone_minigames" xml:space="preserve">
-    <value>$(plural)les {cs}mini-jeux multizones{ce}</value>
-    <comment></comment>
-  </data>
   <data name="area.zone.north_eldin" xml:space="preserve">
     <value>{que-transform}Ordinn Nord</value>
     <comment></comment>
