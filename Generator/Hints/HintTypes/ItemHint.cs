@@ -24,9 +24,7 @@ namespace TPRandomizer.Hints
             CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Automatic
         )
         {
-            // TODO: remove test code
-            // CheckStatus status = genData.CalcCheckStatus(checkName);
-            CheckStatus status = CheckStatus.Good;
+            CheckStatus status = genData.CalcCheckStatus(checkName);
 
             ItemHint hint = new(areaId, checkName, status, checkStatusDisplay, genData: genData);
             return hint;
@@ -65,10 +63,6 @@ namespace TPRandomizer.Hints
                 // When creating hint during generation
                 item = HintUtils.getCheckContents(checkName);
             }
-
-            // TODO: remove test code
-            item = Item.Iron_Boots;
-            useDefiniteArticle = true;
 
             // When creating the hint during generation, we calculate rather
             // than use input value.
