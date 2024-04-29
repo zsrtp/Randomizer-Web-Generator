@@ -140,11 +140,9 @@ namespace TPRandomizer.Assets
             char region = 'E'
         )
         {
-            List<byte> textData = new();
-            for (int i = 0; i < text.Length; i++)
-            {
-                textData.Add((byte)text[i]);
-            }
+            Encoding encoding = Encoding.GetEncoding(1252);
+
+            List<byte> textData = new(encoding.GetBytes(text));
 
             // Account for padding
             while (textData.Count < desiredLength)

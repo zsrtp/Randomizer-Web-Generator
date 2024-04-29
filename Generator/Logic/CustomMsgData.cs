@@ -259,6 +259,8 @@ namespace TPRandomizer
         {
             List<MessageEntry> results = new();
 
+            // There are some static things that should always be applied which
+            // do not depend on the item.
             GenStaticEntries(results);
             GenLinkHouseSignText(results);
 
@@ -268,15 +270,7 @@ namespace TPRandomizer
                 GenShopItemEntries(results);
             }
 
-            // There are some static things that should always be applied which
-            // do not depend on the item.
-
-
             // handle self-hinters next
-
-            // then handle custom hint signs
-            GenHintSignEntries(results);
-
             results.Add(
                 new MessageEntry
                 {
@@ -334,6 +328,9 @@ namespace TPRandomizer
                         + " or\ncans here! The fish are CRYING!\n\nKeep the fishing hole clean!"
                 }
             );
+
+            // then handle custom hint signs
+            GenHintSignEntries(results);
 
             return results;
         }
@@ -463,26 +460,15 @@ namespace TPRandomizer
             // entry.message = GenBasicShopMsg("Sera Shop Slingshot", 30, true);
             // results.Add(entry);
 
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Sera_Slingshot_Slot,
-                    // itemHintText
-                    GenBasicShopMsg("Sera Shop Slingshot", 30, true)
-                // GenBasicShopMsg("Lake Lantern Cave Twelfth Chest", 30, true)
-                )
+            ItemHint itemHint = ItemHint.Create(
+                null,
+                // "Outside Lanayru Spring Left Statue Chest",
+                AreaId.Category(HintCategory.Mist),
+                "Wooden Sword Chest"
+            // "Plumm Fruit Balloon Minigame",
+            // display: CheckStatusDisplay.Required_Or_Not
             );
-        }
-
-        private void GenHintSignEntries(List<MessageEntry> results)
-        {
-            // LocationHint locationHint = LocationHint.Create(
-            //     null,
-            //     // "Outside Lanayru Spring Left Statue Chest",
-            //     "Death Mountain Alcove Chest",
-            //     // "Plumm Fruit Balloon Minigame",
-            //     display: CheckStatusDisplay.Required_Or_Not
-            // );
-            // string locationHintText = locationHint.toHintTextList()[0].text;
+            string itemHintText = itemHint.toHintTextList()[0].text;
 
             TradeGroupHint tradeGroupHint = new TradeGroupHint(
                 TradeGroup.Mantises,
@@ -492,6 +478,20 @@ namespace TPRandomizer
             );
             string tradeGroupHintText = tradeGroupHint.toHintTextList()[0].text;
 
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    // MsgEntryId.Sera_Slingshot_Slot,
+                    MsgEntryId.Custom_Sign_Ordon,
+                    // itemHintText
+                    // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
+                    itemHintText
+                // GenBasicShopMsg("Lake Lantern Cave Twelfth Chest", 30, true)
+                )
+            );
+        }
+
+        private void GenHintSignEntries(List<MessageEntry> results)
+        {
             if (ListUtils.isEmpty(hintSpots))
                 return;
 

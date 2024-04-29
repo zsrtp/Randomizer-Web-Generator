@@ -24,7 +24,9 @@ namespace TPRandomizer.Hints
             CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Automatic
         )
         {
-            CheckStatus status = genData.CalcCheckStatus(checkName);
+            // TODO: remove test code
+            // CheckStatus status = genData.CalcCheckStatus(checkName);
+            CheckStatus status = CheckStatus.Good;
 
             ItemHint hint = new(areaId, checkName, status, checkStatusDisplay, genData: genData);
             return hint;

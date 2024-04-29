@@ -125,8 +125,12 @@
     <value>à {area}</value>
     <comment></comment>
   </data>
+  <data name="area-phrase.derriere" xml:space="preserve">
+    <value>derrière {area}</value>
+    <comment></comment>
+  </data>
   <data name="area.category.grotto" xml:space="preserve">
-    <value>$(ap:dans)une {cs}Grotte secrète{ce}</value>
+    <value>a</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$default" xml:space="preserve">
@@ -135,6 +139,10 @@
   </data>
   <data name="area.category.grotto$plural" xml:space="preserve">
     <value>$(ap:dans,plural)les {cs}Grottes secrètes{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.mist" xml:space="preserve">
+    <value>$(ap:derriere)le {cs}Brouillard Mauve{ce}</value>
     <comment></comment>
   </data>
   <data name="area.province.desert" xml:space="preserve">

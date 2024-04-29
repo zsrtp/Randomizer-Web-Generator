@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading;
+using System.Text;
 
 namespace TPRandomizer
 {
@@ -18,6 +19,9 @@ namespace TPRandomizer
         [STAThread]
         static void Main(string[] args)
         {
+            // Register encoding provider so we can encode to win-1252 and shift-JIS.
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             // Prepare localization service before entering the main part of the
             // code.
 
