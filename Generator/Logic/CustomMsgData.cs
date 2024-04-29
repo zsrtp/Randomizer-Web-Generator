@@ -460,7 +460,7 @@ namespace TPRandomizer
             // entry.message = GenBasicShopMsg("Sera Shop Slingshot", 30, true);
             // results.Add(entry);
 
-            AreaId areaId = AreaId.Category(HintCategory.Llc_Lantern_Chests);
+            AreaId areaId = AreaId.Category(HintCategory.Underwater);
 
             ItemHint itemHint = ItemHint.Create(
                 null,
@@ -489,13 +489,30 @@ namespace TPRandomizer
             );
             string tradeGroupHintText = tradeGroupHint.toHintTextList()[0].text;
 
+            List<Hint> hints = new() { itemHint, niiaHint, wothHint, barrenHint, };
+
+            StringBuilder sb = new();
+
+            for (int i = 0; i < hints.Count; i++)
+            {
+                Hint hint = hints[i];
+
+                string text = hint.toHintTextList()[0].text;
+                if (i < hints.Count - 1)
+                    text = Res.NormalizeForMergingOnSign(text);
+
+                sb.Append(text);
+            }
+
+            string textForSign = sb.ToString();
+
             results.Add(
                 CustomMsgUtils.GetEntry(
                     // MsgEntryId.Sera_Slingshot_Slot,
                     MsgEntryId.Custom_Sign_Ordon,
                     // itemHintText
                     // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
-                    niiaText
+                    textForSign
                 // GenBasicShopMsg("Lake Lantern Cave Twelfth Chest", 30, true)
                 )
             );

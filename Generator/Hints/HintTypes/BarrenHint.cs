@@ -35,11 +35,33 @@ namespace TPRandomizer.Hints
         {
             Res.Result hintParsedRes = Res.ParseVal("hint-type.barren");
 
-            string areaPhrase = CustomMsgData.GenAreaPhrase(
-                areaId,
-                new() { { "default", "true" } },
-                CustomMessages.messageColorPurple
+            string areaPhrase;
+
+            // We first try to pick an area with barren context (some areas may
+            // have a special way of being phrased for barren hints). To confirm
+            // that we resolved specifically to "barren" context and not a
+            // fallback, the resource should provide "barren" as true in its
+            // meta. If we do not find one for "barren", then we fall back to
+            // default behavior.
+            Res.Result barrenAreaRes = Res.Msg(
+                areaId.GenResKey(),
+                new() { { "context", "barren" } }
             );
+            if (
+                barrenAreaRes.meta.TryGetValue("barren", out string barrenVal)
+                && barrenVal == "true"
+            )
+            {
+                areaPhrase = barrenAreaRes.ResolveWithColor(CustomMessages.messageColorPurple);
+            }
+            else
+            {
+                areaPhrase = CustomMsgData.GenAreaPhrase(
+                    areaId,
+                    new() { { "default", "true" } },
+                    CustomMessages.messageColorPurple
+                );
+            }
 
             string text = hintParsedRes.Substitute(new() { { "area-phrase", areaPhrase } });
 

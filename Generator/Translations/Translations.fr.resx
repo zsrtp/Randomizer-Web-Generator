@@ -129,12 +129,16 @@
     <value>derrière {area}</value>
     <comment></comment>
   </data>
+  <data name="area-phrase.none" xml:space="preserve">
+    <value>{area}</value>
+    <comment></comment>
+  </data>
   <data name="area-phrase.pres-de" xml:space="preserve">
     <value>près de {area}</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto" xml:space="preserve">
-    <value>a</value>
+    <value>$(ap:dans)une {cs}Grotte secrète{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$default" xml:space="preserve">
@@ -171,6 +175,18 @@
   </data>
   <data name="area.category.owl_statue$plural" xml:space="preserve">
     <value>$(ap:pres-de,plural)les {cs}Statues de Hibou{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater" xml:space="preserve">
+    <value>$(ap:none)sous l&apos;eau</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater$barren" xml:space="preserve">
+    <value>$(ap:none,barren)en plongeant {cs}sous l&apos;eau{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater$default" xml:space="preserve">
+    <value>$(ap:none)plonger {cs}sous l&apos;eau{ce}</value>
     <comment></comment>
   </data>
   <data name="area.province.desert" xml:space="preserve">
