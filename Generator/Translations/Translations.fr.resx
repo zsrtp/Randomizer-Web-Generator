@@ -393,6 +393,46 @@
     <value>(non obligatoire)</value>
     <comment></comment>
   </data>
+  <data name="goal.argorok" xml:space="preserve">
+    <value>Pyrodactilus</value>
+    <comment></comment>
+  </data>
+  <data name="goal.armogohma" xml:space="preserve">
+    <value>Golgohma</value>
+    <comment></comment>
+  </data>
+  <data name="goal.blizzeta" xml:space="preserve">
+    <value>Blizzarnia</value>
+    <comment></comment>
+  </data>
+  <data name="goal.diababa" xml:space="preserve">
+    <value>Dionéa</value>
+    <comment></comment>
+  </data>
+  <data name="goal.fyrus" xml:space="preserve">
+    <value>Magmaudit</value>
+    <comment></comment>
+  </data>
+  <data name="goal.ganondorf" xml:space="preserve">
+    <value>Ganondorf</value>
+    <comment></comment>
+  </data>
+  <data name="goal.hyrule_castle" xml:space="preserve">
+    <value>le {cs}Château d&apos;Hyrule{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="goal.morpheel" xml:space="preserve">
+    <value>{que-transform}Octolacanthe</value>
+    <comment></comment>
+  </data>
+  <data name="goal.stallord" xml:space="preserve">
+    <value>Humbaba</value>
+    <comment></comment>
+  </data>
+  <data name="goal.zant" xml:space="preserve">
+    <value>Xanto</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.barren" xml:space="preserve">
     <value>Il est dit qu&apos;il n&apos;y a rien à trouver {area-phrase}.</value>
     <comment></comment>
@@ -415,6 +455,10 @@
   </data>
   <data name="hint-type.location.vague-required" xml:space="preserve">
     <value>Il est dit que {check-name} est sur la voie du héros.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.path" xml:space="preserve">
+    <value>Il est dit que {area} {verb(name:is)} sur le chemin de {goal}.</value>
     <comment></comment>
   </data>
   <data name="hint-type.trade-group" xml:space="preserve">

@@ -460,7 +460,15 @@ namespace TPRandomizer
             // entry.message = GenBasicShopMsg("Sera Shop Slingshot", 30, true);
             // results.Add(entry);
 
-            AreaId areaId = AreaId.Category(HintCategory.Golden_Wolf);
+            // AreaId areaId = AreaId.Category(HintCategory.Golden_Wolf);
+            AreaId areaId = AreaId.Category(HintCategory.Grotto);
+
+            PathHint pathHint = new PathHint(
+                AreaId.Zone(Zone.Eldin_Field),
+                "Wooden Sword Chest",
+                GoalEnum.Stallord
+            );
+            string pathHintText = pathHint.toHintTextList()[0].text;
 
             ItemHint itemHint = ItemHint.Create(
                 null,
@@ -489,7 +497,7 @@ namespace TPRandomizer
             );
             string tradeGroupHintText = tradeGroupHint.toHintTextList()[0].text;
 
-            List<Hint> hints = new() { itemHint, niiaHint, wothHint, barrenHint, };
+            List<Hint> hints = new() { pathHint, itemHint, niiaHint, wothHint, barrenHint, };
 
             StringBuilder sb = new();
 
@@ -508,8 +516,8 @@ namespace TPRandomizer
 
             results.Add(
                 CustomMsgUtils.GetEntry(
-                    // MsgEntryId.Sera_Slingshot_Slot,
-                    MsgEntryId.Custom_Sign_Ordon,
+                    MsgEntryId.Sera_Slingshot_Slot,
+                    // MsgEntryId.Custom_Sign_Ordon,
                     // itemHintText
                     // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
                     textForSign

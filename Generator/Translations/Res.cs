@@ -441,12 +441,16 @@ namespace TPRandomizer
                                     }
                                     else if (secondVal.StartsWith("{que-transform}"))
                                     {
+                                        TextChunk nounChunk = chunks[i + 2];
+                                        nounChunk.RemoveRange(0, "{que-transform}".Length);
+
                                         TextChunk newChunk = new();
                                         TransformEscSeqList(chunk, newChunk, 0, 2);
                                         TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
                                         newChunk.textType = TextChunk.Type.Text;
                                         newChunk.val = "qu'";
-                                        chunks.RemoveRange(i, 2);
+                                        newChunk.AppendChunk(nounChunk);
+                                        chunks.RemoveRange(i, 3);
                                         chunks.Insert(i, newChunk);
                                     }
                                 }
@@ -490,6 +494,20 @@ namespace TPRandomizer
                                         chunks.RemoveRange(i, 3);
                                         chunks.Insert(i, newChunk);
                                     }
+                                    else if (secondVal.StartsWith("{que-transform}"))
+                                    {
+                                        TextChunk nounChunk = chunks[i + 2];
+                                        nounChunk.RemoveRange(0, "{que-transform}".Length);
+
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 1);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 2, 2);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "d'";
+                                        newChunk.AppendChunk(nounChunk);
+                                        chunks.RemoveRange(i, 3);
+                                        chunks.Insert(i, newChunk);
+                                    }
                                 }
                                 break;
                             }
@@ -527,11 +545,12 @@ namespace TPRandomizer
                     }
                 }
 
-                if (chunk.textType == TextChunk.Type.Text)
-                {
-                    if (chunk.val.StartsWith("{que-transform}"))
-                        chunk.RemoveRange(0, "{que-transform}".Length);
-                }
+                // Probably don't need this anymore:
+                // if (chunk.textType == TextChunk.Type.Text)
+                // {
+                //     if (chunk.val.StartsWith("{que-transform}"))
+                //         chunk.RemoveRange(0, "{que-transform}".Length);
+                // }
             }
 
             AddLineBreaksToChunks(chunks);
@@ -835,6 +854,33 @@ namespace TPRandomizer
                         }
                     }
                     indexToRenderedEsc = newDict;
+                }
+            }
+
+            public void AppendChunk(TextChunk chunk)
+            {
+                if (chunk == null)
+                    throw new Exception("Expected chunk to not be null.");
+
+                int oldValLength = val.Length;
+
+                val += chunk.val;
+
+                foreach (KeyValuePair<int, List<string>> pair in chunk.escapesAtIndexes)
+                {
+                    int newIndex = pair.Key + oldValLength;
+                    if (!escapesAtIndexes.TryGetValue(newIndex, out List<string> list))
+                    {
+                        list = new();
+                        escapesAtIndexes[newIndex] = list;
+                    }
+                    list.AddRange(pair.Value);
+                }
+
+                foreach (KeyValuePair<int, string> pair in chunk.indexToRenderedEsc)
+                {
+                    int newIndex = pair.Key + oldValLength;
+                    indexToRenderedEsc[newIndex] = pair.Value;
                 }
             }
         }

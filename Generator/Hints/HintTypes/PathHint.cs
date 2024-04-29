@@ -1,10 +1,27 @@
 namespace TPRandomizer.Hints
 {
+    using System;
     using System.Collections.Generic;
+    using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
     public class PathHint : Hint
     {
+        private static Dictionary<GoalEnum, string> goalToColor =
+            new()
+            {
+                { GoalEnum.Diababa, CustomMessages.messageColorGreen },
+                { GoalEnum.Fyrus, CustomMessages.messageColorRed },
+                { GoalEnum.Morpheel, CustomMessages.messageColorBlue },
+                { GoalEnum.Stallord, CustomMessages.messageColorOrange },
+                { GoalEnum.Blizzeta, CustomMessages.messageColorLightBlue },
+                { GoalEnum.Armogohma, CustomMessages.messageColorDarkGreen },
+                { GoalEnum.Argorok, CustomMessages.messageColorYellow },
+                { GoalEnum.Zant, CustomMessages.messageColorPurple },
+                { GoalEnum.Hyrule_Castle, CustomMessages.messageColorSilver },
+                { GoalEnum.Ganondorf, CustomMessages.messageColorSilver },
+            };
+
         // AreaId expected to only ever be hintZone, but this is easier to
         // write and also future-proofs.
         public AreaId areaId { get; }
@@ -21,12 +38,23 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList()
         {
-            string text =
-                $"They say that {{{areaId.tempToString()}}} is on the path to {{{goalEnum.ToString()}}}.";
+            Res.Result hintParsedRes = Res.ParseVal("hint-type.path");
+
+            Res.Result areaRes = Res.Msg(areaId.GenResKey(), new() { { "context", "default" } });
+            string areaText = areaRes.ResolveWithColor(CustomMessages.messageColorBlue);
+
+            string verb = CustomMsgData.GenVerb(hintParsedRes, areaRes.meta);
+
+            if (!goalToColor.TryGetValue(goalEnum, out string goalColor))
+                throw new Exception($"Failed to pick color for unknown goalEnum '{goalEnum}'.");
+            string goalResKey = "goal." + goalEnum.ToString().ToLowerInvariant();
+            string goal = Res.Msg(goalResKey, null).ResolveWithColor(goalColor);
+
+            string text = hintParsedRes.Substitute(
+                new() { { "area", areaText }, { "verb", verb }, { "goal", goal }, }
+            );
 
             HintText hintText = new HintText();
-            // hintText.text =
-            //     $"They say that {{{areaId.tempToString()}}} is on the path to {{{goalEnum.ToString()}}}.";
             hintText.text = Res.LangSpecificNormalize(text);
             return new List<HintText> { hintText };
         }
