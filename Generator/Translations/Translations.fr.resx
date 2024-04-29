@@ -129,6 +129,10 @@
     <value>derrière {area}</value>
     <comment></comment>
   </data>
+  <data name="area-phrase.pres-de" xml:space="preserve">
+    <value>près de {area}</value>
+    <comment></comment>
+  </data>
   <data name="area.category.grotto" xml:space="preserve">
     <value>a</value>
     <comment></comment>
@@ -143,6 +147,18 @@
   </data>
   <data name="area.category.mist" xml:space="preserve">
     <value>$(ap:derriere)le {cs}Brouillard Mauve{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.owl_statue" xml:space="preserve">
+    <value>$(ap:pres-de)une {cs}Statue de Hibou{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.owl_statue$default" xml:space="preserve">
+    <value>$(ap:pres-de,plural)les {cs}Statues de Hibou{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.owl_statue$plural" xml:space="preserve">
+    <value>$(ap:pres-de,plural)les {cs}Statues de Hibou{ce}</value>
     <comment></comment>
   </data>
   <data name="area.province.desert" xml:space="preserve">

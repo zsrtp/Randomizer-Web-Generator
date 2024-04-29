@@ -66,6 +66,10 @@ namespace TPRandomizer.Hints
                 item = HintUtils.getCheckContents(checkName);
             }
 
+            // TODO: remove test code
+            item = Item.Iron_Boots;
+            useDefiniteArticle = true;
+
             // When creating the hint during generation, we calculate rather
             // than use input value.
             if (genData != null)

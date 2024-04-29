@@ -463,12 +463,19 @@ namespace TPRandomizer
             ItemHint itemHint = ItemHint.Create(
                 null,
                 // "Outside Lanayru Spring Left Statue Chest",
-                AreaId.Category(HintCategory.Mist),
+                AreaId.Category(HintCategory.Owl_Statue),
                 "Wooden Sword Chest"
             // "Plumm Fruit Balloon Minigame",
             // display: CheckStatusDisplay.Required_Or_Not
             );
             string itemHintText = itemHint.toHintTextList()[0].text;
+
+            NumItemInAreaHint niiaHint = new NumItemInAreaHint(
+                2,
+                Item.Progressive_Sword,
+                AreaId.Category(HintCategory.Owl_Statue)
+            );
+            string niiaText = niiaHint.toHintTextList()[0].text;
 
             TradeGroupHint tradeGroupHint = new TradeGroupHint(
                 TradeGroup.Mantises,

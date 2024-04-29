@@ -18,7 +18,7 @@ namespace TPRandomizer
         [GeneratedRegex(@"{([a-z0-9-]+)(?:\(([a-z0-9-:,]*)\))?}")]
         private static partial Regex ResourceVal();
 
-        [GeneratedRegex(@"^\$\(([a-z0-9:,]*)\)")]
+        [GeneratedRegex(@"^\$\(([a-z0-9-:,]*)\)")]
         private static partial Regex MetaVal();
 
         [GeneratedRegex(@"^(?:\{[^}]*\})+(.)")]
@@ -447,6 +447,47 @@ namespace TPRandomizer
                                         newChunk.textType = TextChunk.Type.Text;
                                         newChunk.val = "qu'";
                                         chunks.RemoveRange(i, 2);
+                                        chunks.Insert(i, newChunk);
+                                    }
+                                }
+                                break;
+                            }
+                            case "de":
+                            {
+                                if (chunks[i + 1].textType == TextChunk.Type.Whitespace)
+                                {
+                                    string secondVal = chunks[i + 2].val;
+                                    if (secondVal == "un")
+                                    {
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 1);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 2, 2);
+                                        TransformEscSeqList(chunks[i + 2], newChunk, 2, 4);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "d'un";
+                                        chunks.RemoveRange(i, 3);
+                                        chunks.Insert(i, newChunk);
+                                    }
+                                    else if (secondVal == "une")
+                                    {
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 1);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 2, 2);
+                                        TransformEscSeqList(chunks[i + 2], newChunk, 2, 5);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "d'une";
+                                        chunks.RemoveRange(i, 3);
+                                        chunks.Insert(i, newChunk);
+                                    }
+                                    else if (secondVal == "les")
+                                    {
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 0);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 3, 3);
+                                        TransformEscSeqList(chunks[i + 2], newChunk, 3, 3);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "des";
+                                        chunks.RemoveRange(i, 3);
                                         chunks.Insert(i, newChunk);
                                     }
                                 }
