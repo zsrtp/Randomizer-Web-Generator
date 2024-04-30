@@ -441,6 +441,10 @@
     <value>Il est dit que {item} {verb(name:can-be-found)} {area-phrase}.</value>
     <comment></comment>
   </data>
+  <data name="hint-type.item-to-item-path" xml:space="preserve">
+    <value>Il est dit que {source} {verb(name:is)} sur le chemin de {target}.</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.location" xml:space="preserve">
     <value>Il est dit que la récompense de {check-name} {verb(name:is)} {item}.</value>
     <comment></comment>

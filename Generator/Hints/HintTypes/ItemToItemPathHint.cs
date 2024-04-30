@@ -1,6 +1,7 @@
 namespace TPRandomizer.Hints
 {
     using System.Collections.Generic;
+    using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
     public class ItemToItemPathHint : Hint
@@ -8,32 +9,39 @@ namespace TPRandomizer.Hints
         public Item srcItem { get; }
         public string tgtCheckName { get; }
 
-        // derived
+        // derived but encoded
+        public bool srcUseDefiniteArticle { get; private set; }
+
+        // always derived
         public Item tgtItem { get; private set; }
 
-        public ItemToItemPathHint(Item srcItem, string tgtCheckName)
+        public static ItemToItemPathHint Create(
+            HintGenData genData,
+            Item srcItem,
+            string tgtCheckName
+        )
         {
-            this.type = HintType.ItemToItemPath;
-            this.srcItem = srcItem;
-            this.tgtCheckName = tgtCheckName;
-
-            CalcDerived(null);
+            ItemToItemPathHint hint = new(genData, srcItem, tgtCheckName);
+            return hint;
         }
 
         private ItemToItemPathHint(
+            HintGenData genData,
             Item srcItem,
             string tgtCheckName,
+            bool srcUseDefiniteArticle = false,
             Dictionary<int, byte> itemPlacements = null
         )
         {
             this.type = HintType.ItemToItemPath;
             this.srcItem = srcItem;
             this.tgtCheckName = tgtCheckName;
+            this.srcUseDefiniteArticle = srcUseDefiniteArticle;
 
-            CalcDerived(itemPlacements);
+            CalcDerived(genData, itemPlacements);
         }
 
-        private void CalcDerived(Dictionary<int, byte> itemPlacements)
+        private void CalcDerived(HintGenData genData, Dictionary<int, byte> itemPlacements)
         {
             if (itemPlacements != null)
             {
@@ -45,11 +53,49 @@ namespace TPRandomizer.Hints
                 // When creating hint during generation
                 tgtItem = HintUtils.getCheckContents(tgtCheckName);
             }
+
+            // When creating the hint during generation, we calculate rather
+            // than use input value.
+            if (genData != null)
+            {
+                if (
+                    genData.itemToChecksList.TryGetValue(srcItem, out List<string> checksGivingItem)
+                )
+                {
+                    srcUseDefiniteArticle = checksGivingItem.Count == 1;
+                }
+            }
         }
 
         public override List<HintText> toHintTextList()
         {
-            string text = $"They say that {{{srcItem}}} is on the path to {{{tgtItem}}}.";
+            Res.Result hintParsedRes = Res.ParseVal("hint-type.item-to-item-path");
+
+            string srcText = CustomMsgData.GenItemText3(
+                out Dictionary<string, string> srcItemMeta,
+                srcItem,
+                CheckStatus.Unknown,
+                srcUseDefiniteArticle ? "def" : "indef",
+                checkStatusDisplay: CheckStatusDisplay.None,
+                prefStartColor: CustomMessages.messageColorGreen
+            );
+
+            string verb = CustomMsgData.GenVerb(hintParsedRes, srcItemMeta);
+
+            string tgtText = CustomMsgData.GenItemText3(
+                out Dictionary<string, string> tgtItemMeta,
+                tgtItem,
+                CheckStatus.Required,
+                "def",
+                checkStatusDisplay: CheckStatusDisplay.None,
+                prefStartColor: CustomMessages.messageColorBlue
+            );
+
+            string text = hintParsedRes.Substitute(
+                new() { { "source", srcText }, { "verb", verb }, { "target", tgtText }, }
+            );
+
+            // string text = $"They say that {{{srcItem}}} is on the path to {{{tgtItem}}}.";
 
             HintText hintText = new HintText();
             // hintText.text = $"They say that {{{srcItem}}} is on the path to {{{tgtItem}}}.";
@@ -65,6 +111,7 @@ namespace TPRandomizer.Hints
                 CheckIdClass.GetCheckIdNum(tgtCheckName),
                 bitLengths.checkId
             );
+            result += srcUseDefiniteArticle ? "1" : "0";
             return result;
         }
 
@@ -78,8 +125,15 @@ namespace TPRandomizer.Hints
 
             int destCheckId = processor.NextInt(bitLengths.checkId);
             string destCheckName = CheckIdClass.GetCheckName(destCheckId);
+            bool srcUseDefiniteArticle = processor.NextBool();
 
-            return new ItemToItemPathHint(srcItem, destCheckName, itemPlacements);
+            return new ItemToItemPathHint(
+                null,
+                srcItem,
+                destCheckName,
+                srcUseDefiniteArticle,
+                itemPlacements
+            );
         }
     }
 }

@@ -483,6 +483,17 @@ namespace TPRandomizer
                                         chunks.RemoveRange(i, 3);
                                         chunks.Insert(i, newChunk);
                                     }
+                                    else if (secondVal == "le")
+                                    {
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 0);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 2, 2);
+                                        TransformEscSeqList(chunks[i + 2], newChunk, 2, 2);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "du";
+                                        chunks.RemoveRange(i, 3);
+                                        chunks.Insert(i, newChunk);
+                                    }
                                     else if (secondVal == "les")
                                     {
                                         TextChunk newChunk = new();

@@ -463,6 +463,13 @@ namespace TPRandomizer
             // AreaId areaId = AreaId.Category(HintCategory.Golden_Wolf);
             AreaId areaId = AreaId.Category(HintCategory.Grotto);
 
+            ItemToItemPathHint itipHint = ItemToItemPathHint.Create(
+                null,
+                Item.Progressive_Bow,
+                "Wooden Sword Chest"
+            );
+            string itipHintText = itipHint.toHintTextList()[0].text;
+
             PathHint pathHint = new PathHint(
                 AreaId.Zone(Zone.Eldin_Field),
                 "Wooden Sword Chest",
@@ -470,15 +477,15 @@ namespace TPRandomizer
             );
             string pathHintText = pathHint.toHintTextList()[0].text;
 
-            ItemHint itemHint = ItemHint.Create(
-                null,
-                // "Outside Lanayru Spring Left Statue Chest",
-                areaId,
-                "Wooden Sword Chest"
-            // "Plumm Fruit Balloon Minigame",
-            // display: CheckStatusDisplay.Required_Or_Not
-            );
-            string itemHintText = itemHint.toHintTextList()[0].text;
+            // ItemHint itemHint = ItemHint.Create(
+            //     null,
+            //     // "Outside Lanayru Spring Left Statue Chest",
+            //     areaId,
+            //     "Wooden Sword Chest"
+            // // "Plumm Fruit Balloon Minigame",
+            // // display: CheckStatusDisplay.Required_Or_Not
+            // );
+            // string itemHintText = itemHint.toHintTextList()[0].text;
 
             NumItemInAreaHint niiaHint = new NumItemInAreaHint(2, Item.Progressive_Sword, areaId);
             string niiaText = niiaHint.toHintTextList()[0].text;
@@ -497,7 +504,16 @@ namespace TPRandomizer
             );
             string tradeGroupHintText = tradeGroupHint.toHintTextList()[0].text;
 
-            List<Hint> hints = new() { pathHint, itemHint, niiaHint, wothHint, barrenHint, };
+            List<Hint> hints =
+                new()
+                {
+                    itipHint,
+                    pathHint,
+                    // itemHint,
+                    niiaHint,
+                    wothHint,
+                    barrenHint,
+                };
 
             StringBuilder sb = new();
 

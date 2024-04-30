@@ -197,7 +197,11 @@ namespace TPRandomizer.Hints.HintCreator
             // Only ever one target checkName since target items are unique.
             string tgtCheckName = genData.itemToChecksList[selectedDestItem][0];
 
-            ItemToItemPathHint hint = new ItemToItemPathHint(selectedSrcItem, tgtCheckName);
+            ItemToItemPathHint hint = ItemToItemPathHint.Create(
+                genData,
+                selectedSrcItem,
+                tgtCheckName
+            );
 
             // Update hinted
             genData.hinted.alreadyCheckDirectedToward.Add(tgtCheckName);
