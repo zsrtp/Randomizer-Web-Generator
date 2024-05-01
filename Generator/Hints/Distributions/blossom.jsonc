@@ -196,17 +196,17 @@
                 }
               },
 
-              // TODO: remove this test code
-              {
-                // Ex: bug at Area leads to Item
-                "hintType": "tradeChain",
-                "starting": 1,
-                "options": {
-                  "vagueSourceItem": true,
-                  "requiredChainItems": ["alias:bugs"],
-                  "validRewardStatuses": ["bad", "good", "required"]
-                }
-              },
+              // // TODO: remove this test code
+              // {
+              //   // Ex: bug at Area leads to Item
+              //   "hintType": "tradeChain",
+              //   "starting": 1,
+              //   "options": {
+              //     "vagueSourceItem": true,
+              //     "requiredChainItems": ["alias:bugs"],
+              //     "validRewardStatuses": ["bad", "good", "required"]
+              //   }
+              // },
 
               // Promoted since usually the most interesting hint every time it
               // shows up.

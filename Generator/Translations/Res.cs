@@ -556,12 +556,13 @@ namespace TPRandomizer
                     }
                 }
 
-                // Probably don't need this anymore:
-                // if (chunk.textType == TextChunk.Type.Text)
-                // {
-                //     if (chunk.val.StartsWith("{que-transform}"))
-                //         chunk.RemoveRange(0, "{que-transform}".Length);
-                // }
+                // We still need this for cases where the que-transform does not
+                // get removed (such as à {que-transform}Ordinn Nord).
+                if (chunk.textType == TextChunk.Type.Text)
+                {
+                    if (chunk.val.StartsWith("{que-transform}"))
+                        chunk.RemoveRange(0, "{que-transform}".Length);
+                }
             }
 
             AddLineBreaksToChunks(chunks);
