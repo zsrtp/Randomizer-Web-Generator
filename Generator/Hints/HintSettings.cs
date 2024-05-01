@@ -129,13 +129,14 @@ namespace TPRandomizer.Hints.Settings
                 "Zoras Domain Underwater Goron",
                 "Gerudo Desert Rock Grotto Lantern Chest",
                 "Outside Arbiters Grounds Lantern Chest",
-                // "Snowboard Racing Prize",
-
+                "Snowboard Racing Prize",
                 // "Snowpeak Cave Ice Lantern Chest", // Seemed kind of worthless when it showed up
                 "Forest Temple Gale Boomerang",
                 "Lakebed Temple Deku Toad Chest",
                 "Arbiters Grounds Death Sword Chest",
-                "Snowpeak Ruins Chapel Chest",
+                // This saves you a little time, but it is nowhere near as
+                // helpful as an easily isolated check like Bomskit grotto.
+                // "Snowpeak Ruins Chapel Chest",
                 "City in The Sky Aeralfos Chest",
             };
 
