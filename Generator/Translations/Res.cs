@@ -1229,6 +1229,26 @@ namespace TPRandomizer
 
                 return startColor + Substitute(null) + endColor;
             }
+
+            public bool SlotMetaHasVal(string slot, string key, string val)
+            {
+                if (
+                    StringUtils.isEmpty(slot)
+                    || StringUtils.isEmpty(key)
+                    || StringUtils.isEmpty(val)
+                )
+                    throw new Exception("Invalid params for SlotMetaHasVal.");
+
+                if (slotMeta.TryGetValue(slot, out Dictionary<string, string> dictForSlot))
+                {
+                    if (dictForSlot.TryGetValue(key, out string valForKey))
+                    {
+                        return valForKey == val;
+                    }
+                }
+
+                return false;
+            }
         }
     }
 }

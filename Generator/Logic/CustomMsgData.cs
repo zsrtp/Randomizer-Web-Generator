@@ -463,6 +463,19 @@ namespace TPRandomizer
             // AreaId areaId = AreaId.Category(HintCategory.Golden_Wolf);
             AreaId areaId = AreaId.Category(HintCategory.Grotto);
 
+            // TradeChainHint tcHint = TradeChainHint.Create(
+            //     null,
+            //     "Bridge of Eldin Owl Statue Sky Character",
+            //     false,
+            //     true,
+            //     // areaId.type == AreaId.AreaType.Province
+            //     //   ? TradeChainHint.AreaType.Province :
+            //     TradeChainHint.AreaType.Zone,
+            //     TradeChainHint.RewardVagueness.Named,
+            //     TradeChainHint.RewardStatus.Good // This can be auto-calculated? Just specify display type?
+            // );
+            // string tcHintText = tcHint.toHintTextList()[0].text;
+
             ItemToItemPathHint itipHint = ItemToItemPathHint.Create(
                 null,
                 Item.Progressive_Bow,

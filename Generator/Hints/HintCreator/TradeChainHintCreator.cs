@@ -53,7 +53,7 @@ namespace TPRandomizer.Hints.HintCreator
                 if (!StringUtils.isEmpty(areaTypeStr))
                 {
                     TradeChainHint.AreaType areaType;
-                    bool success = Enum.TryParse(areaTypeStr, out areaType);
+                    bool success = Enum.TryParse(areaTypeStr, true, out areaType);
                     if (success)
                         inst.areaType = areaType;
                     else
@@ -70,7 +70,7 @@ namespace TPRandomizer.Hints.HintCreator
                 if (!StringUtils.isEmpty(rewardVaguenessStr))
                 {
                     TradeChainHint.RewardVagueness rewardVagueness;
-                    bool success = Enum.TryParse(rewardVaguenessStr, out rewardVagueness);
+                    bool success = Enum.TryParse(rewardVaguenessStr, true, out rewardVagueness);
                     if (success)
                         inst.rewardVagueness = rewardVagueness;
                     else
@@ -376,7 +376,8 @@ namespace TPRandomizer.Hints.HintCreator
                         finalAreaType = TradeChainHint.AreaType.Zone;
                 }
 
-                TradeChainHint hint = new TradeChainHint(
+                TradeChainHint hint = TradeChainHint.Create(
+                    genData,
                     startCheckName,
                     vagueSourceItem,
                     includeArea,

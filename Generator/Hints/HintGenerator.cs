@@ -1036,7 +1036,8 @@ namespace TPRandomizer.Hints
                                         srcCheckName,
                                         totalNeeded
                                     );
-                                    TradeChainHint hint = new TradeChainHint(
+                                    TradeChainHint hint = TradeChainHint.Create(
+                                        genData,
                                         srcCheckName,
                                         false,
                                         true,

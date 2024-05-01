@@ -465,6 +465,10 @@
     <value>Il est dit que {area} {verb(name:is)} sur le chemin de {goal}.</value>
     <comment></comment>
   </data>
+  <data name="hint-type.trade-chain" xml:space="preserve">
+    <value>Il est dit que {source}{area-phrase(space)} mène à {target}.</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.trade-group" xml:space="preserve">
     <value>Il est dit qu&apos;apporter des {group} à Machaon mène à {item}.</value>
     <comment></comment>
