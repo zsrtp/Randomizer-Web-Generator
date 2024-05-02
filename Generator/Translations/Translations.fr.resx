@@ -373,6 +373,10 @@
     <value>l&apos;{cs}Amont de la Rivière Zora{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.upper_zoras_river$trade-chain" xml:space="preserve">
+    <value>$(ap:none,trade-chain)en {cs}Amont de la Rivière Zora{ce}</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.zoras_domain" xml:space="preserve">
     <value>le {cs}Domaine Zora{ce}</value>
     <comment></comment>
@@ -466,7 +470,7 @@
     <comment></comment>
   </data>
   <data name="hint-type.trade-chain" xml:space="preserve">
-    <value>Il est dit que {source}{area-phrase(space)} mène à {target}.</value>
+    <value>Il est dit que {source}{area-phrase(space)} {verb(name:mene)} à {target}.</value>
     <comment></comment>
   </data>
   <data name="hint-type.trade-group" xml:space="preserve">
@@ -1771,6 +1775,14 @@
   </data>
   <data name="verb.is$plural" xml:space="preserve">
     <value>sont</value>
+    <comment></comment>
+  </data>
+  <data name="verb.mene" xml:space="preserve">
+    <value>mène</value>
+    <comment></comment>
+  </data>
+  <data name="verb.mene$plural" xml:space="preserve">
+    <value>mènent</value>
     <comment></comment>
   </data>
 </root>

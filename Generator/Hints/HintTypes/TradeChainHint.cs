@@ -171,6 +171,8 @@ namespace TPRandomizer.Hints
                 prefStartColor: CustomMessages.messageColorYellow
             );
 
+            string verb = CustomMsgData.GenVerb(hintParsedRes, srcItemMeta);
+
             AreaId areaId;
 
             if (areaType == AreaType.Province)
@@ -216,45 +218,154 @@ namespace TPRandomizer.Hints
                 {
                     { "source", srcText },
                     { "area-phrase", areaPhrase },
+                    { "verb", verb },
                     { "target", tgtText }
                 }
             );
 
-            HintText hintText = new HintText();
+            List<HintText> results = new();
+
+            List<AreaId> areaIds =
+                new()
+                {
+                    // zones
+                    // AreaId.Zone(Zone.Ordon),
+                    // AreaId.Zone(Zone.Sacred_Grove),
+                    // AreaId.Zone(Zone.Faron_Field),
+                    // AreaId.Zone(Zone.Faron_Woods),
+                    // AreaId.Zone(Zone.Kakariko_Gorge),
+                    // AreaId.Zone(Zone.Kakariko_Village),
+                    // AreaId.Zone(Zone.Kakariko_Graveyard),
+                    // AreaId.Zone(Zone.Eldin_Field),
+                    // AreaId.Zone(Zone.North_Eldin),
+                    // AreaId.Zone(Zone.Death_Mountain),
+                    // AreaId.Zone(Zone.Hidden_Village),
+                    // AreaId.Zone(Zone.Lanayru_Field),
+                    // AreaId.Zone(Zone.Beside_Castle_Town),
+                    // AreaId.Zone(Zone.South_of_Castle_Town),
+                    // AreaId.Zone(Zone.Castle_Town),
+                    // AreaId.Zone(Zone.Agithas_Castle),
+                    // AreaId.Zone(Zone.Great_Bridge_of_Hylia),
+                    // AreaId.Zone(Zone.Lake_Hylia),
+                    // AreaId.Zone(Zone.Lake_Lantern_Cave),
+                    // AreaId.Zone(Zone.Lanayru_Spring),
+                    // AreaId.Zone(Zone.Zoras_Domain),
+                    // AreaId.Zone(Zone.Upper_Zoras_River),
+                    // AreaId.Zone(Zone.Gerudo_Desert),
+                    // AreaId.Zone(Zone.Bulblin_Camp),
+                    // AreaId.Zone(Zone.Snowpeak),
+                    // AreaId.Zone(Zone.Cave_of_Ordeals),
+                    // AreaId.Zone(Zone.Forest_Temple),
+                    // AreaId.Zone(Zone.Goron_Mines),
+                    // AreaId.Zone(Zone.Lakebed_Temple),
+                    // AreaId.Zone(Zone.Arbiters_Grounds),
+                    // AreaId.Zone(Zone.Snowpeak_Ruins),
+                    // AreaId.Zone(Zone.Temple_of_Time),
+                    // AreaId.Zone(Zone.City_in_the_Sky),
+                    // AreaId.Zone(Zone.Palace_of_Twilight),
+                    // AreaId.Zone(Zone.Hyrule_Castle),
+                    // provinces
+                    // AreaId.Province(Province.Ordona),
+                    // AreaId.Province(Province.Faron),
+                    // AreaId.Province(Province.Eldin),
+                    // AreaId.Province(Province.Lanayru),
+                    // AreaId.Province(Province.Desert),
+                    // AreaId.Province(Province.Peak),
+                    // AreaId.Province(Province.Dungeon),
+                    // asdf
+                    AreaId.Category(HintCategory.Grotto),
+                    AreaId.Category(HintCategory.Mist),
+                    AreaId.Category(HintCategory.Owl_Statue),
+                    AreaId.Category(HintCategory.Llc_Lantern_Chests),
+                    AreaId.Category(HintCategory.Underwater),
+                    AreaId.Category(HintCategory.Upper_Desert),
+                    AreaId.Category(HintCategory.Lower_Desert),
+                    AreaId.Category(HintCategory.Golden_Wolf),
+                };
+
+            foreach (AreaId areaId1 in areaIds)
+            {
+                areaPhrase = "";
+                if (includeArea)
+                {
+                    if (areaLeadingSpace)
+                        areaPhrase = " ";
+
+                    Res.Result tradeChainAreaRes = Res.Msg(
+                        areaId1.GenResKey(),
+                        new() { { "context", "trade-chain" } }
+                    );
+                    if (tradeChainAreaRes.MetaHasVal("trade-chain", "true"))
+                    {
+                        // Note: this treats "ap" as "none" since we are not
+                        // doing more work. Can update the code to make use of
+                        // "ap" meta (and use the subjectMeta) if needed.
+                        areaPhrase += tradeChainAreaRes.ResolveWithColor(
+                            CustomMessages.messageColorRed
+                        );
+                    }
+                    else
+                    {
+                        areaPhrase += CustomMsgData.GenAreaPhrase(
+                            areaId1,
+                            srcItemMeta,
+                            CustomMessages.messageColorRed
+                        );
+                    }
+                }
+
+                string textForArea = hintParsedRes.Substitute(
+                    new()
+                    {
+                        { "source", srcText },
+                        { "area-phrase", areaPhrase },
+                        { "verb", verb },
+                        { "target", tgtText }
+                    }
+                );
+
+                HintText hintText = new HintText();
+                hintText.text = Res.LangSpecificNormalize(textForArea);
+                results.Add(hintText);
+            }
+
+            // HintText hintText = new HintText();
 
             // "Il est dit que {source} mène à {target}."
             // "Il est dit que {source} {area-phrase} mène à {target}."
 
-            string text = "They say that ";
-            if (vaugeSourceItem && HintUtils.isItemGoldenBug(srcItem))
-                text += "a {bug} ";
-            else
-                text += $"{{{srcItem}}} ";
+            // string text = "They say that ";
+            // if (vaugeSourceItem && HintUtils.isItemGoldenBug(srcItem))
+            //     text += "a {bug} ";
+            // else
+            //     text += $"{{{srcItem}}} ";
 
-            if (includeArea)
-            {
-                if (areaType == AreaType.Province)
-                {
-                    string provinceName = ProvinceUtils.IdToString(
-                        HintUtils.checkNameToHintProvince(srcCheckName)
-                    );
-                    text += $"at {{Province:{provinceName}}} ";
-                }
-                else
-                {
-                    string zoneName = HintUtils.checkNameToHintZone(srcCheckName);
-                    text += $"at {{Zone:{zoneName}}} ";
-                }
-            }
+            // if (includeArea)
+            // {
+            //     if (areaType == AreaType.Province)
+            //     {
+            //         string provinceName = ProvinceUtils.IdToString(
+            //             HintUtils.checkNameToHintProvince(srcCheckName)
+            //         );
+            //         text += $"at {{Province:{provinceName}}} ";
+            //     }
+            //     else
+            //     {
+            //         string zoneName = HintUtils.checkNameToHintZone(srcCheckName);
+            //         text += $"at {{Zone:{zoneName}}} ";
+            //     }
+            // }
 
-            // TODO: handle temp reward end stuff. Vagueness needs to be looked at.
-            text += $"leads to {{{tgtItem}}}.";
+            // // TODO: handle temp reward end stuff. Vagueness needs to be looked at.
+            // text += $"leads to {{{tgtItem}}}.";
 
-            // hintText.text = text;
-            // hintText.text = Res.LangSpecificNormalize(text);
-            hintText.text = Res.LangSpecificNormalize(text2);
-            // $"They say that TradeItemChain {{{srcItem}}} is on the path to {{{tgtItem}}}.";
-            return new List<HintText> { hintText };
+            // hintText.text = Res.LangSpecificNormalize(text2);
+
+            // HintText hintText2 = new();
+            // hintText2.text = "2nd hint text!";
+
+            // return new List<HintText> { hintText, hintText2 };
+            return results;
         }
 
         public override string encodeAsBits(HintEncodingBitLengths bitLengths)

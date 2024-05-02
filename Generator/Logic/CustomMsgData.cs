@@ -517,16 +517,25 @@ namespace TPRandomizer
             );
             string tradeGroupHintText = tradeGroupHint.toHintTextList()[0].text;
 
-            List<Hint> hints =
-                new()
+            List<Hint> hints = new();
+            foreach (HintSpot hintSpot in hintSpots)
+            {
+                if (hintSpot.location == SpotId.Ordon_Sign)
                 {
-                    itipHint,
-                    pathHint,
-                    // itemHint,
-                    niiaHint,
-                    wothHint,
-                    barrenHint,
-                };
+                    hints = hintSpot.hints;
+                }
+            }
+
+            // List<Hint> hints =
+            //     new()
+            //     {
+            //         itipHint,
+            //         pathHint,
+            //         // itemHint,
+            //         niiaHint,
+            //         wothHint,
+            //         barrenHint,
+            //     };
 
             StringBuilder sb = new();
 
@@ -534,19 +543,24 @@ namespace TPRandomizer
             {
                 Hint hint = hints[i];
 
-                string text = hint.toHintTextList()[0].text;
-                if (i < hints.Count - 1)
-                    text = Res.NormalizeForMergingOnSign(text);
+                List<HintText> hintTextList = hint.toHintTextList();
+                for (int j = 0; j < hintTextList.Count; j++)
+                {
+                    HintText hintText = hintTextList[j];
+                    string text = hintText.text;
+                    if (i < hints.Count - 1 || j < hintTextList.Count - 1)
+                        text = Res.NormalizeForMergingOnSign(text);
 
-                sb.Append(text);
+                    sb.Append(text);
+                }
             }
 
             string textForSign = sb.ToString();
 
             results.Add(
                 CustomMsgUtils.GetEntry(
-                    MsgEntryId.Sera_Slingshot_Slot,
-                    // MsgEntryId.Custom_Sign_Ordon,
+                    // MsgEntryId.Sera_Slingshot_Slot,
+                    MsgEntryId.Custom_Sign_Ordon,
                     // itemHintText
                     // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
                     textForSign

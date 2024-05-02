@@ -1250,6 +1250,16 @@ namespace TPRandomizer
 
                 return false;
             }
+
+            public bool MetaHasVal(string key, string val)
+            {
+                if (StringUtils.isEmpty(key) || StringUtils.isEmpty(val))
+                    throw new Exception("Invalid params for MetaHasVal.");
+
+                if (meta.TryGetValue(key, out string valForMeta))
+                    return valForMeta == val;
+                return false;
+            }
         }
     }
 }

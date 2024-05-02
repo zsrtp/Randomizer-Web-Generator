@@ -171,17 +171,17 @@
         "hintDef": [
           {
             "hintType": "barren",
-            "iterations": 3,
-            "starting": 1
+            "iterations": 3
+            // "starting": 1
           },
           {
             "hintType": "path",
-            "iterations": 3,
-            "starting": 1
+            "iterations": 3
+            // "starting": 1
           },
           {
             // We pick 4 "Interesting" hints.
-            "starting": 1,
+            // "starting": 1,
             "maxPicks": 4,
             "hintDef": [
               {
@@ -196,17 +196,17 @@
                 }
               },
 
-              // // TODO: remove this test code
-              // {
-              //   // Ex: bug at Area leads to Item
-              //   "hintType": "tradeChain",
-              //   "starting": 1,
-              //   "options": {
-              //     "vagueSourceItem": true,
-              //     "requiredChainItems": ["alias:bugs"],
-              //     "validRewardStatuses": ["bad", "good", "required"]
-              //   }
-              // },
+              // TODO: remove this test code
+              {
+                // Ex: bug at Area leads to Item
+                "hintType": "tradeChain",
+                "starting": 1,
+                "options": {
+                  "vagueSourceItem": true,
+                  "requiredChainItems": ["alias:bugs"],
+                  "validRewardStatuses": ["bad", "good", "required"]
+                }
+              },
 
               // Promoted since usually the most interesting hint every time it
               // shows up.
@@ -333,7 +333,7 @@
       // 2nd layer is "sometimes" hints
       "groupId": "overworld",
       "hintDef": {
-        "starting": 1,
+        // "starting": 1,
         "copies": 2,
         "hintDef": [
           {
