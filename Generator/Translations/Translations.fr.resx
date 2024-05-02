@@ -202,7 +202,7 @@
     <comment></comment>
   </data>
   <data name="area.province.desert" xml:space="preserve">
-    <value>la {cs}Région du Désert Gerudo{ce}</value>
+    <value>$(ap:dans)la {cs}Région du Désert Gerudo{ce}</value>
     <comment></comment>
   </data>
   <data name="area.province.dungeon" xml:space="preserve">
@@ -218,15 +218,15 @@
     <comment></comment>
   </data>
   <data name="area.province.eldin" xml:space="preserve">
-    <value>la {cs}Région d&apos;Ordinn{ce}</value>
+    <value>$(ap:dans)la {cs}Région d&apos;Ordinn{ce}</value>
     <comment></comment>
   </data>
   <data name="area.province.faron" xml:space="preserve">
-    <value>la {cs}Région de Firone{ce}</value>
+    <value>$(ap:dans)la {cs}Région de Firone{ce}</value>
     <comment></comment>
   </data>
   <data name="area.province.lanayru" xml:space="preserve">
-    <value>la {cs}Région de Lanelle{ce}</value>
+    <value>$(ap:dans)la {cs}Région de Lanelle{ce}</value>
     <comment></comment>
   </data>
   <data name="area.province.ordona" xml:space="preserve">
@@ -234,7 +234,7 @@
     <comment></comment>
   </data>
   <data name="area.province.peak" xml:space="preserve">
-    <value>la {cs}Région des Pics Blancs{ce}</value>
+    <value>$(ap:dans)la {cs}Région des Pics Blancs{ce}</value>
     <comment></comment>
   </data>
   <data name="area.zone.agithas_castle" xml:space="preserve">

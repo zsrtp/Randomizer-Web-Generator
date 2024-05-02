@@ -172,6 +172,19 @@ namespace TPRandomizer.Hints
                 areaId = AreaId.ZoneStr(HintUtils.checkNameToHintZone(srcCheckName));
             }
 
+            Dictionary<string, string> metaForArea = new();
+            foreach (KeyValuePair<string, string> pair in srcItemMeta)
+            {
+                // We are only ever hinting one instance of an item for this
+                // hint, so the area should not be forced to plural. For
+                // example, if we say "the Iron Boots" (not that we would use
+                // this as a srcItem) then we should still say "a dungeon" and
+                // not "the dungeons". We use this same logic for ItemHints
+                // where it is more relevant.
+                if (pair.Key != "plural")
+                    metaForArea[pair.Key] = pair.Value;
+            }
+
             string areaPhrase = "";
             if (includeArea)
             {
@@ -195,7 +208,7 @@ namespace TPRandomizer.Hints
                 {
                     areaPhrase += CustomMsgData.GenAreaPhrase(
                         areaId,
-                        srcItemMeta,
+                        metaForArea,
                         CustomMessages.messageColorRed
                     );
                 }
