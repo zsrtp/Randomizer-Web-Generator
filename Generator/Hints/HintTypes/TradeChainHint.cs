@@ -14,13 +14,6 @@ namespace TPRandomizer.Hints
             Unhelpful = 3,
         }
 
-        public enum RewardStatus
-        {
-            Bad = 0,
-            Good = 1,
-            Required = 2,
-        }
-
         public enum AreaType
         {
             Zone = 0,
@@ -33,7 +26,7 @@ namespace TPRandomizer.Hints
         public bool includeArea { get; }
         public AreaType areaType { get; }
         public RewardVagueness rewardVagueness { get; }
-        public RewardStatus rewardStatus { get; }
+        public CheckStatus checkStatus { get; }
 
         // derived but encoded
         public bool srcUseDefiniteArticle { get; private set; }
@@ -51,7 +44,7 @@ namespace TPRandomizer.Hints
             bool includeArea,
             AreaType areaType,
             RewardVagueness rewardVagueness,
-            RewardStatus rewardStatus
+            CheckStatus checkStatus
         )
         {
             return new TradeChainHint(
@@ -61,7 +54,7 @@ namespace TPRandomizer.Hints
                 includeArea,
                 areaType,
                 rewardVagueness,
-                rewardStatus
+                checkStatus
             );
         }
 
@@ -71,7 +64,7 @@ namespace TPRandomizer.Hints
         //     bool includeArea,
         //     AreaType areaType,
         //     RewardVagueness rewardVagueness,
-        //     RewardStatus rewardStatus
+        //     CheckStatus checkStatus
         // )
         // {
         //     this.type = HintType.TradeChain;
@@ -80,7 +73,7 @@ namespace TPRandomizer.Hints
         //     this.includeArea = includeArea;
         //     this.areaType = areaType;
         //     this.rewardVagueness = rewardVagueness;
-        //     this.rewardStatus = rewardStatus;
+        //     this.checkStatus = checkStatus;
 
         //     CalcDerived(null);
         // }
@@ -92,7 +85,7 @@ namespace TPRandomizer.Hints
             bool includeArea,
             AreaType areaType,
             RewardVagueness rewardVagueness,
-            RewardStatus rewardStatus,
+            CheckStatus checkStatus,
             bool srcUseDefiniteArticle = false,
             bool tgtUseDefiniteArticle = false,
             Dictionary<int, byte> itemPlacements = null
@@ -104,7 +97,7 @@ namespace TPRandomizer.Hints
             this.includeArea = includeArea;
             this.areaType = areaType;
             this.rewardVagueness = rewardVagueness;
-            this.rewardStatus = rewardStatus;
+            this.checkStatus = checkStatus;
             this.srcUseDefiniteArticle = srcUseDefiniteArticle;
             this.tgtUseDefiniteArticle = tgtUseDefiniteArticle;
 
@@ -196,18 +189,10 @@ namespace TPRandomizer.Hints
                 );
             }
 
-            CheckStatus tgtStatus = CheckStatus.Unknown;
-            if (rewardStatus == RewardStatus.Required)
-                tgtStatus = CheckStatus.Required;
-            else if (rewardStatus == RewardStatus.Good)
-                tgtStatus = CheckStatus.Good;
-            else if (rewardStatus == RewardStatus.Bad)
-                tgtStatus = CheckStatus.Bad;
-
             string tgtText = CustomMsgData.GenItemText3(
                 out Dictionary<string, string> tgtItemMeta,
                 tgtItem,
-                tgtStatus,
+                checkStatus,
                 tgtUseDefiniteArticle ? "def" : "indef",
                 checkStatusDisplay: CheckStatusDisplay.None
             // prefStartColor: CustomMessages.messageColorBlue
@@ -379,7 +364,7 @@ namespace TPRandomizer.Hints
             result += includeArea ? "1" : "0";
             result += SettingsEncoder.EncodeNumAsBits((int)areaType, 1);
             result += SettingsEncoder.EncodeNumAsBits((int)rewardVagueness, 2);
-            result += SettingsEncoder.EncodeNumAsBits((int)rewardStatus, 2);
+            result += SettingsEncoder.EncodeNumAsBits((int)checkStatus, 2);
             result += srcUseDefiniteArticle ? "1" : "0";
             result += tgtUseDefiniteArticle ? "1" : "0";
             return result;
@@ -398,7 +383,7 @@ namespace TPRandomizer.Hints
             bool includeArea = processor.NextBool();
             AreaType areaType = (AreaType)processor.NextInt(1);
             RewardVagueness rewardVagueness = (RewardVagueness)processor.NextInt(2);
-            RewardStatus rewardStatus = (RewardStatus)processor.NextInt(2);
+            CheckStatus checkStatus = (CheckStatus)processor.NextInt(2);
             bool srcUseDefiniteArticle = processor.NextBool();
             bool tgtUseDefiniteArticle = processor.NextBool();
 
@@ -410,7 +395,7 @@ namespace TPRandomizer.Hints
                     includeArea,
                     areaType,
                     rewardVagueness,
-                    rewardStatus,
+                    checkStatus,
                     srcUseDefiniteArticle,
                     tgtUseDefiniteArticle,
                     itemPlacements

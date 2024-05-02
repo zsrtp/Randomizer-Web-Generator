@@ -18,7 +18,7 @@ namespace TPRandomizer.Hints.HintCreator
         public TradeChainHint.RewardVagueness rewardVagueness = TradeChainHint
             .RewardVagueness
             .Named;
-        private HashSet<TradeChainHint.RewardStatus> validRewardStatuses;
+        private HashSet<CheckStatus> validCheckStatuses;
 
         // When `requiredChainItems` is not null, can only hint chains which
         // contain at least one item in this set (including final reward).
@@ -79,21 +79,19 @@ namespace TPRandomizer.Hints.HintCreator
                         );
                 }
 
-                List<string> validRewardStatusesStrList = HintSettingUtils.getOptionalStringList(
+                List<string> validCheckStatusesStrList = HintSettingUtils.getOptionalStringList(
                     options,
-                    "validRewardStatuses",
+                    "validCheckStatuses",
                     new()
                 );
-                inst.validRewardStatuses = new();
-                foreach (string statusStr in validRewardStatusesStrList)
+                inst.validCheckStatuses = new();
+                foreach (string statusStr in validCheckStatusesStrList)
                 {
-                    TradeChainHint.RewardStatus rewardStatus;
-                    bool success = Enum.TryParse(statusStr, true, out rewardStatus);
-                    if (success)
-                        inst.validRewardStatuses.Add(rewardStatus);
+                    if (Enum.TryParse(statusStr, true, out CheckStatus checkStatus))
+                        inst.validCheckStatuses.Add(checkStatus);
                     else
                         throw new Exception(
-                            $"Failed to parse rewardStatus '{statusStr}' to RewardStatus enum."
+                            $"Failed to parse checkStatus '{statusStr}' to CheckStatus enum."
                         );
                 }
 
@@ -124,9 +122,9 @@ namespace TPRandomizer.Hints.HintCreator
                 }
             }
 
-            if (ListUtils.isEmpty(inst.validRewardStatuses))
+            if (ListUtils.isEmpty(inst.validCheckStatuses))
             {
-                inst.validRewardStatuses = new() { TradeChainHint.RewardStatus.Good };
+                inst.validCheckStatuses = new() { CheckStatus.Good };
             }
 
             return inst;
@@ -286,7 +284,7 @@ namespace TPRandomizer.Hints.HintCreator
             // Iterate over all tradeChain starts which are not tradeItemReward checks
 
             List<
-                KeyValuePair<string, TradeChainHint.RewardStatus>
+                KeyValuePair<string, CheckStatus>
             > validChainStarters = new();
             Dictionary<string, HashSet<string>> endCheckToStartChecks = new();
 
@@ -319,17 +317,15 @@ namespace TPRandomizer.Hints.HintCreator
 
                 if (IsRequiredValidStatus() && genData.CheckIsRequired(endCheckName))
                 {
-                    validChainStarters.Add(
-                        new(startCheckName, TradeChainHint.RewardStatus.Required)
-                    );
+                    validChainStarters.Add(new(startCheckName, CheckStatus.Required));
                 }
                 else if (IsGoodValidStatus() && genData.CheckIsGood(endCheckName, true))
                 {
-                    validChainStarters.Add(new(startCheckName, TradeChainHint.RewardStatus.Good));
+                    validChainStarters.Add(new(startCheckName, CheckStatus.Good));
                 }
                 else if (IsBadValidStatus() && !genData.CheckIsGood(endCheckName, true))
                 {
-                    validChainStarters.Add(new(startCheckName, TradeChainHint.RewardStatus.Bad));
+                    validChainStarters.Add(new(startCheckName, CheckStatus.Bad));
                 }
                 else
                 {
@@ -350,12 +346,10 @@ namespace TPRandomizer.Hints.HintCreator
                     break;
 
                 int randomIndex = genData.rnd.Next(validChainStarters.Count);
-                KeyValuePair<string, TradeChainHint.RewardStatus> selected = validChainStarters[
-                    randomIndex
-                ];
+                KeyValuePair<string, CheckStatus> selected = validChainStarters[randomIndex];
 
                 string startCheckName = selected.Key;
-                TradeChainHint.RewardStatus rewardStatus = selected.Value;
+                CheckStatus checkStatus = selected.Value;
 
                 Item starterItem = HintUtils.getCheckContents(startCheckName);
                 string endCheckName = genData.tradeItemToChainEndCheck[starterItem];
@@ -383,7 +377,7 @@ namespace TPRandomizer.Hints.HintCreator
                     includeArea,
                     finalAreaType,
                     rewardVagueness,
-                    rewardStatus
+                    checkStatus
                 );
                 result.Add(hint);
 
@@ -410,17 +404,17 @@ namespace TPRandomizer.Hints.HintCreator
 
         private bool IsRequiredValidStatus()
         {
-            return validRewardStatuses.Contains(TradeChainHint.RewardStatus.Required);
+            return validCheckStatuses.Contains(CheckStatus.Required);
         }
 
         private bool IsGoodValidStatus()
         {
-            return validRewardStatuses.Contains(TradeChainHint.RewardStatus.Good);
+            return validCheckStatuses.Contains(CheckStatus.Good);
         }
 
         private bool IsBadValidStatus()
         {
-            return validRewardStatuses.Contains(TradeChainHint.RewardStatus.Bad);
+            return validCheckStatuses.Contains(CheckStatus.Bad);
         }
 
         private bool IsChainStarterCheckHintable(HintGenData genData, string checkName)

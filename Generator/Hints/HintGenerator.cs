@@ -1042,7 +1042,7 @@ namespace TPRandomizer.Hints
                                           ? TradeChainHint.AreaType.Province
                                           : TradeChainHint.AreaType.Zone,
                                         TradeChainHint.RewardVagueness.Named,
-                                        TradeChainHint.RewardStatus.Good
+                                        CheckStatus.Good
                                     );
                                     potentialHints.Add(hint);
 
