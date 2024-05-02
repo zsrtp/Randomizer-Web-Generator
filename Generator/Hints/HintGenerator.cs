@@ -1041,7 +1041,8 @@ namespace TPRandomizer.Hints
                                         areaId.type == AreaId.AreaType.Province
                                           ? TradeChainHint.AreaType.Province
                                           : TradeChainHint.AreaType.Zone,
-                                        CheckStatus.Good
+                                        CheckStatus.Good,
+                                        CheckStatusDisplay.None
                                     );
                                     potentialHints.Add(hint);
 

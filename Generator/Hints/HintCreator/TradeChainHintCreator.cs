@@ -14,6 +14,7 @@ namespace TPRandomizer.Hints.HintCreator
     {
         public bool vagueSourceItem = false;
         public bool includeArea = true;
+        public CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.None;
         public TradeChainHint.AreaType? areaType = null;
 
         // TODO: can add a way of displaying the reward as vague like "is on the
@@ -48,6 +49,12 @@ namespace TPRandomizer.Hints.HintCreator
                     options,
                     "includeArea",
                     inst.includeArea
+                );
+
+                inst.checkStatusDisplay = HintSettingUtils.getOptionalCheckStatusDisplay(
+                    options,
+                    "checkStatusDisplay",
+                    inst.checkStatusDisplay
                 );
 
                 string areaTypeStr = HintSettingUtils.getOptionalString(options, "areaType", null);
@@ -336,7 +343,8 @@ namespace TPRandomizer.Hints.HintCreator
                     vagueSourceItem,
                     includeArea,
                     finalAreaType,
-                    checkStatus
+                    checkStatus,
+                    checkStatusDisplay
                 );
                 result.Add(hint);
 

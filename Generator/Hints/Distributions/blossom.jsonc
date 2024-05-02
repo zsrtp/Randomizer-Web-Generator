@@ -205,7 +205,8 @@
                   // "vagueSourceItem": true,
                   "includeArea": false,
                   "requiredChainItems": ["alias:bugs"],
-                  "validCheckStatuses": ["bad", "good", "required"]
+                  "validCheckStatuses": ["bad", "good", "required"],
+                  "checkStatusDisplay": "required_or_not"
                 }
               },
 

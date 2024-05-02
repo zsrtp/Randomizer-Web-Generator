@@ -18,6 +18,7 @@ namespace TPRandomizer.Hints
         public bool includeArea { get; }
         public AreaType areaType { get; }
         public CheckStatus checkStatus { get; }
+        public CheckStatusDisplay checkStatusDisplay { get; }
 
         // derived but encoded
         public bool srcUseDefiniteArticle { get; private set; }
@@ -34,7 +35,8 @@ namespace TPRandomizer.Hints
             bool vagueSourceItem,
             bool includeArea,
             AreaType areaType,
-            CheckStatus checkStatus
+            CheckStatus checkStatus,
+            CheckStatusDisplay checkStatusDisplay
         )
         {
             return new TradeChainHint(
@@ -43,7 +45,8 @@ namespace TPRandomizer.Hints
                 vagueSourceItem,
                 includeArea,
                 areaType,
-                checkStatus
+                checkStatus,
+                checkStatusDisplay
             );
         }
 
@@ -54,6 +57,7 @@ namespace TPRandomizer.Hints
             bool includeArea,
             AreaType areaType,
             CheckStatus checkStatus,
+            CheckStatusDisplay checkStatusDisplay,
             bool srcUseDefiniteArticle = false,
             bool tgtUseDefiniteArticle = false,
             Dictionary<int, byte> itemPlacements = null
@@ -65,6 +69,7 @@ namespace TPRandomizer.Hints
             this.includeArea = includeArea;
             this.areaType = areaType;
             this.checkStatus = checkStatus;
+            this.checkStatusDisplay = checkStatusDisplay;
             this.srcUseDefiniteArticle = srcUseDefiniteArticle;
             this.tgtUseDefiniteArticle = tgtUseDefiniteArticle;
 
@@ -201,8 +206,7 @@ namespace TPRandomizer.Hints
                 tgtItem,
                 checkStatus,
                 tgtUseDefiniteArticle ? "def" : "indef",
-                checkStatusDisplay: CheckStatusDisplay.None
-            // prefStartColor: CustomMessages.messageColorBlue
+                checkStatusDisplay: checkStatusDisplay
             );
 
             string text = hintParsedRes.Substitute(
@@ -231,6 +235,7 @@ namespace TPRandomizer.Hints
             result += includeArea ? "1" : "0";
             result += SettingsEncoder.EncodeNumAsBits((int)areaType, 1);
             result += SettingsEncoder.EncodeNumAsBits((int)checkStatus, 2);
+            result += SettingsEncoder.EncodeNumAsBits((int)checkStatusDisplay, 2);
             result += srcUseDefiniteArticle ? "1" : "0";
             result += tgtUseDefiniteArticle ? "1" : "0";
             return result;
@@ -249,6 +254,7 @@ namespace TPRandomizer.Hints
             bool includeArea = processor.NextBool();
             AreaType areaType = (AreaType)processor.NextInt(1);
             CheckStatus checkStatus = (CheckStatus)processor.NextInt(2);
+            CheckStatusDisplay checkStatusDisplay = (CheckStatusDisplay)processor.NextInt(2);
             bool srcUseDefiniteArticle = processor.NextBool();
             bool tgtUseDefiniteArticle = processor.NextBool();
 
@@ -260,6 +266,7 @@ namespace TPRandomizer.Hints
                     includeArea,
                     areaType,
                     checkStatus,
+                    checkStatusDisplay,
                     srcUseDefiniteArticle,
                     tgtUseDefiniteArticle,
                     itemPlacements
