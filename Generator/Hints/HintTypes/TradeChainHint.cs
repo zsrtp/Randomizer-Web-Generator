@@ -6,14 +6,6 @@ namespace TPRandomizer.Hints
 
     public class TradeChainHint : Hint
     {
-        public enum RewardVagueness
-        {
-            Named = 0,
-            Vague = 1,
-            Required = 2,
-            Unhelpful = 3,
-        }
-
         public enum AreaType
         {
             Zone = 0,
@@ -25,7 +17,6 @@ namespace TPRandomizer.Hints
         public bool vaugeSourceItem { get; }
         public bool includeArea { get; }
         public AreaType areaType { get; }
-        public RewardVagueness rewardVagueness { get; }
         public CheckStatus checkStatus { get; }
 
         // derived but encoded
@@ -43,7 +34,6 @@ namespace TPRandomizer.Hints
             bool vagueSourceItem,
             bool includeArea,
             AreaType areaType,
-            RewardVagueness rewardVagueness,
             CheckStatus checkStatus
         )
         {
@@ -53,30 +43,9 @@ namespace TPRandomizer.Hints
                 vagueSourceItem,
                 includeArea,
                 areaType,
-                rewardVagueness,
                 checkStatus
             );
         }
-
-        // public TradeChainHint(
-        //     string srcCheckName,
-        //     bool vagueSourceItem,
-        //     bool includeArea,
-        //     AreaType areaType,
-        //     RewardVagueness rewardVagueness,
-        //     CheckStatus checkStatus
-        // )
-        // {
-        //     this.type = HintType.TradeChain;
-        //     this.srcCheckName = srcCheckName;
-        //     this.vaugeSourceItem = vagueSourceItem;
-        //     this.includeArea = includeArea;
-        //     this.areaType = areaType;
-        //     this.rewardVagueness = rewardVagueness;
-        //     this.checkStatus = checkStatus;
-
-        //     CalcDerived(null);
-        // }
 
         private TradeChainHint(
             HintGenData genData,
@@ -84,7 +53,6 @@ namespace TPRandomizer.Hints
             bool vagueSourceItem,
             bool includeArea,
             AreaType areaType,
-            RewardVagueness rewardVagueness,
             CheckStatus checkStatus,
             bool srcUseDefiniteArticle = false,
             bool tgtUseDefiniteArticle = false,
@@ -96,7 +64,6 @@ namespace TPRandomizer.Hints
             this.vaugeSourceItem = vagueSourceItem;
             this.includeArea = includeArea;
             this.areaType = areaType;
-            this.rewardVagueness = rewardVagueness;
             this.checkStatus = checkStatus;
             this.srcUseDefiniteArticle = srcUseDefiniteArticle;
             this.tgtUseDefiniteArticle = tgtUseDefiniteArticle;
@@ -149,20 +116,43 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList()
         {
+            // leads to "item name", "something good", "nothing", "is on the WotH"
+
+            // The target check will have a status which we can calc and store ahead of time.
+
+            // Normally we will say the item by name.
+            // If it is by name, then we can use a CheckStatusDisplay.
+
+            // However, if it is vague, then we have different ways of displaying the status:
+            // Required, Good, Bad, or Unhelpful.
+
+            // If a check is Required, then it is also Good and we may to show
+            // that status instead of Required.
+
             Res.Result hintParsedRes = Res.ParseVal("hint-type.trade-chain");
 
             bool areaLeadingSpace = hintParsedRes.SlotMetaHasVal("area-phrase", "space", "true");
 
-            // Src is either the item name, or if it is vague and a bug, then we say "an insect".
+            string srcText;
+            Dictionary<string, string> srcItemMeta;
 
-            string srcText = CustomMsgData.GenItemText3(
-                out Dictionary<string, string> srcItemMeta,
-                srcItem,
-                CheckStatus.Unknown,
-                srcUseDefiniteArticle ? "def" : "indef",
-                checkStatusDisplay: CheckStatusDisplay.None,
-                prefStartColor: CustomMessages.messageColorYellow
-            );
+            if (vaugeSourceItem && HintUtils.isItemGoldenBug(srcItem))
+            {
+                Res.Result bugRes = Res.Msg("noun.a-bug", null);
+                srcItemMeta = bugRes.meta;
+                srcText = bugRes.ResolveWithColor(CustomMessages.messageColorYellow);
+            }
+            else
+            {
+                srcText = CustomMsgData.GenItemText3(
+                    out srcItemMeta,
+                    srcItem,
+                    CheckStatus.Unknown,
+                    srcUseDefiniteArticle ? "def" : "indef",
+                    checkStatusDisplay: CheckStatusDisplay.None,
+                    prefStartColor: CustomMessages.messageColorYellow
+                );
+            }
 
             string verb = CustomMsgData.GenVerb(hintParsedRes, srcItemMeta);
 
@@ -182,11 +172,28 @@ namespace TPRandomizer.Hints
             {
                 if (areaLeadingSpace)
                     areaPhrase = " ";
-                areaPhrase += CustomMsgData.GenAreaPhrase(
-                    areaId,
-                    srcItemMeta,
-                    CustomMessages.messageColorRed
+
+                Res.Result tradeChainAreaRes = Res.Msg(
+                    areaId.GenResKey(),
+                    new() { { "context", "trade-chain" } }
                 );
+                if (tradeChainAreaRes.MetaHasVal("trade-chain", "true"))
+                {
+                    // Note: this treats "ap" as "none" since we are not
+                    // doing more work. Can update the code to make use of
+                    // "ap" meta (and use the subjectMeta) if needed.
+                    areaPhrase += tradeChainAreaRes.ResolveWithColor(
+                        CustomMessages.messageColorRed
+                    );
+                }
+                else
+                {
+                    areaPhrase += CustomMsgData.GenAreaPhrase(
+                        areaId,
+                        srcItemMeta,
+                        CustomMessages.messageColorRed
+                    );
+                }
             }
 
             string tgtText = CustomMsgData.GenItemText3(
@@ -198,7 +205,7 @@ namespace TPRandomizer.Hints
             // prefStartColor: CustomMessages.messageColorBlue
             );
 
-            string text2 = hintParsedRes.Substitute(
+            string text = hintParsedRes.Substitute(
                 new()
                 {
                     { "source", srcText },
@@ -208,149 +215,9 @@ namespace TPRandomizer.Hints
                 }
             );
 
-            List<HintText> results = new();
-
-            List<AreaId> areaIds =
-                new()
-                {
-                    // zones
-                    // AreaId.Zone(Zone.Ordon),
-                    // AreaId.Zone(Zone.Sacred_Grove),
-                    // AreaId.Zone(Zone.Faron_Field),
-                    // AreaId.Zone(Zone.Faron_Woods),
-                    // AreaId.Zone(Zone.Kakariko_Gorge),
-                    // AreaId.Zone(Zone.Kakariko_Village),
-                    // AreaId.Zone(Zone.Kakariko_Graveyard),
-                    // AreaId.Zone(Zone.Eldin_Field),
-                    // AreaId.Zone(Zone.North_Eldin),
-                    // AreaId.Zone(Zone.Death_Mountain),
-                    // AreaId.Zone(Zone.Hidden_Village),
-                    // AreaId.Zone(Zone.Lanayru_Field),
-                    // AreaId.Zone(Zone.Beside_Castle_Town),
-                    // AreaId.Zone(Zone.South_of_Castle_Town),
-                    // AreaId.Zone(Zone.Castle_Town),
-                    // AreaId.Zone(Zone.Agithas_Castle),
-                    // AreaId.Zone(Zone.Great_Bridge_of_Hylia),
-                    // AreaId.Zone(Zone.Lake_Hylia),
-                    // AreaId.Zone(Zone.Lake_Lantern_Cave),
-                    // AreaId.Zone(Zone.Lanayru_Spring),
-                    // AreaId.Zone(Zone.Zoras_Domain),
-                    // AreaId.Zone(Zone.Upper_Zoras_River),
-                    // AreaId.Zone(Zone.Gerudo_Desert),
-                    // AreaId.Zone(Zone.Bulblin_Camp),
-                    // AreaId.Zone(Zone.Snowpeak),
-                    // AreaId.Zone(Zone.Cave_of_Ordeals),
-                    // AreaId.Zone(Zone.Forest_Temple),
-                    // AreaId.Zone(Zone.Goron_Mines),
-                    // AreaId.Zone(Zone.Lakebed_Temple),
-                    // AreaId.Zone(Zone.Arbiters_Grounds),
-                    // AreaId.Zone(Zone.Snowpeak_Ruins),
-                    // AreaId.Zone(Zone.Temple_of_Time),
-                    // AreaId.Zone(Zone.City_in_the_Sky),
-                    // AreaId.Zone(Zone.Palace_of_Twilight),
-                    // AreaId.Zone(Zone.Hyrule_Castle),
-                    // provinces
-                    // AreaId.Province(Province.Ordona),
-                    // AreaId.Province(Province.Faron),
-                    // AreaId.Province(Province.Eldin),
-                    // AreaId.Province(Province.Lanayru),
-                    // AreaId.Province(Province.Desert),
-                    // AreaId.Province(Province.Peak),
-                    // AreaId.Province(Province.Dungeon),
-                    // asdf
-                    AreaId.Category(HintCategory.Grotto),
-                    AreaId.Category(HintCategory.Mist),
-                    AreaId.Category(HintCategory.Owl_Statue),
-                    AreaId.Category(HintCategory.Llc_Lantern_Chests),
-                    AreaId.Category(HintCategory.Underwater),
-                    AreaId.Category(HintCategory.Upper_Desert),
-                    AreaId.Category(HintCategory.Lower_Desert),
-                    AreaId.Category(HintCategory.Golden_Wolf),
-                };
-
-            foreach (AreaId areaId1 in areaIds)
-            {
-                areaPhrase = "";
-                if (includeArea)
-                {
-                    if (areaLeadingSpace)
-                        areaPhrase = " ";
-
-                    Res.Result tradeChainAreaRes = Res.Msg(
-                        areaId1.GenResKey(),
-                        new() { { "context", "trade-chain" } }
-                    );
-                    if (tradeChainAreaRes.MetaHasVal("trade-chain", "true"))
-                    {
-                        // Note: this treats "ap" as "none" since we are not
-                        // doing more work. Can update the code to make use of
-                        // "ap" meta (and use the subjectMeta) if needed.
-                        areaPhrase += tradeChainAreaRes.ResolveWithColor(
-                            CustomMessages.messageColorRed
-                        );
-                    }
-                    else
-                    {
-                        areaPhrase += CustomMsgData.GenAreaPhrase(
-                            areaId1,
-                            srcItemMeta,
-                            CustomMessages.messageColorRed
-                        );
-                    }
-                }
-
-                string textForArea = hintParsedRes.Substitute(
-                    new()
-                    {
-                        { "source", srcText },
-                        { "area-phrase", areaPhrase },
-                        { "verb", verb },
-                        { "target", tgtText }
-                    }
-                );
-
-                HintText hintText = new HintText();
-                hintText.text = Res.LangSpecificNormalize(textForArea);
-                results.Add(hintText);
-            }
-
-            // HintText hintText = new HintText();
-
-            // "Il est dit que {source} mène à {target}."
-            // "Il est dit que {source} {area-phrase} mène à {target}."
-
-            // string text = "They say that ";
-            // if (vaugeSourceItem && HintUtils.isItemGoldenBug(srcItem))
-            //     text += "a {bug} ";
-            // else
-            //     text += $"{{{srcItem}}} ";
-
-            // if (includeArea)
-            // {
-            //     if (areaType == AreaType.Province)
-            //     {
-            //         string provinceName = ProvinceUtils.IdToString(
-            //             HintUtils.checkNameToHintProvince(srcCheckName)
-            //         );
-            //         text += $"at {{Province:{provinceName}}} ";
-            //     }
-            //     else
-            //     {
-            //         string zoneName = HintUtils.checkNameToHintZone(srcCheckName);
-            //         text += $"at {{Zone:{zoneName}}} ";
-            //     }
-            // }
-
-            // // TODO: handle temp reward end stuff. Vagueness needs to be looked at.
-            // text += $"leads to {{{tgtItem}}}.";
-
-            // hintText.text = Res.LangSpecificNormalize(text2);
-
-            // HintText hintText2 = new();
-            // hintText2.text = "2nd hint text!";
-
-            // return new List<HintText> { hintText, hintText2 };
-            return results;
+            HintText hintText = new();
+            hintText.text = Res.LangSpecificNormalize(text);
+            return new() { hintText };
         }
 
         public override string encodeAsBits(HintEncodingBitLengths bitLengths)
@@ -363,7 +230,6 @@ namespace TPRandomizer.Hints
             result += vaugeSourceItem ? "1" : "0";
             result += includeArea ? "1" : "0";
             result += SettingsEncoder.EncodeNumAsBits((int)areaType, 1);
-            result += SettingsEncoder.EncodeNumAsBits((int)rewardVagueness, 2);
             result += SettingsEncoder.EncodeNumAsBits((int)checkStatus, 2);
             result += srcUseDefiniteArticle ? "1" : "0";
             result += tgtUseDefiniteArticle ? "1" : "0";
@@ -382,7 +248,6 @@ namespace TPRandomizer.Hints
             bool vagueSource = processor.NextBool();
             bool includeArea = processor.NextBool();
             AreaType areaType = (AreaType)processor.NextInt(1);
-            RewardVagueness rewardVagueness = (RewardVagueness)processor.NextInt(2);
             CheckStatus checkStatus = (CheckStatus)processor.NextInt(2);
             bool srcUseDefiniteArticle = processor.NextBool();
             bool tgtUseDefiniteArticle = processor.NextBool();
@@ -394,7 +259,6 @@ namespace TPRandomizer.Hints
                     vagueSource,
                     includeArea,
                     areaType,
-                    rewardVagueness,
                     checkStatus,
                     srcUseDefiniteArticle,
                     tgtUseDefiniteArticle,

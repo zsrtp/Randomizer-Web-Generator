@@ -171,17 +171,17 @@
         "hintDef": [
           {
             "hintType": "barren",
-            "iterations": 3
-            // "starting": 1
+            "iterations": 3,
+            "starting": 1
           },
           {
             "hintType": "path",
-            "iterations": 3
-            // "starting": 1
+            "iterations": 3,
+            "starting": 1
           },
           {
             // We pick 4 "Interesting" hints.
-            // "starting": 1,
+            "starting": 1,
             "maxPicks": 4,
             "hintDef": [
               {
@@ -202,9 +202,10 @@
                 "hintType": "tradeChain",
                 "starting": 1,
                 "options": {
-                  "vagueSourceItem": true,
+                  // "vagueSourceItem": true,
+                  "includeArea": false,
                   "requiredChainItems": ["alias:bugs"],
-                  "validRewardStatuses": ["bad", "good", "required"]
+                  "validCheckStatuses": ["bad", "good", "required"]
                 }
               },
 
@@ -333,7 +334,7 @@
       // 2nd layer is "sometimes" hints
       "groupId": "overworld",
       "hintDef": {
-        // "starting": 1,
+        "starting": 1,
         "copies": 2,
         "hintDef": [
           {

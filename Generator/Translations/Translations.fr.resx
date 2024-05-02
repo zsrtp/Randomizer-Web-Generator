@@ -1673,6 +1673,10 @@
     <value>fragments de clé</value>
     <comment></comment>
   </data>
+  <data name="noun.a-bug" xml:space="preserve">
+    <value>un {cs}insecte{ce}</value>
+    <comment></comment>
+  </data>
   <data name="noun.rien" xml:space="preserve">
     <value>rien</value>
     <comment></comment>

@@ -15,9 +15,10 @@ namespace TPRandomizer.Hints.HintCreator
         public bool vagueSourceItem = false;
         public bool includeArea = true;
         public TradeChainHint.AreaType? areaType = null;
-        public TradeChainHint.RewardVagueness rewardVagueness = TradeChainHint
-            .RewardVagueness
-            .Named;
+
+        // TODO: can add a way of displaying the reward as vague like "is on the
+        // WotH", "something good", "nothing", unhelpful. Can worry about later
+        // since would delay the feature and be fairly involved.
         private HashSet<CheckStatus> validCheckStatuses;
 
         // When `requiredChainItems` is not null, can only hint chains which
@@ -59,23 +60,6 @@ namespace TPRandomizer.Hints.HintCreator
                     else
                         throw new Exception(
                             $"Failed to parse areaType '{areaTypeStr}' to AreaType enum."
-                        );
-                }
-
-                string rewardVaguenessStr = HintSettingUtils.getOptionalString(
-                    options,
-                    "rewardVagueness",
-                    null
-                );
-                if (!StringUtils.isEmpty(rewardVaguenessStr))
-                {
-                    TradeChainHint.RewardVagueness rewardVagueness;
-                    bool success = Enum.TryParse(rewardVaguenessStr, true, out rewardVagueness);
-                    if (success)
-                        inst.rewardVagueness = rewardVagueness;
-                    else
-                        throw new Exception(
-                            $"Failed to parse rewardVagueness '{rewardVaguenessStr}' to RewardVagueness enum."
                         );
                 }
 
@@ -139,30 +123,6 @@ namespace TPRandomizer.Hints.HintCreator
         {
             if (numHints < 1 || (requiredChainItems != null && requiredChainItems.Count < 1))
                 return null;
-
-            // - validItems
-            // - areaType
-            // - hintArea
-            // - rewardVagueness: 'named|vague|required|unhelpful'
-            // - sourceVagueness: ''
-
-            // For rewardVaguess: named is exact itemName
-            // vague is either somethingGood or nothing
-            // required is either nothing or "They say that a {bug} found at {Lanayru Province} is on the {way of the hero}.
-            // unhelpful is "They say that a {bug} found at {Lake Hylia} may or may not be useful.
-
-            // For example:
-
-            // "They say that the {Male Mantis} found at {Kakariko Gorge} leads to the
-            // {Hyrule Castle Big Key}."
-
-            // "They say that a {bug} found at {City in the Sky} leads to
-            // {something good}."
-
-            // "They say that {trading an item} found at {Lake Lantern Cave}
-            // leads to {Clawshot}."
-
-
 
             // Iterate over all validItems (defaults to all; need to add to options)
             // Also need to add validStatuses (bad,good,required). Default to any
@@ -376,7 +336,6 @@ namespace TPRandomizer.Hints.HintCreator
                     vagueSourceItem,
                     includeArea,
                     finalAreaType,
-                    rewardVagueness,
                     checkStatus
                 );
                 result.Add(hint);
