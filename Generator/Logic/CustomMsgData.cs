@@ -267,7 +267,7 @@ namespace TPRandomizer
             // handle shop text first
             if (updateShopText)
             {
-                GenShopItemEntries(results);
+                GenShopEntries(results);
             }
 
             // handle self-hinters next
@@ -356,16 +356,6 @@ namespace TPRandomizer
                 )
             );
 
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Sold_Out,
-                    GenShopSoldOutText(
-                        HintUtils.getCheckContents("Castle Town Malo Mart Magic Armor"),
-                        "magic-armor"
-                    )
-                )
-            );
-
             // Note: for French at least, we do not need to update the
             // magicArmor cannot-afford text, or the confirm + yes/no.
         }
@@ -422,7 +412,7 @@ namespace TPRandomizer
             results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Link_House_Sign, normalized));
         }
 
-        private void GenShopItemEntries(List<MessageEntry> results)
+        private void GenShopEntries(List<MessageEntry> results)
         {
             // TODO: fill out all of the itemIds for English. The name should
             // match exactly (after lowercase change) with the keys which are in
@@ -610,6 +600,16 @@ namespace TPRandomizer
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Slot,
                     GenBasicShopMsg("Castle Town Malo Mart Magic Armor", 598)
+                )
+            );
+
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Sold_Out,
+                    GenShopSoldOutText(
+                        HintUtils.getCheckContents("Castle Town Malo Mart Magic Armor"),
+                        "magic-armor"
+                    )
                 )
             );
         }
