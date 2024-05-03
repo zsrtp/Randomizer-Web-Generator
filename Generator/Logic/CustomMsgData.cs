@@ -310,24 +310,24 @@ namespace TPRandomizer
                         + "Sorry..."
                 }
             );
-            results.Add(
-                new MessageEntry
-                {
-                    stageIDX = (byte)StageIDs.Fishing_Pond,
-                    roomIDX = 0,
-                    messageID = 0x47A, // Fishing Hole Bottle Sign
-                    message =
-                        "           "
-                        + CustomMessages.messageColorRed
-                        + "DON'T LITTER!\n"
-                        + CustomMessages.messageColorWhite
-                        + "Do NOT toss a "
-                        // + getShortenedItemName(Randomizer.Checks.CheckDict["Fishing Hole Bottle"].itemId)
-                        + Randomizer.Checks.CheckDict["Fishing Hole Bottle"].itemId
-                        + CustomMessages.messageColorWhite
-                        + " or\ncans here! The fish are CRYING!\n\nKeep the fishing hole clean!"
-                }
-            );
+            // results.Add(
+            //     new MessageEntry
+            //     {
+            //         stageIDX = (byte)StageIDs.Fishing_Pond,
+            //         roomIDX = 0,
+            //         messageID = 0x47A, // Fishing Hole Bottle Sign
+            //         message =
+            //             "           "
+            //             + CustomMessages.messageColorRed
+            //             + "DON'T LITTER!\n"
+            //             + CustomMessages.messageColorWhite
+            //             + "Do NOT toss a "
+            //             // + getShortenedItemName(Randomizer.Checks.CheckDict["Fishing Hole Bottle"].itemId)
+            //             + Randomizer.Checks.CheckDict["Fishing Hole Bottle"].itemId
+            //             + CustomMessages.messageColorWhite
+            //             + " or\ncans here! The fish are CRYING!\n\nKeep the fishing hole clean!"
+            //     }
+            // );
 
             // then handle custom hint signs
             GenHintSignEntries(results);
@@ -356,8 +356,12 @@ namespace TPRandomizer
                 )
             );
 
-            // Note: for French at least, we do not need to update the
-            // magicArmor cannot-afford text, or the confirm + yes/no.
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Bought,
+                    Res.SimpleMsg("shop.bought", null)
+                )
+            );
         }
 
         private string GenShopSoldOutText(Item item, string context)

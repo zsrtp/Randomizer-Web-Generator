@@ -1689,6 +1689,10 @@
     <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
     <comment></comment>
   </data>
+  <data name="shop.bought" xml:space="preserve">
+    <value>Nous n&apos;en avons plus !</value>
+    <comment>From magic armor, minus the MA reference.</comment>
+  </data>
   <data name="shop.cannot-afford" xml:space="preserve">
     <value>aa</value>
     <comment></comment>
