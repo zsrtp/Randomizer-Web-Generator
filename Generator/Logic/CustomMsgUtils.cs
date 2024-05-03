@@ -17,6 +17,9 @@ namespace TPRandomizer
         Sera_Slingshot_Slot,
         Sera_Slingshot_Cant_Afford,
         Sera_Slingshot_Confirm_Buy,
+        Castle_Town_Malo_Mart_Magic_Armor_Slot,
+        Castle_Town_Malo_Mart_Magic_Armor_Bought,
+        Castle_Town_Malo_Mart_Magic_Armor_Sold_Out,
         Agithas_Castle_Sign,
         Jovani_House_Sign,
         Custom_Sign_Ordon,
@@ -131,6 +134,18 @@ namespace TPRandomizer
                 {
                     MsgEntryId.Sera_Slingshot_Confirm_Buy,
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5B4)
+                },
+                {
+                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Slot,
+                    new(StageIDs.Castle_Town_Shops, 0, 0x125)
+                },
+                {
+                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Bought,
+                    new(StageIDs.Castle_Town_Shops, 0, 0x11E)
+                },
+                {
+                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Sold_Out,
+                    new(StageIDs.Castle_Town_Shops, 0, 0x130)
                 },
                 { MsgEntryId.Agithas_Castle_Sign, new(StageIDs.Castle_Town, 3, 0x456) },
                 { MsgEntryId.Jovani_House_Sign, new(StageIDs.Castle_Town, 3, 0x457) },

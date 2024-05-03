@@ -355,6 +355,35 @@ namespace TPRandomizer
                     "Are you sure?" + CustomMessages.shopOption
                 )
             );
+
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Sold_Out,
+                    GenShopSoldOutText(
+                        HintUtils.getCheckContents("Castle Town Malo Mart Magic Armor"),
+                        "magic-armor"
+                    )
+                )
+            );
+
+            // Note: for French at least, we do not need to update the
+            // magicArmor cannot-afford text, or the confirm + yes/no.
+        }
+
+        private string GenShopSoldOutText(Item item, string context)
+        {
+            Res.Result result = Res.Msg("shop.sold-out", new() { { "context", context } });
+
+            string itemText = GenItemText3(
+                out Dictionary<string, string> meta,
+                item,
+                CheckStatus.Unknown,
+                isShop: true,
+                includeShopSuffix: false
+            );
+
+            string text = result.Substitute(new() { { "item", itemText } });
+            return Res.LangSpecificNormalize(text);
         }
 
         private void GenLinkHouseSignText(List<MessageEntry> results)
@@ -567,6 +596,22 @@ namespace TPRandomizer
                 // GenBasicShopMsg("Lake Lantern Cave Twelfth Chest", 30, true)
                 )
             );
+
+            // Actual function content:
+
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Sera_Slingshot_Slot,
+                    GenBasicShopMsg("Sera Shop Slingshot", 30)
+                )
+            );
+
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Slot,
+                    GenBasicShopMsg("Castle Town Malo Mart Magic Armor", 598)
+                )
+            );
         }
 
         private void GenHintSignEntries(List<MessageEntry> results)
@@ -645,22 +690,23 @@ namespace TPRandomizer
             );
         }
 
-        private string GenBasicShopMsg(string checkName, uint price, bool isSeraShop = false)
+        private string GenBasicShopMsg(string checkName, uint price, bool shopSuffixIsColon = false)
         {
-            Res.Result abcd = Res.ParseVal("shop.basic-slot");
+            Res.Result res = Res.ParseVal("shop.basic-slot");
 
-            string itemText = GenItemText(
+            string itemText = GenItemText3(
+                out _,
                 HintUtils.getCheckContents(checkName),
+                CheckStatus.Unknown,
                 isShop: true,
-                isSeraShop: isSeraShop
+                includeShopSuffix: true,
+                shopSuffixIsColon: shopSuffixIsColon
             );
 
             string priceText = GenShopPriceText(price);
 
-            string aaaaa = abcd.Substitute(new() { { "item", itemText }, { "price", priceText } });
-            string cc = Regex.Unescape(aaaaa);
-            string dd = Res.LangSpecificNormalize(cc);
-            return dd;
+            string text = res.Substitute(new() { { "item", itemText }, { "price", priceText } });
+            return Res.LangSpecificNormalize(text);
         }
 
         public static string BuildContextFromMeta(Dictionary<string, string> meta)
@@ -799,7 +845,8 @@ namespace TPRandomizer
             string contextIn = null,
             int? count = null,
             bool isShop = false,
-            bool isSeraShop = false,
+            bool shopSuffixIsColon = false,
+            bool includeShopSuffix = false,
             string prefStartColor = null,
             CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.None
         )
@@ -878,12 +925,12 @@ namespace TPRandomizer
             }
 
             string itemSuffix = "";
-            if (isShop)
+            if (includeShopSuffix && isShop)
             {
-                if (isSeraShop)
-                    itemSuffix = " ";
-                else
+                if (shopSuffixIsColon)
                     itemSuffix = ":";
+                else
+                    itemSuffix = " ";
             }
             itemSuffix += CustomMessages.messageColorWhite;
             if (!StringUtils.isEmpty(postItemText))

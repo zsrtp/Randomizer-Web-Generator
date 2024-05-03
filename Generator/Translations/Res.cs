@@ -259,6 +259,7 @@ namespace TPRandomizer
             {
                 case CustomMessages.maleSign:
                 case CustomMessages.femaleSign:
+                case CustomMessages.referenceMark:
                     return 1;
                 case CustomMessages.playerName:
                     return 8;

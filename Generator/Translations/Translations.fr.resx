@@ -1689,9 +1689,33 @@
     <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
     <comment></comment>
   </data>
+  <data name="shop.cannot-afford" xml:space="preserve">
+    <value>aa</value>
+    <comment></comment>
+  </data>
+  <data name="shop.cannot-afford.meta" xml:space="preserve">
+    <value>$(sera:informal)</value>
+    <comment></comment>
+  </data>
+  <data name="shop.no" xml:space="preserve">
+    <value>Non</value>
+    <comment></comment>
+  </data>
   <data name="shop.price" xml:space="preserve">
     <value>{count} rubis</value>
     <comment>Confirmed by link1183 on 2024/03/31 that all should be &quot;rubis&quot;.</comment>
+  </data>
+  <data name="shop.sold-out" xml:space="preserve">
+    <value>{item} - Epuisé</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out$magic-armor" xml:space="preserve">
+    <value>{item}\nCet objet est en rupture de stock\n#(reference-mark)Production arrêtée définitivement</value>
+    <comment></comment>
+  </data>
+  <data name="shop.yes" xml:space="preserve">
+    <value>Oui</value>
+    <comment></comment>
   </data>
   <data name="trade-group.ants" xml:space="preserve">
     <value>fourmis</value>

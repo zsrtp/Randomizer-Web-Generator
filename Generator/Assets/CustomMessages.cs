@@ -29,6 +29,7 @@ namespace TPRandomizer.Assets
         public static string shopOption = "\x1A\x05\x00\x00\x20";
         public const string maleSign = "\x1A\x05\x06\x00\x02";
         public const string femaleSign = "\x1A\x05\x06\x00\x03";
+        public const string referenceMark = "\x1A\x05\x06\x00\x05";
 
         // Unused for now but who knows.
         public static string[][] foolishShopItemNames =

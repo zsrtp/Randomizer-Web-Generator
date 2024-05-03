@@ -227,6 +227,8 @@ namespace TPRandomizer
                                     {
                                         case "player-name":
                                             return CustomMessages.playerName;
+                                        case "reference-mark":
+                                            return CustomMessages.referenceMark;
                                         case "white":
                                             return CustomMessages.messageColorWhite;
                                         case "red":
