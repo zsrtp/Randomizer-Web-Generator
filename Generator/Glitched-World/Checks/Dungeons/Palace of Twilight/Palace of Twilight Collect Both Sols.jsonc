@@ -5,6 +5,6 @@
   "relOffsets": [ "C10", "CD8" ],
   "overrideInstruction": [ "38600000", "38600065" ],
   "relReplacementType": [0,2],
-  "category": [ "Cutscene", "Dungeon", "Palace of Twilight", "REL" ],
+  "checkCategory": [ "Cutscene", "Dungeon", "Palace of Twilight", "REL" ],
   "itemId": "Progressive_Sword"
 }

@@ -5,6 +5,6 @@
     "roomIDX": 51,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Lakebed Temple", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "ARC"],
     "itemId": "Progressive_Clawshot"
 }

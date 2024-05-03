@@ -4,7 +4,7 @@
     "stageIDX": [57, 57],
     "dzxTag": ["ACTR", "ACTR"],
     "magicByte": ["FE", "FE"],
-    "category": ["Overworld", "Golden Bug", "Hyrule Field - Lanaryu Province", "DZX"],
+    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Lanaryu Province", "DZX"],
     "itemId": "Male_Butterfly",
     "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "9D", "C2", "C7", "92", "9B", "BC", "C3", "D2", "92", "0A", "46", "7A", "45", "63", "00", "00", "00", "00", "00", "00", "FF", "FF"], ["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "9D", "C2", "C7", "92", "9B", "BC", "C3", "D2", "92", "0A", "46", "7A", "45", "63", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
 }

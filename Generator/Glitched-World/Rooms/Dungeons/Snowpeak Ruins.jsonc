@@ -70,6 +70,16 @@
             "Requirements": "true"
         },
         {
+          "ConnectedArea": "Snowpeak Ruins Chapel",
+          // If coming from the Lobby, 2F floor clip is in logic, which explains the lack of the B&C requirement. Then you can Freezard Ladder Cancel
+          "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Snowpeak Ruins Boss Room",
+        // If coming from the Lobby, 2F floor clip is in logic, which explains the lack of the B&C requirement. Then you can Freezard Ladder Cancel
+        "Requirements": "(Snowpeak_Ruins_Bedroom_Key or (Setting.bigKeySettings equals Keysy))"
+      },
+        {
             "ConnectedArea": "Snowpeak Ruins Caged Freezard Room Lower",
             // Breaking the floor
             "Requirements": "canSmash"

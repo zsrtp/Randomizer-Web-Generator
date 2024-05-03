@@ -8,6 +8,6 @@
     "fileDirectoryType": [3],
     "replacementType": [2],
     "relReplacementType": [0],
-    "category": ["Dungeon", "Forest Temple", "Dungeon Reward", "REL", "ARC"],
+    "checkCategory": ["Dungeon", "Forest Temple", "Dungeon Reward", "REL", "ARC"],
     "itemId": "Progressive_Fused_Shadow"
 }

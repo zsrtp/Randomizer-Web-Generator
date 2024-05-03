@@ -5,6 +5,6 @@
     "roomIDX": 2,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Overworld", "Chest", "Snowpeak Province", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Snowpeak Province", "ARC"],
     "itemId": "Orange_Rupee"
 }

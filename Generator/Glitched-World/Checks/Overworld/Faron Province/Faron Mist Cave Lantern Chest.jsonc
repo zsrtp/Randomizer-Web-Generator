@@ -5,6 +5,6 @@
     "roomIDX": 14,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Overworld", "Chest", "Faron Woods", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Faron Woods", "ARC"],
     "itemId": "Piece_of_Heart"
 }

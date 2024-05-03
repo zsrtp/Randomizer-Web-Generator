@@ -35,10 +35,10 @@
               "ConnectedArea": "Lakebed Temple West Wing",
               "Requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canSmash and (Progressive_Clawshot, 1)"
             },
-            // Dropping from the chandelier to the door.
+            // BK Skip
             {
               "ConnectedArea": "Lakebed Temple Boss Room",
-              "Requirements": "(Progressive_Clawshot, 1) and (Lakebed_Temple_Big_Key or (Setting.bigKeySettings equals Keysy))"
+              "Requirements": "((Progressive_Clawshot, 1) and ((Progressive_Sword, 1) or (Lakebed_Temple_Big_Key or (Setting.bigKeySettings equals Keysy)))) or CanDoLJA"
             }
           ],
           "Checks": 

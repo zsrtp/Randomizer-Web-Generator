@@ -1,6 +1,6 @@
 {
     "requirements": "CanDefeatDiababa",
     "stageIDX": [7],
-    "category": ["Heart Container", "Dungeon", "Forest Temple", "Boss"],
+    "checkCategory": ["Heart Container", "Dungeon", "Forest Temple", "Boss"],
     "itemId": "Heart_Container"
 }
