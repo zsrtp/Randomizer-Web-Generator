@@ -946,27 +946,27 @@
     <comment></comment>
   </data>
   <data name="item.45-iron_boots" xml:space="preserve">
-    <value>$(gender:f,plural)Bottes de Fer</value>
+    <value>$(gender:f,plural)bottes de fer</value>
     <comment></comment>
   </data>
   <data name="item.45-iron_boots$count" xml:space="preserve">
-    <value>$(gender:f){count} paire de Bottes de Fer</value>
+    <value>$(gender:f){count} paire de bottes de fer</value>
     <comment></comment>
   </data>
   <data name="item.45-iron_boots$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} paires de Bottes de Fer</value>
+    <value>$(gender:f,plural){count} paires de bottes de fer</value>
     <comment></comment>
   </data>
   <data name="item.45-iron_boots$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune paire de Bottes de Fer</value>
+    <value>$(gender:f,negative)aucune paire de bottes de fer</value>
     <comment></comment>
   </data>
   <data name="item.45-iron_boots$def" xml:space="preserve">
-    <value>$(gender:f,plural)les {cs}Bottes de Fer{ce}</value>
+    <value>$(gender:f,plural)les {cs}bottes de fer{ce}</value>
     <comment></comment>
   </data>
   <data name="item.45-iron_boots$indef" xml:space="preserve">
-    <value>$(gender:f,plural)des {cs}Bottes de Fer{ce}</value>
+    <value>$(gender:f,plural)des {cs}bottes de fer{ce}</value>
     <comment></comment>
   </data>
   <data name="item.46-progressive_dominion_rod@ac(m)" xml:space="preserve">
@@ -1685,6 +1685,22 @@
     <value>quelque chose de bien</value>
     <comment></comment>
   </data>
+  <data name="noun.the-article" xml:space="preserve">
+    <value>le</value>
+    <comment></comment>
+  </data>
+  <data name="noun.the-article$gender-f" xml:space="preserve">
+    <value>la</value>
+    <comment></comment>
+  </data>
+  <data name="noun.the-article$gender-f,plural" xml:space="preserve">
+    <value>les</value>
+    <comment></comment>
+  </data>
+  <data name="noun.the-article$plural" xml:space="preserve">
+    <value>les</value>
+    <comment></comment>
+  </data>
   <data name="shop.basic-slot" xml:space="preserve">
     <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
     <comment></comment>
@@ -1711,6 +1727,14 @@
   </data>
   <data name="shop.coming-soon$item" xml:space="preserve">
     <value>{item} - &lt;coming soon&gt;</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation" xml:space="preserve">
+    <value>{item} {verb(name:costs)} {price}, tu {the-article} veux?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$sera" xml:space="preserve">
+    <value>{item} {verb(name:costs)} {price}. Si tu {the-article} veux, il faut {the-article2} payer.</value>
     <comment></comment>
   </data>
   <data name="shop.no" xml:space="preserve">
@@ -1819,6 +1843,14 @@
   </data>
   <data name="verb.can-be-found$gender-m,plural" xml:space="preserve">
     <value>peuvent être trouvés</value>
+    <comment></comment>
+  </data>
+  <data name="verb.costs" xml:space="preserve">
+    <value>coûte</value>
+    <comment></comment>
+  </data>
+  <data name="verb.costs$plural" xml:space="preserve">
+    <value>coûtent</value>
     <comment></comment>
   </data>
   <data name="verb.is" xml:space="preserve">
