@@ -769,12 +769,24 @@
     <value>{item(shop:true)} {price}\n     LIMITED SUPPLY!\nDon&apos;t let them sell out before you\nbuy one!</value>
     <comment></comment>
   </data>
+  <data name="shop.bought" xml:space="preserve">
+    <value>I see. I SUPPOSE I can part with it...</value>
+    <comment>From Kak Malo Mart buying non-potion.</comment>
+  </data>
   <data name="shop.price" xml:space="preserve">
     <value>{count} Rupee</value>
     <comment></comment>
   </data>
   <data name="shop.price#other" xml:space="preserve">
     <value>{count} Rupees</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out" xml:space="preserve">
+    <value>SOLD OUT</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out$item" xml:space="preserve">
+    <value>{item}: SOLD OUT</value>
     <comment></comment>
   </data>
   <data name="shops.confirm-buy" xml:space="preserve">

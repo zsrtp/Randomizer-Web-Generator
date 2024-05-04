@@ -337,6 +337,8 @@ namespace TPRandomizer
 
         private void GenStaticEntries(List<MessageEntry> results)
         {
+            // Ordon Sera shop:
+
             // Note: we always update these since the "can't afford" message
             // references the vanilla item.
             results.Add(
@@ -356,10 +358,59 @@ namespace TPRandomizer
                 )
             );
 
+            // Kakariko Malo Mart:
+
+            // Note that the Hawkeye soldOut sign is used as a comingSoon sign.
+            // We only show the itemName on the sign if updateShopText is true.
+            Res.Result hawkeyeSoldOutRes = Res.Msg(
+                "shop.coming-soon",
+                new() { { "context", updateShopText ? "item" : "" } }
+            );
+            Item hawkeyeItem = updateShopText
+                ? HintUtils.getCheckContents("Kakariko Village Malo Mart Hawkeye")
+                : Item.Hawkeye;
+            string hawkeyeItemText = GenItemText3(
+                out _,
+                hawkeyeItem,
+                CheckStatus.Unknown,
+                prefStartColor: "",
+                prefEndColor: "",
+                capitalize: true
+            );
+            string hawkeyeSoldOutMsg = Res.LangSpecificNormalize(
+                CustomMessages.messageColorOrange
+                    + hawkeyeSoldOutRes.Substitute(new() { { "item", hawkeyeItemText } })
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Sold_Out,
+                    hawkeyeSoldOutMsg
+                )
+            );
+
+            // This is used for the sold out sign for all slots in this shop.
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out,
+                    CustomMessages.messageColorOrange + Res.SimpleMsg("shop.sold-out", null)
+                )
+            );
+
+            // Need to replace this one so it does not reference your bottle.
+            // Replacing with the same text used for the Hylian shield.
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Bought,
+                    Res.SimpleMsg("shop.bought", null)
+                )
+            );
+
+            // Castle Town Malo Mart:
+
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Bought,
-                    Res.SimpleMsg("shop.bought", null)
+                    Res.SimpleMsg("shop.bought", new() { { "context", "magic-armor" } })
                 )
             );
         }
@@ -852,6 +903,8 @@ namespace TPRandomizer
             bool shopSuffixIsColon = false,
             bool includeShopSuffix = false,
             string prefStartColor = null,
+            string prefEndColor = null,
+            bool? capitalize = null,
             CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.None
         )
         {
@@ -864,7 +917,7 @@ namespace TPRandomizer
             );
             meta = abc.meta;
 
-            if (isShop)
+            if (isShop || capitalize == true)
                 abc.CapitalizeFirstValidChar();
 
             // Pick the color
@@ -872,8 +925,11 @@ namespace TPRandomizer
             string postItemText = "";
             if (isShop)
                 startColor = CustomMessages.messageColorOrange;
-            else if (!StringUtils.isEmpty(prefStartColor))
+            else if (prefStartColor != null)
+            {
+                // Allow passing an empty string in.
                 startColor = prefStartColor;
+            }
             else
             {
                 // Pick the default color here based on checkStatus and display.
@@ -936,7 +992,10 @@ namespace TPRandomizer
                 else
                     itemSuffix = " ";
             }
-            itemSuffix += CustomMessages.messageColorWhite;
+            if (prefEndColor != null)
+                itemSuffix += prefEndColor;
+            else
+                itemSuffix += CustomMessages.messageColorWhite;
             if (!StringUtils.isEmpty(postItemText))
                 itemSuffix += postItemText;
 

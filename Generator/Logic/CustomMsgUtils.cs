@@ -17,6 +17,9 @@ namespace TPRandomizer
         Sera_Slingshot_Slot,
         Sera_Slingshot_Cant_Afford,
         Sera_Slingshot_Confirm_Buy,
+        Kakariko_Malo_Mart_Hawkeye_Sold_Out,
+        Kakariko_Malo_Mart_Hylian_Shield_Sold_Out,
+        Kakariko_Malo_Mart_Red_Potion_Bought,
         Castle_Town_Malo_Mart_Magic_Armor_Slot,
         Castle_Town_Malo_Mart_Magic_Armor_Bought,
         Castle_Town_Malo_Mart_Magic_Armor_Sold_Out,
@@ -134,6 +137,18 @@ namespace TPRandomizer
                 {
                     MsgEntryId.Sera_Slingshot_Confirm_Buy,
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5B4)
+                },
+                {
+                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Sold_Out,
+                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x306)
+                },
+                {
+                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out,
+                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x30B)
+                },
+                {
+                    MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Bought,
+                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D8)
                 },
                 {
                     MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Slot,

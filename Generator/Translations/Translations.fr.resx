@@ -1690,6 +1690,10 @@
     <comment></comment>
   </data>
   <data name="shop.bought" xml:space="preserve">
+    <value>Bon, alors tiens...</value>
+    <comment>From Kak Malo Mart buying non-potion.</comment>
+  </data>
+  <data name="shop.bought$magic-armor" xml:space="preserve">
     <value>Nous n&apos;en avons plus !</value>
     <comment>From magic armor, minus the MA reference.</comment>
   </data>
@@ -1701,6 +1705,14 @@
     <value>$(sera:informal)</value>
     <comment></comment>
   </data>
+  <data name="shop.coming-soon" xml:space="preserve">
+    <value>&lt;coming soon&gt;</value>
+    <comment></comment>
+  </data>
+  <data name="shop.coming-soon$item" xml:space="preserve">
+    <value>{item} - &lt;coming soon&gt;</value>
+    <comment></comment>
+  </data>
   <data name="shop.no" xml:space="preserve">
     <value>Non</value>
     <comment></comment>
@@ -1710,6 +1722,14 @@
     <comment>Confirmed by link1183 on 2024/03/31 that all should be &quot;rubis&quot;.</comment>
   </data>
   <data name="shop.sold-out" xml:space="preserve">
+    <value>Epuisé</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out$hawkeye" xml:space="preserve">
+    <value>{item}: UNAVAILABLE</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out$item" xml:space="preserve">
     <value>{item} - Epuisé</value>
     <comment></comment>
   </data>
