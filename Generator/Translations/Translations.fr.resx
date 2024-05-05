@@ -1722,11 +1722,11 @@
     <comment></comment>
   </data>
   <data name="shop.coming-soon" xml:space="preserve">
-    <value>&lt;coming soon&gt;</value>
+    <value>Arrive bientôt</value>
     <comment></comment>
   </data>
   <data name="shop.coming-soon$item" xml:space="preserve">
-    <value>{item} - &lt;coming soon&gt;</value>
+    <value>{item} - Arrive bientôt</value>
     <comment></comment>
   </data>
   <data name="shop.confirmation" xml:space="preserve">

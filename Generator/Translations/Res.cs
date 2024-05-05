@@ -140,8 +140,13 @@ namespace TPRandomizer
 
             // Build context by combining static and optional for resKey
             HashSet<string> contextParts = null;
-            if (interpolation.TryGetValue("context", out string staticContext))
+            if (
+                interpolation.TryGetValue("context", out string staticContext)
+                && !StringUtils.isEmpty(staticContext)
+            )
+            {
                 contextParts = new(staticContext.Split(","));
+            }
 
             Dictionary<string, string> contextDict = null;
             if (!ListUtils.isEmpty(optionalContextMeta))

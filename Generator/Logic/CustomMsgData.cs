@@ -414,7 +414,7 @@ namespace TPRandomizer
                 )
             );
 
-            string aa = GenShopConfirmationText(Item.Iron_Boots, 33, "sera");
+            string aa = GenShopConfirmationText(Item.Arrows_20, 33, "sera");
             // string aa = GenShopConfirmationText(Item.Progressive_Bow);
             // string aa = GenShopConfirmationText(Item.Aurus_Memo, 32, "sera");
             int abc = 7;
@@ -423,8 +423,6 @@ namespace TPRandomizer
         private string GenShopConfirmationText(Item item, uint price, string context = null)
         {
             Res.Result result = Res.Msg("shop.confirmation", new() { { "context", context } });
-
-            // Get item and capitalize it; should be "def"
 
             string itemText = GenItemText3(
                 out Dictionary<string, string> itemMeta,
@@ -436,9 +434,7 @@ namespace TPRandomizer
             );
 
             string verb = GenVerb(result, itemMeta);
-
             string theArticle = Res.Msg("noun.the-article", null, itemMeta).Substitute(null);
-
             string priceText = GenShopPriceText(price);
 
             string text = result.Substitute(
@@ -452,7 +448,7 @@ namespace TPRandomizer
                 }
             );
 
-            return Res.LangSpecificNormalize(text);
+            return Res.LangSpecificNormalize(text) + CustomMessages.shopOption;
         }
 
         private string GenShopSoldOutText(Item item, string context)
@@ -688,6 +684,70 @@ namespace TPRandomizer
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Sera_Slingshot_Slot,
                     GenBasicShopMsg("Sera Shop Slingshot", 30)
+                )
+            );
+
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Slot,
+                    GenBasicShopMsg("Kakariko Village Malo Mart Hawkeye", 100)
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Confirmation,
+                    GenShopConfirmationText(
+                        HintUtils.getCheckContents("Kakariko Village Malo Mart Hawkeye"),
+                        100
+                    )
+                )
+            );
+
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Slot,
+                    GenBasicShopMsg("Kakariko Village Malo Mart Wooden Shield", 50)
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Confirmation,
+                    GenShopConfirmationText(
+                        HintUtils.getCheckContents("Kakariko Village Malo Mart Wooden Shield"),
+                        50
+                    )
+                )
+            );
+
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Slot,
+                    GenBasicShopMsg("Kakariko Village Malo Mart Hylian Shield", 200)
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Confirmation,
+                    GenShopConfirmationText(
+                        HintUtils.getCheckContents("Kakariko Village Malo Mart Hylian Shield"),
+                        200
+                    )
+                )
+            );
+
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Slot,
+                    GenBasicShopMsg("Kakariko Village Malo Mart Red Potion", 30)
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Confirmation,
+                    GenShopConfirmationText(
+                        HintUtils.getCheckContents("Kakariko Village Malo Mart Red Potion"),
+                        30
+                    )
                 )
             );
 
