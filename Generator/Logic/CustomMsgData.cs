@@ -290,26 +290,26 @@ namespace TPRandomizer
                         + CustomMessages.shopOption
                 }
             );
-            results.Add(
-                new MessageEntry
-                {
-                    stageIDX = (byte)StageIDs.Castle_Town,
-                    roomIDX = 2,
-                    messageID = 0x355, // Charlo Donation Text.
-                    message =
-                        "For a "
-                        // + getShortenedItemName(Randomizer.Checks.CheckDict["Charlo Donation Blessing"].itemId)
-                        + Randomizer.Checks.CheckDict["Charlo Donation Blessing"].itemId
-                        + CustomMessages.messageColorWhite
-                        + "...\nWould you please make a donation?"
-                        + CustomMessages.messageOption1
-                        + "100 Rupees\n"
-                        + CustomMessages.messageOption2
-                        + "50 Rupees\n"
-                        + CustomMessages.messageOption3
-                        + "Sorry..."
-                }
-            );
+            // results.Add(
+            //     new MessageEntry
+            //     {
+            //         stageIDX = (byte)StageIDs.Castle_Town,
+            //         roomIDX = 2,
+            //         messageID = 0x355, // Charlo Donation Text.
+            //         message =
+            //             "For a "
+            //             // + getShortenedItemName(Randomizer.Checks.CheckDict["Charlo Donation Blessing"].itemId)
+            //             + Randomizer.Checks.CheckDict["Charlo Donation Blessing"].itemId
+            //             + CustomMessages.messageColorWhite
+            //             + "...\nWould you please make a donation?"
+            //             + CustomMessages.messageOption1
+            //             + "100 Rupees\n"
+            //             + CustomMessages.messageOption2
+            //             + "50 Rupees\n"
+            //             + CustomMessages.messageOption3
+            //             + "Sorry..."
+            //     }
+            // );
             // results.Add(
             //     new MessageEntry
             //     {
@@ -388,11 +388,27 @@ namespace TPRandomizer
                 )
             );
 
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Sold_Out_Read,
+                    Res.LangSpecificNormalize(Res.SimpleMsg("shop.coming-soon-read", null))
+                )
+            );
+
             // This is used for the sold out sign for all slots in this shop.
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out,
-                    CustomMessages.messageColorOrange + Res.SimpleMsg("shop.sold-out", null)
+                    Res.LangSpecificNormalize(
+                        CustomMessages.messageColorOrange + Res.SimpleMsg("shop.sold-out", null)
+                    )
+                )
+            );
+            // When you read the sold out sign
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out_Read,
+                    Res.LangSpecificNormalize(Res.SimpleMsg("shop.sold-out-read", null))
                 )
             );
 
@@ -401,7 +417,7 @@ namespace TPRandomizer
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Bought,
-                    Res.SimpleMsg("shop.bought", null)
+                    Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought", null))
                 )
             );
 
@@ -410,7 +426,9 @@ namespace TPRandomizer
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Bought,
-                    Res.SimpleMsg("shop.bought", new() { { "context", "magic-armor" } })
+                    Res.LangSpecificNormalize(
+                        Res.SimpleMsg("shop.bought", new() { { "context", "magic-armor" } })
+                    )
                 )
             );
 

@@ -1725,6 +1725,10 @@
     <value>Arrive bientôt</value>
     <comment></comment>
   </data>
+  <data name="shop.coming-soon-read" xml:space="preserve">
+    <value>Tu aurais su que cet objet allait bientôt arriver si tu avais lu le panneau...</value>
+    <comment></comment>
+  </data>
   <data name="shop.coming-soon$item" xml:space="preserve">
     <value>{item} - Arrive bientôt</value>
     <comment></comment>
@@ -1747,6 +1751,10 @@
   </data>
   <data name="shop.sold-out" xml:space="preserve">
     <value>Epuisé</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out-read" xml:space="preserve">
+    <value>C&apos;était mon dernier exemplaire. Prends en soin...</value>
     <comment></comment>
   </data>
   <data name="shop.sold-out$hawkeye" xml:space="preserve">
