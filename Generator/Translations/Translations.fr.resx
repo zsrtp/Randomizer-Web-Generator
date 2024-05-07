@@ -1757,6 +1757,10 @@
     <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
     <comment></comment>
   </data>
+  <data name="shop.slot$chudley" xml:space="preserve">
+    <value>{item(shop:true)}\nUn seul exemplaire disponible.</value>
+    <comment></comment>
+  </data>
   <data name="shop.sold-out" xml:space="preserve">
     <value>Epuisé</value>
     <comment></comment>

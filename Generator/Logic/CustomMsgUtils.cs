@@ -40,6 +40,7 @@ namespace TPRandomizer
         Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
         Kakariko_Malo_Mart_Red_Potion_Confirmation,
         Kakariko_Malo_Mart_Red_Potion_Bought,
+        Chudleys_Fine_Goods_Magic_Armor_Slot,
         Castle_Town_Malo_Mart_Magic_Armor_Slot,
         Castle_Town_Malo_Mart_Magic_Armor_Bought,
         Castle_Town_Malo_Mart_Magic_Armor_Sold_Out,
@@ -237,6 +238,10 @@ namespace TPRandomizer
                 {
                     MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Bought,
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D8)
+                },
+                {
+                    MsgEntryId.Chudleys_Fine_Goods_Magic_Armor_Slot,
+                    new(StageIDs.Castle_Town_Shops, 0, 0x10A)
                 },
                 {
                     MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Slot,

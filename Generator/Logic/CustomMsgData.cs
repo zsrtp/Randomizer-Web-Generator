@@ -894,6 +894,14 @@ namespace TPRandomizer
             // ----- Castle Town Malo Mart -----
 
             AddShopSlotMsg(
+                MsgEntryId.Chudleys_Fine_Goods_Magic_Armor_Slot,
+                "Castle Town Malo Mart Magic Armor",
+                Item.Magic_Armor,
+                598,
+                "chudley"
+            );
+
+            AddShopSlotMsg(
                 MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Slot,
                 "Castle Town Malo Mart Magic Armor",
                 Item.Magic_Armor,
@@ -991,10 +999,11 @@ namespace TPRandomizer
             string checkName,
             Item defaultItem,
             uint price,
+            string context = null,
             bool shopSuffixIsColon = false
         )
         {
-            Res.Result res = Res.ParseVal("shop.slot");
+            Res.Result res = Res.Msg("shop.slot", new() { { "context", context } });
 
             Item item = HintUtils.getCheckContents(checkName);
             if (HintUtils.IsTrapItem(item))
