@@ -470,7 +470,7 @@ namespace TPRandomizer
             return Res.LangSpecificNormalize(text) + CustomMessages.shopOption;
         }
 
-        private string GenShopCannotAffordText(Item item, uint price, string context = null)
+        private string GenShopCantAffordText(Item item, uint price, string context = null)
         {
             Res.Result result = Res.Msg("shop.cant-afford", new() { { "context", context } });
 
@@ -486,6 +486,7 @@ namespace TPRandomizer
             string verb = GenVerb(result, itemMeta);
             string theArticle = Res.Msg("noun.the-article", null, itemMeta).Substitute(null);
             string priceText = GenShopPriceText(price);
+            string price2Text = GenShopPriceText(price, false);
 
             string text = result.Substitute(
                 new()
@@ -493,6 +494,7 @@ namespace TPRandomizer
                     { "item", itemText },
                     { "verb", verb },
                     { "price", priceText },
+                    { "price2", price2Text },
                     { "the-article", theArticle },
                     { "the-article2", theArticle }
                 }
@@ -760,7 +762,7 @@ namespace TPRandomizer
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Sera_Slingshot_Cant_Afford,
-                    GenShopCannotAffordText(seraSlingshotItem, 30)
+                    GenShopCantAffordText(seraSlingshotItem, 30)
                 )
             );
             results.Add(
@@ -790,6 +792,16 @@ namespace TPRandomizer
             );
             results.Add(
                 CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Cant_Afford,
+                    GenShopCantAffordText(
+                        HintUtils.getCheckContents("Kakariko Village Malo Mart Hawkeye"),
+                        100,
+                        "kak-malo"
+                    )
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
                     MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Confirmation,
                     GenShopConfirmationText(
                         HintUtils.getCheckContents("Kakariko Village Malo Mart Hawkeye"),
@@ -802,6 +814,16 @@ namespace TPRandomizer
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Slot,
                     GenBasicShopMsg("Kakariko Village Malo Mart Wooden Shield", 50)
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford,
+                    GenShopCantAffordText(
+                        HintUtils.getCheckContents("Kakariko Village Malo Mart Wooden Shield"),
+                        50,
+                        "kak-malo"
+                    )
                 )
             );
             results.Add(
@@ -822,6 +844,16 @@ namespace TPRandomizer
             );
             results.Add(
                 CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford,
+                    GenShopCantAffordText(
+                        HintUtils.getCheckContents("Kakariko Village Malo Mart Hylian Shield"),
+                        200,
+                        "kak-malo"
+                    )
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
                     MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Confirmation,
                     GenShopConfirmationText(
                         HintUtils.getCheckContents("Kakariko Village Malo Mart Hylian Shield"),
@@ -834,6 +866,16 @@ namespace TPRandomizer
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Slot,
                     GenBasicShopMsg("Kakariko Village Malo Mart Red Potion", 30)
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
+                    GenShopCantAffordText(
+                        HintUtils.getCheckContents("Kakariko Village Malo Mart Red Potion"),
+                        30,
+                        "kak-malo"
+                    )
                 )
             );
             results.Add(
@@ -1224,9 +1266,11 @@ namespace TPRandomizer
             return "item." + ((byte)item).ToString("x2") + "-" + item.ToString().ToLowerInvariant();
         }
 
-        private string GenShopPriceText(uint amount)
+        private string GenShopPriceText(uint amount, bool includeColor = true)
         {
-            string result = CustomMessages.messageColorPurple;
+            string result = "";
+            if (includeColor)
+                result += CustomMessages.messageColorPurple;
 
             string shopText = Res.SimpleMsgOld(
                 "shop.price",
@@ -1234,7 +1278,9 @@ namespace TPRandomizer
             );
             result += shopText;
 
-            result += CustomMessages.messageColorWhite;
+            if (includeColor)
+                result += CustomMessages.messageColorWhite;
+
             return result;
         }
 
