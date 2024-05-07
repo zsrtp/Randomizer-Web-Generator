@@ -373,6 +373,8 @@ namespace TPRandomizer
             Item hawkeyeItem = updateShopText
                 ? HintUtils.getCheckContents("Kakariko Village Malo Mart Hawkeye")
                 : Item.Hawkeye;
+            if (HintUtils.IsTrapItem(hawkeyeItem))
+                hawkeyeItem = Item.Hawkeye;
             string hawkeyeItemText = GenItemText3(
                 out _,
                 hawkeyeItem,
@@ -480,9 +482,19 @@ namespace TPRandomizer
             return Res.LangSpecificNormalize(text) + CustomMessages.shopOption;
         }
 
-        private string GenShopCantAffordText(Item item, uint price, string context = null)
+        private void AddShopCantAffordMsg(
+            MsgEntryId msgEntryId,
+            string checkName,
+            Item defaultItem,
+            uint price,
+            string context = null
+        )
         {
             Res.Result result = Res.Msg("shop.cant-afford", new() { { "context", context } });
+
+            Item item = HintUtils.getCheckContents(checkName);
+            if (HintUtils.IsTrapItem(item))
+                item = defaultItem;
 
             string itemText = GenItemText3(
                 out Dictionary<string, string> itemMeta,
@@ -509,8 +521,9 @@ namespace TPRandomizer
                     { "the-article2", theArticle }
                 }
             );
+            string normalizedText = Res.LangSpecificNormalize(text);
 
-            return Res.LangSpecificNormalize(text);
+            results.Add(CustomMsgUtils.GetEntry(msgEntryId, normalizedText));
         }
 
         private string GenShopBoughtText(Item item, string context)
@@ -762,19 +775,20 @@ namespace TPRandomizer
 
             // Actual function content:
 
+            uint seraSlingshotPrice = 30;
             AddShopSlotMsg(
                 MsgEntryId.Sera_Slingshot_Slot,
                 "Sera Shop Slingshot",
                 Item.Slingshot,
-                30
+                seraSlingshotPrice
+            );
+            AddShopCantAffordMsg(
+                MsgEntryId.Sera_Slingshot_Cant_Afford,
+                "Sera Shop Slingshot",
+                Item.Slingshot,
+                seraSlingshotPrice
             );
             Item seraSlingshotItem = HintUtils.getCheckContents("Sera Shop Slingshot");
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Sera_Slingshot_Cant_Afford,
-                    GenShopCantAffordText(seraSlingshotItem, 30)
-                )
-            );
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Sera_Slingshot_Confirmation,
@@ -794,21 +808,19 @@ namespace TPRandomizer
                 )
             );
 
+            uint kakMaloHawkeyePrice = 100;
             AddShopSlotMsg(
                 MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Slot,
                 "Kakariko Village Malo Mart Hawkeye",
                 Item.Hawkeye,
-                100
+                kakMaloHawkeyePrice
             );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Cant_Afford,
-                    GenShopCantAffordText(
-                        HintUtils.getCheckContents("Kakariko Village Malo Mart Hawkeye"),
-                        100,
-                        "kak-malo"
-                    )
-                )
+            AddShopCantAffordMsg(
+                MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Cant_Afford,
+                "Kakariko Village Malo Mart Hawkeye",
+                Item.Hawkeye,
+                kakMaloHawkeyePrice,
+                "kak-malo"
             );
             results.Add(
                 CustomMsgUtils.GetEntry(
@@ -816,26 +828,24 @@ namespace TPRandomizer
                     GenShopConfirmationText(
                         HintUtils.getCheckContents("Kakariko Village Malo Mart Hawkeye"),
                         Item.Hawkeye,
-                        100
+                        kakMaloHawkeyePrice
                     )
                 )
             );
 
+            uint kakMaloWoodenShieldPrice = 50;
             AddShopSlotMsg(
                 MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Slot,
                 "Kakariko Village Malo Mart Wooden Shield",
                 Item.Wooden_Shield,
-                50
+                kakMaloWoodenShieldPrice
             );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford,
-                    GenShopCantAffordText(
-                        HintUtils.getCheckContents("Kakariko Village Malo Mart Wooden Shield"),
-                        50,
-                        "kak-malo"
-                    )
-                )
+            AddShopCantAffordMsg(
+                MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford,
+                "Kakariko Village Malo Mart Wooden Shield",
+                Item.Wooden_Shield,
+                kakMaloWoodenShieldPrice,
+                "kak-malo"
             );
             results.Add(
                 CustomMsgUtils.GetEntry(
@@ -843,26 +853,24 @@ namespace TPRandomizer
                     GenShopConfirmationText(
                         HintUtils.getCheckContents("Kakariko Village Malo Mart Wooden Shield"),
                         Item.Wooden_Shield,
-                        50
+                        kakMaloWoodenShieldPrice
                     )
                 )
             );
 
+            uint kakMaloHylianShieldPrice = 200;
             AddShopSlotMsg(
                 MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Slot,
                 "Kakariko Village Malo Mart Hylian Shield",
                 Item.Hylian_Shield,
-                200
+                kakMaloHylianShieldPrice
             );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford,
-                    GenShopCantAffordText(
-                        HintUtils.getCheckContents("Kakariko Village Malo Mart Hylian Shield"),
-                        200,
-                        "kak-malo"
-                    )
-                )
+            AddShopCantAffordMsg(
+                MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford,
+                "Kakariko Village Malo Mart Hylian Shield",
+                Item.Hylian_Shield,
+                kakMaloHylianShieldPrice,
+                "kak-malo"
             );
             results.Add(
                 CustomMsgUtils.GetEntry(
@@ -870,7 +878,7 @@ namespace TPRandomizer
                     GenShopConfirmationText(
                         HintUtils.getCheckContents("Kakariko Village Malo Mart Hylian Shield"),
                         Item.Hylian_Shield,
-                        200
+                        kakMaloHylianShieldPrice
                     )
                 )
             );
@@ -883,25 +891,20 @@ namespace TPRandomizer
             // displays "trap" currently. What we can do instead is display the
             // name as the default item.
 
-            // MsgEntryId, checkName, defaultItem, price.
 
-            // We know that we need to
-
+            uint kakMaloRedPotionPrice = 30;
             AddShopSlotMsg(
                 MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Slot,
                 "Kakariko Village Malo Mart Red Potion",
                 Item.Red_Potion_Shop,
-                30
+                kakMaloRedPotionPrice
             );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
-                    GenShopCantAffordText(
-                        HintUtils.getCheckContents("Kakariko Village Malo Mart Red Potion"),
-                        30,
-                        "kak-malo"
-                    )
-                )
+            AddShopCantAffordMsg(
+                MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
+                "Kakariko Village Malo Mart Red Potion",
+                Item.Red_Potion_Shop,
+                kakMaloRedPotionPrice,
+                "kak-malo"
             );
             results.Add(
                 CustomMsgUtils.GetEntry(
@@ -909,7 +912,7 @@ namespace TPRandomizer
                     GenShopConfirmationText(
                         HintUtils.getCheckContents("Kakariko Village Malo Mart Red Potion"),
                         Item.Red_Potion_Shop,
-                        30
+                        kakMaloRedPotionPrice
                     )
                 )
             );
