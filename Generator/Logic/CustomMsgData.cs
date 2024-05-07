@@ -343,24 +343,21 @@ namespace TPRandomizer
         {
             // ----- Sera Shop -----
 
-            // // Note: we always update these since the "can't afford" message
-            // // references the vanilla item.
-            // results.Add(
-            //     CustomMsgUtils.GetEntry(
-            //         MsgEntryId.Sera_Slingshot_Cant_Afford,
-            //         // TODO: use resource
-            //         "You don't have enough money!"
-            //     )
-            // );
-
-            // results.Add(
-            //     CustomMsgUtils.GetEntry(
-            //         MsgEntryId.Sera_Slingshot_Confirm_Buy,
-            //         // TODO: use resource (add CustomMessages.shopOption) here
-            //         // since always needed at end regardless of language.
-            //         "Are you sure?" + CustomMessages.shopOption
-            //     )
-            // );
+            Item seraSlingshotItem = updateShopText
+                ? HintUtils.getCheckContents("Sera Shop Slingshot")
+                : Item.Slingshot;
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Sera_Slingshot_Bought,
+                    GenShopBoughtText(seraSlingshotItem, "sera")
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Sera_Slingshot_Bought_2,
+                    Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought-sera2", null))
+                )
+            );
 
             // ----- Kakariko Malo Mart -----
 
@@ -781,6 +778,8 @@ namespace TPRandomizer
 
             // Actual function content:
 
+            // ----- Sera Shop -----
+
             uint seraSlingshotPrice = 30;
             AddShopSlotMsg(
                 MsgEntryId.Sera_Slingshot_Slot,
@@ -801,19 +800,8 @@ namespace TPRandomizer
                 30,
                 "sera"
             );
-            Item seraSlingshotItem = HintUtils.getCheckContents("Sera Shop Slingshot");
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Sera_Slingshot_Bought,
-                    GenShopBoughtText(seraSlingshotItem, "sera")
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Sera_Slingshot_Bought_2,
-                    Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought-sera2", null))
-                )
-            );
+
+            // ----- Kakariko Malo Mart -----
 
             uint kakMaloHawkeyePrice = 100;
             AddShopSlotMsg(
@@ -881,15 +869,6 @@ namespace TPRandomizer
                 "kak-malo"
             );
 
-            // TODO: try to simplify some of this code. It's okay if we have to
-            // duplicate code in each "GenShop..." function when comparing to
-            // each other.
-
-            // TODO: if the item is a trap item, need to see if the text
-            // displays "trap" currently. What we can do instead is display the
-            // name as the default item.
-
-
             uint kakMaloRedPotionPrice = 30;
             AddShopSlotMsg(
                 MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Slot,
@@ -911,6 +890,8 @@ namespace TPRandomizer
                 kakMaloRedPotionPrice,
                 "kak-malo"
             );
+
+            // ----- Castle Town Malo Mart -----
 
             AddShopSlotMsg(
                 MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Slot,
