@@ -16,7 +16,9 @@ namespace TPRandomizer
         Link_House_Sign,
         Sera_Slingshot_Slot,
         Sera_Slingshot_Cant_Afford,
-        Sera_Slingshot_Confirm_Buy,
+        Sera_Slingshot_Confirmation,
+        Sera_Slingshot_Bought,
+        Sera_Slingshot_Bought_2,
         Kakariko_Malo_Mart_Hawkeye_Slot,
         Kakariko_Malo_Mart_Hawkeye_Confirmation,
         Kakariko_Malo_Mart_Hawkeye_Sold_Out,
@@ -145,8 +147,16 @@ namespace TPRandomizer
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5B3)
                 },
                 {
-                    MsgEntryId.Sera_Slingshot_Confirm_Buy,
+                    MsgEntryId.Sera_Slingshot_Confirmation,
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5B4)
+                },
+                {
+                    MsgEntryId.Sera_Slingshot_Bought,
+                    new(StageIDs.Ordon_Village_Interiors, 1, 0x5B5)
+                },
+                {
+                    MsgEntryId.Sera_Slingshot_Bought_2,
+                    new(StageIDs.Ordon_Village_Interiors, 1, 0x5B6)
                 },
                 {
                     MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Slot,

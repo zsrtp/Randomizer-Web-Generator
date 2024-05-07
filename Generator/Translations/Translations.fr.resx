@@ -1709,17 +1709,21 @@
     <value>Bon, alors tiens...</value>
     <comment>From Kak Malo Mart buying non-potion.</comment>
   </data>
+  <data name="shop.bought-sera2" xml:space="preserve">
+    <value>Tu as l&apos;intention d&apos;y jouer avec les autres enfants?</value>
+    <comment></comment>
+  </data>
   <data name="shop.bought$magic-armor" xml:space="preserve">
     <value>Nous n&apos;en avons plus !</value>
     <comment>From magic armor, minus the MA reference.</comment>
   </data>
-  <data name="shop.cannot-afford" xml:space="preserve">
-    <value>aa</value>
+  <data name="shop.bought$sera" xml:space="preserve">
+    <value>Je ne pensais pas que tu voudrais {the-article} {que-transform}acheter...</value>
     <comment></comment>
   </data>
-  <data name="shop.cannot-afford.meta" xml:space="preserve">
-    <value>$(sera:informal)</value>
-    <comment></comment>
+  <data name="shop.cant-afford" xml:space="preserve">
+    <value>{item} {verb(name:costs)} {price}. Si tu {the-article} veux, il faut {the-article2} payer.</value>
+    <comment>From Sera Slingshot</comment>
   </data>
   <data name="shop.coming-soon" xml:space="preserve">
     <value>Arrive bientôt</value>
@@ -1738,7 +1742,7 @@
     <comment></comment>
   </data>
   <data name="shop.confirmation$sera" xml:space="preserve">
-    <value>{item} {verb(name:costs)} {price}. Si tu {the-article} veux, il faut {the-article2} payer.</value>
+    <value>{item} {verb(name:costs)} {price}. Tu {the-article} veux?</value>
     <comment></comment>
   </data>
   <data name="shop.no" xml:space="preserve">

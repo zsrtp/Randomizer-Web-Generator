@@ -558,6 +558,29 @@ namespace TPRandomizer
                                 }
                                 break;
                             }
+                            case "le":
+                            case "la":
+                            {
+                                if (chunks[i + 1].textType == TextChunk.Type.Whitespace)
+                                {
+                                    string secondVal = chunks[i + 2].val;
+                                    if (secondVal.StartsWith("{que-transform}"))
+                                    {
+                                        TextChunk nounChunk = chunks[i + 2];
+                                        nounChunk.RemoveRange(0, "{que-transform}".Length);
+
+                                        TextChunk newChunk = new();
+                                        TransformEscSeqList(chunk, newChunk, 0, 1);
+                                        TransformEscSeqList(chunks[i + 1], newChunk, 2, 2);
+                                        newChunk.textType = TextChunk.Type.Text;
+                                        newChunk.val = "l'";
+                                        newChunk.AppendChunk(nounChunk);
+                                        chunks.RemoveRange(i, 3);
+                                        chunks.Insert(i, newChunk);
+                                    }
+                                }
+                                break;
+                            }
                         }
                     }
                 }

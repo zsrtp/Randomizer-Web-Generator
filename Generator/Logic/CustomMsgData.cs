@@ -433,6 +433,7 @@ namespace TPRandomizer
             );
 
             string aa = GenShopConfirmationText(Item.Arrows_20, 33, "sera");
+            string bb = GenShopBoughtText(Item.Arrows_20, "sera");
             // string aa = GenShopConfirmationText(Item.Progressive_Bow);
             // string aa = GenShopConfirmationText(Item.Aurus_Memo, 32, "sera");
             int abc = 7;
@@ -467,6 +468,57 @@ namespace TPRandomizer
             );
 
             return Res.LangSpecificNormalize(text) + CustomMessages.shopOption;
+        }
+
+        private string GenShopCannotAffordText(Item item, uint price, string context = null)
+        {
+            Res.Result result = Res.Msg("shop.cant-afford", new() { { "context", context } });
+
+            string itemText = GenItemText3(
+                out Dictionary<string, string> itemMeta,
+                item,
+                CheckStatus.Unknown,
+                contextIn: "def",
+                capitalize: true,
+                prefStartColor: CustomMessages.messageColorOrange
+            );
+
+            string verb = GenVerb(result, itemMeta);
+            string theArticle = Res.Msg("noun.the-article", null, itemMeta).Substitute(null);
+            string priceText = GenShopPriceText(price);
+
+            string text = result.Substitute(
+                new()
+                {
+                    { "item", itemText },
+                    { "verb", verb },
+                    { "price", priceText },
+                    { "the-article", theArticle },
+                    { "the-article2", theArticle }
+                }
+            );
+
+            return Res.LangSpecificNormalize(text);
+        }
+
+        private string GenShopBoughtText(Item item, string context)
+        {
+            Res.Result result = Res.Msg("shop.bought", new() { { "context", context } });
+
+            string itemText = GenItemText3(
+                out Dictionary<string, string> itemMeta,
+                item,
+                CheckStatus.Unknown,
+                contextIn: "def"
+            );
+
+            string theArticle = Res.Msg("noun.the-article", null, itemMeta).Substitute(null);
+
+            string text = result.Substitute(
+                new() { { "item", itemText }, { "the-article", theArticle }, }
+            );
+
+            return Res.LangSpecificNormalize(text);
         }
 
         private string GenShopSoldOutText(Item item, string context)
@@ -698,10 +750,35 @@ namespace TPRandomizer
 
             // Actual function content:
 
+            Item seraSlingshotItem = HintUtils.getCheckContents("Sera Shop Slingshot");
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Sera_Slingshot_Slot,
                     GenBasicShopMsg("Sera Shop Slingshot", 30)
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Sera_Slingshot_Cant_Afford,
+                    GenShopCannotAffordText(seraSlingshotItem, 30)
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Sera_Slingshot_Confirmation,
+                    GenShopConfirmationText(seraSlingshotItem, 30, "sera")
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Sera_Slingshot_Bought,
+                    GenShopBoughtText(seraSlingshotItem, "sera")
+                )
+            );
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Sera_Slingshot_Bought_2,
+                    Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought-sera2", null))
                 )
             );
 
