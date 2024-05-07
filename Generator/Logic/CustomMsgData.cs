@@ -341,7 +341,7 @@ namespace TPRandomizer
 
         private void GenStaticEntries(List<MessageEntry> results)
         {
-            // Ordon Sera shop:
+            // ----- Sera Shop -----
 
             // // Note: we always update these since the "can't afford" message
             // // references the vanilla item.
@@ -362,7 +362,7 @@ namespace TPRandomizer
             //     )
             // );
 
-            // Kakariko Malo Mart:
+            // ----- Kakariko Malo Mart -----
 
             // Note that the Hawkeye soldOut sign is used as a comingSoon sign.
             // We only show the itemName on the sign if updateShopText is true.
@@ -393,7 +393,6 @@ namespace TPRandomizer
                     hawkeyeSoldOutMsg
                 )
             );
-
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Sold_Out_Read,
@@ -435,7 +434,7 @@ namespace TPRandomizer
                 )
             );
 
-            // Castle Town Malo Mart:
+            // ----- Castle Town Malo Mart -----
 
             results.Add(
                 CustomMsgUtils.GetEntry(
@@ -445,10 +444,6 @@ namespace TPRandomizer
                     )
                 )
             );
-
-            // string aa = GenShopConfirmationText(Item.Progressive_Bow);
-            // string aa = GenShopConfirmationText(Item.Aurus_Memo, 32, "sera");
-            int abc = 7;
         }
 
         private void AddShopConfirmationMsg(
