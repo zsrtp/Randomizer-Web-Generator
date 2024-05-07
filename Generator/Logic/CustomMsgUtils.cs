@@ -32,6 +32,10 @@ namespace TPRandomizer
         Kakariko_Malo_Mart_Hylian_Shield_Confirmation,
         Kakariko_Malo_Mart_Hylian_Shield_Sold_Out,
         Kakariko_Malo_Mart_Hylian_Shield_Sold_Out_Read,
+
+        // If you buy the wooden shield slot before anything else, you will see
+        // this one instead for that slot.
+        Kakariko_Malo_Mart_Hylian_Shield_Sold_Out_Read_2,
         Kakariko_Malo_Mart_Red_Potion_Slot,
         Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
         Kakariko_Malo_Mart_Red_Potion_Confirmation,
@@ -213,6 +217,10 @@ namespace TPRandomizer
                 {
                     MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out_Read,
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D0)
+                },
+                {
+                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out_Read_2,
+                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x2E0)
                 },
                 {
                     MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Slot,
