@@ -1701,10 +1701,6 @@
     <value>les</value>
     <comment></comment>
   </data>
-  <data name="shop.basic-slot" xml:space="preserve">
-    <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
-    <comment></comment>
-  </data>
   <data name="shop.bought" xml:space="preserve">
     <value>Bon, alors tiens...</value>
     <comment>From Kak Malo Mart buying non-potion.</comment>
@@ -1756,6 +1752,10 @@
   <data name="shop.price" xml:space="preserve">
     <value>{count} rubis</value>
     <comment>Confirmed by link1183 on 2024/03/31 that all should be &quot;rubis&quot;.</comment>
+  </data>
+  <data name="shop.slot" xml:space="preserve">
+    <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
+    <comment></comment>
   </data>
   <data name="shop.sold-out" xml:space="preserve">
     <value>Epuisé</value>

@@ -952,6 +952,19 @@ namespace TPRandomizer.Hints
             return tradeRewardCheckToSourceItem.ContainsKey(checkName);
         }
 
+        public static bool IsTrapItem(Item item)
+        {
+            switch (item)
+            {
+                case Item.Foolish_Item:
+                case Item.Foolish_Item_2:
+                case Item.Foolish_Item_3:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         private static byte calcNumBitsForHintsAtSpot(List<HintSpot> hintSpots)
         {
             if (hintSpots != null && hintSpots.Count > 0)
