@@ -277,8 +277,6 @@ namespace TPRandomizer
             // TODO: handle barnes and put in with shops. Make sure not
             // considered a self-hinter anywhere in the code.
 
-            // TODO: handle fishing hole self hinter
-
             // TODO: handle Charlo self hinter
 
             // handle self-hinters next
@@ -319,24 +317,6 @@ namespace TPRandomizer
             //             + "50 Rupees\n"
             //             + CustomMessages.messageOption3
             //             + "Sorry..."
-            //     }
-            // );
-            // results.Add(
-            //     new MessageEntry
-            //     {
-            //         stageIDX = (byte)StageIDs.Fishing_Pond,
-            //         roomIDX = 0,
-            //         messageID = 0x47A, // Fishing Hole Bottle Sign
-            //         message =
-            //             "           "
-            //             + CustomMessages.messageColorRed
-            //             + "DON'T LITTER!\n"
-            //             + CustomMessages.messageColorWhite
-            //             + "Do NOT toss a "
-            //             // + getShortenedItemName(Randomizer.Checks.CheckDict["Fishing Hole Bottle"].itemId)
-            //             + Randomizer.Checks.CheckDict["Fishing Hole Bottle"].itemId
-            //             + CustomMessages.messageColorWhite
-            //             + " or\ncans here! The fish are CRYING!\n\nKeep the fishing hole clean!"
             //     }
             // );
 
@@ -613,16 +593,15 @@ namespace TPRandomizer
 
         private void GenSelfHinterEntries()
         {
-            // TODO: use the item belonging to the check
-
-            // TODO: handle "fishing-bottle" context for the "5 bombes" ones so
-            // we say "Ne jetez pas de pack de 5 bombes!".
-
             if (selfHinterChecks.Contains("Fishing Hole Bottle"))
             {
+                Item fishingBottleItem = HintUtils.getCheckContents("Fishing Hole Bottle");
+                if (HintUtils.IsTrapItem(fishingBottleItem))
+                    fishingBottleItem = Item.Empty_Bottle;
+
                 string fishingBottleItemText = GenItemText3(
                     out _,
-                    Item.Arrows_20,
+                    fishingBottleItem,
                     CheckStatus.Unknown,
                     contextIn: "fishing-bottle",
                     prefStartColor: CustomMessages.messageColorGreen
