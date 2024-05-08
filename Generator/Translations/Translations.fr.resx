@@ -558,15 +558,15 @@
     <comment></comment>
   </data>
   <data name="item.0a-bombs_5$count" xml:space="preserve">
-    <value>$(gender:f){count} bombes (5)</value>
+    <value>$(gender:m){count} pack de 5 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0a-bombs_5$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} bombes (5)</value>
+    <value>$(gender:m,plural){count} packs de 5 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0a-bombs_5$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune bombes (5)</value>
+    <value>$(gender:m,negative)aucun pack de 5 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0b-bombs_10" xml:space="preserve">
@@ -574,15 +574,15 @@
     <comment></comment>
   </data>
   <data name="item.0b-bombs_10$count" xml:space="preserve">
-    <value>$(gender:f){count} bombes (10)</value>
+    <value>$(gender:m){count} pack de 10 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0b-bombs_10$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} bombes (10)</value>
+    <value>$(gender:m,plural){count} packs de 10 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0b-bombs_10$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune bombes (10)</value>
+    <value>$(gender:m,negative)aucun pack de 10 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0c-bombs_20" xml:space="preserve">
@@ -590,15 +590,15 @@
     <comment></comment>
   </data>
   <data name="item.0c-bombs_20$count" xml:space="preserve">
-    <value>$(gender:f){count} bombes (20)</value>
+    <value>$(gender:m){count} pack de 20 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0c-bombs_20$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} bombes (20)</value>
+    <value>$(gender:m,plural){count} packs de 20 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0c-bombs_20$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune bombes (20)</value>
+    <value>$(gender:m,negative)aucun pack de 20 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0d-bombs_30" xml:space="preserve">
@@ -606,15 +606,15 @@
     <comment></comment>
   </data>
   <data name="item.0d-bombs_30$count" xml:space="preserve">
-    <value>$(gender:f){count} bombes (30)</value>
+    <value>$(gender:m){count} pack de 30 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0d-bombs_30$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} bombes (30)</value>
+    <value>$(gender:m,plural){count} packs de 30 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0d-bombs_30$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune bombes (30)</value>
+    <value>$(gender:m,negative)aucun pack de 30 bombes</value>
     <comment></comment>
   </data>
   <data name="item.0e-arrows_10" xml:space="preserve">
@@ -622,15 +622,15 @@
     <comment></comment>
   </data>
   <data name="item.0e-arrows_10$count" xml:space="preserve">
-    <value>$(gender:f){count} flèches (10)</value>
+    <value>$(gender:m){count} pack de 10 flèches</value>
     <comment></comment>
   </data>
   <data name="item.0e-arrows_10$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} flèches (10)</value>
+    <value>$(gender:m,plural){count} packs de 10 flèches</value>
     <comment></comment>
   </data>
   <data name="item.0e-arrows_10$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune flèches (10)</value>
+    <value>$(gender:m,negative)aucun pack de 10 flèches</value>
     <comment></comment>
   </data>
   <data name="item.0f-arrows_20" xml:space="preserve">
@@ -638,15 +638,15 @@
     <comment></comment>
   </data>
   <data name="item.0f-arrows_20$count" xml:space="preserve">
-    <value>$(gender:f){count} flèches (20)</value>
+    <value>$(gender:m){count} pack de 20 flèches</value>
     <comment></comment>
   </data>
   <data name="item.0f-arrows_20$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} flèches (20)</value>
+    <value>$(gender:m,plural){count} packs de 20 flèches</value>
     <comment></comment>
   </data>
   <data name="item.0f-arrows_20$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune flèches (20)</value>
+    <value>$(gender:m,negative)aucun pack de 20 flèches</value>
     <comment></comment>
   </data>
   <data name="item.10-arrows_30" xml:space="preserve">
@@ -654,15 +654,15 @@
     <comment></comment>
   </data>
   <data name="item.10-arrows_30$count" xml:space="preserve">
-    <value>$(gender:f){count} flèches (30)</value>
+    <value>$(gender:m){count} pack de 30 flèches</value>
     <comment></comment>
   </data>
   <data name="item.10-arrows_30$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} flèches (30)</value>
+    <value>$(gender:m,plural){count} packs de 30 flèches</value>
     <comment></comment>
   </data>
   <data name="item.10-arrows_30$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune flèches (30)</value>
+    <value>$(gender:m,negative)aucun pack de 30 flèches</value>
     <comment></comment>
   </data>
   <data name="item.12-seeds_50" xml:space="preserve">
@@ -670,15 +670,15 @@
     <comment></comment>
   </data>
   <data name="item.12-seeds_50$count" xml:space="preserve">
-    <value>$(gender:f){count} graines (50)</value>
+    <value>$(gender:m){count} pack de 50 graines</value>
     <comment></comment>
   </data>
   <data name="item.12-seeds_50$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} graines (50)</value>
+    <value>$(gender:m,plural){count} packs de 50 graines</value>
     <comment></comment>
   </data>
   <data name="item.12-seeds_50$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune graines (50)</value>
+    <value>$(gender:m,negative)aucun pack de 50 graines</value>
     <comment></comment>
   </data>
   <data name="item.13-foolish_item@ac(m)" xml:space="preserve">
@@ -710,15 +710,15 @@
     <comment></comment>
   </data>
   <data name="item.16-water_bombs_5$count" xml:space="preserve">
-    <value>$(gender:f){count} hydro-bombes (5)</value>
+    <value>$(gender:m){count}pack de 5 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.16-water_bombs_5$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} hydro-bombes (5)</value>
+    <value>$(gender:m,plural){count} packs de 5 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.16-water_bombs_5$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune hydro-bombes (5)</value>
+    <value>$(gender:m,negative)aucun pack de 5 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.17-water_bombs_10" xml:space="preserve">
@@ -726,15 +726,15 @@
     <comment></comment>
   </data>
   <data name="item.17-water_bombs_10$count" xml:space="preserve">
-    <value>$(gender:f){count} hydro-bombes (10)</value>
+    <value>$(gender:m){count} pack de 10 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.17-water_bombs_10$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} hydro-bombes (10)</value>
+    <value>$(gender:m,plural){count} packs de 10 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.17-water_bombs_10$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune hydro-bombes (10)</value>
+    <value>$(gender:m,negative)aucun pack de 10 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.18-water_bombs_15" xml:space="preserve">
@@ -742,15 +742,15 @@
     <comment></comment>
   </data>
   <data name="item.18-water_bombs_15$count" xml:space="preserve">
-    <value>$(gender:f){count} hydro-bombes (15)</value>
+    <value>$(gender:m){count} pack de 15 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.18-water_bombs_15$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} hydro-bombes (15)</value>
+    <value>$(gender:m,plural){count} packs de 15 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.18-water_bombs_15$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune hydro-bombes (15)</value>
+    <value>$(gender:m,negative)aucun pack de 15 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.19-water_bombs_3" xml:space="preserve">
@@ -758,15 +758,15 @@
     <comment></comment>
   </data>
   <data name="item.19-water_bombs_3$count" xml:space="preserve">
-    <value>$(gender:f){count} hydro-bombes (3)</value>
+    <value>$(gender:m){count} pack de 3 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.19-water_bombs_3$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} hydro-bombes (3)</value>
+    <value>$(gender:m,plural){count} packs de 3 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.19-water_bombs_3$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune hydro-bombes (3)</value>
+    <value>$(gender:m,negative)aucun pack de 3 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.1a-bomblings_5" xml:space="preserve">
@@ -774,15 +774,15 @@
     <comment></comment>
   </data>
   <data name="item.1a-bomblings_5$count" xml:space="preserve">
-    <value>$(gender:f){count} bombinsectes (5)</value>
+    <value>$(gender:m){count} pack de 5 bombinsectes</value>
     <comment></comment>
   </data>
   <data name="item.1a-bomblings_5$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} bombinsectes (5)</value>
+    <value>$(gender:m,plural){count} packs de 5 bombinsectes</value>
     <comment></comment>
   </data>
   <data name="item.1a-bomblings_5$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune bombinsectes (5)</value>
+    <value>$(gender:m,negative)aucun pack de 5 bombinsectes</value>
     <comment></comment>
   </data>
   <data name="item.1b-bomblings_10" xml:space="preserve">
@@ -790,15 +790,15 @@
     <comment></comment>
   </data>
   <data name="item.1b-bomblings_10$count" xml:space="preserve">
-    <value>$(gender:f){count} bombinsectes (10)</value>
+    <value>$(gender:m){count} pack de 10 bombinsectes</value>
     <comment></comment>
   </data>
   <data name="item.1b-bomblings_10$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} bombinsectes (10)</value>
+    <value>$(gender:m,plural){count} packs de 10 bombinsectes</value>
     <comment></comment>
   </data>
   <data name="item.1b-bomblings_10$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune bombinsectes (10)</value>
+    <value>$(gender:m,negative)aucun pack de 10 bombinsectes</value>
     <comment></comment>
   </data>
   <data name="item.1c-bomblings_3" xml:space="preserve">
@@ -806,15 +806,15 @@
     <comment></comment>
   </data>
   <data name="item.1c-bomblings_3$count" xml:space="preserve">
-    <value>$(gender:f){count} bombinsectes (3)</value>
+    <value>$(gender:m){count} pack de 3 bombinsectes</value>
     <comment></comment>
   </data>
   <data name="item.1c-bomblings_3$count#other" xml:space="preserve">
-    <value>$(gender:f,plural){count} bombinsectes (3)</value>
+    <value>$(gender:m,plural){count} packs de 3 bombinsectes</value>
     <comment></comment>
   </data>
   <data name="item.1c-bomblings_3$count#zero" xml:space="preserve">
-    <value>$(gender:f,negative)aucune bombinsectes (3)</value>
+    <value>$(gender:m,negative)aucun pack de 3 bombinsectes</value>
     <comment></comment>
   </data>
   <data name="item.21-piece_of_heart@ac(m)" xml:space="preserve">

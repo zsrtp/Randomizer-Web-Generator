@@ -272,6 +272,13 @@ namespace TPRandomizer
                 GenShopEntries();
             }
 
+            // TODO: handle barnes and put in with shops. Make sure not
+            // considered a self-hinter anywhere in the code.
+
+            // TODO: handle fishing hole self hinter
+
+            // TODO: handle Charlo self hinter
+
             // handle self-hinters next
             results.Add(
                 new MessageEntry
@@ -708,7 +715,7 @@ namespace TPRandomizer
             // );
             // string itemHintText = itemHint.toHintTextList()[0].text;
 
-            NumItemInAreaHint niiaHint = new NumItemInAreaHint(2, Item.Progressive_Sword, areaId);
+            NumItemInAreaHint niiaHint = new NumItemInAreaHint(2, Item.Bombs_5, areaId);
             string niiaText = niiaHint.toHintTextList()[0].text;
 
             WothHint wothHint = new WothHint(areaId, "Wooden Sword Chest");
