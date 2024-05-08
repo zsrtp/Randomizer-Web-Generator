@@ -84,6 +84,8 @@ namespace TPRandomizer
         Custom_Sign_Palace_of_Twilight,
         Custom_Sign_Hyrule_Castle,
         Custom_Sign_Fallback,
+        Barnes_Bomb_Bag_Confirmation,
+        Barnes_Bomb_Bag_Cant_Afford,
         Fishing_Hole_Bottle_Sign,
     }
 
@@ -327,6 +329,14 @@ namespace TPRandomizer
                 },
                 { MsgEntryId.Custom_Sign_Hyrule_Castle, new(StageIDs.Hyrule_Castle, 11, 0x1369) },
                 { MsgEntryId.Custom_Sign_Fallback, new(0xFF, 0xFF, 0x1369) },
+                {
+                    MsgEntryId.Barnes_Bomb_Bag_Confirmation,
+                    new(StageIDs.Kakariko_Village_Interiors, 1, 0x9B)
+                },
+                {
+                    MsgEntryId.Barnes_Bomb_Bag_Cant_Afford,
+                    new(StageIDs.Kakariko_Village_Interiors, 1, 0xA0)
+                },
                 { MsgEntryId.Fishing_Hole_Bottle_Sign, new(StageIDs.Fishing_Pond, 0, 0x47A) },
             };
 

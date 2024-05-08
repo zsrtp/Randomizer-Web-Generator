@@ -280,25 +280,25 @@ namespace TPRandomizer
             // TODO: handle Charlo self hinter
 
             // handle self-hinters next
-            results.Add(
-                new MessageEntry
-                {
-                    stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-                    roomIDX = 1,
-                    messageID = 0x9B, // Barnes Bomb Bag Text.
-                    message =
-                        "I've got a special offer goin' right\nnow: my "
-                        // + getShortenedItemName(Randomizer.Checks.CheckDict["Barnes Bomb Bag"].itemId)
-                        + Randomizer.Checks.CheckDict["Barnes Bomb Bag"].itemId
-                        + CustomMessages.messageColorWhite
-                        + ", just\n"
-                        + CustomMessages.messageColorPurple
-                        + "120 Rupees"
-                        + CustomMessages.messageColorWhite
-                        + "! How 'bout that?"
-                        + CustomMessages.shopOption
-                }
-            );
+            // results.Add(
+            //     new MessageEntry
+            //     {
+            //         stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
+            //         roomIDX = 1,
+            //         messageID = 0x9B, // Barnes Bomb Bag Text.
+            //         message =
+            //             "I've got a special offer goin' right\nnow: my "
+            //             // + getShortenedItemName(Randomizer.Checks.CheckDict["Barnes Bomb Bag"].itemId)
+            //             + Randomizer.Checks.CheckDict["Barnes Bomb Bag"].itemId
+            //             + CustomMessages.messageColorWhite
+            //             + ", just\n"
+            //             + CustomMessages.messageColorPurple
+            //             + "120 Rupees"
+            //             + CustomMessages.messageColorWhite
+            //             + "! How 'bout that?"
+            //             + CustomMessages.shopOption
+            //     }
+            // );
             // results.Add(
             //     new MessageEntry
             //     {
@@ -319,7 +319,6 @@ namespace TPRandomizer
             //             + "Sorry..."
             //     }
             // );
-
 
             // then handle custom hint signs
             GenHintSignEntries(results);
@@ -428,6 +427,19 @@ namespace TPRandomizer
                     MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Bought,
                     Res.LangSpecificNormalize(
                         Res.SimpleMsg("shop.bought", new() { { "context", "magic-armor" } })
+                    )
+                )
+            );
+
+            // ----- Barnes -----
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Barnes_Bomb_Bag_Cant_Afford,
+                    Res.LangSpecificNormalize(
+                        Res.SimpleMsg(
+                            "shop.cant-afford",
+                            new() { { "context", "barnes-bomb-bag" } }
+                        )
                     )
                 )
             );

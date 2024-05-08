@@ -1785,6 +1785,10 @@
     <value>{item} {verb(name:costs)} {price}. Si tu {the-article} veux, il faut {the-article2} payer.</value>
     <comment>From Sera Slingshot</comment>
   </data>
+  <data name="shop.cant-afford$barnes-bomb-bag" xml:space="preserve">
+    <value>Et alors, garçon?\nTu n&apos;as pas assez, apparemment...</value>
+    <comment></comment>
+  </data>
   <data name="shop.cant-afford$kak-malo" xml:space="preserve">
     <value>{item} {verb(name:costs)} {price}, et tu n&apos;as pas {price2}...</value>
     <comment></comment>
