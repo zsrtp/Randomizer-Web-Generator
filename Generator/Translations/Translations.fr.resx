@@ -569,6 +569,10 @@
     <value>$(gender:m,negative)aucun pack de 5 bombes</value>
     <comment></comment>
   </data>
+  <data name="item.0a-bombs_5$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 5 bombes</value>
+    <comment></comment>
+  </data>
   <data name="item.0b-bombs_10" xml:space="preserve">
     <value>$(gender:f,plural)10 bombes</value>
     <comment></comment>

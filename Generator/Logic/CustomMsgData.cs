@@ -613,11 +613,16 @@ namespace TPRandomizer
 
         private void GenSelfHinterEntries()
         {
+            // TODO: use the item belonging to the check
+
+            // TODO: handle "fishing-bottle" context for the "5 bombes" ones so
+            // we say "Ne jetez pas de pack de 5 bombes!".
+
             if (selfHinterChecks.Contains("Fishing Hole Bottle"))
             {
                 string fishingBottleItemText = GenItemText3(
                     out _,
-                    Item.Aurus_Memo,
+                    Item.Bombs_5,
                     CheckStatus.Unknown,
                     contextIn: "fishing-bottle",
                     prefStartColor: CustomMessages.messageColorGreen
@@ -630,7 +635,7 @@ namespace TPRandomizer
                 results.Add(
                     CustomMsgUtils.GetEntry(
                         MsgEntryId.Fishing_Hole_Bottle_Sign,
-                        Res.LangSpecificNormalize(fishingBottleText)
+                        Res.LangSpecificNormalize(fishingBottleText, 30)
                     )
                 );
             }

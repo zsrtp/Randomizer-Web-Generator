@@ -273,7 +273,7 @@ namespace TPRandomizer
             }
         }
 
-        public static string LangSpecificNormalize(string valIn)
+        public static string LangSpecificNormalize(string valIn, int? maxLength = null)
         {
             string input = Regex.Unescape(valIn);
             input = MaleOrFemSign()
@@ -594,7 +594,10 @@ namespace TPRandomizer
                 }
             }
 
-            AddLineBreaksToChunks(chunks);
+            int maxLengthVal = 35;
+            if (maxLength != null)
+                maxLengthVal = (int)maxLength;
+            AddLineBreaksToChunks(chunks, maxLengthVal);
 
             string result = "";
             foreach (TextChunk chunk in chunks)
@@ -698,7 +701,7 @@ namespace TPRandomizer
             }
         }
 
-        private static void AddLineBreaksToChunks(List<TextChunk> chunks)
+        private static void AddLineBreaksToChunks(List<TextChunk> chunks, int maxLength)
         {
             // If any '\n' show up in the chunks, then we need to not add any
             // linebreaks before them no matter what.
@@ -767,7 +770,7 @@ namespace TPRandomizer
                         int wouldBeLength =
                             currChars + chunk.val.Length + GetTextTypeChunkLength(chunks[i + 1]);
 
-                        if (wouldBeLength > 35)
+                        if (wouldBeLength > maxLength)
                         {
                             // Need to break;
                             chunk.val = "\n" + chunk.val[1..];
