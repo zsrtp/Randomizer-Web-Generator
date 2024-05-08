@@ -622,7 +622,7 @@ namespace TPRandomizer
             {
                 string fishingBottleItemText = GenItemText3(
                     out _,
-                    Item.Bombs_5,
+                    Item.Arrows_20,
                     CheckStatus.Unknown,
                     contextIn: "fishing-bottle",
                     prefStartColor: CustomMessages.messageColorGreen
