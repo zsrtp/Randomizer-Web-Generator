@@ -1701,6 +1701,10 @@
     <value>les</value>
     <comment></comment>
   </data>
+  <data name="self-hinter.fishing-bottle" xml:space="preserve">
+    <value>#(red)Protégez la nature!#(white)\nNe jetez pas de {item}!\n\nPrenez soin de l&apos;eau!\nPensez aux possions!\nPour le plaisir de tous!</value>
+    <comment></comment>
+  </data>
   <data name="shop.bought" xml:space="preserve">
     <value>Bon, alors tiens...</value>
     <comment>From Kak Malo Mart buying non-potion.</comment>

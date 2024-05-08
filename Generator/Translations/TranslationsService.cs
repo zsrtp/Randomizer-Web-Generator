@@ -412,7 +412,12 @@ namespace TPRandomizer
                     }
 
                     // Base
-                    result.Add(new(GenCurrentResKey(), metaPrefix + wrappedBase));
+                    result.Add(
+                        new(
+                            GenCurrentResKey(),
+                            metaPrefix + (usesLApostrophe ? "{que-transform}" : "") + wrappedBase
+                        )
+                    );
 
                     // Definite article
                     ChangeContext("def");

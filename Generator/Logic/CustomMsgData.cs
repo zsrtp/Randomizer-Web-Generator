@@ -272,6 +272,8 @@ namespace TPRandomizer
                 GenShopEntries();
             }
 
+            GenSelfHinterEntries();
+
             // TODO: handle barnes and put in with shops. Make sure not
             // considered a self-hinter anywhere in the code.
 
@@ -337,6 +339,7 @@ namespace TPRandomizer
             //             + " or\ncans here! The fish are CRYING!\n\nKeep the fishing hole clean!"
             //     }
             // );
+
 
             // then handle custom hint signs
             GenHintSignEntries(results);
@@ -606,6 +609,31 @@ namespace TPRandomizer
 
             string normalized = Res.LangSpecificNormalize(text);
             results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Link_House_Sign, normalized));
+        }
+
+        private void GenSelfHinterEntries()
+        {
+            if (selfHinterChecks.Contains("Fishing Hole Bottle"))
+            {
+                string fishingBottleItemText = GenItemText3(
+                    out _,
+                    Item.Aurus_Memo,
+                    CheckStatus.Unknown,
+                    contextIn: "fishing-bottle",
+                    prefStartColor: CustomMessages.messageColorGreen
+                );
+                Res.Result fishingBottleRes = Res.Msg("self-hinter.fishing-bottle", null);
+                string fishingBottleText = fishingBottleRes.Substitute(
+                    new() { { "item", fishingBottleItemText } }
+                );
+
+                results.Add(
+                    CustomMsgUtils.GetEntry(
+                        MsgEntryId.Fishing_Hole_Bottle_Sign,
+                        Res.LangSpecificNormalize(fishingBottleText)
+                    )
+                );
+            }
         }
 
         private void GenShopEntries()
