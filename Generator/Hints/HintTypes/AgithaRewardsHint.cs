@@ -10,12 +10,17 @@ namespace TPRandomizer.Hints
         public int numBugsInPool { get; }
         public List<string> interestingAgithaChecks { get; }
 
+        // Derived and encoded
+        public List<bool> useDefArticleList { get; private set; }
+
         // derived and not encoded
         public List<Item> items { get; private set; }
 
         public AgithaRewardsHint(
+            HintGenData genData,
             int numBugsInPool,
             List<string> interestingAgithaChecks,
+            List<bool> useDefArticleList = null,
             Dictionary<int, byte> itemPlacements = null
         // List<Item> items
         )
@@ -23,13 +28,17 @@ namespace TPRandomizer.Hints
             this.type = HintType.AgithaRewards;
             this.numBugsInPool = numBugsInPool;
             this.interestingAgithaChecks = interestingAgithaChecks;
+            this.useDefArticleList = useDefArticleList;
 
-            CalcDerived(itemPlacements);
+            CalcDerived(genData, itemPlacements);
         }
 
-        private void CalcDerived(Dictionary<int, byte> itemPlacements)
+        private void CalcDerived(HintGenData genData, Dictionary<int, byte> itemPlacements)
         {
             items = new();
+            if (genData != null)
+                useDefArticleList = new();
+
             foreach (string checkName in interestingAgithaChecks)
             {
                 Item item;
@@ -44,6 +53,21 @@ namespace TPRandomizer.Hints
                     item = HintUtils.getCheckContents(checkName);
                 }
                 items.Add(item);
+
+                // When creating the hint during generation, we calculate rather
+                // than use input value.
+                if (genData != null)
+                {
+                    if (
+                        genData.itemToChecksList.TryGetValue(
+                            item,
+                            out List<string> checksGivingItem
+                        )
+                    )
+                    {
+                        useDefArticleList.Add(checksGivingItem.Count == 1);
+                    }
+                }
             }
         }
 
@@ -86,11 +110,19 @@ namespace TPRandomizer.Hints
                             out _,
                             items[i],
                             CheckStatus.Good,
-                            contextIn: "indef"
+                            contextIn: useDefArticleList[i] ? "def" : "indef",
+                            prefStartColor: "",
+                            prefEndColor: ""
                         )
                     );
                 }
-                itemsText = Res.CreateAndList(res.langCode, itemTexts);
+                // TODO: there seems to be a maximum number of bytes that we can
+                // put on the sign before it stops copying them over. So making
+                // this entire section green to save space for now until we can
+                // figure out another solution. Ideally we would maybe split
+                // this sign into multiple text boxes.
+                itemsText =
+                    CustomMessages.messageColorGreen + Res.CreateAndList(res.langCode, itemTexts);
             }
 
             string text = res.Substitute(
@@ -111,10 +143,12 @@ namespace TPRandomizer.Hints
             // At most 24 bugs in the pool which can be traded in.
             result += SettingsEncoder.EncodeNumAsBits(numBugsInPool, 5);
             result += SettingsEncoder.EncodeAsVlq16((ushort)interestingAgithaChecks.Count);
-            foreach (string checkName in interestingAgithaChecks)
+            for (int i = 0; i < interestingAgithaChecks.Count; i++)
             {
+                string checkName = interestingAgithaChecks[i];
                 int checkId = CheckIdClass.GetCheckIdNum(checkName);
                 result += SettingsEncoder.EncodeNumAsBits(checkId, bitLengths.checkId);
+                result += useDefArticleList[i] ? "1" : "0";
             }
             return result;
         }
@@ -128,14 +162,21 @@ namespace TPRandomizer.Hints
             int numBugsInPool = processor.NextInt(5);
             int numInterestingAgithaChecks = processor.NextVlq16();
             List<string> interestingAgithaChecks = new();
-            List<Item> items = new();
+            List<bool> useDefArticleList = new();
             for (int i = 0; i < numInterestingAgithaChecks; i++)
             {
                 int checkId = processor.NextInt(bitLengths.checkId);
                 interestingAgithaChecks.Add(CheckIdClass.GetCheckName(checkId));
-                items.Add((Item)itemPlacements[checkId]);
+                bool useDefArticle = processor.NextBool();
+                useDefArticleList.Add(useDefArticle);
             }
-            return new AgithaRewardsHint(numBugsInPool, interestingAgithaChecks, itemPlacements);
+            return new AgithaRewardsHint(
+                null,
+                numBugsInPool,
+                interestingAgithaChecks,
+                useDefArticleList,
+                itemPlacements
+            );
         }
     }
 }

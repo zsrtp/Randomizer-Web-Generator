@@ -452,7 +452,11 @@ namespace TPRandomizer.Hints
             // listed on the sign.
             HintUtils.ShuffleListInPlace(genData.rnd, interestingAgithaChecks);
 
-            AgithaRewardsHint hint = new AgithaRewardsHint(numBugsInPool, interestingAgithaChecks);
+            AgithaRewardsHint hint = new AgithaRewardsHint(
+                genData,
+                numBugsInPool,
+                interestingAgithaChecks
+            );
 
             if (interestingAgithaChecks.Count < 1)
                 genData.hinted.agithaHintedDead = true;
