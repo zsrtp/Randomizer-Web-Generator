@@ -225,6 +225,12 @@ namespace TPRandomizer
                                     string escSeqAlias = match.Groups[1].Value;
                                     switch (escSeqAlias)
                                     {
+                                        case "option1":
+                                            return CustomMessages.messageOption1;
+                                        case "option2":
+                                            return CustomMessages.messageOption2;
+                                        case "option3":
+                                            return CustomMessages.messageOption3;
                                         case "player-name":
                                             return CustomMessages.playerName;
                                         case "reference-mark":

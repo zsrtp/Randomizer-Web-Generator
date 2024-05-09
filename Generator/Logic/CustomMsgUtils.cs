@@ -86,6 +86,7 @@ namespace TPRandomizer
         Custom_Sign_Fallback,
         Barnes_Bomb_Bag_Confirmation,
         Barnes_Bomb_Bag_Cant_Afford,
+        Charlo_Donation_Confirmation,
         Fishing_Hole_Bottle_Sign,
     }
 
@@ -337,6 +338,7 @@ namespace TPRandomizer
                     MsgEntryId.Barnes_Bomb_Bag_Cant_Afford,
                     new(StageIDs.Kakariko_Village_Interiors, 1, 0xA0)
                 },
+                { MsgEntryId.Charlo_Donation_Confirmation, new(StageIDs.Castle_Town, 2, 0x355) },
                 { MsgEntryId.Fishing_Hole_Bottle_Sign, new(StageIDs.Fishing_Pond, 0, 0x47A) },
             };
 

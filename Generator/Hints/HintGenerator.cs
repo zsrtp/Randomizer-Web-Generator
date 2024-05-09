@@ -395,7 +395,7 @@ namespace TPRandomizer.Hints
         {
             int numBugsInPool = 0;
             List<string> interestingAgithaChecks = new();
-            List<Item> items = new();
+            // List<Item> items = new();
 
             foreach (KeyValuePair<Item, string> pair in HintConstants.bugsToRewardChecksMap)
             {
@@ -408,15 +408,22 @@ namespace TPRandomizer.Hints
 
                 numBugsInPool += 1;
 
+                // Item contents = HintUtils.getCheckContents(agithaRewardCheckName);
+                // if (
+                //     genData.preventBarrenItems.Contains(contents)
+                //     && !HintConstants.bugsToRewardChecksMap.ContainsKey(contents)
+                // )
+                // {
+
                 Item contents = HintUtils.getCheckContents(agithaRewardCheckName);
                 if (
-                    genData.preventBarrenItems.Contains(contents)
+                    genData.CheckIsGood(agithaRewardCheckName, true)
                     && !HintConstants.bugsToRewardChecksMap.ContainsKey(contents)
                 )
                 {
                     // Interesting contents which are not a bug.
                     interestingAgithaChecks.Add(agithaRewardCheckName);
-                    items.Add(HintUtils.getCheckContents(agithaRewardCheckName));
+                    // items.Add(HintUtils.getCheckContents(agithaRewardCheckName));
                 }
 
                 // if item is preventBarren and not a bug, then add to the list
@@ -441,13 +448,11 @@ namespace TPRandomizer.Hints
             if (numBugsInPool < 1)
                 return null;
 
-            // TODO: sort items list alphabetically. This should be done in hint
-            // implementation.
-            AgithaRewardsHint hint = new AgithaRewardsHint(
-                numBugsInPool,
-                interestingAgithaChecks,
-                items
-            );
+            // Shuffle list so no info is given away by the order the items are
+            // listed on the sign.
+            HintUtils.ShuffleListInPlace(genData.rnd, interestingAgithaChecks);
+
+            AgithaRewardsHint hint = new AgithaRewardsHint(numBugsInPool, interestingAgithaChecks);
 
             if (interestingAgithaChecks.Count < 1)
                 genData.hinted.agithaHintedDead = true;

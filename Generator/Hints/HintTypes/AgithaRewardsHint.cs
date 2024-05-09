@@ -1,6 +1,8 @@
 namespace TPRandomizer.Hints
 {
     using System.Collections.Generic;
+    using System.Security.Cryptography;
+    using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
     public class AgithaRewardsHint : Hint
@@ -8,33 +10,99 @@ namespace TPRandomizer.Hints
         public int numBugsInPool { get; }
         public List<string> interestingAgithaChecks { get; }
 
-        public List<Item> items { get; }
+        // derived and not encoded
+        public List<Item> items { get; private set; }
 
         public AgithaRewardsHint(
             int numBugsInPool,
             List<string> interestingAgithaChecks,
-            List<Item> items
+            Dictionary<int, byte> itemPlacements = null
+        // List<Item> items
         )
         {
             this.type = HintType.AgithaRewards;
             this.numBugsInPool = numBugsInPool;
             this.interestingAgithaChecks = interestingAgithaChecks;
 
-            this.items = items;
+            CalcDerived(itemPlacements);
+        }
+
+        private void CalcDerived(Dictionary<int, byte> itemPlacements)
+        {
+            items = new();
+            foreach (string checkName in interestingAgithaChecks)
+            {
+                Item item;
+                if (itemPlacements != null)
+                {
+                    // When decoding hint from string
+                    item = HintUtils.getCheckContents(checkName, itemPlacements);
+                }
+                else
+                {
+                    // When creating hint during generation
+                    item = HintUtils.getCheckContents(checkName);
+                }
+                items.Add(item);
+            }
         }
 
         public override List<HintText> toHintTextList()
         {
-            string text = $"{numBugsInPool} bugs in pool.";
+            bool hasItems = !ListUtils.isEmpty(items);
 
-            if (items == null || items.Count < 1)
-                text += " Nothing interesting.";
-            else
-                text += "\n" + string.Join(", ", items);
+            string context = hasItems ? "good" : null;
+
+            Res.Result res = Res.Msg("hint-type.agitha-rewards", new() { { "context", context } });
+
+            string numBugsColor = hasItems
+                ? CustomMessages.messageColorYellow
+                : CustomMessages.messageColorPurple;
+            string numBugsText = Res.Msg(
+                    "noun.num-golden-bugs",
+                    new() { { "count", numBugsInPool.ToString() } }
+                )
+                .Substitute(
+                    new()
+                    {
+                        { "count", numBugsInPool.ToString() },
+                        { "cs", numBugsColor },
+                        { "ce", CustomMessages.messageColorWhite }
+                    }
+                );
+
+            // Generate the "items" text.
+            string itemsText = "";
+            if (hasItems)
+            {
+                // Generate the items list by passing a list of strings. On the
+                // outside we can set each one to a green color. The function
+                // can be in Res and it can automatically detect the language.
+                List<string> itemTexts = new();
+                for (int i = 0; i < items.Count; i++)
+                {
+                    itemTexts.Add(
+                        CustomMsgData.GenItemText3(
+                            out _,
+                            items[i],
+                            CheckStatus.Good,
+                            contextIn: "indef"
+                        )
+                    );
+                }
+                itemsText = Res.CreateAndList(res.langCode, itemTexts);
+            }
+
+            string text = res.Substitute(
+                new() { { "num-bugs", numBugsText }, { "items", itemsText } }
+            );
+
+            // Set font size to 0x48.
+            string normText = Res.LangSpecificNormalize("\x1A\x07\xFF\x00\x01\x00\x48" + text, 41);
 
             HintText hintText = new HintText();
-            hintText.text = Res.LangSpecificNormalize(text);
-            return new List<HintText> { hintText };
+            hintText.text = normText;
+            return new List<HintText>() { hintText };
         }
 
         public override string encodeAsBits(HintEncodingBitLengths bitLengths)
@@ -67,7 +135,7 @@ namespace TPRandomizer.Hints
                 interestingAgithaChecks.Add(CheckIdClass.GetCheckName(checkId));
                 items.Add((Item)itemPlacements[checkId]);
             }
-            return new AgithaRewardsHint(numBugsInPool, interestingAgithaChecks, items);
+            return new AgithaRewardsHint(numBugsInPool, interestingAgithaChecks, itemPlacements);
         }
     }
 }

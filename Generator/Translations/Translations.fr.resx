@@ -437,6 +437,14 @@
     <value>Xanto</value>
     <comment></comment>
   </data>
+  <data name="hint-type.agitha-rewards" xml:space="preserve">
+    <value>Veuillez apporter {num-bugs} au Château de Machaon.\n\nEt dites leurs que la princesse attend !</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.agitha-rewards$good" xml:space="preserve">
+    <value>Veuillez apporter {num-bugs} au Château de Machaon. Je saurai partager mon #(red)bonheur#(white) avec vous :\n\n{items}</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.barren" xml:space="preserve">
     <value>Il est dit qu&apos;il n&apos;y a rien à trouver {area-phrase}.</value>
     <comment></comment>
@@ -1737,6 +1745,14 @@
     <value>un {cs}insecte{ce}</value>
     <comment></comment>
   </data>
+  <data name="noun.num-golden-bugs" xml:space="preserve">
+    <value>le {cs}{count} insecte doré{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="noun.num-golden-bugs#other" xml:space="preserve">
+    <value>les {cs}{count} insectes dorés{ce}</value>
+    <comment></comment>
+  </data>
   <data name="noun.rien" xml:space="preserve">
     <value>rien</value>
     <comment></comment>
@@ -1759,6 +1775,14 @@
   </data>
   <data name="noun.the-article$plural" xml:space="preserve">
     <value>les</value>
+    <comment></comment>
+  </data>
+  <data name="self-hinter.charlo" xml:space="preserve">
+    <value>Pour {item}...\npuis-je vous demander l&apos;aumône...?</value>
+    <comment></comment>
+  </data>
+  <data name="self-hinter.charlo-options" xml:space="preserve">
+    <value>#(option1)Voici 100 rubis.#(option2)Voici 50 rubis.#(option3)Je refuse.</value>
     <comment></comment>
   </data>
   <data name="self-hinter.fishing-bottle" xml:space="preserve">

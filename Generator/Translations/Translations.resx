@@ -149,6 +149,14 @@
     <value>(area-preposition:behind)Purple Mist</value>
     <comment></comment>
   </data>
+  <data name="hint-type.agitha-rewards-en" xml:space="preserve">
+    <value>Please bring the {num-bugs} to Agitha&apos;s Castle.\n\nAnd tell them the princess awaits!</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.agitha-rewards-en$good" xml:space="preserve">
+    <value>Please bring the {num-bugs} to Agitha&apos;s Castle. I&apos;ll share GREAT happiness with you:\n\n{items}</value>
+    <comment></comment>
+  </data>
   <data name="hint.barren" xml:space="preserve">
     <value>They say that there is nothing to be found {area-preposition}.</value>
     <comment></comment>

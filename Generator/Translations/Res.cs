@@ -669,6 +669,39 @@ namespace TPRandomizer
             return output;
         }
 
+        public static string CreateAndList(string langCode, List<string> strings)
+        {
+            if (ListUtils.isEmpty(strings))
+                return "";
+
+            switch (langCode)
+            {
+                case "fr":
+                    return CreateAndListFr(strings);
+                default:
+                    throw new Exception($"Failed to createAndList for langCode '{langCode}'.");
+            }
+        }
+
+        private static string CreateAndListFr(List<string> strings)
+        {
+            StringBuilder sb = new();
+
+            for (int i = 0; i < strings.Count; i++)
+            {
+                if (i > 0)
+                {
+                    if (i == strings.Count - 1)
+                        sb.Append(" et ");
+                    else
+                        sb.Append(", ");
+                }
+                sb.Append(strings[i]);
+            }
+
+            return sb.ToString();
+        }
+
         private static void TransformEscSeqList(
             TextChunk oldTextChunk,
             TextChunk newTextChunk,

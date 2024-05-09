@@ -432,6 +432,7 @@ namespace TPRandomizer
             );
 
             // ----- Barnes -----
+
             results.Add(
                 CustomMsgUtils.GetEntry(
                     MsgEntryId.Barnes_Bomb_Bag_Cant_Afford,
@@ -605,6 +606,32 @@ namespace TPRandomizer
 
         private void GenSelfHinterEntries()
         {
+            if (selfHinterChecks.Contains("Charlo Donation Blessing"))
+            {
+                Item item = HintUtils.getCheckContents("Charlo Donation Blessing");
+                if (HintUtils.IsTrapItem(item))
+                    item = Item.Piece_of_Heart;
+
+                // TODO: need to store whether def or indef for this check. Can
+                // go ahead and store this data for all self-hinters. Can leave
+                // off checkStatus since the checks are not intended to say
+                // whether they are good or not, but rather to act the same way
+                // as bugs or shop items do where you can simply see what the
+                // item is.
+
+                // TODO: will still need to handle replacing the "Donate 100,
+                // Donate 50, etc." part even when the self-hinter for this
+                // check is not enabled.
+
+                string itemText = GenItemText3(out _, item, CheckStatus.Unknown);
+
+                string text = Res.LangSpecificNormalize(Res.SimpleMsg("self-hinter.charlo", null));
+                // Specifically do not want to normalize this part:
+                text += Res.SimpleMsg("self-hinter.charlo-options", null);
+
+                results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Charlo_Donation_Confirmation, text));
+            }
+
             if (selfHinterChecks.Contains("Fishing Hole Bottle"))
             {
                 Item fishingBottleItem = HintUtils.getCheckContents("Fishing Hole Bottle");
@@ -615,8 +642,7 @@ namespace TPRandomizer
                     out _,
                     fishingBottleItem,
                     CheckStatus.Unknown,
-                    contextIn: "fishing-bottle",
-                    prefStartColor: CustomMessages.messageColorGreen
+                    contextIn: "fishing-bottle"
                 );
                 Res.Result fishingBottleRes = Res.Msg("self-hinter.fishing-bottle", null);
                 string fishingBottleText = fishingBottleRes.Substitute(
