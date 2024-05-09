@@ -33,7 +33,7 @@ namespace TPRandomizer.Hints
         public CustomMsgData Generate()
         {
             CustomMsgData.Builder customMsgDataBuilder =
-                new((byte)Randomizer.RequiredDungeons, genData.sSettings);
+                new(genData, (byte)Randomizer.RequiredDungeons);
 
             // If user specified that there are no hintSettings, then we should return the default customMsgData settings.
 

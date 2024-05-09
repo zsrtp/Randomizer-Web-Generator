@@ -25,7 +25,9 @@ namespace TPRandomizer
 
         private byte requiredDungeons;
         private bool updateShopText;
-        private HashSet<string> selfHinterChecks;
+
+        // checkName to useDefArticle
+        private Dictionary<string, bool> selfHinterChecks;
         private List<HintSpot> hintSpots;
 
         // private Dictionary<string, Status> checkToStatus;
@@ -59,12 +61,16 @@ namespace TPRandomizer
             result += SettingsEncoder.EncodeAsVlq16((ushort)numSelfHinters);
             if (numSelfHinters > 0)
             {
-                foreach (string checkName in selfHinterChecks)
+                foreach (KeyValuePair<string, bool> pair in selfHinterChecks)
                 {
+                    string checkName = pair.Key;
+                    bool useDefArticle = pair.Value;
+
                     result += SettingsEncoder.EncodeNumAsBits(
                         CheckIdClass.GetCheckIdNum(checkName),
                         bitLengths.checkId
                     );
+                    result += useDefArticle ? "1" : "0";
                 }
             }
 
@@ -128,7 +134,10 @@ namespace TPRandomizer
             {
                 int checkId = processor.NextInt(bitLengths.checkId);
                 string checkName = CheckIdClass.GetCheckName(checkId);
-                inst.selfHinterChecks.Add(checkName);
+
+                bool useDefArticle = processor.NextBool();
+
+                inst.selfHinterChecks[checkName] = useDefArticle;
             }
 
             // Decode hintSpots
@@ -197,17 +206,19 @@ namespace TPRandomizer
 
         public class Builder
         {
+            private HintGenData genData;
             public byte requiredDungeons { get; private set; }
             public bool updateShopText { get; private set; } = true;
             private bool forceNotUpdateShopText = false;
             private HashSet<string> selfHinterChecks =
-                new() { "Barnes Bomb Bag", "Charlo Donation Blessing", "Fishing Hole Bottle" };
+                new() { "Charlo Donation Blessing", "Fishing Hole Bottle" };
             public List<HintSpot> hintSpots { get; private set; } = new();
 
-            public Builder(byte requiredDungeons, SharedSettings sSettings)
+            public Builder(HintGenData genData, byte requiredDungeons)
             {
+                this.genData = genData;
                 this.requiredDungeons = requiredDungeons;
-                if (!sSettings.modifyShopModels)
+                if (!genData.sSettings.modifyShopModels)
                 {
                     updateShopText = false;
                     forceNotUpdateShopText = true;
@@ -223,9 +234,17 @@ namespace TPRandomizer
                 return true;
             }
 
-            public HashSet<string> GetSelfHinterChecks()
+            public Dictionary<string, bool> GetSelfHinterChecks()
             {
-                return new HashSet<string>(selfHinterChecks);
+                Dictionary<string, bool> ret = new();
+                foreach (string checkName in selfHinterChecks)
+                {
+                    Item item = HintUtils.getCheckContents(checkName);
+                    bool useDefArticle = genData.ItemUsesDefArticle(item);
+
+                    ret[checkName] = useDefArticle;
+                }
+                return ret;
             }
 
             public void ApplyInvalidSelfHinters(HashSet<string> invalidSelfHinters)
@@ -606,33 +625,38 @@ namespace TPRandomizer
 
         private void GenSelfHinterEntries()
         {
-            if (selfHinterChecks.Contains("Charlo Donation Blessing"))
+            if (
+                selfHinterChecks.TryGetValue(
+                    "Charlo Donation Blessing",
+                    out bool charloUseDefArticle
+                )
+            )
             {
                 Item item = HintUtils.getCheckContents("Charlo Donation Blessing");
                 if (HintUtils.IsTrapItem(item))
                     item = Item.Piece_of_Heart;
 
-                // TODO: need to store whether def or indef for this check. Can
-                // go ahead and store this data for all self-hinters. Can leave
-                // off checkStatus since the checks are not intended to say
-                // whether they are good or not, but rather to act the same way
-                // as bugs or shop items do where you can simply see what the
-                // item is.
-
                 // TODO: will still need to handle replacing the "Donate 100,
                 // Donate 50, etc." part even when the self-hinter for this
                 // check is not enabled.
 
-                string itemText = GenItemText3(out _, item, CheckStatus.Unknown);
+                string itemText = GenItemText3(
+                    out _,
+                    item,
+                    CheckStatus.Unknown,
+                    contextIn: charloUseDefArticle ? "def" : "indef"
+                );
 
-                string text = Res.LangSpecificNormalize(Res.SimpleMsg("self-hinter.charlo", null));
+                string text = Res.LangSpecificNormalize(
+                    Res.SimpleMsg("self-hinter.charlo", new() { { "item", itemText } })
+                );
                 // Specifically do not want to normalize this part:
                 text += Res.SimpleMsg("self-hinter.charlo-options", null);
 
                 results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Charlo_Donation_Confirmation, text));
             }
 
-            if (selfHinterChecks.Contains("Fishing Hole Bottle"))
+            if (selfHinterChecks.ContainsKey("Fishing Hole Bottle"))
             {
                 Item fishingBottleItem = HintUtils.getCheckContents("Fishing Hole Bottle");
                 if (HintUtils.IsTrapItem(fishingBottleItem))

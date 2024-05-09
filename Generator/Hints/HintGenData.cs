@@ -681,6 +681,13 @@ namespace TPRandomizer.Hints
             return requiredChecks.Contains(checkName);
         }
 
+        public bool ItemUsesDefArticle(Item item)
+        {
+            if (itemToChecksList.TryGetValue(item, out List<string> checksGivingItem))
+                return checksGivingItem.Count == 1;
+            return false;
+        }
+
         public AreaId GetRecommendedAreaId(string checkName)
         {
             Item item = HintUtils.getCheckContents(checkName);
