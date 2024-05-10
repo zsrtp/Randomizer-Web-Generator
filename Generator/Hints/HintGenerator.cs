@@ -947,7 +947,6 @@ namespace TPRandomizer.Hints
 
                 if (checksToHint.Count > 0)
                 {
-                    // Note: we insert these at the front so they are hard to miss.
                     if (hasImportantCheck)
                     {
                         if (placeHintsOnSpots)
@@ -957,7 +956,6 @@ namespace TPRandomizer.Hints
                     {
                         if (placeHintsOnSpots)
                             spotToHints.addHintToSpot(spotId, new BeyondPointHint(false), true);
-                        // genData.hinted.alreadyCheckKnownBarren.UnionWith(checksToHint);
                         foreach (string checkName in checksToHint)
                         {
                             genData.hinted.AddNonWeightedBarrenCheck(checkName);
