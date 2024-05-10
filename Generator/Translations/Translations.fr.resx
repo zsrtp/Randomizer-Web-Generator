@@ -1785,6 +1785,10 @@
     <value>#(option1)Voici 100 rubis.#(option2)Voici 50 rubis.#(option3)Je refuse.</value>
     <comment></comment>
   </data>
+  <data name="self-hinter.charlo$default" xml:space="preserve">
+    <value>Pour que la paix règne en Hyrule...\npuis-je vous demander l&apos;aumône...?</value>
+    <comment></comment>
+  </data>
   <data name="self-hinter.fishing-bottle" xml:space="preserve">
     <value>#(red)Protégez la nature!#(white)\nNe jetez pas de {item}!\n\nPrenez soin de l&apos;eau!\nPensez aux possions!\nPour le plaisir de tous!</value>
     <comment></comment>

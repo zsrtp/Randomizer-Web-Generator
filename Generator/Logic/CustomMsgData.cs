@@ -625,6 +625,9 @@ namespace TPRandomizer
 
         private void GenSelfHinterEntries()
         {
+            // For Charlo, we still need to use custom text even if disabled in
+            // order to update the "Donate 100", "Donate 50" text.
+            string charloText;
             if (
                 selfHinterChecks.TryGetValue(
                     "Charlo Donation Blessing",
@@ -636,10 +639,6 @@ namespace TPRandomizer
                 if (HintUtils.IsTrapItem(item))
                     item = Item.Piece_of_Heart;
 
-                // TODO: will still need to handle replacing the "Donate 100,
-                // Donate 50, etc." part even when the self-hinter for this
-                // check is not enabled.
-
                 string itemText = GenItemText3(
                     out _,
                     item,
@@ -647,14 +646,22 @@ namespace TPRandomizer
                     contextIn: charloUseDefArticle ? "def" : "indef"
                 );
 
-                string text = Res.LangSpecificNormalize(
+                charloText = Res.LangSpecificNormalize(
                     Res.SimpleMsg("self-hinter.charlo", new() { { "item", itemText } })
                 );
-                // Specifically do not want to normalize this part:
-                text += Res.SimpleMsg("self-hinter.charlo-options", null);
-
-                results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Charlo_Donation_Confirmation, text));
             }
+            else
+            {
+                charloText = Res.LangSpecificNormalize(
+                    Res.SimpleMsg("self-hinter.charlo", new() { { "context", "default" } }),
+                    addLineBreaks: false
+                );
+            }
+            // Specifically do not want to normalize this part.
+            charloText += Res.SimpleMsg("self-hinter.charlo-options", null);
+            results.Add(
+                CustomMsgUtils.GetEntry(MsgEntryId.Charlo_Donation_Confirmation, charloText)
+            );
 
             if (selfHinterChecks.ContainsKey("Fishing Hole Bottle"))
             {

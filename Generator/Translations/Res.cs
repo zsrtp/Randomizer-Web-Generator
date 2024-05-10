@@ -273,7 +273,11 @@ namespace TPRandomizer
             }
         }
 
-        public static string LangSpecificNormalize(string valIn, int? maxLength = null)
+        public static string LangSpecificNormalize(
+            string valIn,
+            int? maxLength = null,
+            bool addLineBreaks = true
+        )
         {
             string input = Regex.Unescape(valIn);
             input = MaleOrFemSign()
@@ -594,10 +598,13 @@ namespace TPRandomizer
                 }
             }
 
-            int maxLengthVal = 35;
-            if (maxLength != null)
-                maxLengthVal = (int)maxLength;
-            AddLineBreaksToChunks(chunks, maxLengthVal);
+            if (addLineBreaks)
+            {
+                int maxLengthVal = 35;
+                if (maxLength != null)
+                    maxLengthVal = (int)maxLength;
+                AddLineBreaksToChunks(chunks, maxLengthVal);
+            }
 
             string result = "";
             foreach (TextChunk chunk in chunks)

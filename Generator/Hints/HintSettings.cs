@@ -1407,7 +1407,7 @@ namespace TPRandomizer.Hints.Settings
 
         private static HashSet<string> loadInvalidSelfHinters(JObject root)
         {
-            HashSet<string> result = null;
+            HashSet<string> result = new();
 
             List<string> strList = HintSettingUtils.getOptionalStringList(
                 root,
