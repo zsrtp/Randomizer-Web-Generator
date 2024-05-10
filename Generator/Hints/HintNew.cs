@@ -31,6 +31,7 @@ namespace TPRandomizer.Hints
         ItemToItemPath = 10,
         TradeChain = 11,
         TradeGroup = 12,
+        JovaniRewards = 13,
     }
 
     public class HintTypeUtils
@@ -89,6 +90,8 @@ namespace TPRandomizer.Hints
                     return TradeChainHint.decode(bitLengths, processor, itemPlacements);
                 case HintType.TradeGroup:
                     return TradeGroupHint.decode(bitLengths, processor, itemPlacements);
+                case HintType.JovaniRewards:
+                    return JovaniRewardsHint.decode(bitLengths, processor, itemPlacements);
                 default:
                     throw new Exception(
                         $"Tried to decode hintType, but found unexpected type `{type}`."

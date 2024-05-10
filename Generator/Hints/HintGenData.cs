@@ -681,6 +681,16 @@ namespace TPRandomizer.Hints
             return requiredChecks.Contains(checkName);
         }
 
+        public CheckStatus CalcCheckStatus(string checkName, bool bypassIgnoredChecks = false)
+        {
+            if (CheckIsRequired(checkName))
+                return CheckStatus.Required;
+            else if (CheckIsGood(checkName, bypassIgnoredChecks))
+                return CheckStatus.Good;
+            else
+                return CheckStatus.Bad;
+        }
+
         public bool ItemUsesDefArticle(Item item)
         {
             if (itemToChecksList.TryGetValue(item, out List<string> checksGivingItem))

@@ -96,6 +96,7 @@ namespace TPRandomizer
             new()
             {
                 { SpotId.Agithas_Castle_Sign, MsgEntryId.Agithas_Castle_Sign },
+                { SpotId.Jovani_House_Sign, MsgEntryId.Jovani_House_Sign },
                 { SpotId.Ordon_Sign, MsgEntryId.Custom_Sign_Ordon },
                 { SpotId.Sacred_Grove_Sign, MsgEntryId.Custom_Sign_Sacred_Grove },
                 { SpotId.Faron_Field_Sign, MsgEntryId.Custom_Sign_Faron_Field },

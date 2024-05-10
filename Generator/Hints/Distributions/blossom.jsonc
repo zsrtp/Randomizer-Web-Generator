@@ -6,9 +6,9 @@
     "excludeFromGroups": true
   },
   "agitha": true,
-  "jovani": {
-    "minFoundSoulsForHint": 10
-  },
+  // "jovani": {
+  //   "minFoundSoulsForHint": 10
+  // },
   "caveOfOrdeals": true,
   "dungeons": {
     "bigKeyHints": true,

@@ -845,6 +845,8 @@ namespace TPRandomizer.Hints
                     startingSouls += 1;
             }
 
+            List<JovaniRewardsHint.JovaniCheckInfo> checkInfoList = new();
+
             foreach ((int, string) pair in valToCheck)
             {
                 int soulsForCheck = pair.Item1;
@@ -863,18 +865,22 @@ namespace TPRandomizer.Hints
                 if (failedMinSouls || failedMinFoundSouls)
                     continue;
 
-                // Can add user configuration for this later. For now, indicate
-                // requiredOrNot for the 60 reward only since it would be pretty
-                // cruel not to.
-                CheckStatusDisplay display =
-                    soulsForCheck == 60
-                        ? CheckStatusDisplay.Required_Or_Not
-                        : CheckStatusDisplay.Automatic;
+                CheckStatus checkStatus = genData.CalcCheckStatus(checkName);
+                // Use this CheckStatusDisplay for everything for now.
+                CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Required_Or_Not;
 
-                LocationHint hint = LocationHint.Create(genData, checkName, display: display);
+                JovaniRewardsHint.JovaniCheckInfo checkInfo =
+                    new(genData, checkName, (byte)soulsForCheck, checkStatus, checkStatusDisplay);
+                checkInfoList.Add(checkInfo);
 
+                // Mark check as hinted
                 genData.hinted.alreadyCheckContentsHinted.Add(checkName);
-                spotToHints.addHintToSpot(SpotId.Castle_Town_Sign, hint);
+            }
+
+            if (!ListUtils.isEmpty(checkInfoList))
+            {
+                JovaniRewardsHint hint = new JovaniRewardsHint(checkInfoList);
+                spotToHints.addHintToSpot(SpotId.Jovani_House_Sign, hint);
             }
         }
 
@@ -1232,11 +1238,11 @@ namespace TPRandomizer.Hints
         private List<string> CalcAlwaysChecksToHint()
         {
             // Note: we intentionally do not filter out Always checks which
-            // happened to have already been hinted such as potentially Jovani,
-            // CoO, or Charlo since a user would have to deliberately make a
-            // custom distribution to hint these checks twice, and we do not
-            // want to confuse the user by not Always-hinting a check they
-            // specifically asked to be Always hinted.
+            // happened to have already been hinted such as potentially Jovani
+            // or CoO, since a user would have to deliberately make a custom
+            // distribution to hint these checks twice, and we do not want to
+            // confuse the user by not Always-hinting a check they specifically
+            // asked to be Always hinted.
 
             Always always = hintSettings.always;
             List<string> checksToHint;
