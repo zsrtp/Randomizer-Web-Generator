@@ -1777,6 +1777,10 @@
     <value>les</value>
     <comment></comment>
   </data>
+  <data name="self-hinter.barnes-bomb-bag" xml:space="preserve">
+    <value>Allez, je te fais une offre spéciale, {item} pour {price}. Ça te tente?</value>
+    <comment></comment>
+  </data>
   <data name="self-hinter.charlo" xml:space="preserve">
     <value>Pour {item}...\npuis-je vous demander l&apos;aumône...?</value>
     <comment></comment>
@@ -1847,7 +1851,7 @@
   </data>
   <data name="shop.price" xml:space="preserve">
     <value>{count} rubis</value>
-    <comment>Confirmed by link1183 on 2024/03/31 that all should be &quot;rubis&quot;.</comment>
+    <comment></comment>
   </data>
   <data name="shop.slot" xml:space="preserve">
     <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>

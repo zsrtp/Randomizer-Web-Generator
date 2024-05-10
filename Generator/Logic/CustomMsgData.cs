@@ -211,7 +211,7 @@ namespace TPRandomizer
             public bool updateShopText { get; private set; } = true;
             private bool forceNotUpdateShopText = false;
             private HashSet<string> selfHinterChecks =
-                new() { "Charlo Donation Blessing", "Fishing Hole Bottle" };
+                new() { "Barnes Bomb Bag", "Charlo Donation Blessing", "Fishing Hole Bottle" };
             public List<HintSpot> hintSpots { get; private set; } = new();
 
             public Builder(HintGenData genData, byte requiredDungeons)
@@ -293,11 +293,6 @@ namespace TPRandomizer
 
             GenSelfHinterEntries();
 
-            // TODO: handle barnes and put in with shops. Make sure not
-            // considered a self-hinter anywhere in the code.
-
-            // TODO: handle Charlo self hinter
-
             // handle self-hinters next
             // results.Add(
             //     new MessageEntry
@@ -318,28 +313,8 @@ namespace TPRandomizer
             //             + CustomMessages.shopOption
             //     }
             // );
-            // results.Add(
-            //     new MessageEntry
-            //     {
-            //         stageIDX = (byte)StageIDs.Castle_Town,
-            //         roomIDX = 2,
-            //         messageID = 0x355, // Charlo Donation Text.
-            //         message =
-            //             "For a "
-            //             // + getShortenedItemName(Randomizer.Checks.CheckDict["Charlo Donation Blessing"].itemId)
-            //             + Randomizer.Checks.CheckDict["Charlo Donation Blessing"].itemId
-            //             + CustomMessages.messageColorWhite
-            //             + "...\nWould you please make a donation?"
-            //             + CustomMessages.messageOption1
-            //             + "100 Rupees\n"
-            //             + CustomMessages.messageOption2
-            //             + "50 Rupees\n"
-            //             + CustomMessages.messageOption3
-            //             + "Sorry..."
-            //     }
-            // );
 
-            // then handle custom hint signs
+            // Handle custom hint signs
             GenHintSignEntries(results);
 
             List<MessageEntry> ret = results;
@@ -1004,6 +979,37 @@ namespace TPRandomizer
                     )
                 )
             );
+
+            // ----- Barnes -----
+
+            if (selfHinterChecks.TryGetValue("Barnes Bomb Bag", out bool barnesUseDefArticle))
+            {
+                Item item = HintUtils.getCheckContents("Barnes Bomb Bag");
+                if (HintUtils.IsTrapItem(item))
+                    item = Item.Filled_Bomb_Bag;
+
+                string itemText = GenItemText3(
+                    out _,
+                    item,
+                    CheckStatus.Unknown,
+                    barnesUseDefArticle ? "def" : "indef",
+                    prefStartColor: CustomMessages.messageColorOrange
+                );
+
+                string priceText = GenShopPriceText(120);
+
+                Res.Result res = Res.Msg("self-hinter.barnes-bomb-bag", null);
+                string text = res.Substitute(
+                    new() { { "item", itemText }, { "price", priceText } }
+                );
+
+                results.Add(
+                    CustomMsgUtils.GetEntry(
+                        MsgEntryId.Barnes_Bomb_Bag_Confirmation,
+                        Res.LangSpecificNormalize(text) + CustomMessages.shopOption
+                    )
+                );
+            }
         }
 
         private void GenHintSignEntries(List<MessageEntry> results)
