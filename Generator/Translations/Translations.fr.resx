@@ -449,6 +449,14 @@
     <value>Il est dit qu&apos;il n&apos;y a rien à trouver {area-phrase}.</value>
     <comment></comment>
   </data>
+  <data name="hint-type.beyond-point" xml:space="preserve">
+    <value>#(purple)Rien#(white) au-delà de ce point !</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point$good" xml:space="preserve">
+    <value>#(green)Quelque chose de bien#(white) au-delà de ce point !</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.item" xml:space="preserve">
     <value>Il est dit que {item} {verb(name:can-be-found)} {area-phrase}.</value>
     <comment></comment>

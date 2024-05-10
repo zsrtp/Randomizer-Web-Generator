@@ -15,11 +15,13 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList()
         {
+            string text = Res.LangSpecificNormalize(
+                Res.Msg("hint-type.beyond-point", new() { { "context", isPositive ? "good" : "" } })
+                    .Substitute(null)
+            );
+
             HintText hintText = new HintText();
-            if (isPositive)
-                hintText.text = "{Something good} beyond this point!";
-            else
-                hintText.text = "{Nothing} beyond this point!";
+            hintText.text = text;
             return new List<HintText> { hintText };
         }
 
