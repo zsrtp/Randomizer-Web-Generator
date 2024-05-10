@@ -62,8 +62,58 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList()
         {
+            string text = "";
+
+            if (ListUtils.isEmpty(checkInfoList))
+            {
+                // Not expecting to ever see this. Can fill out if we ever
+                // support something like a random number of Jovani rewards
+                // which the user does not know ahead of time, and we happened
+                // to generate that there were no Jovani rewards.
+                text = "empty...";
+            }
+            else
+            {
+                for (int i = 0; i < checkInfoList.Count; i++)
+                {
+                    JovaniCheckInfo checkInfo = checkInfoList[i];
+
+                    if (i > 0)
+                        text += "\n\n";
+
+                    string countStr = checkInfo.soulsThreshold.ToString();
+
+                    Res.Result res = Res.Msg(
+                        "hint-type.jovani-rewards.reward",
+                        new() { { "count", countStr } }
+                    );
+
+                    // Leaving def/indef out for now. Might need it or
+                    // 'capitalize' to be based on meta from the
+                    // 'hint-type.jovani-rewards.reward' line.
+                    string itemText = CustomMsgData.GenItemText3(
+                        out _,
+                        checkInfo.item,
+                        checkInfo.checkStatus,
+                        // contextIn: checkInfo.useDefArticle ? "def" : "indef",
+                        checkStatusDisplay: checkInfo.checkStatusDisplay,
+                        capitalize: true
+                    );
+
+                    string rowText = res.Substitute(
+                        new() { { "count", countStr }, { "item", itemText } }
+                    );
+                    // 41 based on smaller font size. See AgithaRewardsHint as
+                    // well.
+                    text += Res.LangSpecificNormalize(rowText, 41);
+                }
+            }
+
+            // Smaller font size.
+            text = "\x1A\x07\xFF\x00\x01\x00\x48" + text;
+
             HintText hintText = new HintText();
-            hintText.text = "abc jov hint";
+            hintText.text = text;
             return new List<HintText>() { hintText };
         }
 

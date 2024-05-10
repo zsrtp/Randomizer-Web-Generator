@@ -465,6 +465,14 @@
     <value>Il est dit que {source} {verb(name:is)} sur le chemin de {target}.</value>
     <comment></comment>
   </data>
+  <data name="hint-type.jovani-rewards.reward" xml:space="preserve">
+    <value>Récompense pour {count} âme :\n{item}</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.jovani-rewards.reward#other" xml:space="preserve">
+    <value>Récompense pour {count} âmes :\n{item}</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.location" xml:space="preserve">
     <value>Il est dit que la récompense de {check-name} {verb(name:is)} {item}.</value>
     <comment></comment>
