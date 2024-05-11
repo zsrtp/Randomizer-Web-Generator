@@ -7,6 +7,8 @@ namespace TPRandomizer.Hints
 
     public class AgithaRewardsHint : Hint
     {
+        public override HintType type { get; } = HintType.AgithaRewards;
+
         public int numBugsInPool { get; }
         public List<string> interestingAgithaChecks { get; }
 
@@ -25,7 +27,6 @@ namespace TPRandomizer.Hints
         // List<Item> items
         )
         {
-            this.type = HintType.AgithaRewards;
             this.numBugsInPool = numBugsInPool;
             this.interestingAgithaChecks = interestingAgithaChecks;
             this.useDefArticleList = useDefArticleList;

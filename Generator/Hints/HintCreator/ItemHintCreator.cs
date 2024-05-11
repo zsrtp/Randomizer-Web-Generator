@@ -11,6 +11,8 @@ namespace TPRandomizer.Hints.HintCreator
 
     public class ItemHintCreator : HintCreator
     {
+        public override HintCreatorType type { get; } = HintCreatorType.Item;
+
         private List<Item> validItems = null;
         protected HashSet<string> invalidChecks = new();
         private HashSet<CheckStatus> validStatuses = new() { CheckStatus.Good };
@@ -61,10 +63,7 @@ namespace TPRandomizer.Hints.HintCreator
         // -- Then it would keep track of its own cacheState for that node ("0.1.3"), and once
         // -- it made it through the list then it would never product any more hints.
 
-        private ItemHintCreator()
-        {
-            this.type = HintCreatorType.Item;
-        }
+        private ItemHintCreator() { }
 
         new public static ItemHintCreator fromJObject(JObject obj)
         {

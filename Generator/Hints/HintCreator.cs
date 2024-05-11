@@ -8,8 +8,6 @@ namespace TPRandomizer.Hints.Settings
 
     public enum HintCreatorType
     {
-        Null = 0,
-
         // The below values are intentionally not assigned specific numbers to
         // indicate that they are not encoded anywhere and their order is not
         // important. Note that every HintType does not necessarily have a
@@ -32,7 +30,7 @@ namespace TPRandomizer.Hints.Settings
 
     public abstract class HintCreator
     {
-        public HintCreatorType type { get; protected set; } = HintCreatorType.Null;
+        public abstract HintCreatorType type { get; }
 
         public abstract List<Hint> tryCreateHint(
             HintGenData genData,

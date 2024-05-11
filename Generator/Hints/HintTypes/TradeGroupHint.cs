@@ -6,6 +6,8 @@ namespace TPRandomizer.Hints
 
     public class TradeGroupHint : Hint
     {
+        public override HintType type { get; } = HintType.TradeGroup;
+
         private static readonly object privateObj = new();
 
         public enum Vagueness
@@ -42,8 +44,6 @@ namespace TPRandomizer.Hints
             object privateRef = null
         )
         {
-            this.type = HintType.TradeGroup;
-
             // Only allow itemPlacements if constructor is called from within
             // this class.
             if (privateObj != privateRef)

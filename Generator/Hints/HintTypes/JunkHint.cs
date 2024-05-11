@@ -6,19 +6,19 @@ namespace TPRandomizer.Hints
 
     public class JunkHint : Hint
     {
+        public override HintType type { get; } = HintType.Junk;
+
         public ushort idValue { get; private set; }
         public bool indicatesBarren { get; private set; }
 
         public JunkHint(Random rnd, bool indicatesBarren = false)
         {
-            this.type = HintType.Junk;
             this.idValue = (ushort)rnd.Next(ushort.MaxValue);
             this.indicatesBarren = indicatesBarren;
         }
 
         private JunkHint(ushort idValue, bool indicatesBarren = false)
         {
-            this.type = HintType.Junk;
             this.idValue = idValue;
             this.indicatesBarren = indicatesBarren;
         }

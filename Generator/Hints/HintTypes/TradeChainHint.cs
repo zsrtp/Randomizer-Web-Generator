@@ -6,6 +6,8 @@ namespace TPRandomizer.Hints
 
     public class TradeChainHint : Hint
     {
+        public override HintType type { get; } = HintType.TradeChain;
+
         public enum AreaType
         {
             Zone = 0,
@@ -63,7 +65,6 @@ namespace TPRandomizer.Hints
             Dictionary<int, byte> itemPlacements = null
         )
         {
-            this.type = HintType.TradeChain;
             this.srcCheckName = srcCheckName;
             this.vaugeSourceItem = vagueSourceItem;
             this.includeArea = includeArea;

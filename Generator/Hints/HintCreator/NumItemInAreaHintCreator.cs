@@ -12,15 +12,14 @@ namespace TPRandomizer.Hints.HintCreator
 
     public class NumItemInAreaHintCreator : HintCreator
     {
+        public override HintCreatorType type { get; } = HintCreatorType.NumItemInArea;
+
         private Item item;
         private AreaId areaType;
         private List<string> validAreas;
         private string order;
 
-        private NumItemInAreaHintCreator()
-        {
-            this.type = HintCreatorType.NumItemInArea;
-        }
+        private NumItemInAreaHintCreator() { }
 
         new public static NumItemInAreaHintCreator fromJObject(JObject obj)
         {

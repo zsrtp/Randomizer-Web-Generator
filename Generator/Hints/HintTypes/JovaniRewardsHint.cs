@@ -9,11 +9,12 @@ namespace TPRandomizer.Hints
 
     public class JovaniRewardsHint : Hint
     {
+        public override HintType type { get; } = HintType.JovaniRewards;
+
         public List<JovaniCheckInfo> checkInfoList { get; }
 
         public JovaniRewardsHint(List<JovaniCheckInfo> checkInfoList)
         {
-            this.type = HintType.JovaniRewards;
             this.checkInfoList = checkInfoList;
 
             if (!ListUtils.isEmpty(checkInfoList) && checkInfoList.Count > 16)

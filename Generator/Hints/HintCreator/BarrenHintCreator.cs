@@ -9,6 +9,8 @@ namespace TPRandomizer.Hints.HintCreator
 
     public class BarrenHintCreator : HintCreator
     {
+        public override HintCreatorType type { get; } = HintCreatorType.Barren;
+
         private static readonly HashSet<HintCategory> defaultHintCategories =
             new()
             {
@@ -34,10 +36,7 @@ namespace TPRandomizer.Hints.HintCreator
         private AreaId.AreaType areaType = AreaId.AreaType.Zone;
         private HashSet<AreaId> validAreas = null;
 
-        private BarrenHintCreator()
-        {
-            this.type = HintCreatorType.Barren;
-        }
+        private BarrenHintCreator() { }
 
         new public static BarrenHintCreator fromJObject(JObject obj)
         {

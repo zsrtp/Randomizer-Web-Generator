@@ -12,6 +12,8 @@ namespace TPRandomizer.Hints.HintCreator
 
     public class TradeGroupHintCreator : HintCreator
     {
+        public override HintCreatorType type { get; } = HintCreatorType.TradeGroup;
+
         private static readonly HashSet<TradeGroup> bugTradeGroups =
             new()
             {
@@ -35,10 +37,7 @@ namespace TPRandomizer.Hints.HintCreator
         private TradeGroupHint.Vagueness vagueness = TradeGroupHint.Vagueness.Vague;
         private HashSet<TradeGroupHint.Status> validStatuses;
 
-        private TradeGroupHintCreator()
-        {
-            this.type = HintCreatorType.TradeGroup;
-        }
+        private TradeGroupHintCreator() { }
 
         new public static TradeGroupHintCreator fromJObject(JObject obj)
         {

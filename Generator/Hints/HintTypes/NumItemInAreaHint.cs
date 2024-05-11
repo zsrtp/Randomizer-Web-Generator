@@ -6,13 +6,14 @@ namespace TPRandomizer.Hints
 
     public class NumItemInAreaHint : Hint, IAreaHinter
     {
+        public override HintType type { get; } = HintType.NumItemInArea;
+
         public int count { get; }
         public Item item { get; }
         public AreaId areaId { get; }
 
         public NumItemInAreaHint(int count, Item item, AreaId areaId)
         {
-            this.type = HintType.NumItemInArea;
             this.count = count;
             this.item = item;
             this.areaId = areaId;

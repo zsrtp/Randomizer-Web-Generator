@@ -10,6 +10,8 @@ namespace TPRandomizer.Hints.HintCreator
 
     public class WothHintCreator : HintCreator
     {
+        public override HintCreatorType type { get; } = HintCreatorType.Woth;
+
         private static readonly HashSet<HintCategory> maxValidCategories =
             new()
             {
@@ -28,10 +30,7 @@ namespace TPRandomizer.Hints.HintCreator
 
         private AreaId.AreaType areaType = AreaId.AreaType.Zone;
 
-        private WothHintCreator()
-        {
-            this.type = HintCreatorType.Woth;
-        }
+        private WothHintCreator() { }
 
         new public static WothHintCreator fromJObject(JObject obj)
         {

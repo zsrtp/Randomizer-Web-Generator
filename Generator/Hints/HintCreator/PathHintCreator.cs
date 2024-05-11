@@ -10,10 +10,9 @@ namespace TPRandomizer.Hints.HintCreator
 
     public class PathHintCreator : HintCreator
     {
-        private PathHintCreator()
-        {
-            this.type = HintCreatorType.Path;
-        }
+        public override HintCreatorType type { get; } = HintCreatorType.Path;
+
+        private PathHintCreator() { }
 
         new public static PathHintCreator fromJObject(JObject obj)
         {

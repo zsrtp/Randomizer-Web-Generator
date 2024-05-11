@@ -7,6 +7,8 @@ namespace TPRandomizer.Hints
 
     public class PathHint : Hint
     {
+        public override HintType type { get; } = HintType.Path;
+
         private static Dictionary<GoalEnum, string> goalToColor =
             new()
             {
@@ -30,7 +32,6 @@ namespace TPRandomizer.Hints
 
         public PathHint(AreaId areaId, string checkName, GoalEnum goalEnum)
         {
-            this.type = HintType.Path;
             this.areaId = areaId;
             this.checkName = checkName;
             this.goalEnum = goalEnum;

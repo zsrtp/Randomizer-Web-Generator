@@ -12,6 +12,8 @@ namespace TPRandomizer.Hints.HintCreator
 
     public class TradeChainHintCreator : HintCreator
     {
+        public override HintCreatorType type { get; } = HintCreatorType.TradeChain;
+
         public bool vagueSourceItem = false;
         public bool includeArea = true;
         public CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.None;
@@ -26,10 +28,7 @@ namespace TPRandomizer.Hints.HintCreator
         // contain at least one item in this set (including final reward).
         private HashSet<Item> requiredChainItems = null;
 
-        private TradeChainHintCreator()
-        {
-            this.type = HintCreatorType.TradeChain;
-        }
+        private TradeChainHintCreator() { }
 
         new public static TradeChainHintCreator fromJObject(JObject obj)
         {

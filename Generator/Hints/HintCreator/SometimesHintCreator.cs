@@ -8,9 +8,10 @@ namespace TPRandomizer.Hints.HintCreator
 
     public class SometimesHintCreator : LocationHintCreator
     {
+        public override HintCreatorType type { get; } = HintCreatorType.Sometimes;
+
         private SometimesHintCreator()
         {
-            this.type = HintCreatorType.Sometimes;
             this.markAsSometimes = true;
         }
 

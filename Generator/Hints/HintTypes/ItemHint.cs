@@ -6,6 +6,8 @@ namespace TPRandomizer.Hints
 
     public class ItemHint : Hint
     {
+        public override HintType type { get; } = HintType.Item;
+
         public AreaId areaId { get; }
         public string checkName { get; }
         public CheckStatusDisplay statusDisplay { get; }
@@ -40,8 +42,6 @@ namespace TPRandomizer.Hints
             HintGenData genData = null
         )
         {
-            this.type = HintType.Item;
-
             this.areaId = areaId;
             this.checkName = checkName;
             this.status = status;

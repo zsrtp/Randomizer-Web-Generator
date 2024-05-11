@@ -11,10 +11,9 @@ namespace TPRandomizer.Hints.HintCreator
 
     public class ItemToItemPathHintCreator : HintCreator
     {
-        private ItemToItemPathHintCreator()
-        {
-            this.type = HintCreatorType.ItemToItemPath;
-        }
+        public override HintCreatorType type { get; } = HintCreatorType.ItemToItemPath;
+
+        private ItemToItemPathHintCreator() { }
 
         new public static ItemToItemPathHintCreator fromJObject(JObject obj)
         {

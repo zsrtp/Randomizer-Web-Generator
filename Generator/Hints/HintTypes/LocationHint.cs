@@ -6,6 +6,8 @@ namespace TPRandomizer.Hints
 
     public class LocationHint : Hint
     {
+        public override HintType type { get; } = HintType.Location;
+
         string checkName;
         CheckStatusDisplay display;
         bool vague;
@@ -43,8 +45,6 @@ namespace TPRandomizer.Hints
             Dictionary<int, byte> itemPlacements = null
         )
         {
-            this.type = HintType.Location;
-
             this.checkName = checkName;
             this.vague = vague;
             this.status = status;

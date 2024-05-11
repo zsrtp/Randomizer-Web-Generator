@@ -10,10 +10,9 @@ namespace TPRandomizer.Hints.HintCreator
 
     public class JunkHintCreator : HintCreator
     {
-        private JunkHintCreator()
-        {
-            this.type = HintCreatorType.Junk;
-        }
+        public override HintCreatorType type { get; } = HintCreatorType.Junk;
+
+        private JunkHintCreator() { }
 
         new public static JunkHintCreator fromJObject(JObject obj)
         {

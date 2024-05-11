@@ -18,20 +18,19 @@ namespace TPRandomizer.Hints
 
     public enum HintType : byte
     {
-        Null = 0,
-        Junk = 1,
-        Location = 2,
-        Woth = 3,
-        Barren = 4,
-        Item = 5,
-        AgithaRewards = 6,
-        BeyondPoint = 7,
-        NumItemInArea = 8,
-        Path = 9,
-        ItemToItemPath = 10,
-        TradeChain = 11,
-        TradeGroup = 12,
-        JovaniRewards = 13,
+        Junk = 0,
+        Location = 1,
+        Woth = 2,
+        Barren = 3,
+        Item = 4,
+        AgithaRewards = 5,
+        BeyondPoint = 6,
+        NumItemInArea = 7,
+        Path = 8,
+        ItemToItemPath = 9,
+        TradeChain = 10,
+        TradeGroup = 11,
+        JovaniRewards = 12,
     }
 
     public class HintTypeUtils
@@ -46,7 +45,7 @@ namespace TPRandomizer.Hints
 
     public abstract class Hint
     {
-        public HintType type { get; protected set; } = HintType.Null;
+        public abstract HintType type { get; }
 
         public abstract List<HintText> toHintTextList();
 
@@ -64,8 +63,6 @@ namespace TPRandomizer.Hints
             HintType type = (HintType)processor.NextInt(bitLengths.hintType);
             switch (type)
             {
-                case HintType.Null:
-                    return NullHint.decode(bitLengths, processor, itemPlacements);
                 case HintType.Junk:
                     return JunkHint.decode(bitLengths, processor, itemPlacements);
                 case HintType.Location:

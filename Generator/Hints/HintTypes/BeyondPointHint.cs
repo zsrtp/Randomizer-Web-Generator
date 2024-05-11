@@ -5,11 +5,12 @@ namespace TPRandomizer.Hints
 
     public class BeyondPointHint : Hint
     {
+        public override HintType type { get; } = HintType.BeyondPoint;
+
         public bool isPositive { get; }
 
         public BeyondPointHint(bool isPositive)
         {
-            this.type = HintType.BeyondPoint;
             this.isPositive = isPositive;
         }
 

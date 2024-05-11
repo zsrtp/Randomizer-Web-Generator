@@ -6,11 +6,12 @@ namespace TPRandomizer.Hints
 
     public class BarrenHint : Hint
     {
+        public override HintType type { get; } = HintType.Barren;
+
         public AreaId areaId { get; }
 
         public BarrenHint(AreaId areaId)
         {
-            this.type = HintType.Barren;
             this.areaId = areaId;
         }
 

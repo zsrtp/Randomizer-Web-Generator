@@ -6,13 +6,14 @@ namespace TPRandomizer.Hints
 
     public class WothHint : Hint
     {
+        public override HintType type { get; } = HintType.Woth;
+
         public AreaId areaId { get; }
 
         public string checkName { get; }
 
         public WothHint(AreaId areaId, string checkName)
         {
-            this.type = HintType.Woth;
             this.areaId = areaId;
             this.checkName = checkName;
         }

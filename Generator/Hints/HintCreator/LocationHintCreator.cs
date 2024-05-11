@@ -10,6 +10,8 @@ namespace TPRandomizer.Hints.HintCreator
 
     public class LocationHintCreator : HintCreator
     {
+        public override HintCreatorType type { get; } = HintCreatorType.Location;
+
         protected enum NamedOrder
         {
             Basic,
@@ -29,10 +31,7 @@ namespace TPRandomizer.Hints.HintCreator
         // Probability of less than 0 means to ignore it.
         protected double namedProbability = -1;
 
-        protected LocationHintCreator()
-        {
-            this.type = HintCreatorType.Location;
-        }
+        protected LocationHintCreator() { }
 
         new public static LocationHintCreator fromJObject(JObject obj)
         {

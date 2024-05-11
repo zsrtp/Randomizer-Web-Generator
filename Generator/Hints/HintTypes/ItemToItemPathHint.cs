@@ -6,6 +6,8 @@ namespace TPRandomizer.Hints
 
     public class ItemToItemPathHint : Hint
     {
+        public override HintType type { get; } = HintType.ItemToItemPath;
+
         public Item srcItem { get; }
         public string tgtCheckName { get; }
 
@@ -33,7 +35,6 @@ namespace TPRandomizer.Hints
             Dictionary<int, byte> itemPlacements = null
         )
         {
-            this.type = HintType.ItemToItemPath;
             this.srcItem = srcItem;
             this.tgtCheckName = tgtCheckName;
             this.srcUseDefiniteArticle = srcUseDefiniteArticle;
