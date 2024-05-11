@@ -118,6 +118,8 @@ namespace TPRandomizer
                 SettingsEncoder.DecodeToBitString(sixCharString)
             );
 
+            // Once we actually need to start using the version, we can start
+            // passing it to the Hint types, etc. as needed.
             ushort version = processor.NextVlq16();
             HintEncodingBitLengths bitLengths = HintEncodingBitLengths.decode(processor);
 
