@@ -32,7 +32,7 @@ namespace TPRandomizer.Hints
             return new BarrenHint(areaId);
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             Res.Result hintParsedRes = Res.ParseVal("hint-type.barren");
 

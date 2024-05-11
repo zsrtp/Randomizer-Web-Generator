@@ -14,7 +14,7 @@ namespace TPRandomizer.Hints
             this.isPositive = isPositive;
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             string text = Res.LangSpecificNormalize(
                 Res.Msg("hint-type.beyond-point", new() { { "context", isPositive ? "good" : "" } })

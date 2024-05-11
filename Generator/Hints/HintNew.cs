@@ -47,7 +47,7 @@ namespace TPRandomizer.Hints
     {
         public abstract HintType type { get; }
 
-        public abstract List<HintText> toHintTextList();
+        public abstract List<HintText> toHintTextList(CustomMsgData customMsgData);
 
         public virtual string encodeAsBits(HintEncodingBitLengths bitLengths)
         {

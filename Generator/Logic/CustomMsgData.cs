@@ -16,6 +16,7 @@ namespace TPRandomizer
     using System.Globalization;
     using Microsoft.Extensions.Logging.Abstractions;
     using Microsoft.Win32.SafeHandles;
+    using SSettings.Enums;
 
     public class CustomMsgData
     {
@@ -31,16 +32,22 @@ namespace TPRandomizer
         private List<HintSpot> hintSpots;
 
         // private Dictionary<string, Status> checkToStatus;
-        List<MessageEntry> results = new();
+        private List<MessageEntry> results = new();
+        private SharedSettings sSettings;
 
-        private CustomMsgData() { }
+        private CustomMsgData(SharedSettings sSettings)
+        {
+            this.sSettings = sSettings;
+        }
 
-        private CustomMsgData(Builder builder)
+        private CustomMsgData(Builder builder, SharedSettings sSettings)
         {
             requiredDungeons = builder.requiredDungeons;
             updateShopText = builder.updateShopText;
             selfHinterChecks = builder.GetSelfHinterChecks();
             hintSpots = builder.hintSpots;
+
+            this.sSettings = sSettings;
         }
 
         public string Encode()
@@ -105,6 +112,7 @@ namespace TPRandomizer
         }
 
         public static CustomMsgData Decode(
+            SharedSettings sSettings,
             Dictionary<int, byte> itemPlacements,
             string sixCharString
         )
@@ -112,7 +120,7 @@ namespace TPRandomizer
             if (sixCharString == null)
                 return null;
 
-            CustomMsgData inst = new CustomMsgData();
+            CustomMsgData inst = new CustomMsgData(sSettings);
 
             BitsProcessor processor = new BitsProcessor(
                 SettingsEncoder.DecodeToBitString(sixCharString)
@@ -271,9 +279,9 @@ namespace TPRandomizer
                 this.hintSpots = hintSpots;
             }
 
-            public CustomMsgData Build()
+            public CustomMsgData Build(SharedSettings sSettings)
             {
-                return new(this);
+                return new(this, sSettings);
             }
         }
 
@@ -734,112 +742,72 @@ namespace TPRandomizer
             // results.Add(entry);
 
             // AreaId areaId = AreaId.Category(HintCategory.Golden_Wolf);
-            AreaId areaId = AreaId.Category(HintCategory.Grotto);
+            // AreaId areaId = AreaId.Category(HintCategory.Grotto);
 
-            // TradeChainHint tcHint = TradeChainHint.Create(
-            //     null,
-            //     "Bridge of Eldin Owl Statue Sky Character",
-            //     false,
-            //     true,
-            //     // areaId.type == AreaId.AreaType.Province
-            //     //   ? TradeChainHint.AreaType.Province :
-            //     TradeChainHint.AreaType.Zone,
-            //     TradeChainHint.RewardVagueness.Named,
-            //     TradeChainHint.RewardStatus.Good // This can be auto-calculated? Just specify display type?
-            // );
-            // string tcHintText = tcHint.toHintTextList()[0].text;
+            // // TradeChainHint tcHint = TradeChainHint.Create(
+            // //     null,
+            // //     "Bridge of Eldin Owl Statue Sky Character",
+            // //     false,
+            // //     true,
+            // //     // areaId.type == AreaId.AreaType.Province
+            // //     //   ? TradeChainHint.AreaType.Province :
+            // //     TradeChainHint.AreaType.Zone,
+            // //     TradeChainHint.RewardVagueness.Named,
+            // //     TradeChainHint.RewardStatus.Good // This can be auto-calculated? Just specify display type?
+            // // );
+            // // string tcHintText = tcHint.toHintTextList()[0].text;
 
-            ItemToItemPathHint itipHint = ItemToItemPathHint.Create(
-                null,
-                Item.Progressive_Bow,
-                "Wooden Sword Chest"
-            );
-            string itipHintText = itipHint.toHintTextList()[0].text;
 
-            PathHint pathHint = new PathHint(
-                AreaId.Zone(Zone.Eldin_Field),
-                "Wooden Sword Chest",
-                GoalEnum.Stallord
-            );
-            string pathHintText = pathHint.toHintTextList()[0].text;
-
-            // ItemHint itemHint = ItemHint.Create(
-            //     null,
-            //     // "Outside Lanayru Spring Left Statue Chest",
-            //     areaId,
-            //     "Wooden Sword Chest"
-            // // "Plumm Fruit Balloon Minigame",
-            // // display: CheckStatusDisplay.Required_Or_Not
-            // );
-            // string itemHintText = itemHint.toHintTextList()[0].text;
-
-            NumItemInAreaHint niiaHint = new NumItemInAreaHint(2, Item.Bombs_5, areaId);
-            string niiaText = niiaHint.toHintTextList()[0].text;
-
-            WothHint wothHint = new WothHint(areaId, "Wooden Sword Chest");
-            string wothHintText = wothHint.toHintTextList()[0].text;
-
-            BarrenHint barrenHint = new BarrenHint(areaId);
-            string barrenHintText = barrenHint.toHintTextList()[0].text;
-
-            TradeGroupHint tradeGroupHint = new TradeGroupHint(
-                TradeGroup.Mantises,
-                TradeGroupHint.Vagueness.Named,
-                TradeGroupHint.Status.Bad,
-                "Wooden Sword Chest"
-            );
-            string tradeGroupHintText = tradeGroupHint.toHintTextList()[0].text;
-
-            List<Hint> hints = new();
-            foreach (HintSpot hintSpot in hintSpots)
-            {
-                if (hintSpot.location == SpotId.Ordon_Sign)
-                {
-                    hints = hintSpot.hints;
-                }
-            }
-
-            // List<Hint> hints =
-            //     new()
+            // List<Hint> hints = new();
+            // foreach (HintSpot hintSpot in hintSpots)
+            // {
+            //     if (hintSpot.location == SpotId.Ordon_Sign)
             //     {
-            //         itipHint,
-            //         pathHint,
-            //         // itemHint,
-            //         niiaHint,
-            //         wothHint,
-            //         barrenHint,
-            //     };
+            //         hints = hintSpot.hints;
+            //     }
+            // }
 
-            StringBuilder sb = new();
+            // // List<Hint> hints =
+            // //     new()
+            // //     {
+            // //         itipHint,
+            // //         pathHint,
+            // //         // itemHint,
+            // //         niiaHint,
+            // //         wothHint,
+            // //         barrenHint,
+            // //     };
 
-            for (int i = 0; i < hints.Count; i++)
-            {
-                Hint hint = hints[i];
+            // StringBuilder sb = new();
 
-                List<HintText> hintTextList = hint.toHintTextList();
-                for (int j = 0; j < hintTextList.Count; j++)
-                {
-                    HintText hintText = hintTextList[j];
-                    string text = hintText.text;
-                    if (i < hints.Count - 1 || j < hintTextList.Count - 1)
-                        text = Res.NormalizeForMergingOnSign(text);
+            // for (int i = 0; i < hints.Count; i++)
+            // {
+            //     Hint hint = hints[i];
 
-                    sb.Append(text);
-                }
-            }
+            //     List<HintText> hintTextList = hint.toHintTextList();
+            //     for (int j = 0; j < hintTextList.Count; j++)
+            //     {
+            //         HintText hintText = hintTextList[j];
+            //         string text = hintText.text;
+            //         if (i < hints.Count - 1 || j < hintTextList.Count - 1)
+            //             text = Res.NormalizeForMergingOnSign(text);
 
-            string textForSign = sb.ToString();
+            //         sb.Append(text);
+            //     }
+            // }
 
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    // MsgEntryId.Sera_Slingshot_Slot,
-                    MsgEntryId.Custom_Sign_Ordon,
-                    // itemHintText
-                    // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
-                    textForSign
-                // GenBasicShopMsg("Lake Lantern Cave Twelfth Chest", 30, true)
-                )
-            );
+            // string textForSign = sb.ToString();
+
+            // results.Add(
+            //     CustomMsgUtils.GetEntry(
+            //         // MsgEntryId.Sera_Slingshot_Slot,
+            //         MsgEntryId.Custom_Sign_Ordon,
+            //         // itemHintText
+            //         // GenBasicShopMsg("Sera Shop Slingshot", 30, true)
+            //         textForSign
+            //     // GenBasicShopMsg("Lake Lantern Cave Twelfth Chest", 30, true)
+            //     )
+            // );
 
             // Actual function content:
 
@@ -1029,7 +997,7 @@ namespace TPRandomizer
                 {
                     Hint hint = hints[i];
 
-                    string text = hint.toHintTextList()[0].text;
+                    string text = hint.toHintTextList(this)[0].text;
                     if (i < hints.Count - 1)
                         text = Res.NormalizeForMergingOnSign(text);
 
@@ -1041,38 +1009,6 @@ namespace TPRandomizer
 
                 results.Add(messageEntry);
             }
-
-            // ItemHint itemHint = ItemHint.Create(
-            //     null,
-            //     // AreaId.Zone(Zone.Kakariko_Gorge),
-            //     AreaId.Category(HintCategory.Grotto),
-            //     // AreaId.Zone(Zone.North_Eldin),
-            //     // AreaId.Zone(Zone.Lake_Hylia),
-            //     "Lake Hylia Dock Poe"
-            // );
-            // string itemHintText = itemHint.toHintTextList()[0].text;
-
-            BarrenHint barrenHint = new BarrenHint(AreaId.Category(HintCategory.Grotto));
-            string bht = barrenHint.toHintTextList()[0].text;
-
-            NumItemInAreaHint hhint = new NumItemInAreaHint(
-                0,
-                Item.Foolish_Item_3,
-                // Item.Hyrule_Castle_Small_Key,
-                // Item.Progressive_Bow,
-                // AreaId.Province(Province.Dungeon)
-                AreaId.Category(HintCategory.Grotto)
-            );
-            string niiaHintText = hhint.toHintTextList()[0].text;
-
-            WothHint wothHint = new WothHint(
-                // AreaId.Zone(Zone.Kakariko_Gorge),
-                // AreaId.Category(HintCategory.Grotto),
-                // AreaId.Province(Province.Dungeon),
-                AreaId.Category(HintCategory.Grotto),
-                "Lake Hylia Dock Poe"
-            );
-            string wothHintText = wothHint.toHintTextList()[0].text;
 
             results.Add(
                 CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Fallback, "...")
@@ -1251,7 +1187,7 @@ namespace TPRandomizer
             return coloredItem;
         }
 
-        public static string GenItemText3(
+        public string GenItemText3(
             out Dictionary<string, string> meta,
             Item item,
             CheckStatus checkStatus,
@@ -1268,6 +1204,18 @@ namespace TPRandomizer
         {
             string context = isShop ? "" : contextIn;
             string countStr = count?.ToString();
+
+            // For no-logic, any that say requiredOrNot are downgraded to
+            // goodOrNot. Otherwise 100% of them will say "unrequired" since
+            // there is no concept of "logically required" when there is no
+            // logic.
+            if (
+                sSettings.logicRules == LogicRules.No_Logic
+                && checkStatusDisplay == CheckStatusDisplay.Required_Or_Not
+            )
+            {
+                checkStatusDisplay = CheckStatusDisplay.Good_Or_Not;
+            }
 
             Res.Result abc = Res.ParseVal(
                 GetItemResKey(item),

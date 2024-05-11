@@ -112,9 +112,9 @@ namespace TPRandomizer.Hints
             );
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
-            string itemText = CustomMsgData.GenItemText3(
+            string itemText = customMsgData.GenItemText3(
                 out Dictionary<string, string> itemMeta,
                 item,
                 status,

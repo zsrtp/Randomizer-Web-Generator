@@ -72,7 +72,7 @@ namespace TPRandomizer.Hints
             }
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             bool hasItems = !ListUtils.isEmpty(items);
 
@@ -107,7 +107,7 @@ namespace TPRandomizer.Hints
                 for (int i = 0; i < items.Count; i++)
                 {
                     itemTexts.Add(
-                        CustomMsgData.GenItemText3(
+                        customMsgData.GenItemText3(
                             out _,
                             items[i],
                             CheckStatus.Good,

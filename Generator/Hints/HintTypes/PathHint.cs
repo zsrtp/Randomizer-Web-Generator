@@ -37,7 +37,7 @@ namespace TPRandomizer.Hints
             this.goalEnum = goalEnum;
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             Res.Result hintParsedRes = Res.ParseVal("hint-type.path");
 

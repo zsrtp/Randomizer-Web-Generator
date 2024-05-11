@@ -137,7 +137,7 @@ namespace TPRandomizer.Hints
             );
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             HintText hintText = new HintText();
 
@@ -232,7 +232,7 @@ namespace TPRandomizer.Hints
 
                 string verb = CustomMsgData.GenVerb(hintTypeRes, null);
 
-                string itemText = CustomMsgData.GenItemText3(
+                string itemText = customMsgData.GenItemText3(
                     out Dictionary<string, string> meta,
                     contents,
                     status,

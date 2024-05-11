@@ -23,7 +23,7 @@ namespace TPRandomizer.Hints
             this.indicatesBarren = indicatesBarren;
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             HintText hintText = new HintText();
             hintText.text = $"junk hint num'{idValue}'";

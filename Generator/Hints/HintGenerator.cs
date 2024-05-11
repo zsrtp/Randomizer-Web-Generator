@@ -388,7 +388,7 @@ namespace TPRandomizer.Hints
 
             List<HintSpot> ret = CreateHintSpotList(specialSpotToHints, normalSpotToHints);
             customMsgDataBuilder.SetHintSpots(ret);
-            return customMsgDataBuilder.Build();
+            return customMsgDataBuilder.Build(genData.sSettings);
         }
 
         private List<Hint> getAgithaHint()

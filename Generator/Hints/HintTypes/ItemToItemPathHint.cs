@@ -68,11 +68,11 @@ namespace TPRandomizer.Hints
             }
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             Res.Result hintParsedRes = Res.ParseVal("hint-type.item-to-item-path");
 
-            string srcText = CustomMsgData.GenItemText3(
+            string srcText = customMsgData.GenItemText3(
                 out Dictionary<string, string> srcItemMeta,
                 srcItem,
                 CheckStatus.Unknown,
@@ -83,7 +83,7 @@ namespace TPRandomizer.Hints
 
             string verb = CustomMsgData.GenVerb(hintParsedRes, srcItemMeta);
 
-            string tgtText = CustomMsgData.GenItemText3(
+            string tgtText = customMsgData.GenItemText3(
                 out Dictionary<string, string> tgtItemMeta,
                 tgtItem,
                 CheckStatus.Required,

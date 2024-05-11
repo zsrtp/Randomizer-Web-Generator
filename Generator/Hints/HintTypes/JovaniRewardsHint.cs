@@ -61,7 +61,7 @@ namespace TPRandomizer.Hints
             return new JovaniRewardsHint(list);
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             string text = "";
 
@@ -92,7 +92,7 @@ namespace TPRandomizer.Hints
                     // Leaving def/indef out for now. Might need it or
                     // 'capitalize' to be based on meta from the
                     // 'hint-type.jovani-rewards.reward' line.
-                    string itemText = CustomMsgData.GenItemText3(
+                    string itemText = customMsgData.GenItemText3(
                         out _,
                         checkInfo.item,
                         checkInfo.checkStatus,

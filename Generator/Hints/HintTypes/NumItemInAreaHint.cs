@@ -45,7 +45,7 @@ namespace TPRandomizer.Hints
             return areaId;
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             string itemText = CustomMsgData.GenItemText(
                 out Dictionary<string, string> itemMeta,

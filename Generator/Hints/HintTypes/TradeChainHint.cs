@@ -120,7 +120,7 @@ namespace TPRandomizer.Hints
             }
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             // leads to "item name", "something good", "nothing", "is on the WotH"
 
@@ -150,7 +150,7 @@ namespace TPRandomizer.Hints
             }
             else
             {
-                srcText = CustomMsgData.GenItemText3(
+                srcText = customMsgData.GenItemText3(
                     out srcItemMeta,
                     srcItem,
                     CheckStatus.Unknown,
@@ -215,7 +215,7 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            string tgtText = CustomMsgData.GenItemText3(
+            string tgtText = customMsgData.GenItemText3(
                 out Dictionary<string, string> tgtItemMeta,
                 tgtItem,
                 checkStatus,

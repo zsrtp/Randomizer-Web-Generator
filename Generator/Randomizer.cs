@@ -187,25 +187,9 @@ namespace TPRandomizer
                 }
             }
 
-            if (generationStatus)
+            if (generationStatus || SSettings.logicRules == LogicRules.No_Logic)
             {
-                Randomizer.Items.GenerateItemPool();
-
-                List<KeyValuePair<int, Item>> dungeonRewards = new();
-
-                foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
-                {
-                    Check check = checkList.Value;
-                    if (check.itemWasPlaced && check.checkCategory.Contains("Dungeon Reward"))
-                    {
-                        dungeonRewards.Add(
-                            new KeyValuePair<int, Item>(
-                                CheckIdClass.GetCheckIdNum(check.checkName),
-                                check.itemId
-                            )
-                        );
-                    }
-                }
+                // Randomizer.Items.GenerateItemPool();
 
                 // List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(
                 //     Randomizer.Rooms.RoomDict["Root"]
@@ -220,7 +204,10 @@ namespace TPRandomizer
                     Randomizer.Rooms.RoomDict["Root"]
                 );
 
-                if (playthroughSpheres.spheres == null)
+                if (
+                    playthroughSpheres.spheres == null
+                    && SSettings.logicRules != LogicRules.No_Logic
+                )
                 {
                     throw new Exception("Error! Playthrough not valid.");
                 }
@@ -283,7 +270,7 @@ namespace TPRandomizer
             }
 
             bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom, true);
-            if (!isPlaythroughValid && (SSettings.logicRules != LogicRules.No_Logic))
+            if (!isPlaythroughValid || SSettings.logicRules == LogicRules.No_Logic)
             {
                 return new PlaythroughSpheres(null, null, null);
             }

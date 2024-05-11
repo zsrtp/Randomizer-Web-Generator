@@ -45,7 +45,7 @@ namespace TPRandomizer.Hints
             return new WothHint(areaId, checkName);
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             Res.Result ppp = Res.Msg(areaId.GenResKey(), new() { { "context", "default" } });
 

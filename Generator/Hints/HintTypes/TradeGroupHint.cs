@@ -116,7 +116,7 @@ namespace TPRandomizer.Hints
             return hint;
         }
 
-        public override List<HintText> toHintTextList()
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             HintText hintText = new HintText();
 

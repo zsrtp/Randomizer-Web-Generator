@@ -46,21 +46,30 @@ namespace TPRandomizer.Hints
             itemToChecksList = calcItemToChecksList();
             prepareTradeItemData();
 
-            goalToRequiredChecks = HintUtils.calculateGoalsRequiredChecks(
-                startingRoom,
-                playthroughSpheres.spheres
-            );
+            if (sSettings.logicRules != LogicRules.No_Logic)
+            {
+                goalToRequiredChecks = HintUtils.calculateGoalsRequiredChecks(
+                    startingRoom,
+                    playthroughSpheres.spheres
+                );
 
-            // We need to calculate `requiredChecks` separately from
-            // `goalToRequiredChecks` because the goal ones are calculated
-            // assuming you start with big keys so that the path hints are not
-            // all super big key-based.
-            requiredChecks = HintUtils.calculateRequiredChecks(
-                startingRoom,
-                playthroughSpheres.spheres
-            );
+                // We need to calculate `requiredChecks` separately from
+                // `goalToRequiredChecks` because the goal ones are calculated
+                // assuming you start with big keys so that the path hints are not
+                // all super big key-based.
+                requiredChecks = HintUtils.calculateRequiredChecks(
+                    startingRoom,
+                    playthroughSpheres.spheres
+                );
 
-            allowBarrenChecks = prepareAllowBarrenChecks();
+                allowBarrenChecks = prepareAllowBarrenChecks();
+            }
+            else
+            {
+                goalToRequiredChecks = new();
+                requiredChecks = new();
+                allowBarrenChecks = new();
+            }
         }
 
         public void updateFromHintSettings(HintSettings hintSettings)
@@ -96,57 +105,95 @@ namespace TPRandomizer.Hints
             if (sSettings.logicRules != LogicRules.Glitchless)
                 preventBarrenItemSet.Add(Item.Magic_Armor);
 
-            // TODO: handle wallets
-
-            // Add items which show up in the spheres. This handles only adding
-            // items which are relevant based on the selected dungeons (such as
-            // big keys, sky chars, etc.)
-            foreach (List<KeyValuePair<int, Item>> spherePairs in playthroughSpheres.spheres)
+            if (sSettings.damageMagnification == DamageMagnification.OHKO)
             {
-                foreach (KeyValuePair<int, Item> pair in spherePairs)
-                {
-                    Item item = pair.Value;
-                    preventBarrenItemSet.Add(item);
-                }
+                preventBarrenItems.Add(Item.Coro_Bottle);
+                preventBarrenItems.Add(Item.Empty_Bottle);
+                preventBarrenItems.Add(Item.Jovani_Bottle);
+                preventBarrenItems.Add(Item.Sera_Bottle);
             }
 
-            // For certain items which can only be logically required under
-            // extremely rare conditions, we specifically want to avoid
-            // preventing barren except when these items are hard-required. For
-            // example, we do not want to be blocked from saying the desert, a
-            // dungeon, or any other barren-hintable group of checks is barren
-            // purely because there is an obviously skippable Slingshot in it.
-            // This has no impact on when these items can be Path/WotH/etc.
-            // hinted (you are still just as likely to get a Slingshot Path hint
-            // (about 1/1000 at most)). In the case that a bug leads to a
-            // pointless Slingshot, this also prevents the pointless bug(s) from
-            // preventing barren.
-            HashSet<Item> preventBarrenOnlyWhenRequired =
-                new()
-                {
-                    Item.Slingshot,
-                    Item.Wooden_Shield,
-                    Item.Ordon_Shield,
-                    Item.Hylian_Shield,
-                };
-            foreach (Item item in preventBarrenOnlyWhenRequired)
+            if (sSettings.logicRules != LogicRules.No_Logic)
             {
-                if (!getItemHardRequired(item))
-                    preventBarrenItemSet.Remove(item);
+                // Add items which show up in the spheres. This handles only adding
+                // items which are relevant based on the selected dungeons (such as
+                // big keys, sky chars, etc.)
+                foreach (List<KeyValuePair<int, Item>> spherePairs in playthroughSpheres.spheres)
+                {
+                    foreach (KeyValuePair<int, Item> pair in spherePairs)
+                    {
+                        Item item = pair.Value;
+                        preventBarrenItemSet.Add(item);
+                    }
+                }
+
+                // For certain items which can only be logically required under
+                // extremely rare conditions, we specifically want to avoid
+                // preventing barren except when these items are hard-required. For
+                // example, we do not want to be blocked from saying the desert, a
+                // dungeon, or any other barren-hintable group of checks is barren
+                // purely because there is an obviously skippable Slingshot in it.
+                // This has no impact on when these items can be Path/WotH/etc.
+                // hinted (you are still just as likely to get a Slingshot Path hint
+                // (about 1/1000 at most)). In the case that a bug leads to a
+                // pointless Slingshot, this also prevents the pointless bug(s) from
+                // preventing barren.
+
+                // We also remove wallets when they are not required. This
+                // accounts for cases like starting with a large wallet and also
+                // lets them be in barren areas when the MagicArmor check is not
+                // required. Can address it in more detail once we do work
+                // around shop prices.
+                HashSet<Item> preventBarrenOnlyWhenRequired =
+                    new()
+                    {
+                        Item.Slingshot,
+                        Item.Wooden_Shield,
+                        Item.Ordon_Shield,
+                        Item.Hylian_Shield,
+                        Item.Progressive_Wallet,
+                    };
+                foreach (Item item in preventBarrenOnlyWhenRequired)
+                {
+                    if (!getItemHardRequired(item))
+                        preventBarrenItemSet.Remove(item);
+                }
+            }
+            else
+            {
+                // For no-logic
+                preventBarrenItemSet.Add(Item.Slingshot);
+                preventBarrenItemSet.Add(Item.Wooden_Shield);
+                preventBarrenItemSet.Add(Item.Ordon_Shield);
+                preventBarrenItemSet.Add(Item.Hylian_Shield);
+
+                // Can address this more when work is done around shop prices
+                if (
+                    !HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor")
+                    && !sSettings.increaseWallet
+                )
+                    preventBarrenItemSet.Add(Item.Progressive_Wallet);
+
+                if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("City in the Sky"))
+                    preventBarrenItemSet.Add(Item.Progressive_Sky_Book);
             }
 
             // Remove items from set depending on settings.
-            preventBarrenItemSet.Remove(Item.Progressive_Hidden_Skill);
+
+            // Poe souls are always removed since there are so many
             preventBarrenItemSet.Remove(Item.Poe_Soul);
 
-            preventBarrenItemSet.Remove(Item.Progressive_Mirror_Shard);
-            preventBarrenItemSet.Remove(Item.Mirror_Piece_3);
-            preventBarrenItemSet.Remove(Item.Mirror_Piece_4);
-            preventBarrenItemSet.Remove(Item.Progressive_Fused_Shadow);
-            preventBarrenItemSet.Remove(Item.Fused_Shadow_2);
-            preventBarrenItemSet.Remove(Item.Fused_Shadow_3);
-            preventBarrenItemSet.Remove(Item.Poe_Scent);
-            preventBarrenItemSet.Remove(Item.Reekfish_Scent);
+            // Hidden Skills do not prevent barren for Glitchless
+            if (sSettings.logicRules == LogicRules.Glitchless)
+                preventBarrenItemSet.Remove(Item.Progressive_Hidden_Skill);
+
+            if (!sSettings.shuffleRewards)
+            {
+                // Dungeon rewards do not prevent barren if they are not
+                // shuffled.
+                preventBarrenItemSet.Remove(Item.Progressive_Mirror_Shard);
+                preventBarrenItemSet.Remove(Item.Progressive_Fused_Shadow);
+            }
 
             // Big Keys only prevent barren if Keysanity or Any_Dungeon
             if (
@@ -155,10 +202,7 @@ namespace TPRandomizer.Hints
             )
             {
                 preventBarrenItemSet.Remove(Item.Forest_Temple_Big_Key);
-                preventBarrenItemSet.Remove(Item.Goron_Mines_Big_Key);
                 preventBarrenItemSet.Remove(Item.Goron_Mines_Key_Shard);
-                preventBarrenItemSet.Remove(Item.Goron_Mines_Key_Shard_Second);
-                preventBarrenItemSet.Remove(Item.Goron_Mines_Key_Shard_3);
                 preventBarrenItemSet.Remove(Item.Lakebed_Temple_Big_Key);
                 preventBarrenItemSet.Remove(Item.Arbiters_Grounds_Big_Key);
                 preventBarrenItemSet.Remove(Item.Snowpeak_Ruins_Bedroom_Key);
@@ -195,11 +239,20 @@ namespace TPRandomizer.Hints
                     preventBarrenItemSet.Add(addedItem);
                 }
             }
-            if (hintSettings.removeItems.ContainsKey("majorItems"))
+
+            if (sSettings.logicRules != LogicRules.No_Logic)
             {
-                foreach (Item removedItem in hintSettings.removeItems["majorItems"])
+                // For now, do not allow people to remove preventBarrenItems for
+                // no-logic since we have no way to protect against people
+                // letting a check preventBarren when it is required. We do not
+                // know what is "required" or not since you need logic to
+                // determine that.
+                if (hintSettings.removeItems.ContainsKey("majorItems"))
                 {
-                    preventBarrenItemSet.Remove(removedItem);
+                    foreach (Item removedItem in hintSettings.removeItems["majorItems"])
+                    {
+                        preventBarrenItemSet.Remove(removedItem);
+                    }
                 }
             }
 

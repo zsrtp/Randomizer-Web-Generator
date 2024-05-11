@@ -32,6 +32,9 @@ namespace TPRandomizer
         public string entrances { get; }
         public CustomMsgData customMsgData { get; }
 
+        // other
+        public SharedSettings decodedSSettings;
+
         public SeedGenResults(string seedId, JObject inputJsonContents)
         {
             if (Randomizer.Checks.CheckDict.Count < 1)
@@ -55,6 +58,7 @@ namespace TPRandomizer
 
             JObject input = (JObject)inputJsonContents["input"];
             settingsString = (string)input["settings"];
+            decodedSSettings = SharedSettings.FromString(settingsString);
             seed = (string)input["seed"];
             isRaceSeed = (int)input["race"] == 1;
 
@@ -65,7 +69,11 @@ namespace TPRandomizer
             this.requiredDungeons = (byte)output["reqDungeons"];
             this.spheres = DecodeSpheres((string)output["spheres"]);
             this.entrances = DecodeEntrances((string)output["entrances"]);
-            this.customMsgData = CustomMsgData.Decode(itemPlacements, (string)output["customMsg"]);
+            this.customMsgData = CustomMsgData.Decode(
+                decodedSSettings,
+                itemPlacements,
+                (string)output["customMsg"]
+            );
         }
 
         public static string EncodeEntrances()
