@@ -17,6 +17,7 @@
   },
   "beyondPointZones": ["alias:all"],
   "always": {
+    // TODO: shellblade should be added and not default.
     "monopolizeSpots": true,
     "checkStatusDisplay": "required_or_not",
     "idealNumSpots": 5,
