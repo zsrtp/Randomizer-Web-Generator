@@ -4,7 +4,7 @@
     "stageIDX": [54],
     "dzxTag": ["ACTR"],
     "magicByte": ["FE"],
-    "category": ["Overworld", "Golden Bug", "Sacred Grove", "DZX"],
+    "checkCategory": ["Overworld", "Golden Bug", "Sacred Grove", "DZX"],
     "itemId": "Female_Snail",
     "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "98", "D1", "43", "CA", "D5", "19", "44", "AC", "C4", "B1", "45", "BD", "A9", "90", "00", "00", "5D", "27", "00", "00", "FF", "FF"]]
 }

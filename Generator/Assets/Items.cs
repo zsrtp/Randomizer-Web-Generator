@@ -765,11 +765,6 @@ namespace TPRandomizer
             Randomizer.Items.RandomizedImportantItems.AddRange(this.ImportantItems);
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);
 
-            foreach ((string checkName, Item item) in parseSetting.plandoChecks)
-            {
-                RemoveItem(item);
-            }
-
             // Handle poes
             int numPoesForBaseItemPool = SetupItemPoolPoes(parseSetting);
 
@@ -1014,6 +1009,20 @@ namespace TPRandomizer
             foreach (Item startingItem in parseSetting.startingItems)
             {
                 RemoveItem(startingItem);
+            }
+
+            foreach ((string checkName, Item item) in parseSetting.plandoChecks)
+            {
+                RemoveItem(item);
+
+                //We want to remove all of the hidden skills from the pool if someone has plandoed them in on a minimal setting.
+                if (
+                    (item == Item.Progressive_Hidden_Skill)
+                    && (parseSetting.itemScarcity == ItemScarcity.Minimal)
+                )
+                {
+                    updateItemToCount(RandomizedImportantItems, Item.Progressive_Hidden_Skill, 0);
+                }
             }
 
             Randomizer.Items.BaseItemPool.AddRange(this.ShuffledDungeonRewards);

@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal",
     "stageIDX": [73],
     "flag": "1E",
-    "category": ["Overworld", "Castle Town", "Poe"],
+    "checkCategory": ["Overworld", "Castle Town", "Poe"],
     "itemId": "Poe_Soul"
 }

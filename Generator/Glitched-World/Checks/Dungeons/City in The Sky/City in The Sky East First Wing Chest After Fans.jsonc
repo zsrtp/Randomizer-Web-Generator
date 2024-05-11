@@ -5,6 +5,6 @@
     "roomIDX": 5,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Chest", "Dungeon", "City in The Sky", "Dungeon Items", "Dungeon Map", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "City in The Sky", "Dungeon Items", "Dungeon Map", "ARC"],
     "itemId": "City_in_The_Sky_Dungeon_Map"
 }

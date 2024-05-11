@@ -3,6 +3,6 @@
     "requirements": "Shadow_Crystal and (canLaunchBombs and (Progressive_Clawshot,1)) and CanCompleteMDH",
     "stageIDX": [56],
     "flag": "3B",
-    "category": ["Overworld", "Poe", "Hyrule Field - Lanaryu Province"],
+    "checkCategory": ["Overworld", "Poe", "Hyrule Field - Lanaryu Province"],
     "itemId": "Poe_Soul"
 }

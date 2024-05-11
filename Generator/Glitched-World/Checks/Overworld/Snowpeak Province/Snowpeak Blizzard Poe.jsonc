@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal and ((Progressive_Fishing_Rod, 2) or (Setting.skipSnowpeakEntrance equals True) or CanDoMapGlitch)",
     "stageIDX": [51],
     "flag": "7D",
-    "category": ["Overworld", "Poe", "Snowpeak Province"],
+    "checkCategory": ["Overworld", "Poe", "Snowpeak Province"],
     "itemId": "Poe_Soul"
 }

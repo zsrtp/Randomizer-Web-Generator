@@ -5,6 +5,6 @@
     "roomIDX": 13,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Overworld", "Chest", "Hyrule Field - Lanaryu Province", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanaryu Province", "ARC"],
     "itemId": "Orange_Rupee"
 }

@@ -2,6 +2,6 @@
   "requirements": "Shadow_Crystal",
   "stageIDX": [ 45 ],
   "flag": "5D",
-  "category": [ "Overworld", "Poe", "Faron Woods" ],
+  "checkCategory": [ "Overworld", "Poe", "Faron Woods" ],
   "itemId": "Poe_Soul"
 }

@@ -4,7 +4,7 @@
     "stageIDX": [56],
     "dzxTag": ["ACTR"],
     "magicByte": ["FE"],
-    "category": ["Overworld", "Golden Bug", "Hyrule Field - Faron Province", "DZX"],
+    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Faron Province", "DZX"],
     "itemId": "Female_Beetle",
     "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "9E", "C1", "C7", "0E", "8A", "00", "C5", "FD", "20", "00", "47", "91", "2D", "00", "00", "00", "20", "00", "00", "00", "FF", "FF"]]
 }

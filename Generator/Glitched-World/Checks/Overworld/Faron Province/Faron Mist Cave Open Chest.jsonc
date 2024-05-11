@@ -5,6 +5,6 @@
     "roomIDX": 14,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Overworld", "Chest", "Faron Woods", "Small Key", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Faron Woods", "Small Key", "ARC"],
     "itemId": "North_Faron_Woods_Gate_Key"
 }
