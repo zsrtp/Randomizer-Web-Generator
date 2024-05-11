@@ -187,7 +187,7 @@ namespace TPRandomizer
                 }
             }
 
-            if (generationStatus || SSettings.logicRules == LogicRules.No_Logic)
+            if (generationStatus)
             {
                 // Randomizer.Items.GenerateItemPool();
 
@@ -1003,9 +1003,13 @@ namespace TPRandomizer
             Console.WriteLine("Placing Junk Items.");
             PlaceJunkItems(Items.JunkItems, rnd);
 
-            if (!BackendFunctions.ValidatePlaythrough(startingRoom))
+            // Only validate if we are not no-logic
+            if (SSettings.logicRules != LogicRules.No_Logic)
             {
-                throw new ArgumentOutOfRangeException();
+                if (!BackendFunctions.ValidatePlaythrough(startingRoom))
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
         }
 
