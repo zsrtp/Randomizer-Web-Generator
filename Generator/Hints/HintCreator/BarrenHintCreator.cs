@@ -363,9 +363,7 @@ namespace TPRandomizer.Hints.HintCreator
         private static bool IsSkipOverCheck(HintGenData genData, string checkName)
         {
             // We are specifically skipping over Always-hinted checks and not
-            // just checkContents hinted. For example, self-hinted Charlo still
-            // prevents Castle Town from being hinted barren if he is an
-            // important check.
+            // just checkContents hinted.
             return (
                 HintUtils.checkIsPlayerKnownStatus(checkName)
                 || genData.hinted.hintsShouldIgnoreChecks.Contains(checkName)
