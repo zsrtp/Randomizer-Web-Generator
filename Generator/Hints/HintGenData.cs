@@ -195,6 +195,10 @@ namespace TPRandomizer.Hints
                 preventBarrenItemSet.Remove(Item.Progressive_Fused_Shadow);
             }
 
+            // TODO: figure out requiredDungeon sign at start for no-logic.
+            // Figure out which big and small keys should be green vs purple for
+            // no-logic.
+
             // Big Keys only prevent barren if Keysanity or Any_Dungeon
             if (
                 sSettings.bigKeySettings != BigKeySettings.Anywhere
