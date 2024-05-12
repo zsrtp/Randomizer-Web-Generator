@@ -9,13 +9,35 @@ namespace TPRandomizer.Hints
         public override HintType type { get; } = HintType.Woth;
 
         public AreaId areaId { get; }
-
         public string checkName { get; }
 
-        public WothHint(AreaId areaId, string checkName)
+        // always derived
+        public Item item { get; private set; }
+
+        public WothHint(
+            AreaId areaId,
+            string checkName,
+            Dictionary<int, byte> itemPlacements = null
+        )
         {
             this.areaId = areaId;
             this.checkName = checkName;
+
+            CalcDerived(itemPlacements);
+        }
+
+        private void CalcDerived(Dictionary<int, byte> itemPlacements)
+        {
+            if (itemPlacements != null)
+            {
+                // When decoding hint from string
+                item = HintUtils.getCheckContents(checkName, itemPlacements);
+            }
+            else
+            {
+                // When creating hint during generation
+                item = HintUtils.getCheckContents(checkName);
+            }
         }
 
         // Need to encode the kind of id, the id, and the checkName. A single
@@ -42,7 +64,7 @@ namespace TPRandomizer.Hints
             AreaId areaId = AreaId.decode(bitLengths, processor);
             int checkId = processor.NextInt(bitLengths.checkId);
             string checkName = CheckIdClass.GetCheckName(checkId);
-            return new WothHint(areaId, checkName);
+            return new WothHint(areaId, checkName, itemPlacements);
         }
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
@@ -67,6 +89,17 @@ namespace TPRandomizer.Hints
             HintText hintText = new HintText();
             hintText.text = normalizedText;
             return new List<HintText> { hintText };
+        }
+
+        public override HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            string hintText = toHintTextList(customMsgData)[0].text;
+
+            HintInfo hintInfo = new(hintText);
+            hintInfo.hintedCheck = checkName;
+            hintInfo.hintedItems.Add(item);
+
+            return hintInfo;
         }
     }
 }
