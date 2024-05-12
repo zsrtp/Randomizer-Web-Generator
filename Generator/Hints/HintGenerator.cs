@@ -11,6 +11,7 @@ namespace TPRandomizer.Hints
     using TPRandomizer.Util;
     using TPRandomizer.Hints.Settings;
     using TPRandomizer.Hints.HintCreator;
+    using System.Threading;
 
     class HintGenerator
     {
@@ -1275,11 +1276,21 @@ namespace TPRandomizer.Hints
                     .Concat(badAlways)
                     .ToList();
 
+                // Always hint any Required or Good checks. If we were to only
+                // hint Required, then you could potentially not hint 2 of the 4
+                // swords if they were on Always checks and there were enough
+                // Required Always checks to where they did not get hinted. Bugs
+                // would make this even more complicated, so best to hint all
+                // checks which are not Bad no matter what. We also need to
+                // include Good for no-logic since "Required" as a concept does
+                // not exist.
+                int numGoodOrRequired = requiredAlways.Count + goodAlways.Count;
+
                 int idealNumExplicitlyHinted = (int)always.idealNumExplicitlyHinted;
-                if (idealNumExplicitlyHinted == 0 && requiredAlways.Count < 1)
+                if (idealNumExplicitlyHinted == 0 && numGoodOrRequired < 1)
                     return null;
 
-                int newLen = requiredAlways.Count;
+                int newLen = numGoodOrRequired;
                 if (idealNumExplicitlyHinted > newLen)
                     newLen = idealNumExplicitlyHinted;
 
