@@ -30,11 +30,35 @@ namespace TPRandomizer.Hints
         public string checkName { get; }
         public GoalEnum goalEnum { get; }
 
-        public PathHint(AreaId areaId, string checkName, GoalEnum goalEnum)
+        // always derived
+        public Item item { get; private set; }
+
+        public PathHint(
+            AreaId areaId,
+            string checkName,
+            GoalEnum goalEnum,
+            Dictionary<int, byte> itemPlacements = null
+        )
         {
             this.areaId = areaId;
             this.checkName = checkName;
             this.goalEnum = goalEnum;
+
+            CalcDerived(itemPlacements);
+        }
+
+        private void CalcDerived(Dictionary<int, byte> itemPlacements)
+        {
+            if (itemPlacements != null)
+            {
+                // When decoding hint from string
+                item = HintUtils.getCheckContents(checkName, itemPlacements);
+            }
+            else
+            {
+                // When creating hint during generation
+                item = HintUtils.getCheckContents(checkName);
+            }
         }
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
@@ -82,7 +106,18 @@ namespace TPRandomizer.Hints
             int checkId = processor.NextInt(bitLengths.checkId);
             string checkName = CheckIdClass.GetCheckName(checkId);
             GoalEnum goalEnum = (GoalEnum)processor.NextInt(bitLengths.goalEnum);
-            return new PathHint(areaId, checkName, goalEnum);
+            return new PathHint(areaId, checkName, goalEnum, itemPlacements);
+        }
+
+        public override HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            string hintText = toHintTextList(customMsgData)[0].text;
+
+            HintInfo hintInfo = new(hintText);
+            hintInfo.hintedCheck = checkName;
+            hintInfo.hintedItems.Add(item);
+
+            return hintInfo;
         }
     }
 }
