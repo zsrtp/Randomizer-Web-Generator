@@ -53,7 +53,6 @@ namespace TPRandomizer.Hints
                     // When creating hint during generation
                     item = HintUtils.getCheckContents(checkName);
                 }
-                item = Item.Male_Mantis;
                 items.Add(item);
 
                 // When creating the hint during generation, we calculate rather
