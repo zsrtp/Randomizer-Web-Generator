@@ -50,5 +50,13 @@ namespace TPRandomizer.Hints
             bool indicatesBarren = processor.NextBool();
             return new JunkHint(idValue, indicatesBarren);
         }
+
+        public override HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            string hintText = toHintTextList(customMsgData)[0].text;
+
+            HintInfo hintInfo = new(hintText);
+            return hintInfo;
+        }
     }
 }

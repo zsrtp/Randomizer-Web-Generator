@@ -42,5 +42,13 @@ namespace TPRandomizer.Hints
             bool isPositive = processor.NextBool();
             return new BeyondPointHint(isPositive);
         }
+
+        public override HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            string hintText = toHintTextList(customMsgData)[0].text;
+
+            HintInfo hintInfo = new(hintText);
+            return hintInfo;
+        }
     }
 }

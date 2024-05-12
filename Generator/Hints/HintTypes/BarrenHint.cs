@@ -74,5 +74,13 @@ namespace TPRandomizer.Hints
             //     $"They say that there is {{nothing}} to be found in {{{areaId.tempToString()}}}.";
             return new List<HintText> { hintText };
         }
+
+        public override HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            string hintText = toHintTextList(customMsgData)[0].text;
+
+            HintInfo hintInfo = new(hintText);
+            return hintInfo;
+        }
     }
 }

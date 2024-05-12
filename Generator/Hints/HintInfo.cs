@@ -10,7 +10,9 @@ namespace TPRandomizer.Hints
         public string text;
         private List<string> colors = new();
         public string sourceCheck;
+        public Item? sourceItem;
         public string targetCheck;
+        public Item? targetItem;
         public string hintedCheck;
         public List<string> hintedChecks = new();
         public List<Item> hintedItems { get; private set; } = new();
@@ -99,8 +101,12 @@ namespace TPRandomizer.Hints
                 ret["colors"] = colors;
             if (!StringUtils.isEmpty(sourceCheck))
                 ret["sourceCheck"] = sourceCheck;
+            if (sourceItem != null)
+                ret["sourceItem"] = sourceItem.ToString();
             if (!StringUtils.isEmpty(targetCheck))
                 ret["targetCheck"] = targetCheck;
+            if (targetItem != null)
+                ret["targetItem"] = targetItem.ToString();
             if (!StringUtils.isEmpty(hintedCheck))
                 ret["hintedCheck"] = hintedCheck;
             if (!ListUtils.isEmpty(hintedChecks))

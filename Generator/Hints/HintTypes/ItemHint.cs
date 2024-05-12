@@ -172,5 +172,16 @@ namespace TPRandomizer.Hints
             hintText.text = normalizedText;
             return new List<HintText> { hintText };
         }
+
+        public override HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            string hintText = toHintTextList(customMsgData)[0].text;
+
+            HintInfo hintInfo = new(hintText);
+            hintInfo.hintedCheck = checkName;
+            hintInfo.hintedItems.Add(item);
+
+            return hintInfo;
+        }
     }
 }

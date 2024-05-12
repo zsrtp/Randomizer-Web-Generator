@@ -136,5 +136,17 @@ namespace TPRandomizer.Hints
                 itemPlacements
             );
         }
+
+        public override HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            string hintText = toHintTextList(customMsgData)[0].text;
+
+            HintInfo hintInfo = new(hintText);
+            hintInfo.sourceItem = srcItem;
+            hintInfo.targetCheck = tgtCheckName;
+            hintInfo.targetItem = tgtItem;
+
+            return hintInfo;
+        }
     }
 }

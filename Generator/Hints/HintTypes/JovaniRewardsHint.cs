@@ -118,6 +118,21 @@ namespace TPRandomizer.Hints
             return new List<HintText>() { hintText };
         }
 
+        public override HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            string hintText = toHintTextList(customMsgData)[0].text;
+
+            HintInfo hintInfo = new(hintText);
+
+            foreach (JovaniCheckInfo checkInfo in checkInfoList)
+            {
+                hintInfo.hintedChecks.Add(checkInfo.checkName);
+                hintInfo.hintedItems.Add(checkInfo.item);
+            }
+
+            return hintInfo;
+        }
+
         public class JovaniCheckInfo
         {
             public string checkName { get; }
