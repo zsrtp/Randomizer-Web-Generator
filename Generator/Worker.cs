@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting.Internal;
 using Newtonsoft.Json;
@@ -32,6 +33,8 @@ namespace TPRandomizer
             Res.UpdateCultureInfo("fr-FR-DOG");
 
             // string abc2 = Res.Msg();
+            string str;
+            byte[] bytes;
 
             string command = args[0];
 
@@ -58,15 +61,31 @@ namespace TPRandomizer
                     );
                     break;
                 case "print_seed_gen_results":
+                {
                     // seedId
-                    Console.WriteLine(Randomizer.GetSeedGenResultsJson(args[1], false));
+
+                    // Note: we need to use fancier printing rather than just
+                    // Console.WriteLine in order for advanced unicode
+                    // characters such as '♂' to be passed correctly.
+                    str = Randomizer.GetSeedGenResultsJson(args[1], false);
+                    bytes = Encoding.UTF8.GetBytes(str);
+                    using (Stream myOutStream = Console.OpenStandardOutput())
+                    {
+                        myOutStream.Write(bytes, 0, bytes.Length);
+                    }
                     break;
+                }
                 // "dangerously_print_full_race_spoiler" should only ever be
                 // called by a human manually from the command line. The website
                 // must never call this code.
                 case "dangerously_print_full_race_spoiler":
                     // seedId
-                    Console.WriteLine(Randomizer.GetSeedGenResultsJson(args[1], true, true));
+                    str = Randomizer.GetSeedGenResultsJson(args[1], true, true);
+                    bytes = Encoding.UTF8.GetBytes(str);
+                    using (Stream myOutStream = Console.OpenStandardOutput())
+                    {
+                        myOutStream.Write(bytes, 0, bytes.Length);
+                    }
                     break;
                 default:
                     throw new Exception("Unrecognized command.");

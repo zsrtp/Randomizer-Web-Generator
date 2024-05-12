@@ -49,7 +49,7 @@ namespace TPRandomizer.Hints
 
         public abstract List<HintText> toHintTextList(CustomMsgData customMsgData);
 
-        public virtual HintInfo GetHintInfo()
+        public virtual HintInfo GetHintInfo(CustomMsgData customMsgData)
         {
             return null;
         }

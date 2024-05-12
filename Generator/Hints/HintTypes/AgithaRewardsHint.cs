@@ -53,6 +53,7 @@ namespace TPRandomizer.Hints
                     // When creating hint during generation
                     item = HintUtils.getCheckContents(checkName);
                 }
+                item = Item.Male_Mantis;
                 items.Add(item);
 
                 // When creating the hint during generation, we calculate rather
@@ -178,6 +179,17 @@ namespace TPRandomizer.Hints
                 useDefArticleList,
                 itemPlacements
             );
+        }
+
+        public override HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            string hintText = toHintTextList(customMsgData)[0].text;
+
+            HintInfo hintInfo = new(hintText);
+            hintInfo.hintedChecks.AddRange(interestingAgithaChecks);
+            hintInfo.hintedItems.AddRange(items);
+
+            return hintInfo;
         }
     }
 }

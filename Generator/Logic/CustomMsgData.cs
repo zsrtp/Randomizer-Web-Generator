@@ -1432,9 +1432,9 @@ namespace TPRandomizer
                 List<Dictionary<string, object>> hintInfos = new();
                 foreach (Hint hint in hintSpot.hints)
                 {
-                    HintInfo hintInfo = hint.GetHintInfo();
+                    HintInfo hintInfo = hint.GetHintInfo(this);
                     if (hintInfo != null)
-                        hintInfos.Add(hint.GetHintInfo().GetSpoilerDict());
+                        hintInfos.Add(hint.GetHintInfo(this).GetSpoilerDict());
                     else
                         hintInfos.Add(null);
                 }

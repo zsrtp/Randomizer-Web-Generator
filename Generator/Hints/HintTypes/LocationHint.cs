@@ -313,9 +313,14 @@ namespace TPRandomizer.Hints
             return new List<HintText> { hintText };
         }
 
-        public override HintInfo GetHintInfo()
+        public override HintInfo GetHintInfo(CustomMsgData customMsgData)
         {
-            HintInfo hintInfo = new("loc hint");
+            if (true)
+                return null;
+
+            string hintText = toHintTextList(customMsgData)[0].text;
+
+            HintInfo hintInfo = new(hintText);
             hintInfo.hintedCheck = checkName;
             hintInfo.hintedItems.Add(contents);
 

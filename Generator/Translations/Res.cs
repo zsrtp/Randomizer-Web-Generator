@@ -255,7 +255,7 @@ namespace TPRandomizer
             return result;
         }
 
-        private static int GetEscRenderedCharLength(string escapeSequence)
+        public static string GetEscRenderedChar(string escapeSequence)
         {
             if (StringUtils.isEmpty(escapeSequence))
                 throw new Exception($"Did not expect an empty escSequence.");
@@ -263,13 +263,56 @@ namespace TPRandomizer
             switch (escapeSequence)
             {
                 case CustomMessages.maleSign:
+                    return "\u2642";
                 case CustomMessages.femaleSign:
+                    return "\u2640";
                 case CustomMessages.referenceMark:
-                    return 1;
+                    return "\u203B";
                 case CustomMessages.playerName:
-                    return 8;
+                    return "Link";
                 default:
-                    return 0;
+                    return null;
+            }
+        }
+
+        public static int GetEscRenderedCharLength(string escapeSequence)
+        {
+            if (escapeSequence == CustomMessages.playerName)
+                return 8;
+
+            string renderedStr = GetEscRenderedChar(escapeSequence);
+            if (!StringUtils.isEmpty(renderedStr))
+                return renderedStr.Length;
+
+            return 0;
+        }
+
+        public static string GetColorFromEscSequence(string escapeSequence)
+        {
+            switch (escapeSequence)
+            {
+                case CustomMessages.messageColorWhite:
+                    return "white";
+                case CustomMessages.messageColorRed:
+                    return "red";
+                case CustomMessages.messageColorGreen:
+                    return "green";
+                case CustomMessages.messageColorLightBlue:
+                    return "light blue";
+                case CustomMessages.messageColorYellow:
+                    return "yellow";
+                case CustomMessages.messageColorPurple:
+                    return "purple";
+                case CustomMessages.messageColorOrange:
+                    return "orange";
+                case CustomMessages.messageColorDarkGreen:
+                    return "dark green";
+                case CustomMessages.messageColorBlue:
+                    return "blue";
+                case CustomMessages.messageColorSilver:
+                    return "silver";
+                default:
+                    return null;
             }
         }
 

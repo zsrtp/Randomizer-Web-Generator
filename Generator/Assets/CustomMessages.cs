@@ -12,16 +12,16 @@ namespace TPRandomizer.Assets
     {
         public static string messageSpeedFast = "\x1A\x05\x00\x00\x01";
         public static string messageSpeedSlow = "\x1A\x05\x00\x00\x02";
-        public static string messageColorWhite = "\x1A\x06\xFF\x00\x00\x00";
-        public static string messageColorRed = "\x1A\x06\xFF\x00\x00\x01";
-        public static string messageColorGreen = "\x1A\x06\xFF\x00\x00\x02";
-        public static string messageColorLightBlue = "\x1A\x06\xFF\x00\x00\x03";
-        public static string messageColorYellow = "\x1A\x06\xFF\x00\x00\x04";
-        public static string messageColorPurple = "\x1A\x06\xFF\x00\x00\x06";
-        public static string messageColorOrange = "\x1A\x06\xFF\x00\x00\x08";
-        public static string messageColorDarkGreen = "\x1A\x06\xFF\x00\x00\x09";
-        public static string messageColorBlue = "\x1A\x06\xFF\x00\x00\x0A";
-        public static string messageColorSilver = "\x1A\x06\xFF\x00\x00\x0B";
+        public const string messageColorWhite = "\x1A\x06\xFF\x00\x00\x00";
+        public const string messageColorRed = "\x1A\x06\xFF\x00\x00\x01";
+        public const string messageColorGreen = "\x1A\x06\xFF\x00\x00\x02";
+        public const string messageColorLightBlue = "\x1A\x06\xFF\x00\x00\x03";
+        public const string messageColorYellow = "\x1A\x06\xFF\x00\x00\x04";
+        public const string messageColorPurple = "\x1A\x06\xFF\x00\x00\x06";
+        public const string messageColorOrange = "\x1A\x06\xFF\x00\x00\x08";
+        public const string messageColorDarkGreen = "\x1A\x06\xFF\x00\x00\x09";
+        public const string messageColorBlue = "\x1A\x06\xFF\x00\x00\x0A";
+        public const string messageColorSilver = "\x1A\x06\xFF\x00\x00\x0B";
         public const string playerName = "\x1A\x05\x00\x00\x00";
         public static string messageOption1 = "\x1A\x06\x00\x00\x09\x01";
         public static string messageOption2 = "\x1A\x06\x00\x00\x09\x02";
