@@ -49,6 +49,11 @@ namespace TPRandomizer.Hints
 
         public abstract List<HintText> toHintTextList(CustomMsgData customMsgData);
 
+        public virtual HintInfo GetHintInfo()
+        {
+            return null;
+        }
+
         public virtual string encodeAsBits(HintEncodingBitLengths bitLengths)
         {
             return SettingsEncoder.EncodeNumAsBits((int)type, bitLengths.hintType);

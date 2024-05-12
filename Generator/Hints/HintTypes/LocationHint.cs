@@ -312,5 +312,14 @@ namespace TPRandomizer.Hints
             hintText.text = normalizedText;
             return new List<HintText> { hintText };
         }
+
+        public override HintInfo GetHintInfo()
+        {
+            HintInfo hintInfo = new("loc hint");
+            hintInfo.hintedCheck = checkName;
+            hintInfo.hintedItems.Add(contents);
+
+            return hintInfo;
+        }
     }
 }

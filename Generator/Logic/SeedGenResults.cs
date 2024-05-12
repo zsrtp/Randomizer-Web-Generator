@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TPRandomizer.Util;
 using TPRandomizer.Assets;
+using System.Runtime.Serialization;
 
 namespace TPRandomizer
 {
@@ -318,6 +319,7 @@ namespace TPRandomizer
                 root.Add("shuffledEntrances", GetShuffledEntrancesStringList());
                 root.Add("itemPlacements", sortedCheckNameToItemNameDict);
                 root.Add("spheres", GetSpheresForSpoiler());
+                root.Add("hints", customMsgData.GetDictForSpoiler());
             }
 
             // Note this is the metaData from the file, not the current
@@ -329,8 +331,6 @@ namespace TPRandomizer
             metaObj.Add("imageVersion", imageVersion);
             metaObj.Add("gitCommit", gitCommit);
 
-            // Just increment "version" whenever you make a change to what this
-            // method outputs
             root.Add(
                 "version",
                 "s"

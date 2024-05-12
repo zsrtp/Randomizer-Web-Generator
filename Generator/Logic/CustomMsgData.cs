@@ -1420,5 +1420,28 @@ namespace TPRandomizer
 
             return verb;
         }
+
+        public SortedDictionary<string, object> GetDictForSpoiler()
+        {
+            SortedDictionary<string, object> keyToHintInfos = new();
+
+            foreach (HintSpot hintSpot in hintSpots)
+            {
+                string key = hintSpot.location.ToString();
+
+                List<Dictionary<string, object>> hintInfos = new();
+                foreach (Hint hint in hintSpot.hints)
+                {
+                    HintInfo hintInfo = hint.GetHintInfo();
+                    if (hintInfo != null)
+                        hintInfos.Add(hint.GetHintInfo().GetSpoilerDict());
+                    else
+                        hintInfos.Add(null);
+                }
+                keyToHintInfos[key] = hintInfos;
+            }
+
+            return keyToHintInfos;
+        }
     }
 }
