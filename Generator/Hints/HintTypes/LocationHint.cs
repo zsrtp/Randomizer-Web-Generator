@@ -315,9 +315,6 @@ namespace TPRandomizer.Hints
 
         public override HintInfo GetHintInfo(CustomMsgData customMsgData)
         {
-            if (true)
-                return null;
-
             string hintText = toHintTextList(customMsgData)[0].text;
 
             HintInfo hintInfo = new(hintText);
