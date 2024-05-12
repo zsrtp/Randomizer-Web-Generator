@@ -61,15 +61,14 @@ namespace TPRandomizer.Hints
                     startingRoom,
                     playthroughSpheres.spheres
                 );
-
-                allowBarrenChecks = prepareAllowBarrenChecks();
             }
             else
             {
                 goalToRequiredChecks = new();
                 requiredChecks = new();
-                allowBarrenChecks = new();
             }
+
+            allowBarrenChecks = prepareAllowBarrenChecks();
         }
 
         public void updateFromHintSettings(HintSettings hintSettings)
@@ -81,7 +80,7 @@ namespace TPRandomizer.Hints
         {
             // Intentionally not including shields. Note that hard-required
             // checks will always preventBarren.
-            HashSet<Item> preventBarrenItemSet =
+            HashSet<Item> itemSet =
                 new()
                 {
                     // Item Wheel
@@ -99,140 +98,137 @@ namespace TPRandomizer.Hints
                     // Other
                     Item.Progressive_Sword,
                     Item.Zora_Armor,
-                    Item.Shadow_Crystal
+                    Item.Shadow_Crystal,
+                    Item.Gate_Keys,
+                    Item.North_Faron_Woods_Gate_Key,
+                    Item.Gerudo_Desert_Bulblin_Camp_Key,
                 };
 
             if (sSettings.logicRules != LogicRules.Glitchless)
-                preventBarrenItemSet.Add(Item.Magic_Armor);
+            {
+                itemSet.Add(Item.Magic_Armor);
+                itemSet.Remove(Item.Progressive_Hidden_Skill);
+            }
 
             if (sSettings.damageMagnification == DamageMagnification.OHKO)
             {
-                preventBarrenItems.Add(Item.Coro_Bottle);
-                preventBarrenItems.Add(Item.Empty_Bottle);
-                preventBarrenItems.Add(Item.Jovani_Bottle);
-                preventBarrenItems.Add(Item.Sera_Bottle);
+                itemSet.Add(Item.Coro_Bottle);
+                itemSet.Add(Item.Empty_Bottle);
+                itemSet.Add(Item.Jovani_Bottle);
+                itemSet.Add(Item.Sera_Bottle);
             }
 
-            if (sSettings.logicRules != LogicRules.No_Logic)
+            if (!sSettings.skipPrologue)
+                itemSet.Add(Item.North_Faron_Woods_Gate_Key);
+
+            if (sSettings.smallKeySettings != SmallKeySettings.Keysy)
+                itemSet.Add(Item.Gate_Keys);
+
+            // For keysy, camp_key gets added to starting items currently, so it
+            // will automatically get handled by allowBarrenChecks.
+            if (!sSettings.skipArbitersEntrance)
+                itemSet.Add(Item.Gerudo_Desert_Bulblin_Camp_Key);
+
+            // Add all of the dungeon stuff.
+
+            bool bigKeysPreventBarren =
+                sSettings.bigKeySettings == BigKeySettings.Anywhere
+                || sSettings.bigKeySettings == BigKeySettings.Any_Dungeon;
+
+            bool smallKeysPreventBarren =
+                sSettings.smallKeySettings == SmallKeySettings.Anywhere
+                || sSettings.smallKeySettings == SmallKeySettings.Any_Dungeon;
+
+            if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Forest Temple"))
             {
-                // Add items which show up in the spheres. This handles only adding
-                // items which are relevant based on the selected dungeons (such as
-                // big keys, sky chars, etc.)
-                foreach (List<KeyValuePair<int, Item>> spherePairs in playthroughSpheres.spheres)
+                if (bigKeysPreventBarren)
+                    itemSet.Add(Item.Forest_Temple_Big_Key);
+                if (smallKeysPreventBarren)
+                    itemSet.Add(Item.Forest_Temple_Small_Key);
+            }
+            if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Goron Mines"))
+            {
+                if (bigKeysPreventBarren)
+                    itemSet.Add(Item.Goron_Mines_Key_Shard);
+                if (smallKeysPreventBarren)
+                    itemSet.Add(Item.Goron_Mines_Small_Key);
+            }
+            if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Lakebed Temple"))
+            {
+                if (bigKeysPreventBarren)
+                    itemSet.Add(Item.Lakebed_Temple_Big_Key);
+                if (smallKeysPreventBarren)
+                    itemSet.Add(Item.Lakebed_Temple_Small_Key);
+            }
+            if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Arbiter's Grounds"))
+            {
+                if (bigKeysPreventBarren)
+                    itemSet.Add(Item.Arbiters_Grounds_Big_Key);
+                if (smallKeysPreventBarren)
+                    itemSet.Add(Item.Arbiters_Grounds_Small_Key);
+            }
+            if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Snowpeak Ruins"))
+            {
+                if (bigKeysPreventBarren)
+                    itemSet.Add(Item.Snowpeak_Ruins_Bedroom_Key);
+                if (smallKeysPreventBarren)
                 {
-                    foreach (KeyValuePair<int, Item> pair in spherePairs)
-                    {
-                        Item item = pair.Value;
-                        preventBarrenItemSet.Add(item);
-                    }
-                }
-
-                // For certain items which can only be logically required under
-                // extremely rare conditions, we specifically want to avoid
-                // preventing barren except when these items are hard-required. For
-                // example, we do not want to be blocked from saying the desert, a
-                // dungeon, or any other barren-hintable group of checks is barren
-                // purely because there is an obviously skippable Slingshot in it.
-                // This has no impact on when these items can be Path/WotH/etc.
-                // hinted (you are still just as likely to get a Slingshot Path hint
-                // (about 1/1000 at most)). In the case that a bug leads to a
-                // pointless Slingshot, this also prevents the pointless bug(s) from
-                // preventing barren.
-
-                // We also remove wallets when they are not required. This
-                // accounts for cases like starting with a large wallet and also
-                // lets them be in barren areas when the MagicArmor check is not
-                // required. Can address it in more detail once we do work
-                // around shop prices.
-                HashSet<Item> preventBarrenOnlyWhenRequired =
-                    new()
-                    {
-                        Item.Slingshot,
-                        Item.Wooden_Shield,
-                        Item.Ordon_Shield,
-                        Item.Hylian_Shield,
-                        Item.Progressive_Wallet,
-                    };
-                foreach (Item item in preventBarrenOnlyWhenRequired)
-                {
-                    if (!getItemHardRequired(item))
-                        preventBarrenItemSet.Remove(item);
+                    itemSet.Add(Item.Snowpeak_Ruins_Small_Key);
+                    itemSet.Add(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
+                    itemSet.Add(Item.Snowpeak_Ruins_Ordon_Pumpkin);
                 }
             }
-            else
+            if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Temple of Time"))
             {
-                // For no-logic
-                preventBarrenItemSet.Add(Item.Slingshot);
-                preventBarrenItemSet.Add(Item.Wooden_Shield);
-                preventBarrenItemSet.Add(Item.Ordon_Shield);
-                preventBarrenItemSet.Add(Item.Hylian_Shield);
+                if (bigKeysPreventBarren)
+                    itemSet.Add(Item.Temple_of_Time_Big_Key);
+                if (smallKeysPreventBarren)
+                    itemSet.Add(Item.Temple_of_Time_Small_Key);
+            }
+            if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("City in the Sky"))
+            {
+                if (!sSettings.skipCityEntrance)
+                    itemSet.Add(Item.Progressive_Sky_Book);
+
+                if (bigKeysPreventBarren)
+                    itemSet.Add(Item.City_in_The_Sky_Big_Key);
+                if (smallKeysPreventBarren)
+                    itemSet.Add(Item.City_in_The_Sky_Small_Key);
+            }
+            if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Palace of Twilight"))
+            {
+                if (bigKeysPreventBarren)
+                    itemSet.Add(Item.Palace_of_Twilight_Big_Key);
+                if (smallKeysPreventBarren)
+                    itemSet.Add(Item.Palace_of_Twilight_Small_Key);
+            }
+
+            if (bigKeysPreventBarren)
+                itemSet.Add(Item.Hyrule_Castle_Big_Key);
+            if (smallKeysPreventBarren)
+                itemSet.Add(Item.Hyrule_Castle_Small_Key);
+
+            if (sSettings.logicRules == LogicRules.No_Logic)
+            {
+                // Note for other logics, one of these items only preventBarren
+                // when there is a logically required check which rewards that
+                // item. This way we do not have to worry about the desert or a
+                // dungeon being not barren-hintable when it has an obviously
+                // skippable slingshot, etc. This does not impact the chance
+                // that these items get hinted required (about 0.1% for
+                // slingshot). This also prevents bugs and sketch which lead to
+                // these items from preventing barren when pointless.
+                itemSet.Add(Item.Slingshot);
+                itemSet.Add(Item.Wooden_Shield);
+                itemSet.Add(Item.Ordon_Shield);
+                itemSet.Add(Item.Hylian_Shield);
 
                 // Can address this more when work is done around shop prices
                 if (
                     !HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor")
                     && !sSettings.increaseWallet
                 )
-                    preventBarrenItemSet.Add(Item.Progressive_Wallet);
-
-                if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("City in the Sky"))
-                    preventBarrenItemSet.Add(Item.Progressive_Sky_Book);
-            }
-
-            // Remove items from set depending on settings.
-
-            // Poe souls are always removed since there are so many
-            preventBarrenItemSet.Remove(Item.Poe_Soul);
-
-            // Hidden Skills do not prevent barren for Glitchless
-            if (sSettings.logicRules == LogicRules.Glitchless)
-                preventBarrenItemSet.Remove(Item.Progressive_Hidden_Skill);
-
-            if (!sSettings.shuffleRewards)
-            {
-                // Dungeon rewards do not prevent barren if they are not
-                // shuffled.
-                preventBarrenItemSet.Remove(Item.Progressive_Mirror_Shard);
-                preventBarrenItemSet.Remove(Item.Progressive_Fused_Shadow);
-            }
-
-            // TODO: figure out requiredDungeon sign at start for no-logic.
-            // Figure out which big and small keys should be green vs purple for
-            // no-logic.
-
-            // Big Keys only prevent barren if Keysanity or Any_Dungeon
-            if (
-                sSettings.bigKeySettings != BigKeySettings.Anywhere
-                && sSettings.bigKeySettings != BigKeySettings.Any_Dungeon
-            )
-            {
-                preventBarrenItemSet.Remove(Item.Forest_Temple_Big_Key);
-                preventBarrenItemSet.Remove(Item.Goron_Mines_Key_Shard);
-                preventBarrenItemSet.Remove(Item.Lakebed_Temple_Big_Key);
-                preventBarrenItemSet.Remove(Item.Arbiters_Grounds_Big_Key);
-                preventBarrenItemSet.Remove(Item.Snowpeak_Ruins_Bedroom_Key);
-                preventBarrenItemSet.Remove(Item.Temple_of_Time_Big_Key);
-                preventBarrenItemSet.Remove(Item.City_in_The_Sky_Big_Key);
-                preventBarrenItemSet.Remove(Item.Palace_of_Twilight_Big_Key);
-                preventBarrenItemSet.Remove(Item.Hyrule_Castle_Big_Key);
-            }
-
-            // Small Keys only prevent barren if Keysanity or Any_Dungeon
-            if (
-                sSettings.smallKeySettings != SmallKeySettings.Anywhere
-                && sSettings.smallKeySettings != SmallKeySettings.Any_Dungeon
-            )
-            {
-                preventBarrenItemSet.Remove(Item.Forest_Temple_Small_Key);
-                preventBarrenItemSet.Remove(Item.Goron_Mines_Small_Key);
-                preventBarrenItemSet.Remove(Item.Lakebed_Temple_Small_Key);
-                preventBarrenItemSet.Remove(Item.Arbiters_Grounds_Small_Key);
-                preventBarrenItemSet.Remove(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
-                preventBarrenItemSet.Remove(Item.Snowpeak_Ruins_Ordon_Pumpkin);
-                preventBarrenItemSet.Remove(Item.Snowpeak_Ruins_Small_Key);
-                preventBarrenItemSet.Remove(Item.Temple_of_Time_Small_Key);
-                preventBarrenItemSet.Remove(Item.City_in_The_Sky_Small_Key);
-                preventBarrenItemSet.Remove(Item.Palace_of_Twilight_Small_Key);
-                preventBarrenItemSet.Remove(Item.Hyrule_Castle_Small_Key);
+                    itemSet.Add(Item.Progressive_Wallet);
             }
 
             // Apply majorItem changes from hintSettings.
@@ -240,7 +236,7 @@ namespace TPRandomizer.Hints
             {
                 foreach (Item addedItem in hintSettings.addItems["majorItems"])
                 {
-                    preventBarrenItemSet.Add(addedItem);
+                    itemSet.Add(addedItem);
                 }
             }
 
@@ -255,24 +251,24 @@ namespace TPRandomizer.Hints
                 {
                     foreach (Item removedItem in hintSettings.removeItems["majorItems"])
                     {
-                        preventBarrenItemSet.Remove(removedItem);
+                        itemSet.Remove(removedItem);
                     }
                 }
             }
 
-            // For now, remove any tradeItems which show up in the spheres or
-            // which the user said should preventBarren. A tradeItem only
-            // prevents barren if it eventually leads to a preventBarren item at
-            // the end of the chain. We do not want to have to worry about
-            // Ashei's Sketch or a specific bug showing up in the middle of a
-            // bug chain that leads to a Purple Rupee. TradeItem hint
-            // calculations assume only the check at the end of the trade chain
-            // is what is important, and I would rather not make that stuff more
-            // complicated for a use case that would just lead to confusing
-            // behavior for players. - isaac
+            // Handle tradeItems (bugs and sketch)
+
+            // A tradeItem only prevents barren if it eventually leads to a
+            // preventBarren item at the end of the chain. We do not want to
+            // have to worry about Ashei's Sketch or a specific bug showing up
+            // in the middle of a bug chain that leads to a Purple Rupee.
+            // TradeItem hint calculations assume only the check at the end of
+            // the trade chain is what is important, and I would rather not make
+            // that stuff more complicated for a use case that would just lead
+            // to confusing behavior for players. - isaac
             foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
             {
-                preventBarrenItemSet.Remove(pair.Key);
+                itemSet.Remove(pair.Key);
             }
 
             // Any tradeItems which lead to a preventBarren item or required
@@ -293,15 +289,15 @@ namespace TPRandomizer.Hints
                     if (
                         requiredChecks.Contains(chainEndCheckName)
                         || (
-                            preventBarrenItemSet.Contains(chainEndItem)
+                            itemSet.Contains(chainEndItem)
                             && !allowBarrenChecks.Contains(chainEndCheckName)
                         )
                     )
-                        preventBarrenItemSet.Add(tradeItem);
+                        itemSet.Add(tradeItem);
                 }
             }
 
-            return preventBarrenItemSet;
+            return itemSet;
         }
 
         private HashSet<string> prepareAllowBarrenChecks()
@@ -323,7 +319,11 @@ namespace TPRandomizer.Hints
                     { Item.Slingshot, 1 },
                     { Item.Progressive_Fishing_Rod, 2 },
                     { Item.Filled_Bomb_Bag, 1 },
-                    // - handle bottles in the future if needed
+                    // - handle bottles in the future if needed. Will be easier
+                    //   to handle after Coro bottle can always be dumped, so
+                    //   waiting on that rather than adding a temporary complex
+                    //   implementation. Not expecting it to be noticeable
+                    //   either way at the moment.
                     { Item.Asheis_Sketch, 1 },
                     { Item.Progressive_Sky_Book, 7 },
                     { Item.Aurus_Memo, 1 },
@@ -357,8 +357,34 @@ namespace TPRandomizer.Hints
                     { Item.Male_Pill_Bug, 1 },
                     { Item.Male_Snail, 1 },
                     { Item.Male_Stag_Beetle, 1 },
+                    // __Dungeon Keys__
+                    { Item.Forest_Temple_Big_Key, 1 },
+                    { Item.Forest_Temple_Small_Key, 4 },
+                    { Item.Goron_Mines_Key_Shard, 3 },
+                    { Item.Goron_Mines_Small_Key, 3 },
+                    { Item.Lakebed_Temple_Big_Key, 1 },
+                    { Item.Lakebed_Temple_Small_Key, 3 },
+                    { Item.Arbiters_Grounds_Big_Key, 1 },
+                    { Item.Arbiters_Grounds_Small_Key, 5 },
+                    { Item.Snowpeak_Ruins_Bedroom_Key, 1 },
+                    { Item.Snowpeak_Ruins_Small_Key, 3 },
+                    { Item.Snowpeak_Ruins_Ordon_Goat_Cheese, 1 },
+                    { Item.Snowpeak_Ruins_Ordon_Pumpkin, 1 },
+                    { Item.Temple_of_Time_Big_Key, 1 },
+                    { Item.Temple_of_Time_Small_Key, 3 },
+                    { Item.City_in_The_Sky_Big_Key, 1 },
+                    { Item.City_in_The_Sky_Small_Key, 1 },
+                    { Item.Palace_of_Twilight_Big_Key, 1 },
+                    { Item.Palace_of_Twilight_Small_Key, 7 },
+                    { Item.Hyrule_Castle_Big_Key, 1 },
+                    { Item.Hyrule_Castle_Small_Key, 3 },
                     // __Other__
                     { Item.Shadow_Crystal, 1 },
+                    { Item.Gate_Keys, 1 },
+                    { Item.North_Faron_Woods_Gate_Key, 1 },
+                    { Item.Gerudo_Desert_Bulblin_Camp_Key, 1 },
+                    { Item.Progressive_Fused_Shadow, 3 },
+                    { Item.Progressive_Mirror_Shard, 3 },
                 };
 
             Dictionary<Item, int> itemToInflexibleCount = new();
@@ -378,7 +404,8 @@ namespace TPRandomizer.Hints
             }
 
             // TODO: handle items with different IDs which are functionally
-            // equivalent separately.
+            // equivalent separately such as shields. Waiting on Coro bottle
+            // dumping code before messing with bottles.
 
             foreach (KeyValuePair<Item, int> pair in itemToProgCount)
             {
@@ -387,14 +414,12 @@ namespace TPRandomizer.Hints
 
                 if (itemToInflexibleCount.ContainsKey(item) && itemToChecksList.ContainsKey(item))
                 {
-                    List<string> checksForItem = itemToChecksList[item];
-
                     int inflexibleCount = itemToInflexibleCount[item];
-
                     if (inflexibleCount >= progCount)
                     {
                         // Mark any unrequired checks with this item as
                         // allowBarren.
+                        List<string> checksForItem = itemToChecksList[item];
                         foreach (string checkName in checksForItem)
                         {
                             if (!requiredChecks.Contains(checkName))

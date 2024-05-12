@@ -1,6 +1,7 @@
 namespace TPRandomizer.Hints
 {
     using System.Collections.Generic;
+    using System.Security.Cryptography;
     using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
@@ -233,7 +234,7 @@ namespace TPRandomizer.Hints
                 string verb = CustomMsgData.GenVerb(hintTypeRes, null);
 
                 string itemText = customMsgData.GenItemText3(
-                    out Dictionary<string, string> meta,
+                    out _,
                     contents,
                     status,
                     contextIn: useDefiniteArticle ? "def" : "indef",

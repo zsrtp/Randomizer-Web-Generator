@@ -1206,7 +1206,8 @@ namespace TPRandomizer
             string countStr = count?.ToString();
 
             // For no-logic, any that say requiredOrNot are downgraded to
-            // goodOrNot. Otherwise 100% of them will say "unrequired" since
+            // Automatic (not sure if goodOrNot CheckStatusDisplay is even
+            // necessary). Otherwise 100% of them will say "unrequired" since
             // there is no concept of "logically required" when there is no
             // logic.
             if (
@@ -1214,7 +1215,7 @@ namespace TPRandomizer
                 && checkStatusDisplay == CheckStatusDisplay.Required_Or_Not
             )
             {
-                checkStatusDisplay = CheckStatusDisplay.Good_Or_Not;
+                checkStatusDisplay = CheckStatusDisplay.Automatic;
             }
 
             Res.Result abc = Res.ParseVal(
