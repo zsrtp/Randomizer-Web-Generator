@@ -11,6 +11,7 @@ namespace TPRandomizer.Hints
         public AreaId areaId { get; }
         public string checkName { get; }
         public CheckStatusDisplay statusDisplay { get; }
+        public bool vague { get; }
 
         // derived but encoded
         public CheckStatus status { get; }
@@ -23,12 +24,14 @@ namespace TPRandomizer.Hints
             HintGenData genData,
             AreaId areaId,
             string checkName,
-            CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Automatic
+            CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Automatic,
+            bool vague = false
         )
         {
             CheckStatus status = genData.CalcCheckStatus(checkName);
 
-            ItemHint hint = new(areaId, checkName, status, checkStatusDisplay, genData: genData);
+            ItemHint hint =
+                new(areaId, checkName, status, checkStatusDisplay, vague, genData: genData);
             return hint;
         }
 
@@ -37,6 +40,7 @@ namespace TPRandomizer.Hints
             string checkName,
             CheckStatus status,
             CheckStatusDisplay statusDisplay,
+            bool vague,
             bool useDefiniteArticle = false,
             Dictionary<int, byte> itemPlacements = null,
             HintGenData genData = null
@@ -46,6 +50,7 @@ namespace TPRandomizer.Hints
             this.checkName = checkName;
             this.status = status;
             this.statusDisplay = statusDisplay;
+            this.vague = vague;
             this.useDefiniteArticle = useDefiniteArticle;
 
             CalcDerived(genData, itemPlacements);
@@ -86,6 +91,7 @@ namespace TPRandomizer.Hints
             );
             result += SettingsEncoder.EncodeNumAsBits((byte)status, 2);
             result += SettingsEncoder.EncodeNumAsBits((byte)statusDisplay, 2);
+            result += vague ? "1" : "0";
             result += useDefiniteArticle ? "1" : "0";
             return result;
         }
@@ -100,6 +106,7 @@ namespace TPRandomizer.Hints
             int checkId = processor.NextInt(bitLengths.checkId);
             CheckStatus status = (CheckStatus)processor.NextInt(2);
             CheckStatusDisplay statusDisplay = (CheckStatusDisplay)processor.NextInt(2);
+            bool vague = processor.NextBool();
             bool useDefiniteArticle = processor.NextBool();
             string checkName = CheckIdClass.GetCheckName(checkId);
             return new ItemHint(
@@ -107,6 +114,7 @@ namespace TPRandomizer.Hints
                 checkName,
                 status,
                 statusDisplay,
+                vague,
                 useDefiniteArticle,
                 itemPlacements
             );
@@ -114,16 +122,35 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
-            string itemText = customMsgData.GenItemText3(
-                out Dictionary<string, string> itemMeta,
-                item,
-                status,
-                useDefiniteArticle ? "def" : "indef",
-                checkStatusDisplay: statusDisplay
+            bool useVague = vague && (status == CheckStatus.Good || status == CheckStatus.Required);
+
+            Res.Result hintParsedRes = Res.ParseVal(
+                "hint-type.item",
+                new() { { "context", useVague ? "vague" : "" } }
             );
 
+            string subject;
+            Dictionary<string, string> subjectMeta;
+            if (useVague)
+            {
+                Res.Result nounRes = Res.Msg("noun.something-good", null);
+                subjectMeta = nounRes.meta;
+
+                subject = nounRes.ResolveWithColor(CustomMessages.messageColorGreen);
+            }
+            else
+            {
+                subject = customMsgData.GenItemText3(
+                    out subjectMeta,
+                    item,
+                    status,
+                    useDefiniteArticle ? "def" : "indef",
+                    checkStatusDisplay: statusDisplay
+                );
+            }
+
             Dictionary<string, string> metaForArea = new();
-            foreach (KeyValuePair<string, string> pair in itemMeta)
+            foreach (KeyValuePair<string, string> pair in subjectMeta)
             {
                 // We are only ever hinting one instance of an item for this
                 // hint, so the area should not be forced to plural. For
@@ -143,12 +170,10 @@ namespace TPRandomizer.Hints
                 CustomMessages.messageColorRed
             );
 
-            Res.Result hintParsedRes = Res.ParseVal("hint-type.item");
-
-            string verb = CustomMsgData.GenVerb(hintParsedRes, itemMeta);
+            string verb = CustomMsgData.GenVerb(hintParsedRes, subjectMeta);
 
             string text = hintParsedRes.Substitute(
-                new() { { "item", itemText }, { "verb", verb }, { "area-phrase", areaPhrase }, }
+                new() { { "subject", subject }, { "verb", verb }, { "area-phrase", areaPhrase }, }
             );
 
             // Find how to pass in the languages

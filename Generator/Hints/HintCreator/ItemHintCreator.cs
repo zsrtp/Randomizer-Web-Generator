@@ -18,6 +18,7 @@ namespace TPRandomizer.Hints.HintCreator
         private HashSet<CheckStatus> validStatuses = new() { CheckStatus.Good };
         private CheckStatusDisplay statusDisplay = CheckStatusDisplay.Automatic;
         private bool itemsOrdered = false;
+        private bool vague = false;
 
         // Creates item hints with the following properties:
 
@@ -150,6 +151,8 @@ namespace TPRandomizer.Hints.HintCreator
                     "itemsOrdered",
                     inst.itemsOrdered
                 );
+
+                inst.vague = HintSettingUtils.getOptionalBool(options, "vague", inst.vague);
             }
 
             if (inst.validStatuses.Contains(CheckStatus.Good))
@@ -278,7 +281,13 @@ namespace TPRandomizer.Hints.HintCreator
 
                 AreaId areaId = genData.GetRecommendedAreaId(selectedCheckName);
 
-                ItemHint hint = ItemHint.Create(genData, areaId, selectedCheckName, statusDisplay);
+                ItemHint hint = ItemHint.Create(
+                    genData,
+                    areaId,
+                    selectedCheckName,
+                    statusDisplay,
+                    vague
+                );
                 results.Add(hint);
 
                 // Update hinted

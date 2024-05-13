@@ -317,8 +317,8 @@ namespace TPRandomizer
                 root.Add("requiredDungeons", GetRequiredDungeonsStringList());
                 root.Add("shuffledEntrances", GetShuffledEntrancesStringList());
                 root.Add("itemPlacements", sortedCheckNameToItemNameDict);
-                root.Add("spheres", GetSpheresForSpoiler());
                 root.Add("hints", customMsgData.GetDictForSpoiler());
+                root.Add("spheres", GetSpheresForSpoiler());
             }
 
             // Note this is the metaData from the file, not the current

@@ -151,7 +151,7 @@ namespace TPRandomizer.Hints
                 else
                 {
                     string somethingGood = Res.Msg("noun.something-good", null)
-                        .ResolveWithColor(CustomMessages.messageColorDarkGreen);
+                        .ResolveWithColor(CustomMessages.messageColorGreen);
 
                     text = Res.SimpleMsg(
                         "hint-type.trade-group",

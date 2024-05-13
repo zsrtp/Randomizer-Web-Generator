@@ -458,11 +458,15 @@
     <comment></comment>
   </data>
   <data name="hint-type.item" xml:space="preserve">
-    <value>Il est dit que {item} {verb(name:can-be-found)} {area-phrase}.</value>
+    <value>Il est dit que {subject} {verb(name:can-be-found)} {area-phrase}.</value>
     <comment></comment>
   </data>
   <data name="hint-type.item-to-item-path" xml:space="preserve">
     <value>Il est dit que {source} {verb(name:is)} sur le chemin de {target}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.item$vague" xml:space="preserve">
+    <value>Il est dit que {subject} {verb(name:can-be-found)} {area-phrase}.</value>
     <comment></comment>
   </data>
   <data name="hint-type.jovani-rewards.reward" xml:space="preserve">
