@@ -340,9 +340,6 @@ namespace TPRandomizer
                     + Assets.SeedData.VersionPatch
             );
 
-            // TODO: need to handle in JS code to respect the formatting from
-            // the CSHARP side when creating spoilerLog json files client-side.
-
             return SpoilerJsonWriterUtils.Serialize(root);
         }
 

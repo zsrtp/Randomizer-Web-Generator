@@ -278,9 +278,8 @@
   function handleSpoilerData() {
     $('#settingsSpoilerSection').show();
 
-    const spoilerData = JSON.parse(
-      document.getElementById('spoilerData').value
-    );
+    const rawSpoilerData = document.getElementById('spoilerData').value;
+    const spoilerData = JSON.parse(rawSpoilerData);
     console.log(spoilerData);
 
     initTabButtons([
@@ -301,7 +300,7 @@
       $('#tabBtnPlaythroughSpoilers').show();
 
       initPlaythroughSpoilers(spoilerData);
-      createSpoilerLogDownload(spoilerData);
+      createSpoilerLogDownload(spoilerData, rawSpoilerData);
     }
 
     initDownloadOptions(spoilerData.isRaceSeed);
@@ -963,11 +962,9 @@
     });
   }
 
-  function createSpoilerLogDownload(spoilerData) {
-    const spoilerDataString = JSON.stringify(spoilerData, null, 2);
-
+  function createSpoilerLogDownload(spoilerData, rawSpoilerData) {
     const enc = new TextEncoder(); // always utf-8
-    const fileBytes = enc.encode(spoilerDataString);
+    const fileBytes = enc.encode(rawSpoilerData);
 
     // const link = document.createElement('a');
     const link = document.getElementById('downloadSpoilerLogBtn');
