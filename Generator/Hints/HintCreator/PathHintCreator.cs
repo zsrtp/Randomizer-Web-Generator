@@ -677,24 +677,36 @@ namespace TPRandomizer.Hints.HintCreator
             int combinationIndex = results[selectedComboId];
             List<int> combination = combinations[combinationIndex];
 
+            // Might not need, but just in case we try to pick the same check
+            // back-to-back for example.
+            HashSet<string> justPickedCheckNames = new();
+
             for (int i = 0; i < selectedZones.Length; i++)
             {
                 string desiredZoneName = selectedZones[i];
                 int goalAndZonesListIndex = combination[i];
                 Goal goal = goalAndZonesList[goalAndZonesListIndex].Key;
-                List<string> requiredChecksOfGoal = genData.goalToRequiredChecks[goal];
 
-                List<string> requiredChecksInZone = new();
-                foreach (string checkName in requiredChecksOfGoal)
+                KeyValuePair<Goal, List<string>> goalAndChecks = primaryList.Find(
+                    (el) => el.Key == goal
+                );
+                List<string> possibleChecksForGoal = goalAndChecks.Value;
+
+                List<string> possibleChecksInZone = new();
+                foreach (string checkName in possibleChecksForGoal)
                 {
-                    if (checkToHintZoneMap[checkName] == desiredZoneName)
+                    if (
+                        !justPickedCheckNames.Contains(checkName)
+                        && checkToHintZoneMap[checkName] == desiredZoneName
+                    )
                     {
-                        requiredChecksInZone.Add(checkName);
+                        possibleChecksInZone.Add(checkName);
                     }
                 }
 
-                HintUtils.ShuffleListInPlace(genData.rnd, requiredChecksInZone);
-                string selectedCheckName = requiredChecksInZone[0];
+                HintUtils.ShuffleListInPlace(genData.rnd, possibleChecksInZone);
+                string selectedCheckName = possibleChecksInZone[0];
+                justPickedCheckNames.Add(selectedCheckName);
                 Item contents = HintUtils.getCheckContents(selectedCheckName);
                 // Mark checkName as directed toward
                 genData.hinted.alreadyCheckDirectedToward.Add(selectedCheckName);
