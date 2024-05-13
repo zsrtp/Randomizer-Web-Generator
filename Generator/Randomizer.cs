@@ -563,7 +563,7 @@ namespace TPRandomizer
             if (!seedGenResults.isRaceSeed && fcSettings.includeSpoilerLog)
             {
                 // Add fileDef for spoilerLog
-                string spoilerLogText = GetSeedGenResultsJson(id, true);
+                string spoilerLogText = GetSeedGenResultsJson(id);
                 byte[] spoilerBytes = Encoding.UTF8.GetBytes(spoilerLogText);
 
                 Dictionary<string, object> dict = new();
@@ -1828,7 +1828,6 @@ namespace TPRandomizer
 
         public static string GetSeedGenResultsJson(
             string seedId,
-            bool prettyPrint,
             bool dangerouslyPrintFullRaceSpoiler = false
         )
         {
@@ -1850,7 +1849,6 @@ namespace TPRandomizer
 
             return seedGenResults.ToSpoilerString(
                 GetSortedCheckNameToItemNameDict(seedGenResults),
-                prettyPrint,
                 dangerouslyPrintFullRaceSpoiler
             );
         }

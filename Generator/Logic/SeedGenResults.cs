@@ -287,7 +287,6 @@ namespace TPRandomizer
         // forceOutputEverything only exists so that we can print
         public string ToSpoilerString(
             SortedDictionary<string, string> sortedCheckNameToItemNameDict,
-            bool prettyPrint,
             bool dangerouslyPrintFullRaceSpoiler = false
         )
         {
@@ -341,11 +340,7 @@ namespace TPRandomizer
                     + Assets.SeedData.VersionPatch
             );
 
-            if (prettyPrint || dangerouslyPrintFullRaceSpoiler)
-            {
-                return JsonConvert.SerializeObject(root, Formatting.Indented);
-            }
-            return JsonConvert.SerializeObject(root);
+            return SpoilerJsonWriterUtils.Serialize(root);
         }
 
         private List<string> GetRequiredDungeonsStringList()

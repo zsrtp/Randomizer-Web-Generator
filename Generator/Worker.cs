@@ -67,7 +67,7 @@ namespace TPRandomizer
                     // Note: we need to use fancier printing rather than just
                     // Console.WriteLine in order for advanced unicode
                     // characters such as '♂' to be passed correctly.
-                    str = Randomizer.GetSeedGenResultsJson(args[1], false);
+                    str = Randomizer.GetSeedGenResultsJson(args[1]);
                     bytes = Encoding.UTF8.GetBytes(str);
                     using (Stream myOutStream = Console.OpenStandardOutput())
                     {
@@ -80,7 +80,7 @@ namespace TPRandomizer
                 // must never call this code.
                 case "dangerously_print_full_race_spoiler":
                     // seedId
-                    str = Randomizer.GetSeedGenResultsJson(args[1], true, true);
+                    str = Randomizer.GetSeedGenResultsJson(args[1], true);
                     bytes = Encoding.UTF8.GetBytes(str);
                     using (Stream myOutStream = Console.OpenStandardOutput())
                     {
