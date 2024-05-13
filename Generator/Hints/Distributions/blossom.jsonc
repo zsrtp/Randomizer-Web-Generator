@@ -1,6 +1,7 @@
 {
   // TODO: goats and bo should be removed from normal sometimes pool so we only
-  // ever hint at most 1 of them.
+  // ever hint at most 1 of them. Note: this should be done in this distribution
+  // (removing those 2 from sometimes), but they should be in by default.
   "starting": {
     "spot": "ordon_sign",
     "excludeFromGroups": true
@@ -21,7 +22,6 @@
     "monopolizeSpots": true,
     "checkStatusDisplay": "required_or_not",
     "idealNumSpots": 5,
-    "idealNumExplicitlyHinted": 5,
     "copies": 2,
     "starting": false,
     "groupId": "overworld"

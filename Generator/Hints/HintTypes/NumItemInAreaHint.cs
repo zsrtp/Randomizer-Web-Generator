@@ -61,7 +61,7 @@ namespace TPRandomizer.Hints
                 CustomMessages.messageColorRed
             );
 
-            Res.Result hintTypeRes = Res.ParseVal("hint-type.item");
+            Res.Result hintTypeRes = Res.ParseVal("hint-type.num-item-in-area");
 
             string verb = "";
             if (hintTypeRes.slotMeta.TryGetValue("verb", out Dictionary<string, string> verbMeta))
@@ -74,7 +74,7 @@ namespace TPRandomizer.Hints
             }
 
             string text = hintTypeRes.Substitute(
-                new() { { "item", itemText }, { "verb", verb }, { "area-phrase", areaPhrase }, }
+                new() { { "subject", itemText }, { "verb", verb }, { "area-phrase", areaPhrase }, }
             );
 
             // Find how to pass in the languages

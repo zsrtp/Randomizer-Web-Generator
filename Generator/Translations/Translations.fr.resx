@@ -493,6 +493,10 @@
     <value>Il est dit que {check-name} est sur la voie du héros.</value>
     <comment></comment>
   </data>
+  <data name="hint-type.num-item-in-area" xml:space="preserve">
+    <value>Il est dit que {subject} {verb(name:can-be-found)} {area-phrase}.</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.path" xml:space="preserve">
     <value>Il est dit que {area} {verb(name:is)} sur le chemin de {goal}.</value>
     <comment></comment>
