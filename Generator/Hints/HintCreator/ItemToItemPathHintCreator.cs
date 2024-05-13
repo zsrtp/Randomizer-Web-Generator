@@ -75,12 +75,13 @@ namespace TPRandomizer.Hints.HintCreator
                 }
                 else
                 {
-                    // Check that none of the checkNames have been directedToward.
-                    bool srcItemNotDirectedToward = srcCheckNames.All(
+                    // Check that none of the checkNames are already hinted.
+                    bool srcItemNotHinted = srcCheckNames.All(
                         (checkName) =>
                             !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
+                            && !genData.hinted.alreadyCheckContentsHinted.Contains(checkName)
                     );
-                    if (!srcItemNotDirectedToward)
+                    if (!srcItemNotHinted)
                         baseSrcItems.RemoveAt(i);
                 }
             }
@@ -107,12 +108,15 @@ namespace TPRandomizer.Hints.HintCreator
                     Item startItem = HintUtils.getCheckContents(chainStart);
 
                     List<string> checks = genData.itemToChecksList[startItem];
-                    bool srcItemNotDirectedToward = checks.All(
+
+                    // Check that none of the checkNames are already hinted.
+                    bool srcItemNotHinted = checks.All(
                         (checkName) =>
                             !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
+                            && !genData.hinted.alreadyCheckContentsHinted.Contains(checkName)
                     );
 
-                    if (srcItemNotDirectedToward)
+                    if (srcItemNotHinted)
                         baseSrcItems.Add(startItem);
                 }
             }
