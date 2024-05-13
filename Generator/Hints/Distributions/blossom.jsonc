@@ -346,12 +346,6 @@
               "namedProbability": 0.5
             }
           },
-
-          // TODO: 50% chance of trying to generate max1 of these hints: WotH
-          // for a boss heart container (vague Location with requiredOrNot with
-          // required only validStatus) or a Location hint for a boss. If the
-          // 0.5 comparison fails, then the node is dead as well as the tree
-          // under it.
           {
             "hintType": "location",
             "options": {
@@ -367,7 +361,9 @@
               ],
               "namedOrder": "random",
               "namedProbability": 0.5,
-              "validStatuses": ["good", "required"]
+              "validStatuses": ["required"],
+              "checkStatusDisplay": "required_or_not",
+              "vague": true
             }
           },
           {

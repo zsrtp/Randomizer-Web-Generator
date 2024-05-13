@@ -25,6 +25,7 @@ namespace TPRandomizer.Hints.HintCreator
         protected HashSet<CheckStatus> validStatuses;
         protected bool vague = false;
         protected bool markAsSometimes = false;
+        public CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Automatic;
         protected List<string> namedChecks = null;
         protected NamedOrder namedOrder = NamedOrder.Basic;
 
@@ -105,6 +106,12 @@ namespace TPRandomizer.Hints.HintCreator
                     options,
                     "markAsSometimes",
                     inst.markAsSometimes
+                );
+
+                inst.checkStatusDisplay = HintSettingUtils.getOptionalCheckStatusDisplay(
+                    options,
+                    "checkStatusDisplay",
+                    inst.checkStatusDisplay
                 );
 
                 List<string> namedChecksStrList = HintSettingUtils.getOptionalStringList(
@@ -195,12 +202,11 @@ namespace TPRandomizer.Hints.HintCreator
                         continue;
                 }
 
-                // TODO: fix this to not hardcode unspecified
                 Hint hint = LocationHint.Create(
                     genData,
                     checkName,
                     vague,
-                    CheckStatusDisplay.Automatic,
+                    checkStatusDisplay,
                     markAsSometimes
                 );
                 hints.Add(hint);
