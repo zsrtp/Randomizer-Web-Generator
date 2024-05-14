@@ -150,17 +150,17 @@ namespace TPRandomizer.Hints.HintCreator
             if (validAreaIds.Count < 1)
                 return null;
 
-            Dictionary<string, int> areaToCount = new();
+            Dictionary<string, List<string>> areaToCheckNames = new();
             foreach (string areaId in validAreaIds)
             {
-                areaToCount[areaId] = 0;
+                areaToCheckNames[areaId] = new();
             }
 
             foreach (string checkName in genData.itemToChecksList[item])
             {
                 string areaId = checkToAreaId(checkName);
                 if (validAreaIds.Contains(areaId))
-                    areaToCount[areaId] += 1;
+                    areaToCheckNames[areaId].Add(checkName);
             }
 
             List<string> areaIdsToPickFrom;
@@ -173,9 +173,9 @@ namespace TPRandomizer.Hints.HintCreator
             else
             {
                 Dictionary<int, HashSet<string>> countToAreaIds = new();
-                foreach (KeyValuePair<string, int> pair in areaToCount)
+                foreach (KeyValuePair<string, List<string>> pair in areaToCheckNames)
                 {
-                    int count = pair.Value;
+                    int count = pair.Value.Count;
                     if (!countToAreaIds.ContainsKey(count))
                         countToAreaIds[count] = new();
                     HashSet<string> areaIds = countToAreaIds[count];
@@ -204,10 +204,11 @@ namespace TPRandomizer.Hints.HintCreator
                 string areaIdStr = areaIdsToPickFrom[0];
                 areaIdsToPickFrom.RemoveAt(0);
 
-                int count = areaToCount[areaIdStr];
+                List<string> checkNames = areaToCheckNames[areaIdStr];
+                int count = checkNames.Count;
                 AreaId areaId = areaIdStrToAreaId(areaIdStr);
                 // Create hint with this areaId.
-                hintResults.Add(new NumItemInAreaHint(count, item, areaId));
+                hintResults.Add(new NumItemInAreaHint(count, item, areaId, checkNames));
             }
 
             return hintResults;

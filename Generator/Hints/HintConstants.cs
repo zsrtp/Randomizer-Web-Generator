@@ -243,7 +243,6 @@ namespace TPRandomizer.Hints
             new()
             {
                 { "Agitha's Castle", Province.Lanayru },
-                { "Golden Wolf", Province.Split },
                 { "Ordon", Province.Ordona },
                 { "Sacred Grove", Province.Faron },
                 { "Faron Field", Province.Faron },
@@ -269,7 +268,6 @@ namespace TPRandomizer.Hints
                 { "Bulblin Camp", Province.Desert },
                 { "Snowpeak", Province.Peak },
                 { "Cave of Ordeals", Province.Desert },
-                { "Long Minigames", Province.Split },
                 { "Forest Temple", Province.Dungeon },
                 { "Goron Mines", Province.Dungeon },
                 { "Lakebed Temple", Province.Dungeon },
@@ -445,7 +443,6 @@ namespace TPRandomizer.Hints
                 { Province.Lanayru, "Lanayru" },
                 { Province.Desert, "Desert" },
                 { Province.Peak, "Peak" },
-                { Province.Split, "Split" },
                 { Province.Dungeon, "Dungeon" },
             };
 

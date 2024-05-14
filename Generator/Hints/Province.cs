@@ -18,16 +18,12 @@ namespace TPRandomizer.Hints
         Lanayru = 4,
         Desert = 5,
         Peak = 6,
-
-        // Split Province is the zones that are in multiple provinces:
-        // Golden_Wolf and Long_Minigames.
-        Split = 7,
-        Dungeon = 8,
+        Dungeon = 7,
     }
 
     public class ProvinceUtils
     {
-        public static readonly byte NumBitsToEncode = 4;
+        public static readonly byte NumBitsToEncode = 3;
         private static Dictionary<Province, string> enumToStr;
         private static readonly Dictionary<Province, HashSet<Zone>> provinceToZones =
             new()
@@ -77,10 +73,6 @@ namespace TPRandomizer.Hints
                 {
                     Province.Peak,
                     new() { Zone.Snowpeak, }
-                },
-                {
-                    Province.Split,
-                    new() { Zone.Golden_Wolf, Zone.LongMinigames, }
                 },
                 {
                     Province.Dungeon,
@@ -167,7 +159,6 @@ namespace TPRandomizer.Hints
                     Province.Lanayru,
                     Province.Desert,
                     Province.Peak,
-                    Province.Split,
                     Province.Dungeon,
                 };
             foreach (Province province in validProvinces)

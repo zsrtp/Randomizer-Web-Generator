@@ -11,12 +11,17 @@ namespace TPRandomizer.Hints
         public int count { get; }
         public Item item { get; }
         public AreaId areaId { get; }
+        public List<string> checkNames { get; }
 
-        public NumItemInAreaHint(int count, Item item, AreaId areaId)
+        public NumItemInAreaHint(int count, Item item, AreaId areaId, List<string> checkNames)
         {
             this.count = count;
             this.item = item;
             this.areaId = areaId;
+            this.checkNames = checkNames;
+
+            if (this.checkNames == null)
+                this.checkNames = new();
         }
 
         public override string encodeAsBits(HintEncodingBitLengths bitLengths)
@@ -25,6 +30,13 @@ namespace TPRandomizer.Hints
             result += SettingsEncoder.EncodeAsVlq16((ushort)count);
             result += SettingsEncoder.EncodeNumAsBits((int)item, 8);
             result += areaId.encodeAsBits(bitLengths);
+            result += SettingsEncoder.EncodeAsVlq16((ushort)checkNames.Count);
+            for (int i = 0; i < checkNames.Count; i++)
+            {
+                string checkName = checkNames[i];
+                int checkId = CheckIdClass.GetCheckIdNum(checkName);
+                result += SettingsEncoder.EncodeNumAsBits(checkId, bitLengths.checkId);
+            }
             return result;
         }
 
@@ -37,7 +49,17 @@ namespace TPRandomizer.Hints
             int count = processor.NextVlq16();
             Item item = (Item)processor.NextByte();
             AreaId areaId = AreaId.decode(bitLengths, processor);
-            return new NumItemInAreaHint(count, item, areaId);
+
+            int numCheckNames = processor.NextVlq16();
+
+            List<string> checkNames = new();
+            for (int i = 0; i < numCheckNames; i++)
+            {
+                int checkId = processor.NextInt(bitLengths.checkId);
+                checkNames.Add(CheckIdClass.GetCheckName(checkId));
+            }
+
+            return new NumItemInAreaHint(count, item, areaId, checkNames);
         }
 
         public AreaId GetAreaId()
@@ -103,8 +125,8 @@ namespace TPRandomizer.Hints
         {
             string hintText = toHintTextList(customMsgData)[0].text;
 
-            // TODO: list the checks here
             HintInfo hintInfo = new(hintText);
+            hintInfo.hintedChecks.AddRange(checkNames);
             hintInfo.hintedItems.Add(item);
             return hintInfo;
         }

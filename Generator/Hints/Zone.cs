@@ -31,18 +31,16 @@ namespace TPRandomizer.Hints
         Gerudo_Desert = 23,
         Bulblin_Camp = 24,
         Snowpeak = 25,
-        Golden_Wolf = 26,
-        Cave_of_Ordeals = 27,
-        LongMinigames = 28,
-        Forest_Temple = 29,
-        Goron_Mines = 30,
-        Lakebed_Temple = 31,
-        Arbiters_Grounds = 32,
-        Snowpeak_Ruins = 33,
-        Temple_of_Time = 34,
-        City_in_the_Sky = 35,
-        Palace_of_Twilight = 36,
-        Hyrule_Castle = 37,
+        Cave_of_Ordeals = 26,
+        Forest_Temple = 27,
+        Goron_Mines = 28,
+        Lakebed_Temple = 29,
+        Arbiters_Grounds = 30,
+        Snowpeak_Ruins = 31,
+        Temple_of_Time = 32,
+        City_in_the_Sky = 33,
+        Palace_of_Twilight = 34,
+        Hyrule_Castle = 35,
     }
 
     public class ZoneUtils
@@ -183,6 +181,7 @@ namespace TPRandomizer.Hints
                         "Ordon Cat Rescue",
                         "Ordon Ranch Grotto Lantern Chest",
                         "Ordon Shield",
+                        "Ordon Spring Golden Wolf",
                         "Ordon Sword",
                         "Sera Shop Slingshot",
                         "Uli Cradle Delivery",
@@ -233,6 +232,7 @@ namespace TPRandomizer.Hints
                         "Faron Mist Poe",
                         "Faron Mist South Chest",
                         "Faron Mist Stump Chest",
+                        "Faron Woods Golden Wolf",
                         "Faron Woods Owl Statue Chest",
                         "Faron Woods Owl Statue Sky Character",
                         "North Faron Woods Deku Baba Chest",
@@ -283,6 +283,7 @@ namespace TPRandomizer.Hints
                     new[]
                     {
                         "Gift From Ralis",
+                        "Kakariko Graveyard Golden Wolf",
                         "Kakariko Graveyard Grave Poe",
                         "Kakariko Graveyard Lantern Chest",
                         "Kakariko Graveyard Male Ant",
@@ -301,7 +302,8 @@ namespace TPRandomizer.Hints
                         "Eldin Field Bomskit Grotto Left Chest",
                         "Eldin Field Female Grasshopper",
                         "Eldin Field Male Grasshopper",
-                        "Eldin Field Water Bomb Fish Grotto Chest"
+                        "Eldin Field Water Bomb Fish Grotto Chest",
+                        "Goron Springwater Rush"
                     }
                 },
                 {
@@ -355,6 +357,7 @@ namespace TPRandomizer.Hints
                         "Hyrule Field Amphitheater Owl Statue Sky Character",
                         "Hyrule Field Amphitheater Poe",
                         "West Hyrule Field Female Butterfly",
+                        "West Hyrule Field Golden Wolf",
                         "West Hyrule Field Helmasaur Grotto Chest",
                         "West Hyrule Field Male Butterfly"
                     }
@@ -366,6 +369,7 @@ namespace TPRandomizer.Hints
                         "Outside South Castle Town Double Clawshot Chasm Chest",
                         "Outside South Castle Town Female Ladybug",
                         "Outside South Castle Town Fountain Chest",
+                        "Outside South Castle Town Golden Wolf",
                         "Outside South Castle Town Male Ladybug",
                         "Outside South Castle Town Poe",
                         "Outside South Castle Town Tektite Grotto Chest",
@@ -384,6 +388,7 @@ namespace TPRandomizer.Hints
                         "Jovani 20 Poe Soul Reward",
                         "Jovani 60 Poe Soul Reward",
                         "Jovani House Poe",
+                        "North Castle Town Golden Wolf",
                         "STAR Prize 1",
                         "STAR Prize 2",
                         "Telma Invoice"
@@ -452,7 +457,8 @@ namespace TPRandomizer.Hints
                         "Lake Hylia Underwater Chest",
                         "Lake Hylia Water Toadpoli Grotto Chest",
                         "Outside Lanayru Spring Left Statue Chest",
-                        "Outside Lanayru Spring Right Statue Chest"
+                        "Outside Lanayru Spring Right Statue Chest",
+                        "Plumm Fruit Balloon Minigame"
                     }
                 },
                 {
@@ -512,6 +518,8 @@ namespace TPRandomizer.Hints
                     {
                         "Fishing Hole Bottle",
                         "Fishing Hole Heart Piece",
+                        "Iza Helping Hand",
+                        "Iza Raging Rapids Minigame",
                         "Upper Zoras River Female Dragonfly",
                         "Upper Zoras River Poe"
                     }
@@ -526,6 +534,7 @@ namespace TPRandomizer.Hints
                         "Gerudo Desert East Canyon Chest",
                         "Gerudo Desert East Poe",
                         "Gerudo Desert Female Dayfly",
+                        "Gerudo Desert Golden Wolf",
                         "Gerudo Desert Lone Small Chest",
                         "Gerudo Desert Male Dayfly",
                         "Gerudo Desert North Peahat Poe",
@@ -574,19 +583,6 @@ namespace TPRandomizer.Hints
                     }
                 },
                 {
-                    "Golden Wolf",
-                    new[]
-                    {
-                        "Faron Woods Golden Wolf",
-                        "Gerudo Desert Golden Wolf",
-                        "Kakariko Graveyard Golden Wolf",
-                        "North Castle Town Golden Wolf",
-                        "Ordon Spring Golden Wolf",
-                        "Outside South Castle Town Golden Wolf",
-                        "West Hyrule Field Golden Wolf"
-                    }
-                },
-                {
                     "Cave of Ordeals",
                     new[]
                     {
@@ -594,16 +590,6 @@ namespace TPRandomizer.Hints
                         "Cave of Ordeals Floor 33 Poe",
                         "Cave of Ordeals Floor 44 Poe",
                         "Cave of Ordeals Great Fairy Reward"
-                    }
-                },
-                {
-                    "Long Minigames",
-                    new[]
-                    {
-                        "Goron Springwater Rush",
-                        "Iza Helping Hand",
-                        "Iza Raging Rapids Minigame",
-                        "Plumm Fruit Balloon Minigame"
                     }
                 },
                 {
@@ -903,9 +889,7 @@ namespace TPRandomizer.Hints
                 { Zone.Gerudo_Desert, "Gerudo Desert" },
                 { Zone.Bulblin_Camp, "Bulblin Camp" },
                 { Zone.Snowpeak, "Snowpeak" },
-                { Zone.Golden_Wolf, "Golden Wolf" },
                 { Zone.Cave_of_Ordeals, "Cave of Ordeals" },
-                { Zone.LongMinigames, "Long Minigames" },
                 { Zone.Forest_Temple, "Forest Temple" },
                 { Zone.Goron_Mines, "Goron Mines" },
                 { Zone.Lakebed_Temple, "Lakebed Temple" },
