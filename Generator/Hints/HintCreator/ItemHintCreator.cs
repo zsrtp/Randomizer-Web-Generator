@@ -311,6 +311,35 @@ namespace TPRandomizer.Hints.HintCreator
         {
             switch (alias)
             {
+                case "bugs":
+                    return new()
+                    {
+                        Item.Male_Ant,
+                        Item.Female_Ant,
+                        Item.Male_Beetle,
+                        Item.Female_Beetle,
+                        Item.Male_Pill_Bug,
+                        Item.Female_Pill_Bug,
+                        Item.Male_Phasmid,
+                        Item.Female_Phasmid,
+                        Item.Male_Grasshopper,
+                        Item.Female_Grasshopper,
+                        Item.Male_Stag_Beetle,
+                        Item.Female_Stag_Beetle,
+                        Item.Male_Butterfly,
+                        Item.Female_Butterfly,
+                        Item.Male_Ladybug,
+                        Item.Female_Ladybug,
+                        Item.Male_Mantis,
+                        Item.Female_Mantis,
+                        Item.Male_Dragonfly,
+                        Item.Female_Dragonfly,
+                        Item.Male_Dayfly,
+                        Item.Female_Dayfly,
+                        Item.Male_Snail,
+                        Item.Female_Snail,
+                    };
+                    ;
                 case "rupees":
                     return new()
                     {

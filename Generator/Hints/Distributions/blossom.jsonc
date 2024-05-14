@@ -112,31 +112,7 @@
                         "Progressive_Sky_Book",
                         "Gate_Keys",
                         "Magic_Armor",
-                        // TODO: probably make alias for bugs
-                        "Male_Beetle",
-                        "Female_Beetle",
-                        "Male_Butterfly",
-                        "Female_Butterfly",
-                        "Male_Stag_Beetle",
-                        "Female_Stag_Beetle",
-                        "Male_Grasshopper",
-                        "Female_Grasshopper",
-                        "Male_Phasmid",
-                        "Female_Phasmid",
-                        "Male_Pill_Bug",
-                        "Female_Pill_Bug",
-                        "Male_Mantis",
-                        "Female_Mantis",
-                        "Male_Ladybug",
-                        "Female_Ladybug",
-                        "Male_Snail",
-                        "Female_Snail",
-                        "Male_Dragonfly",
-                        "Female_Dragonfly",
-                        "Male_Ant",
-                        "Female_Ant",
-                        "Male_Dayfly",
-                        "Female_Dayfly"
+                        "alias:bugs"
                       ]
                     }
                   },
