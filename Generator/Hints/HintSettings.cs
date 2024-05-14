@@ -1404,7 +1404,7 @@ namespace TPRandomizer.Hints.Settings
                 {
                     if (type == "sometimes")
                         throw new Exception(
-                            "Cannot add valid items to sometimes hints as all items are valid by default. To make certain items invalid, use 'invalidItems'. To define exactly which items are valid, use 'sometimes.validItems'."
+                            "Cannot add valid items to sometimes hints as all items are valid by default. To make certain items invalid, use 'removeItems'. To define exactly which items are valid, use 'sometimes.validItems'."
                         );
                 }
             );

@@ -19,14 +19,12 @@
     "ownZoneShowsAsJunkHint": true
   },
   "always": {
-    // TODO: shellblade should be added and not default.
     "monopolizeSpots": true,
     "idealNumSpots": 5,
     "copies": 2,
     "groupId": "overworld"
   },
-  // START EXAMPLE
-  // Want to move toward this to simplify and make match OoT.
+  //
   "addChecks": {
     "Lake Hylia Shell Blade Grotto Chest": ["always"]
   },
@@ -37,20 +35,7 @@
   "removeItems": {
     "Progressive_Sword": ["sometimes"]
   },
-  // END EXAMPLE
-
-  "addValidItems": {
-    // Throw exception if add to a non-valid type. For example, adding a valid
-    // item to "sometimes" is invalid since all items are valid by default. Same
-    // for "always". If you want sometimes to only allow certain items, then
-    // this should be specified in the "validItems" property of "sometimes".
-    // Specifying here for sometimes or always should throw an Exception.
-    "Asheis_Sketch": ["namedItem"],
-    "Slingshot": ["path", "woth"]
-  },
-  "invalidItems": {
-    "Progressive_Sword": ["sometimes"]
-  },
+  //
   "groups": {
     "overworld": ["alias:overworldZones"]
   },
@@ -71,13 +56,11 @@
             "starting": 1
           },
           {
-            // We pick 4 "Interesting" hints.
             "starting": 1,
             "maxPicks": 4,
             "hintDef": [
               {
                 // Num swords in province with most swords (or tied for most).
-                // Always picked as one of the five.
                 "hintType": "numItemInArea",
                 "saveToVar": "mostSwordsProvince",
                 "options": {
@@ -86,20 +69,12 @@
                   "order": "desc"
                 }
               },
-              // Promoted since usually the most interesting hint every time it
-              // shows up.
               { "hintType": "itemToItemPath" },
               {
                 "iterations": 99,
                 "selectionType": "randomOrder",
                 "hintDef": [
                   {
-                    // Additional bug hint if possible. Weight 1.73 makes this
-                    // have a 12.5% chance of being selected last instead of
-                    // 25%. Not hard-prioritized so that we are more likely to
-                    // generate an ItemToItemPath hint where the target is a
-                    // bug.
-                    // "weight": 1.725942,
                     "selectionType": "randomOrder",
                     "maxPicks": 1,
                     "hintDef": [
@@ -111,51 +86,23 @@
                           "validStatuses": ["bad"]
                         }
                       }
-                      // Testing this with no extra weighting and with no
-                      // tradeChain since the other hints can handle this pretty
-                      // well. ItemToItemPath for bugs is good. An Item hint for
-                      // a named bug in a province or dungeon without saying
-                      // what it leads to seems better than one where we say
-                      // what it leads to and where it might not even be
-                      // required. The bad gender part is good though. This also
-                      // makes it easier to explain when there are actually only
-                      // 4 things.
-
-                      // {
-                      //   // Ex: bug at Area leads to Item
-                      //   "hintType": "tradeChain",
-                      //   "options": {
-                      //     "vagueSourceItem": true,
-                      //     "requiredChainItems": ["alias:bugs"]
-                      //   }
-                      // }
                     ]
                   },
-                  // {
-                  //   // Num clawshots in dungeons
-                  //   "hintType": "numItemInArea",
-                  //   "options": {
-                  //     "item": "Progressive_Clawshot",
-                  //     "areaType": "province",
-                  //     "validAreas": ["Dungeon"]
-                  //   }
-                  // },
                   {
                     "hintType": "item",
                     "options": {
                       "validStatuses": ["required"],
                       "checkStatusDisplay": "required_or_not",
                       "validItems": [
-                        // "Progressive_Sword",
                         "Boomerang",
                         "Lantern",
                         "Slingshot",
                         "Progressive_Fishing_Rod",
                         "Iron_Boots",
-                        // "Progressive_Bow",
-                        // "Filled_Bomb_Bag",
+                        "Progressive_Bow",
+                        "Filled_Bomb_Bag",
                         "Zora_Armor",
-                        // "Progressive_Clawshot",
+                        "Progressive_Clawshot",
                         "Shadow_Crystal",
                         "Aurus_Memo",
                         "Asheis_Sketch",
@@ -259,7 +206,6 @@
           {
             "hintType": "sometimes",
             "iterations": 99
-            // "minCopies": 1
           }
         ]
       }
