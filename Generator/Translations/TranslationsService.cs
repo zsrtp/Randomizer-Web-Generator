@@ -305,6 +305,9 @@ namespace TPRandomizer
                 {
                     switch (langCode)
                     {
+                        case "en":
+                            EnGenFunction(result);
+                            break;
                         case "fr":
                             FrGenFunction(result);
                             break;
@@ -347,6 +350,149 @@ namespace TPRandomizer
                     ret += "#" + count;
 
                 return ret;
+            }
+
+            private void EnGenFunction(List<KeyValuePair<string, string>> result)
+            {
+                switch (genFnName)
+                {
+                    case "ac":
+                        EnGenFunctionAc(result);
+                        break;
+                    case "unc":
+                        EnGenFunctionUnc(result);
+                        break;
+                    default:
+                        throw new Exception($"Unrecognized genFnName '{genFnName}'.");
+                }
+
+                int abc = 7;
+            }
+
+            private void EnGenFunctionAc(List<KeyValuePair<string, string>> result)
+            {
+                if (genFnArgs == null || (genFnArgs.Length != 3 && genFnArgs.Length != 4))
+                    throw new Exception(
+                        $"Expected en ac genFnArgs to be non-null and length 3 or 4."
+                    );
+
+                string pluralHandling = genFnArgs[2];
+                if (pluralHandling != "b" && pluralHandling != "s" && pluralHandling != "p")
+                    throw new Exception(
+                        $"Expected pluralMetaRaw to be 's' or 'p', but was '{pluralHandling}'."
+                    );
+
+                bool handleSingular = pluralHandling == "b" || pluralHandling == "s";
+                bool handlePluralSpecial = pluralHandling == "p";
+                bool handlePluralDefault = pluralHandling == "b";
+
+                if (handlePluralDefault && genFnArgs.Length != 4)
+                    throw new Exception(
+                        $"When handlePluralDefault is true, expected genFnArgs to be length 4."
+                    );
+
+                string defArticle = genFnArgs[0] == "t" ? "the" : "";
+                string indefArticle = genFnArgs[1];
+                string pluralSuffix = genFnArgs.Length > 3 ? genFnArgs[3] : "";
+
+                // plural handling 'd' for default, or 't' or 'f'
+
+                // 'b' for both singular and plural, 's' for singular-only, 'p' for plural-only
+
+
+                string pluralMeta = "$(plural)";
+                bool isBasePlural = false;
+                string baseMeta = isBasePlural ? pluralMeta : "";
+
+                string wrappedBase = $"{{cs}}{baseValue}{{ce}}";
+
+                if (handleSingular)
+                {
+                    // Base
+                    result.Add(new(GenCurrentResKey(), baseMeta + wrappedBase));
+
+                    if (!StringUtils.isEmpty(defArticle))
+                    {
+                        ChangeContext("def");
+                        string defVal = baseMeta + defArticle + " " + wrappedBase;
+                        result.Add(new(GenCurrentResKey(), defVal));
+                    }
+
+                    if (!StringUtils.isEmpty(indefArticle))
+                    {
+                        ChangeContext("indef");
+                        string indefVal = indefArticle + " " + wrappedBase;
+                        result.Add(new(GenCurrentResKey(), indefVal));
+                    }
+
+                    ChangeContext("count");
+                    string countSingular = $"{{cs}}{{count}} {baseValue}{{ce}}";
+                    result.Add(new(GenCurrentResKey(), countSingular));
+                }
+
+                if (handlePluralSpecial)
+                {
+                    ChangeContext("count");
+                    count = "other";
+                    string countPlural = $"{pluralMeta}{{cs}}{{count}} {baseValue}{{ce}}";
+                    result.Add(new(GenCurrentResKey(), countPlural));
+                }
+                else if (handlePluralDefault && !StringUtils.isEmpty(pluralSuffix))
+                {
+                    ChangeContext("count");
+                    count = "other";
+                    string countPlural =
+                        $"{pluralMeta}{{cs}}{{count}} {baseValue}{pluralSuffix}{{ce}}";
+                    result.Add(new(GenCurrentResKey(), countPlural));
+                }
+            }
+
+            private void EnGenFunctionUnc(List<KeyValuePair<string, string>> result)
+            {
+                if (genFnArgs == null || genFnArgs.Length != 4)
+                    throw new Exception($"Expected en unc genFnArgs to be non-null and length 4.");
+
+                string pluralRaw = genFnArgs[3];
+                if (pluralRaw != "s" && pluralRaw != "p")
+                    throw new Exception(
+                        $"Expected pluralRaw to be 's' or 'p', but was '{pluralRaw}'."
+                    );
+
+                string counter = genFnArgs[0];
+                string defArticle = genFnArgs[1] == "t" ? "the" : null;
+                string indefArticle = genFnArgs[2];
+                bool isBasePlural = genFnArgs[3] == "p";
+
+                string pluralMeta = "$(plural)";
+                string baseMeta = isBasePlural ? pluralMeta : "";
+
+                string wrappedBase = $"{{cs}}{baseValue}{{ce}}";
+
+                // Base is always created
+                result.Add(new(GenCurrentResKey(), baseMeta + wrappedBase));
+
+                if (!StringUtils.isEmpty(defArticle))
+                {
+                    ChangeContext("def");
+                    string defVal = baseMeta + defArticle + " " + wrappedBase;
+                    result.Add(new(GenCurrentResKey(), defVal));
+                }
+
+                if (!StringUtils.isEmpty(indefArticle))
+                {
+                    ChangeContext("indef");
+                    string indefVal = $"{indefArticle} {{cs}}{counter} of {baseValue}{{ce}}";
+                    result.Add(new(GenCurrentResKey(), indefVal));
+                }
+
+                ChangeContext("count");
+                string withCounterSingular = $"{{cs}}{{count}} {counter} of {baseValue}{{ce}}";
+                result.Add(new(GenCurrentResKey(), withCounterSingular));
+
+                count = "other";
+                string withCounterPlural =
+                    $"{pluralMeta}{{cs}}{{count}} {counter}s of {baseValue}{{ce}}";
+                result.Add(new(GenCurrentResKey(), withCounterPlural));
             }
 
             private void FrGenFunction(List<KeyValuePair<string, string>> result)

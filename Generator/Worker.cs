@@ -30,7 +30,9 @@ namespace TPRandomizer
             //     new() { { "context", "dog,cat" }, { "count", 12 } }
             // );
 
-            Res.UpdateCultureInfo("fr-FR-DOG");
+            // Commented out:
+            // Res.UpdateCultureInfo("fr-FR-DOG");
+            Res.UpdateCultureInfo("en");
 
             // string abc2 = Res.Msg();
             string str;

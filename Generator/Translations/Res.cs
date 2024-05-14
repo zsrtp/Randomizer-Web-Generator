@@ -726,11 +726,32 @@ namespace TPRandomizer
 
             switch (langCode)
             {
+                case "en":
+                    return CreateAndListEn(strings);
                 case "fr":
                     return CreateAndListFr(strings);
                 default:
                     throw new Exception($"Failed to createAndList for langCode '{langCode}'.");
             }
+        }
+
+        private static string CreateAndListEn(List<string> strings)
+        {
+            StringBuilder sb = new();
+
+            for (int i = 0; i < strings.Count; i++)
+            {
+                if (i > 0)
+                {
+                    if (i == strings.Count - 1)
+                        sb.Append(", and ");
+                    else
+                        sb.Append(", ");
+                }
+                sb.Append(strings[i]);
+            }
+
+            return sb.ToString();
         }
 
         private static string CreateAndListFr(List<string> strings)
