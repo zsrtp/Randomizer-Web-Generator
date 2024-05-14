@@ -32,12 +32,12 @@ namespace TPRandomizer.Hints.Settings
             Dictionary<string, Func<HintGenData, bool>> conditionalAlways =
                 new()
                 {
-                    {
-                        "Lake Hylia Shell Blade Grotto Chest",
-                        // Only hint when the poe next to the grotto is excluded
-                        // or vanilla
-                        (genData) => HintUtils.checkIsPlayerKnownStatus("Flight By Fowl Ledge Poe")
-                    },
+                    // {
+                    //     "Lake Hylia Shell Blade Grotto Chest",
+                    //     // Only hint when the poe next to the grotto is excluded
+                    //     // or vanilla
+                    //     (genData) => HintUtils.checkIsPlayerKnownStatus("Flight By Fowl Ledge Poe")
+                    // },
                     {
                         "Snowpeak Icy Summit Poe",
                         // Only hint when the poe is shuffled and there is no
@@ -99,6 +99,8 @@ namespace TPRandomizer.Hints.Settings
                 // LMG - --always
                 // dungeons
 
+                "Wrestling With Bo",
+                "Herding Goats Reward",
                 "Lost Woods Lantern Chest",
                 // "Sacred Grove Baba Serpent Grotto Chest", // takes slot for better hints
                 "Sacred Grove Spinner Chest",
@@ -409,6 +411,7 @@ namespace TPRandomizer.Hints.Settings
         public static HashSet<string> loadBaseAndAddChecksList(
             CheckListType checkListType,
             JToken token,
+            HintSettings hintSettings,
             HintGenData genData
         )
         {
@@ -439,12 +442,10 @@ namespace TPRandomizer.Hints.Settings
 
             currentSet = defaultSet;
 
-            if (obj != null)
-            {
-                HashSet<string> addChecks = loadChecksList(obj["addChecks"], genData);
-                if (addChecks != null)
-                    currentSet.UnionWith(addChecks);
-            }
+            string addChecksKey =
+                checkListType == CheckListType.AlwaysChecks ? "always" : "sometimes";
+
+            currentSet.UnionWith(hintSettings.addChecks[addChecksKey]);
 
             // Filter based on conditions
             HashSet<string> result = new();
@@ -520,7 +521,8 @@ namespace TPRandomizer.Hints.Settings
         public bool starting { get; private set; } = false;
         public string groupId { get; private set; }
         public bool monopolizeSpots { get; private set; } = true;
-        public CheckStatusDisplay checkStatusDisplay { get; private set; }
+        public CheckStatusDisplay checkStatusDisplay { get; private set; } =
+            CheckStatusDisplay.Required_Or_Not;
         public int? idealNumSpots { get; private set; }
         public int? idealNumExplicitlyHinted { get; private set; }
         public int copies { get; private set; } = 1;
@@ -591,18 +593,19 @@ namespace TPRandomizer.Hints.Settings
             HashSet<string> checksSet = HintSettingUtils.loadBaseAndAddChecksList(
                 HintSettingUtils.CheckListType.AlwaysChecks,
                 obj,
+                hintSettings,
                 genData
             );
 
             // Filter based on hintSettings.
-            HashSet<string> invalidChecks = hintSettings.invalidChecks["always"];
+            HashSet<string> removeChecks = hintSettings.removeChecks["always"];
 
-            if (invalidChecks.Count > 0)
+            if (removeChecks.Count > 0)
             {
                 HashSet<string> filtered = new();
                 foreach (string checkName in checksSet)
                 {
-                    if (!invalidChecks.Contains(checkName))
+                    if (!removeChecks.Contains(checkName))
                         filtered.Add(checkName);
                 }
                 inst.checks = filtered;
@@ -1253,7 +1256,8 @@ namespace TPRandomizer.Hints.Settings
         public Always always { get; private set; }
         public Barren barren { get; private set; }
         public HashSet<string> sometimesChecks { get; private set; }
-        public Dictionary<string, HashSet<string>> invalidChecks { get; private set; }
+        public Dictionary<string, HashSet<string>> addChecks { get; private set; }
+        public Dictionary<string, HashSet<string>> removeChecks { get; private set; }
         public Dictionary<string, HashSet<Item>> addItems { get; private set; }
         public Dictionary<string, HashSet<Item>> removeItems { get; private set; }
         public List<List<HintDef>> distribution { get; private set; } = new();
@@ -1269,7 +1273,8 @@ namespace TPRandomizer.Hints.Settings
             JObject root = JObject.Parse(contents);
 
             HintSettings ret = new HintSettings();
-            ret.invalidChecks = loadInvalidChecks(root);
+            ret.addChecks = loadAddChecks(root);
+            ret.removeChecks = loadRemoveChecks(root);
             ret.addItems = loadAddItems(root);
             ret.removeItems = loadRemoveItems(root);
             ret.groups = loadGroups(root["groups"]);
@@ -1289,9 +1294,6 @@ namespace TPRandomizer.Hints.Settings
             ret.hintDefGroupings = loadHintDefGroupings(ret.groups, root["hints"]);
 
             ret.validate();
-
-            // TODO: parse 'sometimes' hintType from JSON. This should make
-            // location hints and it takes no options.
 
             genData.updateFromHintSettings(ret);
 
@@ -1353,14 +1355,31 @@ namespace TPRandomizer.Hints.Settings
             return ret;
         }
 
-        private static Dictionary<string, HashSet<string>> loadInvalidChecks(JObject root)
+        private static Dictionary<string, HashSet<string>> loadAddChecks(JObject root)
         {
-            HashSet<string> validKeys =
-                new() { "always", "sometimes", "location", "path", "woth", "namedItem" };
+            HashSet<string> validKeys = new() { "always", "sometimes", };
 
             return loadKeyToTypeList<string>(
                 root,
-                "invalidChecks",
+                "addChecks",
+                validKeys,
+                (checkName) =>
+                {
+                    if (!CheckIdClass.IsValidCheckName(checkName))
+                        throw new Exception($"'{checkName}' is not a valid checkName.");
+                    return checkName;
+                },
+                null
+            );
+        }
+
+        private static Dictionary<string, HashSet<string>> loadRemoveChecks(JObject root)
+        {
+            HashSet<string> validKeys = new() { "always", "sometimes", };
+
+            return loadKeyToTypeList<string>(
+                root,
+                "removeChecks",
                 validKeys,
                 (checkName) =>
                 {
@@ -1374,7 +1393,7 @@ namespace TPRandomizer.Hints.Settings
 
         private static Dictionary<string, HashSet<Item>> loadAddItems(JObject root)
         {
-            HashSet<string> validKeys = new() { "majorItems", "path", "woth", "namedItem" };
+            HashSet<string> validKeys = new() { "majorItems" };
 
             return loadKeyToTypeList<Item>(
                 root,
@@ -1393,8 +1412,7 @@ namespace TPRandomizer.Hints.Settings
 
         private static Dictionary<string, HashSet<Item>> loadRemoveItems(JObject root)
         {
-            HashSet<string> validKeys =
-                new() { "majorItems", "sometimes", "location", "path", "woth", "namedItem" };
+            HashSet<string> validKeys = new() { "majorItems", "sometimes", };
 
             return loadKeyToTypeList<Item>(
                 root,
@@ -1525,28 +1543,30 @@ namespace TPRandomizer.Hints.Settings
             HashSet<string> set = HintSettingUtils.loadBaseAndAddChecksList(
                 HintSettingUtils.CheckListType.SometimesChecks,
                 token,
+                this,
                 genData
             );
 
-            if (token == null || token.Type != JTokenType.Object)
-                return set;
+            HashSet<Item> validItems = null;
+            if (token != null && token.Type == JTokenType.Object)
+            {
+                JObject obj = (JObject)token;
+                validItems = HintSettingUtils.getOptionalItemSet(obj, "validItems", null);
 
-            JObject obj = (JObject)token;
-            HashSet<Item> validItems = HintSettingUtils.getOptionalItemSet(obj, "validItems", null);
+                if (validItems != null && validItems.Count == 0)
+                    return new();
+            }
 
-            if (validItems != null && validItems.Count == 0)
-                return new();
-
-            HashSet<string> invalidChecks = this.invalidChecks["sometimes"];
-            HashSet<Item> invalidItems = this.removeItems["sometimes"];
+            HashSet<string> removeChecks = this.removeChecks["sometimes"];
+            HashSet<Item> removeItems = this.removeItems["sometimes"];
 
             HashSet<string> filtered = new();
             foreach (string checkName in set)
             {
                 Item item = HintUtils.getCheckContents(checkName);
                 if (
-                    !invalidChecks.Contains(checkName)
-                    && !invalidItems.Contains(item)
+                    !removeChecks.Contains(checkName)
+                    && !removeItems.Contains(item)
                     && (validItems == null || validItems.Contains(item))
                 )
                     filtered.Add(checkName);

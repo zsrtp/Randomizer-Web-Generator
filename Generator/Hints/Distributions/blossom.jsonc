@@ -1,7 +1,4 @@
 {
-  // TODO: goats and bo should be removed from normal sometimes pool so we only
-  // ever hint at most 1 of them. Note: this should be done in this distribution
-  // (removing those 2 from sometimes), but they should be in by default.
   "starting": {
     "spot": "ordon_sign",
     "excludeFromGroups": true
@@ -17,127 +14,31 @@
     "maxWothHints": 2
   },
   "beyondPointZones": ["alias:all"],
+  "barren": {
+    "ownZoneBehavior": "monopolize",
+    "ownZoneShowsAsJunkHint": true
+  },
   "always": {
     // TODO: shellblade should be added and not default.
     "monopolizeSpots": true,
-    "checkStatusDisplay": "required_or_not",
     "idealNumSpots": 5,
     "copies": 2,
-    "starting": false,
     "groupId": "overworld"
-    // "baseChecks": ["Auru Gift To Fyer"]
-    // "addChecks": [
-    //   "Snowpeak Freezard Grotto Chest",
-    //   "Auru Gift To Fyer",
-    //   "Wrestling With Bo",
-    //   "Herding Goats Reward",
-    //   "Lost Woods Boulder Poe",
-    //   "Lost Woods Lantern Chest",
-    //   "Lost Woods Waterfall Poe",
-    //   "Sacred Grove Baba Serpent Grotto Chest",
-    //   "Sacred Grove Female Snail",
-    //   "Sacred Grove Male Snail",
-    //   "Sacred Grove Master Sword Poe",
-    //   "Sacred Grove Past Owl Statue Chest",
-    //   "Sacred Grove Spinner Chest",
-    //   "Sacred Grove Temple of Time Owl Statue Poe"
-    // ]
-
-    // TODO: need to figure out how to place these and how to allow them as starting hints.
-    // Can't place them after barren hints.
-
-    // For now until someone asks for different behavior, they should reduce the
-    // size of the first layer. It is just a question of whether or not the
-    // spots they go in can be used in other layers (of same group or other
-    // group). We need to wait to place them until after the first layer which
-    // uses the same group runs (still generate them up front in all cases).
-
-    // Actually when barren hints hit their own zone, their own zone will always
-    // get a hint (as a special one) if they do not belong to the group.
-
-    // This would be a problem though, since you might see another copy of a
-    // barren hint and then realize that you do not need to visit that zone.
-    // However there were actually Always hints at that zone which you will not
-    // see.
-
-    // They can actually be used to shrink the size of the group ahead of time.
-    // For example, if we determine that we are using 3 signs and the group has
-    // 15 signs, then we know that there will only be 12 signs of space after
-    // leaving room for these signs.
-
-    // That being the case, we need to do all further calculations on the group
-    // with the reduced layer size. With this being the case, we can actually
-    // delay placing the Always hints until all of the recursive work is
-    // completely done.
-
-    // We can keep track of it as a negative number that we apply to the
-    // starting spots of a layer that gets created with that groupId. If it
-    // would start as a negative number, then we throw an Exception.
-
-    // If we are not monopolizing the spots, then we can add the hints to the
-    // list of hints that form a layer for that group after the first layer is calculated (if it happens).
-    // When we do this, we stop applying the negative to when the layer is created.
-
-    // If it doesn't happen or if we are monopolizing the spots, we never remove
-    // the negative layer penalty. And we also do not add the Always hints to
-    // any layer. Immediately after recursive generation ends, we place the
-    // Always hints first (in order to try to put the in spots which can be
-    // viewed before doing the hinted Always checks).
-
-    // So we do not actually place any hints (other than barren copies) until
-    // after recursive generation ends.
   },
-  "sometimes": {
-    //   "baseChecks": [],
-    //   "addChecks": ["Flight By Fowl Top Platform Reward"]
-    // "validItems": ["Orange_Rupee"]
-  },
-  "barren": {
-    // "zonesHintSelf": true, // probably not needed
-    // zonesHintSelf is always true if ownZoneBehavior is not 'off'
-    // "ownZoneBehavior": "monopolize|prioritize|off",
-    "ownZoneBehavior": "monopolize",
-    // "ownZoneCopiesCanLeaveGroup": false
-    "ownZoneShowsAsJunkHint": true
-  },
-
   // START EXAMPLE
   // Want to move toward this to simplify and make match OoT.
   "addChecks": {
-    "Wrestling With Bo": ["sometimes"],
-    "province.Lanayru": ["sometimes"],
-    "zone.Forest_Temple": ["woth"]
+    "Lake Hylia Shell Blade Grotto Chest": ["always"]
   },
   "removeChecks": {
-    "Wrestling With Bo": ["sometimes"],
-    "zone.Hyrule_Castle": ["path", "woth"]
-  },
-  "addItems": {
-    "Slingshot": ["path", "woth"]
+    "Herding Goats Reward": ["sometimes"],
+    "Wrestling With Bo": ["sometimes"]
   },
   "removeItems": {
     "Progressive_Sword": ["sometimes"]
   },
-
-  // Probably don't need global config for stuff like "vague item hints". Most
-  // people will likely specify item hints in a single location, and it makes
-  // more sense to put the options for that hint directly at that hint (from a
-  // code perspective and from a readability perspective).
-
-  // A vague thing could probably apply to multiple hint types. Maybe
-  // "SomethingGood" hint type is not needed. An example would be a location
-  // hint. There is no reason that it couldn't say "They say that {check A}
-  // rewards {something good}.".
-
-  // TODO: see about renaming 'iterations' to 'times' everywhere.
-
   // END EXAMPLE
 
-  "invalidChecks": {
-    // "Herding Goats Reward": ["always", "sometimes"],
-    "Wrestling With Bo": ["sometimes"]
-    // "Goron Springwater Rush": ["always"]
-  },
   "addValidItems": {
     // Throw exception if add to a non-valid type. For example, adding a valid
     // item to "sometimes" is invalid since all items are valid by default. Same
@@ -148,18 +49,7 @@
     "Slingshot": ["path", "woth"]
   },
   "invalidItems": {
-    "Progressive_Sword": ["sometimes"],
-    "Progressive_Clawshot": ["path", "woth"]
-  },
-  // !Progressive item ones will prevent barren for all copies of an item. For
-  // example, if there are 3 clawshots and 2 are hard-required, then normally we
-  // would say the third one does not prevent barren. By using
-  // "!Progressive_Clawshot", we can specify that "Progressive_Clawshot" will
-  // always preventBarren under all circumstances.
-  // Maybe rename to "majorItems"?
-  "preventBarrenItems": {
-    "add": ["Slingshot", "!Progressive_Clawshot"],
-    "remove": ["Slingshot"]
+    "Progressive_Sword": ["sometimes"]
   },
   "groups": {
     "overworld": ["alias:overworldZones"]
