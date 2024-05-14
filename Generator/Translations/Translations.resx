@@ -401,7 +401,7 @@
     <value>slingshot</value>
     <comment></comment>
   </data>
-  <data name="item.4f-giant_bomb_bag" xml:space="preserve">
+  <data name="item.4f-giant_bomb_bag@unc(set,t,a,p)" xml:space="preserve">
     <value>giant bomb bags</value>
     <comment></comment>
   </data>
@@ -409,7 +409,7 @@
     <value>bomb bag</value>
     <comment>&quot;bag with bombs&quot; is more correct, but &quot;bomb bag&quot; seems more straightforward. -isaac</comment>
   </data>
-  <data name="item.60-empty_bottle@ac(t,a,b,s)" xml:space="preserve">
+  <data name="item.60-empty_bottle@ac(t,an,b,s)" xml:space="preserve">
     <value>empty bottle</value>
     <comment></comment>
   </data>
@@ -417,7 +417,11 @@
     <value>half-empty milk bottle</value>
     <comment></comment>
   </data>
-  <data name="item.75-jovani_bottle" xml:space="preserve">
+  <data name="item.75-jovani_bottle@ac(t,a,p)" xml:space="preserve">
+    <value>bottles of Great Fairy&apos;s Tears</value>
+    <comment></comment>
+  </data>
+  <data name="item.75-jovani_bottle@ac(t,a,s)" xml:space="preserve">
     <value>bottle of Great Fairy&apos;s Tears</value>
     <comment></comment>
   </data>
@@ -513,23 +517,27 @@
     <value>Palace of Twilight big key</value>
     <comment></comment>
   </data>
-  <data name="item.98-hyrule_castle_big_key@ac(t,a,b,s)" xml:space="preserve">
+  <data name="item.98-hyrule_castle_big_key@ac(t,a,b,es)" xml:space="preserve">
     <value>Hyrule Castle big key</value>
     <comment></comment>
   </data>
-  <data name="item.99-forest_temple_compass@ac(t,a,b,s)" xml:space="preserve">
+  <data name="item.99-forest_temple_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Forest Temple compass</value>
     <comment></comment>
   </data>
-  <data name="item.9a-goron_mines_compass@ac(t,a,b,s)" xml:space="preserve">
+  <data name="item.9a-goron_mines_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Goron Mines compass</value>
     <comment></comment>
   </data>
-  <data name="item.9b-lakebed_temple_compass@ac(t,a,b,s)" xml:space="preserve">
+  <data name="item.9b-lakebed_temple_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Lakebed Temple compass</value>
     <comment></comment>
   </data>
-  <data name="item.9d-coro_bottle" xml:space="preserve">
+  <data name="item.9d-coro_bottle@ac(t,a,p)" xml:space="preserve">
+    <value>bottles of oil</value>
+    <comment></comment>
+  </data>
+  <data name="item.9d-coro_bottle@ac(t,a,s)" xml:space="preserve">
     <value>bottle of oil</value>
     <comment></comment>
   </data>
@@ -537,27 +545,27 @@
     <value>Mirror Shard</value>
     <comment></comment>
   </data>
-  <data name="item.a8-arbiters_grounds_compass@ac(t,an,b,s)" xml:space="preserve">
+  <data name="item.a8-arbiters_grounds_compass@ac(t,an,b,es)" xml:space="preserve">
     <value>Arbiter&apos;s Grounds compass</value>
     <comment></comment>
   </data>
-  <data name="item.a9-snowpeak_ruins_compass@ac(t,a,b,s)" xml:space="preserve">
+  <data name="item.a9-snowpeak_ruins_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Snowpeak Ruins compass</value>
     <comment></comment>
   </data>
-  <data name="item.aa-temple_of_time_compass@ac(t,a,b,s)" xml:space="preserve">
+  <data name="item.aa-temple_of_time_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Temple of Time compass</value>
     <comment></comment>
   </data>
-  <data name="item.ab-city_in_the_sky_compass@ac(t,a,b,s)" xml:space="preserve">
+  <data name="item.ab-city_in_the_sky_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>City in the Sky compass</value>
     <comment></comment>
   </data>
-  <data name="item.ac-palace_of_twilight_compass@ac(t,a,b,s)" xml:space="preserve">
+  <data name="item.ac-palace_of_twilight_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Palace of Twilight compass</value>
     <comment></comment>
   </data>
-  <data name="item.ad-hyrule_castle_compass@ac(t,a,b,s)" xml:space="preserve">
+  <data name="item.ad-hyrule_castle_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Hyrule Castle compass</value>
     <comment></comment>
   </data>
@@ -597,99 +605,123 @@
     <value>Hyrule Castle dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.c0-male_beetle" xml:space="preserve">
+  <data name="item.c0-male_beetle@ac(t,a,b,s)" xml:space="preserve">
     <value>♂ beetle</value>
     <comment></comment>
   </data>
-  <data name="item.c1-female_beetle" xml:space="preserve">
+  <data name="item.c1-female_beetle@ac(t,a,b,s)" xml:space="preserve">
     <value>♀ beetle</value>
     <comment></comment>
   </data>
-  <data name="item.c2-male_butterfly" xml:space="preserve">
+  <data name="item.c2-male_butterfly@(t,a,p)" xml:space="preserve">
+    <value>♂ butterflies</value>
+    <comment></comment>
+  </data>
+  <data name="item.c2-male_butterfly@(t,a,s)" xml:space="preserve">
     <value>♂ butterfly</value>
     <comment></comment>
   </data>
-  <data name="item.c3-female_butterfly" xml:space="preserve">
+  <data name="item.c3-female_butterfly@(t,a,p)" xml:space="preserve">
+    <value>♀ butterflies</value>
+    <comment></comment>
+  </data>
+  <data name="item.c3-female_butterfly@(t,a,s)" xml:space="preserve">
     <value>♀ butterfly</value>
     <comment></comment>
   </data>
-  <data name="item.c4-male_stag_beetle" xml:space="preserve">
+  <data name="item.c4-male_stag_beetle@ac(t,a,b,s)" xml:space="preserve">
     <value>♂ stag beetle</value>
     <comment></comment>
   </data>
-  <data name="item.c5-female_stag_beetle" xml:space="preserve">
+  <data name="item.c5-female_stag_beetle@ac(t,a,b,s)" xml:space="preserve">
     <value>♀ stag beetle</value>
     <comment></comment>
   </data>
-  <data name="item.c6-male_grasshopper" xml:space="preserve">
+  <data name="item.c6-male_grasshopper@ac(t,a,b,s)" xml:space="preserve">
     <value>♂ grasshopper</value>
     <comment></comment>
   </data>
-  <data name="item.c7-female_grasshopper" xml:space="preserve">
+  <data name="item.c7-female_grasshopper@ac(t,a,b,s)" xml:space="preserve">
     <value>♀  grasshopper</value>
     <comment></comment>
   </data>
-  <data name="item.c8-male_phasmid" xml:space="preserve">
+  <data name="item.c8-male_phasmid@ac(t,a,b,s)" xml:space="preserve">
     <value>♂ phasmid</value>
     <comment></comment>
   </data>
-  <data name="item.c9-female_phasmid" xml:space="preserve">
+  <data name="item.c9-female_phasmid@ac(t,a,b,s)" xml:space="preserve">
     <value>♀ phasmid</value>
     <comment></comment>
   </data>
-  <data name="item.ca-male_pill_bug" xml:space="preserve">
+  <data name="item.ca-male_pill_bug@ac(t,a,b,s)" xml:space="preserve">
     <value>♂ pill bug</value>
     <comment></comment>
   </data>
-  <data name="item.cb-female_pill_bug" xml:space="preserve">
+  <data name="item.cb-female_pill_bug@ac(t,a,b,s)" xml:space="preserve">
     <value>♀ pill bug</value>
     <comment></comment>
   </data>
-  <data name="item.cc-male_mantis" xml:space="preserve">
+  <data name="item.cc-male_mantis@ac(t,a,b,es)" xml:space="preserve">
     <value>♂  mantis</value>
     <comment></comment>
   </data>
-  <data name="item.cd-female_mantis" xml:space="preserve">
+  <data name="item.cd-female_mantis@ac(t,a,b,es)" xml:space="preserve">
     <value>♀ mantis</value>
     <comment></comment>
   </data>
-  <data name="item.ce-male_ladybug" xml:space="preserve">
+  <data name="item.ce-male_ladybug@ac(t,a,b,s)" xml:space="preserve">
     <value>♂ ladybug</value>
     <comment></comment>
   </data>
-  <data name="item.cf-female_ladybug" xml:space="preserve">
+  <data name="item.cf-female_ladybug@ac(t,a,b,s)" xml:space="preserve">
     <value>♀ ladybug</value>
     <comment></comment>
   </data>
-  <data name="item.d0-male_snail" xml:space="preserve">
+  <data name="item.d0-male_snail@ac(t,a,b,s)" xml:space="preserve">
     <value>♂ snail</value>
     <comment></comment>
   </data>
-  <data name="item.d1-female_snail" xml:space="preserve">
+  <data name="item.d1-female_snail@ac(t,a,b,s)" xml:space="preserve">
     <value>♀ snail</value>
     <comment></comment>
   </data>
-  <data name="item.d2-male_dragonfly" xml:space="preserve">
+  <data name="item.d2-male_dragonfly@(t,a,p)" xml:space="preserve">
+    <value>♂ dragonflies</value>
+    <comment></comment>
+  </data>
+  <data name="item.d2-male_dragonfly@(t,a,s)" xml:space="preserve">
     <value>♂ dragonfly</value>
     <comment></comment>
   </data>
-  <data name="item.d3-female_dragonfly" xml:space="preserve">
+  <data name="item.d3-female_dragonfly@(t,a,p)" xml:space="preserve">
+    <value>♀ dragonflies</value>
+    <comment></comment>
+  </data>
+  <data name="item.d3-female_dragonfly@(t,a,s)" xml:space="preserve">
     <value>♀ dragonfly</value>
     <comment></comment>
   </data>
-  <data name="item.d4-male_ant" xml:space="preserve">
+  <data name="item.d4-male_ant@ac(t,a,b,s)" xml:space="preserve">
     <value>♂ ant</value>
     <comment></comment>
   </data>
-  <data name="item.d5-female_ant" xml:space="preserve">
+  <data name="item.d5-female_ant@ac(t,a,b,s)" xml:space="preserve">
     <value>♀ ant</value>
     <comment></comment>
   </data>
-  <data name="item.d6-male_dayfly" xml:space="preserve">
+  <data name="item.d6-male_dayfly@(t,a,p)" xml:space="preserve">
+    <value>♂ dayflies</value>
+    <comment></comment>
+  </data>
+  <data name="item.d6-male_dayfly@(t,a,s)" xml:space="preserve">
     <value>♂ dayfly</value>
     <comment></comment>
   </data>
-  <data name="item.d7-female_dayfly" xml:space="preserve">
+  <data name="item.d7-female_dayfly@(t,a,p)" xml:space="preserve">
+    <value>♀ dayflies</value>
+    <comment></comment>
+  </data>
+  <data name="item.d7-female_dayfly@(t,a,s)" xml:space="preserve">
     <value>♀ dayfly</value>
     <comment></comment>
   </data>
@@ -717,7 +749,7 @@
     <value>Faron Woods key</value>
     <comment></comment>
   </data>
-  <data name="item.f3-gate_keys" xml:space="preserve">
+  <data name="item.f3-gate_keys@unc(set,t,a,p)" xml:space="preserve">
     <value>gate keys</value>
     <comment></comment>
   </data>
@@ -725,7 +757,7 @@
     <value>Ordon pumpkin</value>
     <comment></comment>
   </data>
-  <data name="item.f5-snowpeak_ruins_ordon_goat_cheese@ac(t,an,b,s)" xml:space="preserve">
+  <data name="item.f5-snowpeak_ruins_ordon_goat_cheese@unc(wheel,t,a,s)" xml:space="preserve">
     <value>Ordon goat cheese</value>
     <comment></comment>
   </data>
@@ -735,6 +767,10 @@
   </data>
   <data name="item.f9-goron_mines_key_shard@ac(t,a,b,s)" xml:space="preserve">
     <value>key shard</value>
+    <comment></comment>
+  </data>
+  <data name="noun.a-bug" xml:space="preserve">
+    <value>a {cs}bug{ce}</value>
     <comment></comment>
   </data>
   <data name="noun.nothing-of-value" xml:space="preserve">
