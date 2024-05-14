@@ -137,6 +137,170 @@
     <value>{area}</value>
     <comment></comment>
   </data>
+  <data name="area.province.dungeon" xml:space="preserve">
+    <value>(area-preposition:in)Dungeons</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.eldin" xml:space="preserve">
+    <value>Eldin Province</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.faron" xml:space="preserve">
+    <value>Faron Province</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.lanayru" xml:space="preserve">
+    <value>Lanayru Province</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.ordona" xml:space="preserve">
+    <value>Ordona Province</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.peak" xml:space="preserve">
+    <value>Peak Province</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.agithas_castle" xml:space="preserve">
+    <value>Agitha&apos;s Castle</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.arbiters_grounds" xml:space="preserve">
+    <value>Arbiter&apos;s Ground</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.beside_castle_town" xml:space="preserve">
+    <value>Beside Castle Town</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.bulblin_camp" xml:space="preserve">
+    <value>the {cs}Bulblin Camp{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.castle_town" xml:space="preserve">
+    <value>Castle Town</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.cave_of_ordeals" xml:space="preserve">
+    <value>the {cs}Cave of Ordeals{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.city_in_the_sky" xml:space="preserve">
+    <value>City in the Sky</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.death_mountain" xml:space="preserve">
+    <value>Death Mountain</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.eldin_field" xml:space="preserve">
+    <value>Eldin Field</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.faron_field" xml:space="preserve">
+    <value>Faron Field</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.faron_woods" xml:space="preserve">
+    <value>Faron Woods</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.forest_temple" xml:space="preserve">
+    <value>the {cs}Forest Temple{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.gerudo_desert" xml:space="preserve">
+    <value>Gerudo Desert</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.goron_mines" xml:space="preserve">
+    <value>Goron Mines</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.great_bridge_of_hylia" xml:space="preserve">
+    <value>the {cs}Great Bridge of Hylia{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.hidden_village" xml:space="preserve">
+    <value>the {cs}Hidden Village{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.hyrule_castle" xml:space="preserve">
+    <value>Hyrule Castle</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.kakariko_gorge" xml:space="preserve">
+    <value>Kakariko Gorge</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.kakariko_graveyard" xml:space="preserve">
+    <value>Kakariko Graveyard</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.kakariko_village" xml:space="preserve">
+    <value>Kakariko Village</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lake_hylia" xml:space="preserve">
+    <value>Lake Hylia</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lake_lantern_cave" xml:space="preserve">
+    <value>Lake Lantern Cave</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lakebed_temple" xml:space="preserve">
+    <value>Lakebed Temple</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lanayru_field" xml:space="preserve">
+    <value>Lanayru Field</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lanayru_spring" xml:space="preserve">
+    <value>Lanayru Spring</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.north_eldin" xml:space="preserve">
+    <value>North Eldin</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.ordon" xml:space="preserve">
+    <value>Ordon</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.palace_of_twilight" xml:space="preserve">
+    <value>the {cs}Palace of Twilight{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.sacred_grove" xml:space="preserve">
+    <value>the {cs}Sacred Grove{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.snowpeak" xml:space="preserve">
+    <value>Snowpeak</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.snowpeak_ruins" xml:space="preserve">
+    <value>Snowpeak Ruins</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.south_of_castle_town" xml:space="preserve">
+    <value>South of Castle Town</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.temple_of_time" xml:space="preserve">
+    <value>the {cs}Temple of Time{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.upper_zoras_river" xml:space="preserve">
+    <value>Upper Zora&apos;s River</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.zoras_domain" xml:space="preserve">
+    <value>Zora&apos;s Domain</value>
+    <comment></comment>
+  </data>
   <data name="category.owl_statues" xml:space="preserve">
     <value>(area-preposition:behind)Owl Statues</value>
     <comment></comment>
@@ -781,34 +945,6 @@
     <value>Desert Province</value>
     <comment></comment>
   </data>
-  <data name="province.dungeon" xml:space="preserve">
-    <value>(area-preposition:in)Dungeons</value>
-    <comment></comment>
-  </data>
-  <data name="province.eldin" xml:space="preserve">
-    <value>Eldin Province</value>
-    <comment></comment>
-  </data>
-  <data name="province.faron" xml:space="preserve">
-    <value>Faron Province</value>
-    <comment></comment>
-  </data>
-  <data name="province.lanayru" xml:space="preserve">
-    <value>Lanayru Province</value>
-    <comment></comment>
-  </data>
-  <data name="province.ordona" xml:space="preserve">
-    <value>Ordona Province</value>
-    <comment></comment>
-  </data>
-  <data name="province.peak" xml:space="preserve">
-    <value>Peak Province</value>
-    <comment></comment>
-  </data>
-  <data name="province.split" xml:space="preserve">
-    <value>Split Province</value>
-    <comment></comment>
-  </data>
   <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
     <value>Arbiter&apos;s Grounds</value>
     <comment></comment>
@@ -879,154 +1015,6 @@
   </data>
   <data name="verb.is$plural" xml:space="preserve">
     <value>are</value>
-    <comment></comment>
-  </data>
-  <data name="zone.agithas_castle" xml:space="preserve">
-    <value>Agitha&apos;s Castle</value>
-    <comment></comment>
-  </data>
-  <data name="zone.arbiters_grounds" xml:space="preserve">
-    <value>Arbiter&apos;s Ground</value>
-    <comment></comment>
-  </data>
-  <data name="zone.beside_castle_town" xml:space="preserve">
-    <value>Beside Castle Town</value>
-    <comment></comment>
-  </data>
-  <data name="zone.bulblin_camp" xml:space="preserve">
-    <value>Bulblin Camp</value>
-    <comment></comment>
-  </data>
-  <data name="zone.castle_town" xml:space="preserve">
-    <value>Castle Town</value>
-    <comment></comment>
-  </data>
-  <data name="zone.cave_of_ordeals" xml:space="preserve">
-    <value>Cave of Ordeals</value>
-    <comment></comment>
-  </data>
-  <data name="zone.city_in_the_sky" xml:space="preserve">
-    <value>City in the Sky</value>
-    <comment></comment>
-  </data>
-  <data name="zone.death_mountain" xml:space="preserve">
-    <value>Death Mountain</value>
-    <comment></comment>
-  </data>
-  <data name="zone.eldin_field" xml:space="preserve">
-    <value>Eldin Field</value>
-    <comment></comment>
-  </data>
-  <data name="zone.faron_field" xml:space="preserve">
-    <value>Faron Field</value>
-    <comment></comment>
-  </data>
-  <data name="zone.faron_woods" xml:space="preserve">
-    <value>Faron Woods</value>
-    <comment></comment>
-  </data>
-  <data name="zone.forest_temple" xml:space="preserve">
-    <value>Forest Temple</value>
-    <comment></comment>
-  </data>
-  <data name="zone.gerudo_desert" xml:space="preserve">
-    <value>Gerudo Desert</value>
-    <comment></comment>
-  </data>
-  <data name="zone.golden_wolf" xml:space="preserve">
-    <value>Golden Wolf</value>
-    <comment></comment>
-  </data>
-  <data name="zone.goron_mines" xml:space="preserve">
-    <value>Goron Mines</value>
-    <comment></comment>
-  </data>
-  <data name="zone.great_bridge_of_hylia" xml:space="preserve">
-    <value>Great Bridge of Hylia</value>
-    <comment></comment>
-  </data>
-  <data name="zone.hidden_village" xml:space="preserve">
-    <value>Hidden Village</value>
-    <comment></comment>
-  </data>
-  <data name="zone.hyrule_castle" xml:space="preserve">
-    <value>Hyrule Castle</value>
-    <comment></comment>
-  </data>
-  <data name="zone.kakariko_gorge" xml:space="preserve">
-    <value>Kakariko Gorge</value>
-    <comment></comment>
-  </data>
-  <data name="zone.kakariko_graveyard" xml:space="preserve">
-    <value>Kakariko Graveyard</value>
-    <comment></comment>
-  </data>
-  <data name="zone.kakariko_village" xml:space="preserve">
-    <value>Kakariko Village</value>
-    <comment></comment>
-  </data>
-  <data name="zone.lake_hylia" xml:space="preserve">
-    <value>Lake Hylia</value>
-    <comment></comment>
-  </data>
-  <data name="zone.lake_lantern_cave" xml:space="preserve">
-    <value>Lake Lantern Cave</value>
-    <comment></comment>
-  </data>
-  <data name="zone.lakebed_temple" xml:space="preserve">
-    <value>Lakebed Temple</value>
-    <comment></comment>
-  </data>
-  <data name="zone.lanayru_field" xml:space="preserve">
-    <value>Lanayru Field</value>
-    <comment></comment>
-  </data>
-  <data name="zone.lanayru_spring" xml:space="preserve">
-    <value>Lanayru Spring</value>
-    <comment></comment>
-  </data>
-  <data name="zone.long_minigames" xml:space="preserve">
-    <value>(ap:from)Long Minigames</value>
-    <comment></comment>
-  </data>
-  <data name="zone.north_eldin" xml:space="preserve">
-    <value>North Eldin</value>
-    <comment></comment>
-  </data>
-  <data name="zone.ordon" xml:space="preserve">
-    <value>Ordon</value>
-    <comment></comment>
-  </data>
-  <data name="zone.palace_of_twilight" xml:space="preserve">
-    <value>Palace of Twilight</value>
-    <comment></comment>
-  </data>
-  <data name="zone.sacred_grove" xml:space="preserve">
-    <value>Sacred Grove</value>
-    <comment></comment>
-  </data>
-  <data name="zone.snowpeak" xml:space="preserve">
-    <value>Snowpeak</value>
-    <comment></comment>
-  </data>
-  <data name="zone.snowpeak_ruins" xml:space="preserve">
-    <value>Snowpeak Ruins</value>
-    <comment></comment>
-  </data>
-  <data name="zone.south_of_castle_town" xml:space="preserve">
-    <value>South of Castle Town</value>
-    <comment></comment>
-  </data>
-  <data name="zone.temple_of_time" xml:space="preserve">
-    <value>Temple of Time</value>
-    <comment></comment>
-  </data>
-  <data name="zone.upper_zoras_river" xml:space="preserve">
-    <value>Upper Zora&apos;s River</value>
-    <comment></comment>
-  </data>
-  <data name="zone.zoras_domain" xml:space="preserve">
-    <value>Zora&apos;s Domain</value>
     <comment></comment>
   </data>
 </root>
