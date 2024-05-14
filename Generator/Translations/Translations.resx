@@ -117,28 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="area-preposition" xml:space="preserve">
+  <data name="area-phrase.at" xml:space="preserve">
     <value>at {area}</value>
     <comment></comment>
   </data>
-  <data name="area-preposition--behind" xml:space="preserve">
+  <data name="area-phrase.behind" xml:space="preserve">
     <value>behind {area}</value>
     <comment></comment>
   </data>
-  <data name="area-preposition--from" xml:space="preserve">
-    <value>from {area}</value>
-    <comment></comment>
-  </data>
-  <data name="area-preposition--in" xml:space="preserve">
+  <data name="area-phrase.default" xml:space="preserve">
     <value>in {area}</value>
     <comment></comment>
   </data>
-  <data name="area-preposition--none" xml:space="preserve">
+  <data name="area-phrase.from" xml:space="preserve">
+    <value>from {area}</value>
+    <comment></comment>
+  </data>
+  <data name="area-phrase.in" xml:space="preserve">
+    <value>in {area}</value>
+    <comment></comment>
+  </data>
+  <data name="area-phrase.none" xml:space="preserve">
     <value>{area}</value>
     <comment></comment>
   </data>
+  <data name="area.province.desert" xml:space="preserve">
+    <value>the {cs}Desert Province{ce}</value>
+    <comment></comment>
+  </data>
   <data name="area.province.dungeon" xml:space="preserve">
-    <value>(area-preposition:in)Dungeons</value>
+    <value>Dungeons</value>
     <comment></comment>
   </data>
   <data name="area.province.eldin" xml:space="preserve">
@@ -170,7 +178,7 @@
     <comment></comment>
   </data>
   <data name="area.zone.beside_castle_town" xml:space="preserve">
-    <value>Beside Castle Town</value>
+    <value>$(ap:none)Beside Castle Town</value>
     <comment></comment>
   </data>
   <data name="area.zone.bulblin_camp" xml:space="preserve">
@@ -218,7 +226,7 @@
     <comment></comment>
   </data>
   <data name="area.zone.great_bridge_of_hylia" xml:space="preserve">
-    <value>the {cs}Great Bridge of Hylia{ce}</value>
+    <value>$(ap:at)the {cs}Great Bridge of Hylia{ce}</value>
     <comment></comment>
   </data>
   <data name="area.zone.hidden_village" xml:space="preserve">
@@ -286,7 +294,7 @@
     <comment></comment>
   </data>
   <data name="area.zone.south_of_castle_town" xml:space="preserve">
-    <value>South of Castle Town</value>
+    <value>$(ap:none)South of Castle Town</value>
     <comment></comment>
   </data>
   <data name="area.zone.temple_of_time" xml:space="preserve">
@@ -302,15 +310,71 @@
     <comment></comment>
   </data>
   <data name="category.owl_statues" xml:space="preserve">
-    <value>(area-preposition:behind)Owl Statues</value>
+    <value>(area-phrase:behind)Owl Statues</value>
     <comment></comment>
   </data>
   <data name="category.owl_statues#one" xml:space="preserve">
-    <value>(area-preposition:behind)an {cs}Owl Statue{ce}</value>
+    <value>(area-phrase:behind)an {cs}Owl Statue{ce}</value>
     <comment></comment>
   </data>
   <data name="category.purple_mist" xml:space="preserve">
-    <value>(area-preposition:behind)Purple Mist</value>
+    <value>(area-phrase:behind)Purple Mist</value>
+    <comment></comment>
+  </data>
+  <data name="description.bad-check" xml:space="preserve">
+    <value>(bad)</value>
+    <comment></comment>
+  </data>
+  <data name="description.good-check" xml:space="preserve">
+    <value>(good)</value>
+    <comment></comment>
+  </data>
+  <data name="description.required-check" xml:space="preserve">
+    <value>(required)</value>
+    <comment></comment>
+  </data>
+  <data name="description.unrequired-check" xml:space="preserve">
+    <value>(not required)</value>
+    <comment></comment>
+  </data>
+  <data name="goal.argorok" xml:space="preserve">
+    <value>Argorok</value>
+    <comment></comment>
+  </data>
+  <data name="goal.armogohma" xml:space="preserve">
+    <value>Armogohma</value>
+    <comment></comment>
+  </data>
+  <data name="goal.blizzeta" xml:space="preserve">
+    <value>Blizzeta</value>
+    <comment></comment>
+  </data>
+  <data name="goal.diababa" xml:space="preserve">
+    <value>Diababa</value>
+    <comment></comment>
+  </data>
+  <data name="goal.fyrus" xml:space="preserve">
+    <value>Fyrus</value>
+    <comment></comment>
+  </data>
+  <data name="goal.ganondorf" xml:space="preserve">
+    <value>Ganondorf</value>
+    <comment></comment>
+  </data>
+  <data name="goal.hyrule_castle" xml:space="preserve">
+    <value>Hyrule Castle</value>
+    <comment></comment>
+  </data>
+  <data name="goal.morpheel" xml:space="preserve">
+    <value>Morpheel</value>
+    <comment></comment>
+  </data>
+  <data name="goal.stallord" xml:space="preserve">
+    <value>Stallord</value>
+    <comment></comment>
+  </data>
+  <data name="goal.zant" xml:space="preserve">
+    <value>Zant</value>
     <comment></comment>
   </data>
   <data name="hint-type.agitha-rewards" xml:space="preserve">
@@ -322,7 +386,7 @@
     <comment></comment>
   </data>
   <data name="hint-type.barren" xml:space="preserve">
-    <value>They say that there is nothing to be found {area-preposition}.</value>
+    <value>They say that there is nothing to be found {area-phrase}.</value>
     <comment></comment>
   </data>
   <data name="hint-type.item" xml:space="preserve">
@@ -346,7 +410,7 @@
     <comment></comment>
   </data>
   <data name="hint-type.num-item-in-area" xml:space="preserve">
-    <value>They say that {subject} can be found {area-preposition}.</value>
+    <value>They say that {subject} can be found {area-phrase}.</value>
     <comment></comment>
   </data>
   <data name="hint-type.path" xml:space="preserve">
@@ -362,7 +426,7 @@
     <comment></comment>
   </data>
   <data name="hint.tradechain--with-area" xml:space="preserve">
-    <value>They say that {item} found {area-preposition} leads to {tgtItem}.</value>
+    <value>They say that {item} found {area-phrase} leads to {tgtItem}.</value>
     <comment></comment>
   </data>
   <data name="item.01-green_rupee@ac(t,a,b,s)" xml:space="preserve">
