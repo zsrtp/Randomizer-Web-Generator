@@ -613,19 +613,19 @@
     <value>♀ beetle</value>
     <comment></comment>
   </data>
-  <data name="item.c2-male_butterfly@(t,a,p)" xml:space="preserve">
+  <data name="item.c2-male_butterfly@ac(t,a,p)" xml:space="preserve">
     <value>♂ butterflies</value>
     <comment></comment>
   </data>
-  <data name="item.c2-male_butterfly@(t,a,s)" xml:space="preserve">
+  <data name="item.c2-male_butterfly@ac(t,a,s)" xml:space="preserve">
     <value>♂ butterfly</value>
     <comment></comment>
   </data>
-  <data name="item.c3-female_butterfly@(t,a,p)" xml:space="preserve">
+  <data name="item.c3-female_butterfly@ac(t,a,p)" xml:space="preserve">
     <value>♀ butterflies</value>
     <comment></comment>
   </data>
-  <data name="item.c3-female_butterfly@(t,a,s)" xml:space="preserve">
+  <data name="item.c3-female_butterfly@ac(t,a,s)" xml:space="preserve">
     <value>♀ butterfly</value>
     <comment></comment>
   </data>
@@ -685,19 +685,19 @@
     <value>♀ snail</value>
     <comment></comment>
   </data>
-  <data name="item.d2-male_dragonfly@(t,a,p)" xml:space="preserve">
+  <data name="item.d2-male_dragonfly@ac(t,a,p)" xml:space="preserve">
     <value>♂ dragonflies</value>
     <comment></comment>
   </data>
-  <data name="item.d2-male_dragonfly@(t,a,s)" xml:space="preserve">
+  <data name="item.d2-male_dragonfly@ac(t,a,s)" xml:space="preserve">
     <value>♂ dragonfly</value>
     <comment></comment>
   </data>
-  <data name="item.d3-female_dragonfly@(t,a,p)" xml:space="preserve">
+  <data name="item.d3-female_dragonfly@ac(t,a,p)" xml:space="preserve">
     <value>♀ dragonflies</value>
     <comment></comment>
   </data>
-  <data name="item.d3-female_dragonfly@(t,a,s)" xml:space="preserve">
+  <data name="item.d3-female_dragonfly@ac(t,a,s)" xml:space="preserve">
     <value>♀ dragonfly</value>
     <comment></comment>
   </data>
@@ -709,19 +709,19 @@
     <value>♀ ant</value>
     <comment></comment>
   </data>
-  <data name="item.d6-male_dayfly@(t,a,p)" xml:space="preserve">
+  <data name="item.d6-male_dayfly@ac(t,a,p)" xml:space="preserve">
     <value>♂ dayflies</value>
     <comment></comment>
   </data>
-  <data name="item.d6-male_dayfly@(t,a,s)" xml:space="preserve">
+  <data name="item.d6-male_dayfly@ac(t,a,s)" xml:space="preserve">
     <value>♂ dayfly</value>
     <comment></comment>
   </data>
-  <data name="item.d7-female_dayfly@(t,a,p)" xml:space="preserve">
+  <data name="item.d7-female_dayfly@ac(t,a,p)" xml:space="preserve">
     <value>♀ dayflies</value>
     <comment></comment>
   </data>
-  <data name="item.d7-female_dayfly@(t,a,s)" xml:space="preserve">
+  <data name="item.d7-female_dayfly@ac(t,a,s)" xml:space="preserve">
     <value>♀ dayfly</value>
     <comment></comment>
   </data>
