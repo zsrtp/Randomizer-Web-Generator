@@ -31,8 +31,8 @@ namespace TPRandomizer
             // );
 
             // Commented out:
-            // Res.UpdateCultureInfo("fr-FR-DOG");
-            Res.UpdateCultureInfo("en");
+            Res.UpdateCultureInfo("fr-FR-DOG");
+            // Res.UpdateCultureInfo("en");
 
             // string abc2 = Res.Msg();
             string str;

@@ -473,8 +473,9 @@ namespace TPRandomizer
                 prefStartColor: CustomMessages.messageColorOrange
             );
 
+            string nounVal = GenNamedSlotVal(result, "noun", itemMeta);
+
             string verb = GenVerb(result, itemMeta);
-            string theArticle = Res.Msg("noun.the-article", null, itemMeta).Substitute(null);
             string priceText = GenShopPriceText(price);
 
             string text = result.Substitute(
@@ -483,8 +484,7 @@ namespace TPRandomizer
                     { "item", itemText },
                     { "verb", verb },
                     { "price", priceText },
-                    { "the-article", theArticle },
-                    { "the-article2", theArticle }
+                    { "noun", nounVal },
                 }
             );
             string normalizedText = Res.LangSpecificNormalize(text) + CustomMessages.shopOption;
@@ -1402,6 +1402,26 @@ namespace TPRandomizer
             }
 
             return result;
+        }
+
+        public static string GenNamedSlotVal(
+            Res.Result hintResResult,
+            string slotName,
+            Dictionary<string, string> subjectMeta = null
+        )
+        {
+            string val = "";
+            if (
+                hintResResult.slotMeta.TryGetValue(slotName, out Dictionary<string, string> valMeta)
+            )
+            {
+                if (valMeta.TryGetValue("name", out string valName))
+                {
+                    val = Res.Msg($"{slotName}.{valName}", null, subjectMeta).Substitute(null);
+                }
+            }
+
+            return val;
         }
 
         public static string GenVerb(

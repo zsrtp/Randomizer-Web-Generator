@@ -1101,12 +1101,16 @@
     <value>{cs}{count} golden bugs{ce}</value>
     <comment></comment>
   </data>
-  <data name="noun.something-good" xml:space="preserve">
-    <value>something good</value>
+  <data name="noun.shop-it" xml:space="preserve">
+    <value>it</value>
     <comment></comment>
   </data>
-  <data name="province.desert" xml:space="preserve">
-    <value>Desert Province</value>
+  <data name="noun.shop-it$plural" xml:space="preserve">
+    <value>them</value>
+    <comment></comment>
+  </data>
+  <data name="noun.something-good" xml:space="preserve">
+    <value>something good</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
@@ -1145,13 +1149,25 @@
     <value>Temple of Time</value>
     <comment></comment>
   </data>
-  <data name="shop.basic-slot" xml:space="preserve">
-    <value>{item(shop:true)} {price}\n     LIMITED SUPPLY!\nDon&apos;t let them sell out before you\nbuy one!</value>
-    <comment></comment>
-  </data>
   <data name="shop.bought" xml:space="preserve">
     <value>I see. I SUPPOSE I can part with it...</value>
     <comment>From Kak Malo Mart buying non-potion.</comment>
+  </data>
+  <data name="shop.coming-soon" xml:space="preserve">
+    <value>COMING SOON</value>
+    <comment></comment>
+  </data>
+  <data name="shop.coming-soon-read" xml:space="preserve">
+    <value>You would know this item is coming soon if you had read the sign...</value>
+    <comment></comment>
+  </data>
+  <data name="shop.coming-soon$item" xml:space="preserve">
+    <value>{item}: COMING SOON</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation" xml:space="preserve">
+    <value>{item} will cost you {price}. Want {noun(name:shop-it)} or not?</value>
+    <comment></comment>
   </data>
   <data name="shop.price" xml:space="preserve">
     <value>{count} Rupee</value>
@@ -1161,16 +1177,16 @@
     <value>{count} Rupees</value>
     <comment></comment>
   </data>
+  <data name="shop.slot" xml:space="preserve">
+    <value>{item(shop:true)} {price}\nDon&apos;t let them sell out before you\nbuy one!</value>
+    <comment></comment>
+  </data>
   <data name="shop.sold-out" xml:space="preserve">
     <value>SOLD OUT</value>
     <comment></comment>
   </data>
   <data name="shop.sold-out$item" xml:space="preserve">
     <value>{item}: SOLD OUT</value>
-    <comment></comment>
-  </data>
-  <data name="shops.confirm-buy" xml:space="preserve">
-    <value>ab</value>
     <comment></comment>
   </data>
   <data name="trade-group.ants" xml:space="preserve">
