@@ -177,6 +177,10 @@
     <value>the {cs}lower desert{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.mist" xml:space="preserve">
+    <value>$(ap:behind)purple mist</value>
+    <comment></comment>
+  </data>
   <data name="area.category.owl_statue" xml:space="preserve">
     <value>$(ap:behind)an {cs}Owl Statue{ce}</value>
     <comment></comment>
@@ -189,8 +193,16 @@
     <value>$(ap:behind,plural)Owl Statues</value>
     <comment></comment>
   </data>
-  <data name="area.category.purple_mist" xml:space="preserve">
-    <value>(area-phrase:behind)Purple Mist</value>
+  <data name="area.category.underwater" xml:space="preserve">
+    <value>an {cs}underwater chest{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater$default" xml:space="preserve">
+    <value>$(plural)underwater chests</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater$plural" xml:space="preserve">
+    <value>$(plural)underwater chests</value>
     <comment></comment>
   </data>
   <data name="area.category.upper_desert" xml:space="preserve">
