@@ -161,6 +161,22 @@
     <value>$(plural)Grottos</value>
     <comment></comment>
   </data>
+  <data name="area.category.llc_lantern_chests" xml:space="preserve">
+    <value>a {cs}Lake Lantern Cave lantern chest{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.llc_lantern_chests$default" xml:space="preserve">
+    <value>$(plural)Lake Lantern Cave lantern chests</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.llc_lantern_chests$plural" xml:space="preserve">
+    <value>$(plural)Lake Lantern Cave lantern chests</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.lower_desert" xml:space="preserve">
+    <value>the {cs}lower desert{ce}</value>
+    <comment></comment>
+  </data>
   <data name="area.category.owl_statue" xml:space="preserve">
     <value>$(ap:behind)an {cs}Owl Statue{ce}</value>
     <comment></comment>
@@ -175,6 +191,10 @@
   </data>
   <data name="area.category.purple_mist" xml:space="preserve">
     <value>(area-phrase:behind)Purple Mist</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.upper_desert" xml:space="preserve">
+    <value>the {cs}upper desert{ce}</value>
     <comment></comment>
   </data>
   <data name="area.province.desert" xml:space="preserve">
