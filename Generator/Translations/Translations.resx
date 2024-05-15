@@ -194,15 +194,15 @@
     <comment></comment>
   </data>
   <data name="area.category.underwater" xml:space="preserve">
-    <value>an {cs}underwater chest{ce}</value>
+    <value>$(ap:none)underwater</value>
     <comment></comment>
   </data>
-  <data name="area.category.underwater$default" xml:space="preserve">
-    <value>$(plural)underwater chests</value>
+  <data name="area.category.underwater$subject" xml:space="preserve">
+    <value>$(ap:none,area-context:subject)something found {cs}underwater{ce}</value>
     <comment></comment>
   </data>
-  <data name="area.category.underwater$plural" xml:space="preserve">
-    <value>$(plural)underwater chests</value>
+  <data name="area.category.underwater$trade-chain" xml:space="preserve">
+    <value>$(ap:none,trade-chain)found {cs}underwater{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.upper_desert" xml:space="preserve">
@@ -490,7 +490,7 @@
     <comment></comment>
   </data>
   <data name="hint-type.path" xml:space="preserve">
-    <value>They say that {area} {verb(name:is)} on the path to {goal}.</value>
+    <value>$(area-context:subject)They say that {area} {verb(name:is)} on the path to {goal}.</value>
     <comment></comment>
   </data>
   <data name="hint-type.trade-chain" xml:space="preserve">
@@ -514,7 +514,7 @@
     <comment></comment>
   </data>
   <data name="hint-type.woth" xml:space="preserve">
-    <value>They say that {area} {verb(name:is)} on the Way of the Hero.</value>
+    <value>$(area-context:subject)They say that {area} {verb(name:is)} on the way of the hero.</value>
     <comment></comment>
   </data>
   <data name="item.01-green_rupee@ac(t,a,b,s)" xml:space="preserve">

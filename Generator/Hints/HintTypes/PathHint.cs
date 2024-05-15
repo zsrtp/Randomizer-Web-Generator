@@ -65,8 +65,31 @@ namespace TPRandomizer.Hints
         {
             Res.Result hintParsedRes = Res.ParseVal("hint-type.path");
 
-            Res.Result areaRes = Res.Msg(areaId.GenResKey(), new() { { "context", "default" } });
-            string areaText = areaRes.ResolveWithColor(CustomMessages.messageColorBlue);
+            Res.Result areaRes = null;
+            string areaText = "";
+            bool didGenAreaPhrase = false;
+
+            if (
+                hintParsedRes.meta.TryGetValue("area-context", out string areaContextFromRes)
+                && !StringUtils.isEmpty(areaContextFromRes)
+            )
+            {
+                areaRes = Res.Msg(areaId.GenResKey(), new() { { "context", areaContextFromRes } });
+                if (areaRes.MetaHasVal("area-context", areaContextFromRes))
+                {
+                    // Note: this treats "ap" as "none" since we are not
+                    // doing more work. Can update the code to make use of
+                    // "ap" meta (and use the subjectMeta) if needed.
+                    areaText = areaRes.ResolveWithColor(CustomMessages.messageColorBlue);
+                    didGenAreaPhrase = true;
+                }
+            }
+
+            if (!didGenAreaPhrase)
+            {
+                areaRes = Res.Msg(areaId.GenResKey(), new() { { "context", "default" } });
+                areaText = areaRes.ResolveWithColor(CustomMessages.messageColorBlue);
+            }
 
             string verb = CustomMsgData.GenVerb(hintParsedRes, areaRes.meta);
 
