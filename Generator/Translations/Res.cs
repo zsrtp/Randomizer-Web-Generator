@@ -742,14 +742,30 @@ namespace TPRandomizer
             for (int i = 0; i < strings.Count; i++)
             {
                 if (i > 0)
-                {
-                    if (i == strings.Count - 1)
-                        sb.Append(", and ");
-                    else
-                        sb.Append(", ");
-                }
+                    sb.Append(", ");
                 sb.Append(strings[i]);
             }
+
+            // Might theoretically use this more gramattically correct one below
+            // somewhere. Right now we only use this for the Agitha sign which
+            // wants the above implementation, so using that one for now.
+
+            // for (int i = 0; i < strings.Count; i++)
+            // {
+            //     if (i > 0)
+            //     {
+            //         if (i == strings.Count - 1)
+            //         {
+            //             if (strings.Count >= 3)
+            //                 sb.Append(", and ");
+            //             else
+            //                 sb.Append(" and ");
+            //         }
+            //         else
+            //             sb.Append(", ");
+            //     }
+            //     sb.Append(strings[i]);
+            // }
 
             return sb.ToString();
         }

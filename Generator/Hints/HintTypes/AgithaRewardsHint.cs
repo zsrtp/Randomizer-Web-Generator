@@ -100,20 +100,33 @@ namespace TPRandomizer.Hints
             string itemsText = "";
             if (hasItems)
             {
+                bool useArticles = true;
+                if (res.meta.TryGetValue("no-articles", out string noArticles))
+                    useArticles = noArticles != "true";
+
+                bool capitalize = false;
+                if (res.meta.TryGetValue("capitalize", out string capitalizeString))
+                    capitalize = capitalizeString == "true";
+
                 // Generate the items list by passing a list of strings. On the
                 // outside we can set each one to a green color. The function
                 // can be in Res and it can automatically detect the language.
                 List<string> itemTexts = new();
                 for (int i = 0; i < items.Count; i++)
                 {
+                    string contextForItem = "";
+                    if (useArticles)
+                        contextForItem = useDefArticleList[i] ? "def" : "indef";
+
                     itemTexts.Add(
                         customMsgData.GenItemText3(
                             out _,
                             items[i],
                             CheckStatus.Good,
-                            contextIn: useDefArticleList[i] ? "def" : "indef",
+                            contextIn: contextForItem,
                             prefStartColor: "",
-                            prefEndColor: ""
+                            prefEndColor: "",
+                            capitalize: capitalize
                         )
                     );
                 }

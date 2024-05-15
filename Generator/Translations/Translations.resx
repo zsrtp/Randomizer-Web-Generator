@@ -146,6 +146,14 @@
     <comment></comment>
   </data>
   <data name="area.province.dungeon" xml:space="preserve">
+    <value>a {cs}Dungeon{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.dungeon$default" xml:space="preserve">
+    <value>Dungeons</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.dungeon$plural" xml:space="preserve">
     <value>Dungeons</value>
     <comment></comment>
   </data>
@@ -170,7 +178,7 @@
     <comment></comment>
   </data>
   <data name="area.zone.agithas_castle" xml:space="preserve">
-    <value>Agitha&apos;s Castle</value>
+    <value>$(ap:at)Agitha&apos;s Castle</value>
     <comment></comment>
   </data>
   <data name="area.zone.arbiters_grounds" xml:space="preserve">
@@ -198,7 +206,7 @@
     <comment></comment>
   </data>
   <data name="area.zone.death_mountain" xml:space="preserve">
-    <value>Death Mountain</value>
+    <value>$(ap:at)Death Mountain</value>
     <comment></comment>
   </data>
   <data name="area.zone.eldin_field" xml:space="preserve">
@@ -218,7 +226,7 @@
     <comment></comment>
   </data>
   <data name="area.zone.gerudo_desert" xml:space="preserve">
-    <value>Gerudo Desert</value>
+    <value>the {cs}Gerudo Desert{ce}</value>
     <comment></comment>
   </data>
   <data name="area.zone.goron_mines" xml:space="preserve">
@@ -234,11 +242,11 @@
     <comment></comment>
   </data>
   <data name="area.zone.hyrule_castle" xml:space="preserve">
-    <value>Hyrule Castle</value>
+    <value>$(ap:at)Hyrule Castle</value>
     <comment></comment>
   </data>
   <data name="area.zone.kakariko_gorge" xml:space="preserve">
-    <value>Kakariko Gorge</value>
+    <value>$(ap:at)Kakariko Gorge</value>
     <comment></comment>
   </data>
   <data name="area.zone.kakariko_graveyard" xml:space="preserve">
@@ -250,7 +258,7 @@
     <comment></comment>
   </data>
   <data name="area.zone.lake_hylia" xml:space="preserve">
-    <value>Lake Hylia</value>
+    <value>$(ap:at)Lake Hylia</value>
     <comment></comment>
   </data>
   <data name="area.zone.lake_lantern_cave" xml:space="preserve">
@@ -266,7 +274,7 @@
     <comment></comment>
   </data>
   <data name="area.zone.lanayru_spring" xml:space="preserve">
-    <value>Lanayru Spring</value>
+    <value>$(ap:at)Lanayru Spring</value>
     <comment></comment>
   </data>
   <data name="area.zone.north_eldin" xml:space="preserve">
@@ -302,11 +310,11 @@
     <comment></comment>
   </data>
   <data name="area.zone.upper_zoras_river" xml:space="preserve">
-    <value>Upper Zora&apos;s River</value>
+    <value>$(ap:at)Upper Zora&apos;s River</value>
     <comment></comment>
   </data>
   <data name="area.zone.zoras_domain" xml:space="preserve">
-    <value>Zora&apos;s Domain</value>
+    <value>$(ap:at)Zora&apos;s Domain</value>
     <comment></comment>
   </data>
   <data name="category.owl_statues" xml:space="preserve">
@@ -382,15 +390,27 @@
     <comment></comment>
   </data>
   <data name="hint-type.agitha-rewards$good" xml:space="preserve">
-    <value>Please bring the {num-bugs} to Agitha&apos;s Castle. I&apos;ll share GREAT happiness with you:\n\n{items}</value>
+    <value>$(no-articles,capitalize)Please bring the {num-bugs} to Agitha&apos;s Castle. I&apos;ll share #(red)GREAT happiness#(white) with you:\n\n{items}</value>
     <comment></comment>
   </data>
   <data name="hint-type.barren" xml:space="preserve">
     <value>They say that there is nothing to be found {area-phrase}.</value>
     <comment></comment>
   </data>
+  <data name="hint-type.beyond-point" xml:space="preserve">
+    <value>#(purple)Nothing#(white) beyond this point!</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point$good" xml:space="preserve">
+    <value>#(green)Something good#(white) beyond this point!</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.item" xml:space="preserve">
     <value>They say that {subject} can be found {area-phrase}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.item-to-item-path" xml:space="preserve">
+    <value>They say that {source} {verb(name:is)} on the path to {target}.</value>
     <comment></comment>
   </data>
   <data name="hint-type.location" xml:space="preserve">
@@ -419,6 +439,22 @@
   </data>
   <data name="hint-type.trade-chain" xml:space="preserve">
     <value>They say that {item} leads to {tgtItem}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-group" xml:space="preserve">
+    <value>They say that bringing {group} to Agitha leads to {item}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-group$barren" xml:space="preserve">
+    <value>They say that bringing {group} to Agitha leads to nothing.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-group$good" xml:space="preserve">
+    <value>They say that bringing {group} to Agitha leads to {something-good}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-group$woth" xml:space="preserve">
+    <value>They say that bringing {group} to Agitha is on the way of the hero.</value>
     <comment></comment>
   </data>
   <data name="hint-type.woth" xml:space="preserve">
@@ -1005,6 +1041,18 @@
     <value>nothing of value</value>
     <comment></comment>
   </data>
+  <data name="noun.num-golden-bugs" xml:space="preserve">
+    <value>{cs}{count} golden bug{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="noun.num-golden-bugs#other" xml:space="preserve">
+    <value>{cs}{count} golden bugs{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="noun.something-good" xml:space="preserve">
+    <value>something good</value>
+    <comment></comment>
+  </data>
   <data name="province.desert" xml:space="preserve">
     <value>Desert Province</value>
     <comment></comment>
@@ -1071,6 +1119,62 @@
   </data>
   <data name="shops.confirm-buy" xml:space="preserve">
     <value>ab</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.ants" xml:space="preserve">
+    <value>ants</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.beetles" xml:space="preserve">
+    <value>beetles</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.butterflies" xml:space="preserve">
+    <value>butterflies</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.dayflies" xml:space="preserve">
+    <value>dayflies</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.dragonflies" xml:space="preserve">
+    <value>dragonflies</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.female_bugs" xml:space="preserve">
+    <value>female bugs</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.grasshoppers" xml:space="preserve">
+    <value>grasshoppers</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.ladybugs" xml:space="preserve">
+    <value>ladybugs</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.male_bugs" xml:space="preserve">
+    <value>male bugs</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.mantises" xml:space="preserve">
+    <value>mantises</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.phasmids" xml:space="preserve">
+    <value>phasmids</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.pill_bugs" xml:space="preserve">
+    <value>pill bugs</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.snails" xml:space="preserve">
+    <value>snails</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.stag_beetles" xml:space="preserve">
+    <value>stag beetles</value>
     <comment></comment>
   </data>
   <data name="verb.is" xml:space="preserve">
