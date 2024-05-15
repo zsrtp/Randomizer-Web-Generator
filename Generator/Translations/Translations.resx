@@ -494,7 +494,7 @@
     <comment></comment>
   </data>
   <data name="hint-type.trade-chain" xml:space="preserve">
-    <value>They say that {item} leads to {tgtItem}.</value>
+    <value>They say that {source}{area-phrase(space)} {verb(name:leads)} to {target}.</value>
     <comment></comment>
   </data>
   <data name="hint-type.trade-group" xml:space="preserve">
@@ -515,10 +515,6 @@
   </data>
   <data name="hint-type.woth" xml:space="preserve">
     <value>They say that {area} {verb(name:is)} on the Way of the Hero.</value>
-    <comment></comment>
-  </data>
-  <data name="hint.tradechain--with-area" xml:space="preserve">
-    <value>They say that {item} found {area-phrase} leads to {tgtItem}.</value>
     <comment></comment>
   </data>
   <data name="item.01-green_rupee@ac(t,a,b,s)" xml:space="preserve">
@@ -1239,6 +1235,14 @@
   </data>
   <data name="verb.is$plural" xml:space="preserve">
     <value>are</value>
+    <comment></comment>
+  </data>
+  <data name="verb.leads" xml:space="preserve">
+    <value>leads</value>
+    <comment></comment>
+  </data>
+  <data name="verb.leads$plural" xml:space="preserve">
+    <value>lead</value>
     <comment></comment>
   </data>
 </root>
