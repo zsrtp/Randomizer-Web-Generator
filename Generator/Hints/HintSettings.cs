@@ -125,6 +125,7 @@ namespace TPRandomizer.Hints.Settings
                 "Outside South Castle Town Tightrope Chest",
                 "STAR Prize 2",
                 "Lake Hylia Underwater Chest",
+                "Lake Hylia Shell Blade Grotto Chest",
                 "Lanayru Spring Back Room Lantern Chest",
                 "Zoras Domain Extinguish All Torches Chest",
                 "Zoras Domain Light All Torches Chest",
