@@ -141,6 +141,42 @@
     <value>{area}</value>
     <comment></comment>
   </data>
+  <data name="area-phrase.with" xml:space="preserve">
+    <value>with {area}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.golden_wolf" xml:space="preserve">
+    <value>$(ap:with)the {cs}Golden Wolf{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto" xml:space="preserve">
+    <value>a {cs}Grotto{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto$default" xml:space="preserve">
+    <value>$(plural)Grottos</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto$plural" xml:space="preserve">
+    <value>$(plural)Grottos</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.owl_statue" xml:space="preserve">
+    <value>$(ap:behind)an {cs}Owl Statue{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.owl_statue$default" xml:space="preserve">
+    <value>$(ap:behind,plural)Owl Statues</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.owl_statue$plural" xml:space="preserve">
+    <value>$(ap:behind,plural)Owl Statues</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.purple_mist" xml:space="preserve">
+    <value>(area-phrase:behind)Purple Mist</value>
+    <comment></comment>
+  </data>
   <data name="area.province.desert" xml:space="preserve">
     <value>the {cs}Desert Province{ce}</value>
     <comment></comment>
@@ -150,11 +186,11 @@
     <comment></comment>
   </data>
   <data name="area.province.dungeon$default" xml:space="preserve">
-    <value>Dungeons</value>
+    <value>$(plural)Dungeons</value>
     <comment></comment>
   </data>
   <data name="area.province.dungeon$plural" xml:space="preserve">
-    <value>Dungeons</value>
+    <value>$(plural)Dungeons</value>
     <comment></comment>
   </data>
   <data name="area.province.eldin" xml:space="preserve">
@@ -317,18 +353,6 @@
     <value>$(ap:at)Zora&apos;s Domain</value>
     <comment></comment>
   </data>
-  <data name="category.owl_statues" xml:space="preserve">
-    <value>(area-phrase:behind)Owl Statues</value>
-    <comment></comment>
-  </data>
-  <data name="category.owl_statues#one" xml:space="preserve">
-    <value>(area-phrase:behind)an {cs}Owl Statue{ce}</value>
-    <comment></comment>
-  </data>
-  <data name="category.purple_mist" xml:space="preserve">
-    <value>(area-phrase:behind)Purple Mist</value>
-    <comment></comment>
-  </data>
   <data name="description.bad-check" xml:space="preserve">
     <value>(bad)</value>
     <comment></comment>
@@ -434,7 +458,7 @@
     <comment></comment>
   </data>
   <data name="hint-type.path" xml:space="preserve">
-    <value>They say that {area} is on the path to {goal}.</value>
+    <value>They say that {area} {verb(name:is)} on the path to {goal}.</value>
     <comment></comment>
   </data>
   <data name="hint-type.trade-chain" xml:space="preserve">
@@ -458,7 +482,7 @@
     <comment></comment>
   </data>
   <data name="hint-type.woth" xml:space="preserve">
-    <value>They say that {area} is on the Way of the Hero.</value>
+    <value>They say that {area} {verb(name:is)} on the Way of the Hero.</value>
     <comment></comment>
   </data>
   <data name="hint.tradechain--with-area" xml:space="preserve">
