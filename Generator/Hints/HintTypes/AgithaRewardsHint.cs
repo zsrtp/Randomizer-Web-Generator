@@ -100,13 +100,8 @@ namespace TPRandomizer.Hints
             string itemsText = "";
             if (hasItems)
             {
-                bool useArticles = true;
-                if (res.meta.TryGetValue("no-articles", out string noArticles))
-                    useArticles = noArticles != "true";
-
-                bool capitalize = false;
-                if (res.meta.TryGetValue("capitalize", out string capitalizeString))
-                    capitalize = capitalizeString == "true";
+                bool useArticles = !res.MetaHasVal("no-articles", "true");
+                bool capitalize = res.MetaHasVal("capitalize", "true");
 
                 // Generate the items list by passing a list of strings. On the
                 // outside we can set each one to a green color. The function
