@@ -1801,6 +1801,42 @@
     <value>les</value>
     <comment></comment>
   </data>
+  <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
+    <value>Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.city-in-the-sky" xml:space="preserve">
+    <value>Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.forest-temple" xml:space="preserve">
+    <value>Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.goron-mines" xml:space="preserve">
+    <value>Mine Goron</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.lakebed-temple" xml:space="preserve">
+    <value>Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.none" xml:space="preserve">
+    <value>Aucuns donjons requis</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.palace-of-twilight" xml:space="preserve">
+    <value>Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.snowpeak-ruins" xml:space="preserve">
+    <value>Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.temple-of-time" xml:space="preserve">
+    <value>Temple du Temps</value>
+    <comment></comment>
+  </data>
   <data name="self-hinter.barnes-bomb-bag" xml:space="preserve">
     <value>Allez, je te fais une offre spéciale, {item} pour {price}. Ça te tente?</value>
     <comment></comment>
