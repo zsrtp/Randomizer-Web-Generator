@@ -1822,7 +1822,7 @@
     <comment></comment>
   </data>
   <data name="required-dungeon.none" xml:space="preserve">
-    <value>Aucuns donjons requis</value>
+    <value>Aucun donjon requis</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.palace-of-twilight" xml:space="preserve">
