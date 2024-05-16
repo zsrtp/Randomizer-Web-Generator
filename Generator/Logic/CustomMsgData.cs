@@ -516,7 +516,7 @@ namespace TPRandomizer
             );
 
             string verb = GenVerb(result, itemMeta);
-            string theArticle = Res.Msg("noun.the-article", null, itemMeta).Substitute(null);
+            string nounVal = GenNamedSlotVal(result, "noun", itemMeta);
             string priceText = GenShopPriceText(price);
             string price2Text = GenShopPriceText(price, false);
 
@@ -527,8 +527,8 @@ namespace TPRandomizer
                     { "verb", verb },
                     { "price", priceText },
                     { "price2", price2Text },
-                    { "the-article", theArticle },
-                    { "the-article2", theArticle }
+                    { "noun", nounVal },
+                    { "noun2", nounVal }
                 }
             );
             string normalizedText = Res.LangSpecificNormalize(text);
@@ -547,11 +547,9 @@ namespace TPRandomizer
                 contextIn: "def"
             );
 
-            string theArticle = Res.Msg("noun.the-article", null, itemMeta).Substitute(null);
+            string nounVal = GenNamedSlotVal(result, "noun", itemMeta);
 
-            string text = result.Substitute(
-                new() { { "item", itemText }, { "the-article", theArticle }, }
-            );
+            string text = result.Substitute(new() { { "item", itemText }, { "noun", nounVal }, });
 
             return Res.LangSpecificNormalize(text);
         }
@@ -818,7 +816,8 @@ namespace TPRandomizer
                 MsgEntryId.Sera_Slingshot_Slot,
                 "Sera Shop Slingshot",
                 Item.Slingshot,
-                seraSlingshotPrice
+                seraSlingshotPrice,
+                "sera"
             );
             AddShopCantAffordMsg(
                 MsgEntryId.Sera_Slingshot_Cant_Afford,
@@ -938,7 +937,8 @@ namespace TPRandomizer
                 MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Slot,
                 "Castle Town Malo Mart Magic Armor",
                 Item.Magic_Armor,
-                598
+                598,
+                "magic-armor"
             );
             results.Add(
                 CustomMsgUtils.GetEntry(
@@ -1042,7 +1042,7 @@ namespace TPRandomizer
                 item = defaultItem;
 
             string itemText = GenItemText3(
-                out _,
+                out Dictionary<string, string> itemMeta,
                 item,
                 CheckStatus.Unknown,
                 isShop: true,
@@ -1050,9 +1050,21 @@ namespace TPRandomizer
                 shopSuffixIsColon: shopSuffixIsColon
             );
 
+            string nounVal = GenNamedSlotVal(res, "noun", itemMeta);
+            string noun2Val = GenNamedSlotVal(res, "noun2", itemMeta, keyStart: "noun");
+
             string priceText = GenShopPriceText(price);
 
-            string text = res.Substitute(new() { { "item", itemText }, { "price", priceText } });
+            string text = res.Substitute(
+                new()
+                {
+                    { "item", itemText },
+                    { "price", priceText },
+                    { "noun", nounVal },
+                    { "noun2", noun2Val },
+                    { "noun2b", noun2Val },
+                }
+            );
             string normalizedText = Res.LangSpecificNormalize(text);
 
             results.Add(CustomMsgUtils.GetEntry(msgEntryId, normalizedText));
@@ -1407,9 +1419,13 @@ namespace TPRandomizer
         public static string GenNamedSlotVal(
             Res.Result hintResResult,
             string slotName,
-            Dictionary<string, string> subjectMeta = null
+            Dictionary<string, string> subjectMeta = null,
+            string keyStart = null
         )
         {
+            if (StringUtils.isEmpty(keyStart))
+                keyStart = slotName;
+
             string val = "";
             if (
                 hintResResult.slotMeta.TryGetValue(slotName, out Dictionary<string, string> valMeta)
@@ -1417,7 +1433,7 @@ namespace TPRandomizer
             {
                 if (valMeta.TryGetValue("name", out string valName))
                 {
-                    val = Res.Msg($"{slotName}.{valName}", null, subjectMeta).Substitute(null);
+                    val = Res.Msg($"{keyStart}.{valName}", null, subjectMeta).Substitute(null);
                 }
             }
 

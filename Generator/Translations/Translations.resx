@@ -1109,6 +1109,14 @@
     <value>them</value>
     <comment></comment>
   </data>
+  <data name="noun.shop-this" xml:space="preserve">
+    <value>this</value>
+    <comment></comment>
+  </data>
+  <data name="noun.shop-this$plural" xml:space="preserve">
+    <value>these</value>
+    <comment></comment>
+  </data>
   <data name="noun.something-good" xml:space="preserve">
     <value>something good</value>
     <comment></comment>
@@ -1153,6 +1161,22 @@
     <value>I see. I SUPPOSE I can part with it...</value>
     <comment>From Kak Malo Mart buying non-potion.</comment>
   </data>
+  <data name="shop.bought-sera2" xml:space="preserve">
+    <value>Will you at least let the kids play with it?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.bought$magic-armor" xml:space="preserve">
+    <value>We have sold out!</value>
+    <comment></comment>
+  </data>
+  <data name="shop.bought$sera" xml:space="preserve">
+    <value>What you are doing buying that, you naughty thing? You&apos;re too old for toys!</value>
+    <comment></comment>
+  </data>
+  <data name="shop.cant-afford" xml:space="preserve">
+    <value>{item} {verb(name:is)} {price}. If you want {noun(name:shop-it)}, bring some money with you, all right, m&apos;dear?</value>
+    <comment>From Sera Slingshot</comment>
+  </data>
   <data name="shop.coming-soon" xml:space="preserve">
     <value>COMING SOON</value>
     <comment></comment>
@@ -1169,6 +1193,10 @@
     <value>{item} will cost you {price}. Want {noun(name:shop-it)} or not?</value>
     <comment></comment>
   </data>
+  <data name="shop.confirmation$sera" xml:space="preserve">
+    <value>{item} {verb(name:is)} {price}. Do you want to buy {noun(name:shop-it)}, m&apos;dear?</value>
+    <comment></comment>
+  </data>
   <data name="shop.price" xml:space="preserve">
     <value>{count} Rupee</value>
     <comment></comment>
@@ -1181,12 +1209,28 @@
     <value>{item(shop:true)} {price}\nDon&apos;t let them sell out before you\nbuy one!</value>
     <comment></comment>
   </data>
+  <data name="shop.slot$chudley" xml:space="preserve">
+    <value>{item(shop:true)}\nAn item for the richest and most precious customers.</value>
+    <comment></comment>
+  </data>
+  <data name="shop.slot$magic-armor" xml:space="preserve">
+    <value>{item(shop:true)} {price}\nThis is quite a bargain when you think of how valuable your life is.</value>
+    <comment></comment>
+  </data>
+  <data name="shop.slot$sera" xml:space="preserve">
+    <value>{item(shop:true)} {price}\nI got {noun(name:shop-this)} in for the kids, but I&apos;ll sell {noun2(name:shop-it)} if you really want {noun2b}.</value>
+    <comment></comment>
+  </data>
   <data name="shop.sold-out" xml:space="preserve">
     <value>SOLD OUT</value>
     <comment></comment>
   </data>
   <data name="shop.sold-out$item" xml:space="preserve">
     <value>{item}: SOLD OUT</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out$magic-armor" xml:space="preserve">
+    <value>{item}\n-SOLD OUT-\n*This item has been discontinued.</value>
     <comment></comment>
   </data>
   <data name="trade-group.ants" xml:space="preserve">

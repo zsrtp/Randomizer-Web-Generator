@@ -643,7 +643,7 @@ namespace TPRandomizer
 
             if (addLineBreaks)
             {
-                int maxLengthVal = 35;
+                int maxLengthVal = 36;
                 if (maxLength != null)
                     maxLengthVal = (int)maxLength;
                 AddLineBreaksToChunks(chunks, maxLengthVal);

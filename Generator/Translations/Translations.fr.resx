@@ -1834,11 +1834,11 @@
     <comment>From magic armor, minus the MA reference.</comment>
   </data>
   <data name="shop.bought$sera" xml:space="preserve">
-    <value>Je ne pensais pas que tu voudrais {the-article} {que-transform}acheter...</value>
+    <value>Je ne pensais pas que tu voudrais {noun(name:the-article)} {que-transform}acheter...</value>
     <comment></comment>
   </data>
   <data name="shop.cant-afford" xml:space="preserve">
-    <value>{item} {verb(name:costs)} {price}. Si tu {the-article} veux, il faut {the-article2} payer.</value>
+    <value>{item} {verb(name:costs)} {price}. Si tu {noun(name:the-article)} veux, il faut {noun2} payer.</value>
     <comment>From Sera Slingshot</comment>
   </data>
   <data name="shop.cant-afford$barnes-bomb-bag" xml:space="preserve">
@@ -1866,7 +1866,7 @@
     <comment></comment>
   </data>
   <data name="shop.confirmation$sera" xml:space="preserve">
-    <value>{item} {verb(name:costs)} {price}. Tu {noun(name:the-article)} veux?</value>
+    <value>{item} {verb(name:costs)} {price}.\nTu {noun(name:the-article)} veux?</value>
     <comment></comment>
   </data>
   <data name="shop.no" xml:space="preserve">
@@ -1891,10 +1891,6 @@
   </data>
   <data name="shop.sold-out-read" xml:space="preserve">
     <value>C&apos;était mon dernier exemplaire. Prends en soin...</value>
-    <comment></comment>
-  </data>
-  <data name="shop.sold-out$hawkeye" xml:space="preserve">
-    <value>{item}: UNAVAILABLE</value>
     <comment></comment>
   </data>
   <data name="shop.sold-out$item" xml:space="preserve">
