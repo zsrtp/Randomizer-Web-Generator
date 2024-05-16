@@ -1177,12 +1177,16 @@
     <value>{item} {verb(name:is)} {price}. If you want {noun(name:shop-it)}, bring some money with you, all right, m&apos;dear?</value>
     <comment>From Sera Slingshot</comment>
   </data>
+  <data name="shop.cant-afford$kak-malo" xml:space="preserve">
+    <value>{item} {verb(name:costs)} {price}... but there are people with enough Rupees, and then there&apos;s you.</value>
+    <comment></comment>
+  </data>
   <data name="shop.coming-soon" xml:space="preserve">
     <value>COMING SOON</value>
     <comment></comment>
   </data>
   <data name="shop.coming-soon-read" xml:space="preserve">
-    <value>You would know this item is coming soon if you had read the sign...</value>
+    <value>You&apos;d know that this item is coming soon if you had read the sign...</value>
     <comment></comment>
   </data>
   <data name="shop.coming-soon$item" xml:space="preserve">
@@ -1191,7 +1195,7 @@
   </data>
   <data name="shop.confirmation" xml:space="preserve">
     <value>{item} will cost you {price}. Want {noun(name:shop-it)} or not?</value>
-    <comment></comment>
+    <comment>From kak malo mart.</comment>
   </data>
   <data name="shop.confirmation$sera" xml:space="preserve">
     <value>{item} {verb(name:is)} {price}. Do you want to buy {noun(name:shop-it)}, m&apos;dear?</value>
@@ -1223,6 +1227,10 @@
   </data>
   <data name="shop.sold-out" xml:space="preserve">
     <value>SOLD OUT</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out-read" xml:space="preserve">
+    <value>Well, you bought my last one...so you&apos;d better take good care of it.</value>
     <comment></comment>
   </data>
   <data name="shop.sold-out$item" xml:space="preserve">
@@ -1287,6 +1295,14 @@
   </data>
   <data name="trade-group.stag_beetles" xml:space="preserve">
     <value>stag beetles</value>
+    <comment></comment>
+  </data>
+  <data name="verb.costs" xml:space="preserve">
+    <value>costs</value>
+    <comment></comment>
+  </data>
+  <data name="verb.costs$plural" xml:space="preserve">
+    <value>cost</value>
     <comment></comment>
   </data>
   <data name="verb.is" xml:space="preserve">
