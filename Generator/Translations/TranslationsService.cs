@@ -432,6 +432,10 @@ namespace TPRandomizer
 
                 if (handlePluralSpecial)
                 {
+                    ChangeContext("fishing-bottle");
+                    string fishBottle = $"{pluralMeta}{{cs}}{baseValue}{{ce}}";
+                    result.Add(new(GenCurrentResKey(), fishBottle));
+
                     ChangeContext("count");
                     count = "other";
                     string countPlural = $"{pluralMeta}{{cs}}{{count}} {baseValue}{{ce}}";
@@ -439,6 +443,10 @@ namespace TPRandomizer
                 }
                 else if (handlePluralDefault && !StringUtils.isEmpty(pluralSuffix))
                 {
+                    ChangeContext("fishing-bottle");
+                    string fishBottle = $"{pluralMeta}{{cs}}{baseValue}{pluralSuffix}{{ce}}";
+                    result.Add(new(GenCurrentResKey(), fishBottle));
+
                     ChangeContext("count");
                     count = "other";
                     string countPlural =

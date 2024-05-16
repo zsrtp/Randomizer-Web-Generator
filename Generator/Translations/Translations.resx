@@ -1173,6 +1173,10 @@
     <value>For the sake of peace in Hyrule...\nWould you please make a donation?</value>
     <comment></comment>
   </data>
+  <data name="self-hinter.fishing-bottle" xml:space="preserve">
+    <value>#(red)DON&apos;T LITTER!#(white)\nDo NOT toss empty bottles or {item} here! The fish are CRYING!\n\nKeep the fishing hole clean!</value>
+    <comment></comment>
+  </data>
   <data name="shop.bought" xml:space="preserve">
     <value>I see. I SUPPOSE I can part with it...</value>
     <comment>From Kak Malo Mart buying non-potion.</comment>
