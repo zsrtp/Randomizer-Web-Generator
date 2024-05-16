@@ -303,27 +303,6 @@ namespace TPRandomizer
 
             GenSelfHinterEntries();
 
-            // handle self-hinters next
-            // results.Add(
-            //     new MessageEntry
-            //     {
-            //         stageIDX = (byte)StageIDs.Kakariko_Village_Interiors,
-            //         roomIDX = 1,
-            //         messageID = 0x9B, // Barnes Bomb Bag Text.
-            //         message =
-            //             "I've got a special offer goin' right\nnow: my "
-            //             // + getShortenedItemName(Randomizer.Checks.CheckDict["Barnes Bomb Bag"].itemId)
-            //             + Randomizer.Checks.CheckDict["Barnes Bomb Bag"].itemId
-            //             + CustomMessages.messageColorWhite
-            //             + ", just\n"
-            //             + CustomMessages.messageColorPurple
-            //             + "120 Rupees"
-            //             + CustomMessages.messageColorWhite
-            //             + "! How 'bout that?"
-            //             + CustomMessages.shopOption
-            //     }
-            // );
-
             // Handle custom hint signs
             GenHintSignEntries(results);
 
@@ -437,17 +416,21 @@ namespace TPRandomizer
 
             // ----- Barnes -----
 
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Barnes_Bomb_Bag_Cant_Afford,
-                    Res.LangSpecificNormalize(
-                        Res.SimpleMsg(
-                            "shop.cant-afford",
-                            new() { { "context", "barnes-bomb-bag" } }
-                        )
-                    )
-                )
+            Res.Result barnesCantAffordRes = Res.Msg(
+                "shop.cant-afford",
+                new() { { "context", "barnes-bomb-bag" } }
             );
+
+            // For some languages (like English), we use the default text.
+            if (!barnesCantAffordRes.MetaHasVal("skip-msg", "true"))
+            {
+                results.Add(
+                    CustomMsgUtils.GetEntry(
+                        MsgEntryId.Barnes_Bomb_Bag_Cant_Afford,
+                        Res.LangSpecificNormalize(barnesCantAffordRes.Substitute(null))
+                    )
+                );
+            }
         }
 
         private void AddShopConfirmationMsg(

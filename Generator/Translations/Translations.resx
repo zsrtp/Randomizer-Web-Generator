@@ -1157,6 +1157,10 @@
     <value>Temple of Time</value>
     <comment></comment>
   </data>
+  <data name="self-hinter.barnes-bomb-bag" xml:space="preserve">
+    <value>I&apos;ve got a special offer goin&apos; right now: {item}, just {price}! How &apos;bout that?</value>
+    <comment></comment>
+  </data>
   <data name="shop.bought" xml:space="preserve">
     <value>I see. I SUPPOSE I can part with it...</value>
     <comment>From Kak Malo Mart buying non-potion.</comment>
@@ -1176,6 +1180,10 @@
   <data name="shop.cant-afford" xml:space="preserve">
     <value>{item} {verb(name:is)} {price}. If you want {noun(name:shop-it)}, bring some money with you, all right, m&apos;dear?</value>
     <comment>From Sera Slingshot</comment>
+  </data>
+  <data name="shop.cant-afford$barnes-bomb-bag" xml:space="preserve">
+    <value>$(skip-msg)uses default text!</value>
+    <comment></comment>
   </data>
   <data name="shop.cant-afford$kak-malo" xml:space="preserve">
     <value>{item} {verb(name:costs)} {price}... but there are people with enough Rupees, and then there&apos;s you.</value>
