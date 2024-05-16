@@ -1161,6 +1161,18 @@
     <value>I&apos;ve got a special offer goin&apos; right now: {item}, just {price}! How &apos;bout that?</value>
     <comment></comment>
   </data>
+  <data name="self-hinter.charlo" xml:space="preserve">
+    <value>For {item}...\nWould you please make a donation?</value>
+    <comment></comment>
+  </data>
+  <data name="self-hinter.charlo-options" xml:space="preserve">
+    <value>#(option1)100 Rupees#(option2)50 Rupees#(option3)Sorry...</value>
+    <comment></comment>
+  </data>
+  <data name="self-hinter.charlo$default" xml:space="preserve">
+    <value>For the sake of peace in Hyrule...\nWould you please make a donation?</value>
+    <comment></comment>
+  </data>
   <data name="shop.bought" xml:space="preserve">
     <value>I see. I SUPPOSE I can part with it...</value>
     <comment>From Kak Malo Mart buying non-potion.</comment>
