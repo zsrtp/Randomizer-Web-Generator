@@ -226,6 +226,9 @@ namespace TPRandomizer.Hints.HintCreator
         {
             Dictionary<Item, string> uniqueItemsToCheckName = new();
 
+            // Note that for this you are NEVER considered to start with
+            // bigKeys. That is only for 'Path' hints since those are mostly
+            // directed at bosses which are always locked behind big Keys.
             foreach (string checkName in genData.requiredChecks)
             {
                 if (genData.isCheckSphere0(checkName))

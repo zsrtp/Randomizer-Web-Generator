@@ -50,13 +50,14 @@ namespace TPRandomizer.Hints
             {
                 goalToRequiredChecks = HintUtils.calculateGoalsRequiredChecks(
                     startingRoom,
-                    playthroughSpheres.spheres
+                    playthroughSpheres.spheres,
+                    sSettings
                 );
 
                 // We need to calculate `requiredChecks` separately from
-                // `goalToRequiredChecks` because the goal ones are calculated
-                // assuming you start with big keys so that the path hints are not
-                // all super big key-based.
+                // `goalToRequiredChecks` because the goal ones might be
+                // calculated assuming you start with big keys so that the path
+                // hints are not all super big key-based.
                 requiredChecks = HintUtils.calculateRequiredChecks(
                     startingRoom,
                     playthroughSpheres.spheres
@@ -104,10 +105,35 @@ namespace TPRandomizer.Hints
                     Item.Gerudo_Desert_Bulblin_Camp_Key,
                 };
 
+            // Handle dungeonRewards if shuffled.
+            if (sSettings.shuffleRewards)
+            {
+                bool noReasonToEnterPot =
+                    sSettings.barrenDungeons && !HintUtils.DungeonIsRequired("Palace of Twilight");
+
+                if (
+                    (
+                        !noReasonToEnterPot
+                        && sSettings.palaceRequirements == PalaceRequirements.Fused_Shadows
+                    )
+                    || sSettings.castleRequirements == CastleRequirements.Fused_Shadows
+                )
+                    itemSet.Add(Item.Progressive_Fused_Shadow);
+
+                if (
+                    (
+                        !noReasonToEnterPot
+                        && sSettings.palaceRequirements == PalaceRequirements.Mirror_Shards
+                    )
+                    || sSettings.castleRequirements == CastleRequirements.Mirror_Shards
+                )
+                    itemSet.Add(Item.Progressive_Mirror_Shard);
+            }
+
             if (sSettings.logicRules != LogicRules.Glitchless)
             {
                 itemSet.Add(Item.Magic_Armor);
-                itemSet.Remove(Item.Progressive_Hidden_Skill);
+                itemSet.Add(Item.Progressive_Hidden_Skill);
             }
 
             if (sSettings.damageMagnification == DamageMagnification.OHKO)
@@ -505,9 +531,13 @@ namespace TPRandomizer.Hints
         {
             Dictionary<AreaId, HashSet<Item>> ret = new();
 
-            // TODO: this should factor in when dungeon rewards can be anywhere
-            HashSet<Item> baseAllowedForDungeons =
-                new() { Item.Progressive_Fused_Shadow, Item.Progressive_Mirror_Shard };
+            HashSet<Item> baseAllowedForDungeons = new() { };
+
+            if (!sSettings.shuffleRewards)
+            {
+                baseAllowedForDungeons.Add(Item.Progressive_Fused_Shadow);
+                baseAllowedForDungeons.Add(Item.Progressive_Mirror_Shard);
+            }
 
             ret[AreaId.Zone(Zone.Forest_Temple)] = new(baseAllowedForDungeons);
             ret[AreaId.Zone(Zone.Goron_Mines)] = new(baseAllowedForDungeons);

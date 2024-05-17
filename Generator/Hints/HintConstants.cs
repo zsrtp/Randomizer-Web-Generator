@@ -458,23 +458,6 @@ namespace TPRandomizer.Hints
                 // Exclude items which are not helpful
                 Item.Poe_Soul,
                 Item.Progressive_Hidden_Skill,
-                // Slingshot has about a 0.02% chance of being a SpoL item
-                // (results were 12 out of 5858 seeds when tested). The chance
-                // that is gets selected as a SpoL hint is even lower (less than
-                // 1/1000). We had this show up in a seed once, and everyone had
-                // no idea what the SpoL hint was talking about. Didn't figure
-                // it out until checking the spoiler log after the race.
-                // Needless to say, everyone kept going back to the same area
-                // the entire time since no one knew what the hint meant. Given
-                // that boss keys are not hinted since they are not as useful as
-                // something like a Clawshot, going ahead and adding Slingshot
-                // to invalidSpolItems since it is even less helpful than boss
-                // keys (and is actually kind of harmful). Keep in mind that the
-                // chance Slingshot was a SpoL hint was less than 1/1000, and
-                // this change has no impact on whether or not Slingshot is
-                // required. We just no longer give SpoL hints for Slingshot
-                // since it is not helpful in the slightest.
-                // Item.Slingshot,
                 Item.Wooden_Shield,
                 Item.Ordon_Shield,
                 Item.Hylian_Shield,

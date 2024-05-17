@@ -3,6 +3,7 @@ namespace TPRandomizer.Hints
     using System;
     using System.Collections.Generic;
     using TPRandomizer.Util;
+    using SSettings.Enums;
 
     public enum GoalEnum
     {
@@ -381,7 +382,8 @@ namespace TPRandomizer.Hints
 
         public static Dictionary<Goal, List<string>> calculateGoalsRequiredChecks(
             Room startingRoom,
-            List<List<KeyValuePair<int, Item>>> spheres
+            List<List<KeyValuePair<int, Item>>> spheres,
+            SharedSettings sSettings
         )
         {
             HashSet<string> maybeRequiredCheckNames = new();
@@ -395,27 +397,36 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            HashSet<Goal> goalsFromDungeons = getGoalsBasedOnDungeons();
+            HashSet<Goal> goalsFromDungeons = getGoalsBasedOnDungeons(sSettings);
+
+            bool startWithBigKeys =
+                sSettings.bigKeySettings == BigKeySettings.Anywhere
+                || sSettings.bigKeySettings == BigKeySettings.Any_Dungeon;
 
             return filterToRequiredChecksOfGoals(
                 startingRoom,
                 maybeRequiredCheckNames,
                 goalsFromDungeons,
-                true
+                startWithBigKeys
             );
         }
 
-        private static HashSet<Goal> getGoalsBasedOnDungeons()
+        private static HashSet<Goal> getGoalsBasedOnDungeons(SharedSettings sSettings)
         {
-            HashSet<string> requiredDungeons = getRequiredDungeonZones();
-
             HashSet<Goal> result = new();
-            foreach (string dungeonZone in requiredDungeons)
+
+            // Goals to bosses are only valid if it is common knowledge based on
+            // the settings that the bosses themselves are required.
+            if (!sSettings.shuffleRewards)
             {
-                if (GoalConstants.requiredDungeonHintZoneToGoal.ContainsKey(dungeonZone))
+                HashSet<string> requiredDungeons = getRequiredDungeonZones();
+                foreach (string dungeonZone in requiredDungeons)
                 {
-                    Goal goal = GoalConstants.requiredDungeonHintZoneToGoal[dungeonZone];
-                    result.Add(goal);
+                    if (GoalConstants.requiredDungeonHintZoneToGoal.ContainsKey(dungeonZone))
+                    {
+                        Goal goal = GoalConstants.requiredDungeonHintZoneToGoal[dungeonZone];
+                        result.Add(goal);
+                    }
                 }
             }
 

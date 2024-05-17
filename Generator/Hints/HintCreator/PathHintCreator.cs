@@ -369,6 +369,32 @@ namespace TPRandomizer.Hints.HintCreator
             }
             HintUtils.ShuffleListInPlace(genData.rnd, primaryList);
 
+            // Need to sort secondaryList to always have HC in front of
+            // Ganondorf. There aren't any other goal hints in the secondary
+            // list, but if there were they would be ahead of HC in an undefined
+            // order.
+            KeyValuePair<Goal, List<string>> hcGoalPair = new(GoalConstants.Diababa, null);
+            KeyValuePair<Goal, List<string>> ganondorfGoalPair = new(GoalConstants.Diababa, null);
+            for (int i = secondaryList.Count - 1; i >= 0; i--)
+            {
+                KeyValuePair<Goal, List<string>> pair = secondaryList[i];
+                if (pair.Key.goalEnum == GoalEnum.Hyrule_Castle)
+                {
+                    hcGoalPair = pair;
+                    secondaryList.RemoveAt(i);
+                }
+                else if (pair.Key.goalEnum == GoalEnum.Ganondorf)
+                {
+                    ganondorfGoalPair = pair;
+                    secondaryList.RemoveAt(i);
+                }
+            }
+
+            if (hcGoalPair.Key.goalEnum == GoalEnum.Hyrule_Castle)
+                secondaryList.Add(hcGoalPair);
+            if (ganondorfGoalPair.Key.goalEnum == GoalEnum.Ganondorf)
+                secondaryList.Add(ganondorfGoalPair);
+
             // filter secondary list items to not include ones in primary
             secondaryList = filterPathHintSecondaryList(secondaryList, checkNamesForPrimaryGoals);
 
