@@ -246,12 +246,12 @@
 
   function genPlandoBits() {
     let bits = '';
-    $('.plandoEntry').each(function() {
-      itemId = parseInt($(this).attr('data-itemid'), 10);
-      checkId = parseInt($(this).attr('data-checkid'), 10);
+    $('.plandoListItem').each(function () {
+      const itemId = parseInt($(this).attr('data-itemid'), 10);
+      const checkId = parseInt($(this).attr('data-checkid'), 10);
       bits += numToPaddedBits(checkId, 9);
-      bits += numToPaddedBits(itemId, 9);
-    })
+      bits += numToPaddedBits(itemId, 8);
+    });
     if (bits.length < 1) {
       bits = '0';
     } else {
@@ -643,6 +643,28 @@
       return list;
     }
 
+    function nextPlandoList() {
+      // 9 bits of all 1s
+      const eolValue = 0x1ff;
+      const list = [];
+
+      while (true) {
+        if (remaining.length < 9) {
+          throw new Error('Not enough bits remaining.');
+        }
+
+        const checkId = nextXBitsAsNum(9);
+        if (checkId === eolValue) {
+          break;
+        } else {
+          const itemId = nextXBitsAsNum(8);
+          list.push([checkId, itemId]);
+        }
+      }
+
+      return list;
+    }
+
     function getVlq16BitLength(num) {
       if (num < 2) {
         return 5;
@@ -720,6 +742,7 @@
       nextXBitsAsNum,
       nextBoolean,
       nextEolList,
+      nextPlandoList,
       nextRecolorDefs,
     };
   }
@@ -843,10 +866,7 @@
       res.plando = [];
       const hasPlando = processor.nextBoolean();
       if (hasPlando) {
-        const plandoList = processor.nextEolList(9);
-        for (i = 0; i < plandoList.length; i += 2) {
-          res.plando.push([plandoList[i], plandoList[i + 1]]);
-        }
+        res.plando = processor.nextPlandoList();
       }
     } else {
       res.plando = [];

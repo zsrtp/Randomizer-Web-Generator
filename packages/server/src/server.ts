@@ -390,195 +390,170 @@ app.get('/', (req: express.Request, res: express.Response) => {
       msg = msg.replace('<!-- STARTING_ITEMS -->', startingItemsEls.join('\n'));
 
       const plandoItems = [
-        // Rupees
-        ['FirstCategory', 'Rupees'],
-        [1, 'Green_Rupee'],
-        [2, 'Blue_Rupee'],
-        [3, 'Yellow_Rupee'],
-        [4, 'Red_Rupee'],
-        [5, 'Purple_Rupee'],
-        [6, 'Orange_Rupee'],
-        [7, 'Silver_Rupee'],
-        [237, 'Purple_Rupee_Links_House'],
-
-        // Ammo
-        ['Category', 'Ammo'],
-        [10, 'Bombs_5'],
-        [11, 'Bombs_10'],
-        [12, 'Bombs_20'],
-        [13, 'Bombs_30'],
-        [17, 'Arrows_1'],
-        [14, 'Arrows_10'],
-        [15, 'Arrows_20'],
-        [16, 'Arrows_30'],
-        [18, 'Seeds_50'],
-        [25, 'Water_Bombs_3'],
-        [22, 'Water_Bombs_5'],
-        [23, 'Water_Bombs_10'],
-        [24, 'Water_Bombs_15'],
-        [29, 'Bombling_1'],
-        [28, 'Bomblings_3'],
-        [26, 'Bomblings_5'],
-        [27, 'Bomblings_10'],
-
         // Progression Items
         ['Category', 'Progression Items'],
-        [48, 'Magic_Armor'],
-        [49, 'Zora_Armor'],
-        [50, 'Shadow_Crystal'],
-        [53, 'Progressive_Wallet'],
-        [62, 'Hawkeye'],
-        [63, 'Progressive_Sword'],
-        [64, 'Boomerang'],
-        [65, 'Spinner'],
-        [66, 'Ball_and_Chain'],
-        [67, 'Progressive_Bow'],
-        [68, 'Progressive_Clawshot'],
-        [69, 'Iron_Boots'],
-        [70, 'Progressive_Dominion_Rod'],
-        [72, 'Lantern'],
-        [74, 'Progressive_Fishing_Rod'],
-        [75, 'Slingshot'],
-        [81, 'Filled_Bomb_Bag'],
-        [144, 'Aurus_Memo'],
-        [145, 'Asheis_Sketch'],
-        [233, 'Progressive_Sky_Book'],
-
+        [0x32, 'Shadow_Crystal'],
+        [0x3f, 'Progressive_Sword'],
+        [0x91, 'Asheis_Sketch'],
+        [0x90, 'Aurus_Memo'],
+        [0x42, 'Ball_and_Chain'],
+        [0x40, 'Boomerang'],
+        [0x51, 'Filled_Bomb_Bag'],
+        [0x45, 'Iron_Boots'],
+        [0x48, 'Lantern'],
+        [0x43, 'Progressive_Bow'],
+        [0x44, 'Progressive_Clawshot'],
+        [0x46, 'Progressive_Dominion_Rod'],
+        [0x4a, 'Progressive_Fishing_Rod'],
+        [0xe9, 'Progressive_Sky_Book'],
+        [0x4b, 'Slingshot'],
+        [0x41, 'Spinner'],
+        [0x31, 'Zora_Armor'],
+        // Dungeon Rewards
+        ['Category', 'Dungeon Rewards'],
+        [0xd8, 'Progressive_Fused_Shadow'],
+        [0xa5, 'Progressive_Mirror_Shard'],
         // Small Keys
         ['Category', 'Small Keys'],
-        [133, 'Forest_Temple_Small_Key'],
-        [134, 'Goron_Mines_Small_Key'],
-        [135, 'Lakebed_Temple_Small_Key'],
-        [136, 'Arbiters_Grounds_Small_Key'],
-        [137, 'Snowpeak_Ruins_Small_Key'],
-        [138, 'Temple_of_Time_Small_Key'],
-        [139, 'City_in_The_Sky_Small_Key'],
-        [140, 'Palace_of_Twilight_Small_Key'],
-        [141, 'Hyrule_Castle_Small_Key'],
-        [142, 'Gerudo_Desert_Bulblin_Camp_Key'],
-        [238, 'North_Faron_Woods_Gate_Key'],
-        [243, 'Gate_Keys'],
-        [244, 'Snowpeak_Ruins_Ordon_Pumpkin'],
-        [245, 'Snowpeak_Ruins_Ordon_Goat_Cheese'],
-
+        [0x85, 'Forest_Temple_Small_Key'],
+        [0x86, 'Goron_Mines_Small_Key'],
+        [0x87, 'Lakebed_Temple_Small_Key'],
+        [0x88, 'Arbiters_Grounds_Small_Key'],
+        [0x89, 'Snowpeak_Ruins_Small_Key'],
+        [0xf4, 'Snowpeak_Ruins_Ordon_Pumpkin'],
+        [0xf5, 'Snowpeak_Ruins_Ordon_Goat_Cheese'],
+        [0x8a, 'Temple_of_Time_Small_Key'],
+        [0x8b, 'City_in_The_Sky_Small_Key'],
+        [0x8c, 'Palace_of_Twilight_Small_Key'],
+        [0x8d, 'Hyrule_Castle_Small_Key'],
+        [0xee, 'North_Faron_Woods_Gate_Key'],
+        [0xf3, 'Gate_Keys'],
+        [0x8e, 'Gerudo_Desert_Bulblin_Camp_Key'],
         // Big Keys
         ['Category', 'Big Keys'],
-        [146, 'Forest_Temple_Big_Key'],
-        [147, 'Lakebed_Temple_Big_Key'],
-        [148, 'Arbiters_Grounds_Big_Key'],
-        [246, 'Snowpeak_Ruins_Bedroom_Key'],
-        [149, 'Temple_of_Time_Big_Key'],
-        [150, 'City_in_The_Sky_Big_Key'],
-        [151, 'Palace_of_Twilight_Big_Key'],
-        [152, 'Hyrule_Castle_Big_Key'],
-        [249, 'Goron_Mines_Key_Shard'],
-
+        [0x92, 'Forest_Temple_Big_Key'],
+        [0xf9, 'Goron_Mines_Key_Shard'],
+        [0x93, 'Lakebed_Temple_Big_Key'],
+        [0x94, 'Arbiters_Grounds_Big_Key'],
+        [0xf6, 'Snowpeak_Ruins_Bedroom_Key'],
+        [0x95, 'Temple_of_Time_Big_Key'],
+        [0x96, 'City_in_The_Sky_Big_Key'],
+        [0x97, 'Palace_of_Twilight_Big_Key'],
+        [0x98, 'Hyrule_Castle_Big_Key'],
         // Compasses
         ['Category', 'Compasses'],
-        [153, 'Forest_Temple_Compass'],
-        [154, 'Goron_Mines_Compass'],
-        [155, 'Lakebed_Temple_Compass'],
-        [168, 'Arbiters_Grounds_Compass'],
-        [169, 'Snowpeak_Ruins_Compass'],
-        [170, 'Temple_of_Time_Compass'],
-        [171, 'City_in_The_Sky_Compass'],
-        [172, 'Palace_of_Twilight_Compass'],
-        [173, 'Hyrule_Castle_Compass'],
-
+        [0x99, 'Forest_Temple_Compass'],
+        [0x9a, 'Goron_Mines_Compass'],
+        [0x9b, 'Lakebed_Temple_Compass'],
+        [0xa8, 'Arbiters_Grounds_Compass'],
+        [0xa9, 'Snowpeak_Ruins_Compass'],
+        [0xaa, 'Temple_of_Time_Compass'],
+        [0xab, 'City_in_The_Sky_Compass'],
+        [0xac, 'Palace_of_Twilight_Compass'],
+        [0xad, 'Hyrule_Castle_Compass'],
         //Maps
-        ['Category', 'Maps'],
-        [182, 'Forest_Temple_Dungeon_Map'],
-        [183, 'Goron_Mines_Dungeon_Map'],
-        [184, 'Lakebed_Temple_Dungeon_Map'],
-        [185, 'Arbiters_Grounds_Dungeon_Map'],
-        [186, 'Snowpeak_Ruins_Dungeon_Map'],
-        [187, 'Temple_of_Time_Dungeon_Map'],
-        [188, 'City_in_The_Sky_Dungeon_Map'],
-        [189, 'Palace_of_Twilight_Dungeon_Map'],
-        [190, 'Hyrule_Castle_Dungeon_Map'],
-
-        // Bugs
-        ['Category', 'Bugs'],
-        [192, 'Male_Beetle'],
-        [193, 'Female_Beetle'],
-        [194, 'Male_Butterfly'],
-        [195, 'Female_Butterfly'],
-        [196, 'Male_Stag_Beetle'],
-        [197, 'Female_Stag_Beetle'],
-        [198, 'Male_Grasshopper'],
-        [199, 'Female_Grasshopper'],
-        [200, 'Male_Phasmid'],
-        [201, 'Female_Phasmid'],
-        [202, 'Male_Pill_Bug'],
-        [203, 'Female_Pill_Bug'],
-        [204, 'Male_Mantis'],
-        [205, 'Female_Mantis'],
-        [206, 'Male_Ladybug'],
-        [207, 'Female_Ladybug'],
-        [208, 'Male_Snail'],
-        [209, 'Female_Snail'],
-        [210, 'Male_Dragonfly'],
-        [211, 'Female_Dragonfly'],
-        [212, 'Male_Ant'],
-        [213, 'Female_Ant'],
-        [214, 'Male_Dayfly'],
-        [215, 'Female_Dayfly'],
-
-        // Skills
-        ['Category', 'Skills'],
-        [225, 'Progressive_Hidden_Skill'],
-        [226, 'Shield_Attack'],
-        [227, 'Back_Slice'],
-        [228, 'Helm_Splitter'],
-        [229, 'Mortal_Draw'],
-        [230, 'Jump_Strike'],
-        [231, 'Great_Spin'],
-
-        // Boss Items
-        ['Category', 'Dungeon Rewards'],
-        [165, 'Progressive_Mirror_Shard'],
-        [216, 'Progressive_Fused_Shadow'],
-
+        ['Category', 'Dungeon Maps'],
+        [0xb6, 'Forest_Temple_Dungeon_Map'],
+        [0xb7, 'Goron_Mines_Dungeon_Map'],
+        [0xb8, 'Lakebed_Temple_Dungeon_Map'],
+        [0xb9, 'Arbiters_Grounds_Dungeon_Map'],
+        [0xba, 'Snowpeak_Ruins_Dungeon_Map'],
+        [0xbb, 'Temple_of_Time_Dungeon_Map'],
+        [0xbc, 'City_in_The_Sky_Dungeon_Map'],
+        [0xbd, 'Palace_of_Twilight_Dungeon_Map'],
+        [0xbe, 'Hyrule_Castle_Dungeon_Map'],
+        // Golden Bugs
+        ['Category', 'Golden Bugs'],
+        [0xc0, 'Male_Beetle'],
+        [0xc1, 'Female_Beetle'],
+        [0xc2, 'Male_Butterfly'],
+        [0xc3, 'Female_Butterfly'],
+        [0xc4, 'Male_Stag_Beetle'],
+        [0xc5, 'Female_Stag_Beetle'],
+        [0xc6, 'Male_Grasshopper'],
+        [0xc7, 'Female_Grasshopper'],
+        [0xc8, 'Male_Phasmid'],
+        [0xc9, 'Female_Phasmid'],
+        [0xca, 'Male_Pill_Bug'],
+        [0xcb, 'Female_Pill_Bug'],
+        [0xcc, 'Male_Mantis'],
+        [0xcd, 'Female_Mantis'],
+        [0xce, 'Male_Ladybug'],
+        [0xcf, 'Female_Ladybug'],
+        [0xd0, 'Male_Snail'],
+        [0xd1, 'Female_Snail'],
+        [0xd2, 'Male_Dragonfly'],
+        [0xd3, 'Female_Dragonfly'],
+        [0xd4, 'Male_Ant'],
+        [0xd5, 'Female_Ant'],
+        [0xd6, 'Male_Dayfly'],
+        [0xd7, 'Female_Dayfly'],
+        // Rupees
+        ['FirstCategory', 'Rupees'],
+        [0x01, 'Green_Rupee'],
+        [0x02, 'Blue_Rupee'],
+        [0x03, 'Yellow_Rupee'],
+        [0x04, 'Red_Rupee'],
+        [0x05, 'Purple_Rupee'],
+        [0x06, 'Orange_Rupee'],
+        [0x07, 'Silver_Rupee'],
+        [0xed, 'Purple_Rupee_Links_House'],
+        // Ammo
+        ['Category', 'Ammo'],
+        [0x0a, 'Bombs_5'],
+        [0x0b, 'Bombs_10'],
+        [0x0c, 'Bombs_20'],
+        [0x0d, 'Bombs_30'],
+        [0x0e, 'Arrows_10'],
+        [0x0f, 'Arrows_20'],
+        [0x10, 'Arrows_30'],
+        [0x12, 'Seeds_50'],
+        [0x16, 'Water_Bombs_5'],
+        [0x17, 'Water_Bombs_10'],
+        [0x18, 'Water_Bombs_15'],
+        [0x1a, 'Bomblings_5'],
+        [0x1b, 'Bomblings_10'],
         // Misc
         ['Category', 'Misc'],
-        [42, 'Ordon_Shield'],
-        [43, 'Wooden_Shield'],
-        [44, 'Hylian_Shield'],
-        [79, 'Giant_Bomb_Bag'],
-        [96, 'Empty_Bottle'],
-        [132, 'Horse_Call'],
-        [224, 'Poe_Soul'],
-        [0, 'Recovery_Heart'],
-        [33, 'Piece_of_Heart'],
-        [34, 'Heart_Container'],
-        [19, 'Foolish_Item'],
-        [20, 'Foolish_Item_2'],
-        [21, 'Foolish_Item_3'],
-        ]
-    
-        const plandoItemEls = plandoItems.map((item) => {
-        // This is pretty bad, but it'll work for now
-        if(item[0] == 'FirstCategory') {
-          return `<optgroup label='${item[1]}'>`
-        }
-        else if(item[0] == 'Category') {
-          return `</optgroup><optgroup label='${item[1]}'>`
-        }
-        else {
-          return `<option value='${item[0]}'>${item[1]}</option>`;
-        }
-        }).join("\n");
-        const plandoChecksEls = Object.keys(excludedChecksList).map((key) => {
+        [0x2a, 'Ordon_Shield'],
+        [0x2b, 'Wooden_Shield'],
+        [0x2c, 'Hylian_Shield'],
+        [0x30, 'Magic_Armor'],
+        [0xe0, 'Poe_Soul'],
+        [0x21, 'Piece_of_Heart'],
+        [0x22, 'Heart_Container'],
+        [0xe1, 'Progressive_Hidden_Skill'],
+        [0x35, 'Progressive_Wallet'],
+        [0x4f, 'Giant_Bomb_Bag'],
+        [0x60, 'Empty_Bottle'],
+        [0x65, 'Sera_Bottle'],
+        [0x75, 'Jovani_Bottle'],
+        [0x9d, 'Coro_Bottle'],
+        [0x3e, 'Hawkeye'],
+        [0x84, 'Horse_Call'],
+        [0x13, 'Foolish_Item'],
+      ];
+
+      const plandoItemEls = plandoItems
+        .map((item) => {
+          if (item[0] === 'FirstCategory') {
+            return `<optgroup label='${item[1]}'>`;
+          } else if (item[0] === 'Category') {
+            return `</optgroup><optgroup label='${item[1]}'>`;
+          } else {
+            return `<option value='${item[0]}'>${item[1]}</option>`;
+          }
+        })
+        .join('\n');
+      const plandoChecksEls = Object.keys(excludedChecksList)
+        .map((key) => {
           return `<option value='${excludedChecksList[key]}'>${key}</option>`;
-            // return `<li class='plandoListItem'>
-            //   <label>${key}</label>
-            //   <select class='plandoCheckSelect' data-checkId='${excludedChecksList[key]}'>${plandoItemEls}</optgroup></select>
-            // </li>`;
-          }).join("\n");
-      var plandoStr = `<select id=plandoCheckSelect>${plandoChecksEls}</select>
+        })
+        .join('\n');
+      const plandoStr = `<select id=plandoCheckSelect>${plandoChecksEls}</select>
                         <select id=plandoItemSelect>${plandoItemEls}</select>`;
       msg = msg.replace('<!-- PLANDO -->', plandoStr);
-    
+
       res.send(msg);
     }
   });
