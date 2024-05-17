@@ -135,38 +135,45 @@ function onDomContentLoaded() {
     e.target.value = normalizeStringToMax128Bytes(value);
   });
 
+  // Make sure select2 auto-focuses on open.
+  $(document).on('select2:open', () => {
+    document.querySelector('.select2-search__field').focus();
+  });
 
+  $('#plandoCheckSelect').select2();
+  $('#plandoItemSelect').select2();
 }
 
-$(document).ready(function() {
-  $('#plandoCheckSelect').select2({width: '50%'});
-  $('#plandoItemSelect').select2({width: '50%'});
-})
+function buildPlandoListItemElStr(checkId, checkName, itemId, itemName) {
+  return `<li class="plandoListItem" data-itemid="${itemId}" data-checkid="${checkId}">
+  <div>
+    <button type="button" class="plandoItemDeleteBtn">✖</button>
+    <span>${checkName} => ${itemName}</span>
+  </div>
+</li>`;
+}
 
-$(document).on('click', '#plandoBtnAdd', function() {
-  checkName = $("#plandoCheckSelect option:selected").text();
-  checkId = $("#plandoCheckSelect").val();
+$('#plandoBtnAdd').on('click', function () {
+  const checkName = $('#plandoCheckSelect option:selected').text();
+  const checkId = $('#plandoCheckSelect').val();
 
-  itemName = $("#plandoItemSelect option:selected").text();
-  itemId = $("#plandoItemSelect").val();
-  if($(`.plandoListItem[data-checkid=${checkId}]`).length > 0 ) {
-    $(`.plandoListItem[data-checkid=${checkId}]`).remove();
-  }
-  $("#basePlandoListbox").append(`<li class="plandoListItem plandoEntry" data-itemid="${itemId}" data-checkid="${checkId}">
-                                    <div>
-                                      <button type="button" class="plandoItemDeleteBtn">✖</button>
-                                      ${checkName}: ${itemName}
-                                    </div>
-                                  </li>`)
-})
+  const itemName = $('#plandoItemSelect option:selected').text();
+  const itemId = $('#plandoItemSelect').val();
 
-$(document).on('click', '#plandoBtnClear', function() {
-  $(".plandoEntry").remove();
-})
+  // First remove row if already there.
+  $(`.plandoListItem[data-checkid=${checkId}]`).remove();
 
-$(document).on('click', '.plandoItemDeleteBtn', function() {
+  $('#basePlandoListbox').prepend(
+    buildPlandoListItemElStr(checkId, checkName, itemId, itemName)
+  );
+
+  setSettingsString();
+});
+
+$(document).on('click', '.plandoItemDeleteBtn', function () {
   $(this).parent().parent().remove();
-})
+  setSettingsString();
+});
 
 function initJwt() {
   try {
@@ -225,10 +232,6 @@ function openCurrAccordion(e) {
   }
 }
 
-// This is a much cleaner way to add the event listener since we're already using jquery
-$(document).on('click', '#plandoBtnAdd', setSettingsString);
-$(document).on('click', '#plandoBtnClear', setSettingsString);
-$(document).on('click', '.plandoItemDeleteBtn', setSettingsString);
 for (
   var j = 0;
   j <
@@ -1269,25 +1272,18 @@ function populateSSettings(s) {
     });
   }
 
-  const $plandoTab = $('#plandoTab');
+  $('#basePlandoListbox').empty();
   s.plando.forEach((p) => {
+    const checkId = p[0];
+    const itemId = p[1];
 
-    checkId = p[0];
-    itemId = p[1];
+    const checkName = $(`#plandoCheckSelect option[value=${checkId}]`).text();
+    const itemName = $(`#plandoItemSelect option[value=${itemId}]`).text();
 
-    checkName = $(`#plandoCheckSelect option[value=${checkId}]`).text();
-    itemName = $(`#plandoItemSelect option[value=${itemId}]`).text();
-
-    if($(`.plandoListItem[data-checkid=${checkId}]`).length > 0 ) {
-      $(`.plandoListItem[data-checkid=${checkId}]`).remove();
-    }
-    $("#basePlandoListbox").append(`<li class="plandoListItem plandoEntry" data-itemid="${itemId}" data-checkid="${checkId}">
-    <div>
-      <button type="button" class="plandoItemDeleteBtn">✖</button>
-      ${checkName}: ${itemName}
-    </div>
-  </li>`)
-  })
+    $('#basePlandoListbox').append(
+      buildPlandoListItemElStr(checkId, checkName, itemId, itemName)
+    );
+  });
 }
 
 function testProgressFunc(id) {
