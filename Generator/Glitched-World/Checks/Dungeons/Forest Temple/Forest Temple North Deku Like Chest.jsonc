@@ -5,6 +5,6 @@
     "roomIDX": 10,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Forest Temple", "Small Key", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "Small Key", "ARC"],
     "itemId": "Forest_Temple_Small_Key"
 }

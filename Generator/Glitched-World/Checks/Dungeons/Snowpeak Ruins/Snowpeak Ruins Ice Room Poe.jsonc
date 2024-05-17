@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal",
     "stageIDX": [27],
     "flag": "7F",
-    "category": ["Dungeon", "Poe", "Snowpeak Ruins"],
+    "checkCategory": ["Dungeon", "Poe", "Snowpeak Ruins"],
     "itemId": "Poe_Soul"
 }

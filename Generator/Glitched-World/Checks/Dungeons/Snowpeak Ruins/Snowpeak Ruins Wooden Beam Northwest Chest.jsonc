@@ -5,6 +5,6 @@
     "roomIDX": 8,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Compass", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Compass", "ARC"],
     "itemId": "Snowpeak_Ruins_Compass"
 }

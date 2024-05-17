@@ -4,6 +4,6 @@
     "stageIDX": [31],
     "fileDirectoryType": [1],
     "replacementType": [0],
-    "category": ["Overworld", "Npc", "Cave of Ordeals", "ARC"],
+    "checkCategory": ["Overworld", "Npc", "Cave of Ordeals", "ARC"],
     "itemId": "Fairy_Tears"
 }

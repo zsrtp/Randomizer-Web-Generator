@@ -4,6 +4,6 @@
     "stageIDX": [63,72],
     "fileDirectoryType": [1,1],
     "replacementType": [0,0],
-    "category": ["Overworld", "Npc", "Hidden Village", "ARC"],
+    "checkCategory": ["Overworld", "Npc", "Hidden Village", "ARC"],
     "itemId": "Progressive_Sky_Book"
 }

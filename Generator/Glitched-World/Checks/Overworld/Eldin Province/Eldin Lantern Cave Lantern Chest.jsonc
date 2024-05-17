@@ -5,6 +5,6 @@
     "roomIDX": 0,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Overworld", "Chest", "Eldin Lantern Cave", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Eldin Lantern Cave", "ARC"],
     "itemId": "Piece_of_Heart"
 }

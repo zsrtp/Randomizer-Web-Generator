@@ -5,6 +5,6 @@
     "roomIDX": 6,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Temple of Time", "Big Key", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Temple of Time", "Big Key", "ARC"],
     "itemId": "Temple_of_Time_Big_Key"
 }

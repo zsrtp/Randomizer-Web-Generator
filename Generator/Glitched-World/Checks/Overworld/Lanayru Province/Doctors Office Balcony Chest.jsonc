@@ -5,6 +5,6 @@
     "roomIDX": 4,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Overworld", "Chest", "Castle Town", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Castle Town", "ARC"],
     "itemId": "Red_Rupee"
 }

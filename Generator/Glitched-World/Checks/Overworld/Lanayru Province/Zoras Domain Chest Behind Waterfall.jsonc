@@ -5,6 +5,6 @@
     "roomIDX": 1,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Overworld", "Chest", "Zoras Domain", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Zoras Domain", "ARC"],
     "itemId": "Red_Rupee"
 }

@@ -36,11 +36,6 @@ namespace TPRandomizer
 
             HashSet<string> allowedUnreachableChecks = CalcAllowedUnreachableChecks(parseSetting);
 
-            foreach (Item startingItem in parseSetting.startingItems)
-            {
-                Randomizer.Items.heldItems.Add(startingItem);
-            }
-
             /*foreach (Item item in Randomizer.Items.heldItems)
             {
                 Console.WriteLine(item);

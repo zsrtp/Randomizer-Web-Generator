@@ -5,6 +5,6 @@
     "roomIDX": 0,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Overworld", "Chest", "Hyrule Field - Lanaryu Province", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanaryu Province", "ARC"],
     "itemId": "Piece_of_Heart"
 }

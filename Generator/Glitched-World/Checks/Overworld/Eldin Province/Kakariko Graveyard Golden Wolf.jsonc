@@ -3,6 +3,6 @@
     "stageIDX": [48],
     "roomIDX": 0,
     "flag": "9F",
-    "category": ["Overworld", "Hidden Skill", "Kakariko Graveyard"],
+    "checkCategory": ["Overworld", "Hidden Skill", "Kakariko Graveyard"],
     "itemId": "Progressive_Hidden_Skill"
 }

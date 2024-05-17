@@ -5,6 +5,6 @@
     "roomIDX": 5,
   "fileDirectoryType": [ 0 ],
   "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Palace of Twilight", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Palace of Twilight", "ARC" ],
   "itemId": "Purple_Rupee"
 }

@@ -1,5 +1,6 @@
 namespace TPRandomizer
 {
+    using System;
     using System.Collections.Generic;
     using TPRandomizer.SSettings.Enums;
 
@@ -451,7 +452,10 @@ namespace TPRandomizer
 
                 if (!parseSetting.shuffleShopItems)
                 {
-                    if (currentCheck.checkCategory.Contains("Shop"))
+                    if (
+                        currentCheck.checkCategory.Contains("Shop")
+                        || currentCheck.checkCategory.Contains("Npc - Shop")
+                    )
                     {
                         currentCheck.checkStatus = "Vanilla";
                         Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);

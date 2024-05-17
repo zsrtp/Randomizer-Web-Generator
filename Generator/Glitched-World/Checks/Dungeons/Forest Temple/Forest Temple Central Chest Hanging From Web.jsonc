@@ -5,6 +5,6 @@
     "roomIDX": 0,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Forest Temple", "Dungeon Items", "Compass", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "Dungeon Items", "Compass", "ARC"],
     "itemId": "Forest_Temple_Compass"
 }

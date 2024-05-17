@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal",
     "stageIDX": [59],
     "flag": "5C",
-    "category": ["Overworld", "Poe", "Gerudo Desert"],
+    "checkCategory": ["Overworld", "Poe", "Gerudo Desert"],
     "itemId": "Poe_Soul"
 }

@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal and (Progressive_Clawshot, 1)",
     "stageIDX": [24],
     "flag": "1F",
-    "category": ["Dungeon", "Poe", "Arbiters Grounds"],
+    "checkCategory": ["Dungeon", "Poe", "Arbiters Grounds"],
     "itemId": "Poe_Soul"
 }

@@ -3,6 +3,6 @@
     "stageIDX": [25],
     "roomIDX": 50,
     "flag": "53",
-    "category": ["Overworld", "Mirror Chamber", "Event", "Dungeon Reward"],
+    "checkCategory": ["Overworld", "Mirror Chamber", "Event", "Dungeon Reward"],
     "itemId": "Progressive_Mirror_Shard"
 }

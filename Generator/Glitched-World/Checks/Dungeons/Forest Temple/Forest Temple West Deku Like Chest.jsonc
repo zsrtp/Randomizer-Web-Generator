@@ -5,6 +5,6 @@
     "roomIDX": 3,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Forest Temple", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "ARC"],
     "itemId": "Piece_of_Heart"
 }
