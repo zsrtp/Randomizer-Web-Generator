@@ -23,9 +23,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link 
-      rel="stylesheet" 
-      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"  
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
     />
     <script src="/js/lib/lodash.toarray.js"></script>
     <script src="/js/lib/jquery-3.6.0.js"></script>
@@ -337,6 +337,7 @@
               </div>
               <div
                 data-tooltip-text="If checked, the Fused Shadows and Mirror Shards that normally appear at the end of Dungeons can be found anywhere in the game.&#0010;"
+                data-tooltip-position="left"
               >
                 <input
                   type="checkbox"
@@ -350,6 +351,7 @@
               </div>
               <div
                 data-tooltip-text="Helps prevent needing to reenter a dungeon after defeating the boss when small keys are Own Dungeon.&#0010;&#0010;If checked, the following items will not appear on Heart Container or Dungeon Reward checks: Dungeon small keys, Snowpeak Ruins Ordon Pumpkin, Snowpeak Ruins Ordon Goat Cheese, Gerudo Desert Bulblin Camp Key, and North Faron Woods Gate Key&#0010;"
+                data-tooltip-position="left"
               >
                 <input
                   type="checkbox"
@@ -791,8 +793,20 @@
                 <!-- This is terrible, but see server.ts in the server for where this is being populated -->
                 <!-- PLANDO -->
 
-                <button type="button" data-tooltip-text="Add item/check combo." id="plandoBtnAdd">Add</button>
-                <button type="button" data-tooltip-text="Clear all plando settings." id="plandoBtnClear">Clear</button>
+                <button
+                  type="button"
+                  data-tooltip-text="Add item/check combo."
+                  id="plandoBtnAdd"
+                >
+                  Add
+                </button>
+                <button
+                  type="button"
+                  data-tooltip-text="Clear all plando settings."
+                  id="plandoBtnClear"
+                >
+                  Clear
+                </button>
               </li>
               <!-- <?php
 							$important_items = file_get_contents("Resources/StartingItems.txt");
