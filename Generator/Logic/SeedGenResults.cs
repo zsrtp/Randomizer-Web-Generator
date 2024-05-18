@@ -547,6 +547,7 @@ namespace TPRandomizer
             result.Add("openDot", sSettings.openDot);
             result.Add("noSmallKeysOnBosses", sSettings.noSmallKeysOnBosses);
             result.Add("startingToD", sSettings.startingToD.ToString());
+            result.Add("hintDistribution", sSettings.hintDistribution.ToString());
 
             result.Add("startingItems", sSettings.startingItems);
             result.Add("excludedChecks", sSettings.excludedChecks);
