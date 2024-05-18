@@ -314,6 +314,8 @@ document
 document.getElementById('itemScarcityFieldset').onchange = setSettingsString;
 document.getElementById('damageMagFieldset').onchange = setSettingsString;
 document.getElementById('todFieldset').onchange = setSettingsString;
+document.getElementById('hintDistributionFieldset').onchange =
+  setSettingsString;
 document.getElementById('trapItemFieldset').onchange = setSettingsString;
 document
   .getElementById('faronTwilightCheckbox')
@@ -1232,6 +1234,7 @@ function populateSSettings(s) {
   $('#openDotCheckbox').prop('checked', s.openDot);
   $('#noSmallKeysOnBossesCheckbox').prop('checked', s.noSmallKeysOnBosses);
   $('#todFieldset').val(s.startingToD);
+  $('#hintDistributionFieldset').val(s.hintDistribution);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {
