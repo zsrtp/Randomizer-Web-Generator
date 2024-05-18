@@ -34,6 +34,7 @@ RUN dotnet publish "./TPRandomizer.csproj" -c release -o /app/generator --no-res
 # RUN mkdir /app/generator/Generator
 RUN cp -R World /app/generator/World
 RUN cp -R Glitched-World /app/generator/Glitched-World
+RUN cp -R Translations /app/generator/Translations
 RUN mkdir -p /app/generator/Assets/Sound
 RUN cp -R Assets/Sound/BackgroundMusic.jsonc /app/generator/Assets/Sound/BackgroundMusic.jsonc
 RUN mkdir -p /app/generator/Assets/Entrances
@@ -48,8 +49,9 @@ FROM mcr.microsoft.com/dotnet/runtime:8.0-alpine
 COPY --from=node_base . .
 
 # Install nginx. Maybe don't need curl and vim, though vim could potentially be handy.
+# 'icu' packages are to support languages other than 'invariant'.
 RUN apk update \
-	&& apk add nginx curl vim
+	&& apk add --no-cache nginx curl vim icu-data-full icu-libs
 
 WORKDIR /app
 COPY --from=build /app .
