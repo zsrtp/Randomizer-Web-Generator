@@ -58,7 +58,6 @@
           },
           {
             "starting": 1,
-            "maxPicks": 4,
             "hintDef": [
               {
                 // Num swords in province with most swords (or tied for most).
@@ -72,22 +71,23 @@
               },
               { "hintType": "itemToItemPath" },
               {
-                "iterations": 99,
                 "selectionType": "randomOrder",
+                "maxPicks": 2,
                 "hintDef": [
                   {
-                    "selectionType": "randomOrder",
-                    "maxPicks": 1,
-                    "hintDef": [
-                      {
-                        // Ex: male bugs lead to nothing
-                        "hintType": "tradeGroup",
-                        "options": {
-                          "validGroups": ["male_bugs", "female_bugs"],
-                          "validStatuses": ["bad"]
-                        }
-                      }
-                    ]
+                    // Ex: male bugs lead to nothing
+                    "hintType": "tradeGroup",
+                    "options": {
+                      "validGroups": ["male_bugs", "female_bugs"],
+                      "validStatuses": ["bad"]
+                    }
+                  },
+                  {
+                    // Ex: Owl Statues are junk
+                    "hintType": "barren",
+                    "options": {
+                      "areaType": "category"
+                    }
                   },
                   {
                     "hintType": "item",
@@ -115,13 +115,6 @@
                         "Magic_Armor",
                         "alias:bugs"
                       ]
-                    }
-                  },
-                  {
-                    // Ex: Owl Statues are junk
-                    "hintType": "barren",
-                    "options": {
-                      "areaType": "category"
                     }
                   }
                 ]
