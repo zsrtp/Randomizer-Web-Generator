@@ -166,11 +166,11 @@
     <comment></comment>
   </data>
   <data name="area.category.llc_lantern_chests$default" xml:space="preserve">
-    <value>$(plural)Lake Lantern Cave lantern chests</value>
+    <value>$(plural)the {cs}Lake Lantern Cave lantern chests{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.llc_lantern_chests$plural" xml:space="preserve">
-    <value>$(plural)Lake Lantern Cave lantern chests</value>
+    <value>$(plural)the {cs}Lake Lantern Cave lantern chests{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.lower_desert" xml:space="preserve">
