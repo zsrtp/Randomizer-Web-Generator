@@ -36,9 +36,13 @@ namespace TPRandomizer.Hints
             CustomMsgData.Builder customMsgDataBuilder =
                 new(genData, (byte)Randomizer.RequiredDungeons);
 
-            // If user specified that there are no hintSettings, then we should return the default customMsgData settings.
+            // If user specified that there are no hintSettings, then we should
+            // return the default customMsgData settings.
+            if (genData.sSettings.hintDistribution == HintDistribution.None)
+                return customMsgDataBuilder.Build(genData.sSettings);
 
             hintSettings = HintSettings.fromPath(genData);
+
             mutableGroups = hintSettings.createMutableGroups();
 
             // Adjust selfHinters if able

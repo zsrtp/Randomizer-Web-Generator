@@ -249,6 +249,9 @@ namespace TPRandomizer
                 Dictionary<string, bool> ret = new();
                 foreach (string checkName in selfHinterChecks)
                 {
+                    if (!updateShopText && checkName == "Barnes Bomb Bag")
+                        continue;
+
                     Item item = HintUtils.getCheckContents(checkName);
                     bool useDefArticle = genData.ItemUsesDefArticle(item);
 
@@ -967,46 +970,34 @@ namespace TPRandomizer
 
         private void GenHintSignEntries(List<MessageEntry> results)
         {
-            if (ListUtils.isEmpty(hintSpots))
-                return;
-
-            foreach (HintSpot hintSpot in hintSpots)
+            if (!ListUtils.isEmpty(hintSpots))
             {
-                List<Hint> hints = hintSpot.hints;
-                MessageEntry messageEntry = CustomMsgUtils.GetEntryForSpotId(hintSpot.location);
-                StringBuilder sb = new();
-
-                for (int i = 0; i < hints.Count; i++)
+                foreach (HintSpot hintSpot in hintSpots)
                 {
-                    Hint hint = hints[i];
+                    List<Hint> hints = hintSpot.hints;
+                    MessageEntry messageEntry = CustomMsgUtils.GetEntryForSpotId(hintSpot.location);
+                    StringBuilder sb = new();
 
-                    string text = hint.toHintTextList(this)[0].text;
-                    if (i < hints.Count - 1)
-                        text = Res.NormalizeForMergingOnSign(text);
+                    for (int i = 0; i < hints.Count; i++)
+                    {
+                        Hint hint = hints[i];
 
-                    sb.Append(text);
+                        string text = hint.toHintTextList(this)[0].text;
+                        if (i < hints.Count - 1)
+                            text = Res.NormalizeForMergingOnSign(text);
+
+                        sb.Append(text);
+                    }
+
+                    string textForSign = sb.ToString();
+                    messageEntry.message = textForSign;
+
+                    results.Add(messageEntry);
                 }
-
-                string textForSign = sb.ToString();
-                messageEntry.message = textForSign;
-
-                results.Add(messageEntry);
             }
 
-            results.Add(
-                CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Fallback, "...")
-            // new MessageEntry
-            // {
-            //     stageIDX = 0xFF,
-            //     roomIDX = 0xFF,
-            //     messageID = 0x1369, // Hint Message
-            //     // message = itemHintText
-            //     // message = wothHintText
-            //     // message = tradeGroupHintText
-            //     message = "abc"
-            //     // message = bht
-            // }
-            );
+            // Always add the fallback text
+            results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Fallback, "..."));
         }
 
         private void AddShopSlotMsg(

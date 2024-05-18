@@ -212,10 +212,9 @@ namespace TPRandomizer
                     throw new Exception("Error! Playthrough not valid.");
                 }
 
-                CustomMsgData customMsgData = null;
+                CustomMsgData customMsgData;
                 try
                 {
-                    // TODO: temp test code
                     HintGenerator gen = new HintGenerator(
                         rnd,
                         SSettings,
