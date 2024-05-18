@@ -41,6 +41,7 @@ RUN cp -R Assets/Entrances/EntranceTable.jsonc /app/generator/Assets/Entrances/E
 RUN mkdir -p /app/generator/Assets/CheckMetadata
 RUN cp -R Assets/CheckMetadata/Gamecube /app/generator/Assets/CheckMetadata
 RUN cp -R Assets/CheckMetadata/Wii1.0 /app/generator/Assets/CheckMetadata
+RUN cp -R Assets/HintDistributions /app/generator/Assets/HintDistributions
 
 FROM node:lts-alpine as node_base
 FROM mcr.microsoft.com/dotnet/runtime:8.0-alpine

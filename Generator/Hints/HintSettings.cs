@@ -1267,7 +1267,7 @@ namespace TPRandomizer.Hints.Settings
 
         public static HintSettings fromPath(HintGenData genData)
         {
-            string jsonPath = Global.CombineRootPath("./Hints/Distributions/blossom.jsonc");
+            string jsonPath = Global.CombineRootPath("./Assets/HintDistributions/blossom.jsonc");
 
             string contents = File.ReadAllText(jsonPath);
 
