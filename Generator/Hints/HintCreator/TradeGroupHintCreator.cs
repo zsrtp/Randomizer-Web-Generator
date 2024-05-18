@@ -37,6 +37,11 @@ namespace TPRandomizer.Hints.HintCreator
         private TradeGroupHint.Vagueness vagueness = TradeGroupHint.Vagueness.Vague;
         private HashSet<TradeGroupHint.Status> validStatuses;
 
+        // If 'smartHinting' is enabled, only want to generate this hint when
+        // Agitha is logically required (except for no-logic which skips this
+        // check since it does not have a concept of LOGICally required).
+        private bool smartHinting = true;
+
         private TradeGroupHintCreator() { }
 
         new public static TradeGroupHintCreator fromJObject(JObject obj)
@@ -103,6 +108,12 @@ namespace TPRandomizer.Hints.HintCreator
                             $"Failed to parse '{vaguenessStr}' to TradeGroupHint.Vagueness enum."
                         );
                 }
+
+                inst.smartHinting = HintSettingUtils.getOptionalBool(
+                    options,
+                    "smartHinting",
+                    inst.smartHinting
+                );
             }
 
             if (inst.validStatuses == null)
@@ -127,6 +138,17 @@ namespace TPRandomizer.Hints.HintCreator
         {
             if (numHints < 1 || validGroups.Count < 1 || validStatuses.Count < 1)
                 return null;
+
+            // Comparing against bool since agithaRequired is 'bool?'
+            if (smartHinting && genData.agithaRequired == false)
+            {
+                // When smartHinting is enabled, do not create a hint of this
+                // type when we know that Agitha is logically skippable. Note
+                // that if 2 of 4 swords were on Agitha with 0 starting swords,
+                // then agithaRequired would be true even though individual
+                // sword checks may not be logically required.
+                return null;
+            }
 
             // Pick by group, then pick a validStatus from within the group. If
             // a group is there, it must have at least one validStatus which

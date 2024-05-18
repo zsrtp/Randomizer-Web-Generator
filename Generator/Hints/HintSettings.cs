@@ -8,6 +8,7 @@ namespace TPRandomizer.Hints.Settings
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using TPRandomizer.Hints.HintCreator;
+    using TPRandomizer.SSettings.Enums;
     using TPRandomizer.Util;
 
     class HintSettingUtils
@@ -1273,9 +1274,10 @@ namespace TPRandomizer.Hints.Settings
 
         public static HintSettings fromPath(HintGenData genData)
         {
-            // string jsonPath = Global.CombineRootPath("./Assets/HintDistributions/blossom.jsonc");
-            string jsonPath = Global.CombineRootPath("./Assets/HintDistributions/weak.jsonc");
+            if (genData.sSettings.hintDistribution == HintDistribution.None)
+                return null;
 
+            string jsonPath = ResolveJsonPath(genData);
             string contents = File.ReadAllText(jsonPath);
 
             JObject root = JObject.Parse(contents);
@@ -1306,6 +1308,23 @@ namespace TPRandomizer.Hints.Settings
             genData.updateFromHintSettings(ret);
 
             return ret;
+        }
+
+        private static string ResolveJsonPath(HintGenData genData)
+        {
+            string basePath = Global.CombineRootPath("./Assets/HintDistributions");
+
+            switch (genData.sSettings.hintDistribution)
+            {
+                case HintDistribution.Blossom:
+                    return Path.Combine(basePath, "blossom.jsonc");
+                case HintDistribution.Weak:
+                    return Path.Combine(basePath, "weak.jsonc");
+                default:
+                    throw new Exception(
+                        $"Unrecognized HintDistribution '{genData.sSettings.hintDistribution}'."
+                    );
+            }
         }
 
         private static Dictionary<string, HashSet<T>> loadKeyToTypeList<T>(

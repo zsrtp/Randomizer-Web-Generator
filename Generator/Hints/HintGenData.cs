@@ -21,6 +21,7 @@ namespace TPRandomizer.Hints
 
         public Dictionary<Goal, List<string>> goalToRequiredChecks { get; set; }
         public HashSet<string> requiredChecks { get; set; }
+        public bool? agithaRequired { get; set; }
         public HashSet<Item> preventBarrenItems { get; private set; }
         public HashSet<string> allowBarrenChecks { get; private set; }
         public Dictionary<Item, List<string>> itemToChecksList { get; set; }
@@ -62,6 +63,8 @@ namespace TPRandomizer.Hints
                     startingRoom,
                     playthroughSpheres.spheres
                 );
+
+                agithaRequired = HintUtils.CalcAgithaRequired(startingRoom, sSettings);
             }
             else
             {

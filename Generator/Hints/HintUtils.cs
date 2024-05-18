@@ -380,6 +380,46 @@ namespace TPRandomizer.Hints
             return requiredChecks;
         }
 
+        public static bool? CalcAgithaRequired(Room startingRoom, SharedSettings sSettings)
+        {
+            if (sSettings.logicRules == LogicRules.No_Logic)
+                return null;
+
+            List<(string, Item)> checkAndOriginalContents = new();
+
+            foreach (KeyValuePair<Item, string> pair in HintConstants.bugsToRewardChecksMap)
+            {
+                string agithaRewardCheck = pair.Value;
+
+                // Replace check contents with a green rupee. If the playthrough
+                // is still beatable, then that item cannot be considered for
+                // SpoL hints.
+                Item originalContents = Randomizer.Checks.CheckDict[agithaRewardCheck].itemId;
+                Randomizer.Checks.CheckDict[agithaRewardCheck].itemId = Item.Green_Rupee;
+
+                checkAndOriginalContents.Add(new(agithaRewardCheck, originalContents));
+            }
+
+            HashSet<Goal> goals = new() { GoalConstants.Ganondorf };
+
+            // Result is true if beatable without Agitha
+            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+                startingRoom,
+                goals,
+                false
+            );
+
+            bool agithaRequired = !goalResults[GoalConstants.Ganondorf];
+
+            // Put the original items back.
+            foreach ((string, Item) pair in checkAndOriginalContents)
+            {
+                Randomizer.Checks.CheckDict[pair.Item1].itemId = pair.Item2;
+            }
+
+            return agithaRequired;
+        }
+
         public static Dictionary<Goal, List<string>> calculateGoalsRequiredChecks(
             Room startingRoom,
             List<List<KeyValuePair<int, Item>>> spheres,
