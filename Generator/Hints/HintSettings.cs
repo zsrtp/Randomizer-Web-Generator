@@ -4,6 +4,7 @@ namespace TPRandomizer.Hints.Settings
     using System.Collections.Generic;
     using System.IO;
     using System.Text.RegularExpressions;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using TPRandomizer.Hints.HintCreator;
@@ -676,7 +677,7 @@ namespace TPRandomizer.Hints.Settings
 
     public class Starting
     {
-        public SpotId spot { get; private set; } = SpotId.Midna_Talk_To;
+        public SpotId spot { get; private set; } = SpotId.Ordon_Sign;
         public bool excludeFromGroups { get; private set; } = false;
 
         private Starting() { }
@@ -694,7 +695,7 @@ namespace TPRandomizer.Hints.Settings
 
                 JObject obj = (JObject)token;
 
-                inst.spot = parseSpot(obj, SpotId.Midna_Talk_To);
+                inst.spot = parseSpot(obj, inst.spot);
 
                 inst.excludeFromGroups = HintSettingUtils.getOptionalBool(
                     obj,
@@ -720,7 +721,6 @@ namespace TPRandomizer.Hints.Settings
             HashSet<SpotId> validStartingSpots =
                 new()
                 {
-                    SpotId.Midna_Talk_To,
                     SpotId.Ordon_Sign,
                     SpotId.Sacred_Grove_Sign,
                     SpotId.Faron_Field_Sign,
