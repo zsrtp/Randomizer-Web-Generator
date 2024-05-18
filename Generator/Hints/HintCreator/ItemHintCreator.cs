@@ -13,12 +13,20 @@ namespace TPRandomizer.Hints.HintCreator
     {
         public override HintCreatorType type { get; } = HintCreatorType.Item;
 
+        public enum AreaType
+        {
+            Default = 0,
+            Zone = 1,
+            Province = 2,
+        }
+
         private List<Item> validItems = null;
         protected HashSet<string> invalidChecks = new();
         private HashSet<CheckStatus> validStatuses = new() { CheckStatus.Good };
         private CheckStatusDisplay statusDisplay = CheckStatusDisplay.Automatic;
         private bool itemsOrdered = false;
         private bool vague = false;
+        private AreaType areaType = AreaType.Default;
 
         // Creates item hints with the following properties:
 
@@ -153,6 +161,15 @@ namespace TPRandomizer.Hints.HintCreator
                 );
 
                 inst.vague = HintSettingUtils.getOptionalBool(options, "vague", inst.vague);
+
+                string areaTypeStr = HintSettingUtils.getOptionalString(options, "areaType", null);
+                if (!StringUtils.isEmpty(areaTypeStr))
+                {
+                    if (!Enum.TryParse(areaTypeStr, true, out AreaType areaTypeVal))
+                        throw new Exception($"Failed to parse '{areaTypeStr}' to AreaType enum.");
+                    else
+                        inst.areaType = areaTypeVal;
+                }
             }
 
             if (inst.validStatuses.Contains(CheckStatus.Good))
@@ -279,7 +296,21 @@ namespace TPRandomizer.Hints.HintCreator
                 if (possibleChecks.Count < 1)
                     itemToHintableChecks.Remove(selectedItem);
 
-                AreaId areaId = genData.GetRecommendedAreaId(selectedCheckName);
+                AreaId areaId;
+                switch (areaType)
+                {
+                    case AreaType.Default:
+                        areaId = genData.GetRecommendedAreaId(selectedCheckName);
+                        break;
+                    case AreaType.Zone:
+                        areaId = genData.GetZoneAreaId(selectedCheckName);
+                        break;
+                    case AreaType.Province:
+                        areaId = genData.GetProvinceAreaId(selectedCheckName);
+                        break;
+                    default:
+                        throw new Exception($"Unrecognized AreaType '{areaType}'.");
+                }
 
                 ItemHint hint = ItemHint.Create(
                     genData,

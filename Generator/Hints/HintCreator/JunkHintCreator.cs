@@ -27,7 +27,14 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenCache cache
         )
         {
-            return null;
+            List<Hint> results = new();
+
+            for (int i = 0; i < numHints; i++)
+            {
+                results.Add(new JunkHint(genData.rnd));
+            }
+
+            return results;
         }
     }
 }

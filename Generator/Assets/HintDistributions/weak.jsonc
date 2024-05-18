@@ -1,43 +1,21 @@
 {
-  "starting": {
-    "spot": "ordon_sign",
-    "excludeFromGroups": true
-  },
+  // Weak distribution
   "agitha": true,
   "jovani": {
-    "minFoundSoulsForHint": 10
+    "minSoulsForHint": 60
   },
   "caveOfOrdeals": true,
   "dungeons": {
-    "bigKeyHints": true,
-    "maxBarrenHints": 1,
-    "maxWothHints": 2
-  },
-  "beyondPointZones": ["alias:all"],
-  "barren": {
-    "ownZoneBehavior": "monopolize",
-    "ownZoneShowsAsJunkHint": true
+    "bigKeyHints": false
   },
   "always": {
-    "monopolizeSpots": true,
-    "idealNumSpots": 5,
+    "idealNumSpots": 99,
     "copies": 2,
     "groupId": "overworld"
   },
-  //
-  "addChecks": {
-    "Lake Hylia Shell Blade Grotto Chest": ["always"]
-  },
-  "removeChecks": {
-    "Herding Goats Reward": ["sometimes"],
-    "Wrestling With Bo": ["sometimes"]
-  },
-  "removeItems": {
-    "Progressive_Sword": ["sometimes"]
-  },
-  //
   "groups": {
-    "overworld": ["alias:overworldZones"]
+    "overworld": ["alias:overworldZones"],
+    "dungeons": ["alias:dungeonZones"]
   },
   "hints": [
     {
@@ -45,145 +23,32 @@
       "hintDef": {
         "copies": 2,
         "hintDef": [
+          { "hintType": "itemToItemPath" },
           {
-            "hintType": "barren",
-            "iterations": 3,
-            "starting": 1
+            "hintType": "item",
+            "options": {
+              "areaType": "province",
+              "validItems": ["Lantern", "Boomerang"]
+            }
           },
           {
-            "hintType": "path",
-            "iterations": 3,
-            "starting": 1
+            "hintType": "sometimes",
+            "iterations": 4
           },
           {
-            "starting": 1,
-            "maxPicks": 4,
-            "hintDef": [
-              {
-                // Num swords in province with most swords (or tied for most).
-                "hintType": "numItemInArea",
-                "saveToVar": "mostSwordsProvince",
-                "options": {
-                  "item": "Progressive_Sword",
-                  "areaType": "province",
-                  "order": "desc"
-                }
-              },
-              { "hintType": "itemToItemPath" },
-              {
-                "iterations": 99,
-                "selectionType": "randomOrder",
-                "hintDef": [
-                  {
-                    "selectionType": "randomOrder",
-                    "maxPicks": 1,
-                    "hintDef": [
-                      {
-                        // Ex: male bugs lead to nothing
-                        "hintType": "tradeGroup",
-                        "options": {
-                          "validGroups": ["male_bugs", "female_bugs"],
-                          "validStatuses": ["bad"]
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "hintType": "item",
-                    "options": {
-                      "validStatuses": ["required"],
-                      "checkStatusDisplay": "required_or_not",
-                      "validItems": [
-                        "Boomerang",
-                        "Lantern",
-                        "Slingshot",
-                        "Progressive_Fishing_Rod",
-                        "Iron_Boots",
-                        "Progressive_Bow",
-                        "Filled_Bomb_Bag",
-                        "Zora_Armor",
-                        "Progressive_Clawshot",
-                        "Shadow_Crystal",
-                        "Aurus_Memo",
-                        "Asheis_Sketch",
-                        "Spinner",
-                        "Ball_and_Chain",
-                        "Progressive_Dominion_Rod",
-                        "Progressive_Sky_Book",
-                        "Gate_Keys",
-                        "Magic_Armor",
-                        "alias:bugs"
-                      ]
-                    }
-                  },
-                  {
-                    // Ex: Owl Statues are junk
-                    "hintType": "barren",
-                    "options": {
-                      "areaType": "category"
-                    }
-                  }
-                ]
-              }
-            ]
+            "hintType": "junk",
+            "iterations": 99,
+            "copies": 1
           }
         ]
       }
     },
     {
-      // 2nd layer is "sometimes" hints
-      "groupId": "overworld",
+      "groupId": "dungeons",
       "hintDef": {
-        "starting": 1,
-        "copies": 2,
-        "hintDef": [
-          {
-            "hintType": "item",
-            "options": {
-              "validItems": ["Progressive_Sword"],
-              "invalidChecks": ["var:mostSwordsProvince.areaId"]
-            }
-          },
-          {
-            "hintType": "location",
-            "options": {
-              "markAsSometimes": true,
-              "validChecks": ["Wrestling With Bo", "Herding Goats Reward"]
-            }
-          },
-          {
-            "hintType": "location",
-            "options": {
-              "markAsSometimes": true,
-              "namedChecks": ["City in The Sky West Wing First Chest"],
-              "namedProbability": 0.5
-            }
-          },
-          {
-            "hintType": "location",
-            "options": {
-              "markAsSometimes": true,
-              "namedChecks": [
-                "Forest Temple Diababa Heart Container",
-                "Goron Mines Fyrus Heart Container",
-                "Lakebed Temple Morpheel Heart Container",
-                "Arbiters Grounds Stallord Heart Container",
-                "Snowpeak Ruins Blizzeta Heart Container",
-                "Temple of Time Armogohma Heart Container",
-                "City in The Sky Argorok Heart Container"
-              ],
-              "namedOrder": "random",
-              "namedProbability": 0.5,
-              "validStatuses": ["required"],
-              "checkStatusDisplay": "required_or_not",
-              "vague": true
-            }
-          },
-          {
-            "hintType": "sometimes",
-            "iterations": 99
-          }
-        ]
+        "hintType": "junk",
+        "iterations": 99,
+        "copies": 1
       }
     }
   ]

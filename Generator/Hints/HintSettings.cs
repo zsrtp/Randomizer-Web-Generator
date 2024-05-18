@@ -1151,15 +1151,22 @@ namespace TPRandomizer.Hints.Settings
             {
                 string zoneName = spotToZone[spot];
                 string[] checkNames = zoneToChecks[zoneName];
-
-                foreach (string checkName in checkNames)
+                // Do not filter out Hyrule Castle even if all HC checks are a
+                // known status since it is expected that players will always
+                // have to pass that hint sign.
+                if (zoneName == "Hyrule Castle")
+                    filteredSpots.Add(spot);
+                else
                 {
-                    if (!HintUtils.checkIsPlayerKnownStatus(checkName))
+                    foreach (string checkName in checkNames)
                     {
-                        // Spot passes filter if contains check with a
-                        // non-playerKnown status.
-                        filteredSpots.Add(spot);
-                        break;
+                        if (!HintUtils.checkIsPlayerKnownStatus(checkName))
+                        {
+                            // Spot passes filter if contains check with a
+                            // non-playerKnown status.
+                            filteredSpots.Add(spot);
+                            break;
+                        }
                     }
                 }
             }
@@ -1261,13 +1268,13 @@ namespace TPRandomizer.Hints.Settings
         public Dictionary<string, HashSet<string>> removeChecks { get; private set; }
         public Dictionary<string, HashSet<Item>> addItems { get; private set; }
         public Dictionary<string, HashSet<Item>> removeItems { get; private set; }
-        public List<List<HintDef>> distribution { get; private set; } = new();
         public Dictionary<string, HintGroup> groups { get; private set; } = new();
         public List<HintDefGrouping> hintDefGroupings { get; private set; } = new();
 
         public static HintSettings fromPath(HintGenData genData)
         {
-            string jsonPath = Global.CombineRootPath("./Assets/HintDistributions/blossom.jsonc");
+            // string jsonPath = Global.CombineRootPath("./Assets/HintDistributions/blossom.jsonc");
+            string jsonPath = Global.CombineRootPath("./Assets/HintDistributions/weak.jsonc");
 
             string contents = File.ReadAllText(jsonPath);
 
@@ -1534,7 +1541,7 @@ namespace TPRandomizer.Hints.Settings
             }
 
             if (result == null)
-                result = new() { Zone.Lake_Lantern_Cave, Zone.Snowpeak, };
+                result = new() { };
 
             return result;
         }

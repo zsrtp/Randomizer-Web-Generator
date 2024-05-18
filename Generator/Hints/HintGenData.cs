@@ -810,6 +810,18 @@ namespace TPRandomizer.Hints
             return false;
         }
 
+        public AreaId GetZoneAreaId(string checkName)
+        {
+            string zoneName = HintUtils.checkNameToHintZone(checkName);
+            return AreaId.ZoneStr(zoneName);
+        }
+
+        public AreaId GetProvinceAreaId(string checkName)
+        {
+            Province province = HintUtils.checkNameToHintProvince(checkName);
+            return AreaId.Province(province);
+        }
+
         public AreaId GetRecommendedAreaId(string checkName)
         {
             Item item = HintUtils.getCheckContents(checkName);
