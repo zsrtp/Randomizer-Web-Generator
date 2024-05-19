@@ -23,6 +23,8 @@ namespace TPRandomizer
         {
             Global.Init(provider);
 
+            // Set default to "en" so it is consistent regardless of the
+            // system's language.
             Res.UpdateCultureInfo("en");
 
             string str;
