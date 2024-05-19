@@ -23,18 +23,8 @@ namespace TPRandomizer
         {
             Global.Init(provider);
 
-            // string abc = Res.Msg();
-
-            // string def = messageService.GetMsg(
-            //     "item.progressive-clawshot",
-            //     new() { { "context", "dog,cat" }, { "count", 12 } }
-            // );
-
-            // Commented out:
-            // Res.UpdateCultureInfo("fr-FR-DOG");
             Res.UpdateCultureInfo("en");
 
-            // string abc2 = Res.Msg();
             string str;
             byte[] bytes;
 

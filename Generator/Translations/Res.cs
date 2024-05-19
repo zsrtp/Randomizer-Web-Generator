@@ -51,7 +51,6 @@ namespace TPRandomizer
                 return;
             }
 
-            // "fr-FR-DOG"
             CultureInfo.CurrentCulture = newCultureInfo;
             CultureInfo.CurrentUICulture = newCultureInfo;
 

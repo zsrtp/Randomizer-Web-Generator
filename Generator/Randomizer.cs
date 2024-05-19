@@ -549,18 +549,35 @@ namespace TPRandomizer
                 {
                     if (gameRegion != GameRegion.All)
                     {
+                        // Update language to be used with resource system.
+                        string langTag = fcSettings.GetLanguageTagString(gameRegion);
+                        Res.UpdateCultureInfo(langTag);
+
                         fileDefs.Add(GenGciFileDef(id, seedGenResults, fcSettings, gameRegion));
                     }
                 }
             }
             else
             {
+                // Update language to be used with resource system.
+                string langTag = fcSettings.GetLanguageTagString();
+                Res.UpdateCultureInfo(langTag);
+
                 // Create file for one region
                 fileDefs.Add(GenGciFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion));
             }
 
             if (!seedGenResults.isRaceSeed && fcSettings.includeSpoilerLog)
             {
+                // Set back to default language ('en') before creating spoiler
+                // log when gameRegion is 'All'.
+                if (fcSettings.gameRegion == GameRegion.All)
+                {
+                    // Update language to be used with resource system.
+                    string langTag = fcSettings.GetLanguageTagString();
+                    Res.UpdateCultureInfo(langTag);
+                }
+
                 // Add fileDef for spoilerLog
                 string spoilerLogText = GetSeedGenResultsJson(id);
                 byte[] spoilerBytes = Encoding.UTF8.GetBytes(spoilerLogText);
