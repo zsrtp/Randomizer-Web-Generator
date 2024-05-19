@@ -1102,6 +1102,12 @@ namespace TPRandomizer
                     case "fr":
                         result += GetSuffixFr(val, ord);
                         break;
+                    case "it":
+                        result += GetSuffixIt(val, ord);
+                        break;
+                    case "de":
+                        result += GetSuffixDe(val, ord);
+                        break;
                     default:
                         throw new Exception($"'{langCode}' is not a supported langCode.");
                 }
@@ -1189,14 +1195,58 @@ namespace TPRandomizer
                 return "other";
             }
 
-            // private static string SliceFromEnd(string str, int numChars)
-            // {
-            //     if (StringUtils.isEmpty(str))
-            //         return str;
+            private static string GetSuffixIt(string val, bool ord)
+            {
+                string[] s = val.Split('.');
 
-            //     int startIdx = Math.Max(str.Length - numChars, 0);
-            //     return str.Substring(startIdx);
-            // }
+                uint wholeNumVal = StringUtils.isEmpty(s[0]) ? 0 : Convert.ToUInt32(s[0]);
+
+                bool hasDecimals =
+                    s.Length > 1 && !StringUtils.isEmpty(s[1]) && Convert.ToUInt32(s[1]) != 0;
+
+                if (ord)
+                {
+                    if (
+                        !hasDecimals
+                        && (
+                            wholeNumVal == 11
+                            || wholeNumVal == 8
+                            || wholeNumVal == 80
+                            || wholeNumVal == 800
+                        )
+                    )
+                        return "many";
+                    return "other";
+                }
+
+                if (!hasDecimals)
+                {
+                    if (wholeNumVal == 1)
+                        return "one";
+                    else if (wholeNumVal != 0 && ((wholeNumVal % 1000000) == 0))
+                        return "many";
+                }
+
+                return "other";
+            }
+
+            private static string GetSuffixDe(string val, bool ord)
+            {
+                if (ord)
+                    return "other";
+
+                string[] s = val.Split('.');
+
+                uint wholeNumVal = StringUtils.isEmpty(s[0]) ? 0 : Convert.ToUInt32(s[0]);
+
+                bool hasDecimals =
+                    s.Length > 1 && !StringUtils.isEmpty(s[1]) && Convert.ToUInt32(s[1]) != 0;
+
+                if (!hasDecimals && wholeNumVal == 1)
+                    return "one";
+
+                return "other";
+            }
 
             public static readonly Dictionary<int, Func<int, int>> _rulesPluralsTypes =
                 new()
