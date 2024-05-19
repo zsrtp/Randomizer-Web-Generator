@@ -652,7 +652,7 @@ namespace TPRandomizer
                 results.Add(
                     CustomMsgUtils.GetEntry(
                         MsgEntryId.Fishing_Hole_Bottle_Sign,
-                        Res.LangSpecificNormalize(fishingBottleText, 30)
+                        Res.LangSpecificNormalize(fishingBottleText, Res.IsCultureJa() ? 25 : 30)
                     )
                 );
             }

@@ -469,6 +469,14 @@
     <value>They say that {source} {verb(name:is)} on the path to {target}.</value>
     <comment></comment>
   </data>
+  <data name="hint-type.jovani-rewards.reward" xml:space="preserve">
+    <value>{count} soul reward:\n{item}</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.jovani-rewards.reward#other" xml:space="preserve">
+    <value>{count} souls reward:\n{item}</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.location" xml:space="preserve">
     <value>They say that the reward for {check-name} {verb(name:is)} {item}.</value>
     <comment></comment>

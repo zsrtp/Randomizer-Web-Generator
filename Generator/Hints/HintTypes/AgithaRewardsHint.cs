@@ -139,7 +139,10 @@ namespace TPRandomizer.Hints
             );
 
             // Set font size to 0x48.
-            string normText = Res.LangSpecificNormalize("\x1A\x07\xFF\x00\x01\x00\x48" + text, 41);
+            string normText = Res.LangSpecificNormalize(
+                "\x1A\x07\xFF\x00\x01\x00\x48" + text,
+                Res.IsCultureJa() ? 30 : 41
+            );
 
             HintText hintText = new HintText();
             hintText.text = normText;

@@ -106,7 +106,7 @@ namespace TPRandomizer.Hints
                     );
                     // 41 based on smaller font size. See AgithaRewardsHint as
                     // well.
-                    text += Res.LangSpecificNormalize(rowText, 41);
+                    text += Res.LangSpecificNormalize(rowText, Res.IsCultureJa() ? 30 : 41);
                 }
             }
 

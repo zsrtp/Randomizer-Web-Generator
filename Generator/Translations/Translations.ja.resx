@@ -117,20 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cat" xml:space="preserve">
-    <value>猫</value>
-    <comment></comment>
-  </data>
-  <data name="dog" xml:space="preserve">
-    <value>犬</value>
-    <comment></comment>
-  </data>
-  <data name="item.filled-bomb-bag" xml:space="preserve">
-    <value>爆弾入りボム袋</value>
-    <comment></comment>
-  </data>
-  <data name="item.progressive-clawshot" xml:space="preserve">
-    <value>クローショット</value>
-    <comment></comment>
+  <data name="shop.slot" xml:space="preserve">
+    <value>{item(shop:true)} {price}</value>
+    <comment>Temp one so text fits in a single box to avoid issues.</comment>
   </data>
 </root>
