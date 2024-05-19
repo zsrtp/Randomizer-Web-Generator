@@ -1112,7 +1112,7 @@ namespace TPRandomizer
             string context = isShop ? "" : contextIn;
             string countStr = count?.ToString();
 
-            Res.Result abc = Res.ParseVal(
+            Res.Result abc = Res.Msg(
                 GetItemResKey(item),
                 new() { { "context", context }, { "count", countStr } }
             );
@@ -1204,7 +1204,7 @@ namespace TPRandomizer
                 checkStatusDisplay = CheckStatusDisplay.Automatic;
             }
 
-            Res.Result abc = Res.ParseVal(
+            Res.Result abc = Res.Msg(
                 GetItemResKey(item),
                 new() { { "context", context }, { "count", countStr } }
             );
@@ -1328,7 +1328,7 @@ namespace TPRandomizer
             if (includeColor)
                 result += CustomMessages.messageColorPurple;
 
-            string shopText = Res.SimpleMsgOld(
+            string shopText = Res.SimpleMsg(
                 "shop.price",
                 new() { { "count", amount.ToString(CultureInfo.InvariantCulture) } }
             );
@@ -1359,7 +1359,7 @@ namespace TPRandomizer
             if (!areaRes.meta.TryGetValue("ap", out string areaPhraseKey))
                 areaPhraseKey = "default";
 
-            Res.Result areaPhraseRes = Res.ParseVal($"area-phrase.{areaPhraseKey}");
+            Res.Result areaPhraseRes = Res.Msg($"area-phrase.{areaPhraseKey}");
             string areaPhrase = areaPhraseRes.Substitute(new() { { "area", areaString } });
 
             return areaPhrase;

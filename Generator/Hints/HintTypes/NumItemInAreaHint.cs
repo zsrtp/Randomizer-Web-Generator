@@ -83,7 +83,7 @@ namespace TPRandomizer.Hints
                 CustomMessages.messageColorRed
             );
 
-            Res.Result hintTypeRes = Res.ParseVal("hint-type.num-item-in-area");
+            Res.Result hintTypeRes = Res.Msg("hint-type.num-item-in-area");
 
             string verb = "";
             if (hintTypeRes.slotMeta.TryGetValue("verb", out Dictionary<string, string> verbMeta))

@@ -62,112 +62,23 @@ namespace TPRandomizer
             translations.OnCultureChange();
         }
 
-        public static Dictionary<string, string> FilterToRelevantContext(
-            string baseResKey,
-            Dictionary<string, string> context
-        )
-        {
-            Dictionary<string, string> filteredContext = new();
-            if (StringUtils.isEmpty(baseResKey) || ListUtils.isEmpty(context))
-                return filteredContext;
-
-            HashSet<string> relevantContextVals = translations.GetRelevantContextForBaseKey(
-                baseResKey
-            );
-            foreach (KeyValuePair<string, string> pair in context)
-            {
-                string key;
-                if (pair.Value == "true")
-                    key = pair.Key;
-                else
-                    key = pair.Key + "-" + pair.Value;
-
-                if (relevantContextVals.Contains(key))
-                    filteredContext[pair.Key] = pair.Value;
-            }
-
-            return filteredContext;
-        }
-
-        public static string SimpleMsgOld(
-            string resKey,
-            Dictionary<string, string> interpolation = null
-        )
-        {
-            // Pass the interpolation to the translationsService so that it can
-            // build the stack of keys based on the current language it is
-            // trying to check as it goes through its list.
-
-
-            // Need to handle interpolation "count" when doing the initial
-            // grabbing of the resource.
-
-            // ParsedRes parsedRes = ParseVal(resKey);
-            // parsedRes.Substitute();
-
-            // MsgResult msgResult = translations.GetMsg(resKey, interpolation);
-
-            Result parsedRes = ParseVal(resKey, interpolation);
-
-            return parsedRes.Substitute(interpolation);
-
-            // if (msgResult == null)
-            //     return null;
-
-            // return null;
-
-            // return translations.GetMsg(resKey);
-            // return translations.GetGreetingMessage();
-        }
-
         public static string SimpleMsg(
             string resKey,
-            Dictionary<string, string> interpolationIn,
+            Dictionary<string, string> interpolation,
             Dictionary<string, string> optionalContextMeta = null
         )
         {
-            Result result = Msg(resKey, interpolationIn, optionalContextMeta);
-            return result.Substitute(interpolationIn);
+            Result result = Msg(resKey, interpolation, optionalContextMeta);
+            return result.Substitute(interpolation);
         }
 
         public static Result Msg(
             string resKey,
-            Dictionary<string, string> interpolationIn,
+            Dictionary<string, string> interpolation = null,
             Dictionary<string, string> optionalContextMeta = null
         )
         {
-            Dictionary<string, string> interpolation;
-            if (!ListUtils.isEmpty(interpolationIn))
-                interpolation = new(interpolationIn);
-            else
-                interpolation = new();
-
-            // Build context by combining static and optional for resKey
-            HashSet<string> contextParts = null;
-            if (
-                interpolation.TryGetValue("context", out string staticContext)
-                && !StringUtils.isEmpty(staticContext)
-            )
-            {
-                contextParts = new(staticContext.Split(","));
-            }
-
-            Dictionary<string, string> contextDict = null;
-            if (!ListUtils.isEmpty(optionalContextMeta))
-                contextDict = FilterToRelevantContext(resKey, optionalContextMeta);
-
-            string context = CustomMsgData.BuildContextWithMeta(contextParts, contextDict);
-            interpolation["context"] = context;
-
-            return ParseVal(resKey, interpolation);
-        }
-
-        public static Result ParseVal(
-            string resKey,
-            Dictionary<string, string> interpolation = null
-        )
-        {
-            MsgResult msgResult = translations.GetMsg(resKey, interpolation);
+            MsgResult msgResult = translations.GetMsg(resKey, interpolation, optionalContextMeta);
             Result parsedRes = new(msgResult.cultureInfo, msgResult.langCode);
             string resVal = msgResult.msg;
 

@@ -69,7 +69,7 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
-            Res.Result hintParsedRes = Res.ParseVal("hint-type.woth");
+            Res.Result hintParsedRes = Res.Msg("hint-type.woth");
 
             Res.Result areaRes = null;
             string areaText = "";

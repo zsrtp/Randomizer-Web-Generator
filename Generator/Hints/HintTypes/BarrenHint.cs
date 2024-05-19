@@ -34,7 +34,7 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
-            Res.Result hintParsedRes = Res.ParseVal("hint-type.barren");
+            Res.Result hintParsedRes = Res.Msg("hint-type.barren");
 
             string areaPhrase;
 

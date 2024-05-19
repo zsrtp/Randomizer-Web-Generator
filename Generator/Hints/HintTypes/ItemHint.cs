@@ -124,7 +124,7 @@ namespace TPRandomizer.Hints
         {
             bool useVague = vague && (status == CheckStatus.Good || status == CheckStatus.Required);
 
-            Res.Result hintParsedRes = Res.ParseVal(
+            Res.Result hintParsedRes = Res.Msg(
                 "hint-type.item",
                 new() { { "context", useVague ? "vague" : "" } }
             );

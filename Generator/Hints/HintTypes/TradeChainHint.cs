@@ -135,7 +135,7 @@ namespace TPRandomizer.Hints
             // If a check is Required, then it is also Good and we may to show
             // that status instead of Required.
 
-            Res.Result hintParsedRes = Res.ParseVal("hint-type.trade-chain");
+            Res.Result hintParsedRes = Res.Msg("hint-type.trade-chain");
 
             bool areaLeadingSpace = hintParsedRes.SlotMetaHasVal("area-phrase", "space", "true");
 

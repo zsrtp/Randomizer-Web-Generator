@@ -70,7 +70,7 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
-            Res.Result hintParsedRes = Res.ParseVal("hint-type.item-to-item-path");
+            Res.Result hintParsedRes = Res.Msg("hint-type.item-to-item-path");
 
             string srcText = customMsgData.GenItemText3(
                 out Dictionary<string, string> srcItemMeta,

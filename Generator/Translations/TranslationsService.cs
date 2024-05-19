@@ -622,7 +622,11 @@ namespace TPRandomizer
             return localizedString;
         }
 
-        public MsgResult GetMsg(string key, Dictionary<string, string> interpolation = null)
+        public MsgResult GetMsg(
+            string key,
+            Dictionary<string, string> interpolation = null,
+            Dictionary<string, string> optionalContextMeta = null
+        )
         {
             EnsureDictionary();
 
@@ -630,8 +634,18 @@ namespace TPRandomizer
             {
                 LocaleResources resources = resourcesList[i];
 
+                // Handle resolving optional context which may vary between top
+                // language and fallback language.
+                Dictionary<string, string> resolvedInterpolation =
+                    MergeInterpolationAndOptionalContext(
+                        resources,
+                        key,
+                        interpolation,
+                        optionalContextMeta
+                    );
+
                 string langCode = resources.GetLangCode();
-                List<string> keysToTry = GenKeysToCheck(langCode, key, interpolation);
+                List<string> keysToTry = GenKeysToCheck(langCode, key, resolvedInterpolation);
 
                 for (int keyIdx = keysToTry.Count - 1; keyIdx >= 0; keyIdx--)
                 {
@@ -645,6 +659,68 @@ namespace TPRandomizer
 
             LocaleResources finalResources = resourcesList[^1];
             return new MsgResult(finalResources.cultureInfo, key, false);
+        }
+
+        private Dictionary<string, string> MergeInterpolationAndOptionalContext(
+            LocaleResources resources,
+            string key,
+            Dictionary<string, string> interpolationIn,
+            Dictionary<string, string> optionalContextMeta = null
+        )
+        {
+            Dictionary<string, string> interpolation;
+            if (!ListUtils.isEmpty(interpolationIn))
+                interpolation = new(interpolationIn);
+            else
+                interpolation = new();
+
+            // Build context by combining static and optional for resKey
+            HashSet<string> contextParts = null;
+            if (
+                interpolation.TryGetValue("context", out string staticContext)
+                && !StringUtils.isEmpty(staticContext)
+            )
+            {
+                contextParts = new(staticContext.Split(","));
+            }
+
+            Dictionary<string, string> contextDict = null;
+            if (!ListUtils.isEmpty(optionalContextMeta))
+                contextDict = FilterToRelevantContext(resources, key, optionalContextMeta);
+
+            string context = CustomMsgData.BuildContextWithMeta(contextParts, contextDict);
+            interpolation["context"] = context;
+
+            return interpolation;
+        }
+
+        private Dictionary<string, string> FilterToRelevantContext(
+            LocaleResources resources,
+            string baseResKey,
+            Dictionary<string, string> context
+        )
+        {
+            Dictionary<string, string> filteredContext = new();
+            if (StringUtils.isEmpty(baseResKey) || ListUtils.isEmpty(context))
+                return filteredContext;
+
+            HashSet<string> relevantContextVals = GetRelevantContextForBaseKey(
+                resources,
+                baseResKey
+            );
+            foreach (KeyValuePair<string, string> pair in context)
+            {
+                string key;
+                if (pair.Value == "true")
+                    key = pair.Key;
+                else
+                    key = pair.Key + "-" + pair.Value;
+
+                if (relevantContextVals.Contains(key))
+                    filteredContext[pair.Key] = pair.Value;
+            }
+
+            return filteredContext;
         }
 
         private List<string> GenKeysToCheck(
@@ -729,51 +805,14 @@ namespace TPRandomizer
             return other.TryGetValue(key, out string value) && value == "true";
         }
 
-        public string GetMsg(string name, Dictionary<string, object> options)
+        private HashSet<string> GetRelevantContextForBaseKey(
+            LocaleResources resources,
+            string start
+        )
         {
             EnsureDictionary();
 
-            return null;
-
-            // if (StringUtils.isEmpty(name))
-            //     return null;
-
-            // if (options != null && options.Count > 0)
-            // {
-            //     LocalizedString localizedString = ResolveComplex(name, options);
-            //     if (localizedString != null && !localizedString.ResourceNotFound)
-            //     {
-            //         return localizedString;
-            //     }
-            // }
-
-            // return GetMsg(name);
-        }
-
-        private LocalizedString ResolveComplex(string name, Dictionary<string, object> options)
-        {
-            EnsureDictionary();
-
-            return null;
-
-            // int? count = null;
-            // if (options.ContainsKey("count"))
-            //     count = (int)options["count"];
-
-            // // TODO: resolve count based on language of resource
-
-            // Dictionary<string, LocaleString> innerDict;
-            // bool found = complexResDict.TryGetValue(name, out innerDict);
-            // if (found) { }
-
-            // return null;
-        }
-
-        public HashSet<string> GetRelevantContextForBaseKey(string start)
-        {
-            // Only operate on ideal language. Ideally we should not be using
-            // fallbacks anyway.
-            return resourcesList[0].GetRelevantContextForBaseKey(start);
+            return resources.GetRelevantContextForBaseKey(start);
         }
     }
 
