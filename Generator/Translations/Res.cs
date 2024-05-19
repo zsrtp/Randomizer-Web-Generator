@@ -38,6 +38,11 @@ namespace TPRandomizer
             translations = provider.GetRequiredService<Translations>();
         }
 
+        public static bool IsCultureJa()
+        {
+            return CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja";
+        }
+
         public static void UpdateCultureInfo(string name)
         {
             CultureInfo newCultureInfo = CultureInfo.GetCultureInfo(name);
@@ -642,7 +647,8 @@ namespace TPRandomizer
 
             if (addLineBreaks)
             {
-                int maxLengthVal = 36;
+                int maxLengthVal = IsCultureJa() ? 30 : 36;
+
                 if (maxLength != null)
                     maxLengthVal = (int)maxLength;
                 AddLineBreaksToChunks(chunks, maxLengthVal);
@@ -702,13 +708,13 @@ namespace TPRandomizer
                     numNewLines += 1;
             }
 
-            // Pad to a multiple of 4 newlines, with 0 requiring another 4
-            // rather than 0. Would need to handle this differently for JP.
+            int linesPerTextbox = IsCultureJa() ? 3 : 4;
+
             int numToAdd;
             if (numNewLines == 0)
-                numToAdd = 4;
+                numToAdd = linesPerTextbox;
             else
-                numToAdd = 4 - (numNewLines % 4);
+                numToAdd = linesPerTextbox - (numNewLines % linesPerTextbox);
 
             for (int i = 0; i < numToAdd; i++)
             {
@@ -1107,6 +1113,9 @@ namespace TPRandomizer
                         break;
                     case "de":
                         result += GetSuffixDe(val, ord);
+                        break;
+                    case "ja":
+                        result += "other";
                         break;
                     default:
                         throw new Exception($"'{langCode}' is not a supported langCode.");
