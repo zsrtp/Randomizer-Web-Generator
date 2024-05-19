@@ -317,10 +317,8 @@ namespace TPRandomizer
                 root.Add("requiredDungeons", GetRequiredDungeonsStringList());
                 root.Add("shuffledEntrances", GetShuffledEntrancesStringList());
                 root.Add("itemPlacements", sortedCheckNameToItemNameDict);
-                // root.Add("hints", customMsgData.GetDictForSpoiler());
-                root.Add("spheres", GetSpheresForSpoiler());
-                // TODO: TEMP putting at bottom
                 root.Add("hints", customMsgData.GetDictForSpoiler());
+                root.Add("spheres", GetSpheresForSpoiler());
             }
 
             // Note this is the metaData from the file, not the current
