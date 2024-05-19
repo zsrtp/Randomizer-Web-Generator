@@ -117,8 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="aa" xml:space="preserve">
-    <value>bb</value>
+  <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
+    <value>Patíbulo del Desierto</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.city-in-the-sky" xml:space="preserve">
+    <value>Celestia</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.forest-temple" xml:space="preserve">
+    <value>Templo del Bosque</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.goron-mines" xml:space="preserve">
+    <value>Minas de los Goron</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.lakebed-temple" xml:space="preserve">
+    <value>Santuario del Lago</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.none" xml:space="preserve">
+    <value>Sin mazmorras requeridas</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.palace-of-twilight" xml:space="preserve">
+    <value>Palacio del Crepúsculo</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.snowpeak-ruins" xml:space="preserve">
+    <value>Ruinas del Pico Nevado</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.temple-of-time" xml:space="preserve">
+    <value>Templo del Tiempo</value>
     <comment></comment>
   </data>
 </root>

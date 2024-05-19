@@ -117,8 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="item.progressive-clawshot" xml:space="preserve">
-    <value>Greifhaken</value>
+  <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
+    <value>Wüstenburg</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.city-in-the-sky" xml:space="preserve">
+    <value>Kumula</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.forest-temple" xml:space="preserve">
+    <value>Waldschrein</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.goron-mines" xml:space="preserve">
+    <value>Minen der Goronen</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.lakebed-temple" xml:space="preserve">
+    <value>Seeschrein</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.none" xml:space="preserve">
+    <value>Kein Dungeon erforderlich</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.palace-of-twilight" xml:space="preserve">
+    <value>Schattenpalast</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.snowpeak-ruins" xml:space="preserve">
+    <value>Bergruine</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.temple-of-time" xml:space="preserve">
+    <value>Zeitschrein</value>
     <comment></comment>
   </data>
 </root>
