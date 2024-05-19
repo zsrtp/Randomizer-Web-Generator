@@ -4,6 +4,7 @@ namespace TPRandomizer.Assets
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using TPRandomizer.Util;
 
     /// <summary>
     /// text.
@@ -132,14 +133,13 @@ namespace TPRandomizer.Assets
         /// </summary>
         /// <param name="text"> The ASCII text you want to convert.</param>
         /// <param name="desiredLength"> The length of the string in bytes.</param>
-        /// <param name="region"> The language region of the text you want to convert.</param>
         /// <returns>Array of Bytes processed.</returns>
-        public static byte[] MessageStringBytes(
-            string text,
-            int desiredLength = 0,
-            char region = 'E'
-        )
+        public static byte[] MessageStringBytes(string text, int desiredLength = 0)
         {
+            if (Res.IsCultureJa())
+                return MessageStringBytesJa(text, desiredLength);
+
+            // Windows-1252
             Encoding encoding = Encoding.GetEncoding(1252);
 
             List<byte> textData = new(encoding.GetBytes(text));
@@ -151,6 +151,48 @@ namespace TPRandomizer.Assets
             }
 
             return textData.ToArray<byte>();
+        }
+
+        private static byte[] MessageStringBytesJa(string text, int desiredLength = 0)
+        {
+            List<byte> bytes = new();
+
+            if (!StringUtils.isEmpty(text))
+            {
+                // Shift-JIS
+                Encoding encoding = Encoding.GetEncoding(932);
+
+                int index = 0;
+                while (index < text.Length)
+                {
+                    string currentChar = text.Substring(index, 1);
+
+                    if (currentChar == "\x1A")
+                    {
+                        byte escLength = (byte)text[index + 1];
+
+                        for (int escSeqIdx = 0; escSeqIdx < escLength; escSeqIdx++)
+                        {
+                            bytes.Add((byte)text[index + escSeqIdx]);
+                        }
+
+                        index += escLength;
+                    }
+                    else
+                    {
+                        bytes.AddRange(encoding.GetBytes(text.Substring(index, 1)));
+                        index += 1;
+                    }
+                }
+            }
+
+            // Account for padding
+            while (bytes.Count < desiredLength)
+            {
+                bytes.Add(0);
+            }
+
+            return bytes.ToArray<byte>();
         }
 
         /// <summary>
