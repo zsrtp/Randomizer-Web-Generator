@@ -1422,7 +1422,7 @@
     <comment>Fanadi</comment>
   </data>
   <data name="junk-hint.094" xml:space="preserve">
-    <value>Did you know that #(player-names)&apos;s yells are different in and out of combat?</value>
+    <value>Did you know that #(player-name)&apos;s yells are different in and out of combat?</value>
     <comment></comment>
   </data>
   <data name="junk-hint.095" xml:space="preserve">
