@@ -1,5 +1,5 @@
 {
-    "requirements": "CanCompleteMDH and (Poe_Soul, 20)",
+    "requirements": "(Poe_Soul, 20)",
     "checkCategory": ["Overworld", "Npc", "Castle Town", "ARC"],
     "itemId": "Jovani_Bottle"
 }
