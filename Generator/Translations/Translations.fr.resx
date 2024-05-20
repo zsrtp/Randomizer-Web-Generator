@@ -1769,6 +1769,10 @@
     <value>un {cs}insecte{ce}</value>
     <comment></comment>
   </data>
+  <data name="noun.barren-zone" xml:space="preserve">
+    <value>({cs}zone inutile{ce})</value>
+    <comment></comment>
+  </data>
   <data name="noun.num-golden-bugs" xml:space="preserve">
     <value>le {cs}{count} insecte doré{ce}</value>
     <comment></comment>

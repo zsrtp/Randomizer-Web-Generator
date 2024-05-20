@@ -11,7 +11,6 @@ namespace TPRandomizer
     using System.Text;
     using TPRandomizer.Assets;
     using System.Linq;
-    using System.Runtime.InteropServices;
 
     public partial class Res
     {
@@ -64,7 +63,7 @@ namespace TPRandomizer
 
         public static string SimpleMsg(
             string resKey,
-            Dictionary<string, string> interpolation,
+            Dictionary<string, string> interpolation = null,
             Dictionary<string, string> optionalContextMeta = null
         )
         {
@@ -233,7 +232,15 @@ namespace TPRandomizer
 
         public static string GetJunkHintText(uint number)
         {
-            return $"From GetJunkHintText with number '{number}'::";
+            string resKey = translations.GetJunkHintResKey(number);
+
+            if (StringUtils.isEmpty(resKey))
+            {
+                // Failed to find any junkHints to use.
+                return "Junk hint!";
+            }
+
+            return SimpleMsg(resKey);
         }
 
         public static string LangSpecificNormalize(

@@ -1093,6 +1093,14 @@
     <value>key shard</value>
     <comment></comment>
   </data>
+  <data name="junk-hint.000" xml:space="preserve">
+    <value>I mean, is perpetual twilight really all that bad?</value>
+    <comment>Meet Zelda cutscnene</comment>
+  </data>
+  <data name="junk-hint.001" xml:space="preserve">
+    <value>They say that fairies like to rest on healthy individuals.</value>
+    <comment></comment>
+  </data>
   <data name="noun.a-bug" xml:space="preserve">
     <value>a {cs}bug{ce}</value>
     <comment></comment>

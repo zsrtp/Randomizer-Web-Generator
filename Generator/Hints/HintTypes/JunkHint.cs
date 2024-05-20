@@ -40,9 +40,6 @@ namespace TPRandomizer.Hints
 
             HintText hintText = new HintText();
             hintText.text = normalizedText;
-            // hintText.text = $"junk hint num'{idValue}'";
-            // if (indicatesBarren)
-            //     hintText.text += " (barren zone)";
             return new List<HintText> { hintText };
         }
 

@@ -103,6 +103,7 @@ namespace TPRandomizer
                     }
                 }
 
+                resources.OnFinishedSetup();
                 resourcesList.Add(resources);
 
                 if (CultureInfo.CurrentCulture.ThreeLetterISOLanguageName == "ivl")
@@ -723,6 +724,22 @@ namespace TPRandomizer
             return filteredContext;
         }
 
+        public string GetJunkHintResKey(uint number)
+        {
+            EnsureDictionary();
+
+            for (int i = 0; i < resourcesList.Count; i++)
+            {
+                LocaleResources resources = resourcesList[i];
+
+                string key = resources.GetJunkHintResKey(number);
+                if (!StringUtils.isEmpty(key))
+                    return key;
+            }
+
+            return null;
+        }
+
         private List<string> GenKeysToCheck(
             string langCode,
             string key,
@@ -821,6 +838,7 @@ namespace TPRandomizer
         public CultureInfo cultureInfo { get; private set; }
         private Dictionary<string, string> dict = new();
         private Dictionary<string, HashSet<string>> baseResKeyToContextParts = new();
+        private List<string> junkHintResKeys = new();
 
         public LocaleResources(CultureInfo cultureInfo)
         {
@@ -835,7 +853,14 @@ namespace TPRandomizer
         public void TryAddResource(string resourceKey, string locStr)
         {
             if (!StringUtils.isEmpty(resourceKey) && !dict.ContainsKey(resourceKey))
+            {
                 dict[resourceKey] = locStr;
+
+                if (resourceKey.StartsWith("junk-hint."))
+                {
+                    junkHintResKeys.Add(resourceKey);
+                }
+            }
         }
 
         public string TryGetValue(string resourceKey)
@@ -871,6 +896,23 @@ namespace TPRandomizer
             )
                 return result;
             return new();
+        }
+
+        public string GetJunkHintResKey(uint number)
+        {
+            if (ListUtils.isEmpty(junkHintResKeys))
+                return null;
+
+            int index = (int)number % junkHintResKeys.Count;
+
+            return junkHintResKeys[index];
+        }
+
+        public void OnFinishedSetup()
+        {
+            // Sort junk hints since the order they are added to the list is not
+            // guaranteed to be what you might expect.
+            junkHintResKeys.Sort(StringComparer.Ordinal);
         }
     }
 
