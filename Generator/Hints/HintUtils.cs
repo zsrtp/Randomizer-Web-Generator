@@ -457,8 +457,11 @@ namespace TPRandomizer.Hints
 
             // Goals to bosses are only valid if it is common knowledge based on
             // the settings that the bosses themselves are required.
+
             if (!sSettings.shuffleRewards)
             {
+                // If not shuffling rewards, can simply add a goal for the boss
+                // of each required dungeon.
                 HashSet<string> requiredDungeons = getRequiredDungeonZones();
                 foreach (string dungeonZone in requiredDungeons)
                 {
@@ -467,6 +470,64 @@ namespace TPRandomizer.Hints
                         Goal goal = GoalConstants.requiredDungeonHintZoneToGoal[dungeonZone];
                         result.Add(goal);
                     }
+                }
+            }
+            else
+            {
+                // If dungeonRewards are shuffled then only hint toward bosses
+                // that we 100% know must be defeated purely based on settings.
+
+                if (sSettings.castleRequirements == CastleRequirements.Vanilla)
+                {
+                    result.Add(GoalConstants.Stallord);
+                    result.Add(GoalConstants.Zant);
+                }
+                else if (sSettings.castleRequirements == CastleRequirements.All_Dungeons)
+                {
+                    result.Add(GoalConstants.Diababa);
+                    result.Add(GoalConstants.Fyrus);
+                    result.Add(GoalConstants.Morpheel);
+                    result.Add(GoalConstants.Stallord);
+                    result.Add(GoalConstants.Blizzeta);
+                    result.Add(GoalConstants.Armogohma);
+                    result.Add(GoalConstants.Argorok);
+                    result.Add(GoalConstants.Zant);
+                }
+
+                if (
+                    result.Contains(GoalConstants.Zant)
+                    && sSettings.palaceRequirements == PalaceRequirements.Vanilla
+                )
+                {
+                    result.Add(GoalConstants.Argorok);
+                }
+
+                if (!sSettings.skipMdh)
+                    result.Add(GoalConstants.Morpheel);
+
+                if (sSettings.logicRules == LogicRules.Glitchless)
+                {
+                    // If we are playing glitchless and Skybooks are vanilla and
+                    // are needed for City, we conclude that ToT is required as
+                    // Impaz will have a book in village. This will change with
+                    // ER.
+
+                    // This seems like it fails to take starting items into
+                    // consideration. Can worry about it later since as already
+                    // noted, we will need to revisit for ER -isaac
+                    if (
+                        result.Contains(GoalConstants.Argorok)
+                        && !sSettings.shuffleNpcItems
+                        && !sSettings.skipCityEntrance
+                    )
+                    {
+                        result.Add(GoalConstants.Armogohma);
+                    }
+
+                    // If Faron Woods is closed then we need to beat Forest
+                    // Temple to leave.
+                    if (sSettings.faronWoodsLogic == FaronWoodsLogic.Closed)
+                        result.Add(GoalConstants.Diababa);
                 }
             }
 
