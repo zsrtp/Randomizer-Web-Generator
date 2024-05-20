@@ -231,6 +231,11 @@ namespace TPRandomizer
             }
         }
 
+        public static string GetJunkHintText(uint number)
+        {
+            return $"From GetJunkHintText with number '{number}'::";
+        }
+
         public static string LangSpecificNormalize(
             string valIn,
             int? maxLength = null,

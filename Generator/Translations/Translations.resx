@@ -1097,6 +1097,10 @@
     <value>a {cs}bug{ce}</value>
     <comment></comment>
   </data>
+  <data name="noun.barren-zone" xml:space="preserve">
+    <value>({cs}barren zone{ce})</value>
+    <comment></comment>
+  </data>
   <data name="noun.nothing-of-value" xml:space="preserve">
     <value>nothing of value</value>
     <comment></comment>

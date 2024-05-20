@@ -2,6 +2,7 @@ namespace TPRandomizer.Hints
 {
     using System;
     using System.Collections.Generic;
+    using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
     public class JunkHint : Hint
@@ -25,10 +26,23 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
-            HintText hintText = new HintText();
-            hintText.text = $"junk hint num'{idValue}'";
+            string text = Res.GetJunkHintText(idValue);
+
             if (indicatesBarren)
-                hintText.text += " (barren zone)";
+            {
+                text +=
+                    " "
+                    + Res.Msg("noun.barren-zone")
+                        .ResolveWithColor(CustomMessages.messageColorPurple);
+            }
+
+            string normalizedText = Res.LangSpecificNormalize(text);
+
+            HintText hintText = new HintText();
+            hintText.text = normalizedText;
+            // hintText.text = $"junk hint num'{idValue}'";
+            // if (indicatesBarren)
+            //     hintText.text += " (barren zone)";
             return new List<HintText> { hintText };
         }
 
