@@ -1316,6 +1316,8 @@ namespace TPRandomizer.Hints.Settings
 
             switch (genData.sSettings.hintDistribution)
             {
+                case HintDistribution.Balanced:
+                    return Path.Combine(basePath, "balanced.jsonc");
                 case HintDistribution.Blossom:
                     return Path.Combine(basePath, "blossom.jsonc");
                 case HintDistribution.Weak:
@@ -1560,7 +1562,7 @@ namespace TPRandomizer.Hints.Settings
             }
 
             if (result == null)
-                result = new() { };
+                result = new();
 
             return result;
         }

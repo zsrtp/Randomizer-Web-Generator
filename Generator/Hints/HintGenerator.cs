@@ -124,6 +124,8 @@ namespace TPRandomizer.Hints
                 bool matchesAlwaysGroupId = hintSettings.always.groupId == groupId;
 
                 int layerSize = spots.Count;
+                // Note: alwaysSpotCount gets set back to 0 after we place the
+                // Always hints.
                 if (matchesAlwaysGroupId)
                     layerSize -= alwaysSpotCount;
 
@@ -326,7 +328,7 @@ namespace TPRandomizer.Hints
                 if (recHintResults.HintDefResults.Count < 1 && spotsToFill.Count > 0)
                 {
                     JObject obj = JObject.Parse(
-                        "{'hintType':'item',options:{validItems:['alias:junk','alias:rupees'],badItemsHintable:true}}"
+                        "{'hintType':'item',options:{validItems:['alias:junk','alias:rupees']}}"
                     );
                     ItemHintCreator fillerHintCreator = ItemHintCreator.fromJObject(obj);
                     List<Hint> itemHints = fillerHintCreator.tryCreateHint(
@@ -1166,7 +1168,7 @@ namespace TPRandomizer.Hints
                 for (int i = 5; i >= 1; i--)
                 {
                     double copiesPerSpot = (double)totalHints / i;
-                    if (copiesPerSpot <= 2.5)
+                    if (copiesPerSpot <= 2)
                         numSpotsToFill = i;
                     else
                         break;
@@ -1200,7 +1202,13 @@ namespace TPRandomizer.Hints
                 int baseHintsPerSpot = totalHints / numSpotsToFill;
                 int maxRemainderIndex = (totalHints % numSpotsToFill) - 1;
 
-                int totalHintIndex = 0;
+                // Used to avoid things like AB CD AB CD and instead get AB CD
+                // BC DA. This could get really complicated if solving a general
+                // case, but there is really no need.
+                bool useOffsetOnLetterLoop = checksToHint.Count % baseHintsPerSpot == 0;
+
+                int properAbsoluteHintIndex = 0;
+                int effectiveHintIndex = 0;
 
                 for (int i = 0; i < numSpotsToFill; i++)
                 {
@@ -1211,9 +1219,18 @@ namespace TPRandomizer.Hints
                     List<Hint> hintsForSpot = new();
                     for (int j = 0; j < numHintsForSpot; j++)
                     {
-                        int ii = totalHintIndex % locationHints.Count;
+                        int ii = effectiveHintIndex % locationHints.Count;
                         hintsForSpot.Add(locationHints[ii]);
-                        totalHintIndex += 1;
+
+                        properAbsoluteHintIndex += 1;
+
+                        if (
+                            useOffsetOnLetterLoop
+                            && properAbsoluteHintIndex % locationHints.Count == 0
+                        )
+                            effectiveHintIndex += 2;
+                        else
+                            effectiveHintIndex += 1;
                     }
                     hintsForSpots.Add(hintsForSpot);
                 }
