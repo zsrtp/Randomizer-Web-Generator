@@ -62,6 +62,7 @@
   }
 
   const regionSelectedEvent = createBasicEvent();
+  const languageSelectedEvent = createBasicEvent();
 
   const RawSettingType = {
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
@@ -268,7 +269,24 @@
 
     initCustomColorPickers();
 
-    updateLangDisplay();
+    function handleToggleTranslationsWarning() {
+      let showTranslationsWarning = false;
+      if (selectedRegion !== 'USA' && selectedLanguage !== 'English') {
+        showTranslationsWarning =
+          selectedRegion !== 'EUR' || selectedLanguage !== 'Français';
+      }
+
+      $('#translationsWarning').toggle(showTranslationsWarning);
+    }
+
+    function handleRegionChange() {
+      updateLangDisplay();
+
+      handleToggleTranslationsWarning();
+    }
+
+    // Run once at startup
+    handleRegionChange();
 
     regionSelectedEvent.subscribe(() => {
       if (hasSelectedRegionError) {
@@ -276,7 +294,11 @@
         $('#downloadsParent').hide();
       }
 
-      updateLangDisplay();
+      handleRegionChange();
+    });
+
+    languageSelectedEvent.subscribe(() => {
+      handleToggleTranslationsWarning();
     });
   }
 
@@ -415,6 +437,7 @@
       defaultFilter: selectedLanguage,
       onFilterSelected: (filter) => {
         selectedLanguage = filter;
+        languageSelectedEvent.notify();
       },
     });
 
