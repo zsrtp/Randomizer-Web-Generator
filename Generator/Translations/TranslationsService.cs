@@ -238,6 +238,8 @@ namespace TPRandomizer
                                             return CustomMessages.horseName;
                                         case "b-btn":
                                             return CustomMessages.bBtn;
+                                        case "heart":
+                                            return CustomMessages.heart;
                                         case "reference-mark":
                                             return CustomMessages.referenceMark;
                                         case "white":

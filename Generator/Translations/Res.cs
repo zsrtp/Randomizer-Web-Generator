@@ -188,6 +188,8 @@ namespace TPRandomizer
                     return "Epona";
                 case CustomMessages.bBtn:
                     return "B";
+                case CustomMessages.heart:
+                    return "\u2665";
                 default:
                     return null;
             }

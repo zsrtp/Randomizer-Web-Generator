@@ -14,13 +14,11 @@ namespace TPRandomizer.Hints
 
         public JunkHint(Random rnd, bool indicatesBarren = false)
         {
-            // this.idValue = (ushort)rnd.Next(ushort.MaxValue);
-            this.idValue = 59;
+            this.idValue = (ushort)rnd.Next(ushort.MaxValue);
             this.indicatesBarren = indicatesBarren;
         }
 
-        // TODO: Temp public for testing
-        public JunkHint(ushort idValue, bool indicatesBarren = false)
+        private JunkHint(ushort idValue, bool indicatesBarren = false)
         {
             this.idValue = idValue;
             this.indicatesBarren = indicatesBarren;
