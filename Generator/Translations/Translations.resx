@@ -1382,170 +1382,166 @@
     <comment></comment>
   </data>
   <data name="junk-hint.072" xml:space="preserve">
-    <value>I will let you know if I hear anything.</value>
-    <comment></comment>
-  </data>
-  <data name="junk-hint.073" xml:space="preserve">
     <value>They say that landing a strong hit can speed up Morpheel&apos;s first phase.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.074" xml:space="preserve">
+  <data name="junk-hint.073" xml:space="preserve">
     <value>They say that reading this hint was a foolish choice.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.075" xml:space="preserve">
+  <data name="junk-hint.074" xml:space="preserve">
     <value>......Sorry, I forgot.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.076" xml:space="preserve">
+  <data name="junk-hint.075" xml:space="preserve">
     <value>Everyone always asks &quot;what&apos;s the hint&quot;, but no one asks &quot;how&apos;s the hint&quot;.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.077" xml:space="preserve">
+  <data name="junk-hint.076" xml:space="preserve">
     <value>I was planning on helping you... if you were nice.</value>
     <comment>Meet Midna cutscene</comment>
   </data>
-  <data name="junk-hint.078" xml:space="preserve">
+  <data name="junk-hint.077" xml:space="preserve">
     <value>You don&apos;t have to look so sad!</value>
     <comment>Meet Zelda cutscene</comment>
   </data>
-  <data name="junk-hint.079" xml:space="preserve">
+  <data name="junk-hint.078" xml:space="preserve">
     <value>Are you sure you aren&apos;t forgetting anything important?</value>
     <comment>After meet Zelda cutscene</comment>
   </data>
-  <data name="junk-hint.080" xml:space="preserve">
+  <data name="junk-hint.079" xml:space="preserve">
     <value>Look within yourself and the hints will come.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.081" xml:space="preserve">
+  <data name="junk-hint.080" xml:space="preserve">
     <value>Elihwa sekat gnidaol... tiaw...\nElihwa sekat gnidaol... tiaw...</value>
     <comment>Fanadi</comment>
   </data>
-  <data name="junk-hint.082" xml:space="preserve">
+  <data name="junk-hint.081" xml:space="preserve">
     <value>Did you know that #(player-name)&apos;s yells are different in and out of combat?</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.083" xml:space="preserve">
+  <data name="junk-hint.082" xml:space="preserve">
     <value>They say that webs are only vulnerable while you are facing them.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.084" xml:space="preserve">
+  <data name="junk-hint.083" xml:space="preserve">
     <value>49 20 68 6f 70 65 20 79 6f 75 20 68 61 76 65 20 61 20 67 72 65 61 74 20 64 61 79 21</value>
     <comment>&quot;I hope you have a great day!&quot; in hex</comment>
   </data>
-  <data name="junk-hint.085" xml:space="preserve">
+  <data name="junk-hint.084" xml:space="preserve">
     <value>This hint is as useful as lint!</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.086" xml:space="preserve">
+  <data name="junk-hint.085" xml:space="preserve">
     <value>#(player-name)&apos;s shimmering sharp sword stylishly slashes several strong Stalfos.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.087" xml:space="preserve">
+  <data name="junk-hint.086" xml:space="preserve">
     <value>If I have a letter for you, I will approach you at high speed! Please do not flee!</value>
     <comment>Postman</comment>
   </data>
-  <data name="junk-hint.088" xml:space="preserve">
+  <data name="junk-hint.087" xml:space="preserve">
     <value>Hey, it&apos;s that dog!</value>
     <comment>RE4</comment>
   </data>
-  <data name="junk-hint.089" xml:space="preserve">
+  <data name="junk-hint.088" xml:space="preserve">
     <value>Game Over. Return of Ganon.</value>
     <comment>Zelda II (from OoTR)</comment>
   </data>
-  <data name="junk-hint.090" xml:space="preserve">
+  <data name="junk-hint.089" xml:space="preserve">
     <value>They say that one must overcome many ordeals in the Cave of Ordeals.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.091" xml:space="preserve">
+  <data name="junk-hint.090" xml:space="preserve">
     <value>#(player-name), look! On the statue&apos;s head!</value>
     <comment>SMS</comment>
   </data>
-  <data name="junk-hint.092" xml:space="preserve">
+  <data name="junk-hint.091" xml:space="preserve">
     <value>TOO BAD!</value>
     <comment>SMS</comment>
   </data>
-  <data name="junk-hint.093" xml:space="preserve">
+  <data name="junk-hint.092" xml:space="preserve">
     <value>WINNER!</value>
     <comment>OoT</comment>
   </data>
-  <data name="junk-hint.094" xml:space="preserve">
+  <data name="junk-hint.093" xml:space="preserve">
     <value>See you next mission!</value>
     <comment>Metroid</comment>
   </data>
-  <data name="junk-hint.095" xml:space="preserve">
+  <data name="junk-hint.094" xml:space="preserve">
     <value>They say that the Deku Toad resembles a giant Toadpoli.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.096" xml:space="preserve">
+  <data name="junk-hint.095" xml:space="preserve">
     <value>You&apos;ll want to open the east chest. Or would it be the west chest?</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.097" xml:space="preserve">
+  <data name="junk-hint.096" xml:space="preserve">
     <value>Did you know that dogs will ride in canoes? Now to get them in the same room...</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.098" xml:space="preserve">
+  <data name="junk-hint.097" xml:space="preserve">
     <value>They say that the 49th floor of the Cave of Ordeals has an extra Darknut the 2nd time.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.099" xml:space="preserve">
+  <data name="junk-hint.098" xml:space="preserve">
     <value>They say that defeating a flock of Guays will reward Rupees.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.100" xml:space="preserve">
+  <data name="junk-hint.099" xml:space="preserve">
     <value>They say that Barnes does not like lanterns in his shop.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.101" xml:space="preserve">
+  <data name="junk-hint.100" xml:space="preserve">
     <value>They say that Fyrus can summon Fire Keese.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.102" xml:space="preserve">
+  <data name="junk-hint.101" xml:space="preserve">
     <value>And remember that bad times...\nare just times that are bad.</value>
     <comment>AC Katrina</comment>
   </data>
-  <data name="junk-hint.103" xml:space="preserve">
+  <data name="junk-hint.102" xml:space="preserve">
     <value>Can&apos;t let you do that,\nWolf #(player-name)!</value>
     <comment>Star Fox 64</comment>
   </data>
-  <data name="junk-hint.104" xml:space="preserve">
+  <data name="junk-hint.103" xml:space="preserve">
     <value>You got a Junk hint!\nBut it won&apos;t help on your journey, so let&apos;s put it back.</value>
     <comment>Putting back Rupees text</comment>
   </data>
-  <data name="junk-hint.105" xml:space="preserve">
+  <data name="junk-hint.104" xml:space="preserve">
     <value>If saying sorry solved everything, all the soldiers in Hyrule would be out of jobs...</value>
     <comment>Hena</comment>
   </data>
-  <data name="junk-hint.106" xml:space="preserve">
+  <data name="junk-hint.105" xml:space="preserve">
     <value>They say that the Spinner can be used to avoid fall damage.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.107" xml:space="preserve">
+  <data name="junk-hint.106" xml:space="preserve">
     <value>They say that Iza will demand compensation for wrongful destruction of property.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.108" xml:space="preserve">
+  <data name="junk-hint.107" xml:space="preserve">
     <value>They say that you can enter Chudley&apos;s store if your shoes are shined.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.109" xml:space="preserve">
+  <data name="junk-hint.108" xml:space="preserve">
     <value>What would happen if you threw out all of Falbi&apos;s Cuccos?</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.110" xml:space="preserve">
+  <data name="junk-hint.109" xml:space="preserve">
     <value>They say that a switch on Falbi&apos;s roof will stop the Isle of Riches platform rotation.</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.111" xml:space="preserve">
+  <data name="junk-hint.110" xml:space="preserve">
     <value>They say that, contrary to its unassuming image, the Hawkeye is, in fact, a useful item!</value>
     <comment>OoT Zelda tomboy gossip stone ref</comment>
   </data>
-  <data name="junk-hint.112" xml:space="preserve">
+  <data name="junk-hint.111" xml:space="preserve">
     <value>Tingle, Tingle!\nKooloo-Limpah!</value>
     <comment></comment>
   </data>
-  <data name="junk-hint.113" xml:space="preserve">
+  <data name="junk-hint.112" xml:space="preserve">
     <value>They say that the Ball and Chain can destroy wooden towers.</value>
     <comment></comment>
   </data>
