@@ -1358,7 +1358,7 @@
     <comment></comment>
   </data>
   <data name="junk-hint.066" xml:space="preserve">
-    <value>They say that you take double damage when in wolf form.</value>
+    <value>They say that you take double damage while in wolf form.</value>
     <comment></comment>
   </data>
   <data name="junk-hint.067" xml:space="preserve">
@@ -1486,11 +1486,11 @@
     <comment></comment>
   </data>
   <data name="junk-hint.098" xml:space="preserve">
-    <value>They say that the Cave of Ordeals 49th floor has an extra Darknut the 2nd time.</value>
+    <value>They say that the 49th floor of the Cave of Ordeals has an extra Darknut the 2nd time.</value>
     <comment></comment>
   </data>
   <data name="junk-hint.099" xml:space="preserve">
-    <value>They say that defeating a flock of guays will reward Rupees.</value>
+    <value>They say that defeating a flock of Guays will reward Rupees.</value>
     <comment></comment>
   </data>
   <data name="junk-hint.100" xml:space="preserve">
@@ -1502,15 +1502,15 @@
     <comment></comment>
   </data>
   <data name="junk-hint.102" xml:space="preserve">
-    <value>And remember that bad times... are just times that are bad.</value>
+    <value>And remember that bad times...\nare just times that are bad.</value>
     <comment>AC Katrina</comment>
   </data>
   <data name="junk-hint.103" xml:space="preserve">
-    <value>Can&apos;t let you do that, Wolf #(player-name)!</value>
+    <value>Can&apos;t let you do that,\nWolf #(player-name)!</value>
     <comment>Star Fox 64</comment>
   </data>
   <data name="junk-hint.104" xml:space="preserve">
-    <value>You got a Junk Hint! But it won&apos;t help on your journey, so let&apos;s put it back.</value>
+    <value>You got a Junk hint!\nBut it won&apos;t help on your journey, so let&apos;s put it back.</value>
     <comment>Putting back Rupees text</comment>
   </data>
   <data name="junk-hint.105" xml:space="preserve">
@@ -1522,7 +1522,7 @@
     <comment></comment>
   </data>
   <data name="junk-hint.107" xml:space="preserve">
-    <value>They say that Iza will demand compensation for wrongfully destroying pots.</value>
+    <value>They say that Iza will demand compensation for wrongful destruction of property.</value>
     <comment></comment>
   </data>
   <data name="junk-hint.108" xml:space="preserve">
