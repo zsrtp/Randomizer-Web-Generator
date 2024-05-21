@@ -14,7 +14,8 @@ namespace TPRandomizer.Hints
 
         public JunkHint(Random rnd, bool indicatesBarren = false)
         {
-            this.idValue = (ushort)rnd.Next(ushort.MaxValue);
+            // this.idValue = (ushort)rnd.Next(ushort.MaxValue);
+            this.idValue = 46;
             this.indicatesBarren = indicatesBarren;
         }
 

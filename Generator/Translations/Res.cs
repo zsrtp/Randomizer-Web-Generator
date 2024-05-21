@@ -184,6 +184,8 @@ namespace TPRandomizer
                     return "\u203B";
                 case CustomMessages.playerName:
                     return "Link";
+                case CustomMessages.horseName:
+                    return "Epona";
                 default:
                     return null;
             }
@@ -191,7 +193,10 @@ namespace TPRandomizer
 
         public static int GetEscRenderedCharLength(string escapeSequence)
         {
-            if (escapeSequence == CustomMessages.playerName)
+            if (
+                escapeSequence == CustomMessages.playerName
+                || escapeSequence == CustomMessages.horseName
+            )
                 return 8;
 
             string renderedStr = GetEscRenderedChar(escapeSequence);

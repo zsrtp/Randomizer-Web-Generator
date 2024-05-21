@@ -1278,8 +1278,8 @@
     <comment></comment>
   </data>
   <data name="junk-hint.046" xml:space="preserve">
-    <value>a todo: handle horseName</value>
-    <comment>wolf can talk to horse</comment>
+    <value>They say that Wolf #(player-name) can talk to animals, including #(horse-name).</value>
+    <comment></comment>
   </data>
   <data name="junk-hint.047" xml:space="preserve">
     <value>They say that bottled water can regrow pumpkins.</value>
