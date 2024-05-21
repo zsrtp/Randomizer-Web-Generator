@@ -186,6 +186,8 @@ namespace TPRandomizer
                     return "Link";
                 case CustomMessages.horseName:
                     return "Epona";
+                case CustomMessages.bBtn:
+                    return "B";
                 default:
                     return null;
             }

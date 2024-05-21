@@ -24,6 +24,7 @@ namespace TPRandomizer.Assets
         public const string messageColorSilver = "\x1A\x06\xFF\x00\x00\x0B";
         public const string playerName = "\x1A\x05\x00\x00\x00";
         public const string horseName = "\x1A\x05\x00\x00\x22";
+        public const string bBtn = "\x1A\x05\x00\x00\x0B";
         public static string messageOption1 = "\x1A\x06\x00\x00\x09\x01";
         public static string messageOption2 = "\x1A\x06\x00\x00\x09\x02";
         public static string messageOption3 = "\x1A\x06\x00\x00\x09\x03";

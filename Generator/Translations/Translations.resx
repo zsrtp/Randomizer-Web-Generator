@@ -1330,7 +1330,7 @@
     <comment>Opening cutscene</comment>
   </data>
   <data name="junk-hint.059" xml:space="preserve">
-    <value>Like it&apos;s hard to briefly hold B-btn and release it.</value>
+    <value>Like it&apos;s hard to briefly hold #(b-btn) and release it.</value>
     <comment>todo: b-btn</comment>
   </data>
   <data name="junk-hint.060" xml:space="preserve">

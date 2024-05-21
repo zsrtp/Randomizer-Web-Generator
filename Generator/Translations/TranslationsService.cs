@@ -236,6 +236,8 @@ namespace TPRandomizer
                                             return CustomMessages.playerName;
                                         case "horse-name":
                                             return CustomMessages.horseName;
+                                        case "b-btn":
+                                            return CustomMessages.bBtn;
                                         case "reference-mark":
                                             return CustomMessages.referenceMark;
                                         case "white":
