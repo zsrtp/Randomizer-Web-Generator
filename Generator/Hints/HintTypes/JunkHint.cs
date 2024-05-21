@@ -18,7 +18,8 @@ namespace TPRandomizer.Hints
             this.indicatesBarren = indicatesBarren;
         }
 
-        private JunkHint(ushort idValue, bool indicatesBarren = false)
+        // TODO: Temp public for testing
+        public JunkHint(ushort idValue, bool indicatesBarren = false)
         {
             this.idValue = idValue;
             this.indicatesBarren = indicatesBarren;

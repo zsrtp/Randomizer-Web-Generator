@@ -29,6 +29,17 @@ namespace TPRandomizer.Hints.HintCreator
         {
             List<Hint> results = new();
 
+            for (int i = 0; i < 130; i++)
+            {
+                // results.Add(new JunkHint(genData.rnd));
+                JunkHint junkHint = new JunkHint((ushort)i);
+                string aa = junkHint.toHintTextList(null)[0].text;
+                Console.WriteLine("");
+                Console.WriteLine(aa);
+                Console.WriteLine("");
+                int abc = 7;
+            }
+
             for (int i = 0; i < numHints; i++)
             {
                 results.Add(new JunkHint(genData.rnd));
