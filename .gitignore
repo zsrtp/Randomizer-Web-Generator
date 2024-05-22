@@ -44,3 +44,6 @@ yarn-error.log*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Ignore sln files that VSCode might auto-generate
+*.sln

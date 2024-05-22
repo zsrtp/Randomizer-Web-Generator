@@ -14,6 +14,7 @@ namespace TPRandomizer
     using System.Reflection;
     using Assets;
     using System.ComponentModel;
+    using Hints;
 
     /// <summary>
     /// Generates a randomizer seed given a settings string.
@@ -188,31 +189,45 @@ namespace TPRandomizer
 
             if (generationStatus)
             {
-                Randomizer.Items.GenerateItemPool();
+                // Randomizer.Items.GenerateItemPool();
 
-                List<KeyValuePair<int, Item>> dungeonRewards = new();
+                // List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(
+                //     Randomizer.Rooms.RoomDict["Root"]
+                // );
 
-                foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
-                {
-                    Check check = checkList.Value;
-                    if (check.itemWasPlaced && check.checkCategory.Contains("Dungeon Reward"))
-                    {
-                        dungeonRewards.Add(
-                            new KeyValuePair<int, Item>(
-                                CheckIdClass.GetCheckIdNum(check.checkName),
-                                check.itemId
-                            )
-                        );
-                    }
-                }
+                // if (spheres == null)
+                // {
+                //     throw new Exception("Error! Playthrough not valid.");
+                // }
 
-                List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(
+                PlaythroughSpheres playthroughSpheres = GenerateSpoilerLog(
                     Randomizer.Rooms.RoomDict["Root"]
                 );
 
-                if (spheres == null)
+                if (
+                    playthroughSpheres.spheres == null
+                    && SSettings.logicRules != LogicRules.No_Logic
+                )
                 {
                     throw new Exception("Error! Playthrough not valid.");
+                }
+
+                CustomMsgData customMsgData;
+                try
+                {
+                    HintGenerator gen = new HintGenerator(
+                        rnd,
+                        SSettings,
+                        playthroughSpheres,
+                        Randomizer.Rooms.RoomDict["Root"]
+                    );
+
+                    customMsgData = gen.Generate();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
                 }
 
                 string jsonContent = GenerateInputJsonContent(
@@ -220,7 +235,8 @@ namespace TPRandomizer
                     seed,
                     seedHash,
                     isRaceSeed,
-                    spheres
+                    playthroughSpheres.spheres,
+                    customMsgData
                 );
 
                 try
@@ -243,7 +259,7 @@ namespace TPRandomizer
             return generationStatus;
         }
 
-        private static List<List<KeyValuePair<int, Item>>> GenerateSpoilerLog(Room startingRoom)
+        public static PlaythroughSpheres GenerateSpoilerLog(Room startingRoom)
         {
             Randomizer.Items.GenerateItemPool();
 
@@ -253,9 +269,9 @@ namespace TPRandomizer
             }
 
             bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom, true);
-            if (!isPlaythroughValid && (SSettings.logicRules != LogicRules.No_Logic))
+            if (!isPlaythroughValid || SSettings.logicRules == LogicRules.No_Logic)
             {
-                return null;
+                return new PlaythroughSpheres(null, null, null);
             }
 
             return BackendFunctions.CalculateOptimalPlaythrough2(startingRoom);
@@ -266,7 +282,8 @@ namespace TPRandomizer
             string seed,
             int seedHash,
             bool isRaceSeed,
-            List<List<KeyValuePair<int, Item>>> spheres
+            List<List<KeyValuePair<int, Item>>> spheres,
+            CustomMsgData customMsgData
         )
         {
             Dictionary<string, Item> checkIdToItemId = new();
@@ -369,6 +386,7 @@ namespace TPRandomizer
             builder.SetItemPlacements(checkNumIdToItemId);
             builder.SetSpheres(spheres);
             builder.SetEntrances();
+            builder.SetCustomMsgData(customMsgData);
             Console.WriteLine(builder.GetEntrances(builder.entrances));
             return builder.ToString();
         }
@@ -496,14 +514,15 @@ namespace TPRandomizer
             string fileContents = File.ReadAllText(inputJsonPath);
             JObject json = JsonConvert.DeserializeObject<JObject>(fileContents);
 
-            SeedGenResults seedGenResults = new SeedGenResults(id, json);
-
             FileCreationSettings fcSettings = FileCreationSettings.FromString(fcSettingsString);
-            SSettings = SharedSettings.FromString(seedGenResults.settingsString);
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.
             DeserializeCheckData(SSettings, fcSettings);
             DeserializeRooms(SSettings);
+
+            SeedGenResults seedGenResults = new SeedGenResults(id, json);
+
+            SSettings = SharedSettings.FromString(seedGenResults.settingsString);
 
             foreach (KeyValuePair<int, byte> kvp in seedGenResults.itemPlacements.ToList())
             {
@@ -530,20 +549,37 @@ namespace TPRandomizer
                 {
                     if (gameRegion != GameRegion.All)
                     {
+                        // Update language to be used with resource system.
+                        string langTag = fcSettings.GetLanguageTagString(gameRegion);
+                        Res.UpdateCultureInfo(langTag);
+
                         fileDefs.Add(GenGciFileDef(id, seedGenResults, fcSettings, gameRegion));
                     }
                 }
             }
             else
             {
+                // Update language to be used with resource system.
+                string langTag = fcSettings.GetLanguageTagString();
+                Res.UpdateCultureInfo(langTag);
+
                 // Create file for one region
                 fileDefs.Add(GenGciFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion));
             }
 
             if (!seedGenResults.isRaceSeed && fcSettings.includeSpoilerLog)
             {
+                // Set back to default language ('en') before creating spoiler
+                // log when gameRegion is 'All'.
+                if (fcSettings.gameRegion == GameRegion.All)
+                {
+                    // Update language to be used with resource system.
+                    string langTag = fcSettings.GetLanguageTagString();
+                    Res.UpdateCultureInfo(langTag);
+                }
+
                 // Add fileDef for spoilerLog
-                string spoilerLogText = GetSeedGenResultsJson(id, true);
+                string spoilerLogText = GetSeedGenResultsJson(id);
                 byte[] spoilerBytes = Encoding.UTF8.GetBytes(spoilerLogText);
 
                 Dictionary<string, object> dict = new();
@@ -983,9 +1019,13 @@ namespace TPRandomizer
             Console.WriteLine("Placing Junk Items.");
             PlaceJunkItems(Items.JunkItems, rnd);
 
-            if (!BackendFunctions.ValidatePlaythrough(startingRoom))
+            // Only validate if we are not no-logic
+            if (SSettings.logicRules != LogicRules.No_Logic)
             {
-                throw new ArgumentOutOfRangeException();
+                if (!BackendFunctions.ValidatePlaythrough(startingRoom))
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
         }
 
@@ -1551,12 +1591,15 @@ namespace TPRandomizer
                         foreach (string check in listOfRequiredDungeons[i].requirementChecks)
                         {
                             if (
-                                (
-                                    (Checks.CheckDict[check].checkStatus != "Vanilla")
-                                    && (Checks.CheckDict[check].checkStatus != "Excluded")
-                                ) && !Checks.CheckDict[check].itemWasPlaced
+                                Checks.CheckDict[check].checkStatus != "Vanilla"
+                                && Checks.CheckDict[check].checkStatus != "Excluded"
                             )
                             {
+                                // Note: this used to check against
+                                // itemWasPlaced, but this caused dungeonReward
+                                // checks in unrequired barren dungeons to not
+                                // be marked as "Excluded-Unrequired".
+
                                 //Console.WriteLine(check + " is now excluded");
                                 Checks.CheckDict[check].checkStatus = "Excluded-Unrequired";
                             }
@@ -1804,7 +1847,6 @@ namespace TPRandomizer
 
         public static string GetSeedGenResultsJson(
             string seedId,
-            bool prettyPrint,
             bool dangerouslyPrintFullRaceSpoiler = false
         )
         {
@@ -1817,11 +1859,15 @@ namespace TPRandomizer
             string fileContents = File.ReadAllText(inputPath);
             JObject json = JsonConvert.DeserializeObject<JObject>(fileContents);
 
+            if (Checks.CheckDict.Count < 1)
+            {
+                DeserializeChecks(SSettings);
+            }
+
             SeedGenResults seedGenResults = new SeedGenResults(seedId, json);
 
             return seedGenResults.ToSpoilerString(
                 GetSortedCheckNameToItemNameDict(seedGenResults),
-                prettyPrint,
                 dangerouslyPrintFullRaceSpoiler
             );
         }

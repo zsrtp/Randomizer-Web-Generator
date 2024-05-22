@@ -24,32 +24,45 @@
   };
   const regionBitLength = 2;
 
+  const EurLanguageTag = {
+    English: 0,
+    Deutsch: 2,
+    Español: 4,
+    Français: 1,
+    Italiano: 3,
+  };
+  const eurLangTagBitLength = 3;
+
   let pageData;
   let creationCallInProgress;
   let picrossOpened = false;
   let selectedRegion = null;
+  let selectedLanguage = null;
   let hasSelectedRegionError = false;
   let defaultIncludeSpoilerLog = false;
 
   function createBasicEvent() {
-    let listener = null;
+    let listeners = [];
 
     return {
       subscribe: function (newListener) {
-        listener = newListener;
+        listeners.push(newListener);
       },
-      hasListener: function () {
-        return typeof listener === 'function';
+      hasListener: function (fn) {
+        return listeners.indexOf(fn) >= 0;
       },
       notify: function () {
-        if (typeof listener === 'function') {
-          listener();
-        }
+        listeners.forEach((listener) => {
+          if (typeof listener === 'function') {
+            listener();
+          }
+        });
       },
     };
   }
 
   const regionSelectedEvent = createBasicEvent();
+  const languageSelectedEvent = createBasicEvent();
 
   const RawSettingType = {
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
@@ -255,6 +268,45 @@
     handleSpoilerData();
 
     initCustomColorPickers();
+
+    function handleToggleTranslationsWarning() {
+      let showTranslationsWarning = false;
+      if (selectedRegion !== 'USA' && selectedLanguage !== 'English') {
+        showTranslationsWarning =
+          selectedRegion !== 'EUR' || selectedLanguage !== 'Français';
+      }
+
+      $('#translationsWarning').toggle(showTranslationsWarning);
+    }
+
+    function handleRegionChange() {
+      updateLangDisplay();
+
+      handleToggleTranslationsWarning();
+    }
+
+    // Run once at startup
+    handleRegionChange();
+
+    regionSelectedEvent.subscribe(() => {
+      if (hasSelectedRegionError) {
+        hasSelectedRegionError = false;
+        $('#downloadsParent').hide();
+      }
+
+      handleRegionChange();
+    });
+
+    languageSelectedEvent.subscribe(() => {
+      handleToggleTranslationsWarning();
+    });
+  }
+
+  function updateLangDisplay() {
+    const shouldShowLangSection =
+      selectedRegion == 'All' || selectedRegion === 'EUR';
+
+    $('#downloadOptionsLanguageFilterGroup').toggle(shouldShowLangSection);
   }
 
   function restoreDefaultFcSettings() {
@@ -267,20 +319,69 @@
         selectedRegion = fcSettingsDefault.region;
       }
 
+      if (EurLanguageTag.hasOwnProperty(fcSettingsDefault.eurLanguage)) {
+        selectedLanguage = fcSettingsDefault.eurLanguage;
+      }
+
       if (typeof fcSettingsDefault.includeSpoilerLog === 'boolean') {
         defaultIncludeSpoilerLog = fcSettingsDefault.includeSpoilerLog;
       }
     } catch (e) {
       // do nothing
     }
+
+    if (!EurLanguageTag.hasOwnProperty(selectedLanguage)) {
+      pickDefaultEurLanguage();
+    }
+  }
+
+  function pickDefaultEurLanguage() {
+    let locales = navigator.languages;
+    if (locales == null) {
+      const navLang = navigator.language;
+      if (navLang != null) {
+        locales = [navLang];
+      }
+    }
+
+    const localeMapping = {
+      en: 'English',
+      de: 'Deutsch',
+      es: 'Español',
+      fr: 'Français',
+      it: 'Italiano',
+    };
+
+    if (Array.isArray(locales)) {
+      for (let i = 0; i < locales.length; i++) {
+        let locale = locales[i];
+
+        if (typeof locale === 'string') {
+          const dashIndex = locale.indexOf('-');
+          if (dashIndex >= 0) {
+            locale = locale.substring(0, dashIndex);
+          }
+
+          const lang = localeMapping[locale];
+
+          if (EurLanguageTag.hasOwnProperty(lang)) {
+            selectedLanguage = lang;
+            return;
+          }
+        }
+      }
+    }
+
+    if (!EurLanguageTag.hasOwnProperty(selectedLanguage)) {
+      selectedLanguage = 'English';
+    }
   }
 
   function handleSpoilerData() {
     $('#settingsSpoilerSection').show();
 
-    const spoilerData = JSON.parse(
-      document.getElementById('spoilerData').value
-    );
+    const rawSpoilerData = document.getElementById('spoilerData').value;
+    const spoilerData = JSON.parse(rawSpoilerData);
     console.log(spoilerData);
 
     initTabButtons([
@@ -301,7 +402,7 @@
       $('#tabBtnPlaythroughSpoilers').show();
 
       initPlaythroughSpoilers(spoilerData);
-      createSpoilerLogDownload(spoilerData);
+      createSpoilerLogDownload(spoilerData, rawSpoilerData);
     }
 
     initDownloadOptions(spoilerData.isRaceSeed);
@@ -322,6 +423,21 @@
         regionSelectedEvent.notify();
         // selectedLocationFilter = filter;
         // onFilterChange();
+      },
+    });
+
+    const downloadOptionsLanguageFilterGroupEl = document.getElementById(
+      'downloadOptionsLanguageFilterGroup'
+    );
+
+    renderFilterGroup({
+      rootEl: downloadOptionsLanguageFilterGroupEl,
+      title: 'EUR Language',
+      filters: ['English', 'Deutsch', 'Español', 'Français', 'Italiano'],
+      defaultFilter: selectedLanguage,
+      onFilterSelected: (filter) => {
+        selectedLanguage = filter;
+        languageSelectedEvent.notify();
       },
     });
 
@@ -963,11 +1079,9 @@
     });
   }
 
-  function createSpoilerLogDownload(spoilerData) {
-    const spoilerDataString = JSON.stringify(spoilerData, null, 2);
-
+  function createSpoilerLogDownload(spoilerData, rawSpoilerData) {
     const enc = new TextEncoder(); // always utf-8
-    const fileBytes = enc.encode(spoilerDataString);
+    const fileBytes = enc.encode(rawSpoilerData);
 
     // const link = document.createElement('a');
     const link = document.getElementById('downloadSpoilerLogBtn');
@@ -1168,7 +1282,25 @@
         value: parseInt(Region[selectedRegion], 10),
       });
     } else {
-      values.push(0);
+      values.push({
+        type: RawSettingType.xBitNum,
+        bitLength: regionBitLength,
+        value: 0,
+      });
+    }
+
+    if (EurLanguageTag.hasOwnProperty(selectedLanguage)) {
+      values.push({
+        type: RawSettingType.xBitNum,
+        bitLength: eurLangTagBitLength,
+        value: parseInt(EurLanguageTag[selectedLanguage], 10),
+      });
+    } else {
+      values.push({
+        type: RawSettingType.xBitNum,
+        bitLength: eurLangTagBitLength,
+        value: 0,
+      });
     }
 
     values = values.concat(
@@ -1372,15 +1504,6 @@
       $('#downloadLinkError').text('Select a region.').show();
       creationCallInProgress = false;
 
-      if (!regionSelectedEvent.hasListener()) {
-        regionSelectedEvent.subscribe(() => {
-          if (hasSelectedRegionError) {
-            hasSelectedRegionError = false;
-            $('#downloadsParent').hide();
-          }
-        });
-      }
-
       return;
     }
 
@@ -1391,6 +1514,7 @@
     try {
       const fcSettingsDefault = {
         region: selectedRegion,
+        eurLanguage: selectedLanguage,
         includeSpoilerLog: $('#includeSpoilerCheckbox').prop('checked'),
       };
 

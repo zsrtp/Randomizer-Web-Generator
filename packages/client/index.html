@@ -337,6 +337,7 @@
               </div>
               <div
                 data-tooltip-text="If checked, the Fused Shadows and Mirror Shards that normally appear at the end of Dungeons can be found anywhere in the game.&#0010;"
+                data-tooltip-position="left"
               >
                 <input
                   type="checkbox"
@@ -350,6 +351,7 @@
               </div>
               <div
                 data-tooltip-text="Helps prevent needing to reenter a dungeon after defeating the boss when small keys are Own Dungeon.&#0010;&#0010;If checked, the following items will not appear on Heart Container or Dungeon Reward checks: Dungeon small keys, Snowpeak Ruins Ordon Pumpkin, Snowpeak Ruins Ordon Goat Cheese, Gerudo Desert Bulblin Camp Key, and North Faron Woods Gate Key&#0010;"
+                data-tooltip-position="left"
               >
                 <input
                   type="checkbox"
@@ -650,6 +652,22 @@
                   <option value="1" selected="selected">Noon</option>
                   <option value="2">Evening</option>
                   <option value="3">Night</option>
+                </select>
+              </div>
+              <div class="selectGroup" style="margin-top: 8px">
+                <label for="hintDistributionFieldset">Hint Distribution</label
+                ><br />
+                <select
+                  name="Hint Distribution"
+                  id="hintDistributionFieldset"
+                  data-tooltip-text="'None': Disables hints.&#0010;&#0010;'Balanced': Recommended hint distribution.&#0010;&#0010;'Blossom': Designed for races. Showcases the capabilities of the new hint system.&#0010;&#0010;'Strong': Hints are more useful than Balanced on average.&#0010;&#0010;'Very Strong': Hints are more useful than Strong on average.&#0010;&#0010;'Weak': Designed to enhance the experience without speeding things up that much.&#0010;"
+                >
+                  <option value="0">None</option>
+                  <option value="3" selected="selected">Balanced</option>
+                  <option value="1">Blossom</option>
+                  <option value="4">Strong</option>
+                  <option value="5">Very Strong</option>
+                  <option value="2">Weak</option>
                 </select>
               </div>
             </fieldset>

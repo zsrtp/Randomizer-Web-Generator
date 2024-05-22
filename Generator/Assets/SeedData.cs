@@ -92,32 +92,9 @@ namespace TPRandomizer.Assets
             TPRandomizer.Assets.CustomMessages customMessage = new();
 
             
-            List<CustomMessages.MessageEntry> seedMessages = new();
-            List<CustomMessages.MessageEntry> seedShopMessages = new();
-            switch (hintLanguage)
-            {
-                case CustomMessages.MessageLanguage.English:
-                {
-                    seedMessages = customMessage.englishMessages;
-                    seedShopMessages = customMessage.englishShopMessages;
-                    break;
-                }
+            List<CustomMessages.MessageEntry> seedMessages = seedGenResults.customMsgData.GenMessageEntries();
 
-                default:
-                {
-                    break;
-                }
-            }
-
-            // We only modify the shop item text if the models are being replaced because we don't want to spoil it.
-            if (Randomizer.SSettings.modifyShopModels)
-            {
-                seedMessages = customMessage.englishMessages;
-                seedMessages.AddRange(seedShopMessages);
-            }
             seedDictionary.Add((byte)hintLanguage, seedMessages);
-
-            
 
             // If generating for all regions, we use the region passed in as an
             // argument rather than reading from fcSettings.
@@ -1232,7 +1209,7 @@ namespace TPRandomizer.Assets
 
                 new ARCReplacement(
                     "708",
-                    "3976FFFF",
+                    "3904FFFF",
                     (byte)FileDirectory.Room,
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
@@ -1241,7 +1218,7 @@ namespace TPRandomizer.Assets
 
                 new ARCReplacement(
                     "648",
-                    "76FFFFFF",
+                    "04FFFFFF",
                     (byte)FileDirectory.Room,
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
@@ -1391,15 +1368,8 @@ namespace TPRandomizer.Assets
             Dictionary<byte, List<CustomMessages.MessageEntry>> seedDictionary
         )
         {
-            TPRandomizer.Assets.CustomMessages customMessage = new();
-            List<byte> customMessageData = new();
-            List<byte> listOfCustomMessages = new();
             List<byte> listOfMsgOffsets = new();
-            List<byte> customMsgIDTables = new();
-
-            customMsgIDTables.AddRange(
-                ParseMessageIDTables(currentLanguage, currentMessageData, seedDictionary)
-            );
+            List<byte> listOfCustomMessages = new();
 
             foreach (
                 CustomMessages.MessageEntry messageEntry in seedDictionary
@@ -1415,6 +1385,17 @@ namespace TPRandomizer.Assets
                 listOfCustomMessages.Count
             );
 
+            for (int i = 0; i < listOfCustomMessages.Count; i++)
+            {
+                listOfCustomMessages[i] ^= 0xFF;
+            }
+
+            List<byte> customMsgIDTables = new();
+            customMsgIDTables.AddRange(
+                ParseMessageIDTables(currentLanguage, currentMessageData, seedDictionary)
+            );
+
+            List<byte> customMessageData = new();
             customMessageData.AddRange(customMsgIDTables);
             customMessageData.AddRange(listOfMsgOffsets);
             customMessageData.AddRange(listOfCustomMessages);

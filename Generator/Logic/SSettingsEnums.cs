@@ -115,4 +115,14 @@ namespace TPRandomizer.SSettings.Enums
         Evening = 2,
         Night = 3,
     }
+
+    public enum HintDistribution
+    {
+        None = 0,
+        Blossom = 1,
+        Weak = 2,
+        Balanced = 3,
+        Strong = 4,
+        Very_Strong = 5,
+    }
 }

@@ -1,5 +1,6 @@
 namespace TPRandomizer
 {
+    using System;
     using TPRandomizer.Util;
     using TPRandomizer.FcSettings.Enums;
     using TPRandomizer.Assets.CLR0;
@@ -7,6 +8,7 @@ namespace TPRandomizer
     public class FileCreationSettings
     {
         public GameRegion gameRegion { get; }
+        public EurLanguageTag eurLangTag { get; }
         public bool includeSpoilerLog { get; }
         public RandomizeBgm randomizeBgm { get; }
         public bool randomizeFanfares { get; }
@@ -55,6 +57,7 @@ namespace TPRandomizer
             BitsProcessor processor = new BitsProcessor(bits);
 
             gameRegion = (GameRegion)processor.NextInt(2);
+            eurLangTag = (EurLanguageTag)processor.NextInt(3);
             includeSpoilerLog = processor.NextBool();
 
             randomizeBgm = (RandomizeBgm)processor.NextInt(2);
@@ -126,6 +129,47 @@ namespace TPRandomizer
         {
             string bits = SettingsEncoder.DecodeToBitString(fcSettingsString);
             return new FileCreationSettings(bits);
+        }
+
+        public string GetLanguageTagString(GameRegion? exactGameRegion = null)
+        {
+            if (exactGameRegion == null)
+                exactGameRegion = gameRegion;
+
+            switch (exactGameRegion)
+            {
+                case GameRegion.All:
+                case GameRegion.GC_USA:
+                case GameRegion.WII_10_USA:
+                    return "en";
+                case GameRegion.GC_JAP:
+                case GameRegion.WII_10_JP:
+                    return "ja";
+                case GameRegion.GC_EUR:
+                case GameRegion.WII_10_EU:
+                    return ResolveEurLang(eurLangTag);
+                default:
+                    throw new Exception($"Unrecognized GameRegion '{exactGameRegion}'.");
+            }
+        }
+
+        private static string ResolveEurLang(EurLanguageTag langTag)
+        {
+            switch (langTag)
+            {
+                case EurLanguageTag.English:
+                    return "en-GB";
+                case EurLanguageTag.French:
+                    return "fr";
+                case EurLanguageTag.German:
+                    return "de";
+                case EurLanguageTag.Italian:
+                    return "it";
+                case EurLanguageTag.Spanish:
+                    return "es";
+                default:
+                    throw new Exception($"Unrecognized EurLanguageTag '{langTag}'.");
+            }
         }
     }
 }

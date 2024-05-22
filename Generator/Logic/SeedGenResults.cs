@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TPRandomizer.Util;
 using TPRandomizer.Assets;
+using System.Runtime.Serialization;
 
 namespace TPRandomizer
 {
@@ -30,9 +31,18 @@ namespace TPRandomizer
         public byte requiredDungeons { get; set; }
         public List<List<KeyValuePair<int, Item>>> spheres { get; }
         public string entrances { get; }
+        public CustomMsgData customMsgData { get; }
+
+        // other
+        public SharedSettings decodedSSettings;
 
         public SeedGenResults(string seedId, JObject inputJsonContents)
         {
+            if (Randomizer.Checks.CheckDict.Count < 1)
+                throw new Exception(
+                    "Tried to decode SeedGenResults, but CheckDict was not initialized."
+                );
+
             this.seedId = seedId;
 
             // Can read `version` as well if format ever changes and we need to
@@ -49,6 +59,7 @@ namespace TPRandomizer
 
             JObject input = (JObject)inputJsonContents["input"];
             settingsString = (string)input["settings"];
+            decodedSSettings = SharedSettings.FromString(settingsString);
             seed = (string)input["seed"];
             isRaceSeed = (int)input["race"] == 1;
 
@@ -59,6 +70,11 @@ namespace TPRandomizer
             this.requiredDungeons = (byte)output["reqDungeons"];
             this.spheres = DecodeSpheres((string)output["spheres"]);
             this.entrances = DecodeEntrances((string)output["entrances"]);
+            this.customMsgData = CustomMsgData.Decode(
+                decodedSSettings,
+                itemPlacements,
+                (string)output["customMsg"]
+            );
         }
 
         public static string EncodeEntrances()
@@ -185,6 +201,28 @@ namespace TPRandomizer
                 checkNumIdToItemId[checkId] = itemId;
             }
 
+            // Randomizer.CheckDict - need to iterate through entire list. Any
+            // that aren't in itemPlacements get inserted into dict with their
+            // vanilla contents. We need this since we don't always encode 100%
+            // of the checks, and an old seed might have been created before new
+            // checks exist as well.
+            foreach (KeyValuePair<string, Check> pair in Randomizer.Checks.CheckDict)
+            {
+                int checkId = CheckIdClass.GetCheckIdNum(pair.Key);
+                if (!checkNumIdToItemId.ContainsKey(checkId))
+                    checkNumIdToItemId[checkId] = (byte)pair.Value.itemId;
+            }
+            // Ensure we have a mapping for all checkIds.
+            int currCheckId = 0;
+            while (CheckIdClass.IsValidCheckId(currCheckId))
+            {
+                if (!checkNumIdToItemId.ContainsKey(currCheckId))
+                    throw new Exception(
+                        $"Expected checkNumToItemId to contain key '{currCheckId}', but was missing."
+                    );
+                currCheckId++;
+            }
+
             return checkNumIdToItemId;
         }
 
@@ -249,7 +287,6 @@ namespace TPRandomizer
         // forceOutputEverything only exists so that we can print
         public string ToSpoilerString(
             SortedDictionary<string, string> sortedCheckNameToItemNameDict,
-            bool prettyPrint,
             bool dangerouslyPrintFullRaceSpoiler = false
         )
         {
@@ -280,6 +317,7 @@ namespace TPRandomizer
                 root.Add("requiredDungeons", GetRequiredDungeonsStringList());
                 root.Add("shuffledEntrances", GetShuffledEntrancesStringList());
                 root.Add("itemPlacements", sortedCheckNameToItemNameDict);
+                root.Add("hints", customMsgData.GetDictForSpoiler());
                 root.Add("spheres", GetSpheresForSpoiler());
             }
 
@@ -292,8 +330,6 @@ namespace TPRandomizer
             metaObj.Add("imageVersion", imageVersion);
             metaObj.Add("gitCommit", gitCommit);
 
-            // Just increment "version" whenever you make a change to what this
-            // method outputs
             root.Add(
                 "version",
                 "s"
@@ -304,11 +340,7 @@ namespace TPRandomizer
                     + Assets.SeedData.VersionPatch
             );
 
-            if (prettyPrint || dangerouslyPrintFullRaceSpoiler)
-            {
-                return JsonConvert.SerializeObject(root, Formatting.Indented);
-            }
-            return JsonConvert.SerializeObject(root);
+            return SpoilerJsonWriterUtils.Serialize(root);
         }
 
         private List<string> GetRequiredDungeonsStringList()
@@ -513,6 +545,7 @@ namespace TPRandomizer
             result.Add("openDot", sSettings.openDot);
             result.Add("noSmallKeysOnBosses", sSettings.noSmallKeysOnBosses);
             result.Add("startingToD", sSettings.startingToD.ToString());
+            result.Add("hintDistribution", sSettings.hintDistribution.ToString());
 
             result.Add("startingItems", sSettings.startingItems);
             result.Add("excludedChecks", sSettings.excludedChecks);
@@ -532,6 +565,7 @@ namespace TPRandomizer
             private string itemPlacement;
             private string spheres;
             public string entrances;
+            public string customMsgData;
 
             public Builder() { }
 
@@ -553,6 +587,11 @@ namespace TPRandomizer
             public string GetEntrances(string encodedString)
             {
                 return DecodeEntrances(encodedString);
+            }
+
+            public void SetCustomMsgData(CustomMsgData customMsgData)
+            {
+                this.customMsgData = customMsgData.Encode();
             }
 
             override public string ToString()
@@ -584,6 +623,7 @@ namespace TPRandomizer
                 outputObj.Add("reqDungeons", requiredDungeons);
                 outputObj.Add("spheres", spheres);
                 outputObj.Add("entrances", entrances);
+                outputObj.Add("customMsg", customMsgData);
 
                 return JsonConvert.SerializeObject(inputJsonRoot);
             }

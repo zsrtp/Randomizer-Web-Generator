@@ -1,0 +1,55 @@
+{
+  // Weak distribution
+  "agitha": true,
+  "jovani": {
+    "minSoulsForHint": 60
+  },
+  "caveOfOrdeals": true,
+  "dungeons": {
+    "bigKeyHints": false
+  },
+  "always": {
+    "idealNumSpots": 99,
+    "copies": 2,
+    "groupId": "overworld"
+  },
+  "groups": {
+    "overworld": ["alias:overworldZones"],
+    "dungeons": ["alias:dungeonZones"]
+  },
+  "hints": [
+    {
+      "groupId": "overworld",
+      "hintDef": {
+        "copies": 2,
+        "hintDef": [
+          { "hintType": "itemToItemPath" },
+          {
+            "hintType": "item",
+            "options": {
+              "areaType": "province",
+              "validItems": ["Lantern", "Boomerang"]
+            }
+          },
+          {
+            "hintType": "sometimes",
+            "iterations": 4
+          },
+          {
+            "hintType": "junk",
+            "iterations": 99,
+            "copies": 1
+          }
+        ]
+      }
+    },
+    {
+      "groupId": "dungeons",
+      "hintDef": {
+        "hintType": "junk",
+        "iterations": 99,
+        "copies": 1
+      }
+    }
+  ]
+}

@@ -58,6 +58,7 @@ namespace TPRandomizer
         public bool openDot { get; set; }
         public bool noSmallKeysOnBosses { get; set; }
         public StartingToD startingToD { get; set; }
+        public HintDistribution hintDistribution { get; set; }
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
         public List<(string, Item)> plandoChecks { get; set; }
@@ -111,6 +112,7 @@ namespace TPRandomizer
             skipMajorCutscenes = processor.NextBool();
             noSmallKeysOnBosses = processor.NextBool();
             startingToD = (StartingToD)processor.NextInt(3);
+            hintDistribution = (HintDistribution)processor.NextInt(5);
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();

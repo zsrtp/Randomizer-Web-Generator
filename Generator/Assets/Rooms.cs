@@ -40,7 +40,7 @@ namespace TPRandomizer
         public string Region { get; set; }
     }
 
-    enum StageIDs : int
+    public enum StageIDs : int
     {
         Lakebed_Temple = 0x0,
         Morpheel = 0x1,
