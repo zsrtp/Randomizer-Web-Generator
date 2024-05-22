@@ -10,9 +10,7 @@
   },
   "caveOfOrdeals": true,
   "dungeons": {
-    "bigKeyHints": true,
-    "maxBarrenHints": 1,
-    "maxWothHints": 2
+    "bigKeyHints": true
   },
   "beyondPointZones": ["alias:all"],
   "barren": {
