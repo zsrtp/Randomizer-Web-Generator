@@ -4,18 +4,6 @@ namespace TPRandomizer.Hints
     using System.Collections.Generic;
     using TPRandomizer.Util;
 
-    // HintSpot has an array of Hints.
-    // Hints have an array of textboxes.
-
-    // HintSpot points to an array of Hints
-
-    // HintSpots are an array of things which can take an array of hints.
-    // 0 => Midna hint. 1 => Ordon spot ... etc.
-
-    // AgithaHints are still a hintSpot, but the content will be a single Agitha
-    // hint which internally handles multiple text boxes.
-
-
     public enum HintType : byte
     {
         Junk = 0,

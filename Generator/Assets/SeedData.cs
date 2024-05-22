@@ -94,32 +94,7 @@ namespace TPRandomizer.Assets
             
             List<CustomMessages.MessageEntry> seedMessages = seedGenResults.customMsgData.GenMessageEntries();
 
-            // List<CustomMessages.MessageEntry> seedMessages = new();
-            // List<CustomMessages.MessageEntry> seedShopMessages = new();
-            // switch (hintLanguage)
-            // {
-            //     case CustomMessages.MessageLanguage.English:
-            //     {
-            //         seedMessages = customMessage.englishMessages;
-            //         seedShopMessages = customMessage.englishShopMessages;
-            //         break;
-            //     }
-
-            //     default:
-            //     {
-            //         break;
-            //     }
-            // }
-
-            // // We only modify the shop item text if the models are being replaced because we don't want to spoil it.
-            // if (Randomizer.SSettings.modifyShopModels)
-            // {
-            //     seedMessages = customMessage.englishMessages;
-            //     seedMessages.AddRange(seedShopMessages);
-            // }
             seedDictionary.Add((byte)hintLanguage, seedMessages);
-
-            
 
             // If generating for all regions, we use the region passed in as an
             // argument rather than reading from fcSettings.
