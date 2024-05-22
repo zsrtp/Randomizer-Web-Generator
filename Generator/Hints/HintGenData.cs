@@ -413,7 +413,7 @@ namespace TPRandomizer.Hints
                     { Item.North_Faron_Woods_Gate_Key, 1 },
                     { Item.Gerudo_Desert_Bulblin_Camp_Key, 1 },
                     { Item.Progressive_Fused_Shadow, 3 },
-                    { Item.Progressive_Mirror_Shard, 3 },
+                    { Item.Progressive_Mirror_Shard, 4 },
                 };
 
             Dictionary<Item, int> itemToInflexibleCount = new();
