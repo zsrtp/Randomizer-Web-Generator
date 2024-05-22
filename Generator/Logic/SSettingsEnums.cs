@@ -123,5 +123,6 @@ namespace TPRandomizer.SSettings.Enums
         Weak = 2,
         Balanced = 3,
         Strong = 4,
+        Very_Strong = 5,
     }
 }

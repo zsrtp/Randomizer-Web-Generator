@@ -1,0 +1,36 @@
+{
+  // Very Strong distribution
+  "agitha": true,
+  "jovani": {
+    "minSoulsForHint": 0
+  },
+  "caveOfOrdeals": true,
+  "dungeons": {
+    "bigKeyHints": true
+  },
+  "beyondPointZones": ["alias:all"],
+  "barren": {
+    "ownZoneBehavior": "monopolize"
+  },
+  "always": {
+    "copies": 2,
+    "groupId": "only-group"
+  },
+  "groups": {
+    "only-group": ["alias:overworldZones", "alias:dungeonZones"]
+  },
+  "hints": [
+    {
+      "groupId": "only-group",
+      "hintDef": {
+        "selectionType": "randomWeighted",
+        "hintDef": [
+          { "hintType": "woth", "copies": 2, "weight": 3 },
+          { "hintType": "barren", "weight": 3 },
+          { "hintType": "item", "weight": 1 },
+          { "hintType": "sometimes", "weight": 4 }
+        ]
+      }
+    }
+  ]
+}
