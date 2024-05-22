@@ -1393,15 +1393,8 @@ namespace TPRandomizer.Assets
             Dictionary<byte, List<CustomMessages.MessageEntry>> seedDictionary
         )
         {
-            TPRandomizer.Assets.CustomMessages customMessage = new();
-            List<byte> customMessageData = new();
-            List<byte> listOfCustomMessages = new();
             List<byte> listOfMsgOffsets = new();
-            List<byte> customMsgIDTables = new();
-
-            customMsgIDTables.AddRange(
-                ParseMessageIDTables(currentLanguage, currentMessageData, seedDictionary)
-            );
+            List<byte> listOfCustomMessages = new();
 
             foreach (
                 CustomMessages.MessageEntry messageEntry in seedDictionary
@@ -1417,6 +1410,17 @@ namespace TPRandomizer.Assets
                 listOfCustomMessages.Count
             );
 
+            for (int i = 0; i < listOfCustomMessages.Count; i++)
+            {
+                listOfCustomMessages[i] ^= 0xFF;
+            }
+
+            List<byte> customMsgIDTables = new();
+            customMsgIDTables.AddRange(
+                ParseMessageIDTables(currentLanguage, currentMessageData, seedDictionary)
+            );
+
+            List<byte> customMessageData = new();
             customMessageData.AddRange(customMsgIDTables);
             customMessageData.AddRange(listOfMsgOffsets);
             customMessageData.AddRange(listOfCustomMessages);
