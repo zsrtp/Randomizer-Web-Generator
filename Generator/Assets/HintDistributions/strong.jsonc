@@ -8,7 +8,7 @@
   "dungeons": {
     "bigKeyHints": true
   },
-  "beyondPointZones": ["alias:all"],
+  "beyondPointZones": ["alias:overworld"],
   "always": {
     "copies": 2,
     "groupId": "only-group"
