@@ -233,7 +233,7 @@
         },
         {
           "ConnectedArea": "Mirror Chamber Portal",
-          "Requirements": "CanDefeatShadowBeast and ((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 3)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky))"
+          "Requirements": "CanDefeatShadowBeast and ((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky))"
         }
       ],
       "Checks": [""],

@@ -335,6 +335,7 @@ namespace TPRandomizer
                 Item.Progressive_Mirror_Shard,
                 Item.Progressive_Mirror_Shard,
                 Item.Progressive_Mirror_Shard,
+                Item.Progressive_Mirror_Shard
             };
 
         internal List<Item> RegionSmallKeys =
