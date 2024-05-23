@@ -191,7 +191,8 @@ namespace TPRandomizer.Hints
         private static readonly Func<HintGenData, Zone, bool> alwaysPassFn = (genData, zone) =>
             true;
         private static readonly Func<HintGenData, Zone, bool> snowpeakFn = (genData, zone) =>
-            genData.sSettings.shufflePoes != PoeSettings.All
+            !genData.sSettings.skipSnowpeakEntrance
+            && genData.sSettings.shufflePoes != PoeSettings.All
             && genData.sSettings.shufflePoes != PoeSettings.Overworld
             && genData.sSettings.barrenDungeons
             && !HintUtils.DungeonIsRequired(ZoneUtils.IdToString(Zone.Snowpeak_Ruins));
