@@ -362,12 +362,18 @@ namespace TPRandomizer.Hints.HintCreator
 
         private static bool IsSkipOverCheck(HintGenData genData, string checkName)
         {
-            // We are specifically skipping over Always-hinted checks and not
-            // just checkContents hinted.
+            // We intentionally do NOT skip over Always checks. Consider this
+            // case: your average joe finds a hint that Eldin Field is Barren,
+            // so they mark off 100% of the Eldin Field checks. Now assume that
+            // the Always-hinted Goron Springwater Rush check rewards a required
+            // Clawshot. If this player does not find the Always hint for this
+            // check, then they may run out of checks to do and get confused.
+            // The trade-off is that finding a hint about Goron Springwater Rush
+            // when you already know it is unimportant is kind of a waste, but
+            // it is better than people getting confused.
             return (
                 HintUtils.checkIsPlayerKnownStatus(checkName)
                 || genData.hinted.hintsShouldIgnoreChecks.Contains(checkName)
-                || genData.hinted.alwaysHintedChecks.Contains(checkName)
             );
         }
 
