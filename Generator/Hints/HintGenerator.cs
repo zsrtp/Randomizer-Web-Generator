@@ -324,50 +324,15 @@ namespace TPRandomizer.Hints
                 }
 
                 // If we used up our hints, fill in the remaining spots.
-                // Default to item hints pointing to junk/rupees.
                 if (recHintResults.HintDefResults.Count < 1 && spotsToFill.Count > 0)
                 {
-                    JObject obj = JObject.Parse(
-                        "{'hintType':'item',options:{validItems:['alias:junk','alias:rupees']}}"
-                    );
-                    ItemHintCreator fillerHintCreator = ItemHintCreator.fromJObject(obj);
-                    List<Hint> itemHints = fillerHintCreator.tryCreateHint(
-                        genData,
-                        hintSettings,
-                        spotsToFill.Count,
-                        cache
-                    );
-
-                    if (itemHints.Count > 0)
-                    {
-                        int itemHintIndex = 0;
-                        for (int i = spotsToFill.Count - 1; i >= 0; i--)
+                    AddFillerHintsToSpots(
+                        spotsToFill,
+                        (spotId, fillerHint) =>
                         {
-                            Hint fillerHint = itemHints[itemHintIndex];
-
-                            SpotId spotId = spotsToFill[i];
                             normalSpotToHints.addHintToSpot(spotId, fillerHint);
-                            spotsToFill.RemoveAt(i);
-                            itemHintIndex = (itemHintIndex + 1) % itemHints.Count;
                         }
-                    }
-                    else
-                    {
-                        // As an absolute last resort, create a hardcoded hint.
-                        // We don't care if it was excluded as this is a final
-                        // resort and there is no reason to do a huge number of
-                        // if-statements. We will likely never make it to this
-                        // point anyway (except for really crazy plandos).
-                        string checkName = "Wooden Sword Chest";
-                        Hint fillerHint = LocationHint.Create(genData, checkName);
-
-                        for (int i = spotsToFill.Count - 1; i >= 0; i--)
-                        {
-                            SpotId spotId = spotsToFill[i];
-                            normalSpotToHints.addHintToSpot(spotId, fillerHint);
-                            spotsToFill.RemoveAt(i);
-                        }
-                    }
+                    );
                 }
 
                 // If we have leftover hints or leftover spots, then something
@@ -1427,6 +1392,78 @@ namespace TPRandomizer.Hints
             }
 
             return hintSpots;
+        }
+
+        private void FillUnfilledCustomSigns(
+            List<SpotId> spotsToFill,
+            Action<SpotId, Hint> action
+        ) { }
+
+        private void AddFillerHintsToSpots(List<SpotId> spotsToFill, Action<SpotId, Hint> action)
+        {
+            if (ListUtils.isEmpty(spotsToFill))
+                return;
+
+            // NOTE: this mutates the spotsToFill list.
+
+            List<Hint> fillerHints;
+
+            if (hintSettings.barren.ownZoneShowsAsJunkHint)
+            {
+                JObject obj = JObject.Parse(
+                    "{'hintType':'item',options:{validItems:['alias:junk','alias:rupees']}}"
+                );
+                ItemHintCreator fillerHintCreator = ItemHintCreator.fromJObject(obj);
+                List<Hint> itemHints = fillerHintCreator.tryCreateHint(
+                    genData,
+                    hintSettings,
+                    spotsToFill.Count,
+                    cache
+                );
+
+                if (itemHints.Count > 0)
+                {
+                    fillerHints = itemHints;
+                }
+                else
+                {
+                    // As an absolute last resort, create a hardcoded hint.
+                    // We don't care if it was excluded as this is a final
+                    // resort and there is no reason to do a huge number of
+                    // if-statements. We will likely never make it to this
+                    // point anyway (except for really crazy plandos).
+                    string checkName = "Wooden Sword Chest";
+                    Hint fillerHint = LocationHint.Create(genData, checkName);
+                    fillerHints = new() { fillerHint };
+                }
+            }
+            else
+            {
+                JObject obj = JObject.Parse("{}");
+                JunkHintCreator junkHintCreator = JunkHintCreator.fromJObject(obj);
+                fillerHints = junkHintCreator.tryCreateHint(
+                    genData,
+                    hintSettings,
+                    spotsToFill.Count,
+                    cache
+                );
+            }
+
+            if (ListUtils.isEmpty(fillerHints))
+                throw new Exception("Did not expect fillerHints to be empty.");
+
+            int itemHintIndex = 0;
+            for (int i = spotsToFill.Count - 1; i >= 0; i--)
+            {
+                Hint fillerHint = fillerHints[itemHintIndex];
+                SpotId spotId = spotsToFill[i];
+
+                // The caller handles adding the hint to the HintSpot.
+                action.Invoke(spotId, fillerHint);
+
+                spotsToFill.RemoveAt(i);
+                itemHintIndex = (itemHintIndex + 1) % fillerHints.Count;
+            }
         }
 
         private abstract class HintDefArrayProcessor
