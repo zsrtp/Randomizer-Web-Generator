@@ -275,8 +275,6 @@ namespace TPRandomizer
                 if (itemsToPickFrom.Count < 1)
                     itemsToPickFrom = new(items);
 
-                itemsToPickFrom.Add(Item.Progressive_Sword);
-
                 selfHinterTrapReplacements = itemsToPickFrom;
             }
 
