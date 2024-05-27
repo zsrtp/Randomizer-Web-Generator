@@ -28,7 +28,7 @@ namespace TPRandomizer
         private bool updateShopText;
 
         // checkName to useDefArticle
-        private Dictionary<string, bool> selfHinterChecks;
+        private Dictionary<string, SelfHinterData> selfHinterChecks;
         private List<HintSpot> hintSpots;
 
         // private Dictionary<string, Status> checkToStatus;
@@ -68,16 +68,16 @@ namespace TPRandomizer
             result += SettingsEncoder.EncodeAsVlq16((ushort)numSelfHinters);
             if (numSelfHinters > 0)
             {
-                foreach (KeyValuePair<string, bool> pair in selfHinterChecks)
+                foreach (KeyValuePair<string, SelfHinterData> pair in selfHinterChecks)
                 {
                     string checkName = pair.Key;
-                    bool useDefArticle = pair.Value;
+                    SelfHinterData selfHinterData = pair.Value;
 
                     result += SettingsEncoder.EncodeNumAsBits(
                         CheckIdClass.GetCheckIdNum(checkName),
                         bitLengths.checkId
                     );
-                    result += useDefArticle ? "1" : "0";
+                    result += selfHinterData.encode();
                 }
             }
 
@@ -145,9 +145,9 @@ namespace TPRandomizer
                 int checkId = processor.NextInt(bitLengths.checkId);
                 string checkName = CheckIdClass.GetCheckName(checkId);
 
-                bool useDefArticle = processor.NextBool();
+                SelfHinterData selfHinterData = SelfHinterData.decode(processor);
 
-                inst.selfHinterChecks[checkName] = useDefArticle;
+                inst.selfHinterChecks[checkName] = selfHinterData;
             }
 
             // Decode hintSpots
@@ -217,6 +217,7 @@ namespace TPRandomizer
         public class Builder
         {
             private HintGenData genData;
+            private List<Item> selfHinterTrapReplacements;
             public byte requiredDungeons { get; private set; }
             public bool updateShopText { get; private set; } = true;
             private bool forceNotUpdateShopText = false;
@@ -233,6 +234,50 @@ namespace TPRandomizer
                     updateShopText = false;
                     forceNotUpdateShopText = true;
                 }
+
+                prepareSelfHinterTrapReplacements();
+            }
+
+            private void prepareSelfHinterTrapReplacements()
+            {
+                // Based off of the models that are used in the cpp minus items
+                // that people might skip such as slingshot or hawkeye.
+                HashSet<Item> items =
+                    new()
+                    {
+                        Item.Magic_Armor,
+                        Item.Progressive_Sword,
+                        Item.Shadow_Crystal,
+                        Item.Boomerang,
+                        Item.Spinner,
+                        Item.Ball_and_Chain,
+                        Item.Progressive_Bow,
+                        Item.Progressive_Clawshot,
+                        Item.Iron_Boots,
+                        Item.Progressive_Fishing_Rod,
+                        Item.Progressive_Dominion_Rod,
+                        Item.Filled_Bomb_Bag,
+                        Item.Progressive_Sky_Book,
+                    };
+
+                List<Item> itemsToPickFrom = new();
+                foreach (Item item in items)
+                {
+                    // Only hint items that can actually be found by the player.
+                    if (
+                        genData.itemToChecksList.TryGetValue(item, out List<string> checkNames)
+                        && !ListUtils.isEmpty(checkNames)
+                    )
+                        itemsToPickFrom.Add(item);
+                }
+
+                // Pick any item if none of them are better options than the others.
+                if (itemsToPickFrom.Count < 1)
+                    itemsToPickFrom = new(items);
+
+                itemsToPickFrom.Add(Item.Progressive_Sword);
+
+                selfHinterTrapReplacements = itemsToPickFrom;
             }
 
             public bool SetUpdateShopText(bool shouldUpdate)
@@ -244,18 +289,25 @@ namespace TPRandomizer
                 return true;
             }
 
-            public Dictionary<string, bool> GetSelfHinterChecks()
+            public Dictionary<string, SelfHinterData> GetSelfHinterChecks()
             {
-                Dictionary<string, bool> ret = new();
+                Dictionary<string, SelfHinterData> ret = new();
                 foreach (string checkName in selfHinterChecks)
                 {
                     if (!updateShopText && checkName == "Barnes Bomb Bag")
                         continue;
 
                     Item item = HintUtils.getCheckContents(checkName);
-                    bool useDefArticle = genData.ItemUsesDefArticle(item);
+                    if (HintUtils.IsTrapItem(item))
+                        item = HintUtils.PickRandomListItem(
+                            genData.rnd,
+                            selfHinterTrapReplacements
+                        );
 
-                    ret[checkName] = useDefArticle;
+                    bool useDefArticle = genData.ItemUsesDefArticle(item);
+                    SelfHinterData selfHinterData = new(useDefArticle, item);
+
+                    ret[checkName] = selfHinterData;
                 }
                 return ret;
             }
@@ -285,6 +337,32 @@ namespace TPRandomizer
             public CustomMsgData Build(SharedSettings sSettings)
             {
                 return new(this, sSettings);
+            }
+        }
+
+        public class SelfHinterData
+        {
+            public bool useDefArticle { get; }
+            public Item itemToHint { get; } // might be different than actual for traps
+
+            public SelfHinterData(bool useDefArticle, Item itemToHint)
+            {
+                this.useDefArticle = useDefArticle;
+                this.itemToHint = itemToHint;
+            }
+
+            public string encode()
+            {
+                string result = useDefArticle ? "1" : "0";
+                result += SettingsEncoder.EncodeNumAsBits((int)itemToHint, 8);
+                return result;
+            }
+
+            public static SelfHinterData decode(BitsProcessor processor)
+            {
+                bool useDefArticle = processor.NextBool();
+                Item itemToHint = (Item)processor.NextByte();
+                return new SelfHinterData(useDefArticle, itemToHint);
             }
         }
 
@@ -600,19 +678,15 @@ namespace TPRandomizer
             if (
                 selfHinterChecks.TryGetValue(
                     "Charlo Donation Blessing",
-                    out bool charloUseDefArticle
+                    out SelfHinterData charloData
                 )
             )
             {
-                Item item = HintUtils.getCheckContents("Charlo Donation Blessing");
-                if (HintUtils.IsTrapItem(item))
-                    item = Item.Piece_of_Heart;
-
                 string itemText = GenItemText3(
                     out _,
-                    item,
+                    charloData.itemToHint,
                     CheckStatus.Unknown,
-                    contextIn: charloUseDefArticle ? "def" : "indef"
+                    contextIn: charloData.useDefArticle ? "def" : "indef"
                 );
 
                 charloText = Res.LangSpecificNormalize(
@@ -632,15 +706,16 @@ namespace TPRandomizer
                 CustomMsgUtils.GetEntry(MsgEntryId.Charlo_Donation_Confirmation, charloText)
             );
 
-            if (selfHinterChecks.ContainsKey("Fishing Hole Bottle"))
+            if (
+                selfHinterChecks.TryGetValue(
+                    "Fishing Hole Bottle",
+                    out SelfHinterData fishingBottleData
+                )
+            )
             {
-                Item fishingBottleItem = HintUtils.getCheckContents("Fishing Hole Bottle");
-                if (HintUtils.IsTrapItem(fishingBottleItem))
-                    fishingBottleItem = Item.Empty_Bottle;
-
                 string fishingBottleItemText = GenItemText3(
                     out _,
-                    fishingBottleItem,
+                    fishingBottleData.itemToHint,
                     CheckStatus.Unknown,
                     contextIn: "fishing-bottle"
                 );
@@ -938,17 +1013,13 @@ namespace TPRandomizer
 
             // ----- Barnes -----
 
-            if (selfHinterChecks.TryGetValue("Barnes Bomb Bag", out bool barnesUseDefArticle))
+            if (selfHinterChecks.TryGetValue("Barnes Bomb Bag", out SelfHinterData barnesData))
             {
-                Item item = HintUtils.getCheckContents("Barnes Bomb Bag");
-                if (HintUtils.IsTrapItem(item))
-                    item = Item.Filled_Bomb_Bag;
-
                 string itemText = GenItemText3(
                     out _,
-                    item,
+                    barnesData.itemToHint,
                     CheckStatus.Unknown,
-                    barnesUseDefArticle ? "def" : "indef",
+                    barnesData.useDefArticle ? "def" : "indef",
                     prefStartColor: CustomMessages.messageColorOrange
                 );
 
