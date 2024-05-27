@@ -251,14 +251,14 @@ namespace TPRandomizer.Hints
                 itemSet.Add(Item.Wooden_Shield);
                 itemSet.Add(Item.Ordon_Shield);
                 itemSet.Add(Item.Hylian_Shield);
-
-                // Can address this more when work is done around shop prices
-                if (
-                    !HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor")
-                    && !sSettings.increaseWallet
-                )
-                    itemSet.Add(Item.Progressive_Wallet);
             }
+
+            // Can address this more when work is done around shop prices
+            if (
+                !HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor")
+                && !sSettings.increaseWallet
+            )
+                itemSet.Add(Item.Progressive_Wallet);
 
             // Apply majorItem changes from hintSettings.
             if (hintSettings.addItems.ContainsKey("majorItems"))
@@ -415,6 +415,14 @@ namespace TPRandomizer.Hints
                     { Item.Progressive_Fused_Shadow, 3 },
                     { Item.Progressive_Mirror_Shard, 4 },
                 };
+
+            // Currently, wallets can only matter for the Magic Armor check, and
+            // getting the largest wallet never matters.
+            if (
+                !HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor")
+                && !sSettings.increaseWallet
+            )
+                itemToProgCount[Item.Progressive_Wallet] = 1;
 
             Dictionary<Item, int> itemToInflexibleCount = new();
             foreach (string checkName in requiredChecks)
