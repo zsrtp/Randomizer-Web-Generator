@@ -14,8 +14,7 @@
     "groupId": "overworld"
   },
   "groups": {
-    "overworld": ["alias:overworldZones"],
-    "dungeons": ["alias:dungeonZones"]
+    "overworld": ["alias:overworldZones"]
   },
   "hints": [
     {
@@ -41,14 +40,6 @@
             "copies": 1
           }
         ]
-      }
-    },
-    {
-      "groupId": "dungeons",
-      "hintDef": {
-        "hintType": "junk",
-        "iterations": 99,
-        "copies": 1
       }
     }
   ]

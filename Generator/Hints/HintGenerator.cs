@@ -1391,13 +1391,107 @@ namespace TPRandomizer.Hints
                 spot.hints.AddRange(newList);
             }
 
+            FillUnfilledCustomSigns(hintSpots);
+
             return hintSpots;
         }
 
-        private void FillUnfilledCustomSigns(
-            List<SpotId> spotsToFill,
-            Action<SpotId, Hint> action
-        ) { }
+        private void FillUnfilledCustomSigns(List<HintSpot> hintSpots)
+        {
+            HashSet<SpotId> possibleSpotsToFill =
+                new()
+                {
+                    SpotId.Ordon_Sign,
+                    SpotId.Sacred_Grove_Sign,
+                    SpotId.Faron_Field_Sign,
+                    SpotId.Faron_Woods_Sign,
+                    SpotId.Kakariko_Gorge_Sign,
+                    SpotId.Kakariko_Village_Sign,
+                    SpotId.Kakariko_Graveyard_Sign,
+                    SpotId.Eldin_Field_Sign,
+                    SpotId.North_Eldin_Sign,
+                    SpotId.Death_Mountain_Sign,
+                    SpotId.Hidden_Village_Sign,
+                    SpotId.Lanayru_Field_Sign,
+                    SpotId.Beside_Castle_Town_Sign,
+                    SpotId.South_of_Castle_Town_Sign,
+                    SpotId.Castle_Town_Sign,
+                    SpotId.Great_Bridge_of_Hylia_Sign,
+                    SpotId.Lake_Hylia_Sign,
+                    SpotId.Lake_Lantern_Cave_Sign,
+                    SpotId.Lanayru_Spring_Sign,
+                    SpotId.Zoras_Domain_Sign,
+                    SpotId.Upper_Zoras_River_Sign,
+                    SpotId.Gerudo_Desert_Sign,
+                    SpotId.Bulblin_Camp_Sign,
+                    SpotId.Snowpeak_Sign,
+                    SpotId.Cave_of_Ordeals_Sign,
+                    SpotId.Forest_Temple_Sign,
+                    SpotId.Goron_Mines_Sign,
+                    SpotId.Lakebed_Temple_Sign,
+                    SpotId.Arbiters_Grounds_Sign,
+                    SpotId.Snowpeak_Ruins_Sign,
+                    SpotId.Temple_of_Time_Sign,
+                    SpotId.Temple_of_Time_Beyond_Point_Sign,
+                    SpotId.City_in_the_Sky_Sign,
+                    SpotId.Palace_of_Twilight_Sign,
+                    SpotId.Hyrule_Castle_Sign,
+                };
+
+            // Do not bother adding hint to unrequired barren dungeon signs.
+            if (genData.sSettings.barrenDungeons)
+            {
+                if (!HintUtils.DungeonIsRequired("Forest Temple"))
+                    possibleSpotsToFill.Remove(SpotId.Forest_Temple_Sign);
+                if (!HintUtils.DungeonIsRequired("Goron Mines"))
+                    possibleSpotsToFill.Remove(SpotId.Goron_Mines_Sign);
+                if (!HintUtils.DungeonIsRequired("Lakebed Temple"))
+                    possibleSpotsToFill.Remove(SpotId.Lakebed_Temple_Sign);
+                if (!HintUtils.DungeonIsRequired("Arbiter's Grounds"))
+                    possibleSpotsToFill.Remove(SpotId.Arbiters_Grounds_Sign);
+                if (!HintUtils.DungeonIsRequired("Snowpeak Ruins"))
+                    possibleSpotsToFill.Remove(SpotId.Snowpeak_Ruins_Sign);
+                if (!HintUtils.DungeonIsRequired("Temple of Time"))
+                {
+                    possibleSpotsToFill.Remove(SpotId.Temple_of_Time_Sign);
+                    possibleSpotsToFill.Remove(SpotId.Temple_of_Time_Beyond_Point_Sign);
+                }
+                if (!HintUtils.DungeonIsRequired("City in the Sky"))
+                    possibleSpotsToFill.Remove(SpotId.City_in_the_Sky_Sign);
+                if (!HintUtils.DungeonIsRequired("Palace of Twilight"))
+                    possibleSpotsToFill.Remove(SpotId.Palace_of_Twilight_Sign);
+            }
+
+            Dictionary<SpotId, HintSpot> spotIdToHintSpot = new();
+            foreach (HintSpot hintSpot in hintSpots)
+            {
+                spotIdToHintSpot[hintSpot.location] = hintSpot;
+            }
+
+            List<SpotId> spotsToFill = new();
+            foreach (SpotId spotId in possibleSpotsToFill)
+            {
+                if (
+                    !spotIdToHintSpot.TryGetValue(spotId, out HintSpot hintSpot)
+                    || hintSpot.hints.Count == 0
+                )
+                    spotsToFill.Add(spotId);
+            }
+
+            AddFillerHintsToSpots(
+                spotsToFill,
+                (spotId, fillerHint) =>
+                {
+                    if (!spotIdToHintSpot.TryGetValue(spotId, out HintSpot hintSpot))
+                    {
+                        hintSpot = new HintSpot(spotId);
+                        hintSpots.Add(hintSpot);
+                        spotIdToHintSpot[spotId] = hintSpot;
+                    }
+                    hintSpot.hints.Add(fillerHint);
+                }
+            );
+        }
 
         private void AddFillerHintsToSpots(List<SpotId> spotsToFill, Action<SpotId, Hint> action)
         {
@@ -1421,10 +1515,8 @@ namespace TPRandomizer.Hints
                     cache
                 );
 
-                if (itemHints.Count > 0)
-                {
+                if (!ListUtils.isEmpty(itemHints))
                     fillerHints = itemHints;
-                }
                 else
                 {
                     // As an absolute last resort, create a hardcoded hint.
