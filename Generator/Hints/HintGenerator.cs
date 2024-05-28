@@ -915,7 +915,14 @@ namespace TPRandomizer.Hints
                     )
                     {
                         checksToHint.Add(checkName);
-                        if (genData.CheckIsGood(checkName))
+
+                        Item contents = HintUtils.getCheckContents(checkName);
+                        bool itemAllowsBarrenForArea = genData.ItemAllowsBarrenForArea(
+                            contents,
+                            AreaId.Zone(zone)
+                        );
+
+                        if (!itemAllowsBarrenForArea && genData.CheckIsGood(checkName))
                         {
                             hasImportantCheck = true;
                             break;
