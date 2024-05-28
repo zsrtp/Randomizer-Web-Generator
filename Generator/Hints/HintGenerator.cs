@@ -905,6 +905,7 @@ namespace TPRandomizer.Hints
                     .Category(beyondPointObj.category)
                     .ResolveToChecks();
 
+                AreaId areaId = AreaId.Zone(zone);
                 List<string> checksToHint = new();
                 bool hasImportantCheck = false;
                 foreach (string checkName in checkNames)
@@ -915,7 +916,14 @@ namespace TPRandomizer.Hints
                     )
                     {
                         checksToHint.Add(checkName);
-                        if (genData.CheckIsGood(checkName))
+
+                        Item contents = HintUtils.getCheckContents(checkName);
+                        bool itemAllowsBarrenForArea = genData.ItemAllowsBarrenForArea(
+                            contents,
+                            areaId
+                        );
+
+                        if (!itemAllowsBarrenForArea && genData.CheckIsGood(checkName))
                         {
                             hasImportantCheck = true;
                             break;
