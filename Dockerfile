@@ -3,6 +3,9 @@ FROM node:lts-alpine AS packages-build
 
 WORKDIR /usr/app/
 
+RUN mkdir -p ./.yarn/releases
+COPY ./.yarn/releases/yarn-3.2.1.cjs ./.yarn/releases/yarn-3.2.1.cjs
+COPY ./.yarnrc.yml .
 COPY ./package.json .
 COPY ./yarn.lock .
 COPY ./packages/client/package.json ./packages/client/package.json
