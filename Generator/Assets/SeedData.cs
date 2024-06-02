@@ -223,7 +223,7 @@ namespace TPRandomizer.Assets
             // Generate GCI Files
             currentGCIData.AddRange(BannerDataRaw);
             currentGCIData.AddRange(currentSeedData);
-            var gci = new Gci(region, currentGCIData, seedGenResults.playthroughName, fcSettings);
+            var gci = new Gci(region, currentGCIData, seedGenResults.playthroughName, fcSettings, regionOverride);
             return gci.gciFile.ToArray();
             // File.WriteAllBytes(playthroughName, gci.gciFile.ToArray());
         }
