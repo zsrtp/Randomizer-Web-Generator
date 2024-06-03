@@ -209,7 +209,12 @@
           {
             "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
             "Requirements": "CanDefeatChilfos"
-          }
+          },
+          {
+            "ConnectedArea": "Snowpeak Ruins Northeast Chilfos Room Second Floor",
+            // LJA in ice block room
+            "Requirements": "CanDoLJA"
+          },
         ],
         "Checks": 
         [
@@ -250,7 +255,8 @@
             },
             {
               "ConnectedArea": "Snowpeak Ruins Northeast Chilfos Room Second Floor",
-              "Requirements": "Ball_and_Chain and (Progressive_Clawshot, 1) and CanDefeatChilfos"
+              // LJA in ice block room
+              "Requirements": "(Ball_and_Chain and (Progressive_Clawshot, 1) and CanDefeatChilfos) or CanDoLJA"
             },
             {
               "ConnectedArea": "Snowpeak Ruins Caged Freezard Room",
