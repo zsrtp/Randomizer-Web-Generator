@@ -1,10 +1,6 @@
 {
-  "requirements": "(Progressive_Clawshot, 1) and Spinner and CanDefeatBubble and CanDefeatStalfos and ((Arbiters_Grounds_Small_Key, 5) or (Setting.smallKeySettings equals Keysy))",
-  "arcOffsets": ["1504"],
-  "stageIDX": [24],
-  "roomIDX": 13,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds", "ARC" ],
+  // Either going around or just doing Wolf clip.
+  "requirements": "(Progressive_Clawshot, 1) and Spinner and CanDefeatBubble and CanDefeatStalfos and (((Arbiters_Grounds_Small_Key, 5) or (Setting.smallKeySettings equals Keysy)) or ((Arbiters_Grounds_Small_Key, 4) and Shadow_Crystal))",
+  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds" ],
   "itemId": "Bombs_10"
 }

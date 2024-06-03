@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["C74"],
-    "stageIDX": [6],
-    "roomIDX": 3,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple"],
     "itemId": "Piece_of_Heart"
 }

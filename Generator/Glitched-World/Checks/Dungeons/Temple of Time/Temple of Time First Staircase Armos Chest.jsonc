@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatArmos and hasRangedItem",
-    "arcOffsets": ["858"],
-    "stageIDX": [9],
-    "roomIDX": 1,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Temple of Time", "Dungeon Items", "Dungeon Map", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Temple of Time", "Dungeon Items", "Dungeon Map"],
     "itemId": "Temple_of_Time_Dungeon_Map"
 }

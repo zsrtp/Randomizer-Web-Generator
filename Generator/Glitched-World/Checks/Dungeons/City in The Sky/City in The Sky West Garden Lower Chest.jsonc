@@ -1,10 +1,5 @@
 {
     "requirements": "(Progressive_Clawshot, 2)",
-    "arcOffsets": ["A1C"],
-    "stageIDX": [12],
-    "roomIDX": 12,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "City in The Sky", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "City in The Sky"],
     "itemId": "Bombs_5"
 }

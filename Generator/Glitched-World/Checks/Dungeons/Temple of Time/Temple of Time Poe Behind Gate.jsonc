@@ -1,7 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and (Progressive_Dominion_Rod, 1)",
-    "stageIDX": [9],
-    "flag": "19",
+    "requirements": "Shadow_Crystal and ((Progressive_Dominion_Rod, 1) or Ball_and_Chain or CanDoHSMoonBoots)",
     "checkCategory": ["Dungeon", "Poe", "Temple of Time"],
     "itemId": "Poe_Soul"
 }

@@ -1,13 +1,5 @@
 {
     "requirements": "CanDefeatArgorok",
-    "moduleID": ["5B"],
-    "stageIDX": [13],
-    "relOffsets": ["1880"],
-    "overrideInstruction": ["38600000"],
-    "arcOffsets": ["37EE"],
-    "fileDirectoryType": [3],
-    "replacementType": [2],
-    "relReplacementType": [0],
-    "checkCategory": ["Dungeon", "City in The Sky", "Dungeon Reward", "REL", "ARC"],
+    "checkCategory": ["Dungeon", "City in The Sky", "Dungeon Reward"],
     "itemId": "Progressive_Mirror_Shard"
 }

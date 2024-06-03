@@ -1,10 +1,5 @@
 {
   "requirements": "CanDefeatBubble and CanDefeatStalchild and CanDefeatRedeadKnight and ((Arbiters_Grounds_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))",
-  "arcOffsets": ["6CC"],
-  "stageIDX": [24],
-  "roomIDX": 14,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds", "Small Key", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds", "Small Key" ],
   "itemId": "Arbiters_Grounds_Small_Key"
 }

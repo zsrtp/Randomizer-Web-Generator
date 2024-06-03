@@ -1,8 +1,5 @@
 {
     "requirements": "CanDefeatStallord",
-    "stageIDX": [25],
-    "roomIDX": 50,
-    "flag": "53",
-    "checkCategory": ["Overworld", "Mirror Chamber", "Event", "Dungeon Reward"],
+    "checkCategory": ["Dungeon", "Arbiters Grounds", "Dungeon Reward"],
     "itemId": "Progressive_Mirror_Shard"
 }

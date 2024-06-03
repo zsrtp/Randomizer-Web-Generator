@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatWalltula",
-    "arcOffsets": ["940"],
-    "stageIDX": [6],
-    "roomIDX": 22,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple"],
     "itemId": "Yellow_Rupee"
 }

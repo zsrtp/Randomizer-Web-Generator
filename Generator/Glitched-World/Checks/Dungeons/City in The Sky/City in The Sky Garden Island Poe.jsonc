@@ -1,7 +1,5 @@
 {
     "requirements": "Shadow_Crystal and (Progressive_Clawshot, 2)",
-    "stageIDX": [12],
-    "flag": "54",
     "checkCategory": ["Dungeon", "Poe", "City in The Sky"],
     "itemId": "Poe_Soul"
 }

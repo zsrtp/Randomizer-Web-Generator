@@ -2117,6 +2117,17 @@ namespace TPRandomizer
         }
 
         /// <summary>
+        /// Check for if you can do Helm Splitter Moon Boots
+        /// </summary>
+        public static bool CanDoHSMoonBoots()
+        {
+            return CanDoMoonBoots()
+                && getItemCount(Item.Progressive_Hidden_Skill) >= 4
+                && HasSword()
+                && hasShield();
+        }
+
+        /// <summary>
         /// Check for if you can do The Amazing Fly Glitch™
         /// </summary>
         public static bool CanDoFlyGlitch()

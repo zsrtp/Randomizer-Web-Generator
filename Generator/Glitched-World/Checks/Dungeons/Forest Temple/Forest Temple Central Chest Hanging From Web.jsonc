@@ -1,10 +1,5 @@
 {
     "requirements": "canCutHangingWeb or CanDoJSMoonBoots",
-    "arcOffsets": ["106C"],
-    "stageIDX": [6],
-    "roomIDX": 0,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "Dungeon Items", "Compass", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "Dungeon Items", "Compass"],
     "itemId": "Forest_Temple_Compass"
 }

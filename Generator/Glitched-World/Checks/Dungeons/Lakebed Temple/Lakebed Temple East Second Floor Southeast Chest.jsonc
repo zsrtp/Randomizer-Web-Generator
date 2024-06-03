@@ -1,10 +1,5 @@
 {
     "requirements": "canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash)",
-    "arcOffsets": ["CF0"],
-    "stageIDX": [0],
-    "roomIDX": 7,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Small Key", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Small Key"],
     "itemId": "Lakebed_Temple_Small_Key"
 }

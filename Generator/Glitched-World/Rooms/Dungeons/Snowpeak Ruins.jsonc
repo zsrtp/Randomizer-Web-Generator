@@ -73,18 +73,18 @@
           "ConnectedArea": "Snowpeak Ruins Chapel",
           // If coming from the Lobby, 2F floor clip is in logic, which explains the lack of the B&C requirement. Then you can Freezard Ladder Cancel
           "Requirements": "true"
-      },
-      {
-        "ConnectedArea": "Snowpeak Ruins Boss Room",
-        // If coming from the Lobby, 2F floor clip is in logic, which explains the lack of the B&C requirement. Then you can Freezard Ladder Cancel
-        "Requirements": "(Snowpeak_Ruins_Bedroom_Key or (Setting.bigKeySettings equals Keysy))"
-      },
+        },
         {
-            "ConnectedArea": "Snowpeak Ruins Caged Freezard Room Lower",
-            // Breaking the floor
-            "Requirements": "canSmash"
+          "ConnectedArea": "Snowpeak Ruins Boss Room",
+          // If coming from the Lobby, 2F floor clip is in logic, which explains the lack of the B&C requirement. Then you can Freezard Ladder Cancel
+          "Requirements": "(Snowpeak_Ruins_Bedroom_Key or (Setting.bigKeySettings equals Keysy))"
+        },
+        {
+          "ConnectedArea": "Snowpeak Ruins Caged Freezard Room Lower",
+          // Breaking the floor
+          "Requirements": "canSmash"
         }
-        ],
+      ],
         "Checks": 
         [
             ""
@@ -185,7 +185,6 @@
           }, 
           {
             "ConnectedArea": "Snowpeak Ruins Caged Freezard Room Lower",
-            // Floor clip
             "Requirements": "CanDoLJA"
           }
         ],
@@ -294,6 +293,7 @@
           },
           {
             "ConnectedArea": "Snowpeak Ruins East Courtyard",
+            // Break the ice or freezard ladder cancel and jump to east side from boss door
             "Requirements": "Ball_and_Chain or (Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)"
           },
           {
@@ -307,8 +307,8 @@
           },
           {
             "ConnectedArea": "Snowpeak Ruins Darkhammer Room",
-            //Don't require gate to be unlocked for cannonballs if we have Cheese since we can get to the other side by going through Yeta's room.
-            "Requirements": "Ball_and_Chain or ((((Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)) and hasBombs)"
+            //Don't require gate to be unlocked for cannonballs if we have Cheese since we can get to the other side by going through Yeta's room. We can also just wolf clip in.
+            "Requirements": "Ball_and_Chain or ((((Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)) and hasBombs) or (Shadow_Crystal and (Setting.damageMagnification not_equal OHKO))"
           },
           {
             "ConnectedArea": "Snowpeak Ruins Boss Room",

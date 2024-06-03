@@ -1,10 +1,5 @@
 {
-    "requirements": "Zora_Armor and (Progressive_Clawshot,1) and canLaunchBombs",
-    "arcOffsets": ["F24"],
-    "stageIDX": [0],
-    "roomIDX": 5,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "ARC"],
+    "requirements": "(Progressive_Clawshot, 1) and (Zora_Armor or CanDoLJA) and canLaunchBombs",
+    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple"],
     "itemId": "Water_Bombs_5"
 }

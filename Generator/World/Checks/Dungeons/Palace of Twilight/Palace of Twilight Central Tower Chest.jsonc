@@ -1,5 +1,5 @@
 {
   "requirements": "CanDefeatZantHead and (Progressive_Sword, 4) and (Progressive_Clawshot, 1)",
-  "checkCategory": [ "Chest", "Dungeon", "Palace of Twilight", "Small Key", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Palace of Twilight", "Small Key" ],
   "itemId": "Palace_of_Twilight_Small_Key"
 }

@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatBigBaba",
-    "moduleID": ["26D"],
-    "stageIDX": [6],
-    "relOffsets": ["155C"],
-    "overrideInstruction": ["38800000"],
-    "relReplacementType": [0],
-    "checkCategory": ["Small Key", "Dungeon", "Forest Temple", "REL"],
+    "checkCategory": ["Small Key", "Dungeon", "Forest Temple"],
     "itemId": "Forest_Temple_Small_Key"
 }

@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["D10"],
-    "stageIDX": [0],
-    "roomIDX": 7,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple"],
     "itemId": "Water_Bombs_5"
 }

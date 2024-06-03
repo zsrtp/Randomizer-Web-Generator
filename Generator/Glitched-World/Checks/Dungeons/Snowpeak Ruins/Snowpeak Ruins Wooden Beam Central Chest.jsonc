@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatIceKeese",
-    "arcOffsets": ["660"],
-    "stageIDX": [27],
-    "roomIDX": 8,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins"],
     "itemId": "Red_Rupee"
 }

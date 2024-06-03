@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["638"],
-    "stageIDX": [12],
-    "roomIDX": 10,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "City in The Sky", "Small Key", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "City in The Sky", "Small Key"],
     "itemId": "City_in_The_Sky_Small_Key"
 }

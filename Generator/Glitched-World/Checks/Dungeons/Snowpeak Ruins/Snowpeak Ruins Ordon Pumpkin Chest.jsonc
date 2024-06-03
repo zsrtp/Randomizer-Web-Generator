@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatChilfos",
-    "arcOffsets": ["D2C"],
-    "stageIDX": [27],
-    "roomIDX": 5,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Ordon Pumpkin", "Small Key", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Ordon Pumpkin", "Small Key"],
     "itemId": "Snowpeak_Ruins_Ordon_Pumpkin"
 }

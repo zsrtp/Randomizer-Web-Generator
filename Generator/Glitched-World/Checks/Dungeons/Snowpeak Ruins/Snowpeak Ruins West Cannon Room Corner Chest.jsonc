@@ -1,10 +1,5 @@
 {
     "requirements": "canSmash",
-    "arcOffsets": ["518"],
-    "stageIDX": [27],
-    "roomIDX": 9,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins"],
     "itemId": "Bombs_5"
 }

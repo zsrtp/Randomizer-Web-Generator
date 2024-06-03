@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatYoungGohma",
-    "arcOffsets": ["878"],
-    "stageIDX": [9],
-    "roomIDX": 1,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Temple of Time", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Temple of Time"],
     "itemId": "Arrows_30"
 }

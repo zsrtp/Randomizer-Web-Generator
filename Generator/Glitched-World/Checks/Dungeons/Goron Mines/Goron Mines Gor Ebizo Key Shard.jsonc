@@ -1,9 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["12DF"],
-    "stageIDX": [3],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "checkCategory": ["Npc", "Dungeon", "Goron Mines", "Dungeon Items", "Big Key", "ARC"],
+    "checkCategory": ["Npc", "Dungeon", "Goron Mines", "Dungeon Items", "Big Key"],
     "itemId": "Goron_Mines_Key_Shard"
 }

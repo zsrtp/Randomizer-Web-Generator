@@ -25,7 +25,7 @@
         },
         {
             "ConnectedArea": "City in The Sky Lobby",
-            "Requirements": "((Progressive_Clawshot, 1) and Iron_Boots and (Shadow_Crystal or CanDoLJA)) or (Setting.damageMagnification not_equal OHKO)"
+            "Requirements": "((Progressive_Clawshot, 1) and Iron_Boots and (Shadow_Crystal or CanDoLJA)) and (Setting.damageMagnification not_equal OHKO)"
         }
         ],
         "Checks": 

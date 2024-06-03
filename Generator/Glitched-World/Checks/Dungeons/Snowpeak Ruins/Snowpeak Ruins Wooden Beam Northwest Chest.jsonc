@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatIceKeese",
-    "arcOffsets": ["640"],
-    "stageIDX": [27],
-    "roomIDX": 8,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Compass", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Compass"],
     "itemId": "Snowpeak_Ruins_Compass"
 }

@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["1030"],
-    "stageIDX": [9],
-    "roomIDX": 7,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "Temple of Time", "Small Key", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Temple of Time", "Small Key"],
     "itemId": "Temple_of_Time_Small_Key"
 }

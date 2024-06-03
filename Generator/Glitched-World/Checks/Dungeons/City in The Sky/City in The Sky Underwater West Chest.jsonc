@@ -1,10 +1,5 @@
 {
     "requirements": "Iron_Boots",
-    "arcOffsets": ["B64"],
-    "stageIDX": [12],
-    "roomIDX": 0,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "checkCategory": ["Chest", "Dungeon", "City in The Sky", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "City in The Sky"],
     "itemId": "Water_Bombs_15"
 }

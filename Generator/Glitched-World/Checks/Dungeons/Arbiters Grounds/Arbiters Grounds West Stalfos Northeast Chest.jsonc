@@ -1,10 +1,6 @@
 {
-  "requirements": "canBreakWoodenDoor and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat",
-  "arcOffsets": ["6AC"],
-  "stageIDX": [24],
-  "roomIDX": 7,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds", "ARC" ],
+  // Either coming from East Wing or doing Poe 1 Skip LJA
+  "requirements": "canBreakWoodenDoor and ((((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat) or CanDoLJA)",
+  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds" ],
   "itemId": "Bombs_5"
 }
