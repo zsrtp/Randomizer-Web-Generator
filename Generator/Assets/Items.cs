@@ -757,6 +757,18 @@ namespace TPRandomizer
             }
         }
 
+        private int getItemCount(List<Item> inputList, Item item)
+        {
+            int currentCount = 0;
+            foreach (Item itemInList in inputList)
+            {
+                if (itemInList == item)
+                    currentCount += 1;
+            }
+
+            return currentCount;
+        }
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -1014,15 +1026,43 @@ namespace TPRandomizer
 
             foreach ((string checkName, Item item) in parseSetting.plandoChecks)
             {
-                RemoveItem(item);
-
-                //We want to remove all of the hidden skills from the pool if someone has plandoed them in on a minimal setting.
-                if (
-                    (item == Item.Progressive_Hidden_Skill)
-                    && (parseSetting.itemScarcity == ItemScarcity.Minimal)
-                )
+                switch (item)
                 {
-                    updateItemToCount(RandomizedImportantItems, Item.Progressive_Hidden_Skill, 0);
+                    case Item.Progressive_Hidden_Skill:
+                    {
+                        if (parseSetting.itemScarcity == ItemScarcity.Minimal)
+                        {
+                            // We want to remove all of the hidden skills from the pool if someone has plandoed them in on a minimal setting
+                            updateItemToCount(
+                                RandomizedImportantItems,
+                                Item.Progressive_Hidden_Skill,
+                                0
+                            );
+                        }
+                        break;
+                    }
+
+                    case Item.Heart_Container:
+                    {
+                        if (getItemCount(this.alwaysItems, item) == 0)
+                        {
+                            for (int i = 0; i < 5; i++)
+                            {
+                                RemoveItem(Item.Piece_of_Heart);
+                            }
+                        }
+                        else
+                        {
+                            RemoveItem(item);
+                        }
+                        break;
+                    }
+
+                    default:
+                    {
+                        RemoveItem(item);
+                        break;
+                    }
                 }
             }
 
