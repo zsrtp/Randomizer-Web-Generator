@@ -486,7 +486,7 @@
       },
       {
         "ConnectedArea": "Lake Hylia",
-        "Requirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysy)) and Iron_Boots and CanUseWaterBombs"
+        "Requirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysy)) and (Iron_Boots or Zora_Armor) and CanUseWaterBombs"
       }
     ],
     "Checks":
