@@ -5,7 +5,7 @@
     [
       {
         "ConnectedArea": "Upper Kakariko Village",
-        "Requirements": "canCompleteGoronMines or canSmash"
+        "Requirements": "(canCompleteGoronMines and CanChangeTime) or canSmash"
       },
       {
         "ConnectedArea": "Kakariko Village Behind Gate",
@@ -81,7 +81,7 @@
       },
       {
         "ConnectedArea": "Kakariko Top of Watchtower",
-        "Requirements": "canCompleteGoronMines"
+        "Requirements": "canCompleteGoronMines and CanChangeTime"
       },
       {
         "ConnectedArea": "Kakariko Barnes Bomb Shop Upper",
