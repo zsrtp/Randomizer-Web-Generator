@@ -149,6 +149,7 @@ namespace TPRandomizer
                 Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
 
                 // Place plando checks first
+                Console.WriteLine("Placing Plando Checks.");
                 PlacePlandoChecks();
 
                 Console.WriteLine("Placing Vanilla Checks.");
@@ -163,8 +164,7 @@ namespace TPRandomizer
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    Randomizer.Rooms.RoomDict.Clear();
-                    DeserializeRooms(SSettings);
+                    StartOver();
                     continue;
                 }
                 try
