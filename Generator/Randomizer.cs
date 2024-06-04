@@ -544,8 +544,14 @@ namespace TPRandomizer
 
             if (fcSettings.gameRegion == GameRegion.All)
             {
+                // For now, 'All' only generates for GameCube until we do more
+                // work related to Wii code.
+                List<GameRegion> gameRegionsForAll =
+                    new() { GameRegion.GC_USA, GameRegion.GC_EUR, GameRegion.GC_JAP, };
+
                 // Create files for all regions
-                foreach (GameRegion gameRegion in GameRegion.GetValues(typeof(GameRegion)))
+                // foreach (GameRegion gameRegion in GameRegion.GetValues(typeof(GameRegion)))
+                foreach (GameRegion gameRegion in gameRegionsForAll)
                 {
                     if (gameRegion != GameRegion.All)
                     {
@@ -1707,9 +1713,12 @@ namespace TPRandomizer
             // The GC/Wii files have different offsets for the data that is needed to replace certain checks.
             switch (FcSettings.gameRegion)
             {
+                // For now, 'All' only generates for GameCube until we do more
+                // work related to Wii code.
                 case GameRegion.GC_USA:
                 case GameRegion.GC_EUR:
                 case GameRegion.GC_JAP:
+                case GameRegion.All:
                 {
                     files = System.IO.Directory.GetFiles(
                         Global.CombineRootPath("./Assets/CheckMetadata/Gamecube/"),

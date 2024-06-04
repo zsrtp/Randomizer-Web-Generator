@@ -45,7 +45,8 @@ namespace TPRandomizer.Assets
             char regionCode,
             List<byte> seedData,
             string playthroughName,
-            FileCreationSettings FcSettings
+            FileCreationSettings fcSettings,
+            GameRegion regionOverride
         )
         {
             gciHeader = new List<byte>();
@@ -90,7 +91,12 @@ namespace TPRandomizer.Assets
                 Converter.GcBytes((UInt32)(SeedData.DebugInfoSize + SeedData.ImageDataSize))
             ); // Comments Offset
 
-            switch (FcSettings.gameRegion)
+            // If generating for all regions, we use the region passed in as an
+            // argument rather than reading from fcSettings.
+            GameRegion gameRegion =
+                fcSettings.gameRegion == GameRegion.All ? regionOverride : fcSettings.gameRegion;
+
+            switch (gameRegion)
             {
                 case GameRegion.GC_USA:
                 case GameRegion.GC_EUR:
