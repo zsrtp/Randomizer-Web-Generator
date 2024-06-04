@@ -1182,7 +1182,7 @@ namespace TPRandomizer.Assets
 
                 new ARCReplacement(
                     "608",
-                    "FF3AFFFF",
+                    "FF05FFFF",
                     (byte)FileDirectory.Room,
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Village_Interiors,
