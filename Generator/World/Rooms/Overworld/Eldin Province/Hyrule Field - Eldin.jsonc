@@ -104,7 +104,9 @@
     [
       {
         "ConnectedArea": "Eldin Field Near Castle Town",
-        "Requirements": "Room.Kakariko_Malo_Mart"
+        // When it comes time for ER, we will add (Room.Kakariko_Malo_Mart and Setting.randomizeOverworldEntrances) or  . . . 
+        // For now, it's only in logic if we have visited the other side.
+        "Requirements": "Room.Eldin_Field_Near_Castle_Town"
       },
       {
         "ConnectedArea": "Eldin Field Lava Cave Ledge",

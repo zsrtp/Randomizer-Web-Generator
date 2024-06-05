@@ -214,7 +214,7 @@
             "ConnectedArea": "Snowpeak Ruins Northeast Chilfos Room Second Floor",
             // LJA in ice block room
             "Requirements": "CanDoLJA"
-          },
+          }
         ],
         "Checks": 
         [

@@ -103,8 +103,9 @@
       "Exits":
       [
         {
+          // Either donation or map glitch to Epona OoB
           "ConnectedArea": "Eldin Field Near Castle Town",
-          "Requirements": "Room.Kakariko_Malo_Mart"
+          "Requirements": "Room.Kakariko_Malo_Mart or Shadow_Crystal"
         },
         {
           "ConnectedArea": "Eldin Field Lava Cave Ledge",
