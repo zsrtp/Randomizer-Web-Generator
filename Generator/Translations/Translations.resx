@@ -461,6 +461,18 @@
     <value>#(green)Something good#(white) beyond this point!</value>
     <comment></comment>
   </data>
+  <data name="hint-type.beyond-point$good-and-big-keys" xml:space="preserve">
+    <value>#(green)Something good#(white) and #(orange)big keys#(white) beyond this point!</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point$good-no-big-keys" xml:space="preserve">
+    <value>#(green)Something good#(white) beyond this point, but there are #(purple)no big keys#(white).</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point$only-big-keys" xml:space="preserve">
+    <value>Only #(orange)big keys#(white) beyond this point!</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.item" xml:space="preserve">
     <value>They say that {subject} can be found {area-phrase}.</value>
     <comment></comment>

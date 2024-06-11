@@ -933,15 +933,64 @@ namespace TPRandomizer.Hints
 
                 if (checksToHint.Count > 0)
                 {
+                    // If big keys are OwnDungeon, then we need to calculate if
+                    // the big key is included. This only happens for dungeons,
+                    // and the item we are looking for.
+
+                    bool includeBigKeyInfo = false;
+                    bool hasBigKeys = false;
+                    if (genData.sSettings.bigKeySettings == BigKeySettings.Own_Dungeon)
+                    {
+                        includeBigKeyInfo = CheckForBeyondPointBigKeys(
+                            zone,
+                            checkNames,
+                            out hasBigKeys
+                        );
+                    }
+
                     if (hasImportantCheck)
                     {
                         if (placeHintsOnSpots)
-                            spotToHints.addHintToSpot(spotId, new BeyondPointHint(true), true);
+                        {
+                            BeyondPointHint.BeyondPointType beyondPointType = BeyondPointHint
+                                .BeyondPointType
+                                .Good;
+                            if (includeBigKeyInfo)
+                            {
+                                if (hasBigKeys)
+                                    beyondPointType = BeyondPointHint
+                                        .BeyondPointType
+                                        .Good_And_Big_Keys;
+                                else
+                                    beyondPointType = BeyondPointHint
+                                        .BeyondPointType
+                                        .Good_No_Big_Keys;
+                            }
+
+                            spotToHints.addHintToSpot(
+                                spotId,
+                                new BeyondPointHint(beyondPointType),
+                                true
+                            );
+                        }
                     }
                     else
                     {
                         if (placeHintsOnSpots)
-                            spotToHints.addHintToSpot(spotId, new BeyondPointHint(false), true);
+                        {
+                            BeyondPointHint.BeyondPointType beyondPointType = BeyondPointHint
+                                .BeyondPointType
+                                .Nothing;
+                            if (includeBigKeyInfo && hasBigKeys)
+                                beyondPointType = BeyondPointHint.BeyondPointType.Only_Big_Keys;
+
+                            spotToHints.addHintToSpot(
+                                spotId,
+                                new BeyondPointHint(beyondPointType),
+                                true
+                            );
+                        }
+
                         foreach (string checkName in checksToHint)
                         {
                             genData.hinted.AddNonWeightedBarrenCheck(checkName);
@@ -949,6 +998,52 @@ namespace TPRandomizer.Hints
                     }
                 }
             }
+        }
+
+        private bool CheckForBeyondPointBigKeys(
+            Zone zone,
+            HashSet<string> categoryCheckNames,
+            out bool hasBigKeys
+        )
+        {
+            if (ListUtils.isEmpty(categoryCheckNames))
+                throw new Exception("Expected 'categoryCheckNames' to not be empty.");
+
+            // set 'out' to false
+            hasBigKeys = false;
+
+            Dictionary<Zone, Item> zoneToBigKey =
+                new()
+                {
+                    { Zone.Goron_Mines, Item.Goron_Mines_Key_Shard },
+                    { Zone.Lakebed_Temple, Item.Lakebed_Temple_Big_Key },
+                    { Zone.Arbiters_Grounds, Item.Arbiters_Grounds_Big_Key },
+                    { Zone.Temple_of_Time, Item.Temple_of_Time_Big_Key },
+                    { Zone.City_in_the_Sky, Item.City_in_The_Sky_Big_Key },
+                };
+
+            if (!zoneToBigKey.TryGetValue(zone, out Item bigKeyItem))
+            {
+                return false;
+            }
+
+            foreach (string checkName in categoryCheckNames)
+            {
+                if (
+                    !HintUtils.checkIsPlayerKnownStatus(checkName)
+                    && !genData.hinted.hintsShouldIgnoreChecks.Contains(checkName)
+                )
+                {
+                    Item contents = HintUtils.getCheckContents(checkName);
+                    if (contents == bigKeyItem)
+                    {
+                        hasBigKeys = true;
+                        break;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void CreateBigKeyHints(SpotToHints spotToHints)

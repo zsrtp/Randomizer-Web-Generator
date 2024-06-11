@@ -234,7 +234,17 @@ namespace TPRandomizer.Hints
 
         public bool CanBeHinted(HintGenData genData)
         {
-            return !genData.hinted.hintedBarrenZones.Contains(zone) && canHintFunc(genData, zone);
+            // Even if a dungeon is hinted barren, we still want to include the
+            // hint for OwnDungeon big keys.
+            if (
+                (
+                    genData.sSettings.bigKeySettings != BigKeySettings.Own_Dungeon
+                    || !ZoneUtils.IsDungeonZone(zone)
+                ) && genData.hinted.hintedBarrenZones.Contains(zone)
+            )
+                return false;
+
+            return canHintFunc(genData, zone);
         }
     }
 
