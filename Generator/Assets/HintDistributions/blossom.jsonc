@@ -36,7 +36,8 @@
   },
   //
   "groups": {
-    "overworld": ["alias:overworldZones"]
+    "overworld": ["alias:overworldZones"],
+    "requiredDungeons": ["alias:requiredDungeons"]
   },
   "hints": [
     {
@@ -51,22 +52,11 @@
           },
           {
             "hintType": "path",
-            "iterations": 3,
+            "iterations": 2,
             "starting": 1
           },
           {
-            "starting": 1,
             "hintDef": [
-              {
-                // Num swords in province with most swords (or tied for most).
-                "hintType": "numItemInArea",
-                "saveToVar": "mostSwordsProvince",
-                "options": {
-                  "item": "Progressive_Sword",
-                  "areaType": "province",
-                  "order": "desc"
-                }
-              },
               { "hintType": "itemToItemPath" },
               {
                 "selectionType": "randomOrder",
@@ -116,11 +106,100 @@
                     }
                   }
                 ]
+              },
+              {
+                "selectionType": "randomOrder",
+                "maxPicks": 1,
+                "hintDef": [
+                  {
+                    "hintType": "item",
+                    "options": {
+                      "validStatuses": ["required"],
+                      "validItems": ["Progressive_Fishing_Rod"]
+                    }
+                  },
+                  {
+                    "hintType": "item",
+                    "options": {
+                      "validStatuses": ["required", "good"],
+                      "validItems": [
+                        "Progressive_Fishing_Rod",
+                        "Progressive_Bow",
+                        "Filled_Bomb_Bag"
+                      ]
+                    }
+                  }
+                ]
               }
             ]
           }
         ]
       }
+    },
+    {
+      "groupId": "requiredDungeons",
+      "hintDef": [
+        {
+          // Num swords in province with most swords (or tied for most).
+          "hintType": "numItemInArea",
+          "saveToVar": "mostSwordsProvince",
+          "options": {
+            "item": "Progressive_Sword",
+            "areaType": "province",
+            "order": "desc"
+          }
+        },
+        {
+          "hintType": "numItemInArea",
+          "options": {
+            "item": "Boomerang",
+            "areaType": "province",
+            "validAreas": ["Dungeon"]
+          }
+        },
+        {
+          "selectionType": "randomOrder",
+          "maxPicks": 1,
+          "hintDef": [
+            {
+              "hintType": "location",
+              "options": {
+                "markAsSometimes": true,
+                "namedChecks": [
+                  "Forest Temple Gale Boomerang",
+                  "Goron Mines Main Magnet Room Top Chest",
+                  "Lakebed Temple Deku Toad Chest",
+                  "Arbiters Grounds Death Sword Chest",
+                  "Snowpeak Ruins Chapel Chest",
+                  "Temple of Time Darknut Chest",
+                  "City in The Sky Aeralfos Chest"
+                  // North fan is an idea, but feels like this hint could
+                  // randomly save someone 10 minutes in some cases, so holding
+                  // off for now.
+                  // "City in The Sky Chest Behind North Fan"
+                ],
+                "validStatuses": ["required", "good"]
+              }
+            },
+            {
+              "hintType": "location",
+              "options": {
+                "markAsSometimes": true,
+                "namedChecks": [
+                  "Forest Temple Gale Boomerang",
+                  "Goron Mines Main Magnet Room Top Chest",
+                  "Lakebed Temple Deku Toad Chest",
+                  "Arbiters Grounds Death Sword Chest",
+                  "Snowpeak Ruins Chapel Chest",
+                  "Temple of Time Darknut Chest",
+                  "City in The Sky Aeralfos Chest"
+                  // "City in The Sky Chest Behind North Fan"
+                ]
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       // 2nd layer is "sometimes" hints
