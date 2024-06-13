@@ -1461,7 +1461,7 @@ namespace TPRandomizer.Hints
                     layerData,
                     specialHintDef.hintDef,
                     null,
-                    idx.ToString()
+                    $"specialHintDef.{idx}"
                 );
 
                 if (recHintResults.didProduceHints)
