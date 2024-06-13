@@ -39,6 +39,67 @@
     "overworld": ["alias:overworldZones"],
     "requiredDungeons": ["alias:requiredDungeons"]
   },
+  // Special hints generated right after Always hints are generated. These are
+  // created even if the dungeon is hinted barren or the check is already hinted
+  // barren by a BeyondThisPoint hint.
+  "specialHintDefs": [
+    {
+      "spot": "forest_temple_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "markAsSometimes": true,
+          "canHintHintedBarrenChecks": true,
+          "validChecks": ["Forest Temple Gale Boomerang"]
+        }
+      }
+    },
+    {
+      "spot": "snowpeak_ruins_sign",
+      "hintDef": {
+        "selectionType": "randomOrder",
+        "maxPicks": 1,
+        "hintDef": [
+          {
+            "hintType": "location",
+            "options": {
+              "markAsSometimes": true,
+              "canHintHintedBarrenChecks": true,
+              "validChecks": [
+                "Snowpeak Ruins Chapel Chest",
+                "Snowpeak Ruins Lobby Chandelier Chest",
+                "Snowpeak Ruins Northeast Chandelier Chest"
+              ],
+              "validStatuses": ["required", "good"]
+            }
+          },
+          {
+            "hintType": "location",
+            "options": {
+              "markAsSometimes": true,
+              "canHintHintedBarrenChecks": true,
+              "validChecks": [
+                "Snowpeak Ruins Chapel Chest",
+                "Snowpeak Ruins Lobby Chandelier Chest",
+                "Snowpeak Ruins Northeast Chandelier Chest"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "spot": "temple_of_time_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "markAsSometimes": true,
+          "canHintHintedBarrenChecks": true,
+          "validChecks": ["Temple of Time Darknut Chest"]
+        }
+      }
+    }
+  ],
   "hints": [
     {
       "groupId": "overworld",

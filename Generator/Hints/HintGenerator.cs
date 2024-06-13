@@ -73,6 +73,9 @@ namespace TPRandomizer.Hints
             if (!ListUtils.isEmpty(alwaysHintsForSpots))
                 alwaysSpotCount = alwaysHintsForSpots.Count;
 
+            // Create user-defined special hints after this point.
+            PrepareUserSpecialHints(specialSpotToHints);
+
             // Run through the process of creating BeyondPoint hints, but update
             // 'hinted' without placing any hints that we might end up having to
             // remove later. Even though this is done up front, we have it such
@@ -324,7 +327,11 @@ namespace TPRandomizer.Hints
                 }
 
                 // If we used up our hints, fill in the remaining spots.
-                if (recHintResults.HintDefResults.Count < 1 && spotsToFill.Count > 0)
+                if (
+                    grouping.useFillerHints
+                    && recHintResults.HintDefResults.Count < 1
+                    && spotsToFill.Count > 0
+                )
                 {
                     AddFillerHintsToSpots(
                         spotsToFill,
@@ -335,9 +342,8 @@ namespace TPRandomizer.Hints
                     );
                 }
 
-                // If we have leftover hints or leftover spots, then something
-                // went wrong.
-                if (recHintResults.HintDefResults.Count > 0 || spotsToFill.Count > 0)
+                // If we have leftover hints we did not place, then throw.
+                if (recHintResults.HintDefResults.Count > 0)
                 {
                     int remainingCopies = 0;
                     if (!ListUtils.isEmpty(recHintResults.HintDefResults))
@@ -348,7 +354,16 @@ namespace TPRandomizer.Hints
                         }
                     }
                     throw new Exception(
-                        $"Expected hints and spotsToFill to be be empty, but had {recHintResults.HintDefResults.Count} hints and {remainingCopies} copies left and {spotsToFill.Count} spotsToFill left."
+                        $"Expected hints to be empty, but had {recHintResults.HintDefResults.Count} hints and {remainingCopies} copies left."
+                    );
+                }
+
+                // If we were supposed to fill in spots but there were unfilled
+                // spots, then throw.
+                if (grouping.useFillerHints && spotsToFill.Count > 0)
+                {
+                    throw new Exception(
+                        $"Expected spotsToFill to be empty, but had {spotsToFill.Count} spotsToFill left."
                     );
                 }
             }
@@ -1414,6 +1429,48 @@ namespace TPRandomizer.Hints
                 }
                 else
                     genData.hinted.hintsShouldIgnoreChecks.Add(checkName);
+            }
+        }
+
+        private void PrepareUserSpecialHints(SpotToHints specialSpotToHints)
+        {
+            for (int idx = 0; idx < hintSettings.specialHintDefs.Count; idx++)
+            {
+                UserSpecialHintDef specialHintDef = hintSettings.specialHintDefs[idx];
+
+                // Not sure that the string is actually used anywhere. Value
+                // seems unimportant in any case.
+                HintGroup group = HintGroup.fromSpotId(
+                    "__specialHintDefs__",
+                    specialHintDef.spotId
+                );
+
+                // Currently only meant to generate a single hint on a single
+                // spot with this method.
+                int layerSize = 1;
+
+                HintLayerData layerData = new HintLayerData(
+                    genData,
+                    hintSettings,
+                    group,
+                    layerSize
+                );
+
+                // Generate hints according to a tree defined in JSON.
+                RecHintResults recHintResults = recursiveHandleHintDef(
+                    layerData,
+                    specialHintDef.hintDef,
+                    null,
+                    idx.ToString()
+                );
+
+                if (recHintResults.didProduceHints)
+                {
+                    foreach (HintDefResult result in recHintResults.HintDefResults)
+                    {
+                        specialSpotToHints.addHintToSpot(specialHintDef.spotId, result.hint);
+                    }
+                }
             }
         }
 

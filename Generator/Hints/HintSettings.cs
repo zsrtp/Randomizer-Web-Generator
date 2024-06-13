@@ -1103,6 +1103,15 @@ namespace TPRandomizer.Hints.Settings
             }
         }
 
+        public static HintGroup fromSpotId(string id, SpotId spotId)
+        {
+            HintGroup ret = new HintGroup();
+            ret.id = id;
+            ret.spots = new HashSet<SpotId> { spotId };
+
+            return ret;
+        }
+
         public static HintGroup fromJObject(string id, JToken arrToken)
         {
             HintGroup ret = new HintGroup();
@@ -1233,9 +1242,36 @@ namespace TPRandomizer.Hints.Settings
         }
     }
 
+    public class UserSpecialHintDef
+    {
+        public SpotId spotId { get; private set; }
+        public HintDef hintDef { get; private set; } = new();
+
+        public static UserSpecialHintDef fromJObject(JObject obj)
+        {
+            UserSpecialHintDef ret = new();
+
+            string spotStr = HintSettingUtils.getOptionalString(obj, "spot", null);
+            if (StringUtils.isEmpty(spotStr))
+                throw new Exception("'spot' for specialHintDefs must be a non-empty string.");
+
+            if (!Enum.TryParse(spotStr, true, out SpotId spotId))
+                throw new Exception($"Failed to parse starting.spot '{spotStr}' to SpotId enum.");
+
+            if (spotId == SpotId.Invalid)
+                throw new Exception("Parsed 'spot' for specialHintDefs to 'Invalid'.");
+
+            ret.spotId = spotId;
+            ret.hintDef = HintDef.fromJToken(obj["hintDef"]);
+
+            return ret;
+        }
+    }
+
     public class HintDefGrouping
     {
         public string groupId { get; private set; }
+        public bool useFillerHints { get; private set; } = true;
         public HintDef hintDef { get; private set; } = new();
 
         public static HintDefGrouping fromJObject(Dictionary<string, HintGroup> groups, JObject obj)
@@ -1246,7 +1282,14 @@ namespace TPRandomizer.Hints.Settings
             if (!groups.ContainsKey(groupId))
                 throw new Exception($"Group id '{groupId}' was not defined in 'groups'.");
 
+            bool useFillerHints = HintSettingUtils.getOptionalBool(
+                obj,
+                "useFillerHints",
+                ret.useFillerHints
+            );
+
             ret.groupId = groupId;
+            ret.useFillerHints = useFillerHints;
             ret.hintDef = HintDef.fromJToken(obj["hintDef"]);
 
             return ret;
@@ -1270,6 +1313,7 @@ namespace TPRandomizer.Hints.Settings
         public Dictionary<string, HashSet<Item>> addItems { get; private set; }
         public Dictionary<string, HashSet<Item>> removeItems { get; private set; }
         public Dictionary<string, HintGroup> groups { get; private set; } = new();
+        public List<UserSpecialHintDef> specialHintDefs { get; private set; } = new();
         public List<HintDefGrouping> hintDefGroupings { get; private set; } = new();
 
         public static HintSettings fromPath(HintGenData genData)
@@ -1301,6 +1345,7 @@ namespace TPRandomizer.Hints.Settings
             ret.barren = Barren.fromJToken(root["barren"]);
             ret.sometimesChecks = ret.loadSometimesChecks(root["sometimes"], genData);
 
+            ret.specialHintDefs = loadSpecialHintDefs(root["specialHintDefs"]);
             ret.hintDefGroupings = loadHintDefGroupings(ret.groups, root["hints"]);
 
             ret.validate();
@@ -1626,6 +1671,24 @@ namespace TPRandomizer.Hints.Settings
                     throw new Exception("Group id must be a non-empty string.");
 
                 ret[id] = HintGroup.fromJObject(id, pair.Value);
+            }
+
+            return ret;
+        }
+
+        private static List<UserSpecialHintDef> loadSpecialHintDefs(JToken token)
+        {
+            if (token == null)
+                return new();
+
+            List<UserSpecialHintDef> ret = new();
+            JArray rootArr = (JArray)token;
+
+            foreach (JToken objToken in rootArr)
+            {
+                JObject obj = (JObject)objToken;
+                UserSpecialHintDef specialHintDef = UserSpecialHintDef.fromJObject(obj);
+                ret.Add(specialHintDef);
             }
 
             return ret;

@@ -25,6 +25,7 @@ namespace TPRandomizer.Hints.HintCreator
         protected HashSet<CheckStatus> validStatuses;
         protected bool vague = false;
         protected bool markAsSometimes = false;
+        protected bool canHintHintedBarrenChecks = false;
         public CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Automatic;
         protected List<string> namedChecks = null;
         protected NamedOrder namedOrder = NamedOrder.Basic;
@@ -106,6 +107,12 @@ namespace TPRandomizer.Hints.HintCreator
                     options,
                     "markAsSometimes",
                     inst.markAsSometimes
+                );
+
+                inst.canHintHintedBarrenChecks = HintSettingUtils.getOptionalBool(
+                    options,
+                    "canHintHintedBarrenChecks",
+                    inst.canHintHintedBarrenChecks
                 );
 
                 inst.checkStatusDisplay = HintSettingUtils.getOptionalCheckStatusDisplay(
@@ -291,7 +298,7 @@ namespace TPRandomizer.Hints.HintCreator
             CheckStatus status = LocationHint.CalcStatus(genData, checkName);
 
             return (
-                genData.checkCanBeLocationHinted(checkName)
+                genData.checkCanBeLocationHinted(checkName, canHintHintedBarrenChecks)
                 && (validCheckNames.Count == 0 || validCheckNames.Contains(checkName))
                 && !invalidCheckNames.Contains(checkName)
                 && (validItems.Count == 0 || validItems.Contains(item))

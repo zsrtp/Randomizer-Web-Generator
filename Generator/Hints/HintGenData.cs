@@ -691,14 +691,19 @@ namespace TPRandomizer.Hints
             return true;
         }
 
-        public bool checkCanBeLocationHinted(string checkName)
+        public bool checkCanBeLocationHinted(
+            string checkName,
+            bool canHintHintedBarrenChecks = false
+        )
         {
             // We should ignore checks which are directed toward. We may want to
             // not hint toward any checks in a zone which is SpoL? This was the
             // previous behavior. Probably fine to list them in a SpoL zone.
             // This way you can know that specific check wasn't the SpoL one.
             // Can adjust later if doesn't make sense.
-            return !hinted.alreadyCheckKnownBarren.Contains(checkName)
+            return (
+                    canHintHintedBarrenChecks || !hinted.alreadyCheckKnownBarren.Contains(checkName)
+                )
                 && !hinted.alreadyCheckContentsHinted.Contains(checkName)
                 && !hinted.alreadyCheckDirectedToward.Contains(checkName)
                 && !hinted.hintsShouldIgnoreChecks.Contains(checkName)
