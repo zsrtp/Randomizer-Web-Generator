@@ -131,79 +131,78 @@
             }
           },
           {
+            "hintType": "item",
+            "options": {
+              "validStatuses": ["required"],
+              "checkStatusDisplay": "required_or_not",
+              "validItems": [
+                "Boomerang",
+                "Lantern",
+                "Slingshot",
+                "Progressive_Fishing_Rod",
+                "Iron_Boots",
+                "Progressive_Bow",
+                "Filled_Bomb_Bag",
+                "Zora_Armor",
+                "Progressive_Clawshot",
+                "Shadow_Crystal",
+                "Aurus_Memo",
+                "Asheis_Sketch",
+                "Spinner",
+                "Ball_and_Chain",
+                "Progressive_Dominion_Rod",
+                "Progressive_Sky_Book",
+                "Gate_Keys",
+                "Magic_Armor",
+                "alias:bugs"
+              ]
+            }
+          },
+          {
+            // Weaker bow/bombBag/fishingRod hint. Prefer to hint fishing rods
+            // when required.
+            "selectionType": "randomOrder",
+            "maxPicks": 1,
             "hintDef": [
               {
-                "selectionType": "randomOrder",
-                "maxPicks": 2,
-                "hintDef": [
-                  {
-                    // Ex: male bugs lead to nothing
-                    "hintType": "tradeGroup",
-                    "options": {
-                      "validGroups": ["male_bugs", "female_bugs"],
-                      "validStatuses": ["bad"]
-                    }
-                  },
-                  {
-                    // Ex: Owl Statues are junk
-                    "hintType": "barren",
-                    "options": {
-                      "areaType": "category"
-                    }
-                  },
-                  {
-                    "hintType": "item",
-                    "options": {
-                      "validStatuses": ["required"],
-                      "checkStatusDisplay": "required_or_not",
-                      "validItems": [
-                        "Boomerang",
-                        "Lantern",
-                        "Slingshot",
-                        "Progressive_Fishing_Rod",
-                        "Iron_Boots",
-                        "Progressive_Bow",
-                        "Filled_Bomb_Bag",
-                        "Zora_Armor",
-                        "Progressive_Clawshot",
-                        "Shadow_Crystal",
-                        "Aurus_Memo",
-                        "Asheis_Sketch",
-                        "Spinner",
-                        "Ball_and_Chain",
-                        "Progressive_Dominion_Rod",
-                        "Progressive_Sky_Book",
-                        "Gate_Keys",
-                        "Magic_Armor",
-                        "alias:bugs"
-                      ]
-                    }
-                  }
-                ]
+                "hintType": "item",
+                "options": {
+                  "validStatuses": ["required"],
+                  "validItems": ["Progressive_Fishing_Rod"]
+                }
               },
               {
-                "selectionType": "randomOrder",
-                "maxPicks": 1,
-                "hintDef": [
-                  {
-                    "hintType": "item",
-                    "options": {
-                      "validStatuses": ["required"],
-                      "validItems": ["Progressive_Fishing_Rod"]
-                    }
-                  },
-                  {
-                    "hintType": "item",
-                    "options": {
-                      "validStatuses": ["required", "good"],
-                      "validItems": [
-                        "Progressive_Fishing_Rod",
-                        "Progressive_Bow",
-                        "Filled_Bomb_Bag"
-                      ]
-                    }
-                  }
-                ]
+                "hintType": "item",
+                "options": {
+                  "validStatuses": ["required", "good"],
+                  "validItems": [
+                    "Progressive_Fishing_Rod",
+                    "Progressive_Bow",
+                    "Filled_Bomb_Bag"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "selectionType": "randomOrder",
+            "maxPicks": 1,
+            "hintDef": [
+              {
+                // Ex: male bugs lead to nothing
+                "hintType": "tradeGroup",
+                "weight": 2,
+                "options": {
+                  "validGroups": ["male_bugs", "female_bugs"],
+                  "validStatuses": ["bad"]
+                }
+              },
+              {
+                // Ex: Owl Statues are junk
+                "hintType": "barren",
+                "options": {
+                  "areaType": "category"
+                }
               }
             ]
           }
@@ -211,6 +210,8 @@
       }
     },
     {
+      // Fill in requiredDungeon signs. Alternate between numRangInDungeon and
+      // numClawsInDungeon, starting on a random one.
       "groupId": "requiredDungeons",
       "hintDef": {
         "selectionType": "randomOrder",
