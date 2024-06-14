@@ -162,15 +162,15 @@
     <comment></comment>
   </data>
   <data name="area.category.llc_lantern_chests" xml:space="preserve">
-    <value>a {cs}Lake Lantern Cave lantern chest{ce}</value>
+    <value>a {cs}lantern chest in Lake Lantern Cave{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.llc_lantern_chests$default" xml:space="preserve">
-    <value>$(plural)the {cs}Lake Lantern Cave lantern chests{ce}</value>
+    <value>$(plural)the {cs}2 lantern chests in Lake Lantern Cave{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.llc_lantern_chests$plural" xml:space="preserve">
-    <value>$(plural)the {cs}Lake Lantern Cave lantern chests{ce}</value>
+    <value>$(plural)the {cs}2 lantern chests in Lake Lantern Cave{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.lower_desert" xml:space="preserve">
