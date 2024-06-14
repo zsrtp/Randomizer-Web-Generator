@@ -1565,6 +1565,10 @@
     <value>({cs}barren zone{ce})</value>
     <comment></comment>
   </data>
+  <data name="noun.jovani-unhinted" xml:space="preserve">
+    <value>Unhinted</value>
+    <comment></comment>
+  </data>
   <data name="noun.nothing-of-value" xml:space="preserve">
     <value>nothing of value</value>
     <comment></comment>

@@ -89,17 +89,26 @@ namespace TPRandomizer.Hints
                         new() { { "count", countStr } }
                     );
 
-                    // Leaving def/indef out for now. Might need it or
-                    // 'capitalize' to be based on meta from the
-                    // 'hint-type.jovani-rewards.reward' line.
-                    string itemText = customMsgData.GenItemText3(
-                        out _,
-                        checkInfo.item,
-                        checkInfo.checkStatus,
-                        // contextIn: checkInfo.useDefArticle ? "def" : "indef",
-                        checkStatusDisplay: checkInfo.checkStatusDisplay,
-                        capitalize: true
-                    );
+                    string itemText;
+                    if (checkInfo.unhinted)
+                    {
+                        itemText = Res.Msg("noun.jovani-unhinted")
+                            .ResolveWithColor(CustomMessages.messageColorOrange);
+                    }
+                    else
+                    {
+                        // Leaving def/indef out for now. Might need it or
+                        // 'capitalize' to be based on meta from the
+                        // 'hint-type.jovani-rewards.reward' line.
+                        itemText = customMsgData.GenItemText3(
+                            out _,
+                            checkInfo.item,
+                            checkInfo.checkStatus,
+                            // contextIn: checkInfo.useDefArticle ? "def" : "indef",
+                            checkStatusDisplay: checkInfo.checkStatusDisplay,
+                            capitalize: true
+                        );
+                    }
 
                     string rowText = res.Substitute(
                         new() { { "count", countStr }, { "item", itemText } }
@@ -126,8 +135,11 @@ namespace TPRandomizer.Hints
 
             foreach (JovaniCheckInfo checkInfo in checkInfoList)
             {
-                hintInfo.hintedChecks.Add(checkInfo.checkName);
-                hintInfo.hintedItems.Add(checkInfo.item);
+                if (!checkInfo.unhinted)
+                {
+                    hintInfo.hintedChecks.Add(checkInfo.checkName);
+                    hintInfo.hintedItems.Add(checkInfo.item);
+                }
             }
 
             return hintInfo;
@@ -137,6 +149,7 @@ namespace TPRandomizer.Hints
         {
             public string checkName { get; }
             public byte soulsThreshold { get; } // Planning ahead for configurable thresholds
+            public bool unhinted { get; }
             public CheckStatus checkStatus { get; }
             public CheckStatusDisplay checkStatusDisplay { get; }
 
@@ -150,6 +163,7 @@ namespace TPRandomizer.Hints
                 HintGenData genData,
                 string checkName,
                 byte soulsThreshold,
+                bool unhinted,
                 CheckStatus checkStatus,
                 CheckStatusDisplay checkStatusDisplay,
                 bool useDefArticle = false,
@@ -158,6 +172,7 @@ namespace TPRandomizer.Hints
             {
                 this.checkName = checkName;
                 this.soulsThreshold = soulsThreshold;
+                this.unhinted = unhinted;
                 this.checkStatus = checkStatus;
                 this.checkStatusDisplay = checkStatusDisplay;
                 this.useDefArticle = useDefArticle;
@@ -193,6 +208,7 @@ namespace TPRandomizer.Hints
                     bitLengths.checkId
                 );
                 result += SettingsEncoder.EncodeNumAsBits(soulsThreshold, 8);
+                result += unhinted ? "1" : "0";
                 result += SettingsEncoder.EncodeNumAsBits((byte)checkStatus, 2);
                 result += SettingsEncoder.EncodeNumAsBits((byte)checkStatusDisplay, 2);
                 result += useDefArticle ? "1" : "0";
@@ -209,6 +225,7 @@ namespace TPRandomizer.Hints
                 string checkName = CheckIdClass.GetCheckName(checkId);
 
                 byte soulsThreshold = processor.NextByte();
+                bool unhinted = processor.NextBool();
                 CheckStatus status = (CheckStatus)processor.NextInt(2);
                 CheckStatusDisplay display = (CheckStatusDisplay)processor.NextInt(2);
                 bool useDefArticle = processor.NextBool();
@@ -217,6 +234,7 @@ namespace TPRandomizer.Hints
                     null,
                     checkName,
                     soulsThreshold,
+                    unhinted,
                     status,
                     display,
                     useDefArticle,

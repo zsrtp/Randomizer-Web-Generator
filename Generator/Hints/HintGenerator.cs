@@ -839,6 +839,7 @@ namespace TPRandomizer.Hints
                 int soulsForCheck = pair.Item1;
                 string checkName = pair.Item2;
 
+                // Skip over excluded ones entirely
                 if (HintUtils.checkIsPlayerKnownStatus(checkName))
                     continue;
 
@@ -849,15 +850,21 @@ namespace TPRandomizer.Hints
                     jovani.minFoundSoulsForHint != null
                     && soulsForCheck - startingSouls < jovani.minFoundSoulsForHint;
 
-                if (failedMinSouls || failedMinFoundSouls)
-                    continue;
+                bool unhinted = failedMinSouls || failedMinFoundSouls;
 
                 CheckStatus checkStatus = genData.CalcCheckStatus(checkName);
                 // Use this CheckStatusDisplay for everything for now.
                 CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Required_Or_Not;
 
                 JovaniRewardsHint.JovaniCheckInfo checkInfo =
-                    new(genData, checkName, (byte)soulsForCheck, checkStatus, checkStatusDisplay);
+                    new(
+                        genData,
+                        checkName,
+                        (byte)soulsForCheck,
+                        unhinted,
+                        checkStatus,
+                        checkStatusDisplay
+                    );
                 checkInfoList.Add(checkInfo);
 
                 // Mark check as hinted
