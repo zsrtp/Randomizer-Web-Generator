@@ -442,11 +442,11 @@
     <comment></comment>
   </data>
   <data name="hint-type.agitha-rewards" xml:space="preserve">
-    <value>Please bring the {num-bugs} to Agitha&apos;s Castle.\n\nAnd tell them the princess awaits!</value>
+    <value>Please bring #(purple)golden bugs#(white) you find to Agitha&apos;s Castle.\n\nAnd tell them the princess awaits!</value>
     <comment></comment>
   </data>
   <data name="hint-type.agitha-rewards$good" xml:space="preserve">
-    <value>$(no-articles,capitalize)Please bring the {num-bugs} to Agitha&apos;s Castle. I&apos;ll share #(red)GREAT happiness#(white) with you:\n\n{items}</value>
+    <value>$(no-articles,capitalize)Please bring #(yellow)golden bugs#(white) you find to Agitha&apos;s Castle. I&apos;ll share #(red)GREAT happiness#(white) with you:\n\n{items}</value>
     <comment></comment>
   </data>
   <data name="hint-type.barren" xml:space="preserve">
