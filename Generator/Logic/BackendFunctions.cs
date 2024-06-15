@@ -26,6 +26,11 @@ namespace TPRandomizer
             List<Item> validationItems = new();
             SharedSettings parseSetting = Randomizer.SSettings;
 
+            if (parseSetting.logicRules == SSettings.Enums.LogicRules.No_Logic)
+            {
+                return true;
+            }
+
             // Console.WriteLine("Item to place: " + itemToPlace);
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
             {
