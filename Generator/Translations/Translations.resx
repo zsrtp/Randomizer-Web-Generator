@@ -737,6 +737,10 @@
     <value>empty bottle</value>
     <comment></comment>
   </data>
+  <data name="item.61-red_potion_shop@ac(t,a,b,s)" xml:space="preserve">
+    <value>Red Potion</value>
+    <comment></comment>
+  </data>
   <data name="item.65-sera_bottle@ac(t,a,b,s)" xml:space="preserve">
     <value>half-empty milk bottle</value>
     <comment></comment>
