@@ -1117,6 +1117,14 @@
     <value>flacons</value>
     <comment></comment>
   </data>
+  <data name="item.61-red_potion_shop@ac(f)" xml:space="preserve">
+    <value>potion rouge</value>
+    <comment></comment>
+  </data>
+  <data name="item.61-red_potion_shop#other@ac(f)" xml:space="preserve">
+    <value>potions rouges</value>
+    <comment></comment>
+  </data>
   <data name="item.65-sera_bottle@ac(f)" xml:space="preserve">
     <value>bouteille de lait à moitié vide</value>
     <comment></comment>
