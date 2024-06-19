@@ -1365,6 +1365,8 @@ namespace TPRandomizer.Hints.Settings
                     return Path.Combine(basePath, "balanced.jsonc");
                 case HintDistribution.Blossom:
                     return Path.Combine(basePath, "blossom.jsonc");
+                case HintDistribution.Blossom_Experimental:
+                    return Path.Combine(basePath, "blossom-experimental.jsonc");
                 case HintDistribution.Strong:
                     return Path.Combine(basePath, "strong.jsonc");
                 case HintDistribution.Very_Strong:
