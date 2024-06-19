@@ -79,7 +79,7 @@
         "Type": "Overworld",
         "SourceRoomSpawn":
         {
-            "SourceRoom": "Ordon Spring",
+            "SourceRoom": "Ordon Bridge",
             "TargetRoom": "South Faron Woods",
             "Stage": 45,
             "Room": 0,
@@ -91,7 +91,7 @@
         "TargetRoomSpawn":
         {
             "SourceRoom": "South Faron Woods",
-            "TargetRoom": "Ordon Spring",
+            "TargetRoom": "Ordon Bridge",
             "Stage": 44,
             "Room": 1,
             "Spawn": "01",
