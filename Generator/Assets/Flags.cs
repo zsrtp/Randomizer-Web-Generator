@@ -83,6 +83,7 @@ namespace TPRandomizer.Assets
             { 0x3, 0x54 }, // Custom flag. Sets the sign in Kak Malo mart slot 1 to appear.
             { 0x3, 0x99 }, // Remove wooden shield from Kak Malo Mart counter.
             { 0x0, 0x63 }, // Spawn the Chest in Link's House
+            { 0x9, 0xBC }, // Spawn Gengle by default as his actor interferes with the poe soul
         };
 
         /// <summary>
