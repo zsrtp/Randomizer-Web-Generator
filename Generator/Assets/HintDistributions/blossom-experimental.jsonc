@@ -182,32 +182,6 @@
                     }
                   },
                   {
-                    // Weaker bow/bombBag/fishingRod hint. Prefer to hint fishing rods
-                    // when required.
-                    "selectionType": "randomOrder",
-                    "maxPicks": 1,
-                    "hintDef": [
-                      {
-                        "hintType": "item",
-                        "options": {
-                          "validStatuses": ["required"],
-                          "validItems": ["Progressive_Fishing_Rod"]
-                        }
-                      },
-                      {
-                        "hintType": "item",
-                        "options": {
-                          "validStatuses": ["required", "good"],
-                          "validItems": [
-                            "Progressive_Fishing_Rod",
-                            "Progressive_Bow",
-                            "Filled_Bomb_Bag"
-                          ]
-                        }
-                      }
-                    ]
-                  },
-                  {
                     "hintType": "location",
                     "options": {
                       "markAsSometimes": true,
@@ -228,32 +202,64 @@
                     }
                   },
                   {
-                    "hintType": "item",
-                    "options": {
-                      "validStatuses": ["required"],
-                      "checkStatusDisplay": "required_or_not",
-                      "validItems": [
-                        // "Boomerang",
-                        // "Lantern",
-                        "Slingshot",
-                        "Progressive_Fishing_Rod",
-                        // "Iron_Boots",
-                        "Progressive_Bow",
-                        "Filled_Bomb_Bag",
-                        // "Zora_Armor",
-                        // "Progressive_Clawshot",
-                        // "Shadow_Crystal",
-                        // "Aurus_Memo",
-                        "Asheis_Sketch",
-                        // "Spinner",
-                        // "Ball_and_Chain",
-                        "Progressive_Dominion_Rod",
-                        // "Progressive_Sky_Book",
-                        // "Gate_Keys",
-                        // "Magic_Armor",
-                        "alias:bugs"
-                      ]
-                    }
+                    "selectionType": "randomOrder",
+                    "maxPicks": 1,
+                    "hintDef": [
+                      // {
+                      //   // Weaker bow/bombBag/fishingRod hint. Prefer to hint fishing rods
+                      //   // when required.
+                      //   "selectionType": "randomOrder",
+                      //   "maxPicks": 1,
+                      //   "hintDef": [
+                      //     {
+                      //       "hintType": "item",
+                      //       "options": {
+                      //         "validStatuses": ["required"],
+                      //         "validItems": ["Progressive_Fishing_Rod"]
+                      //       }
+                      //     },
+                      //     {
+                      //       "hintType": "item",
+                      //       "options": {
+                      //         "validStatuses": ["required", "good"],
+                      //         "validItems": [
+                      //           "Progressive_Fishing_Rod",
+                      //           "Progressive_Bow",
+                      //           "Filled_Bomb_Bag"
+                      //         ]
+                      //       }
+                      //     }
+                      //   ]
+                      // },
+                      {
+                        "hintType": "item",
+                        "options": {
+                          "validStatuses": ["required"],
+                          "checkStatusDisplay": "required_or_not",
+                          "validItems": [
+                            // "Boomerang",
+                            // "Lantern",
+                            "Slingshot",
+                            "Progressive_Fishing_Rod",
+                            // "Iron_Boots",
+                            "Progressive_Bow",
+                            "Filled_Bomb_Bag",
+                            // "Zora_Armor",
+                            // "Progressive_Clawshot",
+                            // "Shadow_Crystal",
+                            // "Aurus_Memo",
+                            "Asheis_Sketch",
+                            // "Spinner",
+                            // "Ball_and_Chain",
+                            "Progressive_Dominion_Rod",
+                            // "Progressive_Sky_Book",
+                            // "Gate_Keys",
+                            // "Magic_Armor",
+                            "alias:bugs"
+                          ]
+                        }
+                      }
+                    ]
                   }
                 ]
               }
