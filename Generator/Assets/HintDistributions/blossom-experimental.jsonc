@@ -25,11 +25,14 @@
   },
   //
   "addChecks": {
-    "Links Basement Chest": ["sometimes"]
+    "Links Basement Chest": ["sometimes"],
+    "Auru Gift To Fyer": ["sometimes"]
   },
   "removeChecks": {
     "Herding Goats Reward": ["sometimes"],
-    "Wrestling With Bo": ["sometimes"]
+    "Wrestling With Bo": ["sometimes"],
+    "Zoras Domain Extinguish All Torches Chest": ["sometimes"],
+    "Zoras Domain Light All Torches Chest": ["sometimes"]
   },
   "removeItems": {
     "Progressive_Sword": ["sometimes"]
@@ -104,88 +107,51 @@
     {
       "groupId": "overworld",
       "hintDef": {
-        "copies": 2,
+        "copies": 3,
         "hintDef": [
           {
             "hintType": "barren",
             "iterations": 3,
-            "starting": 1
+            "starting": 3
           },
           {
-            "hintType": "itemToItemPath",
-            "starting": 1
+            "hintType": "itemToItemPath"
           },
           {
             "hintType": "path",
-            "iterations": 2,
-            "starting": 1
+            "iterations": 2
           },
-          {
-            // Num swords in province with most swords (or tied for most).
-            "hintType": "numItemInArea",
-            "saveToVar": "mostSwordsProvince",
-            "options": {
-              "item": "Progressive_Sword",
-              "areaType": "province",
-              "order": "desc"
-            }
-          },
-          {
-            "hintType": "item",
-            "options": {
-              "validStatuses": ["required"],
-              "checkStatusDisplay": "required_or_not",
-              "validItems": [
-                "Boomerang",
-                "Lantern",
-                "Slingshot",
-                "Progressive_Fishing_Rod",
-                "Iron_Boots",
-                "Progressive_Bow",
-                "Filled_Bomb_Bag",
-                "Zora_Armor",
-                "Progressive_Clawshot",
-                "Shadow_Crystal",
-                "Aurus_Memo",
-                "Asheis_Sketch",
-                "Spinner",
-                "Ball_and_Chain",
-                "Progressive_Dominion_Rod",
-                "Progressive_Sky_Book",
-                "Gate_Keys",
-                "Magic_Armor",
-                "alias:bugs"
-              ]
-            }
-          },
-          {
-            // Weaker bow/bombBag/fishingRod hint. Prefer to hint fishing rods
-            // when required.
-            "selectionType": "randomOrder",
-            "maxPicks": 1,
-            "hintDef": [
-              {
-                "hintType": "item",
-                "options": {
-                  "validStatuses": ["required"],
-                  "validItems": ["Progressive_Fishing_Rod"]
-                }
-              },
-              {
-                "hintType": "item",
-                "options": {
-                  "validStatuses": ["required", "good"],
-                  "validItems": [
-                    "Progressive_Fishing_Rod",
-                    "Progressive_Bow",
-                    "Filled_Bomb_Bag"
-                  ]
-                }
-              }
-            ]
-          },
+          // {
+          //   "hintType": "item",
+          //   "options": {
+          //     "validStatuses": ["required"],
+          //     "checkStatusDisplay": "required_or_not",
+          //     "validItems": [
+          //       "Boomerang",
+          //       "Lantern",
+          //       "Slingshot",
+          //       "Progressive_Fishing_Rod",
+          //       "Iron_Boots",
+          //       "Progressive_Bow",
+          //       "Filled_Bomb_Bag",
+          //       "Zora_Armor",
+          //       "Progressive_Clawshot",
+          //       "Shadow_Crystal",
+          //       "Aurus_Memo",
+          //       "Asheis_Sketch",
+          //       "Spinner",
+          //       "Ball_and_Chain",
+          //       "Progressive_Dominion_Rod",
+          //       "Progressive_Sky_Book",
+          //       "Gate_Keys",
+          //       "Magic_Armor",
+          //       "alias:bugs"
+          //     ]
+          //   }
+          // },
           {
             "selectionType": "randomOrder",
+            "starting": 1,
             "maxPicks": 1,
             "hintDef": [
               {
@@ -197,14 +163,111 @@
                   "validStatuses": ["bad"]
                 }
               },
+              // {
+              //   // Ex: Owl Statues are junk
+              //   "hintType": "barren",
+              //   "options": {
+              //     "areaType": "category"
+              //   }
+              // },
               {
-                // Ex: Owl Statues are junk
-                "hintType": "barren",
-                "options": {
-                  "areaType": "category"
-                }
+                "selectionType": "randomOrder",
+                "maxPicks": 1,
+                "hintDef": [
+                  {
+                    // Ex: Owl Statues are junk
+                    "hintType": "barren",
+                    "options": {
+                      "areaType": "category"
+                    }
+                  },
+                  {
+                    // Weaker bow/bombBag/fishingRod hint. Prefer to hint fishing rods
+                    // when required.
+                    "selectionType": "randomOrder",
+                    "maxPicks": 1,
+                    "hintDef": [
+                      {
+                        "hintType": "item",
+                        "options": {
+                          "validStatuses": ["required"],
+                          "validItems": ["Progressive_Fishing_Rod"]
+                        }
+                      },
+                      {
+                        "hintType": "item",
+                        "options": {
+                          "validStatuses": ["required", "good"],
+                          "validItems": [
+                            "Progressive_Fishing_Rod",
+                            "Progressive_Bow",
+                            "Filled_Bomb_Bag"
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "hintType": "location",
+                    "options": {
+                      "markAsSometimes": true,
+                      "namedChecks": [
+                        "Forest Temple Diababa Heart Container",
+                        "Goron Mines Fyrus Heart Container",
+                        "Lakebed Temple Morpheel Heart Container",
+                        "Arbiters Grounds Stallord Heart Container",
+                        "Snowpeak Ruins Blizzeta Heart Container",
+                        "Temple of Time Armogohma Heart Container",
+                        "City in The Sky Argorok Heart Container"
+                      ],
+                      "namedOrder": "random",
+                      "namedProbability": 0.5,
+                      "validStatuses": ["required"],
+                      "checkStatusDisplay": "required_or_not",
+                      "vague": true
+                    }
+                  },
+                  {
+                    "hintType": "item",
+                    "options": {
+                      "validStatuses": ["required"],
+                      "checkStatusDisplay": "required_or_not",
+                      "validItems": [
+                        // "Boomerang",
+                        // "Lantern",
+                        "Slingshot",
+                        "Progressive_Fishing_Rod",
+                        // "Iron_Boots",
+                        "Progressive_Bow",
+                        "Filled_Bomb_Bag",
+                        // "Zora_Armor",
+                        // "Progressive_Clawshot",
+                        // "Shadow_Crystal",
+                        // "Aurus_Memo",
+                        "Asheis_Sketch",
+                        // "Spinner",
+                        // "Ball_and_Chain",
+                        "Progressive_Dominion_Rod",
+                        // "Progressive_Sky_Book",
+                        // "Gate_Keys",
+                        // "Magic_Armor",
+                        "alias:bugs"
+                      ]
+                    }
+                  }
+                ]
               }
             ]
+          },
+          {
+            // Num swords in province with most swords (or tied for most).
+            "hintType": "numItemInArea",
+            "saveToVar": "mostSwordsProvince",
+            "options": {
+              "item": "Progressive_Sword",
+              "areaType": "province",
+              "order": "desc"
+            }
           }
         ]
       }
@@ -265,7 +328,6 @@
       // 2nd layer is "sometimes" hints
       "groupId": "overworld",
       "hintDef": {
-        "starting": 1,
         "copies": 2,
         "hintDef": [
           {
@@ -281,26 +343,6 @@
               "markAsSometimes": true,
               "namedChecks": ["City in The Sky West Wing First Chest"],
               "namedProbability": 0.5
-            }
-          },
-          {
-            "hintType": "location",
-            "options": {
-              "markAsSometimes": true,
-              "namedChecks": [
-                "Forest Temple Diababa Heart Container",
-                "Goron Mines Fyrus Heart Container",
-                "Lakebed Temple Morpheel Heart Container",
-                "Arbiters Grounds Stallord Heart Container",
-                "Snowpeak Ruins Blizzeta Heart Container",
-                "Temple of Time Armogohma Heart Container",
-                "City in The Sky Argorok Heart Container"
-              ],
-              "namedOrder": "random",
-              "namedProbability": 0.5,
-              "validStatuses": ["required"],
-              "checkStatusDisplay": "required_or_not",
-              "vague": true
             }
           },
           {
