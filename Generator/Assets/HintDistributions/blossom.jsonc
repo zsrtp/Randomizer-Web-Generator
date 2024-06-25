@@ -29,7 +29,9 @@
   },
   "removeChecks": {
     "Herding Goats Reward": ["sometimes"],
-    "Wrestling With Bo": ["sometimes"]
+    "Wrestling With Bo": ["sometimes"],
+    "Zoras Domain Extinguish All Torches Chest": ["sometimes"],
+    "Zoras Domain Light All Torches Chest": ["sometimes"]
   },
   "removeItems": {
     "Progressive_Sword": ["sometimes"]
@@ -57,7 +59,6 @@
     {
       "spot": "snowpeak_ruins_sign",
       "hintDef": {
-        "selectionType": "randomOrder",
         "maxPicks": 1,
         "hintDef": [
           {
@@ -70,20 +71,38 @@
                 "Snowpeak Ruins Lobby Chandelier Chest",
                 "Snowpeak Ruins Northeast Chandelier Chest"
               ],
-              "validStatuses": ["required", "good"]
+              "validItems": ["Snowpeak_Ruins_Bedroom_Key"]
             }
           },
           {
-            "hintType": "location",
-            "options": {
-              "markAsSometimes": true,
-              "canHintHintedBarrenChecks": true,
-              "validChecks": [
-                "Snowpeak Ruins Chapel Chest",
-                "Snowpeak Ruins Lobby Chandelier Chest",
-                "Snowpeak Ruins Northeast Chandelier Chest"
-              ]
-            }
+            "selectionType": "randomOrder",
+            "hintDef": [
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "canHintHintedBarrenChecks": true,
+                  "validChecks": [
+                    "Snowpeak Ruins Chapel Chest",
+                    "Snowpeak Ruins Lobby Chandelier Chest",
+                    "Snowpeak Ruins Northeast Chandelier Chest"
+                  ],
+                  "validStatuses": ["required", "good"]
+                }
+              },
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "canHintHintedBarrenChecks": true,
+                  "validChecks": [
+                    "Snowpeak Ruins Chapel Chest",
+                    "Snowpeak Ruins Lobby Chandelier Chest",
+                    "Snowpeak Ruins Northeast Chandelier Chest"
+                  ]
+                }
+              }
+            ]
           }
         ]
       }
@@ -104,12 +123,32 @@
     {
       "groupId": "overworld",
       "hintDef": {
-        "copies": 2,
+        "copies": 3,
         "hintDef": [
           {
-            "hintType": "barren",
-            "iterations": 3,
-            "starting": 1
+            "maxPicks": 3,
+            "starting": 1,
+            "hintDef": [
+              {
+                "hintType": "barren",
+                "options": {
+                  "validAreas": [
+                    "Forest Temple",
+                    "Goron Mines",
+                    "Lakebed Temple",
+                    "Arbiter's Grounds",
+                    "Snowpeak Ruins",
+                    "Temple of Time",
+                    "City in the Sky",
+                    "Palace of Twilight"
+                  ]
+                }
+              },
+              {
+                "hintType": "barren",
+                "iterations": 3
+              }
+            ]
           },
           {
             "hintType": "itemToItemPath",
@@ -117,13 +156,13 @@
           },
           {
             "hintType": "path",
-            "iterations": 2,
-            "starting": 1
+            "iterations": 2
           },
           {
             // Num swords in province with most swords (or tied for most).
             "hintType": "numItemInArea",
             "saveToVar": "mostSwordsProvince",
+            "starting": 1,
             "options": {
               "item": "Progressive_Sword",
               "areaType": "province",
@@ -131,77 +170,87 @@
             }
           },
           {
-            "hintType": "item",
-            "options": {
-              "validStatuses": ["required"],
-              "checkStatusDisplay": "required_or_not",
-              "validItems": [
-                "Boomerang",
-                "Lantern",
-                "Slingshot",
-                "Progressive_Fishing_Rod",
-                "Iron_Boots",
-                "Progressive_Bow",
-                "Filled_Bomb_Bag",
-                "Zora_Armor",
-                "Progressive_Clawshot",
-                "Shadow_Crystal",
-                "Aurus_Memo",
-                "Asheis_Sketch",
-                "Spinner",
-                "Ball_and_Chain",
-                "Progressive_Dominion_Rod",
-                "Progressive_Sky_Book",
-                "Gate_Keys",
-                "Magic_Armor",
-                "alias:bugs"
-              ]
-            }
-          },
-          {
-            // Weaker bow/bombBag/fishingRod hint. Prefer to hint fishing rods
-            // when required.
-            "selectionType": "randomOrder",
+            "starting": 1,
             "maxPicks": 1,
             "hintDef": [
               {
-                "hintType": "item",
-                "options": {
-                  "validStatuses": ["required"],
-                  "validItems": ["Progressive_Fishing_Rod"]
-                }
+                "selectionType": "randomOrder",
+                "hintDef": [
+                  {
+                    // Ex: male bugs lead to nothing
+                    "hintType": "tradeGroup",
+                    "weight": 2,
+                    "options": {
+                      "validGroups": ["male_bugs", "female_bugs"],
+                      "validStatuses": ["bad"]
+                    }
+                  },
+                  {
+                    "selectionType": "randomOrder",
+                    "maxPicks": 1,
+                    "hintDef": [
+                      {
+                        "hintType": "location",
+                        "weight": 5,
+                        "options": {
+                          "markAsSometimes": true,
+                          "namedChecks": [
+                            "Forest Temple Diababa Heart Container",
+                            "Goron Mines Fyrus Heart Container",
+                            "Lakebed Temple Morpheel Heart Container",
+                            "Arbiters Grounds Stallord Heart Container",
+                            "Snowpeak Ruins Blizzeta Heart Container",
+                            "Temple of Time Armogohma Heart Container",
+                            "City in The Sky Argorok Heart Container"
+                          ],
+                          "namedOrder": "random",
+                          "namedProbability": 0.5,
+                          "validStatuses": ["required"],
+                          "checkStatusDisplay": "required_or_not",
+                          "vague": true
+                        }
+                      },
+                      {
+                        // Ex: Owl Statues are junk
+                        "hintType": "barren",
+                        "weight": 3,
+                        "options": {
+                          "areaType": "category"
+                        }
+                      },
+                      {
+                        "hintType": "item",
+                        "weight": 2,
+                        "options": {
+                          "checkStatusDisplay": "required_or_not",
+                          "validStatuses": ["required"],
+                          "validItems": [
+                            "Slingshot",
+                            // Remove fishing rod so we don't bait people into
+                            // early SPR. Also fishing rod's only purpose the
+                            // vast majority of the time is to enter SPR, so it
+                            // is kind of like hinting a sky character which is
+                            // not the greatest.
+                            // "Progressive_Fishing_Rod",
+                            "Progressive_Bow",
+                            "Filled_Bomb_Bag",
+                            "Asheis_Sketch",
+                            "Progressive_Dominion_Rod",
+                            "alias:bugs"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
               },
               {
+                // As a fallback if the misc hint fails (which can
+                // definitely happen), just generate a simple item hint.
                 "hintType": "item",
                 "options": {
                   "validStatuses": ["required", "good"],
-                  "validItems": [
-                    "Progressive_Fishing_Rod",
-                    "Progressive_Bow",
-                    "Filled_Bomb_Bag"
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "selectionType": "randomOrder",
-            "maxPicks": 1,
-            "hintDef": [
-              {
-                // Ex: male bugs lead to nothing
-                "hintType": "tradeGroup",
-                "weight": 2,
-                "options": {
-                  "validGroups": ["male_bugs", "female_bugs"],
-                  "validStatuses": ["bad"]
-                }
-              },
-              {
-                // Ex: Owl Statues are junk
-                "hintType": "barren",
-                "options": {
-                  "areaType": "category"
+                  "validItems": ["Progressive_Fishing_Rod", "Progressive_Bow"]
                 }
               }
             ]
@@ -265,16 +314,8 @@
       // 2nd layer is "sometimes" hints
       "groupId": "overworld",
       "hintDef": {
-        "starting": 1,
         "copies": 2,
         "hintDef": [
-          {
-            "hintType": "item",
-            "options": {
-              "validItems": ["Progressive_Sword"],
-              "invalidChecks": ["var:mostSwordsProvince.areaId"]
-            }
-          },
           {
             "hintType": "location",
             "options": {
@@ -288,26 +329,6 @@
               "markAsSometimes": true,
               "namedChecks": ["City in The Sky West Wing First Chest"],
               "namedProbability": 0.5
-            }
-          },
-          {
-            "hintType": "location",
-            "options": {
-              "markAsSometimes": true,
-              "namedChecks": [
-                "Forest Temple Diababa Heart Container",
-                "Goron Mines Fyrus Heart Container",
-                "Lakebed Temple Morpheel Heart Container",
-                "Arbiters Grounds Stallord Heart Container",
-                "Snowpeak Ruins Blizzeta Heart Container",
-                "Temple of Time Armogohma Heart Container",
-                "City in The Sky Argorok Heart Container"
-              ],
-              "namedOrder": "random",
-              "namedProbability": 0.5,
-              "validStatuses": ["required"],
-              "checkStatusDisplay": "required_or_not",
-              "vague": true
             }
           },
           {
