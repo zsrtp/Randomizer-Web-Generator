@@ -124,6 +124,5 @@ namespace TPRandomizer.SSettings.Enums
         Balanced = 3,
         Strong = 4,
         Very_Strong = 5,
-        Blossom_Experimental = 6,
     }
 }
