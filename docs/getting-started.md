@@ -56,7 +56,7 @@ _Note: You may need to open a new command line for `yarn` to be available._
 
 ### dotNET
 
-// TODO: Add instructions here after swapping to 6.0
+The backend of the generator code runs on `dotnet` version `8.0` the SDK can be downloaded [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 
 ## Setup
 

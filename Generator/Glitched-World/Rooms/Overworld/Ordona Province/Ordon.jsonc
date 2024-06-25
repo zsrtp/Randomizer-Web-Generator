@@ -245,14 +245,31 @@
           "Requirements": "true"
         },
         {
-          "ConnectedArea": "South Faron Woods",
-          "Requirements": "true"
+          "ConnectedArea": "Ordon Bridge",
+          "Requirements": "true" // Gate clip
         }
       ],
       "Checks":
       [
           "Ordon Spring Golden Wolf"
       ],
+      "Region": "Ordona Province"
+    },
+    {
+      "RoomName": "Ordon Bridge",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Ordon Spring",
+          "Requirements": "(HasSword and Slingshot) or (Setting.skipPrologue equals True)"
+        },
+        {
+          "ConnectedArea": "South Faron Woods",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [],
       "Region": "Ordona Province"
     }
   ]

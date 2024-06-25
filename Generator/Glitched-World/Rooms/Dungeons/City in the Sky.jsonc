@@ -94,9 +94,10 @@
                 "ConnectedArea": "City in The Sky West Wing",
                 "Requirements": "(Progressive_Clawshot, 2)"
             },
+            // You can use only Double Claws to reach north wing. Thank Hab for this.
             {
                 "ConnectedArea": "City in The Sky North Wing",
-                "Requirements": "(Progressive_Clawshot, 2) and ((Shadow_Crystal and Iron_Boots) or CanDoLJA)"
+                "Requirements": "(Progressive_Clawshot, 2)"
             },
             // Fan skip
             {
