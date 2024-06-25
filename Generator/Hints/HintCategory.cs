@@ -202,13 +202,15 @@ namespace TPRandomizer.Hints
                     HintCategory.Temple_of_Time_2nd_Half,
                     new[]
                     {
+                        "Temple of Time Moving Wall Dinalfos Room Chest",
+                        "Temple of Time Scales Gohma Chest",
                         "Temple of Time Poe Above Scales",
                         "Temple of Time Scales Upper Chest",
                         "Temple of Time Floor Switch Puzzle Room Upper Chest",
                         "Temple of Time Big Key Chest",
+                        "Temple of Time Gilloutine Chest",
                         "Temple of Time Chest Before Darknut",
                         "Temple of Time Darknut Chest",
-                        "Temple of Time Gilloutine Chest",
                     }
                 },
                 {
