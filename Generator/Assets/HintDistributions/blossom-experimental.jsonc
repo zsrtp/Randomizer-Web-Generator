@@ -59,7 +59,6 @@
     {
       "spot": "snowpeak_ruins_sign",
       "hintDef": {
-        "selectionType": "randomOrder",
         "maxPicks": 1,
         "hintDef": [
           {
@@ -72,20 +71,38 @@
                 "Snowpeak Ruins Lobby Chandelier Chest",
                 "Snowpeak Ruins Northeast Chandelier Chest"
               ],
-              "validStatuses": ["required", "good"]
+              "validItems": ["Snowpeak_Ruins_Bedroom_Key"]
             }
           },
           {
-            "hintType": "location",
-            "options": {
-              "markAsSometimes": true,
-              "canHintHintedBarrenChecks": true,
-              "validChecks": [
-                "Snowpeak Ruins Chapel Chest",
-                "Snowpeak Ruins Lobby Chandelier Chest",
-                "Snowpeak Ruins Northeast Chandelier Chest"
-              ]
-            }
+            "selectionType": "randomOrder",
+            "hintDef": [
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "canHintHintedBarrenChecks": true,
+                  "validChecks": [
+                    "Snowpeak Ruins Chapel Chest",
+                    "Snowpeak Ruins Lobby Chandelier Chest",
+                    "Snowpeak Ruins Northeast Chandelier Chest"
+                  ],
+                  "validStatuses": ["required", "good"]
+                }
+              },
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "canHintHintedBarrenChecks": true,
+                  "validChecks": [
+                    "Snowpeak Ruins Chapel Chest",
+                    "Snowpeak Ruins Lobby Chandelier Chest",
+                    "Snowpeak Ruins Northeast Chandelier Chest"
+                  ]
+                }
+              }
+            ]
           }
         ]
       }
