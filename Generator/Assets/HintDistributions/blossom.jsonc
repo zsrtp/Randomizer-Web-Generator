@@ -10,7 +10,8 @@
   },
   "caveOfOrdeals": true,
   "dungeons": {
-    "bigKeyHints": true
+    "bigKeyHints": true,
+    "maxBarrenHints": 99
   },
   "beyondPointZones": ["alias:all"],
   "barren": {
@@ -123,14 +124,16 @@
     {
       "groupId": "overworld",
       "hintDef": {
-        "copies": 3,
+        "copies": 2,
         "hintDef": [
           {
             "maxPicks": 3,
             "starting": 1,
+            "copies": 3,
             "hintDef": [
               {
                 "hintType": "barren",
+                "iterations": 99,
                 "options": {
                   "validAreas": [
                     "Forest Temple",
@@ -162,7 +165,6 @@
             // Num swords in province with most swords (or tied for most).
             "hintType": "numItemInArea",
             "saveToVar": "mostSwordsProvince",
-            "starting": 1,
             "options": {
               "item": "Progressive_Sword",
               "areaType": "province",
@@ -172,86 +174,82 @@
           {
             "starting": 1,
             "maxPicks": 1,
+            "selectionType": "randomOrder",
             "hintDef": [
               {
+                // Ex: male bugs lead to nothing
+                "hintType": "tradeGroup",
+                "weight": 2,
+                "options": {
+                  "validGroups": ["male_bugs", "female_bugs"],
+                  "validStatuses": ["bad"]
+                }
+              },
+              {
                 "selectionType": "randomOrder",
+                "maxPicks": 1,
                 "hintDef": [
                   {
-                    // Ex: male bugs lead to nothing
-                    "hintType": "tradeGroup",
-                    "weight": 2,
+                    "hintType": "location",
+                    "weight": 5,
                     "options": {
-                      "validGroups": ["male_bugs", "female_bugs"],
-                      "validStatuses": ["bad"]
+                      "markAsSometimes": true,
+                      "namedChecks": [
+                        "Forest Temple Diababa Heart Container",
+                        "Goron Mines Fyrus Heart Container",
+                        "Lakebed Temple Morpheel Heart Container",
+                        "Arbiters Grounds Stallord Heart Container",
+                        "Snowpeak Ruins Blizzeta Heart Container",
+                        "Temple of Time Armogohma Heart Container",
+                        "City in The Sky Argorok Heart Container"
+                      ],
+                      "namedOrder": "random",
+                      "namedProbability": 0.5,
+                      "validStatuses": ["required"],
+                      "checkStatusDisplay": "required_or_not",
+                      "vague": true
                     }
                   },
                   {
-                    "selectionType": "randomOrder",
-                    "maxPicks": 1,
-                    "hintDef": [
-                      {
-                        "hintType": "location",
-                        "weight": 5,
-                        "options": {
-                          "markAsSometimes": true,
-                          "namedChecks": [
-                            "Forest Temple Diababa Heart Container",
-                            "Goron Mines Fyrus Heart Container",
-                            "Lakebed Temple Morpheel Heart Container",
-                            "Arbiters Grounds Stallord Heart Container",
-                            "Snowpeak Ruins Blizzeta Heart Container",
-                            "Temple of Time Armogohma Heart Container",
-                            "City in The Sky Argorok Heart Container"
-                          ],
-                          "namedOrder": "random",
-                          "namedProbability": 0.5,
-                          "validStatuses": ["required"],
-                          "checkStatusDisplay": "required_or_not",
-                          "vague": true
-                        }
-                      },
-                      {
-                        // Ex: Owl Statues are junk
-                        "hintType": "barren",
-                        "weight": 3,
-                        "options": {
-                          "areaType": "category"
-                        }
-                      },
-                      {
-                        "hintType": "item",
-                        "weight": 2,
-                        "options": {
-                          "checkStatusDisplay": "required_or_not",
-                          "validStatuses": ["required"],
-                          "validItems": [
-                            "Slingshot",
-                            // Remove fishing rod so we don't bait people into
-                            // early SPR. Also fishing rod's only purpose the
-                            // vast majority of the time is to enter SPR, so it
-                            // is kind of like hinting a sky character which is
-                            // not the greatest.
-                            // "Progressive_Fishing_Rod",
-                            "Progressive_Bow",
-                            "Filled_Bomb_Bag",
-                            "Asheis_Sketch",
-                            "Progressive_Dominion_Rod",
-                            "alias:bugs"
-                          ]
-                        }
-                      }
-                    ]
+                    // Ex: Owl Statues are junk
+                    "hintType": "barren",
+                    "weight": 3,
+                    "options": {
+                      "areaType": "category"
+                    }
+                  },
+                  {
+                    "hintType": "item",
+                    "weight": 2,
+                    "options": {
+                      "checkStatusDisplay": "required_or_not",
+                      "validStatuses": ["required"],
+                      "validItems": [
+                        "Slingshot",
+                        // Remove fishing rod so we don't bait people into
+                        // early SPR. Also fishing rod's only purpose the
+                        // vast majority of the time is to enter SPR, so it
+                        // is kind of like hinting a sky character which is
+                        // not the greatest.
+                        // "Progressive_Fishing_Rod",
+                        "Progressive_Bow",
+                        "Filled_Bomb_Bag",
+                        "Asheis_Sketch",
+                        "Progressive_Dominion_Rod",
+                        "alias:bugs"
+                      ]
+                    }
+                  },
+                  {
+                    "hintType": "numItemInArea",
+                    "weight": 2,
+                    "options": {
+                      "item": "Boomerang",
+                      "areaType": "province",
+                      "validAreas": ["Dungeon"]
+                    }
                   }
                 ]
-              },
-              {
-                // As a fallback if the misc hint fails (which can
-                // definitely happen), just generate a simple item hint.
-                "hintType": "item",
-                "options": {
-                  "validStatuses": ["required", "good"],
-                  "validItems": ["Progressive_Fishing_Rod", "Progressive_Bow"]
-                }
               }
             ]
           }
@@ -259,56 +257,30 @@
       }
     },
     {
-      // Fill in requiredDungeon signs. Alternate between numRangInDungeon and
-      // numClawsInDungeon, starting on a random one.
+      // Fill in requiredDungeon signs. Add a sword hint for a sword not in the
+      // MostSwordsProvince if possible, then fill the rest with
+      // NumClawshotsInDungeons hints.
       "groupId": "requiredDungeons",
-      "hintDef": {
-        "selectionType": "randomOrder",
-        "hintDef": [
-          {
-            "iterations": 99,
-            "hintDef": [
-              {
-                "hintType": "numItemInArea",
-                "options": {
-                  "item": "Boomerang",
-                  "areaType": "province",
-                  "validAreas": ["Dungeon"]
-                }
-              },
-              {
-                "hintType": "numItemInArea",
-                "options": {
-                  "item": "Progressive_Clawshot",
-                  "areaType": "province",
-                  "validAreas": ["Dungeon"]
-                }
-              }
-            ]
-          },
-          {
-            "iterations": 99,
-            "hintDef": [
-              {
-                "hintType": "numItemInArea",
-                "options": {
-                  "item": "Progressive_Clawshot",
-                  "areaType": "province",
-                  "validAreas": ["Dungeon"]
-                }
-              },
-              {
-                "hintType": "numItemInArea",
-                "options": {
-                  "item": "Boomerang",
-                  "areaType": "province",
-                  "validAreas": ["Dungeon"]
-                }
-              }
-            ]
+      "hintDef": [
+        {
+          // Aux sword hint
+          "hintType": "item",
+          "options": {
+            "validItems": ["Progressive_Sword"],
+            "invalidChecks": ["var:mostSwordsProvince.areaId"]
           }
-        ]
-      }
+        },
+        {
+          "hintType": "numItemInArea",
+          "copies": 99,
+          "minCopies": 1,
+          "options": {
+            "item": "Progressive_Clawshot",
+            "areaType": "province",
+            "validAreas": ["Dungeon"]
+          }
+        }
+      ]
     },
     {
       // 2nd layer is "sometimes" hints
