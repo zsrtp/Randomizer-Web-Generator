@@ -24,6 +24,14 @@ namespace TPRandomizer.Hints.HintCreator
         // since would delay the feature and be fairly involved.
         private HashSet<CheckStatus> validCheckStatuses;
 
+        // Valid items for starting the hinted chain. For example, you may not
+        // want to hint chains that start with Ashei's Sketch.
+        private HashSet<Item> validChainStartItems = null;
+
+        // Valid items for what the hinted chain ends at. For example, you may
+        // want to only hint chains ending in specific items.
+        private HashSet<Item> validChainEndItems = null;
+
         // When `requiredChainItems` is not null, can only hint chains which
         // contain at least one item in this set (including final reward).
         private HashSet<Item> requiredChainItems = null;
@@ -83,6 +91,58 @@ namespace TPRandomizer.Hints.HintCreator
                         throw new Exception(
                             $"Failed to parse checkStatus '{statusStr}' to CheckStatus enum."
                         );
+                }
+
+                List<string> validChainStartItemsStrList = HintSettingUtils.getOptionalStringList(
+                    options,
+                    "validChainStartItems",
+                    null
+                );
+                if (validChainStartItemsStrList != null)
+                {
+                    // Allow for resolving to an empty Set to mean unhintable
+                    // rather than ignoring it.
+                    inst.validChainStartItems = new();
+                    foreach (string itemStr in validChainStartItemsStrList)
+                    {
+                        if (itemStr.StartsWith("alias:"))
+                        {
+                            string alias = itemStr.Substring(6);
+                            HashSet<Item> resolved = ResolveItemsAlias(alias);
+                            inst.validChainStartItems.UnionWith(resolved);
+                        }
+                        else
+                        {
+                            Item item = HintSettingUtils.parseItem(itemStr);
+                            inst.validChainStartItems.Add(item);
+                        }
+                    }
+                }
+
+                List<string> validChainEndItemsStrList = HintSettingUtils.getOptionalStringList(
+                    options,
+                    "validChainEndItems",
+                    null
+                );
+                if (validChainEndItemsStrList != null)
+                {
+                    // Allow for resolving to an empty Set to mean unhintable
+                    // rather than ignoring it.
+                    inst.validChainEndItems = new();
+                    foreach (string itemStr in validChainEndItemsStrList)
+                    {
+                        if (itemStr.EndsWith("alias:"))
+                        {
+                            string alias = itemStr.Substring(6);
+                            HashSet<Item> resolved = ResolveItemsAlias(alias);
+                            inst.validChainEndItems.UnionWith(resolved);
+                        }
+                        else
+                        {
+                            Item item = HintSettingUtils.parseItem(itemStr);
+                            inst.validChainEndItems.Add(item);
+                        }
+                    }
                 }
 
                 List<string> requiredChainItemsStrList = HintSettingUtils.getOptionalStringList(
@@ -251,7 +311,7 @@ namespace TPRandomizer.Hints.HintCreator
 
             List<
                 KeyValuePair<string, CheckStatus>
-            > validChainStarters = new();
+            > possibleChainStarters = new();
             Dictionary<string, HashSet<string>> endCheckToStartChecks = new();
 
             foreach (KeyValuePair<string, Item> pair in genData.tradeChainStartToReward)
@@ -265,6 +325,11 @@ namespace TPRandomizer.Hints.HintCreator
                     genData.sSettings.startingItems.Contains(startItem)
                     || !IsChainStarterCheckHintable(genData, startCheckName)
                 )
+                    continue;
+
+                // Skip the chainStartItem if the user specified a list of valid
+                // items, and the item is not part of that list.
+                if (validChainStartItems != null && !validChainStartItems.Contains(startItem))
                     continue;
 
                 if (!ListUtils.isEmpty(requiredChainItems))
@@ -281,17 +346,23 @@ namespace TPRandomizer.Hints.HintCreator
                 if (!IsChainEndCheckHintable(genData, endCheckName))
                     continue;
 
+                // Skip if the user specified a list of valid chainEnd items,
+                // and the item is not part of that list.
+                Item chainEndItem = HintUtils.getCheckContents(endCheckName);
+                if (validChainEndItems != null && !validChainEndItems.Contains(chainEndItem))
+                    continue;
+
                 if (IsRequiredValidStatus() && genData.CheckIsRequired(endCheckName))
                 {
-                    validChainStarters.Add(new(startCheckName, CheckStatus.Required));
+                    possibleChainStarters.Add(new(startCheckName, CheckStatus.Required));
                 }
                 else if (IsGoodValidStatus() && genData.CheckIsGood(endCheckName, true))
                 {
-                    validChainStarters.Add(new(startCheckName, CheckStatus.Good));
+                    possibleChainStarters.Add(new(startCheckName, CheckStatus.Good));
                 }
                 else if (IsBadValidStatus() && !genData.CheckIsGood(endCheckName, true))
                 {
-                    validChainStarters.Add(new(startCheckName, CheckStatus.Bad));
+                    possibleChainStarters.Add(new(startCheckName, CheckStatus.Bad));
                 }
                 else
                 {
@@ -308,11 +379,11 @@ namespace TPRandomizer.Hints.HintCreator
 
             for (int i = 0; i < numHints; i++)
             {
-                if (validChainStarters.Count < 1)
+                if (possibleChainStarters.Count < 1)
                     break;
 
-                int randomIndex = genData.rnd.Next(validChainStarters.Count);
-                KeyValuePair<string, CheckStatus> selected = validChainStarters[randomIndex];
+                int randomIndex = genData.rnd.Next(possibleChainStarters.Count);
+                KeyValuePair<string, CheckStatus> selected = possibleChainStarters[randomIndex];
 
                 string startCheckName = selected.Key;
                 CheckStatus checkStatus = selected.Value;
@@ -360,7 +431,7 @@ namespace TPRandomizer.Hints.HintCreator
                 // the selected startCheckName.
                 HashSet<string> startChecksForEndCheck = endCheckToStartChecks[endCheckName];
 
-                validChainStarters = validChainStarters
+                possibleChainStarters = possibleChainStarters
                     .Where(pair => !startChecksForEndCheck.Contains(pair.Key))
                     .ToList();
             }

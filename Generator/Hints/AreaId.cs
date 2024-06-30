@@ -195,6 +195,15 @@ namespace TPRandomizer.Hints
         {
             switch (areaType)
             {
+                case AreaType.Category:
+                {
+                    HintCategory category = HintCategoryUtils.StringToId(areaVal);
+                    if (category == HintCategory.Invalid)
+                        throw new Exception(
+                            $"areaVal '{areaVal}' resolved to HintCategory.Invalid."
+                        );
+                    return Category(category);
+                }
                 case AreaType.Province:
                 {
                     Province province = ProvinceUtils.StringToId(areaVal);
