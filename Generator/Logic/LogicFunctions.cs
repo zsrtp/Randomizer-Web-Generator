@@ -1383,10 +1383,20 @@ namespace TPRandomizer
         public static bool CanDefeatMorpheel()
         {
             return (
-                CanUse(Item.Zora_Armor)
-                && CanUse(Item.Iron_Boots)
-                && HasSword()
-                && (getItemCount(Item.Progressive_Clawshot) >= 1)
+                (
+                    CanUse(Item.Zora_Armor)
+                    && CanUse(Item.Iron_Boots)
+                    && HasSword()
+                    && (getItemCount(Item.Progressive_Clawshot) >= 1)
+                )
+                || (
+                    CanDoNicheStuff()
+                    && (
+                        (getItemCount(Item.Progressive_Clawshot) >= 1)
+                        && CanDoAirRefill()
+                        && HasSword()
+                    )
+                )
             );
         }
 
@@ -1531,6 +1541,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool canLaunchBombs()
         {
+            Console.WriteLine("launch: " + (getItemCount(Item.Progressive_Bow) >= 1));
             return (
                 (CanUse(Item.Boomerang) || (getItemCount(Item.Progressive_Bow) >= 1)) && hasBombs()
             );
@@ -1659,7 +1670,7 @@ namespace TPRandomizer
         public static bool hasBombs()
         {
             return (
-                (CanUse(Item.Filled_Bomb_Bag))
+                CanUse(Item.Filled_Bomb_Bag)
                 && (
                     Randomizer.Rooms.RoomDict[
                         "Kakariko Barnes Bomb Shop Lower"
@@ -1669,12 +1680,7 @@ namespace TPRandomizer
                             "Eldin Field Water Bomb Fish Grotto"
                         ].ReachedByPlaythrough && (getItemCount(Item.Progressive_Fishing_Rod) >= 1)
                     )
-                    || (
-                        Randomizer.Rooms.RoomDict[
-                            "Kakariko Barnes Bomb Shop Lower"
-                        ].ReachedByPlaythrough
-                        && Randomizer.Rooms.RoomDict["Castle Town Goron House"].ReachedByPlaythrough
-                    )
+                    || Randomizer.Rooms.RoomDict["Castle Town Goron House"].ReachedByPlaythrough
                     || Randomizer.Rooms.RoomDict["City in The Sky Entrance"].ReachedByPlaythrough
                 )
             );
@@ -2141,10 +2147,9 @@ namespace TPRandomizer
         public static bool CanDoAirRefill()
         {
             return CanUseWaterBombs()
-                && (HasSword() || getItemCount(Item.Progressive_Clawshot) >= 1)
                 && (
                     CanUse(Item.Magic_Armor)
-                    || CanUse(Item.Iron_Boots) && GetItemWheelSlotCount() >= 3
+                    || (CanUse(Item.Iron_Boots) && (GetItemWheelSlotCount() >= 3))
                 ); // Ensure you can equip something over boots
         }
 

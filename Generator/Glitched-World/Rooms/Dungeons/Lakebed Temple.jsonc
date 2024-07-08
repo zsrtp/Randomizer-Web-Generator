@@ -106,7 +106,7 @@
           },
           {
             "ConnectedArea": "Lakebed Temple Central Room",
-            "Requirements": "canLaunchBombs or CanDoLJA or CanDoJSMoonBoots"
+            "Requirements": "CanDoAirRefill and (canLaunchBombs or CanDoLJA or CanDoJSMoonBoots)"
           }
         ],
         "Checks": 

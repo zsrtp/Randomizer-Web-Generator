@@ -1,5 +1,5 @@
 {
-    "requirements": "Zora_Armor",
+    "requirements": "Zora_Armor or CanDoAirRefill",
     "checkCategory": ["Chest", "Dungeon", "Lakebed Temple"],
     "itemId": "Arrows_20"
 }

@@ -867,6 +867,49 @@ namespace TPRandomizer
                 }
             }
 
+            foreach ((string checkName, Item item) in parseSetting.plandoChecks)
+            {
+                switch (item)
+                {
+                    case Item.Progressive_Hidden_Skill:
+                    {
+                        if (parseSetting.itemScarcity == ItemScarcity.Minimal)
+                        {
+                            // We want to remove all of the hidden skills from the pool if someone has plandoed them in on a minimal setting
+                            updateItemToCount(
+                                RandomizedImportantItems,
+                                Item.Progressive_Hidden_Skill,
+                                0
+                            );
+                        }
+                        break;
+                    }
+
+                    case Item.Heart_Container:
+                    {
+                        if (getItemCount(this.alwaysItems, item) == 0)
+                        {
+                            for (int i = 0; i < 5; i++)
+                            {
+                                RemoveItem(Item.Piece_of_Heart);
+                            }
+                        }
+                        else
+                        {
+                            RemoveItem(item);
+                        }
+                        break;
+                    }
+
+                    default:
+                    {
+                        Console.WriteLine("remove " + item.ToString());
+                        RemoveItem(item);
+                        break;
+                    }
+                }
+            }
+
             // Adjust item pool based on itemScarcity setting.
             switch (parseSetting.itemScarcity)
             {
@@ -1022,48 +1065,6 @@ namespace TPRandomizer
             foreach (Item startingItem in parseSetting.startingItems)
             {
                 RemoveItem(startingItem);
-            }
-
-            foreach ((string checkName, Item item) in parseSetting.plandoChecks)
-            {
-                switch (item)
-                {
-                    case Item.Progressive_Hidden_Skill:
-                    {
-                        if (parseSetting.itemScarcity == ItemScarcity.Minimal)
-                        {
-                            // We want to remove all of the hidden skills from the pool if someone has plandoed them in on a minimal setting
-                            updateItemToCount(
-                                RandomizedImportantItems,
-                                Item.Progressive_Hidden_Skill,
-                                0
-                            );
-                        }
-                        break;
-                    }
-
-                    case Item.Heart_Container:
-                    {
-                        if (getItemCount(this.alwaysItems, item) == 0)
-                        {
-                            for (int i = 0; i < 5; i++)
-                            {
-                                RemoveItem(Item.Piece_of_Heart);
-                            }
-                        }
-                        else
-                        {
-                            RemoveItem(item);
-                        }
-                        break;
-                    }
-
-                    default:
-                    {
-                        RemoveItem(item);
-                        break;
-                    }
-                }
             }
 
             Randomizer.Items.BaseItemPool.AddRange(this.ShuffledDungeonRewards);
