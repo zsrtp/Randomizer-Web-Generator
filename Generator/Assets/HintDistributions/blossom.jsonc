@@ -153,10 +153,12 @@
             ]
           },
           {
-            "hintType": "itemToItemPath"
+            "hintType": "itemToItemPath",
+            "saveToVar": "pathHints"
           },
           {
             "hintType": "path",
+            "saveToVar": "pathHints",
             "iterations": 2
           },
           {
@@ -226,6 +228,16 @@
                 "hintType": "sometimes"
               }
             ]
+          },
+          // Fill in layer with extra copies of path hints.
+          {
+            "hintType": "var",
+            "copies": 1,
+            "iterations": 99,
+            "options": {
+              "varName": "pathHints",
+              "randomOrder": true
+            }
           }
         ]
       }
@@ -253,15 +265,13 @@
             "invalidChecks": ["var:mostSwordsProvince.areaId"]
           }
         },
+        // Fill the rest in with more copies of the MostSwordsProvince hint
         {
-          // Num swords in province with most swords (or tied for most).
-          "hintType": "numItemInArea",
+          "hintType": "var",
           "copies": 99,
           "minCopies": 1,
           "options": {
-            "item": "Progressive_Sword",
-            "areaType": "province",
-            "order": "desc"
+            "varName": "mostSwordsProvince"
           }
         }
       ]
@@ -273,23 +283,39 @@
         "copies": 2,
         "hintDef": [
           {
-            "hintType": "location",
-            "options": {
-              "markAsSometimes": true,
-              "validChecks": ["Wrestling With Bo", "Herding Goats Reward"]
-            }
+            "maxPicks": 5,
+            "saveToVar": "2ndLayerSometimes",
+            "hintDef": [
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "validChecks": ["Wrestling With Bo", "Herding Goats Reward"]
+                }
+              },
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "namedChecks": ["City in The Sky West Wing First Chest"],
+                  "namedProbability": 0.5
+                }
+              },
+              {
+                "hintType": "sometimes",
+                "iterations": 99
+              }
+            ]
           },
+          // Fill in layer with extra copies of the sometimes hints.
           {
-            "hintType": "location",
+            "hintType": "var",
+            "copies": 1,
+            "iterations": 99,
             "options": {
-              "markAsSometimes": true,
-              "namedChecks": ["City in The Sky West Wing First Chest"],
-              "namedProbability": 0.5
+              "varName": "2ndLayerSometimes",
+              "randomOrder": true
             }
-          },
-          {
-            "hintType": "sometimes",
-            "iterations": 99
           }
         ]
       }

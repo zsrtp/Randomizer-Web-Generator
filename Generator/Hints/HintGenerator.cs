@@ -2069,6 +2069,7 @@ namespace TPRandomizer.Hints
                 foreach (HintDefResult result in pickedForStarting)
                 {
                     startingHints.Add(result.hint);
+                    genData.vars.OnPickedStartingHint(result.hint);
                 }
 
                 int numPenaltiesShouldHavePaid = 0;

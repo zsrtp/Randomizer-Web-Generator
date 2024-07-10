@@ -1026,6 +1026,12 @@ namespace TPRandomizer.Hints
     public class HintVars
     {
         private Dictionary<string, List<Hint>> varNameToHints = new();
+        private HashSet<uint> startingHintIds = new();
+
+        public void OnPickedStartingHint(Hint hint)
+        {
+            startingHintIds.Add(hint.uniqueHintId);
+        }
 
         public void SaveToVar(string varName, List<Hint> hints)
         {
@@ -1066,7 +1072,7 @@ namespace TPRandomizer.Hints
             return results;
         }
 
-        private List<Hint> GetHintsForVarName(string varName)
+        private List<Hint> GetHints(string varName)
         {
             if (StringUtils.isEmpty(varName) || !varNameToHints.ContainsKey(varName))
                 return new();
@@ -1076,6 +1082,22 @@ namespace TPRandomizer.Hints
             if (ListUtils.isEmpty(hints))
                 return new();
             return hints;
+        }
+
+        public List<Hint> GetHintsForVarName(string varName, bool includeStartingHints = true)
+        {
+            List<Hint> baseHints = GetHints(varName);
+
+            List<Hint> results = new(baseHints.Count);
+            for (int i = 0; i < baseHints.Count; i++)
+            {
+                Hint hint = baseHints[i];
+                // Potentially filter out starting hints
+                if (includeStartingHints || !startingHintIds.Contains(hint.uniqueHintId))
+                    results.Add(hint);
+            }
+
+            return results;
         }
 
         private List<AreaId> HintsToAreaIds(List<Hint> hints, int? max = null)
@@ -1108,7 +1130,7 @@ namespace TPRandomizer.Hints
             string varName = varParts.Key;
             string property = varParts.Value;
 
-            List<Hint> hints = GetHintsForVarName(varName);
+            List<Hint> hints = GetHints(varName);
             if (ListUtils.isEmpty(hints))
                 return new();
 
