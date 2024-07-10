@@ -402,7 +402,7 @@
     <comment></comment>
   </data>
   <data name="description.unrequired-check" xml:space="preserve">
-    <value>(never required)</value>
+    <value>(not required)</value>
     <comment></comment>
   </data>
   <data name="goal.argorok" xml:space="preserve">
