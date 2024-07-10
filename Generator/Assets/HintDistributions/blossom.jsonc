@@ -195,10 +195,10 @@
               },
               {
                 "hintType": "barren",
-                "weight": 1.5,
+                "weight": 1.25,
                 "options": {
                   "areaType": "category",
-                  "validAreas": ["Upper_Desert", "Lower_Desert"]
+                  "validAreas": ["Mist", "Upper_Desert", "Lower_Desert"]
                 }
               },
               {
@@ -206,7 +206,7 @@
                 "hintDef": [
                   {
                     "hintType": "numItemInArea",
-                    "weight": 3,
+                    "weight": 0.55,
                     "options": {
                       "item": "Boomerang",
                       "areaType": "province",
@@ -215,7 +215,7 @@
                   },
                   {
                     "hintType": "numItemInArea",
-                    "weight": 2,
+                    "weight": 0.45,
                     "options": {
                       "item": "Progressive_Clawshot",
                       "areaType": "province",
