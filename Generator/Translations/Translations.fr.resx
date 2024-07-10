@@ -393,6 +393,10 @@
     <value>(obligatoire)</value>
     <comment></comment>
   </data>
+  <data name="description.skippable-check" xml:space="preserve">
+    <value>(optionnel)</value>
+    <comment></comment>
+  </data>
   <data name="description.unrequired-check" xml:space="preserve">
     <value>(non obligatoire)</value>
     <comment></comment>

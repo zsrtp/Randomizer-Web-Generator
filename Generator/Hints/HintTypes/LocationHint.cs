@@ -148,7 +148,6 @@ namespace TPRandomizer.Hints
             if (vague)
             {
                 bool showVagueGoodText = false;
-                bool showUnrequiredText = false;
                 bool showVagueBadText = false;
 
                 if (display == CheckStatusDisplay.Required_Or_Not)
@@ -167,7 +166,6 @@ namespace TPRandomizer.Hints
                     else if (status == CheckStatus.Good)
                     {
                         showVagueGoodText = true;
-                        showUnrequiredText = true;
                     }
                     else
                         showVagueBadText = true;
@@ -195,9 +193,6 @@ namespace TPRandomizer.Hints
                         null,
                         CustomMessages.messageColorGreen
                     );
-
-                    if (showUnrequiredText)
-                        noun += " " + Res.SimpleMsg("description.unrequired-check", null);
 
                     text = hintTypeRes.Substitute(
                         new() { { "check-name", checkNameStr }, { "noun", noun } }

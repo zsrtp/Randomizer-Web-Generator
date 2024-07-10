@@ -386,19 +386,23 @@
     <comment></comment>
   </data>
   <data name="description.bad-check" xml:space="preserve">
-    <value>(bad)</value>
+    <value>(not useful)</value>
     <comment></comment>
   </data>
   <data name="description.good-check" xml:space="preserve">
-    <value>(good)</value>
+    <value>(useful)</value>
     <comment></comment>
   </data>
   <data name="description.required-check" xml:space="preserve">
     <value>(required)</value>
     <comment></comment>
   </data>
+  <data name="description.skippable-check" xml:space="preserve">
+    <value>(skippable)</value>
+    <comment></comment>
+  </data>
   <data name="description.unrequired-check" xml:space="preserve">
-    <value>(not required)</value>
+    <value>(never required)</value>
     <comment></comment>
   </data>
   <data name="goal.argorok" xml:space="preserve">
