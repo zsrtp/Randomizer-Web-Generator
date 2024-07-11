@@ -106,7 +106,8 @@ namespace TPRandomizer.Hints
                             checkInfo.checkStatus,
                             // contextIn: checkInfo.useDefArticle ? "def" : "indef",
                             checkStatusDisplay: checkInfo.checkStatusDisplay,
-                            capitalize: true
+                            capitalize: true,
+                            isLogicalItem: checkInfo.isLogicalItem
                         );
                     }
 
@@ -155,6 +156,7 @@ namespace TPRandomizer.Hints
 
             // derived and encoded
             public bool useDefArticle { get; private set; }
+            public bool isLogicalItem { get; private set; }
 
             // derived and not encoded
             public Item item { get; private set; }
@@ -167,6 +169,7 @@ namespace TPRandomizer.Hints
                 CheckStatus checkStatus,
                 CheckStatusDisplay checkStatusDisplay,
                 bool useDefArticle = false,
+                bool isLogicalItem = false,
                 Dictionary<int, byte> itemPlacements = null
             )
             {
@@ -176,6 +179,7 @@ namespace TPRandomizer.Hints
                 this.checkStatus = checkStatus;
                 this.checkStatusDisplay = checkStatusDisplay;
                 this.useDefArticle = useDefArticle;
+                this.isLogicalItem = isLogicalItem;
 
                 CalcDerived(genData, itemPlacements);
             }
@@ -197,6 +201,9 @@ namespace TPRandomizer.Hints
                 // than use input value.
                 if (genData != null)
                 {
+                    if (genData.logicalItems.Contains(item))
+                        isLogicalItem = true;
+
                     useDefArticle = genData.ItemUsesDefArticle(item);
                 }
             }
@@ -212,6 +219,7 @@ namespace TPRandomizer.Hints
                 result += SettingsEncoder.EncodeNumAsBits((byte)checkStatus, 2);
                 result += SettingsEncoder.EncodeNumAsBits((byte)checkStatusDisplay, 2);
                 result += useDefArticle ? "1" : "0";
+                result += isLogicalItem ? "1" : "0";
                 return result;
             }
 
@@ -229,6 +237,7 @@ namespace TPRandomizer.Hints
                 CheckStatus status = (CheckStatus)processor.NextInt(2);
                 CheckStatusDisplay display = (CheckStatusDisplay)processor.NextInt(2);
                 bool useDefArticle = processor.NextBool();
+                bool isLogicalItem = processor.NextBool();
 
                 return new JovaniCheckInfo(
                     null,
@@ -238,6 +247,7 @@ namespace TPRandomizer.Hints
                     status,
                     display,
                     useDefArticle,
+                    isLogicalItem,
                     itemPlacements
                 );
             }
