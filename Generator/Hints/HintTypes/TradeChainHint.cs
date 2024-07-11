@@ -25,6 +25,7 @@ namespace TPRandomizer.Hints
         // derived but encoded
         public bool srcUseDefiniteArticle { get; private set; }
         public bool tgtUseDefiniteArticle { get; private set; }
+        public bool tgtIsLogicalItem { get; private set; }
 
         // derived and not encoded
         public string tgtCheckName { get; private set; }
@@ -62,6 +63,7 @@ namespace TPRandomizer.Hints
             CheckStatusDisplay checkStatusDisplay,
             bool srcUseDefiniteArticle = false,
             bool tgtUseDefiniteArticle = false,
+            bool tgtIsLogicalItem = false,
             Dictionary<int, byte> itemPlacements = null
         )
         {
@@ -73,6 +75,7 @@ namespace TPRandomizer.Hints
             this.checkStatusDisplay = checkStatusDisplay;
             this.srcUseDefiniteArticle = srcUseDefiniteArticle;
             this.tgtUseDefiniteArticle = tgtUseDefiniteArticle;
+            this.tgtIsLogicalItem = tgtIsLogicalItem;
 
             CalcDerived(genData, itemPlacements);
         }
@@ -98,6 +101,9 @@ namespace TPRandomizer.Hints
             // than use input value.
             if (genData != null)
             {
+                if (genData.logicalItems.Contains(tgtItem))
+                    tgtIsLogicalItem = true;
+
                 if (
                     genData.itemToChecksList.TryGetValue(
                         srcItem,
@@ -220,7 +226,8 @@ namespace TPRandomizer.Hints
                 tgtItem,
                 checkStatus,
                 tgtUseDefiniteArticle ? "def" : "indef",
-                checkStatusDisplay: checkStatusDisplay
+                checkStatusDisplay: checkStatusDisplay,
+                isLogicalItem: tgtIsLogicalItem
             );
 
             string text = hintParsedRes.Substitute(
@@ -252,6 +259,7 @@ namespace TPRandomizer.Hints
             result += SettingsEncoder.EncodeNumAsBits((int)checkStatusDisplay, 2);
             result += srcUseDefiniteArticle ? "1" : "0";
             result += tgtUseDefiniteArticle ? "1" : "0";
+            result += tgtIsLogicalItem ? "1" : "0";
             return result;
         }
 
@@ -271,6 +279,7 @@ namespace TPRandomizer.Hints
             CheckStatusDisplay checkStatusDisplay = (CheckStatusDisplay)processor.NextInt(2);
             bool srcUseDefiniteArticle = processor.NextBool();
             bool tgtUseDefiniteArticle = processor.NextBool();
+            bool tgtIsLogicalItem = processor.NextBool();
 
             TradeChainHint hint =
                 new(
@@ -283,6 +292,7 @@ namespace TPRandomizer.Hints
                     checkStatusDisplay,
                     srcUseDefiniteArticle,
                     tgtUseDefiniteArticle,
+                    tgtIsLogicalItem,
                     itemPlacements
                 );
 

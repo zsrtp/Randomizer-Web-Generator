@@ -121,7 +121,8 @@ namespace TPRandomizer.Hints
                             contextIn: contextForItem,
                             prefStartColor: "",
                             prefEndColor: "",
-                            capitalize: capitalize
+                            capitalize: capitalize,
+                            checkStatusDisplay: CheckStatusDisplay.None
                         )
                     );
                 }
