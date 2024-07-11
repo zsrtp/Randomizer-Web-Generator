@@ -16,6 +16,7 @@ namespace TPRandomizer.Hints
         // derived but encoded
         public CheckStatus status { get; }
         public bool useDefiniteArticle { get; private set; }
+        public bool isLogicalItem { get; private set; }
 
         // always derived
         public Item item { get; private set; }
@@ -42,6 +43,7 @@ namespace TPRandomizer.Hints
             CheckStatusDisplay statusDisplay,
             bool vague,
             bool useDefiniteArticle = false,
+            bool isLogicalItem = false,
             Dictionary<int, byte> itemPlacements = null,
             HintGenData genData = null
         )
@@ -52,6 +54,7 @@ namespace TPRandomizer.Hints
             this.statusDisplay = statusDisplay;
             this.vague = vague;
             this.useDefiniteArticle = useDefiniteArticle;
+            this.isLogicalItem = isLogicalItem;
 
             CalcDerived(genData, itemPlacements);
         }
@@ -73,6 +76,9 @@ namespace TPRandomizer.Hints
             // than use input value.
             if (genData != null)
             {
+                if (genData.logicalItems.Contains(item))
+                    isLogicalItem = true;
+
                 if (genData.itemToChecksList.TryGetValue(item, out List<string> checksGivingItem))
                 {
                     useDefiniteArticle = checksGivingItem.Count == 1;
@@ -93,6 +99,7 @@ namespace TPRandomizer.Hints
             result += SettingsEncoder.EncodeNumAsBits((byte)statusDisplay, 2);
             result += vague ? "1" : "0";
             result += useDefiniteArticle ? "1" : "0";
+            result += isLogicalItem ? "1" : "0";
             return result;
         }
 
@@ -108,6 +115,7 @@ namespace TPRandomizer.Hints
             CheckStatusDisplay statusDisplay = (CheckStatusDisplay)processor.NextInt(2);
             bool vague = processor.NextBool();
             bool useDefiniteArticle = processor.NextBool();
+            bool isLogicalItem = processor.NextBool();
             string checkName = CheckIdClass.GetCheckName(checkId);
             return new ItemHint(
                 areaId,
@@ -116,6 +124,7 @@ namespace TPRandomizer.Hints
                 statusDisplay,
                 vague,
                 useDefiniteArticle,
+                isLogicalItem,
                 itemPlacements
             );
         }
@@ -145,7 +154,8 @@ namespace TPRandomizer.Hints
                     item,
                     status,
                     useDefiniteArticle ? "def" : "indef",
-                    checkStatusDisplay: statusDisplay
+                    checkStatusDisplay: statusDisplay,
+                    isLogicalItem: isLogicalItem
                 );
             }
 
