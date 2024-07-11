@@ -24,6 +24,7 @@ namespace TPRandomizer.Hints
         public bool? agithaRequired { get; set; }
         public HashSet<Item> preventBarrenItems { get; private set; }
         public HashSet<string> allowBarrenChecks { get; private set; }
+        public HashSet<Item> logicalItems { get; private set; }
         public Dictionary<Item, List<string>> itemToChecksList { get; set; }
         public Dictionary<string, Item> tradeChainStartToReward = new();
         public Dictionary<Item, string> tradeItemToChainEndCheck = new();
@@ -77,11 +78,13 @@ namespace TPRandomizer.Hints
 
         public void updateFromHintSettings(HintSettings hintSettings)
         {
-            preventBarrenItems = genPreventBarrenItemSet(hintSettings);
+            prepPreventBarrenAndLogicalItemSets(hintSettings);
         }
 
-        private HashSet<Item> genPreventBarrenItemSet(HintSettings hintSettings)
+        private void prepPreventBarrenAndLogicalItemSets(HintSettings hintSettings)
         {
+            HashSet<Item> logicalItems = new(HintConstants.baseLogicalItems);
+
             // Intentionally not including shields. Note that hard-required
             // checks will always preventBarren.
             HashSet<Item> itemSet =
@@ -103,33 +106,39 @@ namespace TPRandomizer.Hints
                     Item.Progressive_Sword,
                     Item.Zora_Armor,
                     Item.Shadow_Crystal,
-                    Item.Gate_Keys,
-                    Item.North_Faron_Woods_Gate_Key,
-                    Item.Gerudo_Desert_Bulblin_Camp_Key,
                 };
 
-            // Handle dungeonRewards if shuffled.
-            if (sSettings.shuffleRewards)
+            // Handle dungeonRewards
+            bool noReasonToEnterPot =
+                sSettings.barrenDungeons && !HintUtils.DungeonIsRequired("Palace of Twilight");
+
+            if (
+                (
+                    !noReasonToEnterPot
+                    && sSettings.palaceRequirements == PalaceRequirements.Fused_Shadows
+                )
+                || sSettings.castleRequirements == CastleRequirements.Fused_Shadows
+            )
             {
-                bool noReasonToEnterPot =
-                    sSettings.barrenDungeons && !HintUtils.DungeonIsRequired("Palace of Twilight");
-
-                if (
-                    (
-                        !noReasonToEnterPot
-                        && sSettings.palaceRequirements == PalaceRequirements.Fused_Shadows
-                    )
-                    || sSettings.castleRequirements == CastleRequirements.Fused_Shadows
-                )
+                // This item is logical even if it does not prevent barren, but
+                // only when it matter according to settings.
+                logicalItems.Add(Item.Progressive_Fused_Shadow);
+                if (sSettings.shuffleRewards)
                     itemSet.Add(Item.Progressive_Fused_Shadow);
+            }
 
-                if (
-                    (
-                        !noReasonToEnterPot
-                        && sSettings.palaceRequirements == PalaceRequirements.Mirror_Shards
-                    )
-                    || sSettings.castleRequirements == CastleRequirements.Mirror_Shards
+            if (
+                (
+                    !noReasonToEnterPot
+                    && sSettings.palaceRequirements == PalaceRequirements.Mirror_Shards
                 )
+                || sSettings.castleRequirements == CastleRequirements.Mirror_Shards
+            )
+            {
+                // This item is logical even if it does not prevent barren, but
+                // only when it matter according to settings.
+                logicalItems.Add(Item.Progressive_Fused_Shadow);
+                if (sSettings.shuffleRewards)
                     itemSet.Add(Item.Progressive_Mirror_Shard);
             }
 
@@ -168,12 +177,22 @@ namespace TPRandomizer.Hints
                 sSettings.smallKeySettings == SmallKeySettings.Anywhere
                 || sSettings.smallKeySettings == SmallKeySettings.Any_Dungeon;
 
+            bool isBigKeysy = sSettings.bigKeySettings == BigKeySettings.Keysy;
+            bool isSmallKeysy = sSettings.smallKeySettings == SmallKeySettings.Keysy;
+
+            // Dungeon keys are logical even if they do not prevent barren for
+            // dungeons that are not unrequiredBarren.
             if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Forest Temple"))
             {
                 if (bigKeysPreventBarren)
                     itemSet.Add(Item.Forest_Temple_Big_Key);
                 if (smallKeysPreventBarren)
                     itemSet.Add(Item.Forest_Temple_Small_Key);
+
+                if (!isBigKeysy)
+                    logicalItems.Add(Item.Forest_Temple_Big_Key);
+                if (!isSmallKeysy)
+                    logicalItems.Add(Item.Forest_Temple_Small_Key);
             }
             if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Goron Mines"))
             {
@@ -181,6 +200,11 @@ namespace TPRandomizer.Hints
                     itemSet.Add(Item.Goron_Mines_Key_Shard);
                 if (smallKeysPreventBarren)
                     itemSet.Add(Item.Goron_Mines_Small_Key);
+
+                if (!isBigKeysy)
+                    logicalItems.Add(Item.Goron_Mines_Key_Shard);
+                if (!isSmallKeysy)
+                    logicalItems.Add(Item.Goron_Mines_Small_Key);
             }
             if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Lakebed Temple"))
             {
@@ -188,6 +212,11 @@ namespace TPRandomizer.Hints
                     itemSet.Add(Item.Lakebed_Temple_Big_Key);
                 if (smallKeysPreventBarren)
                     itemSet.Add(Item.Lakebed_Temple_Small_Key);
+
+                if (!isBigKeysy)
+                    logicalItems.Add(Item.Lakebed_Temple_Big_Key);
+                if (!isSmallKeysy)
+                    logicalItems.Add(Item.Lakebed_Temple_Small_Key);
             }
             if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Arbiter's Grounds"))
             {
@@ -195,6 +224,11 @@ namespace TPRandomizer.Hints
                     itemSet.Add(Item.Arbiters_Grounds_Big_Key);
                 if (smallKeysPreventBarren)
                     itemSet.Add(Item.Arbiters_Grounds_Small_Key);
+
+                if (!isBigKeysy)
+                    logicalItems.Add(Item.Arbiters_Grounds_Big_Key);
+                if (!isSmallKeysy)
+                    logicalItems.Add(Item.Arbiters_Grounds_Small_Key);
             }
             if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Snowpeak Ruins"))
             {
@@ -206,6 +240,15 @@ namespace TPRandomizer.Hints
                     itemSet.Add(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
                     itemSet.Add(Item.Snowpeak_Ruins_Ordon_Pumpkin);
                 }
+
+                if (!isBigKeysy)
+                    logicalItems.Add(Item.Snowpeak_Ruins_Bedroom_Key);
+                if (!isSmallKeysy)
+                {
+                    logicalItems.Add(Item.Snowpeak_Ruins_Small_Key);
+                    logicalItems.Add(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
+                    logicalItems.Add(Item.Snowpeak_Ruins_Ordon_Pumpkin);
+                }
             }
             if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Temple of Time"))
             {
@@ -213,6 +256,11 @@ namespace TPRandomizer.Hints
                     itemSet.Add(Item.Temple_of_Time_Big_Key);
                 if (smallKeysPreventBarren)
                     itemSet.Add(Item.Temple_of_Time_Small_Key);
+
+                if (!isBigKeysy)
+                    logicalItems.Add(Item.Temple_of_Time_Big_Key);
+                if (!isSmallKeysy)
+                    logicalItems.Add(Item.Temple_of_Time_Small_Key);
             }
             if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("City in the Sky"))
             {
@@ -223,6 +271,11 @@ namespace TPRandomizer.Hints
                     itemSet.Add(Item.City_in_The_Sky_Big_Key);
                 if (smallKeysPreventBarren)
                     itemSet.Add(Item.City_in_The_Sky_Small_Key);
+
+                if (!isBigKeysy)
+                    logicalItems.Add(Item.City_in_The_Sky_Big_Key);
+                if (!isSmallKeysy)
+                    logicalItems.Add(Item.City_in_The_Sky_Small_Key);
             }
             if (!sSettings.barrenDungeons || HintUtils.DungeonIsRequired("Palace of Twilight"))
             {
@@ -230,6 +283,11 @@ namespace TPRandomizer.Hints
                     itemSet.Add(Item.Palace_of_Twilight_Big_Key);
                 if (smallKeysPreventBarren)
                     itemSet.Add(Item.Palace_of_Twilight_Small_Key);
+
+                if (!isBigKeysy)
+                    logicalItems.Add(Item.Palace_of_Twilight_Big_Key);
+                if (!isSmallKeysy)
+                    logicalItems.Add(Item.Palace_of_Twilight_Small_Key);
             }
 
             if (bigKeysPreventBarren)
@@ -237,13 +295,18 @@ namespace TPRandomizer.Hints
             if (smallKeysPreventBarren)
                 itemSet.Add(Item.Hyrule_Castle_Small_Key);
 
+            if (!isBigKeysy)
+                logicalItems.Add(Item.Hyrule_Castle_Big_Key);
+            if (!isSmallKeysy)
+                logicalItems.Add(Item.Hyrule_Castle_Small_Key);
+
             if (sSettings.logicRules == LogicRules.No_Logic)
             {
                 // Note for other logics, one of these items only preventBarren
                 // when there is a logically required check which rewards that
                 // item. This way we do not have to worry about the desert or a
                 // dungeon being not barren-hintable when it has an obviously
-                // skippable slingshot, etc. This does not impact the chance
+                // unrequired slingshot, etc. This does not impact the chance
                 // that these items get hinted required (about 0.1% for
                 // slingshot). This also prevents bugs and sketch which lead to
                 // these items from preventing barren when pointless.
@@ -259,6 +322,12 @@ namespace TPRandomizer.Hints
                 && !sSettings.increaseWallet
             )
                 itemSet.Add(Item.Progressive_Wallet);
+
+            // Mark all preventBarren items as logical items so we catch any
+            // conditional ones (such as Magic Armor for non-Glitchless logic).
+            // We do this here before making preventBarren adjustments from the
+            // hint distribution.
+            logicalItems.UnionWith(itemSet);
 
             // Apply majorItem changes from hintSettings.
             if (hintSettings.addItems.ContainsKey("majorItems"))
@@ -326,7 +395,8 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            return itemSet;
+            this.preventBarrenItems = itemSet;
+            this.logicalItems = logicalItems;
         }
 
         private HashSet<string> prepareAllowBarrenChecks()

@@ -17,6 +17,7 @@ namespace TPRandomizer.Hints
         // derived and stored
         CheckStatus status;
         bool useDefiniteArticle;
+        bool isLogicalItem;
 
         // derived (not stored)
         Item contents;
@@ -43,6 +44,7 @@ namespace TPRandomizer.Hints
             CheckStatusDisplay display = CheckStatusDisplay.None,
             bool markAsSometimes = false,
             bool useDefiniteArticle = false,
+            bool isLogicalItem = false,
             Dictionary<int, byte> itemPlacements = null
         )
         {
@@ -52,6 +54,7 @@ namespace TPRandomizer.Hints
             this.display = display;
             this.markAsSometimes = markAsSometimes;
             this.useDefiniteArticle = useDefiniteArticle;
+            this.isLogicalItem = isLogicalItem;
 
             CalcDerived(genData, itemPlacements);
         }
@@ -73,6 +76,9 @@ namespace TPRandomizer.Hints
             // than use input value.
             if (genData != null)
             {
+                if (genData.logicalItems.Contains(contents))
+                    isLogicalItem = true;
+
                 if (
                     genData.itemToChecksList.TryGetValue(
                         contents,
@@ -108,6 +114,7 @@ namespace TPRandomizer.Hints
             result += SettingsEncoder.EncodeNumAsBits((byte)status, 2);
             result += SettingsEncoder.EncodeNumAsBits((byte)display, 2);
             result += useDefiniteArticle ? "1" : "0";
+            result += isLogicalItem ? "1" : "0";
             result += markAsSometimes ? "1" : "0";
             return result;
         }
@@ -123,6 +130,7 @@ namespace TPRandomizer.Hints
             CheckStatus status = (CheckStatus)processor.NextInt(2);
             CheckStatusDisplay display = (CheckStatusDisplay)processor.NextInt(2);
             bool useDefiniteArticle = processor.NextBool();
+            bool isLogicalItem = processor.NextBool();
             bool markAsSometimes = processor.NextBool();
 
             string checkName = CheckIdClass.GetCheckName(checkId);
@@ -134,6 +142,7 @@ namespace TPRandomizer.Hints
                 display,
                 markAsSometimes,
                 useDefiniteArticle,
+                isLogicalItem,
                 itemPlacements
             );
         }
@@ -233,7 +242,8 @@ namespace TPRandomizer.Hints
                     contents,
                     status,
                     contextIn: useDefiniteArticle ? "def" : "indef",
-                    checkStatusDisplay: display
+                    checkStatusDisplay: display,
+                    isLogicalItem: isLogicalItem
                 );
 
                 text = hintTypeRes.Substitute(

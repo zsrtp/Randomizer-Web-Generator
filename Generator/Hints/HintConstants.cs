@@ -250,6 +250,105 @@ namespace TPRandomizer.Hints
 
     public class HintConstants
     {
+        public static readonly HashSet<Item> baseLogicalItems =
+            new()
+            {
+                // Ordon and Wooden shield not considered logical since they can
+                // be deleted from your inventory, so finding them randomly does
+                // not mean anything. For no-logic they will be marked as
+                // logical items since they preventBarren, but it does not
+                // matter since the only places we make use of an item being
+                // "logical" is when there is logic.
+                Item.Hylian_Shield, // ?
+                // Item.Magic_Armor, // conditional
+                Item.Zora_Armor,
+                Item.Shadow_Crystal,
+                // Item.Progressive_Wallet, // conditional
+                Item.Progressive_Sword,
+                Item.Boomerang,
+                Item.Spinner,
+                Item.Ball_and_Chain,
+                Item.Progressive_Bow,
+                Item.Progressive_Clawshot,
+                Item.Iron_Boots,
+                Item.Progressive_Dominion_Rod,
+                Item.Lantern,
+                Item.Progressive_Fishing_Rod,
+                // Slingshot is a logical item even if it does not prevent
+                // barren.
+                Item.Slingshot,
+                Item.Filled_Bomb_Bag,
+                // Item.Empty_Bottle, // conditional
+                // Item.Sera_Bottle, // conditional
+                // Item.Jovani_Bottle, // conditional
+                Item.Renados_Letter,
+                Item.Invoice,
+                Item.Wooden_Statue,
+                Item.Ilias_Charm,
+                // Item.Horse_Call, // does not appear to be used anywhere for logic
+                // Item.Forest_Temple_Small_Key, // conditional
+                // Item.Goron_Mines_Small_Key, // conditional
+                // Item.Lakebed_Temple_Small_Key, // conditional
+                // Item.Arbiters_Grounds_Small_Key, // conditional
+                // Item.Snowpeak_Ruins_Small_Key, // conditional
+                // Item.Temple_of_Time_Small_Key, // conditional
+                // Item.City_in_The_Sky_Small_Key, // conditional
+                // Item.Palace_of_Twilight_Small_Key, // conditional
+                // Item.Hyrule_Castle_Small_Key, // conditional
+                // Item.Gerudo_Desert_Bulblin_Camp_Key, // conditional
+                Item.Aurus_Memo,
+                // Item is logical even if it does not prevent barren.
+                Item.Asheis_Sketch,
+                // Item.Forest_Temple_Big_Key, // conditional
+                // Item.Lakebed_Temple_Big_Key, // conditional
+                // Item.Arbiters_Grounds_Big_Key, // conditional
+                // Item.Temple_of_Time_Big_Key, // conditional
+                // Item.City_in_The_Sky_Big_Key, // conditional
+                // Item.Palace_of_Twilight_Big_Key, // conditional
+                // Item.Hyrule_Castle_Big_Key, // conditional
+                // Item.Coro_Bottle, // conditional
+                // Item.Progressive_Mirror_Shard, // conditional
+                // All bugs are logical even if they do not prevent barren.
+                Item.Male_Beetle,
+                Item.Female_Beetle,
+                Item.Male_Butterfly,
+                Item.Female_Butterfly,
+                Item.Male_Stag_Beetle,
+                Item.Female_Stag_Beetle,
+                Item.Male_Grasshopper,
+                Item.Female_Grasshopper,
+                Item.Male_Phasmid,
+                Item.Female_Phasmid,
+                Item.Male_Pill_Bug,
+                Item.Female_Pill_Bug,
+                Item.Male_Mantis,
+                Item.Female_Mantis,
+                Item.Male_Ladybug,
+                Item.Female_Ladybug,
+                Item.Male_Snail,
+                Item.Female_Snail,
+                Item.Male_Dragonfly,
+                Item.Female_Dragonfly,
+                Item.Male_Ant,
+                Item.Female_Ant,
+                Item.Male_Dayfly,
+                Item.Female_Dayfly,
+                // Item.Progressive_Fused_Shadow, // conditional
+                // Poe souls considered logical even if they do not prevent
+                // barren.
+                Item.Poe_Soul,
+                // Hidden skills have logical uses even if it does not prevent
+                // barren (even in Glitchless logic).
+                Item.Progressive_Hidden_Skill,
+                // Item.Progressive_Sky_Book, // conditional
+                // Item.North_Faron_Woods_Gate_Key, // conditional
+                // Item.Gate_Keys, // conditional
+                // Item.Snowpeak_Ruins_Ordon_Pumpkin, // conditional
+                // Item.Snowpeak_Ruins_Ordon_Goat_Cheese, // conditional
+                // Item.Snowpeak_Ruins_Bedroom_Key, // conditional
+                // Item.Goron_Mines_Key_Shard, // conditional
+            };
+
         public static readonly Dictionary<string, Province> zoneToProvince =
             new()
             {
