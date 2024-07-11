@@ -24,7 +24,7 @@ namespace TPRandomizer.Hints
         Automatic = 0,
         None = 1,
         Good_Or_Not = 2,
-        Required_Or_Not = 3,
+        Required_Info = 3,
     }
 
     public enum TradeGroup

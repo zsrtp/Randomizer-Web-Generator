@@ -159,7 +159,7 @@ namespace TPRandomizer.Hints
                 bool showVagueGoodText = false;
                 bool showVagueBadText = false;
 
-                if (display == CheckStatusDisplay.Required_Or_Not)
+                if (display == CheckStatusDisplay.Required_Info)
                 {
                     if (status == CheckStatus.Required)
                     {

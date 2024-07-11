@@ -1268,7 +1268,7 @@ namespace TPRandomizer
             // logic.
             if (
                 sSettings.logicRules == LogicRules.No_Logic
-                && checkStatusDisplay == CheckStatusDisplay.Required_Or_Not
+                && checkStatusDisplay == CheckStatusDisplay.Required_Info
             )
             {
                 checkStatusDisplay = CheckStatusDisplay.Automatic;
@@ -1302,7 +1302,7 @@ namespace TPRandomizer
                     // the default green.
                     startColor = CustomMessages.messageColorGreen;
                 }
-                else if (checkStatusDisplay == CheckStatusDisplay.Required_Or_Not)
+                else if (checkStatusDisplay == CheckStatusDisplay.Required_Info)
                 {
                     if (checkStatus == CheckStatus.Required)
                     {

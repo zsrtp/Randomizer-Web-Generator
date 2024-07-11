@@ -854,7 +854,7 @@ namespace TPRandomizer.Hints
 
                 CheckStatus checkStatus = genData.CalcCheckStatus(checkName);
                 // Use this CheckStatusDisplay for everything for now.
-                CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Required_Or_Not;
+                CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Required_Info;
 
                 JovaniRewardsHint.JovaniCheckInfo checkInfo =
                     new(
@@ -902,7 +902,7 @@ namespace TPRandomizer.Hints
                 LocationHint hint = LocationHint.Create(
                     genData,
                     checkName,
-                    display: CheckStatusDisplay.Required_Or_Not
+                    display: CheckStatusDisplay.Required_Info
                 );
 
                 genData.hinted.alreadyCheckContentsHinted.Add(checkName);

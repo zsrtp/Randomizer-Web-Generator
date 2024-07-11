@@ -525,7 +525,7 @@ namespace TPRandomizer.Hints.Settings
         public string groupId { get; private set; }
         public bool monopolizeSpots { get; private set; } = true;
         public CheckStatusDisplay checkStatusDisplay { get; private set; } =
-            CheckStatusDisplay.Required_Or_Not;
+            CheckStatusDisplay.Required_Info;
         public int? idealNumSpots { get; private set; }
         public int? idealNumExplicitlyHinted { get; private set; }
         public int copies { get; private set; } = 1;
