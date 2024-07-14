@@ -1,5 +1,5 @@
 {
-  "requirements": "canCompletePrologue and Room.Ordon_Bos_House and CanChangeTime",
+  "requirements": "canCompletePrologue and CanChangeTime",
   "checkCategory": [ "Overworld", "Npc", "Ordona Province", "ARC" ],
   "itemId": "Piece_of_Heart"
 }
