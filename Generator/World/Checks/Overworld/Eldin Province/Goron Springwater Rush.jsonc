@@ -1,5 +1,7 @@
 {
   //"requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village",  this will be the ER logic, but not yet
+  // we don't want this logic normally because then there would technically be no logical requirement for lanayru access
+  // this would cause the generator to have this for lanayru access 99.9999% of the time, which would be gross.
   "requirements": "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy)))",
   "checkCategory": [ "Overworld", "Npc", "Hyrule Field - Eldin Province", "Boss" ],
   "itemId": "Piece_of_Heart"
