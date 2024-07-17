@@ -137,7 +137,9 @@ namespace TPRandomizer.Hints.Settings
                 "Snowboard Racing Prize",
                 // "Snowpeak Cave Ice Lantern Chest", // Seemed kind of worthless when it showed up
                 "Forest Temple Gale Boomerang",
-                "Lakebed Temple Deku Toad Chest",
+                // This saves you a little time, but it is nowhere near as
+                // helpful as an easily isolated check like Bomskit grotto.
+                // "Lakebed Temple Deku Toad Chest",
                 "Arbiters Grounds Death Sword Chest",
                 // This saves you a little time, but it is nowhere near as
                 // helpful as an easily isolated check like Bomskit grotto.
