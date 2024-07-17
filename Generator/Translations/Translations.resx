@@ -1454,7 +1454,7 @@
     <comment></comment>
   </data>
   <data name="junk-hint.085" xml:space="preserve">
-    <value>#(player-name)&apos;s shimmering sharp sword stylishly slashes several strong Stalfos.</value>
+    <value>#(player-name)&apos;s sharp shimmering sword stylishly slashes several strong Stalfos.</value>
     <comment></comment>
   </data>
   <data name="junk-hint.086" xml:space="preserve">
@@ -1484,10 +1484,6 @@
   <data name="junk-hint.092" xml:space="preserve">
     <value>WINNER!</value>
     <comment>OoT</comment>
-  </data>
-  <data name="junk-hint.093" xml:space="preserve">
-    <value>See you next mission!</value>
-    <comment>Metroid</comment>
   </data>
   <data name="junk-hint.094" xml:space="preserve">
     <value>They say that the Deku Toad resembles a giant Toadpoli.</value>
@@ -1522,7 +1518,7 @@
     <comment>AC Katrina</comment>
   </data>
   <data name="junk-hint.102" xml:space="preserve">
-    <value>Can&apos;t let you do that,\nWolf #(player-name)!</value>
+    <value>Can&apos;t let you do that,\nWolf Link!</value>
     <comment>Star Fox 64</comment>
   </data>
   <data name="junk-hint.103" xml:space="preserve">
