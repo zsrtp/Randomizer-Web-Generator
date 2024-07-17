@@ -541,6 +541,10 @@
     <value>$(area-context:subject)They say that {area} {verb(name:is)} on the way of the hero.</value>
     <comment></comment>
   </data>
+  <data name="hint.none-placed-here" xml:space="preserve">
+    <value>No hints were placed here.</value>
+    <comment></comment>
+  </data>
   <data name="item.01-green_rupee@ac(t,a,b,s)" xml:space="preserve">
     <value>green Rupee</value>
     <comment></comment>

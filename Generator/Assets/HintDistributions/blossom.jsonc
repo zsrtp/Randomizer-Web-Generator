@@ -117,6 +117,16 @@
           "validChecks": ["Temple of Time Darknut Chest"]
         }
       }
+    },
+    {
+      "spot": "hyrule_castle_sign",
+      "hintDef": {
+        "hintType": "item",
+        "options": {
+          "validItems": ["Purple_Rupee_Links_House"],
+          "areaType": "zone"
+        }
+      }
     }
   ],
   "hints": [

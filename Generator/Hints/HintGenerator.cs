@@ -1605,7 +1605,8 @@ namespace TPRandomizer.Hints
                     SpotId.Hyrule_Castle_Sign,
                 };
 
-            // Do not bother adding hint to unrequired barren dungeon signs.
+            // Remove all signs in unrequiredBarren dungeons from potential
+            // spots to fill.
             if (genData.sSettings.barrenDungeons)
             {
                 if (!HintUtils.DungeonIsRequired("Forest Temple"))
@@ -1635,6 +1636,7 @@ namespace TPRandomizer.Hints
                 spotIdToHintSpot[hintSpot.location] = hintSpot;
             }
 
+            // Get a list of all hintSpots that we actually need to fill.
             List<SpotId> spotsToFill = new();
             foreach (SpotId spotId in possibleSpotsToFill)
             {
@@ -1642,7 +1644,29 @@ namespace TPRandomizer.Hints
                     !spotIdToHintSpot.TryGetValue(spotId, out HintSpot hintSpot)
                     || hintSpot.hints.Count == 0
                 )
-                    spotsToFill.Add(spotId);
+                {
+                    Zone zoneForSpot = ZoneUtils.SpotIdToZone(spotId);
+                    if (zoneForSpot == Zone.Invalid)
+                        throw new Exception($"SpotId '{spotId}' mapped to Zone.Invalid.");
+                    else if (zoneForSpot == Zone.Hyrule_Castle)
+                    {
+                        // Always add filler hints if needed to the HC sign
+                        // since players are always expected to pass it.
+                        spotsToFill.Add(spotId);
+                        break;
+                    }
+
+                    // For other zones, we only want to fill in signs for zones
+                    // which are not all excluded.
+                    foreach (string checkName in HintUtils.GetChecksForZone(zoneForSpot))
+                    {
+                        if (!HintUtils.checkIsPlayerKnownStatus(checkName))
+                        {
+                            spotsToFill.Add(spotId);
+                            break;
+                        }
+                    }
+                }
             }
 
             AddFillerHintsToSpots(

@@ -87,6 +87,8 @@ namespace TPRandomizer.Hints
                 { Zone.Hyrule_Castle, SpotId.Hyrule_Castle_Sign },
             };
 
+        private static Dictionary<SpotId, Zone> spotIdToId;
+
         public static readonly Dictionary<Zone, BeyondPointObj> idToBeyondPointData =
             new()
             {
@@ -906,6 +908,15 @@ namespace TPRandomizer.Hints
             {
                 strToEnum[pair.Value] = pair.Key;
             }
+
+            spotIdToId = new();
+            foreach (KeyValuePair<Zone, SpotId> pair in idToSpotId)
+            {
+                spotIdToId[pair.Value] = pair.Key;
+            }
+            // Manually add in ToT midpoint sign which is not mapped to from a
+            // Zone.
+            spotIdToId[SpotId.Temple_of_Time_Beyond_Point_Sign] = Zone.Temple_of_Time;
         }
 
         public static Zone StringToId(string zoneName)
@@ -935,6 +946,13 @@ namespace TPRandomizer.Hints
             if (idToSpotId.ContainsKey(zoneId))
                 return idToSpotId[zoneId];
             return SpotId.Invalid;
+        }
+
+        public static Zone SpotIdToZone(SpotId spotId)
+        {
+            if (spotIdToId.ContainsKey(spotId))
+                return spotIdToId[spotId];
+            return Zone.Invalid;
         }
 
         public static bool IsDungeonZone(Zone zoneId)
