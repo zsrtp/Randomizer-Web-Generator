@@ -16,6 +16,8 @@ namespace TPRandomizer.Hints
         public string hintedCheck;
         public List<string> hintedChecks = new();
         public List<Item> hintedItems { get; private set; } = new();
+        public List<string> referencedChecks = new();
+        public List<Item> referencedItems { get; private set; } = new();
 
         public HintInfo(string text)
         {
@@ -121,6 +123,20 @@ namespace TPRandomizer.Hints
                 }
 
                 ret["hintedItems"] = hintedItemsText;
+            }
+
+            if (!ListUtils.isEmpty(referencedChecks))
+                ret["referencedChecks"] = referencedChecks;
+            if (!ListUtils.isEmpty(referencedItems))
+            {
+                List<string> referencedItemsText = new();
+
+                foreach (Item item in referencedItems)
+                {
+                    referencedItemsText.Add(item.ToString());
+                }
+
+                ret["referencedItems"] = referencedItemsText;
             }
 
             return ret;

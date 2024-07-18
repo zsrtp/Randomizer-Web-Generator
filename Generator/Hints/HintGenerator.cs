@@ -929,7 +929,7 @@ namespace TPRandomizer.Hints
 
                 AreaId areaId = AreaId.Zone(zone);
                 List<string> checksToHint = new();
-                bool hasImportantCheck = false;
+                List<string> importantChecks = new();
                 foreach (string checkName in checkNames)
                 {
                     if (
@@ -947,8 +947,7 @@ namespace TPRandomizer.Hints
 
                         if (!itemAllowsBarrenForArea && genData.CheckIsGood(checkName))
                         {
-                            hasImportantCheck = true;
-                            break;
+                            importantChecks.Add(checkName);
                         }
                     }
                 }
@@ -960,17 +959,17 @@ namespace TPRandomizer.Hints
                     // and the item we are looking for.
 
                     bool includeBigKeyInfo = false;
-                    bool hasBigKeys = false;
+                    List<string> bigKeyChecks = null;
                     if (genData.sSettings.bigKeySettings == BigKeySettings.Own_Dungeon)
                     {
                         includeBigKeyInfo = CheckForBeyondPointBigKeys(
                             zone,
                             checkNames,
-                            out hasBigKeys
+                            out bigKeyChecks
                         );
                     }
 
-                    if (hasImportantCheck)
+                    if (!ListUtils.isEmpty(importantChecks))
                     {
                         if (placeHintsOnSpots)
                         {
@@ -979,7 +978,7 @@ namespace TPRandomizer.Hints
                                 .Good;
                             if (includeBigKeyInfo)
                             {
-                                if (hasBigKeys)
+                                if (!ListUtils.isEmpty(bigKeyChecks))
                                     beyondPointType = BeyondPointHint
                                         .BeyondPointType
                                         .Good_And_Big_Keys;
@@ -991,7 +990,12 @@ namespace TPRandomizer.Hints
 
                             spotToHints.addHintToSpot(
                                 spotId,
-                                new BeyondPointHint(beyondPointType),
+                                BeyondPointHint.Create(
+                                    genData,
+                                    beyondPointType,
+                                    importantChecks,
+                                    bigKeyChecks
+                                ),
                                 true
                             );
                         }
@@ -1003,12 +1007,17 @@ namespace TPRandomizer.Hints
                             BeyondPointHint.BeyondPointType beyondPointType = BeyondPointHint
                                 .BeyondPointType
                                 .Nothing;
-                            if (includeBigKeyInfo && hasBigKeys)
+                            if (includeBigKeyInfo && !ListUtils.isEmpty(bigKeyChecks))
                                 beyondPointType = BeyondPointHint.BeyondPointType.Only_Big_Keys;
 
                             spotToHints.addHintToSpot(
                                 spotId,
-                                new BeyondPointHint(beyondPointType),
+                                BeyondPointHint.Create(
+                                    genData,
+                                    beyondPointType,
+                                    importantChecks,
+                                    bigKeyChecks
+                                ),
                                 true
                             );
                         }
@@ -1025,14 +1034,14 @@ namespace TPRandomizer.Hints
         private bool CheckForBeyondPointBigKeys(
             Zone zone,
             HashSet<string> categoryCheckNames,
-            out bool hasBigKeys
+            out List<string> checksWithBigKey
         )
         {
             if (ListUtils.isEmpty(categoryCheckNames))
                 throw new Exception("Expected 'categoryCheckNames' to not be empty.");
 
-            // set 'out' to false
-            hasBigKeys = false;
+            // Init 'out'
+            checksWithBigKey = new();
 
             Dictionary<Zone, Item> zoneToBigKey =
                 new()
@@ -1059,8 +1068,7 @@ namespace TPRandomizer.Hints
                     Item contents = HintUtils.getCheckContents(checkName);
                     if (contents == bigKeyItem)
                     {
-                        hasBigKeys = true;
-                        break;
+                        checksWithBigKey.Add(checkName);
                     }
                 }
             }
