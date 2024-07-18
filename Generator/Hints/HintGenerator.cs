@@ -969,59 +969,22 @@ namespace TPRandomizer.Hints
                         );
                     }
 
-                    if (!ListUtils.isEmpty(importantChecks))
+                    if (placeHintsOnSpots)
                     {
-                        if (placeHintsOnSpots)
-                        {
-                            BeyondPointHint.BeyondPointType beyondPointType = BeyondPointHint
-                                .BeyondPointType
-                                .Good;
-                            if (includeBigKeyInfo)
-                            {
-                                if (!ListUtils.isEmpty(bigKeyChecks))
-                                    beyondPointType = BeyondPointHint
-                                        .BeyondPointType
-                                        .Good_And_Big_Keys;
-                                else
-                                    beyondPointType = BeyondPointHint
-                                        .BeyondPointType
-                                        .Good_No_Big_Keys;
-                            }
-
-                            spotToHints.addHintToSpot(
-                                spotId,
-                                BeyondPointHint.Create(
-                                    genData,
-                                    beyondPointType,
-                                    importantChecks,
-                                    bigKeyChecks
-                                ),
-                                true
-                            );
-                        }
+                        spotToHints.addHintToSpot(
+                            spotId,
+                            BeyondPointHint.Create(
+                                genData,
+                                includeBigKeyInfo,
+                                importantChecks,
+                                bigKeyChecks
+                            ),
+                            true
+                        );
                     }
-                    else
+
+                    if (ListUtils.isEmpty(importantChecks))
                     {
-                        if (placeHintsOnSpots)
-                        {
-                            BeyondPointHint.BeyondPointType beyondPointType = BeyondPointHint
-                                .BeyondPointType
-                                .Nothing;
-                            if (includeBigKeyInfo && !ListUtils.isEmpty(bigKeyChecks))
-                                beyondPointType = BeyondPointHint.BeyondPointType.Only_Big_Keys;
-
-                            spotToHints.addHintToSpot(
-                                spotId,
-                                BeyondPointHint.Create(
-                                    genData,
-                                    beyondPointType,
-                                    importantChecks,
-                                    bigKeyChecks
-                                ),
-                                true
-                            );
-                        }
-
                         foreach (string checkName in checksToHint)
                         {
                             genData.hinted.AddNonWeightedBarrenCheck(checkName);
