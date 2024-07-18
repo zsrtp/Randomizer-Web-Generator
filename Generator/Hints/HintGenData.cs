@@ -514,6 +514,10 @@ namespace TPRandomizer.Hints
             // equivalent separately such as shields. Waiting on Coro bottle
             // dumping code before messing with bottles.
 
+            // Items already handled because they went over the inflexibleCount
+            // threshold.
+            HashSet<Item> fullInflexibleItems = new();
+
             foreach (KeyValuePair<Item, int> pair in itemToProgCount)
             {
                 Item item = pair.Key;
@@ -524,6 +528,7 @@ namespace TPRandomizer.Hints
                     int inflexibleCount = itemToInflexibleCount[item];
                     if (inflexibleCount >= progCount)
                     {
+                        fullInflexibleItems.Add(item);
                         // Mark any unrequired checks with this item as
                         // allowBarren.
                         List<string> checksForItem = itemToChecksList[item];
@@ -533,6 +538,33 @@ namespace TPRandomizer.Hints
                                 allowBarrenCheckSet.Add(checkName);
                         }
                     }
+                }
+            }
+
+            // For items with multiple findable copies which are logically maxed
+            // at a single copy, mark any checks giving that item which cannot
+            // be the first copy of that item you find as allowBarrenChecks. For
+            // example, if a bomb bag is in LBT then it will not be considered
+            // good for glitchless logic. Skip over ones which already were
+            // handled by the inflexibleCount check. Note that we only do this
+            // for items that are logical at a single copy since that case is
+            // fairly easy to handle.
+            foreach (KeyValuePair<Item, int> pair in itemToProgCount)
+            {
+                Item item = pair.Key;
+                if (
+                    pair.Value == 1
+                    && !fullInflexibleItems.Contains(item)
+                    && itemToChecksList.TryGetValue(item, out List<string> checksList)
+                    && checksList.Count > 1
+                )
+                {
+                    HashSet<string> blockedChecks = HintUtils.calcFindingItemBlocksItself(
+                        startingRoom,
+                        sSettings,
+                        checksList
+                    );
+                    allowBarrenCheckSet.UnionWith(blockedChecks);
                 }
             }
 
