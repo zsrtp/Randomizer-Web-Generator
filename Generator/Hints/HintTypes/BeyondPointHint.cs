@@ -8,18 +8,8 @@ namespace TPRandomizer.Hints
 
     public class BeyondPointHint : Hint
     {
-        // public enum BeyondPointType
-        // {
-        //     Nothing = 0,
-        //     Good = 1,
-        //     Only_Big_Keys = 2,
-        //     Good_No_Big_Keys = 3,
-        //     Good_And_Big_Keys = 4,
-        // }
-
         public override HintType type { get; } = HintType.BeyondPoint;
 
-        // public BeyondPointType beyondPointType { get; }
         bool includeBigKeyInfo;
         List<string> goodChecks;
         List<string> bigKeyChecks;
@@ -42,7 +32,6 @@ namespace TPRandomizer.Hints
 
         private BeyondPointHint(
             HintGenData genData,
-            // BeyondPointType beyondPointType,
             bool includeBigKeyInfo,
             List<string> goodChecks,
             List<string> bigKeyChecks,
@@ -155,17 +144,6 @@ namespace TPRandomizer.Hints
                     .ResolveWithColor(CustomMessages.messageColorOrange);
             }
 
-            // Something good and the big key
-            // Something good and a big key
-            // Something good and big keys
-
-            // Only the big key
-            // Only a big key
-            // Only big keys
-
-            // If includeBigKey info, then try to generate the text based on how
-            // many there are and if useDef.
-
             string text = Res.LangSpecificNormalize(
                 Res.Msg("hint-type.beyond-point", new() { { "context", context } })
                     .Substitute(new() { { "big-key", bigKeysText } })
@@ -179,8 +157,6 @@ namespace TPRandomizer.Hints
         public override string encodeAsBits(HintEncodingBitLengths bitLengths)
         {
             string result = base.encodeAsBits(bitLengths);
-            // TODO: Probably don't need this one anymore
-            // result += SettingsEncoder.EncodeNumAsBits((byte)beyondPointType, 3);
             result += includeBigKeyInfo ? "1" : "0";
 
             result += SettingsEncoder.EncodeAsVlq16((ushort)goodChecks.Count);
@@ -210,7 +186,6 @@ namespace TPRandomizer.Hints
             Dictionary<int, byte> itemPlacements
         )
         {
-            // BeyondPointType beyondPointType = (BeyondPointType)processor.NextInt(3);
             bool includeBigKeyInfo = processor.NextBool();
             List<string> goodChecks = new();
             List<string> bigKeyChecks = new();
