@@ -553,6 +553,10 @@
     <value>Il est dit que {area} {verb(name:is)} sur la voie du héros.</value>
     <comment></comment>
   </data>
+  <data name="hint.none-placed-here" xml:space="preserve">
+    <value>Aucun indice n&apos;a été placé ici.</value>
+    <comment></comment>
+  </data>
   <data name="hints.item-found-at-area" xml:space="preserve">
     <value>On dit que {{item}} peut être trouvé à {{area}}.</value>
     <comment></comment>
