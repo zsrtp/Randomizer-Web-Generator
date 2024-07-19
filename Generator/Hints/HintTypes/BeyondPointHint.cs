@@ -3,6 +3,7 @@ namespace TPRandomizer.Hints
     using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices.Marshalling;
+    using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
     public class BeyondPointHint : Hint
@@ -116,7 +117,7 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
-            string context = "";
+            string context;
             if (!ListUtils.isEmpty(goodChecks))
             {
                 if (!includeBigKeyInfo)
@@ -134,24 +135,40 @@ namespace TPRandomizer.Hints
                     context = "";
             }
 
-            // switch (beyondPointType)
-            // {
-            //     case BeyondPointType.Good:
-            //         context = "good";
-            //         break;
-            //     case BeyondPointType.Only_Big_Keys:
-            //         context = "only-big-keys";
-            //         break;
-            //     case BeyondPointType.Good_No_Big_Keys:
-            //         context = "good-no-big-keys";
-            //         break;
-            //     case BeyondPointType.Good_And_Big_Keys:
-            //         context = "good-and-big-keys";
-            //         break;
-            // }
+            string bigKeysText = "";
+
+            if (includeBigKeyInfo)
+            {
+                // In the future, we may need to check this differently
+                // depending on how plurals work in different languages. We want
+                // to prioritize the "count" one, but if we pass both "count"
+                // and "context", then it will resolve to the "context" one
+                // without the "count" first. For now, just comparing if there
+                // are 2 or more since it works for both English and French.
+                Dictionary<string, string> interpolation = new();
+                if (bigKeyChecks.Count >= 2)
+                    interpolation["count"] = bigKeyChecks.Count.ToString();
+                else
+                    interpolation["context"] = bigKeyUseDefiniteArticle ? "def" : "indef";
+
+                bigKeysText = Res.Msg("hint-type.beyond-point.big-key", interpolation)
+                    .ResolveWithColor(CustomMessages.messageColorOrange);
+            }
+
+            // Something good and the big key
+            // Something good and a big key
+            // Something good and big keys
+
+            // Only the big key
+            // Only a big key
+            // Only big keys
+
+            // If includeBigKey info, then try to generate the text based on how
+            // many there are and if useDef.
 
             string text = Res.LangSpecificNormalize(
-                Res.Msg("hint-type.beyond-point", new() { { "context", context } }).Substitute(null)
+                Res.Msg("hint-type.beyond-point", new() { { "context", context } })
+                    .Substitute(new() { { "big-key", bigKeysText } })
             );
 
             HintText hintText = new HintText();

@@ -461,20 +461,32 @@
     <value>#(purple)Nothing#(white) beyond this point!</value>
     <comment></comment>
   </data>
+  <data name="hint-type.beyond-point.big-key" xml:space="preserve">
+    <value>a {cs}big key{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point.big-key#other" xml:space="preserve">
+    <value>big keys</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point.big-key$def" xml:space="preserve">
+    <value>the {cs}big key{ce}</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.beyond-point$good" xml:space="preserve">
     <value>#(green)Something good#(white) beyond this point!</value>
     <comment></comment>
   </data>
   <data name="hint-type.beyond-point$good-and-big-keys" xml:space="preserve">
-    <value>#(green)Something good#(white) and #(orange)big keys#(white) beyond this point!</value>
+    <value>#(green)Something good#(white) and {big-key} beyond this point!</value>
     <comment></comment>
   </data>
   <data name="hint-type.beyond-point$good-no-big-keys" xml:space="preserve">
-    <value>#(green)Something good#(white) beyond this point, but there are #(purple)no big keys#(white).</value>
+    <value>#(green)Something good#(white) beyond this point, but there are no #(purple)big keys#(white).</value>
     <comment></comment>
   </data>
   <data name="hint-type.beyond-point$only-big-keys" xml:space="preserve">
-    <value>Only #(orange)big keys#(white) beyond this point!</value>
+    <value>Only {big-key} beyond this point!</value>
     <comment></comment>
   </data>
   <data name="hint-type.item" xml:space="preserve">
