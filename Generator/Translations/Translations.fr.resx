@@ -1809,6 +1809,10 @@
     <value>({cs}zone inutile{ce})</value>
     <comment></comment>
   </data>
+  <data name="noun.jovani-unhinted" xml:space="preserve">
+    <value>Pas d&apos;indice</value>
+    <comment></comment>
+  </data>
   <data name="noun.num-golden-bugs" xml:space="preserve">
     <value>le {cs}{count} insecte doré{ce}</value>
     <comment></comment>
