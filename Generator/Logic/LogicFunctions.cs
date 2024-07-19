@@ -1541,7 +1541,6 @@ namespace TPRandomizer
         /// </summary>
         public static bool canLaunchBombs()
         {
-            Console.WriteLine("launch: " + (getItemCount(Item.Progressive_Bow) >= 1));
             return (
                 (CanUse(Item.Boomerang) || (getItemCount(Item.Progressive_Bow) >= 1)) && hasBombs()
             );
