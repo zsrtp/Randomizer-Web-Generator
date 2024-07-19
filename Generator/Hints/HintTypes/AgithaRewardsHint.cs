@@ -102,6 +102,7 @@ namespace TPRandomizer.Hints
             {
                 bool useArticles = !res.MetaHasVal("no-articles", "true");
                 bool capitalize = res.MetaHasVal("capitalize", "true");
+                bool useShort = res.MetaHasVal("short", "true");
 
                 // Generate the items list by passing a list of strings. On the
                 // outside we can set each one to a green color. The function
@@ -110,7 +111,9 @@ namespace TPRandomizer.Hints
                 for (int i = 0; i < items.Count; i++)
                 {
                     string contextForItem = "";
-                    if (useArticles)
+                    if (useShort)
+                        contextForItem = "short";
+                    else if (useArticles)
                         contextForItem = useDefArticleList[i] ? "def" : "indef";
 
                     itemTexts.Add(

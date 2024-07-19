@@ -450,7 +450,7 @@
     <comment></comment>
   </data>
   <data name="hint-type.agitha-rewards$good" xml:space="preserve">
-    <value>$(no-articles,capitalize)Please bring #(yellow)golden bugs#(white) you find to Agitha&apos;s Castle. I&apos;ll share #(red)GREAT happiness#(white) with you:\n\n{items}</value>
+    <value>$(no-articles,capitalize,short)Please bring #(yellow)golden bugs#(white) you find to Agitha&apos;s Castle. I&apos;ll share #(red)GREAT happiness#(white) with you:\n\n{items}</value>
     <comment></comment>
   </data>
   <data name="hint-type.barren" xml:space="preserve">
@@ -809,36 +809,72 @@
     <value>Forest Temple small key</value>
     <comment></comment>
   </data>
+  <data name="item.85-forest_temple_small_key$short" xml:space="preserve">
+    <value>FT small key</value>
+    <comment></comment>
+  </data>
   <data name="item.86-goron_mines_small_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Goron Mines small key</value>
+    <comment></comment>
+  </data>
+  <data name="item.86-goron_mines_small_key$short" xml:space="preserve">
+    <value>GM small key</value>
     <comment></comment>
   </data>
   <data name="item.87-lakebed_temple_small_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Lakebed Temple small key</value>
     <comment></comment>
   </data>
+  <data name="item.87-lakebed_temple_small_key$short" xml:space="preserve">
+    <value>LBT small key</value>
+    <comment></comment>
+  </data>
   <data name="item.88-arbiters_grounds_small_key@ac(t,an,b,s)" xml:space="preserve">
     <value>Arbiter&apos;s Grounds small key</value>
+    <comment></comment>
+  </data>
+  <data name="item.88-arbiters_grounds_small_key$short" xml:space="preserve">
+    <value>AG small key</value>
     <comment></comment>
   </data>
   <data name="item.89-snowpeak_ruins_small_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Snowpeak Ruins small key</value>
     <comment></comment>
   </data>
+  <data name="item.89-snowpeak_ruins_small_key$short" xml:space="preserve">
+    <value>SPR small key</value>
+    <comment></comment>
+  </data>
   <data name="item.8a-temple_of_time_small_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Temple of Time small key</value>
+    <comment></comment>
+  </data>
+  <data name="item.8a-temple_of_time_small_key$short" xml:space="preserve">
+    <value>ToT small key</value>
     <comment></comment>
   </data>
   <data name="item.8b-city_in_the_sky_small_key@ac(t,a,b,s)" xml:space="preserve">
     <value>City in the Sky small key</value>
     <comment></comment>
   </data>
+  <data name="item.8b-city_in_the_sky_small_key$short" xml:space="preserve">
+    <value>CitS small key</value>
+    <comment></comment>
+  </data>
   <data name="item.8c-palace_of_twilight_small_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Palace of Twilight small key</value>
     <comment></comment>
   </data>
+  <data name="item.8c-palace_of_twilight_small_key$short" xml:space="preserve">
+    <value>PoT small key</value>
+    <comment></comment>
+  </data>
   <data name="item.8d-hyrule_castle_small_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Hyrule Castle small key</value>
+    <comment></comment>
+  </data>
+  <data name="item.8d-hyrule_castle_small_key$short" xml:space="preserve">
+    <value>HC small key</value>
     <comment></comment>
   </data>
   <data name="item.8e-gerudo_desert_bulblin_camp_key@ac(t,a,b,s)" xml:space="preserve">
@@ -857,40 +893,80 @@
     <value>Forest Temple big key</value>
     <comment></comment>
   </data>
+  <data name="item.92-forest_temple_big_key$short" xml:space="preserve">
+    <value>FT big key</value>
+    <comment></comment>
+  </data>
   <data name="item.93-lakebed_temple_big_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Lakebed Temple big key</value>
+    <comment></comment>
+  </data>
+  <data name="item.93-lakebed_temple_big_key$short" xml:space="preserve">
+    <value>LBT big key</value>
     <comment></comment>
   </data>
   <data name="item.94-arbiters_grounds_big_key@ac(t,an,b,s)" xml:space="preserve">
     <value>Arbiter&apos;s Grounds big key</value>
     <comment></comment>
   </data>
+  <data name="item.94-arbiters_grounds_big_key$short" xml:space="preserve">
+    <value>AG big key</value>
+    <comment></comment>
+  </data>
   <data name="item.95-temple_of_time_big_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Temple of Time big key</value>
+    <comment></comment>
+  </data>
+  <data name="item.95-temple_of_time_big_key$short" xml:space="preserve">
+    <value>ToT big key</value>
     <comment></comment>
   </data>
   <data name="item.96-city_in_the_sky_big_key@ac(t,a,b,s)" xml:space="preserve">
     <value>City in the Sky big key</value>
     <comment></comment>
   </data>
+  <data name="item.96-city_in_the_sky_big_key$short" xml:space="preserve">
+    <value>CitS big key</value>
+    <comment></comment>
+  </data>
   <data name="item.97-palace_of_twilight_big_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Palace of Twilight big key</value>
+    <comment></comment>
+  </data>
+  <data name="item.97-palace_of_twilight_big_key$short" xml:space="preserve">
+    <value>PoT big key</value>
     <comment></comment>
   </data>
   <data name="item.98-hyrule_castle_big_key@ac(t,a,b,es)" xml:space="preserve">
     <value>Hyrule Castle big key</value>
     <comment></comment>
   </data>
+  <data name="item.98-hyrule_castle_big_key$short" xml:space="preserve">
+    <value>HC big key</value>
+    <comment></comment>
+  </data>
   <data name="item.99-forest_temple_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Forest Temple compass</value>
+    <comment></comment>
+  </data>
+  <data name="item.99-forest_temple_compass$short" xml:space="preserve">
+    <value>FT compass</value>
     <comment></comment>
   </data>
   <data name="item.9a-goron_mines_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Goron Mines compass</value>
     <comment></comment>
   </data>
+  <data name="item.9a-goron_mines_compass$short" xml:space="preserve">
+    <value>GM compass</value>
+    <comment></comment>
+  </data>
   <data name="item.9b-lakebed_temple_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Lakebed Temple compass</value>
+    <comment></comment>
+  </data>
+  <data name="item.9b-lakebed_temple_compass$short" xml:space="preserve">
+    <value>LBT compass</value>
     <comment></comment>
   </data>
   <data name="item.9d-coro_bottle@ac(t,a,p)" xml:space="preserve">
@@ -909,60 +985,120 @@
     <value>Arbiter&apos;s Grounds compass</value>
     <comment></comment>
   </data>
+  <data name="item.a8-arbiters_grounds_compass$short" xml:space="preserve">
+    <value>AG compass</value>
+    <comment></comment>
+  </data>
   <data name="item.a9-snowpeak_ruins_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Snowpeak Ruins compass</value>
+    <comment></comment>
+  </data>
+  <data name="item.a9-snowpeak_ruins_compass$short" xml:space="preserve">
+    <value>SPR compass</value>
     <comment></comment>
   </data>
   <data name="item.aa-temple_of_time_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Temple of Time compass</value>
     <comment></comment>
   </data>
+  <data name="item.aa-temple_of_time_compass$short" xml:space="preserve">
+    <value>ToT compass</value>
+    <comment></comment>
+  </data>
   <data name="item.ab-city_in_the_sky_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>City in the Sky compass</value>
+    <comment></comment>
+  </data>
+  <data name="item.ab-city_in_the_sky_compass$short" xml:space="preserve">
+    <value>CitS compass</value>
     <comment></comment>
   </data>
   <data name="item.ac-palace_of_twilight_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Palace of Twilight compass</value>
     <comment></comment>
   </data>
+  <data name="item.ac-palace_of_twilight_compass$short" xml:space="preserve">
+    <value>PoT compass</value>
+    <comment></comment>
+  </data>
   <data name="item.ad-hyrule_castle_compass@ac(t,a,b,es)" xml:space="preserve">
     <value>Hyrule Castle compass</value>
+    <comment></comment>
+  </data>
+  <data name="item.ad-hyrule_castle_compass$short" xml:space="preserve">
+    <value>HC compass</value>
     <comment></comment>
   </data>
   <data name="item.b6-forest_temple_dungeon_map@ac(t,a,b,s)" xml:space="preserve">
     <value>Forest Temple dungeon map</value>
     <comment></comment>
   </data>
+  <data name="item.b6-forest_temple_dungeon_map$short" xml:space="preserve">
+    <value>FT dungeon map</value>
+    <comment></comment>
+  </data>
   <data name="item.b7-goron_mines_dungeon_map@ac(t,a,b,s)" xml:space="preserve">
     <value>Goron Mines dungeon map</value>
+    <comment></comment>
+  </data>
+  <data name="item.b7-goron_mines_dungeon_map$short" xml:space="preserve">
+    <value>GM dungeon map</value>
     <comment></comment>
   </data>
   <data name="item.b8-lakebed_temple_dungeon_map@ac(t,a,b,s)" xml:space="preserve">
     <value>Lakebed Temple dungeon map</value>
     <comment></comment>
   </data>
+  <data name="item.b8-lakebed_temple_dungeon_map$short" xml:space="preserve">
+    <value>LBT dungeon map</value>
+    <comment></comment>
+  </data>
   <data name="item.b9-arbiters_grounds_dungeon_map@ac(t,an,b,s)" xml:space="preserve">
     <value>Arbiter&apos;s Grounds dungeon map</value>
+    <comment></comment>
+  </data>
+  <data name="item.b9-arbiters_grounds_dungeon_map$short" xml:space="preserve">
+    <value>AG dungeon map</value>
     <comment></comment>
   </data>
   <data name="item.ba-snowpeak_ruins_dungeon_map@ac(t,a,b,s)" xml:space="preserve">
     <value>Snowpeak Ruins dungeon map</value>
     <comment></comment>
   </data>
+  <data name="item.ba-snowpeak_ruins_dungeon_map$short" xml:space="preserve">
+    <value>SPR dungeon map</value>
+    <comment></comment>
+  </data>
   <data name="item.bb-temple_of_time_dungeon_map@ac(t,a,b,s)" xml:space="preserve">
     <value>Temple of Time dungeon map</value>
+    <comment></comment>
+  </data>
+  <data name="item.bb-temple_of_time_dungeon_map$short" xml:space="preserve">
+    <value>ToT dungeon map</value>
     <comment></comment>
   </data>
   <data name="item.bc-city_in_the_sky_dungeon_map@ac(t,a,b,s)" xml:space="preserve">
     <value>City in the Sky dungeon map</value>
     <comment></comment>
   </data>
+  <data name="item.bc-city_in_the_sky_dungeon_map$short" xml:space="preserve">
+    <value>CitS dungeon map</value>
+    <comment></comment>
+  </data>
   <data name="item.bd-palace_of_twilight_dungeon_map@ac(t,a,b,s)" xml:space="preserve">
     <value>Palace of Twilight dungeon map</value>
     <comment></comment>
   </data>
+  <data name="item.bd-palace_of_twilight_dungeon_map$short" xml:space="preserve">
+    <value>PoT dungeon map</value>
+    <comment></comment>
+  </data>
   <data name="item.be-hyrule_castle_dungeon_map@ac(t,a,b,s)" xml:space="preserve">
     <value>Hyrule Castle dungeon map</value>
+    <comment></comment>
+  </data>
+  <data name="item.be-hyrule_castle_dungeon_map$short" xml:space="preserve">
+    <value>HC dungeon map</value>
     <comment></comment>
   </data>
   <data name="item.c0-male_beetle@ac(t,a,b,s)" xml:space="preserve">
