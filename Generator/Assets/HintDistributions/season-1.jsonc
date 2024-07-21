@@ -50,7 +50,6 @@
       "hintDef": {
         "hintType": "location",
         "options": {
-          "markAsSometimes": true,
           "canHintHintedBarrenChecks": true,
           "validChecks": ["Forest Temple Gale Boomerang"]
         }
@@ -64,7 +63,6 @@
           {
             "hintType": "location",
             "options": {
-              "markAsSometimes": true,
               "canHintHintedBarrenChecks": true,
               "validChecks": [
                 "Snowpeak Ruins Chapel Chest",
@@ -75,34 +73,15 @@
             }
           },
           {
-            "selectionType": "randomOrder",
-            "hintDef": [
-              {
-                "hintType": "location",
-                "options": {
-                  "markAsSometimes": true,
-                  "canHintHintedBarrenChecks": true,
-                  "validChecks": [
-                    "Snowpeak Ruins Chapel Chest",
-                    "Snowpeak Ruins Lobby Chandelier Chest",
-                    "Snowpeak Ruins Northeast Chandelier Chest"
-                  ],
-                  "validStatuses": ["required", "good"]
-                }
-              },
-              {
-                "hintType": "location",
-                "options": {
-                  "markAsSometimes": true,
-                  "canHintHintedBarrenChecks": true,
-                  "validChecks": [
-                    "Snowpeak Ruins Chapel Chest",
-                    "Snowpeak Ruins Lobby Chandelier Chest",
-                    "Snowpeak Ruins Northeast Chandelier Chest"
-                  ]
-                }
-              }
-            ]
+            "hintType": "location",
+            "options": {
+              "canHintHintedBarrenChecks": true,
+              "validChecks": [
+                "Snowpeak Ruins Chapel Chest",
+                "Snowpeak Ruins Lobby Chandelier Chest",
+                "Snowpeak Ruins Northeast Chandelier Chest"
+              ]
+            }
           }
         ]
       }
@@ -112,7 +91,6 @@
       "hintDef": {
         "hintType": "location",
         "options": {
-          "markAsSometimes": true,
           "canHintHintedBarrenChecks": true,
           "validChecks": ["Temple of Time Darknut Chest"]
         }
