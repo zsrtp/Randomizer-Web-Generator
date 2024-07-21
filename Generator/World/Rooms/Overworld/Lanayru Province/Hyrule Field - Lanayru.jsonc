@@ -246,7 +246,7 @@
       },
       {
         "ConnectedArea": "Faron Field Behind Boulder",
-        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle"
+        "Requirements": "canGetHotSpringWater"
       },
       {
         "ConnectedArea": "Lake Hylia",
@@ -277,7 +277,7 @@
     [
       {
         "ConnectedArea": "Outside Castle Town South",
-        "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle and Room.Outside_Castle_Town_South"
+        "Requirements": "canGetHotSpringWater and Room.Outside_Castle_Town_South"
       }
     ],
     "Checks": [""],
