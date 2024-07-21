@@ -1729,14 +1729,6 @@
     <value>nothing of value</value>
     <comment></comment>
   </data>
-  <data name="noun.num-golden-bugs" xml:space="preserve">
-    <value>{cs}{count} golden bug{ce}</value>
-    <comment></comment>
-  </data>
-  <data name="noun.num-golden-bugs#other" xml:space="preserve">
-    <value>{cs}{count} golden bugs{ce}</value>
-    <comment></comment>
-  </data>
   <data name="noun.shop-it" xml:space="preserve">
     <value>it</value>
     <comment></comment>

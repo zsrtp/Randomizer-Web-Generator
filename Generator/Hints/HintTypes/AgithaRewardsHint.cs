@@ -80,22 +80,6 @@ namespace TPRandomizer.Hints
 
             Res.Result res = Res.Msg("hint-type.agitha-rewards", new() { { "context", context } });
 
-            string numBugsColor = hasItems
-                ? CustomMessages.messageColorYellow
-                : CustomMessages.messageColorPurple;
-            string numBugsText = Res.Msg(
-                    "noun.num-golden-bugs",
-                    new() { { "count", numBugsInPool.ToString() } }
-                )
-                .Substitute(
-                    new()
-                    {
-                        { "count", numBugsInPool.ToString() },
-                        { "cs", numBugsColor },
-                        { "ce", CustomMessages.messageColorWhite }
-                    }
-                );
-
             // Generate the "items" text.
             string itemsText = "";
             if (hasItems)
@@ -138,9 +122,7 @@ namespace TPRandomizer.Hints
                     CustomMessages.messageColorGreen + Res.CreateAndList(res.langCode, itemTexts);
             }
 
-            string text = res.Substitute(
-                new() { { "num-bugs", numBugsText }, { "items", itemsText } }
-            );
+            string text = res.Substitute(new() { { "items", itemsText } });
 
             // Set font size to 0x48.
             string normText = Res.LangSpecificNormalize(
