@@ -177,18 +177,17 @@ namespace TPRandomizer
         ///</summary>
         public static bool canGetHotSpringWater()
         {
-            return 
-                (
+            return (
                     Randomizer.Rooms.RoomDict["Lower Kakariko Village"].ReachedByPlaythrough
-                    || Randomizer.Rooms.RoomDict["Death Mountain Elevator Lower"].ReachedByPlaythrough
-                    ||
-                    (
+                    || Randomizer.Rooms.RoomDict[
+                        "Death Mountain Elevator Lower"
+                    ].ReachedByPlaythrough
+                    || (
                         Randomizer.Rooms.RoomDict["Kakariko Malo Mart"].ReachedByPlaythrough
                         && Randomizer.Rooms.RoomDict["Lower Kakariko Village"].ReachedByPlaythrough
                         && Randomizer.Rooms.RoomDict["Castle Town South"].ReachedByPlaythrough
                     )
-                )
-                && hasBottle();
+                ) && HasBottle();
         }
 
         /// <summary>
