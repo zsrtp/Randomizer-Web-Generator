@@ -80,28 +80,13 @@ namespace TPRandomizer.Hints
 
             Res.Result res = Res.Msg("hint-type.agitha-rewards", new() { { "context", context } });
 
-            string numBugsColor = hasItems
-                ? CustomMessages.messageColorYellow
-                : CustomMessages.messageColorPurple;
-            string numBugsText = Res.Msg(
-                    "noun.num-golden-bugs",
-                    new() { { "count", numBugsInPool.ToString() } }
-                )
-                .Substitute(
-                    new()
-                    {
-                        { "count", numBugsInPool.ToString() },
-                        { "cs", numBugsColor },
-                        { "ce", CustomMessages.messageColorWhite }
-                    }
-                );
-
             // Generate the "items" text.
             string itemsText = "";
             if (hasItems)
             {
                 bool useArticles = !res.MetaHasVal("no-articles", "true");
                 bool capitalize = res.MetaHasVal("capitalize", "true");
+                bool useShort = res.MetaHasVal("short", "true");
 
                 // Generate the items list by passing a list of strings. On the
                 // outside we can set each one to a green color. The function
@@ -110,7 +95,9 @@ namespace TPRandomizer.Hints
                 for (int i = 0; i < items.Count; i++)
                 {
                     string contextForItem = "";
-                    if (useArticles)
+                    if (useShort)
+                        contextForItem = "short";
+                    else if (useArticles)
                         contextForItem = useDefArticleList[i] ? "def" : "indef";
 
                     itemTexts.Add(
@@ -121,7 +108,8 @@ namespace TPRandomizer.Hints
                             contextIn: contextForItem,
                             prefStartColor: "",
                             prefEndColor: "",
-                            capitalize: capitalize
+                            capitalize: capitalize,
+                            checkStatusDisplay: CheckStatusDisplay.None
                         )
                     );
                 }
@@ -134,9 +122,7 @@ namespace TPRandomizer.Hints
                     CustomMessages.messageColorGreen + Res.CreateAndList(res.langCode, itemTexts);
             }
 
-            string text = res.Substitute(
-                new() { { "num-bugs", numBugsText }, { "items", itemsText } }
-            );
+            string text = res.Substitute(new() { { "items", itemsText } });
 
             // Set font size to 0x48.
             string normText = Res.LangSpecificNormalize(

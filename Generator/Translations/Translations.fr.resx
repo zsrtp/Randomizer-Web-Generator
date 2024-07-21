@@ -393,6 +393,10 @@
     <value>(obligatoire)</value>
     <comment></comment>
   </data>
+  <data name="description.skippable-check" xml:space="preserve">
+    <value>(optionnel)</value>
+    <comment></comment>
+  </data>
   <data name="description.unrequired-check" xml:space="preserve">
     <value>(non obligatoire)</value>
     <comment></comment>
@@ -438,11 +442,11 @@
     <comment></comment>
   </data>
   <data name="hint-type.agitha-rewards" xml:space="preserve">
-    <value>Veuillez apporter {num-bugs} au Château de Machaon.\n\nEt dites leurs que la princesse attend !</value>
+    <value>Veuillez apporter les #(purple)insectes dorés#(white) au Château de Machaon.\n\nEt dites leurs que la princesse attend !</value>
     <comment></comment>
   </data>
   <data name="hint-type.agitha-rewards$good" xml:space="preserve">
-    <value>Veuillez apporter {num-bugs} au Château de Machaon. Je saurai partager mon #(red)bonheur#(white) avec vous :\n\n{items}</value>
+    <value>Veuillez apporter les #(yellow)insectes dorés#(white) au Château de Machaon. Je saurai partager mon #(red)bonheur#(white) avec vous :\n\n{items}</value>
     <comment></comment>
   </data>
   <data name="hint-type.barren" xml:space="preserve">
@@ -453,8 +457,32 @@
     <value>#(purple)Rien#(white) au-delà de ce point !</value>
     <comment></comment>
   </data>
+  <data name="hint-type.beyond-point.big-key" xml:space="preserve">
+    <value>une {cs}grande clé{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point.big-key#other" xml:space="preserve">
+    <value>des {cs}grandes clés{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point.big-key$def" xml:space="preserve">
+    <value>la {cs}grande clé{ce}</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.beyond-point$good" xml:space="preserve">
     <value>#(green)Quelque chose de bien#(white) au-delà de ce point !</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point$good-and-big-keys" xml:space="preserve">
+    <value>#(green)Quelque chose de bien#(white) et {big-key} à partir de ce point !</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point$good-no-big-keys" xml:space="preserve">
+    <value>#(green)Quelque chose de bien#(white) à partir de ce point mais il n&apos;y a pas de #(purple)grande clé#(white).</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point$only-big-keys" xml:space="preserve">
+    <value>Seulement {big-key} à partir de ce point !</value>
     <comment></comment>
   </data>
   <data name="hint-type.item" xml:space="preserve">
@@ -523,6 +551,10 @@
   </data>
   <data name="hint-type.woth" xml:space="preserve">
     <value>Il est dit que {area} {verb(name:is)} sur la voie du héros.</value>
+    <comment></comment>
+  </data>
+  <data name="hint.none-placed-here" xml:space="preserve">
+    <value>Aucun indice n&apos;a été placé ici.</value>
     <comment></comment>
   </data>
   <data name="hints.item-found-at-area" xml:space="preserve">
@@ -1781,12 +1813,8 @@
     <value>({cs}zone inutile{ce})</value>
     <comment></comment>
   </data>
-  <data name="noun.num-golden-bugs" xml:space="preserve">
-    <value>le {cs}{count} insecte doré{ce}</value>
-    <comment></comment>
-  </data>
-  <data name="noun.num-golden-bugs#other" xml:space="preserve">
-    <value>les {cs}{count} insectes dorés{ce}</value>
+  <data name="noun.jovani-unhinted" xml:space="preserve">
+    <value>Pas d&apos;indice</value>
     <comment></comment>
   </data>
   <data name="noun.rien" xml:space="preserve">

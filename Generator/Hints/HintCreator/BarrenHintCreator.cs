@@ -27,6 +27,20 @@ namespace TPRandomizer.Hints.HintCreator
                 HintCategory.Golden_Wolf,
             };
 
+        // Includes post-dungeon checks, etc.
+        private static readonly Dictionary<Zone, List<string>> dungeonZoneToReqChecks =
+            new()
+            {
+                { Zone.Forest_Temple, CheckFunctions.forestRequirementChecks },
+                { Zone.Goron_Mines, CheckFunctions.minesRequirementChecks },
+                { Zone.Lakebed_Temple, CheckFunctions.lakebedRequirementChecks },
+                { Zone.Arbiters_Grounds, CheckFunctions.arbitersRequirementChecks },
+                { Zone.Snowpeak_Ruins, CheckFunctions.snowpeakRequirementChecks },
+                { Zone.Temple_of_Time, CheckFunctions.totRequirementChecks },
+                { Zone.City_in_the_Sky, CheckFunctions.cityRequirementChecks },
+                { Zone.Palace_of_Twilight, CheckFunctions.palaceRequirementChecks },
+            };
+
         private static readonly HashSet<AreaId.AreaType> validAreaTypes =
             new() { AreaId.AreaType.Zone, AreaId.AreaType.Province, AreaId.AreaType.Category, };
 
@@ -167,7 +181,7 @@ namespace TPRandomizer.Hints.HintCreator
 
             foreach (AreaId areaId in baseAreaIds)
             {
-                HashSet<string> checkNames = areaId.ResolveToChecks();
+                HashSet<string> checkNames = ResolveAreaIdToChecks(areaId);
 
                 List<string> barrenableChecks = new();
                 bool areaCanBeHintedBarren = true;
@@ -253,6 +267,20 @@ namespace TPRandomizer.Hints.HintCreator
             }
 
             return potentialBarrenAreas;
+        }
+
+        private HashSet<string> ResolveAreaIdToChecks(AreaId areaId)
+        {
+            if (areaId.type == AreaId.AreaType.Zone)
+            {
+                Zone zone = ZoneUtils.StringToId(areaId.stringId);
+                if (dungeonZoneToReqChecks.TryGetValue(zone, out List<string> checksList))
+                {
+                    return new(checksList);
+                }
+            }
+
+            return areaId.ResolveToChecks();
         }
 
         private HashSet<AreaId> GetBaseAreaIds(HintGenData genData, HintSettings hintSettings)

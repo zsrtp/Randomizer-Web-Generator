@@ -119,7 +119,7 @@ namespace TPRandomizer.SSettings.Enums
     public enum HintDistribution
     {
         None = 0,
-        Blossom = 1,
+        Season_1 = 1,
         Weak = 2,
         Balanced = 3,
         Strong = 4,

@@ -33,7 +33,16 @@ namespace TPRandomizer.Hints
 
     public abstract class Hint
     {
+        public uint uniqueHintId { get; private set; }
         public abstract HintType type { get; }
+
+        private static uint nextHintId = 0;
+
+        protected Hint()
+        {
+            uniqueHintId = nextHintId;
+            nextHintId += 1;
+        }
 
         public abstract List<HintText> toHintTextList(CustomMsgData customMsgData);
 

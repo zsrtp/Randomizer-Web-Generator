@@ -26,6 +26,7 @@ namespace TPRandomizer.Hints.Settings
         TradeChain,
         TradeGroup,
         Sometimes,
+        Var,
     }
 
     public abstract class HintCreator
@@ -75,6 +76,8 @@ namespace TPRandomizer.Hints.Settings
                     return TradeChainHintCreator.fromJObject(obj);
                 case HintCreatorType.TradeGroup:
                     return TradeGroupHintCreator.fromJObject(obj);
+                case HintCreatorType.Var:
+                    return VarHintCreator.fromJObject(obj);
                 default:
                     throw new Exception(
                         $"Tried to create HintCreator, but found unexpected HintCreatorType '{type}'."

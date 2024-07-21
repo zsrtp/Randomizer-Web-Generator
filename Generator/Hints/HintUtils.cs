@@ -639,6 +639,68 @@ namespace TPRandomizer.Hints
             return goalsToRequiredChecks;
         }
 
+        public static HashSet<string> calcFindingItemBlocksItself(
+            Room startingRoom,
+            SharedSettings sSettings,
+            List<string> checkNames
+        )
+        {
+            HashSet<string> results = new();
+            if (sSettings.logicRules == LogicRules.No_Logic || ListUtils.isEmpty(checkNames))
+                return results;
+
+            HashSet<Item> itemsForChecks = new();
+            foreach (string checkName in checkNames)
+            {
+                Item item = HintUtils.getCheckContents(checkName);
+                itemsForChecks.Add(item);
+            }
+            if (itemsForChecks.Count != 1)
+                throw new Exception(
+                    $"Expected itemsForChecks to be Count 1, but was '{itemsForChecks.Count}'."
+                );
+
+            List<(string, Item)> checkAndOriginalContents = new();
+            HashSet<Goal> goals = new();
+
+            foreach (string checkName in checkNames)
+            {
+                // Replace check contents with a green rupee. If the playthrough
+                // is still beatable, then that item cannot be considered for
+                // SpoL hints.
+                Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
+                Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
+
+                checkAndOriginalContents.Add(new(checkName, originalContents));
+
+                goals.Add(new Goal(GoalEnum.Invalid, Goal.Type.Check, checkName));
+            }
+
+            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+                startingRoom,
+                goals,
+                false
+            );
+
+            foreach (KeyValuePair<Goal, bool> pair in goalResults)
+            {
+                if (!pair.Value)
+                {
+                    // This check which gives the item is locked behind first
+                    // doing a different check which already gives the item.
+                    results.Add(pair.Key.id);
+                }
+            }
+
+            // Put the original items back.
+            foreach ((string, Item) pair in checkAndOriginalContents)
+            {
+                Randomizer.Checks.CheckDict[pair.Item1].itemId = pair.Item2;
+            }
+
+            return results;
+        }
+
         private static Dictionary<Item, List<string>> calcItemToChecksList()
         {
             Dictionary<Item, List<string>> itemToChecks = new();

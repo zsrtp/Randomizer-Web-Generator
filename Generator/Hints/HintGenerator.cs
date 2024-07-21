@@ -73,6 +73,9 @@ namespace TPRandomizer.Hints
             if (!ListUtils.isEmpty(alwaysHintsForSpots))
                 alwaysSpotCount = alwaysHintsForSpots.Count;
 
+            // Create user-defined special hints after this point.
+            PrepareUserSpecialHints(specialSpotToHints);
+
             // Run through the process of creating BeyondPoint hints, but update
             // 'hinted' without placing any hints that we might end up having to
             // remove later. Even though this is done up front, we have it such
@@ -324,7 +327,11 @@ namespace TPRandomizer.Hints
                 }
 
                 // If we used up our hints, fill in the remaining spots.
-                if (recHintResults.HintDefResults.Count < 1 && spotsToFill.Count > 0)
+                if (
+                    grouping.useFillerHints
+                    && recHintResults.HintDefResults.Count < 1
+                    && spotsToFill.Count > 0
+                )
                 {
                     AddFillerHintsToSpots(
                         spotsToFill,
@@ -335,9 +342,8 @@ namespace TPRandomizer.Hints
                     );
                 }
 
-                // If we have leftover hints or leftover spots, then something
-                // went wrong.
-                if (recHintResults.HintDefResults.Count > 0 || spotsToFill.Count > 0)
+                // If we have leftover hints we did not place, then throw.
+                if (recHintResults.HintDefResults.Count > 0)
                 {
                     int remainingCopies = 0;
                     if (!ListUtils.isEmpty(recHintResults.HintDefResults))
@@ -348,7 +354,16 @@ namespace TPRandomizer.Hints
                         }
                     }
                     throw new Exception(
-                        $"Expected hints and spotsToFill to be be empty, but had {recHintResults.HintDefResults.Count} hints and {remainingCopies} copies left and {spotsToFill.Count} spotsToFill left."
+                        $"Expected hints to be empty, but had {recHintResults.HintDefResults.Count} hints and {remainingCopies} copies left."
+                    );
+                }
+
+                // If we were supposed to fill in spots but there were unfilled
+                // spots, then throw.
+                if (grouping.useFillerHints && spotsToFill.Count > 0)
+                {
+                    throw new Exception(
+                        $"Expected spotsToFill to be empty, but had {spotsToFill.Count} spotsToFill left."
                     );
                 }
             }
@@ -824,6 +839,7 @@ namespace TPRandomizer.Hints
                 int soulsForCheck = pair.Item1;
                 string checkName = pair.Item2;
 
+                // Skip over excluded ones entirely
                 if (HintUtils.checkIsPlayerKnownStatus(checkName))
                     continue;
 
@@ -834,15 +850,21 @@ namespace TPRandomizer.Hints
                     jovani.minFoundSoulsForHint != null
                     && soulsForCheck - startingSouls < jovani.minFoundSoulsForHint;
 
-                if (failedMinSouls || failedMinFoundSouls)
-                    continue;
+                bool unhinted = failedMinSouls || failedMinFoundSouls;
 
                 CheckStatus checkStatus = genData.CalcCheckStatus(checkName);
                 // Use this CheckStatusDisplay for everything for now.
-                CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Required_Or_Not;
+                CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Required_Info;
 
                 JovaniRewardsHint.JovaniCheckInfo checkInfo =
-                    new(genData, checkName, (byte)soulsForCheck, checkStatus, checkStatusDisplay);
+                    new(
+                        genData,
+                        checkName,
+                        (byte)soulsForCheck,
+                        unhinted,
+                        checkStatus,
+                        checkStatusDisplay
+                    );
                 checkInfoList.Add(checkInfo);
 
                 // Mark check as hinted
@@ -880,7 +902,7 @@ namespace TPRandomizer.Hints
                 LocationHint hint = LocationHint.Create(
                     genData,
                     checkName,
-                    display: CheckStatusDisplay.Required_Or_Not
+                    display: CheckStatusDisplay.Required_Info
                 );
 
                 genData.hinted.alreadyCheckContentsHinted.Add(checkName);
@@ -907,7 +929,7 @@ namespace TPRandomizer.Hints
 
                 AreaId areaId = AreaId.Zone(zone);
                 List<string> checksToHint = new();
-                bool hasImportantCheck = false;
+                List<string> importantChecks = new();
                 foreach (string checkName in checkNames)
                 {
                     if (
@@ -925,23 +947,44 @@ namespace TPRandomizer.Hints
 
                         if (!itemAllowsBarrenForArea && genData.CheckIsGood(checkName))
                         {
-                            hasImportantCheck = true;
-                            break;
+                            importantChecks.Add(checkName);
                         }
                     }
                 }
 
                 if (checksToHint.Count > 0)
                 {
-                    if (hasImportantCheck)
+                    // If big keys are OwnDungeon, then we need to calculate if
+                    // the big key is included. This only happens for dungeons,
+                    // and the item we are looking for.
+
+                    bool includeBigKeyInfo = false;
+                    List<string> bigKeyChecks = null;
+                    if (genData.sSettings.bigKeySettings == BigKeySettings.Own_Dungeon)
                     {
-                        if (placeHintsOnSpots)
-                            spotToHints.addHintToSpot(spotId, new BeyondPointHint(true), true);
+                        includeBigKeyInfo = CheckForBeyondPointBigKeys(
+                            zone,
+                            checkNames,
+                            out bigKeyChecks
+                        );
                     }
-                    else
+
+                    if (placeHintsOnSpots)
                     {
-                        if (placeHintsOnSpots)
-                            spotToHints.addHintToSpot(spotId, new BeyondPointHint(false), true);
+                        spotToHints.addHintToSpot(
+                            spotId,
+                            BeyondPointHint.Create(
+                                genData,
+                                includeBigKeyInfo,
+                                importantChecks,
+                                bigKeyChecks
+                            ),
+                            true
+                        );
+                    }
+
+                    if (ListUtils.isEmpty(importantChecks))
+                    {
                         foreach (string checkName in checksToHint)
                         {
                             genData.hinted.AddNonWeightedBarrenCheck(checkName);
@@ -949,6 +992,51 @@ namespace TPRandomizer.Hints
                     }
                 }
             }
+        }
+
+        private bool CheckForBeyondPointBigKeys(
+            Zone zone,
+            HashSet<string> categoryCheckNames,
+            out List<string> checksWithBigKey
+        )
+        {
+            if (ListUtils.isEmpty(categoryCheckNames))
+                throw new Exception("Expected 'categoryCheckNames' to not be empty.");
+
+            // Init 'out'
+            checksWithBigKey = new();
+
+            Dictionary<Zone, Item> zoneToBigKey =
+                new()
+                {
+                    { Zone.Goron_Mines, Item.Goron_Mines_Key_Shard },
+                    { Zone.Lakebed_Temple, Item.Lakebed_Temple_Big_Key },
+                    { Zone.Arbiters_Grounds, Item.Arbiters_Grounds_Big_Key },
+                    { Zone.Temple_of_Time, Item.Temple_of_Time_Big_Key },
+                    { Zone.City_in_the_Sky, Item.City_in_The_Sky_Big_Key },
+                };
+
+            if (!zoneToBigKey.TryGetValue(zone, out Item bigKeyItem))
+            {
+                return false;
+            }
+
+            foreach (string checkName in categoryCheckNames)
+            {
+                if (
+                    !HintUtils.checkIsPlayerKnownStatus(checkName)
+                    && !genData.hinted.hintsShouldIgnoreChecks.Contains(checkName)
+                )
+                {
+                    Item contents = HintUtils.getCheckContents(checkName);
+                    if (contents == bigKeyItem)
+                    {
+                        checksWithBigKey.Add(checkName);
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void CreateBigKeyHints(SpotToHints spotToHints)
@@ -1322,6 +1410,48 @@ namespace TPRandomizer.Hints
             }
         }
 
+        private void PrepareUserSpecialHints(SpotToHints specialSpotToHints)
+        {
+            for (int idx = 0; idx < hintSettings.specialHintDefs.Count; idx++)
+            {
+                UserSpecialHintDef specialHintDef = hintSettings.specialHintDefs[idx];
+
+                // Not sure that the string is actually used anywhere. Value
+                // seems unimportant in any case.
+                HintGroup group = HintGroup.fromSpotId(
+                    "__specialHintDefs__",
+                    specialHintDef.spotId
+                );
+
+                // Currently only meant to generate a single hint on a single
+                // spot with this method.
+                int layerSize = 1;
+
+                HintLayerData layerData = new HintLayerData(
+                    genData,
+                    hintSettings,
+                    group,
+                    layerSize
+                );
+
+                // Generate hints according to a tree defined in JSON.
+                RecHintResults recHintResults = recursiveHandleHintDef(
+                    layerData,
+                    specialHintDef.hintDef,
+                    null,
+                    $"specialHintDef.{idx}"
+                );
+
+                if (recHintResults.didProduceHints)
+                {
+                    foreach (HintDefResult result in recHintResults.HintDefResults)
+                    {
+                        specialSpotToHints.addHintToSpot(specialHintDef.spotId, result.hint);
+                    }
+                }
+            }
+        }
+
         private void removeSpotFromMutableGroups(SpotId spotId)
         {
             foreach (KeyValuePair<string, HintGroup> pair in mutableGroups)
@@ -1446,7 +1576,8 @@ namespace TPRandomizer.Hints
                     SpotId.Hyrule_Castle_Sign,
                 };
 
-            // Do not bother adding hint to unrequired barren dungeon signs.
+            // Remove all signs in unrequiredBarren dungeons from potential
+            // spots to fill.
             if (genData.sSettings.barrenDungeons)
             {
                 if (!HintUtils.DungeonIsRequired("Forest Temple"))
@@ -1476,6 +1607,7 @@ namespace TPRandomizer.Hints
                 spotIdToHintSpot[hintSpot.location] = hintSpot;
             }
 
+            // Get a list of all hintSpots that we actually need to fill.
             List<SpotId> spotsToFill = new();
             foreach (SpotId spotId in possibleSpotsToFill)
             {
@@ -1483,7 +1615,29 @@ namespace TPRandomizer.Hints
                     !spotIdToHintSpot.TryGetValue(spotId, out HintSpot hintSpot)
                     || hintSpot.hints.Count == 0
                 )
-                    spotsToFill.Add(spotId);
+                {
+                    Zone zoneForSpot = ZoneUtils.SpotIdToZone(spotId);
+                    if (zoneForSpot == Zone.Invalid)
+                        throw new Exception($"SpotId '{spotId}' mapped to Zone.Invalid.");
+                    else if (zoneForSpot == Zone.Hyrule_Castle)
+                    {
+                        // Always add filler hints if needed to the HC sign
+                        // since players are always expected to pass it.
+                        spotsToFill.Add(spotId);
+                        break;
+                    }
+
+                    // For other zones, we only want to fill in signs for zones
+                    // which are not all excluded.
+                    foreach (string checkName in HintUtils.GetChecksForZone(zoneForSpot))
+                    {
+                        if (!HintUtils.checkIsPlayerKnownStatus(checkName))
+                        {
+                            spotsToFill.Add(spotId);
+                            break;
+                        }
+                    }
+                }
             }
 
             AddFillerHintsToSpots(
@@ -1910,6 +2064,7 @@ namespace TPRandomizer.Hints
                 foreach (HintDefResult result in pickedForStarting)
                 {
                     startingHints.Add(result.hint);
+                    genData.vars.OnPickedStartingHint(result.hint);
                 }
 
                 int numPenaltiesShouldHavePaid = 0;

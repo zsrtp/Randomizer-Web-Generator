@@ -1066,7 +1066,12 @@ namespace TPRandomizer
             }
 
             // Always add the fallback text
-            results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Custom_Sign_Fallback, "..."));
+            results.Add(
+                CustomMsgUtils.GetEntry(
+                    MsgEntryId.Custom_Sign_Fallback,
+                    Res.LangSpecificNormalize(Res.SimpleMsg("hint.none-placed-here"))
+                )
+            );
         }
 
         private void AddShopSlotMsg(
@@ -1254,7 +1259,8 @@ namespace TPRandomizer
             string prefStartColor = null,
             string prefEndColor = null,
             bool? capitalize = null,
-            CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.None
+            CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.None,
+            bool isLogicalItem = true
         )
         {
             string context = isShop ? "" : contextIn;
@@ -1267,7 +1273,7 @@ namespace TPRandomizer
             // logic.
             if (
                 sSettings.logicRules == LogicRules.No_Logic
-                && checkStatusDisplay == CheckStatusDisplay.Required_Or_Not
+                && checkStatusDisplay == CheckStatusDisplay.Required_Info
             )
             {
                 checkStatusDisplay = CheckStatusDisplay.Automatic;
@@ -1301,20 +1307,26 @@ namespace TPRandomizer
                     // the default green.
                     startColor = CustomMessages.messageColorGreen;
                 }
-                else if (checkStatusDisplay == CheckStatusDisplay.Required_Or_Not)
+                else if (checkStatusDisplay == CheckStatusDisplay.Required_Info)
                 {
                     if (checkStatus == CheckStatus.Required)
                     {
                         startColor = CustomMessages.messageColorBlue;
-                        postItemText = " " + Res.SimpleMsg("description.required-check", null);
+                        if (isLogicalItem)
+                            postItemText = " " + Res.SimpleMsg("description.required-check", null);
+                    }
+                    else if (checkStatus == CheckStatus.Bad)
+                    {
+                        startColor = CustomMessages.messageColorPurple;
+                        if (isLogicalItem)
+                            postItemText =
+                                " " + Res.SimpleMsg("description.unrequired-check", null);
                     }
                     else
                     {
-                        postItemText = " " + Res.SimpleMsg("description.unrequired-check", null);
-                        if (checkStatus == CheckStatus.Bad)
-                            startColor = CustomMessages.messageColorPurple;
-                        else
-                            startColor = CustomMessages.messageColorGreen;
+                        startColor = CustomMessages.messageColorGreen;
+                        if (isLogicalItem)
+                            postItemText = " " + Res.SimpleMsg("description.skippable-check", null);
                     }
                 }
                 else if (checkStatusDisplay == CheckStatusDisplay.Good_Or_Not)
@@ -1332,6 +1344,14 @@ namespace TPRandomizer
                             postItemText = " " + Res.SimpleMsg("description.bad-check", null);
                         else
                             postItemText = " " + Res.SimpleMsg("description.good-check", null);
+                    }
+                    else if (isLogicalItem && checkStatus == CheckStatus.Bad)
+                    {
+                        // If item is a logicalItem which is bad for some
+                        // reason, then explicitly call it out. For example, if
+                        // a bomb bag is considered bad because a different bomb
+                        // bag is on a logically required check.
+                        postItemText = " " + Res.SimpleMsg("description.bad-check", null);
                     }
 
                     if (checkStatus == CheckStatus.Bad)
