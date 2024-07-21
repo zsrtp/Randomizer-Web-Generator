@@ -1,6 +1,18 @@
 {
-    //This logic accounts for having either 2 keys and the ability to defeat Deku Toad or 3 keys. This does NOT logically require dropping from the first floor, but serves as a form of softlock prevention in case the user does and attempts to misuse their keys.
-    "requirements": "(CanDefeatDekuToad and (Lakebed_Temple_Small_Key, 2) and Zora_Armor and Iron_Boots and CanUseWaterBombs and (Progressive_Clawshot, 1)) or (((Lakebed_Temple_Small_Key,3) or (Setting.smallKeySettings equals Keysy)) and (canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash)))",
-    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Small Key", "ARC"],
-    "itemId": "Lakebed_Temple_Small_Key"
+  // For Vanilla small keys we need to be able to place a small key in this
+  // chest. In this case, the logic requires that you have the ability to access
+  // the chest by beating Deku Toad since you could glitchlessly go spend your
+  // 2nd key on the door to the miniboss and not on making the platforms rotate
+  // (this is to prevent softlocks).
+
+  // If small keys are not Vanilla or Keysy, then we do not want to place the
+  // 3rd small key in this chest. The reason is that the underwater chests
+  // before the Deku Toad logically require 3 keys, and if we put the 3rd small
+  // key here, then the player is logically expected to go through Deku Toad and
+  // pass the underwater chests in order to get the key from this chest in order
+  // to access the underwater chests which they just walked past. This can lead
+  // to nonsensical Path hints.
+  "requirements": "((Setting.smallKeySettings equals Vanilla) and CanDefeatDekuToad and (Lakebed_Temple_Small_Key, 2) and Zora_Armor and Iron_Boots and CanUseWaterBombs and (Progressive_Clawshot, 1)) or (((Lakebed_Temple_Small_Key,3) or (Setting.smallKeySettings equals Keysy)) and (canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash)))",
+  "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Small Key", "ARC"],
+  "itemId": "Lakebed_Temple_Small_Key"
 }
