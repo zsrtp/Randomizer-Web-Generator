@@ -246,7 +246,7 @@
       },
       {
         "ConnectedArea": "Ordon Bridge",
-        "Requirements": "(HasSword and Slingshot) or (Setting.skipPrologue equals True)"
+        "Requirements": "(Room.Outside_Links_House and HasSword and Slingshot) or (Setting.skipPrologue equals True)"
       }
     ],
     "Checks":
@@ -261,7 +261,7 @@
     [
       {
         "ConnectedArea": "Ordon Spring",
-        "Requirements": "(HasSword and Slingshot) or (Setting.skipPrologue equals True)"
+        "Requirements": "(Room.Outside_Links_House and HasSword and Slingshot) or (Setting.skipPrologue equals True)"
       },
       {
         "ConnectedArea": "South Faron Woods",
