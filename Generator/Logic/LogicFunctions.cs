@@ -1803,18 +1803,16 @@ namespace TPRandomizer
                     ].ReachedByPlaythrough
                     && Randomizer.Rooms.RoomDict["North Faron Woods"].ReachedByPlaythrough
                     && Randomizer.Rooms.RoomDict["Ordon Sword House"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Ordon Shield House"].ReachedByPlaythrough
                     && (
-                        Randomizer.Rooms.RoomDict["Ordon Shield House"].ReachedByPlaythrough
-                        && (
-                            !Randomizer.SSettings.bonksDoDamage
-                            || (
-                                Randomizer.SSettings.bonksDoDamage
-                                && (
-                                    (
-                                        Randomizer.SSettings.damageMagnification
-                                        != DamageMagnification.OHKO
-                                    ) || CanUseBottledFairies()
-                                )
+                        !Randomizer.SSettings.bonksDoDamage
+                        || (
+                            Randomizer.SSettings.bonksDoDamage
+                            && (
+                                (
+                                    Randomizer.SSettings.damageMagnification
+                                    != DamageMagnification.OHKO
+                                ) || CanUseBottledFairies()
                             )
                         )
                     )
@@ -1827,7 +1825,22 @@ namespace TPRandomizer
         public static bool CanCompleteEldinTwilight()
         {
             return Randomizer.SSettings.eldinTwilightCleared
-                || (canCompletePrologue() && canClearForest());
+                || (
+                    canCompletePrologue()
+                    && canClearForest()
+                    && (
+                        !Randomizer.SSettings.bonksDoDamage
+                        || (
+                            Randomizer.SSettings.bonksDoDamage
+                            && (
+                                (
+                                    Randomizer.SSettings.damageMagnification
+                                    != DamageMagnification.OHKO
+                                ) || CanUseBottledFairies()
+                            )
+                        )
+                    )
+                );
         }
 
         public static bool CanCompleteLanayruTwilight()
@@ -1839,12 +1852,23 @@ namespace TPRandomizer
                         || CanUse(Item.Shadow_Crystal)
                     )
                     && Randomizer.Rooms.RoomDict["Zoras Domain"].ReachedByPlaythrough
-                    && Randomizer.Rooms.RoomDict["Zoras Domain"].ReachedByPlaythrough
                     && Randomizer.Rooms.RoomDict["Zoras Throne Room"].ReachedByPlaythrough
                     && Randomizer.Rooms.RoomDict["Upper Zoras River"].ReachedByPlaythrough
                     && Randomizer.Rooms.RoomDict["Lake Hylia"].ReachedByPlaythrough
                     && Randomizer.Rooms.RoomDict["Lake Hylia Lanayru Spring"].ReachedByPlaythrough
                     && Randomizer.Rooms.RoomDict["Castle Town South"].ReachedByPlaythrough
+                    && (
+                        !Randomizer.SSettings.bonksDoDamage
+                        || (
+                            Randomizer.SSettings.bonksDoDamage
+                            && (
+                                (
+                                    Randomizer.SSettings.damageMagnification
+                                    != DamageMagnification.OHKO
+                                ) || CanUseBottledFairies()
+                            )
+                        )
+                    )
                 );
         }
 
