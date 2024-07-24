@@ -1,5 +1,5 @@
 {
-    "requirements": "CanCompleteMDH and Shadow_Crystal",
+    "requirements": "CanCompleteMDH and Shadow_Crystal and CanCompleteAllTwilight",
     "checkCategory": ["Overworld", "Poe", "Hyrule Field - Lanayru Province"],
     "itemId": "Poe_Soul"
 }

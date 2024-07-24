@@ -1830,6 +1830,33 @@ namespace TPRandomizer
                 || (canCompletePrologue() && canClearForest());
         }
 
+        public static bool CanCompleteLanayruTwilight()
+        {
+            return Randomizer.SSettings.lanayruTwilightCleared
+                || (
+                    (
+                        Randomizer.Rooms.RoomDict["North Eldin Field"].ReachedByPlaythrough
+                        || CanUse(Item.Shadow_Crystal)
+                    )
+                    && Randomizer.Rooms.RoomDict["Zoras Domain"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Zoras Domain"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Zoras Throne Room"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Upper Zoras River"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Lake Hylia"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Lake Hylia Lanayru Spring"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Castle Town South"].ReachedByPlaythrough
+                );
+        }
+
+        public static bool CanCompleteAllTwilight()
+        {
+            return (
+                CanCompleteFaronTwilight()
+                && CanCompleteEldinTwilight()
+                && CanCompleteLanayruTwilight()
+            );
+        }
+
         /// <summary>
         /// summary text.
         /// </summary>
