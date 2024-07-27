@@ -173,12 +173,12 @@
     <value>$(plural)the {cs}2 lantern chests in Lake Lantern Cave{ce}</value>
     <comment></comment>
   </data>
-  <data name="area.category.lower_desert" xml:space="preserve">
-    <value>the {cs}lower desert{ce}</value>
-    <comment></comment>
-  </data>
   <data name="area.category.mist" xml:space="preserve">
     <value>$(ap:behind)purple mist</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.northern_desert" xml:space="preserve">
+    <value>the {cs}northern desert{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.owl_statue" xml:space="preserve">
@@ -193,6 +193,10 @@
     <value>$(ap:behind,plural)Owl Statues</value>
     <comment></comment>
   </data>
+  <data name="area.category.southern_desert" xml:space="preserve">
+    <value>the {cs}southern desert{ce}</value>
+    <comment></comment>
+  </data>
   <data name="area.category.underwater" xml:space="preserve">
     <value>$(ap:none)underwater</value>
     <comment></comment>
@@ -203,10 +207,6 @@
   </data>
   <data name="area.category.underwater$trade-chain" xml:space="preserve">
     <value>$(ap:none,trade-chain)found {cs}underwater{ce}</value>
-    <comment></comment>
-  </data>
-  <data name="area.category.upper_desert" xml:space="preserve">
-    <value>the {cs}upper desert{ce}</value>
     <comment></comment>
   </data>
   <data name="area.province.desert" xml:space="preserve">
