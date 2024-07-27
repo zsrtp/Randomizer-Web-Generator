@@ -167,7 +167,7 @@
                 "hintType": "barren",
                 "options": {
                   "areaType": "category",
-                  "validAreas": ["Mist", "Upper_Desert", "Lower_Desert"]
+                  "validAreas": ["Mist", "Northern_Desert", "Southern_Desert"]
                 }
               },
               {

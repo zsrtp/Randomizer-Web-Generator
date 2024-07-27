@@ -15,8 +15,8 @@ namespace TPRandomizer.Hints
         Owl_Statue = 4,
         Llc_Lantern_Chests = 5,
         Underwater = 6,
-        Upper_Desert = 7,
-        Lower_Desert = 8,
+        Southern_Desert = 7,
+        Northern_Desert = 8,
         Goron_Mines_2nd_Part = 9,
         Temple_of_Time_2nd_Half = 10,
         City_in_the_Sky_East_Wing = 11,
@@ -149,7 +149,7 @@ namespace TPRandomizer.Hints
                     }
                 },
                 {
-                    HintCategory.Upper_Desert,
+                    HintCategory.Southern_Desert,
                     new[]
                     {
                         "Gerudo Desert East Canyon Chest",
@@ -167,7 +167,7 @@ namespace TPRandomizer.Hints
                     }
                 },
                 {
-                    HintCategory.Lower_Desert,
+                    HintCategory.Northern_Desert,
                     new[]
                     {
                         "Gerudo Desert Campfire East Chest",
@@ -338,8 +338,8 @@ namespace TPRandomizer.Hints
                 { HintCategory.Owl_Statue, "Owl_Statue" },
                 { HintCategory.Llc_Lantern_Chests, "Llc_Lantern_Chests" },
                 { HintCategory.Underwater, "Underwater" },
-                { HintCategory.Upper_Desert, "Upper_Desert" },
-                { HintCategory.Lower_Desert, "Lower_Desert" },
+                { HintCategory.Southern_Desert, "Southern_Desert" },
+                { HintCategory.Northern_Desert, "Northern_Desert" },
                 { HintCategory.Goron_Mines_2nd_Part, "Goron_Mines_2nd_Part" },
                 { HintCategory.Temple_of_Time_2nd_Half, "Temple_of_Time_2nd_Half" },
                 { HintCategory.City_in_the_Sky_East_Wing, "City_in_the_Sky_East_Wing" },

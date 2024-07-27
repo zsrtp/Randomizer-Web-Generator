@@ -165,12 +165,12 @@
     <value>$(ap:dans,plural)les {cs}Coffres Lanternes de la Grotte Lanterne du Lac{ce}</value>
     <comment></comment>
   </data>
-  <data name="area.category.lower_desert" xml:space="preserve">
-    <value>$(ap:dans)la {cs}partie Basse du Désert{ce}</value>
-    <comment></comment>
-  </data>
   <data name="area.category.mist" xml:space="preserve">
     <value>$(ap:derriere)le {cs}Brouillard Mauve{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.northern_desert" xml:space="preserve">
+    <value>$(ap:dans)la {cs}partie nord du désert{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.owl_statue" xml:space="preserve">
@@ -185,6 +185,10 @@
     <value>$(ap:pres-de,plural)les {cs}Statues de Hibou{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.southern_desert" xml:space="preserve">
+    <value>$(ap:dans)la {cs}partie sud du désert{ce}</value>
+    <comment></comment>
+  </data>
   <data name="area.category.underwater" xml:space="preserve">
     <value>$(ap:none)sous l&apos;eau</value>
     <comment></comment>
@@ -195,10 +199,6 @@
   </data>
   <data name="area.category.underwater$default" xml:space="preserve">
     <value>$(ap:none)plonger {cs}sous l&apos;eau{ce}</value>
-    <comment></comment>
-  </data>
-  <data name="area.category.upper_desert" xml:space="preserve">
-    <value>$(ap:dans)la {cs}partie Haute du Désert{ce}</value>
     <comment></comment>
   </data>
   <data name="area.province.desert" xml:space="preserve">

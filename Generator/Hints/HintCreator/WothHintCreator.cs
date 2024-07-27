@@ -21,8 +21,8 @@ namespace TPRandomizer.Hints.HintCreator
                 HintCategory.Owl_Statue,
                 HintCategory.Llc_Lantern_Chests,
                 HintCategory.Underwater,
-                HintCategory.Upper_Desert,
-                HintCategory.Lower_Desert,
+                HintCategory.Southern_Desert,
+                HintCategory.Northern_Desert,
             };
 
         private static readonly HashSet<AreaId.AreaType> validAreaTypes =
