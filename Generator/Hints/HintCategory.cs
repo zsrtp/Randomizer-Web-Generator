@@ -274,6 +274,7 @@ namespace TPRandomizer.Hints
                         "Arbiters Grounds Spinner Room Stalfos Alcove Chest",
                         "Arbiters Grounds Death Sword Chest",
                         "Arbiters Grounds Stallord Heart Container",
+                        "Arbiters Grounds Dungeon Reward",
                     }
                 },
                 {
