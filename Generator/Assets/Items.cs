@@ -947,15 +947,24 @@ namespace TPRandomizer
                         updateItemToCount(RandomizedImportantItems, kv.Key, kv.Value);
                     }
 
-                    // Reduce swords to 3 if barrenDungeons is on and Palace of
-                    // Twilight is not required.
-                    if (
-                        Randomizer.SSettings.barrenDungeons
-                        && (Randomizer.RequiredDungeons & 0x80) == 0
-                    )
-                    {
-                        updateItemToCount(RandomizedImportantItems, Item.Progressive_Sword, 3);
-                    }
+                    // TODO: RequiredDungeons not filled out at this point.
+                    // Disabling this as the low effort fix. To support removing
+                    // a sword when PoT is required, we would need to make sure
+                    // Randomizer.RequiredDungeons is available at this point.
+                    // Right now finding the required dungeons depends on
+                    // running a procedure which is dependent on the output of
+                    // this function (kind of a circular dependency), so a
+                    // different fix would be much higher effort.
+
+                    // // Reduce swords to 3 if barrenDungeons is on and Palace of
+                    // // Twilight is not required.
+                    // if (
+                    //     Randomizer.SSettings.barrenDungeons
+                    //     && (Randomizer.RequiredDungeons & 0x80) == 0
+                    // )
+                    // {
+                    //     updateItemToCount(RandomizedImportantItems, Item.Progressive_Sword, 3);
+                    // }
 
                     // Remove Magic Armor if Glitchless Logic
                     if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
