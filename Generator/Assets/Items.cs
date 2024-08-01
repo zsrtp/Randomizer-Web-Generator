@@ -867,49 +867,6 @@ namespace TPRandomizer
                 }
             }
 
-            foreach ((string checkName, Item item) in parseSetting.plandoChecks)
-            {
-                switch (item)
-                {
-                    case Item.Progressive_Hidden_Skill:
-                    {
-                        if (parseSetting.itemScarcity == ItemScarcity.Minimal)
-                        {
-                            // We want to remove all of the hidden skills from the pool if someone has plandoed them in on a minimal setting
-                            updateItemToCount(
-                                RandomizedImportantItems,
-                                Item.Progressive_Hidden_Skill,
-                                0
-                            );
-                        }
-                        break;
-                    }
-
-                    case Item.Heart_Container:
-                    {
-                        if (getItemCount(this.alwaysItems, item) == 0)
-                        {
-                            for (int i = 0; i < 5; i++)
-                            {
-                                RemoveItem(Item.Piece_of_Heart);
-                            }
-                        }
-                        else
-                        {
-                            RemoveItem(item);
-                        }
-                        break;
-                    }
-
-                    default:
-                    {
-                        Console.WriteLine("remove " + item.ToString());
-                        RemoveItem(item);
-                        break;
-                    }
-                }
-            }
-
             // Adjust item pool based on itemScarcity setting.
             switch (parseSetting.itemScarcity)
             {
@@ -966,7 +923,7 @@ namespace TPRandomizer
                     //     updateItemToCount(RandomizedImportantItems, Item.Progressive_Sword, 3);
                     // }
 
-                    // Remove Magic Armor if Glitchless Logic
+                    // Remove Magic Armor if Glitchless Logic and update the hidden skill count to 1
                     if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
                     {
                         updateItemToCount(RandomizedImportantItems, Item.Magic_Armor, 0);
@@ -1049,6 +1006,35 @@ namespace TPRandomizer
 
                 default:
                     break;
+            }
+
+            foreach ((string checkName, Item item) in parseSetting.plandoChecks)
+            {
+                switch (item)
+                {
+                    case Item.Heart_Container:
+                    {
+                        if (getItemCount(this.alwaysItems, item) == 0)
+                        {
+                            for (int i = 0; i < 5; i++)
+                            {
+                                RemoveItem(Item.Piece_of_Heart);
+                            }
+                        }
+                        else
+                        {
+                            RemoveItem(item);
+                        }
+                        break;
+                    }
+
+                    default:
+                    {
+                        Console.WriteLine("remove " + item.ToString());
+                        RemoveItem(item);
+                        break;
+                    }
+                }
             }
 
             if (parseSetting.skipPrologue)
