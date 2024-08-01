@@ -8,6 +8,7 @@ namespace TPRandomizer
 {
     public class Global
     {
+        private static IServiceProvider provider;
         public static string outputPath { get; }
         public static string rootPath { get; }
         public static byte[] seedHashSecret { get; }
@@ -56,7 +57,15 @@ namespace TPRandomizer
             Directory.CreateDirectory(outputPath);
         }
 
-        public static void Init() { }
+        public static void Init(IServiceProvider providerIn)
+        {
+            provider = providerIn;
+        }
+
+        public static IServiceProvider GetServiceProvider()
+        {
+            return provider;
+        }
 
         public static string CombineOutputPath(params string[] paths)
         {

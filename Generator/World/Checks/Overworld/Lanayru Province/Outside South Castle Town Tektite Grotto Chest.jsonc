@@ -1,9 +1,5 @@
 {
     "requirements": "CanDefeatTektite",
-    "hash": ["0245"],
-    "stageIDX": [39],
-    "dzxTag": ["TRES"],
-    "category": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "DZX"],
-    "itemId": "Orange_Rupee",
-    "actrData": [["74", "62", "6F", "78", "42", "31", "00", "00", "FF", "10", "10", "41", "C3", "70", "56", "62", "C1", "D9", "5C", "29", "C4", "CF", "83", "76", "00", "0F", "00", "00", "06", "FF", "FF", "FF"]]
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "DZX"],
+    "itemId": "Orange_Rupee"
 }

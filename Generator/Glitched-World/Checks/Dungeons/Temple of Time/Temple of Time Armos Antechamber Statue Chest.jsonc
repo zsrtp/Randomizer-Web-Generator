@@ -1,10 +1,5 @@
 {
-    "requirements": "(Progressive_Dominion_Rod, 1)",
-    "arcOffsets": ["74C"],
-    "stageIDX": [9],
-    "roomIDX": 3,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Temple of Time", "ARC"],
+    "requirements": "true",
+    "checkCategory": ["Chest", "Dungeon", "Temple of Time"],
     "itemId": "Piece_of_Heart"
 }

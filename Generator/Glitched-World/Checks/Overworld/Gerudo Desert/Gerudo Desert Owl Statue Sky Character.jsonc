@@ -2,6 +2,6 @@
     "requirements": "(Progressive_Dominion_Rod, 2)",
     "stageIDX": [59],
     "roomIDX": 0,
-    "category": ["Overworld", "Gerudo Desert", "Sky Book"],
+    "checkCategory": ["Overworld", "Gerudo Desert", "Sky Book"],
     "itemId": "Progressive_Sky_Book"
 }

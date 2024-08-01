@@ -1,10 +1,5 @@
 {
     "requirements": "(Progressive_Dominion_Rod, 2)",
-    "arcOffsets": ["15F8"],
-    "stageIDX": [59],
-    "roomIDX": 0,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Gerudo Desert", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Gerudo Desert", "ARC"],
     "itemId": "Orange_Rupee"
 }

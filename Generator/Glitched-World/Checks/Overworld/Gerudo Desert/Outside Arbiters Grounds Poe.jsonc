@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal",
     "stageIDX": [55],
     "flag": "5A",
-    "category": ["Overworld", "Poe", "Bulblin Camp"],
+    "checkCategory": ["Overworld", "Poe", "Bulblin Camp"],
     "itemId": "Poe_Soul"
 }

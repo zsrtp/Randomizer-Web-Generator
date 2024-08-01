@@ -1,7 +1,5 @@
 {
     "requirements": "Shadow_Crystal and canSmash and Lantern",
-    "stageIDX": [33],
-    "flag": "5E",
-    "category": ["Overworld", "Poe", "Lake Lantern Cave"],
+    "checkCategory": ["Overworld", "Poe", "Lake Lantern Cave"],
     "itemId": "Poe_Soul"
 }

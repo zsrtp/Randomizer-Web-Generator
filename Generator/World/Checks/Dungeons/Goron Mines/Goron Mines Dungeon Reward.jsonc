@@ -1,13 +1,5 @@
 {
     "requirements": "CanDefeatFyrus",
-    "moduleID": ["5B"],
-    "stageIDX": [4],
-    "relOffsets": ["1880"],
-    "overrideInstruction": ["38600000"],
-    "arcOffsets": ["3946"],
-    "fileDirectoryType": [3],
-    "replacementType": [2],
-    "relReplacementType": [0],
-    "category": ["Dungeon", "Goron Mines", "Dungeon Reward", "REL", "ARC"],
+    "checkCategory": ["Dungeon", "Goron Mines", "Dungeon Reward", "REL", "ARC"],
     "itemId": "Progressive_Fused_Shadow"
 }

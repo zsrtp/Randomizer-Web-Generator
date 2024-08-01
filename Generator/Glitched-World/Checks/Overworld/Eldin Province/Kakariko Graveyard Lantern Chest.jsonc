@@ -5,6 +5,6 @@
     "roomIDX": 0,
     "fileDirectoryType": [0],
     "replacementType": [0],
-    "category": ["Overworld", "Chest", "Kakariko Graveyard", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Kakariko Graveyard", "ARC"],
     "itemId": "Purple_Rupee"
 }

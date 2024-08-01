@@ -1,10 +1,5 @@
 {
     "requirements": "Boomerang",
-    "arcOffsets": ["2B0"],
-    "stageIDX": [20],
-    "roomIDX": 14,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Hyrule Castle", "Dungeon Items", "Dungeon Map", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle", "Dungeon Items", "Dungeon Map", "ARC"],
     "itemId": "Hyrule_Castle_Dungeon_Map"
 }

@@ -1,10 +1,5 @@
 {
-    "requirements": "(((Snowpeak_Ruins_Small_Key, 3) and Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)) and Ball_and_Chain",
-    "arcOffsets": ["8AC"],
-    "stageIDX": [27],
-    "roomIDX": 0,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Snowpeak Ruins", "ARC"],
+    "requirements": "((((Snowpeak_Ruins_Small_Key, 3) and Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)) and Ball_and_Chain) or (Shadow_Crystal and CanDoLJA)",
+    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins"],
     "itemId": "Piece_of_Heart"
 }

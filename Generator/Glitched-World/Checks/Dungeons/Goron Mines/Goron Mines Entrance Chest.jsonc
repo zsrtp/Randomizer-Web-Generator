@@ -1,10 +1,5 @@
 {
     "requirements": "CanDoBSMoonBoots or canBreakWoodenDoor",
-    "arcOffsets": ["16D4"],
-    "stageIDX": [3],
-    "roomIDX": 1,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Goron Mines", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Goron Mines"],
     "itemId": "Red_Rupee"
 }

@@ -1,10 +1,5 @@
 {
   "requirements": "Room.Goron_Mines_Upper_East_Wing and CanDefeatDangoro and CanDefeatBeamos",
-  "arcOffsets": ["169C"],
-    "stageIDX": [3],
-    "roomIDX": 3,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Goron Mines", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Goron Mines"],
   "itemId": "Purple_Rupee"
 }

@@ -1,10 +1,5 @@
 {
-    "requirements": "Iron_Boots",
-    "arcOffsets": ["E90"],
-    "stageIDX": [34],
-    "roomIDX": 10,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Eldin Stockcave", "ARC"],
+    "requirements": "true",
+    "checkCategory": ["Overworld", "Chest", "Eldin Stockcave", "ARC"],
     "itemId": "Piece_of_Heart"
 }

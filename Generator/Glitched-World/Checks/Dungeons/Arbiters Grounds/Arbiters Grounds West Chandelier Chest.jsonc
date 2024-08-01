@@ -1,10 +1,6 @@
 {
-  "requirements": "((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and Shadow_Crystal",
-  "arcOffsets": ["7F4"],
-  "stageIDX": [24],
-  "roomIDX": 6,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Arbiters Grounds", "ARC" ],
+  // Either coming from East Wing or doing Poe 1 Skip LJA
+  "requirements": "(((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and Shadow_Crystal) or CanDoLJA",
+  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds" ],
   "itemId": "Red_Rupee"
 }

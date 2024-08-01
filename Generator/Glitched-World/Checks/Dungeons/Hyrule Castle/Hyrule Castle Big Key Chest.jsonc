@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["3F8"],
-    "stageIDX": [20],
-    "roomIDX": 15,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Hyrule Castle", "Big Key", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle", "Big Key"],
     "itemId": "Hyrule_Castle_Big_Key"
 }

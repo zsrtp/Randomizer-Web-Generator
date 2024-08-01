@@ -1,9 +1,9 @@
 {
-    "requirements": "(Poe_Soul, 20) and Shadow_Crystal and ((Setting.skipMdh equals True) or canCompleteLakebedTemple)",
+    "requirements": "(Poe_Soul, 20)",
     "arcOffsets": ["421F"],
     "stageIDX": [73],
     "fileDirectoryType": [1],
     "replacementType": [0],
-    "category": ["Overworld", "Npc", "Castle Town", "ARC"],
+    "checkCategory": ["Overworld", "Npc", "Castle Town", "ARC"],
     "itemId": "Jovani_Bottle"
 }

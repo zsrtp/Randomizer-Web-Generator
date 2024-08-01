@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["450"],
-    "stageIDX": [65],
-    "roomIDX": 4,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Ordona Province", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Ordona Province", "ARC"],
     "itemId": "Progressive_Sword"
 }

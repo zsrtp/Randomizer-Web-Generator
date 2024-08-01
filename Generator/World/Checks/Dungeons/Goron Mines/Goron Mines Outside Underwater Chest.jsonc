@@ -1,10 +1,5 @@
 {
     "requirements": "(HasSword or CanUseWaterBombs) and Iron_Boots",
-    "arcOffsets": ["F18"],
-    "stageIDX": [3],
-    "roomIDX": 7,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Goron Mines", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Goron Mines", "ARC"],
     "itemId": "Purple_Rupee"
 }

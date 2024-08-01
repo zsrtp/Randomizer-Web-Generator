@@ -1,0 +1,2088 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"></xsd:import>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"></xsd:element>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="mimetype" type="xsd:string"></xsd:attribute>
+              <xsd:attribute ref="xml:space"></xsd:attribute>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"></xsd:element>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"></xsd:attribute>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"></xsd:attribute>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"></xsd:attribute>
+              <xsd:attribute ref="xml:space"></xsd:attribute>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="area-phrase.dans" xml:space="preserve">
+    <value>dans {area}</value>
+    <comment></comment>
+  </data>
+  <data name="area-phrase.default" xml:space="preserve">
+    <value>à {area}</value>
+    <comment></comment>
+  </data>
+  <data name="area-phrase.derriere" xml:space="preserve">
+    <value>derrière {area}</value>
+    <comment></comment>
+  </data>
+  <data name="area-phrase.none" xml:space="preserve">
+    <value>{area}</value>
+    <comment></comment>
+  </data>
+  <data name="area-phrase.pres-de" xml:space="preserve">
+    <value>près de {area}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.golden_wolf" xml:space="preserve">
+    <value>le {cs}Loup Doré{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto" xml:space="preserve">
+    <value>$(ap:dans)une {cs}Grotte secrète{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto$default" xml:space="preserve">
+    <value>$(ap:dans,plural)les {cs}Grottes secrètes{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto$plural" xml:space="preserve">
+    <value>$(ap:dans,plural)les {cs}Grottes secrètes{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.llc_lantern_chests" xml:space="preserve">
+    <value>$(ap:dans)un {cs}Coffre Lanterne de la Grotte Lanterne du Lac{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.llc_lantern_chests$default" xml:space="preserve">
+    <value>$(ap:dans,plural)les {cs}Coffres Lanternes de la Grotte Lanterne du Lac{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.llc_lantern_chests$plural" xml:space="preserve">
+    <value>$(ap:dans,plural)les {cs}Coffres Lanternes de la Grotte Lanterne du Lac{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.mist" xml:space="preserve">
+    <value>$(ap:derriere)le {cs}Brouillard Mauve{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.northern_desert" xml:space="preserve">
+    <value>$(ap:dans)la {cs}partie nord du désert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.owl_statue" xml:space="preserve">
+    <value>$(ap:pres-de)une {cs}Statue de Hibou{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.owl_statue$default" xml:space="preserve">
+    <value>$(ap:pres-de,plural)les {cs}Statues de Hibou{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.owl_statue$plural" xml:space="preserve">
+    <value>$(ap:pres-de,plural)les {cs}Statues de Hibou{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.southern_desert" xml:space="preserve">
+    <value>$(ap:dans)la {cs}partie sud du désert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater" xml:space="preserve">
+    <value>$(ap:none)sous l&apos;eau</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater$barren" xml:space="preserve">
+    <value>$(ap:none,barren)en plongeant {cs}sous l&apos;eau{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater$default" xml:space="preserve">
+    <value>$(ap:none)plonger {cs}sous l&apos;eau{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.desert" xml:space="preserve">
+    <value>$(ap:dans)la {cs}Région du Désert Gerudo{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.dungeon" xml:space="preserve">
+    <value>$(ap:dans)un {cs}Donjon{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.dungeon$default" xml:space="preserve">
+    <value>$(ap:dans,plural)les {cs}Donjons{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.dungeon$plural" xml:space="preserve">
+    <value>$(ap:dans,plural)les {cs}Donjons{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.eldin" xml:space="preserve">
+    <value>$(ap:dans)la {cs}Région d&apos;Ordinn{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.faron" xml:space="preserve">
+    <value>$(ap:dans)la {cs}Région de Firone{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.lanayru" xml:space="preserve">
+    <value>$(ap:dans)la {cs}Région de Lanelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.ordona" xml:space="preserve">
+    <value>Latouane</value>
+    <comment></comment>
+  </data>
+  <data name="area.province.peak" xml:space="preserve">
+    <value>$(ap:dans)la {cs}Région des Pics Blancs{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.agithas_castle" xml:space="preserve">
+    <value>le {cs}Château de Machaon{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.arbiters_grounds" xml:space="preserve">
+    <value>la {cs}Tour du Jugement{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.beside_castle_town" xml:space="preserve">
+    <value>$(plural)les {cs}Abords de la Citadelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.bulblin_camp" xml:space="preserve">
+    <value>le {cs}Camp des Bulblins{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.castle_town" xml:space="preserve">
+    <value>la {cs}Citadelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.cave_of_ordeals" xml:space="preserve">
+    <value>la {cs}Caverne de l&apos;Ordalie{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.city_in_the_sky" xml:space="preserve">
+    <value>Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.death_mountain" xml:space="preserve">
+    <value>la {cs}Montagne de la Mort{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.eldin_field" xml:space="preserve">
+    <value>la {cs}Plaine de Ordinn{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.faron_field" xml:space="preserve">
+    <value>la {cs}Plaine de Firone{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.faron_woods" xml:space="preserve">
+    <value>la {cs}Forêt de Firone{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.forest_temple" xml:space="preserve">
+    <value>le {cs}Temple Sylvestre{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.gerudo_desert" xml:space="preserve">
+    <value>le {cs}Désert Gerudo{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.goron_mines" xml:space="preserve">
+    <value>$(plural)les {cs}Mines Gorons{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.great_bridge_of_hylia" xml:space="preserve">
+    <value>le {cs}Viaduc d&apos;Hylia{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.hidden_village" xml:space="preserve">
+    <value>le {cs}Village oublié{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.hyrule_castle" xml:space="preserve">
+    <value>le {cs}Château d&apos;Hyrule{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.kakariko_gorge" xml:space="preserve">
+    <value>$(plural)les {cs}Gorges de Cocorico{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.kakariko_graveyard" xml:space="preserve">
+    <value>le {cs}Cimetière de Cocorico{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.kakariko_village" xml:space="preserve">
+    <value>le {cs}Village Cocorico{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lake_hylia" xml:space="preserve">
+    <value>le {cs}Lac Hylia{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lake_lantern_cave" xml:space="preserve">
+    <value>la {cs}Grotte Laterne du Lac{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lakebed_temple" xml:space="preserve">
+    <value>le {cs}Temple Abyssal{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lanayru_field" xml:space="preserve">
+    <value>la {cs}Plaine de Lanelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lanayru_spring" xml:space="preserve">
+    <value>la {cs}Source de Lanelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.north_eldin" xml:space="preserve">
+    <value>{que-transform}Ordinn Nord</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.ordon" xml:space="preserve">
+    <value>Toal</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.palace_of_twilight" xml:space="preserve">
+    <value>le {cs}Palais du Crépuscule{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.sacred_grove" xml:space="preserve">
+    <value>le {cs}Sanctuaire de la Forêt{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.snowpeak" xml:space="preserve">
+    <value>$(plural)les {cs}Pics Blancs{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.snowpeak_ruins" xml:space="preserve">
+    <value>$(plural)les {cs}Ruines des Pics Blancs{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.south_of_castle_town" xml:space="preserve">
+    <value>le {cs}Sud de la Citadelle{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.temple_of_time" xml:space="preserve">
+    <value>le {cs}Temple du Temps{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.upper_zoras_river" xml:space="preserve">
+    <value>l&apos;{cs}Amont de la Rivière Zora{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.upper_zoras_river$trade-chain" xml:space="preserve">
+    <value>$(ap:none,trade-chain)en {cs}Amont de la Rivière Zora{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.zoras_domain" xml:space="preserve">
+    <value>le {cs}Domaine Zora{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="description.bad-check" xml:space="preserve">
+    <value>(déconseillé)</value>
+    <comment></comment>
+  </data>
+  <data name="description.good-check" xml:space="preserve">
+    <value>(conseillé)</value>
+    <comment></comment>
+  </data>
+  <data name="description.required-check" xml:space="preserve">
+    <value>(obligatoire)</value>
+    <comment></comment>
+  </data>
+  <data name="description.skippable-check" xml:space="preserve">
+    <value>(optionnel)</value>
+    <comment></comment>
+  </data>
+  <data name="description.unrequired-check" xml:space="preserve">
+    <value>(non obligatoire)</value>
+    <comment></comment>
+  </data>
+  <data name="goal.argorok" xml:space="preserve">
+    <value>Pyrodactilus</value>
+    <comment></comment>
+  </data>
+  <data name="goal.armogohma" xml:space="preserve">
+    <value>Golgohma</value>
+    <comment></comment>
+  </data>
+  <data name="goal.blizzeta" xml:space="preserve">
+    <value>Blizzarnia</value>
+    <comment></comment>
+  </data>
+  <data name="goal.diababa" xml:space="preserve">
+    <value>Dionéa</value>
+    <comment></comment>
+  </data>
+  <data name="goal.fyrus" xml:space="preserve">
+    <value>Magmaudit</value>
+    <comment></comment>
+  </data>
+  <data name="goal.ganondorf" xml:space="preserve">
+    <value>Ganondorf</value>
+    <comment></comment>
+  </data>
+  <data name="goal.hyrule_castle" xml:space="preserve">
+    <value>le {cs}Château d&apos;Hyrule{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="goal.morpheel" xml:space="preserve">
+    <value>{que-transform}Octolacanthe</value>
+    <comment></comment>
+  </data>
+  <data name="goal.stallord" xml:space="preserve">
+    <value>Humbaba</value>
+    <comment></comment>
+  </data>
+  <data name="goal.zant" xml:space="preserve">
+    <value>Xanto</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.agitha-rewards" xml:space="preserve">
+    <value>Veuillez apporter les #(purple)insectes dorés#(white) au Château de Machaon.\n\nEt dites leurs que la princesse attend !</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.agitha-rewards$good" xml:space="preserve">
+    <value>Veuillez apporter les #(yellow)insectes dorés#(white) au Château de Machaon. Je saurai partager mon #(red)bonheur#(white) avec vous :\n\n{items}</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.barren" xml:space="preserve">
+    <value>Il est dit qu&apos;il n&apos;y a rien à trouver {area-phrase}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point" xml:space="preserve">
+    <value>#(purple)Rien#(white) au-delà de ce point !</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point.big-key" xml:space="preserve">
+    <value>une {cs}grande clé{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point.big-key#other" xml:space="preserve">
+    <value>des {cs}grandes clés{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point.big-key$def" xml:space="preserve">
+    <value>la {cs}grande clé{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point$good" xml:space="preserve">
+    <value>#(green)Quelque chose de bien#(white) au-delà de ce point !</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point$good-and-big-keys" xml:space="preserve">
+    <value>#(green)Quelque chose de bien#(white) et {big-key} à partir de ce point !</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point$good-no-big-keys" xml:space="preserve">
+    <value>#(green)Quelque chose de bien#(white) à partir de ce point mais il n&apos;y a pas de #(purple)grande clé#(white).</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.beyond-point$only-big-keys" xml:space="preserve">
+    <value>Seulement {big-key} à partir de ce point !</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.item" xml:space="preserve">
+    <value>Il est dit que {subject} {verb(name:can-be-found)} {area-phrase}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.item-to-item-path" xml:space="preserve">
+    <value>Il est dit que {source} {verb(name:is)} sur le chemin de {target}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.item$vague" xml:space="preserve">
+    <value>Il est dit que {subject} {verb(name:can-be-found)} {area-phrase}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.jovani-rewards.reward" xml:space="preserve">
+    <value>Récompense pour {count} âme :\n{item}</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.jovani-rewards.reward#other" xml:space="preserve">
+    <value>Récompense pour {count} âmes :\n{item}</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.location" xml:space="preserve">
+    <value>Il est dit que la récompense de {check-name} {verb(name:is)} {item}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.location.vague-bad" xml:space="preserve">
+    <value>Il est dit que la récompense de {check-name} ne mène à {noun(name:rien)}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.location.vague-good" xml:space="preserve">
+    <value>Il est dit que la récompense de {check-name} mène à {noun(name:something-good)}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.location.vague-required" xml:space="preserve">
+    <value>Il est dit que {check-name} est sur la voie du héros.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.num-item-in-area" xml:space="preserve">
+    <value>Il est dit que {subject} {verb(name:can-be-found)} {area-phrase}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.path" xml:space="preserve">
+    <value>Il est dit que {area} {verb(name:is)} sur le chemin de {goal}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-chain" xml:space="preserve">
+    <value>Il est dit que {source}{area-phrase(space)} {verb(name:mene)} à {target}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-group" xml:space="preserve">
+    <value>Il est dit qu&apos;apporter des {group} à Machaon mène à {item}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-group$barren" xml:space="preserve">
+    <value>Il est dit qu&apos;apporter des {group} à Machaon ne mène à rien.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-group$good" xml:space="preserve">
+    <value>Il est dit qu&apos;apporter des {group} à Machaon mène à {something-good}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.trade-group$woth" xml:space="preserve">
+    <value>Il est dit qu&apos;apporter des {group} à Machaon est sur la voie du héros.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.woth" xml:space="preserve">
+    <value>Il est dit que {area} {verb(name:is)} sur la voie du héros.</value>
+    <comment></comment>
+  </data>
+  <data name="hint.none-placed-here" xml:space="preserve">
+    <value>Aucun indice n&apos;a été placé ici.</value>
+    <comment></comment>
+  </data>
+  <data name="hints.item-found-at-area" xml:space="preserve">
+    <value>On dit que {{item}} peut être trouvé à {{area}}.</value>
+    <comment></comment>
+  </data>
+  <data name="item.01-green_rupee@ac(m)" xml:space="preserve">
+    <value>rubis vert</value>
+    <comment></comment>
+  </data>
+  <data name="item.01-green_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis verts</value>
+    <comment></comment>
+  </data>
+  <data name="item.02-blue_rupee@ac(m)" xml:space="preserve">
+    <value>rubis bleu</value>
+    <comment></comment>
+  </data>
+  <data name="item.02-blue_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis bleus</value>
+    <comment></comment>
+  </data>
+  <data name="item.03-yellow_rupee@ac(m)" xml:space="preserve">
+    <value>rubis jaune</value>
+    <comment></comment>
+  </data>
+  <data name="item.03-yellow_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis jaunes</value>
+    <comment></comment>
+  </data>
+  <data name="item.04-red_rupee@ac(m)" xml:space="preserve">
+    <value>rubis rouge</value>
+    <comment></comment>
+  </data>
+  <data name="item.04-red_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis rouges</value>
+    <comment></comment>
+  </data>
+  <data name="item.05-purple_rupee@ac(m)" xml:space="preserve">
+    <value>rubis violet</value>
+    <comment></comment>
+  </data>
+  <data name="item.05-purple_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis violets</value>
+    <comment></comment>
+  </data>
+  <data name="item.06-orange_rupee@ac(m)" xml:space="preserve">
+    <value>rubis orange</value>
+    <comment></comment>
+  </data>
+  <data name="item.06-orange_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis oranges</value>
+    <comment></comment>
+  </data>
+  <data name="item.07-silver_rupee@ac(m)" xml:space="preserve">
+    <value>rubis argenté</value>
+    <comment></comment>
+  </data>
+  <data name="item.07-silver_rupee#other@ac(m)" xml:space="preserve">
+    <value>rubis argentés</value>
+    <comment></comment>
+  </data>
+  <data name="item.0a-bombs_5" xml:space="preserve">
+    <value>$(gender:f,plural)5 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0a-bombs_5$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 5 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0a-bombs_5$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 5 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0a-bombs_5$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 5 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0a-bombs_5$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 5 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0b-bombs_10" xml:space="preserve">
+    <value>$(gender:f,plural)10 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0b-bombs_10$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 10 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0b-bombs_10$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 10 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0b-bombs_10$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 10 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0b-bombs_10$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 10 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0c-bombs_20" xml:space="preserve">
+    <value>$(gender:f,plural)20 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0c-bombs_20$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 20 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0c-bombs_20$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 20 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0c-bombs_20$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 20 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0c-bombs_20$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 20 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0d-bombs_30" xml:space="preserve">
+    <value>$(gender:f,plural)30 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0d-bombs_30$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 30 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0d-bombs_30$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 30 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0d-bombs_30$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 30 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0d-bombs_30$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 30 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0e-arrows_10" xml:space="preserve">
+    <value>$(gender:f,plural)10 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.0e-arrows_10$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 10 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.0e-arrows_10$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 10 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.0e-arrows_10$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 10 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.0e-arrows_10$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 10 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.0f-arrows_20" xml:space="preserve">
+    <value>$(gender:f,plural)20 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.0f-arrows_20$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 20 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.0f-arrows_20$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 20 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.0f-arrows_20$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 20 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.0f-arrows_20$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 20 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.10-arrows_30" xml:space="preserve">
+    <value>$(gender:f,plural)30 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.10-arrows_30$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 30 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.10-arrows_30$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 30 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.10-arrows_30$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 30 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.10-arrows_30$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 30 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.12-seeds_50" xml:space="preserve">
+    <value>$(gender:f,plural)50 graines</value>
+    <comment></comment>
+  </data>
+  <data name="item.12-seeds_50$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 50 graines</value>
+    <comment></comment>
+  </data>
+  <data name="item.12-seeds_50$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 50 graines</value>
+    <comment></comment>
+  </data>
+  <data name="item.12-seeds_50$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 50 graines</value>
+    <comment></comment>
+  </data>
+  <data name="item.12-seeds_50$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 50 graines</value>
+    <comment></comment>
+  </data>
+  <data name="item.13-foolish_item@ac(m)" xml:space="preserve">
+    <value>piège</value>
+    <comment></comment>
+  </data>
+  <data name="item.13-foolish_item#other@ac(m)" xml:space="preserve">
+    <value>pièges</value>
+    <comment></comment>
+  </data>
+  <data name="item.14-foolish_item_2@ac(m)" xml:space="preserve">
+    <value>piège2</value>
+    <comment></comment>
+  </data>
+  <data name="item.14-foolish_item_2#other@ac(m)" xml:space="preserve">
+    <value>pièges2</value>
+    <comment></comment>
+  </data>
+  <data name="item.15-foolish_item_3@ac(m)" xml:space="preserve">
+    <value>piège3</value>
+    <comment></comment>
+  </data>
+  <data name="item.15-foolish_item_3#other@ac(m)" xml:space="preserve">
+    <value>pièges3</value>
+    <comment></comment>
+  </data>
+  <data name="item.16-water_bombs_5" xml:space="preserve">
+    <value>$(gender:f,plural)5 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.16-water_bombs_5$count" xml:space="preserve">
+    <value>$(gender:m){count}pack de 5 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.16-water_bombs_5$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 5 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.16-water_bombs_5$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 5 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.16-water_bombs_5$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 5 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.17-water_bombs_10" xml:space="preserve">
+    <value>$(gender:f,plural)10 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.17-water_bombs_10$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 10 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.17-water_bombs_10$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 10 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.17-water_bombs_10$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 10 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.17-water_bombs_10$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 10 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.18-water_bombs_15" xml:space="preserve">
+    <value>$(gender:f,plural)15 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.18-water_bombs_15$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 15 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.18-water_bombs_15$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 15 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.18-water_bombs_15$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 15 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.18-water_bombs_15$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 15 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.19-water_bombs_3" xml:space="preserve">
+    <value>$(gender:f,plural)3 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.19-water_bombs_3$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 3 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.19-water_bombs_3$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 3 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.19-water_bombs_3$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 3 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.19-water_bombs_3$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 3 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1a-bomblings_5" xml:space="preserve">
+    <value>$(gender:f,plural)5 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1a-bomblings_5$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 5 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1a-bomblings_5$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 5 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1a-bomblings_5$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 5 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1a-bomblings_5$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 5 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1b-bomblings_10" xml:space="preserve">
+    <value>$(gender:f,plural)10 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1b-bomblings_10$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 10 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1b-bomblings_10$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 10 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1b-bomblings_10$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 10 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1b-bomblings_10$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 10 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1c-bomblings_3" xml:space="preserve">
+    <value>$(gender:f,plural)3 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1c-bomblings_3$count" xml:space="preserve">
+    <value>$(gender:m){count} pack de 3 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1c-bomblings_3$count#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} packs de 3 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1c-bomblings_3$count#zero" xml:space="preserve">
+    <value>$(gender:m,negative)aucun pack de 3 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1c-bomblings_3$fishing-bottle" xml:space="preserve">
+    <value>$(gender:m)pack de 3 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.21-piece_of_heart@ac(m)" xml:space="preserve">
+    <value>fragment de cœur</value>
+    <comment></comment>
+  </data>
+  <data name="item.21-piece_of_heart#other@ac(m)" xml:space="preserve">
+    <value>fragments de cœur</value>
+    <comment></comment>
+  </data>
+  <data name="item.22-heart_container@ac(m)" xml:space="preserve">
+    <value>réceptacle de cœur</value>
+    <comment></comment>
+  </data>
+  <data name="item.22-heart_container#other@ac(m)" xml:space="preserve">
+    <value>réceptacles de cœur</value>
+    <comment></comment>
+  </data>
+  <data name="item.2a-ordon_shield@ac(m)" xml:space="preserve">
+    <value>bouclier de Toal</value>
+    <comment></comment>
+  </data>
+  <data name="item.2a-ordon_shield#other@ac(m)" xml:space="preserve">
+    <value>boucliers de Toal</value>
+    <comment></comment>
+  </data>
+  <data name="item.2b-wooden_shield@ac(m)" xml:space="preserve">
+    <value>bouclier en bois</value>
+    <comment></comment>
+  </data>
+  <data name="item.2b-wooden_shield#other@ac(m)" xml:space="preserve">
+    <value>boucliers en bois</value>
+    <comment></comment>
+  </data>
+  <data name="item.2c-hylian_shield@ac(m)" xml:space="preserve">
+    <value>bouclier d&apos;Hylia</value>
+    <comment></comment>
+  </data>
+  <data name="item.2c-hylian_shield#other@ac(m)" xml:space="preserve">
+    <value>boucliers d&apos;Hylia</value>
+    <comment></comment>
+  </data>
+  <data name="item.30-magic_armor@ac(f,true)" xml:space="preserve">
+    <value>armure magique</value>
+    <comment></comment>
+  </data>
+  <data name="item.30-magic_armor#other@ac(f)" xml:space="preserve">
+    <value>armures magiques</value>
+    <comment></comment>
+  </data>
+  <data name="item.31-zora_armor@ac(f)" xml:space="preserve">
+    <value>tenue Zora</value>
+    <comment></comment>
+  </data>
+  <data name="item.31-zora_armor#other@ac(f)" xml:space="preserve">
+    <value>tenues Zora</value>
+    <comment></comment>
+  </data>
+  <data name="item.32-shadow_crystal@ac(m)" xml:space="preserve">
+    <value>Cristal Maudit</value>
+    <comment></comment>
+  </data>
+  <data name="item.32-shadow_crystal#other@ac(m)" xml:space="preserve">
+    <value>Cristaux Maudit</value>
+    <comment></comment>
+  </data>
+  <data name="item.35-progressive_wallet@ac(f)" xml:space="preserve">
+    <value>bourse</value>
+    <comment></comment>
+  </data>
+  <data name="item.35-progressive_wallet#other@ac(f)" xml:space="preserve">
+    <value>bourses</value>
+    <comment></comment>
+  </data>
+  <data name="item.3e-hawkeye@ac(m,true)" xml:space="preserve">
+    <value>Œil du faucon</value>
+    <comment></comment>
+  </data>
+  <data name="item.3e-hawkeye#other@ac(m)" xml:space="preserve">
+    <value>Yeux de faucon</value>
+    <comment></comment>
+  </data>
+  <data name="item.3f-progressive_sword@ac(f,true)" xml:space="preserve">
+    <value>épée</value>
+    <comment></comment>
+  </data>
+  <data name="item.3f-progressive_sword#other@ac(f)" xml:space="preserve">
+    <value>épées</value>
+    <comment></comment>
+  </data>
+  <data name="item.40-boomerang@ac(m)" xml:space="preserve">
+    <value>boomerang tornade</value>
+    <comment></comment>
+  </data>
+  <data name="item.40-boomerang#other@ac(m)" xml:space="preserve">
+    <value>boomerangs tornade</value>
+    <comment></comment>
+  </data>
+  <data name="item.41-spinner@ac(m,true)" xml:space="preserve">
+    <value>aérouage</value>
+    <comment></comment>
+  </data>
+  <data name="item.41-spinner#other@ac(m)" xml:space="preserve">
+    <value>aérouages</value>
+    <comment></comment>
+  </data>
+  <data name="item.42-ball_and_chain@ac(m)" xml:space="preserve">
+    <value>boulet</value>
+    <comment></comment>
+  </data>
+  <data name="item.42-ball_and_chain#other@ac(m)" xml:space="preserve">
+    <value>boulets</value>
+    <comment></comment>
+  </data>
+  <data name="item.43-progressive_bow@ac(m,true)" xml:space="preserve">
+    <value>arc</value>
+    <comment></comment>
+  </data>
+  <data name="item.43-progressive_bow#other@ac(m)" xml:space="preserve">
+    <value>arcs</value>
+    <comment></comment>
+  </data>
+  <data name="item.44-progressive_clawshot@ac(m)" xml:space="preserve">
+    <value>grappin</value>
+    <comment></comment>
+  </data>
+  <data name="item.44-progressive_clawshot#other@ac(m)" xml:space="preserve">
+    <value>grappins</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots" xml:space="preserve">
+    <value>$(gender:f,plural)bottes de fer</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots$count" xml:space="preserve">
+    <value>$(gender:f){count} paire de bottes de fer</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots$count#other" xml:space="preserve">
+    <value>$(gender:f,plural){count} paires de bottes de fer</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots$count#zero" xml:space="preserve">
+    <value>$(gender:f,negative)aucune paire de bottes de fer</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots$def" xml:space="preserve">
+    <value>$(gender:f,plural)les {cs}bottes de fer{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots$indef" xml:space="preserve">
+    <value>$(gender:f,plural)des {cs}bottes de fer{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.46-progressive_dominion_rod@ac(m)" xml:space="preserve">
+    <value>bâton Anima</value>
+    <comment></comment>
+  </data>
+  <data name="item.46-progressive_dominion_rod#other@ac(m)" xml:space="preserve">
+    <value>bâtons Anima</value>
+    <comment></comment>
+  </data>
+  <data name="item.48-lantern@ac(f)" xml:space="preserve">
+    <value>lanterne</value>
+    <comment></comment>
+  </data>
+  <data name="item.48-lantern#other@ac(f)" xml:space="preserve">
+    <value>lanternes</value>
+    <comment></comment>
+  </data>
+  <data name="item.4a-progressive_fishing_rod@ac(f)" xml:space="preserve">
+    <value>canne à pêche</value>
+    <comment></comment>
+  </data>
+  <data name="item.4a-progressive_fishing_rod#other@ac(f)" xml:space="preserve">
+    <value>cannes à pêche</value>
+    <comment></comment>
+  </data>
+  <data name="item.4b-slingshot@ac(m)" xml:space="preserve">
+    <value>lance-pierre</value>
+    <comment></comment>
+  </data>
+  <data name="item.4b-slingshot#other@ac(m)" xml:space="preserve">
+    <value>lance-pierres</value>
+    <comment></comment>
+  </data>
+  <data name="item.4f-giant_bomb_bag@ac(m)" xml:space="preserve">
+    <value>sac de bombes géant</value>
+    <comment></comment>
+  </data>
+  <data name="item.4f-giant_bomb_bag#other@ac(m)" xml:space="preserve">
+    <value>sacs de bombes géants</value>
+    <comment></comment>
+  </data>
+  <data name="item.51-filled_bomb_bag@ac(m)" xml:space="preserve">
+    <value>sac de bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.51-filled_bomb_bag#other@ac(m)" xml:space="preserve">
+    <value>sacs de bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.60-empty_bottle@ac(m)" xml:space="preserve">
+    <value>flacon</value>
+    <comment></comment>
+  </data>
+  <data name="item.60-empty_bottle#other@ac(m)" xml:space="preserve">
+    <value>flacons</value>
+    <comment></comment>
+  </data>
+  <data name="item.61-red_potion_shop@ac(f)" xml:space="preserve">
+    <value>potion rouge</value>
+    <comment></comment>
+  </data>
+  <data name="item.61-red_potion_shop#other@ac(f)" xml:space="preserve">
+    <value>potions rouges</value>
+    <comment></comment>
+  </data>
+  <data name="item.65-sera_bottle@ac(f)" xml:space="preserve">
+    <value>bouteille de lait à moitié vide</value>
+    <comment></comment>
+  </data>
+  <data name="item.65-sera_bottle#other@ac(f)" xml:space="preserve">
+    <value>bouteilles de lait à moitié vide</value>
+    <comment></comment>
+  </data>
+  <data name="item.75-jovani_bottle@ac(f)" xml:space="preserve">
+    <value>bouteille de larmes de Fée</value>
+    <comment></comment>
+  </data>
+  <data name="item.75-jovani_bottle#other@ac(f)" xml:space="preserve">
+    <value>bouteilles de larmes de Fée</value>
+    <comment></comment>
+  </data>
+  <data name="item.80-renados_letter@ac(f)" xml:space="preserve">
+    <value>lettre de Reynald</value>
+    <comment></comment>
+  </data>
+  <data name="item.80-renados_letter#other@ac(f)" xml:space="preserve">
+    <value>lettres de Reynald</value>
+    <comment></comment>
+  </data>
+  <data name="item.81-invoice@ac(f)" xml:space="preserve">
+    <value>facture de la taverne</value>
+    <comment></comment>
+  </data>
+  <data name="item.81-invoice#other@ac(f)" xml:space="preserve">
+    <value>factures de la tarvene</value>
+    <comment></comment>
+  </data>
+  <data name="item.82-wooden_statue@ac(f)" xml:space="preserve">
+    <value>statuette en bois</value>
+    <comment></comment>
+  </data>
+  <data name="item.82-wooden_statue#other@ac(f)" xml:space="preserve">
+    <value>statuettes en bois</value>
+    <comment></comment>
+  </data>
+  <data name="item.83-ilias_charm@ac(m)" xml:space="preserve">
+    <value>collier d&apos;Iria</value>
+    <comment></comment>
+  </data>
+  <data name="item.83-ilias_charm#other@ac(m)" xml:space="preserve">
+    <value>colliers d&apos;Iria</value>
+    <comment></comment>
+  </data>
+  <data name="item.84-horse_call@ac(m)" xml:space="preserve">
+    <value>Lien de l&apos;amitié</value>
+    <comment></comment>
+  </data>
+  <data name="item.84-horse_call#other@ac(m)" xml:space="preserve">
+    <value>Liens de l&apos;amitié</value>
+    <comment></comment>
+  </data>
+  <data name="item.85-forest_temple_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.85-forest_temple_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.86-goron_mines_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.86-goron_mines_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.87-lakebed_temple_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.87-lakebed_temple_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.88-arbiters_grounds_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.88-arbiters_grounds_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.89-snowpeak_ruins_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.89-snowpeak_ruins_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.8a-temple_of_time_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.8a-temple_of_time_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.8b-city_in_the_sky_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.8b-city_in_the_sky_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.8c-palace_of_twilight_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.8c-palace_of_twilight_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.8d-hyrule_castle_small_key@ac(f)" xml:space="preserve">
+    <value>petite clé du Château d&apos;Hyule</value>
+    <comment></comment>
+  </data>
+  <data name="item.8d-hyrule_castle_small_key#other@ac(f)" xml:space="preserve">
+    <value>petites clés du Château d&apos;Hyule</value>
+    <comment></comment>
+  </data>
+  <data name="item.8e-gerudo_desert_bulblin_camp_key@ac(f)" xml:space="preserve">
+    <value>clé du Camp des Bulblins</value>
+    <comment></comment>
+  </data>
+  <data name="item.8e-gerudo_desert_bulblin_camp_key#other@ac(f)" xml:space="preserve">
+    <value>clés du Camp des Bulblins</value>
+    <comment></comment>
+  </data>
+  <data name="item.90-aurus_memo@ac(f)" xml:space="preserve">
+    <value>note de Lafrel</value>
+    <comment></comment>
+  </data>
+  <data name="item.90-aurus_memo#other@ac(f)" xml:space="preserve">
+    <value>notes de Lafrel</value>
+    <comment></comment>
+  </data>
+  <data name="item.91-asheis_sketch@ac(m)" xml:space="preserve">
+    <value>croquis du yéti</value>
+    <comment></comment>
+  </data>
+  <data name="item.91-asheis_sketch#other@ac(m)" xml:space="preserve">
+    <value>croquis du yéti</value>
+    <comment></comment>
+  </data>
+  <data name="item.92-forest_temple_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.92-forest_temple_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.93-lakebed_temple_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.93-lakebed_temple_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.94-arbiters_grounds_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.94-arbiters_grounds_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.95-temple_of_time_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.95-temple_of_time_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.96-city_in_the_sky_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.96-city_in_the_sky_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.97-palace_of_twilight_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.97-palace_of_twilight_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.98-hyrule_castle_big_key@ac(f)" xml:space="preserve">
+    <value>grande clé du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
+  <data name="item.98-hyrule_castle_big_key#other@ac(f)" xml:space="preserve">
+    <value>grandes clés du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
+  <data name="item.99-forest_temple_compass@ac(f)" xml:space="preserve">
+    <value>boussole du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.99-forest_temple_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.9a-goron_mines_compass@ac(f)" xml:space="preserve">
+    <value>boussole des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.9a-goron_mines_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.9b-lakebed_temple_compass@ac(f)" xml:space="preserve">
+    <value>boussole du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.9b-lakebed_temple_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.9d-coro_bottle@ac(m)" xml:space="preserve">
+    <value>flacon d&apos;huile</value>
+    <comment></comment>
+  </data>
+  <data name="item.9d-coro_bottle#other@ac(m)" xml:space="preserve">
+    <value>flacons d&apos;huile</value>
+    <comment></comment>
+  </data>
+  <data name="item.a5-progressive_mirror_shard@ac(m)" xml:space="preserve">
+    <value>fragment du Miroir des Ombres</value>
+    <comment></comment>
+  </data>
+  <data name="item.a5-progressive_mirror_shard#other@ac(m)" xml:space="preserve">
+    <value>fragments du Miroir des Ombres</value>
+    <comment></comment>
+  </data>
+  <data name="item.a8-arbiters_grounds_compass@ac(f)" xml:space="preserve">
+    <value>boussole de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.a8-arbiters_grounds_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.a9-snowpeak_ruins_compass@ac(f)" xml:space="preserve">
+    <value>boussole des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.a9-snowpeak_ruins_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.aa-temple_of_time_compass@ac(f)" xml:space="preserve">
+    <value>boussole du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.aa-temple_of_time_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.ab-city_in_the_sky_compass@ac(f)" xml:space="preserve">
+    <value>boussole de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.ab-city_in_the_sky_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.ac-palace_of_twilight_compass@ac(f)" xml:space="preserve">
+    <value>boussole du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.ac-palace_of_twilight_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.ad-hyrule_castle_compass@ac(f)" xml:space="preserve">
+    <value>boussole du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
+  <data name="item.ad-hyrule_castle_compass#other@ac(f)" xml:space="preserve">
+    <value>boussoles du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
+  <data name="item.b6-forest_temple_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.b6-forest_temple_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes du Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="item.b7-goron_mines_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.b7-goron_mines_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>carte des Mines Gorons</value>
+    <comment></comment>
+  </data>
+  <data name="item.b8-lakebed_temple_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.b8-lakebed_temple_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes du Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="item.b9-arbiters_grounds_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.b9-arbiters_grounds_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes de la Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="item.ba-snowpeak_ruins_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.ba-snowpeak_ruins_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes des Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="item.bb-temple_of_time_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.bb-temple_of_time_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes du Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="item.bc-city_in_the_sky_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.bc-city_in_the_sky_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes de Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="item.bd-palace_of_twilight_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.bd-palace_of_twilight_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes du Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="item.be-hyrule_castle_dungeon_map@ac(f)" xml:space="preserve">
+    <value>carte du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
+  <data name="item.be-hyrule_castle_dungeon_map#other@ac(f)" xml:space="preserve">
+    <value>cartes du Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
+  <data name="item.c0-male_beetle@ac(m)" xml:space="preserve">
+    <value>scarabée♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c0-male_beetle#other@ac(m)" xml:space="preserve">
+    <value>scarabées♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c1-female_beetle@ac(m)" xml:space="preserve">
+    <value>scarabée♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c1-female_beetle#other@ac(m)" xml:space="preserve">
+    <value>scarabées♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c2-male_butterfly@ac(m)" xml:space="preserve">
+    <value>papillon♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c2-male_butterfly#other@ac(m)" xml:space="preserve">
+    <value>papillons♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c3-female_butterfly@ac(m)" xml:space="preserve">
+    <value>papillon♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c3-female_butterfly#other@ac(m)" xml:space="preserve">
+    <value>papillons♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c4-male_stag_beetle@ac(f)" xml:space="preserve">
+    <value>lucane♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c4-male_stag_beetle#other@ac(f)" xml:space="preserve">
+    <value>lucanes♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c5-female_stag_beetle@ac(f)" xml:space="preserve">
+    <value>lucane♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c5-female_stag_beetle#other@ac(f)" xml:space="preserve">
+    <value>lucanes♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c6-male_grasshopper@ac(f)" xml:space="preserve">
+    <value>sauterelle♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c6-male_grasshopper#other@ac(f)" xml:space="preserve">
+    <value>sauterelles♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c7-female_grasshopper@ac(f)" xml:space="preserve">
+    <value>sauterelle♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c7-female_grasshopper#other@ac(f)" xml:space="preserve">
+    <value>sauterelles♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c8-male_phasmid@ac(m)" xml:space="preserve">
+    <value>phasme♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c8-male_phasmid#other@ac(m)" xml:space="preserve">
+    <value>phasmes♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.c9-female_phasmid@ac(m)" xml:space="preserve">
+    <value>phasme♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.c9-female_phasmid#other@ac(m)" xml:space="preserve">
+    <value>phasmes♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.ca-male_pill_bug@ac(m)" xml:space="preserve">
+    <value>cloporte♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.ca-male_pill_bug#other@ac(m)" xml:space="preserve">
+    <value>cloportes♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.cb-female_pill_bug@ac(m)" xml:space="preserve">
+    <value>cloporte♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.cb-female_pill_bug#other@ac(m)" xml:space="preserve">
+    <value>cloportes♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.cc-male_mantis@ac(f)" xml:space="preserve">
+    <value>mante♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.cc-male_mantis#other@ac(f)" xml:space="preserve">
+    <value>mantes♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.cd-female_mantis@ac(f)" xml:space="preserve">
+    <value>mante♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.cd-female_mantis#other@ac(f)" xml:space="preserve">
+    <value>mantes♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.ce-male_ladybug@ac(f)" xml:space="preserve">
+    <value>coccinelle♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.ce-male_ladybug#other@ac(f)" xml:space="preserve">
+    <value>coccinelles♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.cf-female_ladybug@ac(f)" xml:space="preserve">
+    <value>coccinelle♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.cf-female_ladybug#other@ac(f)" xml:space="preserve">
+    <value>coccinelles♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d0-male_snail@ac(m,true)" xml:space="preserve">
+    <value>escargot♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d0-male_snail#other@ac(m)" xml:space="preserve">
+    <value>escargots♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d1-female_snail@ac(m,true)" xml:space="preserve">
+    <value>escargot♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d1-female_snail#other@ac(m)" xml:space="preserve">
+    <value>escargots♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d2-male_dragonfly@ac(f)" xml:space="preserve">
+    <value>libellule♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d2-male_dragonfly#other@ac(f)" xml:space="preserve">
+    <value>libellules♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d3-female_dragonfly@ac(f)" xml:space="preserve">
+    <value>libellule♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d3-female_dragonfly#other@ac(f)" xml:space="preserve">
+    <value>libellules♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d4-male_ant@ac(f)" xml:space="preserve">
+    <value>fourmi♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d4-male_ant#other@ac(f)" xml:space="preserve">
+    <value>fourmis♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d5-female_ant@ac(f)" xml:space="preserve">
+    <value>fourmi♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d5-female_ant#other@ac(f)" xml:space="preserve">
+    <value>fourmis♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d6-male_dayfly@ac(m,true)" xml:space="preserve">
+    <value>éphémère♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d6-male_dayfly#other@ac(m)" xml:space="preserve">
+    <value>éphémères♂</value>
+    <comment></comment>
+  </data>
+  <data name="item.d7-female_dayfly@ac(m,true)" xml:space="preserve">
+    <value>éphémère♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d7-female_dayfly#other@ac(m)" xml:space="preserve">
+    <value>éphémères♀</value>
+    <comment></comment>
+  </data>
+  <data name="item.d8-progressive_fused_shadow@ac(m)" xml:space="preserve">
+    <value>Cristal d&apos;Ombre</value>
+    <comment></comment>
+  </data>
+  <data name="item.d8-progressive_fused_shadow#other@ac(m)" xml:space="preserve">
+    <value>Cristaux d&apos;Ombre</value>
+    <comment></comment>
+  </data>
+  <data name="item.e0-poe_soul@ac(f,true)" xml:space="preserve">
+    <value>âme de spectre</value>
+    <comment></comment>
+  </data>
+  <data name="item.e0-poe_soul#other@ac(f)" xml:space="preserve">
+    <value>âmes de spectre</value>
+    <comment></comment>
+  </data>
+  <data name="item.e1-progressive_hidden_skill@ac(f)" xml:space="preserve">
+    <value>Botte Secrète</value>
+    <comment></comment>
+  </data>
+  <data name="item.e1-progressive_hidden_skill#other@ac(f)" xml:space="preserve">
+    <value>Bottes Secrètes</value>
+    <comment></comment>
+  </data>
+  <data name="item.e9-progressive_sky_book@ac(m)" xml:space="preserve">
+    <value>glyphe célestien</value>
+    <comment></comment>
+  </data>
+  <data name="item.e9-progressive_sky_book#other@ac(m)" xml:space="preserve">
+    <value>glyphes célestien</value>
+    <comment></comment>
+  </data>
+  <data name="item.ed-purple_rupee_links_house@ac(m)" xml:space="preserve">
+    <value>rubis de #(player-name)</value>
+    <comment></comment>
+  </data>
+  <data name="item.ed-purple_rupee_links_house#other@ac(m)" xml:space="preserve">
+    <value>rubis de #(player-name)</value>
+    <comment></comment>
+  </data>
+  <data name="item.ee-north_faron_woods_gate_key@ac(f)" xml:space="preserve">
+    <value>clé de la Forêt de Firone</value>
+    <comment></comment>
+  </data>
+  <data name="item.ee-north_faron_woods_gate_key#other@ac(f)" xml:space="preserve">
+    <value>clés de la Forêt de Firone</value>
+    <comment></comment>
+  </data>
+  <data name="item.f3-gate_keys@ac(f)" xml:space="preserve">
+    <value>clé du portail</value>
+    <comment>The name of the thing you get is just &quot;la clé du portail&quot;.</comment>
+  </data>
+  <data name="item.f3-gate_keys#other@ac(f)" xml:space="preserve">
+    <value>clés du portail</value>
+    <comment></comment>
+  </data>
+  <data name="item.f4-snowpeak_ruins_ordon_pumpkin@ac(m)" xml:space="preserve">
+    <value>potiron toalien</value>
+    <comment></comment>
+  </data>
+  <data name="item.f4-snowpeak_ruins_ordon_pumpkin#other@ac(m)" xml:space="preserve">
+    <value>potirons toalien</value>
+    <comment></comment>
+  </data>
+  <data name="item.f5-snowpeak_ruins_ordon_goat_cheese@ac(m)" xml:space="preserve">
+    <value>fromage toalien</value>
+    <comment></comment>
+  </data>
+  <data name="item.f5-snowpeak_ruins_ordon_goat_cheese#other@ac(m)" xml:space="preserve">
+    <value>fromages toalien</value>
+    <comment></comment>
+  </data>
+  <data name="item.f6-snowpeak_ruins_bedroom_key@ac(f)" xml:space="preserve">
+    <value>clé de la chambre</value>
+    <comment></comment>
+  </data>
+  <data name="item.f6-snowpeak_ruins_bedroom_key#other@ac(f)" xml:space="preserve">
+    <value>clés de la chambre</value>
+    <comment></comment>
+  </data>
+  <data name="item.f9-goron_mines_key_shard@ac(m)" xml:space="preserve">
+    <value>fragment de clé</value>
+    <comment></comment>
+  </data>
+  <data name="item.f9-goron_mines_key_shard#other@ac(m)" xml:space="preserve">
+    <value>fragments de clé</value>
+    <comment></comment>
+  </data>
+  <data name="noun.a-bug" xml:space="preserve">
+    <value>un {cs}insecte{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="noun.barren-zone" xml:space="preserve">
+    <value>({cs}zone inutile{ce})</value>
+    <comment></comment>
+  </data>
+  <data name="noun.jovani-unhinted" xml:space="preserve">
+    <value>Pas d&apos;indice</value>
+    <comment></comment>
+  </data>
+  <data name="noun.rien" xml:space="preserve">
+    <value>rien</value>
+    <comment></comment>
+  </data>
+  <data name="noun.something-good" xml:space="preserve">
+    <value>quelque chose de bien</value>
+    <comment></comment>
+  </data>
+  <data name="noun.the-article" xml:space="preserve">
+    <value>le</value>
+    <comment></comment>
+  </data>
+  <data name="noun.the-article$gender-f" xml:space="preserve">
+    <value>la</value>
+    <comment></comment>
+  </data>
+  <data name="noun.the-article$gender-f,plural" xml:space="preserve">
+    <value>les</value>
+    <comment></comment>
+  </data>
+  <data name="noun.the-article$plural" xml:space="preserve">
+    <value>les</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
+    <value>Tour du Jugement</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.city-in-the-sky" xml:space="preserve">
+    <value>Célestia</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.forest-temple" xml:space="preserve">
+    <value>Temple Sylvestre</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.goron-mines" xml:space="preserve">
+    <value>Mine Goron</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.lakebed-temple" xml:space="preserve">
+    <value>Temple Abyssal</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.none" xml:space="preserve">
+    <value>Aucun donjon requis</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.palace-of-twilight" xml:space="preserve">
+    <value>Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.snowpeak-ruins" xml:space="preserve">
+    <value>Ruines des Pics Blancs</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.temple-of-time" xml:space="preserve">
+    <value>Temple du Temps</value>
+    <comment></comment>
+  </data>
+  <data name="self-hinter.barnes-bomb-bag" xml:space="preserve">
+    <value>Allez, je te fais une offre spéciale, {item} pour {price}. Ça te tente?</value>
+    <comment></comment>
+  </data>
+  <data name="self-hinter.charlo" xml:space="preserve">
+    <value>Pour {item}...\npuis-je vous demander l&apos;aumône...?</value>
+    <comment></comment>
+  </data>
+  <data name="self-hinter.charlo-options" xml:space="preserve">
+    <value>#(option1)Voici 100 rubis.#(option2)Voici 50 rubis.#(option3)Je refuse.</value>
+    <comment></comment>
+  </data>
+  <data name="self-hinter.charlo$default" xml:space="preserve">
+    <value>Pour que la paix règne en Hyrule...\npuis-je vous demander l&apos;aumône...?</value>
+    <comment></comment>
+  </data>
+  <data name="self-hinter.fishing-bottle" xml:space="preserve">
+    <value>#(red)Protégez la nature!#(white)\nNe jetez pas de {item}!\n\nPrenez soin de l&apos;eau!\nPensez aux possions!\nPour le plaisir de tous!</value>
+    <comment></comment>
+  </data>
+  <data name="shop.bought" xml:space="preserve">
+    <value>Bon, alors tiens...</value>
+    <comment>From Kak Malo Mart buying non-potion.</comment>
+  </data>
+  <data name="shop.bought-sera2" xml:space="preserve">
+    <value>Tu as l&apos;intention d&apos;y jouer avec les autres enfants?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.bought$magic-armor" xml:space="preserve">
+    <value>Nous n&apos;en avons plus !</value>
+    <comment>From magic armor, minus the MA reference.</comment>
+  </data>
+  <data name="shop.bought$sera" xml:space="preserve">
+    <value>Je ne pensais pas que tu voudrais {noun(name:the-article)} {que-transform}acheter...</value>
+    <comment></comment>
+  </data>
+  <data name="shop.cant-afford" xml:space="preserve">
+    <value>{item} {verb(name:costs)} {price}. Si tu {noun(name:the-article)} veux, il faut {noun2} payer.</value>
+    <comment>From Sera Slingshot</comment>
+  </data>
+  <data name="shop.cant-afford$barnes-bomb-bag" xml:space="preserve">
+    <value>Et alors, garçon?\nTu n&apos;as pas assez, apparemment...</value>
+    <comment></comment>
+  </data>
+  <data name="shop.cant-afford$kak-malo" xml:space="preserve">
+    <value>{item} {verb(name:costs)} {price}, et tu n&apos;as pas {price2}...</value>
+    <comment></comment>
+  </data>
+  <data name="shop.coming-soon" xml:space="preserve">
+    <value>Arrive bientôt</value>
+    <comment></comment>
+  </data>
+  <data name="shop.coming-soon-read" xml:space="preserve">
+    <value>Tu aurais su que cet objet allait bientôt arriver si tu avais lu le panneau...</value>
+    <comment></comment>
+  </data>
+  <data name="shop.coming-soon$item" xml:space="preserve">
+    <value>{item} - Arrive bientôt</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation" xml:space="preserve">
+    <value>{item} {verb(name:costs)} {price}, tu {noun(name:the-article)} veux?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$sera" xml:space="preserve">
+    <value>{item} {verb(name:costs)} {price}.\nTu {noun(name:the-article)} veux?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.no" xml:space="preserve">
+    <value>Non</value>
+    <comment></comment>
+  </data>
+  <data name="shop.price" xml:space="preserve">
+    <value>{count} rubis</value>
+    <comment></comment>
+  </data>
+  <data name="shop.slot" xml:space="preserve">
+    <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
+    <comment></comment>
+  </data>
+  <data name="shop.slot$chudley" xml:space="preserve">
+    <value>{item(shop:true)}\nUn seul exemplaire disponible.</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out" xml:space="preserve">
+    <value>Epuisé</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out-read" xml:space="preserve">
+    <value>C&apos;était mon dernier exemplaire. Prends en soin...</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out$item" xml:space="preserve">
+    <value>{item} - Epuisé</value>
+    <comment></comment>
+  </data>
+  <data name="shop.sold-out$magic-armor" xml:space="preserve">
+    <value>{item}\nCet objet est en rupture de stock\n#(reference-mark)Production arrêtée définitivement</value>
+    <comment></comment>
+  </data>
+  <data name="shop.yes" xml:space="preserve">
+    <value>Oui</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.ants" xml:space="preserve">
+    <value>fourmis</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.beetles" xml:space="preserve">
+    <value>scarabées</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.butterflies" xml:space="preserve">
+    <value>papillons</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.dayflies" xml:space="preserve">
+    <value>éphémères</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.dragonflies" xml:space="preserve">
+    <value>libellules</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.female_bugs" xml:space="preserve">
+    <value>insectes femelles</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.grasshoppers" xml:space="preserve">
+    <value>sauterelles</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.ladybugs" xml:space="preserve">
+    <value>coccinelles</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.male_bugs" xml:space="preserve">
+    <value>insectes mâles</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.mantises" xml:space="preserve">
+    <value>mantes</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.phasmids" xml:space="preserve">
+    <value>phasmes</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.pill_bugs" xml:space="preserve">
+    <value>cloportes</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.snails" xml:space="preserve">
+    <value>escargots</value>
+    <comment></comment>
+  </data>
+  <data name="trade-group.stag_beetles" xml:space="preserve">
+    <value>lucanes</value>
+    <comment></comment>
+  </data>
+  <data name="verb.can-be-found" xml:space="preserve">
+    <value>peut être trouvé</value>
+    <comment></comment>
+  </data>
+  <data name="verb.can-be-found$gender-f" xml:space="preserve">
+    <value>peut être trouvée</value>
+    <comment></comment>
+  </data>
+  <data name="verb.can-be-found$gender-f,negative" xml:space="preserve">
+    <value>ne peut être trouvée</value>
+    <comment></comment>
+  </data>
+  <data name="verb.can-be-found$gender-f,plural" xml:space="preserve">
+    <value>peuvent être trouvées</value>
+    <comment></comment>
+  </data>
+  <data name="verb.can-be-found$gender-m,negative" xml:space="preserve">
+    <value>ne peut être trouvé</value>
+    <comment></comment>
+  </data>
+  <data name="verb.can-be-found$gender-m,plural" xml:space="preserve">
+    <value>peuvent être trouvés</value>
+    <comment></comment>
+  </data>
+  <data name="verb.costs" xml:space="preserve">
+    <value>coûte</value>
+    <comment></comment>
+  </data>
+  <data name="verb.costs$plural" xml:space="preserve">
+    <value>coûtent</value>
+    <comment></comment>
+  </data>
+  <data name="verb.is" xml:space="preserve">
+    <value>est</value>
+    <comment></comment>
+  </data>
+  <data name="verb.is$plural" xml:space="preserve">
+    <value>sont</value>
+    <comment></comment>
+  </data>
+  <data name="verb.mene" xml:space="preserve">
+    <value>mène</value>
+    <comment></comment>
+  </data>
+  <data name="verb.mene$plural" xml:space="preserve">
+    <value>mènent</value>
+    <comment></comment>
+  </data>
+</root>

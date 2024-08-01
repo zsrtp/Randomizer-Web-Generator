@@ -1,6 +1,5 @@
 {
     "requirements": "Female_Pill_Bug",
-    "flag": "CB",
-    "category": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
+    "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
     "itemId": "Purple_Rupee"
 }

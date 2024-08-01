@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["748"],
-    "stageIDX": [68],
-    "roomIDX": 2,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Kakariko Village", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Kakariko Village", "ARC"],
     "itemId": "Red_Rupee"
 }

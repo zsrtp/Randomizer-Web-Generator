@@ -3,6 +3,7 @@ namespace TPRandomizer.Assets
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using TPRandomizer.FcSettings.Enums;
     using TPRandomizer.Util;
 
     /// <summary>
@@ -40,7 +41,13 @@ namespace TPRandomizer.Assets
         /// <param name="seedRegion">The region of the game that the seed is being generated for.</param>
         /// <param name="seedData">Any data that needs to be read into the GCI file.</param>
         /// <returns> The inserted value as a byte. </returns>
-        public Gci(char regionCode, List<byte> seedData, string playthroughName)
+        public Gci(
+            char regionCode,
+            List<byte> seedData,
+            string playthroughName,
+            FileCreationSettings fcSettings,
+            GameRegion regionOverride
+        )
         {
             gciHeader = new List<byte>();
             gciData = new List<byte>();
@@ -76,7 +83,7 @@ namespace TPRandomizer.Assets
             /*x36*/
             gciHeader.AddRange(Converter.GcBytes((UInt16)0x00)); // first block number
             /*x38*/
-            gciHeader.AddRange(Converter.GcBytes((UInt16)0x02)); // Actual num of blocks.
+            gciHeader.AddRange(Converter.GcBytes((UInt16)0x04)); // Actual num of blocks.
             /*x3A*/
             gciHeader.AddRange(Converter.GcBytes((UInt16)0xFFFF)); // unused
             /*x3C*/
@@ -84,11 +91,31 @@ namespace TPRandomizer.Assets
                 Converter.GcBytes((UInt32)(SeedData.DebugInfoSize + SeedData.ImageDataSize))
             ); // Comments Offset
 
-            gciFile.AddRange(gciHeader);
+            // If generating for all regions, we use the region passed in as an
+            // argument rather than reading from fcSettings.
+            GameRegion gameRegion =
+                fcSettings.gameRegion == GameRegion.All ? regionOverride : fcSettings.gameRegion;
+
+            switch (gameRegion)
+            {
+                case GameRegion.GC_USA:
+                case GameRegion.GC_EUR:
+                case GameRegion.GC_JAP:
+                {
+                    gciFile.AddRange(gciHeader);
+                    break;
+                }
+
+                default:
+                {
+                    break;
+                }
+            }
+
             gciFile.AddRange(seedData);
 
             // Pad
-            while (gciFile.Count < (2 * 0x2000) + 0x40) // Pad to 2 blocks.
+            while (gciFile.Count < (4 * 0x2000) + 0x40) // Pad to 4 blocks.
                 gciFile.Add((byte)0x0);
         }
 

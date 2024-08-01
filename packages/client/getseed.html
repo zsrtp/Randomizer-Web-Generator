@@ -23,8 +23,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <script src="/js/lib/material-color-utilities-2.7.0.min.js"></script>
     <script src="/js/lib/jquery-3.6.0.js"></script>
     <script src="/js/lib/color-scheme.min.js"></script>
+    <script src="/js/midnaHairColors.js"></script>
     <script src="/js/shared.js"></script>
     <script src="/js/game.js"></script>
     <script src="/js/checkData.js"></script>
@@ -41,8 +43,16 @@
               >Generator <i class="fa fa-caret-down"></i
             ></a>
             <ul>
-              <li><a href="https://generator.tprandomizer.com">Stable <sup>1.0</sup></a></li>
-              <li><a href="http://rando.dimensionalsoftworks.net:60001">Development <sup>1.0</sup></a></li>
+              <li>
+                <a href="https://generator.tprandomizer.com"
+                  >Stable <sup>1.1.0</sup></a
+                >
+              </li>
+              <li>
+                <a href="http://rando.dimensionalsoftworks.net:60001"
+                  >Development <sup>1.2.0</sup></a
+                >
+              </li>
             </ul>
           </li>
           <li><a href="https://wiki.tprandomizer.com">Wiki</a></li>
@@ -116,7 +126,7 @@
             class="alert alert-warning"
             style="display: none"
           >
-            Please keep this tab in the foreground, or your may lose your queue
+            Please keep this tab in the foreground, or you may lose your queue
             position.
           </div>
         </div>
@@ -338,6 +348,16 @@
         <div id="info" style="font-size: 12px; display: none"></div>
 
         <div id="filename" style="font-size: 32px; text-align: center"></div>
+        <div
+          id="wiiFilename"
+          style="
+            font-size: 24px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            padding-top: 8px;
+            font-style: italic;
+          "
+        ></div>
 
         <table class="getSeedTable">
           <tbody>
@@ -351,7 +371,7 @@
             </tr>
             <tr>
               <th>Settings String</th>
-              <td id="settingsString"></td>
+              <td id="settingsString" style="overflow-wrap: anywhere"></td>
             </tr>
           </tbody>
         </table>
@@ -794,7 +814,21 @@
                           <option value="7">Brown</option>
                           <option value="8">White</option>
                           <option value="9">Black</option>
+                          <option
+                            value="10"
+                            data-rgb="00000000"
+                            data-custom-color="true"
+                          >
+                            Custom
+                          </option>
                         </select>
+                        <br />
+                        <input
+                          type="color"
+                          id="midnaHairBaseColorFieldsetColorPicker"
+                          value="#ff7800"
+                          style="display: none"
+                        />
                       </td>
                     </tr>
                     <tr>
@@ -807,7 +841,7 @@
                         <select
                           name="Midna Hair Tip Color Fieldset"
                           id="midnaHairTipColorFieldset"
-                          data-tooltip-text="Sets the color of the tips of Midna's hair.&#0010;"
+                          data-tooltip-text="Sets the color of the tips of Midna's hair.&#0010;Due to how hair color works, the tips will blend some with the base color."
                         >
                           <option value="0">Default</option>
                           <option value="1">Pink</option>
@@ -819,7 +853,21 @@
                           <option value="7">Brown</option>
                           <option value="8">White</option>
                           <option value="9">Black</option>
+                          <option
+                            value="10"
+                            data-rgb="00000000"
+                            data-custom-color="true"
+                          >
+                            Custom
+                          </option>
                         </select>
+                        <br />
+                        <input
+                          type="color"
+                          id="midnaHairTipColorFieldsetColorPicker"
+                          value="#00c3eb"
+                          style="display: none"
+                        />
                       </td>
                     </tr>
                     <tr>
@@ -1099,6 +1147,18 @@
             Download Options
           </div>
           <div id="downloadOptionsRegionFilterGroup"></div>
+          <div
+            id="downloadOptionsLanguageFilterGroup"
+            style="display: none"
+          ></div>
+          <div
+            id="translationsWarning"
+            class="alert alert-warning"
+            style="padding: 8px; margin-bottom: 8px; display: none"
+          >
+            Custom text will be mostly English until more translations are done
+            in a future update.
+          </div>
           <div id="downloadOptionsSpoilerCheckboxParent"></div>
 
           <button id="create" class="primaryButton" style="margin-top: 16px">
@@ -1214,7 +1274,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/0/0c/Randomizer-1.1.0.us.gci"
+                href="https://wiki.tprandomizer.com/images/d/d8/Randomizer-1.2.0.us.gci"
                 download
                 ><img class="blackbor flag" src="/img/usa.jpg"
               /></a>
@@ -1224,7 +1284,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/9/98/Randomizer-1.1.0.eu.gci"
+                href="https://wiki.tprandomizer.com/images/0/06/Randomizer-1.2.0.eu.gci"
                 download
                 ><img class="blackbor flag" src="/img/eur.jpg"
               /></a>
@@ -1234,7 +1294,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/9/9d/Randomizer-1.1.0.jp.gci"
+                href="https://wiki.tprandomizer.com/images/5/5c/Randomizer-1.2.0.jp.gci"
                 download
                 ><img class="blackbor flag" src="/img/jpn.jpg"
               /></a>

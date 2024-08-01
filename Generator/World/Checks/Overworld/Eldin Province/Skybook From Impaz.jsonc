@@ -1,9 +1,5 @@
 {
-    "requirements": "(Progressive_Bow, 1) and (Progressive_Dominion_Rod, 1)",
-    "arcOffsets": ["3097", "3097"],
-    "stageIDX": [63,72],
-    "fileDirectoryType": [1,1],
-    "replacementType": [0,0],
-    "category": ["Overworld", "Npc", "Hidden Village", "ARC"],
+    "requirements": "Room.Hidden_Village and (Progressive_Bow, 1) and (Progressive_Dominion_Rod, 1)",
+    "checkCategory": ["Overworld", "Npc", "Hidden Village", "ARC"],
     "itemId": "Progressive_Sky_Book"
 }

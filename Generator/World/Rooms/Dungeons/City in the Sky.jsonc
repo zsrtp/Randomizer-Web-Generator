@@ -1,0 +1,154 @@
+[
+    {
+        "RoomName": "City in The Sky Boss Room", 
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "City in The Sky Entrance",
+            "Requirements": "CanDefeatArgorok"
+          }
+        ],
+        "Checks": 
+        [
+            "City in The Sky Argorok Heart Container",
+            "City in The Sky Dungeon Reward"
+        ], 
+        "Region": "City in The Sky"
+    },
+    { 
+        "RoomName": "City in The Sky Central Tower Second Floor",
+        "Exits": 
+        [
+        {
+            "ConnectedArea": "City in The Sky West Wing",
+            "Requirements": "(Progressive_Clawshot, 2)"
+        },
+        {
+            "ConnectedArea": "City in The Sky Lobby",
+            "Requirements": "((Progressive_Clawshot, 1) and Iron_Boots and Shadow_Crystal) and (Setting.damageMagnification not_equal OHKO)"
+        }
+        ],
+        "Checks": 
+        [
+            "City in The Sky Central Outside Ledge Chest",
+            "City in The Sky Central Outside Poe Island Chest",
+            "City in The Sky Big Key Chest",
+            "City in The Sky Chest Below Big Key Chest",
+            "City in The Sky Poe Above Central Fan"
+        ],
+        "Region": "City in The Sky"
+    },
+    { 
+        "RoomName": "City in The Sky East Wing",
+        "Exits": 
+        [
+        {
+            "ConnectedArea": "City in The Sky Lobby",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": 
+        [
+            "City in The Sky East First Wing Chest After Fans",
+            "City in The Sky East Wing Lower Level Chest",
+            "City in The Sky East Tile Worm Small Chest",
+            "City in The Sky East Wing After Dinalfos Alcove Chest",
+            "City in The Sky East Wing After Dinalfos Ledge Chest",
+            "City in The Sky Aeralfos Chest"
+        ],
+        "Region": "City in The Sky"
+    },
+    {
+        "RoomName": "City in The Sky Entrance",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "Lake Hylia",
+            "Requirements": "(Progressive_Clawshot, 1)"
+          },
+          {
+            "ConnectedArea": "City in The Sky Lobby",
+            "Requirements": "(Progressive_Clawshot, 1)"
+          }
+        ],
+        "Checks": 
+        [
+            "City in The Sky Underwater West Chest",
+            "City in The Sky Underwater East Chest"
+        ],
+        "Region": "City in The Sky"
+    },
+    {
+        "RoomName": "City in The Sky Lobby",
+        "Exits": 
+        [
+            {
+                "ConnectedArea": "City in The Sky Entrance",
+                "Requirements": "true"
+            },
+            {
+                "ConnectedArea": "City in The Sky East Wing",
+                "Requirements": "Spinner and ((City_in_The_Sky_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+            },
+            {
+                "ConnectedArea": "City in The Sky West Wing",
+                "Requirements": "(Progressive_Clawshot, 2)"
+            },
+            {
+                "ConnectedArea": "City in The Sky North Wing",
+                "Requirements": "(Progressive_Clawshot, 2) and CanDefeatBabaSerpent and CanDefeatKargarok and Shadow_Crystal and Iron_Boots"
+            }
+        ],
+        "Checks": [""],
+        "Region": "City in The Sky"
+    },
+    {
+        "RoomName": "City in The Sky North Wing", 
+        "Exits": 
+        [
+            {
+                "ConnectedArea": "City in The Sky Lobby",
+                "Requirements": "true"
+            },
+            {
+                "ConnectedArea": "City in The Sky Boss Room",
+                "Requirements": "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bigKeySettings equals Keysy))"
+            }
+        ],
+        "Checks": 
+        [
+            "City in The Sky Chest Behind North Fan"
+        ], 
+        "Region": "City in The Sky"
+    },
+    {
+        "RoomName": "City in The Sky West Wing",
+        "Exits": 
+        [
+          {
+            "ConnectedArea": "City in The Sky Lobby",
+            "Requirements": "(Progressive_Clawshot, 2)"
+          },
+          {
+            "ConnectedArea": "City in The Sky Central Tower Second Floor",
+            "Requirements": "(Progressive_Clawshot, 2)"
+          }
+        ],
+        "Checks": 
+        [
+            "City in The Sky West Wing First Chest",
+            "City in The Sky West Wing Baba Balcony Chest",
+            "City in The Sky West Wing Narrow Ledge Chest",
+            "City in The Sky West Wing Tile Worm Chest",
+            "City in The Sky Baba Tower Top Small Chest",
+            "City in The Sky Baba Tower Narrow Ledge Chest",
+            "City in The Sky Baba Tower Alcove Chest",
+            "City in The Sky West Garden Corner Chest",
+            "City in The Sky West Garden Lone Island Chest",
+            "City in The Sky West Garden Lower Chest",
+            "City in The Sky West Garden Ledge Chest",
+            "City in The Sky Garden Island Poe"
+         ],
+        "Region": "City in The Sky"
+    }
+]

@@ -1,10 +1,5 @@
 {
     "requirements": "(Progressive_Clawshot, 1) and Spinner",
-    "arcOffsets": ["9A4"],
-    "stageIDX": [9],
-    "roomIDX": 5,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Temple of Time", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Temple of Time"],
     "itemId": "Red_Rupee"
 }

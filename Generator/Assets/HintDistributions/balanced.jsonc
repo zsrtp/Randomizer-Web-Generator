@@ -1,0 +1,39 @@
+{
+  // Balanced distribution
+  "agitha": true,
+  "jovani": {
+    "minSoulsForHint": 0
+  },
+  "caveOfOrdeals": true,
+  "beyondPointZones": ["alias:overworld"],
+  "always": {
+    "copies": 2,
+    "groupId": "only-group"
+  },
+  "groups": {
+    "only-group": ["alias:overworldZones", "alias:dungeonZones"]
+  },
+  "hints": [
+    {
+      "groupId": "only-group",
+      "hintDef": {
+        "selectionType": "randomWeighted",
+        "hintDef": [
+          { "hintType": "woth", "weight": 3.5 },
+          { "hintType": "barren", "weight": 2 },
+          { "hintType": "item", "weight": 5 },
+          { "hintType": "sometimes", "weight": 5 },
+          { "hintType": "junk", "weight": 3 },
+          {
+            // Random
+            "hintType": "item",
+            "weight": 5,
+            "options": {
+              "validItems": ["alias:junk", "alias:rupees"]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

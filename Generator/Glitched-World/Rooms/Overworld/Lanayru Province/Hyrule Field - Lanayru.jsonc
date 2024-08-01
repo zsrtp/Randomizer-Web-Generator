@@ -1,0 +1,372 @@
+[
+    {
+      "RoomName": "Lanayru Field",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Lanayru Field Cave Entrance",
+          "Requirements": "canSmash"
+        },
+        {
+          "ConnectedArea": "Lanayru Field Behind Boulder",
+          "Requirements": "canSmash or CanDoMapGlitch"
+        },
+        {
+          "ConnectedArea": "Hyrule Field Near Spinner Rails",
+          "Requirements": "canSmash or CanDoMapGlitch"
+        },
+        {
+          "ConnectedArea": "North Eldin Field",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Outside Castle Town West",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Lanayru Field Chu Grotto",
+          "Requirements": "Shadow_Crystal"
+        },
+        {
+          "ConnectedArea": "Lanayru Field Skulltula Grotto",
+          "Requirements": "Shadow_Crystal"
+        },
+        {
+          "ConnectedArea": "Lanayru Field Poe Grotto",
+          "Requirements": "Shadow_Crystal"
+        }
+      ],
+      "Checks":
+      [
+          "Lanayru Field Behind Gate Underwater Chest",
+          "Lanayru Field Male Stag Beetle",
+          "Lanayru Field Female Stag Beetle",
+          "Lanayru Field Bridge Poe"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Lanayru Field Cave Entrance",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Lanayru Field",
+          "Requirements": "canSmash"
+        },
+        {
+          "ConnectedArea": "Lanayru Ice Puzzle Cave",
+          "Requirements": "true"
+        }
+      ],
+      "Checks": [""],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Lanayru Field Behind Boulder",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Lanayru Field",
+          "Requirements": "canSmash"
+        },
+        {
+          "ConnectedArea": "Zoras Domain West Ledge",
+          "Requirements": "true"
+        }
+      ],
+      "Checks": [""],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Hyrule Field Near Spinner Rails",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Lanayru Field",
+          "Requirements": "canSmash"
+        },
+        {
+          "ConnectedArea": "Lake Hylia Bridge",
+          "Requirements": "canSmash"
+        }
+      ],
+      "Checks":
+      [
+          "Lanayru Field Spinner Track Chest"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Lanayru Ice Puzzle Cave",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Lanayru Field Cave Entrance",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [
+          "Lanayru Ice Block Puzzle Cave Chest"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Lanayru Field Chu Grotto",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Lanayru Field",
+          "Requirements": "true"
+        }
+      ],
+      "Checks": [""],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Lanayru Field Skulltula Grotto",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Lanayru Field",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [
+          "Lanayru Field Skulltula Grotto Chest"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Lanayru Field Poe Grotto",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Lanayru Field",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [
+          "Lanayru Field Poe Grotto Left Poe",
+          "Lanayru Field Poe Grotto Right Poe"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Outside Castle Town West",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Outside Castle Town West Grotto Ledge",
+          "Requirements": "Shadow_Crystal and ((Progressive_Clawshot, 1) or CanDoMapGlitch)"
+        },
+        {
+          "ConnectedArea": "Lanayru Field",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Castle Town West",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Lake Hylia Bridge",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [
+          "Hyrule Field Amphitheater Owl Statue Chest",
+          "Hyrule Field Amphitheater Owl Statue Sky Character",
+          "West Hyrule Field Male Butterfly",
+          "West Hyrule Field Female Butterfly",
+          "Hyrule Field Amphitheater Poe",
+          "West Hyrule Field Golden Wolf"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Outside Castle Town West Grotto Ledge",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Outside Castle Town West",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Outside Castle Town West Helmasaur Grotto",
+          "Requirements": "Shadow_Crystal"
+        }
+      ],
+      "Checks": [""],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Outside Castle Town West Helmasaur Grotto",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Outside Castle Town West Grotto Ledge",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [
+          "West Hyrule Field Helmasaur Grotto Chest"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Outside Castle Town East",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Eldin Field Near Castle Town",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Castle Town East",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [
+          "East Castle Town Bridge Poe"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Outside Castle Town South",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Castle Town South",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Faron Field Behind Boulder",
+          "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle"
+        },
+        {
+          "ConnectedArea": "Lake Hylia",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Outside Castle Town South Tektite Grotto",
+          "Requirements": "Shadow_Crystal"
+        }
+      ],
+      "Checks":
+      [
+          "Outside South Castle Town Tightrope Chest",
+          "Outside South Castle Town Fountain Chest",
+          "Outside South Castle Town Double Clawshot Chasm Chest",
+          "Wooden Statue",
+          "Outside South Castle Town Male Ladybug",
+          "Outside South Castle Town Female Ladybug",
+          "Outside South Castle Town Poe",
+          "Outside South Castle Town Golden Wolf"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+       // If you enter Outside Castle Town South from there while the boulder is still there, you get stuck and are forced to save-warp or portal-warp
+      "RoomName": "Outside Castle Town South Inside Boulder",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Outside Castle Town South",
+          "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle and Room.Outside_Castle_Town_South"
+        }
+      ],
+      "Checks": [""],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Outside Castle Town South Tektite Grotto",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Outside Castle Town South",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [
+          "Outside South Castle Town Tektite Grotto Chest"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Lake Hylia Bridge",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Lake Hylia Bridge Grotto Ledge",
+          "Requirements": "canLaunchBombs and (Progressive_Clawshot, 1)"
+        },
+        {
+          "ConnectedArea": "Hyrule Field Near Spinner Rails",
+          "Requirements": "canSmash or CanDoMapGlitch"
+        },
+        {
+          "ConnectedArea": "Outside Castle Town West",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Lake Hylia",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Faron Field",
+          "Requirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysy)) or Shadow_Crystal"
+        }
+      ],
+      "Checks":
+      [
+          "Lake Hylia Bridge Vines Chest",
+          "Lake Hylia Bridge Owl Statue Chest",
+          "Lake Hylia Bridge Owl Statue Sky Character",
+          "Lake Hylia Bridge Male Mantis",
+          "Lake Hylia Bridge Female Mantis"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Lake Hylia Bridge Grotto Ledge",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Lake Hylia Bridge",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Lake Hylia Bridge Bubble Grotto",
+          "Requirements": "Shadow_Crystal"
+        }
+      ],
+      "Checks":
+      [
+          "Lake Hylia Bridge Cliff Chest",
+          "Lake Hylia Bridge Cliff Poe"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    },
+    {
+      "RoomName": "Lake Hylia Bridge Bubble Grotto",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Lake Hylia Bridge Grotto Ledge",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [
+          "Lake Hylia Bridge Bubble Grotto Chest"
+      ],
+      "Region": "Hyrule Field - Lanayru Province"
+    }
+  ]
+  

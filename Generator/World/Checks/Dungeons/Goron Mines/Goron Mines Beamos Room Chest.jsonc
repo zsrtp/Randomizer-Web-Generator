@@ -1,10 +1,5 @@
 {
     "requirements": " Iron_Boots and CanDefeatDangoro and (Progressive_Bow, 1)",
-    "arcOffsets": ["B58"],
-    "stageIDX": [3],
-    "roomIDX": 11,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Goron Mines", "Dungeon Items", "Compass", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Goron Mines", "Dungeon Items", "Compass", "ARC"],
     "itemId": "Goron_Mines_Compass"
 }

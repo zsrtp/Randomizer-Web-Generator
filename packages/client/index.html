@@ -23,9 +23,14 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+    />
     <script src="/js/lib/lodash.toarray.js"></script>
     <script src="/js/lib/jquery-3.6.0.js"></script>
     <script src="/js/shared.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   </head>
   <body>
     <header>
@@ -39,8 +44,16 @@
               >Generator <i class="fa fa-caret-down"></i
             ></a>
             <ul>
-              <li><a href="https://generator.tprandomizer.com">Stable <sup>1.0</sup></a></li>
-              <li><a href="http://rando.dimensionalsoftworks.net:60001">Development <sup>1.0</sup></a></li>
+              <li>
+                <a href="https://generator.tprandomizer.com"
+                  >Stable <sup>1.1.0</sup></a
+                >
+              </li>
+              <li>
+                <a href="http://rando.dimensionalsoftworks.net:60001"
+                  >Development <sup>1.2.0</sup></a
+                >
+              </li>
             </ul>
           </li>
           <li><a href="https://wiki.tprandomizer.com">Wiki</a></li>
@@ -109,6 +122,7 @@
           <button id="startingInventoryTabBtn" class="tablinks">
             Starting Inventory
           </button>
+          <button id="plandoTabBtn" class="tablinks">Plando</button>
           <button id="gameplaySettingsTabBtn" class="tablinks">Other</button>
           <!-- <button id="cosmeticsAndQuirksTabBtn" class="tablinks">Cosmetics and Quirks</button> -->
           <!-- <button id="legacyTabBtn" class="tablinks">Legacy</button> -->
@@ -143,14 +157,14 @@
                 ><br />
                 <select
                   name="Castle Requirements"
-                  data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'All Dungeons': The player must complete all dungeons.&#0010;&#0010;'Vanilla': The player must complete Palace of Twilight.&#0010;&#0010;Note that all Castle requirements include completing Midna's Desperate Hour. Visit the 'Other' tab to adjust your MDH settings."
+                  data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 4 Mirror Shards.&#0010;&#0010;'All Dungeons': The player must complete all dungeons.&#0010;&#0010;'Vanilla (beat PoT)': The player must complete Palace of Twilight.&#0010;&#0010;Note that all Castle requirements include completing Midna's Desperate Hour. Visit the 'Other' tab to adjust your MDH settings."
                   id="castleRequirementsFieldset"
                 >
                   <option value="0">Open</option>
                   <option value="1">Fused Shadows</option>
                   <option value="2">Mirror Shards</option>
                   <option value="3">All Dungeons</option>
-                  <option value="4" selected>Vanilla</option>
+                  <option value="4" selected>Vanilla (beat PoT)</option>
                 </select>
               </div>
               <div class="selectGroup">
@@ -159,13 +173,13 @@
                 ><br />
                 <select
                   name="Palace Requirements"
-                  data-tooltip-text="'Open': The mirror is assembled from the beginning and the entrance to the dungeon is open.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 3 Mirror Shards.&#0010;&#0010;'Vanilla': The player must complete City in the Sky.&#0010;"
+                  data-tooltip-text="'Open': The mirror is assembled from the beginning and the entrance to the dungeon is open.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 4 Mirror Shards.&#0010;&#0010;'Vanilla (beat CitS)': The player must complete City in the Sky.&#0010;"
                   id="palaceRequirementsFieldset"
                 >
                   <option value="0">Open</option>
                   <option value="1">Fused Shadows</option>
                   <option value="2">Mirror Shards</option>
-                  <option value="3" selected>Vanilla</option>
+                  <option value="3" selected>Vanilla (beat CitS)</option>
                 </select>
               </div>
               <div class="selectGroup">
@@ -263,7 +277,7 @@
                 <select
                   name=""
                   id="itemScarcityFieldset"
-                  data-tooltip-text="'Vanilla': No changes to the item pool.&#0010;&#0010;'Minimal': Removes unrequired items such as Heart Containers and Pieces, Hawkeye, etc. Has as few items as possible for Bomb Bags, Bows, Hidden Skills, Swords, and Wallets. No Magic Armor and 1 hidden skills if Glitchless logic.&#0010;&#0010;'Plentiful': One extra copy of major items. There are 17 Heart Containers but no Pieces of Heart. Extra keys if `Keysanity` or `Any Dungeon`."
+                  data-tooltip-text="'Vanilla': No changes to the item pool.&#0010;&#0010;'Minimal': Removes unrequired items such as Heart Containers and Pieces, Hawkeye, etc. Has as few items as possible for Bomb Bags, Bows, Hidden Skills, and Wallets. No Magic Armor and 1 Hidden Skill if Glitchless logic.&#0010;&#0010;'Plentiful': One extra copy of major items. There are 17 Heart Containers but no Pieces of Heart. Extra keys if `Keysanity` or `Any Dungeon`."
                 >
                   <option value="0">Vanilla</option>
                   <option value="1">Minimal</option>
@@ -323,6 +337,7 @@
               </div>
               <div
                 data-tooltip-text="If checked, the Fused Shadows and Mirror Shards that normally appear at the end of Dungeons can be found anywhere in the game.&#0010;"
+                data-tooltip-position="left"
               >
                 <input
                   type="checkbox"
@@ -330,7 +345,23 @@
                   name="Shuffle Rewards"
                   value=""
                 />
-                <label for="shuffleRewardsCheckbox"> Dungeon Rewards Can Be Anywhere </label><br />
+                <label for="shuffleRewardsCheckbox">
+                  Dungeon Rewards Can Be Anywhere </label
+                ><br />
+              </div>
+              <div
+                data-tooltip-text="Helps prevent needing to reenter a dungeon after defeating the boss when small keys are Own Dungeon.&#0010;&#0010;If checked, the following items will not appear on Heart Container or Dungeon Reward checks: Dungeon small keys, Snowpeak Ruins Ordon Pumpkin, Snowpeak Ruins Ordon Goat Cheese, Gerudo Desert Bulblin Camp Key, and North Faron Woods Gate Key&#0010;"
+                data-tooltip-position="left"
+              >
+                <input
+                  type="checkbox"
+                  id="noSmallKeysOnBossesCheckbox"
+                  name="No Small Keys On Bosses Checkbox"
+                  value=""
+                />
+                <label for="noSmallKeysOnBossesCheckbox"
+                  >No Small Keys On Bosses</label
+                >
               </div>
             </fieldset>
           </div>
@@ -423,6 +454,20 @@
               </div>
               <div
                 style="width: 60%"
+                data-tooltip-text="Automatically skips all skippable major cutscenes in the game.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="skipMajorCutscenesCheckbox"
+                  name="Skip Major Cutscenes Checkbox"
+                  value=""
+                />
+                <label for="skipMajorCutscenesCheckbox">
+                  Skip Major Cutscenes </label
+                ><br />
+              </div>
+              <div
+                style="width: 60%"
                 data-tooltip-text="Removes the speed reduction caused by wearing the Iron Boots.&#0010;This also affects any other modifiers that reduce Link's speed such as quicksand, snow, and carrying the Ball and Chain.&#0010;"
               >
                 <input
@@ -501,7 +546,7 @@
               </div>
               <div
                 style="width: 90%"
-                data-tooltip-text="If enabled,the Door of Time (the big door at the entrance) in the Temple of Time will be opened and the statue is moved to the entrance.&#0010;"
+                data-tooltip-text="WARNING: you will need to save and quit the game to exit the Darknut room since the statue is gone.&#0010;&#0010;If enabled, the Door of Time (the big door at the entrance) in the Temple of Time will be opened and the statue is moved to the entrance."
               >
                 <input
                   type="checkbox"
@@ -545,7 +590,7 @@
                 ><br />
               </div>
               <div
-                data-tooltip-text="If checked, shop item models will show the model of the replacement item. If unchecked, the shop model will always be vanilla.&#0010;"
+                data-tooltip-text="If checked, shop item models will show the model of the replacement item and the text will be replaced. If unchecked, the shop model and text will always be vanilla.&#0010;"
               >
                 <input
                   type="checkbox"
@@ -554,7 +599,7 @@
                   value=""
                 />
                 <label for="modifyShopModelsCheckbox"
-                  >Shop Models Show The Replaced Item</label
+                  >Shops Display The Replaced Item</label
                 ><br />
               </div>
               <div
@@ -566,9 +611,7 @@
                   name="Bonks Do Damage Checkbox"
                   value=""
                 />
-                <label for="bonksDoDamageCheckbox"
-                  >Bonks Do Damage</label
-                ><br />
+                <label for="bonksDoDamageCheckbox">Bonks Do Damage</label><br />
               </div>
               <div class="selectGroup" style="margin-top: 8px">
                 <label for="trapItemFieldset">Trap Item Frequency</label><br />
@@ -591,11 +634,40 @@
                   id="damageMagFieldset"
                   data-tooltip-text="'Vanilla': Link takes normal damage.&#0010;&#0010;'Double': Link will take 2x damage.&#0010;&#0010;'Triple': Link will take 3x damage.&#0010;&#0010;'Quadruple': Link will take 4x damage.&#0010;&#0010;'OHKO (One-Hit KO)': Any damage taken will kill Link.&#0010;"
                 >
-                <option value="1">Vanilla</option>
-                <option value="2">Double</option>
-                <option value="3">Triple</option>
-                <option value="4">Quadruple</option>
-                <option value="5">OHKO</option>
+                  <option value="1">Vanilla</option>
+                  <option value="2">Double</option>
+                  <option value="3">Triple</option>
+                  <option value="4">Quadruple</option>
+                  <option value="5">OHKO</option>
+                </select>
+              </div>
+              <div class="selectGroup" style="margin-top: 8px">
+                <label for="todFieldset">Starting Time of Day</label><br />
+                <select
+                  name="Starting Time of Day"
+                  id="todFieldset"
+                  data-tooltip-text="If the prologue is skipped, sets the starting time of day of a new save file to the specified value."
+                >
+                  <option value="0">Morning</option>
+                  <option value="1" selected="selected">Noon</option>
+                  <option value="2">Evening</option>
+                  <option value="3">Night</option>
+                </select>
+              </div>
+              <div class="selectGroup" style="margin-top: 8px">
+                <label for="hintDistributionFieldset">Hint Distribution</label
+                ><br />
+                <select
+                  name="Hint Distribution"
+                  id="hintDistributionFieldset"
+                  data-tooltip-text="'None': Disables hints.&#0010;&#0010;'Balanced': Default hint distribution.&#0010;&#0010;'Season 1': Distribution for the S1 tournament. 3 Barren, 1 Misc, 3 Path (1 Item, 2 Boss), 5 Always, 5 Sometimes, Sword hints in dungeons.&#0010;&#0010;'Strong': Hints are more useful than Balanced on average.&#0010;&#0010;'Very Strong': Hints are more useful than Strong on average.&#0010;&#0010;'Weak': Designed to enhance the experience without speeding things up that much.&#0010;"
+                >
+                  <option value="0">None</option>
+                  <option value="3" selected="selected">Balanced</option>
+                  <option value="1">Season 1</option>
+                  <option value="4">Strong</option>
+                  <option value="5">Very Strong</option>
+                  <option value="2">Weak</option>
                 </select>
               </div>
             </fieldset>
@@ -705,25 +777,6 @@
               data-tooltip-text="Any checks selected will be excluded, meaning that they cannot contain important items. Please note that settings take priority, so if a check is excluded, but a setting has the check set to be vanilla, it will be vanilla.&#0010;"
             >
               <!-- CHECK_IDS -->
-
-              <!-- <?php
-							$cmd = "dotnet Generator/bin/Debug/net6.0/TPRandomizer.dll print_check_ids";
-							$proc = popen($cmd, 'r'); // for Windows, use popen("start /B ". $cmd, 'r');
-							$log = "";
-							while (!feof($proc))
-							{
-									$chunk = fread($proc, 4096);
-									$log .= $chunk;
-									flush();
-									ob_flush();
-							}
-
-							$json = json_decode($log);
-							foreach ($json as $key => $value)
-							{
-								echo "<li><label><input type='checkbox' data-checkId='$value'>".$key."</label></li>";
-							}
-						?> -->
             </ul>
           </fieldset>
         </div>
@@ -739,18 +792,35 @@
               data-tooltip-text="The player will start with any items selected and the playthrough will take them into account for logic.&#0010;"
             >
               <!-- STARTING_ITEMS -->
-
-              <!-- <?php
-							$important_items = file_get_contents("Resources/StartingItems.txt");
-							$important_items = explode("\n", $important_items);
-							foreach ($important_items as $important_item)
-							{
-								list($value, $name) = explode(",", $important_item);
-								$name = str_replace("_"," ", $name);
-								echo "<li><label><input type='checkbox' data-itemId='$value'>".$name."</label> </li>";
-							}
-						?> -->
             </ul>
+          </fieldset>
+        </div>
+
+        <div id="plandoTab" class="tabcontent">
+          <fieldset class="checkboxFieldset">
+            <legend>Plando</legend>
+            <div class="plandoHelperText">
+              Specify the exact reward of a check.
+            </div>
+
+            <div class="plandoEntryRow">
+              <!-- PLANDO -->
+              <button
+                id="plandoBtnAdd"
+                type="button"
+                data-tooltip-text="Creates or updates an entry which specifies the contents of a check."
+                data-tooltip-position="left"
+                class="plandoEntryRowBtn"
+              >
+                Apply
+              </button>
+            </div>
+            <ul
+              id="basePlandoListbox"
+              multiple="multiple"
+              size="10"
+              width="20%"
+            ></ul>
           </fieldset>
         </div>
 
@@ -789,14 +859,8 @@
         </div>
         <br />
 
-        <div style="display: flex; align-items: flex-end">
-          <div class="labelValueGroup">
-            <div class="settingsStringLabel">Settings String</div>
-            <span
-              id="combinedSettingsString"
-              class="settingsStringValue"
-            ></span>
-          </div>
+        <div class="settingsStringLabel">Settings String</div>
+        <div style="display: flex; align-items: center; min-width: 0">
           <button
             id="editSettingsBtn"
             class="settingsEditBtnPos css-1egpgfe"
@@ -815,6 +879,7 @@
               ></path>
             </svg>
           </button>
+          <span id="combinedSettingsString" class="settingsStringValue"></span>
         </div>
 
         <!-- <div>SSettings (display only):</div>
@@ -911,7 +976,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/0/0c/Randomizer-1.1.0.us.gci"
+                href="https://wiki.tprandomizer.com/images/d/d8/Randomizer-1.2.0.us.gci"
                 download
                 ><img class="blackbor flag" src="img/usa.jpg"
               /></a>
@@ -921,7 +986,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/9/98/Randomizer-1.1.0.eu.gci"
+                href="https://wiki.tprandomizer.com/images/0/06/Randomizer-1.2.0.eu.gci"
                 download
                 ><img class="blackbor flag" src="/img/eur.jpg"
               /></a>
@@ -931,7 +996,7 @@
             <td class="rBor">
               <a
                 target="_blank"
-                href="https://wiki.tprandomizer.com/images/9/9d/Randomizer-1.1.0.jp.gci"
+                href="https://wiki.tprandomizer.com/images/5/5c/Randomizer-1.2.0.jp.gci"
                 download
                 ><img class="blackbor flag" src="/img/jpn.jpg"
               /></a>

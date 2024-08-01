@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatDarknut and Boomerang and CanDefeatBokoblin and  CanDefeatLizalfos and Progressive_Clawshot",
-    "arcOffsets": ["660"],
-    "stageIDX": [20],
-    "roomIDX": 2,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Hyrule Castle", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle"],
     "itemId": "Purple_Rupee"
 }

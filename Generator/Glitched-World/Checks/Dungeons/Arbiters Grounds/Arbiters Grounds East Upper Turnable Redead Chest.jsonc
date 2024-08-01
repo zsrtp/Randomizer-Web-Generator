@@ -1,10 +1,5 @@
 {
   "requirements": "HasDamagingItem and ((Arbiters_Grounds_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))",
-  "arcOffsets": ["D34"],
-  "stageIDX": [24],
-  "roomIDX": 4,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Arbiters Grounds", "Small Key", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds", "Small Key" ],
   "itemId": "Arbiters_Grounds_Small_Key"
 }

@@ -1,40 +1,258 @@
-{
-    "Neighbours": 
+[
+  {
+    "RoomName": "Gerudo Desert",
+    "Exits":
     [
-        "Cave of Ordeals Floors 01-11", 
-        "Bulblin Camp", 
-        "Gerudo Desert Rock Grotto", 
-        "Gerudo Desert Skulltula Grotto"
+      {
+        "ConnectedArea": "Gerudo Desert Cave of Ordeals Plateau",
+        "Requirements": "(Progressive_Clawshot, 1) and CanDefeatShadowBeast"
+      },
+      {
+        "ConnectedArea": "Gerudo Desert Basin",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Gerudo Desert Skulltula Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
     ],
-    "NeighbourRequirements":
-    [
-        "CanDefeatShadowBeast and (Progressive_Clawshot, 1)",
-        "CanDefeatBulblin",
-        "Shadow_Crystal and (Progressive_Clawshot, 1)",
-        "Shadow_Crystal"
-    ],
-    "Checks": 
+    "Checks":
     [
         "Gerudo Desert Peahat Ledge Chest",
         "Gerudo Desert East Canyon Chest",
         "Gerudo Desert Lone Small Chest",
         "Gerudo Desert West Canyon Chest",
-        "Gerudo Desert Northeast Chest Behind Gates",
         "Gerudo Desert South Chest Behind Wooden Gates",
-        "Gerudo Desert Campfire North Chest",
-        "Gerudo Desert Campfire East Chest",
-        "Gerudo Desert Campfire West Chest",
-        "Gerudo Desert Northwest Chest Behind Gates",
-        "Gerudo Desert North Small Chest Before Bulblin Camp",
         "Gerudo Desert Owl Statue Chest",
         "Gerudo Desert Owl Statue Sky Character",
         "Gerudo Desert Male Dayfly",
         "Gerudo Desert Female Dayfly",
-        "Gerudo Desert East Poe",
-        "Gerudo Desert North Peahat Poe",
-        "Gerudo Desert Poe Above Cave of Ordeals",
-        "Outside Bulblin Camp Poe",
-        "Gerudo Desert Golden Wolf"
+        "Gerudo Desert East Poe"
      ],
     "Region": "Gerudo Desert"
-}
+  },
+  {
+    "RoomName": "Gerudo Desert Cave of Ordeals Plateau",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Gerudo Desert",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Gerudo Desert Cave of Ordeals Floors 01-11",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Gerudo Desert Poe Above Cave of Ordeals"
+    ],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Gerudo Desert Basin",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Gerudo Desert",
+        "Requirements": "CanDefeatBulblin"
+      },
+      {
+        "ConnectedArea": "Gerudo Desert North East Ledge",
+        "Requirements": "(Progressive_Clawshot, 1)"
+      },
+      {
+        "ConnectedArea": "Gerudo Desert Outside Bulblin Camp",
+        "Requirements": "CanDefeatBulblin"
+      },
+      {
+        "ConnectedArea": "Gerudo Desert Chu Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks": [
+        "Gerudo Desert Northeast Chest Behind Gates",
+        "Gerudo Desert Campfire North Chest",
+        "Gerudo Desert Campfire East Chest",
+        "Gerudo Desert Campfire West Chest",
+        "Gerudo Desert Northwest Chest Behind Gates"
+    ],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Gerudo Desert North East Ledge",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Gerudo Desert Basin",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Gerudo Desert Rock Grotto",
+        "Requirements": "Shadow_Crystal"
+      }
+    ],
+    "Checks":
+    [
+        "Gerudo Desert North Peahat Poe"
+    ],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Gerudo Desert Outside Bulblin Camp",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Gerudo Desert Basin",
+        "Requirements": "Room.Gerudo_Desert_Basin and CanDefeatBulblin"
+      },
+      {
+        "ConnectedArea": "Bulblin Camp",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Gerudo Desert North Small Chest Before Bulblin Camp",
+        "Outside Bulblin Camp Poe",
+        "Gerudo Desert Golden Wolf"
+    ],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Gerudo Desert Skulltula Grotto",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Gerudo Desert",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Gerudo Desert Skulltula Grotto Chest"
+    ],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Gerudo Desert Chu Grotto",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Gerudo Desert Basin",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Gerudo Desert Rock Grotto",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Gerudo Desert North East Ledge",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Gerudo Desert Rock Grotto Lantern Chest",
+        "Gerudo Desert Rock Grotto First Poe",
+        "Gerudo Desert Rock Grotto Second Poe"
+    ],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Bulblin Camp",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Gerudo Desert Outside Bulblin Camp",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Outside Arbiters Grounds",
+        "Requirements": "((Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy)) and CanDefeatKingBulblinDesert) or (Setting.skipArbitersEntrance equals True)"
+      }
+    ],
+    "Checks":
+    [
+        "Bulblin Camp First Chest Under Tower At Entrance",
+        "Bulblin Camp Small Chest in Back of Camp",
+        "Bulblin Camp Roasted Boar",
+        "Bulblin Camp Poe",
+        "Bulblin Guard Key"
+    ],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Outside Arbiters Grounds",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Bulblin Camp",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Arbiters Grounds Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks":
+    [
+        "Outside Arbiters Grounds Lantern Chest",
+        "Outside Arbiters Grounds Poe"
+    ],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Mirror Chamber Lower",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Arbiters Grounds Boss Room",
+        "Requirements": "true"
+      },
+      {
+        "ConnectedArea": "Mirror Chamber Upper",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Mirror Chamber Upper",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Mirror Chamber Lower",
+        "Requirements": "CanDefeatShadowBeast"
+      },
+      {
+        "ConnectedArea": "Mirror Chamber Portal",
+        "Requirements": "CanDefeatShadowBeast and ((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky))"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Gerudo Desert"
+  },
+  {
+    "RoomName": "Mirror Chamber Portal",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Mirror Chamber Upper",
+        "Requirements": "CanDefeatShadowBeast"
+      },
+      {
+        "ConnectedArea": "Palace of Twilight Entrance",
+        "Requirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Gerudo Desert"
+  }
+]

@@ -1,10 +1,6 @@
 {
-    "requirements": "CanDefeatDinalfos and CanDefeatWalltula and CanDefeatKargarok and Shadow_Crystal",
-    "arcOffsets": ["C18"],
-    "stageIDX": [12],
-    "roomIDX": 13,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "City in The Sky", "ARC"],
+    // Either walk the ropes to the left or Claw up and then walk on the ropes
+    "requirements": "((CanDefeatDinalfos and CanDefeatWalltula and CanDefeatKargarok) or (Progressive_Clawshot, 1)) and Shadow_Crystal",
+    "checkCategory": ["Chest", "Dungeon", "City in The Sky"],
     "itemId": "Purple_Rupee"
 }

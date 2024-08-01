@@ -1,0 +1,5 @@
+{
+    "requirements": "true",
+    "checkCategory": ["Overworld", "Kakariko Village", "ARC", "Shop"],
+    "itemId": "Wooden_Shield"
+}

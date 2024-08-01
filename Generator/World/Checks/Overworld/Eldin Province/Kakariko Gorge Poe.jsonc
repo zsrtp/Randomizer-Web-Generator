@@ -1,7 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and CanCompleteMDH",
-    "stageIDX": [56],
-    "flag": "3A",
-    "category": ["Overworld", "Poe", "Hyrule Field - Eldin Province"],
+    "requirements": "Shadow_Crystal and CanCompleteMDH and CanCompleteAllTwilight",
+    "checkCategory": ["Overworld", "Poe", "Hyrule Field - Eldin Province"],
     "itemId": "Poe_Soul"
 }

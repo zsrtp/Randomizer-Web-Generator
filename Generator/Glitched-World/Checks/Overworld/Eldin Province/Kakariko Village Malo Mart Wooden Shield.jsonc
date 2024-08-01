@@ -1,0 +1,10 @@
+{
+    "requirements": "true",
+    "arcOffsets": ["20F7"],
+    "stageIDX": [68],
+    "fileDirectoryType": [1],
+    "replacementType": [0],
+    "flag": "6",
+    "checkCategory": ["Overworld", "Kakariko Village", "ARC", "Shop"],
+    "itemId": "Wooden_Shield"
+}

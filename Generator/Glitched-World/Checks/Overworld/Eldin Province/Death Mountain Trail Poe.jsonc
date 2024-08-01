@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal and canCompleteGoronMines",
     "stageIDX": [47],
     "flag": "59",
-    "category": ["Overworld", "Poe", "Death Mountain"],
+    "checkCategory": ["Overworld", "Poe", "Death Mountain"],
     "itemId": "Poe_Soul"
 }

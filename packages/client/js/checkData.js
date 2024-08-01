@@ -169,7 +169,6 @@ window.tpr.checkData = {
       'Arbiters Grounds',
       'Dungeon',
       'Boss',
-      'Dungeon Reward',
     ],
     itemId: 'Heart_Container',
   },
@@ -221,7 +220,7 @@ window.tpr.checkData = {
     itemId: 'Aurus_Memo',
   },
   'Barnes Bomb Bag': {
-    category: ['Overworld', 'Npc', 'Kakariko Village', 'ARC'],
+    category: ['Overworld', 'Shop', 'Kakariko Village', 'ARC'],
     itemId: 'Filled_Bomb_Bag',
   },
   'Bridge of Eldin Female Phasmid': {
@@ -1165,6 +1164,14 @@ window.tpr.checkData = {
     category: ['Overworld', 'Kakariko Village', 'ARC', 'Shop'],
     itemId: 'Hylian_Shield',
   },
+  'Kakariko Village Malo Mart Red Potion': {
+    category: ['Overworld', 'Kakariko Village', 'ARC', 'Shop'],
+    itemId: 'Red_Potion',
+  },
+  'Kakariko Village Malo Mart Wooden Shield': {
+    category: ['Overworld', 'Kakariko Village', 'ARC', 'Shop'],
+    itemId: 'Wooden_Shield',
+  },
   'Kakariko Village Watchtower Poe': {
     category: ['Overworld', 'Poe', 'Kakariko Village'],
     itemId: 'Poe_Soul',
@@ -1511,6 +1518,10 @@ window.tpr.checkData = {
     category: ['Overworld', 'Poe', 'Sacred Grove'],
     itemId: 'Poe_Soul',
   },
+  'Arbiters Grounds Dungeon Reward': {
+    category: ['Dungeon', 'Arbiters Grounds', 'Dungeon Reward', 'Event'],
+    itemId: 'Progressive_Mirror_Shard',
+  },
   'North Castle Town Golden Wolf': {
     category: ['Overworld', 'Hidden Skill', 'Castle Town', 'ARC'],
     itemId: 'Progressive_Hidden_Skill',
@@ -1726,6 +1737,14 @@ window.tpr.checkData = {
   'Sacred Grove Past Owl Statue Chest': {
     category: ['Overworld', 'Chest', 'Sacred Grove', 'ARC'],
     itemId: 'Piece_of_Heart',
+  },
+  'Sacred Grove Pedestal Master Sword': {
+    category: ['Overworld', 'Event', 'Sacred Grove'],
+    itemId: 'Master_Sword',
+  },
+  'Sacred Grove Pedestal Shadow Crystal': {
+    category: ['Overworld', 'Event', 'Sacred Grove'],
+    itemId: 'Shadow_Crystal',
   },
   'Sacred Grove Spinner Chest': {
     category: ['Overworld', 'Chest', 'Sacred Grove', 'ARC'],

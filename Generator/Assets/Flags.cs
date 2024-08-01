@@ -37,6 +37,7 @@ namespace TPRandomizer.Assets
             { 0x3, 0x64 }, // Ant house box pushed
             { 0x3, 0x5E }, // Defeated Ant house Tears of Light bug
             { 0x3, 0x1E }, // Collected Tear from Ant house
+            { 0x3, 0xBD }, // Done Midna jumps in ant house.
         };
 
         /// <summary>
@@ -77,6 +78,12 @@ namespace TPRandomizer.Assets
             { 0x3, 0x9A }, // Kakariko Village intro CS.
             { 0xA, 0x7F }, // Mirror Raised Cutscene Flag (Places Boar at desert entrance)
             { 0x0, 0x7E }, // Midna jumps to Shop unlocked
+            { 0x17, 0x5E }, // Palace of Twilight intro CS and removes the invisible waterfall wall with a custom ARC patch.
+            { 0x17, 0x64 }, // East platform to palace active.
+            { 0x3, 0x54 }, // Custom flag. Sets the sign in Kak Malo mart slot 1 to appear.
+            { 0x3, 0x99 }, // Remove wooden shield from Kak Malo Mart counter.
+            { 0x0, 0x63 }, // Spawn the Chest in Link's House
+            { 0x9, 0xBC }, // Spawn Gengle by default as his actor interferes with the poe soul
         };
 
         /// <summary>
@@ -96,7 +103,6 @@ namespace TPRandomizer.Assets
         /// </summary>
         public static readonly byte[,] IntroRegionFlags = new byte[,]
         {
-            { 0x0, 0x63 }, // Spawn the Chest in Link's House
             { 0x2, 0x4B }, // Unlock North Faron Woods Gate
         };
 
@@ -230,7 +236,6 @@ namespace TPRandomizer.Assets
             { 0x16, 0x67 }, // City in The Sky intro CS.
             { 0x16, 0x6E }, // East bridge extended CS.
             { 0x17, 0x4D }, // Phantom Zant 1 CS.
-            { 0x17, 0x5E }, // Palace of Twilight intro CS.
             { 0x17, 0x66 }, // Midna text when west hand steals sol.
             { 0x17, 0x6F }, // Midna text about black fog in west room.
             { 0x17, 0x70 }, // Midna text after finding west sol.
@@ -289,7 +294,6 @@ namespace TPRandomizer.Assets
             { 0x15, 0x42 }, // Unlock door in room 6 on 8F.
             { 0x15, 0x43 }, // Unlock door in 5F.
             { 0x16, 0x59 }, // Unlock east bridge door.
-            { 0x17, 0x57 }, // Unlock door in north room 3.
             { 0x17, 0x58 }, // Unlock door in east room 2.
             { 0x17, 0x59 }, // Unlock door in west room 2.
             { 0x17, 0x6C }, // Unlock door in north room 2.

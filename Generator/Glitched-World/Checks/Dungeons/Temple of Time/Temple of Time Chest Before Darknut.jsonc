@@ -1,10 +1,5 @@
 {
     "requirements": "CanDefeatArmos and CanDefeatBabyGohma and CanDefeatYoungGohma",
-    "arcOffsets": ["1050"],
-    "stageIDX": [9],
-    "roomIDX": 7,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Temple of Time", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Temple of Time"],
     "itemId": "Purple_Rupee"
 }

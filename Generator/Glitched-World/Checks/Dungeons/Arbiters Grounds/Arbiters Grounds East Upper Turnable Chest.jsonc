@@ -1,10 +1,5 @@
 {
   "requirements": "((Arbiters_Grounds_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))",
-  "arcOffsets": ["D14"],
-  "stageIDX": [24],
-  "roomIDX": 4,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Arbiters Grounds", "Dungeon Items", "Compass", "ARC" ],
+  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds", "Dungeon Items", "Compass" ],
   "itemId": "Arbiters_Grounds_Compass"
 }

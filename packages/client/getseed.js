@@ -24,38 +24,53 @@
   };
   const regionBitLength = 2;
 
+  const EurLanguageTag = {
+    English: 0,
+    Deutsch: 2,
+    Español: 4,
+    Français: 1,
+    Italiano: 3,
+  };
+  const eurLangTagBitLength = 3;
+
   let pageData;
   let creationCallInProgress;
   let picrossOpened = false;
   let selectedRegion = null;
+  let selectedLanguage = null;
   let hasSelectedRegionError = false;
   let defaultIncludeSpoilerLog = false;
 
   function createBasicEvent() {
-    let listener = null;
+    let listeners = [];
 
     return {
       subscribe: function (newListener) {
-        listener = newListener;
+        listeners.push(newListener);
       },
-      hasListener: function () {
-        return typeof listener === 'function';
+      hasListener: function (fn) {
+        return listeners.indexOf(fn) >= 0;
       },
       notify: function () {
-        if (typeof listener === 'function') {
-          listener();
-        }
+        listeners.forEach((listener) => {
+          if (typeof listener === 'function') {
+            listener();
+          }
+        });
       },
     };
   }
 
   const regionSelectedEvent = createBasicEvent();
+  const languageSelectedEvent = createBasicEvent();
 
   const RawSettingType = {
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
     bitString: 'bitString',
     xBitNum: 'xBitNum',
     rgb: 'rgb',
+    midnaHairBase: 'midnaHairBase',
+    midnaHairTips: 'midnaHairTips',
   };
 
   const RecolorId = {
@@ -253,6 +268,45 @@
     handleSpoilerData();
 
     initCustomColorPickers();
+
+    function handleToggleTranslationsWarning() {
+      let showTranslationsWarning = false;
+      if (selectedRegion !== 'USA' && selectedLanguage !== 'English') {
+        showTranslationsWarning =
+          selectedRegion !== 'EUR' || selectedLanguage !== 'Français';
+      }
+
+      $('#translationsWarning').toggle(showTranslationsWarning);
+    }
+
+    function handleRegionChange() {
+      updateLangDisplay();
+
+      handleToggleTranslationsWarning();
+    }
+
+    // Run once at startup
+    handleRegionChange();
+
+    regionSelectedEvent.subscribe(() => {
+      if (hasSelectedRegionError) {
+        hasSelectedRegionError = false;
+        $('#downloadsParent').hide();
+      }
+
+      handleRegionChange();
+    });
+
+    languageSelectedEvent.subscribe(() => {
+      handleToggleTranslationsWarning();
+    });
+  }
+
+  function updateLangDisplay() {
+    const shouldShowLangSection =
+      selectedRegion == 'All' || selectedRegion === 'EUR';
+
+    $('#downloadOptionsLanguageFilterGroup').toggle(shouldShowLangSection);
   }
 
   function restoreDefaultFcSettings() {
@@ -265,20 +319,69 @@
         selectedRegion = fcSettingsDefault.region;
       }
 
+      if (EurLanguageTag.hasOwnProperty(fcSettingsDefault.eurLanguage)) {
+        selectedLanguage = fcSettingsDefault.eurLanguage;
+      }
+
       if (typeof fcSettingsDefault.includeSpoilerLog === 'boolean') {
         defaultIncludeSpoilerLog = fcSettingsDefault.includeSpoilerLog;
       }
     } catch (e) {
       // do nothing
     }
+
+    if (!EurLanguageTag.hasOwnProperty(selectedLanguage)) {
+      pickDefaultEurLanguage();
+    }
+  }
+
+  function pickDefaultEurLanguage() {
+    let locales = navigator.languages;
+    if (locales == null) {
+      const navLang = navigator.language;
+      if (navLang != null) {
+        locales = [navLang];
+      }
+    }
+
+    const localeMapping = {
+      en: 'English',
+      de: 'Deutsch',
+      es: 'Español',
+      fr: 'Français',
+      it: 'Italiano',
+    };
+
+    if (Array.isArray(locales)) {
+      for (let i = 0; i < locales.length; i++) {
+        let locale = locales[i];
+
+        if (typeof locale === 'string') {
+          const dashIndex = locale.indexOf('-');
+          if (dashIndex >= 0) {
+            locale = locale.substring(0, dashIndex);
+          }
+
+          const lang = localeMapping[locale];
+
+          if (EurLanguageTag.hasOwnProperty(lang)) {
+            selectedLanguage = lang;
+            return;
+          }
+        }
+      }
+    }
+
+    if (!EurLanguageTag.hasOwnProperty(selectedLanguage)) {
+      selectedLanguage = 'English';
+    }
   }
 
   function handleSpoilerData() {
     $('#settingsSpoilerSection').show();
 
-    const spoilerData = JSON.parse(
-      document.getElementById('spoilerData').value
-    );
+    const rawSpoilerData = document.getElementById('spoilerData').value;
+    const spoilerData = JSON.parse(rawSpoilerData);
     console.log(spoilerData);
 
     initTabButtons([
@@ -299,7 +402,7 @@
       $('#tabBtnPlaythroughSpoilers').show();
 
       initPlaythroughSpoilers(spoilerData);
-      createSpoilerLogDownload(spoilerData);
+      createSpoilerLogDownload(spoilerData, rawSpoilerData);
     }
 
     initDownloadOptions(spoilerData.isRaceSeed);
@@ -320,6 +423,21 @@
         regionSelectedEvent.notify();
         // selectedLocationFilter = filter;
         // onFilterChange();
+      },
+    });
+
+    const downloadOptionsLanguageFilterGroupEl = document.getElementById(
+      'downloadOptionsLanguageFilterGroup'
+    );
+
+    renderFilterGroup({
+      rootEl: downloadOptionsLanguageFilterGroupEl,
+      title: 'EUR Language',
+      filters: ['English', 'Deutsch', 'Español', 'Français', 'Italiano'],
+      defaultFilter: selectedLanguage,
+      onFilterSelected: (filter) => {
+        selectedLanguage = filter;
+        languageSelectedEvent.notify();
       },
     });
 
@@ -357,10 +475,10 @@
   }
 
   // `colorHex` does not have the '#' at the front.
-  function randomizeCosmeticSetting(elId, colorHex) {
+  function randomizeCosmeticSetting(elId, colorHex, preventCustomColor) {
     const element = document.getElementById(elId);
 
-    if (elId.includes('ColorPicker')) {
+    if (!preventCustomColor && elId.includes('ColorPicker')) {
       // Is a custom color input.
 
       // Set color input's value and trigger 'input' event.
@@ -378,9 +496,27 @@
         selectEl.dispatchEvent(new Event('change', { bubbles: true }));
       }
     } else {
-      // Is a plain select with no custom color option.
-      const items = element.getElementsByTagName('option');
-      element.selectedIndex = Math.floor(Math.random() * items.length);
+      const options = element.getElementsByTagName('option');
+
+      if (preventCustomColor) {
+        let possibleIndexes = [];
+        for (let i = 0; i < options.length; i++) {
+          if (options[i].getAttribute('data-custom-color') !== 'true') {
+            possibleIndexes.push(i);
+          }
+        }
+
+        const indexIndex = Math.floor(Math.random() * possibleIndexes.length);
+        element.selectedIndex = possibleIndexes[indexIndex];
+
+        // Trigger event so color picker input hides.
+        const selectEl = document.getElementById(
+          elId.replace('ColorPicker', '')
+        );
+        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+      } else {
+        element.selectedIndex = Math.floor(Math.random() * options.length);
+      }
     }
   }
 
@@ -433,20 +569,24 @@
       'xButtonColorFieldset',
       'yButtonColorFieldset',
       'zButtonColorFieldset',
-      'midnaHairBaseColorFieldset',
-      'midnaHairTipColorFieldset',
+      { id: 'midnaHairBaseColorFieldset', preventCustomColor: true },
+      { id: 'midnaHairTipColorFieldset', preventCustomColor: true },
       'midnaDomeRingColorFieldset',
     ];
 
     for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
-      const cosmeticArrayEl = arrayOfCosmeticSettings[i];
-      if (Array.isArray(cosmeticArrayEl)) {
+      const entry = arrayOfCosmeticSettings[i];
+      if (Array.isArray(entry)) {
         const colors = get16ColorsPalette();
 
-        for (let j = 0; j < cosmeticArrayEl.length; j++) {
-          const elId = cosmeticArrayEl[j];
+        for (let j = 0; j < entry.length; j++) {
+          const elId = entry[j];
           const randomIndex = Math.floor(Math.random() * colors.length);
           randomizeCosmeticSetting(elId, colors[randomIndex]);
+        }
+      } else if (typeof entry === 'object') {
+        if (entry) {
+          randomizeCosmeticSetting(entry.id, null, entry.preventCustomColor);
         }
       } else {
         const elId = arrayOfCosmeticSettings[i];
@@ -939,11 +1079,9 @@
     });
   }
 
-  function createSpoilerLogDownload(spoilerData) {
-    const spoilerDataString = JSON.stringify(spoilerData, null, 2);
-
+  function createSpoilerLogDownload(spoilerData, rawSpoilerData) {
     const enc = new TextEncoder(); // always utf-8
-    const fileBytes = enc.encode(spoilerDataString);
+    const fileBytes = enc.encode(rawSpoilerData);
 
     // const link = document.createElement('a');
     const link = document.getElementById('downloadSpoilerLogBtn');
@@ -1059,6 +1197,12 @@
       .join(' -- ');
 
     byId('filename').textContent = pageData.output.name;
+    const wiiFilenameEl = byId('wiiFilename');
+    if (pageData.output.wiiName) {
+      wiiFilenameEl.textContent = `Wii: ${pageData.output.wiiName}`;
+    } else {
+      wiiFilenameEl.style.display = 'none';
+    }
   }
 
   // Parse SSetting to object.
@@ -1138,7 +1282,25 @@
         value: parseInt(Region[selectedRegion], 10),
       });
     } else {
-      values.push(0);
+      values.push({
+        type: RawSettingType.xBitNum,
+        bitLength: regionBitLength,
+        value: 0,
+      });
+    }
+
+    if (EurLanguageTag.hasOwnProperty(selectedLanguage)) {
+      values.push({
+        type: RawSettingType.xBitNum,
+        bitLength: eurLangTagBitLength,
+        value: parseInt(EurLanguageTag[selectedLanguage], 10),
+      });
+    } else {
+      values.push({
+        type: RawSettingType.xBitNum,
+        bitLength: eurLangTagBitLength,
+        value: 0,
+      });
     }
 
     values = values.concat(
@@ -1166,11 +1328,11 @@
         { id: 'xButtonColorFieldset', rgb: true },
         { id: 'yButtonColorFieldset', rgb: true },
         { id: 'zButtonColorFieldset', rgb: true },
-        { id: 'midnaHairBaseColorFieldset', bitLength: 4 },
-        { id: 'midnaHairTipColorFieldset', bitLength: 4 },
+        { id: 'midnaHairBaseColorFieldset', midnaHairBase: true },
+        { id: 'midnaHairTipColorFieldset', midnaHairTips: true },
         { id: 'midnaDomeRingColorFieldset', rgb: true },
         { id: 'linkHairColorFieldset', rgb: true },
-      ].map(({ id, bitLength, rgb }) => {
+      ].map(({ id, bitLength, rgb, midnaHairBase, midnaHairTips }) => {
         if (bitLength) {
           // select
           return {
@@ -1186,6 +1348,21 @@
           return {
             type: RawSettingType.rgb,
             value,
+          };
+        } else if (midnaHairBase || midnaHairTips) {
+          const selVal = getVal(id);
+          const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
+          const rgbVal = $option[0].getAttribute('data-rgb');
+          const isCustomColor =
+            $option[0].getAttribute('data-custom-color') === 'true';
+
+          return {
+            type: midnaHairTips
+              ? RawSettingType.midnaHairTips
+              : RawSettingType.midnaHairBase,
+            valueNum: parseInt(selVal, 10),
+            rgbVal,
+            isCustomColor,
           };
         }
         // checkbox
@@ -1224,22 +1401,80 @@
         if (value === null) {
           // triple-equals here is intentional for now
           bitString += '0';
-        } else if (value.type === RawSettingType.bitString) {
-          bitString += value.bitString;
-        } else if (value.type === RawSettingType.xBitNum) {
-          bitString += numToPaddedBits(value.value, value.bitLength);
-        } else if (value.type === RawSettingType.rgb) {
-          if (value.value == null) {
-            bitString += '0';
-          } else {
-            bitString += '1';
-            bitString += hexStrToBits(value.value);
+        } else {
+          switch (value.type) {
+            case RawSettingType.bitString:
+              bitString += value.bitString;
+              break;
+            case RawSettingType.xBitNum:
+              bitString += numToPaddedBits(value.value, value.bitLength);
+              break;
+            case RawSettingType.rgb: {
+              if (value.value == null) {
+                bitString += '0';
+              } else {
+                bitString += '1';
+                bitString += hexStrToBits(value.value);
+              }
+              break;
+            }
+            case RawSettingType.midnaHairBase:
+              bitString += encodeMidnaHairBase(value);
+              break;
+            case RawSettingType.midnaHairTips:
+              bitString += encodeMidnaHairTips(value);
+              break;
           }
         }
       }
     });
 
     return encodeBitStringTo6BitsString(bitString);
+  }
+
+  function encodeMidnaHairBase({ valueNum, rgbVal, isCustomColor }) {
+    if (!isCustomColor) {
+      return '0' + numToPaddedBits(valueNum, 4);
+    }
+
+    let ret = '1';
+
+    let sixCharHex = rgbVal;
+    if (sixCharHex.length > 6) {
+      sixCharHex = sixCharHex.substring(sixCharHex.length - 6);
+    }
+
+    const colors = window.MidnaHairColors.calcBaseAndGlow(sixCharHex);
+
+    ret += hexStrToBits(colors.midnaHairBaseLightWorldInactive);
+    ret += hexStrToBits(colors.midnaHairBaseDarkWorldInactive);
+    ret += hexStrToBits(colors.midnaHairBaseAnyWorldActive);
+    ret += hexStrToBits(colors.midnaHairGlowAnyWorldInactive);
+    ret += hexStrToBits(sixCharHex); // midnaHairGlowLightWorldActive
+    ret += hexStrToBits(colors.midnaHairGlowDarkWorldActive);
+
+    return ret;
+  }
+
+  function encodeMidnaHairTips({ valueNum, rgbVal, isCustomColor }) {
+    if (!isCustomColor) {
+      return '0' + numToPaddedBits(valueNum, 4);
+    }
+
+    let ret = '1';
+
+    let sixCharHex = rgbVal;
+    if (sixCharHex.length > 6) {
+      sixCharHex = sixCharHex.substring(sixCharHex.length - 6);
+    }
+
+    const colors = window.MidnaHairColors.calcTips(sixCharHex);
+
+    ret += hexStrToBits(sixCharHex); // midnaHairTipsLightWorldInactive
+    ret += hexStrToBits(colors.midnaHairTipsDarkWorldAnyActive);
+    ret += hexStrToBits(colors.midnaHairTipsLightWorldActive);
+
+    return ret;
   }
 
   function _base64ToUint8Array(base64Str) {
@@ -1269,15 +1504,6 @@
       $('#downloadLinkError').text('Select a region.').show();
       creationCallInProgress = false;
 
-      if (!regionSelectedEvent.hasListener()) {
-        regionSelectedEvent.subscribe(() => {
-          if (hasSelectedRegionError) {
-            hasSelectedRegionError = false;
-            $('#downloadsParent').hide();
-          }
-        });
-      }
-
       return;
     }
 
@@ -1288,6 +1514,7 @@
     try {
       const fcSettingsDefault = {
         region: selectedRegion,
+        eurLanguage: selectedLanguage,
         includeSpoilerLog: $('#includeSpoilerCheckbox').prop('checked'),
       };
 
@@ -1785,6 +2012,8 @@
       'zTunicScalesColorFieldset',
       'zTunicBootsColorFieldset',
       'lanternColorFieldset',
+      'midnaHairBaseColorFieldset',
+      'midnaHairTipColorFieldset',
     ].forEach((selectId) => {
       const colorInputId = selectId + 'ColorPicker';
       initCustomColorPickerPair(selectId, colorInputId);

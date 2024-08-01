@@ -1,10 +1,5 @@
 {
     "requirements": "canLaunchBombs or CanDoLJA",
-    "arcOffsets": ["3344"],
-    "stageIDX": [0],
-    "roomIDX": 8,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Lakebed Temple", "Small Key", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Small Key"],
     "itemId": "Lakebed_Temple_Small_Key"
 }

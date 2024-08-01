@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["1E57", "2B4"],
-    "stageIDX": [27, 27],
-    "fileDirectoryType": [1, 1],
-    "replacementType": [0, 3],
-    "overrideInstruction": ["0", "00780046"],
-    "category": ["Npc", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Dungeon Map", "ARC"],
+    "checkCategory": ["Npc", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Dungeon Map", "ARC"],
     "itemId": "Snowpeak_Ruins_Dungeon_Map"
 }

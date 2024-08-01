@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal and CanDefeatShadowBeast and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy)))",
     "stageIDX": [51],
     "flag": "7E",
-    "category": ["Overworld", "Poe", "Snowpeak Province"],
+    "checkCategory": ["Overworld", "Poe", "Snowpeak Province"],
     "itemId": "Poe_Soul"
 }

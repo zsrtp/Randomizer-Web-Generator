@@ -1,10 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["32C"],
-    "stageIDX": [20],
-    "roomIDX": 8,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Hyrule Castle", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle"],
     "itemId": "Arrows_30"
 }

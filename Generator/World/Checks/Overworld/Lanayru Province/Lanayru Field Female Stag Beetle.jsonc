@@ -1,10 +1,5 @@
 {
     "requirements": "(Progressive_Clawshot, 1) or Boomerang",
-    "hash": ["5BD2"],
-    "stageIDX": [56],
-    "dzxTag": ["ACTR"],
-    "magicByte": ["FE"],
-    "category": ["Overworld", "Golden Bug", "Hyrule Field - Lanayru Province", "DZX"],
-    "itemId": "Female_Stag_Beetle",
-    "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "9A", "C5", "C7", "3E", "D2", "00", "42", "6C", "94", "10", "C7", "48", "96", "00", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
+    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Lanayru Province", "DZX"],
+    "itemId": "Female_Stag_Beetle"
 }

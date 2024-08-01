@@ -3,7 +3,7 @@
   "hash": [ "BF66" ],
   "stageIDX": [ 45 ],
   "dzxTag": [ "TRES" ],
-  "category": [ "Overworld", "Chest", "Faron Woods", "DZX" ],
+  "checkCategory": [ "Overworld", "Chest", "Faron Woods", "DZX" ],
   "itemId": "Yellow_Rupee",
   "actrData": [ [ "74", "62", "6F", "78", "41", "30", "00", "00", "FF", "0F", "F6", "C0", "C6", "C2", "1A", "43", "C2", "C8", "00", "00", "C6", "D2", "ED", "72", "00", "00", "00", "00", "03", "FF", "FF", "FF" ] ]
 }
