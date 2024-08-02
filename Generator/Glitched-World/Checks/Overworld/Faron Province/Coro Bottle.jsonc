@@ -4,6 +4,6 @@
   "stageIDX": [45, 45],
   "fileDirectoryType": [ 1, 1 ],
   "replacementType": [ 0, 0 ],
-  "category": [ "Overworld", "Npc", "Faron Woods", "ARC" ],
+  "checkCategory": [ "Overworld", "Npc", "Faron Woods", "ARC" ],
   "itemId": "Coro_Bottle"
 }

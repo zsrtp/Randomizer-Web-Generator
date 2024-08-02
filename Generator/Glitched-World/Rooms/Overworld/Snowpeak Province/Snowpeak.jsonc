@@ -1,0 +1,118 @@
+[
+    {
+      "RoomName": "Snowpeak Climb Lower",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Snowpeak Climb Upper",
+          "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) or Shadow_Crystal"
+        },
+        {
+          "ConnectedArea": "Zoras Domain",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [
+          "Ashei Sketch"
+      ],
+      "Region": "Snowpeak Province"
+    },
+    {
+      "RoomName": "Snowpeak Climb Upper",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Snowpeak Climb Lower",
+          "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) or Shadow_Crystal"
+        },
+        {
+          "ConnectedArea": "Snowpeak Summit Upper",
+          "Requirements": "Shadow_Crystal"
+        },
+        {
+          "ConnectedArea": "Snowpeak Ice Keese Grotto",
+          "Requirements": "Shadow_Crystal"
+        },
+        {
+          "ConnectedArea": "Snowpeak Freezard Grotto",
+          "Requirements": "Shadow_Crystal"
+        }
+      ],
+      "Checks":
+      [
+          "Snowpeak Above Freezard Grotto Poe",
+          "Snowpeak Blizzard Poe",
+          "Snowpeak Poe Among Trees"
+      ],
+      "Region": "Snowpeak Province"
+    },
+    {
+      "RoomName": "Snowpeak Ice Keese Grotto",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Snowpeak Climb Upper",
+          "Requirements": "true"
+        }
+      ],
+      "Checks": [""],
+      "Region": "Snowpeak Province"
+    },
+    {
+      "RoomName": "Snowpeak Freezard Grotto",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Snowpeak Climb Upper",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [
+          "Snowpeak Freezard Grotto Chest"
+      ],
+      "Region": "Snowpeak Province"
+    },
+    {
+      "RoomName": "Snowpeak Summit Upper",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Snowpeak Summit Lower",
+          "Requirements": "CanDefeatShadowBeast and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy)))"
+        },
+        {
+          "ConnectedArea": "Snowpeak Climb Upper",
+          "Requirements": "Shadow_Crystal"
+        }
+      ],
+      "Checks":
+      [
+          "Snowpeak Cave Ice Lantern Chest",
+          "Snowboard Racing Prize",
+          "Snowpeak Cave Ice Poe"
+      ],
+      "Region": "Snowpeak Province"
+    },
+    {
+      "RoomName": "Snowpeak Summit Lower",
+      "Exits":
+      [
+        {
+          "ConnectedArea": "Snowpeak Ruins Left Door",
+          "Requirements": "true"
+        },
+        {
+          "ConnectedArea": "Snowpeak Ruins Right Door",
+          "Requirements": "true"
+        }
+      ],
+      "Checks":
+      [
+          "Snowpeak Icy Summit Poe"
+      ],
+      "Region": "Snowpeak Province"
+    }
+  ]
+  

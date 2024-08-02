@@ -1,7 +1,5 @@
 {
     "requirements": "(Progressive_Dominion_Rod, 2)",
-    "stageIDX": [56],
-    "roomIDX": 0,
-    "category": ["Overworld", "Hyrule Field - Eldin Province", "Sky Book"],
+    "checkCategory": ["Overworld", "Hyrule Field - Eldin Province", "Sky Book"],
     "itemId": "Progressive_Sky_Book"
 }

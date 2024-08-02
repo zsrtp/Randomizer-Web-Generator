@@ -1,10 +1,5 @@
 {
     "requirements": "Ball_and_Chain",
-    "arcOffsets": ["950"],
-    "stageIDX": [30],
-    "roomIDX": 0,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "ARC"],
     "itemId": "Piece_of_Heart"
 }

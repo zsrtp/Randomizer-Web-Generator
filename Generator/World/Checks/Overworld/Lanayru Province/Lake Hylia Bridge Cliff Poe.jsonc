@@ -1,7 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and (canLaunchBombs and (Progressive_Clawshot,1)) and CanCompleteMDH",
-    "stageIDX": [56],
-    "flag": "3B",
-    "category": ["Overworld", "Poe", "Hyrule Field - Lanayru Province"],
+    "requirements": "CanCompleteMDH and Shadow_Crystal and CanCompleteAllTwilight",
+    "checkCategory": ["Overworld", "Poe", "Hyrule Field - Lanayru Province"],
     "itemId": "Poe_Soul"
 }

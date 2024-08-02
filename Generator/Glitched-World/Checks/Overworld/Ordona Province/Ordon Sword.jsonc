@@ -5,6 +5,6 @@
   "relOffsets": ["6A8"],
   "overrideInstruction": ["38800000"],
   "relReplacementType": [0],
-  "category": [ "Overworld", "Ordona Province", "REL" ],
+  "checkCategory": [ "Overworld", "Ordona Province", "REL" ],
   "itemId": "Progressive_Sword"
 } 

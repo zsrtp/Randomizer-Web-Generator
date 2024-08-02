@@ -1,0 +1,8 @@
+{
+  "moduleID": [ "281", "281" ],
+  "stageIDX": [ 15, 15 ],
+  "relOffsets": [ "A70", "B5C" ],
+  "overrideInstruction": [ "38600000", "38600065" ],
+  "relReplacementType": [0,2],
+  "dataCategory": [ "REL" ]
+}

@@ -92,6 +92,7 @@ function initTabButtons() {
     'gameplaySettingsTab',
     'excludedChecksTab',
     'startingInventoryTab',
+    'plandoTab',
     // 'legacyTab',
   ].forEach((id) => {
     byId(id + 'Btn').addEventListener('click', genOnTabClick(id));
@@ -119,7 +120,12 @@ function onDomContentLoaded() {
 
   initTabButtons();
 
+  // Set default settings string in UI.
   setSettingsString();
+  // If returning back from the seed page, the browser will fill in the state.
+  // This updates the string after the browser updates all of the fields to
+  // their previous values.
+  window.addEventListener('load', setSettingsString, { once: true });
 
   initSettingsModal();
   initGeneratingModal();
@@ -128,7 +134,46 @@ function onDomContentLoaded() {
     const { value } = e.target;
     e.target.value = normalizeStringToMax128Bytes(value);
   });
+
+  // Make sure select2 auto-focuses on open.
+  $(document).on('select2:open', () => {
+    document.querySelector('.select2-search__field').focus();
+  });
+
+  $('#plandoCheckSelect').select2();
+  $('#plandoItemSelect').select2();
 }
+
+function buildPlandoListItemElStr(checkId, checkName, itemId, itemName) {
+  return `<li class="plandoListItem" data-itemid="${itemId}" data-checkid="${checkId}">
+  <div>
+    <button type="button" class="plandoItemDeleteBtn">✖</button>
+    <span>${checkName} => ${itemName}</span>
+  </div>
+</li>`;
+}
+
+$('#plandoBtnAdd').on('click', function () {
+  const checkName = $('#plandoCheckSelect option:selected').text();
+  const checkId = $('#plandoCheckSelect').val();
+
+  const itemName = $('#plandoItemSelect option:selected').text();
+  const itemId = $('#plandoItemSelect').val();
+
+  // First remove row if already there.
+  $(`.plandoListItem[data-checkid=${checkId}]`).remove();
+
+  $('#basePlandoListbox').prepend(
+    buildPlandoListItemElStr(checkId, checkName, itemId, itemName)
+  );
+
+  setSettingsString();
+});
+
+$(document).on('click', '.plandoItemDeleteBtn', function () {
+  $(this).parent().parent().remove();
+  setSettingsString();
+});
 
 function initJwt() {
   try {
@@ -200,19 +245,37 @@ for (
     .getElementsByTagName('input')
     [j].addEventListener('click', setSettingsString);
 }
-for (
-  var j = 0;
-  j <
-  document
-    .getElementById('baseImportantItemsListbox')
-    .getElementsByTagName('input').length;
-  j++
-) {
-  document
-    .getElementById('baseImportantItemsListbox')
-    .getElementsByTagName('input')
-    [j].addEventListener('click', setSettingsString);
-}
+
+// Starting item checkboxes
+$('#baseImportantItemsListbox input[type="checkbox"]').each(function () {
+  this.addEventListener('click', setSettingsString);
+});
+
+// Starting item sliders
+$('#baseImportantItemsListbox .liSlider').each(function () {
+  const inputEl = this.querySelector('input');
+  const textEl = this.querySelector('.liSlider-inputRowText');
+
+  // Handles page load and when returning from next page.
+  window.addEventListener(
+    'load',
+    () => {
+      textEl.textContent = inputEl.value;
+    },
+    { once: true }
+  );
+
+  // Every change
+  inputEl.addEventListener('input', (e) => {
+    textEl.textContent = e.target.value;
+  });
+
+  // User releases mouse (or is using keyboard)
+  inputEl.addEventListener('change', (e) => {
+    textEl.textContent = e.target.value;
+    setSettingsString();
+  });
+});
 
 var settingsLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ23456789';
 document.getElementById('logicRulesFieldset').onchange = setSettingsString;
@@ -250,6 +313,9 @@ document
   .addEventListener('click', setSettingsString);
 document.getElementById('itemScarcityFieldset').onchange = setSettingsString;
 document.getElementById('damageMagFieldset').onchange = setSettingsString;
+document.getElementById('todFieldset').onchange = setSettingsString;
+document.getElementById('hintDistributionFieldset').onchange =
+  setSettingsString;
 document.getElementById('trapItemFieldset').onchange = setSettingsString;
 document
   .getElementById('faronTwilightCheckbox')
@@ -262,6 +328,9 @@ document
   .addEventListener('click', setSettingsString);
 document
   .getElementById('skipMinorCutscenesCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('skipMajorCutscenesCheckbox')
   .addEventListener('click', setSettingsString);
 document
   .getElementById('fastIBCheckbox')
@@ -314,6 +383,9 @@ document
   .getElementById('bonksDoDamageCheckbox')
   .addEventListener('click', setSettingsString);
 document
+  .getElementById('noSmallKeysOnBossesCheckbox')
+  .addEventListener('click', setSettingsString);
+document
   .getElementById('shuffleRewardsCheckbox')
   .addEventListener('click', setSettingsString);
 document
@@ -346,7 +418,9 @@ function setSettingsString() {
     'mapAndCompassFieldset'
   ).selectedIndex;
   settingsStringRaw[9] = document.getElementById('goldenBugsCheckbox').checked;
-  settingsStringRaw[10] = document.getElementById('poeSettingsFieldset').selectedIndex;
+  settingsStringRaw[10] = document.getElementById(
+    'poeSettingsFieldset'
+  ).selectedIndex;
   settingsStringRaw[11] = document.getElementById(
     'giftsFromNPCsCheckbox'
   ).checked;
@@ -438,7 +512,6 @@ function setSettingsString() {
     'spinnerSpeedCheckbox'
   ).checked;
   settingsStringRaw[40] = document.getElementById('openDotCheckbox').checked;
-
   // document.getElementById('settingsStringTextbox').value =
   document.getElementById('settingsStringTextbox').textContent =
     getSettingsString(settingsStringRaw);
@@ -1134,6 +1207,7 @@ function populateSSettings(s) {
   $('#lanayruTwilightCheckbox').prop('checked', s.lanayruTwilightCleared);
   $('#mdhCheckbox').prop('checked', s.skipMdh);
   $('#skipMinorCutscenesCheckbox').prop('checked', s.skipMinorCutscenes);
+  $('#skipMajorCutscenesCheckbox').prop('checked', s.skipMajorCutscenes);
   $('#fastIBCheckbox').prop('checked', s.fastIronBoots);
   $('#quickTransformCheckbox').prop('checked', s.quickTransform);
   $('#transformAnywhereCheckbox').prop('checked', s.transformAnywhere);
@@ -1158,6 +1232,9 @@ function populateSSettings(s) {
   $('#openMapCheckbox').prop('checked', s.openMap);
   $('#spinnerSpeedCheckbox').prop('checked', s.increaseSpinnerSpeed);
   $('#openDotCheckbox').prop('checked', s.openDot);
+  $('#noSmallKeysOnBossesCheckbox').prop('checked', s.noSmallKeysOnBosses);
+  $('#todFieldset').val(s.startingToD);
+  $('#hintDistributionFieldset').val(s.hintDistribution);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {
@@ -1179,14 +1256,37 @@ function populateSSettings(s) {
       const count = byId[id];
 
       const checkboxes = $startingItemsParent.find(
-        `input[data-itemid="${id}"]`
+        `input[type="checkbox"][data-itemid="${id}"]`
       );
 
       for (let i = 0; i < count && i < checkboxes.length; i++) {
         checkboxes[i].checked = true;
       }
+
+      const inputRanges = $startingItemsParent.find(
+        `input[type="range"][data-itemid="${id}"]`
+      );
+
+      for (let i = 0; i < inputRanges.length; i++) {
+        const inputRange = inputRanges[i];
+        inputRange.value = count;
+        inputRange.dispatchEvent(new Event('input', { bubbles: true }));
+      }
     });
   }
+
+  $('#basePlandoListbox').empty();
+  s.plando.forEach((p) => {
+    const checkId = p[0];
+    const itemId = p[1];
+
+    const checkName = $(`#plandoCheckSelect option[value=${checkId}]`).text();
+    const itemName = $(`#plandoItemSelect option[value=${itemId}]`).text();
+
+    $('#basePlandoListbox').append(
+      buildPlandoListItemElStr(checkId, checkName, itemId, itemName)
+    );
+  });
 }
 
 function testProgressFunc(id) {

@@ -1,10 +1,5 @@
 {
     "requirements": "CanDoLJA or (((Setting.smallKeySettings equals Keysy) or (Lakebed_Temple_Small_Key, 2)) and (canLaunchBombs or (Progressive_Clawshot, 1)))",
-    "arcOffsets": ["C64"],
-    "stageIDX": [0],
-    "roomIDX": 9,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Lakebed Temple", "Small Key", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Small Key"],
     "itemId": "Lakebed_Temple_Small_Key"
 }

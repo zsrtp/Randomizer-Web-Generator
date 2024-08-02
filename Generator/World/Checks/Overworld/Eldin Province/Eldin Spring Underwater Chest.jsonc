@@ -1,10 +1,5 @@
 {
     "requirements": "canSmash and Iron_Boots",
-    "arcOffsets": ["2F4C"],
-    "stageIDX": [46],
-    "roomIDX": 0,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Kakariko Village", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Kakariko Village", "ARC"],
     "itemId": "Piece_of_Heart"
 }

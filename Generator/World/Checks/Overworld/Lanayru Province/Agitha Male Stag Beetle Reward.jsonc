@@ -1,6 +1,5 @@
 {
     "requirements": "Male_Stag_Beetle",
-    "flag": "C4",
-    "category": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
+    "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
     "itemId": "Purple_Rupee"
 }

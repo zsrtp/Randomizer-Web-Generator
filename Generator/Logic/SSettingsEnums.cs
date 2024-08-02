@@ -107,4 +107,22 @@ namespace TPRandomizer.SSettings.Enums
         Quadruple = 4,
         OHKO = 5,
     }
+
+    public enum StartingToD
+    {
+        Morning = 0,
+        Noon = 1,
+        Evening = 2,
+        Night = 3,
+    }
+
+    public enum HintDistribution
+    {
+        None = 0,
+        Season_1 = 1,
+        Weak = 2,
+        Balanced = 3,
+        Strong = 4,
+        Very_Strong = 5,
+    }
 }

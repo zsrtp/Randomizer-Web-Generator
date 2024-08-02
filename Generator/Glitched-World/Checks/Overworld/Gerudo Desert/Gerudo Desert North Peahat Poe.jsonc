@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal and (Progressive_Clawshot, 1)",
     "stageIDX": [59],
     "flag": "5B",
-    "category": ["Overworld", "Poe", "Gerudo Desert"],
+    "checkCategory": ["Overworld", "Poe", "Gerudo Desert"],
     "itemId": "Poe_Soul"
 }

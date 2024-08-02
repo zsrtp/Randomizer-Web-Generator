@@ -2,6 +2,6 @@
     "requirements": "Shadow_Crystal",
     "stageIDX": [61],
     "flag": "48",
-    "category": ["Overworld", "Poe", "Upper Zoras River"],
+    "checkCategory": ["Overworld", "Poe", "Upper Zoras River"],
     "itemId": "Poe_Soul"
 }

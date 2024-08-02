@@ -1,10 +1,5 @@
 {
     "requirements": "Boomerang and (CanDefeatBombling or canSmash)",
-    "arcOffsets": ["C14"],
-    "stageIDX": [6],
-    "roomIDX": 5,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Forest Temple", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple"],
     "itemId": "Piece_of_Heart"
 }

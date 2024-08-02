@@ -17,17 +17,7 @@ namespace TPRandomizer
         /// <summary>
         /// Gets or sets the room name of the rooms adjacent to the current room.
         /// </summary>
-        public List<string> Neighbours { get; set; }
-
-        /// <summary>
-        /// Gets or sets a list of list of requirements to enter each neighbouring roo.
-        /// </summary>
-        public List<string> NeighbourRequirements { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the current room is the starting room. If true, this room will always be the starting point of the graph.
-        /// </summary>
-        public bool IsStartingRoom { get; set; }
+        public List<Entrance> Exits { get; set; }
 
         /// <summary>
         /// Gets or sets a list of checks contained inside the room.
@@ -49,6 +39,88 @@ namespace TPRandomizer
         /// </summary>
         public string Region { get; set; }
     }
+
+    public enum StageIDs : int
+    {
+        Lakebed_Temple = 0x0,
+        Morpheel = 0x1,
+        Deku_Toad,
+        Goron_Mines,
+        Fyrus,
+        Dangoro,
+        Forest_Temple,
+        Diababa,
+        Ook,
+        Temple_of_Time,
+        Armogohma,
+        Darknut,
+        City_in_the_Sky,
+        Argorok,
+        Aeralfos,
+        Palace_of_Twilight,
+        Zant_Main_Room,
+        Phantom_Zant_1,
+        Phantom_Zant_2,
+        Zant_Fight,
+        Hyrule_Castle,
+        Ganondorf_Castle,
+        Ganondorf_Field,
+        Ganondorf_Defeated,
+        Arbiters_Grounds,
+        Stallord,
+        Death_Sword,
+        Snowpeak_Ruins,
+        Blizzeta,
+        Darkhammer,
+        Lanayru_Ice_Puzzle_Cave,
+        Cave_of_Ordeals,
+        Eldin_Long_Cave,
+        Lake_Hylia_Long_Cave,
+        Eldin_Goron_Stockcave,
+        Grotto_1,
+        Grotto_2,
+        Grotto_3,
+        Grotto_4,
+        Grotto_5,
+        Faron_Woods_Cave,
+        Ordon_Ranch,
+        Title_Screen,
+        Ordon_Village,
+        Ordon_Spring,
+        Faron_Woods,
+        Kakariko_Village,
+        Death_Mountain,
+        Kakariko_Graveyard,
+        Zoras_River,
+        Zoras_Domain,
+        Snowpeak,
+        Lake_Hylia,
+        Castle_Town,
+        Sacred_Grove,
+        Bulblin_Camp,
+        Hyrule_Field,
+        Outside_Castle_Town,
+        Bulblin_2,
+        Gerudo_Desert,
+        Mirror_Chamber,
+        Upper_Zoras_River,
+        Fishing_Pond,
+        Hidden_Village,
+        Hidden_Skill,
+        Ordon_Village_Interiors,
+        Hyrule_Castle_Sewers,
+        Faron_Woods_Interiors,
+        Kakariko_Village_Interiors,
+        Death_Mountain_Interiors,
+        Castle_Town_Interiors,
+        Fishing_Pond_Interiors,
+        Hidden_Village_Interiors,
+        Castle_Town_Shops,
+        Star_Game,
+        Kakariko_Graveyard_Interiors,
+        Light_Arrows_Cutscene,
+        Hyrule_Castle_Cutscenes
+    };
 
     /// <summary>
     /// summary text.
@@ -75,6 +147,14 @@ namespace TPRandomizer
             if (Randomizer.Items.RegionSmallKeys.Contains(itemToPlace))
             {
                 if (
+                    Randomizer.SSettings.noSmallKeysOnBosses
+                    && ItemFunctions.IsSmallKeyOnBossCheck(itemToPlace, currentCheck)
+                )
+                {
+                    return false;
+                }
+
+                if (
                     (parseSetting.smallKeySettings == SmallKeySettings.Own_Dungeon)
                     && itemName.Contains(currentRoom.Region)
                 )
@@ -84,7 +164,7 @@ namespace TPRandomizer
                 else if (
                     (parseSetting.smallKeySettings == SmallKeySettings.Any_Dungeon)
                     && (
-                        currentCheck.category.Contains("Dungeon")
+                        currentCheck.checkCategory.Contains("Dungeon")
                         || itemName.Contains(currentRoom.Region)
                     )
                 )
@@ -103,7 +183,7 @@ namespace TPRandomizer
                 }
                 else if (parseSetting.bigKeySettings == BigKeySettings.Any_Dungeon)
                 {
-                    if (currentCheck.category.Contains("Dungeon"))
+                    if (currentCheck.checkCategory.Contains("Dungeon"))
                     {
                         return checkBarrenRegionLocation(currentRoom, currentCheck, itemName);
                     }
@@ -120,7 +200,7 @@ namespace TPRandomizer
                 }
                 else if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Any_Dungeon)
                 {
-                    if (currentCheck.category.Contains("Dungeon"))
+                    if (currentCheck.checkCategory.Contains("Dungeon"))
                     {
                         return true;
                     }

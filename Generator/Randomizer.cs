@@ -14,6 +14,7 @@ namespace TPRandomizer
     using System.Reflection;
     using Assets;
     using System.ComponentModel;
+    using Hints;
 
     /// <summary>
     /// Generates a randomizer seed given a settings string.
@@ -39,6 +40,11 @@ namespace TPRandomizer
         /// A reference to all item lists and functions that need to be used by the randomizer.
         /// </summary>
         public static readonly ItemFunctions Items = new();
+
+        /// <summary>
+        /// A reference to all Entrance definitions and functions that need to be used by the randomizer.
+        /// </summary>
+        public static readonly EntranceRando EntranceRandomizer = new();
 
         /// <summary>
         /// A reference to the sSettings.
@@ -104,7 +110,7 @@ namespace TPRandomizer
             Random rnd = new Random(seedHash);
 
             bool generationStatus = false;
-            int remainingGenerationAttempts = 30;
+            int remainingGenerationAttempts = 10;
 
             Console.WriteLine("SeedData Version: " + SeedData.VersionString);
 
@@ -133,20 +139,38 @@ namespace TPRandomizer
             Randomizer.Items.GenerateItemPool();
             CheckFunctions.GenerateCheckList();
 
-            // Generate the world based on the room class values and their neighbour values. If we want to randomize entrances, we would do it before this step.
-            Room startingRoom = SetupGraph();
             while (remainingGenerationAttempts > 0)
             {
+                remainingGenerationAttempts--;
                 foreach (Item startingItem in Randomizer.SSettings.startingItems)
                 {
                     Randomizer.Items.heldItems.Add(startingItem);
                 }
                 Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
-                remainingGenerationAttempts--;
+
+                // Place plando checks first
+                Console.WriteLine("Placing Plando Checks.");
+                PlacePlandoChecks();
+
+                Console.WriteLine("Placing Vanilla Checks.");
+                PlaceVanillaChecks();
+
+                // Once we have placed all vanilla checks, we want to give the player all of the items they should be searching for and then generate the world based on the room class values and their neighbour values.
+                SetupGraph();
+                try
+                {
+                    Randomizer.EntranceRandomizer.RandomizeEntrances(rnd);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    StartOver();
+                    continue;
+                }
                 try
                 {
                     // Place the items in the world based on the starting room.
-                    PlaceItemsInWorld(startingRoom, rnd);
+                    PlaceItemsInWorld(Randomizer.Rooms.RoomDict["Root"], rnd);
                     generationStatus = true;
                     break;
                 }
@@ -165,33 +189,54 @@ namespace TPRandomizer
 
             if (generationStatus)
             {
-                Randomizer.Items.GenerateItemPool();
+                // Randomizer.Items.GenerateItemPool();
 
-                List<KeyValuePair<int, Item>> dungeonRewards = new();
+                // List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(
+                //     Randomizer.Rooms.RoomDict["Root"]
+                // );
 
-                foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
+                // if (spheres == null)
+                // {
+                //     throw new Exception("Error! Playthrough not valid.");
+                // }
+
+                PlaythroughSpheres playthroughSpheres = GenerateSpoilerLog(
+                    Randomizer.Rooms.RoomDict["Root"]
+                );
+
+                if (
+                    playthroughSpheres.spheres == null
+                    && SSettings.logicRules != LogicRules.No_Logic
+                )
                 {
-                    Check check = checkList.Value;
-
-                    if (check.itemWasPlaced && check.category.Contains("Dungeon Reward"))
-                    {
-                        dungeonRewards.Add(
-                            new KeyValuePair<int, Item>(
-                                CheckIdClass.GetCheckIdNum(check.checkName),
-                                check.itemId
-                            )
-                        );
-                    }
+                    throw new Exception("Error! Playthrough not valid.");
                 }
 
-                List<List<KeyValuePair<int, Item>>> spheres = GenerateSpoilerLog(startingRoom);
+                CustomMsgData customMsgData;
+                try
+                {
+                    HintGenerator gen = new HintGenerator(
+                        rnd,
+                        SSettings,
+                        playthroughSpheres,
+                        Randomizer.Rooms.RoomDict["Root"]
+                    );
+
+                    customMsgData = gen.Generate();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
+                }
 
                 string jsonContent = GenerateInputJsonContent(
                     settingsString,
                     seed,
                     seedHash,
                     isRaceSeed,
-                    spheres
+                    playthroughSpheres.spheres,
+                    customMsgData
                 );
 
                 try
@@ -214,14 +259,19 @@ namespace TPRandomizer
             return generationStatus;
         }
 
-        private static List<List<KeyValuePair<int, Item>>> GenerateSpoilerLog(Room startingRoom)
+        public static PlaythroughSpheres GenerateSpoilerLog(Room startingRoom)
         {
             Randomizer.Items.GenerateItemPool();
 
-            bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom);
-            if (!isPlaythroughValid && (SSettings.logicRules != LogicRules.No_Logic))
+            foreach (Item startingItem in Randomizer.SSettings.startingItems)
             {
-                return null;
+                Randomizer.Items.heldItems.Add(startingItem);
+            }
+
+            bool isPlaythroughValid = BackendFunctions.ValidatePlaythrough(startingRoom, true);
+            if (!isPlaythroughValid || SSettings.logicRules == LogicRules.No_Logic)
+            {
+                return new PlaythroughSpheres(null, null, null);
             }
 
             return BackendFunctions.CalculateOptimalPlaythrough2(startingRoom);
@@ -232,7 +282,8 @@ namespace TPRandomizer
             string seed,
             int seedHash,
             bool isRaceSeed,
-            List<List<KeyValuePair<int, Item>>> spheres
+            List<List<KeyValuePair<int, Item>>> spheres,
+            CustomMsgData customMsgData
         )
         {
             Dictionary<string, Item> checkIdToItemId = new();
@@ -268,7 +319,7 @@ namespace TPRandomizer
                     // For storing placements in json file.
                     checkNumIdToItemId.Add(checkIdNum, itemIdByte);
 
-                    if (check.category.Contains("Dungeon Reward"))
+                    if (check.checkCategory.Contains("Dungeon Reward"))
                     {
                         dungeonRewards.Add(
                             new KeyValuePair<int, Item>(
@@ -298,7 +349,7 @@ namespace TPRandomizer
             );
 
             int filenameBits = Util.Hash.CalculateMD5(filenameInput);
-            string playthroughName = Util.PlaythroughName.GenName(filenameBits);
+            List<string> playthroughNames = Util.PlaythroughName.GenNames(filenameBits);
 
             // When generating the filename, the following should be taken into account:
 
@@ -329,11 +380,14 @@ namespace TPRandomizer
             builder.isRaceSeed = isRaceSeed;
             // outputs
             builder.seedHashString = seedHashAsString;
-            builder.playthroughName = playthroughName;
+            builder.playthroughName = playthroughNames[0];
+            builder.wiiPlaythroughName = playthroughNames[1];
             builder.requiredDungeons = (byte)Randomizer.RequiredDungeons;
             builder.SetItemPlacements(checkNumIdToItemId);
             builder.SetSpheres(spheres);
-
+            builder.SetEntrances();
+            builder.SetCustomMsgData(customMsgData);
+            Console.WriteLine(builder.GetEntrances(builder.entrances));
             return builder.ToString();
         }
 
@@ -460,14 +514,15 @@ namespace TPRandomizer
             string fileContents = File.ReadAllText(inputJsonPath);
             JObject json = JsonConvert.DeserializeObject<JObject>(fileContents);
 
-            SeedGenResults seedGenResults = new SeedGenResults(id, json);
-
             FileCreationSettings fcSettings = FileCreationSettings.FromString(fcSettingsString);
-            SSettings = SharedSettings.FromString(seedGenResults.settingsString);
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.
-            DeserializeChecks(SSettings);
+            DeserializeCheckData(SSettings, fcSettings);
             DeserializeRooms(SSettings);
+
+            SeedGenResults seedGenResults = new SeedGenResults(id, json);
+
+            SSettings = SharedSettings.FromString(seedGenResults.settingsString);
 
             foreach (KeyValuePair<int, byte> kvp in seedGenResults.itemPlacements.ToList())
             {
@@ -489,25 +544,48 @@ namespace TPRandomizer
 
             if (fcSettings.gameRegion == GameRegion.All)
             {
+                // For now, 'All' only generates for GameCube until we do more
+                // work related to Wii code.
+                List<GameRegion> gameRegionsForAll =
+                    new() { GameRegion.GC_USA, GameRegion.GC_EUR, GameRegion.GC_JAP, };
+
                 // Create files for all regions
-                foreach (GameRegion gameRegion in GameRegion.GetValues(typeof(GameRegion)))
+                // foreach (GameRegion gameRegion in GameRegion.GetValues(typeof(GameRegion)))
+                foreach (GameRegion gameRegion in gameRegionsForAll)
                 {
                     if (gameRegion != GameRegion.All)
                     {
+                        // Update language to be used with resource system.
+                        string langTag = fcSettings.GetLanguageTagString(gameRegion);
+                        Res.UpdateCultureInfo(langTag);
+
                         fileDefs.Add(GenGciFileDef(id, seedGenResults, fcSettings, gameRegion));
                     }
                 }
             }
             else
             {
+                // Update language to be used with resource system.
+                string langTag = fcSettings.GetLanguageTagString();
+                Res.UpdateCultureInfo(langTag);
+
                 // Create file for one region
                 fileDefs.Add(GenGciFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion));
             }
 
             if (!seedGenResults.isRaceSeed && fcSettings.includeSpoilerLog)
             {
+                // Set back to default language ('en') before creating spoiler
+                // log when gameRegion is 'All'.
+                if (fcSettings.gameRegion == GameRegion.All)
+                {
+                    // Update language to be used with resource system.
+                    string langTag = fcSettings.GetLanguageTagString();
+                    Res.UpdateCultureInfo(langTag);
+                }
+
                 // Add fileDef for spoilerLog
-                string spoilerLogText = GetSeedGenResultsJson(id, true);
+                string spoilerLogText = GetSeedGenResultsJson(id);
                 byte[] spoilerBytes = Encoding.UTF8.GetBytes(spoilerLogText);
 
                 Dictionary<string, object> dict = new();
@@ -565,13 +643,13 @@ namespace TPRandomizer
             string gameVer;
             switch (gameRegionOverride)
             {
-                case GameRegion.USA:
+                case GameRegion.GC_USA:
                     gameVer = "E";
                     break;
-                case GameRegion.EUR:
+                case GameRegion.GC_EUR:
                     gameVer = "P";
                     break;
-                case GameRegion.JAP:
+                case GameRegion.GC_JAP:
                     gameVer = "J";
                     break;
                 default:
@@ -715,7 +793,7 @@ namespace TPRandomizer
                 {
                     if (LogicFunctions.CanUse(Item.Shadow_Crystal))
                     {
-                        availableRoom = Randomizer.Rooms.RoomDict["Kakariko Village"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Lower Kakariko Village"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
 
@@ -741,7 +819,7 @@ namespace TPRandomizer
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
 
-                        availableRoom = Randomizer.Rooms.RoomDict["Zoras Domain"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Zoras Throne Room"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
                     }
@@ -751,7 +829,7 @@ namespace TPRandomizer
                 {
                     if (LogicFunctions.CanUse(Item.Shadow_Crystal))
                     {
-                        availableRoom = Randomizer.Rooms.RoomDict["Snowpeak Summit"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Snowpeak Summit Upper"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
                     }
@@ -761,7 +839,7 @@ namespace TPRandomizer
                 {
                     if (LogicFunctions.CanUse(Item.Shadow_Crystal))
                     {
-                        availableRoom = Randomizer.Rooms.RoomDict["Sacred Grove Master Sword"];
+                        availableRoom = Randomizer.Rooms.RoomDict["Sacred Grove Lower"];
                         playthroughGraph.Add(availableRoom);
                         availableRoom.Visited = true;
                     }
@@ -781,56 +859,84 @@ namespace TPRandomizer
                 }
                 while (roomsToExplore.Count > 0)
                 {
-                    for (int i = 0; i < roomsToExplore[0].Neighbours.Count; i++)
+                    //Console.WriteLine("Currently Exploring: " + roomsToExplore[0].RoomName);
+                    for (int i = 0; i < roomsToExplore[0].Exits.Count; i++)
                     {
                         // If you can access the neighbour and it hasnt been visited yet.
-                        if (
-                            Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]].Visited
-                            == false
-                        )
+                        //Console.WriteLine("Exit: " + roomsToExplore[0].Exits[i].GetOriginalName());
+                        if (roomsToExplore[0].Exits[i].ConnectedArea != "")
                         {
-                            // Parse the neighbour's requirements to find out if we can access it
-                            var areNeighbourRequirementsMet = false;
-                            if (SSettings.logicRules == LogicRules.No_Logic)
+                            if (
+                                Randomizer.Rooms.RoomDict[
+                                    roomsToExplore[0].Exits[i].ConnectedArea
+                                ].Visited == false
+                            )
                             {
-                                areNeighbourRequirementsMet = true;
-                            }
-                            else
-                            {
-                                areNeighbourRequirementsMet = Logic.EvaluateRequirements(
-                                    roomsToExplore[0].RoomName,
-                                    roomsToExplore[0].NeighbourRequirements[i]
-                                );
-                            }
-                            if ((bool)areNeighbourRequirementsMet == true)
-                            {
-                                if (
-                                    !Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Neighbours[i]
-                                    ].ReachedByPlaythrough
-                                )
+                                // Parse the neighbour's requirements to find out if we can access it
+                                var areNeighbourRequirementsMet = false;
+                                /*Console.WriteLine(
+                                    "Checking neighbor: "
+                                        + Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ].RoomName
+                                );*/
+                                if (SSettings.logicRules == LogicRules.No_Logic)
                                 {
-                                    availableRooms++;
-                                    Randomizer.Rooms.RoomDict[
-                                        roomsToExplore[0].Neighbours[i]
-                                    ].ReachedByPlaythrough = true;
-                                    playthroughGraph.Add(
-                                        Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]]
+                                    areNeighbourRequirementsMet = true;
+                                }
+                                else
+                                {
+                                    areNeighbourRequirementsMet = Logic.EvaluateRequirements(
+                                        roomsToExplore[0].RoomName,
+                                        roomsToExplore[0].Exits[i].Requirements
                                     );
                                 }
-                                roomsToExplore.Add(
-                                    Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]]
-                                );
-                                Randomizer.Rooms.RoomDict[roomsToExplore[0].Neighbours[i]].Visited =
-                                    true;
 
-                                /*Console.WriteLine(
-                                    "Neighbour: "
-                                        + Randomizer.Rooms.RoomDict[
-                                            roomsToExplore[0].Neighbours[i]
-                                        ].RoomName
-                                        + " added to room list."
-                                );*/
+                                if ((bool)areNeighbourRequirementsMet == true)
+                                {
+                                    if (
+                                        !Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ].ReachedByPlaythrough
+                                    )
+                                    {
+                                        availableRooms++;
+                                        Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ].ReachedByPlaythrough = true;
+                                        playthroughGraph.Add(
+                                            Randomizer.Rooms.RoomDict[
+                                                roomsToExplore[0].Exits[i].ConnectedArea
+                                            ]
+                                        );
+                                    }
+                                    roomsToExplore.Add(
+                                        Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ]
+                                    );
+                                    Randomizer.Rooms.RoomDict[
+                                        roomsToExplore[0].Exits[i].ConnectedArea
+                                    ].Visited = true;
+
+                                    /* Console.WriteLine(
+                                         "Neighbour: "
+                                             + Randomizer.Rooms.RoomDict[
+                                                 roomsToExplore[0].Exits[i].ConnectedArea
+                                             ].RoomName
+                                             + " added to room list."
+                                     );*/
+                                }
+                                /*else
+                                {
+                                    Console.WriteLine(
+                                        "Neighbour: "
+                                            + Randomizer.Rooms.RoomDict[
+                                                roomsToExplore[0].Exits[i].ConnectedArea
+                                            ].RoomName
+                                            + " requirement not met"
+                                    );
+                                }*/
                             }
                         }
                     }
@@ -848,11 +954,6 @@ namespace TPRandomizer
         /// <param name="startingRoom"> The room node that the generation algorithm will begin with. </param>
         private static void PlaceItemsInWorld(Room startingRoom, Random rnd)
         {
-            // Any vanilla checks will be placed first for the sake of logic. Even if they aren't available to be randomized in the game yet,
-            // we may need to logically account for their placement.
-            Console.WriteLine("Placing Vanilla Checks.");
-            PlaceVanillaChecks();
-
             // Dungeon rewards have a very limited item pool, so we want to place them first to prevent the generator from putting
             // an unnecessary item in one of the checks.
             if (SSettings.shuffleRewards)
@@ -923,6 +1024,15 @@ namespace TPRandomizer
             // Any extra checks that have not been filled at this point are filled with "junk" items such as ammunition, foolish items, etc.
             Console.WriteLine("Placing Junk Items.");
             PlaceJunkItems(Items.JunkItems, rnd);
+
+            // Only validate if we are not no-logic
+            if (SSettings.logicRules != LogicRules.No_Logic)
+            {
+                if (!BackendFunctions.ValidatePlaythrough(startingRoom))
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+            }
         }
 
         /// <summary>
@@ -956,6 +1066,21 @@ namespace TPRandomizer
                         Items.JunkItems[rnd.Next(Items.JunkItems.Count)],
                         currentCheck
                     );
+                }
+            }
+        }
+
+        /// <summary>
+        /// Places manually placed items where the user specifies
+        /// </summary>
+        private static void PlacePlandoChecks()
+        {
+            foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
+            {
+                Check currentCheck = checkList.Value;
+                if (currentCheck.checkStatus.Contains("Plando"))
+                {
+                    PlaceItemInCheck(currentCheck.itemId, currentCheck);
                 }
             }
         }
@@ -1019,7 +1144,7 @@ namespace TPRandomizer
                         foreach (Room graphRoom in currentPlaythroughGraph)
                         {
                             graphRoom.Visited = true;
-                            // Console.WriteLine("Currently Exploring: " + graphRoom.RoomName);
+                            //Console.WriteLine("Currently Exploring: " + graphRoom.RoomName);
                             for (int i = 0; i < graphRoom.Checks.Count; i++)
                             {
                                 // Create reference to the dictionary entry of the check whose logic we are evaluating
@@ -1066,6 +1191,7 @@ namespace TPRandomizer
                                             if (
                                                 (restriction == "Region")
                                                 && (currentCheck.checkStatus != "Excluded")
+                                                && (currentCheck.checkStatus != "Plando")
                                             )
                                             {
                                                 if (
@@ -1085,8 +1211,21 @@ namespace TPRandomizer
                                                 if (restriction == "Dungeon Rewards")
                                                 {
                                                     if (
-                                                        currentCheck.category.Contains(
+                                                        currentCheck.checkCategory.Contains(
                                                             "Dungeon Reward"
+                                                        )
+                                                    )
+                                                    {
+                                                        // Console.WriteLine("Added " + currentCheck.checkName + " to check list.");
+                                                        availableChecks.Add(currentCheck.checkName);
+                                                    }
+                                                }
+                                                else if (Randomizer.SSettings.noSmallKeysOnBosses)
+                                                {
+                                                    if (
+                                                        !ItemFunctions.IsSmallKeyOnBossCheck(
+                                                            itemToPlace,
+                                                            currentCheck
                                                         )
                                                     )
                                                     {
@@ -1195,7 +1334,10 @@ namespace TPRandomizer
 
         private static void StartOver()
         {
+            // If we are restarting we want to empty the player's inventory since we don't know what items we have and it won't matter if we are restarting.
             Randomizer.Items.heldItems.Clear();
+
+            // Next we want to change any checks that were marked as unrequired since the generator could select different dungeons next time. We also want to make all checks available to be placed again.
             foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
@@ -1208,16 +1350,13 @@ namespace TPRandomizer
                 Checks.CheckDict[currentCheck.checkName] = currentCheck;
             }
 
-            foreach (KeyValuePair<string, Room> roomList in Randomizer.Rooms.RoomDict.ToList())
-            {
-                Room currentRoom = roomList.Value;
-                currentRoom.Visited = false;
-                Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
-            }
+            // Next for Entrance rando, we want to clear the current room and entrance tables since they will be re-generated as the generator will try to re-shuffle the entrances a different way to find a placement that is successful.
+            Randomizer.Rooms.RoomDict.Clear();
+            DeserializeRooms(SSettings);
+            Randomizer.EntranceRandomizer.SpawnTable.Clear();
 
+            // Finally set the required dungeons to 0 since the value may change during the next attempt.
             Randomizer.RequiredDungeons = 0;
-
-            Randomizer.Rooms.RoomDict["Ordon Province"].IsStartingRoom = true;
         }
 
         private static void CheckUnrequiredDungeons()
@@ -1246,8 +1385,7 @@ namespace TPRandomizer
             requiredDungeons forestTemple = new("Forest Temple Dungeon Reward", false, null);
             requiredDungeons goronMines = new("Goron Mines Dungeon Reward", false, null);
             requiredDungeons lakebedTemple = new("Lakebed Temple Dungeon Reward", false, null);
-            requiredDungeons arbitersGrounds =
-                new("Arbiters Grounds Stallord Heart Container", false, null);
+            requiredDungeons arbitersGrounds = new("Arbiters Grounds Dungeon Reward", false, null);
             requiredDungeons snowpeakRuins = new("Snowpeak Ruins Dungeon Reward", false, null);
             requiredDungeons templeOfTime = new("Temple of Time Dungeon Reward", false, null);
             requiredDungeons cityInTheSky = new("City in The Sky Dungeon Reward", false, null);
@@ -1459,12 +1597,15 @@ namespace TPRandomizer
                         foreach (string check in listOfRequiredDungeons[i].requirementChecks)
                         {
                             if (
-                                (
-                                    (Checks.CheckDict[check].checkStatus != "Vanilla")
-                                    && (Checks.CheckDict[check].checkStatus != "Excluded")
-                                ) && !Checks.CheckDict[check].itemWasPlaced
+                                Checks.CheckDict[check].checkStatus != "Vanilla"
+                                && Checks.CheckDict[check].checkStatus != "Excluded"
                             )
                             {
+                                // Note: this used to check against
+                                // itemWasPlaced, but this caused dungeonReward
+                                // checks in unrequired barren dungeons to not
+                                // be marked as "Excluded-Unrequired".
+
                                 //Console.WriteLine(check + " is now excluded");
                                 Checks.CheckDict[check].checkStatus = "Excluded-Unrequired";
                             }
@@ -1481,7 +1622,7 @@ namespace TPRandomizer
             }
         }
 
-        private static Room SetupGraph()
+        private static void SetupGraph()
         {
             // We want to be safe and make sure that the room classes are prepped and ready to be linked together. Then we define our starting room.
             foreach (KeyValuePair<string, Room> roomList in Randomizer.Rooms.RoomDict.ToList())
@@ -1491,15 +1632,21 @@ namespace TPRandomizer
                 Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
             }
 
-            Room startingRoom = Randomizer.Rooms.RoomDict["Ordon Province"];
-            startingRoom.IsStartingRoom = true;
-            Randomizer.Rooms.RoomDict["Ordon Province"] = startingRoom;
-            return startingRoom;
+            // This line is just filler until we have a random starting room
+            Room startingRoom = Randomizer.Rooms.RoomDict["Outside Links House"];
+
+            Entrance rootExit = new();
+            rootExit.ConnectedArea = startingRoom.RoomName;
+            rootExit.Requirements = "(true)";
+
+            Randomizer.Rooms.RoomDict["Root"].Exits.Add(rootExit);
         }
 
         private static void DeserializeChecks(SharedSettings SSettings)
         {
             string[] files;
+
+            // We keep the logic files seperate based on their logic. GC and Wii should use the same logic.
             if (SSettings.logicRules == LogicRules.Glitchless)
             {
                 files = System.IO.Directory.GetFiles(
@@ -1519,6 +1666,83 @@ namespace TPRandomizer
 
             // Sort so that the item placement algorithm produces the exact same
             // result in production and development.
+            // If we have already generated a dictionary from DeserializeCheckMetadata, then we only need to apply the logic data from the files.
+            Array.Sort(files, new FilenameComparer());
+            if (Checks.CheckDict.Count == 0)
+            {
+                foreach (string file in files)
+                {
+                    string contents = File.ReadAllText(file);
+                    string fileName = Path.GetFileNameWithoutExtension(file);
+                    Checks.CheckDict.Add(fileName, new Check());
+                    Checks.CheckDict[fileName] = JsonConvert.DeserializeObject<Check>(contents);
+                    Check currentCheck = Checks.CheckDict[fileName];
+                    currentCheck.checkName = fileName;
+                    currentCheck.requirements = "(" + currentCheck.requirements + ")";
+                    currentCheck.checkStatus = "Ready";
+                    currentCheck.itemWasPlaced = false;
+                    currentCheck.isRequired = false;
+                    Checks.CheckDict[fileName] = currentCheck;
+                }
+            }
+            else
+            {
+                foreach (string file in files)
+                {
+                    string contents = File.ReadAllText(file);
+                    string fileName = Path.GetFileNameWithoutExtension(file);
+                    Check currentCheck = JsonConvert.DeserializeObject<Check>(contents);
+                    Checks.CheckDict[fileName].requirements = "(" + currentCheck.requirements + ")";
+                    Checks.CheckDict[fileName].checkCategory = currentCheck.checkCategory;
+                    Checks.CheckDict[fileName].checkName = fileName;
+                    Checks.CheckDict[fileName].checkStatus = "Ready";
+                    Checks.CheckDict[fileName].itemWasPlaced = false;
+                    Checks.CheckDict[fileName].isRequired = false;
+                    Checks.CheckDict[fileName].itemId = currentCheck.itemId;
+                }
+            }
+        }
+
+        private static void DeserializeCheckData(
+            SharedSettings SSettings,
+            FileCreationSettings FcSettings
+        )
+        {
+            string[] files = null;
+
+            // The GC/Wii files have different offsets for the data that is needed to replace certain checks.
+            switch (FcSettings.gameRegion)
+            {
+                // For now, 'All' only generates for GameCube until we do more
+                // work related to Wii code.
+                case GameRegion.GC_USA:
+                case GameRegion.GC_EUR:
+                case GameRegion.GC_JAP:
+                case GameRegion.All:
+                {
+                    files = System.IO.Directory.GetFiles(
+                        Global.CombineRootPath("./Assets/CheckMetadata/Gamecube/"),
+                        "*",
+                        SearchOption.AllDirectories
+                    );
+                    break;
+                }
+
+                case GameRegion.WII_10_USA:
+                case GameRegion.WII_10_EU:
+                case GameRegion.WII_10_JP:
+                {
+                    files = System.IO.Directory.GetFiles(
+                        Global.CombineRootPath("./Assets/CheckMetadata/Wii1.0/"),
+                        "*",
+                        SearchOption.AllDirectories
+                    );
+                    break;
+                }
+            }
+
+            // Sort so that the item placement algorithm produces the exact same
+            // result in production and development.
             Array.Sort(files, new FilenameComparer());
 
             foreach (string file in files)
@@ -1527,18 +1751,21 @@ namespace TPRandomizer
                 string fileName = Path.GetFileNameWithoutExtension(file);
                 Checks.CheckDict.Add(fileName, new Check());
                 Checks.CheckDict[fileName] = JsonConvert.DeserializeObject<Check>(contents);
-                Check currentCheck = Checks.CheckDict[fileName];
-                currentCheck.checkName = fileName;
-                currentCheck.requirements = "(" + currentCheck.requirements + ")";
-                currentCheck.checkStatus = "Ready";
-                currentCheck.itemWasPlaced = false;
-                currentCheck.isRequired = false;
-                Checks.CheckDict[fileName] = currentCheck;
+                Checks.CheckDict[fileName].checkName = fileName;
             }
+
+            DeserializeChecks(SSettings);
         }
 
-        private static void DeserializeRooms(SharedSettings SSettings)
+        public static void DeserializeRooms(SharedSettings SSettings)
         {
+            //Before anything, create an entry for the root of the world
+            Randomizer.Rooms.RoomDict.Add("Root", new Room());
+            Randomizer.Rooms.RoomDict["Root"].RoomName = "Root";
+            Randomizer.Rooms.RoomDict["Root"].Exits = new();
+            Randomizer.Rooms.RoomDict["Root"].Checks = new();
+            Randomizer.Rooms.RoomDict["Root"].Visited = false;
+
             string[] files;
             if (SSettings.logicRules == LogicRules.Glitchless)
             {
@@ -1565,21 +1792,32 @@ namespace TPRandomizer
             {
                 string contents = File.ReadAllText(file);
                 string fileName = Path.GetFileNameWithoutExtension(file);
-                Randomizer.Rooms.RoomDict.Add(fileName, new Room());
-                Randomizer.Rooms.RoomDict[fileName] = JsonConvert.DeserializeObject<Room>(contents);
-                Room currentRoom = Randomizer.Rooms.RoomDict[fileName];
-                currentRoom.RoomName = fileName;
-                currentRoom.Visited = false;
-                currentRoom.IsStartingRoom = false;
-                for (int i = 0; i < currentRoom.NeighbourRequirements.Count; i++)
+
+                //Console.WriteLine("Loading Room File: " + fileName);
+
+                List<Room> fileRooms = JsonConvert.DeserializeObject<List<Room>>(contents);
+                foreach (Room room in fileRooms)
                 {
-                    currentRoom.NeighbourRequirements[i] =
-                        "(" + currentRoom.NeighbourRequirements[i] + ")";
+                    Randomizer.Rooms.RoomDict.Add(room.RoomName, new Room());
+                    Randomizer.Rooms.RoomDict[room.RoomName] = room;
+                    Room currentRoom = Randomizer.Rooms.RoomDict[room.RoomName];
+                    currentRoom.Visited = false;
+                    for (int i = 0; i < currentRoom.Exits.Count; i++)
+                    {
+                        currentRoom.Exits[i].Requirements =
+                            "(" + currentRoom.Exits[i].Requirements + ")";
+
+                        currentRoom.Exits[i].ParentArea = currentRoom.RoomName;
+                        currentRoom.Exits[i].OriginalConnectedArea = currentRoom.Exits[
+                            i
+                        ].ConnectedArea;
+                    }
+
+                    Randomizer.Rooms.RoomDict[room.RoomName] = currentRoom;
+                    //Console.WriteLine("Room created: " + room.RoomName);
                 }
 
-                Randomizer.Rooms.RoomDict[fileName] = currentRoom;
-
-                // Console.WriteLine("Room File Loaded " + fileName);
+                //Console.WriteLine("Room File Loaded " + fileName);
             }
         }
 
@@ -1618,7 +1856,6 @@ namespace TPRandomizer
 
         public static string GetSeedGenResultsJson(
             string seedId,
-            bool prettyPrint,
             bool dangerouslyPrintFullRaceSpoiler = false
         )
         {
@@ -1631,11 +1868,15 @@ namespace TPRandomizer
             string fileContents = File.ReadAllText(inputPath);
             JObject json = JsonConvert.DeserializeObject<JObject>(fileContents);
 
+            if (Checks.CheckDict.Count < 1)
+            {
+                DeserializeChecks(SSettings);
+            }
+
             SeedGenResults seedGenResults = new SeedGenResults(seedId, json);
 
             return seedGenResults.ToSpoilerString(
                 GetSortedCheckNameToItemNameDict(seedGenResults),
-                prettyPrint,
                 dangerouslyPrintFullRaceSpoiler
             );
         }
@@ -1686,7 +1927,7 @@ namespace TPRandomizer
                     check.itemId = (Item)seedGenResults.itemPlacements[checkIdNum];
                 }
 
-                if (!sharedSettings.shuffleNpcItems && check.category.Contains("Bug Reward"))
+                if (!sharedSettings.shuffleNpcItems && check.checkCategory.Contains("Bug Reward"))
                 {
                     checkNameToItemName[check.checkName] = "Vanilla";
                 }
@@ -1713,7 +1954,7 @@ namespace TPRandomizer
                 {
                     currentCheck = kvp.Value;
                     if (
-                        currentCheck.category.Contains("Dungeon Reward")
+                        currentCheck.checkCategory.Contains("Dungeon Reward")
                         || (
                             Randomizer.SSettings.shuffleRewards
                             && (currentCheck.checkStatus == "Ready")
@@ -1734,7 +1975,7 @@ namespace TPRandomizer
                     currentItem = itemsToBeRandomized[rnd.Next(itemsToBeRandomized.Count)];
 
                     // We don't want to lock ourselves out of Palace
-                    if (currentCheck.category.Contains("Palace of Twilight"))
+                    if (currentCheck.checkCategory.Contains("Palace of Twilight"))
                     {
                         if (
                             Randomizer.SSettings.palaceRequirements

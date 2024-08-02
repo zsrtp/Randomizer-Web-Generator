@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TPRandomizer.Util;
 using TPRandomizer.SSettings.Enums;
+using System.Linq;
 
 namespace TPRandomizer
 {
@@ -52,10 +53,15 @@ namespace TPRandomizer
         public DamageMagnification damageMagnification { get; set; }
         public bool bonksDoDamage { get; set; }
         public bool shuffleRewards { get; set; }
+        public bool skipMajorCutscenes { get; set; }
         public bool increaseSpinnerSpeed { get; set; }
         public bool openDot { get; set; }
+        public bool noSmallKeysOnBosses { get; set; }
+        public StartingToD startingToD { get; set; }
+        public HintDistribution hintDistribution { get; set; }
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
+        public List<(string, Item)> plandoChecks { get; set; }
 
         public SharedSettings() { }
 
@@ -103,6 +109,10 @@ namespace TPRandomizer
             damageMagnification = (DamageMagnification)processor.NextInt(3);
             bonksDoDamage = processor.NextBool();
             shuffleRewards = processor.NextBool();
+            skipMajorCutscenes = processor.NextBool();
+            noSmallKeysOnBosses = processor.NextBool();
+            startingToD = (StartingToD)processor.NextInt(3);
+            hintDistribution = (HintDistribution)processor.NextInt(5);
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();
@@ -111,6 +121,16 @@ namespace TPRandomizer
             // StringComparer is needed because the default sort order is
             // different on Linux and Windows
             excludedChecks.Sort(StringComparer.Ordinal);
+
+            bool hasPlandoList = processor.NextBool();
+            if (hasPlandoList)
+            {
+                plandoChecks = processor.NextPlandoChecksList();
+                // Sort by check name, using the same StringComparer as excludedChecks
+                plandoChecks = plandoChecks.OrderBy(i => i.Item1, StringComparer.Ordinal).ToList();
+            }
+            else
+                plandoChecks = new();
         }
 
         // Note: this function MUST be able to parse old versions of sSettings

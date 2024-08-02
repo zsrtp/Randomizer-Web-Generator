@@ -1,10 +1,5 @@
 {
     "requirements": "Boomerang",
-    "arcOffsets": ["BD4"],
-    "stageIDX": [6],
-    "roomIDX": 1,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Forest Temple", "Big Key", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "Big Key"],
     "itemId": "Forest_Temple_Big_Key"
 }

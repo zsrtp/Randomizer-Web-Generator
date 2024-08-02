@@ -499,6 +499,11 @@ namespace TPRandomizer
                 "Bulblin Camp Roasted Boar",
                 "Faron Woods Golden Wolf",
                 "Jovani 60 Poe Soul Reward",
+                "Kakariko Village Malo Mart Red Potion",
+                "Kakariko Village Malo Mart Wooden Shield",
+                "Arbiters Grounds Dungeon Reward",
+                "Sacred Grove Pedestal Master Sword",
+                "Sacred Grove Pedestal Shadow Crystal"
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.
@@ -572,6 +577,16 @@ namespace TPRandomizer
                 return IdToNum(nameToId[checkName]);
             }
             return -1;
+        }
+
+        public static bool IsValidCheckId(int idNumber)
+        {
+            return GetCheckName(idNumber) != null;
+        }
+
+        public static bool IsValidCheckName(string checkName)
+        {
+            return GetCheckIdNum(checkName) >= 0;
         }
 
         public static SortedDictionary<string, int> GetNameToIdNumDictionary()

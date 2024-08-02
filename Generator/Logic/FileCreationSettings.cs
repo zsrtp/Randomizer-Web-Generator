@@ -1,5 +1,6 @@
 namespace TPRandomizer
 {
+    using System;
     using TPRandomizer.Util;
     using TPRandomizer.FcSettings.Enums;
     using TPRandomizer.Assets.CLR0;
@@ -7,6 +8,7 @@ namespace TPRandomizer
     public class FileCreationSettings
     {
         public GameRegion gameRegion { get; }
+        public EurLanguageTag eurLangTag { get; }
         public bool includeSpoilerLog { get; }
         public RandomizeBgm randomizeBgm { get; }
         public bool randomizeFanfares { get; }
@@ -33,8 +35,19 @@ namespace TPRandomizer
         public Clr0Entry xBtnColor { get; }
         public Clr0Entry yBtnColor { get; }
         public Clr0Entry zBtnColor { get; }
-        public int midnaHairBaseColor { get; }
-        public int midnaHairTipsColor { get; }
+
+        // Midna Hair (24-bit RGB vals)
+        public int midnaHairBaseLightWorldInactive { get; }
+        public int midnaHairBaseDarkWorldInactive { get; }
+        public int midnaHairBaseAnyWorldActive { get; }
+        public int midnaHairGlowAnyWorldInactive { get; }
+        public int midnaHairGlowLightWorldActive { get; }
+        public int midnaHairGlowDarkWorldActive { get; }
+        public int midnaHairTipsLightWorldInactive { get; }
+        public int midnaHairTipsDarkWorldAnyActive { get; }
+        public int midnaHairTipsLightWorldActive { get; }
+
+        // End Midna Hair
         public Clr0Entry midnaDomeRingColor { get; }
 
         public Clr0Entry linkHairColor { get; }
@@ -44,6 +57,7 @@ namespace TPRandomizer
             BitsProcessor processor = new BitsProcessor(bits);
 
             gameRegion = (GameRegion)processor.NextInt(2);
+            eurLangTag = (EurLanguageTag)processor.NextInt(3);
             includeSpoilerLog = processor.NextBool();
 
             randomizeBgm = (RandomizeBgm)processor.NextInt(2);
@@ -66,8 +80,47 @@ namespace TPRandomizer
             xBtnColor = processor.NextClr0Entry(RecolorId.None);
             yBtnColor = processor.NextClr0Entry(RecolorId.None);
             zBtnColor = processor.NextClr0Entry(RecolorId.None);
-            midnaHairBaseColor = (int)processor.NextInt(4);
-            midnaHairTipsColor = (int)processor.NextInt(4);
+
+            bool isCustomMidnaHairBaseColor = processor.NextBool();
+            if (isCustomMidnaHairBaseColor)
+            {
+                midnaHairBaseLightWorldInactive = processor.NextInt(24);
+                midnaHairBaseDarkWorldInactive = processor.NextInt(24);
+                midnaHairBaseAnyWorldActive = processor.NextInt(24);
+                midnaHairGlowAnyWorldInactive = processor.NextInt(24);
+                midnaHairGlowLightWorldActive = processor.NextInt(24);
+                midnaHairGlowDarkWorldActive = processor.NextInt(24);
+            }
+            else
+            {
+                int midnaHairBaseColor = processor.NextInt(4);
+
+                int[] baseAndGlowArr = ColorArrays.MidnaHairBaseAndGlowColors[midnaHairBaseColor];
+                midnaHairBaseLightWorldInactive = baseAndGlowArr[0];
+                midnaHairBaseDarkWorldInactive = baseAndGlowArr[1];
+                midnaHairBaseAnyWorldActive = baseAndGlowArr[2];
+                midnaHairGlowAnyWorldInactive = baseAndGlowArr[3];
+                midnaHairGlowLightWorldActive = baseAndGlowArr[4];
+                midnaHairGlowDarkWorldActive = baseAndGlowArr[5];
+            }
+
+            bool isCustomMidnaHairTipsColor = processor.NextBool();
+            if (isCustomMidnaHairTipsColor)
+            {
+                midnaHairTipsLightWorldInactive = processor.NextInt(24);
+                midnaHairTipsDarkWorldAnyActive = processor.NextInt(24);
+                midnaHairTipsLightWorldActive = processor.NextInt(24);
+            }
+            else
+            {
+                int midnaHairTipsColor = processor.NextInt(4);
+
+                int[] tipsArr = ColorArrays.MidnaHairTipsColors[midnaHairTipsColor];
+                midnaHairTipsLightWorldInactive = tipsArr[0];
+                midnaHairTipsDarkWorldAnyActive = tipsArr[1];
+                midnaHairTipsLightWorldActive = tipsArr[2];
+            }
+
             midnaDomeRingColor = processor.NextClr0Entry(RecolorId.None);
             linkHairColor = processor.NextClr0Entry(RecolorId.CMPR);
         }
@@ -76,6 +129,47 @@ namespace TPRandomizer
         {
             string bits = SettingsEncoder.DecodeToBitString(fcSettingsString);
             return new FileCreationSettings(bits);
+        }
+
+        public string GetLanguageTagString(GameRegion? exactGameRegion = null)
+        {
+            if (exactGameRegion == null)
+                exactGameRegion = gameRegion;
+
+            switch (exactGameRegion)
+            {
+                case GameRegion.All:
+                case GameRegion.GC_USA:
+                case GameRegion.WII_10_USA:
+                    return "en";
+                case GameRegion.GC_JAP:
+                case GameRegion.WII_10_JP:
+                    return "ja";
+                case GameRegion.GC_EUR:
+                case GameRegion.WII_10_EU:
+                    return ResolveEurLang(eurLangTag);
+                default:
+                    throw new Exception($"Unrecognized GameRegion '{exactGameRegion}'.");
+            }
+        }
+
+        private static string ResolveEurLang(EurLanguageTag langTag)
+        {
+            switch (langTag)
+            {
+                case EurLanguageTag.English:
+                    return "en-GB";
+                case EurLanguageTag.French:
+                    return "fr";
+                case EurLanguageTag.German:
+                    return "de";
+                case EurLanguageTag.Italian:
+                    return "it";
+                case EurLanguageTag.Spanish:
+                    return "es";
+                default:
+                    throw new Exception($"Unrecognized EurLanguageTag '{langTag}'.");
+            }
         }
     }
 }

@@ -204,6 +204,18 @@
         }
       });
 
+    $('#baseImportantItemsListbox')
+      .find('input[type="range"]')
+      .each(function () {
+        const val = parseInt(this.value, 10);
+        if (!Number.isNaN(val)) {
+          const itemId = parseInt($(this).attr('data-itemId'), 10);
+          for (let i = 0; i < val; i++) {
+            bits += numToPaddedBits(itemId, 9);
+          }
+        }
+      });
+
     bits += '111111111';
 
     return {
@@ -225,6 +237,26 @@
       });
 
     bits += '111111111';
+
+    return {
+      type: RawSettingType.bitString,
+      bitString: bits,
+    };
+  }
+
+  function genPlandoBits() {
+    let bits = '';
+    $('.plandoListItem').each(function () {
+      const itemId = parseInt($(this).attr('data-itemid'), 10);
+      const checkId = parseInt($(this).attr('data-checkid'), 10);
+      bits += numToPaddedBits(checkId, 9);
+      bits += numToPaddedBits(itemId, 8);
+    });
+    if (bits.length < 1) {
+      bits = '0';
+    } else {
+      bits = '1' + bits + '111111111';
+    }
 
     return {
       type: RawSettingType.bitString,
@@ -337,7 +369,7 @@
   function genSSettingsFromUi() {
     // Increment the version when you make changes to the format. Need to make
     // sure you don't break backwards compatibility!!
-    const sSettingsVersion = 4;
+    const sSettingsVersion = 5;
 
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
@@ -380,6 +412,10 @@
       { id: 'damageMagFieldset', bitLength: 3 },
       { id: 'bonksDoDamageCheckbox' },
       { id: 'shuffleRewardsCheckbox' },
+      { id: 'skipMajorCutscenesCheckbox' },
+      { id: 'noSmallKeysOnBossesCheckbox' },
+      { id: 'todFieldset', bitLength: 3 },
+      { id: 'hintDistributionFieldset', bitLength: 5 },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -396,6 +432,7 @@
 
     values.push(genStartingItemsBits());
     values.push(genExcludedChecksBits());
+    values.push(genPlandoBits());
 
     return encodeSettings(sSettingsVersion, 's', values);
   }
@@ -607,6 +644,28 @@
       return list;
     }
 
+    function nextPlandoList() {
+      // 9 bits of all 1s
+      const eolValue = 0x1ff;
+      const list = [];
+
+      while (true) {
+        if (remaining.length < 9) {
+          throw new Error('Not enough bits remaining.');
+        }
+
+        const checkId = nextXBitsAsNum(9);
+        if (checkId === eolValue) {
+          break;
+        } else {
+          const itemId = nextXBitsAsNum(8);
+          list.push([checkId, itemId]);
+        }
+      }
+
+      return list;
+    }
+
     function getVlq16BitLength(num) {
       if (num < 2) {
         return 5;
@@ -684,6 +743,7 @@
       nextXBitsAsNum,
       nextBoolean,
       nextEolList,
+      nextPlandoList,
       nextRecolorDefs,
     };
   }
@@ -717,12 +777,10 @@
         vanilla: 0,
         overworld: 1,
         dungeons: 2,
-        all: 3
+        all: 3,
       };
       const shufflePoes = processor.nextBoolean();
-      res.poes = shufflePoes
-        ? poeSettings.all
-        : poeSettings.vanilla;
+      res.poes = shufflePoes ? poeSettings.all : poeSettings.vanilla;
     }
     processBasic({ id: 'shopItems' });
     processBasic({ id: 'hiddenSkills' });
@@ -793,9 +851,29 @@
       res.bonksDoDamage = 0; // Vanilla
       res.shuffleRewards = 0; // Vanilla
     }
+    if (version >= 5) {
+      processBasic({ id: 'skipMajorCutscenes' });
+      processBasic({ id: 'noSmallKeysOnBosses' });
+      processBasic({ id: 'startingToD', bitLength: 3 });
+      processBasic({ id: 'hintDistribution', bitLength: 5 });
+    } else {
+      res.skipMajorCutscenes = 1; // Vanilla
+      res.noSmallKeysOnBosses = false;
+      res.startingToD = 1; // Noon, which the previous rando versions used.
+      res.hintDistribution = 0; // None
+    }
 
     res.startingItems = processor.nextEolList(9);
     res.excludedChecks = processor.nextEolList(9);
+    if (version >= 5) {
+      res.plando = [];
+      const hasPlando = processor.nextBoolean();
+      if (hasPlando) {
+        res.plando = processor.nextPlandoList();
+      }
+    } else {
+      res.plando = [];
+    }
 
     return res;
   }

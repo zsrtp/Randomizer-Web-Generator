@@ -1,10 +1,5 @@
 {
     "requirements": "Shadow_Crystal",
-    "arcOffsets": ["F30"],
-    "stageIDX": [27],
-    "roomIDX": 4,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Chest", "Dungeon", "Snowpeak Ruins", "ARC"],
+    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins"],
     "itemId": "Red_Rupee"
 }

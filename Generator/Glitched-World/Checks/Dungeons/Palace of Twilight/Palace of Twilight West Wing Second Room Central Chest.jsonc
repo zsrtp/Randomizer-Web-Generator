@@ -1,10 +1,5 @@
 {
-  "requirements": "((Palace_of_Twilight_Small_Key, 1) or (Setting.smallKeySettings equals Keysy)) and CanDefeatZantHead and (Progressive_Clawshot, 1)",
-  "arcOffsets": ["E88"],
-    "stageIDX": [15],
-    "roomIDX": 2,
-  "fileDirectoryType": [ 0 ],
-  "replacementType": [ 0 ],
-  "category": [ "Chest", "Dungeon", "Palace of Twilight", "Small Key", "ARC" ],
+  "requirements": "((((Palace_of_Twilight_Small_Key, 6) or ((Setting.smallKeySettings equals Vanilla) and (Palace_of_Twilight_Small_Key, 3))) or (Setting.smallKeySettings equals Keysy))) and CanDefeatZantHead and (Progressive_Clawshot, 1)",
+  "checkCategory": [ "Chest", "Dungeon", "Palace of Twilight", "Small Key"],
   "itemId": "Palace_of_Twilight_Small_Key"
 }

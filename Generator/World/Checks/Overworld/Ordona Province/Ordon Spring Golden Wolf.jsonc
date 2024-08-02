@@ -1,8 +1,5 @@
 {
     "requirements": "Shadow_Crystal and Room.Death_Mountain_Trail",
-    "stageIDX": [44],
-    "roomIDX": 1,
-    "flag": "9F",
-    "category": ["Overworld", "Hidden Skill", "Ordona Province"],
+    "checkCategory": ["Overworld", "Hidden Skill", "Ordona Province"],
     "itemId": "Progressive_Hidden_Skill"
 }

@@ -1,10 +1,5 @@
 {
     "requirements": "(Progressive_Clawshot, 1)",
-    "arcOffsets": ["24C0"],
-    "stageIDX": [52],
-    "roomIDX": 1,
-    "fileDirectoryType": [0],
-    "replacementType": [0],
-    "category": ["Overworld", "Chest", "Lake Hylia", "ARC"],
+    "checkCategory": ["Overworld", "Chest", "Lake Hylia", "ARC"],
     "itemId": "Bombs_5"
 }

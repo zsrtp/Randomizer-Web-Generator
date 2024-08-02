@@ -1,9 +1,5 @@
 {
     "requirements": "true",
-    "arcOffsets": ["1427"],
-    "stageIDX": [51],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "category": ["Overworld", "Npc", "Snowpeak Province", "ARC"],
+    "checkCategory": ["Overworld", "Npc", "Snowpeak Province", "ARC"],
     "itemId": "Asheis_Sketch"
 }

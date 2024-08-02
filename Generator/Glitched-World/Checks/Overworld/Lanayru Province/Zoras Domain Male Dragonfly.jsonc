@@ -4,7 +4,7 @@
     "stageIDX": [50],
     "dzxTag": ["ACTR"],
     "magicByte": ["FE"],
-    "category": ["Overworld", "Golden Bug", "Zoras Domain", "DZX"],
+    "checkCategory": ["Overworld", "Golden Bug", "Zoras Domain", "DZX"],
     "itemId": "Male_Dragonfly",
     "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "9F", "D2", "45", "64", "57", "33", "C5", "A1", "7D", "51", "46", "72", "30", "01", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
 }

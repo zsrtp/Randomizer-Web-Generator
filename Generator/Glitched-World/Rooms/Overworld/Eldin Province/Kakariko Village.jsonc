@@ -1,41 +1,504 @@
-{
-    "Neighbours":
-    [
-        "Kakariko Gorge",
-        "Eldin Field",
-        "Death Mountain Trail",
-        "Lake Hylia"
-    ],
-    "NeighbourRequirements":
-    [
-        "true",
-        "true",
-        "true",
-        "(HasHeavyMod and CanUseWaterBombs and Gate_Keys) or ((HasHeavyMod or Zora_Armor) and ((hasBombs and (HasSword or Spinner)) or CanDoLJA or CanDoMoonBoots))"
-    ],
-    "Checks":
-    [
-        "Kakariko Inn Chest",
-        "Eldin Spring Underwater Chest",
-        "Kakariko Graveyard Lantern Chest",
-        "Kakariko Watchtower Chest",
-        "Kakariko Watchtower Alcove Chest",
-        "Kakariko Village Bomb Rock Spire Heart Piece",
-        "Gift From Ralis",
-        "Rutelas Blessing",
-        "Renados Letter",
-        "Ilia Memory Reward",
-        "Talo Sharpshooting",
-        "Barnes Bomb Bag",
-        "Kakariko Village Female Ant",
-        "Kakariko Graveyard Male Ant",
-        "Kakariko Graveyard Grave Poe",
-        "Kakariko Graveyard Open Poe",
-        "Kakariko Village Bomb Shop Poe",
-        "Kakariko Village Watchtower Poe",
-        "Kakariko Graveyard Golden Wolf",
-        "Kakariko Village Malo Mart Hylian Shield",
-        "Kakariko Village Malo Mart Hawkeye"
-    ],
-    "Region": "Kakariko Village"
-}
+[
+    {
+        "RoomName": "Lower Kakariko Village",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Upper Kakariko Village",
+            "Requirements": "canCompleteGoronMines or canSmash"
+        },
+        {
+            "ConnectedArea": "Kakariko Village Behind Gate",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Gorge Behind Gate",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Graveyard",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Death Mountain Near Kakariko",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary Front Left Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary Front Right Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary Back Left Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary Back Right Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Malo Mart",
+            "Requirements": "CanChangeTime"
+        },
+        {
+            "ConnectedArea": "Kakariko Elde Inn Left Door",
+            "Requirements": "CanChangeTime"
+        },
+        {
+            "ConnectedArea": "Kakariko Elde Inn Right Door",
+            "Requirements": "CanChangeTime"
+        },
+        {
+            "ConnectedArea": "Kakariko Bug House Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Bug House Ceiling Hole",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Barnes Bomb Shop Lower",
+            "Requirements": "true"
+        }
+        ],
+        "Checks":
+        [
+            "Eldin Spring Underwater Chest",
+            "Kakariko Village Bomb Rock Spire Heart Piece"
+        ],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Upper Kakariko Village",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Top of Watchtower",
+            "Requirements": "canCompleteGoronMines"
+        },
+        {
+            "ConnectedArea": "Kakariko Barnes Bomb Shop Upper",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Watchtower Lower Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Watchtower Dig Spot",
+            "Requirements": "Shadow_Crystal"
+        }
+        ],
+        "Checks":
+        [
+            "Kakariko Village Bomb Shop Poe",
+            "Kakariko Village Watchtower Poe",
+            "Kakariko Watchtower Alcove Chest"
+        ],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Top of Watchtower",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Upper Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Watchtower Upper Door",
+            "Requirements": "true"
+        }
+        ],
+        "Checks":
+        [
+            "Talo Sharpshooting"
+        ],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Watchtower Upper Door",
+        "Exits":
+        [
+          {
+            "ConnectedArea": "Kakariko Top of Watchtower",
+            "Requirements": "true"
+          },
+          {
+            "ConnectedArea": "Kakariko Watchtower",
+            "Requirements": "true"
+          }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+      },
+    {
+        "RoomName": "Kakariko Village Behind Gate",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)" // or access to epona
+        },
+        {
+            "ConnectedArea": "Eldin Field",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Renados Sanctuary Front Left Door",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Renados Sanctuary Front Right Door",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Renados Sanctuary Back Left Door",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Renados Sanctuary Back Right Door",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Renados Sanctuary",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary Front Left Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary Front Right Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary Back Left Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary Back Right Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Renados Sanctuary Basement",
+            "Requirements": "true"
+        }
+        ],
+        "Checks":
+        [
+            "Renados Letter",
+            "Ilia Memory Reward"
+        ],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Renados Sanctuary Basement",
+        "Exits":
+        [
+            {
+                "ConnectedArea": "Kakariko Renados Sanctuary",
+                "Requirements": "true"
+            }
+        ],
+        "Checks":
+        [
+            ""
+        ],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Malo Mart",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        }
+        ],
+        "Checks":
+        [
+            "Kakariko Village Malo Mart Hylian Shield",
+            "Kakariko Village Malo Mart Hawkeye",
+            "Kakariko Village Malo Mart Wooden Shield",
+            "Kakariko Village Malo Mart Red Potion"
+        ],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Elde Inn Left Door",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Elde Inn",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Elde Inn Right Door",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Elde Inn",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Elde Inn",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Kakariko Elde Inn Left Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Elde Inn Right Door",
+            "Requirements": "true"
+        }
+        ],
+        "Checks":
+        [
+            "Kakariko Inn Chest"
+        ],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Bug House Door",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Bug House",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Bug House Ceiling Hole",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Kakariko Bug House",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Bug House",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Kakariko Bug House Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Bug House Ceiling Hole",
+            "Requirements": "Shadow_Crystal"
+        }
+        ],
+        "Checks":
+        [
+            "Kakariko Village Female Ant"
+        ],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Barnes Bomb Shop Lower",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Barnes Bomb Shop Upper",
+            "Requirements": "true"
+        }
+        ],
+        "Checks":
+        [
+            "Barnes Bomb Bag"
+        ],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Barnes Bomb Shop Upper",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Upper Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Barnes Bomb Shop Lower",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Watchtower Lower Door",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Upper Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Watchtower",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Watchtower Dig Spot",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Upper Kakariko Village",
+            "Requirements": "Shadow_Crystal"
+        },
+        {
+            "ConnectedArea": "Kakariko Watchtower",
+            "Requirements": "true"
+        }
+        ],
+        "Checks": [""],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Watchtower",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Kakariko Watchtower Lower Door",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Watchtower Dig Spot",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Kakariko Watchtower Upper Door",
+            "Requirements": "true"
+        }
+        ],
+        "Checks":
+        [    
+            "Kakariko Watchtower Chest"
+        ],
+        "Region": "Kakariko Village"
+    },
+    {
+        "RoomName": "Kakariko Graveyard",
+        "Exits":
+        [
+        {
+            "ConnectedArea": "Lower Kakariko Village",
+            "Requirements": "true"
+        },
+        {
+            "ConnectedArea": "Lake Hylia",
+            "Requirements": "(HasHeavyMod and CanUseWaterBombs and Gate_Keys) or ((HasHeavyMod or Zora_Armor) and ((hasBombs and (HasSword or Spinner)) or CanDoLJA or CanDoMoonBoots))"
+        }
+        ],
+        "Checks":
+        [ 
+            "Kakariko Graveyard Lantern Chest",
+            "Gift From Ralis",
+            "Rutelas Blessing",
+            "Kakariko Graveyard Male Ant",
+            "Kakariko Graveyard Grave Poe",
+            "Kakariko Graveyard Open Poe",
+            "Kakariko Graveyard Golden Wolf"
+        ],
+        "Region": "Kakariko Village"
+    }
+]

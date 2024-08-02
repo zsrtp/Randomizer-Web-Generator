@@ -1,0 +1,290 @@
+{
+  // Season 1 distribution
+  "starting": {
+    "spot": "ordon_sign",
+    "excludeFromGroups": true
+  },
+  "agitha": true,
+  "jovani": {
+    "minFoundSoulsForHint": 10
+  },
+  "caveOfOrdeals": true,
+  "dungeons": {
+    "bigKeyHints": true
+  },
+  "beyondPointZones": ["alias:all"],
+  "barren": {
+    "ownZoneBehavior": "monopolize",
+    "ownZoneShowsAsJunkHint": true
+  },
+  "always": {
+    "monopolizeSpots": true,
+    "idealNumSpots": 5,
+    "copies": 2,
+    "groupId": "overworld"
+  },
+  //
+  "addChecks": {
+    "Lake Hylia Shell Blade Grotto Chest": ["always"]
+  },
+  "removeChecks": {
+    "Herding Goats Reward": ["sometimes"],
+    "Wrestling With Bo": ["sometimes"],
+    "Zoras Domain Extinguish All Torches Chest": ["sometimes"],
+    "Zoras Domain Light All Torches Chest": ["sometimes"]
+  },
+  "removeItems": {
+    "Progressive_Sword": ["sometimes"]
+  },
+  //
+  "groups": {
+    "overworld": ["alias:overworldZones"],
+    "requiredDungeons": ["alias:requiredDungeons"]
+  },
+  // Special hints generated right after Always hints are generated. These are
+  // created even if the dungeon is hinted barren or the check is already hinted
+  // barren by a BeyondThisPoint hint.
+  "specialHintDefs": [
+    {
+      "spot": "forest_temple_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "canHintHintedBarrenChecks": true,
+          "validChecks": ["Forest Temple Gale Boomerang"]
+        }
+      }
+    },
+    {
+      "spot": "snowpeak_ruins_sign",
+      "hintDef": {
+        "maxPicks": 1,
+        "hintDef": [
+          {
+            "hintType": "location",
+            "options": {
+              "canHintHintedBarrenChecks": true,
+              "validChecks": [
+                "Snowpeak Ruins Chapel Chest",
+                "Snowpeak Ruins Lobby Chandelier Chest",
+                "Snowpeak Ruins Northeast Chandelier Chest"
+              ],
+              "validItems": ["Snowpeak_Ruins_Bedroom_Key"]
+            }
+          },
+          {
+            "hintType": "location",
+            "options": {
+              "canHintHintedBarrenChecks": true,
+              "validChecks": [
+                "Snowpeak Ruins Chapel Chest",
+                "Snowpeak Ruins Lobby Chandelier Chest",
+                "Snowpeak Ruins Northeast Chandelier Chest"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "spot": "temple_of_time_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "canHintHintedBarrenChecks": true,
+          "validChecks": ["Temple of Time Darknut Chest"]
+        }
+      }
+    },
+    {
+      "spot": "hyrule_castle_sign",
+      "hintDef": {
+        "hintType": "item",
+        "options": {
+          "validItems": ["Purple_Rupee_Links_House"],
+          "areaType": "zone"
+        }
+      }
+    }
+  ],
+  "hints": [
+    {
+      "groupId": "overworld",
+      "hintDef": {
+        "copies": 2,
+        "hintDef": [
+          {
+            "maxPicks": 3,
+            "starting": 1,
+            "copies": 3,
+            "hintDef": [
+              {
+                "hintType": "barren",
+                "iterations": 1,
+                "options": {
+                  "validAreas": [
+                    "Forest Temple",
+                    "Goron Mines",
+                    "Lakebed Temple",
+                    "Arbiter's Grounds",
+                    "Snowpeak Ruins",
+                    "Temple of Time",
+                    "City in the Sky",
+                    "Palace of Twilight"
+                  ]
+                }
+              },
+              {
+                "hintType": "barren",
+                "iterations": 3
+              }
+            ]
+          },
+          {
+            "hintType": "itemToItemPath",
+            "saveToVar": "pathHints"
+          },
+          {
+            "hintType": "path",
+            "saveToVar": "pathHints",
+            "iterations": 2
+          },
+          {
+            "starting": 1,
+            "maxPicks": 1,
+            "selectionType": "randomOrder",
+            "hintDef": [
+              {
+                // Ex: male bugs lead to nothing
+                "hintType": "tradeGroup",
+                "options": {
+                  "validGroups": ["male_bugs", "female_bugs"],
+                  "validStatuses": ["bad"],
+                  "smartHinting": false
+                }
+              },
+              {
+                "hintType": "barren",
+                "options": {
+                  "areaType": "category",
+                  "validAreas": ["Mist", "Northern_Desert", "Southern_Desert"]
+                }
+              },
+              {
+                "selectionType": "randomOrder",
+                "hintDef": [
+                  {
+                    "hintType": "numItemInArea",
+                    "weight": 0.55,
+                    "options": {
+                      "item": "Boomerang",
+                      "areaType": "province",
+                      "validAreas": ["Dungeon"]
+                    }
+                  },
+                  {
+                    "hintType": "numItemInArea",
+                    "weight": 0.45,
+                    "options": {
+                      "item": "Progressive_Clawshot",
+                      "areaType": "province",
+                      "validAreas": ["Dungeon"]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          // Fill in layer with extra copies of path hints.
+          {
+            "hintType": "var",
+            "copies": 1,
+            "iterations": 99,
+            "options": {
+              "varName": "pathHints",
+              "randomOrder": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      // Fill in requiredDungeon signs. Add a sword hint for a sword not in the
+      // MostSwordsProvince if possible.
+      "groupId": "requiredDungeons",
+      "hintDef": [
+        {
+          // Num swords in province with most swords (or tied for most).
+          "hintType": "numItemInArea",
+          "saveToVar": "mostSwordsProvince",
+          "options": {
+            "item": "Progressive_Sword",
+            "areaType": "province",
+            "order": "desc"
+          }
+        },
+        {
+          // Aux sword hint
+          "hintType": "item",
+          "options": {
+            "validItems": ["Progressive_Sword"],
+            "invalidChecks": ["var:mostSwordsProvince.areaId"]
+          }
+        },
+        // Fill the rest in with more copies of the MostSwordsProvince hint
+        {
+          "hintType": "var",
+          "copies": 99,
+          "minCopies": 1,
+          "options": {
+            "varName": "mostSwordsProvince"
+          }
+        }
+      ]
+    },
+    {
+      // 2nd layer is "sometimes" hints
+      "groupId": "overworld",
+      "hintDef": {
+        "copies": 2,
+        "hintDef": [
+          {
+            "maxPicks": 5,
+            "saveToVar": "2ndLayerSometimes",
+            "hintDef": [
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "validChecks": ["Wrestling With Bo", "Herding Goats Reward"]
+                }
+              },
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "namedChecks": ["City in The Sky West Wing First Chest"],
+                  "namedProbability": 0.5
+                }
+              },
+              {
+                "hintType": "sometimes",
+                "iterations": 99
+              }
+            ]
+          },
+          // Fill in layer with extra copies of the sometimes hints.
+          {
+            "hintType": "var",
+            "copies": 1,
+            "iterations": 99,
+            "options": {
+              "varName": "2ndLayerSometimes",
+              "randomOrder": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

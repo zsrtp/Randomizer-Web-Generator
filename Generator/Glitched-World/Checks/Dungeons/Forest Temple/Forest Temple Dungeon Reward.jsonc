@@ -1,13 +1,5 @@
 {
     "requirements": "CanDefeatDiababa",
-    "moduleID": ["5B"],
-    "stageIDX": [7],
-    "relOffsets": ["1880"],
-    "overrideInstruction": ["38600000"],
-    "arcOffsets": ["3286"],
-    "fileDirectoryType": [3],
-    "replacementType": [2],
-    "relReplacementType": [0],
-    "category": ["Dungeon", "Forest Temple", "Dungeon Reward", "REL", "ARC"],
+    "checkCategory": ["Dungeon", "Forest Temple", "Dungeon Reward"],
     "itemId": "Progressive_Fused_Shadow"
 }

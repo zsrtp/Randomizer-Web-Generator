@@ -1,7 +1,5 @@
 {
     "requirements": "Shadow_Crystal and canBurnWebs",
-    "stageIDX": [32],
-    "flag": "60",
-    "category": ["Overworld", "Poe", "Eldin Lantern Cave"],
+    "checkCategory": ["Overworld", "Poe", "Eldin Lantern Cave"],
     "itemId": "Poe_Soul"
 }

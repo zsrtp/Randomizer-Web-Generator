@@ -8,6 +8,6 @@
     "relOffsets": ["B2AC"],
     "overrideInstruction": ["38600000"],
     "relReplacementType": [0],
-    "category": ["Overworld", "Fishing Hole", "ARC", "REL"],
+    "checkCategory": ["Overworld", "Fishing Hole", "ARC", "REL"],
     "itemId": "Empty_Bottle"
 }

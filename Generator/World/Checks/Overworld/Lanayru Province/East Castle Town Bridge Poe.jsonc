@@ -1,7 +1,5 @@
 {
     "requirements": "Shadow_Crystal",
-    "stageIDX": [57],
-    "flag": "47",
-    "category": ["Overworld", "Poe", "Hyrule Field - Lanayru Province"],
+    "checkCategory": ["Overworld", "Poe", "Hyrule Field - Lanayru Province"],
     "itemId": "Poe_Soul"
 }

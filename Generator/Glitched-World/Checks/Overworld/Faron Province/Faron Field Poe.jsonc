@@ -1,7 +1,7 @@
 {
-    "requirements": "Shadow_Crystal and CanCompleteMDH",
+    "requirements": "Shadow_Crystal and CanCompleteMDH and CanCompleteAllTwilight",
     "stageIDX": [56],
     "flag": "39",
-    "category": ["Overworld", "Poe", "Hyrule Field - Faron Province"],
+    "checkCategory": ["Overworld", "Poe", "Hyrule Field - Faron Province"],
     "itemId": "Poe_Soul"
 }
