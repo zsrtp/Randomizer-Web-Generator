@@ -362,7 +362,7 @@
     <comment></comment>
   </data>
   <data name="area.zone.snowpeak_mountain" xml:space="preserve">
-    <value>Snowpeak Mountain</value>
+    <value>$(ap:at)Snowpeak Mountain</value>
     <comment></comment>
   </data>
   <data name="area.zone.snowpeak_ruins" xml:space="preserve">
