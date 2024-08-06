@@ -1562,7 +1562,7 @@ namespace TPRandomizer.Hints
                     SpotId.Upper_Zoras_River_Sign,
                     SpotId.Gerudo_Desert_Sign,
                     SpotId.Bulblin_Camp_Sign,
-                    SpotId.Snowpeak_Sign,
+                    SpotId.Snowpeak_Mountain_Sign,
                     SpotId.Cave_of_Ordeals_Sign,
                     SpotId.Forest_Temple_Sign,
                     SpotId.Goron_Mines_Sign,

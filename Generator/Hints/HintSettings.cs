@@ -747,7 +747,7 @@ namespace TPRandomizer.Hints.Settings
                     SpotId.Upper_Zoras_River_Sign,
                     SpotId.Gerudo_Desert_Sign,
                     SpotId.Bulblin_Camp_Sign,
-                    SpotId.Snowpeak_Sign,
+                    SpotId.Snowpeak_Mountain_Sign,
                     SpotId.Cave_of_Ordeals_Sign,
                     SpotId.Forest_Temple_Sign,
                     SpotId.Goron_Mines_Sign,
@@ -1023,7 +1023,7 @@ namespace TPRandomizer.Hints.Settings
                 { "Upper Zora's River", SpotId.Upper_Zoras_River_Sign },
                 { "Gerudo Desert", SpotId.Gerudo_Desert_Sign },
                 { "Bulblin Camp", SpotId.Bulblin_Camp_Sign },
-                { "Snowpeak", SpotId.Snowpeak_Sign },
+                { "Snowpeak Mountain", SpotId.Snowpeak_Mountain_Sign },
                 { "Cave of Ordeals", SpotId.Cave_of_Ordeals_Sign },
             };
 
@@ -1073,7 +1073,7 @@ namespace TPRandomizer.Hints.Settings
                 { "upperzorasriver", "Upper Zora's River" },
                 { "gerudodesert", "Gerudo Desert" },
                 { "bulblincamp", "Bulblin Camp" },
-                { "snowpeak", "Snowpeak" },
+                { "snowpeakmountain", "Snowpeak Mountain" },
                 { "caveofordeals", "Cave of Ordeals" },
                 { "foresttemple", "Forest Temple" },
                 { "goronmines", "Goron Mines" },
@@ -1563,7 +1563,7 @@ namespace TPRandomizer.Hints.Settings
                                     new HashSet<Zone>()
                                     {
                                         Zone.Lake_Lantern_Cave,
-                                        Zone.Snowpeak,
+                                        Zone.Snowpeak_Mountain,
                                         Zone.Goron_Mines,
                                         Zone.Lakebed_Temple,
                                         Zone.Arbiters_Grounds,
@@ -1574,7 +1574,11 @@ namespace TPRandomizer.Hints.Settings
                                 break;
                             case "overworld":
                                 result.UnionWith(
-                                    new HashSet<Zone>() { Zone.Lake_Lantern_Cave, Zone.Snowpeak, }
+                                    new HashSet<Zone>()
+                                    {
+                                        Zone.Lake_Lantern_Cave,
+                                        Zone.Snowpeak_Mountain,
+                                    }
                                 );
                                 break;
                             case "dungeons":

@@ -376,7 +376,7 @@ namespace TPRandomizer.Hints
                 { "Upper Zora's River", Province.Lanayru },
                 { "Gerudo Desert", Province.Desert },
                 { "Bulblin Camp", Province.Desert },
-                { "Snowpeak", Province.Peak },
+                { "Snowpeak Mountain", Province.Peak },
                 { "Cave of Ordeals", Province.Desert },
                 { "Forest Temple", Province.Dungeon },
                 { "Goron Mines", Province.Dungeon },
@@ -415,7 +415,7 @@ namespace TPRandomizer.Hints
                 { "Upper Zora's River", SpotId.Upper_Zoras_River_Sign },
                 { "Gerudo Desert", SpotId.Gerudo_Desert_Sign },
                 { "Bulblin Camp", SpotId.Bulblin_Camp_Sign },
-                { "Snowpeak", SpotId.Snowpeak_Sign },
+                { "Snowpeak Mountain", SpotId.Snowpeak_Mountain_Sign },
                 { "Cave of Ordeals", SpotId.Cave_of_Ordeals_Sign },
             };
 

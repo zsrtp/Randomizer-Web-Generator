@@ -69,7 +69,7 @@ namespace TPRandomizer
         Custom_Sign_Upper_Zoras_River,
         Custom_Sign_Gerudo_Desert,
         Custom_Sign_Bulblin_Camp,
-        Custom_Sign_Snowpeak,
+        Custom_Sign_Snowpeak_Mountain,
         Custom_Sign_Golden_Wolf,
         Custom_Sign_Cave_of_Ordeals,
         Custom_Sign_LongMinigames,
@@ -120,7 +120,7 @@ namespace TPRandomizer
                 { SpotId.Upper_Zoras_River_Sign, MsgEntryId.Custom_Sign_Upper_Zoras_River },
                 { SpotId.Gerudo_Desert_Sign, MsgEntryId.Custom_Sign_Gerudo_Desert },
                 { SpotId.Bulblin_Camp_Sign, MsgEntryId.Custom_Sign_Bulblin_Camp },
-                { SpotId.Snowpeak_Sign, MsgEntryId.Custom_Sign_Snowpeak },
+                { SpotId.Snowpeak_Mountain_Sign, MsgEntryId.Custom_Sign_Snowpeak_Mountain },
                 { SpotId.Cave_of_Ordeals_Sign, MsgEntryId.Custom_Sign_Cave_of_Ordeals },
                 { SpotId.Forest_Temple_Sign, MsgEntryId.Custom_Sign_Forest_Temple },
                 { SpotId.Goron_Mines_Sign, MsgEntryId.Custom_Sign_Goron_Mines },
@@ -303,7 +303,7 @@ namespace TPRandomizer
                 { MsgEntryId.Custom_Sign_Upper_Zoras_River, new(StageIDs.Fishing_Pond, 0, 0x1369) },
                 { MsgEntryId.Custom_Sign_Gerudo_Desert, new(StageIDs.Gerudo_Desert, 0, 0x1369) },
                 { MsgEntryId.Custom_Sign_Bulblin_Camp, new(StageIDs.Bulblin_Camp, 1, 0x1369) },
-                { MsgEntryId.Custom_Sign_Snowpeak, new(StageIDs.Snowpeak, 0, 0x1369) },
+                { MsgEntryId.Custom_Sign_Snowpeak_Mountain, new(StageIDs.Snowpeak, 0, 0x1369) },
                 {
                     MsgEntryId.Custom_Sign_Cave_of_Ordeals,
                     new(StageIDs.Cave_of_Ordeals, 0, 0x1369)

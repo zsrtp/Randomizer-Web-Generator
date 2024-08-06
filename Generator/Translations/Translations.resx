@@ -361,8 +361,8 @@
     <value>the {cs}Sacred Grove{ce}</value>
     <comment></comment>
   </data>
-  <data name="area.zone.snowpeak" xml:space="preserve">
-    <value>Snowpeak</value>
+  <data name="area.zone.snowpeak_mountain" xml:space="preserve">
+    <value>Snowpeak Mountain</value>
     <comment></comment>
   </data>
   <data name="area.zone.snowpeak_ruins" xml:space="preserve">
