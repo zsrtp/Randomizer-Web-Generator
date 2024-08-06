@@ -322,7 +322,7 @@
     <comment></comment>
   </data>
   <data name="area.zone.lake_lantern_cave" xml:space="preserve">
-    <value>la {cs}Grotte Laterne du Lac{ce}</value>
+    <value>la {cs}Grotte Lanterne du Lac{ce}</value>
     <comment></comment>
   </data>
   <data name="area.zone.lakebed_temple" xml:space="preserve">
