@@ -34,7 +34,7 @@ namespace TPRandomizer.Hints
         Upper_Zoras_River_Sign = 22,
         Gerudo_Desert_Sign = 23,
         Bulblin_Camp_Sign = 24,
-        Snowpeak_Sign = 25,
+        Snowpeak_Mountain_Sign = 25,
         Cave_of_Ordeals_Sign = 26,
         Forest_Temple_Sign = 27,
         Goron_Mines_Sign = 28,

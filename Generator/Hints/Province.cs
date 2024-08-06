@@ -72,7 +72,7 @@ namespace TPRandomizer.Hints
                 },
                 {
                     Province.Peak,
-                    new() { Zone.Snowpeak, }
+                    new() { Zone.Snowpeak_Mountain, }
                 },
                 {
                     Province.Dungeon,

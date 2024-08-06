@@ -30,7 +30,7 @@ namespace TPRandomizer.Hints
         Upper_Zoras_River = 22,
         Gerudo_Desert = 23,
         Bulblin_Camp = 24,
-        Snowpeak = 25,
+        Snowpeak_Mountain = 25,
         Cave_of_Ordeals = 26,
         Forest_Temple = 27,
         Goron_Mines = 28,
@@ -74,7 +74,7 @@ namespace TPRandomizer.Hints
                 { Zone.Upper_Zoras_River, SpotId.Upper_Zoras_River_Sign },
                 { Zone.Gerudo_Desert, SpotId.Gerudo_Desert_Sign },
                 { Zone.Bulblin_Camp, SpotId.Bulblin_Camp_Sign },
-                { Zone.Snowpeak, SpotId.Snowpeak_Sign },
+                { Zone.Snowpeak_Mountain, SpotId.Snowpeak_Mountain_Sign },
                 { Zone.Cave_of_Ordeals, SpotId.Cave_of_Ordeals_Sign },
                 { Zone.Forest_Temple, SpotId.Forest_Temple_Sign },
                 { Zone.Goron_Mines, SpotId.Goron_Mines_Sign },
@@ -102,10 +102,10 @@ namespace TPRandomizer.Hints
                     )
                 },
                 {
-                    Zone.Snowpeak,
+                    Zone.Snowpeak_Mountain,
                     new BeyondPointObj(
-                        Zone.Snowpeak,
-                        SpotId.Snowpeak_Sign,
+                        Zone.Snowpeak_Mountain,
+                        SpotId.Snowpeak_Mountain_Sign,
                         HintCategory.Snowpeak_Beyond_This_Point,
                         BeyondPointObj.Validity.Snowpeak
                     )
@@ -570,7 +570,7 @@ namespace TPRandomizer.Hints
                     }
                 },
                 {
-                    "Snowpeak",
+                    "Snowpeak Mountain",
                     new[]
                     {
                         "Ashei Sketch",
@@ -890,7 +890,7 @@ namespace TPRandomizer.Hints
                 { Zone.Upper_Zoras_River, "Upper Zora's River" },
                 { Zone.Gerudo_Desert, "Gerudo Desert" },
                 { Zone.Bulblin_Camp, "Bulblin Camp" },
-                { Zone.Snowpeak, "Snowpeak" },
+                { Zone.Snowpeak_Mountain, "Snowpeak Mountain" },
                 { Zone.Cave_of_Ordeals, "Cave of Ordeals" },
                 { Zone.Forest_Temple, "Forest Temple" },
                 { Zone.Goron_Mines, "Goron Mines" },
