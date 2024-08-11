@@ -1160,18 +1160,9 @@ namespace TPRandomizer
             int plandoPoes = 0;
             foreach ((string checkName, Item item) in parseSetting.plandoChecks)
             {
-                switch (item)
+                if (item == Item.Poe_Soul)
                 {
-                    case Item.Poe_Soul:
-                    {
-                        plandoPoes++;
-                        break;
-                    }
-
-                    default:
-                    {
-                        break;
-                    }
+                    plandoPoes++;
                 }
             }
 
