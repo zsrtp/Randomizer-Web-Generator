@@ -170,7 +170,7 @@
       [
         {
           "ConnectedArea": "Mist Area Inside Mist",
-          "Requirements": "Lantern or Shadow_Crystal"
+          "Requirements": "Lantern or CanDoMapGlitch"
         },
         {
           "ConnectedArea": "Mist Area Under Owl Statue Chest",
@@ -190,19 +190,19 @@
       [
         {
           "ConnectedArea": "Mist Area Near Faron Woods Cave",
-          "Requirements": "Lantern or (Room.South_Faron_Woods and Shadow_Crystal)" // Epona OoB in South Faron can get Epona in the mist.
+          "Requirements": "Lantern or (Room.South_Faron_Woods and CanDoMapGlitch)" // Epona OoB in South Faron can get Epona in the mist.
         },
         {
           "ConnectedArea": "Mist Area Under Owl Statue Chest",
-          "Requirements": "Lantern or Shadow_Crystal"
+          "Requirements": "Lantern or CanDoMapGlitch"
         },
         {
           "ConnectedArea": "Mist Area Outside Faron Mist Cave",
-          "Requirements": "Lantern or Shadow_Crystal"
+          "Requirements": "Lantern or (Room.South_Faron_Woods and CanDoMapGlitch)" // Epona OoB in South Faron can get Epona in the mist."
         },
         {
           "ConnectedArea": "Mist Area Near North Faron Woods",
-          "Requirements": "Lantern or Shadow_Crystal"
+          "Requirements": "Lantern or (Room.South_Faron_Woods and CanDoMapGlitch)" // Epona OoB in South Faron can get Epona in the mist.h"
         }
       ],
       "Checks":
@@ -219,7 +219,7 @@
       [
         {
           "ConnectedArea": "Mist Area Inside Mist",
-          "Requirements": "Lantern or Shadow_Crystal"
+          "Requirements": "Lantern or CanDoMapGlitch"
         },
         {
           "ConnectedArea": "Mist Area Center Stump",
@@ -254,7 +254,7 @@
       [
         {
           "ConnectedArea": "Mist Area Inside Mist",
-          "Requirements": "Lantern or Shadow_Crystal"
+          "Requirements": "Lantern or CanDoMapGlitch"
         },
         {
           "ConnectedArea": "Mist Area Near North Faron Woods",
@@ -273,7 +273,7 @@
       [
         {
           "ConnectedArea": "Mist Area Inside Mist",
-          "Requirements": "Lantern or Shadow_Crystal"
+          "Requirements": "Lantern or CanDoMapGlitch"
         },
         {
           "ConnectedArea": "Mist Area Faron Mist Cave",
@@ -289,7 +289,7 @@
       [
         {
           "ConnectedArea": "Mist Area Inside Mist",
-          "Requirements": "Lantern or Shadow_Crystal"
+          "Requirements": "Lantern or CanDoMapGlitch"
         },
         {
           "ConnectedArea": "Mist Area Near Faron Woods Cave",
