@@ -16,7 +16,7 @@ namespace TPRandomizer.Assets
         // See <add_documentation_reference_here> for the flowchart for
         // determining if you should increment the major or minor version.
         public static readonly UInt16 VersionMajor = 1;
-        public static readonly UInt16 VersionMinor = 2;
+        public static readonly UInt16 VersionMinor = 3;
         public static readonly UInt16 VersionPatch = 0;
 
         // For convenience. This does not include any sort of leading 'v', so
@@ -232,13 +232,15 @@ namespace TPRandomizer.Assets
         {
             List<byte> seedHeader = new();
             SharedSettings randomizerSettings = Randomizer.SSettings;
+            seedHeader.AddRange(Converter.StringBytes("TPR")); // magic
+            seedHeader.AddRange(Converter.StringBytes(seedGenResults.playthroughName, 33)); // seed name
+            seedHeader.AddRange(GenerateFlagBitfields()); // flag bitfields
             SeedHeaderRaw.headerSize = (ushort)SeedHeaderSize;
             SeedHeaderRaw.dataSize = (ushort)CheckDataRaw.Count;
             SeedHeaderRaw.versionMajor = VersionMajor;
             SeedHeaderRaw.versionMinor = VersionMinor;
             SeedHeaderRaw.customTextHeaderSize = (ushort)MessageHeaderSize;
             SeedHeaderRaw.customTextHeaderOffset = (ushort)(CheckDataRaw.Count + MessageHeaderSize + BGMDataRaw.Count);
-            SeedHeaderRaw.requiredDungeons = (uint)seedGenResults.requiredDungeons;
             PropertyInfo[] seedHeaderProperties = SeedHeaderRaw.GetType().GetProperties();
             foreach (PropertyInfo headerObject in seedHeaderProperties)
             {
@@ -260,10 +262,14 @@ namespace TPRandomizer.Assets
                         Converter.GcBytes((UInt16)headerObject.GetValue(SeedHeaderRaw, null))
                     );
                 }
+                else if (headerObject.PropertyType == typeof(List<byte>))
+                {
+                    seedHeader.AddRange(
+                        (List<byte>)headerObject.GetValue(SeedHeaderRaw, null)
+                    );
+                }
             }
 
-            seedHeader.Add(Converter.GcByte(randomizerSettings.transformAnywhere ? 1 : 0));
-            seedHeader.Add(Converter.GcByte(randomizerSettings.quickTransform ? 1 : 0));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirements));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.palaceRequirements));
             int mapBits = 0;
@@ -301,11 +307,9 @@ namespace TPRandomizer.Assets
                     break;
                 }
             }
-
-            seedHeader.Add(Converter.GcByte(randomizerSettings.bonksDoDamage ? 1 : 0));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.startingToD));
 
-            while (seedHeader.Count < (SeedHeaderSize))
+            while (seedHeader.Count < SeedHeaderSize)
             {
                 seedHeader.Add((byte)0x0);
             }
@@ -1478,6 +1482,37 @@ namespace TPRandomizer.Assets
             return listOfArcReplacements;
         }
 
+        private List<byte> GenerateFlagBitfields()
+        {
+            SharedSettings randomizerSettings = Randomizer.SSettings;
+            List<byte> listOfFlags = new() { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; // Align to 16 bytes
+            bool[] flagsBitfieldArray =
+            {
+                randomizerSettings.transformAnywhere,
+                randomizerSettings.quickTransform,
+                randomizerSettings.bonksDoDamage,
+            };
+
+            int bitwiseOperator = 0;
+            for (int i = 0, j = 0; i < flagsBitfieldArray.Length; i++)
+            {
+                if (((i % 8) == 0) && (i >= 8))
+                {
+                    bitwiseOperator = 0;
+                    j++;
+                }
+
+                if (flagsBitfieldArray[i])
+                {
+                    listOfFlags[j] |= Converter.GcByte(0x80 >> bitwiseOperator);
+                }
+
+                bitwiseOperator++;
+            }
+
+            return listOfFlags; // just rotate the array into an int. don't have the code on me atm. 
+        }
+
         private class SeedHeader
         {
             public UInt16 versionMajor { get; set; } // SeedData version major
@@ -1485,7 +1520,6 @@ namespace TPRandomizer.Assets
             public UInt16 headerSize { get; set; } // Total size of the header in bytes
             public UInt16 dataSize { get; set; } // Total number of bytes in the check data
             public UInt32 totalSize { get; set; } // Total number of bytes in the gci after the comments
-            public UInt32 requiredDungeons { get; set; } // Bitfield containing which dungeons are required to beat the seed. Only 8 bits are used, while the rest are reserved for future updates
             public UInt16 volatilePatchInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
             public UInt16 volatilePatchInfoDataOffset { get; set; }
             public UInt16 oneTimePatchInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
