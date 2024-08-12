@@ -1510,6 +1510,12 @@ namespace TPRandomizer.Assets
                 bitwiseOperator++;
             }
 
+            // Now we want to reverse to match the correct endianness
+            for (int i = 0; i < listOfFlags.Count; i +=4)
+            {
+                listOfFlags.Reverse(i,4);
+            }
+
             return listOfFlags; // just rotate the array into an int. don't have the code on me atm. 
         }
 
