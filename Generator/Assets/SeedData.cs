@@ -1493,12 +1493,12 @@ namespace TPRandomizer.Assets
                 randomizerSettings.bonksDoDamage,
             };
 
-            int bitwiseOperator = 0;
+            int bitwiseOperator = 7;
             for (int i = 0, j = 0; i < flagsBitfieldArray.Length; i++)
             {
                 if (((i % 8) == 0) && (i >= 8))
                 {
-                    bitwiseOperator = 0;
+                    bitwiseOperator = 7;
                     j++;
                 }
 
@@ -1507,14 +1507,10 @@ namespace TPRandomizer.Assets
                     listOfFlags[j] |= Converter.GcByte(0x80 >> bitwiseOperator);
                 }
 
-                bitwiseOperator++;
+                bitwiseOperator--;
             }
-
-            // Now we want to reverse to match the correct endianness
-            for (int i = 0; i < listOfFlags.Count; i +=4)
-            {
-                listOfFlags.Reverse(i,4);
-            }
+            // Next we reverse the list to account for the enum structure on the rando side
+            listOfFlags.Reverse();
 
             return listOfFlags; // just rotate the array into an int. don't have the code on me atm. 
         }
