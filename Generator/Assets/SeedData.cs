@@ -234,7 +234,6 @@ namespace TPRandomizer.Assets
             SharedSettings randomizerSettings = Randomizer.SSettings;
             seedHeader.AddRange(Converter.StringBytes("TPR")); // magic
             seedHeader.AddRange(Converter.StringBytes(seedGenResults.playthroughName, 33)); // seed name
-            seedHeader.AddRange(GenerateFlagBitfields()); // flag bitfields
             SeedHeaderRaw.headerSize = (ushort)SeedHeaderSize;
             SeedHeaderRaw.dataSize = (ushort)CheckDataRaw.Count;
             SeedHeaderRaw.versionMajor = VersionMajor;
@@ -372,59 +371,52 @@ namespace TPRandomizer.Assets
             {
                 randomizerSettings.increaseWallet,
                 randomizerSettings.fastIronBoots,
-                randomizerSettings.modifyShopModels,
                 fcSettings.disableEnemyBgm,
                 randomizerSettings.instantText,
-                randomizerSettings.increaseSpinnerSpeed,
                 randomizerSettings.skipMajorCutscenes,
             };
-            int patchOptions = 0x0;
-            int bitwiseOperator = 0;
-            SeedHeaderRaw.volatilePatchInfoNumEntries = 1; // Start off at one to ensure alignment
-            SeedHeaderRaw.oneTimePatchInfoNumEntries = 1; // Start off at one to ensure alignment
-            for (int i = 0; i < volatilePatchSettingsArray.Length; i++)
+            bool[] flagsBitfieldArray =
             {
-                if (((i % 8) == 0) && (i >= 8))
-                {
-                    SeedHeaderRaw.volatilePatchInfoNumEntries++;
-                    listOfPatches.Add(Converter.GcByte(patchOptions));
-                    patchOptions = 0;
-                    bitwiseOperator = 0;
-                }
+                randomizerSettings.transformAnywhere,
+                randomizerSettings.quickTransform,
+                randomizerSettings.increaseSpinnerSpeed,
+                randomizerSettings.bonksDoDamage,
+                randomizerSettings.increaseWallet,
+                randomizerSettings.modifyShopModels,
+            };
 
-                if (volatilePatchSettingsArray[i])
-                {
-                    patchOptions |= 0x80 >> bitwiseOperator;
-                }
+            List<bool[]> flagArrayList = new() { volatilePatchSettingsArray, oneTimePatchSettingsArray, flagsBitfieldArray};
+            SeedHeaderRaw.volatilePatchInfoNumEntries = (ushort)volatilePatchSettingsArray.Length; 
+            SeedHeaderRaw.oneTimePatchInfoNumEntries = (ushort)oneTimePatchSettingsArray.Length; 
+            SeedHeaderRaw.flagBitfieldInfoDataOffset = (ushort)flagsBitfieldArray.Length;
+            ushort dataOffset = (ushort)CheckDataRaw.Count;
+            SeedHeaderRaw.volatilePatchInfoDataOffset = dataOffset;
+            SeedHeaderRaw.oneTimePatchInfoDataOffset = (ushort)(dataOffset + 0x10);
+            SeedHeaderRaw.flagBitfieldInfoDataOffset = (ushort)(dataOffset + 0x20);
 
-                bitwiseOperator++;
-            }
-
-            listOfPatches.Add(Converter.GcByte(patchOptions));
-            SeedHeaderRaw.volatilePatchInfoDataOffset = (ushort)(CheckDataRaw.Count);
-            SeedHeaderRaw.oneTimePatchInfoDataOffset = (ushort)(
-                CheckDataRaw.Count + listOfPatches.Count
-            );
-            patchOptions = 0;
-            bitwiseOperator = 0;
-            for (int i = 0; i < oneTimePatchSettingsArray.Length; i++)
+            foreach(bool[] flagArr in flagArrayList)
             {
-                if (((i % 8) == 0) && (i >= 8))
+                List<byte> listOfFlags = new() { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; // Align to 16 bytes
+                int bitwiseOperator = 7;
+                for (int i = 0, j = 0; i < flagArr.Length; i++)
                 {
-                    SeedHeaderRaw.oneTimePatchInfoNumEntries++;
-                    listOfPatches.Add(Converter.GcByte(patchOptions));
-                    patchOptions = 0;
-                    bitwiseOperator = 0;
-                }
+                    if (((i % 8) == 0) && (i >= 8))
+                    {
+                        bitwiseOperator = 7;
+                        j++;
+                    }
 
-                if (oneTimePatchSettingsArray[i])
-                {
-                    patchOptions |= 0x80 >> bitwiseOperator;
-                }
+                    if (flagArr[i])
+                    {
+                        listOfFlags[j] |= Converter.GcByte(0x80 >> bitwiseOperator);
+                    }
 
-                bitwiseOperator++;
+                    bitwiseOperator--;
+                }
+                // Next we reverse the list to account for the enum structure on the rando side
+                listOfFlags.Reverse();
+                listOfPatches.AddRange(listOfFlags);
             }
-            listOfPatches.Add(Converter.GcByte(patchOptions));
 
             return listOfPatches;
         }
@@ -1482,39 +1474,6 @@ namespace TPRandomizer.Assets
             return listOfArcReplacements;
         }
 
-        private List<byte> GenerateFlagBitfields()
-        {
-            SharedSettings randomizerSettings = Randomizer.SSettings;
-            List<byte> listOfFlags = new() { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; // Align to 16 bytes
-            bool[] flagsBitfieldArray =
-            {
-                randomizerSettings.transformAnywhere,
-                randomizerSettings.quickTransform,
-                randomizerSettings.bonksDoDamage,
-            };
-
-            int bitwiseOperator = 7;
-            for (int i = 0, j = 0; i < flagsBitfieldArray.Length; i++)
-            {
-                if (((i % 8) == 0) && (i >= 8))
-                {
-                    bitwiseOperator = 7;
-                    j++;
-                }
-
-                if (flagsBitfieldArray[i])
-                {
-                    listOfFlags[j] |= Converter.GcByte(0x80 >> bitwiseOperator);
-                }
-
-                bitwiseOperator--;
-            }
-            // Next we reverse the list to account for the enum structure on the rando side
-            listOfFlags.Reverse();
-
-            return listOfFlags; // just rotate the array into an int. don't have the code on me atm. 
-        }
-
         private class SeedHeader
         {
             public UInt16 versionMajor { get; set; } // SeedData version major
@@ -1526,6 +1485,8 @@ namespace TPRandomizer.Assets
             public UInt16 volatilePatchInfoDataOffset { get; set; }
             public UInt16 oneTimePatchInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
             public UInt16 oneTimePatchInfoDataOffset { get; set; }
+            public UInt16 flagBitfieldInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
+            public UInt16 flagBitfieldInfoDataOffset { get; set; }
             public UInt16 eventFlagsInfoNumEntries { get; set; } // eventFlags that need to be set for this seed
             public UInt16 eventFlagsInfoDataOffset { get; set; }
             public UInt16 regionFlagsInfoNumEntries { get; set; } // regionFlags that need to be set, alternating
