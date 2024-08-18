@@ -388,7 +388,7 @@ namespace TPRandomizer.Assets
             List<bool[]> flagArrayList = new() { volatilePatchSettingsArray, oneTimePatchSettingsArray, flagsBitfieldArray};
             SeedHeaderRaw.volatilePatchInfoNumEntries = (ushort)volatilePatchSettingsArray.Length; 
             SeedHeaderRaw.oneTimePatchInfoNumEntries = (ushort)oneTimePatchSettingsArray.Length; 
-            SeedHeaderRaw.flagBitfieldInfoDataOffset = (ushort)flagsBitfieldArray.Length;
+            SeedHeaderRaw.flagBitfieldInfoNumEntries = (ushort)flagsBitfieldArray.Length;
             ushort dataOffset = (ushort)CheckDataRaw.Count;
             SeedHeaderRaw.volatilePatchInfoDataOffset = dataOffset;
             SeedHeaderRaw.oneTimePatchInfoDataOffset = (ushort)(dataOffset + 0x10);
