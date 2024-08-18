@@ -1177,6 +1177,22 @@ namespace TPRandomizer
             // Dispose of the object when we are done
             zip.Dispose();
         }
+
+        /// <summary>
+        /// Reverses the bytes in a byte list by a specified number of bytes
+        /// Example: ({ 0, 1, 2, 3, 4, 5, 6, 7}, 0x2)
+        /// Output: { 1, 0, 3, 2, 5, 4, 7, 6 }
+        /// </summary>
+        public static List<byte> ReverseBytes(List<byte> input, int bytes)
+        {
+            // Want to reverse to match the correct endianness
+            for (int i = 0; i < input.Count; i += bytes)
+            {
+                input.Reverse(i, bytes);
+            }
+
+            return input;
+        }
     }
 
     public static class Extensions

@@ -414,7 +414,7 @@ namespace TPRandomizer.Assets
                     bitwiseOperator--;
                 }
                 // Next we reverse the list to account for the enum structure on the rando side
-                listOfFlags.Reverse();
+                listOfFlags = BackendFunctions.ReverseBytes(listOfFlags, 0x4);
                 listOfPatches.AddRange(listOfFlags);
             }
 

@@ -1954,11 +1954,13 @@ namespace TPRandomizer
                 {
                     currentCheck = kvp.Value;
                     if (
-                        currentCheck.checkCategory.Contains("Dungeon Reward")
-                        || (
-                            Randomizer.SSettings.shuffleRewards
-                            && (currentCheck.checkStatus == "Ready")
-                        )
+                        (
+                            currentCheck.checkCategory.Contains("Dungeon Reward")
+                            || (
+                                Randomizer.SSettings.shuffleRewards
+                                && (currentCheck.checkStatus == "Ready")
+                            )
+                        ) && !currentCheck.checkStatus.Contains("Plando")
                     )
                     {
                         dungeonRewards.Add(currentCheck);
