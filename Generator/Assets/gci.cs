@@ -5,6 +5,7 @@ namespace TPRandomizer.Assets
     using System.Linq;
     using TPRandomizer.FcSettings.Enums;
     using TPRandomizer.Util;
+    using System.IO;
 
     /// <summary>
     /// summary text.

@@ -38,7 +38,6 @@ namespace TPRandomizer.Assets
         public FileCreationSettings fcSettings { get; }
         public BgmHeader BgmHeaderRaw = new();
 
-        private static List<byte> EntranceDataRaw = new();
 
         private SeedData(SeedGenResults seedGenResults, FileCreationSettings fcSettings)
         {
@@ -76,20 +75,17 @@ namespace TPRandomizer.Assets
             CheckDataRaw = new();
             BannerDataRaw = new();
             SeedHeaderRaw = new();
-            EntranceDataRaw = new();
             BGMDataRaw = new();
 
             // First we need to generate the buffers for the various byte lists that will be used to populate the seed data.
             SharedSettings randomizerSettings = Randomizer.SSettings;
             Randomizer.Items.GenerateItemPool();
-            List<byte> currentGCIData = new();
             List<byte> currentSeedHeader = new();
             List<byte> currentSeedData = new();
             List<byte> currentMessageHeader = new();
             List<byte> currentMessageData = new();
             List<byte> currentMessageEntryInfo = new();
             Dictionary<byte, List<CustomMessages.MessageEntry>> seedDictionary = new();
-            TPRandomizer.Assets.CustomMessages customMessage = new();
 
             
             List<CustomMessages.MessageEntry> seedMessages = seedGenResults.customMsgData.GenMessageEntries();
@@ -189,7 +185,6 @@ namespace TPRandomizer.Assets
                 + BGMDataRaw.Count
                 + currentMessageHeader.Count
                 + currentMessageData.Count
-                + EntranceDataRaw.Count
             );
 
             // Generate Seed Data
@@ -200,10 +195,6 @@ namespace TPRandomizer.Assets
             currentSeedData.AddRange(BGMDataRaw);
             currentSeedData.AddRange(currentMessageHeader);
             currentSeedData.AddRange(currentMessageData);
-            while (currentSeedData.Count % 0x20 != 0)
-            {
-                currentSeedData.Add(Converter.GcByte(0x0));
-            }
 
             // Generate Data file
             // File.WriteAllBytes(
@@ -211,20 +202,8 @@ namespace TPRandomizer.Assets
             //     currentSeedData.ToArray()
             // );
 
-            // Add seed banner
-            BannerDataRaw.AddRange(GenerateDebugInfoChunk(seedGenResults.seedId));
-            BannerDataRaw.AddRange(Properties.Resources.seedGciImageData);
-            BannerDataRaw.AddRange(
-                Converter.StringBytes($"TPR SeedData v{VersionString}", 0x20, region)
-            );
-            BannerDataRaw.AddRange(
-                Converter.StringBytes(seedGenResults.playthroughName, 0x20, region)
-            );
-            // Generate GCI Files
-            currentGCIData.AddRange(BannerDataRaw);
-            currentGCIData.AddRange(currentSeedData);
-            var gci = new Gci(region, currentGCIData, seedGenResults.playthroughName, fcSettings, regionOverride);
-            return gci.gciFile.ToArray();
+            
+            return patchGCIWithSeed(region, currentSeedData);
             // File.WriteAllBytes(playthroughName, gci.gciFile.ToArray());
         }
 
@@ -1472,6 +1451,128 @@ namespace TPRandomizer.Assets
                 }
             }
             return listOfArcReplacements;
+        }
+
+        private static byte[] patchGCIWithSeed(char region, List<byte> seed)
+        {
+            List<byte> outputFile = new();
+            string gciRegion = "";
+            int maxRelEntries = 37;
+            int id = 0x53454544;
+            int previousSize = 0;
+            int previousOffset = 0;
+            switch (region)
+            {
+                case 'E':
+                {
+                    gciRegion = "us";
+                    break;
+                }
+                case 'J':
+                {
+                    gciRegion = "jp";
+                    break;
+                }
+                case 'P':
+                {
+                    gciRegion = "eu";
+                    break;
+                }
+                default:
+                {
+                    gciRegion = "us";
+                    break;
+                }
+            }
+            List<byte> gciBytes = File.ReadAllBytes("/app/generator/Assets/gci/Randomizer." + gciRegion + ".gci").ToList(); // read in the file as an array of bytes
+
+            for (int i = 0; i < maxRelEntries; i++)
+            {
+                int offset = 0x2084 + (i * 0xC);
+                int currentId = (int)(gciBytes[offset] << 32 | gciBytes[offset + 1] << 16 | gciBytes[offset + 2] << 8 | gciBytes[offset + 3]);
+                int relSize = (int)(gciBytes[offset+4] << 32 | gciBytes[offset + 5] << 16 | gciBytes[offset + 6] << 8 | gciBytes[offset + 7]);
+                int relOffset = (int)(gciBytes[offset+8] << 32 | gciBytes[offset + 9] << 16 | gciBytes[offset + 0xA] << 8 | gciBytes[offset + 0xB]);
+
+                if ((currentId == 0) || (relSize == 0) || (relOffset == 0))
+                {
+                    // Assume an empty section has been found
+
+                    // write ID
+                    gciBytes[offset] = (byte)((id & 0xFF000000) >> 24);
+                    gciBytes[offset + 1] = (byte)((id & 0xFF0000) >> 16);
+                    gciBytes[offset + 2] = (byte)((id & 0xFF00) >> 8);
+                    gciBytes[offset + 3] = (byte)(id & 0xFF);
+
+                    // write size as big endian
+                    int bigESize = (int)SeedHeaderRaw.totalSize;
+                    gciBytes[offset + 4] = (byte)((bigESize & 0xFF000000) >> 24);
+                    gciBytes[offset + 5] = (byte)((bigESize & 0xFF0000) >> 16);
+                    gciBytes[offset + 6] = (byte)((bigESize & 0xFF00) >> 8);
+                    gciBytes[offset + 7] = (byte)(bigESize & 0xFF);
+
+                    // create size and offset and rounded to multiple of 0x4 if needed
+                    relOffset = previousSize + previousOffset;
+                    while (relOffset % 0x4 != 0)
+                    {
+                        relOffset++;
+                    }
+
+                    gciBytes[offset + 8] = (byte)((relOffset & 0xFF000000) >> 24);
+                    gciBytes[offset + 9] = (byte)((relOffset & 0xFF0000) >> 16);
+                    gciBytes[offset + 10] = (byte)((relOffset & 0xFF00) >> 8);
+                    gciBytes[offset + 11] = (byte)(relOffset & 0xFF);
+
+                    // Calculate new size of gci
+                    int newSize = (int)(relOffset + SeedHeaderRaw.totalSize);
+                    while (newSize % 0x2000 != 0)
+                    {
+                        newSize++;
+                    }
+                    newSize += 0x40;
+
+                    while (gciBytes.Count < newSize)
+                    {
+                        gciBytes.Add(0);
+                    }
+
+                    // Write the file's data
+                    for( int index = 0; index < seed.Count; index++)
+                    {
+                        int byteIndex = index + relOffset + 0x40;
+                        gciBytes[byteIndex] = seed[index];
+                    }
+
+                    // update the block count
+                    int blocks = gciBytes.Count / 0x2000;
+                    gciBytes[0x38] = (byte)((blocks & 0xFF00) >> 8);
+                    gciBytes[0x39] = (byte)(blocks & 0xFF);
+
+                    // Update modified time
+
+                    int totalSeconds = BitConverter.ToInt32(Converter.GcBytes((UInt32)(DateTime.UtcNow - new DateTime(2000, 1, 1)).TotalSeconds));
+
+                    gciBytes[0x28] = (byte)((totalSeconds & 0xFF000000) >> 24);
+                    gciBytes[0x29] = (byte)((totalSeconds & 0xFF0000) >> 16);
+                    gciBytes[0x2A] = (byte)((totalSeconds & 0xFF00) >> 8);
+                    gciBytes[0x2B] = (byte)(totalSeconds & 0xFF);
+
+                    outputFile.AddRange(gciBytes);
+
+                    break;
+                }
+
+                if (currentId == id)
+                {
+                    // The file being injected is already in the gci
+                    Console.WriteLine("ERROR GCI Has already been patched with a seed!");
+                    outputFile.AddRange(gciBytes);
+                    break;
+                }
+
+                previousSize = relSize;
+                previousOffset = relOffset;
+            }
+            return outputFile.ToArray();
         }
 
         private class SeedHeader
