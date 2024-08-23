@@ -6,7 +6,9 @@ namespace TPRandomizer.Assets
     using System.Linq;
     using System.Reflection;
     using TPRandomizer.FcSettings.Enums;
+    using Newtonsoft.Json;
     using TPRandomizer.Assets.CLR0;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// summary text.
@@ -25,18 +27,17 @@ namespace TPRandomizer.Assets
 
         private static List<byte> CheckDataRaw = new();
         private static List<byte> BannerDataRaw = new();
+
+        private static List<byte> GCIDataRaw = new();
         private static SeedHeader SeedHeaderRaw = new();
         private static CustomTextHeader CustomMessageHeaderRaw = new();
-        private static List<byte> BGMDataRaw = new();
         public static readonly int DebugInfoSize = 0x20;
         public static readonly int ImageDataSize = 0x1400;
         private static readonly short SeedHeaderSize = 0x160;
-        private static readonly byte BgmHeaderSize = 0xC;
         private static short MessageHeaderSize = 0xC;
 
         private SeedGenResults seedGenResults;
         public FileCreationSettings fcSettings { get; }
-        public BgmHeader BgmHeaderRaw = new();
 
 
         private SeedData(SeedGenResults seedGenResults, FileCreationSettings fcSettings)
@@ -75,7 +76,7 @@ namespace TPRandomizer.Assets
             CheckDataRaw = new();
             BannerDataRaw = new();
             SeedHeaderRaw = new();
-            BGMDataRaw = new();
+            GCIDataRaw = new();
 
             // First we need to generate the buffers for the various byte lists that will be used to populate the seed data.
             SharedSettings randomizerSettings = Randomizer.SSettings;
@@ -123,7 +124,6 @@ namespace TPRandomizer.Assets
             }
 
             // Raw Check Data
-            // Raw Check Data
             CheckDataRaw.AddRange(GeneratePatchSettings());
             CheckDataRaw.AddRange(GenerateEventFlags());
             CheckDataRaw.AddRange(GenerateRegionFlags());
@@ -144,45 +144,51 @@ namespace TPRandomizer.Assets
                 CheckDataRaw.Add(Converter.GcByte(0x0));
             }
 
-            List<byte> entranceBytes = GenerateEntranceTable();
-            if (entranceBytes != null)
-            {
-                SeedHeaderRaw.shuffledEntranceInfoDataOffset = (UInt16)CheckDataRaw.Count();
-                CheckDataRaw.AddRange(entranceBytes);
-            }
-            List<byte> clr0Bytes = ParseClr0Bytes();
-            if (clr0Bytes != null)
-            {
-                CheckDataRaw.AddRange(clr0Bytes);
-            }
-            SeedHeaderRaw.bgmHeaderOffset = (UInt16)CheckDataRaw.Count();
+            GCIDataRaw.AddRange(CheckDataRaw);
 
-            // BGM Table info
-            BgmHeaderRaw.bgmTableOffset = (UInt16)BgmHeaderSize;
-            BGMDataRaw.AddRange(SoundAssets.GenerateBgmData(this));
-            BgmHeaderRaw.fanfareTableOffset = (UInt16)(BgmHeaderSize + BGMDataRaw.Count);
-            BGMDataRaw.AddRange(SoundAssets.GenerateFanfareData(this));
+            // Next we want to generate the non-check/item data
+            List<byte> dataBytes = GenerateEntranceTable();
+            if (dataBytes !=null)
+            {
+                SeedHeaderRaw.shuffledEntranceInfoDataOffset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
+
+            dataBytes = GenerateBgmData();
+            if (dataBytes !=null)
+            {
+                SeedHeaderRaw.bgmInfoDataOffset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
+
+            dataBytes = GenerateFanfareData();
+            if (dataBytes !=null)
+            {
+                SeedHeaderRaw.fanfareInfoDataOffset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
+
+            dataBytes = ParseClr0Bytes();
+            if (dataBytes !=null)
+            {
+                SeedHeaderRaw.clr0Offset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
 
             // Custom Message Info
-            
-                
-                currentMessageData.AddRange(
+            currentMessageData.AddRange(
                     ParseCustomMessageData((int)hintLanguage, currentMessageData, seedDictionary)
                 );
-                while (currentMessageData.Count % 0x4 != 0)
-                {
-                    currentMessageData.Add(Converter.GcByte(0x0));
-                }
-                currentMessageEntryInfo.AddRange(GenerateMessageTableInfo((int)hintLanguage));
-            
-
+            while (currentMessageData.Count % 0x4 != 0)
+            {
+                currentMessageData.Add(Converter.GcByte(0x0));
+            }
+            currentMessageEntryInfo.AddRange(GenerateMessageTableInfo((int)hintLanguage));
             currentMessageHeader.AddRange(GenerateMessageHeader(currentMessageEntryInfo));
 
             SeedHeaderRaw.totalSize = (uint)(
                 SeedHeaderSize
-                + CheckDataRaw.Count
-                + BgmHeaderSize
-                + BGMDataRaw.Count
+                + GCIDataRaw.Count
                 + currentMessageHeader.Count
                 + currentMessageData.Count
             );
@@ -190,9 +196,7 @@ namespace TPRandomizer.Assets
             // Generate Seed Data
             currentSeedHeader.AddRange(GenerateSeedHeader());
             currentSeedData.AddRange(currentSeedHeader);
-            currentSeedData.AddRange(CheckDataRaw);
-            currentSeedData.AddRange(GenerateBgmHeader());
-            currentSeedData.AddRange(BGMDataRaw);
+            currentSeedData.AddRange(GCIDataRaw);
             currentSeedData.AddRange(currentMessageHeader);
             currentSeedData.AddRange(currentMessageData);
 
@@ -214,11 +218,11 @@ namespace TPRandomizer.Assets
             seedHeader.AddRange(Converter.StringBytes("TPR")); // magic
             seedHeader.AddRange(Converter.StringBytes(seedGenResults.playthroughName, 33)); // seed name
             SeedHeaderRaw.headerSize = (ushort)SeedHeaderSize;
-            SeedHeaderRaw.dataSize = (ushort)CheckDataRaw.Count;
+            SeedHeaderRaw.dataSize = (ushort)GCIDataRaw.Count;
             SeedHeaderRaw.versionMajor = VersionMajor;
             SeedHeaderRaw.versionMinor = VersionMinor;
             SeedHeaderRaw.customTextHeaderSize = (ushort)MessageHeaderSize;
-            SeedHeaderRaw.customTextHeaderOffset = (ushort)(CheckDataRaw.Count + MessageHeaderSize + BGMDataRaw.Count);
+            SeedHeaderRaw.customTextHeaderOffset = (ushort)(GCIDataRaw.Count);
             PropertyInfo[] seedHeaderProperties = SeedHeaderRaw.GetType().GetProperties();
             foreach (PropertyInfo headerObject in seedHeaderProperties)
             {
@@ -293,44 +297,6 @@ namespace TPRandomizer.Assets
             }
 
             return seedHeader;
-        }
-
-        private List<byte> GenerateBgmHeader()
-        {
-            List<byte> bgmHeaderRaw = new();
-            PropertyInfo[] bgmHeaderProperties = BgmHeaderRaw.GetType().GetProperties();
-            foreach (PropertyInfo headerObject in bgmHeaderProperties)
-            {
-                if (headerObject.PropertyType == typeof(UInt32))
-                {
-                    bgmHeaderRaw.AddRange(
-                        Converter.GcBytes((UInt32)headerObject.GetValue(BgmHeaderRaw, null))
-                    );
-                }
-                else if (headerObject.PropertyType == typeof(UInt64))
-                {
-                    bgmHeaderRaw.AddRange(
-                        Converter.GcBytes((UInt64)headerObject.GetValue(BgmHeaderRaw, null))
-                    );
-                }
-                else if (headerObject.PropertyType == typeof(UInt16))
-                {
-                    bgmHeaderRaw.AddRange(
-                        Converter.GcBytes((UInt16)headerObject.GetValue(BgmHeaderRaw, null))
-                    );
-                }
-                else if (headerObject.PropertyType == typeof(byte))
-                {
-                    bgmHeaderRaw.Add(
-                        Converter.GcByte((byte)headerObject.GetValue(BgmHeaderRaw, null))
-                    );
-                }
-            }
-            while (bgmHeaderRaw.Count % 0x4 != 0)
-            {
-                bgmHeaderRaw.Add(Converter.GcByte(0x0));
-            }
-            return bgmHeaderRaw;
         }
 
         private List<byte> GeneratePatchSettings()
@@ -941,9 +907,6 @@ namespace TPRandomizer.Assets
         private List<byte> ParseClr0Bytes()
         {
             List<byte> bytes = CLR0.CLR0.BuildClr0(fcSettings);
-
-            SeedHeaderRaw.clr0Offset = (ushort)(CheckDataRaw.Count);
-
             return bytes;
         }
 
@@ -1524,11 +1487,10 @@ namespace TPRandomizer.Assets
 
                     // Calculate new size of gci
                     int newSize = (int)(relOffset + SeedHeaderRaw.totalSize);
-                    while (newSize % 0x2000 != 0)
+                    while ((newSize - 0x40) % 0x2000 != 0)
                     {
                         newSize++;
                     }
-                    newSize += 0x40;
 
                     while (gciBytes.Count < newSize)
                     {
@@ -1575,6 +1537,193 @@ namespace TPRandomizer.Assets
             return outputFile.ToArray();
         }
 
+        //The Bgm Section will be laid out as follows: (BgmReplacementCount,
+        //{bgmId,replacementId,replacementWave},{...},fanfareReplacementCount,fanfareId,replacementId,{...})
+        private List<byte> GenerateBgmData()
+        {
+            List<byte> data = new();
+            List<SoundAssets.bgmData> replacementPool = new();
+            List<SoundAssets.bgmReplacement> bgmReplacementArray = new();
+            if (fcSettings.randomizeBgm == RandomizeBgm.Off)
+            {
+                return data;
+            }
+            Dictionary<string, SoundAssets.bgmData> dataList = JsonConvert.DeserializeObject<
+                Dictionary<string, SoundAssets.bgmData>
+            >(File.ReadAllText(Global.CombineRootPath("./Assets/Sound/BackgroundMusic.jsonc")));
+            if (fcSettings.randomizeBgm != RandomizeBgm.Off)
+            {
+                foreach (KeyValuePair<string, SoundAssets.bgmData> currentData in dataList)
+                {
+                    if (
+                        fcSettings.randomizeBgm == RandomizeBgm.Overworld
+                        && currentData.Value.sceneBgm == true
+                    )
+                    {
+                        replacementPool.Add(currentData.Value);
+                    }
+                    if (
+                        fcSettings.randomizeBgm == RandomizeBgm.Dungeon
+                        && currentData.Value.dungeonBgm == true
+                    )
+                    {
+                        replacementPool.Add(currentData.Value);
+                    }
+                    if (
+                        fcSettings.randomizeBgm == RandomizeBgm.All
+                        && (
+                            currentData.Value.sceneBgm == true
+                            || currentData.Value.bossBgm == true
+                            || currentData.Value.minibossBgm == true
+                            || currentData.Value.minigameBgm == true
+                            || currentData.Value.eventBgm == true
+                        )
+                    )
+                    {
+                        replacementPool.Add(currentData.Value);
+                    }
+                }
+                foreach (SoundAssets.bgmData currentData in replacementPool)
+                {
+                    SoundAssets.bgmReplacement replacement = new();
+                    replacement.replacementBgmTrack = currentData.bgmID;
+                    replacement.replacementBgmWave = currentData.bgmWave;
+                    Random rnd = new();
+                    while (true)
+                    {
+                        replacement.originalBgmTrack = replacementPool[
+                            rnd.Next(replacementPool.Count)
+                        ].bgmID;
+                        bool foundSame = false;
+                        foreach (SoundAssets.bgmReplacement currentReplacement in bgmReplacementArray)
+                        {
+                            if (currentReplacement.originalBgmTrack == replacement.originalBgmTrack)
+                            {
+                                foundSame = true;
+                                break;
+                            }
+                        }
+                        if (foundSame == false)
+                        {
+                            bool incompatible = false;
+                            for (int i = 0; i < IncompatibleReplacements.GetLength(0); i++)
+                            {
+                                int original = IncompatibleReplacements[i, 0];
+                                int replacementBgm = IncompatibleReplacements[i, 1];
+                                if (original == replacement.originalBgmTrack)
+                                {
+                                    if (replacementBgm == replacement.replacementBgmTrack)
+                                    {
+                                        incompatible = true;
+                                    }
+                                }
+                            }
+                            if (!incompatible)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    bgmReplacementArray.Add(replacement);
+                }
+                if (replacementPool.Count != bgmReplacementArray.Count)
+                {
+                    Console.WriteLine(
+                        "BGM Pool ("
+                            + replacementPool.Count
+                            + ") and Replacement ("
+                            + bgmReplacementArray.Count
+                            + ") have different lengths!"
+                    );
+                }
+                foreach (SoundAssets.bgmReplacement currentReplacement in bgmReplacementArray)
+                {
+                    data.Add((byte)currentReplacement.originalBgmTrack);
+                    data.Add((byte)currentReplacement.replacementBgmTrack);
+                    data.Add((byte)currentReplacement.replacementBgmWave);
+                    data.Add((byte)0x0); // Padding
+                }
+            }
+            SeedHeaderRaw.bgmInfoNumEntries = (byte)bgmReplacementArray.Count;
+            return data;
+        }
+
+        private List<byte> GenerateFanfareData()
+        {
+            List<byte> data = new();
+            List<SoundAssets.bgmData> replacementPool = new();
+            List<SoundAssets.bgmReplacement> fanfareReplacementArray = new();
+            if (fcSettings.randomizeFanfares)
+            {
+                Dictionary<string, SoundAssets.bgmData> dataList = JsonConvert.DeserializeObject<
+                    Dictionary<string, SoundAssets.bgmData>
+                >(File.ReadAllText(Global.CombineRootPath("./Assets/Sound/BackgroundMusic.jsonc")));
+                foreach (KeyValuePair<string, SoundAssets.bgmData> currentData in dataList)
+                {
+                    if (currentData.Value.isFanfare == true && currentData.Value.bgmWave == 0)
+                    {
+                        replacementPool.Add(currentData.Value);
+                    }
+                }
+                foreach (SoundAssets.bgmData currentData in replacementPool)
+                {
+                    SoundAssets.bgmReplacement replacement = new();
+                    replacement.replacementBgmTrack = currentData.bgmID;
+                    replacement.replacementBgmWave = 0;
+                    Random rnd = new();
+                    while (true)
+                    {
+                        replacement.originalBgmTrack = replacementPool[
+                            rnd.Next(replacementPool.Count)
+                        ].bgmID;
+                        bool foundSame = false;
+                        foreach (SoundAssets.bgmReplacement currentReplacement in fanfareReplacementArray)
+                        {
+                            if (currentReplacement.originalBgmTrack == replacement.originalBgmTrack)
+                            {
+                                foundSame = true;
+                                break;
+                            }
+                        }
+                        if (foundSame == false)
+                        {
+                            break;
+                        }
+                    }
+                    fanfareReplacementArray.Add(replacement);
+                }
+                if (replacementPool.Count != fanfareReplacementArray.Count)
+                {
+                    Console.WriteLine(
+                        "Fanfare Pool ("
+                            + replacementPool.Count
+                            + ") and Replacement ("
+                            + fanfareReplacementArray.Count
+                            + ") have different lengths!"
+                    );
+                }
+                foreach (SoundAssets.bgmReplacement currentReplacement in fanfareReplacementArray)
+                {
+                    data.Add((byte)currentReplacement.originalBgmTrack);
+                    data.Add((byte)currentReplacement.replacementBgmTrack);
+                    data.Add((byte)0x0); // Padding
+                    data.Add((byte)0x0); // Padding
+                }
+            }
+            SeedHeaderRaw.fanfareInfoNumEntries = (byte)fanfareReplacementArray.Count;
+
+            return data;
+        }
+
+        private static readonly int[,] IncompatibleReplacements = new int[,]
+        {
+            //Original, Replacement
+            { 62, 148 }, // Armogohma Phase 1 overwriting Palace Theme
+            { 62, 98 }, // Zant Boss Theme overwriting Palace Theme
+            { 44, 8 }, // Ook Battle Music overwriting House Interiors
+            { 55, 8 }, // Ook Battle Music overwriting Snowpeak Ruins
+        };
+
         private class SeedHeader
         {
             public UInt16 versionMajor { get; set; } // SeedData version major
@@ -1618,7 +1767,12 @@ namespace TPRandomizer.Assets
             public UInt16 startingItemInfoDataOffset { get; set; }
             public UInt16 shuffledEntranceInfoNumEntries { get; set; }
             public UInt16 shuffledEntranceInfoDataOffset { get; set; }
-            public UInt16 bgmHeaderOffset { get; set; }
+            public UInt16 bgmInfoNumEntries { get; set; }
+            public UInt16 bgmInfoDataOffset { get; set; }
+            public UInt16 fanfareInfoNumEntries { get; set; }
+            public UInt16 fanfareInfoDataOffset { get; set; }
+            public UInt16 sfxInfoNumEntries { get; set; }
+            public UInt16 sfxInfoDataOffset { get; set; }
             public UInt16 clr0Offset { get; set; }
             public UInt16 customTextHeaderSize { get; set; }
             public UInt16 customTextHeaderOffset { get; set; }
