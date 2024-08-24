@@ -831,7 +831,7 @@ namespace TPRandomizer.Assets
                 {
                     listOfShopItems.Add(
                         Converter.GcByte(
-                            short.Parse(
+                            int.Parse(
                                     currentCheck.flag,
                                     System.Globalization.NumberStyles.HexNumber
                                 )
