@@ -559,7 +559,12 @@ namespace TPRandomizer
                         string langTag = fcSettings.GetLanguageTagString(gameRegion);
                         Res.UpdateCultureInfo(langTag);
 
-                        fileDefs.Add(GenGciFileDef(id, seedGenResults, fcSettings, gameRegion));
+                        fileDefs.Add(
+                            GenGciFileDef(id, seedGenResults, fcSettings, gameRegion, true)
+                        );
+                        fileDefs.Add(
+                            GenGciFileDef(id, seedGenResults, fcSettings, gameRegion, false)
+                        );
                     }
                 }
             }
@@ -570,7 +575,12 @@ namespace TPRandomizer
                 Res.UpdateCultureInfo(langTag);
 
                 // Create file for one region
-                fileDefs.Add(GenGciFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion));
+                fileDefs.Add(
+                    GenGciFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion, true)
+                );
+                fileDefs.Add(
+                    GenGciFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion, false)
+                );
             }
 
             if (!seedGenResults.isRaceSeed && fcSettings.includeSpoilerLog)
@@ -629,13 +639,15 @@ namespace TPRandomizer
             string seedId,
             SeedGenResults seedGenResults,
             FileCreationSettings fcSettings,
-            GameRegion gameRegionOverride
+            GameRegion gameRegionOverride,
+            bool isGci
         )
         {
             byte[] bytes = SeedData.GenerateSeedDataBytes(
                 seedGenResults,
                 fcSettings,
-                gameRegionOverride
+                gameRegionOverride,
+                isGci
             );
 
             Dictionary<string, object> dict = new();
@@ -659,7 +671,14 @@ namespace TPRandomizer
             string fileName =
                 "Tpr-" + gameVer + "-" + seedGenResults.playthroughName + "-" + seedId;
 
-            fileName += ".gci";
+            if (isGci)
+            {
+                fileName += ".gci";
+            }
+            else
+            {
+                fileName += ".bin";
+            }
 
             dict.Add("name", fileName);
             dict.Add("length", bytes.Length);

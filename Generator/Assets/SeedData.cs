@@ -49,14 +49,15 @@ namespace TPRandomizer.Assets
         public static byte[] GenerateSeedDataBytes(
             SeedGenResults seedGenResults,
             FileCreationSettings fcSettings,
-            GameRegion regionOverride
+            GameRegion regionOverride,
+            bool isGci
         )
         {
             SeedData seedData = new SeedData(seedGenResults, fcSettings);
-            return seedData.GenerateSeedDataBytesInternal(regionOverride);
+            return seedData.GenerateSeedDataBytesInternal(regionOverride, isGci);
         }
 
-        public byte[] GenerateSeedDataBytesInternal(GameRegion regionOverride)
+        public byte[] GenerateSeedDataBytesInternal(GameRegion regionOverride, bool isGci)
         {
             Assets.CustomMessages.MessageLanguage hintLanguage = Assets.CustomMessages.MessageLanguage.English;
             /*
@@ -200,14 +201,21 @@ namespace TPRandomizer.Assets
             currentSeedData.AddRange(currentMessageHeader);
             currentSeedData.AddRange(currentMessageData);
 
-            // Generate Data file
-            // File.WriteAllBytes(
-            //     "rando-data" + randomizerSettings.seedNumber,
-            //     currentSeedData.ToArray()
-            // );
 
+            if (isGci)
+            {
+                return patchGCIWithSeed(region, currentSeedData);
+            }
+            else
+            {
+                // pad the rel file to 0x20 bytes
+                while (currentSeedData.Count % 0x20 != 0)
+                {
+                    currentSeedData.Add(Converter.GcByte(0x0));
+                }
+                return currentSeedData.ToArray();
+            }
             
-            return patchGCIWithSeed(region, currentSeedData);
             // File.WriteAllBytes(playthroughName, gci.gciFile.ToArray());
         }
 
