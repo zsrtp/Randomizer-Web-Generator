@@ -562,9 +562,6 @@ namespace TPRandomizer
                         fileDefs.Add(
                             GenGciFileDef(id, seedGenResults, fcSettings, gameRegion, true)
                         );
-                        fileDefs.Add(
-                            GenGciFileDef(id, seedGenResults, fcSettings, gameRegion, false)
-                        );
                     }
                 }
             }
@@ -578,10 +575,12 @@ namespace TPRandomizer
                 fileDefs.Add(
                     GenGciFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion, true)
                 );
-                fileDefs.Add(
-                    GenGciFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion, false)
-                );
             }
+
+            // Generate seed .bin file
+            fileDefs.Add(
+                GenGciFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion, false)
+            );
 
             if (!seedGenResults.isRaceSeed && fcSettings.includeSpoilerLog)
             {
