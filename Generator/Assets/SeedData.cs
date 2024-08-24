@@ -607,7 +607,8 @@ namespace TPRandomizer.Assets
                             )
                         )
                     );
-                    listOfPOEReplacements.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
+                    listOfPOEReplacements.Add(Converter.GcByte((int)currentCheck.itemId));
+                    listOfPOEReplacements.Add(Converter.GcByte(0x0)); // padding
                     count++;
                 }
             }
@@ -726,7 +727,8 @@ namespace TPRandomizer.Assets
                     listOfBossReplacements.AddRange(
                         Converter.GcBytes((UInt16)currentCheck.stageIDX[0])
                     );
-                    listOfBossReplacements.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
+                    listOfBossReplacements.Add(Converter.GcByte((int)currentCheck.itemId));
+                    listOfBossReplacements.Add(Converter.GcByte(0x0)); // padding
                     count++;
                 }
             }
@@ -759,9 +761,8 @@ namespace TPRandomizer.Assets
                                     )
                             )
                         );
-                        listOfBugRewards.AddRange(
-                            Converter.GcBytes((UInt16)(byte)currentCheck.itemId)
-                        );
+                        listOfBugRewards.Add(Converter.GcByte((int)currentCheck.itemId));
+                        listOfBugRewards.Add(Converter.GcByte(0x0)); // padding
                         count++;
                     }
                 }
@@ -781,10 +782,10 @@ namespace TPRandomizer.Assets
                 Check currentCheck = checkList.Value;
                 if (currentCheck.dataCategory.Contains("Sky Book"))
                 {
-                    listOfSkyCharacters.Add(Converter.GcByte((byte)currentCheck.itemId));
                     listOfSkyCharacters.AddRange(
                         Converter.GcBytes((UInt16)currentCheck.stageIDX[0])
                     );
+                    listOfSkyCharacters.Add(Converter.GcByte((byte)currentCheck.itemId));
                     listOfSkyCharacters.Add(Converter.GcByte(currentCheck.roomIDX));
                     count++;
                 }
@@ -828,16 +829,17 @@ namespace TPRandomizer.Assets
                 Check currentCheck = checkList.Value;
                 if (currentCheck.dataCategory.Contains("Shop"))
                 {
-                    listOfShopItems.AddRange(
-                        Converter.GcBytes(
-                            (UInt16)
-                                short.Parse(
+                    listOfShopItems.Add(
+                        Converter.GcByte(
+                            short.Parse(
                                     currentCheck.flag,
                                     System.Globalization.NumberStyles.HexNumber
                                 )
                         )
                     );
-                    listOfShopItems.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
+                    listOfShopItems.Add(Converter.GcByte((int)currentCheck.itemId));
+                    listOfShopItems.Add(Converter.GcByte(0x0)); // padding
+                    listOfShopItems.Add(Converter.GcByte(0x0)); // padding
                     count++;
                 }
             }
