@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatBigBaba and CanDefeatWalltula",
-    "checkCategory": ["Small Key", "Dungeon", "Forest Temple", "REL"],
+    "glitchedRequirements": "CanDefeatBigBaba",
+    "checkCategory": ["Small Key", "Dungeon", "Forest Temple"],
     "itemId": "Forest_Temple_Small_Key"
 }

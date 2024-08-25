@@ -1,5 +1,0 @@
-{
-  "glitchedRequirements": "(Forest_Temple_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)",
-  "checkCategory": [ "Chest", "Dungeon", "Forest Temple"],
-  "itemId": "Yellow_Rupee"
-}
