@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Chest", "Dungeon", "Goron Mines", "ARC"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Chest", "Dungeon", "Goron Mines"],
     "itemId": "Yellow_Rupee"
 }
