@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatYoungGohma",
+    "glitchedRequirements": "CanDefeatYoungGohma",
     "checkCategory": ["Chest", "Dungeon", "Temple of Time"],
     "itemId": "Arrows_30"
 }

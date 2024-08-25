@@ -1,5 +1,5 @@
 {
-    "requirements": "Ball_and_Chain",
+    "glitchedRequirements": "Ball_and_Chain",
     "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins"],
     "itemId": "Red_Rupee"
 }

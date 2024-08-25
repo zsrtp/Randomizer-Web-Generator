@@ -1,5 +1,5 @@
 {
-    "requirements": "Boomerang and (CanDefeatBombling or canSmash)",
+    "glitchedRequirements": "Boomerang and (CanDefeatBombling or canSmash)",
     "checkCategory": ["Chest", "Dungeon", "Forest Temple"],
     "itemId": "Red_Rupee"
 }

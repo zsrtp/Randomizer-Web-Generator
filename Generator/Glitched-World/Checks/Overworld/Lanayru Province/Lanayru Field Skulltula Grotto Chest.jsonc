@@ -1,5 +1,5 @@
 {
-    "requirements": "Lantern and canBreakWoodenDoor",
+    "glitchedRequirements": "Lantern and canBreakWoodenDoor",
     "hash": ["A444"],
     "stageIDX": [38],
     "dzxTag": ["TRES"],

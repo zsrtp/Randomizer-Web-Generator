@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and (Progressive_Dominion_Rod, 1)",
+    "glitchedRequirements": "Shadow_Crystal and (Progressive_Dominion_Rod, 1)",
     "stageIDX": [54],
     "flag": "1E",
     "checkCategory": ["Overworld", "Poe", "Sacred Grove"],

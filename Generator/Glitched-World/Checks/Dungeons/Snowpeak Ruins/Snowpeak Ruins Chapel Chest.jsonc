@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatChilfos",
+    "glitchedRequirements": "CanDefeatChilfos",
     "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Big Key"],
     "itemId": "Snowpeak_Ruins_Bedroom_Key"
 }

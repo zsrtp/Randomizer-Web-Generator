@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Clawshot, 1) or CanDoLJA",
+    "glitchedRequirements": "(Progressive_Clawshot, 1) or CanDoLJA",
     "checkCategory": ["Chest", "Dungeon", "Lakebed Temple"],
     "itemId": "Water_Bombs_10"
 }

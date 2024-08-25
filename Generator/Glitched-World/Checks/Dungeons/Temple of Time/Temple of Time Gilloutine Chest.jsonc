@@ -1,5 +1,5 @@
 {
-    "requirements": "true",
+    "glitchedRequirements": "true",
     "checkCategory": ["Chest", "Dungeon", "Temple of Time", "Small Key"],
     "itemId": "Temple_of_Time_Small_Key"
 }

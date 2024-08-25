@@ -1,5 +1,5 @@
 {
-    "requirements": "(Poe_Soul, 60)",
+    "glitchedRequirements": "(Poe_Soul, 60)",
     "arcOffsets": ["42A7"],
     "stageIDX": [73],
     "fileDirectoryType": [1],

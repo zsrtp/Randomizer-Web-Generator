@@ -1,5 +1,5 @@
 {
-    "requirements": "canCompleteTempleofTime",
+    "glitchedRequirements": "canCompleteTempleofTime",
     "arcOffsets": ["CE7"],
     "stageIDX": [68],
     "fileDirectoryType": [1],

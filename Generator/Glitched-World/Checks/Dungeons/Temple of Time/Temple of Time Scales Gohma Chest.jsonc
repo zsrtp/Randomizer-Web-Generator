@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatYoungGohma and CanDefeatBabyGohma",
+    "glitchedRequirements": "CanDefeatYoungGohma and CanDefeatBabyGohma",
     "checkCategory": ["Chest", "Dungeon", "Temple of Time"],
     "itemId": "Purple_Rupee"
 }

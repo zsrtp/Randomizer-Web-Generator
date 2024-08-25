@@ -1,5 +1,5 @@
 {
-  "requirements": "Room.Goron_Mines_Upper_East_Wing and CanDefeatDangoro and CanDefeatBeamos",
+  "glitchedRequirements": "Room.Goron_Mines_Upper_East_Wing and CanDefeatDangoro and CanDefeatBeamos",
   "checkCategory": [ "Chest", "Dungeon", "Goron Mines"],
   "itemId": "Purple_Rupee"
 }

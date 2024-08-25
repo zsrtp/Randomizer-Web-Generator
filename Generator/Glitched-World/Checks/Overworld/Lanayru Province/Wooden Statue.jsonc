@@ -1,5 +1,5 @@
 {
-    "requirements": "Invoice",
+    "glitchedRequirements": "Invoice",
     "stageIDX": [57],
     "moduleID": ["2B3"],
     "overrideInstruction": ["38800000"],

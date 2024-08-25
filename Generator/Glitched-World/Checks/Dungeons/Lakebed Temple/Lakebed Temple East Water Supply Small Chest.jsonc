@@ -1,5 +1,5 @@
 {
-  "requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and (canLaunchBombs or (Progressive_Clawshot and canSmash))",
+  "glitchedRequirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and (canLaunchBombs or (Progressive_Clawshot and canSmash))",
   "arcOffsets": ["10EC"],
     "stageIDX": [0],
     "roomIDX": 10,

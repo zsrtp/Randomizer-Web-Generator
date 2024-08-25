@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal",
+    "glitchedRequirements": "Shadow_Crystal",
     "stageIDX": [54],
     "flag": "11",
     "checkCategory": ["Overworld", "Poe", "Sacred Grove"],

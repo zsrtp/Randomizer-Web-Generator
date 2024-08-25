@@ -1,5 +1,5 @@
 {
-  "requirements": "CanDoMapGlitch or (canSmash and (Progressive_Dominion_Rod, 2) and Shadow_Crystal and canClearForest)",
+  "glitchedRequirements": "CanDoMapGlitch or (canSmash and (Progressive_Dominion_Rod, 2) and Shadow_Crystal and canClearForest)",
   "arcOffsets": ["1EF4"],
     "stageIDX": [45],
     "roomIDX": 5,

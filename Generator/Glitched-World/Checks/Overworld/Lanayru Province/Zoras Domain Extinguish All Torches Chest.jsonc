@@ -1,5 +1,5 @@
 {
-    "requirements": "Boomerang and HasHeavyMod",
+    "glitchedRequirements": "Boomerang and HasHeavyMod",
     "arcOffsets": ["A78"],
     "stageIDX": [50],
     "roomIDX": 0,

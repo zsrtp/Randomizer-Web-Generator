@@ -13,6 +13,8 @@ namespace TPRandomizer
 
         public string requirements { get; set; } // List of requirements to obtain this check while inside the room (so does not include the items needed to enter the room)
 
+        public string glitchedRequirements { get; set; } // List of glitched logic requirements to obtain this check while inside the room (so does not include the items needed to enter the room)
+
         public string checkStatus { get; set; } // Identifies if the check is excluded or not. We can write the randomizer to not place important items in excluded checks
 
         public List<string> checkCategory { get; set; } // Allows grouping of checks to make it easier to randomize them based on their type, region, exclusion status, etc.

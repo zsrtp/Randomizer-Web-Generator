@@ -1,5 +1,5 @@
 {
-  "requirements": "canCompletePrologue",
+  "glitchedRequirements": "canCompletePrologue",
   "arcOffsets": ["1A3F"],
     "stageIDX": [41],
   "fileDirectoryType": [ 1 ],

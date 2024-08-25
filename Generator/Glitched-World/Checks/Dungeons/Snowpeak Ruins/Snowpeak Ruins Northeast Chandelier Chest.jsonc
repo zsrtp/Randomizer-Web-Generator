@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatChilfos and Ball_and_Chain",
+    "glitchedRequirements": "CanDefeatChilfos and Ball_and_Chain",
     "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Small Key"],
     "itemId": "Snowpeak_Ruins_Small_Key"
 }

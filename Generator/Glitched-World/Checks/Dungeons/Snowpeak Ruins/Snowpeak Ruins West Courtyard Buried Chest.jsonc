@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal",
+    "glitchedRequirements": "Shadow_Crystal",
     "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Small Key"],
     "itemId": "Snowpeak_Ruins_Small_Key"
 }

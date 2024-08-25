@@ -208,11 +208,6 @@ namespace TPRandomizer.Assets
             }
             else
             {
-                // pad the rel file to 0x20 bytes
-                while (currentSeedData.Count % 0x20 != 0)
-                {
-                    currentSeedData.Add(Converter.GcByte(0x0));
-                }
                 return currentSeedData.ToArray();
             }
             

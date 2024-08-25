@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and Room.Zoras_Domain",
+    "glitchedRequirements": "Shadow_Crystal and Room.Zoras_Domain",
     "stageIDX": [57],
     "roomIDX": 8,
     "flag": "86",

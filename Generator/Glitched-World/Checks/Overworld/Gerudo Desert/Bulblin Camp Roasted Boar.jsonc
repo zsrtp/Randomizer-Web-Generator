@@ -1,5 +1,5 @@
 {
-    "requirements": "HasDamagingItem",
+    "glitchedRequirements": "HasDamagingItem",
     "stageIDX": [55],
     "roomIDX": 1,
     "checkCategory": ["Overworld", "Bulblin Camp", "Boss"],

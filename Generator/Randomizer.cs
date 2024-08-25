@@ -667,16 +667,16 @@ namespace TPRandomizer
                     throw new Exception("Did not specify output region");
             }
 
-            string fileName =
-                "Tpr-" + gameVer + "-" + seedGenResults.playthroughName + "-" + seedId;
+            string fileName = "";
 
             if (isGci)
             {
-                fileName += ".gci";
+                fileName =
+                    "Tpr-" + gameVer + "-" + seedGenResults.playthroughName + "-" + seedId + ".gci";
             }
             else
             {
-                fileName += ".bin";
+                fileName = "seed.bin";
             }
 
             dict.Add("name", fileName);

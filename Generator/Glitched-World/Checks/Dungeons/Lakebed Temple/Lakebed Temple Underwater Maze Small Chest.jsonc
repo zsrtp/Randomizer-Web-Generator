@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Clawshot, 1) and (Zora_Armor or CanDoLJA) and canLaunchBombs",
+    "glitchedRequirements": "(Progressive_Clawshot, 1) and (Zora_Armor or CanDoLJA) and canLaunchBombs",
     "checkCategory": ["Chest", "Dungeon", "Lakebed Temple"],
     "itemId": "Water_Bombs_5"
 }

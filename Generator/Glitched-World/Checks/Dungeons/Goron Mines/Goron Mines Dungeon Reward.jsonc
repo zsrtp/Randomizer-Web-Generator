@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatFyrus",
+    "glitchedRequirements": "CanDefeatFyrus",
     "checkCategory": ["Dungeon", "Goron Mines", "Dungeon Reward"],
     "itemId": "Progressive_Fused_Shadow"
 }

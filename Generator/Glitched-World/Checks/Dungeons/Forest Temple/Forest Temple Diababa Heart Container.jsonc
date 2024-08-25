@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatDiababa",
+    "glitchedRequirements": "CanDefeatDiababa",
     "checkCategory": ["Heart Container", "Dungeon", "Forest Temple", "Boss"],
     "itemId": "Heart_Container"
 }

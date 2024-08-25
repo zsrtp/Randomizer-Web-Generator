@@ -1,5 +1,5 @@
 {
-    "requirements": "Zora_Armor or CanDoAirRefill",
+    "glitchedRequirements": "Zora_Armor or CanDoAirRefill",
     "checkCategory": ["Chest", "Dungeon", "Lakebed Temple"],
     "itemId": "Water_Bombs_10"
 }

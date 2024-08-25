@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatBombling or canSmash",
+    "glitchedRequirements": "CanDefeatBombling or canSmash",
     "checkCategory": ["Chest", "Dungeon", "Forest Temple", "Small Key"],
     "itemId": "Forest_Temple_Small_Key"
 }

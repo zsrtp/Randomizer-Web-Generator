@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatMorpheel",
+    "glitchedRequirements": "CanDefeatMorpheel",
     "checkCategory": ["Heart Container", "Dungeon", "Lakebed Temple", "Boss"],
     "itemId": "Heart_Container"
 }

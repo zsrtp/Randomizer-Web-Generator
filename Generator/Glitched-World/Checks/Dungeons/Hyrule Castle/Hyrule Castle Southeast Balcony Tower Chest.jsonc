@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatAeralfos",
+    "glitchedRequirements": "CanDefeatAeralfos",
     "checkCategory": ["Chest", "Dungeon", "Hyrule Castle", "Small Key"],
     "itemId": "Hyrule_Castle_Small_Key"
 }

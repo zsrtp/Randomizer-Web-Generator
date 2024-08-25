@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and canBurnWebs",
+    "glitchedRequirements": "Shadow_Crystal and canBurnWebs",
     "stageIDX": [32],
     "flag": "60",
     "checkCategory": ["Overworld", "Poe", "Eldin Lantern Cave"],

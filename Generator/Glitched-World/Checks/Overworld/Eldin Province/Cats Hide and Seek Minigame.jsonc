@@ -1,5 +1,5 @@
 {
-"requirements": "Ilias_Charm and (Progressive_Dominion_Rod, 1) and CanDoHiddenVillageGlitched and Shadow_Crystal and (Progressive_Clawshot, 1)",
+"glitchedRequirements": "Ilias_Charm and (Progressive_Dominion_Rod, 1) and CanDoHiddenVillageGlitched and Shadow_Crystal and (Progressive_Clawshot, 1)",
     "hash": ["9E3C"],
     "stageIDX": [63],
     "dzxTag": ["ACTR"],

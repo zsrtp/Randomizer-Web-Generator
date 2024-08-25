@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Clawshot, 2)",
+    "glitchedRequirements": "(Progressive_Clawshot, 2)",
     "arcOffsets": ["2540"],
     "stageIDX": [52],
     "roomIDX": 1,

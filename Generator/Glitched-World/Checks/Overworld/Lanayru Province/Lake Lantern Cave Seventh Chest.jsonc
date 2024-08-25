@@ -1,5 +1,5 @@
 {
-    "requirements": "canSmash",
+    "glitchedRequirements": "canSmash",
     "arcOffsets": ["1DBC"],
     "stageIDX": [33],
     "roomIDX": 0,

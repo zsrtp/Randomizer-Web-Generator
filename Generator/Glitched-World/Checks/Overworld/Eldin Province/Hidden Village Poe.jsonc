@@ -1,5 +1,5 @@
 {
-    "requirements": "Ilias_Charm and (Progressive_Dominion_Rod, 1) and CanDoHiddenVillageGlitched and Shadow_Crystal",
+    "glitchedRequirements": "Ilias_Charm and (Progressive_Dominion_Rod, 1) and CanDoHiddenVillageGlitched and Shadow_Crystal",
     "stageIDX": [63],
     "flag": "40",
     "checkCategory": ["Overworld", "Poe", "Hidden Village"],

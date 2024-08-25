@@ -1,5 +1,5 @@
 {
-    "requirements": "canSmash and Lantern",
+    "glitchedRequirements": "canSmash and Lantern",
     "hash": ["D3D9"],
     "stageIDX": [37],
     "dzxTag": ["TRES"],

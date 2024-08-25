@@ -1,5 +1,5 @@
 {
-    "requirements": "((((Snowpeak_Ruins_Small_Key, 3) and Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)) and Ball_and_Chain) or (Shadow_Crystal and CanDoLJA)",
+    "glitchedRequirements": "((((Snowpeak_Ruins_Small_Key, 3) and Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)) and Ball_and_Chain) or (Shadow_Crystal and CanDoLJA)",
     "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins"],
     "itemId": "Piece_of_Heart"
 }

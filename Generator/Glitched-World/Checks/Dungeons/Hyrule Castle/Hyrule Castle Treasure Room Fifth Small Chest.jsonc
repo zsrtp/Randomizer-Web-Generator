@@ -1,5 +1,5 @@
 {
-    "requirements": "true",
+    "glitchedRequirements": "true",
     "checkCategory": ["Chest", "Dungeon", "Hyrule Castle"],
     "itemId": "Water_Bombs_15"
 }

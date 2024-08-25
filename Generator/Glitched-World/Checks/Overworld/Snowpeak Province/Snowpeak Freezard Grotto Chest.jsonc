@@ -1,6 +1,6 @@
 {
 
-    "requirements": "CanDefeatFreezard and Ball_and_Chain",
+    "glitchedRequirements": "CanDefeatFreezard and Ball_and_Chain",
     "hash": ["4584"],
     "stageIDX": [38],
     "dzxTag": ["TRES"],

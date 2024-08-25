@@ -1,5 +1,5 @@
 {
-    "requirements": "HasHeavyMod",
+    "glitchedRequirements": "HasHeavyMod",
     "arcOffsets": ["2520"],
     "stageIDX": [52],
     "roomIDX": 1,

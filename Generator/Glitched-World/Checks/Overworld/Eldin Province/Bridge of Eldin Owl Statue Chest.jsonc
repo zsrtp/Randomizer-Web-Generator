@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Dominion_Rod, 2) or CanDoLJA or Shadow_Crystal",
+    "glitchedRequirements": "(Progressive_Dominion_Rod, 2) or CanDoLJA or Shadow_Crystal",
     "arcOffsets": ["1E54"],
     "stageIDX": [56],
     "roomIDX": 0,

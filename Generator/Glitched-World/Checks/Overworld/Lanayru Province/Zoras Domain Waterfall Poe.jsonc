@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal",
+    "glitchedRequirements": "Shadow_Crystal",
     "stageIDX": [50],
     "flag": "49",
     "checkCategory": ["Overworld", "Poe", "Zoras Domain"],

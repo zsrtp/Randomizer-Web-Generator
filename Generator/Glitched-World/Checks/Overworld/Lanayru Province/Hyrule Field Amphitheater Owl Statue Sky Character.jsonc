@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Dominion_Rod, 2)",
+    "glitchedRequirements": "(Progressive_Dominion_Rod, 2)",
     "stageIDX": [57],
     "roomIDX": 8,
     "checkCategory": ["Overworld", "Hyrule Field - Lanaryu Province", "Sky Book"],

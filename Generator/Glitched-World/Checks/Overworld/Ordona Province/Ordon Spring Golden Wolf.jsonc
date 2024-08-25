@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and Room.Death_Mountain_Trail",
+    "glitchedRequirements": "Shadow_Crystal and Room.Death_Mountain_Trail",
     "stageIDX": [44],
     "roomIDX": 1,
     "flag": "9F",

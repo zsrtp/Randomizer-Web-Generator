@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDoBSMoonBoots or canBreakWoodenDoor",
+    "glitchedRequirements": "CanDoBSMoonBoots or canBreakWoodenDoor",
     "checkCategory": ["Chest", "Dungeon", "Goron Mines"],
     "itemId": "Red_Rupee"
 }

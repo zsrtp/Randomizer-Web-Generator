@@ -1,5 +1,5 @@
 {
-    "requirements": "canBurnWebs",
+    "glitchedRequirements": "canBurnWebs",
     "arcOffsets": ["DA0"],
     "stageIDX": [32],
     "roomIDX": 0,

@@ -1,5 +1,5 @@
 {
-    "requirements": "true",
+    "glitchedRequirements": "true",
     "arcOffsets": ["27D0"],
     "stageIDX": [50],
     "roomIDX": 1,

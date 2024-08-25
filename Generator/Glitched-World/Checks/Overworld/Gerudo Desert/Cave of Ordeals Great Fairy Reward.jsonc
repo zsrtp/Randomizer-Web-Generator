@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatArmos and CanDefeatBokoblin and CanDefeatBabaSerpent and CanDefeatLizalfos and CanDefeatBulblin and CanDefeatDinalfos and CanDefeatPoe and CanDefeatRedeadKnight and CanDefeatChu and CanDefeatFreezard and CanDefeatChilfos and CanDefeatGhoulRat and CanDefeatRat and CanDefeatStalchild and CanDefeatAeralfos and CanDefeatDarknut",
+    "glitchedRequirements": "CanDefeatArmos and CanDefeatBokoblin and CanDefeatBabaSerpent and CanDefeatLizalfos and CanDefeatBulblin and CanDefeatDinalfos and CanDefeatPoe and CanDefeatRedeadKnight and CanDefeatChu and CanDefeatFreezard and CanDefeatChilfos and CanDefeatGhoulRat and CanDefeatRat and CanDefeatStalchild and CanDefeatAeralfos and CanDefeatDarknut",
     "arcOffsets": ["1067"],
     "stageIDX": [31],
     "fileDirectoryType": [1],

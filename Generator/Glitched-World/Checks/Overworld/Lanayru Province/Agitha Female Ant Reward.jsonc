@@ -1,5 +1,5 @@
 {
-    "requirements": "Female_Ant",
+    "glitchedRequirements": "Female_Ant",
     "flag": "D5",
     "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
     "itemId": "Purple_Rupee"

@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatBulblin",
+    "glitchedRequirements": "CanDefeatBulblin",
     "checkCategory": ["Overworld", "Bulblin Camp", "Small Key", "DZX"],
     "hash": ["670D"],
     "stageIDX": [55],

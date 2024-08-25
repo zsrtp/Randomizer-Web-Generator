@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Clawshot, 2) or CanDoLJA or Shadow_Crystal",
+    "glitchedRequirements": "(Progressive_Clawshot, 2) or CanDoLJA or Shadow_Crystal",
     "arcOffsets": ["16B8"],
     "stageIDX": [56],
     "roomIDX": 3,

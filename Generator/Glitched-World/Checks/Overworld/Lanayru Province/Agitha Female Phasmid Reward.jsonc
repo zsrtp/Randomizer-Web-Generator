@@ -1,5 +1,5 @@
 {
-    "requirements": "Female_Phasmid",
+    "glitchedRequirements": "Female_Phasmid",
     "flag": "C9",
     "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
     "itemId": "Orange_Rupee"

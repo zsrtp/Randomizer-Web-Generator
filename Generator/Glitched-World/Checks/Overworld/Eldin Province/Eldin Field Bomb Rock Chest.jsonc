@@ -1,5 +1,5 @@
 {
-    "requirements": "canSmash or CanDoMapGlitch or (CanDoEBMoonBoots and CanDoLJA)",
+    "glitchedRequirements": "canSmash or CanDoMapGlitch or (CanDoEBMoonBoots and CanDoLJA)",
     "arcOffsets": ["1E34"],
     "stageIDX": [56],
     "roomIDX": 0,

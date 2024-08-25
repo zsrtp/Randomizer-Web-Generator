@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Fishing_Rod, 1)",
+    "glitchedRequirements": "(Progressive_Fishing_Rod, 1)",
     "arcOffsets": ["370F"],
     "stageIDX": [65],
     "fileDirectoryType": [1],

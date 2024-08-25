@@ -1,5 +1,5 @@
 {
-    "requirements": "Lantern and HasHeavyMod",
+    "glitchedRequirements": "Lantern and HasHeavyMod",
     "arcOffsets": ["A58"],
     "stageIDX": [50],
     "roomIDX": 0,

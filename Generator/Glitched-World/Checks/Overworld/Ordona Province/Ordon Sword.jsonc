@@ -1,5 +1,5 @@
 {
-  "requirements": "canCompletePrologue or (Setting.faronTwilightCleared equals True)",
+  "glitchedRequirements": "canCompletePrologue or (Setting.faronTwilightCleared equals True)",
   "moduleID": ["284"],
   "stageIDX": [65],
   "relOffsets": ["6A8"],

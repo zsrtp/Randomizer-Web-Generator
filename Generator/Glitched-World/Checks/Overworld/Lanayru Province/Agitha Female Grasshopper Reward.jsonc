@@ -1,5 +1,5 @@
 {
-    "requirements": "Female_Grasshopper",
+    "glitchedRequirements": "Female_Grasshopper",
     "flag": "C7",
     "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
     "itemId": "Orange_Rupee"

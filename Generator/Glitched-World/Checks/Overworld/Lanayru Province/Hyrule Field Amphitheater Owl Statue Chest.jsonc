@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Dominion_Rod, 2) or CanDoLJA or CanDoMapGlitch or CanDoEBMoonBoots",
+    "glitchedRequirements": "(Progressive_Dominion_Rod, 2) or CanDoLJA or CanDoMapGlitch or CanDoEBMoonBoots",
     "arcOffsets": ["1D68"],
     "stageIDX": [57],
     "roomIDX": 8,

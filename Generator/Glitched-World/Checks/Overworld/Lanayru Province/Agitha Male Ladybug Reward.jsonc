@@ -1,5 +1,5 @@
 {
-    "requirements": "Male_Ladybug",
+    "glitchedRequirements": "Male_Ladybug",
     "flag": "CE",
     "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
     "itemId": "Purple_Rupee"

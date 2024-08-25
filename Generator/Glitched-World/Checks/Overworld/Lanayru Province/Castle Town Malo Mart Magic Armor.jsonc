@@ -1,5 +1,5 @@
 {
-    "requirements": "(Setting.increaseWallet equals True) or (Progressive_Wallet, 1) or ((Setting.shuffleNpcItems equals false) and HasBug)",
+    "glitchedRequirements": "(Setting.increaseWallet equals True) or (Progressive_Wallet, 1) or ((Setting.shuffleNpcItems equals false) and HasBug)",
     "arcOffsets": ["3097"],
     "stageIDX": [73],
     "fileDirectoryType": [1],

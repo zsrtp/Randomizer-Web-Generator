@@ -1,5 +1,5 @@
 {
-    "requirements": "Lantern",
+    "glitchedRequirements": "Lantern",
     "arcOffsets": ["D80"],
     "stageIDX": [32],
     "roomIDX": 0,

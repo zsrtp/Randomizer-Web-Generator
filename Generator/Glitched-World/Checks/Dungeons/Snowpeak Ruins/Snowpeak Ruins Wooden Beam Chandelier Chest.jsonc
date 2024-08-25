@@ -1,5 +1,5 @@
 {
-    "requirements": "(Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)) and (Ball_and_Chain or CanDoLJA)",
+    "glitchedRequirements": "(Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)) and (Ball_and_Chain or CanDoLJA)",
     "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Small Key"],
     "itemId": "Snowpeak_Ruins_Small_Key"
 }

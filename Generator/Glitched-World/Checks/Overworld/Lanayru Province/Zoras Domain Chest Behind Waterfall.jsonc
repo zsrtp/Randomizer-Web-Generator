@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal or CanDoBSMoonBoots or Spinner or (hasBombs and HasSword) or CanDoLJA",
+    "glitchedRequirements": "Shadow_Crystal or CanDoBSMoonBoots or Spinner or (hasBombs and HasSword) or CanDoLJA",
     "arcOffsets": ["27F0"],
     "stageIDX": [50],
     "roomIDX": 1,

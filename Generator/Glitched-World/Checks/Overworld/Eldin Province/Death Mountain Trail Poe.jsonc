@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and canCompleteGoronMines",
+    "glitchedRequirements": "Shadow_Crystal and canCompleteGoronMines",
     "stageIDX": [47],
     "flag": "59",
     "checkCategory": ["Overworld", "Poe", "Death Mountain"],

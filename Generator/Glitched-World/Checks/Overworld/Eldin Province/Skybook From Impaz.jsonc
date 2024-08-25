@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDoHiddenVillageGlitched and (Progressive_Dominion_Rod, 1)",
+    "glitchedRequirements": "CanDoHiddenVillageGlitched and (Progressive_Dominion_Rod, 1)",
     "arcOffsets": ["3097", "3097"],
     "stageIDX": [63,72],
     "fileDirectoryType": [1,1],

@@ -1,5 +1,5 @@
 {
-  "requirements": "Lantern or CanDoMapGlitch",
+  "glitchedRequirements": "Lantern or CanDoMapGlitch",
   "hash": [ "300D" ],
   "stageIDX": [ 45 ],
   "dzxTag": [ "TRES" ],

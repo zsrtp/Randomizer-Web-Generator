@@ -1,5 +1,5 @@
 {
-    "requirements": "HasHeavyMod and (canSmash or CanDoMapGlitch)",
+    "glitchedRequirements": "HasHeavyMod and (canSmash or CanDoMapGlitch)",
     "arcOffsets": ["2F4C"],
     "stageIDX": [46],
     "roomIDX": 0,

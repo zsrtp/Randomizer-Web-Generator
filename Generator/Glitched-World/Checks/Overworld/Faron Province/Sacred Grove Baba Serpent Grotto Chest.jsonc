@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDefeatBabaSerpent and (canKnockDownHangingBaba or HasSword or Shadow_Crystal or Slingshot or Ball_and_Chain or hasBombs)",
+    "glitchedRequirements": "CanDefeatBabaSerpent and (canKnockDownHangingBaba or HasSword or Shadow_Crystal or Slingshot or Ball_and_Chain or hasBombs)",
     "hash": ["F29C"],
     "stageIDX": [36],
     "dzxTag": ["TRES"],

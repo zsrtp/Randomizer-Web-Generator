@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Sword, 4) or (CanDefeatPhantomZant and (Progressive_Clawshot, 1) and CanDefeatZantHead and ((Palace_of_Twilight_Small_Key, 6) or (Setting.smallKeySettings equals Keysy)) and CanDefeatShadowBeast)",
+    "glitchedRequirements": "(Progressive_Sword, 4) or (CanDefeatPhantomZant and (Progressive_Clawshot, 1) and CanDefeatZantHead and ((Palace_of_Twilight_Small_Key, 6) or (Setting.smallKeySettings equals Keysy)) and CanDefeatShadowBeast)",
     "checkCategory": ["Chest", "Dungeon", "Palace of Twilight" ],
     "itemId": "Piece_of_Heart"
 }

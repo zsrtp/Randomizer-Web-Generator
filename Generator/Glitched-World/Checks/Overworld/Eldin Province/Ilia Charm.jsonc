@@ -1,5 +1,5 @@
 {
-    "requirements": "CanDoHiddenVillageGlitched",
+    "glitchedRequirements": "CanDoHiddenVillageGlitched",
     "arcOffsets": ["1A7"],
     "stageIDX": [63],
     "fileDirectoryType": [1],

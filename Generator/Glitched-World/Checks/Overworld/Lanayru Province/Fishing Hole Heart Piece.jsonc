@@ -1,5 +1,5 @@
 {
-    "requirements": "true",
+    "glitchedRequirements": "true",
     "arcOffsets": ["C1F", "375C", "3644"],
     "fileDirectoryType": [0, 1, 1],
     "replacementType": [0, 5, 5],

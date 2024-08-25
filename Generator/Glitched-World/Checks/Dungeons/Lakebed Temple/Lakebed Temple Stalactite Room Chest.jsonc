@@ -1,5 +1,5 @@
 {
-    "requirements": "canLaunchBombs or CanDoLJA",
+    "glitchedRequirements": "canLaunchBombs or CanDoLJA",
     "arcOffsets": ["1344"],
     "stageIDX": [0],
     "roomIDX": 1,

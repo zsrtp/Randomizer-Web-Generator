@@ -1,5 +1,5 @@
 {
-    "requirements": "(Progressive_Dominion_Rod, 1) or Shadow_Crystal",
+    "glitchedRequirements": "(Progressive_Dominion_Rod, 1) or Shadow_Crystal",
     "arcOffsets": ["AA4"],
     "stageIDX": [54],
     "roomIDX": 2,

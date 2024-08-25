@@ -1,5 +1,5 @@
 {
-    "requirements": "Iron_Boots",
+    "glitchedRequirements": "Iron_Boots",
     "checkCategory": ["Chest", "Dungeon", "Goron Mines"],
     "itemId": "Red_Rupee"
 }

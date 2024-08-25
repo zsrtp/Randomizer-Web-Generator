@@ -1,5 +1,5 @@
 {
-    "requirements": "Lantern and Ball_and_Chain",
+    "glitchedRequirements": "Lantern and Ball_and_Chain",
     "arcOffsets": ["978"],
     "stageIDX": [51],
     "roomIDX": 2,

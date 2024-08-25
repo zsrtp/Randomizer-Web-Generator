@@ -1,5 +1,5 @@
 {
-  "requirements": "(((Setting.faronTwilightCleared equals False) and canCompletePrologue) or ((Setting.faronTwilightCleared equals True) and Shadow_Crystal)) and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairies)))",
+  "glitchedRequirements": "(((Setting.faronTwilightCleared equals False) and canCompletePrologue) or ((Setting.faronTwilightCleared equals True) and Shadow_Crystal)) and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairies)))",
   "moduleID": ["26B"],
   "stageIDX": [65],
   "relOffsets": ["13A8"],
