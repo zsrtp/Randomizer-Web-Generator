@@ -1821,8 +1821,21 @@ namespace TPRandomizer
         {
             return Randomizer.SSettings.eldinTwilightCleared
                 || (
-                    canCompletePrologue()
-                    && canClearForest()
+                    Randomizer.Rooms.RoomDict["Faron Field"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Lower Kakariko Village"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Kakariko Graveyard"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Kakariko Malo Mart"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict[
+                        "Kakariko Barnes Bomb Shop Upper"
+                    ].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict[
+                        "Kakariko Renados Sanctuary Basement"
+                    ].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Kakariko Elde Inn"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Kakariko Bug House"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Upper Kakariko Village"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Kakariko Watchtower"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Death Mountain Volcano"].ReachedByPlaythrough
                     && (
                         !Randomizer.SSettings.bonksDoDamage
                         || (

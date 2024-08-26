@@ -17,7 +17,7 @@
       },
       {
         "ConnectedArea": "Lake Hylia Bridge",
-        "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)"
+        "Requirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysy)) and CanCompleteLanayruTwilight"
       },
       {
         "ConnectedArea": "Faron Field Corner Grotto",
