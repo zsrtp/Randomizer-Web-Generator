@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatZant",
+    "glitchedRequirements": "CanDefeatZant",
     "checkCategory": ["Dungeon", "Palace of Twilight", "Heart Container", "Dungeon Reward"],
     "itemId": "Heart_Container"
 }

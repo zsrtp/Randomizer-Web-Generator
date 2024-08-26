@@ -1,5 +1,6 @@
 {
   "requirements": "CanDefeatZantHead and CanDefeatShadowBeast and (Progressive_Clawshot, 2) and ((((Palace_of_Twilight_Small_Key, 6) or ((Setting.smallKeySettings equals Vanilla) and (Palace_of_Twilight_Small_Key, 3))) or (Setting.smallKeySettings equals Keysy)))",
+  "glitchedRequirements": "CanDefeatZantHead and CanDefeatShadowBeast and (Progressive_Clawshot, 2) and ((((Palace_of_Twilight_Small_Key, 6) or ((Setting.smallKeySettings equals Vanilla) and (Palace_of_Twilight_Small_Key, 3))) or (Setting.smallKeySettings equals Keysy)))",
   "checkCategory": [ "Chest", "Dungeon", "Palace of Twilight" ],
   "itemId": "Purple_Rupee"
 }
