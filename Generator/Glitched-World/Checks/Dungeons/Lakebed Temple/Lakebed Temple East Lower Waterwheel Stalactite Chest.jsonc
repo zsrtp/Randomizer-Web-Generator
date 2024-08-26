@@ -1,5 +1,0 @@
-{
-    "glitchedRequirements": "canLaunchBombs or CanDoLJA",
-    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Small Key"],
-    "itemId": "Lakebed_Temple_Small_Key"
-}

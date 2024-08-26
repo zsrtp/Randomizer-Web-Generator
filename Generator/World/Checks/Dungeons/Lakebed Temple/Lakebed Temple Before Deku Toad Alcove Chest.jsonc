@@ -13,6 +13,7 @@
   // to access the underwater chests which they just walked past. This can lead
   // to nonsensical Path hints.
   "requirements": "((Setting.smallKeySettings equals Vanilla) and CanDefeatDekuToad and (Lakebed_Temple_Small_Key, 2) and Zora_Armor and Iron_Boots and CanUseWaterBombs and (Progressive_Clawshot, 1)) or (((Lakebed_Temple_Small_Key,3) or (Setting.smallKeySettings equals Keysy)) and (canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash)))",
-  "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Small Key", "ARC"],
+  "glitchedRequirements": "CanDoLJA or (((Setting.smallKeySettings equals Keysy) or (Lakebed_Temple_Small_Key, 2)) and (canLaunchBombs or (Progressive_Clawshot, 1)))",
+    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Small Key"],
   "itemId": "Lakebed_Temple_Small_Key"
 }
