@@ -1,6 +1,7 @@
 {
     //Don't require gate to be unlocked for cannonballs if we have Cheese since we can get to the otherside by going through Yeta's room.
     "requirements": "Ball_and_Chain or (hasBombs and (((Snowpeak_Ruins_Small_Key, 2) or Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)))",
-    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "ARC"],
+    "glitchedRequirements": "Ball_and_Chain or (hasBombs and ((Snowpeak_Ruins_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)))",
+    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins"],
     "itemId": "Bombs_5"
 }

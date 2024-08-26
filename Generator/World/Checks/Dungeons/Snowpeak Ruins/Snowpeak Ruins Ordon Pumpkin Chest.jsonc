@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatChilfos",
-    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Ordon Pumpkin", "Small Key", "ARC"],
+    "glitchedRequirements": "CanDefeatChilfos",
+    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Dungeon Items", "Ordon Pumpkin", "Small Key"],
     "itemId": "Snowpeak_Ruins_Ordon_Pumpkin"
 }
