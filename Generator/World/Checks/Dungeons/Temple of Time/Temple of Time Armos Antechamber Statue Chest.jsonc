@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Dominion_Rod, 1)",
-    "checkCategory": ["Chest", "Dungeon", "Temple of Time", "ARC"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Chest", "Dungeon", "Temple of Time"],
     "itemId": "Piece_of_Heart"
 }
