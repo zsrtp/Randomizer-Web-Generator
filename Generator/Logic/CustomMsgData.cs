@@ -654,7 +654,9 @@ namespace TPRandomizer
                 {
                     if (sb.Length > 0)
                         sb.Append('\n');
-                    sb.Append(Res.Msg(tuple.Item1, null).ResolveWithColor(tuple.Item3));
+                    // Use an empty string for the end color so we do not run
+                    // out of bytes and have the text get cut off.
+                    sb.Append(Res.Msg(tuple.Item1, null).ResolveWithColor(tuple.Item3, ""));
                 }
             }
 
