@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Bow, 1) and Room.Kakariko_Renados_Sanctuary and Ilias_Charm and Shadow_Crystal and (Progressive_Clawshot, 1)",
+    "glitchedRequirements": "Ilias_Charm and Room.Kakariko_Renados_Sanctuary and CanDoHiddenVillageGlitched and Shadow_Crystal",
     "checkCategory": ["Overworld", "Poe", "Hidden Village"],
     "itemId": "Poe_Soul"
 }

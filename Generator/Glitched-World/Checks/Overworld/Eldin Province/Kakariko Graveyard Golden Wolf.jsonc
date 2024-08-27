@@ -1,8 +1,0 @@
-{
-    "glitchedRequirements": "Shadow_Crystal and Room.Snowpeak_Climb_Upper",
-    "stageIDX": [48],
-    "roomIDX": 0,
-    "flag": "9F",
-    "checkCategory": ["Overworld", "Hidden Skill", "Kakariko Graveyard"],
-    "itemId": "Progressive_Hidden_Skill"
-}

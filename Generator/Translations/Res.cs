@@ -1364,7 +1364,8 @@ namespace TPRandomizer
 
             public string ResolveWithColor(string startColor, string endColor = null)
             {
-                if (StringUtils.isEmpty(endColor))
+                // Allow passing an empty string in to avoid adding an endColor.
+                if (endColor == null)
                     endColor = CustomMessages.messageColorWhite;
 
                 if (value.Contains("{cs}"))

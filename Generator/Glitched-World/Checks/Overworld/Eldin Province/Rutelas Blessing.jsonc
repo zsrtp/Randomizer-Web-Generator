@@ -1,9 +1,0 @@
-{
-  "glitchedRequirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)",
-  "arcOffsets": ["2BF"],
-    "stageIDX": [48],
-  "fileDirectoryType": [ 1 ],
-  "replacementType": [ 0 ],
-  "checkCategory": [ "Overworld", "Npc", "Kakariko Graveyard", "ARC" ],
-  "itemId": "Zora_Armor"
-}

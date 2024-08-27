@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Overworld", "Chest", "Kakariko Village", "ARC"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Chest", "Kakariko Village"],
     "itemId": "Red_Rupee"
 }

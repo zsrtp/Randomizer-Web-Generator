@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Bow, 1)",
-    "checkCategory": ["Overworld", "Npc", "Hidden Village", "ARC"],
+    "glitchedRequirements": "CanDoHiddenVillageGlitched",
+    "checkCategory": ["Overworld", "Npc", "Hidden Village"],
     "itemId": "Ilias_Charm"
 }

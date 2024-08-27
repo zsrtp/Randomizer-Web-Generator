@@ -1,5 +1,6 @@
 {
     "requirements": "canSmash",
-    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Eldin Province", "ARC"],
+    "glitchedRequirements": "canSmash or CanDoMapGlitch or (CanDoEBMoonBoots and CanDoLJA)",
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Eldin Province"],
     "itemId": "Piece_of_Heart"
 }

@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Overworld", "Golden Bug", "Kakariko Village","DZX"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Golden Bug", "Kakariko Village"],
     "itemId": "Female_Ant"
 }

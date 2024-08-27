@@ -1,5 +1,6 @@
 {
   "requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)",
-  "checkCategory": [ "Overworld", "Npc", "Kakariko Graveyard", "ARC" ],
+  "glitchedRequirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)",
+  "checkCategory": [ "Overworld", "Npc", "Kakariko Graveyard" ],
   "itemId": "Zora_Armor"
 }

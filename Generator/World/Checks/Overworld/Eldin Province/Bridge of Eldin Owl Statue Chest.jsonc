@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Dominion_Rod, 2)",
-    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Eldin Province", "ARC"],
+    "glitchedRequirements": "(Progressive_Dominion_Rod, 2) or CanDoLJA or Shadow_Crystal",
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Eldin Province"],
     "itemId": "Piece_of_Heart"
 }

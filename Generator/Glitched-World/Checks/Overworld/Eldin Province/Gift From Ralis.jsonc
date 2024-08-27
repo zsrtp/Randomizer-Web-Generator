@@ -1,9 +1,0 @@
-{
-  "glitchedRequirements": "Asheis_Sketch and (Gate_Keys or (Setting.smallKeySettings equals Keysy))",
-  "arcOffsets": ["19DF"],
-  "stageIDX": [48],
-  "fileDirectoryType": [ 1 ],
-  "replacementType": [ 0 ],
-  "checkCategory": [ "Overworld", "Npc", "Kakariko Graveyard", "ARC" ],
-  "itemId": "Progressive_Fishing_Rod"
-}

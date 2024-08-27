@@ -1,5 +1,6 @@
 {
     "requirements": "canSmash",
-    "checkCategory": ["Overworld", "Chest", "Kakariko Village", "ARC"],
+    "glitchedRequirements": "canSmash or Shadow_Crystal",
+    "checkCategory": ["Overworld", "Chest", "Kakariko Village"],
     "itemId": "Orange_Rupee"
 }

@@ -1,5 +1,6 @@
 {
   "requirements": "Asheis_Sketch and (Gate_Keys or (Setting.smallKeySettings equals Keysy))",
-  "checkCategory": [ "Overworld", "Npc", "Kakariko Graveyard", "ARC" ],
+  "glitchedRequirements": "Asheis_Sketch and (Gate_Keys or (Setting.smallKeySettings equals Keysy))",
+  "checkCategory": [ "Overworld", "Npc", "Kakariko Graveyard"],
   "itemId": "Progressive_Fishing_Rod"
 }

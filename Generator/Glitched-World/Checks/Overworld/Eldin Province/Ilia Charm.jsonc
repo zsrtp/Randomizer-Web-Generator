@@ -1,9 +1,0 @@
-{
-    "glitchedRequirements": "CanDoHiddenVillageGlitched",
-    "arcOffsets": ["1A7"],
-    "stageIDX": [63],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "checkCategory": ["Overworld", "Npc", "Hidden Village", "ARC"],
-    "itemId": "Ilias_Charm"
-}

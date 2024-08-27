@@ -1,9 +1,0 @@
-{
-"glitchedRequirements": "Ilias_Charm and (Progressive_Dominion_Rod, 1) and CanDoHiddenVillageGlitched and Shadow_Crystal and (Progressive_Clawshot, 1)",
-    "hash": ["9E3C"],
-    "stageIDX": [63],
-    "dzxTag": ["ACTR"],
-    "checkCategory": ["Overworld", "Npc", "Hidden Village", "DZX"],
-    "itemId": "Piece_of_Heart",
-    "actrData": [["68", "74", "50", "69", "65", "63", "65", "00", "00", "FF", "8B", "21", "45", "09", "80", "00", "42", "D1", "26", "66", "C4", "96", "00", "00", "00", "00", "00", "00", "00", "00", "FF", "FF"]]
-}
