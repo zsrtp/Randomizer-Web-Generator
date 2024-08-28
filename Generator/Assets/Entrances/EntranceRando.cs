@@ -85,7 +85,7 @@ namespace TPRandomizer
                 return reqsCache;
             }
 
-            return reqsCache = Parser2.Parse(Requirements);
+            return reqsCache = Parser.Parse(Requirements);
         }
 
         public int GetStage()

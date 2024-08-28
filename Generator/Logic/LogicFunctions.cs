@@ -10,11 +10,6 @@ namespace TPRandomizer
     /// </summary>
     public class LogicFunctions
     {
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        public Dictionary<Token, string> TokenDict = new();
-
         //Evaluate the tokenized settings to their respective values that are set by the settings string.
 
         /// <summary>

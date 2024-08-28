@@ -62,7 +62,7 @@ namespace TPRandomizer
                 return reqsCache;
             }
 
-            return reqsCache = Parser2.Parse(requirements);
+            return reqsCache = Parser.Parse(requirements);
         }
     }
 
