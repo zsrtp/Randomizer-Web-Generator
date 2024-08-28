@@ -78,11 +78,7 @@ namespace TPRandomizer
 
                         if (!currentCheck.hasBeenReached)
                         {
-                            var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
-                                currentCheck.checkName,
-                                currentCheck.requirements
-                            );
-                            if ((bool)areCheckRequirementsMet == true)
+                            if (currentCheck.CachedRequirements().Evaluate())
                             {
                                 if (currentCheck.itemWasPlaced)
                                 {
@@ -289,11 +285,7 @@ namespace TPRandomizer
 
                         if (!currentCheck.hasBeenReached)
                         {
-                            var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
-                                currentCheck.checkName,
-                                currentCheck.requirements
-                            );
-                            if ((bool)areCheckRequirementsMet == true)
+                            if (currentCheck.CachedRequirements().Evaluate())
                             {
                                 sphereItems.Add(currentCheck.itemId);
                                 currentCheck.hasBeenReached = true;
@@ -463,11 +455,7 @@ namespace TPRandomizer
 
                         if (!currentCheck.hasBeenReached)
                         {
-                            var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
-                                currentCheck.checkName,
-                                currentCheck.requirements
-                            );
-                            if ((bool)areCheckRequirementsMet == true)
+                            if (currentCheck.CachedRequirements().Evaluate())
                             {
                                 playthroughDictionaryAll.Add(
                                     "    " + currentCheck.checkName + ": " + currentCheck.itemId,
@@ -668,11 +656,7 @@ namespace TPRandomizer
 
                             if (!currentCheck.hasBeenReached && currentCheck.itemWasPlaced)
                             {
-                                var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
-                                    currentCheck.checkName,
-                                    currentCheck.requirements
-                                );
-                                if ((bool)areCheckRequirementsMet == true)
+                                if (currentCheck.CachedRequirements().Evaluate())
                                 {
                                     currentCheck.hasBeenReached = true;
                                     if (
@@ -832,11 +816,7 @@ namespace TPRandomizer
 
                             if (!currentCheck.hasBeenReached && currentCheck.itemWasPlaced)
                             {
-                                var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
-                                    currentCheck.checkName,
-                                    currentCheck.requirements
-                                );
-                                if ((bool)areCheckRequirementsMet == true)
+                                if (currentCheck.CachedRequirements().Evaluate())
                                 {
                                     currentCheck.hasBeenReached = true;
                                     if (
@@ -985,11 +965,7 @@ namespace TPRandomizer
                                 && currentCheck.isRequired
                             )
                             {
-                                var areCheckRequirementsMet = Randomizer.Logic.EvaluateRequirements(
-                                    currentCheck.checkName,
-                                    currentCheck.requirements
-                                );
-                                if ((bool)areCheckRequirementsMet == true)
+                                if (currentCheck.CachedRequirements().Evaluate())
                                 {
                                     currentCheck.hasBeenReached = true;
 

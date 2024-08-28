@@ -79,6 +79,15 @@ namespace TPRandomizer
         public bool AlreadySetOriginalName { get; set; }
         public string PairedEntranceName { get; set; } = "";
 
+        private LogicAST reqsCache;
+        public LogicAST CachedRequirements() {
+            if(reqsCache != null) {
+                return reqsCache;
+            }
+
+            return reqsCache = Parser2.Parse(Requirements);
+        }
+
         public int GetStage()
         {
             return Stage;

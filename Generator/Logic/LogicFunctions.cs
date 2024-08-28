@@ -2331,18 +2331,5 @@ namespace TPRandomizer
             }
             return isQuantity;
         }
-
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        public bool EvaluateRequirements(string location, string expression)
-        {
-            Parser parse = new Parser();
-            parse.ParserReset();
-            Randomizer.Logic.TokenDict = new Tokenizer(expression).Tokenize();
-            parse.checkedLogicItem = location + " with logic: " + expression;
-            //Console.WriteLine(parse.checkedLogicItem);
-            return parse.Parse();
-        }
     }
 }

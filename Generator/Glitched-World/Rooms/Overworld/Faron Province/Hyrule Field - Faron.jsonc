@@ -44,7 +44,7 @@
       [
         {
           "ConnectedArea": "Faron Field",
-          "Requirements": "Room.Lower_Kakariko_Village  HasBottle and Room.Outside_Castle_Town_South"
+          "Requirements": "Room.Lower_Kakariko_Village and HasBottle and Room.Outside_Castle_Town_South"
         },
         {
            // If you enter Outside Castle Town from there while the boulder is still there, you get stuck and are forced to save-warp or portal-warp.
