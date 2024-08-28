@@ -148,9 +148,12 @@ namespace TPRandomizer
 
             string exprClone = expression;
             LogicAST parsed;
-            try {
-                parsed = ParseInner(ref exprClone);
-            } catch(Exception e) {
+            try
+            {
+                parsed = ParseInner(ref exprClone, 0);
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine($"Failed to parse logic expression {expression}: {e}");
                 throw;
             }
@@ -164,7 +167,7 @@ namespace TPRandomizer
         // one reference to expression and substring it as we consume characters.
         //
         // you could also do this with a pointer that gets passed to Match but it's more boilerplate
-        static LogicAST ParseInner(ref string expression)
+        static LogicAST ParseInner(ref string expression, int depth)
         {
             LogicAST? tree = null;
 
@@ -195,9 +198,10 @@ namespace TPRandomizer
                     // Start of a subexpression. We know it's not a progressive item check because
                     // we looked for that earlier.
                     expression = expression[1..];
-                    thisNode = ParseInner(ref expression);
+                    thisNode = ParseInner(ref expression, depth + 1);
                     // skip the final )
-                    if(expression.Length == 0 || expression[0] != ')') {
+                    if (expression.Length == 0 || expression[0] != ')')
+                    {
                         throw new Exception("Expected closing parenthesis");
                     }
                     expression = expression[1..];
@@ -212,11 +216,11 @@ namespace TPRandomizer
                 }
                 else if (Re(conjunctionRegex, ref expression) != null)
                 {
-                    thisNode = new AST.Conjunction(tree!, ParseInner(ref expression));
+                    thisNode = new AST.Conjunction(tree!, ParseInner(ref expression, depth));
                 }
                 else if (Re(disjunctionRegex, ref expression) != null)
                 {
-                    thisNode = new AST.Disjunction(tree!, ParseInner(ref expression));
+                    thisNode = new AST.Disjunction(tree!, ParseInner(ref expression, depth));
                 }
                 else if ((m = Re(itemOrFunctionRegex, ref expression)) != null)
                 {
@@ -231,8 +235,15 @@ namespace TPRandomizer
                 }
                 else if (expression.StartsWith(')'))
                 {
-                    // end of a subexpression. let the caller handle advancing the read pointeru
-                    break;
+                    if (depth > 0)
+                    {
+                        // end of a subexpression. let the caller handle advancing the read pointer
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception("Unexpected closing parenthesis");
+                    }
                 }
                 else
                 {
