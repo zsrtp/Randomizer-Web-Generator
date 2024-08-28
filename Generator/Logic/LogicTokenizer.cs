@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 
 #nullable enable
@@ -17,6 +16,9 @@ namespace TPRandomizer
     // Setting            := "(" <Name> { "equals" | "not_equal" } <Value> ")"
     // ProgressiveItem    := "(" <Name> "," <Count> ")"
 
+    /// <summary>
+    /// Base class for logic parse tree nodes.
+    /// </summary>
     public abstract class LogicAST
     {
         public abstract bool Evaluate();
@@ -131,6 +133,12 @@ namespace TPRandomizer
         static Regex disjunctionRegex = new(@"^or\s+");
         static Dictionary<string, LogicAST> parseCache = [];
 
+        /// <summary>
+        /// Parses logic expressions into AST objects. This function uses an internal parse cache,
+        /// but it's still better to cache the returned AST yourself if possible.
+        /// </summary>
+        /// <param name="expression">Logic expression as text.</param>
+        /// <returns>Logic expression as an AST object.</returns>
         public static LogicAST Parse(string expression)
         {
             if (parseCache.TryGetValue(expression, out LogicAST? value))
@@ -141,7 +149,7 @@ namespace TPRandomizer
             string exprClone = expression;
             LogicAST parsed;
             try {
-                parsed = parseInner(ref exprClone);
+                parsed = ParseInner(ref exprClone);
             } catch(Exception e) {
                 Console.WriteLine($"Failed to parse logic expression {expression}: {e}");
                 throw;
@@ -151,15 +159,18 @@ namespace TPRandomizer
             return parsed;
         }
 
-        static LogicAST parseInner(ref string expression)
+        // this function does the actual work, because taking `ref string` on a public method
+        // would be a little weird. internally, though, it's easier (and likely faster) to keep
+        // one reference to expression and substring it as we consume characters.
+        //
+        // you could also do this with a pointer that gets passed to Match but it's more boilerplate
+        static LogicAST ParseInner(ref string expression)
         {
-            // Console.WriteLine($" parse {expression}");
             LogicAST? tree = null;
 
             while (expression.Length > 0)
             {
                 expression = expression.Trim();
-                // Console.WriteLine($" parse iterate {expression} {tree}");
                 Match? m;
                 LogicAST thisNode;
 
@@ -184,7 +195,7 @@ namespace TPRandomizer
                     // Start of a subexpression. We know it's not a progressive item check because
                     // we looked for that earlier.
                     expression = expression[1..];
-                    thisNode = parseInner(ref expression);
+                    thisNode = ParseInner(ref expression);
                     // skip the final )
                     if(expression.Length == 0 || expression[0] != ')') {
                         throw new Exception("Expected closing parenthesis");
@@ -201,11 +212,11 @@ namespace TPRandomizer
                 }
                 else if (Re(conjunctionRegex, ref expression) != null)
                 {
-                    thisNode = new AST.Conjunction(tree!, parseInner(ref expression));
+                    thisNode = new AST.Conjunction(tree!, ParseInner(ref expression));
                 }
                 else if (Re(disjunctionRegex, ref expression) != null)
                 {
-                    thisNode = new AST.Disjunction(tree!, parseInner(ref expression));
+                    thisNode = new AST.Disjunction(tree!, ParseInner(ref expression));
                 }
                 else if ((m = Re(itemOrFunctionRegex, ref expression)) != null)
                 {
@@ -236,7 +247,7 @@ namespace TPRandomizer
             return tree!;
         }
 
-        // helper function to match or return null for comparison chains
+        // helper function to match and advance or return null for comparison chains
         static Match? Re(Regex source, ref string expression)
         {
             Match m = source.Match(expression);
