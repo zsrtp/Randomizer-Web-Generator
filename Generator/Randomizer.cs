@@ -891,26 +891,16 @@ namespace TPRandomizer
                             )
                             {
                                 // Parse the neighbour's requirements to find out if we can access it
-                                var areNeighbourRequirementsMet = false;
                                 /*Console.WriteLine(
                                     "Checking neighbor: "
                                         + Randomizer.Rooms.RoomDict[
                                             roomsToExplore[0].Exits[i].ConnectedArea
                                         ].RoomName
                                 );*/
-                                if (SSettings.logicRules == LogicRules.No_Logic)
-                                {
-                                    areNeighbourRequirementsMet = true;
-                                }
-                                else
-                                {
-                                    areNeighbourRequirementsMet = Logic.EvaluateRequirements(
-                                        roomsToExplore[0].RoomName,
-                                        roomsToExplore[0].Exits[i].Requirements
-                                    );
-                                }
-
-                                if ((bool)areNeighbourRequirementsMet == true)
+                                if (
+                                    SSettings.logicRules == LogicRules.No_Logic
+                                    || roomsToExplore[0].Exits[i].CachedRequirements().Evaluate()
+                                )
                                 {
                                     if (
                                         !Randomizer.Rooms.RoomDict[
@@ -1181,20 +1171,10 @@ namespace TPRandomizer
                                 }
                                 if (!currentCheck.hasBeenReached)
                                 {
-                                    var areCheckRequirementsMet = false;
-                                    if (SSettings.logicRules == LogicRules.No_Logic)
-                                    {
-                                        areCheckRequirementsMet = true;
-                                    }
-                                    else
-                                    {
-                                        areCheckRequirementsMet = Logic.EvaluateRequirements(
-                                            currentCheck.checkName,
-                                            currentCheck.requirements
-                                        );
-                                    }
-
-                                    if ((bool)areCheckRequirementsMet == true)
+                                    if (
+                                        SSettings.logicRules == LogicRules.No_Logic
+                                        || currentCheck.CachedRequirements().Evaluate()
+                                    )
                                     {
                                         if (currentCheck.itemWasPlaced)
                                         {

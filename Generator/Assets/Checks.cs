@@ -57,6 +57,15 @@ namespace TPRandomizer
         public List<string> overrideInstruction { get; set; } // Used by REL checks. The override instruction to be used when replacing the item in the rel.
 
         public bool isRequired { get; set; }
+
+        private LogicAST reqsCache;
+        public LogicAST CachedRequirements() {
+            if(reqsCache != null) {
+                return reqsCache;
+            }
+
+            return reqsCache = Parser.Parse(requirements);
+        }
     }
 
     /// <summary>
