@@ -1,5 +1,5 @@
 {
-    "requirements": "canCompleteGoronMines and Room.Kakariko_Top_of_Watchtower and (Progressive_Bow, 1)) and CanChangeTime",
+    "requirements": "canCompleteGoronMines and Room.Kakariko_Top_of_Watchtower and (Progressive_Bow, 1) and CanChangeTime",
     "glitchedRequirements": "canCompleteGoronMines and Room.Kakariko_Top_of_Watchtower and (Progressive_Bow, 1)) and CanChangeTime",
     "checkCategory": ["Overworld", "Kakariko Village", "ARC", "Shop"],
     "itemId": "Hawkeye"

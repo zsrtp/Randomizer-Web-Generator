@@ -1,7 +1,0 @@
-{
-  "glitchedRequirements": "(Progressive_Dominion_Rod, 2) and (CanDoMapGlitch or (canSmash and canClearForest))",
-  "stageIDX": [ 45 ],
-  "roomIDX": 8,
-  "checkCategory": [ "Overworld", "Faron Woods", "Sky Book" ],
-  "itemId": "Progressive_Sky_Book"
-}

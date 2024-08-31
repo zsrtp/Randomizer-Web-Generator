@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatBabaSerpent and canKnockDownHangingBaba",
-    "checkCategory": ["Overworld", "Chest", "Sacred Grove", "DZX"],
+    "glitchedRequirements": "CanDefeatBabaSerpent and (canKnockDownHangingBaba or HasSword or Shadow_Crystal or Slingshot or Ball_and_Chain or hasBombs)",
+    "checkCategory": ["Overworld", "Chest", "Sacred Grove"],
     "itemId": "Piece_of_Heart"
 }

@@ -1,5 +1,6 @@
 {
   "requirements": "Lantern and canCompletePrologue",
+  "glitchedRequirements": "Lantern or CanDoMapGlitch",
   "checkCategory": [ "Overworld", "Chest", "Faron Woods", "DZX" ],
   "itemId": "Yellow_Rupee"
 }

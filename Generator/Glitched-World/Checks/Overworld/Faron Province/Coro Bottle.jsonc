@@ -1,9 +1,0 @@
-{
-  "glitchedRequirements": "canCompletePrologue",
-  "arcOffsets": ["3A7", "30F"],
-  "stageIDX": [45, 45],
-  "fileDirectoryType": [ 1, 1 ],
-  "replacementType": [ 0, 0 ],
-  "checkCategory": [ "Overworld", "Npc", "Faron Woods", "ARC" ],
-  "itemId": "Coro_Bottle"
-}

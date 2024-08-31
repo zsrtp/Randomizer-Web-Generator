@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Clawshot, 1) or Boomerang",
-    "checkCategory": ["Overworld", "Golden Bug", "Sacred Grove", "DZX"],
+    "glitchedRequirements": "(Progressive_Clawshot, 1) or Boomerang",
+    "checkCategory": ["Overworld", "Golden Bug", "Sacred Grove"],
     "itemId": "Female_Snail"
 }

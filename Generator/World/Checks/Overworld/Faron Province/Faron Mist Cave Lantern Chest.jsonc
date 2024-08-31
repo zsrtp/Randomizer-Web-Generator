@@ -1,5 +1,6 @@
 {
     "requirements": "Lantern",
-    "checkCategory": ["Overworld", "Chest", "Faron Woods", "ARC"],
+    "glitchedRequirements": "Lantern",
+    "checkCategory": ["Overworld", "Chest", "Faron Woods"],
     "itemId": "Piece_of_Heart"
 }

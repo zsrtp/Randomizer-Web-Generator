@@ -1,5 +1,6 @@
 {
   "requirements": "Shadow_Crystal and canCompletePrologue",
+  "glitchedRequirements": "Shadow_Crystal",
   "checkCategory": [ "Overworld", "Poe", "Faron Woods" ],
   "itemId": "Poe_Soul"
 }

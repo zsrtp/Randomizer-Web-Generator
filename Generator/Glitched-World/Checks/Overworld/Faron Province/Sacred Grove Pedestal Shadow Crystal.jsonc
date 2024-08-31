@@ -1,8 +1,0 @@
-{
-    "glitchedRequirements": "true",
-    "stageIDX": [54],
-    "roomIDX": 1,
-    "flag": "32",
-    "checkCategory": ["Overworld", "Sacred Grove", "Event"],
-    "itemId": "Shadow_Crystal"
-}

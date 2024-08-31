@@ -1,5 +1,6 @@
 {
   "requirements": "Lantern and canCompletePrologue",
-  "checkCategory": [ "Overworld", "Chest", "Faron Woods", "DZX" ],
+  "glitchedRequirements": "Lantern or Shadow_Crystal",
+  "checkCategory": [ "Overworld", "Chest", "Faron Woods" ],
   "itemId": "Red_Rupee"
 }
