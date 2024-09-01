@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal and (Gerudo_Desert_Bulblin_Camp_Key or (Setting.smallKeySettings equals Keysy) or (Setting.skipArbitersEntrance equals True))",
+    "glitchedRequirements": "(Shadow_Crystal and (Gerudo_Desert_Bulblin_Camp_Key or ((CanDoMapGlitch and HasSword) or (Setting.smallKeySettings equals Keysy)))) or (Setting.skipArbitersEntrance equals True)",
     "checkCategory": ["Overworld", "Poe", "Bulblin Camp"],
     "itemId": "Poe_Soul"
 }

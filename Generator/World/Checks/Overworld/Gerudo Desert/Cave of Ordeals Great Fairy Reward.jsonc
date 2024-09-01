@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatArmos and CanDefeatBokoblin and CanDefeatBabaSerpent and CanDefeatLizalfos and CanDefeatBulblin and CanDefeatDinalfos and CanDefeatPoe and CanDefeatRedeadKnight and CanDefeatChu and CanDefeatFreezard and CanDefeatChilfos and CanDefeatGhoulRat and CanDefeatRat and CanDefeatStalchild and CanDefeatAeralfos and CanDefeatDarknut",
-    "checkCategory": ["Overworld", "Npc", "Cave of Ordeals", "ARC"],
+    "glitchedRequirements": "CanDefeatArmos and CanDefeatBokoblin and CanDefeatBabaSerpent and CanDefeatLizalfos and CanDefeatBulblin and CanDefeatDinalfos and CanDefeatPoe and CanDefeatRedeadKnight and CanDefeatChu and CanDefeatFreezard and CanDefeatChilfos and CanDefeatGhoulRat and CanDefeatRat and CanDefeatStalchild and CanDefeatAeralfos and CanDefeatDarknut",
+    "checkCategory": ["Overworld", "Npc", "Cave of Ordeals"],
     "itemId": "Fairy_Tears"
 }

@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Overworld", "Golden Bug", "Gerudo Desert", "DZX"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Golden Bug", "Gerudo Desert"],
     "itemId": "Female_Dayfly"
 }
