@@ -689,22 +689,30 @@ namespace TPRandomizer
                     var asmFile = archive.CreateEntry("patch.asm");
                     using (StreamWriter sw = new StreamWriter(asmFile.Open()))
                     {
-                        var bootloaderAddr = "0x80005BF4:\n";
+                        var bootloaderAddr = "0x80005BF4:";
+                        var jumpAddr = "0x800063f8:";
+                        var jumpInsr = "u32 0x4Bffe920";
                         switch (gameRegionOverride)
                         {
                             case GameRegion.GC_USA:
                             case GameRegion.GC_JAP:
                             case GameRegion.GC_EUR:
-                                bootloaderAddr = "0x80004D18:\n";
+                                bootloaderAddr = "0x80004D18:";
+                                jumpAddr = "0x800063f8:";
+                                jumpInsr = "u32 0x4Bffe920";
                                 break;
                             case GameRegion.WII_10_USA:
                             case GameRegion.WII_10_EU:
                             case GameRegion.WII_10_JP:
-                                bootloaderAddr = "0x80005BF4:\n";
+                                bootloaderAddr = "0x80005BF4:";
+                                jumpAddr = "0x80008644:";
+                                jumpInsr = "u32 0x4Bffd5b0";
                                 break;
                             default:
                                 throw new Exception("Did not specify output region");
                         };
+                        sw.WriteLine(jumpAddr);
+                        sw.WriteLine(jumpInsr);
                         sw.WriteLine(bootloaderAddr);
                         var bootloaderBytes = File.ReadAllBytes("/app/generator/Assets/bootloader/" + region + ".bin");
                         var bootloaderHex = string.Join("", bootloaderBytes.Select(b => b.ToString("X2").PadLeft(2, '0')));
