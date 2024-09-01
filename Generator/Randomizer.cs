@@ -582,6 +582,11 @@ namespace TPRandomizer
                 GenGciFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion, false)
             );
 
+            // Generate patch file
+            fileDefs.Add(
+                GenPatchFileDef(id, seedGenResults, fcSettings, fcSettings.gameRegion)
+            );
+
             if (!seedGenResults.isRaceSeed && fcSettings.includeSpoilerLog)
             {
                 // Set back to default language ('en') before creating spoiler
@@ -632,6 +637,100 @@ namespace TPRandomizer
             // return generationStatus;
 
             return true;
+        }
+
+        public static Tuple<Dictionary<string, object>, byte[]> GenPatchFileDef(
+            string seedId,
+            SeedGenResults seedGenResults,
+            FileCreationSettings fcSettings,
+            GameRegion gameRegionOverride
+        )
+        {
+            byte[] seedBytes = SeedData.GenerateSeedDataBytes(
+                seedGenResults,
+                fcSettings,
+                gameRegionOverride,
+                false
+            );
+
+            string region = "us";
+            switch (gameRegionOverride) {
+                case GameRegion.GC_USA:
+                    region = "us";
+                    break;
+                case GameRegion.GC_EUR:
+                    region = "eu";
+                    break;
+                case GameRegion.GC_JAP:
+                    region = "jp";
+                    break;
+                case GameRegion.WII_10_USA:
+                    region = "wus0";
+                    break;
+                case GameRegion.WII_10_EU:
+                    region = "weu";
+                    break;
+                case GameRegion.WII_10_JP:
+                    region = "wjp";
+                    break;
+                default:
+                    throw new Exception("Did not specify output region");
+            }
+
+            List<byte> patchBytes = new();
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+                {
+                    archive.CreateEntryFromFile("/app/generator/Assets/patch/RomHack.toml", "RomHack.toml");
+                    archive.CreateEntryFromFile("/app/generator/Assets/rels/Randomizer." + region + ".rel", "mod.rel");
+                    archive.CreateEntryFromFile("/app/generator/Assets/rels/boot." + region + ".rel", "boot.rel");
+
+                    var asmFile = archive.CreateEntry("patch.asm");
+                    using (StreamWriter sw = new StreamWriter(asmFile.Open()))
+                    {
+                        var bootloaderAddr = "0x80005BF4:\n";
+                        switch (gameRegionOverride)
+                        {
+                            case GameRegion.GC_USA:
+                            case GameRegion.GC_JAP:
+                            case GameRegion.GC_EUR:
+                                bootloaderAddr = "0x80004D18:\n";
+                                break;
+                            case GameRegion.WII_10_USA:
+                            case GameRegion.WII_10_EU:
+                            case GameRegion.WII_10_JP:
+                                bootloaderAddr = "0x80005BF4:\n";
+                                break;
+                            default:
+                                throw new Exception("Did not specify output region");
+                        };
+                        sw.WriteLine(bootloaderAddr);
+                        var bootloaderBytes = File.ReadAllBytes("/app/generator/Assets/bootloader/" + region + ".bin");
+                        var bootloaderHex = string.Join("", bootloaderBytes.Select(b => b.ToString("X2").PadLeft(2, '0')));
+                        var regex = new Regex(@"([0-9a-fA-F]{1,8})");
+                        sw.Write(regex.Replace(bootloaderHex, "u32 0x$1\n"));
+                    }
+
+                    var seedFile = archive.CreateEntry("seed.bin");
+                    using (var seedStream = seedFile.Open())
+                    {
+                        seedStream.Write(seedBytes, 0, seedBytes.Length);
+                    }
+                }
+
+                patchBytes.AddRange(memoryStream.ToArray());
+            }
+
+            var filename = "Tpr-" + region + "-" + seedGenResults.playthroughName + "-" + seedId + ".patch";
+
+            Dictionary<string, object> dict = new()
+            {
+                { "name", filename },
+                { "length", patchBytes.Count }
+            };
+
+            return new(dict, patchBytes.ToArray());
         }
 
         private static Tuple<Dictionary<string, object>, byte[]> GenGciFileDef(
