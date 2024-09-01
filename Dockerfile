@@ -47,6 +47,9 @@ RUN cp -R Assets/CheckMetadata/Gamecube /app/generator/Assets/CheckMetadata
 RUN cp -R Assets/CheckMetadata/Wii1.0 /app/generator/Assets/CheckMetadata
 RUN cp -R Assets/HintDistributions /app/generator/Assets/HintDistributions
 RUN cp -R Assets/gci /app/generator/Assets/gci
+RUN cp -R Assets/bootloader /app/generator/Assets/bootloader
+RUN cp -R Assets/patch /app/generator/Assets/patch
+RUN cp -R Assets/rels /app/generator/Assets/rels
 
 FROM node:lts-alpine as node_base
 FROM mcr.microsoft.com/dotnet/runtime:8.0-alpine
@@ -77,6 +80,7 @@ ENV NODE_ENV=production
 
 COPY ./nginx.conf /usr/nginx.conf
 COPY ./start.sh /usr/start.sh
+RUN chmod +x /usr/start.sh
 
 ARG IMAGE_VERSION
 ENV IMAGE_VERSION $IMAGE_VERSION
