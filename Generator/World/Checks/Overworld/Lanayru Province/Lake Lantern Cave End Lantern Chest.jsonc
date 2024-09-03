@@ -1,5 +1,6 @@
 {
     "requirements": "canSmash and Lantern",
-    "checkCategory": ["Overworld", "Chest", "Lake Lantern Cave", "ARC"],
+    "glitchedRequirements": "canSmash and Lantern",
+    "checkCategory": ["Overworld", "Chest", "Lake Lantern Cave"],
     "itemId": "Piece_of_Heart"
 }

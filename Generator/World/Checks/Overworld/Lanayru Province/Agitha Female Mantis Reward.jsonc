@@ -1,5 +1,6 @@
 {
     "requirements": "Female_Mantis",
+    "glitchedRequirements": "Female_Mantis",
     "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
     "itemId": "Orange_Rupee"
 }

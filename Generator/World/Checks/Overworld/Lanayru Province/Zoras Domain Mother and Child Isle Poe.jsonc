@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal",
+    "glitchedRequirements": "Shadow_Crystal",
     "checkCategory": ["Overworld", "Poe", "Zoras Domain"],
     "itemId": "Poe_Soul"
 }

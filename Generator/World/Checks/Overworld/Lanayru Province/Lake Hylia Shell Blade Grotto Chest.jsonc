@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatShellBlade",
-    "checkCategory": ["Overworld", "Chest", "Lake Hylia", "DZX"],
+    "glitchedRequirements": "CanDefeatShellBlade",
+    "checkCategory": ["Overworld", "Chest", "Lake Hylia"],
     "itemId": "Orange_Rupee"
 }

@@ -1,5 +1,6 @@
 {
     "requirements": "Iron_Boots",
-    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "ARC"],
+    "glitchedRequirements": "HasHeavyMod",
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province"],
     "itemId": "Orange_Rupee"
 }

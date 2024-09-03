@@ -1,9 +1,0 @@
-{
-    "glitchedRequirements": "HasHeavyMod",
-    "hash": ["9D4D", "54E8"],
-    "stageIDX": [52, 52],
-    "dzxTag": ["", "TRES"],
-    "checkCategory": ["Overworld", "Chest", "Lake Hylia", "DZX"],
-    "itemId": "Orange_Rupee",
-    "actrData": [["53", "61", "76", "6D", "65", "6D", "00", "00", "00", "00", "00", "86", "C7", "D6", "FC", "55", "44", "4D", "ED", "15", "46", "E9", "17", "C6", "FF", "FF", "FF", "FF", "FF", "C7", "FF", "FF"], ["74", "62", "6F", "78", "42", "30", "00", "00", "FF", "1F", "F1", "40", "C7", "BD", "B1", "C6", "C6", "98", "44", "00", "47", "64", "D9", "B3", "00", "00", "9F", "4A", "06", "FF", "FF", "FF"]]
-}

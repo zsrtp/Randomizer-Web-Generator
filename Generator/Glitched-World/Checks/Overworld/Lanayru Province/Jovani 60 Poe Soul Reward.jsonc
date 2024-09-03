@@ -1,9 +1,0 @@
-{
-    "glitchedRequirements": "(Poe_Soul, 60)",
-    "arcOffsets": ["42A7"],
-    "stageIDX": [73],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "checkCategory": ["Overworld", "Npc", "Castle Town", "ARC"],
-    "itemId": "Silver_Rupee"
-}

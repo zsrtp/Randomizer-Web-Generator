@@ -1,9 +1,0 @@
-{
-    "glitchedRequirements": "Shadow_Crystal",
-    "arcOffsets": ["FF7"],
-    "stageIDX": [61],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "checkCategory": ["Overworld", "Npc", "Lake Hylia", "ARC"],
-    "itemId": "Piece_of_Heart"
-}
