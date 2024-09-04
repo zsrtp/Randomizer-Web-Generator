@@ -5,7 +5,8 @@
         [
           {
             "ConnectedArea": "South Faron Woods",
-            "Requirements": "CanDefeatDiababa"
+            "Requirements": "CanDefeatDiababa",
+            "GlitchedRequirements": "CanDefeatDiababa"
           }
         ],
         "Checks": 
@@ -21,11 +22,13 @@
         [
           {
             "ConnectedArea": "Forest Temple Lobby",
-            "Requirements": "true"
+            "Requirements": "true",
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Forest Temple North Wing",
-            "Requirements": "true"
+            "Requirements": "true",
+            "GlitchedRequirements": "true"
           }
         ],
         "Checks": 
@@ -42,11 +45,13 @@
         [
           {
             "ConnectedArea": "North Faron Woods",
-            "Requirements": "true"
+            "Requirements": "true",
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Forest Temple Lobby",
-            "Requirements": "CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage"
+            "Requirements": "CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage",
+            "GlitchedRequirements": "CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage"
           }
         ],
         "Checks": 
@@ -61,19 +66,23 @@
         [
             {
               "ConnectedArea": "Forest Temple Entrance",
-                "Requirements": "true"
+                "Requirements": "true",
+                "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Forest Temple East Wing",
-                "Requirements": "true"
+                "Requirements": "true",
+                "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Forest Temple West Wing",
-                "Requirements": "canBurnWebs and ((((Forest_Temple_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)) and CanDefeatBokoblin) or (Progressive_Clawshot, 1))"
+                "Requirements": "canBurnWebs and ((((Forest_Temple_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)) and CanDefeatBokoblin) or (Progressive_Clawshot, 1))",
+                "GlitchedRequirements": "canBurnWebs and ((((Forest_Temple_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)) and CanDefeatBokoblin) or (Progressive_Clawshot, 1) or CanDoLJA)"
             },
             {
               "ConnectedArea": "Ook",
-                "Requirements": "Lantern and CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage and ((Forest_Temple_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
+                "Requirements": "Lantern and CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage and ((Forest_Temple_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))",
+                "GlitchedRequirements": "(Room.Forest_Temple_West_Wing and CanDoLJA) or (Lantern and CanDefeatBombling and CanDefeatWalltula and CanDefeatBigBaba and CanDefeatBokoblin and canBreakMonkeyCage and ((Forest_Temple_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)))"
             }
         ], 
         "Checks": 
@@ -90,11 +99,13 @@
         [
             {
               "ConnectedArea": "Forest Temple East Wing",
-              "Requirements": "true"
+              "Requirements": "true",
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Forest Temple Boss Room",
-              "Requirements": "(Forest_Temple_Big_Key or (Setting.bigKeySettings equals Keysy)) and Boomerang and (canFreeAllMonkeys or (Progressive_Clawshot, 1))"
+              "Requirements": "(Forest_Temple_Big_Key or (Setting.bigKeySettings equals Keysy)) and Boomerang and (canFreeAllMonkeys or (Progressive_Clawshot, 1))",
+              "GlitchedRequirements": "(Forest_Temple_Big_Key or (Setting.bigKeySettings equals Keysy)) and (CanDoLJA or (Boomerang and (canFreeAllMonkeys or (Progressive_Clawshot, 1))))"
             }
         ],
         "Checks": 
@@ -111,11 +122,13 @@
         [
           {
             "ConnectedArea": "Forest Temple Lobby",
-            "Requirements": "true"
+            "Requirements": "true",
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Ook",
-            "Requirements": "Boomerang"
+            "Requirements": "Boomerang",
+            "GlitchedRequirements": "Boomerang or Shadow_Crystal or HasSword or hasBombs"
           }
         ],
         "Checks": 
@@ -134,7 +147,8 @@
         [
           {
             "ConnectedArea": "Forest Temple West Wing",
-            "Requirements": "CanDefeatOok and Boomerang"
+            "Requirements": "CanDefeatOok and Boomerang",
+            "GlitchedRequirements": "CanDefeatOok and Boomerang"
           }
         ],
         "Checks": ["Forest Temple Gale Boomerang"], 
