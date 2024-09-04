@@ -5,11 +5,11 @@
       [
         {
           "ConnectedArea": "Snowpeak Climb Upper",
-          "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) or Shadow_Crystal"
+          "GlitchedRequirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) or Shadow_Crystal"
         },
         {
           "ConnectedArea": "Zoras Domain",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -24,19 +24,19 @@
       [
         {
           "ConnectedArea": "Snowpeak Climb Lower",
-          "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) or Shadow_Crystal"
+          "GlitchedRequirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) or Shadow_Crystal"
         },
         {
           "ConnectedArea": "Snowpeak Summit Upper",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         },
         {
           "ConnectedArea": "Snowpeak Ice Keese Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         },
         {
           "ConnectedArea": "Snowpeak Freezard Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         }
       ],
       "Checks":
@@ -53,7 +53,7 @@
       [
         {
           "ConnectedArea": "Snowpeak Climb Upper",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -65,7 +65,7 @@
       [
         {
           "ConnectedArea": "Snowpeak Climb Upper",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -80,11 +80,11 @@
       [
         {
           "ConnectedArea": "Snowpeak Summit Lower",
-          "Requirements": "CanDefeatShadowBeast and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy)))"
+          "GlitchedRequirements": "CanDefeatShadowBeast and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy)))"
         },
         {
           "ConnectedArea": "Snowpeak Climb Upper",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         }
       ],
       "Checks":
@@ -101,11 +101,11 @@
       [
         {
           "ConnectedArea": "Snowpeak Ruins Left Door",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Snowpeak Ruins Right Door",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":

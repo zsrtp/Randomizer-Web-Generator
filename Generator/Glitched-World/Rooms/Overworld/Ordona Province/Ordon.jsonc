@@ -5,15 +5,15 @@
       [
         {
           "ConnectedArea": "Ordon Village",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Ordon Spring",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Ordon Links House",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -25,7 +25,7 @@
       [
         {
           "ConnectedArea": "Outside Links House",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -41,31 +41,31 @@
       [
         {
           "ConnectedArea": "Outside Links House",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Ordon Ranch Entrance",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Ordon Seras Shop",
-          "Requirements": "CanChangeTime"
+          "GlitchedRequirements": "CanChangeTime"
         },
         {
           "ConnectedArea": "Ordon Shield House",
-          "Requirements": "CanChangeTime"
+          "GlitchedRequirements": "CanChangeTime"
         },
         {
           "ConnectedArea": "Ordon Sword House",
-          "Requirements": "CanChangeTime"
+          "GlitchedRequirements": "CanChangeTime"
         },
         {
           "ConnectedArea": "Ordon Bos House Left Door",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Ordon Bos House Right Door",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -80,7 +80,7 @@
       [
         {
           "ConnectedArea": "Ordon Village",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -96,7 +96,7 @@
       [
         {
           "ConnectedArea": "Ordon Village",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -111,7 +111,7 @@
       [
         {
           "ConnectedArea": "Ordon Village",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -126,11 +126,11 @@
       [
         {
           "ConnectedArea": "Ordon Village",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Ordon Bos House",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -142,11 +142,11 @@
       [
         {
           "ConnectedArea": "Ordon Village",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Ordon Bos House",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -158,11 +158,11 @@
       [
         {
           "ConnectedArea": "Ordon Bos House Left Door",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Ordon Bos House Right Door",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [
@@ -176,11 +176,11 @@
       [
         {
           "ConnectedArea": "Ordon Ranch",
-          "Requirements": "CanChangeTime"
+          "GlitchedRequirements": "CanChangeTime"
         },
         {
           "ConnectedArea": "Ordon Village",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -192,11 +192,11 @@
       [
         {
           "ConnectedArea": "Ordon Ranch Entrance",
-          "Requirements": "CanChangeTime"
+          "GlitchedRequirements": "CanChangeTime"
         },
         {
           "ConnectedArea": "Ordon Ranch Stable",
-          "Requirements": "CanChangeTime"
+          "GlitchedRequirements": "CanChangeTime"
         }
       ],
       "Checks":
@@ -211,11 +211,11 @@
       [
         {
           "ConnectedArea": "Ordon Ranch",
-          "Requirements": "CanChangeTime"
+          "GlitchedRequirements": "CanChangeTime"
         },
         {
           "ConnectedArea": "Ordon Ranch Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         }
       ],
       "Checks": [""],
@@ -227,7 +227,7 @@
       [
         {
           "ConnectedArea": "Ordon Ranch Stable",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -242,11 +242,11 @@
       [
         {
           "ConnectedArea": "Outside Links House",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Ordon Bridge",
-          "Requirements": "true" // Gate clip
+          "GlitchedRequirements": "true" // Gate clip
         }
       ],
       "Checks":
@@ -261,11 +261,11 @@
       [
         {
           "ConnectedArea": "Ordon Spring",
-          "Requirements": "(HasSword and Slingshot) or (Setting.skipPrologue equals True)"
+          "GlitchedRequirements": "(HasSword and Slingshot) or (Setting.skipPrologue equals True)"
         },
         {
           "ConnectedArea": "South Faron Woods",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":

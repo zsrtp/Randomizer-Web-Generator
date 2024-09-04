@@ -5,63 +5,63 @@
         [
         {
             "ConnectedArea": "Upper Kakariko Village",
-            "Requirements": "canCompleteGoronMines or canSmash"
+            "GlitchedRequirements": "canCompleteGoronMines or canSmash"
         },
         {
             "ConnectedArea": "Kakariko Village Behind Gate",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Gorge Behind Gate",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Graveyard",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Death Mountain Near Kakariko",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary Front Left Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary Front Right Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary Back Left Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary Back Right Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Malo Mart",
-            "Requirements": "CanChangeTime"
+            "GlitchedRequirements": "CanChangeTime"
         },
         {
             "ConnectedArea": "Kakariko Elde Inn Left Door",
-            "Requirements": "CanChangeTime"
+            "GlitchedRequirements": "CanChangeTime"
         },
         {
             "ConnectedArea": "Kakariko Elde Inn Right Door",
-            "Requirements": "CanChangeTime"
+            "GlitchedRequirements": "CanChangeTime"
         },
         {
             "ConnectedArea": "Kakariko Bug House Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Bug House Ceiling Hole",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Barnes Bomb Shop Lower",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks":
@@ -77,23 +77,23 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Top of Watchtower",
-            "Requirements": "canCompleteGoronMines"
+            "GlitchedRequirements": "canCompleteGoronMines"
         },
         {
             "ConnectedArea": "Kakariko Barnes Bomb Shop Upper",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Watchtower Lower Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Watchtower Dig Spot",
-            "Requirements": "Shadow_Crystal"
+            "GlitchedRequirements": "Shadow_Crystal"
         }
         ],
         "Checks":
@@ -110,11 +110,11 @@
         [
         {
             "ConnectedArea": "Upper Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Watchtower Upper Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks":
@@ -129,11 +129,11 @@
         [
           {
             "ConnectedArea": "Kakariko Top of Watchtower",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Kakariko Watchtower",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           }
         ],
         "Checks": [""],
@@ -145,11 +145,11 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)" // or access to epona
+            "GlitchedRequirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)" // or access to epona
         },
         {
             "ConnectedArea": "Eldin Field",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -161,11 +161,11 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -177,11 +177,11 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -193,11 +193,11 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -209,11 +209,11 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -225,23 +225,23 @@
         [
         {
             "ConnectedArea": "Kakariko Renados Sanctuary Front Left Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary Front Right Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary Back Left Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary Back Right Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Renados Sanctuary Basement",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks":
@@ -257,7 +257,7 @@
         [
             {
                 "ConnectedArea": "Kakariko Renados Sanctuary",
-                "Requirements": "true"
+                "GlitchedRequirements": "true"
             }
         ],
         "Checks":
@@ -272,7 +272,7 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks":
@@ -290,11 +290,11 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Elde Inn",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -306,11 +306,11 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Elde Inn",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -322,11 +322,11 @@
         [
         {
             "ConnectedArea": "Kakariko Elde Inn Left Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Elde Inn Right Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks":
@@ -341,11 +341,11 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Bug House",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -357,11 +357,11 @@
         [
         {
             "ConnectedArea": "Kakariko Bug House",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -373,11 +373,11 @@
         [
         {
             "ConnectedArea": "Kakariko Bug House Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Bug House Ceiling Hole",
-            "Requirements": "Shadow_Crystal"
+            "GlitchedRequirements": "Shadow_Crystal"
         }
         ],
         "Checks":
@@ -392,11 +392,11 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Barnes Bomb Shop Upper",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks":
@@ -411,11 +411,11 @@
         [
         {
             "ConnectedArea": "Upper Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Barnes Bomb Shop Lower",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -427,11 +427,11 @@
         [
         {
             "ConnectedArea": "Upper Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Watchtower",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -443,11 +443,11 @@
         [
         {
             "ConnectedArea": "Upper Kakariko Village",
-            "Requirements": "Shadow_Crystal"
+            "GlitchedRequirements": "Shadow_Crystal"
         },
         {
             "ConnectedArea": "Kakariko Watchtower",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": [""],
@@ -459,15 +459,15 @@
         [
         {
             "ConnectedArea": "Kakariko Watchtower Lower Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Watchtower Dig Spot",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Kakariko Watchtower Upper Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks":
@@ -482,11 +482,11 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Lake Hylia",
-            "Requirements": "(HasHeavyMod and CanUseWaterBombs and Gate_Keys) or ((HasHeavyMod or Zora_Armor) and ((hasBombs and (HasSword or Spinner)) or CanDoLJA or CanDoMoonBoots))"
+            "GlitchedRequirements": "(HasHeavyMod and CanUseWaterBombs and Gate_Keys) or ((HasHeavyMod or Zora_Armor) and ((hasBombs and (HasSword or Spinner)) or CanDoLJA or CanDoMoonBoots))"
         }
         ],
         "Checks":

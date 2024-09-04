@@ -5,19 +5,19 @@
       [
         {
           "ConnectedArea": "Lanayru Field",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Fishing Hole",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Zoras Domain",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Upper Zoras River Izas House",
-          "Requirements": "HasSword or (CanDefeatShadowBeast and (Setting.transformAnywhere equals True))"
+          "GlitchedRequirements": "HasSword or (CanDefeatShadowBeast and (Setting.transformAnywhere equals True))"
         }
       ],
       "Checks":
@@ -33,11 +33,11 @@
       [
         {
           "ConnectedArea": "Upper Zoras River",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Lake Hylia",
-          "Requirements": "(Progressive_Bow, 1)"
+          "GlitchedRequirements": "(Progressive_Bow, 1)"
         }
       ],
       "Checks":
@@ -53,11 +53,11 @@
       [
         {
           "ConnectedArea": "Upper Zoras River",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Fishing Hole House",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -73,7 +73,7 @@
       [
         {
           "ConnectedArea": "Fishing Hole",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -85,19 +85,19 @@
       [
         {
           "ConnectedArea": "Zoras Domain West Ledge",
-          "Requirements": "(Progressive_Clawshot, 1) or Shadow_Crystal or canSmash"
+          "GlitchedRequirements": "(Progressive_Clawshot, 1) or Shadow_Crystal or canSmash"
         },
         {
           "ConnectedArea": "Upper Zoras River",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Zoras Throne Room",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Snowpeak Climb Lower",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -116,11 +116,11 @@
       [
         {
           "ConnectedArea": "Zoras Domain",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Lanayru Field Behind Boulder",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -132,7 +132,7 @@
       [
         {
           "ConnectedArea": "Zoras Domain",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":

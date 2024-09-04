@@ -5,11 +5,11 @@
         [
           {
             "ConnectedArea": "Snowpeak Ruins Entrance",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Snowpeak Summit Lower",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           }
         ],
         "Checks": [""],
@@ -21,11 +21,11 @@
         [
 		  {
 		    "ConnectedArea": "Snowpeak Ruins Entrance",
-			"Requirements": "true"
+			"GlitchedRequirements": "true"
 		  },
           {
             "ConnectedArea": "Snowpeak Summit Lower",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           }
         ],
         "Checks": [""],
@@ -37,7 +37,7 @@
         [
           {
             "ConnectedArea": "Snowpeak Summit Lower",
-            "Requirements": "CanDefeatBlizzeta"
+            "GlitchedRequirements": "CanDefeatBlizzeta"
           }
         ],
         "Checks": 
@@ -53,36 +53,36 @@
         [
         {
             "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Snowpeak Ruins Second Floor Mini Freezard Room",
             // You can either use the key or you can break the ice in the lobby with B&C and clawshot across.
-            "Requirements": "Ball_and_Chain and (((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) or (Progressive_Clawshot, 1))"
+            "GlitchedRequirements": "Ball_and_Chain and (((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) or (Progressive_Clawshot, 1))"
         },
         {
             "ConnectedArea": "Snowpeak Ruins Wooden Beam Room",
-            "Requirements": "Ball_and_Chain"
+            "GlitchedRequirements": "Ball_and_Chain"
         },
         {
             "ConnectedArea": "Snowpeak Ruins West Courtyard",
             // If coming from the Lobby, 2F floor clip is in logic, which explains the lack of the B&C requirement. 
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Snowpeak Ruins Chapel",
           // If coming from the Lobby, 2F floor clip is in logic, which explains the lack of the B&C requirement. Then you can Freezard Ladder Cancel
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Snowpeak Ruins Boss Room",
           // If coming from the Lobby, 2F floor clip is in logic, which explains the lack of the B&C requirement. Then you can Freezard Ladder Cancel
-          "Requirements": "(Snowpeak_Ruins_Bedroom_Key or (Setting.bigKeySettings equals Keysy))"
+          "GlitchedRequirements": "(Snowpeak_Ruins_Bedroom_Key or (Setting.bigKeySettings equals Keysy))"
         },
         {
           "ConnectedArea": "Snowpeak Ruins Caged Freezard Room Lower",
           // Breaking the floor
-          "Requirements": "canSmash"
+          "GlitchedRequirements": "canSmash"
         }
       ],
         "Checks": 
@@ -98,11 +98,11 @@
         [
         {
             "ConnectedArea": "Snowpeak Ruins Caged Freezard Room",
-            "Requirements": "(Progressive_Clawshot, 1)"
+            "GlitchedRequirements": "(Progressive_Clawshot, 1)"
         },
         {
             "ConnectedArea": "Snowpeak Ruins Entrance",
-            "Requirements": "CanDoLJA"
+            "GlitchedRequirements": "CanDoLJA"
         }
         ],
         "Checks": 
@@ -117,7 +117,7 @@
         [
           {
             "ConnectedArea": "Snowpeak Ruins West Courtyard",
-            "Requirements": "CanDefeatChilfos"
+            "GlitchedRequirements": "CanDefeatChilfos"
           }
         ],
         "Checks": 
@@ -132,7 +132,7 @@
         [
           {
             "ConnectedArea": "Snowpeak Ruins West Courtyard",
-            "Requirements": "CanDefeatDarkhammer"
+            "GlitchedRequirements": "CanDefeatDarkhammer"
           }
         ],
         "Checks": 
@@ -148,16 +148,16 @@
         [
           {
             "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
-            "Requirements": "Shadow_Crystal or Ball_and_Chain"
+            "GlitchedRequirements": "Shadow_Crystal or Ball_and_Chain"
           },
           {
             "ConnectedArea": "Snowpeak Ruins West Courtyard",
-            "Requirements": "Ball_and_Chain"
+            "GlitchedRequirements": "Ball_and_Chain"
           },
           {
             //If coming from the first floor, you need the key requirement and to be able to defeat the Mini Freezards. If coming from the second floor, you need to be able to break the ice in the lobby and the ice in the switch room.
             "ConnectedArea": "Snowpeak Ruins Northeast Chilfos Room First Floor",
-            "Requirements": "(((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and CanDefeatMiniFreezard) or (Ball_and_Chain and (Progressive_Clawshot, 1))"
+            "GlitchedRequirements": "(((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) and CanDefeatMiniFreezard) or (Ball_and_Chain and (Progressive_Clawshot, 1))"
           }
         ],
         "Checks": 
@@ -173,19 +173,19 @@
         [
           {
             "ConnectedArea": "Snowpeak Ruins Left Door",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
 		  {
 		    "ConnectedArea": "Snowpeak Ruins Right Door",
-			"Requirements": "true"
+			"GlitchedRequirements": "true"
 		  },
           {
             "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           }, 
           {
             "ConnectedArea": "Snowpeak Ruins Caged Freezard Room Lower",
-            "Requirements": "CanDoLJA"
+            "GlitchedRequirements": "CanDoLJA"
           }
         ],
         "Checks": 
@@ -204,16 +204,16 @@
         [
           {
             "ConnectedArea": "Snowpeak Ruins East Courtyard",
-            "Requirements": "((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
+            "GlitchedRequirements": "((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
           },
           {
             "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
-            "Requirements": "CanDefeatChilfos"
+            "GlitchedRequirements": "CanDefeatChilfos"
           },
           {
             "ConnectedArea": "Snowpeak Ruins Northeast Chilfos Room Second Floor",
             // LJA in ice block room
-            "Requirements": "CanDoLJA"
+            "GlitchedRequirements": "CanDoLJA"
           }
         ],
         "Checks": 
@@ -228,11 +228,11 @@
         [
           {
             "ConnectedArea": "Snowpeak Ruins Northeast Chilfos Room First Floor",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
-            "Requirements": "Ball_and_Chain"
+            "GlitchedRequirements": "Ball_and_Chain"
           }
         ],
         "Checks": 
@@ -247,20 +247,20 @@
           [
             {
               "ConnectedArea": "Snowpeak Ruins Entrance",
-              "Requirements": "true"
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
-              "Requirements": "true"
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Snowpeak Ruins Northeast Chilfos Room Second Floor",
               // LJA in ice block room
-              "Requirements": "(Ball_and_Chain and (Progressive_Clawshot, 1) and CanDefeatChilfos) or CanDoLJA"
+              "GlitchedRequirements": "(Ball_and_Chain and (Progressive_Clawshot, 1) and CanDefeatChilfos) or CanDoLJA"
             },
             {
               "ConnectedArea": "Snowpeak Ruins Caged Freezard Room",
-              "Requirements": "((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) or (Ball_and_Chain and (Progressive_Clawshot, 1))"
+              "GlitchedRequirements": "((Snowpeak_Ruins_Small_Key, 4) or (Setting.smallKeySettings equals Keysy)) or (Ball_and_Chain and (Progressive_Clawshot, 1))"
             }
           ],
           "Checks": 
@@ -275,11 +275,11 @@
         [
           {
             "ConnectedArea": "Snowpeak Ruins West Courtyard",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Snowpeak Ruins Wooden Beam Room",
-            "Requirements": "canSmash"
+            "GlitchedRequirements": "canSmash"
           }
         ], 
         "Checks": 
@@ -295,31 +295,31 @@
         [
           {
             "ConnectedArea": "Snowpeak Ruins Yeto and Yeta",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Snowpeak Ruins East Courtyard",
             // Break the ice or freezard ladder cancel and jump to east side from boss door
-            "Requirements": "Ball_and_Chain or (Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)"
+            "GlitchedRequirements": "Ball_and_Chain or (Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)"
           },
           {
             "ConnectedArea": "Snowpeak Ruins West Cannon Room",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Snowpeak Ruins Chapel",
             // Freezard Ladder Cancel
-            "Requirements": "(Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)"
+            "GlitchedRequirements": "(Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)"
           },
           {
             "ConnectedArea": "Snowpeak Ruins Darkhammer Room",
             //Don't require gate to be unlocked for cannonballs if we have Cheese since we can get to the other side by going through Yeta's room. We can also just wolf clip in.
-            "Requirements": "Ball_and_Chain or ((((Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)) and hasBombs) or (Shadow_Crystal and (Setting.damageMagnification not_equal OHKO))"
+            "GlitchedRequirements": "Ball_and_Chain or ((((Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese) or (Setting.smallKeySettings equals Keysy)) and hasBombs) or (Shadow_Crystal and (Setting.damageMagnification not_equal OHKO))"
           },
           {
             "ConnectedArea": "Snowpeak Ruins Boss Room",
             // Freezard Ladder Cancel
-            "Requirements": "((Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)) and (Snowpeak_Ruins_Bedroom_Key or (Setting.bigKeySettings equals Keysy))"
+            "GlitchedRequirements": "((Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)) and (Snowpeak_Ruins_Bedroom_Key or (Setting.bigKeySettings equals Keysy))"
           }
         ],
         "Checks": 
@@ -335,7 +335,7 @@
         [
         {
             "ConnectedArea": "Snowpeak Ruins West Cannon Room",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": 
@@ -352,19 +352,19 @@
         [
           {
             "ConnectedArea": "Snowpeak Ruins Entrance",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Snowpeak Ruins Caged Freezard Room",
-            "Requirements": "Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)"
+            "GlitchedRequirements": "Snowpeak_Ruins_Ordon_Goat_Cheese or (Setting.smallKeySettings equals Keysy)"
           },
           {
             "ConnectedArea": "Snowpeak Ruins West Courtyard",
-            "Requirements": "Snowpeak_Ruins_Ordon_Pumpkin or (Setting.smallKeySettings equals Keysy)"
+            "GlitchedRequirements": "Snowpeak_Ruins_Ordon_Pumpkin or (Setting.smallKeySettings equals Keysy)"
           },
           {
             "ConnectedArea": "Snowpeak Ruins East Courtyard",
-            "Requirements": "Shadow_Crystal or Ball_and_Chain"
+            "GlitchedRequirements": "Shadow_Crystal or Ball_and_Chain"
           }
         ],
         "Checks": 

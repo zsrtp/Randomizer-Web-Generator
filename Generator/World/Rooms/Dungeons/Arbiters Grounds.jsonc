@@ -5,11 +5,13 @@
         [
           {
             "ConnectedArea": "Outside Arbiters Grounds",
-            "Requirements": "true"
+            "Requirements": "true",
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Arbiters Grounds Lobby",
-            "Requirements": "((Arbiters_Grounds_Small_Key,1) or (Setting.smallKeySettings equals Keysy)) and Lantern"
+            "Requirements": "((Arbiters_Grounds_Small_Key,1) or (Setting.smallKeySettings equals Keysy)) and Lantern",
+            "GlitchedRequirements": "((Arbiters_Grounds_Small_Key,1) or (Setting.smallKeySettings equals Keysy)) and Lantern"
           }
         ],
         "Checks": 
@@ -24,19 +26,23 @@
           [
             {
               "ConnectedArea": "Arbiters Grounds Entrance",
-              "Requirements": "true"
+              "Requirements": "true",
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Arbiters Grounds East Wing",
-              "Requirements": "true"
+              "Requirements": "true",
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Arbiters Grounds West Wing",
-              "Requirements": "true"
+              "Requirements": "true",
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Arbiters Grounds After Poe Gate",
-              "Requirements": "CanDefeatPoe and Shadow_Crystal and (Progressive_Clawshot, 1) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat and CanDefeatStalfos and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
+              "Requirements": "CanDefeatPoe and Shadow_Crystal and (Progressive_Clawshot, 1) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat and CanDefeatStalfos and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))",
+              "GlitchedRequirements": "CanDefeatPoe and Shadow_Crystal and (Progressive_Clawshot, 1) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat and CanDefeatStalfos and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
             }
           ],
           "Checks": 
@@ -53,7 +59,8 @@
         [
           {
             "ConnectedArea": "Arbiters Grounds Lobby",
-            "Requirements": "true"
+            "Requirements": "true",
+            "GlitchedRequirements": "true"
           }
         ],
         "Checks": 
@@ -73,7 +80,8 @@
         [
           {
             "ConnectedArea": "Arbiters Grounds Lobby",
-            "Requirements": "true"
+            "Requirements": "true",
+            "GlitchedRequirements": "true"
           }
         ],
         "Checks": 
@@ -93,11 +101,13 @@
         [
           {
             "ConnectedArea": "Arbiters Grounds Lobby",
-            "Requirements": "true"
+            "Requirements": "true",
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Arbiters Grounds Boss Room",
-            "Requirements": "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysy))"
+            "Requirements": "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysy))",
+            "GlitchedRequirements": "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysy))"
           }
         ],
         "Checks": 
@@ -119,7 +129,8 @@
         [
           {
             "ConnectedArea": "Mirror Chamber Lower",
-            "Requirements": "CanDefeatStallord"
+            "Requirements": "CanDefeatStallord",
+            "GlitchedRequirements": "CanDefeatStallord"
           }
         ],
         "Checks": 

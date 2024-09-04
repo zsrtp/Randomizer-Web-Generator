@@ -5,15 +5,15 @@
       [
         {
           "ConnectedArea": "Lost Woods Lower Battle Arena",
-          "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or CanDoJSMoonBoots"
+          "GlitchedRequirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or CanDoJSMoonBoots"
         },
         {
           "ConnectedArea": "Lost Woods Upper Battle Arena",
-          "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
+          "GlitchedRequirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
         },
         {
           "ConnectedArea": "North Faron Woods",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": 
@@ -29,15 +29,15 @@
       [
         {
           "ConnectedArea": "Lost Woods",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Sacred Grove Lower",
-          "Requirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
+          "GlitchedRequirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
         },
         {
           "ConnectedArea": "Lost Woods Baba Serpent Grotto",
-          "Requirements": "canSmash and Shadow_Crystal"
+          "GlitchedRequirements": "canSmash and Shadow_Crystal"
         }
       ],
       "Checks":
@@ -53,7 +53,7 @@
       [
         {
           "ConnectedArea": "Sacred Grove Before Block",
-          "Requirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
+          "GlitchedRequirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
         }
       ],
       "Checks": [""],
@@ -65,7 +65,7 @@
       [
         {
           "ConnectedArea": "Lost Woods Lower Battle Arena",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -80,11 +80,11 @@
       [
         {
           "ConnectedArea": "Lost Woods Upper Battle Arena",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Sacred Grove Upper",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -96,11 +96,11 @@
       [
         {
           "ConnectedArea": "Sacred Grove Lower",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Sacred Grove Past",
-          "Requirements": "(Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or (Room.Sacred_Grove_Lower and (Progressive_Sword, 3) and CanDefeatShadowBeast)"
+          "GlitchedRequirements": "(Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or (Room.Sacred_Grove_Lower and (Progressive_Sword, 3) and CanDefeatShadowBeast)"
         }
       ],
       "Checks": [""],
@@ -112,11 +112,11 @@
       [
         {
           "ConnectedArea": "Lost Woods Lower Battle Arena",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Sacred Grove Upper",
-          "Requirements": "Room.Sacred_Grove_Before_Block or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or CanDoJSMoonBoots"
+          "GlitchedRequirements": "Room.Sacred_Grove_Before_Block or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or CanDoJSMoonBoots"
         }
       ],
       "Checks":
@@ -134,11 +134,11 @@
       [
         {
           "ConnectedArea": "Sacred Grove Past Behind Window",
-          "Requirements": "(Setting.totEntrance equals Open) or (Progressive_Sword, 3)"
+          "GlitchedRequirements": "(Setting.totEntrance equals Open) or (Progressive_Sword, 3)"
         },
         {
           "ConnectedArea": "Sacred Grove Upper",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -155,11 +155,11 @@
       [
         {
           "ConnectedArea": "Sacred Grove Past",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Temple of Time Entrance",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],

@@ -5,15 +5,15 @@
       [
         {
           "ConnectedArea": "Gerudo Desert Cave of Ordeals Plateau",
-          "Requirements": "(Progressive_Clawshot, 1) and CanDefeatShadowBeast"
+          "GlitchedRequirements": "(Progressive_Clawshot, 1) and CanDefeatShadowBeast"
         },
         {
           "ConnectedArea": "Gerudo Desert Basin",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Gerudo Desert Skulltula Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         }
       ],
       "Checks":
@@ -37,11 +37,11 @@
       [
         {
           "ConnectedArea": "Gerudo Desert",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Gerudo Desert Cave of Ordeals Floors 01-11",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -56,19 +56,19 @@
       [
         {
           "ConnectedArea": "Gerudo Desert",
-          "Requirements": "CanDefeatBulblin"
+          "GlitchedRequirements": "CanDefeatBulblin"
         },
         {
           "ConnectedArea": "Gerudo Desert North East Ledge",
-          "Requirements": "(Progressive_Clawshot, 1)"
+          "GlitchedRequirements": "(Progressive_Clawshot, 1)"
         },
         {
           "ConnectedArea": "Gerudo Desert Outside Bulblin Camp",
-          "Requirements": "CanDefeatBulblin"
+          "GlitchedRequirements": "CanDefeatBulblin"
         },
         {
           "ConnectedArea": "Gerudo Desert Chu Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         }
       ],
       "Checks": [
@@ -86,11 +86,11 @@
       [
         {
           "ConnectedArea": "Gerudo Desert Basin",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Gerudo Desert Rock Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         }
       ],
       "Checks":
@@ -105,11 +105,11 @@
       [
         {
           "ConnectedArea": "Gerudo Desert Basin",
-          "Requirements": "Room.Gerudo_Desert_Basin and CanDefeatBulblin"
+          "GlitchedRequirements": "Room.Gerudo_Desert_Basin and CanDefeatBulblin"
         },
         {
           "ConnectedArea": "Bulblin Camp",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -126,7 +126,7 @@
       [
         {
           "ConnectedArea": "Gerudo Desert",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -141,7 +141,7 @@
       [
         {
           "ConnectedArea": "Gerudo Desert Basin",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -153,7 +153,7 @@
       [
         {
           "ConnectedArea": "Gerudo Desert North East Ledge",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -170,11 +170,11 @@
       [
         {
           "ConnectedArea": "Outside Arbiters Grounds",
-          "Requirements": "(CanDefeatKingBulblinDesert and (Gerudo_Desert_Bulblin_Camp_Key or ((CanDoMapGlitch and HasSword) or (Setting.smallKeySettings equals Keysy)))) or (Setting.skipArbitersEntrance equals True)"
+          "GlitchedRequirements": "(CanDefeatKingBulblinDesert and (Gerudo_Desert_Bulblin_Camp_Key or ((CanDoMapGlitch and HasSword) or (Setting.smallKeySettings equals Keysy)))) or (Setting.skipArbitersEntrance equals True)"
         },
         {
           "ConnectedArea": "Gerudo Desert Outside Bulblin Camp",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -193,11 +193,11 @@
       [
         {
           "ConnectedArea": "Bulblin Camp",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Arbiters Grounds Entrance",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -213,11 +213,11 @@
       [
         {
           "ConnectedArea": "Arbiters Grounds Boss Room",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Mirror Chamber Upper",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -229,11 +229,11 @@
       [
         {
           "ConnectedArea": "Mirror Chamber Lower",
-          "Requirements": "CanDefeatShadowBeast"
+          "GlitchedRequirements": "CanDefeatShadowBeast"
         },
         {
           "ConnectedArea": "Mirror Chamber Portal",
-          "Requirements": "CanDefeatShadowBeast and ((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky))"
+          "GlitchedRequirements": "CanDefeatShadowBeast and ((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky))"
         }
       ],
       "Checks": [""],
@@ -245,11 +245,11 @@
       [
         {
           "ConnectedArea": "Mirror Chamber Upper",
-          "Requirements": "CanDefeatShadowBeast"
+          "GlitchedRequirements": "CanDefeatShadowBeast"
         },
         {
           "ConnectedArea": "Palace of Twilight Entrance",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],

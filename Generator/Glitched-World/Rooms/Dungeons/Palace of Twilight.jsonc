@@ -6,19 +6,19 @@
         [
           {
             "ConnectedArea": "Mirror Chamber Upper",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Palace of Twilight West Wing",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Palace of Twilight East Wing",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Palace of Twilight Central First Room",
-            "Requirements": "(Progressive_Sword, 4)"
+            "GlitchedRequirements": "(Progressive_Sword, 4)"
           }
         ],
         "Checks": 
@@ -33,7 +33,7 @@
         [
         {
             "ConnectedArea": "Palace of Twilight Entrance",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": 
@@ -52,7 +52,7 @@
         [
         {
             "ConnectedArea": "Palace of Twilight Entrance",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": 
@@ -74,11 +74,11 @@
         [
         {
             "ConnectedArea": "Palace of Twilight Entrance",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Palace of Twilight Outside Room",
-            "Requirements": "((Palace_of_Twilight_Small_Key, 5) or (Setting.smallKeySettings equals Keysy)) and (Progressive_Sword, 4)"
+            "GlitchedRequirements": "((Palace_of_Twilight_Small_Key, 5) or (Setting.smallKeySettings equals Keysy)) and (Progressive_Sword, 4)"
         }
         ],
         "Checks": 
@@ -93,11 +93,11 @@
         [
         {
             "ConnectedArea": "Palace of Twilight Central First Room",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Palace of Twilight North Tower",
-            "Requirements": "((Palace_of_Twilight_Small_Key, 6) or (Setting.smallKeySettings equals Keysy))"
+            "GlitchedRequirements": "((Palace_of_Twilight_Small_Key, 6) or (Setting.smallKeySettings equals Keysy))"
         }
         ],
         "Checks": 
@@ -113,11 +113,11 @@
         [
         {
             "ConnectedArea": "Palace of Twilight Outside Room",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Palace of Twilight Boss Room",
-            "Requirements": "CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatShadowBeast and (Progressive_Clawshot, 1) and ((Palace_of_Twilight_Small_Key, 7) or (Setting.smallKeySettings equals Keysy))"
+            "GlitchedRequirements": "CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatShadowBeast and (Progressive_Clawshot, 1) and ((Palace_of_Twilight_Small_Key, 7) or (Setting.smallKeySettings equals Keysy))"
         }
         ],
         "Checks": 
@@ -132,7 +132,7 @@
       [
         {
           "ConnectedArea": "Palace of Twilight Entrance",
-          "Requirements": "CanDefeatZant"
+          "GlitchedRequirements": "CanDefeatZant"
         }
       ],
       "Checks":

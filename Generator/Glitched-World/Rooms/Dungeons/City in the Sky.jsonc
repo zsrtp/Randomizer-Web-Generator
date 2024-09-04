@@ -5,7 +5,7 @@
         [
           {
             "ConnectedArea": "City in The Sky Entrance",
-            "Requirements": "CanDefeatArgorok"
+            "GlitchedRequirements": "CanDefeatArgorok"
           }
         ],
         "Checks": 
@@ -21,11 +21,11 @@
         [
         {
             "ConnectedArea": "City in The Sky West Wing",
-            "Requirements": "(Progressive_Clawshot, 2)"
+            "GlitchedRequirements": "(Progressive_Clawshot, 2)"
         },
         {
             "ConnectedArea": "City in The Sky Lobby",
-            "Requirements": "((Progressive_Clawshot, 1) and Iron_Boots and (Shadow_Crystal or CanDoLJA)) and (Setting.damageMagnification not_equal OHKO)"
+            "GlitchedRequirements": "((Progressive_Clawshot, 1) and Iron_Boots and (Shadow_Crystal or CanDoLJA)) and (Setting.damageMagnification not_equal OHKO)"
         }
         ],
         "Checks": 
@@ -44,7 +44,7 @@
         [
         {
             "ConnectedArea": "City in The Sky Lobby",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": 
@@ -64,11 +64,11 @@
         [
           {
             "ConnectedArea": "Lake Hylia",
-            "Requirements": "(Progressive_Clawshot, 1)"
+            "GlitchedRequirements": "(Progressive_Clawshot, 1)"
           },
           {
             "ConnectedArea": "City in The Sky Lobby",
-            "Requirements": "(Progressive_Clawshot, 1) or ((Progressive_Bow, 1) and CanDoLJA)"
+            "GlitchedRequirements": "(Progressive_Clawshot, 1) or ((Progressive_Bow, 1) and CanDoLJA)"
           }
         ],
         "Checks": 
@@ -84,25 +84,25 @@
         [
             {
                 "ConnectedArea": "City in The Sky Entrance",
-                "Requirements": "true"
+                "GlitchedRequirements": "true"
             },
             {
                 "ConnectedArea": "City in The Sky East Wing",
-                "Requirements": "Spinner and ((City_in_The_Sky_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+                "GlitchedRequirements": "Spinner and ((City_in_The_Sky_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
             },
             {
                 "ConnectedArea": "City in The Sky West Wing",
-                "Requirements": "(Progressive_Clawshot, 2)"
+                "GlitchedRequirements": "(Progressive_Clawshot, 2)"
             },
             // You can use only Double Claws to reach north wing. Thank Hab for this.
             {
                 "ConnectedArea": "City in The Sky North Wing",
-                "Requirements": "(Progressive_Clawshot, 2)"
+                "GlitchedRequirements": "(Progressive_Clawshot, 2)"
             },
             // Fan skip
             {
                 "ConnectedArea": "City in The Sky Central Tower Second Floor",
-                "Requirements": "Progressive_Clawshot and Shadow_Crystal"
+                "GlitchedRequirements": "Progressive_Clawshot and Shadow_Crystal"
             }
         ],
         "Checks": [""],
@@ -114,11 +114,11 @@
         [
             {
                 "ConnectedArea": "City in The Sky Lobby",
-                "Requirements": "true"
+                "GlitchedRequirements": "true"
             },
             {
                 "ConnectedArea": "City in The Sky Boss Room",
-                "Requirements": "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bigKeySettings equals Keysy))"
+                "GlitchedRequirements": "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bigKeySettings equals Keysy))"
             }
         ],
         "Checks": 
@@ -133,11 +133,11 @@
         [
           {
             "ConnectedArea": "City in The Sky Lobby",
-            "Requirements": "(Progressive_Clawshot, 2)"
+            "GlitchedRequirements": "(Progressive_Clawshot, 2)"
           },
           {
             "ConnectedArea": "City in The Sky Central Tower Second Floor",
-            "Requirements": "(Progressive_Clawshot, 2)"
+            "GlitchedRequirements": "(Progressive_Clawshot, 2)"
           }
         ],
         "Checks": 

@@ -5,7 +5,7 @@
         [
         {
             "ConnectedArea": "Lake Hylia Lanayru Spring",
-            "Requirements": "CanDefeatMorpheel"
+            "GlitchedRequirements": "CanDefeatMorpheel"
         }
         ],
         "Checks": 
@@ -21,24 +21,24 @@
           [
             {
               "ConnectedArea": "Lakebed Temple Entrance",
-              "Requirements": "true"
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Lakebed Temple East Wing Second Floor",
-              "Requirements": "((Lakebed_Temple_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+              "GlitchedRequirements": "((Lakebed_Temple_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
             },
             {
               "ConnectedArea": "Lakebed Temple East Wing First Floor",
-              "Requirements": "true"
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Lakebed Temple West Wing",
-              "Requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canSmash and (Progressive_Clawshot, 1)"
+              "GlitchedRequirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canSmash and (Progressive_Clawshot, 1)"
             },
             // BK Skip
             {
               "ConnectedArea": "Lakebed Temple Boss Room",
-              "Requirements": "((Progressive_Clawshot, 1) and ((Progressive_Sword, 1) or (Lakebed_Temple_Big_Key or (Setting.bigKeySettings equals Keysy)))) or CanDoLJA"
+              "GlitchedRequirements": "((Progressive_Clawshot, 1) and ((Progressive_Sword, 1) or (Lakebed_Temple_Big_Key or (Setting.bigKeySettings equals Keysy)))) or CanDoLJA"
             }
           ],
           "Checks": 
@@ -56,11 +56,11 @@
         [
           {
             "ConnectedArea": "Lakebed Temple Central Room",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Lakebed Temple East Wing First Floor",
-            "Requirements": "canLaunchBombs or (Progressive_Clawshot, 1)"
+            "GlitchedRequirements": "canLaunchBombs or (Progressive_Clawshot, 1)"
           }
         ],
         "Checks": 
@@ -80,11 +80,11 @@
         [
         {
             "ConnectedArea": "Lakebed Temple Central Room",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Lakebed Temple East Wing First Floor",
-            "Requirements": "canLaunchBombs or (Progressive_Clawshot, 1)"
+            "GlitchedRequirements": "canLaunchBombs or (Progressive_Clawshot, 1)"
         }
         ],
         "Checks": 
@@ -102,11 +102,11 @@
         [
           {
             "ConnectedArea": "Lake Hylia Lakebed Temple Entrance",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Lakebed Temple Central Room",
-            "Requirements": "CanDoAirRefill and (canLaunchBombs or CanDoLJA or CanDoJSMoonBoots)"
+            "GlitchedRequirements": "CanDoAirRefill and (canLaunchBombs or CanDoLJA or CanDoJSMoonBoots)"
           }
         ],
         "Checks": 
@@ -123,7 +123,7 @@
         [
           {
             "ConnectedArea": "Lakebed Temple Central Room",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           }
         ],
         "Checks": 

@@ -5,7 +5,7 @@
         [
           {
             "ConnectedArea": "Temple of Time Central Mechanical Platform",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           }
         ],
         "Checks": 
@@ -22,7 +22,7 @@
         [
           {
             "ConnectedArea": "Sacred Grove Past",
-            "Requirements": "CanDefeatArmogohma"
+            "GlitchedRequirements": "CanDefeatArmogohma"
           }
         ],
         "Checks": 
@@ -38,15 +38,15 @@
           [
             {
               "ConnectedArea": "Temple of Time Connecting Corridors",
-              "Requirements": "true"
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Temple of Time Armos Antechamber",
-              "Requirements": "Spinner or CanDoLJA"
+              "GlitchedRequirements": "Spinner or CanDoLJA"
             },
             {
               "ConnectedArea": "Temple of Time Moving Wall Hallways",
-              "Requirements": "(Spinner or CanDoLJA) and ((Temple_of_Time_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
+              "GlitchedRequirements": "(Spinner or CanDoLJA) and ((Temple_of_Time_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
             }
           ],
           "Checks": 
@@ -61,11 +61,11 @@
         [
           {
             "ConnectedArea": "Temple of Time Entrance",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Temple of Time Central Mechanical Platform",
-            "Requirements": "hasRangedItem and CanDefeatYoungGohma and CanDefeatLizalfos"
+            "GlitchedRequirements": "hasRangedItem and CanDefeatYoungGohma and CanDefeatLizalfos"
           }
         ],
         "Checks": 
@@ -82,11 +82,11 @@
           [
             {
               "ConnectedArea": "Temple of Time Entrance",
-              "Requirements": "true"
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Temple of Time Boss Room",
-              "Requirements": "(Progressive_Dominion_Rod, 1) and (Temple_of_Time_Big_Key or (Setting.bigKeySettings equals Keysy))"
+              "GlitchedRequirements": "(Progressive_Dominion_Rod, 1) and (Temple_of_Time_Big_Key or (Setting.bigKeySettings equals Keysy))"
             }
           ],
           "Checks": [""],
@@ -98,7 +98,7 @@
         [
           {
             "ConnectedArea": "Temple of Time Upper Spike Trap Corridor",
-            "Requirements": "CanDefeatDarknut and (Progressive_Dominion_Rod, 1)"
+            "GlitchedRequirements": "CanDefeatDarknut and (Progressive_Dominion_Rod, 1)"
           }
         ],
         "Checks": 
@@ -113,16 +113,16 @@
           [
             {
               "ConnectedArea": "Sacred Grove Past Behind Window",
-              "Requirements": "true"
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Temple of Time Connecting Corridors",
-              "Requirements": "((Temple_of_Time_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+              "GlitchedRequirements": "((Temple_of_Time_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
             },
             {
               "ConnectedArea": "Temple of Time Crumbling Corridor",
               // DoT Skip
-              "Requirements": "(Progressive_Dominion_Rod, 1) or (Setting.openDot equals True)"
+              "GlitchedRequirements": "(Progressive_Dominion_Rod, 1) or (Setting.openDot equals True)"
             }
           ],
           "Checks": 
@@ -137,7 +137,7 @@
         [
           {
             "ConnectedArea": "Temple of Time Scales of Time",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           }
         ],
         "Checks": 
@@ -153,11 +153,11 @@
         [
           {
             "ConnectedArea": "Temple of Time Central Mechanical Platform",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Temple of Time Scales of Time",
-            "Requirements": "(Progressive_Bow, 1) and CanDefeatLizalfos and CanDefeatDinalfos"
+            "GlitchedRequirements": "(Progressive_Bow, 1) and CanDefeatLizalfos and CanDefeatDinalfos"
           }
         ],
         "Checks": 
@@ -173,15 +173,15 @@
         [
           {
             "ConnectedArea": "Temple of Time Moving Wall Hallways",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Temple of Time Floor Switch Puzzle Room",
-            "Requirements": "(Progressive_Clawshot, 1) and Spinner"
+            "GlitchedRequirements": "(Progressive_Clawshot, 1) and Spinner"
           },
           {
             "ConnectedArea": "Temple of Time Upper Spike Trap Corridor",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           }
         ],
         "Checks": 
@@ -198,11 +198,11 @@
           [
             {
               "ConnectedArea": "Temple of Time Scales of Time",
-              "Requirements": "true"
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Temple of Time Darknut Arena",
-              "Requirements": "CanDefeatLizalfos and CanDefeatBabyGohma and CanDefeatYoungGohma and CanDefeatArmos and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
+              "GlitchedRequirements": "CanDefeatLizalfos and CanDefeatBabyGohma and CanDefeatYoungGohma and CanDefeatArmos and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
             }
           ],
           "Checks": 

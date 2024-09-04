@@ -5,7 +5,7 @@
         [
             {
                 "ConnectedArea": "Hyrule Castle Tower Climb",
-                "Requirements": "true"
+                "GlitchedRequirements": "true"
             }
         ],
         "Checks": [""], 
@@ -17,19 +17,19 @@
           [
             {
               "ConnectedArea": "Castle Town North Inside Barrier",
-              "Requirements": "true"
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Hyrule Castle Main Hall",
-              "Requirements": "((Hyrule_Castle_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+              "GlitchedRequirements": "((Hyrule_Castle_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
             },
             {
               "ConnectedArea": "Hyrule Castle Outside West Wing",
-              "Requirements": "CanDefeatBokoblinRed"
+              "GlitchedRequirements": "CanDefeatBokoblinRed"
             },
             {
               "ConnectedArea": "Hyrule Castle Outside East Wing",
-              "Requirements": "CanDefeatBokoblinRed"
+              "GlitchedRequirements": "CanDefeatBokoblinRed"
             }
           ],
           "Checks": [""],
@@ -41,7 +41,7 @@
         [
         {
             "ConnectedArea": "Hyrule Castle Outside East Wing",
-            "Requirements": "Shadow_Crystal"
+            "GlitchedRequirements": "Shadow_Crystal"
         }
         ],
         "Checks": 
@@ -59,11 +59,11 @@
         [
         {
             "ConnectedArea": "Hyrule Castle Main Hall",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Hyrule Castle Third Floor Balcony",
-            "Requirements": "Lantern and CanDefeatDinalfos"
+            "GlitchedRequirements": "Lantern and CanDefeatDinalfos"
         }
         ],
         "Checks": [""], 
@@ -75,11 +75,11 @@
         [
         {
             "ConnectedArea": "Hyrule Castle Main Hall",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Hyrule Castle Third Floor Balcony",
-            "Requirements": "canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut"
+            "GlitchedRequirements": "canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut"
         }
         ],
         "Checks": [""], 
@@ -91,15 +91,15 @@
         [
           {
             "ConnectedArea": "Hyrule Castle Entrance",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "Hyrule Castle Inside East Wing",
-            "Requirements": "CanDefeatBokoblin and CanDefeatLizalfos and Progressive_Clawshot and CanDefeatDarknut and Boomerang"
+            "GlitchedRequirements": "CanDefeatBokoblin and CanDefeatLizalfos and Progressive_Clawshot and CanDefeatDarknut and Boomerang"
           },
           {
             "ConnectedArea": "Hyrule Castle Inside West Wing",
-            "Requirements": "CanDefeatBokoblin and CanDefeatLizalfos and Progressive_Clawshot and CanDefeatDarknut and Boomerang"
+            "GlitchedRequirements": "CanDefeatBokoblin and CanDefeatLizalfos and Progressive_Clawshot and CanDefeatDarknut and Boomerang"
           }
         ],
         "Checks":
@@ -117,11 +117,11 @@
         [
         {
             "ConnectedArea": "Hyrule Castle Entrance",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         },
         {
             "ConnectedArea": "Hyrule Castle Graveyard",
-            "Requirements": "Shadow_Crystal"
+            "GlitchedRequirements": "Shadow_Crystal"
         }
         ],
         "Checks": 
@@ -137,7 +137,7 @@
         [
         {
             "ConnectedArea": "Hyrule Castle Entrance",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": 
@@ -154,15 +154,15 @@
         [
         {
             "ConnectedArea": "Hyrule Castle Inside West Wing",
-            "Requirements": "CanDefeatDarknut and CanDefeatLizalfos and canKnockDownHCPainting"
+            "GlitchedRequirements": "CanDefeatDarknut and CanDefeatLizalfos and canKnockDownHCPainting"
         },
         {
             "ConnectedArea": "Hyrule Castle Inside East Wing",
-            "Requirements": "Lantern and CanDefeatDinalfos"
+            "GlitchedRequirements": "Lantern and CanDefeatDinalfos"
         },
         {
             "ConnectedArea": "Hyrule Castle Tower Climb",
-            "Requirements": "((Hyrule_Castle_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
+            "GlitchedRequirements": "((Hyrule_Castle_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
         }
         ],
         "Checks": 
@@ -178,15 +178,15 @@
           [
             {
               "ConnectedArea": "Hyrule Castle Third Floor Balcony",
-              "Requirements": "true"
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Hyrule Castle Treasure Room",
-              "Requirements": "((Hyrule_Castle_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and (Spinner or CanDoJSLJA) and Progressive_Clawshot and CanDefeatDarknut and CanDefeatLizalfos"
+              "GlitchedRequirements": "((Hyrule_Castle_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and (Spinner or CanDoJSLJA) and Progressive_Clawshot and CanDefeatDarknut and CanDefeatLizalfos"
             },
             {
               "ConnectedArea": "Ganondorf Castle",
-              "Requirements": "(Spinner or CanDoJSLJA) and Progressive_Clawshot and CanDefeatDarknut and CanDefeatLizalfos and (Hyrule_Castle_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatGanondorf"
+              "GlitchedRequirements": "(Spinner or CanDoJSLJA) and Progressive_Clawshot and CanDefeatDarknut and CanDefeatLizalfos and (Hyrule_Castle_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatGanondorf"
             }
           ],
           "Checks": [""],
@@ -198,7 +198,7 @@
         [
         {
             "ConnectedArea": "Hyrule Castle Tower Climb",
-            "Requirements": "true"
+            "GlitchedRequirements": "true"
         }
         ],
         "Checks": 

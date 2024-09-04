@@ -5,11 +5,11 @@
       [
         {
           "ConnectedArea": "Eldin Field Outside Hidden Village",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Hidden Village Impaz House",
-          "Requirements": "(Progressive_Bow, 1) and (Progressive_Dominion_Rod, 1)"
+          "GlitchedRequirements": "(Progressive_Bow, 1) and (Progressive_Dominion_Rod, 1)"
         }
       ],
       "Checks":
@@ -27,7 +27,7 @@
       [
         {
           "ConnectedArea": "Hidden Village",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":

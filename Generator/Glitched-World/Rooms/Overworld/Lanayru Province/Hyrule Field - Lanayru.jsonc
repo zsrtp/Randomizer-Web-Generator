@@ -5,35 +5,35 @@
       [
         {
           "ConnectedArea": "Lanayru Field Cave Entrance",
-          "Requirements": "canSmash"
+          "GlitchedRequirements": "canSmash"
         },
         {
           "ConnectedArea": "Lanayru Field Behind Boulder",
-          "Requirements": "canSmash or CanDoMapGlitch"
+          "GlitchedRequirements": "canSmash or CanDoMapGlitch"
         },
         {
           "ConnectedArea": "Hyrule Field Near Spinner Rails",
-          "Requirements": "canSmash or CanDoMapGlitch"
+          "GlitchedRequirements": "canSmash or CanDoMapGlitch"
         },
         {
           "ConnectedArea": "North Eldin Field",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Outside Castle Town West",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Lanayru Field Chu Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         },
         {
           "ConnectedArea": "Lanayru Field Skulltula Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         },
         {
           "ConnectedArea": "Lanayru Field Poe Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         }
       ],
       "Checks":
@@ -51,11 +51,11 @@
       [
         {
           "ConnectedArea": "Lanayru Field",
-          "Requirements": "canSmash"
+          "GlitchedRequirements": "canSmash"
         },
         {
           "ConnectedArea": "Lanayru Ice Puzzle Cave",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -67,11 +67,11 @@
       [
         {
           "ConnectedArea": "Lanayru Field",
-          "Requirements": "canSmash"
+          "GlitchedRequirements": "canSmash"
         },
         {
           "ConnectedArea": "Zoras Domain West Ledge",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -83,11 +83,11 @@
       [
         {
           "ConnectedArea": "Lanayru Field",
-          "Requirements": "canSmash"
+          "GlitchedRequirements": "canSmash"
         },
         {
           "ConnectedArea": "Lake Hylia Bridge",
-          "Requirements": "canSmash"
+          "GlitchedRequirements": "canSmash"
         }
       ],
       "Checks":
@@ -102,7 +102,7 @@
       [
         {
           "ConnectedArea": "Lanayru Field Cave Entrance",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -117,7 +117,7 @@
       [
         {
           "ConnectedArea": "Lanayru Field",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks": [""],
@@ -129,7 +129,7 @@
       [
         {
           "ConnectedArea": "Lanayru Field",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -144,7 +144,7 @@
       [
         {
           "ConnectedArea": "Lanayru Field",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -160,19 +160,19 @@
       [
         {
           "ConnectedArea": "Outside Castle Town West Grotto Ledge",
-          "Requirements": "Shadow_Crystal and ((Progressive_Clawshot, 1) or CanDoMapGlitch)"
+          "GlitchedRequirements": "Shadow_Crystal and ((Progressive_Clawshot, 1) or CanDoMapGlitch)"
         },
         {
           "ConnectedArea": "Lanayru Field",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Castle Town West",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Lake Hylia Bridge",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -192,11 +192,11 @@
       [
         {
           "ConnectedArea": "Outside Castle Town West",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Outside Castle Town West Helmasaur Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         }
       ],
       "Checks": [""],
@@ -208,7 +208,7 @@
       [
         {
           "ConnectedArea": "Outside Castle Town West Grotto Ledge",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -223,11 +223,11 @@
       [
         {
           "ConnectedArea": "Eldin Field Near Castle Town",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Castle Town East",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -242,19 +242,19 @@
       [
         {
           "ConnectedArea": "Castle Town South",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Faron Field Behind Boulder",
-          "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle"
+          "GlitchedRequirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle"
         },
         {
           "ConnectedArea": "Lake Hylia",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Outside Castle Town South Tektite Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         }
       ],
       "Checks":
@@ -277,7 +277,7 @@
       [
         {
           "ConnectedArea": "Outside Castle Town South",
-          "Requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle and Room.Outside_Castle_Town_South"
+          "GlitchedRequirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and Room.Castle_Town_South and HasBottle and Room.Outside_Castle_Town_South"
         }
       ],
       "Checks": [""],
@@ -289,7 +289,7 @@
       [
         {
           "ConnectedArea": "Outside Castle Town South",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
@@ -304,23 +304,23 @@
       [
         {
           "ConnectedArea": "Lake Hylia Bridge Grotto Ledge",
-          "Requirements": "canLaunchBombs and (Progressive_Clawshot, 1)"
+          "GlitchedRequirements": "canLaunchBombs and (Progressive_Clawshot, 1)"
         },
         {
           "ConnectedArea": "Hyrule Field Near Spinner Rails",
-          "Requirements": "canSmash or CanDoMapGlitch"
+          "GlitchedRequirements": "canSmash or CanDoMapGlitch"
         },
         {
           "ConnectedArea": "Outside Castle Town West",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Lake Hylia",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Faron Field",
-          "Requirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysy)) or Shadow_Crystal"
+          "GlitchedRequirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysy)) or Shadow_Crystal"
         }
       ],
       "Checks":
@@ -339,11 +339,11 @@
       [
         {
           "ConnectedArea": "Lake Hylia Bridge",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         },
         {
           "ConnectedArea": "Lake Hylia Bridge Bubble Grotto",
-          "Requirements": "Shadow_Crystal"
+          "GlitchedRequirements": "Shadow_Crystal"
         }
       ],
       "Checks":
@@ -359,7 +359,7 @@
       [
         {
           "ConnectedArea": "Lake Hylia Bridge Grotto Ledge",
-          "Requirements": "true"
+          "GlitchedRequirements": "true"
         }
       ],
       "Checks":
