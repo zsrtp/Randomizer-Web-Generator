@@ -1,5 +1,6 @@
 {
   "requirements": "(((Setting.faronTwilightCleared equals False) and canCompletePrologue) or ((Setting.faronTwilightCleared equals True) and Shadow_Crystal)) and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairies)))",
-  "checkCategory": [ "Overworld", "Ordona Province", "REL" ],
+  "glitchedRequirements": "(((Setting.faronTwilightCleared equals False) and canCompletePrologue) or ((Setting.faronTwilightCleared equals True) and Shadow_Crystal)) and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairies)))",
+  "checkCategory": [ "Overworld", "Ordona Province" ],
   "itemId": "Ordon_Shield"
 }

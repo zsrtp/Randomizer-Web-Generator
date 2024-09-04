@@ -1,5 +1,6 @@
 {
   "requirements": "canCompletePrologue or (Setting.faronTwilightCleared equals True)",
-  "checkCategory": [ "Overworld", "Ordona Province", "REL" ],
+  "glitchedRequirements": "canCompletePrologue or (Setting.faronTwilightCleared equals True)",
+  "checkCategory": [ "Overworld", "Ordona Province"],
   "itemId": "Progressive_Sword"
 }

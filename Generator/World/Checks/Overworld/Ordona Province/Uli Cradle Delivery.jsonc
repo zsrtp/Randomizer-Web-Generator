@@ -1,5 +1,6 @@
 {
     "requirements": "CanChangeTime",
-    "checkCategory": ["Overworld", "Ordona Province", "ARC"],
+    "glitchedRequirements": "CanChangeTime",
+    "checkCategory": ["Overworld", "Ordona Province"],
     "itemId": "Progressive_Fishing_Rod"
 }
