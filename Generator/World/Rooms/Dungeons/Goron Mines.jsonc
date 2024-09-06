@@ -5,7 +5,8 @@
         [
         {
             "ConnectedArea": "Lower Kakariko Village",
-            "Requirements": "CanDefeatFyrus"
+            "Requirements": "CanDefeatFyrus",
+            "GlitchedRequirements": "CanDefeatFyrus"
         }
         ],
         "Checks": 
@@ -21,11 +22,13 @@
         [
             {
               "ConnectedArea": "Goron Mines Magnet Room",
-              "Requirements": "true"
+              "Requirements": "true",
+              "GlitchedRequirements": "true"
             },
             {
               "ConnectedArea": "Goron Mines North Wing",
-              "Requirements": "((Iron_Boots and HasSword) or (Progressive_Bow, 1)) and ((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
+              "Requirements": "((Iron_Boots and HasSword) or (Progressive_Bow, 1)) and ((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))",
+              "GlitchedRequirements": "((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)) and ((Progressive_Bow, 1) or (Iron_Boots and HasSword) or ((CanDoLJA or (HasSword and hasBombs)) and ((Progressive_Clawshot, 1) or Ball_and_Chain or hasBombs)))"
             }
         ],
         "Checks": 
@@ -42,11 +45,13 @@
         [
             {
                 "ConnectedArea": "Death Mountain Sumo Hall Goron Mines Tunnel",
-                "Requirements": "true"
+                "Requirements": "true",
+                "GlitchedRequirements": "true"
             },
             {
                 "ConnectedArea": "Goron Mines Magnet Room",
-                "Requirements": "Iron_Boots and canBreakWoodenDoor"
+                "Requirements": "Iron_Boots and canBreakWoodenDoor",
+                "GlitchedRequirements": "(Iron_Boots or Shadow_Crystal) and (canBreakWoodenDoor or CanDoBSMoonBoots)"
             }
         ],
         "Checks":
@@ -61,7 +66,8 @@
         [
           {
             "ConnectedArea": "Goron Mines Magnet Room",
-            "Requirements": "true"
+            "Requirements": "true",
+            "GlitchedRequirements": "true"
           }
         ],
         "Checks": 
@@ -79,15 +85,18 @@
         [
             {
                 "ConnectedArea": "Goron Mines Entrance",
-                "Requirements": "true"
+                "Requirements": "true",
+                "GlitchedRequirements": "true"
             },
             {
                 "ConnectedArea": "Goron Mines Lower West Wing",
-                "Requirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+                "Requirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
+                "GlitchedRequirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
             },
             {
                 "ConnectedArea": "Goron Mines Crystal Switch Room",
-                "Requirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy)) and Iron_Boots"
+                "Requirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy)) and Iron_Boots",
+                "GlitchedRequirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy)) and Iron_Boots"
             }
         ],
         "Checks": 
@@ -103,15 +112,18 @@
         [
             {
                 "ConnectedArea": "Goron Mines Crystal Switch Room",
-                "Requirements": "true"
+                "Requirements": "true",
+                "GlitchedRequirements": "true"
             },
             {
                 "ConnectedArea": "Goron Mines Upper East Wing",
-                "Requirements": "((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
+                "Requirements": "((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))",
+                "GlitchedRequirements": "((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
             },
             {
                 "ConnectedArea": "Goron Mines Boss Room",
-                "Requirements": "(Progressive_Bow, 1) and Iron_Boots and CanDefeatBulblin and ((Goron_Mines_Key_Shard, 3) or (Setting.bigKeySettings equals Keysy))"
+                "Requirements": "(Progressive_Bow, 1) and Iron_Boots and CanDefeatBulblin and ((Goron_Mines_Key_Shard, 3) or (Setting.bigKeySettings equals Keysy))",
+                "GlitchedRequirements": "((Goron_Mines_Key_Shard, 3) or (Setting.bigKeySettings equals Keysy)) and (Progressive_Bow, 1) and ((Iron_Boots and CanDefeatBulblin) or Progressive_Clawshot or CanDoLJA)"
             }
         ],
         "Checks": 
@@ -128,11 +140,13 @@
         [
             {
                 "ConnectedArea": "Goron Mines North Wing",
-                "Requirements": "true"
+                "Requirements": "true",
+                "GlitchedRequirements": "true"
             },
             {
                 "ConnectedArea": "Goron Mines Magnet Room",
-                "Requirements": "Iron_Boots and CanDefeatDangoro and (Progressive_Bow, 1)"
+                "Requirements": "Iron_Boots and CanDefeatDangoro and (Progressive_Bow, 1)",
+                "GlitchedRequirements": "Iron_Boots and CanDefeatDangoro and ((Progressive_Bow, 1) or CanDefeatBeamos)"
             }
         ],
         "Checks": 
