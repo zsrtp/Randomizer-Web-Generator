@@ -36,7 +36,6 @@ RUN dotnet publish "./TPRandomizer.csproj" -c release -o /app/generator --no-res
 
 # RUN mkdir /app/generator/Generator
 RUN cp -R World /app/generator/World
-RUN cp -R Glitched-World /app/generator/Glitched-World
 RUN cp -R Translations /app/generator/Translations
 RUN mkdir -p /app/generator/Assets/Sound
 RUN cp -R Assets/Sound/BackgroundMusic.jsonc /app/generator/Assets/Sound/BackgroundMusic.jsonc

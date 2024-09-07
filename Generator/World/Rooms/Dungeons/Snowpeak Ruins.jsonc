@@ -80,6 +80,7 @@
         },
         {
           "ConnectedArea": "Snowpeak Ruins Chapel",
+          "Requirements": "false",
           // If coming from the Lobby, 2F floor clip is in logic, which explains the lack of the B&C requirement. Then you can Freezard Ladder Cancel
           "GlitchedRequirements": "true"
         },
@@ -91,8 +92,8 @@
         },
         {
           "ConnectedArea": "Snowpeak Ruins Caged Freezard Room Lower",
-          "Requirements": "false",
           // Breaking the floor
+          "Requirements": "canSmash",
           "GlitchedRequirements": "canSmash"
         }
         ],
@@ -207,7 +208,7 @@
           },
           {
             "ConnectedArea": "Snowpeak Ruins Caged Freezard Room Lower",
-            
+            "Requirements": "false",
             "GlitchedRequirements": "CanDoLJA"
           }
         ],

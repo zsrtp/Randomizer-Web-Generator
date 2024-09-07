@@ -60,6 +60,7 @@ namespace TPRandomizer
     public class Entrance
     {
         public string Requirements { get; set; }
+        public string GlitchedRequirements { get; set; }
         public string ParentArea { get; set; }
         public string ConnectedArea { get; set; }
         public string OriginalConnectedArea { get; set; }
@@ -80,8 +81,11 @@ namespace TPRandomizer
         public string PairedEntranceName { get; set; } = "";
 
         private LogicAST reqsCache;
-        public LogicAST CachedRequirements() {
-            if(reqsCache != null) {
+
+        public LogicAST CachedRequirements()
+        {
+            if (reqsCache != null)
+            {
                 return reqsCache;
             }
 

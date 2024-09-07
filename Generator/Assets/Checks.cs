@@ -59,8 +59,11 @@ namespace TPRandomizer
         public bool isRequired { get; set; }
 
         private LogicAST reqsCache;
-        public LogicAST CachedRequirements() {
-            if(reqsCache != null) {
+
+        public LogicAST CachedRequirements()
+        {
+            if (reqsCache != null)
+            {
                 return reqsCache;
             }
 

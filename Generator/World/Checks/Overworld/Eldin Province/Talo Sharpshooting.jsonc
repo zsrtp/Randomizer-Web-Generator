@@ -1,6 +1,6 @@
 {
     "requirements": "canCompleteGoronMines and (Progressive_Bow, 1) and CanChangeTime",
-    "glitchedRequirements": "canCompleteGoronMines and (Progressive_Bow, 1)) and CanChangeTime",
+    "glitchedRequirements": "canCompleteGoronMines and (Progressive_Bow, 1) and CanChangeTime",
     "checkCategory": ["Overworld", "Npc", "Kakariko Village", "ARC"],
     "itemId": "Piece_of_Heart"
 }
