@@ -1,5 +1,0 @@
-{
-  "requirements": "((Arbiters_Grounds_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))",
-  "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds", "Dungeon Items", "Compass" ],
-  "itemId": "Arbiters_Grounds_Compass"
-}

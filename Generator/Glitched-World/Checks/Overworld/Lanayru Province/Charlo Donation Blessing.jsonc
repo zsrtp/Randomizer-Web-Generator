@@ -1,8 +1,0 @@
-{
-    "requirements": "true",
-    "arcOffsets": ["D3C2"],
-    "fileName": "Prayer",
-    "stageIDX": [53],
-    "checkCategory": ["Overworld", "Npc", "Castle Town", "ObjectARC", "Boss"],
-    "itemId": "Piece_of_Heart"
-}

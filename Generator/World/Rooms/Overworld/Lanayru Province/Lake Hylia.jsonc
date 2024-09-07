@@ -5,40 +5,49 @@
     [
       {
         "ConnectedArea": "Lake Hylia Cave Entrance",
-        "Requirements": "canSmash"
+        "Requirements": "canSmash",
+        "GlitchedRequirements": "canSmash"
       },
       {
         "ConnectedArea": "Lake Hylia Lakebed Temple Entrance",
-        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and CanUseWaterBombs))"
+        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and CanUseWaterBombs))",
+        "GlitchedRequirements": "Zora_Armor or CanDoAirRefill"
       },
       {
         "ConnectedArea": "Lake Hylia Bridge",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Gerudo Desert",
-        "Requirements": "Aurus_Memo"
+        "Requirements": "Aurus_Memo",
+        "GlitchedRequirements": "Aurus_Memo"
       },
       {
         "ConnectedArea": "Upper Zoras River",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       },
       {
         "ConnectedArea": "Lake Hylia Lanayru Spring",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         // You can use the cannon and a cucco to reach the grotto ledge without any requirements.
         "ConnectedArea": "Lake Hylia Shell Blade Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       },
       {
         "ConnectedArea": "Lake Hylia Water Toadpoli Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       },
       {
         "ConnectedArea": "City in The Sky Entrance",
-        "Requirements": "((Progressive_Sky_Book, 7) or (Setting.skipCityEntrance equals True)) and (Progressive_Clawshot, 1)"
+        "Requirements": "((Progressive_Sky_Book, 7) or (Setting.skipCityEntrance equals True)) and (Progressive_Clawshot, 1)",
+        "GlitchedRequirements": "((Progressive_Sky_Book, 7) or (Setting.skipCityEntrance equals True)) and (Progressive_Clawshot, 1)"
       }
     ],
     "Checks":
@@ -67,11 +76,13 @@
     [
       {
         "ConnectedArea": "Lake Hylia",
-        "Requirements": "canSmash"
+        "Requirements": "canSmash",
+        "GlitchedRequirements": "canSmash"
       },
       {
         "ConnectedArea": "Lake Hylia Long Cave",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -83,11 +94,13 @@
     [
       {
         "ConnectedArea": "Lake Hylia",
-        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and CanUseWaterBombs))"
+        "Requirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and CanUseWaterBombs))",
+        "GlitchedRequirements": "Zora_Armor and ((Setting.skipLakebedEntrance equals True) or (Iron_Boots and CanUseWaterBombs))"
       },
       {
         "ConnectedArea": "Lakebed Temple Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -99,7 +112,8 @@
     [
       {
         "ConnectedArea": "Lake Hylia",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -120,7 +134,8 @@
     [
       {
         "ConnectedArea": "Lake Hylia Cave Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -152,7 +167,8 @@
     [
       {
         "ConnectedArea": "Lake Hylia",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -167,7 +183,8 @@
     [
       {
         "ConnectedArea": "Lake Hylia",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":

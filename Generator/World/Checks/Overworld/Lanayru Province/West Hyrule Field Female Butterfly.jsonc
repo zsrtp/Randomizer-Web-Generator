@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Clawshot, 1) or Boomerang or Room.Outside_Castle_Town_West_Grotto_Ledge",
-    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Lanayru Province", "DZX"],
+    "glitchedRequirements": "(Progressive_Clawshot, 1) or Boomerang or CanDoMapGlitch",
+    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Lanayru Province"],
     "itemId": "Female_Butterfly"
 }

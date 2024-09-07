@@ -294,6 +294,7 @@ namespace TPRandomizer.Assets
             { 0x15, 0x42 }, // Unlock door in room 6 on 8F.
             { 0x15, 0x43 }, // Unlock door in 5F.
             { 0x16, 0x59 }, // Unlock east bridge door.
+            { 0x17, 0x57 }, // Unlock door in north room 3.
             { 0x17, 0x58 }, // Unlock door in east room 2.
             { 0x17, 0x59 }, // Unlock door in west room 2.
             { 0x17, 0x6C }, // Unlock door in north room 2.

@@ -1,5 +1,6 @@
 {
     "requirements": "true",
+    "glitchedRequirements": "true",
     "checkCategory": ["Overworld", "Chest", "Lake Hylia", "DZX"],
     "itemId": "Purple_Rupee"
 }

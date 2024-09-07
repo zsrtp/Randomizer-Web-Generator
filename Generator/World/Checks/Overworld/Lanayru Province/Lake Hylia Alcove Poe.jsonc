@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal",
+    "glitchedRequirements": "Shadow_Crystal",
     "checkCategory": ["Overworld", "Poe", "Lake Hylia"],
     "itemId": "Poe_Soul"
 }

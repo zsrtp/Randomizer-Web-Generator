@@ -1,5 +1,6 @@
 {
     "requirements": "Room.Hidden_Village and (Progressive_Bow, 1) and (Progressive_Dominion_Rod, 1)",
+    "glitchedRequirements": "Room.Hidden_Village and CanDoHiddenVillageGlitched and (Progressive_Dominion_Rod, 1)",
     "checkCategory": ["Overworld", "Npc", "Hidden Village", "ARC"],
     "itemId": "Progressive_Sky_Book"
 }

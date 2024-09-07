@@ -1,6 +1,0 @@
-{
-    "requirements": "Female_Butterfly",
-    "flag": "C3",
-    "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
-    "itemId": "Purple_Rupee"
-}

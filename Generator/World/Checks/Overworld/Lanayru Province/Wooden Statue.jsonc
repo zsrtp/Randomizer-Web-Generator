@@ -1,5 +1,6 @@
 {
     "requirements": "Room.Castle_Town_Doctors_Office_Lower and Shadow_Crystal and Room.Castle_Town_South",
-    "checkCategory": ["Overworld", "Npc", "Hyrule Field - Lanayru Province", "REL"],
+    "glitchedRequirements": "Invoice",
+    "checkCategory": ["Overworld", "Npc", "Hyrule Field - Lanayru Province"],
     "itemId": "Wooden_Statue"
 }

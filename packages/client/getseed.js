@@ -78,6 +78,7 @@
     zoraArmor: 0x01,
     zoraArmorSecondary: 0x02,
     zoraArmorHelmet: 0x03,
+    linkMS: 0x4,
   };
 
   function isRgbHex(str) {
@@ -562,6 +563,7 @@
         'zTunicScalesColorFieldsetColorPicker',
         'zTunicBootsColorFieldsetColorPicker',
       ],
+      'msBladeColorFieldsetColorPicker',
       'lanternColorFieldsetColorPicker',
       'heartColorFieldset',
       'aButtonColorFieldset',
@@ -1320,6 +1322,7 @@
         { id: 'zTunicBodyColorFieldset', rgb: true },
         { id: 'zTunicScalesColorFieldset', rgb: true },
         { id: 'zTunicBootsColorFieldset', rgb: true },
+        { id: 'msBladeColorFieldset', rgb: true },
         { id: 'lanternColorFieldset', rgb: true },
         // { id: 'midnaHairColorFieldset', bitLength: 1 },
         { id: 'heartColorFieldset', rgb: true },
@@ -2011,6 +2014,7 @@
       'zTunicBodyColorFieldset',
       'zTunicScalesColorFieldset',
       'zTunicBootsColorFieldset',
+      'msBladeColorFieldset',
       'lanternColorFieldset',
       'midnaHairBaseColorFieldset',
       'midnaHairTipColorFieldset',

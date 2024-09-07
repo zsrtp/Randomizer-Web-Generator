@@ -1,5 +1,6 @@
 {
   "requirements": "canCompletePrologue and CanChangeTime",
-  "checkCategory": [ "Overworld", "Npc", "Ordona Province", "ARC" ],
+  "glitchedRequirements": "canCompletePrologue and CanChangeTime",
+  "checkCategory": [ "Overworld", "Npc", "Ordona Province" ],
   "itemId": "Piece_of_Heart"
 }

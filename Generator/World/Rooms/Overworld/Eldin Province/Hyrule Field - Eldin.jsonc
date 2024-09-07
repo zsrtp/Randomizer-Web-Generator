@@ -5,23 +5,28 @@
     [
       {
         "ConnectedArea": "Kakariko Gorge Cave Entrance",
-        "Requirements": "canSmash"
+        "Requirements": "canSmash",
+        "GlitchedRequirements": "canSmash"
       },
       {
         "ConnectedArea": "Kakariko Gorge Behind Gate",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Faron Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Eldin Field",
-        "Requirements": "canSmash"
+        "Requirements": "canSmash",
+        "GlitchedRequirements": "canSmash"
       },
       {
         "ConnectedArea": "Kakariko Gorge Keese Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
     "Checks":
@@ -42,11 +47,13 @@
     [
       {
         "ConnectedArea": "Kakariko Gorge",
-        "Requirements": "canSmash"
+        "Requirements": "canSmash",
+        "GlitchedRequirements": "canSmash"
       },
       {
         "ConnectedArea": "Eldin Lantern Cave",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -58,11 +65,13 @@
     [
       {
         "ConnectedArea": "Kakariko Gorge",
-        "Requirements": "Shadow_Crystal or Gate_Keys or (Setting.smallKeySettings equals Keysy)" // or acccess to epona
+        "Requirements": "Shadow_Crystal or Gate_Keys or (Setting.smallKeySettings equals Keysy)", // or acccess to epona
+        "GlitchedRequirements": "Shadow_Crystal or Gate_Keys or (Setting.smallKeySettings equals Keysy)" // or access to epona
       },
       {
         "ConnectedArea": "Lower Kakariko Village",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -74,7 +83,8 @@
     [
       {
         "ConnectedArea": "Kakariko Gorge Cave Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -92,7 +102,8 @@
     [
       {
         "ConnectedArea": "Kakariko Gorge",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -106,31 +117,43 @@
         "ConnectedArea": "Eldin Field Near Castle Town",
         // When it comes time for ER, we will add (Room.Kakariko_Malo_Mart and Setting.randomizeOverworldEntrances) or  . . . 
         // For now, it's only in logic if we have visited the other side.
-        "Requirements": "Room.Eldin_Field_Near_Castle_Town"
+        "Requirements": "Room.Eldin_Field_Near_Castle_Town",
+        "GlitchedRequirements": "Room.Kakariko_Malo_Mart or Shadow_Crystal"
       },
       {
         "ConnectedArea": "Eldin Field Lava Cave Ledge",
-        "Requirements": "(Progressive_Clawshot, 1)"
+        "Requirements": "(Progressive_Clawshot, 1)",
+        "GlitchedRequirements": "(Progressive_Clawshot, 1) or Shadow_Crystal"
+      },
+      {
+        "ConnectedArea": "Eldin Field From Lava Cave Lower",
+        "Requirements": "false",
+        "GlitchedRequirements": "Shadow_Crystal or CanDoLJA"
       },
       {
         "ConnectedArea": "Kakariko Gorge",
-        "Requirements": "canSmash"
+        "Requirements": "canSmash",
+        "GlitchedRequirements": "canSmash"
       },
       {
         "ConnectedArea": "Kakariko Village Behind Gate",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "North Eldin Field",
-        "Requirements": "canSmash"
+        "Requirements": "canSmash",
+        "GlitchedRequirements": "canSmash or Shadow_Crystal"
       },
       {
         "ConnectedArea": "Eldin Field Bomskit Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       },
       {
         "ConnectedArea": "Eldin Field Water Bomb Fish Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
     "Checks":
@@ -152,11 +175,13 @@
     [
       {
         "ConnectedArea": "Eldin Field",
-        "Requirements": "Room.Kakariko_Malo_Mart"
+        "Requirements": "Room.Kakariko_Malo_Mart",
+        "GlitchedRequirements": "Room.Kakariko_Malo_Mart"
       },
       {
         "ConnectedArea": "Outside Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -168,11 +193,13 @@
     [
       {
         "ConnectedArea": "Eldin Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Eldin Field Lava Cave Upper",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -184,11 +211,13 @@
     [
       {
         "ConnectedArea": "Eldin Field",
-        "Requirements": "(Progressive_Clawshot, 1)"
+        "Requirements": "(Progressive_Clawshot, 1)",
+        "GlitchedRequirements": "(Progressive_Clawshot, 1)"
       },
       {
         "ConnectedArea": "Eldin Field Lava Cave Lower",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -201,19 +230,23 @@
     [
       {
         "ConnectedArea": "Eldin Field",
-        "Requirements": "canSmash"
+        "Requirements": "canSmash",
+        "GlitchedRequirements": "canSmash or CanDoMapGlitch"
       },
       {
         "ConnectedArea": "Eldin Field Outside Hidden Village",
-        "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
+        "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue",
+        "GlitchedRequirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
       },
       {
         "ConnectedArea": "Eldin Field Grotto Platform",
-        "Requirements": "Spinner"
+        "Requirements": "Spinner",
+        "GlitchedRequirements": "Spinner"
       },
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -225,11 +258,13 @@
     [
       {
         "ConnectedArea": "North Eldin Field",
-        "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
+        "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue",
+        "GlitchedRequirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue"
       },
       {
         "ConnectedArea": "Hidden Village",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -241,11 +276,13 @@
     [
       {
         "ConnectedArea": "North Eldin Field",
-        "Requirements": "Spinner"
+        "Requirements": "Spinner",
+        "GlitchedRequirements": "Spinner"
       },
       {
         "ConnectedArea": "Eldin Field Stalfos Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
     "Checks": [""],
@@ -257,11 +294,14 @@
     [
       {
         "ConnectedArea": "Eldin Field Lava Cave Ledge",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Eldin Field Lava Cave Lower",
-        "Requirements": "Iron_Boots"
+        "Requirements": "Iron_Boots",
+        // Wolf can just jump down.
+        "GlitchedRequirements": "Iron_Boots or Shadow_Crystal"
       }
     ],
     "Checks": 
@@ -276,7 +316,8 @@
     [
       {
         "ConnectedArea": "Eldin Field From Lava Cave Lower",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -292,7 +333,8 @@
     [
       {
         "ConnectedArea": "Eldin Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -308,7 +350,8 @@
     [
       {
         "ConnectedArea": "Eldin Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -323,7 +366,8 @@
     [
       {
         "ConnectedArea": "Eldin Field Grotto Platform",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":

@@ -1,9 +1,0 @@
-{
-    "requirements": "true",
-    "hash": ["D6A8"],
-    "stageIDX": [36],
-    "dzxTag": ["TRES"],
-    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanaryu Province", "DZX"],
-    "itemId": "Bombs_5",
-    "actrData": [["74", "62", "6F", "78", "41", "30", "00", "00", "FF", "0F", "F4", "40", "43", "E8", "75", "74", "C3", "83", "27", "C3", "C4", "31", "6C", "7F", "00", "00", "00", "00", "0A", "FF", "FF", "FF"]]
-}

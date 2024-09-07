@@ -1,9 +1,0 @@
-{
-    "requirements": "(Progressive_Bow, 1) and Room.Zoras_Domain and (HasSword or (CanDefeatShadowBeast and (Setting.transformAnywhere equals True)))",
-    "arcOffsets": ["1787"],
-    "stageIDX": [52],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "checkCategory": ["Overworld", "Npc", "Upper Zoras River", "ARC"],
-    "itemId": "Giant_Bomb_Bag"
-}

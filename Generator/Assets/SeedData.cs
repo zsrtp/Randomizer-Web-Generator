@@ -6,7 +6,9 @@ namespace TPRandomizer.Assets
     using System.Linq;
     using System.Reflection;
     using TPRandomizer.FcSettings.Enums;
+    using Newtonsoft.Json;
     using TPRandomizer.Assets.CLR0;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// summary text.
@@ -16,7 +18,7 @@ namespace TPRandomizer.Assets
         // See <add_documentation_reference_here> for the flowchart for
         // determining if you should increment the major or minor version.
         public static readonly UInt16 VersionMajor = 1;
-        public static readonly UInt16 VersionMinor = 2;
+        public static readonly UInt16 VersionMinor = 3;
         public static readonly UInt16 VersionPatch = 0;
 
         // For convenience. This does not include any sort of leading 'v', so
@@ -25,20 +27,18 @@ namespace TPRandomizer.Assets
 
         private static List<byte> CheckDataRaw = new();
         private static List<byte> BannerDataRaw = new();
+
+        private static List<byte> GCIDataRaw = new();
         private static SeedHeader SeedHeaderRaw = new();
         private static CustomTextHeader CustomMessageHeaderRaw = new();
-        private static List<byte> BGMDataRaw = new();
         public static readonly int DebugInfoSize = 0x20;
         public static readonly int ImageDataSize = 0x1400;
         private static readonly short SeedHeaderSize = 0x160;
-        private static readonly byte BgmHeaderSize = 0xC;
         private static short MessageHeaderSize = 0xC;
 
         private SeedGenResults seedGenResults;
         public FileCreationSettings fcSettings { get; }
-        public BgmHeader BgmHeaderRaw = new();
 
-        private static List<byte> EntranceDataRaw = new();
 
         private SeedData(SeedGenResults seedGenResults, FileCreationSettings fcSettings)
         {
@@ -49,14 +49,15 @@ namespace TPRandomizer.Assets
         public static byte[] GenerateSeedDataBytes(
             SeedGenResults seedGenResults,
             FileCreationSettings fcSettings,
-            GameRegion regionOverride
+            GameRegion regionOverride,
+            bool isGci
         )
         {
             SeedData seedData = new SeedData(seedGenResults, fcSettings);
-            return seedData.GenerateSeedDataBytesInternal(regionOverride);
+            return seedData.GenerateSeedDataBytesInternal(regionOverride, isGci);
         }
 
-        public byte[] GenerateSeedDataBytesInternal(GameRegion regionOverride)
+        public byte[] GenerateSeedDataBytesInternal(GameRegion regionOverride, bool isGci)
         {
             Assets.CustomMessages.MessageLanguage hintLanguage = Assets.CustomMessages.MessageLanguage.English;
             /*
@@ -76,20 +77,17 @@ namespace TPRandomizer.Assets
             CheckDataRaw = new();
             BannerDataRaw = new();
             SeedHeaderRaw = new();
-            EntranceDataRaw = new();
-            BGMDataRaw = new();
+            GCIDataRaw = new();
 
             // First we need to generate the buffers for the various byte lists that will be used to populate the seed data.
             SharedSettings randomizerSettings = Randomizer.SSettings;
             Randomizer.Items.GenerateItemPool();
-            List<byte> currentGCIData = new();
             List<byte> currentSeedHeader = new();
             List<byte> currentSeedData = new();
             List<byte> currentMessageHeader = new();
             List<byte> currentMessageData = new();
             List<byte> currentMessageEntryInfo = new();
             Dictionary<byte, List<CustomMessages.MessageEntry>> seedDictionary = new();
-            TPRandomizer.Assets.CustomMessages customMessage = new();
 
             
             List<CustomMessages.MessageEntry> seedMessages = seedGenResults.customMsgData.GenMessageEntries();
@@ -127,7 +125,6 @@ namespace TPRandomizer.Assets
             }
 
             // Raw Check Data
-            // Raw Check Data
             CheckDataRaw.AddRange(GeneratePatchSettings());
             CheckDataRaw.AddRange(GenerateEventFlags());
             CheckDataRaw.AddRange(GenerateRegionFlags());
@@ -148,83 +145,72 @@ namespace TPRandomizer.Assets
                 CheckDataRaw.Add(Converter.GcByte(0x0));
             }
 
-            List<byte> entranceBytes = GenerateEntranceTable();
-            if (entranceBytes != null)
-            {
-                SeedHeaderRaw.shuffledEntranceInfoDataOffset = (UInt16)CheckDataRaw.Count();
-                CheckDataRaw.AddRange(entranceBytes);
-            }
-            List<byte> clr0Bytes = ParseClr0Bytes();
-            if (clr0Bytes != null)
-            {
-                CheckDataRaw.AddRange(clr0Bytes);
-            }
-            SeedHeaderRaw.bgmHeaderOffset = (UInt16)CheckDataRaw.Count();
+            GCIDataRaw.AddRange(CheckDataRaw);
 
-            // BGM Table info
-            BgmHeaderRaw.bgmTableOffset = (UInt16)BgmHeaderSize;
-            BGMDataRaw.AddRange(SoundAssets.GenerateBgmData(this));
-            BgmHeaderRaw.fanfareTableOffset = (UInt16)(BgmHeaderSize + BGMDataRaw.Count);
-            BGMDataRaw.AddRange(SoundAssets.GenerateFanfareData(this));
+            // Next we want to generate the non-check/item data
+            List<byte> dataBytes = GenerateEntranceTable();
+            if (dataBytes !=null)
+            {
+                SeedHeaderRaw.shuffledEntranceInfoDataOffset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
+
+            dataBytes = GenerateBgmData();
+            if (dataBytes !=null)
+            {
+                SeedHeaderRaw.bgmInfoDataOffset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
+
+            dataBytes = GenerateFanfareData();
+            if (dataBytes !=null)
+            {
+                SeedHeaderRaw.fanfareInfoDataOffset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
+
+            dataBytes = ParseClr0Bytes();
+            if (dataBytes !=null)
+            {
+                SeedHeaderRaw.clr0Offset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
 
             // Custom Message Info
-            
-                
-                currentMessageData.AddRange(
+            currentMessageData.AddRange(
                     ParseCustomMessageData((int)hintLanguage, currentMessageData, seedDictionary)
                 );
-                while (currentMessageData.Count % 0x4 != 0)
-                {
-                    currentMessageData.Add(Converter.GcByte(0x0));
-                }
-                currentMessageEntryInfo.AddRange(GenerateMessageTableInfo((int)hintLanguage));
-            
-
+            while (currentMessageData.Count % 0x4 != 0)
+            {
+                currentMessageData.Add(Converter.GcByte(0x0));
+            }
+            currentMessageEntryInfo.AddRange(GenerateMessageTableInfo((int)hintLanguage));
             currentMessageHeader.AddRange(GenerateMessageHeader(currentMessageEntryInfo));
 
             SeedHeaderRaw.totalSize = (uint)(
                 SeedHeaderSize
-                + CheckDataRaw.Count
-                + BgmHeaderSize
-                + BGMDataRaw.Count
+                + GCIDataRaw.Count
                 + currentMessageHeader.Count
                 + currentMessageData.Count
-                + EntranceDataRaw.Count
             );
 
             // Generate Seed Data
             currentSeedHeader.AddRange(GenerateSeedHeader());
             currentSeedData.AddRange(currentSeedHeader);
-            currentSeedData.AddRange(CheckDataRaw);
-            currentSeedData.AddRange(GenerateBgmHeader());
-            currentSeedData.AddRange(BGMDataRaw);
+            currentSeedData.AddRange(GCIDataRaw);
             currentSeedData.AddRange(currentMessageHeader);
             currentSeedData.AddRange(currentMessageData);
-            while (currentSeedData.Count % 0x20 != 0)
+
+
+            if (isGci)
             {
-                currentSeedData.Add(Converter.GcByte(0x0));
+                return patchGCIWithSeed(region, currentSeedData);
             }
-
-            // Generate Data file
-            // File.WriteAllBytes(
-            //     "rando-data" + randomizerSettings.seedNumber,
-            //     currentSeedData.ToArray()
-            // );
-
-            // Add seed banner
-            BannerDataRaw.AddRange(GenerateDebugInfoChunk(seedGenResults.seedId));
-            BannerDataRaw.AddRange(Properties.Resources.seedGciImageData);
-            BannerDataRaw.AddRange(
-                Converter.StringBytes($"TPR SeedData v{VersionString}", 0x20, region)
-            );
-            BannerDataRaw.AddRange(
-                Converter.StringBytes(seedGenResults.playthroughName, 0x20, region)
-            );
-            // Generate GCI Files
-            currentGCIData.AddRange(BannerDataRaw);
-            currentGCIData.AddRange(currentSeedData);
-            var gci = new Gci(region, currentGCIData, seedGenResults.playthroughName, fcSettings, regionOverride);
-            return gci.gciFile.ToArray();
+            else
+            {
+                return currentSeedData.ToArray();
+            }
+            
             // File.WriteAllBytes(playthroughName, gci.gciFile.ToArray());
         }
 
@@ -232,13 +218,14 @@ namespace TPRandomizer.Assets
         {
             List<byte> seedHeader = new();
             SharedSettings randomizerSettings = Randomizer.SSettings;
+            seedHeader.AddRange(Converter.StringBytes("TPR")); // magic
+            seedHeader.AddRange(Converter.StringBytes(seedGenResults.playthroughName, 33)); // seed name
             SeedHeaderRaw.headerSize = (ushort)SeedHeaderSize;
-            SeedHeaderRaw.dataSize = (ushort)CheckDataRaw.Count;
+            SeedHeaderRaw.dataSize = (ushort)GCIDataRaw.Count;
             SeedHeaderRaw.versionMajor = VersionMajor;
             SeedHeaderRaw.versionMinor = VersionMinor;
             SeedHeaderRaw.customTextHeaderSize = (ushort)MessageHeaderSize;
-            SeedHeaderRaw.customTextHeaderOffset = (ushort)(CheckDataRaw.Count + MessageHeaderSize + BGMDataRaw.Count);
-            SeedHeaderRaw.requiredDungeons = (uint)seedGenResults.requiredDungeons;
+            SeedHeaderRaw.customTextHeaderOffset = (ushort)(GCIDataRaw.Count);
             PropertyInfo[] seedHeaderProperties = SeedHeaderRaw.GetType().GetProperties();
             foreach (PropertyInfo headerObject in seedHeaderProperties)
             {
@@ -260,10 +247,14 @@ namespace TPRandomizer.Assets
                         Converter.GcBytes((UInt16)headerObject.GetValue(SeedHeaderRaw, null))
                     );
                 }
+                else if (headerObject.PropertyType == typeof(List<byte>))
+                {
+                    seedHeader.AddRange(
+                        (List<byte>)headerObject.GetValue(SeedHeaderRaw, null)
+                    );
+                }
             }
 
-            seedHeader.Add(Converter.GcByte(randomizerSettings.transformAnywhere ? 1 : 0));
-            seedHeader.Add(Converter.GcByte(randomizerSettings.quickTransform ? 1 : 0));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirements));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.palaceRequirements));
             int mapBits = 0;
@@ -301,54 +292,14 @@ namespace TPRandomizer.Assets
                     break;
                 }
             }
-
-            seedHeader.Add(Converter.GcByte(randomizerSettings.bonksDoDamage ? 1 : 0));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.startingToD));
 
-            while (seedHeader.Count < (SeedHeaderSize))
+            while (seedHeader.Count < SeedHeaderSize)
             {
                 seedHeader.Add((byte)0x0);
             }
 
             return seedHeader;
-        }
-
-        private List<byte> GenerateBgmHeader()
-        {
-            List<byte> bgmHeaderRaw = new();
-            PropertyInfo[] bgmHeaderProperties = BgmHeaderRaw.GetType().GetProperties();
-            foreach (PropertyInfo headerObject in bgmHeaderProperties)
-            {
-                if (headerObject.PropertyType == typeof(UInt32))
-                {
-                    bgmHeaderRaw.AddRange(
-                        Converter.GcBytes((UInt32)headerObject.GetValue(BgmHeaderRaw, null))
-                    );
-                }
-                else if (headerObject.PropertyType == typeof(UInt64))
-                {
-                    bgmHeaderRaw.AddRange(
-                        Converter.GcBytes((UInt64)headerObject.GetValue(BgmHeaderRaw, null))
-                    );
-                }
-                else if (headerObject.PropertyType == typeof(UInt16))
-                {
-                    bgmHeaderRaw.AddRange(
-                        Converter.GcBytes((UInt16)headerObject.GetValue(BgmHeaderRaw, null))
-                    );
-                }
-                else if (headerObject.PropertyType == typeof(byte))
-                {
-                    bgmHeaderRaw.Add(
-                        Converter.GcByte((byte)headerObject.GetValue(BgmHeaderRaw, null))
-                    );
-                }
-            }
-            while (bgmHeaderRaw.Count % 0x4 != 0)
-            {
-                bgmHeaderRaw.Add(Converter.GcByte(0x0));
-            }
-            return bgmHeaderRaw;
         }
 
         private List<byte> GeneratePatchSettings()
@@ -368,59 +319,52 @@ namespace TPRandomizer.Assets
             {
                 randomizerSettings.increaseWallet,
                 randomizerSettings.fastIronBoots,
-                randomizerSettings.modifyShopModels,
                 fcSettings.disableEnemyBgm,
                 randomizerSettings.instantText,
-                randomizerSettings.increaseSpinnerSpeed,
                 randomizerSettings.skipMajorCutscenes,
             };
-            int patchOptions = 0x0;
-            int bitwiseOperator = 0;
-            SeedHeaderRaw.volatilePatchInfoNumEntries = 1; // Start off at one to ensure alignment
-            SeedHeaderRaw.oneTimePatchInfoNumEntries = 1; // Start off at one to ensure alignment
-            for (int i = 0; i < volatilePatchSettingsArray.Length; i++)
+            bool[] flagsBitfieldArray =
             {
-                if (((i % 8) == 0) && (i >= 8))
-                {
-                    SeedHeaderRaw.volatilePatchInfoNumEntries++;
-                    listOfPatches.Add(Converter.GcByte(patchOptions));
-                    patchOptions = 0;
-                    bitwiseOperator = 0;
-                }
+                randomizerSettings.transformAnywhere,
+                randomizerSettings.quickTransform,
+                randomizerSettings.increaseSpinnerSpeed,
+                randomizerSettings.bonksDoDamage,
+                randomizerSettings.increaseWallet,
+                randomizerSettings.modifyShopModels,
+            };
 
-                if (volatilePatchSettingsArray[i])
-                {
-                    patchOptions |= 0x80 >> bitwiseOperator;
-                }
+            List<bool[]> flagArrayList = new() { volatilePatchSettingsArray, oneTimePatchSettingsArray, flagsBitfieldArray};
+            SeedHeaderRaw.volatilePatchInfoNumEntries = (ushort)volatilePatchSettingsArray.Length; 
+            SeedHeaderRaw.oneTimePatchInfoNumEntries = (ushort)oneTimePatchSettingsArray.Length; 
+            SeedHeaderRaw.flagBitfieldInfoNumEntries = (ushort)flagsBitfieldArray.Length;
+            ushort dataOffset = (ushort)CheckDataRaw.Count;
+            SeedHeaderRaw.volatilePatchInfoDataOffset = dataOffset;
+            SeedHeaderRaw.oneTimePatchInfoDataOffset = (ushort)(dataOffset + 0x10);
+            SeedHeaderRaw.flagBitfieldInfoDataOffset = (ushort)(dataOffset + 0x20);
 
-                bitwiseOperator++;
-            }
-
-            listOfPatches.Add(Converter.GcByte(patchOptions));
-            SeedHeaderRaw.volatilePatchInfoDataOffset = (ushort)(CheckDataRaw.Count);
-            SeedHeaderRaw.oneTimePatchInfoDataOffset = (ushort)(
-                CheckDataRaw.Count + listOfPatches.Count
-            );
-            patchOptions = 0;
-            bitwiseOperator = 0;
-            for (int i = 0; i < oneTimePatchSettingsArray.Length; i++)
+            foreach(bool[] flagArr in flagArrayList)
             {
-                if (((i % 8) == 0) && (i >= 8))
+                List<byte> listOfFlags = new() { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; // Align to 16 bytes
+                int bitwiseOperator = 7;
+                for (int i = 0, j = 0; i < flagArr.Length; i++)
                 {
-                    SeedHeaderRaw.oneTimePatchInfoNumEntries++;
-                    listOfPatches.Add(Converter.GcByte(patchOptions));
-                    patchOptions = 0;
-                    bitwiseOperator = 0;
-                }
+                    if (((i % 8) == 0) && (i >= 8))
+                    {
+                        bitwiseOperator = 7;
+                        j++;
+                    }
 
-                if (oneTimePatchSettingsArray[i])
-                {
-                    patchOptions |= 0x80 >> bitwiseOperator;
-                }
+                    if (flagArr[i])
+                    {
+                        listOfFlags[j] |= Converter.GcByte(0x80 >> bitwiseOperator);
+                    }
 
-                bitwiseOperator++;
+                    bitwiseOperator--;
+                }
+                // Next we reverse the list to account for the enum structure on the rando side
+                listOfFlags = BackendFunctions.ReverseBytes(listOfFlags, 0x4);
+                listOfPatches.AddRange(listOfFlags);
             }
-            listOfPatches.Add(Converter.GcByte(patchOptions));
 
             return listOfPatches;
         }
@@ -666,7 +610,8 @@ namespace TPRandomizer.Assets
                             )
                         )
                     );
-                    listOfPOEReplacements.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
+                    listOfPOEReplacements.Add(Converter.GcByte((int)currentCheck.itemId));
+                    listOfPOEReplacements.Add(Converter.GcByte(0x0)); // padding
                     count++;
                 }
             }
@@ -785,7 +730,8 @@ namespace TPRandomizer.Assets
                     listOfBossReplacements.AddRange(
                         Converter.GcBytes((UInt16)currentCheck.stageIDX[0])
                     );
-                    listOfBossReplacements.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
+                    listOfBossReplacements.Add(Converter.GcByte((int)currentCheck.itemId));
+                    listOfBossReplacements.Add(Converter.GcByte(0x0)); // padding
                     count++;
                 }
             }
@@ -818,9 +764,8 @@ namespace TPRandomizer.Assets
                                     )
                             )
                         );
-                        listOfBugRewards.AddRange(
-                            Converter.GcBytes((UInt16)(byte)currentCheck.itemId)
-                        );
+                        listOfBugRewards.Add(Converter.GcByte((int)currentCheck.itemId));
+                        listOfBugRewards.Add(Converter.GcByte(0x0)); // padding
                         count++;
                     }
                 }
@@ -840,10 +785,10 @@ namespace TPRandomizer.Assets
                 Check currentCheck = checkList.Value;
                 if (currentCheck.dataCategory.Contains("Sky Book"))
                 {
-                    listOfSkyCharacters.Add(Converter.GcByte((byte)currentCheck.itemId));
                     listOfSkyCharacters.AddRange(
                         Converter.GcBytes((UInt16)currentCheck.stageIDX[0])
                     );
+                    listOfSkyCharacters.Add(Converter.GcByte((byte)currentCheck.itemId));
                     listOfSkyCharacters.Add(Converter.GcByte(currentCheck.roomIDX));
                     count++;
                 }
@@ -887,16 +832,17 @@ namespace TPRandomizer.Assets
                 Check currentCheck = checkList.Value;
                 if (currentCheck.dataCategory.Contains("Shop"))
                 {
-                    listOfShopItems.AddRange(
-                        Converter.GcBytes(
-                            (UInt16)
-                                short.Parse(
+                    listOfShopItems.Add(
+                        Converter.GcByte(
+                            int.Parse(
                                     currentCheck.flag,
                                     System.Globalization.NumberStyles.HexNumber
                                 )
                         )
                     );
-                    listOfShopItems.AddRange(Converter.GcBytes((UInt16)currentCheck.itemId));
+                    listOfShopItems.Add(Converter.GcByte((int)currentCheck.itemId));
+                    listOfShopItems.Add(Converter.GcByte(0x0)); // padding
+                    listOfShopItems.Add(Converter.GcByte(0x0)); // padding
                     count++;
                 }
             }
@@ -966,9 +912,6 @@ namespace TPRandomizer.Assets
         private List<byte> ParseClr0Bytes()
         {
             List<byte> bytes = CLR0.CLR0.BuildClr0(fcSettings);
-
-            SeedHeaderRaw.clr0Offset = (ushort)(CheckDataRaw.Count);
-
             return bytes;
         }
 
@@ -1478,6 +1421,314 @@ namespace TPRandomizer.Assets
             return listOfArcReplacements;
         }
 
+        private static byte[] patchGCIWithSeed(char region, List<byte> seed)
+        {
+            List<byte> outputFile = new();
+            string gciRegion = "";
+            int maxRelEntries = 37;
+            int id = 0x53454544;
+            int previousSize = 0;
+            int previousOffset = 0;
+            switch (region)
+            {
+                case 'E':
+                {
+                    gciRegion = "us";
+                    break;
+                }
+                case 'J':
+                {
+                    gciRegion = "jp";
+                    break;
+                }
+                case 'P':
+                {
+                    gciRegion = "eu";
+                    break;
+                }
+                default:
+                {
+                    gciRegion = "us";
+                    break;
+                }
+            }
+            List<byte> gciBytes = File.ReadAllBytes("/app/generator/Assets/gci/Randomizer." + gciRegion + ".gci").ToList(); // read in the file as an array of bytes
+
+            for (int i = 0; i < maxRelEntries; i++)
+            {
+                int offset = 0x2084 + (i * 0xC);
+                int currentId = (int)(gciBytes[offset] << 32 | gciBytes[offset + 1] << 16 | gciBytes[offset + 2] << 8 | gciBytes[offset + 3]);
+                int relSize = (int)(gciBytes[offset+4] << 32 | gciBytes[offset + 5] << 16 | gciBytes[offset + 6] << 8 | gciBytes[offset + 7]);
+                int relOffset = (int)(gciBytes[offset+8] << 32 | gciBytes[offset + 9] << 16 | gciBytes[offset + 0xA] << 8 | gciBytes[offset + 0xB]);
+
+                if ((currentId == 0) || (relSize == 0) || (relOffset == 0))
+                {
+                    // Assume an empty section has been found
+
+                    // write ID
+                    gciBytes[offset] = (byte)((id & 0xFF000000) >> 24);
+                    gciBytes[offset + 1] = (byte)((id & 0xFF0000) >> 16);
+                    gciBytes[offset + 2] = (byte)((id & 0xFF00) >> 8);
+                    gciBytes[offset + 3] = (byte)(id & 0xFF);
+
+                    // write size as big endian
+                    int bigESize = (int)SeedHeaderRaw.totalSize;
+                    gciBytes[offset + 4] = (byte)((bigESize & 0xFF000000) >> 24);
+                    gciBytes[offset + 5] = (byte)((bigESize & 0xFF0000) >> 16);
+                    gciBytes[offset + 6] = (byte)((bigESize & 0xFF00) >> 8);
+                    gciBytes[offset + 7] = (byte)(bigESize & 0xFF);
+
+                    // create size and offset and rounded to multiple of 0x4 if needed
+                    relOffset = previousSize + previousOffset;
+                    while (relOffset % 0x4 != 0)
+                    {
+                        relOffset++;
+                    }
+
+                    gciBytes[offset + 8] = (byte)((relOffset & 0xFF000000) >> 24);
+                    gciBytes[offset + 9] = (byte)((relOffset & 0xFF0000) >> 16);
+                    gciBytes[offset + 10] = (byte)((relOffset & 0xFF00) >> 8);
+                    gciBytes[offset + 11] = (byte)(relOffset & 0xFF);
+
+                    // Calculate new size of gci
+                    int newSize = (int)(relOffset + SeedHeaderRaw.totalSize);
+                    while ((newSize - 0x40) % 0x2000 != 0)
+                    {
+                        newSize++;
+                    }
+
+                    while (gciBytes.Count < newSize)
+                    {
+                        gciBytes.Add(0);
+                    }
+
+                    // Write the file's data
+                    for( int index = 0; index < seed.Count; index++)
+                    {
+                        int byteIndex = index + relOffset + 0x40;
+                        gciBytes[byteIndex] = seed[index];
+                    }
+
+                    // update the block count
+                    int blocks = gciBytes.Count / 0x2000;
+                    gciBytes[0x38] = (byte)((blocks & 0xFF00) >> 8);
+                    gciBytes[0x39] = (byte)(blocks & 0xFF);
+
+                    // Update modified time
+
+                    int totalSeconds = BitConverter.ToInt32(Converter.GcBytes((UInt32)(DateTime.Now - new DateTime(2000, 1, 1)).TotalSeconds));
+
+                    gciBytes[0x28] = (byte)((totalSeconds & 0xFF000000) >> 24);
+                    gciBytes[0x29] = (byte)((totalSeconds & 0xFF0000) >> 16);
+                    gciBytes[0x2A] = (byte)((totalSeconds & 0xFF00) >> 8);
+                    gciBytes[0x2B] = (byte)(totalSeconds & 0xFF);
+
+                    outputFile.AddRange(gciBytes);
+
+                    break;
+                }
+
+                if (currentId == id)
+                {
+                    // The file being injected is already in the gci
+                    Console.WriteLine("ERROR GCI Has already been patched with a seed!");
+                    outputFile.AddRange(gciBytes);
+                    break;
+                }
+
+                previousSize = relSize;
+                previousOffset = relOffset;
+            }
+            return outputFile.ToArray();
+        }
+
+        //The Bgm Section will be laid out as follows: (BgmReplacementCount,
+        //{bgmId,replacementId,replacementWave},{...},fanfareReplacementCount,fanfareId,replacementId,{...})
+        private List<byte> GenerateBgmData()
+        {
+            List<byte> data = new();
+            List<SoundAssets.bgmData> replacementPool = new();
+            List<SoundAssets.bgmReplacement> bgmReplacementArray = new();
+            if (fcSettings.randomizeBgm == RandomizeBgm.Off)
+            {
+                return data;
+            }
+            Dictionary<string, SoundAssets.bgmData> dataList = JsonConvert.DeserializeObject<
+                Dictionary<string, SoundAssets.bgmData>
+            >(File.ReadAllText(Global.CombineRootPath("./Assets/Sound/BackgroundMusic.jsonc")));
+            if (fcSettings.randomizeBgm != RandomizeBgm.Off)
+            {
+                foreach (KeyValuePair<string, SoundAssets.bgmData> currentData in dataList)
+                {
+                    if (
+                        fcSettings.randomizeBgm == RandomizeBgm.Overworld
+                        && currentData.Value.sceneBgm == true
+                    )
+                    {
+                        replacementPool.Add(currentData.Value);
+                    }
+                    if (
+                        fcSettings.randomizeBgm == RandomizeBgm.Dungeon
+                        && currentData.Value.dungeonBgm == true
+                    )
+                    {
+                        replacementPool.Add(currentData.Value);
+                    }
+                    if (
+                        fcSettings.randomizeBgm == RandomizeBgm.All
+                        && (
+                            currentData.Value.sceneBgm == true
+                            || currentData.Value.bossBgm == true
+                            || currentData.Value.minibossBgm == true
+                            || currentData.Value.minigameBgm == true
+                            || currentData.Value.eventBgm == true
+                        )
+                    )
+                    {
+                        replacementPool.Add(currentData.Value);
+                    }
+                }
+                foreach (SoundAssets.bgmData currentData in replacementPool)
+                {
+                    SoundAssets.bgmReplacement replacement = new();
+                    replacement.replacementBgmTrack = currentData.bgmID;
+                    replacement.replacementBgmWave = currentData.bgmWave;
+                    Random rnd = new();
+                    while (true)
+                    {
+                        replacement.originalBgmTrack = replacementPool[
+                            rnd.Next(replacementPool.Count)
+                        ].bgmID;
+                        bool foundSame = false;
+                        foreach (SoundAssets.bgmReplacement currentReplacement in bgmReplacementArray)
+                        {
+                            if (currentReplacement.originalBgmTrack == replacement.originalBgmTrack)
+                            {
+                                foundSame = true;
+                                break;
+                            }
+                        }
+                        if (foundSame == false)
+                        {
+                            bool incompatible = false;
+                            for (int i = 0; i < IncompatibleReplacements.GetLength(0); i++)
+                            {
+                                int original = IncompatibleReplacements[i, 0];
+                                int replacementBgm = IncompatibleReplacements[i, 1];
+                                if (original == replacement.originalBgmTrack)
+                                {
+                                    if (replacementBgm == replacement.replacementBgmTrack)
+                                    {
+                                        incompatible = true;
+                                    }
+                                }
+                            }
+                            if (!incompatible)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    bgmReplacementArray.Add(replacement);
+                }
+                if (replacementPool.Count != bgmReplacementArray.Count)
+                {
+                    Console.WriteLine(
+                        "BGM Pool ("
+                            + replacementPool.Count
+                            + ") and Replacement ("
+                            + bgmReplacementArray.Count
+                            + ") have different lengths!"
+                    );
+                }
+                foreach (SoundAssets.bgmReplacement currentReplacement in bgmReplacementArray)
+                {
+                    data.Add((byte)currentReplacement.originalBgmTrack);
+                    data.Add((byte)currentReplacement.replacementBgmTrack);
+                    data.Add((byte)currentReplacement.replacementBgmWave);
+                    data.Add((byte)0x0); // Padding
+                }
+            }
+            SeedHeaderRaw.bgmInfoNumEntries = (byte)bgmReplacementArray.Count;
+            return data;
+        }
+
+        private List<byte> GenerateFanfareData()
+        {
+            List<byte> data = new();
+            List<SoundAssets.bgmData> replacementPool = new();
+            List<SoundAssets.bgmReplacement> fanfareReplacementArray = new();
+            if (fcSettings.randomizeFanfares)
+            {
+                Dictionary<string, SoundAssets.bgmData> dataList = JsonConvert.DeserializeObject<
+                    Dictionary<string, SoundAssets.bgmData>
+                >(File.ReadAllText(Global.CombineRootPath("./Assets/Sound/BackgroundMusic.jsonc")));
+                foreach (KeyValuePair<string, SoundAssets.bgmData> currentData in dataList)
+                {
+                    if (currentData.Value.isFanfare == true && currentData.Value.bgmWave == 0)
+                    {
+                        replacementPool.Add(currentData.Value);
+                    }
+                }
+                foreach (SoundAssets.bgmData currentData in replacementPool)
+                {
+                    SoundAssets.bgmReplacement replacement = new();
+                    replacement.replacementBgmTrack = currentData.bgmID;
+                    replacement.replacementBgmWave = 0;
+                    Random rnd = new();
+                    while (true)
+                    {
+                        replacement.originalBgmTrack = replacementPool[
+                            rnd.Next(replacementPool.Count)
+                        ].bgmID;
+                        bool foundSame = false;
+                        foreach (SoundAssets.bgmReplacement currentReplacement in fanfareReplacementArray)
+                        {
+                            if (currentReplacement.originalBgmTrack == replacement.originalBgmTrack)
+                            {
+                                foundSame = true;
+                                break;
+                            }
+                        }
+                        if (foundSame == false)
+                        {
+                            break;
+                        }
+                    }
+                    fanfareReplacementArray.Add(replacement);
+                }
+                if (replacementPool.Count != fanfareReplacementArray.Count)
+                {
+                    Console.WriteLine(
+                        "Fanfare Pool ("
+                            + replacementPool.Count
+                            + ") and Replacement ("
+                            + fanfareReplacementArray.Count
+                            + ") have different lengths!"
+                    );
+                }
+                foreach (SoundAssets.bgmReplacement currentReplacement in fanfareReplacementArray)
+                {
+                    data.Add((byte)currentReplacement.originalBgmTrack);
+                    data.Add((byte)currentReplacement.replacementBgmTrack);
+                    data.Add((byte)0x0); // Padding
+                    data.Add((byte)0x0); // Padding
+                }
+            }
+            SeedHeaderRaw.fanfareInfoNumEntries = (byte)fanfareReplacementArray.Count;
+
+            return data;
+        }
+
+        private static readonly int[,] IncompatibleReplacements = new int[,]
+        {
+            //Original, Replacement
+            { 62, 148 }, // Armogohma Phase 1 overwriting Palace Theme
+            { 62, 98 }, // Zant Boss Theme overwriting Palace Theme
+            { 44, 8 }, // Ook Battle Music overwriting House Interiors
+            { 55, 8 }, // Ook Battle Music overwriting Snowpeak Ruins
+        };
+
         private class SeedHeader
         {
             public UInt16 versionMajor { get; set; } // SeedData version major
@@ -1485,11 +1736,12 @@ namespace TPRandomizer.Assets
             public UInt16 headerSize { get; set; } // Total size of the header in bytes
             public UInt16 dataSize { get; set; } // Total number of bytes in the check data
             public UInt32 totalSize { get; set; } // Total number of bytes in the gci after the comments
-            public UInt32 requiredDungeons { get; set; } // Bitfield containing which dungeons are required to beat the seed. Only 8 bits are used, while the rest are reserved for future updates
             public UInt16 volatilePatchInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
             public UInt16 volatilePatchInfoDataOffset { get; set; }
             public UInt16 oneTimePatchInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
             public UInt16 oneTimePatchInfoDataOffset { get; set; }
+            public UInt16 flagBitfieldInfoNumEntries { get; set; } // bitArray where each bit represents a patch/modification to be applied for this playthrough
+            public UInt16 flagBitfieldInfoDataOffset { get; set; }
             public UInt16 eventFlagsInfoNumEntries { get; set; } // eventFlags that need to be set for this seed
             public UInt16 eventFlagsInfoDataOffset { get; set; }
             public UInt16 regionFlagsInfoNumEntries { get; set; } // regionFlags that need to be set, alternating
@@ -1520,7 +1772,12 @@ namespace TPRandomizer.Assets
             public UInt16 startingItemInfoDataOffset { get; set; }
             public UInt16 shuffledEntranceInfoNumEntries { get; set; }
             public UInt16 shuffledEntranceInfoDataOffset { get; set; }
-            public UInt16 bgmHeaderOffset { get; set; }
+            public UInt16 bgmInfoNumEntries { get; set; }
+            public UInt16 bgmInfoDataOffset { get; set; }
+            public UInt16 fanfareInfoNumEntries { get; set; }
+            public UInt16 fanfareInfoDataOffset { get; set; }
+            public UInt16 sfxInfoNumEntries { get; set; }
+            public UInt16 sfxInfoDataOffset { get; set; }
             public UInt16 clr0Offset { get; set; }
             public UInt16 customTextHeaderSize { get; set; }
             public UInt16 customTextHeaderOffset { get; set; }

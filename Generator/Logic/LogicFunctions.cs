@@ -10,11 +10,6 @@ namespace TPRandomizer
     /// </summary>
     public class LogicFunctions
     {
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        public Dictionary<Token, string> TokenDict = new();
-
         //Evaluate the tokenized settings to their respective values that are set by the settings string.
 
         /// <summary>
@@ -179,9 +174,12 @@ namespace TPRandomizer
         {
             return (
                     Randomizer.Rooms.RoomDict["Lower Kakariko Village"].ReachedByPlaythrough
-                    || Randomizer.Rooms.RoomDict[
+                    || (
+                        Randomizer.Rooms.RoomDict[
                         "Death Mountain Elevator Lower"
-                    ].ReachedByPlaythrough
+                        ].ReachedByPlaythrough
+                        && CanDefeatGoron()
+                    )
                 ) && HasBottle();
         }
 
@@ -1821,8 +1819,21 @@ namespace TPRandomizer
         {
             return Randomizer.SSettings.eldinTwilightCleared
                 || (
-                    canCompletePrologue()
-                    && canClearForest()
+                    Randomizer.Rooms.RoomDict["Faron Field"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Lower Kakariko Village"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Kakariko Graveyard"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Kakariko Malo Mart"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict[
+                        "Kakariko Barnes Bomb Shop Upper"
+                    ].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict[
+                        "Kakariko Renados Sanctuary Basement"
+                    ].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Kakariko Elde Inn"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Kakariko Bug House"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Upper Kakariko Village"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Kakariko Watchtower"].ReachedByPlaythrough
+                    && Randomizer.Rooms.RoomDict["Death Mountain Volcano"].ReachedByPlaythrough
                     && (
                         !Randomizer.SSettings.bonksDoDamage
                         || (
@@ -2330,19 +2341,6 @@ namespace TPRandomizer
                 isQuantity = true;
             }
             return isQuantity;
-        }
-
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        public bool EvaluateRequirements(string location, string expression)
-        {
-            Parser parse = new Parser();
-            parse.ParserReset();
-            Randomizer.Logic.TokenDict = new Tokenizer(expression).Tokenize();
-            parse.checkedLogicItem = location + " with logic: " + expression;
-            //Console.WriteLine(parse.checkedLogicItem);
-            return parse.Parse();
         }
     }
 }

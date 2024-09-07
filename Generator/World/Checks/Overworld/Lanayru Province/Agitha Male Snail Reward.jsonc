@@ -1,5 +1,6 @@
 {
     "requirements": "Male_Snail",
+    "glitchedRequirements": "Male_Snail",
     "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
     "itemId": "Purple_Rupee"
 }

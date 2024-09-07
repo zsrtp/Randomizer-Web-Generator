@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Chest", "Dungeon", "City in The Sky", "Small Key", "ARC"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Chest", "Dungeon", "City in The Sky", "Small Key"],
     "itemId": "City_in_The_Sky_Small_Key"
 }

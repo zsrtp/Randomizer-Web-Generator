@@ -5,11 +5,13 @@
     [
       {
         "ConnectedArea": "Lower Kakariko Village",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Trail",
-        "Requirements": "Iron_Boots or canCompleteGoronMines"
+        "Requirements": "Iron_Boots or canCompleteGoronMines",
+        "GlitchedRequirements": "Iron_Boots or canCompleteGoronMines"
       }
     ],
     "Checks": [""],
@@ -21,11 +23,13 @@
     [
       {
         "ConnectedArea": "Death Mountain Near Kakariko",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Volcano",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -41,15 +45,19 @@
     [
       {
         "ConnectedArea": "Death Mountain Trail",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Outside Sumo Hall",
-        "Requirements": "Iron_Boots and (CanDefeatGoron or canCompleteGoronMines)"
+        "Requirements": "Iron_Boots and (CanDefeatGoron or canCompleteGoronMines)",
+        "GlitchedRequirements": "Iron_Boots and (CanDefeatGoron or canCompleteGoronMines)"
       },
       {
         "ConnectedArea": "Death Mountain Elevator Lower",
-        "Requirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open)"
+        "Requirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open)",
+        // Either having visited the area before or doing Early Elevator
+        "GlitchedRequirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open) or (HasSword and (CanDoLJA or Shadow_Crystal))"
       }
     ],
     "Checks": [""],
@@ -61,11 +69,13 @@
     [
       {
         "ConnectedArea": "Death Mountain Volcano",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Sumo Hall",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -77,11 +87,13 @@
     [
       {
         "ConnectedArea": "Death Mountain Volcano",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Sumo Hall Elevator",
-        "Requirements": "Iron_Boots"
+        "Requirements": "Iron_Boots",
+        "GlitchedRequirements": "Iron_Boots"
       }
     ],
     "Checks": [""],
@@ -93,15 +105,18 @@
     [
       {
         "ConnectedArea": "Death Mountain Outside Sumo Hall",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Sumo Hall Elevator",
-        "Requirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
+        "Requirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)",
+        "GlitchedRequirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
       },
       {
         "ConnectedArea": "Death Mountain Sumo Hall Goron Mines Tunnel",
-        "Requirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
+        "Requirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)",
+        "GlitchedRequirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
       }
     ],
     "Checks": [""],
@@ -113,12 +128,15 @@
     [
       {
         "ConnectedArea": "Death Mountain Elevator Lower",
-        "Requirements": "Iron_Boots"
+        "Requirements": "Iron_Boots",
+        "GlitchedRequirements": "Iron_Boots"
       },
       {
         // Depending on settings, the Goron can be blocking the way into the room. If this is the case, we need to make sure we can actually move the Goron before we consider this a valid path.
         "ConnectedArea": "Death Mountain Sumo Hall",
-        "Requirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
+        "Requirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)",
+        // Spinner/wolf clip also works.
+        "GlitchedRequirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True) or Spinner or Shadow_Crystal"
       }
     ],
     "Checks": [""],
@@ -131,11 +149,14 @@
       {
         // Depending on settings, the Gorons can be blocking the way into the room. If this is the case, we need to make sure we can actually move the Gorons before we consider this a valid path.
         "ConnectedArea": "Death Mountain Sumo Hall",
-        "Requirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
+        "Requirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)",
+        // Spinner clip also works
+        "GlitchedRequirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True) or Spinner"
       },
       {
         "ConnectedArea": "Goron Mines Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],

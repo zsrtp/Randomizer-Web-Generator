@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Lanayru Province", "DZX"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Lanayru Province"],
     "itemId": "Female_Ladybug"
 }

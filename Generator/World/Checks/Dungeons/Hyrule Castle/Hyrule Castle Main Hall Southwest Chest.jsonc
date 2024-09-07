@@ -1,5 +1,6 @@
 {
     "requirements": "canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut and Boomerang and Lantern and (Progressive_Clawshot, 2)",
-    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle", "ARC"],
+    "glitchedRequirements": "(canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut and Boomerang and Lantern and (Progressive_Clawshot, 1)) or (Progressive_Clawshot, 2)",
+    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle"],
     "itemId": "Orange_Rupee"
 }

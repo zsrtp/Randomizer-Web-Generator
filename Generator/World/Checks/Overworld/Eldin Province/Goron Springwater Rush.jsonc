@@ -4,6 +4,7 @@
   // and having this check with a differing logic could confuse the player if they are required to get this check, but 
   // then it is not in logic for them to just walk into the castle town.
   "requirements": "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy)))",
+  "glitchedRequirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village",
   "checkCategory": [ "Overworld", "Npc", "Hyrule Field - Eldin Province", "Boss" ],
   "itemId": "Piece_of_Heart"
 }

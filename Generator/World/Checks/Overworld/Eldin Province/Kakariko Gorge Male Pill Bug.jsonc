@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Eldin Province","DZX"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Eldin Province"],
     "itemId": "Male_Pill_Bug"
 }

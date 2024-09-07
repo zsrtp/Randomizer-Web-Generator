@@ -1,5 +1,0 @@
-{
-    "requirements": "(Progressive_Clawshot, 1) and (Zora_Armor or CanDoLJA) and canLaunchBombs",
-    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Big Key"],
-    "itemId": "Lakebed_Temple_Big_Key"
-}

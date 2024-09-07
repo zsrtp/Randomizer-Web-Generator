@@ -1,9 +1,0 @@
-{
-    "requirements": "CanDefeatSkulltula",
-    "hash": ["421A"],
-    "stageIDX": [38],
-    "dzxTag": ["TRES"],
-    "checkCategory": ["Overworld", "Chest", "Gerudo Desert", "DZX"],
-    "itemId": "Orange_Rupee",
-    "actrData": [["74", "62", "6F", "78", "42", "31", "00", "00", "FF", "10", "82", "01", "C4", "85", "40", "F8", "C3", "04", "23", "46", "C5", "3E", "6E", "18", "00", "0F", "00", "00", "06", "FF", "FF", "FF"]]
-}

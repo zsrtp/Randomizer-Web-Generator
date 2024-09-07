@@ -1,5 +1,0 @@
-{
-    "requirements": "CanDefeatDekuToad and (((CanDoLJA and (CanSkipKeyToDekuToad or (Lakebed_Temple_Small_Key, 1)))) or ((CanSkipKeyToDekuToad or (Lakebed_Temple_Small_Key, 3)) and (Progressive_Clawshot, 1) and canLaunchBombs)) and HasHeavyMod and (CanUseWaterBombs or Zora_Armor)",
-    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple"],
-    "itemId": "Progressive_Clawshot"
-}

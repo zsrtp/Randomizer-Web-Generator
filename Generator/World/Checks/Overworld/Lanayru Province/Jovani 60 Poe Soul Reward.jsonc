@@ -1,5 +1,6 @@
 {
     "requirements": "(Poe_Soul, 60)",
-    "checkCategory": ["Overworld", "Npc", "Castle Town", "ARC"],
+    "glitchedRequirements": "(Poe_Soul, 60)",
+    "checkCategory": ["Overworld", "Npc", "Castle Town"],
     "itemId": "Silver_Rupee"
 }

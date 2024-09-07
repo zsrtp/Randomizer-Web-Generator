@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatArgorok",
-    "checkCategory": ["Dungeon", "City in The Sky", "Dungeon Reward", "REL", "ARC"],
+    "glitchedRequirements": "CanDefeatArgorok",
+    "checkCategory": ["Dungeon", "City in The Sky", "Dungeon Reward"],
     "itemId": "Progressive_Mirror_Shard"
 }

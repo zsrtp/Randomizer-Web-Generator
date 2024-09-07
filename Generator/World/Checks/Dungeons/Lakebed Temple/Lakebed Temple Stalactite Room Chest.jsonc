@@ -1,5 +1,6 @@
 {
     "requirements": "canLaunchBombs",
-    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "ARC"],
+    "glitchedRequirements": "canLaunchBombs or CanDoLJA",
+    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple"],
     "itemId": "Water_Bombs_10"
 }

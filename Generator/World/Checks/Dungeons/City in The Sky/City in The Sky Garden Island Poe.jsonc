@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal and (Progressive_Clawshot, 2)",
+    "glitchedRequirements": "Shadow_Crystal and (Progressive_Clawshot, 2)",
     "checkCategory": ["Dungeon", "Poe", "City in The Sky"],
     "itemId": "Poe_Soul"
 }

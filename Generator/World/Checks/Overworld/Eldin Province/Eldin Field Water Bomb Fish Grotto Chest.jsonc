@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Eldin Province", "DZX"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Eldin Province"],
     "itemId": "Purple_Rupee"
 }

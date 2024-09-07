@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatBulblin",
+    "glitchedRequirements": "CanDefeatBulblin",
     "checkCategory": ["Overworld", "Chest", "Gerudo Desert", "ARC"],
     "itemId": "Red_Rupee"
 }

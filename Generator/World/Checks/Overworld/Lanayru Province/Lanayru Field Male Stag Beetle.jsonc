@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Clawshot, 1) or Boomerang",
-    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Lanayru Province", "DZX"],
+    "glitchedRequirements": "(Progressive_Clawshot, 1) or Boomerang",
+    "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Lanayru Province"],
     "itemId": "Male_Stag_Beetle"
 }

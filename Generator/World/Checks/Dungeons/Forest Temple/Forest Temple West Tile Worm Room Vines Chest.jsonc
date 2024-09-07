@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "ARC"],
+    "glitchedRequirements": "CanDefeatBombling or canSmash",
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple"],
     "itemId": "Red_Rupee"
 }

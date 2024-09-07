@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal",
-    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "ARC"],
+    "glitchedRequirements": "Shadow_Crystal",
+    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins"],
     "itemId": "Red_Rupee"
 }

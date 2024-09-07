@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Overworld", "Npc", "Lake Hylia", "ARC"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Npc", "Lake Hylia"],
     "itemId": "Aurus_Memo"
 }

@@ -1,9 +1,0 @@
-{
-    "requirements": "true",
-    "hash": ["326F"],
-    "stageIDX": [52],
-    "dzxTag": ["TRES"],
-    "checkCategory": ["Overworld", "Chest", "Lake Hylia", "DZX"],
-    "itemId": "Purple_Rupee",
-    "actrData": [["74", "62", "6F", "78", "41", "30", "00", "00", "FF", "0F", "F0", "40", "C7", "B3", "0C", "F9", "C6", "81", "46", "57", "47", "40", "38", "D2", "00", "00", "00", "00", "05", "FF", "FF", "FF"]]
-}

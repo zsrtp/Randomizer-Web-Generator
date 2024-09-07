@@ -1,9 +1,0 @@
-{
-    "requirements": "canCompleteTempleofTime",
-    "arcOffsets": ["CE7"],
-    "stageIDX": [68],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "checkCategory": ["Overworld", "Npc", "Kakariko Village", "ARC"],
-    "itemId": "Renados_Letter"
-}

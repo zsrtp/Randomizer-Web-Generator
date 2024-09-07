@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Dominion_Rod, 2)",
-    "checkCategory": ["Overworld", "Chest", "Gerudo Desert", "ARC"],
+    "glitchedRequirements": "(Progressive_Dominion_Rod, 2) or CanDoLJA",
+    "checkCategory": ["Overworld", "Chest", "Gerudo Desert"],
     "itemId": "Orange_Rupee"
 }

@@ -1,7 +1,0 @@
-{
-    "requirements": "Shadow_Crystal and (CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)) and canSmash",
-    "stageIDX": [54],
-    "flag": "10",
-    "checkCategory": ["Overworld", "Poe", "Sacred Grove"],
-    "itemId": "Poe_Soul"
-}

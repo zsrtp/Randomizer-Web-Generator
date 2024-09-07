@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal",
-    "checkCategory": ["Overworld", "Npc", "Lake Hylia", "ARC"],
+    "glitchedRequirements": "Shadow_Crystal",
+    "checkCategory": ["Overworld", "Npc", "Lake Hylia"],
     "itemId": "Piece_of_Heart"
 }

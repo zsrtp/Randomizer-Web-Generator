@@ -1,447 +1,276 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
+#nullable enable
 namespace TPRandomizer
 {
-    // Expression         := [ "!" ] <Boolean> { <BooleanOperator> <Boolean> } ...
-    // Boolean            := <BooleanConstant> | <Expression> | "(" <Expression> ")"
-    // BooleanOperator    := "And" | "Or"
-    // BooleanConstant    := "True" | "False"
+    // Expression         := <Boolean> { <BooleanOperator> <Boolean> } ...
+    // Boolean            := <BooleanConstant> | <ItemOrFunction> | <ProgressiveItem> | <Room> | <Setting> | "(" <Expression> ")"
+    // BooleanOperator    := "and" | "or"
+    // BooleanConstant    := "true" | "false"
+    // ItemOrFunction     := <Name>
+    // Room               := Room.<Name>
+    // Setting            := "(" <Name> { "equals" | "not_equal" } <Value> ")"
+    // ProgressiveItem    := "(" <Name> "," <Count> ")"
 
     /// <summary>
-    /// summary text.
+    /// Base class for logic parse tree nodes.
     /// </summary>
+    public abstract class LogicAST
+    {
+        public abstract bool Evaluate();
+    }
+
+    namespace AST
+    {
+        public class True : LogicAST
+        {
+            public override bool Evaluate() => true;
+        }
+
+        public class False : LogicAST
+        {
+            public override bool Evaluate() => false;
+        }
+
+        public class Function : LogicAST
+        {
+            string FunctionName { get; }
+
+            public Function(string function) => FunctionName = function;
+
+            public override bool Evaluate()
+            {
+                MethodInfo? method = typeof(LogicFunctions).GetMethod(FunctionName);
+                if (method == null)
+                {
+                    Console.WriteLine($"unknown logic function {FunctionName}");
+                    return false;
+                }
+
+                object? result = method.Invoke(null, null);
+                if (result is bool resultBool)
+                {
+                    return resultBool;
+                }
+                else
+                {
+                    Console.WriteLine($"logic function {FunctionName} returned non-bool {result}");
+                    return false;
+                }
+            }
+        }
+
+        public class Item : LogicAST
+        {
+            TPRandomizer.Item ItemId { get; }
+            int Count { get; }
+
+            public Item(TPRandomizer.Item item, int count) => (ItemId, Count) = (item, count);
+
+            public override bool Evaluate()
+            {
+                int heldCount = Randomizer.Items.heldItems.Where(i => i == ItemId).Count();
+                // Console.WriteLine($"Item.Evaluate {heldCount} {Count} {ItemId}");
+                return heldCount >= Count;
+            }
+        }
+
+        public class Room : LogicAST
+        {
+            string RoomName { get; }
+
+            public Room(string room) => RoomName = room;
+
+            public override bool Evaluate() => Randomizer.Rooms.RoomDict[RoomName].ReachedByPlaythrough;
+        }
+
+        public class Setting : LogicAST
+        {
+            string SettingName { get; }
+            string SettingValue { get; }
+            bool Sense { get; }
+
+            public Setting(string setting, string value, bool sense) => (SettingName, SettingValue, Sense) = (setting, value, sense);
+
+            public override bool Evaluate() => LogicFunctions.EvaluateSetting(SettingName, SettingValue) == Sense;
+        }
+
+        public class Conjunction : LogicAST
+        {
+            LogicAST Left { get; }
+            LogicAST Right { get; }
+
+            public Conjunction(LogicAST left, LogicAST right) => (Left, Right) = (left, right);
+
+            public override bool Evaluate() => Left.Evaluate() && Right.Evaluate();
+        }
+
+        public class Disjunction : LogicAST
+        {
+            LogicAST Left { get; }
+            LogicAST Right { get; }
+
+            public Disjunction(LogicAST left, LogicAST right) => (Left, Right) = (left, right);
+
+            public override bool Evaluate() => Left.Evaluate() || Right.Evaluate();
+        }
+    }
+
     public class Parser
     {
-        public int tokenValue;
-        public int isinParenthesis = 0;
-        public string checkedLogicItem;
+        static Regex progressiveItemRegex = new(@"^\((\w+\s*),\s*(\d+)\)");
+        static Regex settingRegex = new(@"^\(Setting.(\w+)\s+equals\s+(\w+)\)");
+        static Regex settingInverseRegex = new(@"^\(Setting.(\w+)\s+not_equal\s+(\w+)\)");
+        static Regex roomRegex = new(@"^Room.(\w+)");
+        static Regex trueRegex = new(@"^true");
+        static Regex falseRegex = new(@"^false");
+        static Regex itemOrFunctionRegex = new(@"^(\w+)");
+        static Regex conjunctionRegex = new(@"^and\s+");
+        static Regex disjunctionRegex = new(@"^or\s+");
+        static Dictionary<string, LogicAST> parseCache = [];
 
         /// <summary>
-        /// summary text.
+        /// Parses logic expressions into AST objects. This function uses an internal parse cache,
+        /// but it's still better to cache the returned AST yourself if possible.
         /// </summary>
-        public void ParserReset()
+        /// <param name="expression">Logic expression as text.</param>
+        /// <returns>Logic expression as an AST object.</returns>
+        public static LogicAST Parse(string expression)
         {
-            tokenValue = 0;
-            Randomizer.Logic.TokenDict.Clear();
+            if (parseCache.TryGetValue(expression, out LogicAST? value))
+            {
+                return value;
+            }
+
+            string exprClone = expression;
+            LogicAST parsed;
+            try
+            {
+                parsed = ParseInner(ref exprClone, 0);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Failed to parse logic expression {expression}: {e}");
+                throw;
+            }
+
+            parseCache[expression] = parsed;
+            return parsed;
         }
 
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        public bool Parse()
+        // this function does the actual work, because taking `ref string` on a public method
+        // would be a little weird. internally, though, it's easier (and likely faster) to keep
+        // one reference to expression and substring it as we consume characters.
+        //
+        // you could also do this with a pointer that gets passed to Match but it's more boilerplate
+        static LogicAST ParseInner(ref string expression, int depth)
         {
-            while (
-                Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key != null
-                && !(tokenValue > Randomizer.Logic.TokenDict.Count() - 1)
-            )
+            LogicAST? tree = null;
+
+            while (expression.Length > 0)
             {
-                var boolean = ParseBoolean();
-                while (
-                    (tokenValue <= Randomizer.Logic.TokenDict.Count() - 1)
-                    && Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is OperandToken
-                )
+                expression = expression.Trim();
+                Match? m;
+                LogicAST thisNode;
+
+                if ((m = Re(progressiveItemRegex, ref expression)) != null)
                 {
-                    var operand = Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key;
-                    tokenValue++;
-                    var nextBoolean = ParseBoolean();
-                    if (operand is AndToken)
-                        boolean = boolean && nextBoolean;
+                    thisNode = new AST.Item(Enum.Parse<Item>(m.Groups[1].Value), int.Parse(m.Groups[2].Value));
+                }
+                else if ((m = Re(settingRegex, ref expression)) != null)
+                {
+                    thisNode = new AST.Setting(m.Groups[1].Value, m.Groups[2].Value, true);
+                }
+                else if ((m = Re(settingInverseRegex, ref expression)) != null)
+                {
+                    thisNode = new AST.Setting(m.Groups[1].Value, m.Groups[2].Value, false);
+                }
+                else if ((m = Re(roomRegex, ref expression)) != null)
+                {
+                    thisNode = new AST.Room(m.Groups[1].Value.Replace('_', ' '));
+                }
+                else if (expression.StartsWith('('))
+                {
+                    // Start of a subexpression. We know it's not a progressive item check because
+                    // we looked for that earlier.
+                    expression = expression[1..];
+                    thisNode = ParseInner(ref expression, depth + 1);
+                    // skip the final )
+                    if (expression.Length == 0 || expression[0] != ')')
+                    {
+                        throw new Exception("Expected closing parenthesis");
+                    }
+                    expression = expression[1..];
+                }
+                else if (Re(trueRegex, ref expression) != null)
+                {
+                    thisNode = new AST.True();
+                }
+                else if (Re(falseRegex, ref expression) != null)
+                {
+                    thisNode = new AST.False();
+                }
+                else if (Re(conjunctionRegex, ref expression) != null)
+                {
+                    thisNode = new AST.Conjunction(tree!, ParseInner(ref expression, depth));
+                }
+                else if (Re(disjunctionRegex, ref expression) != null)
+                {
+                    thisNode = new AST.Disjunction(tree!, ParseInner(ref expression, depth));
+                }
+                else if ((m = Re(itemOrFunctionRegex, ref expression)) != null)
+                {
+                    if (Enum.TryParse(m.Groups[1].Value, out Item item))
+                    {
+                        thisNode = new AST.Item(item, 1);
+                    }
                     else
-                        boolean = boolean || nextBoolean;
-                }
-
-                // If the code makes it to this point, it is catching the closing parenthesis. If there shouldn't be one at this point, we want to parse and account for it.
-                if (
-                    (isinParenthesis == 0) && !(tokenValue > Randomizer.Logic.TokenDict.Count() - 1)
-                )
-                {
-                    ParseBoolean();
-                }
-                return boolean;
-            }
-
-            throw new Exception("Empty expression");
-        }
-
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        private bool ParseBoolean()
-        {
-            var parseBool = false;
-            if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is BooleanValueToken)
-            {
-                var current = Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key;
-                tokenValue++;
-
-                if (current is TrueToken)
-                    return true;
-
-                return false;
-            }
-            else if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is OpenParenthesisToken)
-            {
-                isinParenthesis++;
-                tokenValue++;
-
-                var expInPars = Parse();
-
-                // If there are no more characters and we have a hanging open parenthesis, throw an error
-                if (
-                    !(
-                        Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key
-                        is ClosedParenthesisToken
-                    )
-                )
-                {
-                    for (int i = tokenValue; i < Randomizer.Logic.TokenDict.Count(); i++)
                     {
-                        Console.WriteLine(
-                            "Stack Trace: " + Randomizer.Logic.TokenDict.ElementAt(i).Value
-                        );
+                        thisNode = new AST.Function(m.Groups[1].Value);
                     }
-                    throw new Exception(
-                        "Expecting Closing Parenthesis but got: "
-                            + Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key
-                            + ": "
-                            + Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value
-                            + " at index: "
-                            + tokenValue
-                    );
                 }
-
-                tokenValue++;
-                isinParenthesis -= 1;
-
-                return expInPars;
-            }
-            else if (
-                Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is ClosedParenthesisToken
-                && (isinParenthesis == 0)
-            )
-            {
-                throw new Exception(
-                    "Unexpected Closed Parenthesis in location: " + checkedLogicItem
-                );
-            }
-            else if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is itemToken)
-            {
-                string evaluatedItem = Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value;
-                tokenValue++;
-                if ((Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is CommaToken))
+                else if (expression.StartsWith(')'))
                 {
-                    tokenValue++;
-                    parseBool = LogicFunctions.verifyItemQuantity(
-                        evaluatedItem,
-                        Int16.Parse(Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value)
-                    );
-                    tokenValue++;
+                    if (depth > 0)
+                    {
+                        // end of a subexpression. let the caller handle advancing the read pointer
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception("Unexpected closing parenthesis");
+                    }
                 }
                 else
                 {
-                    parseBool = LogicFunctions.CanUse(evaluatedItem);
+                    Console.WriteLine($"failed to parse remainder of logic expression: {expression}");
+                    expression = "";
+                    thisNode = new AST.False();
                 }
-                return parseBool;
-            }
-            else if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is logicFunctionToken)
-            {
-                string evaluatedFunction = Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value;
-                tokenValue++;
-                // If a comma follows a function, we assume it is needing to be compared to an integer
-                if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is CommaToken)
-                {
-                    tokenValue++;
-                    int getQuantity = 0;
-                    getQuantity = (int)
-                        typeof(LogicFunctions).GetMethod(evaluatedFunction).Invoke(this, null);
-                    if (
-                        getQuantity
-                        >= Int16.Parse(Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value)
-                    )
-                    {
-                        parseBool = true;
-                    }
-                    tokenValue++;
-                }
-                // If there is no comma following the function, then it doesnt need to return an int value, and we can continue to evaluate it
-                else
-                {
-                    parseBool = (bool)
-                        typeof(LogicFunctions).GetMethod(evaluatedFunction).Invoke(this, null);
-                }
-                return parseBool;
-            }
-            else if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is settingsToken)
-            {
-                string evaluatedItem = Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value;
-                tokenValue++;
-                if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is EqualsToken)
-                {
-                    tokenValue++;
-                    parseBool = LogicFunctions.EvaluateSetting(
-                        evaluatedItem,
-                        Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value.ToString()
-                    );
-                    tokenValue++;
-                }
-                else if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is NegationToken)
-                {
-                    tokenValue++;
-                    parseBool = !LogicFunctions.EvaluateSetting(
-                        evaluatedItem,
-                        Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value.ToString()
-                    );
-                    tokenValue++;
-                }
-                return parseBool;
-            }
-            else if (Randomizer.Logic.TokenDict.ElementAt(tokenValue).Key is roomToken)
-            {
-                string evaluatedToken = Randomizer.Logic.TokenDict.ElementAt(tokenValue).Value;
-                string roomName = evaluatedToken.Replace("Room.", string.Empty);
-                roomName = roomName.Replace("_", " ");
-                tokenValue++;
-                parseBool = Randomizer.Rooms.RoomDict[roomName].ReachedByPlaythrough;
-                return parseBool;
+
+                tree = thisNode;
             }
 
-            // since its not a BooleanConstant or Expression in parenthesis, it must be a expression again
-            var val = Parse();
-            return val;
+            return tree!;
+        }
+
+        // helper function to match and advance or return null for comparison chains
+        static Match? Re(Regex source, ref string expression)
+        {
+            Match m = source.Match(expression);
+            if (m.Success)
+            {
+                expression = expression[m.Length..];
+                return m;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class Tokenizer
-    {
-        private char[] _reader;
-        private string _text;
-
-        public Tokenizer(string text)
-        {
-            _text = text;
-            _reader = text.ToCharArray();
-        }
-
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        public Dictionary<Token, string> Tokenize()
-        {
-            Dictionary<Token, string> tokens = new Dictionary<Token, String>();
-            int i = 0;
-            while (i < _reader.Length)
-            {
-                while (Char.IsWhiteSpace((char)_reader[i]))
-                {
-                    i++;
-                }
-
-                switch (_reader[i])
-                {
-                    case '!':
-                        tokens.Add(new NegationToken(), _reader[i].ToString());
-                        i++;
-                        break;
-                    case '(':
-                        tokens.Add(new OpenParenthesisToken(), _reader[i].ToString());
-                        i++;
-                        break;
-                    case ')':
-                        tokens.Add(new ClosedParenthesisToken(), _reader[i].ToString());
-                        i++;
-                        break;
-                    case ',':
-                        tokens.Add(new CommaToken(), _reader[i].ToString());
-                        i++;
-                        break;
-                    default:
-                        var text = new StringBuilder();
-                        if (Char.IsLetter(_reader[i]))
-                        {
-                            while (
-                                Char.IsLetter(_reader[i])
-                                || (_reader[i] == '_')
-                                || (_reader[i] == '.')
-                            )
-                            {
-                                text.Append(_reader[i]);
-                                i++;
-                            }
-
-                            var potentialKeyword = text.ToString();
-
-                            switch (potentialKeyword)
-                            {
-                                case "true":
-                                    tokens.Add(new TrueToken(), potentialKeyword.ToString());
-                                    break;
-                                case "false":
-                                    tokens.Add(new FalseToken(), potentialKeyword.ToString());
-                                    break;
-                                case "and":
-                                    tokens.Add(new AndToken(), potentialKeyword.ToString());
-                                    break;
-                                case "or":
-                                    tokens.Add(new OrToken(), potentialKeyword.ToString());
-                                    break;
-                                case "equals":
-                                    tokens.Add(new EqualsToken(), potentialKeyword.ToString());
-                                    break;
-                                case "not_equal":
-                                    tokens.Add(new NegationToken(), potentialKeyword.ToString());
-                                    break;
-                                default:
-                                    if (Enum.IsDefined(typeof(Item), potentialKeyword))
-                                    {
-                                        tokens.Add(new itemToken(), potentialKeyword.ToString());
-                                        break;
-                                    }
-                                    // if it is a setting, it needs to be evaluated as such later on
-                                    else if (potentialKeyword.Contains("Setting."))
-                                    {
-                                        tokens.Add(
-                                            new settingsToken(),
-                                            potentialKeyword.ToString()
-                                        );
-                                        break;
-                                    }
-                                    else if (potentialKeyword.Contains("Room."))
-                                    {
-                                        tokens.Add(new roomToken(), potentialKeyword.ToString());
-                                        break;
-                                    }
-                                    // If it isnt a keyword, we assume that it is a logic function
-                                    else
-                                    {
-                                        tokens.Add(
-                                            new logicFunctionToken(),
-                                            potentialKeyword.ToString()
-                                        );
-                                        break;
-                                    }
-                            }
-                        }
-                        // If the char is an integer, we need to see if it is a larger number (one that is more than one char)
-                        else if (Char.IsNumber(_reader[i]))
-                        {
-                            var num = new StringBuilder();
-                            while (Char.IsNumber(_reader[i]))
-                            {
-                                num.Append(_reader[i]);
-                                i++;
-                            }
-                            tokens.Add(new IntegerToken(), num.ToString());
-                        }
-                        else
-                        {
-                            var remainingText = new string(_reader) ?? string.Empty;
-                            throw new Exception(string.Format("Unknown Grammar: " + remainingText));
-                        }
-                        break;
-                }
-            }
-            return tokens;
-        }
-    }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class OperandToken : Token { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class OrToken : OperandToken { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class AndToken : OperandToken { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class BooleanValueToken : Token { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class logicFunctionToken : Token { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class IntegerToken : Token { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class itemToken : Token { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class FalseToken : BooleanValueToken { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class TrueToken : BooleanValueToken { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class ParenthesisToken : Token { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class EqualsToken : OperandToken { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class settingsToken : OperandToken { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class roomToken : OperandToken { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class CommaToken : Token { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class canUseToken : Token { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class ClosedParenthesisToken : ParenthesisToken { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class OpenParenthesisToken : ParenthesisToken { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public class NegationToken : Token { }
-
-    /// <summary>
-    /// summary text.
-    /// </summary>
-    public abstract class Token { }
 }

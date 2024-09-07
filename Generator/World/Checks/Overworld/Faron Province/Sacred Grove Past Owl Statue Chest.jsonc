@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Dominion_Rod, 1)",
-    "checkCategory": ["Overworld", "Chest", "Sacred Grove", "ARC"],
+    "glitchedRequirements": "(Progressive_Dominion_Rod, 1) or Shadow_Crystal",
+    "checkCategory": ["Overworld", "Chest", "Sacred Grove"],
     "itemId": "Piece_of_Heart"
 }

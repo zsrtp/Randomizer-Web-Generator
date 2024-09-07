@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle", "Big Key", "ARC"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle", "Big Key"],
     "itemId": "Hyrule_Castle_Big_Key"
 }

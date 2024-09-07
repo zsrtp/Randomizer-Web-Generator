@@ -1,5 +1,6 @@
 {
     "requirements": "Iron_Boots",
-    "checkCategory": ["Overworld", "Chest", "Lake Hylia", "DZX"],
+    "glitchedRequirements": "HasHeavyMod",
+    "checkCategory": ["Overworld", "Chest", "Lake Hylia"],
     "itemId": "Orange_Rupee"
 }

@@ -1,5 +1,0 @@
-{
-    "requirements": "Ball_and_Chain or (hasBombs and ((Snowpeak_Ruins_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)))",
-    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins"],
-    "itemId": "Bombs_5"
-}

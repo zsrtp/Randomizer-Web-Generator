@@ -1,9 +1,0 @@
-{
-    "requirements": "true",
-    "arcOffsets": ["242F"],
-    "stageIDX": [68],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "checkCategory": ["Overworld", "Npc", "Kakariko Village", "ARC"],
-    "itemId": "Filled_Bomb_Bag"
-}

@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal and Room.Lake_Hylia",
+    "glitchedRequirements": "Shadow_Crystal and Room.Lake_Hylia",
     "checkCategory": ["Overworld", "Hidden Skill", "Gerudo Desert"],
     "itemId": "Progressive_Hidden_Skill"
 }

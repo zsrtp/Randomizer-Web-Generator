@@ -5,19 +5,23 @@
     [
       {
         "ConnectedArea": "Outside Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town STAR Game",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -32,7 +36,8 @@
     [
       {
         "ConnectedArea": "Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -48,31 +53,38 @@
     [
       {
         "ConnectedArea": "Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town North",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Goron House Left Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Goron House Right Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Malo Mart",
-        "Requirements": "true" 
+        "Requirements": "true" ,
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -84,11 +96,13 @@
     [
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Goron House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -100,11 +114,13 @@
     [
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Goron House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -116,11 +132,13 @@
     [
       {
         "ConnectedArea": "Castle Town Goron House Left Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Goron House Right Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -132,7 +150,8 @@
     [
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -147,11 +166,13 @@
     [
       {
         "ConnectedArea": "Castle Town North Behind First Door",
-        "Requirements": "CanCompleteMDH"
+        "Requirements": "CanCompleteMDH",
+        "GlitchedRequirements": "CanCompleteMDH"
       },
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -163,11 +184,13 @@
     [
       {
         "ConnectedArea": "Castle Town North",
-        "Requirements": "CanCompleteMDH"
+        "Requirements": "CanCompleteMDH",
+        "GlitchedRequirements": "CanCompleteMDH"
       },
       {
         "ConnectedArea": "Castle Town North Inside Barrier",
-        "Requirements": "(Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons)"
+        "Requirements": "(Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons)",
+        "GlitchedRequirements": "(Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons)"
       }
     ],
     "Checks":
@@ -182,11 +205,14 @@
     [
       {
         "ConnectedArea": "Castle Town North Behind First Door",
-        "Requirements": "CanCompleteMDH" // Barrier is one-way. If coming from HC to Castle Town, you just have to be able to go through the doors. 
+        // Barrier is one-way. If coming from HC to Castle Town, you just have to be able to go through the doors. 
+        "Requirements": "CanCompleteMDH", 
+        "GlitchedRequirements": "CanCompleteMDH"
       },
       {
         "ConnectedArea": "Hyrule Castle Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -198,23 +224,28 @@
     [
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Outside Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Left Door",
-        "Requirements": "true" 
+        "Requirements": "true" ,
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Right Door",
-        "Requirements": "true" 
+        "Requirements": "true" ,
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -226,11 +257,13 @@
     [
       {
         "ConnectedArea": "Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Upper",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -245,11 +278,13 @@
     [
       {
         "ConnectedArea": "Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -261,11 +296,13 @@
     [
       {
         "ConnectedArea": "Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -277,15 +314,18 @@
     [
       {
         "ConnectedArea": "Castle Town Doctors Office Left Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Right Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Lower",
-        "Requirements": "Invoice"
+        "Requirements": "Invoice",
+        "GlitchedRequirements": "Invoice"
       }
     ],
     "Checks": [""],
@@ -297,11 +337,13 @@
     [
       {
         "ConnectedArea": "Castle Town Doctors Office Entrance",
-        "Requirements": "Invoice"
+        "Requirements": "Invoice",
+        "GlitchedRequirements": "Invoice"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Upper",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
     "Checks": [""], // scent does belong to this room if it gets a check one day
@@ -313,11 +355,13 @@
     [
       {
         "ConnectedArea": "Castle Town Doctors Office Lower",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Balcony",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -329,35 +373,43 @@
     [
       {
         "ConnectedArea": "Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Outside Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Agithas House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Seer House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Jovanis House",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       },
       {
         "ConnectedArea": "Castle Town Telmas Bar",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -369,7 +421,8 @@
     [
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -407,7 +460,8 @@
     [
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -420,7 +474,8 @@
       {
         // The door and the dig spot lead to the exact same entrance, so there technically is only one way out, which is always accessible.
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -437,7 +492,8 @@
     [
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":

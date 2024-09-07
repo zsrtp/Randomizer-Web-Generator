@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Clawshot, 2)",
-    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "ARC"],
+    "glitchedRequirements": "(Progressive_Clawshot, 2) or (HasSword and (((Setting.damageMagnification equals Vanilla) or (Setting.damageMagnification equals Double)) or CanUseBottledFairy))  or hasBombs or Spinner or Shadow_Crystal",
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province"],
     "itemId": "Orange_Rupee"
 }

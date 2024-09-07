@@ -1,9 +1,0 @@
-{
-    "requirements": "CanUseWaterBombs and Iron_Boots",
-    "arcOffsets": ["57"],
-    "stageIDX": [50],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "checkCategory": ["Overworld", "Npc", "Zoras Domain", "ARC"],
-    "itemId": "Filled_Bomb_Bag"
-}

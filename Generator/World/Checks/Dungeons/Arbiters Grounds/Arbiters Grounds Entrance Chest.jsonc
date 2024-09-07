@@ -1,5 +1,6 @@
 {
     "requirements": "canBreakWoodenDoor",
+    "glitchedRequirements": "canBreakWoodenDoor",
     "checkCategory": ["Chest", "Dungeon", "Arbiters Grounds", "Small Key"],
     "itemId": "Arbiters_Grounds_Small_Key"
 }
