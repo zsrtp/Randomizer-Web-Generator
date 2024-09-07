@@ -5,27 +5,33 @@
     [
       {
         "ConnectedArea": "Faron Field Behind Boulder",
-        "Requirements": "canGetHotSpringWater and Room.Outside_Castle_Town_South"
+        "Requirements": "canGetHotSpringWater and Room.Outside_Castle_Town_South",
+        "GlitchedRequirements": "Room.Castle_Town_South and HasBottle and Room.Outside_Castle_Town_South"
       },
       {
         "ConnectedArea": "South Faron Woods",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Kakariko Gorge",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Lake Hylia Bridge",
-        "Requirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysy)) and CanCompleteLanayruTwilight"
+        "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)",
+        "GlitchedRequirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy) or Shadow_Crystal"
       },
       {
         "ConnectedArea": "Faron Field Corner Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       },
       {
         "ConnectedArea": "Faron Field Fishing Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
     "Checks":
@@ -44,12 +50,14 @@
     [
       {
         "ConnectedArea": "Faron Field",
-        "Requirements": "canGetHotSpringWater and Room.Outside_Castle_Town_South"
+        "Requirements": "canGetHotSpringWater and Room.Outside_Castle_Town_South",
+        "GlitchedRequirements": "canGetHotSpringWater and HasBottle and Room.Outside_Castle_Town_South"
       },
       {
          // If you enter Outside Castle Town from there while the boulder is still there, you get stuck and are forced to save-warp or portal-warp.
         "ConnectedArea": "Outside Castle Town South Inside Boulder",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -61,7 +69,8 @@
     [
       {
         "ConnectedArea": "Faron Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -78,7 +87,8 @@
     [
       {
         "ConnectedArea": "Faron Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
