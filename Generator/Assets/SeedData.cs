@@ -6,6 +6,7 @@ namespace TPRandomizer.Assets
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.Serialization;
     using Newtonsoft.Json;
     using TPRandomizer.Assets.CLR0;
     using TPRandomizer.FcSettings.Enums;
@@ -169,6 +170,13 @@ namespace TPRandomizer.Assets
             if (dataBytes != null)
             {
                 SeedHeaderRaw.fanfareInfoDataOffset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
+
+            dataBytes = GenerateBmg0SectionData();
+            if (dataBytes != null)
+            {
+                SeedHeaderRaw.bmg0Offset = (UInt16)GCIDataRaw.Count();
                 GCIDataRaw.AddRange(dataBytes);
             }
 
@@ -1565,6 +1573,50 @@ namespace TPRandomizer.Assets
                     (int)StageIDs.Kakariko_Graveyard_Interiors,
                     7
                 ), // Call event017 to give player item
+
+                // Patch INF indexes for custom Talk to Midna hints to use the
+                // blue text with Midna talking sounds.
+                new ARCReplacement(
+                    "18534",
+                    "150d0000",
+                    (byte)FileDirectory.Message,
+                    (byte)ReplacementType.Instruction,
+                    0xFE,
+                    0xFF
+                ), // For index 0x1373 in INF1 section (offset 0x8 in this)
+                new ARCReplacement(
+                    "18548",
+                    "150d0000",
+                    (byte)FileDirectory.Message,
+                    (byte)ReplacementType.Instruction,
+                    0xFE,
+                    0xFF
+                ), // For index 0x1374 in INF1 section (offset 0x8 in this)
+                new ARCReplacement(
+                    "1855C",
+                    "150d0000",
+                    (byte)FileDirectory.Message,
+                    (byte)ReplacementType.Instruction,
+                    0xFE,
+                    0xFF
+                ), // For index 0x1375 in INF1 section (offset 0x8 in this)
+                new ARCReplacement(
+                    "18570",
+                    "150d0000",
+                    (byte)FileDirectory.Message,
+                    (byte)ReplacementType.Instruction,
+                    0xFE,
+                    0xFF
+                ), // For index 0x1376 in INF1 section (offset 0x8 in this)
+                new ARCReplacement(
+                    "18584",
+                    "150d0000",
+                    (byte)FileDirectory.Message,
+                    (byte)ReplacementType.Instruction,
+                    0xFE,
+                    0xFF
+                ), // For index 0x1377 in INF1 section (offset 0x8 in this)
+
                 /*
                 // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here.
                 new ARCReplacement(
@@ -2204,6 +2256,212 @@ namespace TPRandomizer.Assets
             return data;
         }
 
+        private List<byte> GenerateBmg0SectionData()
+        {
+            List<byte> allData = new();
+            List<byte> bodyData = new();
+
+            // Maybe should combine everything into one table.
+            // - map signId to FLI value (what the sign starts on).
+
+            // DONE - map FLI value to initial FLW index
+            // - signs flows are static. Midna flow is dynamic depending on how
+            // many text boxes she should have.
+
+            // - map FLI value + FLW index to INF index (also happens for Midna)
+            // These mappings would be entirely static. We control what node a
+            // custom sign starts on using its flow, and we control what node
+            // Midna starts on using the FLI to initial FLW mapping.
+
+            // !!!!!!!!! NOTE: this will use the mask, so:
+            // [0xFFF0, 0x7700, 0x24, 0x1369]
+            // [0xFFF0, 0x7700, 0x25, 0x136A]
+            // ...
+            // [0xFFF0, 0x7710, 0x24, 0x136E]
+            // [0xFFF0, 0x7710, 0x25, 0x136F]
+            // [0xFFF0, 0x7710, 0x26, 0x1370]
+            // ...
+            // [0xFFFF, 0x0BB8, 0x24, 0x1372]
+            // [0xFFFF, 0x0BB8, 0x25, 0x1373]
+            // etc.
+            // Mask is good because it should speed up execution time and it
+            // also reduces the data size. And we would have to use 8 bytes per
+            // entry anyway, so doesn't cost any space.
+
+            // TODO: figure out the range of INF1 indexes we can work with for
+            // this. Start lower than 0x1369 + how high can we go?
+
+            // 0x1369 might be the lower bound? Not sure how Lunar found this
+            // value, but we can only go maybe 2 earlier at most? Index 4999 is
+            // 0x1387, so we have 31 values we can use right now.
+
+            // 0x1369 => 182842 offset in DAT1 data
+            // 0x1387 => 182872
+            // Each is 1 greater than the last, and each points to a dead byte.
+            // Maybe there is a way to use fake values here since we are
+            // translating to a custom string anyway, but don't super need to
+            // worry about that right now.
+            // So we can have 31 different values right now, and we are going to
+            // use 15 of them.
+            // I would put Talk To Midna at 0x1369 through 0x136d inclusive.
+
+            // Note: we use the mask because even if we start on flow 0x7703
+            // (for 3 groups of text boxes: 0x26,0x27,0x28), once we change to
+            // FLW node 0x27, we need to still map this to a custom INF index
+            // instead of the one defined on the FLW entry.
+
+            // 0x7700
+            // 0x7701
+            // 0x7702
+            // 0x7703
+            // 0x7704
+            // 0x7710 2nd sign - first of 5 nodes
+            // 0x7711 2nd sign - 2nd of 5 nodes
+            // 0x7712 2nd sign - 3rd of 5 nodes
+            // 0x7713 2nd sign - 4th of 5 nodes
+            // 0x7714 2nd sign - 5th of 5 nodes
+
+            // ^ these are values which need to map to initial FLW indexes.
+
+            // The game will already fall back to doing nothing if there is no
+            // mapping for the FLI?
+
+            // data.AddRange(Converter.GcBytes((UInt16)0xbb8)); // FLI
+            // data.AddRange(Converter.GcBytes((UInt16)0x25)); // FLW
+            // data.AddRange(Converter.GcBytes((UInt16)0x136d)); // INF
+            // data.Add(Converter.GcByte(0)); // bool
+            // data.Add(Converter.GcByte(0)); // padding
+
+            // List<(UInt16, UInt16, UInt16)> aa = new() {
+            //     (0x7700, 0x24, 0x1369),
+            //     (0x7701, 0x25, 0x136A),
+            //     (0x7702, 0x26, 0x136B),
+            //     (0x7703, 0x27, 0x136C),
+            //     (0x7704, 0x28, 0x136D),
+            //     (0x7710, 0x24, 0x1369),
+            //     (0x7711, 0x25, 0x136A),
+            //     (0x7712, 0x26, 0x136B),
+            //     (0x7713, 0x27, 0x136C),
+            //     (0x7714, 0x28, 0x136D),
+            // };
+
+            // u16 - signToFliOffset
+            // u16 - numSignToFliEntries
+            // u16 - flwIdxRemapOffset
+            // u16 - numFlwIdxRemapEntries
+            // u16 - infRemapOffset
+            // u16 - numInfRemapEntries
+
+            UInt16 headerSize = 0x10;
+
+            UInt16 signToInitFliOffset = (UInt16)(headerSize + bodyData.Count);
+            UInt16 numSignToInitFliOffsetEntries = (UInt16)0;
+
+            UInt16 flwIdxRemapOffset = (UInt16)(headerSize + bodyData.Count);
+            UInt16 numFlwIdxRemapEntries = (UInt16)0;
+
+            // If we have TalkToMidnaHints
+            bodyData.AddRange(Converter.GcBytes((UInt16)0xbb8)); // FLI
+            bodyData.AddRange(Converter.GcBytes((UInt16)0x8f)); // FLW
+            bodyData.AddRange(Converter.GcBytes((UInt16)0x24)); // INF
+            bodyData.Add(Converter.GcByte(0)); // bool
+            bodyData.Add(Converter.GcByte(0)); // padding
+            numFlwIdxRemapEntries += 1;
+
+            List<(UInt16, UInt16, UInt16)> aa = new() {
+                (0x7700, 0xFFFF, 0x24),
+                (0x7701, 0xFFFF, 0x25),
+                (0x7702, 0xFFFF, 0x26),
+                (0x7703, 0xFFFF, 0x27),
+                (0x7704, 0xFFFF, 0x28),
+                (0x7710, 0xFFFF, 0x24),
+                (0x7711, 0xFFFF, 0x25),
+                (0x7712, 0xFFFF, 0x26),
+                (0x7713, 0xFFFF, 0x27),
+                (0x7714, 0xFFFF, 0x28),
+            };
+
+            // The start FLI does not change, but the FLW index does change, so
+            // right now we would need entries for everything (0x7702 + 0x26,
+            // 0x7702 + 0x27) which is too much.
+
+            // What if instead, we were to AND with 0xFFF0 in order to test
+            // against getting an INF index?
+
+            // So 0x770Q + 0x24 => 0x1369
+            // So 0x770Q + 0x25 => 0x136A
+            // So 0x770Q + 0x26 => 0x136B
+
+            // Can we remap Midna without an FLI patch???
+
+            // For mapping to a starting FLW index, this is easy:
+            // [0x7700, 0x0024], [0x7701, 0x0025], ...
+            // [0x7710, 0x0024], [0x7701, 0x0025], ...
+            // We maybe include one for 0xbb8 here?
+
+            // What if we include a third field:
+            // [0x7700, 0xFFFF, 0x0024]
+            // [0x0bb8, 0x008F, 0x0024]
+            // So FLI, old initial FLW, new initial FLW
+
+            // So we would only redirect 0xbb8 if the current FLW entry is 0x8F
+            // which is only true initially. Then if we are in the 0xbb8 FLI, we
+            // do not repeatedly keep resetting the FLW. What about for 0x7700?
+            // Maybe we do the same thing where we only redirect based on the 
+
+            foreach ((UInt16, UInt16, UInt16) tuple in aa)
+            {
+                bodyData.AddRange(Converter.GcBytes(tuple.Item1)); // FLI
+                bodyData.AddRange(Converter.GcBytes(tuple.Item2)); // FLW
+                bodyData.AddRange(Converter.GcBytes(tuple.Item3)); // INF
+                bodyData.Add(Converter.GcByte(0)); // bool
+                bodyData.Add(Converter.GcByte(0)); // padding
+            }
+            numFlwIdxRemapEntries += (UInt16)aa.Count;
+
+            UInt16 infRemapOffset = (UInt16)(headerSize + bodyData.Count);
+
+            List<(UInt16, UInt16, UInt16, UInt16)> bb = new() {
+                (0xFFF0, 0x7700, 0x24, 0x1369),
+                (0xFFF0, 0x7700, 0x25, 0x136a),
+                (0xFFF0, 0x7700, 0x26, 0x136b),
+                (0xFFF0, 0x7700, 0x27, 0x136c),
+                (0xFFF0, 0x7700, 0x28, 0x136d),
+                (0xFFF0, 0x7710, 0x24, 0x136e),
+                (0xFFF0, 0x7710, 0x25, 0x136f),
+                (0xFFF0, 0x7710, 0x26, 0x1370),
+                (0xFFF0, 0x7710, 0x27, 0x1371),
+                (0xFFF0, 0x7710, 0x28, 0x1372),
+                (0xFFFF, 0x0bb8, 0x24, 0x1373),
+                (0xFFFF, 0x0bb8, 0x25, 0x1374),
+                (0xFFFF, 0x0bb8, 0x26, 0x1375),
+                (0xFFFF, 0x0bb8, 0x27, 0x1376),
+                (0xFFFF, 0x0bb8, 0x28, 0x1377),
+            };
+            foreach ((UInt16, UInt16, UInt16, UInt16) tuple in bb)
+            {
+                bodyData.AddRange(Converter.GcBytes(tuple.Item1));
+                bodyData.AddRange(Converter.GcBytes(tuple.Item2));
+                bodyData.AddRange(Converter.GcBytes(tuple.Item3));
+                bodyData.AddRange(Converter.GcBytes(tuple.Item4));
+            }
+
+            UInt16 numInfRemapEntries = (UInt16)bb.Count;
+
+            // Build header
+            allData.AddRange(Converter.GcBytes(signToInitFliOffset));
+            allData.AddRange(Converter.GcBytes(numSignToInitFliOffsetEntries));
+            allData.AddRange(Converter.GcBytes(flwIdxRemapOffset));
+            allData.AddRange(Converter.GcBytes(numFlwIdxRemapEntries));
+            allData.AddRange(Converter.GcBytes(infRemapOffset));
+            allData.AddRange(Converter.GcBytes(numInfRemapEntries));
+            allData.AddRange(Converter.GcBytes((UInt32)0)); // padding
+            // Add bodyData
+            allData.AddRange(bodyData);
+
+            return allData;
+        }
+
         private static string getStartingTime()
         {
             string time = "203F"; // By default, starting time is in the evening
@@ -2287,6 +2545,7 @@ namespace TPRandomizer.Assets
             public UInt16 sfxInfoNumEntries { get; set; }
             public UInt16 sfxInfoDataOffset { get; set; }
             public UInt16 clr0Offset { get; set; }
+            public UInt16 bmg0Offset { get; set; }
             public UInt16 customTextHeaderSize { get; set; }
             public UInt16 customTextHeaderOffset { get; set; }
         }
