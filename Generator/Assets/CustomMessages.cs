@@ -3,6 +3,7 @@ namespace TPRandomizer.Assets
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using TPRandomizer.Hints;
     using TPRandomizer.SSettings.Enums;
 
     /// <summary>
@@ -65,6 +66,34 @@ namespace TPRandomizer.Assets
                 messageID = messageId;
                 stageIDX = (byte)stageIdx;
                 roomIDX = roomIdx;
+            }
+        }
+
+        public enum FLIGroup
+        {
+            Midna,
+            Room_Custom_Sign,
+            Room_Custom_Sign_2,
+        }
+
+        public class HintSpotBmgData
+        {
+            public byte stageIDX;
+            public byte roomIDX;
+            public FLIGroup fliGroup;
+
+            public HintSpotBmgData(StageIDs stageIdx, byte roomIdx, FLIGroup fliGroup = FLIGroup.Room_Custom_Sign)
+            {
+                stageIDX = (byte)stageIdx;
+                roomIDX = roomIdx;
+                this.fliGroup = fliGroup;
+            }
+
+            public HintSpotBmgData(byte stageIdx, byte roomIdx, FLIGroup fliGroup = FLIGroup.Room_Custom_Sign)
+            {
+                stageIDX = stageIdx;
+                roomIDX = roomIdx;
+                this.fliGroup = fliGroup;
             }
         }
 

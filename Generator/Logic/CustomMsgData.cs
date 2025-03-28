@@ -377,6 +377,21 @@ namespace TPRandomizer
 
         public List<MessageEntry> GenMessageEntries()
         {
+            // TODO: this should return a structure.
+            // It includes what it returns right now.
+            // However, we need to properly handle:
+
+            // - breaking Midna and custom sign text into their own structures.
+            //   They should include "this hintSign id maps to this array of
+            //   text boxes". We should handle splitting the text for a spot
+            //   into the arrays here since the text manipulation is more of a
+            //   concern of this file compared to the other one which is more
+            //   about putting the data in the GCI.
+
+            // We should go ahead and put the messageEntries into the same list
+            // we return. However, we also need to return data which is used for
+            // building the BMG section.
+
             // We store results as a property so we do not need to pass it around.
             results = new();
 
@@ -1222,31 +1237,110 @@ namespace TPRandomizer
             }
         }
 
-        private void GenHintSignEntries(List<MessageEntry> results)
+        private Dictionary<SpotId, List<string>> GenHintSignEntries(List<MessageEntry> results)
         {
+            // TODO: if the hintSpot uses custom BMG stuff, then we need to
+            // handle converting it into a result of a different type. Also it
+            // might be good to put a simple bool on the result for quickAccess
+            // to whether or not there are hints on Midna.
+
+            // Maybe we return a class with the following:
+            // - a dictionary from SpotId to its list of nodeTexts.
+            // Currently we don't return anything since we are passing results
+            // as a param, so we can return the dictionary.
+
+            Dictionary<SpotId, List<string>> spotToTexts = new();
+
             if (!ListUtils.isEmpty(hintSpots))
             {
                 foreach (HintSpot hintSpot in hintSpots)
                 {
-                    List<Hint> hints = hintSpot.hints;
-                    MessageEntry messageEntry = CustomMsgUtils.GetEntryForSpotId(hintSpot.location);
-                    StringBuilder sb = new();
-
-                    for (int i = 0; i < hints.Count; i++)
+                    if (CustomMsgUtils.SpotIdHasBmgData(hintSpot.location))
                     {
-                        Hint hint = hints[i];
+                        if (spotToTexts.ContainsKey(hintSpot.location))
+                            throw new Exception(
+                                $"Tried multiple times to put hint text on the same spotId '{hintSpot.location}'."
+                            );
 
-                        string text = hint.toHintTextList(this)[0].text;
-                        if (i < hints.Count - 1)
-                            text = Res.NormalizeForMergingOnSign(text);
+                        List<string> hintTexts = hintSpot.hints
+                            .Select((hint) => hint.toHintTextList(this)[0].text)
+                            .ToList();
 
-                        sb.Append(text);
+                        List<string> msgNodeTexts = Res.GenMsgNodeTexts(
+                            hintTexts,
+                            hintSpot.location == SpotId.Ordon_Sign
+                        );
+
+                        spotToTexts[hintSpot.location] = msgNodeTexts;
+
+                        // Need to operate over the hints on the spot. They will
+                        // need to be converted into a list of strings where
+                        // each string is a merging of hints such that they do
+                        // not have more than 4 boxes (16 lines) in the same
+                        // string.
+
+                        // In fact, we can probably use the same function in
+                        // both cases, but manually merge them if we are not
+                        // using custom BMG stuff. Or really we can just throw
+                        // an Exception for now since it is not expected to ever
+                        // run, rather than trying to make a trustworthy
+                        // implementation that won't actually be used.
                     }
+                    else
+                    {
+                        // Implementation for Agitha, Jovani, etc.
+                        List<Hint> hints = hintSpot.hints;
+                        MessageEntry messageEntry = CustomMsgUtils.GetEntryForSpotId(
+                            hintSpot.location
+                        );
+                        StringBuilder sb = new();
 
-                    string textForSign = sb.ToString();
-                    messageEntry.message = textForSign;
+                        for (int i = 0; i < hints.Count; i++)
+                        {
+                            Hint hint = hints[i];
 
-                    results.Add(messageEntry);
+                            string text = hint.toHintTextList(this)[0].text;
+                            if (i < hints.Count - 1)
+                                text = Res.NormalizeForMergingOnSign(text);
+
+                            sb.Append(text);
+                        }
+
+                        // When processing a hint, we have a list of (string for node, total newLines).
+                        // When we append text to it, we need to see:
+
+                        // if I was appending this, how many newlines would it be
+                        // total (including how many I have to add before appending
+                        // myself)?
+
+                        // Actually what if while we are processing them, we just
+                        // bunch them together and make splits automatically? Then
+                        // if we already have 5 items in the array, we just keep
+                        // appending to the final one?
+
+                        // So as input, we take the entire list of Hints and do all
+                        // of the processing?
+
+                        // The hint's text can be super long, but we will assume it
+                        // already has newlines where it should. We need to break it
+                        // at certain newlines as we process it.
+
+                        // Before we can add our text to the current text, we need
+                        // to determine how many newlines we would have to add
+                        // before our text (for example, rounding up to a multiple
+                        // of 3 for JP or 4). If that number would be >= the max for
+                        // a single node, then we should break that text off and
+                        // start a new one (unless we are already at max of 5 texts
+                        // in the list). Let's assume for now the max for any node
+                        // is 16 newlines for non-JP and 15 for JP (15 so that it is
+                        // a multiple of 3 and we don't get an awkward single text
+                        // box that leads into a new text box).
+
+                        string textForSign = sb.ToString();
+                        messageEntry.message = textForSign;
+
+                        results.Add(messageEntry);
+                    }
                 }
             }
 
@@ -1258,22 +1352,41 @@ namespace TPRandomizer
                 )
             );
 
-            // TODO: temp adding text for Midna
-            MessageEntry a = new(0xFF, 0xFF, 0x1373);
-            a.message = "Midna first";
-            MessageEntry b = new(0xFF, 0xFF, 0x1374);
-            b.message = "Midna 2nd";
-            MessageEntry c = new(0xFF, 0xFF, 0x1375);
-            c.message = "Midna 3rd";
-            MessageEntry d = new(0xFF, 0xFF, 0x1376);
-            d.message = "Midna 4thh";
-            MessageEntry e = new(0xFF, 0xFF, 0x1377);
-            e.message = "Midna 5555";
-            results.Add(a);
-            results.Add(b);
-            results.Add(c);
-            results.Add(d);
-            results.Add(e);
+            if (spotToTexts.TryGetValue(SpotId.Ordon_Sign, out List<string> midnaTexts))
+            {
+                if (midnaTexts.Count > 5)
+                    throw new Exception(
+                        $"Expected at most 5 nodeTexts, but had '{midnaTexts.Count}'."
+                    );
+
+                UInt16 val = (UInt16)(0x1378 - midnaTexts.Count);
+
+                for (int i = 0; i < midnaTexts.Count; i++)
+                {
+                    MessageEntry a = new(0xFF, 0xFF, (short)(val + i));
+                    a.message = midnaTexts[i];
+                    results.Add(a);
+                }
+
+                // // TODO: temp adding text for Midna
+                // MessageEntry a = new(0xFF, 0xFF, 0x1373);
+                // a.message = "Midna first";
+                // MessageEntry b = new(0xFF, 0xFF, 0x1374);
+                // b.message = "Midna 2nd";
+                // MessageEntry c = new(0xFF, 0xFF, 0x1375);
+                // c.message = "Midna 3rd";
+                // MessageEntry d = new(0xFF, 0xFF, 0x1376);
+                // d.message = "Midna 4thh";
+                // MessageEntry e = new(0xFF, 0xFF, 0x1377);
+                // e.message = "Midna 5555";
+                // results.Add(a);
+                // results.Add(b);
+                // results.Add(c);
+                // results.Add(d);
+                // results.Add(e);
+            }
+
+            return spotToTexts;
         }
 
         private void AddShopSlotMsg(

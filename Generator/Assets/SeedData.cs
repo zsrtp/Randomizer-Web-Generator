@@ -1574,6 +1574,26 @@ namespace TPRandomizer.Assets
                     7
                 ), // Call event017 to give player item
 
+                // Temp change event for Transform
+                new ARCReplacement(
+                    "4ACD8",
+                    // "032b0132",
+                    "032b0000",
+                    (byte)FileDirectory.Message,
+                    (byte)ReplacementType.Instruction,
+                    0xFE,
+                    0xFF
+                ), // for FLW index 421 (0x1a5)
+                new ARCReplacement(
+                    "4ACE0",
+                    // "032b0133",
+                    "032b0000",
+                    (byte)FileDirectory.Message,
+                    (byte)ReplacementType.Instruction,
+                    0xFE,
+                    0xFF
+                ), // for FLW index 422 (0x1a6)
+
                 // Patch INF indexes for custom Talk to Midna hints to use the
                 // blue text with Midna talking sounds.
                 new ARCReplacement(
@@ -2352,6 +2372,8 @@ namespace TPRandomizer.Assets
             // u16 - infRemapOffset
             // u16 - numInfRemapEntries
 
+            bool hasTalkToMidnaHints = true;
+
             UInt16 headerSize = 0x10;
 
             UInt16 signToInitFliOffset = (UInt16)(headerSize + bodyData.Count);
@@ -2359,14 +2381,6 @@ namespace TPRandomizer.Assets
 
             UInt16 flwIdxRemapOffset = (UInt16)(headerSize + bodyData.Count);
             UInt16 numFlwIdxRemapEntries = (UInt16)0;
-
-            // If we have TalkToMidnaHints
-            bodyData.AddRange(Converter.GcBytes((UInt16)0xbb8)); // FLI
-            bodyData.AddRange(Converter.GcBytes((UInt16)0x8f)); // FLW
-            bodyData.AddRange(Converter.GcBytes((UInt16)0x24)); // INF
-            bodyData.Add(Converter.GcByte(0)); // bool
-            bodyData.Add(Converter.GcByte(0)); // padding
-            numFlwIdxRemapEntries += 1;
 
             List<(UInt16, UInt16, UInt16)> aa = new() {
                 (0x7700, 0xFFFF, 0x24),
@@ -2380,6 +2394,20 @@ namespace TPRandomizer.Assets
                 (0x7713, 0xFFFF, 0x27),
                 (0x7714, 0xFFFF, 0x28),
             };
+
+            if (hasTalkToMidnaHints)
+            {
+                // //TODO: 0x24 is not an INF? The thing we remap to is dynamic
+                // //here based on how many nodeTexts we have on Midna.
+                // aa.Add((0xbb8, 0x8f, 0x24));
+                aa.Add((0xbb8, 0x8f, 0x26));
+                // bodyData.AddRange(Converter.GcBytes((UInt16)0xbb8)); // FLI
+                // bodyData.AddRange(Converter.GcBytes((UInt16)0x8f)); // FLW
+                // bodyData.AddRange(Converter.GcBytes((UInt16)0x24)); // INF
+                // bodyData.Add(Converter.GcByte(0)); // bool
+                // bodyData.Add(Converter.GcByte(0)); // padding
+                // numFlwIdxRemapEntries += 1;
+            }
 
             // The start FLI does not change, but the FLW index does change, so
             // right now we would need entries for everything (0x7702 + 0x26,
@@ -2413,7 +2441,7 @@ namespace TPRandomizer.Assets
             {
                 bodyData.AddRange(Converter.GcBytes(tuple.Item1)); // FLI
                 bodyData.AddRange(Converter.GcBytes(tuple.Item2)); // FLW
-                bodyData.AddRange(Converter.GcBytes(tuple.Item3)); // INF
+                bodyData.AddRange(Converter.GcBytes(tuple.Item3)); // INF (not an INF?)
                 bodyData.Add(Converter.GcByte(0)); // bool
                 bodyData.Add(Converter.GcByte(0)); // padding
             }
@@ -2432,12 +2460,26 @@ namespace TPRandomizer.Assets
                 (0xFFF0, 0x7710, 0x26, 0x1370),
                 (0xFFF0, 0x7710, 0x27, 0x1371),
                 (0xFFF0, 0x7710, 0x28, 0x1372),
-                (0xFFFF, 0x0bb8, 0x24, 0x1373),
-                (0xFFFF, 0x0bb8, 0x25, 0x1374),
-                (0xFFFF, 0x0bb8, 0x26, 0x1375),
-                (0xFFFF, 0x0bb8, 0x27, 0x1376),
-                (0xFFFF, 0x0bb8, 0x28, 0x1377),
             };
+            if (hasTalkToMidnaHints)
+            {
+                bb.AddRange(
+                    new List<(UInt16, UInt16, UInt16, UInt16)>()
+                    {
+                        (0xFFFF, 0x0bb8, 0x24, 0x1373),
+                        (0xFFFF, 0x0bb8, 0x25, 0x1374),
+                        (0xFFFF, 0x0bb8, 0x26, 0x1375),
+                        (0xFFFF, 0x0bb8, 0x27, 0x1376),
+                        (0xFFFF, 0x0bb8, 0x28, 0x1377),
+                        // (0xFFFF, 0x0bb8, 0x24, 0x3373),
+                        // (0xFFFF, 0x0bb8, 0x25, 0x3374),
+                        // (0xFFFF, 0x0bb8, 0x26, 0x3375),
+                        // (0xFFFF, 0x0bb8, 0x27, 0x3376),
+                        // (0xFFFF, 0x0bb8, 0x28, 0x3377),
+                    }
+                );
+            }
+
             foreach ((UInt16, UInt16, UInt16, UInt16) tuple in bb)
             {
                 bodyData.AddRange(Converter.GcBytes(tuple.Item1));
