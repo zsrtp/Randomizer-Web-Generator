@@ -2497,14 +2497,22 @@ namespace TPRandomizer.Assets
             UInt16 numInfRemapEntries = (UInt16)bb.Count;
 
             // string table stuff
+            string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
+            string messageOption2_8not9 = "\x1A\x06\x00\x00\x08\x02";
+            // NOTE: ^ CRITICAL that the mesasge options match this which is
+            // what is normally used for the nodes we are overwriting. The midna
+            // menus have 1a 06 00 00 **09** xx when there are 3 options, but 1a
+            // 06 00 00 **08** xx when there are 2 options.
+
             List<StringTableEntryInfo> strEntries =
                 new()
                 {
-                    new(3, 0x5de, "What abc?" + CustomMessages.shopOption),
+                    new(3, 0x5de, "What is it?" + CustomMessages.shopOption),
                     new(
                         3,
                         0x5df,
-                        $"Hints{CustomMessages.messageOption1}Change time of day{CustomMessages.messageOption2}"
+                        $"{messageOption1_8not9}Hints\n{messageOption2_8not9}Change time of day"
+                        // $"{CustomMessages.messageOption1}Hints\n{CustomMessages.messageOption2}Change time of day"
                     ),
                 };
 
