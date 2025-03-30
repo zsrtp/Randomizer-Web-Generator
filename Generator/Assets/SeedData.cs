@@ -2374,7 +2374,7 @@ namespace TPRandomizer.Assets
 
             bool hasTalkToMidnaHints = true;
 
-            UInt16 headerSize = 0x10;
+            UInt16 headerSize = 0x18;
 
             UInt16 signToInitFliOffset = (UInt16)(headerSize + bodyData.Count);
             UInt16 numSignToInitFliOffsetEntries = (UInt16)0;
@@ -2382,17 +2382,17 @@ namespace TPRandomizer.Assets
             UInt16 flwIdxRemapOffset = (UInt16)(headerSize + bodyData.Count);
             UInt16 numFlwIdxRemapEntries = (UInt16)0;
 
-            List<(UInt16, UInt16, UInt16)> aa = new() {
-                (0x7700, 0xFFFF, 0x24),
-                (0x7701, 0xFFFF, 0x25),
-                (0x7702, 0xFFFF, 0x26),
-                (0x7703, 0xFFFF, 0x27),
-                (0x7704, 0xFFFF, 0x28),
-                (0x7710, 0xFFFF, 0x24),
-                (0x7711, 0xFFFF, 0x25),
-                (0x7712, 0xFFFF, 0x26),
-                (0x7713, 0xFFFF, 0x27),
-                (0x7714, 0xFFFF, 0x28),
+            List<(UInt16, UInt16, UInt16, UInt16)> aa = new() {
+                (0x7700, 0xFFFF, 0x24, 0),
+                (0x7701, 0xFFFF, 0x25, 0),
+                (0x7702, 0xFFFF, 0x26, 0),
+                (0x7703, 0xFFFF, 0x27, 0),
+                (0x7704, 0xFFFF, 0x28, 0),
+                (0x7710, 0xFFFF, 0x24, 0),
+                (0x7711, 0xFFFF, 0x25, 0),
+                (0x7712, 0xFFFF, 0x26, 0),
+                (0x7713, 0xFFFF, 0x27, 0),
+                (0x7714, 0xFFFF, 0x28, 0),
             };
 
             if (hasTalkToMidnaHints)
@@ -2400,7 +2400,8 @@ namespace TPRandomizer.Assets
                 // //TODO: 0x24 is not an INF? The thing we remap to is dynamic
                 // //here based on how many nodeTexts we have on Midna.
                 // aa.Add((0xbb8, 0x8f, 0x24));
-                aa.Add((0xbb8, 0x8f, 0x26));
+                // aa.Add((0xbb8, 0x8f, 0x26, 3)); // was on this
+                aa.Add((0xbb8, 0x8f, 0x1a0, 3)); // temp change to this to see if loops as expected. Worked
                 // bodyData.AddRange(Converter.GcBytes((UInt16)0xbb8)); // FLI
                 // bodyData.AddRange(Converter.GcBytes((UInt16)0x8f)); // FLW
                 // bodyData.AddRange(Converter.GcBytes((UInt16)0x24)); // INF
@@ -2408,6 +2409,9 @@ namespace TPRandomizer.Assets
                 // bodyData.Add(Converter.GcByte(0)); // padding
                 // numFlwIdxRemapEntries += 1;
             }
+
+            // 0x5e4 INF index on FLW index 0x26
+            // This is what is passed to setMessageCode_inSequence_
 
             // The start FLI does not change, but the FLW index does change, so
             // right now we would need entries for everything (0x7702 + 0x26,
@@ -2437,13 +2441,12 @@ namespace TPRandomizer.Assets
             // do not repeatedly keep resetting the FLW. What about for 0x7700?
             // Maybe we do the same thing where we only redirect based on the 
 
-            foreach ((UInt16, UInt16, UInt16) tuple in aa)
+            foreach ((UInt16, UInt16, UInt16, UInt16) tuple in aa)
             {
-                bodyData.AddRange(Converter.GcBytes(tuple.Item1)); // FLI
-                bodyData.AddRange(Converter.GcBytes(tuple.Item2)); // FLW
-                bodyData.AddRange(Converter.GcBytes(tuple.Item3)); // INF (not an INF?)
-                bodyData.Add(Converter.GcByte(0)); // bool
-                bodyData.Add(Converter.GcByte(0)); // padding
+                bodyData.AddRange(Converter.GcBytes(tuple.Item1)); // FLI or context
+                bodyData.AddRange(Converter.GcBytes(tuple.Item2)); // incoming FLW
+                bodyData.AddRange(Converter.GcBytes(tuple.Item3)); // outgoing FLW
+                bodyData.AddRange(Converter.GcBytes(tuple.Item4)); // new context
             }
             numFlwIdxRemapEntries += (UInt16)aa.Count;
 
@@ -2466,11 +2469,14 @@ namespace TPRandomizer.Assets
                 bb.AddRange(
                     new List<(UInt16, UInt16, UInt16, UInt16)>()
                     {
-                        (0xFFFF, 0x0bb8, 0x24, 0x1373),
-                        (0xFFFF, 0x0bb8, 0x25, 0x1374),
-                        (0xFFFF, 0x0bb8, 0x26, 0x1375),
-                        (0xFFFF, 0x0bb8, 0x27, 0x1376),
-                        (0xFFFF, 0x0bb8, 0x28, 0x1377),
+                        // Disabling for now since we are using context to remap
+                        // the text.
+                        // (0xFFFF, 0x0bb8, 0x24, 0x1373),
+                        // (0xFFFF, 0x0bb8, 0x25, 0x1374),
+                        // (0xFFFF, 0x0bb8, 0x26, 0x1375),
+                        // (0xFFFF, 0x0bb8, 0x27, 0x1376),
+                        // (0xFFFF, 0x0bb8, 0x28, 0x1377),
+
                         // (0xFFFF, 0x0bb8, 0x24, 0x3373),
                         // (0xFFFF, 0x0bb8, 0x25, 0x3374),
                         // (0xFFFF, 0x0bb8, 0x26, 0x3375),
@@ -2490,16 +2496,49 @@ namespace TPRandomizer.Assets
 
             UInt16 numInfRemapEntries = (UInt16)bb.Count;
 
+            // string table stuff
+            List<StringTableEntryInfo> strEntries =
+                new()
+                {
+                    new(3, 0x5de, "What abc?" + CustomMessages.shopOption),
+                    new(
+                        3,
+                        0x5df,
+                        $"Hints{CustomMessages.messageOption1}Change time of day{CustomMessages.messageOption2}"
+                    ),
+                };
+
+            StringTableResult stringTableResult = StringTable.GenStringTableInfo(strEntries);
+
+            UInt16 strTableLookupOffset = (UInt16)(headerSize + bodyData.Count);
+            bodyData.AddRange(stringTableResult.contextInfLookupTable);
+
+            UInt16 strTableOffsetsOffset = (UInt16)(headerSize + bodyData.Count);
+            bodyData.AddRange(stringTableResult.strOffsetConversionTable);
+
+            UInt16 strTableOffset = (UInt16)(headerSize + bodyData.Count);
+            bodyData.AddRange(stringTableResult.strTable);
+
             // Build header
-            allData.AddRange(Converter.GcBytes(signToInitFliOffset));
-            allData.AddRange(Converter.GcBytes(numSignToInitFliOffsetEntries));
-            allData.AddRange(Converter.GcBytes(flwIdxRemapOffset));
-            allData.AddRange(Converter.GcBytes(numFlwIdxRemapEntries));
-            allData.AddRange(Converter.GcBytes(infRemapOffset));
-            allData.AddRange(Converter.GcBytes(numInfRemapEntries));
-            allData.AddRange(Converter.GcBytes((UInt32)0)); // padding
+            allData.AddRange(Converter.GcBytes(signToInitFliOffset)); // 0x00
+            allData.AddRange(Converter.GcBytes(numSignToInitFliOffsetEntries)); // 0x02
+            allData.AddRange(Converter.GcBytes(flwIdxRemapOffset)); // 0x04
+            allData.AddRange(Converter.GcBytes(numFlwIdxRemapEntries)); // 0x06
+            allData.AddRange(Converter.GcBytes(infRemapOffset)); // 0x08
+            allData.AddRange(Converter.GcBytes(numInfRemapEntries)); // 0x0A
+            allData.AddRange(Converter.GcBytes(strTableLookupOffset)); // 0x0C
+            allData.AddRange(Converter.GcBytes(strTableOffsetsOffset)); // 0x0E
+            allData.AddRange(Converter.GcBytes(stringTableResult.numLookupEntries)); // 0x10
+            allData.AddRange(Converter.GcBytes(strTableOffset)); // 0x12
+            allData.AddRange(Converter.GcBytes((UInt32)0)); // 0x14 4 bytes padding
             // Add bodyData
             allData.AddRange(bodyData);
+
+            // Align to 8 bytes
+            while (allData.Count % 8 != 0)
+            {
+                allData.Add(0);
+            }
 
             return allData;
         }
