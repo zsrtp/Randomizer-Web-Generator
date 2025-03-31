@@ -119,7 +119,7 @@ namespace TPRandomizer.Assets
         public ushort numLookupEntries = 0;
         public List<byte> lookupTable = new();
         public List<byte> branchNodeData = new();
-        public List<byte> resultMapData = new();
+        public List<ushort> resultMapData = new();
 
         private ushort numBranchNodes = 0;
         private ushort numResultMapEntries = 0;
@@ -165,7 +165,7 @@ namespace TPRandomizer.Assets
 
                     foreach (ushort remap in entry.resultMap)
                     {
-                        inst.resultMapData.AddRange(Converter.GcBytes(remap));
+                        inst.resultMapData.Add(remap);
                     }
 
                     resultMapIndex = inst.numResultMapEntries;

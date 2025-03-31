@@ -2507,7 +2507,7 @@ namespace TPRandomizer.Assets
             List<StringTableEntryInfo> strEntries =
                 new()
                 {
-                    new(3, 0x5de, "What is it?" + CustomMessages.shopOption),
+                    new(3, 0x5de, "Need something?" + CustomMessages.shopOption),
                     new(
                         3,
                         0x5df,
@@ -2535,7 +2535,8 @@ namespace TPRandomizer.Assets
             List<BranchTableEntryInfo> branchInputList =
                 new()
                 {
-                    new(0x1a3, 3, null, new() { 0x24, 0x28, 0xFFFF }),
+                    // new(0x1a3, 3, null, new() { 0x24, 0x28, 0xFFFF }),
+                    new(0x1a3, 3, null, new() { 0x24, 0xFFFF, 0xFFFF }),
                 };
 
             BranchTable branchTable = BranchTable.GenBranchTable(branchInputList);
@@ -2547,7 +2548,11 @@ namespace TPRandomizer.Assets
             bodyData.AddRange(branchTable.branchNodeData);
 
             UInt16 branchProcResultsOffset = (UInt16)(headerSize + bodyData.Count);
-            bodyData.AddRange(branchTable.resultMapData);
+            // Add the u16 entries to the byte list
+            foreach (ushort resultMapDataEntry in branchTable.resultMapData)
+            {
+                bodyData.AddRange(Converter.GcBytes(resultMapDataEntry));
+            }
 
             // Build header
             allData.AddRange(Converter.GcBytes(signToInitFliOffset)); // 0x00
