@@ -2374,7 +2374,7 @@ namespace TPRandomizer.Assets
 
             bool hasTalkToMidnaHints = true;
 
-            UInt16 headerSize = 0x18;
+            UInt16 headerSize = 0x20;
 
             UInt16 signToInitFliOffset = (UInt16)(headerSize + bodyData.Count);
             UInt16 numSignToInitFliOffsetEntries = (UInt16)0;
@@ -2526,6 +2526,28 @@ namespace TPRandomizer.Assets
 
             UInt16 strTableOffset = (UInt16)(headerSize + bodyData.Count);
             bodyData.AddRange(stringTableResult.strTable);
+            while (bodyData.Count % 8 != 0)
+            {
+                bodyData.Add(0);
+            }
+
+            // Branches
+            List<BranchTableEntryInfo> branchInputList =
+                new()
+                {
+                    new(0x1a3, 3, null, new() { 0x24, 0x28, 0xFFFF }),
+                };
+
+            BranchTable branchTable = BranchTable.GenBranchTable(branchInputList);
+
+            UInt16 branchEditLookupsOffset = (UInt16)(headerSize + bodyData.Count);
+            bodyData.AddRange(branchTable.lookupTable);
+
+            UInt16 branchNodesOffset = (UInt16)(headerSize + bodyData.Count);
+            bodyData.AddRange(branchTable.branchNodeData);
+
+            UInt16 branchProcResultsOffset = (UInt16)(headerSize + bodyData.Count);
+            bodyData.AddRange(branchTable.resultMapData);
 
             // Build header
             allData.AddRange(Converter.GcBytes(signToInitFliOffset)); // 0x00
@@ -2538,7 +2560,11 @@ namespace TPRandomizer.Assets
             allData.AddRange(Converter.GcBytes(strTableOffsetsOffset)); // 0x0E
             allData.AddRange(Converter.GcBytes(stringTableResult.numLookupEntries)); // 0x10
             allData.AddRange(Converter.GcBytes(strTableOffset)); // 0x12
-            allData.AddRange(Converter.GcBytes((UInt32)0)); // 0x14 4 bytes padding
+            allData.AddRange(Converter.GcBytes(branchEditLookupsOffset)); // 0x14
+            allData.AddRange(Converter.GcBytes(branchTable.numLookupEntries)); // 0x16
+            allData.AddRange(Converter.GcBytes(branchNodesOffset)); // 0x18
+            allData.AddRange(Converter.GcBytes(branchProcResultsOffset)); // 0x1A
+            allData.AddRange(Converter.GcBytes((UInt32)0)); // 0x1C 4 bytes padding
             // Add bodyData
             allData.AddRange(bodyData);
 
