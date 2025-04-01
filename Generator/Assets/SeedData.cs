@@ -173,7 +173,7 @@ namespace TPRandomizer.Assets
                 GCIDataRaw.AddRange(dataBytes);
             }
 
-            dataBytes = GenerateBmg0SectionData();
+            dataBytes = GenerateBmg0SectionData(seedGenResults.customMsgData);
             if (dataBytes != null)
             {
                 SeedHeaderRaw.bmg0Offset = (UInt16)GCIDataRaw.Count();
@@ -2276,7 +2276,7 @@ namespace TPRandomizer.Assets
             return data;
         }
 
-        private List<byte> GenerateBmg0SectionData()
+        private List<byte> GenerateBmg0SectionData(CustomMsgData customMsgData)
         {
             List<byte> allData = new();
             List<byte> bodyData = new();
@@ -2504,6 +2504,14 @@ namespace TPRandomizer.Assets
             // menus have 1a 06 00 00 **09** xx when there are 3 options, but 1a
             // 06 00 00 **08** xx when there are 2 options.
 
+            List<CustomMessages.MessageEntry> cmEntries = customMsgData.GenMessageEntries();
+
+            CustomMessages.MessageEntry cmEntryLh = cmEntries.Find(entry => {
+                return entry.stageIDX == (byte)StageIDs.Ordon_Village && entry.roomIDX == 1 && entry.messageID == 0x658;
+            });
+
+            CustomMessages.MessageEntry cmEntry = cmEntries[cmEntries.Count - 1];
+
             List<StringTableEntryInfo> strEntries =
                 new()
                 {
@@ -2513,6 +2521,16 @@ namespace TPRandomizer.Assets
                         0x5df,
                         $"{messageOption1_8not9}Hints\n{messageOption2_8not9}Change time of day"
                         // $"{CustomMessages.messageOption1}Hints\n{CustomMessages.messageOption2}Change time of day"
+                    ),
+                    new(
+                        3,
+                        0x5e5,
+                        "Required dungeons:\n" + cmEntryLh.message
+                    ),
+                    new(
+                        3,
+                        0xa11,
+                        cmEntry.message
                     ),
                 };
 
@@ -2536,7 +2554,7 @@ namespace TPRandomizer.Assets
                 new()
                 {
                     // new(0x1a3, 3, null, new() { 0x24, 0x28, 0xFFFF }),
-                    new(0x1a3, 3, null, new() { 0x24, 0x1a4, 0xFFFF }),
+                    new(0x1a3, 3, null, new() { 0x27, 0x1a4, 0xFFFF }),
                 };
 
             BranchTable branchTable = BranchTable.GenBranchTable(branchInputList);
