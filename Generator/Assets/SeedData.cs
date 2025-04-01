@@ -1574,25 +1574,25 @@ namespace TPRandomizer.Assets
                     7
                 ), // Call event017 to give player item
 
-                // Temp change event for Transform
-                new ARCReplacement(
-                    "4ACD8",
-                    // "032b0132",
-                    "032b0000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    0xFE,
-                    0xFF
-                ), // for FLW index 421 (0x1a5)
-                new ARCReplacement(
-                    "4ACE0",
-                    // "032b0133",
-                    "032b0000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    0xFE,
-                    0xFF
-                ), // for FLW index 422 (0x1a6)
+                // // Temp change event for Transform (Midna)
+                // new ARCReplacement(
+                //     "4ACD8",
+                //     // "032b0132",
+                //     "032b0000",
+                //     (byte)FileDirectory.Message,
+                //     (byte)ReplacementType.Instruction,
+                //     0xFE,
+                //     0xFF
+                // ), // for FLW index 421 (0x1a5)
+                // new ARCReplacement(
+                //     "4ACE0",
+                //     // "032b0133",
+                //     "032b0000",
+                //     (byte)FileDirectory.Message,
+                //     (byte)ReplacementType.Instruction,
+                //     0xFE,
+                //     0xFF
+                // ), // for FLW index 422 (0x1a6)
 
                 // Patch INF indexes for custom Talk to Midna hints to use the
                 // blue text with Midna talking sounds.
@@ -2374,7 +2374,7 @@ namespace TPRandomizer.Assets
 
             bool hasTalkToMidnaHints = true;
 
-            UInt16 headerSize = 0x20;
+            UInt16 headerSize = 0x28;
 
             UInt16 signToInitFliOffset = (UInt16)(headerSize + bodyData.Count);
             UInt16 numSignToInitFliOffsetEntries = (UInt16)0;
@@ -2536,10 +2536,24 @@ namespace TPRandomizer.Assets
                 new()
                 {
                     // new(0x1a3, 3, null, new() { 0x24, 0x28, 0xFFFF }),
-                    new(0x1a3, 3, null, new() { 0x24, 0xFFFF, 0xFFFF }),
+                    new(0x1a3, 3, null, new() { 0x24, 0x1a4, 0xFFFF }),
                 };
 
             BranchTable branchTable = BranchTable.GenBranchTable(branchInputList);
+
+            List<EventTableEntryInfo> eventEntryList =
+                new()
+                {
+                    // 1, 0x31, or 0x131 is an index with 0xFFFF
+                    new(0x1a4, 3, new() { 43, 1, 0x31, 0, 0, 0, 0 }, 0xFFFF),
+                    // new(0x1a3, 3, null, new() { 0x123, 0x456, 0xFFFF }),
+                    // new(0x1a3, 3, null, new() { 0x123, 0x456, 0xFFFF }),
+                };
+
+            EventTable eventTable = EventTable.GenEventTable(
+                eventEntryList,
+                branchTable.resultMapData
+            );
 
             UInt16 branchEditLookupsOffset = (UInt16)(headerSize + bodyData.Count);
             bodyData.AddRange(branchTable.lookupTable);
@@ -2547,7 +2561,13 @@ namespace TPRandomizer.Assets
             UInt16 branchNodesOffset = (UInt16)(headerSize + bodyData.Count);
             bodyData.AddRange(branchTable.branchNodeData);
 
-            UInt16 branchProcResultsOffset = (UInt16)(headerSize + bodyData.Count);
+            UInt16 eventEditLookupsOffset = (UInt16)(headerSize + bodyData.Count);
+            bodyData.AddRange(eventTable.lookupTable);
+
+            UInt16 eventNodesOffset = (UInt16)(headerSize + bodyData.Count);
+            bodyData.AddRange(eventTable.eventNodeData);
+
+            UInt16 nextFlwTableOffset = (UInt16)(headerSize + bodyData.Count);
             // Add the u16 entries to the byte list
             foreach (ushort resultMapDataEntry in branchTable.resultMapData)
             {
@@ -2568,8 +2588,13 @@ namespace TPRandomizer.Assets
             allData.AddRange(Converter.GcBytes(branchEditLookupsOffset)); // 0x14
             allData.AddRange(Converter.GcBytes(branchTable.numLookupEntries)); // 0x16
             allData.AddRange(Converter.GcBytes(branchNodesOffset)); // 0x18
-            allData.AddRange(Converter.GcBytes(branchProcResultsOffset)); // 0x1A
-            allData.AddRange(Converter.GcBytes((UInt32)0)); // 0x1C 4 bytes padding
+            allData.AddRange(Converter.GcBytes(eventEditLookupsOffset)); // 0x1A
+            allData.AddRange(Converter.GcBytes(eventTable.numLookupEntries)); // 0x1C
+            allData.AddRange(Converter.GcBytes(eventNodesOffset)); // 0x1E
+            allData.AddRange(Converter.GcBytes(nextFlwTableOffset)); // 0x20
+            allData.AddRange(Converter.GcBytes((UInt16)0)); // 0x22 2 bytes padding
+            allData.AddRange(Converter.GcBytes((UInt32)0)); // 0x24 4 bytes padding
+
             // Add bodyData
             allData.AddRange(bodyData);
 

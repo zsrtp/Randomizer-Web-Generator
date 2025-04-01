@@ -132,14 +132,6 @@ namespace TPRandomizer.Assets
             if (ListUtils.isEmpty(entryList))
                 return inst;
 
-            List<BranchTableEntryInfo> a =
-                new()
-                {
-                    new(0x1a3, 3, null, new() { 0x123, 0x456, 0xFFFF }),
-                    new(0x1a3, 3, null, new() { 0x123, 0x456, 0xFFFF }),
-                    new(0x1a3, 3, null, new() { 0x123, 0x456, 0xFFFF }),
-                };
-
             foreach (BranchTableEntryInfo entry in entryList)
             {
                 ushort branchNodeIndex = 0xFFFF;
@@ -181,6 +173,116 @@ namespace TPRandomizer.Assets
                     lookupEntry.AddRange(Converter.GcBytes(entry.flwIndex)); // 0x00
                     lookupEntry.AddRange(Converter.GcBytes(entry.context)); // 0x02
                     lookupEntry.AddRange(Converter.GcBytes(branchNodeIndex)); // 0x04
+                    lookupEntry.AddRange(Converter.GcBytes(resultMapIndex)); // 0x06
+                    inst.lookupTable.AddRange(lookupEntry);
+
+                    inst.numLookupEntries += 1;
+                }
+            }
+
+            return inst;
+        }
+    }
+
+    public class EventTableEntryInfo
+    {
+        public ushort flwIndex = 0xFFFF;
+        public ushort context = 1;
+        public List<byte> sevenBytes = new();
+        public ushort? nextFlwIndex = null;
+
+        public EventTableEntryInfo(
+            ushort flwIndex,
+            ushort context,
+            List<byte> sevenBytes,
+            ushort? nextFlwIndex
+        )
+        {
+            this.flwIndex = flwIndex;
+            this.context = context;
+            this.sevenBytes = sevenBytes;
+            this.nextFlwIndex = nextFlwIndex;
+        }
+    }
+
+    public class EventTable
+    {
+        public ushort numLookupEntries = 0;
+        public List<byte> lookupTable = new();
+        public List<byte> eventNodeData = new();
+        public List<ushort> resultMapData = new();
+
+        private ushort numEventNodes = 0;
+
+        private EventTable() { }
+
+        public static EventTable GenEventTable(
+            List<EventTableEntryInfo> entryList,
+            List<ushort> resultMapData
+        )
+        {
+            if (resultMapData == null)
+                throw new Exception("resultMapData must not be null.");
+
+            EventTable inst = new EventTable();
+            if (ListUtils.isEmpty(entryList))
+                return inst;
+
+            List<EventTableEntryInfo> aa =
+                new()
+                {
+                    new(0x1a4, 3, new() { 9, 1, 0x31, 0, 0, 0, 0 }, 0xFFFF),
+                    // new(0x1a3, 3, null, new() { 0x123, 0x456, 0xFFFF }),
+                    // new(0x1a3, 3, null, new() { 0x123, 0x456, 0xFFFF }),
+                };
+
+            foreach (EventTableEntryInfo entry in entryList)
+            {
+                ushort eventNodeIndex = 0xFFFF;
+                ushort resultMapIndex = 0xFFFF;
+
+                if (entry.sevenBytes != null)
+                {
+                    if (entry.sevenBytes.Count != 7)
+                        throw new Exception(
+                            $"entry.sevenBytes.Count, expected 7, but was '{entry.sevenBytes.Count}'."
+                        );
+
+                    inst.eventNodeData.Add(3);
+                    inst.eventNodeData.AddRange(entry.sevenBytes);
+                    eventNodeIndex = inst.numEventNodes;
+                    inst.numEventNodes += 1;
+                }
+
+                if (entry.nextFlwIndex != null)
+                {
+                    ushort nextFlwIndex = (ushort)entry.nextFlwIndex;
+
+                    int index = resultMapData.FindIndex(flwIndex => nextFlwIndex == flwIndex);
+
+                    if (index >= 0)
+                    {
+                        // FLW index is already present in list, so point at it
+                        // rather than adding to the list.
+                        resultMapIndex = (ushort)index;
+                    }
+                    else
+                    {
+                        // FLW index not in list, so add to end and point at it.
+                        resultMapData.Add(nextFlwIndex);
+                        resultMapIndex = (ushort)(resultMapData.Count - 1);
+                    }
+                }
+
+                // First need to add the branch overwrite in order to determine an index.
+                // Then need to add the resultMapEntries in order to determine an index.
+
+                if (eventNodeIndex != 0xFFFF || resultMapIndex != 0xFFFF)
+                {
+                    List<byte> lookupEntry = new();
+                    lookupEntry.AddRange(Converter.GcBytes(entry.flwIndex)); // 0x00
+                    lookupEntry.AddRange(Converter.GcBytes(entry.context)); // 0x02
+                    lookupEntry.AddRange(Converter.GcBytes(eventNodeIndex)); // 0x04
                     lookupEntry.AddRange(Converter.GcBytes(resultMapIndex)); // 0x06
                     inst.lookupTable.AddRange(lookupEntry);
 
