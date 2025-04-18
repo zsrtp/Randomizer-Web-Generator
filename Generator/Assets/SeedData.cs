@@ -2374,7 +2374,7 @@ namespace TPRandomizer.Assets
 
             bool hasTalkToMidnaHints = true;
 
-            UInt16 headerSize = 0x28;
+            UInt16 headerSize = 0x30;
 
             UInt16 signToInitFliOffset = (UInt16)(headerSize + bodyData.Count);
             UInt16 numSignToInitFliOffsetEntries = (UInt16)0;
@@ -2512,6 +2512,51 @@ namespace TPRandomizer.Assets
 
             CustomMessages.MessageEntry cmEntry = cmEntries[cmEntries.Count - 1];
 
+            // Need one of bmgNumber or stageId (stageId to be developed so can map to bmgNumber)
+
+            // Also need optional context
+            // Also need mandatory infIndex
+            // Also need mandatory string content
+
+            // Test 2
+            List<StringTableEntryInfo2> strEntries2 =
+                new()
+                {
+                    new(BmgNumber.zel_00, 3, 0x5de, "Need something2?" + CustomMessages.shopOption),
+                    new(
+                        BmgNumber.zel_00,
+                        3,
+                        0x5df,
+                        $"{messageOption1_8not9}Hints2\n{messageOption2_8not9}Change time of day2"
+                        // $"{CustomMessages.messageOption1}Hints\n{CustomMessages.messageOption2}Change time of day"
+                    ),
+                    new(
+                        BmgNumber.zel_00,
+                        3,
+                        0x5e5,
+                        "Required dungeons2:\n" + cmEntryLh.message
+                    ),
+                    new(
+                        BmgNumber.zel_00,
+                        3,
+                        0xa11,
+                        cmEntry.message
+                    ),
+                    new(
+                        StageIDs.Castle_Town,
+                        null,
+                        0x4ce,
+                        "Test text for star signs outside"
+                    ),
+                    new(StageIDs.Castle_Town, null, 0x368, "test talk to girls1"),
+                    new(StageIDs.Castle_Town, null, 0x369, "test talk to girls2"),
+                    new(StageIDs.Castle_Town, null, 0x36a, "test talk to girls3"),
+                };
+
+            StringTableResult2 stringTableResult2 = StringTable2.GenStringTableInfo(strEntries2);
+            StringTableResult2.Header header = stringTableResult2.AddBytesGenHeader(headerSize, bodyData);
+
+            // Old
             List<StringTableEntryInfo> strEntries =
                 new()
                 {
@@ -2535,6 +2580,7 @@ namespace TPRandomizer.Assets
                 };
 
             StringTableResult stringTableResult = StringTable.GenStringTableInfo(strEntries);
+
 
             UInt16 strTableLookupOffset = (UInt16)(headerSize + bodyData.Count);
             bodyData.AddRange(stringTableResult.contextInfLookupTable);
@@ -2610,8 +2656,13 @@ namespace TPRandomizer.Assets
             allData.AddRange(Converter.GcBytes(eventTable.numLookupEntries)); // 0x1C
             allData.AddRange(Converter.GcBytes(eventNodesOffset)); // 0x1E
             allData.AddRange(Converter.GcBytes(nextFlwTableOffset)); // 0x20
-            allData.AddRange(Converter.GcBytes((UInt16)0)); // 0x22 2 bytes padding
-            allData.AddRange(Converter.GcBytes((UInt32)0)); // 0x24 4 bytes padding
+            allData.AddRange(Converter.GcBytes((UInt16)header.bmgStrCompsTableOffset)); // 0x22
+            allData.AddRange(Converter.GcBytes((UInt16)header.bmgStrCompsTableNumEntries)); // 0x24
+            allData.AddRange(Converter.GcBytes((UInt16)header.contextCompValsOffset)); // 0x26
+            allData.AddRange(Converter.GcBytes((UInt16)header.basicCompValsOffset)); // 0x28
+            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetsTableOffset)); // 0x2A
+            allData.AddRange(Converter.GcBytes((UInt16)header.numContextCompStrOffsets)); // 0x2C
+            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x2E
 
             // Add bodyData
             allData.AddRange(bodyData);
