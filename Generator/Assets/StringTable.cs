@@ -38,7 +38,7 @@ namespace TPRandomizer.Assets
         // stages map to it
     }
 
-    public class StringTableEntryInfo2
+    class BmgNumUtils
     {
         private static Dictionary<StageIDs, BmgNumber> stageToBmg =
             new()
@@ -123,6 +123,16 @@ namespace TPRandomizer.Assets
                 { StageIDs.Hyrule_Castle_Cutscenes, BmgNumber.zel_04 },
             };
 
+        public static BmgNumber StageIdToBmgNum(StageIDs stageId)
+        {
+            if (!stageToBmg.TryGetValue(stageId, out BmgNumber bmgNumber))
+                throw new Exception($"Failed to find bmg for stageId '{stageId}'.");
+            return bmgNumber;
+        }
+    }
+
+    public class StringTableEntryInfo2
+    {
         public BmgNumber bmgNumber { get; private set; }
         public ushort? context { get; private set; }
         public ushort infIndex { get; private set; }
@@ -141,8 +151,7 @@ namespace TPRandomizer.Assets
 
         public StringTableEntryInfo2(StageIDs stageId, ushort? context, ushort infIndex, string str)
         {
-            if (!stageToBmg.TryGetValue(stageId, out BmgNumber bmgNumber))
-                throw new Exception($"Failed to find bmg for stageId '{stageId}'.");
+            BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
 
             Init(bmgNumber, context, infIndex, str);
         }
@@ -255,17 +264,98 @@ namespace TPRandomizer.Assets
         }
     }
 
+    class NodeRemapComparer : IComparer<BmgNodeRemap>
+    {
+        int IComparer<BmgNodeRemap>.Compare(BmgNodeRemap a, BmgNodeRemap b)
+        {
+            return (int)(a.sortValue - b.sortValue);
+        }
+    }
+
     public class BmgStrComps
     {
+        public ushort nodeRemapContextCompStartIndex;
+        public ushort nodeRemapContextCompLength = 0;
         public ushort contextCompsStartIndex;
         public ushort contextCompsLength = 0;
         public ushort basicCompsStartIndex;
         public ushort basicCompsLength = 0;
     }
 
+    public class BmgNodeRemap
+    {
+        // public BmgNumber bmgNumber { get; private set; }
+        // public ushort context { get; private set; }
+        // public ushort infIndex { get; private set; }
+        // public bool hasFliValue { get; private set; }
+        // public int sortValue { get; private set; }
+
+        public bool hasFliValue { get; private set; }
+        public BmgNumber bmgNumber { get; private set; }
+        public ushort fliValue { get; private set; }
+        public ushort context { get; private set; }
+        public ushort flwIndex { get; private set; }
+        public ushort newFlwIndex { get; private set; }
+        public ushort newContext { get; private set; }
+        public int sortValue { get; private set; }
+
+        public BmgNodeRemap(
+            BmgNumber bmgNumber,
+            ushort fliValue,
+            ushort flwIndex,
+            ushort newFlwIndex,
+            ushort newContext
+        )
+        {
+            Init(true, bmgNumber, fliValue, 0, flwIndex, newFlwIndex, newContext);
+        }
+
+        public BmgNodeRemap(
+            StageIDs stageId,
+            ushort fliValue,
+            ushort flwIndex,
+            ushort newFlwIndex,
+            ushort newContext
+        )
+        {
+            BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
+
+            Init(true, bmgNumber, fliValue, 0, flwIndex, newFlwIndex, newContext);
+        }
+
+        public BmgNodeRemap(ushort context, ushort flwIndex, ushort newFlwIndex, ushort newContext)
+        {
+            Init(false, BmgNumber.zel_00, 0, context, flwIndex, newFlwIndex, newContext);
+        }
+
+        private void Init(
+            bool hasFliValue,
+            BmgNumber bmgNumber,
+            ushort fliValue,
+            ushort context,
+            ushort flwIndex,
+            ushort newFlwIndex,
+            ushort newContext
+        )
+        {
+            this.hasFliValue = hasFliValue;
+            this.bmgNumber = bmgNumber;
+            this.fliValue = fliValue;
+            this.context = context;
+            this.flwIndex = flwIndex;
+            this.newFlwIndex = newFlwIndex;
+            this.newContext = newContext;
+            if (hasFliValue)
+                this.sortValue = (fliValue << 0x10) + flwIndex;
+            else
+                this.sortValue = (context << 0x10) + flwIndex;
+        }
+    }
+
     public class StringTable2
     {
         private static EntryComparer Comparer = new EntryComparer();
+        private static EntryComparer NodeRemapComparer = new EntryComparer();
 
         public static StringTableResult2 GenStringTableInfo(List<StringTableEntryInfo2> inputList)
         {
@@ -295,10 +385,9 @@ namespace TPRandomizer.Assets
             {
                 BmgNumber bmgNumber = bmgNumbers[i];
 
-                BmgStrComps bmgStrComps = new();
+                BmgStrComps bmgStrComps = result.bmgStrCompsTable[i];
                 bmgStrComps.contextCompsStartIndex = (ushort)result.contextCompVals.Count;
                 bmgStrComps.basicCompsStartIndex = (ushort)result.basicCompVals.Count;
-                result.bmgStrCompsTable.Add(bmgStrComps);
 
                 if (!dict.TryGetValue(bmgNumber, out List<StringTableEntryInfo2> listForBmg))
                     continue;
@@ -360,73 +449,45 @@ namespace TPRandomizer.Assets
                 }
             }
 
-            int abc = 7;
-
-            //
-
-            // StringTableResult result = new();
-            // result.numLookupEntries = (ushort)inputList.Count;
-
-            // Dictionary<string, int> stringToStrTableOffset = new();
-
-            // foreach (StringTableEntryInfo entry in inputList)
-            // {
-            //     string str = entry.str;
-            //     int strOffset;
-
-            //     if (!stringToStrTableOffset.TryGetValue(str, out strOffset))
-            //     {
-            //         // Is a new string
-            //         strOffset = result.strTable.Count;
-            //         result.strTable.AddRange(Converter.MessageStringBytes(str));
-            //         result.strTable.Add(Converter.GcByte(0x0));
-            //         stringToStrTableOffset[str] = strOffset;
-
-            //         result.numStringTableEntries += 1;
-            //     }
-
-            //     // Add u32 check for context and INF index
-            //     result.contextInfLookupTable.AddRange(Converter.GcBytes(entry.context));
-            //     result.contextInfLookupTable.AddRange(Converter.GcBytes(entry.infIndex));
-
-            //     // Add u16 conversion to strOffset
-            //     result.strOffsetConversionTable.AddRange(Converter.GcBytes((ushort)strOffset));
-            // }
-
-            // List<StringTableEntryInfo> strEntries =
-            //     new()
-            //     {
-            //         new(3, 0x5de, "What abc?" + CustomMessages.shopOption),
-            //         new(
-            //             3,
-            //             0x5df,
-            //             $"Hints{CustomMessages.messageOption1}Change time of day{CustomMessages.messageOption2}"
-            //         ),
-            //     };
-
-            // List<List<byte>> branchData =
-            //     new()
-            //     {
-            //         new() { 2, 3, 0, 0x23, 0, 0, 1, 0x2e }
-            //     };
-
             return result;
         }
     }
 
     public class StringTableResult2
     {
+        private static NodeRemapComparer nodeRemapComparer = new();
+
         public List<BmgStrComps> bmgStrCompsTable = new();
+
+        // node remaps
+        private List<BmgNodeRemap> storedNodeRemaps = new();
+        public List<uint> nodeRemapComps = new();
+        public ushort numNodeRemapContextComps = 0;
+        public List<uint> nodeRemapResults = new();
+
+        // str replacements
         public List<uint> contextCompVals = new();
         public List<ushort> basicCompVals = new();
         public List<ushort> contextStrOffsets = new();
         public List<ushort> basicStrOffsets = new();
         public List<byte> strTable = new();
 
+        public StringTableResult2()
+        {
+            BmgNumber[] bmgNumbers = (BmgNumber[])Enum.GetValues(typeof(BmgNumber));
+            for (int i = 0; i < bmgNumbers.Length; i++)
+            {
+                bmgStrCompsTable.Add(new BmgStrComps());
+            }
+        }
+
         public class Header
         {
             public ushort bmgStrCompsTableOffset;
             public ushort bmgStrCompsTableNumEntries;
+            public ushort nodeRemapCompsOffset;
+            public ushort nodeRemapContextCompsLength;
+            public ushort nodeRemapResultsOffset;
             public ushort contextCompValsOffset;
             public ushort basicCompValsOffset;
             public ushort strOffsetsTableOffset;
@@ -434,21 +495,124 @@ namespace TPRandomizer.Assets
             public ushort strTableOffset;
         }
 
-        // public ushort contextCompsOffset
+        public void AddNodeRemaps(List<BmgNodeRemap> nodeRemaps)
+        {
+            storedNodeRemaps.AddRange(nodeRemaps);
+            // bmg => offset/length for FLI comps
+
+            // offset/length of context comps
+
+            // numContextComps
+
+            // Table of u32 comp values.
+
+            // Can use same offset/length for all, but have a special one for
+            // context comps. So the comp values all sit in the same table. For
+            // example, if the context comps were first, we would say something
+            // like [offset 0, length 25] for those, then the offset for
+            // bmg0FliComps would be [offset 25, length 1] for example.
+
+        }
+
+        private void CalcNodeRemapData()
+        {
+            List<BmgNodeRemap> contextCompRemaps = new();
+            Dictionary<BmgNumber, List<BmgNodeRemap>> dict = new();
+
+            foreach (BmgNodeRemap entry in storedNodeRemaps)
+            {
+                if (entry.hasFliValue)
+                {
+                    BmgNumber bmgNumber = entry.bmgNumber;
+                    List<BmgNodeRemap> listForBmg;
+                    if (!dict.TryGetValue(bmgNumber, out listForBmg))
+                    {
+                        listForBmg = new();
+                        dict[bmgNumber] = listForBmg;
+                    }
+                    listForBmg.Add(entry);
+                }
+                else
+                {
+                    contextCompRemaps.Add(entry);
+                }
+            }
+
+            // Handle context compares
+            contextCompRemaps.Sort(nodeRemapComparer);
+
+            foreach (BmgNodeRemap remap in contextCompRemaps)
+            {
+                nodeRemapComps.Add((uint)remap.sortValue);
+
+                uint newShorts = (uint)(remap.newFlwIndex << 0x10) + remap.newContext;
+                nodeRemapResults.Add(newShorts);
+            }
+
+            numNodeRemapContextComps = (ushort)contextCompRemaps.Count;
+
+            // Handle FLI compares
+            BmgNumber[] bmgNumbers = (BmgNumber[])Enum.GetValues(typeof(BmgNumber));
+            for (int i = 0; i < bmgNumbers.Length; i++)
+            {
+                BmgNumber bmgNumber = bmgNumbers[i];
+
+                BmgStrComps bmgStrComps = bmgStrCompsTable[i];
+                bmgStrComps.nodeRemapContextCompStartIndex = (ushort)nodeRemapComps.Count;
+
+                if (!dict.TryGetValue(bmgNumber, out List<BmgNodeRemap> listForBmg))
+                    continue;
+
+                listForBmg.Sort(nodeRemapComparer);
+
+                bmgStrComps.nodeRemapContextCompLength = (ushort)listForBmg.Count;
+
+                foreach (BmgNodeRemap entry in listForBmg)
+                {
+                    int lookupVal = entry.sortValue;
+                    nodeRemapComps.Add((uint)lookupVal);
+
+                    uint newShorts = (uint)(entry.newFlwIndex << 0x10) + entry.newContext;
+                    nodeRemapResults.Add(newShorts);
+                }
+            }
+
+            int abc = 7;
+        }
+
         public Header AddBytesGenHeader(ushort headerSize, List<byte> bodyData)
         {
+            CalcNodeRemapData();
+
             Header header = new();
 
             header.bmgStrCompsTableOffset = (ushort)(headerSize + bodyData.Count);
             foreach (BmgStrComps bmgStrComps in bmgStrCompsTable)
             {
-                bodyData.AddRange(Converter.GcBytes(bmgStrComps.contextCompsStartIndex)); // 0x00
-                bodyData.AddRange(Converter.GcBytes(bmgStrComps.contextCompsLength)); // 0x02
-                bodyData.AddRange(Converter.GcBytes(bmgStrComps.basicCompsStartIndex)); // 0x04
-                bodyData.AddRange(Converter.GcBytes(bmgStrComps.basicCompsLength)); // 0x06
+                bodyData.AddRange(Converter.GcBytes(bmgStrComps.nodeRemapContextCompStartIndex)); // 0x00
+                bodyData.AddRange(Converter.GcBytes(bmgStrComps.nodeRemapContextCompLength)); // 0x02
+                bodyData.AddRange(Converter.GcBytes(bmgStrComps.contextCompsStartIndex)); // 0x04
+                bodyData.AddRange(Converter.GcBytes(bmgStrComps.contextCompsLength)); // 0x06
+                bodyData.AddRange(Converter.GcBytes(bmgStrComps.basicCompsStartIndex)); // 0x08
+                bodyData.AddRange(Converter.GcBytes(bmgStrComps.basicCompsLength)); // 0x0a
             }
             header.bmgStrCompsTableNumEntries = (ushort)bmgStrCompsTable.Count;
 
+            // Add nodeRemap stuff
+            header.nodeRemapCompsOffset = (ushort)(headerSize + bodyData.Count);
+            foreach (uint compVal in nodeRemapComps)
+            {
+                bodyData.AddRange(Converter.GcBytes(compVal)); // u32 comp val (context/fliVal , flwIndex)
+            }
+            header.nodeRemapContextCompsLength = numNodeRemapContextComps;
+
+            header.nodeRemapResultsOffset = (ushort)(headerSize + bodyData.Count);
+            foreach (uint remapVal in nodeRemapResults)
+            {
+                bodyData.AddRange(Converter.GcBytes(remapVal)); // u32 new vals (context, flwIndex)
+            }
+
+            // Add string comp stuff
             header.contextCompValsOffset = (ushort)(headerSize + bodyData.Count);
             foreach (uint contextCompVal in contextCompVals)
             {

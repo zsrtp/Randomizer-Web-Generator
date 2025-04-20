@@ -2374,7 +2374,7 @@ namespace TPRandomizer.Assets
 
             bool hasTalkToMidnaHints = true;
 
-            UInt16 headerSize = 0x30;
+            UInt16 headerSize = 0x40;
 
             UInt16 signToInitFliOffset = (UInt16)(headerSize + bodyData.Count);
             UInt16 numSignToInitFliOffsetEntries = (UInt16)0;
@@ -2551,9 +2551,43 @@ namespace TPRandomizer.Assets
                     new(StageIDs.Castle_Town, null, 0x368, "test talk to girls1"),
                     new(StageIDs.Castle_Town, null, 0x369, "test talk to girls2"),
                     new(StageIDs.Castle_Town, null, 0x36a, "test talk to girls3"),
+                    new(
+                        BmgNumber.zel_00,
+                        4,
+                        0x136b,
+                        "ctx:4, inf: 0x136b"
+                    ),
+                    new(
+                        BmgNumber.zel_00,
+                        5,
+                        0x136b,
+                        "ctx:5, inf: 0x136b"
+                    ),
                 };
 
             StringTableResult2 stringTableResult2 = StringTable2.GenStringTableInfo(strEntries2);
+
+            List<BmgNodeRemap> nodeRemaps =
+                new()
+                {
+                    new(BmgNumber.zel_00, 0x7700, 0xFFFF, 0x24, 0),
+                    new(BmgNumber.zel_00, 0x7701, 0xFFFF, 0x25, 0),
+                    new(BmgNumber.zel_00, 0x7702, 0xFFFF, 0x26, 4),
+                    new(BmgNumber.zel_00, 0x7703, 0xFFFF, 0x27, 0),
+                    new(BmgNumber.zel_00, 0x7704, 0xFFFF, 0x28, 0),
+                    new(BmgNumber.zel_00, 0x7710, 0xFFFF, 0x24, 0),
+                    new(BmgNumber.zel_00, 0x7711, 0xFFFF, 0x25, 0),
+                    new(BmgNumber.zel_00, 0x7712, 0xFFFF, 0x26, 0),
+                    new(BmgNumber.zel_00, 0x7713, 0xFFFF, 0x27, 0),
+                    new(BmgNumber.zel_00, 0x7714, 0xFFFF, 0x28, 0),
+                    new(BmgNumber.zel_00, 0xbb8, 0x8f, 0x1a0, 3),
+                    // 0x26 has INF 0x136b
+                    new(4, 0x27, 0x26, 5),
+                    new(5, 0x27, 0xffff, 0),
+                };
+
+            stringTableResult2.AddNodeRemaps(nodeRemaps);
+
             StringTableResult2.Header header = stringTableResult2.AddBytesGenHeader(headerSize, bodyData);
 
             // Old
@@ -2658,11 +2692,19 @@ namespace TPRandomizer.Assets
             allData.AddRange(Converter.GcBytes(nextFlwTableOffset)); // 0x20
             allData.AddRange(Converter.GcBytes((UInt16)header.bmgStrCompsTableOffset)); // 0x22
             allData.AddRange(Converter.GcBytes((UInt16)header.bmgStrCompsTableNumEntries)); // 0x24
-            allData.AddRange(Converter.GcBytes((UInt16)header.contextCompValsOffset)); // 0x26
-            allData.AddRange(Converter.GcBytes((UInt16)header.basicCompValsOffset)); // 0x28
-            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetsTableOffset)); // 0x2A
-            allData.AddRange(Converter.GcBytes((UInt16)header.numContextCompStrOffsets)); // 0x2C
-            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x2E
+            allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapCompsOffset)); // 0x26
+            allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapContextCompsLength)); // 0x28
+            allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapResultsOffset)); // 0x2a
+            allData.AddRange(Converter.GcBytes((UInt16)header.contextCompValsOffset)); // 0x2c
+            allData.AddRange(Converter.GcBytes((UInt16)header.basicCompValsOffset)); // 0x2e
+            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetsTableOffset)); // 0x30
+            allData.AddRange(Converter.GcBytes((UInt16)header.numContextCompStrOffsets)); // 0x32
+            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x34
+
+            while (allData.Count < headerSize)
+            {
+                allData.Add(0);
+            }
 
             // Add bodyData
             allData.AddRange(bodyData);
