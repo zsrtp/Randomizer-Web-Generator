@@ -346,7 +346,17 @@ namespace TPRandomizer.Assets
             this.newFlwIndex = newFlwIndex;
             this.newContext = newContext;
             if (hasFliValue)
+            {
+                if (flwIndex == 0xFFFF && newContext == 0)
+                {
+                    // This is to make it more difficult to create infinite flow
+                    // loops.
+                    throw new Exception(
+                        $"Not allowed to remap an 0xFFFF FlwIndex using an FLI value unless you set a nonzero new flowContext."
+                    );
+                }
                 this.sortValue = (fliValue << 0x10) + flwIndex;
+            }
             else
                 this.sortValue = (context << 0x10) + flwIndex;
         }

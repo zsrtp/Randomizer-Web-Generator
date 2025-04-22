@@ -1039,7 +1039,8 @@ namespace TPRandomizer
                 "kak-malo"
             );
 
-            uint kakMaloHylianShieldPrice = 200;
+            // uint kakMaloHylianShieldPrice = 200;
+            uint kakMaloHylianShieldPrice = 315;
             AddShopSlotMsg(
                 MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Slot,
                 "Kakariko Village Malo Mart Hylian Shield",

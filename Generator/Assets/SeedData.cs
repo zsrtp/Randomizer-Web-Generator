@@ -2563,6 +2563,29 @@ namespace TPRandomizer.Assets
                         0x136b,
                         "ctx:5, inf: 0x136b"
                     ),
+                    new(
+                        BmgNumber.zel_00,
+                        10,
+                        // 0xbbb,
+                        0x1369,
+                        Res.LangSpecificNormalize("How many Cuccos are at Lake Hylia?" + CustomMessages.shopOption)
+                        // $"CustomMenu{CustomMessages.shopOption}"
+                    ),
+                    new(
+                        BmgNumber.zel_00,
+                        10,
+                        // 0xa2e,
+                        0x136a,
+                        $"{CustomMessages.messageOption1}7\n{CustomMessages.messageOption2}8\n{CustomMessages.messageOption3}9"
+                        // $"{CustomMessages.messageOption1}Hints\n{CustomMessages.messageOption2}Change time of day"
+                    ),
+                    new(
+                        BmgNumber.zel_00,
+                        11,
+                        0x1369, // FLW 0x28, but sign flow always uses 1369 for msg
+                        // $"Hint from correct answer!"
+                        "Correct!\n\n\n\n" + cmEntry.message
+                    ),
                 };
 
             StringTableResult2 stringTableResult2 = StringTable2.GenStringTableInfo(strEntries2);
@@ -2570,20 +2593,26 @@ namespace TPRandomizer.Assets
             List<BmgNodeRemap> nodeRemaps =
                 new()
                 {
-                    new(BmgNumber.zel_00, 0x7700, 0xFFFF, 0x24, 0),
-                    new(BmgNumber.zel_00, 0x7701, 0xFFFF, 0x25, 0),
-                    new(BmgNumber.zel_00, 0x7702, 0xFFFF, 0x26, 4),
-                    new(BmgNumber.zel_00, 0x7703, 0xFFFF, 0x27, 0),
-                    new(BmgNumber.zel_00, 0x7704, 0xFFFF, 0x28, 0),
-                    new(BmgNumber.zel_00, 0x7710, 0xFFFF, 0x24, 0),
-                    new(BmgNumber.zel_00, 0x7711, 0xFFFF, 0x25, 0),
-                    new(BmgNumber.zel_00, 0x7712, 0xFFFF, 0x26, 0),
-                    new(BmgNumber.zel_00, 0x7713, 0xFFFF, 0x27, 0),
-                    new(BmgNumber.zel_00, 0x7714, 0xFFFF, 0x28, 0),
+                    new(BmgNumber.zel_00, 0x7700, 0xFFFF, 0x24, 1),
+                    new(BmgNumber.zel_00, 0x7701, 0xFFFF, 0x25, 1),
+                    // new(BmgNumber.zel_00, 0x7702, 0xFFFF, 0x26, 4),
+                    // new(BmgNumber.zel_00, 0x7702, 0xFFFF, 0x33, 0),
+                    new(BmgNumber.zel_00, 0x7702, 0xFFFF, 0x194, 10),
+                    new(BmgNumber.zel_00, 0x7703, 0xFFFF, 0x27, 1),
+                    new(BmgNumber.zel_00, 0x7704, 0xFFFF, 0x28, 1),
+                    new(BmgNumber.zel_00, 0x7710, 0xFFFF, 0x24, 1),
+                    new(BmgNumber.zel_00, 0x7711, 0xFFFF, 0x25, 1),
+                    new(BmgNumber.zel_00, 0x7712, 0xFFFF, 0x26, 1),
+                    new(BmgNumber.zel_00, 0x7713, 0xFFFF, 0x27, 1),
+                    new(BmgNumber.zel_00, 0x7714, 0xFFFF, 0x28, 1),
                     new(BmgNumber.zel_00, 0xbb8, 0x8f, 0x1a0, 3),
+                    // Test for hylian shield price change
+                    new(StageIDs.Kakariko_Village_Interiors, 0x145, 0x421, 0x421, 15),
                     // 0x26 has INF 0x136b
                     new(4, 0x27, 0x26, 5),
                     new(5, 0x27, 0xffff, 0),
+                    new(10, 0x9, 0x9, 11),
+                    new(10, 0x28, 0x28, 11),
                 };
 
             stringTableResult2.AddNodeRemaps(nodeRemaps);
@@ -2635,6 +2664,14 @@ namespace TPRandomizer.Assets
                 {
                     // new(0x1a3, 3, null, new() { 0x24, 0x28, 0xFFFF }),
                     new(0x1a3, 3, null, new() { 0x27, 0x1a4, 0xFFFF }),
+
+                    // Test sign remap
+                    new(0x193, 10, null, new() { 0x28, 0x9, 0x9, 0xFFFF }),
+
+                    // TODO: these branch and event ones need to be handled per bmg as well
+                    // Patch comparison to see if you can afford hylian shield
+                    // Change price to 0x13b (315)
+                    new(0x421, 15, new() { 0x02, 0x00, 0x06, 0x01, 0x3b, 0x02, 0xd7 }, null),
                 };
 
             BranchTable branchTable = BranchTable.GenBranchTable(branchInputList);
@@ -2646,6 +2683,13 @@ namespace TPRandomizer.Assets
                     new(0x1a4, 3, new() { 43, 1, 0x31, 0, 0, 0, 0 }, 0xFFFF),
                     // new(0x1a3, 3, null, new() { 0x123, 0x456, 0xFFFF }),
                     // new(0x1a3, 3, null, new() { 0x123, 0x456, 0xFFFF }),
+
+                    // Custom func to give item (ice trap at 0x13)
+                    new(0x9, 11, new() { 44, 1, 0x31, 0, 0x13, 0, 0 }, 0xFFFF),
+
+                    // TODO: these branch and event ones need to be handled per bmg as well
+                    // Patch to subtract 0x13b (315)
+                    new(0x424, 15, new() { 0x03, 0x02, 0xda, 0x00, 0x00, 0x01, 0x3b }, null),
                 };
 
             EventTable eventTable = EventTable.GenEventTable(
