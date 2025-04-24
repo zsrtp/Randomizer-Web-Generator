@@ -2625,45 +2625,6 @@ namespace TPRandomizer.Assets
 
             StringTableResult2.Header header = stringTableResult2.AddBytesGenHeader(headerSize, bodyData);
 
-            // Old
-            List<StringTableEntryInfo> strEntries =
-                new()
-                {
-                    new(3, 0x5de, "Need something?" + CustomMessages.shopOption),
-                    new(
-                        3,
-                        0x5df,
-                        $"{messageOption1_8not9}Hints\n{messageOption2_8not9}Change time of day"
-                        // $"{CustomMessages.messageOption1}Hints\n{CustomMessages.messageOption2}Change time of day"
-                    ),
-                    new(
-                        3,
-                        0x5e5,
-                        "Required dungeons:\n" + cmEntryLh.message
-                    ),
-                    new(
-                        3,
-                        0xa11,
-                        cmEntry.message
-                    ),
-                };
-
-            StringTableResult stringTableResult = StringTable.GenStringTableInfo(strEntries);
-
-
-            UInt16 strTableLookupOffset = (UInt16)(headerSize + bodyData.Count);
-            bodyData.AddRange(stringTableResult.contextInfLookupTable);
-
-            UInt16 strTableOffsetsOffset = (UInt16)(headerSize + bodyData.Count);
-            bodyData.AddRange(stringTableResult.strOffsetConversionTable);
-
-            UInt16 strTableOffset = (UInt16)(headerSize + bodyData.Count);
-            bodyData.AddRange(stringTableResult.strTable);
-            while (bodyData.Count % 8 != 0)
-            {
-                bodyData.Add(0);
-            }
-
             // Branches
             List<BranchTableEntryInfo> branchInputList =
                 new()
@@ -2729,10 +2690,10 @@ namespace TPRandomizer.Assets
             allData.AddRange(Converter.GcBytes(numFlwIdxRemapEntries)); // 0x06
             allData.AddRange(Converter.GcBytes(infRemapOffset)); // 0x08
             allData.AddRange(Converter.GcBytes(numInfRemapEntries)); // 0x0A
-            allData.AddRange(Converter.GcBytes(strTableLookupOffset)); // 0x0C
-            allData.AddRange(Converter.GcBytes(strTableOffsetsOffset)); // 0x0E
-            allData.AddRange(Converter.GcBytes(stringTableResult.numLookupEntries)); // 0x10
-            allData.AddRange(Converter.GcBytes(strTableOffset)); // 0x12
+            // allData.AddRange(Converter.GcBytes(strTableLookupOffset)); // 0x0C
+            // allData.AddRange(Converter.GcBytes(strTableOffsetsOffset)); // 0x0E
+            // allData.AddRange(Converter.GcBytes(stringTableResult.numLookupEntries)); // 0x10
+            // allData.AddRange(Converter.GcBytes(strTableOffset)); // 0x12
             allData.AddRange(Converter.GcBytes(branchEditLookupsOffset)); // 0x14
             allData.AddRange(Converter.GcBytes(branchTable.numLookupEntries)); // 0x16
             allData.AddRange(Converter.GcBytes(branchNodesOffset)); // 0x18
