@@ -2591,7 +2591,8 @@ namespace TPRandomizer.Assets
             StringTableResult2 stringTableResult2 = new();
             stringTableResult2.AddStrReplacements(strEntries2);
 
-            List<BmgNodeRemap> nodeRemaps =
+            // List<BmgNodeRemap> nodeRemaps =
+            List<NodeRemapEntity> nodeRemaps =
                 new()
                 {
                     new(BmgNumber.zel_00, 0x7700, 0xFFFF, 0x24, 1),
@@ -2619,7 +2620,8 @@ namespace TPRandomizer.Assets
                     new(15, 0x424, 0x428, 15),
                 };
 
-            stringTableResult2.AddNodeRemaps(nodeRemaps);
+            // stringTableResult2.AddNodeRemaps(nodeRemaps);
+            stringTableResult2.AddNodeRemapEntities(nodeRemaps);
 
             StringTableResult2.Header header = stringTableResult2.AddBytesGenHeader(headerSize, bodyData);
 
@@ -2768,7 +2770,7 @@ namespace TPRandomizer.Assets
             // zero. One could be greater than the other? That is true. So our
             // diff could be positive or negative. The result is guaranteed to
             // be at least 0 though once we add everything together.
-            allData.AddRange(Converter.GcBytes((UInt16)header.compIdxAdjOffset)); // 0x22
+            // allData.AddRange(Converter.GcBytes((UInt16)header.compIdxAdjOffset)); // 0x22
             allData.AddRange(Converter.GcBytes((UInt16)header.tableSliceInfoLookupsOffset)); // 0x24
             allData.AddRange(Converter.GcBytes((UInt16)header.tableSliceInfosOffset)); // 0x26
             allData.AddRange(Converter.GcBytes((UInt16)header.wordCompValsOffset)); // 0x28

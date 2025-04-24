@@ -11,8 +11,11 @@ namespace TPRandomizer.Assets
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Reflection.Metadata;
+    using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices.Marshalling;
     using System.Runtime.Serialization;
+    using System.Security.Cryptography.X509Certificates;
     using Microsoft.CodeAnalysis.Operations;
     using Newtonsoft.Json;
     using TPRandomizer.Assets.CLR0;
@@ -363,13 +366,171 @@ namespace TPRandomizer.Assets
         }
     }
 
+    public abstract class Entity
+    {
+        public bool basicUsesWordComp = false;
+        public abstract int getBmgNumber();
+        public abstract int getSortValue();
+        public abstract bool getIsContextCompare();
+
+        public void AddToCorrectList(List<uint> wordList, List<ushort> shortList)
+        {
+            if (basicUsesWordComp)
+                wordList.Add((uint)getSortValue());
+            else
+                shortList.Add((ushort)getSortValue());
+        }
+    }
+
+    class EntityComparer : IComparer<Entity>
+    {
+        int IComparer<Entity>.Compare(Entity a, Entity b)
+        {
+            return a.getSortValue() - b.getSortValue();
+        }
+    }
+
+    public class NodeRemapEntity : Entity
+    {
+        public bool hasFliValue { get; private set; }
+        public BmgNumber bmgNumber { get; private set; }
+        public ushort fliValue { get; private set; }
+        public ushort context { get; private set; }
+        public ushort flwIndex { get; private set; }
+        public ushort newFlwIndex { get; private set; }
+        public ushort newContext { get; private set; }
+        public int sortValue { get; private set; }
+
+        public NodeRemapEntity(
+            BmgNumber bmgNumber,
+            ushort fliValue,
+            ushort flwIndex,
+            ushort newFlwIndex,
+            ushort newContext
+        )
+        {
+            Init(true, bmgNumber, fliValue, 0, flwIndex, newFlwIndex, newContext);
+        }
+
+        public NodeRemapEntity(
+            StageIDs stageId,
+            ushort fliValue,
+            ushort flwIndex,
+            ushort newFlwIndex,
+            ushort newContext
+        )
+        {
+            BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
+
+            Init(true, bmgNumber, fliValue, 0, flwIndex, newFlwIndex, newContext);
+        }
+
+        public NodeRemapEntity(
+            ushort context,
+            ushort flwIndex,
+            ushort newFlwIndex,
+            ushort newContext
+        )
+        {
+            Init(false, BmgNumber.zel_00, 0, context, flwIndex, newFlwIndex, newContext);
+        }
+
+        private void Init(
+            bool hasFliValue,
+            BmgNumber bmgNumber,
+            ushort fliValue,
+            ushort context,
+            ushort flwIndex,
+            ushort newFlwIndex,
+            ushort newContext
+        )
+        {
+            basicUsesWordComp = true;
+
+            this.hasFliValue = hasFliValue;
+            this.bmgNumber = bmgNumber;
+            this.fliValue = fliValue;
+            this.context = context;
+            this.flwIndex = flwIndex;
+            this.newFlwIndex = newFlwIndex;
+            this.newContext = newContext;
+            if (hasFliValue)
+            {
+                if (flwIndex == 0xFFFF && newContext == 0)
+                {
+                    // This is to make it more difficult to create infinite flow
+                    // loops.
+                    throw new Exception(
+                        $"Not allowed to remap an 0xFFFF FlwIndex using an FLI value unless you set a nonzero new flowContext."
+                    );
+                }
+                this.sortValue = (fliValue << 0x10) + flwIndex;
+            }
+            else
+                this.sortValue = (context << 0x10) + flwIndex;
+        }
+
+        public override int getBmgNumber()
+        {
+            return (int)bmgNumber;
+        }
+
+        public override int getSortValue()
+        {
+            return sortValue;
+        }
+
+        public override bool getIsContextCompare()
+        {
+            return !hasFliValue;
+        }
+
+        public uint getEntityTableUint()
+        {
+            return (uint)(newFlwIndex << 0x10) + newContext;
+        }
+    }
+
+    public abstract class BaseCl<E>
+    {
+        public List<E> entities = new();
+    }
+
+    public class EntityLookupInfo
+    {
+        public short ctxCompAdjustment;
+        public short basicCompAdjustment;
+        public byte tableSliceInfoStartIdx;
+        public List<byte> bmgLookupBytes = new();
+
+        //
+        public List<Entity> entityList = new();
+
+        public List<byte> toBytes()
+        {
+            // Result is 14 (0xE) bytes long which is fine since largest
+            // alignment is 2 bytes.
+            List<byte> bytes = new();
+            bytes.AddRange(Converter.GcBytes(ctxCompAdjustment)); // s16
+            bytes.AddRange(Converter.GcBytes(basicCompAdjustment)); // s16
+            bytes.Add(tableSliceInfoStartIdx); // u8
+            bytes.AddRange(bmgLookupBytes); // u8[9]
+
+            if (bytes.Count != 14)
+                throw new Exception($"Expected bytes.Count to be 14, but was '{bytes.Count}'.");
+            return bytes;
+        }
+    }
+
     public class StringTableResult2
     {
         private static NodeRemapComparer nodeRemapComparer = new();
-        private static EntryComparer StrReplComparer = new EntryComparer();
+        private static EntryComparer StrReplComparer = new();
+        private static EntityComparer entityComparer = new();
 
         // node remaps
         private List<BmgNodeRemap> storedNodeRemaps = new();
+        private List<Entity> storedNodeRemapEntities = new();
         public List<uint> nodeRemapComps = new();
         public ushort numNodeRemapContextComps = 0;
         public List<uint> nodeRemapResults = new();
@@ -384,7 +545,7 @@ namespace TPRandomizer.Assets
         //
         // public ushort nodeRemapCtxCompsCount;
         // public ushort strReplCtxCompsCount;
-        public List<short> compIndexAdjustments = new();
+        // public List<short> compIndexAdjustments = new();
         public List<byte> tableSliceLookupsByCompType = new();
         public List<ushort> tableSliceInfoTable = new();
         public List<uint> wordCompVals = new();
@@ -397,7 +558,7 @@ namespace TPRandomizer.Assets
 
         public class Header
         {
-            public ushort compIdxAdjOffset;
+            // public ushort compIdxAdjOffset;
             public ushort tableSliceInfoLookupsOffset;
             public ushort tableSliceInfosOffset;
             public ushort wordCompValsOffset;
@@ -422,6 +583,40 @@ namespace TPRandomizer.Assets
 
             public byte UpdateTableSliceInfoTable(List<ushort> tableSliceInfoTable)
             {
+                // TODO: isn't there a problem here where we can only support 64 / 18 types?
+
+                // We need a base index, and then we can add an offset on top of
+                // that which means we can handle an infinite number basically.
+
+                // We have 9 bytes
+
+                // We also have these things per enum:
+
+                // u16 offset to entityData
+                // s16 ctxCompAdjustment
+                // s16 basicCompAdjustment
+                // ^ which is 6 bytes
+                // If we had another byte, that would make each one 0x10 bytes long
+
+                // So like:
+                // u16 entityDataOffset
+                // s16 ctxCompAdjustment
+                // s16 basicCompAdjustment
+                // u8 tableSliceInfoStartIdx
+                // u8[9] bmgLookupBytes (these could even be changed to u4,u4) if it makes sense
+
+                // This structure might honestly take up slightly more space
+                // when you factor in the code, but with how clean it is it
+                // might be worth it for simplifying. We can also effectively
+                // hardcode in the 9 for the BMGs which we could have been doing
+                // anyway. We do remove at least one u16 offset from the header
+                // though (not counting the ones we just move into these
+                // structures) since we only need an offset to this table.
+
+                // Maybe we pass in a ptr to the structure to the function which
+                // returns the foundIndex? Since we will need it anyway, we only
+                // have to look it up one time that way.
+
                 byte byteVal = (byte)(tableSliceInfoTable.Count / 2);
                 bool hasVal = false;
                 if (ctxLen > 0)
@@ -454,11 +649,19 @@ namespace TPRandomizer.Assets
             storedNodeRemaps.AddRange(nodeRemaps);
         }
 
-        private void CalcNodeRemapData()
+        public void AddNodeRemapEntities(List<NodeRemapEntity> nodeRemaps)
         {
-            // TODO: try to make this function generic so can reuse for strings, etc.
+            storedNodeRemapEntities.AddRange(nodeRemaps);
+        }
 
-            List<CompLists<BmgNodeRemap>> compListsList = new();
+        private EntityLookupInfo CalcThing(
+            List<Entity> entities,
+            Entity inst,
+            IComparer<Entity> comparer
+        )
+        {
+            EntityLookupInfo result = new();
+            List<CompLists<Entity>> compListsList = new();
             List<TableSlicesPair> pairsList = new();
             // Init lists
             BmgNumber[] bmgNumbers = (BmgNumber[])Enum.GetValues(typeof(BmgNumber));
@@ -470,25 +673,25 @@ namespace TPRandomizer.Assets
 
             HashSet<ulong> seenBmgPlusCompVals = new();
 
-            foreach (BmgNodeRemap entry in storedNodeRemaps)
+            foreach (Entity entity in entities)
             {
-                int bmgNumber = (int)entry.bmgNumber;
-                CompLists<BmgNodeRemap> compLists = compListsList[bmgNumber];
+                int bmgNumber = entity.getBmgNumber();
+                CompLists<Entity> compLists = compListsList[bmgNumber];
 
                 // Validate bmgPlusCompVal is unique
-                ulong bmgPlusCompVal = ((ulong)bmgNumber << 32) + (uint)entry.sortValue;
+                ulong bmgPlusCompVal = ((ulong)bmgNumber << 32) + (uint)entity.getSortValue();
                 if (seenBmgPlusCompVals.Contains(bmgPlusCompVal))
                     throw new Exception($"Duplicate bmgPlusCompVal '{bmgPlusCompVal}'.");
                 else
                     seenBmgPlusCompVals.Add(bmgPlusCompVal);
 
-                if (entry.hasFliValue)
-                    compLists.basicList.Add(entry);
+                if (entity.getIsContextCompare())
+                    compLists.ctxList.Add(entity);
                 else
-                    compLists.ctxList.Add(entry);
+                    compLists.basicList.Add(entity);
             }
 
-            List<uint> entityTable = new();
+            ushort numCtxEntities = 0;
 
             // Handle context
 
@@ -497,62 +700,176 @@ namespace TPRandomizer.Assets
             for (int i = 0; i < bmgNumbers.Length; i++)
             {
                 TableSlicesPair tableSlicesPair = pairsList[i];
-                CompLists<BmgNodeRemap> compLists = compListsList[i];
+                CompLists<Entity> compLists = compListsList[i];
 
-                List<BmgNodeRemap> ctxList = compLists.ctxList;
-                ctxList.Sort(nodeRemapComparer);
+                List<Entity> ctxList = compLists.ctxList;
+                ctxList.Sort(comparer);
 
                 tableSlicesPair.ctxStartIdx = (ushort)wordCompVals.Count;
 
-                foreach (BmgNodeRemap entry in ctxList)
+                foreach (Entity entity in ctxList)
                 {
-                    int lookupVal = entry.sortValue;
+                    int lookupVal = entity.getSortValue();
                     wordCompVals.Add((uint)lookupVal);
                     tableSlicesPair.ctxLen += 1;
 
-                    uint newShorts = (uint)(entry.newFlwIndex << 0x10) + entry.newContext;
-                    entityTable.Add(newShorts);
+                    result.entityList.Add(entity);
+                    numCtxEntities += 1;
                 }
             }
 
-            ushort numCtxEntities = (ushort)entityTable.Count;
-
             // Handle basic
 
-            ushort firstBasicCompOffset = (ushort)wordCompVals.Count;
+            ushort firstBasicCompOffset;
+            if (inst.basicUsesWordComp)
+                firstBasicCompOffset = (ushort)wordCompVals.Count;
+            else
+                firstBasicCompOffset = (ushort)shortCompVals.Count;
 
             for (int i = 0; i < bmgNumbers.Length; i++)
             {
                 TableSlicesPair tableSlicesPair = pairsList[i];
-                CompLists<BmgNodeRemap> compLists = compListsList[i];
+                CompLists<Entity> compLists = compListsList[i];
 
-                List<BmgNodeRemap> basicList = compLists.basicList;
-                basicList.Sort(nodeRemapComparer);
+                List<Entity> basicList = compLists.basicList;
+                basicList.Sort(comparer);
 
-                tableSlicesPair.basicStartIdx = (ushort)wordCompVals.Count;
+                if (inst.basicUsesWordComp)
+                    tableSlicesPair.basicStartIdx = (ushort)wordCompVals.Count;
+                else
+                    tableSlicesPair.basicStartIdx = (ushort)shortCompVals.Count;
 
-                foreach (BmgNodeRemap entry in basicList)
+                foreach (Entity entity in basicList)
                 {
-                    int lookupVal = entry.sortValue;
-                    wordCompVals.Add((uint)lookupVal);
+                    int lookupVal = entity.getSortValue();
+                    entity.AddToCorrectList(wordCompVals, shortCompVals);
                     tableSlicesPair.basicLen += 1;
 
-                    uint newShorts = (uint)(entry.newFlwIndex << 0x10) + entry.newContext;
-                    entityTable.Add(newShorts);
+                    result.entityList.Add(entity);
                 }
             }
 
-            compIndexAdjustments.Add((short)(-1 * firstCtxCompOffset));
-            compIndexAdjustments.Add((short)(numCtxEntities - firstBasicCompOffset));
+            // compIndexAdjustments.Add((short)(-1 * firstCtxCompOffset));
+            // compIndexAdjustments.Add((short)(numCtxEntities - firstBasicCompOffset));
+            result.ctxCompAdjustment = (short)(-1 * firstCtxCompOffset);
+            result.basicCompAdjustment = (short)(numCtxEntities - firstBasicCompOffset);
+            result.tableSliceInfoStartIdx = (byte)(tableSliceInfoTable.Count / 2);
 
             foreach (TableSlicesPair pair in pairsList)
             {
                 byte lookupByte = pair.UpdateTableSliceInfoTable(tableSliceInfoTable);
-                tableSliceLookupsByCompType.Add(lookupByte);
+                result.bmgLookupBytes.Add(lookupByte);
+                // tableSliceLookupsByCompType.Add(lookupByte);
             }
 
             int abc = 7;
+            // TODO: put all of the results into the new 0x10 byte long style
+            // struct class, and return that result from this calculation. Or
+            // just put it inside a new property on "this" actually.
+
+            // Name: class EntityLookupInfo
+            return result;
         }
+
+        // private void CalcNodeRemapData()
+        // {
+        //     // TODO: try to make this function generic so can reuse for strings, etc.
+
+        //     List<CompLists<BmgNodeRemap>> compListsList = new();
+        //     List<TableSlicesPair> pairsList = new();
+        //     // Init lists
+        //     BmgNumber[] bmgNumbers = (BmgNumber[])Enum.GetValues(typeof(BmgNumber));
+        //     for (int i = 0; i < bmgNumbers.Length; i++)
+        //     {
+        //         compListsList.Add(new());
+        //         pairsList.Add(new());
+        //     }
+
+        //     HashSet<ulong> seenBmgPlusCompVals = new();
+
+        //     foreach (BmgNodeRemap entry in storedNodeRemaps)
+        //     {
+        //         int bmgNumber = (int)entry.bmgNumber;
+        //         CompLists<BmgNodeRemap> compLists = compListsList[bmgNumber];
+
+        //         // Validate bmgPlusCompVal is unique
+        //         ulong bmgPlusCompVal = ((ulong)bmgNumber << 32) + (uint)entry.sortValue;
+        //         if (seenBmgPlusCompVals.Contains(bmgPlusCompVal))
+        //             throw new Exception($"Duplicate bmgPlusCompVal '{bmgPlusCompVal}'.");
+        //         else
+        //             seenBmgPlusCompVals.Add(bmgPlusCompVal);
+
+        //         if (entry.hasFliValue)
+        //             compLists.basicList.Add(entry);
+        //         else
+        //             compLists.ctxList.Add(entry);
+        //     }
+
+        //     List<uint> entityTable = new();
+
+        //     // Handle context
+
+        //     ushort firstCtxCompOffset = (ushort)wordCompVals.Count;
+
+        //     for (int i = 0; i < bmgNumbers.Length; i++)
+        //     {
+        //         TableSlicesPair tableSlicesPair = pairsList[i];
+        //         CompLists<BmgNodeRemap> compLists = compListsList[i];
+
+        //         List<BmgNodeRemap> ctxList = compLists.ctxList;
+        //         ctxList.Sort(nodeRemapComparer);
+
+        //         tableSlicesPair.ctxStartIdx = (ushort)wordCompVals.Count;
+
+        //         foreach (BmgNodeRemap entry in ctxList)
+        //         {
+        //             int lookupVal = entry.sortValue;
+        //             wordCompVals.Add((uint)lookupVal);
+        //             tableSlicesPair.ctxLen += 1;
+
+        //             uint newShorts = (uint)(entry.newFlwIndex << 0x10) + entry.newContext;
+        //             entityTable.Add(newShorts);
+        //         }
+        //     }
+
+        //     ushort numCtxEntities = (ushort)entityTable.Count;
+
+        //     // Handle basic
+
+        //     ushort firstBasicCompOffset = (ushort)wordCompVals.Count;
+
+        //     for (int i = 0; i < bmgNumbers.Length; i++)
+        //     {
+        //         TableSlicesPair tableSlicesPair = pairsList[i];
+        //         CompLists<BmgNodeRemap> compLists = compListsList[i];
+
+        //         List<BmgNodeRemap> basicList = compLists.basicList;
+        //         basicList.Sort(nodeRemapComparer);
+
+        //         tableSlicesPair.basicStartIdx = (ushort)wordCompVals.Count;
+
+        //         foreach (BmgNodeRemap entry in basicList)
+        //         {
+        //             int lookupVal = entry.sortValue;
+        //             wordCompVals.Add((uint)lookupVal);
+        //             tableSlicesPair.basicLen += 1;
+
+        //             uint newShorts = (uint)(entry.newFlwIndex << 0x10) + entry.newContext;
+        //             entityTable.Add(newShorts);
+        //         }
+        //     }
+
+        //     compIndexAdjustments.Add((short)(-1 * firstCtxCompOffset));
+        //     compIndexAdjustments.Add((short)(numCtxEntities - firstBasicCompOffset));
+
+        //     foreach (TableSlicesPair pair in pairsList)
+        //     {
+        //         byte lookupByte = pair.UpdateTableSliceInfoTable(tableSliceInfoTable);
+        //         tableSliceLookupsByCompType.Add(lookupByte);
+        //     }
+
+        //     int abc = 7;
+        // }
 
         private void CalcStrReplData()
         {
@@ -685,27 +1002,56 @@ namespace TPRandomizer.Assets
             int abc = 7;
         }
 
+        private void UpdateNodeRemapTable(EntityLookupInfo nodeRemapInfo)
+        {
+            List<NodeRemapEntity> nodeRemapEntities = nodeRemapInfo.entityList
+                .Cast<NodeRemapEntity>()
+                .ToList();
+            foreach (NodeRemapEntity nodeRemapEntity in nodeRemapEntities)
+            {
+                nodeRemapTable.Add(nodeRemapEntity.getEntityTableUint());
+            }
+        }
+
         public Header AddBytesGenHeader(ushort headerSize, List<byte> bodyData)
         {
             wordCompVals.Add(0);
             wordCompVals.Add(1);
             wordCompVals.Add(17);
 
-            CalcNodeRemapData();
+            List<EntityLookupInfo> orderedEntityInfos = new();
+
+            NodeRemapEntity inst = new NodeRemapEntity(BmgNumber.zel_00, 0, 0, 0, 0);
+            EntityLookupInfo nodeRemapInfo = CalcThing(
+                storedNodeRemapEntities,
+                inst,
+                entityComparer
+            );
+            orderedEntityInfos.Add(nodeRemapInfo);
+            UpdateNodeRemapTable(nodeRemapInfo);
+
+            // CalcNodeRemapData();
             CalcStrReplData();
 
             Header header = new();
 
-            header.compIdxAdjOffset = (ushort)(headerSize + bodyData.Count);
-            foreach (short entry in compIndexAdjustments)
-            {
-                bodyData.AddRange(Converter.GcBytes(entry));
-            }
+            // header.compIdxAdjOffset = (ushort)(headerSize + bodyData.Count);
+            // foreach (short entry in compIndexAdjustments)
+            // {
+            //     bodyData.AddRange(Converter.GcBytes(entry));
+            // }
 
             header.tableSliceInfoLookupsOffset = (ushort)(headerSize + bodyData.Count);
-            bodyData.AddRange(tableSliceLookupsByCompType);
+            foreach (EntityLookupInfo entityLookupInfo in orderedEntityInfos)
+            {
+                bodyData.AddRange(entityLookupInfo.toBytes());
+            }
             while (bodyData.Count % 4 != 0)
                 bodyData.Add(0);
+
+            // bodyData.AddRange(tableSliceLookupsByCompType);
+            // while (bodyData.Count % 4 != 0)
+            //     bodyData.Add(0);
 
             header.tableSliceInfosOffset = (ushort)(headerSize + bodyData.Count);
             foreach (ushort entry in tableSliceInfoTable)
