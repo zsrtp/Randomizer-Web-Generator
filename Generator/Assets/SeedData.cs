@@ -2588,7 +2588,8 @@ namespace TPRandomizer.Assets
                     ),
                 };
 
-            StringTableResult2 stringTableResult2 = StringTable2.GenStringTableInfo(strEntries2);
+            StringTableResult2 stringTableResult2 = new();
+            stringTableResult2.AddStrReplacements(strEntries2);
 
             List<BmgNodeRemap> nodeRemaps =
                 new()
@@ -2613,6 +2614,9 @@ namespace TPRandomizer.Assets
                     new(5, 0x27, 0xffff, 0),
                     new(10, 0x9, 0x9, 11),
                     new(10, 0x28, 0x28, 11),
+
+                    // Temp, test skipping over payment evNode of Hylian shield
+                    new(15, 0x424, 0x428, 15),
                 };
 
             stringTableResult2.AddNodeRemaps(nodeRemaps);
@@ -2734,16 +2738,44 @@ namespace TPRandomizer.Assets
             allData.AddRange(Converter.GcBytes(eventTable.numLookupEntries)); // 0x1C
             allData.AddRange(Converter.GcBytes(eventNodesOffset)); // 0x1E
             allData.AddRange(Converter.GcBytes(nextFlwTableOffset)); // 0x20
-            allData.AddRange(Converter.GcBytes((UInt16)header.bmgStrCompsTableOffset)); // 0x22
-            allData.AddRange(Converter.GcBytes((UInt16)header.bmgStrCompsTableNumEntries)); // 0x24
-            allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapCompsOffset)); // 0x26
-            allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapContextCompsLength)); // 0x28
-            allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapResultsOffset)); // 0x2a
-            allData.AddRange(Converter.GcBytes((UInt16)header.contextCompValsOffset)); // 0x2c
-            allData.AddRange(Converter.GcBytes((UInt16)header.basicCompValsOffset)); // 0x2e
-            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetsTableOffset)); // 0x30
-            allData.AddRange(Converter.GcBytes((UInt16)header.numContextCompStrOffsets)); // 0x32
-            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x34
+            //
+
+            // TODO: there is probably an issue with converting the foundIndex
+            // in the table with the value. We might need to add all ctx and
+            // then all basic? We get an absolute index when searching in a
+            // wordComp table for example, and we need to convert this into an
+            // effectiveIndex in the entities table.
+
+            // We might need a diff to apply to the absolute index stored
+            // somewhere.
+
+            // Maybe when we do the binarySearch, we pass a pointer to our first
+            // element in the table slice as if it was the table, set the
+            // startIdx to 0, and pass the same length. Then when we get a result, we add it to the 
+
+            // Note, our foundIndex will never be earlier than the finalIndex.
+            // It can easily be way later. It cannot be earlier though because
+            // at best we start our slice at the start of the table. What we can do it store 
+
+            // To convert a ctx foundIndex to its final index, we always
+            // subtract the startIdx of the ctx data for that comp in the table.
+            // So if we find a value at index 25 and our data starts at 10, our
+            // final index is 25 - 10 => 15.
+
+            // To convert a basic foundIndex to its final index, we need to do
+            // this: foundIndex - basicStartIdx + ctxCompsLength. foundIndex -
+            // basicStartIdx will be at least 0. ctxCompsLength will be at least
+            // zero. One could be greater than the other? That is true. So our
+            // diff could be positive or negative. The result is guaranteed to
+            // be at least 0 though once we add everything together.
+            allData.AddRange(Converter.GcBytes((UInt16)header.compIdxAdjOffset)); // 0x22
+            allData.AddRange(Converter.GcBytes((UInt16)header.tableSliceInfoLookupsOffset)); // 0x24
+            allData.AddRange(Converter.GcBytes((UInt16)header.tableSliceInfosOffset)); // 0x26
+            allData.AddRange(Converter.GcBytes((UInt16)header.wordCompValsOffset)); // 0x28
+            allData.AddRange(Converter.GcBytes((UInt16)header.shortCompValsOffset)); // 0x2a
+            allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapTableOffset)); // 0x2c
+            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetTableOffset)); // 0x2e
+            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x30
 
             while (allData.Count < headerSize)
             {
