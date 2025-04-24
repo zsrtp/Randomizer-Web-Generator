@@ -135,6 +135,49 @@ namespace TPRandomizer.Assets
         }
     }
 
+    public class StrReplEntity : Entity
+    {
+        public ushort? context { get; private set; }
+        public ushort infIndex { get; private set; }
+        public string str { get; private set; }
+
+        public StrReplEntity(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
+        {
+            Init(bmgNumber, context, infIndex, str);
+        }
+
+        public StrReplEntity(StageIDs stageId, ushort? context, ushort infIndex, string str)
+        {
+            BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
+
+            Init(bmgNumber, context, infIndex, str);
+        }
+
+        private void Init(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
+        {
+            this.bmgNumber = bmgNumber;
+            this.context = context;
+            this.infIndex = infIndex;
+            this.str = str;
+            if (context != null)
+            {
+                uint contextVal = (uint)context;
+                if (context == 0)
+                    throw new Exception($"context of 0 is not valid.");
+                this.sortValue = (contextVal << 0x10) + infIndex;
+            }
+            else
+            {
+                this.sortValue = infIndex;
+            }
+        }
+
+        public override bool getIsContextCompare()
+        {
+            return context != null;
+        }
+    }
+
     public class StringTableEntryInfo2
     {
         public BmgNumber bmgNumber { get; private set; }
@@ -368,17 +411,20 @@ namespace TPRandomizer.Assets
 
     public abstract class Entity
     {
-        public bool basicUsesWordComp = false;
-        public abstract int getBmgNumber();
-        public abstract int getSortValue();
+        public BmgNumber bmgNumber { get; protected set; }
+        public uint sortValue { get; protected set; }
         public abstract bool getIsContextCompare();
 
-        public void AddToCorrectList(List<uint> wordList, List<ushort> shortList)
+        public void AddToCorrectList(
+            bool basicUsesWordComp,
+            List<uint> wordList,
+            List<ushort> shortList
+        )
         {
             if (basicUsesWordComp)
-                wordList.Add((uint)getSortValue());
+                wordList.Add(sortValue);
             else
-                shortList.Add((ushort)getSortValue());
+                shortList.Add((ushort)sortValue);
         }
     }
 
@@ -386,20 +432,18 @@ namespace TPRandomizer.Assets
     {
         int IComparer<Entity>.Compare(Entity a, Entity b)
         {
-            return a.getSortValue() - b.getSortValue();
+            return (int)a.sortValue - (int)b.sortValue;
         }
     }
 
     public class NodeRemapEntity : Entity
     {
         public bool hasFliValue { get; private set; }
-        public BmgNumber bmgNumber { get; private set; }
         public ushort fliValue { get; private set; }
         public ushort context { get; private set; }
         public ushort flwIndex { get; private set; }
         public ushort newFlwIndex { get; private set; }
         public ushort newContext { get; private set; }
-        public int sortValue { get; private set; }
 
         public NodeRemapEntity(
             BmgNumber bmgNumber,
@@ -445,8 +489,6 @@ namespace TPRandomizer.Assets
             ushort newContext
         )
         {
-            basicUsesWordComp = true;
-
             this.hasFliValue = hasFliValue;
             this.bmgNumber = bmgNumber;
             this.fliValue = fliValue;
@@ -464,20 +506,10 @@ namespace TPRandomizer.Assets
                         $"Not allowed to remap an 0xFFFF FlwIndex using an FLI value unless you set a nonzero new flowContext."
                     );
                 }
-                this.sortValue = (fliValue << 0x10) + flwIndex;
+                this.sortValue = (uint)(fliValue << 0x10) + flwIndex;
             }
             else
-                this.sortValue = (context << 0x10) + flwIndex;
-        }
-
-        public override int getBmgNumber()
-        {
-            return (int)bmgNumber;
-        }
-
-        public override int getSortValue()
-        {
-            return sortValue;
+                this.sortValue = (uint)(context << 0x10) + flwIndex;
         }
 
         public override bool getIsContextCompare()
@@ -536,7 +568,7 @@ namespace TPRandomizer.Assets
         public List<uint> nodeRemapResults = new();
 
         // str replacements
-        public List<StringTableEntryInfo2> storedStrRepl = new();
+        public List<Entity> storedStrRepl = new();
 
         // results
         public List<ushort> contextStrOffsets = new();
@@ -558,8 +590,7 @@ namespace TPRandomizer.Assets
 
         public class Header
         {
-            // public ushort compIdxAdjOffset;
-            public ushort tableSliceInfoLookupsOffset;
+            public ushort entityInfoTableOffset;
             public ushort tableSliceInfosOffset;
             public ushort wordCompValsOffset;
             public ushort shortCompValsOffset;
@@ -581,7 +612,10 @@ namespace TPRandomizer.Assets
             public ushort basicStartIdx;
             public ushort basicLen;
 
-            public byte UpdateTableSliceInfoTable(List<ushort> tableSliceInfoTable)
+            public byte UpdateTableSliceInfoTable(
+                List<ushort> tableSliceInfoTable,
+                byte tableSliceInfoStartIdx
+            )
             {
                 // TODO: isn't there a problem here where we can only support 64 / 18 types?
 
@@ -617,29 +651,29 @@ namespace TPRandomizer.Assets
                 // returns the foundIndex? Since we will need it anyway, we only
                 // have to look it up one time that way.
 
-                byte byteVal = (byte)(tableSliceInfoTable.Count / 2);
-                bool hasVal = false;
+
+                byte baseOffset = (byte)(tableSliceInfoTable.Count / 2 - tableSliceInfoStartIdx);
+
+                byte byteVal = 0;
                 if (ctxLen > 0)
                 {
-                    hasVal = true;
                     byteVal |= 0x80;
                     tableSliceInfoTable.Add(ctxStartIdx);
                     tableSliceInfoTable.Add(ctxLen);
                 }
                 if (basicLen > 0)
                 {
-                    hasVal = true;
                     byteVal |= 0x40;
                     tableSliceInfoTable.Add(basicStartIdx);
                     tableSliceInfoTable.Add(basicLen);
                 }
-                if (!hasVal)
-                    byteVal = 0;
+                if (byteVal != 0)
+                    byteVal += baseOffset;
                 return byteVal;
             }
         }
 
-        public void AddStrReplacements(List<StringTableEntryInfo2> strReplacements)
+        public void AddStrReplacements(List<StrReplEntity> strReplacements)
         {
             storedStrRepl.AddRange(strReplacements);
         }
@@ -654,11 +688,7 @@ namespace TPRandomizer.Assets
             storedNodeRemapEntities.AddRange(nodeRemaps);
         }
 
-        private EntityLookupInfo CalcThing(
-            List<Entity> entities,
-            Entity inst,
-            IComparer<Entity> comparer
-        )
+        private EntityLookupInfo CalcThing(List<Entity> entities, bool basicUsesWordComp = false)
         {
             EntityLookupInfo result = new();
             List<CompLists<Entity>> compListsList = new();
@@ -675,11 +705,11 @@ namespace TPRandomizer.Assets
 
             foreach (Entity entity in entities)
             {
-                int bmgNumber = entity.getBmgNumber();
+                int bmgNumber = (byte)entity.bmgNumber;
                 CompLists<Entity> compLists = compListsList[bmgNumber];
 
                 // Validate bmgPlusCompVal is unique
-                ulong bmgPlusCompVal = ((ulong)bmgNumber << 32) + (uint)entity.getSortValue();
+                ulong bmgPlusCompVal = ((ulong)bmgNumber << 32) + entity.sortValue;
                 if (seenBmgPlusCompVals.Contains(bmgPlusCompVal))
                     throw new Exception($"Duplicate bmgPlusCompVal '{bmgPlusCompVal}'.");
                 else
@@ -703,14 +733,13 @@ namespace TPRandomizer.Assets
                 CompLists<Entity> compLists = compListsList[i];
 
                 List<Entity> ctxList = compLists.ctxList;
-                ctxList.Sort(comparer);
+                ctxList.Sort(entityComparer);
 
                 tableSlicesPair.ctxStartIdx = (ushort)wordCompVals.Count;
 
                 foreach (Entity entity in ctxList)
                 {
-                    int lookupVal = entity.getSortValue();
-                    wordCompVals.Add((uint)lookupVal);
+                    wordCompVals.Add(entity.sortValue);
                     tableSlicesPair.ctxLen += 1;
 
                     result.entityList.Add(entity);
@@ -721,7 +750,7 @@ namespace TPRandomizer.Assets
             // Handle basic
 
             ushort firstBasicCompOffset;
-            if (inst.basicUsesWordComp)
+            if (basicUsesWordComp)
                 firstBasicCompOffset = (ushort)wordCompVals.Count;
             else
                 firstBasicCompOffset = (ushort)shortCompVals.Count;
@@ -732,17 +761,16 @@ namespace TPRandomizer.Assets
                 CompLists<Entity> compLists = compListsList[i];
 
                 List<Entity> basicList = compLists.basicList;
-                basicList.Sort(comparer);
+                basicList.Sort(entityComparer);
 
-                if (inst.basicUsesWordComp)
+                if (basicUsesWordComp)
                     tableSlicesPair.basicStartIdx = (ushort)wordCompVals.Count;
                 else
                     tableSlicesPair.basicStartIdx = (ushort)shortCompVals.Count;
 
                 foreach (Entity entity in basicList)
                 {
-                    int lookupVal = entity.getSortValue();
-                    entity.AddToCorrectList(wordCompVals, shortCompVals);
+                    entity.AddToCorrectList(basicUsesWordComp, wordCompVals, shortCompVals);
                     tableSlicesPair.basicLen += 1;
 
                     result.entityList.Add(entity);
@@ -757,17 +785,14 @@ namespace TPRandomizer.Assets
 
             foreach (TableSlicesPair pair in pairsList)
             {
-                byte lookupByte = pair.UpdateTableSliceInfoTable(tableSliceInfoTable);
+                byte lookupByte = pair.UpdateTableSliceInfoTable(
+                    tableSliceInfoTable,
+                    result.tableSliceInfoStartIdx
+                );
                 result.bmgLookupBytes.Add(lookupByte);
                 // tableSliceLookupsByCompType.Add(lookupByte);
             }
 
-            int abc = 7;
-            // TODO: put all of the results into the new 0x10 byte long style
-            // struct class, and return that result from this calculation. Or
-            // just put it inside a new property on "this" actually.
-
-            // Name: class EntityLookupInfo
             return result;
         }
 
@@ -871,177 +896,190 @@ namespace TPRandomizer.Assets
         //     int abc = 7;
         // }
 
-        private void CalcStrReplData()
-        {
-            List<CompLists<StringTableEntryInfo2>> compListsList = new();
-            // Init list
-            BmgNumber[] bmgNumbers = (BmgNumber[])Enum.GetValues(typeof(BmgNumber));
-            for (int i = 0; i < bmgNumbers.Length; i++)
-            {
-                compListsList.Add(new());
-            }
+        // private void CalcStrReplData()
+        // {
+        //     List<CompLists<StringTableEntryInfo2>> compListsList = new();
+        //     // Init list
+        //     BmgNumber[] bmgNumbers = (BmgNumber[])Enum.GetValues(typeof(BmgNumber));
+        //     for (int i = 0; i < bmgNumbers.Length; i++)
+        //     {
+        //         compListsList.Add(new());
+        //     }
 
-            HashSet<ulong> seenBmgPlusCompVals = new();
+        //     HashSet<ulong> seenBmgPlusCompVals = new();
 
-            foreach (StringTableEntryInfo2 entry in storedStrRepl)
-            {
-                int bmgNumber = (int)entry.bmgNumber;
-                CompLists<StringTableEntryInfo2> compLists = compListsList[bmgNumber];
+        //     foreach (StringTableEntryInfo2 entry in storedStrRepl)
+        //     {
+        //         int bmgNumber = (int)entry.bmgNumber;
+        //         CompLists<StringTableEntryInfo2> compLists = compListsList[bmgNumber];
 
-                // Validate bmgPlusCompVal is unique
-                ulong bmgPlusCompVal = ((ulong)bmgNumber << 32) + (uint)entry.sortValue;
-                if (seenBmgPlusCompVals.Contains(bmgPlusCompVal))
-                    throw new Exception($"Duplicate bmgPlusCompVal '{bmgPlusCompVal}'.");
-                else
-                    seenBmgPlusCompVals.Add(bmgPlusCompVal);
+        //         // Validate bmgPlusCompVal is unique
+        //         ulong bmgPlusCompVal = ((ulong)bmgNumber << 32) + (uint)entry.sortValue;
+        //         if (seenBmgPlusCompVals.Contains(bmgPlusCompVal))
+        //             throw new Exception($"Duplicate bmgPlusCompVal '{bmgPlusCompVal}'.");
+        //         else
+        //             seenBmgPlusCompVals.Add(bmgPlusCompVal);
 
-                if (entry.context == null)
-                    compLists.basicList.Add(entry);
-                else
-                    compLists.ctxList.Add(entry);
-            }
+        //         if (entry.context == null)
+        //             compLists.basicList.Add(entry);
+        //         else
+        //             compLists.ctxList.Add(entry);
+        //     }
 
-            Dictionary<string, ushort> stringToStrTableOffset = new();
+        //     Dictionary<string, ushort> stringToStrTableOffset = new();
 
-            List<ushort> ctxStrOffsetTable = new();
-            List<ushort> basicStrOffsetTable = new();
+        //     List<ushort> ctxStrOffsetTable = new();
+        //     List<ushort> basicStrOffsetTable = new();
 
-            int absCtxStartIdx = wordCompVals.Count;
+        //     int absCtxStartIdx = wordCompVals.Count;
 
-            // List<uint> newCtxWordCompVals = new();
+        //     // List<uint> newCtxWordCompVals = new();
 
-            List<(int, int, int, int)> aaa = new();
+        //     List<(int, int, int, int)> aaa = new();
 
-            for (int i = 0; i < bmgNumbers.Length; i++)
-            {
-                CompLists<StringTableEntryInfo2> compLists = compListsList[i];
+        //     for (int i = 0; i < bmgNumbers.Length; i++)
+        //     {
+        //         CompLists<StringTableEntryInfo2> compLists = compListsList[i];
 
-                List<StringTableEntryInfo2> ctxList = compLists.ctxList;
-                ctxList.Sort(StrReplComparer);
+        //         List<StringTableEntryInfo2> ctxList = compLists.ctxList;
+        //         ctxList.Sort(StrReplComparer);
 
-                int ctxStartIdx = wordCompVals.Count;
-                int ctxLen = 0;
-                int basicStartIdx = shortCompVals.Count;
-                int basicLen = 0;
+        //         int ctxStartIdx = wordCompVals.Count;
+        //         int ctxLen = 0;
+        //         int basicStartIdx = shortCompVals.Count;
+        //         int basicLen = 0;
 
-                foreach (StringTableEntryInfo2 entry in ctxList)
-                {
-                    int lookupVal = entry.sortValue;
-                    // newCtxWordCompVals.Add((uint)lookupVal);
-                    wordCompVals.Add((uint)lookupVal);
-                    ctxLen += 1;
+        //         foreach (StringTableEntryInfo2 entry in ctxList)
+        //         {
+        //             int lookupVal = entry.sortValue;
+        //             // newCtxWordCompVals.Add((uint)lookupVal);
+        //             wordCompVals.Add((uint)lookupVal);
+        //             ctxLen += 1;
 
-                    // Also need to add string to table.
-                    string str = entry.str;
-                    ushort strOffset;
+        //             // Also need to add string to table.
+        //             string str = entry.str;
+        //             ushort strOffset;
 
-                    if (!stringToStrTableOffset.TryGetValue(str, out strOffset))
-                    {
-                        // Is a new string
-                        strOffset = (ushort)strTable.Count;
-                        strTable.AddRange(Converter.MessageStringBytes(str));
-                        strTable.Add(Converter.GcByte(0x0));
-                        stringToStrTableOffset[str] = strOffset;
-                    }
-                    ctxStrOffsetTable.Add(strOffset);
-                }
+        //             if (!stringToStrTableOffset.TryGetValue(str, out strOffset))
+        //             {
+        //                 // Is a new string
+        //                 strOffset = (ushort)strTable.Count;
+        //                 strTable.AddRange(Converter.MessageStringBytes(str));
+        //                 strTable.Add(Converter.GcByte(0x0));
+        //                 stringToStrTableOffset[str] = strOffset;
+        //             }
+        //             ctxStrOffsetTable.Add(strOffset);
+        //         }
 
-                List<StringTableEntryInfo2> basicList = compLists.basicList;
-                basicList.Sort(StrReplComparer);
+        //         List<StringTableEntryInfo2> basicList = compLists.basicList;
+        //         basicList.Sort(StrReplComparer);
 
-                foreach (StringTableEntryInfo2 entry in basicList)
-                {
-                    int lookupVal = entry.sortValue;
-                    shortCompVals.Add((ushort)lookupVal);
-                    basicLen += 1;
+        //         foreach (StringTableEntryInfo2 entry in basicList)
+        //         {
+        //             int lookupVal = entry.sortValue;
+        //             shortCompVals.Add((ushort)lookupVal);
+        //             basicLen += 1;
 
-                    // Also need to add string to table.
-                    string str = entry.str;
-                    ushort strOffset;
+        //             // Also need to add string to table.
+        //             string str = entry.str;
+        //             ushort strOffset;
 
-                    if (!stringToStrTableOffset.TryGetValue(str, out strOffset))
-                    {
-                        // Is a new string
-                        strOffset = (ushort)strTable.Count;
-                        strTable.AddRange(Converter.MessageStringBytes(str));
-                        strTable.Add(Converter.GcByte(0x0));
-                        stringToStrTableOffset[str] = strOffset;
-                    }
-                    basicStrOffsetTable.Add(strOffset);
-                }
+        //             if (!stringToStrTableOffset.TryGetValue(str, out strOffset))
+        //             {
+        //                 // Is a new string
+        //                 strOffset = (ushort)strTable.Count;
+        //                 strTable.AddRange(Converter.MessageStringBytes(str));
+        //                 strTable.Add(Converter.GcByte(0x0));
+        //                 stringToStrTableOffset[str] = strOffset;
+        //             }
+        //             basicStrOffsetTable.Add(strOffset);
+        //         }
 
-                byte byteVal = (byte)(tableSliceInfoTable.Count / 2);
-                bool hasVal = false;
-                if (ctxLen > 0)
-                {
-                    hasVal = true;
-                    byteVal |= 0x80;
-                    tableSliceInfoTable.Add((ushort)ctxStartIdx);
-                    tableSliceInfoTable.Add((ushort)ctxLen);
-                }
-                if (basicLen > 0)
-                {
-                    hasVal = true;
-                    byteVal |= 0x40;
-                    tableSliceInfoTable.Add((ushort)basicStartIdx);
-                    tableSliceInfoTable.Add((ushort)basicLen);
-                }
-                if (!hasVal)
-                    byteVal = 0;
+        //         byte byteVal = (byte)(tableSliceInfoTable.Count / 2);
+        //         bool hasVal = false;
+        //         if (ctxLen > 0)
+        //         {
+        //             hasVal = true;
+        //             byteVal |= 0x80;
+        //             tableSliceInfoTable.Add((ushort)ctxStartIdx);
+        //             tableSliceInfoTable.Add((ushort)ctxLen);
+        //         }
+        //         if (basicLen > 0)
+        //         {
+        //             hasVal = true;
+        //             byteVal |= 0x40;
+        //             tableSliceInfoTable.Add((ushort)basicStartIdx);
+        //             tableSliceInfoTable.Add((ushort)basicLen);
+        //         }
+        //         if (!hasVal)
+        //             byteVal = 0;
 
-                tableSliceLookupsByCompType.Add(byteVal);
+        //         tableSliceLookupsByCompType.Add(byteVal);
 
-                aaa.Add((ctxStartIdx, ctxLen, basicStartIdx, basicLen));
-            }
+        //         aaa.Add((ctxStartIdx, ctxLen, basicStartIdx, basicLen));
+        //     }
 
-            strOffsetTable.AddRange(ctxStrOffsetTable);
-            strOffsetTable.AddRange(basicStrOffsetTable);
+        //     strOffsetTable.AddRange(ctxStrOffsetTable);
+        //     strOffsetTable.AddRange(basicStrOffsetTable);
 
-            // strReplCtxCompsCount = (ushort)ctxStrOffsetTable.Count;
+        //     // strReplCtxCompsCount = (ushort)ctxStrOffsetTable.Count;
 
-            int abc = 7;
-        }
+        //     int abc = 7;
+        // }
 
         private void UpdateNodeRemapTable(EntityLookupInfo nodeRemapInfo)
         {
             List<NodeRemapEntity> nodeRemapEntities = nodeRemapInfo.entityList
                 .Cast<NodeRemapEntity>()
                 .ToList();
-            foreach (NodeRemapEntity nodeRemapEntity in nodeRemapEntities)
+            foreach (NodeRemapEntity entity in nodeRemapEntities)
             {
-                nodeRemapTable.Add(nodeRemapEntity.getEntityTableUint());
+                nodeRemapTable.Add(entity.getEntityTableUint());
+            }
+        }
+
+        private void UpdateStrTables(EntityLookupInfo strReplInfo)
+        {
+            Dictionary<string, ushort> stringToStrTableOffset = new();
+
+            List<StrReplEntity> nodeRemapEntities = strReplInfo.entityList
+                .Cast<StrReplEntity>()
+                .ToList();
+            foreach (StrReplEntity entity in nodeRemapEntities)
+            {
+                string str = entity.str;
+
+                if (!stringToStrTableOffset.TryGetValue(str, out ushort strOffset))
+                {
+                    // Is a new string
+                    strOffset = (ushort)strTable.Count;
+                    strTable.AddRange(Converter.MessageStringBytes(str));
+                    strTable.Add(Converter.GcByte(0x0));
+                    stringToStrTableOffset[str] = strOffset;
+                }
+                strOffsetTable.Add(strOffset);
             }
         }
 
         public Header AddBytesGenHeader(ushort headerSize, List<byte> bodyData)
         {
-            wordCompVals.Add(0);
-            wordCompVals.Add(1);
-            wordCompVals.Add(17);
+            // wordCompVals.Add(0);
+            // wordCompVals.Add(1);
+            // wordCompVals.Add(17);
 
             List<EntityLookupInfo> orderedEntityInfos = new();
 
-            NodeRemapEntity inst = new NodeRemapEntity(BmgNumber.zel_00, 0, 0, 0, 0);
-            EntityLookupInfo nodeRemapInfo = CalcThing(
-                storedNodeRemapEntities,
-                inst,
-                entityComparer
-            );
+            EntityLookupInfo nodeRemapInfo = CalcThing(storedNodeRemapEntities, true);
             orderedEntityInfos.Add(nodeRemapInfo);
             UpdateNodeRemapTable(nodeRemapInfo);
 
-            // CalcNodeRemapData();
-            CalcStrReplData();
+            EntityLookupInfo strReplInfo = CalcThing(storedStrRepl);
+            orderedEntityInfos.Add(strReplInfo);
+            UpdateStrTables(strReplInfo);
 
             Header header = new();
 
-            // header.compIdxAdjOffset = (ushort)(headerSize + bodyData.Count);
-            // foreach (short entry in compIndexAdjustments)
-            // {
-            //     bodyData.AddRange(Converter.GcBytes(entry));
-            // }
-
-            header.tableSliceInfoLookupsOffset = (ushort)(headerSize + bodyData.Count);
+            header.entityInfoTableOffset = (ushort)(headerSize + bodyData.Count);
             foreach (EntityLookupInfo entityLookupInfo in orderedEntityInfos)
             {
                 bodyData.AddRange(entityLookupInfo.toBytes());
@@ -1066,7 +1104,7 @@ namespace TPRandomizer.Assets
             }
 
             header.shortCompValsOffset = (ushort)(headerSize + bodyData.Count);
-            foreach (uint entry in shortCompVals)
+            foreach (ushort entry in shortCompVals)
             {
                 bodyData.AddRange(Converter.GcBytes(entry));
             }

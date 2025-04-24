@@ -2519,7 +2519,7 @@ namespace TPRandomizer.Assets
             // Also need mandatory string content
 
             // Test 2
-            List<StringTableEntryInfo2> strEntries2 =
+            List<StrReplEntity> strEntries2 =
                 new()
                 {
                     new(BmgNumber.zel_00, 3, 0x5de, "Need something2?" + CustomMessages.shopOption),
@@ -2770,14 +2770,13 @@ namespace TPRandomizer.Assets
             // zero. One could be greater than the other? That is true. So our
             // diff could be positive or negative. The result is guaranteed to
             // be at least 0 though once we add everything together.
-            // allData.AddRange(Converter.GcBytes((UInt16)header.compIdxAdjOffset)); // 0x22
-            allData.AddRange(Converter.GcBytes((UInt16)header.tableSliceInfoLookupsOffset)); // 0x24
-            allData.AddRange(Converter.GcBytes((UInt16)header.tableSliceInfosOffset)); // 0x26
-            allData.AddRange(Converter.GcBytes((UInt16)header.wordCompValsOffset)); // 0x28
-            allData.AddRange(Converter.GcBytes((UInt16)header.shortCompValsOffset)); // 0x2a
-            allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapTableOffset)); // 0x2c
-            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetTableOffset)); // 0x2e
-            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x30
+            allData.AddRange(Converter.GcBytes((UInt16)header.entityInfoTableOffset)); // 0x22
+            allData.AddRange(Converter.GcBytes((UInt16)header.tableSliceInfosOffset)); // 0x24
+            allData.AddRange(Converter.GcBytes((UInt16)header.wordCompValsOffset)); // 0x26
+            allData.AddRange(Converter.GcBytes((UInt16)header.shortCompValsOffset)); // 0x28
+            allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapTableOffset)); // 0x2a
+            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetTableOffset)); // 0x2c
+            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x2e
 
             while (allData.Count < headerSize)
             {
