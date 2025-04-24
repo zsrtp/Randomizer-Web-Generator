@@ -400,8 +400,7 @@ namespace TPRandomizer.Assets
     public class StringTableResult2
     {
         private static EntityComparer entityComparer = new();
-        private List<BmgNodeRemap> storedNodeRemaps = new();
-        private List<Entity> storedNodeRemapEntities = new();
+        private List<Entity> storedNodeRemaps = new();
         private List<Entity> storedStrRepl = new();
 
         //
@@ -504,17 +503,15 @@ namespace TPRandomizer.Assets
             storedStrRepl.AddRange(strReplacements);
         }
 
-        public void AddNodeRemaps(List<BmgNodeRemap> nodeRemaps)
+        public void AddNodeRemaps(List<NodeRemapEntity> nodeRemaps)
         {
             storedNodeRemaps.AddRange(nodeRemaps);
         }
 
-        public void AddNodeRemapEntities(List<NodeRemapEntity> nodeRemaps)
-        {
-            storedNodeRemapEntities.AddRange(nodeRemaps);
-        }
-
-        private EntityLookupInfo CalcThing(List<Entity> entities, bool basicUsesWordComp = false)
+        private EntityLookupInfo BuildDataForEntityType(
+            List<Entity> entities,
+            bool basicUsesWordComp = false
+        )
         {
             EntityLookupInfo result = new();
             List<CompLists<Entity>> compListsList = new();
@@ -659,11 +656,11 @@ namespace TPRandomizer.Assets
 
             List<EntityLookupInfo> orderedEntityInfos = new();
 
-            EntityLookupInfo nodeRemapInfo = CalcThing(storedNodeRemapEntities, true);
+            EntityLookupInfo nodeRemapInfo = BuildDataForEntityType(storedNodeRemaps, true);
             orderedEntityInfos.Add(nodeRemapInfo);
             UpdateNodeRemapTable(nodeRemapInfo);
 
-            EntityLookupInfo strReplInfo = CalcThing(storedStrRepl);
+            EntityLookupInfo strReplInfo = BuildDataForEntityType(storedStrRepl);
             orderedEntityInfos.Add(strReplInfo);
             UpdateStrTables(strReplInfo);
 

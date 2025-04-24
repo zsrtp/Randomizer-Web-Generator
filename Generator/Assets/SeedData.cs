@@ -2620,8 +2620,7 @@ namespace TPRandomizer.Assets
                     new(15, 0x424, 0x428, 15),
                 };
 
-            // stringTableResult2.AddNodeRemaps(nodeRemaps);
-            stringTableResult2.AddNodeRemapEntities(nodeRemaps);
+            stringTableResult2.AddNodeRemaps(nodeRemaps);
 
             StringTableResult2.Header header = stringTableResult2.AddBytesGenHeader(headerSize, bodyData);
 
