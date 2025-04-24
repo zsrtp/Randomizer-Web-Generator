@@ -117,141 +117,6 @@ namespace TPRandomizer.Assets
         }
     }
 
-    public class StrReplEntity : Entity
-    {
-        public ushort? context { get; private set; }
-        public ushort infIndex { get; private set; }
-        public string str { get; private set; }
-
-        public StrReplEntity(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
-        {
-            Init(bmgNumber, context, infIndex, str);
-        }
-
-        public StrReplEntity(StageIDs stageId, ushort? context, ushort infIndex, string str)
-        {
-            BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
-
-            Init(bmgNumber, context, infIndex, str);
-        }
-
-        private void Init(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
-        {
-            this.bmgNumber = bmgNumber;
-            this.context = context;
-            this.infIndex = infIndex;
-            this.str = str;
-            if (context != null)
-            {
-                uint contextVal = (uint)context;
-                if (context == 0)
-                    throw new Exception($"context of 0 is not valid.");
-                this.sortValue = (contextVal << 0x10) + infIndex;
-            }
-            else
-            {
-                this.sortValue = infIndex;
-            }
-        }
-
-        public override bool getIsContextCompare()
-        {
-            return context != null;
-        }
-    }
-
-    class NodeRemapComparer : IComparer<BmgNodeRemap>
-    {
-        int IComparer<BmgNodeRemap>.Compare(BmgNodeRemap a, BmgNodeRemap b)
-        {
-            return (int)(a.sortValue - b.sortValue);
-        }
-    }
-
-    public class BmgStrComps
-    {
-        public ushort nodeRemapContextCompStartIndex;
-        public ushort nodeRemapContextCompLength = 0;
-        public ushort contextCompsStartIndex;
-        public ushort contextCompsLength = 0;
-        public ushort basicCompsStartIndex;
-        public ushort basicCompsLength = 0;
-    }
-
-    public class BmgNodeRemap
-    {
-        public bool hasFliValue { get; private set; }
-        public BmgNumber bmgNumber { get; private set; }
-        public ushort fliValue { get; private set; }
-        public ushort context { get; private set; }
-        public ushort flwIndex { get; private set; }
-        public ushort newFlwIndex { get; private set; }
-        public ushort newContext { get; private set; }
-        public int sortValue { get; private set; }
-
-        public BmgNodeRemap(
-            BmgNumber bmgNumber,
-            ushort fliValue,
-            ushort flwIndex,
-            ushort newFlwIndex,
-            ushort newContext
-        )
-        {
-            Init(true, bmgNumber, fliValue, 0, flwIndex, newFlwIndex, newContext);
-        }
-
-        public BmgNodeRemap(
-            StageIDs stageId,
-            ushort fliValue,
-            ushort flwIndex,
-            ushort newFlwIndex,
-            ushort newContext
-        )
-        {
-            BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
-
-            Init(true, bmgNumber, fliValue, 0, flwIndex, newFlwIndex, newContext);
-        }
-
-        public BmgNodeRemap(ushort context, ushort flwIndex, ushort newFlwIndex, ushort newContext)
-        {
-            Init(false, BmgNumber.zel_00, 0, context, flwIndex, newFlwIndex, newContext);
-        }
-
-        private void Init(
-            bool hasFliValue,
-            BmgNumber bmgNumber,
-            ushort fliValue,
-            ushort context,
-            ushort flwIndex,
-            ushort newFlwIndex,
-            ushort newContext
-        )
-        {
-            this.hasFliValue = hasFliValue;
-            this.bmgNumber = bmgNumber;
-            this.fliValue = fliValue;
-            this.context = context;
-            this.flwIndex = flwIndex;
-            this.newFlwIndex = newFlwIndex;
-            this.newContext = newContext;
-            if (hasFliValue)
-            {
-                if (flwIndex == 0xFFFF && newContext == 0)
-                {
-                    // This is to make it more difficult to create infinite flow
-                    // loops.
-                    throw new Exception(
-                        $"Not allowed to remap an 0xFFFF FlwIndex using an FLI value unless you set a nonzero new flowContext."
-                    );
-                }
-                this.sortValue = (fliValue << 0x10) + flwIndex;
-            }
-            else
-                this.sortValue = (context << 0x10) + flwIndex;
-        }
-    }
-
     public abstract class Entity
     {
         public BmgNumber bmgNumber { get; protected set; }
@@ -366,9 +231,47 @@ namespace TPRandomizer.Assets
         }
     }
 
-    public abstract class BaseCl<E>
+    public class StrReplEntity : Entity
     {
-        public List<E> entities = new();
+        public ushort? context { get; private set; }
+        public ushort infIndex { get; private set; }
+        public string str { get; private set; }
+
+        public StrReplEntity(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
+        {
+            Init(bmgNumber, context, infIndex, str);
+        }
+
+        public StrReplEntity(StageIDs stageId, ushort? context, ushort infIndex, string str)
+        {
+            BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
+
+            Init(bmgNumber, context, infIndex, str);
+        }
+
+        private void Init(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
+        {
+            this.bmgNumber = bmgNumber;
+            this.context = context;
+            this.infIndex = infIndex;
+            this.str = str;
+            if (context != null)
+            {
+                uint contextVal = (uint)context;
+                if (context == 0)
+                    throw new Exception($"context of 0 is not valid.");
+                this.sortValue = (contextVal << 0x10) + infIndex;
+            }
+            else
+            {
+                this.sortValue = infIndex;
+            }
+        }
+
+        public override bool getIsContextCompare()
+        {
+            return context != null;
+        }
     }
 
     public class EntityLookupInfo
