@@ -134,6 +134,52 @@ namespace TPRandomizer.Assets
             else
                 shortList.Add((ushort)sortValue);
         }
+
+        protected static private void AddMaybeU16ToList(List<byte?> bytes, ushort? value)
+        {
+            if (value != null)
+                bytes.AddRange(Converter.GcBytes((ushort)value).Cast<byte?>().ToArray());
+            else
+            {
+                bytes.Add(null);
+                bytes.Add(null);
+            }
+        }
+
+        protected static List<byte> MaybeBytesToMagicByteList(List<byte?> maybeBytes)
+        {
+            HashSet<byte> seenBytes = new();
+
+            for (int i = 0; i < maybeBytes.Count; i++)
+            {
+                byte? maybeByte = maybeBytes[i];
+                if (maybeByte != null)
+                    seenBytes.Add((byte)maybeByte);
+            }
+
+            byte magicByte = 0xFE;
+            while (true)
+            {
+                if (!seenBytes.Contains(magicByte))
+                    break;
+
+                if (magicByte == 0)
+                    throw new Exception($"Failed to find magic byte.");
+
+                magicByte -= 1;
+            }
+
+            List<byte> result = new(maybeBytes.Count + 1) { magicByte };
+            for (int i = 0; i < maybeBytes.Count; i++)
+            {
+                byte? maybeByte = maybeBytes[i];
+                if (maybeByte != null)
+                    result.Add((byte)maybeByte);
+                else
+                    result.Add(magicByte);
+            }
+            return result;
+        }
     }
 
     class EntityComparer : IComparer<Entity>
@@ -286,55 +332,12 @@ namespace TPRandomizer.Assets
 
         public List<byte> getTableBytes()
         {
-            HashSet<byte> seenBytes = new();
+            List<byte?> maybeBytes = new(7) { field_0x1 };
+            AddMaybeU16ToList(maybeBytes, queryIndex);
+            AddMaybeU16ToList(maybeBytes, parameters);
+            AddMaybeU16ToList(maybeBytes, nextNodeTableBaseIdx);
 
-            List<byte?> maybeBytesList = new(8) { null, field_0x1 };
-            AddU16ToList(maybeBytesList, queryIndex);
-            AddU16ToList(maybeBytesList, parameters);
-            AddU16ToList(maybeBytesList, nextNodeTableBaseIdx);
-
-            for (int i = 1; i < maybeBytesList.Count; i++)
-            {
-                byte? maybeByte = maybeBytesList[i];
-                if (maybeByte != null)
-                    seenBytes.Add((byte)maybeByte);
-            }
-
-            bool foundMagicVal = false;
-            byte magicByte = 0xFE;
-            while (magicByte >= 0)
-            {
-                if (!seenBytes.Contains(magicByte))
-                {
-                    foundMagicVal = true;
-                    break;
-                }
-                magicByte -= 1;
-            }
-            if (!foundMagicVal)
-                throw new Exception($"Failed to find magic byte.");
-
-            List<byte> result = new(8) { magicByte };
-            for (int i = 1; i < maybeBytesList.Count; i++)
-            {
-                byte? maybeByte = maybeBytesList[i];
-                if (maybeByte != null)
-                    result.Add((byte)maybeByte);
-                else
-                    result.Add(magicByte);
-            }
-            return result;
-        }
-
-        private void AddU16ToList(List<byte?> bytes, ushort? value)
-        {
-            if (value != null)
-                bytes.AddRange(Converter.GcBytes((ushort)value).Cast<byte?>().ToArray());
-            else
-            {
-                bytes.Add(null);
-                bytes.Add(null);
-            }
+            return MaybeBytesToMagicByteList(maybeBytes);
         }
     }
 
