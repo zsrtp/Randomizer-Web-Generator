@@ -2622,7 +2622,14 @@ namespace TPRandomizer.Assets
 
             stringTableResult2.AddNodeRemaps(nodeRemaps);
 
+            List<BranchPatchEntity> branchPatches = new() {
+                new(0x421, 15, StageIDs.Kakariko_Village_Interiors, parameters: 0x13b),
+            };
+
+            stringTableResult2.AddBranchPatches(branchPatches);
+
             StringTableResult2.Header header = stringTableResult2.AddBytesGenHeader(headerSize, bodyData);
+
 
             // Branches
             List<BranchTableEntryInfo> branchInputList =
@@ -2693,6 +2700,10 @@ namespace TPRandomizer.Assets
             // allData.AddRange(Converter.GcBytes(strTableOffsetsOffset)); // 0x0E
             // allData.AddRange(Converter.GcBytes(stringTableResult.numLookupEntries)); // 0x10
             // allData.AddRange(Converter.GcBytes(strTableOffset)); // 0x12
+            allData.AddRange(Converter.GcBytes((ushort)0)); // 0x0C
+            allData.AddRange(Converter.GcBytes((ushort)0)); // 0x0E
+            allData.AddRange(Converter.GcBytes((ushort)0)); // 0x10
+            allData.AddRange(Converter.GcBytes((ushort)0)); // 0x12
             allData.AddRange(Converter.GcBytes(branchEditLookupsOffset)); // 0x14
             allData.AddRange(Converter.GcBytes(branchTable.numLookupEntries)); // 0x16
             allData.AddRange(Converter.GcBytes(branchNodesOffset)); // 0x18
@@ -2735,8 +2746,9 @@ namespace TPRandomizer.Assets
             allData.AddRange(Converter.GcBytes((UInt16)header.wordCompValsOffset)); // 0x26
             allData.AddRange(Converter.GcBytes((UInt16)header.shortCompValsOffset)); // 0x28
             allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapTableOffset)); // 0x2a
-            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetTableOffset)); // 0x2c
-            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x2e
+            allData.AddRange(Converter.GcBytes((UInt16)header.branchPatchTableOffset)); // 0x2c
+            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetTableOffset)); // 0x2e
+            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x30
 
             while (allData.Count < headerSize)
             {

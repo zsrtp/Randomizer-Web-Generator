@@ -231,6 +231,113 @@ namespace TPRandomizer.Assets
         }
     }
 
+    public class BranchPatchEntity : Entity
+    {
+        public ushort? context;
+        public ushort flwIndex;
+        public byte? field_0x1; // 0x1 u8
+        public ushort? queryIndex; // 0x2 u16
+        public ushort? parameters; // 0x04 u16
+        public ushort? nextNodeTableBaseIdx; // 0x06 u16
+
+        public BranchPatchEntity(
+            // StageIDs stageId,
+            ushort flwIndex,
+            ushort? context,
+            StageIDs stageId = (StageIDs)5000,
+            byte? field_0x1 = null,
+            ushort? queryIndex = null,
+            ushort? parameters = null,
+            ushort? nextNodeTableBaseIdx = null
+        )
+        {
+            // If not provided and defaults to 5000, treat as bmg00.
+            if (stageId == (StageIDs)5000)
+                bmgNumber = BmgNumber.zel_00;
+            else
+            {
+                BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
+                this.bmgNumber = bmgNumber;
+            }
+            this.flwIndex = flwIndex;
+            this.context = context;
+            this.field_0x1 = field_0x1;
+            this.queryIndex = queryIndex;
+            this.parameters = parameters;
+            this.nextNodeTableBaseIdx = nextNodeTableBaseIdx;
+
+            if (context != null)
+            {
+                uint contextVal = (uint)context;
+                if (context == 0)
+                    throw new Exception($"context of 0 is not valid.");
+                this.sortValue = (contextVal << 0x10) + flwIndex;
+            }
+            else
+            {
+                this.sortValue = flwIndex;
+            }
+        }
+
+        public override bool getIsContextCompare()
+        {
+            return context != null;
+        }
+
+        public List<byte> getTableBytes()
+        {
+            HashSet<byte> seenBytes = new();
+
+            List<byte?> maybeBytesList = new(8) { null, field_0x1 };
+            AddU16ToList(maybeBytesList, queryIndex);
+            AddU16ToList(maybeBytesList, parameters);
+            AddU16ToList(maybeBytesList, nextNodeTableBaseIdx);
+
+            for (int i = 1; i < maybeBytesList.Count; i++)
+            {
+                byte? maybeByte = maybeBytesList[i];
+                if (maybeByte != null)
+                    seenBytes.Add((byte)maybeByte);
+            }
+
+            bool foundMagicVal = false;
+            byte magicByte = 0xFE;
+            while (magicByte >= 0)
+            {
+                if (!seenBytes.Contains(magicByte))
+                {
+                    foundMagicVal = true;
+                    break;
+                }
+                magicByte -= 1;
+            }
+            if (!foundMagicVal)
+                throw new Exception($"Failed to find magic byte.");
+
+            List<byte> result = new(8) { magicByte };
+            for (int i = 1; i < maybeBytesList.Count; i++)
+            {
+                byte? maybeByte = maybeBytesList[i];
+                if (maybeByte != null)
+                    result.Add((byte)maybeByte);
+                else
+                    result.Add(magicByte);
+            }
+            return result;
+        }
+
+        private void AddU16ToList(List<byte?> bytes, ushort? value)
+        {
+            if (value != null)
+                bytes.AddRange(Converter.GcBytes((ushort)value).Cast<byte?>().ToArray());
+            else
+            {
+                bytes.Add(null);
+                bytes.Add(null);
+            }
+        }
+    }
+
     public class StrReplEntity : Entity
     {
         public ushort? context { get; private set; }
@@ -305,12 +412,14 @@ namespace TPRandomizer.Assets
         private static EntityComparer entityComparer = new();
         private List<Entity> storedNodeRemaps = new();
         private List<Entity> storedStrRepl = new();
+        private List<Entity> storedBranchPatches = new();
 
         //
         public List<ushort> tableSliceInfoTable = new();
         public List<uint> wordCompVals = new();
         public List<ushort> shortCompVals = new();
         public List<uint> nodeRemapTable = new();
+        public List<byte> branchPatchTableData = new();
         public List<ushort> strOffsetTable = new();
         public List<byte> strTable = new();
 
@@ -323,6 +432,7 @@ namespace TPRandomizer.Assets
             public ushort wordCompValsOffset;
             public ushort shortCompValsOffset;
             public ushort nodeRemapTableOffset;
+            public ushort branchPatchTableOffset;
             public ushort strOffsetTableOffset;
             public ushort strTableOffset;
         }
@@ -345,41 +455,7 @@ namespace TPRandomizer.Assets
                 byte tableSliceInfoStartIdx
             )
             {
-                // TODO: isn't there a problem here where we can only support 64 / 18 types?
-
-                // We need a base index, and then we can add an offset on top of
-                // that which means we can handle an infinite number basically.
-
-                // We have 9 bytes
-
-                // We also have these things per enum:
-
-                // u16 offset to entityData
-                // s16 ctxCompAdjustment
-                // s16 basicCompAdjustment
-                // ^ which is 6 bytes
-                // If we had another byte, that would make each one 0x10 bytes long
-
-                // So like:
-                // u16 entityDataOffset
-                // s16 ctxCompAdjustment
-                // s16 basicCompAdjustment
-                // u8 tableSliceInfoStartIdx
-                // u8[9] bmgLookupBytes (these could even be changed to u4,u4) if it makes sense
-
-                // This structure might honestly take up slightly more space
-                // when you factor in the code, but with how clean it is it
-                // might be worth it for simplifying. We can also effectively
-                // hardcode in the 9 for the BMGs which we could have been doing
-                // anyway. We do remove at least one u16 offset from the header
-                // though (not counting the ones we just move into these
-                // structures) since we only need an offset to this table.
-
-                // Maybe we pass in a ptr to the structure to the function which
-                // returns the foundIndex? Since we will need it anyway, we only
-                // have to look it up one time that way.
-
-
+                // Need to calculate this before adding to the table
                 byte baseOffset = (byte)(tableSliceInfoTable.Count / 2 - tableSliceInfoStartIdx);
 
                 byte byteVal = 0;
@@ -401,14 +477,19 @@ namespace TPRandomizer.Assets
             }
         }
 
-        public void AddStrReplacements(List<StrReplEntity> strReplacements)
-        {
-            storedStrRepl.AddRange(strReplacements);
-        }
-
         public void AddNodeRemaps(List<NodeRemapEntity> nodeRemaps)
         {
             storedNodeRemaps.AddRange(nodeRemaps);
+        }
+
+        public void AddBranchPatches(List<BranchPatchEntity> branchPatches)
+        {
+            storedBranchPatches.AddRange(branchPatches);
+        }
+
+        public void AddStrReplacements(List<StrReplEntity> strReplacements)
+        {
+            storedStrRepl.AddRange(strReplacements);
         }
 
         private EntityLookupInfo BuildDataForEntityType(
@@ -528,6 +609,17 @@ namespace TPRandomizer.Assets
             }
         }
 
+        private void UpdateBranchPatchTableData(EntityLookupInfo branchPatchInfo)
+        {
+            List<BranchPatchEntity> nodeRemapEntities = branchPatchInfo.entityList
+                .Cast<BranchPatchEntity>()
+                .ToList();
+            foreach (BranchPatchEntity entity in nodeRemapEntities)
+            {
+                branchPatchTableData.AddRange(entity.getTableBytes());
+            }
+        }
+
         private void UpdateStrTables(EntityLookupInfo strReplInfo)
         {
             Dictionary<string, ushort> stringToStrTableOffset = new();
@@ -562,6 +654,10 @@ namespace TPRandomizer.Assets
             EntityLookupInfo nodeRemapInfo = BuildDataForEntityType(storedNodeRemaps, true);
             orderedEntityInfos.Add(nodeRemapInfo);
             UpdateNodeRemapTable(nodeRemapInfo);
+
+            EntityLookupInfo branchPatchInfo = BuildDataForEntityType(storedBranchPatches);
+            orderedEntityInfos.Add(branchPatchInfo);
+            UpdateBranchPatchTableData(branchPatchInfo);
 
             EntityLookupInfo strReplInfo = BuildDataForEntityType(storedStrRepl);
             orderedEntityInfos.Add(strReplInfo);
@@ -600,6 +696,12 @@ namespace TPRandomizer.Assets
             {
                 bodyData.AddRange(Converter.GcBytes(entry));
             }
+
+            // Align data to 8 bytes for branchPatchTable
+            while (bodyData.Count % 8 != 0)
+                bodyData.Add(0);
+            header.branchPatchTableOffset = (ushort)(headerSize + bodyData.Count);
+            bodyData.AddRange(branchPatchTableData);
 
             header.strOffsetTableOffset = (ushort)(headerSize + bodyData.Count);
             foreach (ushort entry in strOffsetTable)
