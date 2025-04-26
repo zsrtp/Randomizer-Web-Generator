@@ -2374,127 +2374,10 @@ namespace TPRandomizer.Assets
 
             bool hasTalkToMidnaHints = true;
 
-            UInt16 headerSize = 0x40;
+            UInt16 headerSize = 0x20;
 
             UInt16 signToInitFliOffset = (UInt16)(headerSize + bodyData.Count);
             UInt16 numSignToInitFliOffsetEntries = (UInt16)0;
-
-            UInt16 flwIdxRemapOffset = (UInt16)(headerSize + bodyData.Count);
-            UInt16 numFlwIdxRemapEntries = (UInt16)0;
-
-            List<(UInt16, UInt16, UInt16, UInt16)> aa = new() {
-                (0x7700, 0xFFFF, 0x24, 0),
-                (0x7701, 0xFFFF, 0x25, 0),
-                (0x7702, 0xFFFF, 0x26, 0),
-                (0x7703, 0xFFFF, 0x27, 0),
-                (0x7704, 0xFFFF, 0x28, 0),
-                (0x7710, 0xFFFF, 0x24, 0),
-                (0x7711, 0xFFFF, 0x25, 0),
-                (0x7712, 0xFFFF, 0x26, 0),
-                (0x7713, 0xFFFF, 0x27, 0),
-                (0x7714, 0xFFFF, 0x28, 0),
-            };
-
-            if (hasTalkToMidnaHints)
-            {
-                // //TODO: 0x24 is not an INF? The thing we remap to is dynamic
-                // //here based on how many nodeTexts we have on Midna.
-                // aa.Add((0xbb8, 0x8f, 0x24));
-                // aa.Add((0xbb8, 0x8f, 0x26, 3)); // was on this
-                aa.Add((0xbb8, 0x8f, 0x1a0, 3)); // temp change to this to see if loops as expected. Worked
-                // bodyData.AddRange(Converter.GcBytes((UInt16)0xbb8)); // FLI
-                // bodyData.AddRange(Converter.GcBytes((UInt16)0x8f)); // FLW
-                // bodyData.AddRange(Converter.GcBytes((UInt16)0x24)); // INF
-                // bodyData.Add(Converter.GcByte(0)); // bool
-                // bodyData.Add(Converter.GcByte(0)); // padding
-                // numFlwIdxRemapEntries += 1;
-            }
-
-            // 0x5e4 INF index on FLW index 0x26
-            // This is what is passed to setMessageCode_inSequence_
-
-            // The start FLI does not change, but the FLW index does change, so
-            // right now we would need entries for everything (0x7702 + 0x26,
-            // 0x7702 + 0x27) which is too much.
-
-            // What if instead, we were to AND with 0xFFF0 in order to test
-            // against getting an INF index?
-
-            // So 0x770Q + 0x24 => 0x1369
-            // So 0x770Q + 0x25 => 0x136A
-            // So 0x770Q + 0x26 => 0x136B
-
-            // Can we remap Midna without an FLI patch???
-
-            // For mapping to a starting FLW index, this is easy:
-            // [0x7700, 0x0024], [0x7701, 0x0025], ...
-            // [0x7710, 0x0024], [0x7701, 0x0025], ...
-            // We maybe include one for 0xbb8 here?
-
-            // What if we include a third field:
-            // [0x7700, 0xFFFF, 0x0024]
-            // [0x0bb8, 0x008F, 0x0024]
-            // So FLI, old initial FLW, new initial FLW
-
-            // So we would only redirect 0xbb8 if the current FLW entry is 0x8F
-            // which is only true initially. Then if we are in the 0xbb8 FLI, we
-            // do not repeatedly keep resetting the FLW. What about for 0x7700?
-            // Maybe we do the same thing where we only redirect based on the 
-
-            foreach ((UInt16, UInt16, UInt16, UInt16) tuple in aa)
-            {
-                bodyData.AddRange(Converter.GcBytes(tuple.Item1)); // FLI or context
-                bodyData.AddRange(Converter.GcBytes(tuple.Item2)); // incoming FLW
-                bodyData.AddRange(Converter.GcBytes(tuple.Item3)); // outgoing FLW
-                bodyData.AddRange(Converter.GcBytes(tuple.Item4)); // new context
-            }
-            numFlwIdxRemapEntries += (UInt16)aa.Count;
-
-            UInt16 infRemapOffset = (UInt16)(headerSize + bodyData.Count);
-
-            List<(UInt16, UInt16, UInt16, UInt16)> bb = new() {
-                (0xFFF0, 0x7700, 0x24, 0x1369),
-                (0xFFF0, 0x7700, 0x25, 0x136a),
-                (0xFFF0, 0x7700, 0x26, 0x136b),
-                (0xFFF0, 0x7700, 0x27, 0x136c),
-                (0xFFF0, 0x7700, 0x28, 0x136d),
-                (0xFFF0, 0x7710, 0x24, 0x136e),
-                (0xFFF0, 0x7710, 0x25, 0x136f),
-                (0xFFF0, 0x7710, 0x26, 0x1370),
-                (0xFFF0, 0x7710, 0x27, 0x1371),
-                (0xFFF0, 0x7710, 0x28, 0x1372),
-            };
-            if (hasTalkToMidnaHints)
-            {
-                bb.AddRange(
-                    new List<(UInt16, UInt16, UInt16, UInt16)>()
-                    {
-                        // Disabling for now since we are using context to remap
-                        // the text.
-                        // (0xFFFF, 0x0bb8, 0x24, 0x1373),
-                        // (0xFFFF, 0x0bb8, 0x25, 0x1374),
-                        // (0xFFFF, 0x0bb8, 0x26, 0x1375),
-                        // (0xFFFF, 0x0bb8, 0x27, 0x1376),
-                        // (0xFFFF, 0x0bb8, 0x28, 0x1377),
-
-                        // (0xFFFF, 0x0bb8, 0x24, 0x3373),
-                        // (0xFFFF, 0x0bb8, 0x25, 0x3374),
-                        // (0xFFFF, 0x0bb8, 0x26, 0x3375),
-                        // (0xFFFF, 0x0bb8, 0x27, 0x3376),
-                        // (0xFFFF, 0x0bb8, 0x28, 0x3377),
-                    }
-                );
-            }
-
-            foreach ((UInt16, UInt16, UInt16, UInt16) tuple in bb)
-            {
-                bodyData.AddRange(Converter.GcBytes(tuple.Item1));
-                bodyData.AddRange(Converter.GcBytes(tuple.Item2));
-                bodyData.AddRange(Converter.GcBytes(tuple.Item3));
-                bodyData.AddRange(Converter.GcBytes(tuple.Item4));
-            }
-
-            UInt16 numInfRemapEntries = (UInt16)bb.Count;
 
             // string table stuff
             string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
@@ -2591,7 +2474,6 @@ namespace TPRandomizer.Assets
             StringTableResult2 stringTableResult2 = new();
             stringTableResult2.AddStrReplacements(strEntries2);
 
-            // List<BmgNodeRemap> nodeRemaps =
             List<NodeRemapEntity> nodeRemaps =
                 new()
                 {
@@ -2652,87 +2534,10 @@ namespace TPRandomizer.Assets
             StringTableResult2.Header header = stringTableResult2.AddBytesGenHeader(headerSize, bodyData);
 
 
-            // Branches
-            List<BranchTableEntryInfo> branchInputList =
-                new()
-                {
-                    // new(0x1a3, 3, null, new() { 0x24, 0x28, 0xFFFF }),
-                    new(0x1a3, 3, null, new() { 0x27, 0x1a4, 0xFFFF }),
-
-                    // Test sign remap
-                    new(0x193, 10, null, new() { 0x28, 0x9, 0x9, 0xFFFF }),
-
-                    // TODO: these branch and event ones need to be handled per bmg as well
-                    // Patch comparison to see if you can afford hylian shield
-                    // Change price to 0x13b (315)
-                    new(0x421, 15, new() { 0x02, 0x00, 0x06, 0x01, 0x3b, 0x02, 0xd7 }, null),
-                };
-
-            BranchTable branchTable = BranchTable.GenBranchTable(branchInputList);
-
-            List<EventTableEntryInfo> eventEntryList =
-                new()
-                {
-                    // 1, 0x31, or 0x131 is an index with 0xFFFF
-                    new(0x1a4, 3, new() { 43, 1, 0x31, 0, 0, 0, 0 }, 0xFFFF),
-                    // new(0x1a3, 3, null, new() { 0x123, 0x456, 0xFFFF }),
-                    // new(0x1a3, 3, null, new() { 0x123, 0x456, 0xFFFF }),
-
-                    // Custom func to give item (ice trap at 0x13)
-                    new(0x9, 11, new() { 44, 1, 0x31, 0, 0x13, 0, 0 }, 0xFFFF),
-
-                    // TODO: these branch and event ones need to be handled per bmg as well
-                    // Patch to subtract 0x13b (315)
-                    new(0x424, 15, new() { 0x03, 0x02, 0xda, 0x00, 0x00, 0x01, 0x3b }, null),
-                };
-
-            EventTable eventTable = EventTable.GenEventTable(
-                eventEntryList,
-                branchTable.resultMapData
-            );
-
-            UInt16 branchEditLookupsOffset = (UInt16)(headerSize + bodyData.Count);
-            bodyData.AddRange(branchTable.lookupTable);
-
-            UInt16 branchNodesOffset = (UInt16)(headerSize + bodyData.Count);
-            bodyData.AddRange(branchTable.branchNodeData);
-
-            UInt16 eventEditLookupsOffset = (UInt16)(headerSize + bodyData.Count);
-            bodyData.AddRange(eventTable.lookupTable);
-
-            UInt16 eventNodesOffset = (UInt16)(headerSize + bodyData.Count);
-            bodyData.AddRange(eventTable.eventNodeData);
-
-            UInt16 nextFlwTableOffset = (UInt16)(headerSize + bodyData.Count);
-            // Add the u16 entries to the byte list
-            foreach (ushort resultMapDataEntry in branchTable.resultMapData)
-            {
-                bodyData.AddRange(Converter.GcBytes(resultMapDataEntry));
-            }
-
             // Build header
-            allData.AddRange(Converter.GcBytes(signToInitFliOffset)); // 0x00
-            allData.AddRange(Converter.GcBytes(numSignToInitFliOffsetEntries)); // 0x02
-            allData.AddRange(Converter.GcBytes(flwIdxRemapOffset)); // 0x04
-            allData.AddRange(Converter.GcBytes(numFlwIdxRemapEntries)); // 0x06
-            allData.AddRange(Converter.GcBytes(infRemapOffset)); // 0x08
-            allData.AddRange(Converter.GcBytes(numInfRemapEntries)); // 0x0A
-            // allData.AddRange(Converter.GcBytes(strTableLookupOffset)); // 0x0C
-            // allData.AddRange(Converter.GcBytes(strTableOffsetsOffset)); // 0x0E
-            // allData.AddRange(Converter.GcBytes(stringTableResult.numLookupEntries)); // 0x10
-            // allData.AddRange(Converter.GcBytes(strTableOffset)); // 0x12
-            allData.AddRange(Converter.GcBytes((ushort)0)); // 0x0C
-            allData.AddRange(Converter.GcBytes((ushort)0)); // 0x0E
-            allData.AddRange(Converter.GcBytes((ushort)0)); // 0x10
-            allData.AddRange(Converter.GcBytes((ushort)0)); // 0x12
-            allData.AddRange(Converter.GcBytes(branchEditLookupsOffset)); // 0x14
-            allData.AddRange(Converter.GcBytes(branchTable.numLookupEntries)); // 0x16
-            allData.AddRange(Converter.GcBytes(branchNodesOffset)); // 0x18
-            allData.AddRange(Converter.GcBytes(eventEditLookupsOffset)); // 0x1A
-            allData.AddRange(Converter.GcBytes(eventTable.numLookupEntries)); // 0x1C
-            allData.AddRange(Converter.GcBytes(eventNodesOffset)); // 0x1E
-            allData.AddRange(Converter.GcBytes(nextFlwTableOffset)); // 0x20
-            //
+            allData.AddRange(Converter.MessageStringBytes("BMG0")); // 0x00
+            allData.AddRange(Converter.GcBytes(signToInitFliOffset)); // 0x04
+            allData.AddRange(Converter.GcBytes(numSignToInitFliOffsetEntries)); // 0x06
 
             // TODO: there is probably an issue with converting the foundIndex
             // in the table with the value. We might need to add all ctx and
@@ -2762,22 +2567,24 @@ namespace TPRandomizer.Assets
             // zero. One could be greater than the other? That is true. So our
             // diff could be positive or negative. The result is guaranteed to
             // be at least 0 though once we add everything together.
-            allData.AddRange(Converter.GcBytes((UInt16)header.entityInfoTableOffset)); // 0x22
-            allData.AddRange(Converter.GcBytes((UInt16)header.tableSliceInfosOffset)); // 0x24
-            allData.AddRange(Converter.GcBytes((UInt16)header.wordCompValsOffset)); // 0x26
-            allData.AddRange(Converter.GcBytes((UInt16)header.shortCompValsOffset)); // 0x28
-            allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapTableOffset)); // 0x2a
-            allData.AddRange(Converter.GcBytes((UInt16)header.branchPatchTableOffset)); // 0x2c
-            allData.AddRange(Converter.GcBytes((UInt16)header.branchNextNodeBaseIdxTableOffset)); // 0x2e
-            allData.AddRange(Converter.GcBytes((UInt16)header.branchNextNodeTableOffset)); // 0x30
-            allData.AddRange(Converter.GcBytes((UInt16)header.eventPatchTableOffset)); // 0x32
-            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetTableOffset)); // 0x34
-            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x36
+            allData.AddRange(Converter.GcBytes(header.entityInfoTableOffset)); // 0x08
+            allData.AddRange(Converter.GcBytes(header.tableSliceInfosOffset)); // 0x0a
+            allData.AddRange(Converter.GcBytes(header.wordCompValsOffset)); // 0x0c
+            allData.AddRange(Converter.GcBytes(header.shortCompValsOffset)); // 0x0e
+            allData.AddRange(Converter.GcBytes(header.nodeRemapTableOffset)); // 0x10
+            allData.AddRange(Converter.GcBytes(header.branchPatchTableOffset)); // 0x12
+            allData.AddRange(Converter.GcBytes(header.branchNextNodeBaseIdxTableOffset)); // 0x14
+            allData.AddRange(Converter.GcBytes(header.branchNextNodeTableOffset)); // 0x16
+            allData.AddRange(Converter.GcBytes(header.eventPatchTableOffset)); // 0x18
+            allData.AddRange(Converter.GcBytes(header.strOffsetTableOffset)); // 0x1a
+            allData.AddRange(Converter.GcBytes(header.strTableOffset)); // 0x1c
+            allData.AddRange(Converter.GcBytes(header.strTableLen)); // 0x1e
 
             while (allData.Count < headerSize)
-            {
                 allData.Add(0);
-            }
+
+            if (allData.Count != headerSize)
+                throw new Exception($"Invalid headerSize for bmg0 block: '{allData.Count}'");
 
             // Add bodyData
             allData.AddRange(bodyData);
