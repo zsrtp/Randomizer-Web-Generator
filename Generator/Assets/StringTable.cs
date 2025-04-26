@@ -115,7 +115,112 @@ namespace TPRandomizer.Assets
                 throw new Exception($"Failed to find bmg for stageId '{stageId}'.");
             return bmgNumber;
         }
+
+        public static BmgNumber StgBmgToBmgNumber(StgBmg stgBmg)
+        {
+            if ((ushort)stgBmg >= 0x0100)
+            {
+                // BmgNumber
+                BmgNumber val = (BmgNumber)((ushort)stgBmg & 0xFF);
+                if (!Enum.IsDefined(val))
+                    throw new Exception($"BmgNumber not found for StgBmg '{stgBmg}'.");
+                return val;
+            }
+            // Stage
+            return StageIdToBmgNum((StageIDs)stgBmg);
+        }
     }
+
+    public enum StgBmg : ushort
+    {
+        Lakebed_Temple = 0x0,
+        Morpheel = 0x1,
+        Deku_Toad = 0x2,
+        Goron_Mines = 0x3,
+        Fyrus = 0x4,
+        Dangoro = 0x5,
+        Forest_Temple = 0x6,
+        Diababa = 0x7,
+        Ook = 0x8,
+        Temple_of_Time = 0x9,
+        Armogohma = 0xa,
+        Darknut = 0xb,
+        City_in_the_Sky = 0xc,
+        Argorok = 0xd,
+        Aeralfos = 0xe,
+        Palace_of_Twilight = 0xf,
+        Zant_Main_Room = 0x10,
+        Phantom_Zant_1 = 0x11,
+        Phantom_Zant_2 = 0x12,
+        Zant_Fight = 0x13,
+        Hyrule_Castle = 0x14,
+        Ganondorf_Castle = 0x15,
+        Ganondorf_Field = 0x16,
+        Ganondorf_Defeated = 0x17,
+        Arbiters_Grounds = 0x18,
+        Stallord = 0x19,
+        Death_Sword = 0x1a,
+        Snowpeak_Ruins = 0x1b,
+        Blizzeta = 0x1c,
+        Darkhammer = 0x1d,
+        Lanayru_Ice_Puzzle_Cave = 0x1e,
+        Cave_of_Ordeals = 0x1f,
+        Eldin_Long_Cave = 0x20,
+        Lake_Hylia_Long_Cave = 0x21,
+        Eldin_Goron_Stockcave = 0x22,
+        Grotto_1 = 0x23,
+        Grotto_2 = 0x24,
+        Grotto_3 = 0x25,
+        Grotto_4 = 0x26,
+        Grotto_5 = 0x27,
+        Faron_Woods_Cave = 0x28,
+        Ordon_Ranch = 0x29,
+        Title_Screen = 0x2a,
+        Ordon_Village = 0x2b,
+        Ordon_Spring = 0x2c,
+        Faron_Woods = 0x2d,
+        Kakariko_Village = 0x2e,
+        Death_Mountain = 0x2f,
+        Kakariko_Graveyard = 0x30,
+        Zoras_River = 0x31,
+        Zoras_Domain = 0x32,
+        Snowpeak = 0x33,
+        Lake_Hylia = 0x34,
+        Castle_Town = 0x35,
+        Sacred_Grove = 0x36,
+        Bulblin_Camp = 0x37,
+        Hyrule_Field = 0x38,
+        Outside_Castle_Town = 0x39,
+        Bulblin_2 = 0x3a,
+        Gerudo_Desert = 0x3b,
+        Mirror_Chamber = 0x3c,
+        Upper_Zoras_River = 0x3d,
+        Fishing_Pond = 0x3e,
+        Hidden_Village = 0x3f,
+        Hidden_Skill = 0x40,
+        Ordon_Village_Interiors = 0x41,
+        Hyrule_Castle_Sewers = 0x42,
+        Faron_Woods_Interiors = 0x43,
+        Kakariko_Village_Interiors = 0x44,
+        Death_Mountain_Interiors = 0x45,
+        Castle_Town_Interiors = 0x46,
+        Fishing_Pond_Interiors = 0x47,
+        Hidden_Village_Interiors = 0x48,
+        Castle_Town_Shops = 0x49,
+        Star_Game = 0x4a,
+        Kakariko_Graveyard_Interiors = 0x4b,
+        Light_Arrows_Cutscene = 0x4c,
+        Hyrule_Castle_Cutscenes = 0x4d,
+        zel_00 = 0x0100,
+        zel_01 = 0x0101,
+        zel_02 = 0x0102,
+        zel_03 = 0x0103,
+        zel_04 = 0x0104,
+        zel_05 = 0x0105,
+        zel_06 = 0x0106,
+        zel_07 = 0x0107,
+        zel_08 = 0x0108,
+    };
 
     public abstract class Entity
     {
@@ -141,8 +246,19 @@ namespace TPRandomizer.Assets
                 bytes.AddRange(Converter.GcBytes((ushort)value).Cast<byte?>().ToArray());
             else
             {
-                bytes.Add(null);
-                bytes.Add(null);
+                for (int i = 0; i < 2; i++)
+                    bytes.Add(null);
+            }
+        }
+
+        protected static private void AddMaybeIntToList(List<byte?> bytes, int? value)
+        {
+            if (value != null)
+                bytes.AddRange(Converter.GcBytes((int)value).Cast<byte?>().ToArray());
+            else
+            {
+                for (int i = 0; i < 4; i++)
+                    bytes.Add(null);
             }
         }
 
@@ -287,7 +403,6 @@ namespace TPRandomizer.Assets
         public ushort? nextNodeTableBaseIdx; // 0x06 u16
 
         public BranchPatchEntity(
-            // StageIDs stageId,
             ushort flwIndex,
             ushort? context,
             StageIDs stageId = (StageIDs)5000,
@@ -336,6 +451,108 @@ namespace TPRandomizer.Assets
             AddMaybeU16ToList(maybeBytes, queryIndex);
             AddMaybeU16ToList(maybeBytes, parameters);
             AddMaybeU16ToList(maybeBytes, nextNodeTableBaseIdx);
+
+            return MaybeBytesToMagicByteList(maybeBytes);
+        }
+    }
+
+    public class EventPatchEntity : Entity
+    {
+        public ushort? context;
+        public ushort flwIndex;
+        public byte? eventIndex; // 0x1 u8
+        public ushort? nextNodeTableIdx; // 0x2 u16
+
+        // Params are at offset 0x4. They are either u32, u16[2], or u8[4]
+        private List<byte?> paramMaybeBytes = new();
+
+        public EventPatchEntity(
+            StgBmg stgBmg,
+            ushort flwIndex,
+            ushort? context,
+            byte? eventIndex = null,
+            ushort? nextNodeTableIdx = null,
+            List<byte?> byteParams = null,
+            List<ushort?> ushortParams = null,
+            int? intParam = null
+        )
+        {
+            this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(stgBmg);
+            this.flwIndex = flwIndex;
+            this.context = context;
+            this.eventIndex = eventIndex;
+            this.nextNodeTableIdx = nextNodeTableIdx;
+
+            int numDefined = 0;
+            bool byteParamsDefined = false;
+            bool ushortParamsDefined = false;
+            bool intParamDefined = false;
+
+            if (!ListUtils.isEmpty(byteParams))
+            {
+                numDefined += 1;
+                byteParamsDefined = true;
+            }
+            if (!ListUtils.isEmpty(ushortParams))
+            {
+                numDefined += 1;
+                ushortParamsDefined = true;
+            }
+            if (intParam != null)
+            {
+                numDefined += 1;
+                intParamDefined = true;
+            }
+            if (numDefined > 1)
+                throw new Exception($"Expected 0 or 1 defined, but had '{numDefined}'.");
+
+            if (byteParamsDefined)
+            {
+                paramMaybeBytes.AddRange(byteParams);
+            }
+            else if (ushortParamsDefined)
+            {
+                for (int i = 0; i < ushortParams.Count; i++)
+                {
+                    AddMaybeU16ToList(paramMaybeBytes, ushortParams[i]);
+                }
+            }
+            else if (intParamDefined)
+            {
+                AddMaybeIntToList(paramMaybeBytes, intParam);
+            }
+
+            while (paramMaybeBytes.Count < 4)
+                paramMaybeBytes.Add(null);
+
+            if (paramMaybeBytes.Count != 4)
+                throw new Exception(
+                    $"paramMaybeBytes.Count must be 4, but was '{paramMaybeBytes.Count}'."
+                );
+
+            if (context != null)
+            {
+                uint contextVal = (uint)context;
+                if (context == 0)
+                    throw new Exception($"context of 0 is not valid.");
+                this.sortValue = (contextVal << 0x10) + flwIndex;
+            }
+            else
+            {
+                this.sortValue = flwIndex;
+            }
+        }
+
+        public override bool getIsContextCompare()
+        {
+            return context != null;
+        }
+
+        public List<byte> getPatchBytes()
+        {
+            List<byte?> maybeBytes = new(7) { eventIndex };
+            AddMaybeU16ToList(maybeBytes, nextNodeTableIdx);
+            maybeBytes.AddRange(paramMaybeBytes);
 
             return MaybeBytesToMagicByteList(maybeBytes);
         }
@@ -416,6 +633,7 @@ namespace TPRandomizer.Assets
         private List<Entity> storedNodeRemaps = new();
         private List<Entity> storedStrRepl = new();
         private List<Entity> storedBranchPatches = new();
+        private List<Entity> storedEventPatches = new();
 
         //
         public List<ushort> tableSliceInfoTable = new();
@@ -423,6 +641,7 @@ namespace TPRandomizer.Assets
         public List<ushort> shortCompVals = new();
         public List<uint> nodeRemapTable = new();
         public List<byte> branchPatchTableData = new();
+        public List<byte> eventPatchTableData = new();
         public List<ushort> strOffsetTable = new();
         public List<byte> strTable = new();
 
@@ -436,6 +655,7 @@ namespace TPRandomizer.Assets
             public ushort shortCompValsOffset;
             public ushort nodeRemapTableOffset;
             public ushort branchPatchTableOffset;
+            public ushort eventPatchTableOffset;
             public ushort strOffsetTableOffset;
             public ushort strTableOffset;
         }
@@ -488,6 +708,11 @@ namespace TPRandomizer.Assets
         public void AddBranchPatches(List<BranchPatchEntity> branchPatches)
         {
             storedBranchPatches.AddRange(branchPatches);
+        }
+
+        public void AddEventPatches(List<EventPatchEntity> eventPatches)
+        {
+            storedEventPatches.AddRange(eventPatches);
         }
 
         public void AddStrReplacements(List<StrReplEntity> strReplacements)
@@ -614,12 +839,23 @@ namespace TPRandomizer.Assets
 
         private void UpdateBranchPatchTableData(EntityLookupInfo branchPatchInfo)
         {
-            List<BranchPatchEntity> nodeRemapEntities = branchPatchInfo.entityList
+            List<BranchPatchEntity> entities = branchPatchInfo.entityList
                 .Cast<BranchPatchEntity>()
                 .ToList();
-            foreach (BranchPatchEntity entity in nodeRemapEntities)
+            foreach (BranchPatchEntity entity in entities)
             {
                 branchPatchTableData.AddRange(entity.getTableBytes());
+            }
+        }
+
+        private void UpdateEventPatchTableData(EntityLookupInfo eventPatchInfo)
+        {
+            List<EventPatchEntity> entities = eventPatchInfo.entityList
+                .Cast<EventPatchEntity>()
+                .ToList();
+            foreach (EventPatchEntity entity in entities)
+            {
+                eventPatchTableData.AddRange(entity.getPatchBytes());
             }
         }
 
@@ -661,6 +897,10 @@ namespace TPRandomizer.Assets
             EntityLookupInfo branchPatchInfo = BuildDataForEntityType(storedBranchPatches);
             orderedEntityInfos.Add(branchPatchInfo);
             UpdateBranchPatchTableData(branchPatchInfo);
+
+            EntityLookupInfo eventPatchInfo = BuildDataForEntityType(storedEventPatches);
+            orderedEntityInfos.Add(eventPatchInfo);
+            UpdateEventPatchTableData(eventPatchInfo);
 
             EntityLookupInfo strReplInfo = BuildDataForEntityType(storedStrRepl);
             orderedEntityInfos.Add(strReplInfo);
@@ -705,6 +945,9 @@ namespace TPRandomizer.Assets
                 bodyData.Add(0);
             header.branchPatchTableOffset = (ushort)(headerSize + bodyData.Count);
             bodyData.AddRange(branchPatchTableData);
+
+            header.eventPatchTableOffset = (ushort)(headerSize + bodyData.Count);
+            bodyData.AddRange(eventPatchTableData);
 
             header.strOffsetTableOffset = (ushort)(headerSize + bodyData.Count);
             foreach (ushort entry in strOffsetTable)

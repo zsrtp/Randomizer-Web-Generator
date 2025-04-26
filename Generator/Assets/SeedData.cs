@@ -2628,6 +2628,13 @@ namespace TPRandomizer.Assets
 
             stringTableResult2.AddBranchPatches(branchPatches);
 
+            List<EventPatchEntity> eventPatches = new() {
+                // new(0x1a4, 3, ushortParams: new() {0x13b}),
+                new(StgBmg.zel_00, 0x9, 11, eventIndex: 44, ushortParams: new() {0x13}),
+            };
+
+            stringTableResult2.AddEventPatches(eventPatches);
+
             StringTableResult2.Header header = stringTableResult2.AddBytesGenHeader(headerSize, bodyData);
 
 
@@ -2747,8 +2754,9 @@ namespace TPRandomizer.Assets
             allData.AddRange(Converter.GcBytes((UInt16)header.shortCompValsOffset)); // 0x28
             allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapTableOffset)); // 0x2a
             allData.AddRange(Converter.GcBytes((UInt16)header.branchPatchTableOffset)); // 0x2c
-            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetTableOffset)); // 0x2e
-            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x30
+            allData.AddRange(Converter.GcBytes((UInt16)header.eventPatchTableOffset)); // 0x2e
+            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetTableOffset)); // 0x30
+            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x32
 
             while (allData.Count < headerSize)
             {
