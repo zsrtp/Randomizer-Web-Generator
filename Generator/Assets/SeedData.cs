@@ -2623,7 +2623,14 @@ namespace TPRandomizer.Assets
             stringTableResult2.AddNodeRemaps(nodeRemaps);
 
             List<BranchPatchEntity> branchPatches = new() {
-                new(0x421, 15, StageIDs.Kakariko_Village_Interiors, parameters: 0x13b),
+                new(StgBmg.zel_00, 0x1a3, 3, nextNodeIndexes: new() { 0x27, 0x1a4, 0xFFFF }),
+
+                // Test sign remap
+                new(StgBmg.zel_00, 0x193, 10, nextNodeIndexes: new() { 0x28, 0x9, 0x9, 0xFFFF }),
+
+                // Patch comparison to see if you can afford hylian shield
+                // Change price to 0x13b (315)
+                new(StgBmg.Kakariko_Village_Interiors, 0x421, 15, parameters: 0x13b),
             };
 
             stringTableResult2.AddBranchPatches(branchPatches);
@@ -2761,9 +2768,11 @@ namespace TPRandomizer.Assets
             allData.AddRange(Converter.GcBytes((UInt16)header.shortCompValsOffset)); // 0x28
             allData.AddRange(Converter.GcBytes((UInt16)header.nodeRemapTableOffset)); // 0x2a
             allData.AddRange(Converter.GcBytes((UInt16)header.branchPatchTableOffset)); // 0x2c
-            allData.AddRange(Converter.GcBytes((UInt16)header.eventPatchTableOffset)); // 0x2e
-            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetTableOffset)); // 0x30
-            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x32
+            allData.AddRange(Converter.GcBytes((UInt16)header.branchNextNodeBaseIdxTableOffset)); // 0x2e
+            allData.AddRange(Converter.GcBytes((UInt16)header.branchNextNodeTableOffset)); // 0x30
+            allData.AddRange(Converter.GcBytes((UInt16)header.eventPatchTableOffset)); // 0x32
+            allData.AddRange(Converter.GcBytes((UInt16)header.strOffsetTableOffset)); // 0x34
+            allData.AddRange(Converter.GcBytes((UInt16)header.strTableOffset)); // 0x36
 
             while (allData.Count < headerSize)
             {

@@ -3,6 +3,7 @@ namespace TPRandomizer.Assets
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using TPRandomizer.Util;
 
     public enum BmgNumber
@@ -400,32 +401,28 @@ namespace TPRandomizer.Assets
         public byte? field_0x1; // 0x1 u8
         public ushort? queryIndex; // 0x2 u16
         public ushort? parameters; // 0x04 u16
-        public ushort? nextNodeTableBaseIdx; // 0x06 u16
+        public ushort? vanillaNextNodeTableBaseIdx; // 0x06 u16
+        public List<ushort> nextNodeIndexes;
 
         public BranchPatchEntity(
+            StgBmg stgBmg,
             ushort flwIndex,
             ushort? context,
-            StageIDs stageId = (StageIDs)5000,
             byte? field_0x1 = null,
             ushort? queryIndex = null,
             ushort? parameters = null,
-            ushort? nextNodeTableBaseIdx = null
+            ushort? vanillaNextNodeTableBaseIdx = null,
+            List<ushort> nextNodeIndexes = null
         )
         {
-            // If not provided and defaults to 5000, treat as bmg00.
-            if (stageId == (StageIDs)5000)
-                bmgNumber = BmgNumber.zel_00;
-            else
-            {
-                BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
-                this.bmgNumber = bmgNumber;
-            }
+            this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(stgBmg);
             this.flwIndex = flwIndex;
             this.context = context;
             this.field_0x1 = field_0x1;
             this.queryIndex = queryIndex;
             this.parameters = parameters;
-            this.nextNodeTableBaseIdx = nextNodeTableBaseIdx;
+            this.vanillaNextNodeTableBaseIdx = vanillaNextNodeTableBaseIdx;
+            this.nextNodeIndexes = nextNodeIndexes;
 
             if (context != null)
             {
@@ -445,14 +442,28 @@ namespace TPRandomizer.Assets
             return context != null;
         }
 
-        public List<byte> getTableBytes()
+        public List<byte> getPatchBytes()
         {
             List<byte?> maybeBytes = new(7) { field_0x1 };
             AddMaybeU16ToList(maybeBytes, queryIndex);
             AddMaybeU16ToList(maybeBytes, parameters);
-            AddMaybeU16ToList(maybeBytes, nextNodeTableBaseIdx);
+            AddMaybeU16ToList(maybeBytes, vanillaNextNodeTableBaseIdx);
 
             return MaybeBytesToMagicByteList(maybeBytes);
+        }
+
+        public bool hasPatchBytes()
+        {
+            List<byte> bytes = getPatchBytes();
+            if (bytes.Count < 2)
+                return false;
+            byte magicValue = bytes[0];
+            for (int i = 1; i < bytes.Count; i++)
+            {
+                if (bytes[i] != magicValue)
+                    return true;
+            }
+            return false;
         }
     }
 
@@ -674,6 +685,7 @@ namespace TPRandomizer.Assets
         private List<Entity> storedNodeRemaps = new();
         private List<Entity> storedStrRepl = new();
         private List<Entity> storedBranchPatches = new();
+        private List<Entity> storedBranchNextNodes = new();
         private List<Entity> storedEventPatches = new();
         private List<Entity> storedEventNextNodes = new();
 
@@ -684,6 +696,8 @@ namespace TPRandomizer.Assets
         public List<uint> nodeRemapTable = new();
         public List<byte> branchPatchTableData = new();
         public List<byte> eventPatchTableData = new();
+        public List<ushort> branchNextNodeBaseIdxTable = new();
+        public List<ushort> branchNextNodeTable = new();
         public List<ushort> eventNextNodeTable = new();
         public List<ushort> strOffsetTable = new();
         public List<byte> strTable = new();
@@ -698,6 +712,8 @@ namespace TPRandomizer.Assets
             public ushort shortCompValsOffset;
             public ushort nodeRemapTableOffset;
             public ushort branchPatchTableOffset;
+            public ushort branchNextNodeBaseIdxTableOffset;
+            public ushort branchNextNodeTableOffset;
             public ushort eventPatchTableOffset;
             public ushort strOffsetTableOffset;
             public ushort strTableOffset;
@@ -750,7 +766,14 @@ namespace TPRandomizer.Assets
 
         public void AddBranchPatches(List<BranchPatchEntity> branchPatches)
         {
-            storedBranchPatches.AddRange(branchPatches);
+            foreach (BranchPatchEntity entity in branchPatches)
+            {
+                if (entity.hasPatchBytes())
+                    storedBranchPatches.Add(entity);
+
+                if (!ListUtils.isEmpty(entity.nextNodeIndexes))
+                    storedBranchNextNodes.Add(entity);
+            }
         }
 
         public void AddEventEntities(List<EventPatchEntity> eventPatches)
@@ -894,7 +917,19 @@ namespace TPRandomizer.Assets
                 .ToList();
             foreach (BranchPatchEntity entity in entities)
             {
-                branchPatchTableData.AddRange(entity.getTableBytes());
+                branchPatchTableData.AddRange(entity.getPatchBytes());
+            }
+        }
+
+        private void UpdateBranchNextNodeTable(EntityLookupInfo branchNextNodeInfo)
+        {
+            List<BranchPatchEntity> entities = branchNextNodeInfo.entityList
+                .Cast<BranchPatchEntity>()
+                .ToList();
+            foreach (BranchPatchEntity entity in entities)
+            {
+                branchNextNodeBaseIdxTable.Add((ushort)branchNextNodeTable.Count);
+                branchNextNodeTable.AddRange(entity.nextNodeIndexes);
             }
         }
 
@@ -962,6 +997,10 @@ namespace TPRandomizer.Assets
             orderedEntityInfos.Add(branchPatchInfo);
             UpdateBranchPatchTableData(branchPatchInfo);
 
+            EntityLookupInfo branchNextNodeInfo = BuildDataForEntityType(storedBranchNextNodes);
+            orderedEntityInfos.Add(branchNextNodeInfo);
+            UpdateBranchNextNodeTable(branchNextNodeInfo);
+
             EntityLookupInfo eventPatchInfo = BuildDataForEntityType(storedEventPatches);
             orderedEntityInfos.Add(eventPatchInfo);
             UpdateEventPatchTableData(eventPatchInfo);
@@ -1016,6 +1055,18 @@ namespace TPRandomizer.Assets
 
             header.eventPatchTableOffset = (ushort)(headerSize + bodyData.Count);
             bodyData.AddRange(eventPatchTableData);
+
+            header.branchNextNodeBaseIdxTableOffset = (ushort)(headerSize + bodyData.Count);
+            foreach (ushort entry in branchNextNodeBaseIdxTable)
+            {
+                bodyData.AddRange(Converter.GcBytes(entry));
+            }
+
+            header.branchNextNodeTableOffset = (ushort)(headerSize + bodyData.Count);
+            foreach (ushort entry in branchNextNodeTable)
+            {
+                bodyData.AddRange(Converter.GcBytes(entry));
+            }
 
             header.strOffsetTableOffset = (ushort)(headerSize + bodyData.Count);
             foreach (ushort entry in strOffsetTable)
