@@ -458,10 +458,18 @@ namespace TPRandomizer.Assets
 
     public class EventPatchEntity : Entity
     {
-        public ushort? context;
-        public ushort flwIndex;
-        public byte? eventIndex; // 0x1 u8
-        public ushort? nextNodeTableIdx; // 0x2 u16
+        private static Dictionary<BmgNumber, ushort> bmgToFfffNextNodeIdx =
+            new() { { BmgNumber.zel_00, 0 } };
+
+        public ushort? context { get; private set; }
+        public ushort flwIndex { get; private set; }
+        public byte? eventIndex { get; private set; } // 0x1 u8
+
+        // Note: `vanillaNextNodeTableIdx` has a long name since this is
+        // probably not what you want to use since it points to an existing
+        // entry in the vanilla table rather than our own table.
+        public ushort? vanillaNextNodeTableIdx { get; private set; } // 0x2 u16
+        public ushort? nextNodeIdx { get; private set; }
 
         // Params are at offset 0x4. They are either u32, u16[2], or u8[4]
         private List<byte?> paramMaybeBytes = new();
@@ -471,18 +479,36 @@ namespace TPRandomizer.Assets
             ushort flwIndex,
             ushort? context,
             byte? eventIndex = null,
-            ushort? nextNodeTableIdx = null,
+            ushort? vanillaNextNodeTableIdx = null,
             List<byte?> byteParams = null,
             List<ushort?> ushortParams = null,
-            int? intParam = null
+            int? intParam = null,
+            ushort? nextNodeIdx = null
         )
         {
             this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(stgBmg);
             this.flwIndex = flwIndex;
             this.context = context;
             this.eventIndex = eventIndex;
-            this.nextNodeTableIdx = nextNodeTableIdx;
+            this.vanillaNextNodeTableIdx = vanillaNextNodeTableIdx;
+            this.nextNodeIdx = nextNodeIdx;
 
+            // If the vanillaNextNodeTableIdx is not set and the nextNodeIdx is
+            // 0xFFFF, we can do a minor optimization where we change
+            // nextNodeIdx to null and vanillaNextNodeTableIdx to an idx which
+            // stores 0xFFFF in vanilla based on the bmgNumber. For example, if
+            // on zel_00, we can change vanillaNextNodeTableIdx to 0 since the
+            // value at the start of the vanilla table is 0xFFFF.
+            if (this.nextNodeIdx == 0xFFFF && this.vanillaNextNodeTableIdx == null)
+            {
+                if (bmgToFfffNextNodeIdx.TryGetValue(bmgNumber, out ushort vanillaIdx))
+                {
+                    this.vanillaNextNodeTableIdx = vanillaIdx;
+                    this.nextNodeIdx = null;
+                }
+            }
+
+            // Init paramMaybeBytes
             int numDefined = 0;
             bool byteParamsDefined = false;
             bool ushortParamsDefined = false;
@@ -530,6 +556,7 @@ namespace TPRandomizer.Assets
                     $"paramMaybeBytes.Count must be 4, but was '{paramMaybeBytes.Count}'."
                 );
 
+            // Init sortValue
             if (context != null)
             {
                 uint contextVal = (uint)context;
@@ -551,10 +578,24 @@ namespace TPRandomizer.Assets
         public List<byte> getPatchBytes()
         {
             List<byte?> maybeBytes = new(7) { eventIndex };
-            AddMaybeU16ToList(maybeBytes, nextNodeTableIdx);
+            AddMaybeU16ToList(maybeBytes, vanillaNextNodeTableIdx);
             maybeBytes.AddRange(paramMaybeBytes);
 
             return MaybeBytesToMagicByteList(maybeBytes);
+        }
+
+        public bool hasPatchBytes()
+        {
+            List<byte> bytes = getPatchBytes();
+            if (bytes.Count < 2)
+                return false;
+            byte magicValue = bytes[0];
+            for (int i = 1; i < bytes.Count; i++)
+            {
+                if (bytes[i] != magicValue)
+                    return true;
+            }
+            return false;
         }
     }
 
@@ -634,6 +675,7 @@ namespace TPRandomizer.Assets
         private List<Entity> storedStrRepl = new();
         private List<Entity> storedBranchPatches = new();
         private List<Entity> storedEventPatches = new();
+        private List<Entity> storedEventNextNodes = new();
 
         //
         public List<ushort> tableSliceInfoTable = new();
@@ -642,6 +684,7 @@ namespace TPRandomizer.Assets
         public List<uint> nodeRemapTable = new();
         public List<byte> branchPatchTableData = new();
         public List<byte> eventPatchTableData = new();
+        public List<ushort> eventNextNodeTable = new();
         public List<ushort> strOffsetTable = new();
         public List<byte> strTable = new();
 
@@ -710,9 +753,16 @@ namespace TPRandomizer.Assets
             storedBranchPatches.AddRange(branchPatches);
         }
 
-        public void AddEventPatches(List<EventPatchEntity> eventPatches)
+        public void AddEventEntities(List<EventPatchEntity> eventPatches)
         {
-            storedEventPatches.AddRange(eventPatches);
+            foreach (EventPatchEntity entity in eventPatches)
+            {
+                if (entity.hasPatchBytes())
+                    storedEventPatches.Add(entity);
+
+                if (entity.nextNodeIdx != null)
+                    storedEventNextNodes.Add(entity);
+            }
         }
 
         public void AddStrReplacements(List<StrReplEntity> strReplacements)
@@ -859,6 +909,20 @@ namespace TPRandomizer.Assets
             }
         }
 
+        private void UpdateEventNextNodeTable(EntityLookupInfo eventNextNodeInfo)
+        {
+            List<EventPatchEntity> entities = eventNextNodeInfo.entityList
+                .Cast<EventPatchEntity>()
+                .ToList();
+            foreach (EventPatchEntity entity in entities)
+            {
+                if (entity.nextNodeIdx == null)
+                    throw new Exception("nextNodeIdx was null, but expected to not be null.");
+
+                eventNextNodeTable.Add((ushort)entity.nextNodeIdx);
+            }
+        }
+
         private void UpdateStrTables(EntityLookupInfo strReplInfo)
         {
             Dictionary<string, ushort> stringToStrTableOffset = new();
@@ -901,6 +965,10 @@ namespace TPRandomizer.Assets
             EntityLookupInfo eventPatchInfo = BuildDataForEntityType(storedEventPatches);
             orderedEntityInfos.Add(eventPatchInfo);
             UpdateEventPatchTableData(eventPatchInfo);
+
+            EntityLookupInfo eventNextNodeInfo = BuildDataForEntityType(storedEventNextNodes);
+            orderedEntityInfos.Add(eventNextNodeInfo);
+            UpdateEventNextNodeTable(eventNextNodeInfo);
 
             EntityLookupInfo strReplInfo = BuildDataForEntityType(storedStrRepl);
             orderedEntityInfos.Add(strReplInfo);

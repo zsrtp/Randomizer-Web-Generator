@@ -2629,11 +2629,18 @@ namespace TPRandomizer.Assets
             stringTableResult2.AddBranchPatches(branchPatches);
 
             List<EventPatchEntity> eventPatches = new() {
-                // new(0x1a4, 3, ushortParams: new() {0x13b}),
-                new(StgBmg.zel_00, 0x9, 11, eventIndex: 44, ushortParams: new() {0x13}),
+                new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
+
+                // Custom func to give item (ice trap at 0x13)
+                new(StgBmg.zel_00, 0x9, 11, eventIndex: 44, ushortParams: new() {0x13}, nextNodeIdx: 0xFFFF),
+
+                // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
+
+                // TODO: probably don't need a context for this?
+                new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
             };
 
-            stringTableResult2.AddEventPatches(eventPatches);
+            stringTableResult2.AddEventEntities(eventPatches);
 
             StringTableResult2.Header header = stringTableResult2.AddBytesGenHeader(headerSize, bodyData);
 
