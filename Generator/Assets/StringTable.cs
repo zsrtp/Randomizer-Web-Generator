@@ -657,6 +657,10 @@ namespace TPRandomizer.Assets
     {
         public short ctxCompAdjustment;
         public short basicCompAdjustment;
+
+        // Note: using a byte for this is fine for up to 14 entityTypes. The
+        // 6-bit part of the bmgLookupBytes will only ever be a value between 0
+        // and 8 which gets added to this byte value.
         public byte tableSliceInfoStartIdx;
         public List<byte> bmgLookupBytes = new();
 
