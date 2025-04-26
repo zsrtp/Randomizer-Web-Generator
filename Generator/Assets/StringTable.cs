@@ -748,18 +748,25 @@ namespace TPRandomizer.Assets
                 byte byteVal = 0;
                 if (ctxLen > 0)
                 {
-                    byteVal |= 0x80;
                     tableSliceInfoTable.Add(ctxStartIdx);
                     tableSliceInfoTable.Add(ctxLen);
+                    byteVal += baseOffset;
+                    baseOffset += 1;
+                }
+                else
+                {
+                    byteVal += 0xC;
                 }
                 if (basicLen > 0)
                 {
-                    byteVal |= 0x40;
                     tableSliceInfoTable.Add(basicStartIdx);
                     tableSliceInfoTable.Add(basicLen);
+                    byteVal += (byte)((baseOffset << 4) & 0xF0);
                 }
-                if (byteVal != 0)
-                    byteVal += baseOffset;
+                else
+                {
+                    byteVal += 0xC0;
+                }
                 return byteVal;
             }
         }
