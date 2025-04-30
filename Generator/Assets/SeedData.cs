@@ -2499,7 +2499,7 @@ namespace TPRandomizer.Assets
                     new(StgBmg.zel_00, 0x28, 0x28, 11, context: 10),
 
                     // Temp, test skipping over payment evNode of Hylian shield
-                    new(StgBmg.Kakariko_Village_Interiors, 0x424, 0x428, 15, context: 15),
+                    // new(StgBmg.Kakariko_Village_Interiors, 0x424, 0x428, 15, context: 15),
                 };
 
             stringTableResult2.AddNodeRemaps(nodeRemaps);
@@ -2526,6 +2526,11 @@ namespace TPRandomizer.Assets
                 // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
                 // TODO: probably don't need a context for this?
                 new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
+
+                // Here is a different version of skipping over the payment
+                // event node. This is preferable to using a nodeRemap since
+                // those take 4 bytes in their table and this only takes 2.
+                new(StgBmg.Kakariko_Village_Interiors, 0x429, 15, nextNodeIdx: 0x428),
             };
 
             stringTableResult2.AddEventEntities(eventPatches);

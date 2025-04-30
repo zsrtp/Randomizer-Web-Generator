@@ -484,21 +484,6 @@ namespace TPRandomizer.Assets
             this.vanillaNextNodeTableIdx = vanillaNextNodeTableIdx;
             this.nextNodeIdx = nextNodeIdx;
 
-            // If the vanillaNextNodeTableIdx is not set and the nextNodeIdx is
-            // 0xFFFF, we can do a minor optimization where we change
-            // nextNodeIdx to null and vanillaNextNodeTableIdx to an idx which
-            // stores 0xFFFF in vanilla based on the bmgNumber. For example, if
-            // on zel_00, we can change vanillaNextNodeTableIdx to 0 since the
-            // value at the start of the vanilla table is 0xFFFF.
-            if (this.nextNodeIdx == 0xFFFF && this.vanillaNextNodeTableIdx == null)
-            {
-                if (bmgToFfffNextNodeIdx.TryGetValue(bmgNumber, out ushort vanillaIdx))
-                {
-                    this.vanillaNextNodeTableIdx = vanillaIdx;
-                    this.nextNodeIdx = null;
-                }
-            }
-
             // Init paramMaybeBytes
             int numDefined = 0;
             bool byteParamsDefined = false;
@@ -546,6 +531,29 @@ namespace TPRandomizer.Assets
                 throw new Exception(
                     $"paramMaybeBytes.Count must be 4, but was '{paramMaybeBytes.Count}'."
                 );
+
+            // If the vanillaNextNodeTableIdx is not set and the nextNodeIdx is
+            // 0xFFFF, we can do a minor optimization where we change
+            // nextNodeIdx to null and vanillaNextNodeTableIdx to an idx which
+            // stores 0xFFFF in vanilla based on the bmgNumber. For example, if
+            // on zel_00, we can change vanillaNextNodeTableIdx to 0 since the
+            // value at the start of the vanilla table is 0xFFFF. We only do
+            // this when we were already patching the eventNode since we are
+            // already going to need 8 bytes for the patchBytes, and it costs us
+            // no extra space and we can skip creating an entry in the
+            // eventNextNode table.
+            if (
+                this.nextNodeIdx == 0xFFFF
+                && this.vanillaNextNodeTableIdx == null
+                && hasPatchBytes()
+            )
+            {
+                if (bmgToFfffNextNodeIdx.TryGetValue(bmgNumber, out ushort vanillaIdx))
+                {
+                    this.vanillaNextNodeTableIdx = vanillaIdx;
+                    this.nextNodeIdx = null;
+                }
+            }
 
             // Init sortValue
             if (context != null)
