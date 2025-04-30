@@ -2374,7 +2374,7 @@ namespace TPRandomizer.Assets
 
             bool hasTalkToMidnaHints = true;
 
-            UInt16 headerSize = 0x20;
+            UInt16 headerSize = 0x28;
 
             UInt16 signToInitFliOffset = (UInt16)(headerSize + bodyData.Count);
             UInt16 numSignToInitFliOffsetEntries = (UInt16)0;
@@ -2477,29 +2477,29 @@ namespace TPRandomizer.Assets
             List<NodeRemapEntity> nodeRemaps =
                 new()
                 {
-                    new(BmgNumber.zel_00, 0x7700, 0xFFFF, 0x24, 1),
-                    new(BmgNumber.zel_00, 0x7701, 0xFFFF, 0x25, 1),
-                    // new(BmgNumber.zel_00, 0x7702, 0xFFFF, 0x26, 4),
-                    // new(BmgNumber.zel_00, 0x7702, 0xFFFF, 0x33, 0),
-                    new(BmgNumber.zel_00, 0x7702, 0xFFFF, 0x194, 10),
-                    new(BmgNumber.zel_00, 0x7703, 0xFFFF, 0x27, 1),
-                    new(BmgNumber.zel_00, 0x7704, 0xFFFF, 0x28, 1),
-                    new(BmgNumber.zel_00, 0x7710, 0xFFFF, 0x24, 1),
-                    new(BmgNumber.zel_00, 0x7711, 0xFFFF, 0x25, 1),
-                    new(BmgNumber.zel_00, 0x7712, 0xFFFF, 0x26, 1),
-                    new(BmgNumber.zel_00, 0x7713, 0xFFFF, 0x27, 1),
-                    new(BmgNumber.zel_00, 0x7714, 0xFFFF, 0x28, 1),
-                    new(BmgNumber.zel_00, 0xbb8, 0x8f, 0x1a0, 3),
+                    new(StgBmg.zel_00, 0xFFFF, 0x24, 1, fliValue: 0x7700),
+                    new(StgBmg.zel_00, 0xFFFF, 0x25, 1, fliValue: 0x7701),
+                    // new(StgBmg.zel_00, 0x7702, 0xFFFF, 0x26, 4),
+                    // new(StgBmg.zel_00, 0x7702, 0xFFFF, 0x33, 0),
+                    new(StgBmg.zel_00, 0xFFFF, 0x194, 10, fliValue: 0x7702),
+                    new(StgBmg.zel_00, 0xFFFF, 0x27, 1, fliValue: 0x7703),
+                    new(StgBmg.zel_00, 0xFFFF, 0x28, 1, fliValue: 0x7704),
+                    new(StgBmg.zel_00, 0xFFFF, 0x24, 1, fliValue: 0x7710),
+                    new(StgBmg.zel_00, 0xFFFF, 0x25, 1, fliValue: 0x7711),
+                    new(StgBmg.zel_00, 0xFFFF, 0x26, 1, fliValue: 0x7712),
+                    new(StgBmg.zel_00, 0xFFFF, 0x27, 1, fliValue: 0x7713),
+                    new(StgBmg.zel_00, 0xFFFF, 0x28, 1, fliValue: 0x7714),
+                    new(StgBmg.zel_00, 0x8f, 0x1a0, 3, fliValue: 0xbb8),
                     // Test for hylian shield price change
-                    new(StageIDs.Kakariko_Village_Interiors, 0x145, 0x421, 0x421, 15),
+                    new(StgBmg.Kakariko_Village_Interiors, 0x421, 0x421, 15, fliValue: 0x145),
                     // 0x26 has INF 0x136b
-                    new(4, 0x27, 0x26, 5),
-                    new(5, 0x27, 0xffff, 0),
-                    new(10, 0x9, 0x9, 11),
-                    new(10, 0x28, 0x28, 11),
+                    new(StgBmg.zel_00, 0x27, 0x26, 5, context: 4),
+                    new(StgBmg.zel_00, 0x27, 0xffff, 0, context: 5),
+                    new(StgBmg.zel_00, 0x9, 0x9, 11, context: 10),
+                    new(StgBmg.zel_00, 0x28, 0x28, 11, context: 10),
 
                     // Temp, test skipping over payment evNode of Hylian shield
-                    new(15, 0x424, 0x428, 15),
+                    new(StgBmg.Kakariko_Village_Interiors, 0x424, 0x428, 15, context: 15),
                 };
 
             stringTableResult2.AddNodeRemaps(nodeRemaps);
@@ -2524,7 +2524,6 @@ namespace TPRandomizer.Assets
                 new(StgBmg.zel_00, 0x9, 11, eventIndex: 44, ushortParams: new() {0x13}, nextNodeIdx: 0xFFFF),
 
                 // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
-
                 // TODO: probably don't need a context for this?
                 new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
             };
@@ -2575,10 +2574,11 @@ namespace TPRandomizer.Assets
             allData.AddRange(Converter.GcBytes(header.branchPatchTableOffset)); // 0x12
             allData.AddRange(Converter.GcBytes(header.branchNextNodeBaseIdxTableOffset)); // 0x14
             allData.AddRange(Converter.GcBytes(header.branchNextNodeTableOffset)); // 0x16
-            allData.AddRange(Converter.GcBytes(header.eventPatchTableOffset)); // 0x18
-            allData.AddRange(Converter.GcBytes(header.strOffsetTableOffset)); // 0x1a
-            allData.AddRange(Converter.GcBytes(header.strTableOffset)); // 0x1c
-            allData.AddRange(Converter.GcBytes(header.strTableLen)); // 0x1e
+            allData.AddRange(Converter.GcBytes(header.eventNextNodeTableOffset)); // 0x18
+            allData.AddRange(Converter.GcBytes(header.eventPatchTableOffset)); // 0x1a
+            allData.AddRange(Converter.GcBytes(header.strOffsetTableOffset)); // 0x1c
+            allData.AddRange(Converter.GcBytes(header.strTableOffset)); // 0x1e
+            allData.AddRange(Converter.GcBytes(header.strTableLen)); // 0x20
 
             while (allData.Count < headerSize)
                 allData.Add(0);

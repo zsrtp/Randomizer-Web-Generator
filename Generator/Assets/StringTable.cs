@@ -309,65 +309,45 @@ namespace TPRandomizer.Assets
 
     public class NodeRemapEntity : Entity
     {
-        public bool hasFliValue { get; private set; }
-        public ushort fliValue { get; private set; }
-        public ushort context { get; private set; }
+        public ushort? fliValue { get; private set; }
+        public ushort? context { get; private set; }
         public ushort flwIndex { get; private set; }
         public ushort newFlwIndex { get; private set; }
         public ushort newContext { get; private set; }
 
         public NodeRemapEntity(
-            BmgNumber bmgNumber,
-            ushort fliValue,
+            StgBmg stgBmg,
             ushort flwIndex,
             ushort newFlwIndex,
-            ushort newContext
+            ushort newContext,
+            ushort? fliValue = null,
+            ushort? context = null
         )
         {
-            Init(true, bmgNumber, fliValue, 0, flwIndex, newFlwIndex, newContext);
-        }
-
-        public NodeRemapEntity(
-            StageIDs stageId,
-            ushort fliValue,
-            ushort flwIndex,
-            ushort newFlwIndex,
-            ushort newContext
-        )
-        {
-            BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
-
-            Init(true, bmgNumber, fliValue, 0, flwIndex, newFlwIndex, newContext);
-        }
-
-        public NodeRemapEntity(
-            ushort context,
-            ushort flwIndex,
-            ushort newFlwIndex,
-            ushort newContext
-        )
-        {
-            Init(false, BmgNumber.zel_00, 0, context, flwIndex, newFlwIndex, newContext);
+            BmgNumber bmgNumber = BmgNumUtils.StgBmgToBmgNumber(stgBmg);
+            Init(bmgNumber, fliValue, context, flwIndex, newFlwIndex, newContext);
         }
 
         private void Init(
-            bool hasFliValue,
             BmgNumber bmgNumber,
-            ushort fliValue,
-            ushort context,
+            ushort? fliValue,
+            ushort? context,
             ushort flwIndex,
             ushort newFlwIndex,
             ushort newContext
         )
         {
-            this.hasFliValue = hasFliValue;
             this.bmgNumber = bmgNumber;
             this.fliValue = fliValue;
             this.context = context;
             this.flwIndex = flwIndex;
             this.newFlwIndex = newFlwIndex;
             this.newContext = newContext;
-            if (hasFliValue)
+
+            if ((fliValue == null && context == null) || (fliValue != null && context != null))
+                throw new Exception("Must have exactly one of fliValue or context.");
+
+            if (fliValue != null)
             {
                 if (flwIndex == 0xFFFF && newContext == 0)
                 {
@@ -379,13 +359,13 @@ namespace TPRandomizer.Assets
                 }
                 this.sortValue = (uint)(fliValue << 0x10) + flwIndex;
             }
-            else
+            else if (context != null)
                 this.sortValue = (uint)(context << 0x10) + flwIndex;
         }
 
         public override bool getIsContextCompare()
         {
-            return !hasFliValue;
+            return fliValue == null;
         }
 
         public uint getEntityTableUint()
@@ -718,6 +698,7 @@ namespace TPRandomizer.Assets
             public ushort branchPatchTableOffset;
             public ushort branchNextNodeBaseIdxTableOffset;
             public ushort branchNextNodeTableOffset;
+            public ushort eventNextNodeTableOffset;
             public ushort eventPatchTableOffset;
             public ushort strOffsetTableOffset;
             public ushort strTableOffset;
@@ -1076,6 +1057,18 @@ namespace TPRandomizer.Assets
 
             header.branchNextNodeTableOffset = (ushort)(headerSize + bodyData.Count);
             foreach (ushort entry in branchNextNodeTable)
+            {
+                bodyData.AddRange(Converter.GcBytes(entry));
+            }
+
+            header.branchNextNodeTableOffset = (ushort)(headerSize + bodyData.Count);
+            foreach (ushort entry in branchNextNodeTable)
+            {
+                bodyData.AddRange(Converter.GcBytes(entry));
+            }
+
+            header.eventNextNodeTableOffset = (ushort)(headerSize + bodyData.Count);
+            foreach (ushort entry in eventNextNodeTable)
             {
                 bodyData.AddRange(Converter.GcBytes(entry));
             }
