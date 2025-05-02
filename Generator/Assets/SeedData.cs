@@ -2512,7 +2512,14 @@ namespace TPRandomizer.Assets
 
                 // Patch comparison to see if you can afford hylian shield
                 // Change price to 0x13b (315)
-                new(StgBmg.Kakariko_Village_Interiors, 0x421, 15, parameters: 0x13b),
+                // new(StgBmg.Kakariko_Village_Interiors, 0x421, 15, parameters: 0x13b),
+
+                // Patches to use a custom queryFunction which always returns
+                // the parameters as the procResult. In this case, we are always
+                // returning 0 which means you are considered to always be able
+                // to afford the Hylian shield regardless of your current Rupee
+                // count.
+                new(StgBmg.Kakariko_Village_Interiors, 0x421, 15, queryIndex: 53, parameters: 0),
             };
 
             stringTableResult2.AddBranchPatches(branchPatches);
