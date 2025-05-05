@@ -2387,14 +2387,6 @@ namespace TPRandomizer.Assets
             // menus have 1a 06 00 00 **09** xx when there are 3 options, but 1a
             // 06 00 00 **08** xx when there are 2 options.
 
-            List<CustomMessages.MessageEntry> cmEntries = customMsgData.GenMessageEntries();
-
-            CustomMessages.MessageEntry cmEntryLh = cmEntries.Find(entry => {
-                return entry.stageIDX == (byte)StageIDs.Ordon_Village && entry.roomIDX == 1 && entry.messageID == 0x658;
-            });
-
-            CustomMessages.MessageEntry cmEntry = cmEntries[cmEntries.Count - 1];
-
             // Need one of bmgNumber or stageId (stageId to be developed so can map to bmgNumber)
 
             // Also need optional context
@@ -2405,26 +2397,26 @@ namespace TPRandomizer.Assets
             List<StrReplEntity> strEntries2 =
                 new()
                 {
-                    new(BmgNumber.zel_00, 3, 0x5de, "Need something2?" + CustomMessages.shopOption),
-                    new(
-                        BmgNumber.zel_00,
-                        3,
-                        0x5df,
-                        $"{messageOption1_8not9}Hints2\n{messageOption2_8not9}Change time of day2"
-                        // $"{CustomMessages.messageOption1}Hints\n{CustomMessages.messageOption2}Change time of day"
-                    ),
-                    new(
-                        BmgNumber.zel_00,
-                        3,
-                        0x5e5,
-                        "Required dungeons2:\n" + cmEntryLh.message
-                    ),
-                    new(
-                        BmgNumber.zel_00,
-                        3,
-                        0xa11,
-                        cmEntry.message
-                    ),
+                    // new(BmgNumber.zel_00, 3, 0x5de, "Need something2?" + CustomMessages.shopOption),
+                    // new(
+                    //     BmgNumber.zel_00,
+                    //     3,
+                    //     0x5df,
+                    //     $"{messageOption1_8not9}Hints2\n{messageOption2_8not9}Change time of day2"
+                    //     // $"{CustomMessages.messageOption1}Hints\n{CustomMessages.messageOption2}Change time of day"
+                    // ),
+                    // new(
+                    //     BmgNumber.zel_00,
+                    //     3,
+                    //     0x5e5,
+                    //     "Required dungeons2:\n" + cmEntryLh.message
+                    // ),
+                    // new(
+                    //     BmgNumber.zel_00,
+                    //     3,
+                    //     0xa11,
+                    //     cmEntry.message
+                    // ),
                     new(
                         StageIDs.Castle_Town,
                         null,
@@ -2467,7 +2459,8 @@ namespace TPRandomizer.Assets
                         11,
                         0x1369, // FLW 0x28, but sign flow always uses 1369 for msg
                         // $"Hint from correct answer!"
-                        "Correct!\n\n\n\n" + cmEntry.message
+                        // "Correct!\n\n\n\n" + cmEntry.message
+                        "Correct!"
                     ),
                 };
 
@@ -2489,7 +2482,7 @@ namespace TPRandomizer.Assets
                     new(StgBmg.zel_00, 0xFFFF, 0x26, 1, fliValue: 0x7712),
                     new(StgBmg.zel_00, 0xFFFF, 0x27, 1, fliValue: 0x7713),
                     new(StgBmg.zel_00, 0xFFFF, 0x28, 1, fliValue: 0x7714),
-                    new(StgBmg.zel_00, 0x8f, 0x1a0, 3, fliValue: 0xbb8),
+                    // new(StgBmg.zel_00, 0x8f, 0x1a0, 3, fliValue: 0xbb8),
                     // Test for hylian shield price change
                     new(StgBmg.Kakariko_Village_Interiors, 0x421, 0x421, 15, fliValue: 0x145),
                     // 0x26 has INF 0x136b
@@ -2505,7 +2498,7 @@ namespace TPRandomizer.Assets
             stringTableResult2.AddNodeRemaps(nodeRemaps);
 
             List<BranchPatchEntity> branchPatches = new() {
-                new(StgBmg.zel_00, 0x1a3, 3, nextNodeIndexes: new() { 0x27, 0x1a4, 0xFFFF }),
+                // new(StgBmg.zel_00, 0x1a3, 3, nextNodeIndexes: new() { 0x27, 0x1a4, 0xFFFF }),
 
                 // Test sign remap
                 new(StgBmg.zel_00, 0x193, 10, nextNodeIndexes: new() { 0x28, 0x9, 0x9, 0xFFFF }),
@@ -2525,7 +2518,7 @@ namespace TPRandomizer.Assets
             stringTableResult2.AddBranchPatches(branchPatches);
 
             List<EventPatchEntity> eventPatches = new() {
-                new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
+                // new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
 
                 // Custom func to give item (ice trap at 0x13)
                 new(StgBmg.zel_00, 0x9, 11, eventIndex: 44, ushortParams: new() {0x13}, nextNodeIdx: 0xFFFF),
@@ -2541,6 +2534,8 @@ namespace TPRandomizer.Assets
             };
 
             stringTableResult2.AddEventEntities(eventPatches);
+
+            AddMidnaConversationStuff(customMsgData, stringTableResult2);
 
             StringTableResult2.Header header = stringTableResult2.AddBytesGenHeader(headerSize, bodyData);
 
@@ -2608,6 +2603,68 @@ namespace TPRandomizer.Assets
             }
 
             return allData;
+        }
+
+        private void AddMidnaConversationStuff(CustomMsgData customMsgData, StringTableResult2 stringTableResult2)
+        {
+            List<CustomMessages.MessageEntry> cmEntries = customMsgData.GenMessageEntries();
+
+            CustomMessages.MessageEntry cmEntryLh = cmEntries.Find(entry => {
+                return entry.stageIDX == (byte)StageIDs.Ordon_Village && entry.roomIDX == 1 && entry.messageID == 0x658;
+            });
+
+            CustomMessages.MessageEntry cmEntry = cmEntries[cmEntries.Count - 1];
+
+            string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
+            string messageOption2_8not9 = "\x1A\x06\x00\x00\x08\x02";
+
+            List<StrReplEntity> strEntries2 =
+                new()
+                {
+                    new(BmgNumber.zel_00, 3, 0x5de, "Need something2?" + CustomMessages.shopOption),
+                    new(
+                        BmgNumber.zel_00,
+                        3,
+                        0x5df,
+                        $"{messageOption1_8not9}Change time of day2\n{messageOption2_8not9}Hints2"
+                    ),
+                    new(
+                        BmgNumber.zel_00,
+                        3,
+                        0x5e5,
+                        "Required dungeons2:\n" + cmEntryLh.message
+                    ),
+                    new(
+                        BmgNumber.zel_00,
+                        3,
+                        0xa11,
+                        cmEntry.message
+                    ),
+                };
+            stringTableResult2.AddStrReplacements(strEntries2);
+
+            List<NodeRemapEntity> nodeRemaps =
+                new()
+                {
+                    // new(StgBmg.zel_00, 0x8f, 0x1a0, 3, fliValue: 0xbb8),
+
+                    // Go to node to decide if can change ToD or not
+                    new(StgBmg.zel_00, 0x8f, 0x199, 3, fliValue: 0xbb8),
+                };
+            stringTableResult2.AddNodeRemaps(nodeRemaps);
+
+            List<BranchPatchEntity> branchPatches = new() {
+                // Check if can change ToD:
+                new(StgBmg.zel_00, 0x199, 3, queryIndex: 54, nextNodeIndexes: new() { 0x1a0, 0x27 }),
+                // Menu branch for "Change ToD / Hints"
+                new(StgBmg.zel_00, 0x1a3, 3, nextNodeIndexes: new() { 0x1a4, 0x27, 0xFFFF }),
+            };
+            stringTableResult2.AddBranchPatches(branchPatches);
+
+            List<EventPatchEntity> eventPatches = new() {
+                new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
+            };
+            stringTableResult2.AddEventEntities(eventPatches);
         }
 
         private static string getStartingTime()
