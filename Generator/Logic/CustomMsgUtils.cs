@@ -12,6 +12,36 @@ namespace TPRandomizer
     using MessageEntry = Assets.CustomMessages.MessageEntry;
     using HintSpotBmgData = Assets.CustomMessages.HintSpotBmgData;
     using FLIGroup = Assets.CustomMessages.FLIGroup;
+    using System.Threading.Tasks.Dataflow;
+
+    public class NodeInst
+    {
+        public StgBmg stgBmg { get; private set; }
+        public ushort flwIdx { get; private set; }
+
+        public NodeInst(StgBmg stgBmg, ushort flwIdx)
+        {
+            this.stgBmg = stgBmg;
+            this.flwIdx = flwIdx;
+        }
+    }
+
+    public class Node
+    {
+        // Generic branch node in zel_00 we can patch under context.
+        public static NodeInst brZel00CtxPatch = new(StgBmg.zel_00, 0x199);
+
+        // Generic event node in zel_00 we can patch under context.
+        public static NodeInst evZel00CtxPatch = new(StgBmg.zel_00, 0x1a4);
+        public static NodeInst evZel00Other = new(StgBmg.zel_00, 0x9);
+
+        public static NodeInst evKakMaloMartHylianShieldPay =
+            new(StgBmg.Kakariko_Village_Interiors, 0x424);
+        public static NodeInst evKakMaloMartHylianShieldBeforePay =
+            new(StgBmg.Kakariko_Village_Interiors, 0x429);
+
+        // new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
+    }
 
     public enum MsgEntryId
     {

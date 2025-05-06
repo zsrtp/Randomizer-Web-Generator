@@ -2521,16 +2521,19 @@ namespace TPRandomizer.Assets
                 // new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
 
                 // Custom func to give item (ice trap at 0x13)
-                new(StgBmg.zel_00, 0x9, 11, eventIndex: 44, ushortParams: new() {0x13}, nextNodeIdx: 0xFFFF),
+                // new(StgBmg.zel_00, 0x9, 11, eventIndex: 44, ushortParams: new() {0x13}, nextNodeIdx: 0xFFFF),
+                new(Node.evZel00Other, 11, eventIndex: 44, ushortParams: new() {0x13}, nextNodeIdx: 0xFFFF),
 
                 // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
                 // TODO: probably don't need a context for this?
-                new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
+                // new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
+                new(Node.evKakMaloMartHylianShieldPay, 15, intParam: 0x13b),
 
                 // Here is a different version of skipping over the payment
                 // event node. This is preferable to using a nodeRemap since
                 // those take 4 bytes in their table and this only takes 2.
-                new(StgBmg.Kakariko_Village_Interiors, 0x429, 15, nextNodeIdx: 0x428),
+                // new(StgBmg.Kakariko_Village_Interiors, 0x429, 15, nextNodeIdx: 0x428),
+                new(Node.evKakMaloMartHylianShieldBeforePay, 15, nextNodeIdx: 0x428),
             };
 
             stringTableResult2.AddEventEntities(eventPatches);
@@ -2657,12 +2660,14 @@ namespace TPRandomizer.Assets
                 // Check if can change ToD:
                 new(StgBmg.zel_00, 0x199, 3, queryIndex: 54, nextNodeIndexes: new() { 0x1a0, 0x27 }),
                 // Menu branch for "Change ToD / Hints"
-                new(StgBmg.zel_00, 0x1a3, 3, nextNodeIndexes: new() { 0x1a4, 0x27, 0xFFFF }),
+                // new(StgBmg.zel_00, 0x1a3, 3, nextNodeIndexes: new() { 0x1a4, 0x27, 0xFFFF }),
+                new(StgBmg.zel_00, 0x1a3, 3, nextNodeIndexes: new() { Node.evZel00CtxPatch.flwIdx, 0x27, 0xFFFF }),
             };
             stringTableResult2.AddBranchPatches(branchPatches);
 
             List<EventPatchEntity> eventPatches = new() {
-                new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
+                // new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
+                new(Node.evZel00CtxPatch, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
             };
             stringTableResult2.AddEventEntities(eventPatches);
         }

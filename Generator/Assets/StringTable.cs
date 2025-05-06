@@ -466,8 +466,9 @@ namespace TPRandomizer.Assets
         private List<byte?> paramMaybeBytes = new();
 
         public EventPatchEntity(
-            StgBmg stgBmg,
-            ushort flwIndex,
+            NodeInst node,
+            // StgBmg stgBmg,
+            // ushort flwIndex,
             ushort? context,
             byte? eventIndex = null,
             ushort? vanillaNextNodeTableIdx = null,
@@ -477,8 +478,10 @@ namespace TPRandomizer.Assets
             ushort? nextNodeIdx = null
         )
         {
-            this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(stgBmg);
-            this.flwIndex = flwIndex;
+            // this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(stgBmg);
+            // this.flwIndex = flwIndex;
+            this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(node.stgBmg);
+            this.flwIndex = node.flwIdx;
             this.context = context;
             this.eventIndex = eventIndex;
             this.vanillaNextNodeTableIdx = vanillaNextNodeTableIdx;
