@@ -29,7 +29,12 @@ namespace TPRandomizer
     public class Node
     {
         // Generic branch node in zel_00 we can patch under context.
+        public static NodeInst brTalkToMidnaRootNode = new(StgBmg.zel_00, 0x8f);
+        public static NodeInst brZel00ThreeOptsResultBranch = new(StgBmg.zel_00, 0x193);
         public static NodeInst brZel00CtxPatch = new(StgBmg.zel_00, 0x199);
+        public static NodeInst brZel00TwoOptsResultBranch = new(StgBmg.zel_00, 0x1a3);
+        public static NodeInst brKakMaloMartHylianShieldCanAfford =
+            new(StgBmg.Kakariko_Village_Interiors, 0x421);
 
         // Generic event node in zel_00 we can patch under context.
         public static NodeInst evZel00CtxPatch = new(StgBmg.zel_00, 0x1a4);

@@ -385,8 +385,9 @@ namespace TPRandomizer.Assets
         public List<ushort> nextNodeIndexes;
 
         public BranchPatchEntity(
-            StgBmg stgBmg,
-            ushort flwIndex,
+            NodeInst node,
+            // StgBmg stgBmg,
+            // ushort flwIndex,
             ushort? context,
             byte? field_0x1 = null,
             ushort? queryIndex = null,
@@ -395,8 +396,10 @@ namespace TPRandomizer.Assets
             List<ushort> nextNodeIndexes = null
         )
         {
-            this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(stgBmg);
-            this.flwIndex = flwIndex;
+            this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(node.stgBmg);
+            this.flwIndex = node.flwIdx;
+            // this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(stgBmg);
+            // this.flwIndex = flwIndex;
             this.context = context;
             this.field_0x1 = field_0x1;
             this.queryIndex = queryIndex;

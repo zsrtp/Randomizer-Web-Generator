@@ -625,8 +625,7 @@ namespace TPRandomizer
                     ),
                 };
 
-            StringTableResult2 stringTableResult2 = new();
-            stringTableResult2.AddStrReplacements(strEntries2);
+            results2.AddStrReplacements(strEntries2);
 
             List<NodeRemapEntity> nodeRemaps =
                 new()
@@ -656,7 +655,7 @@ namespace TPRandomizer
                     // new(StgBmg.Kakariko_Village_Interiors, 0x424, 0x428, 15, context: 15),
                 };
 
-            stringTableResult2.AddNodeRemaps(nodeRemaps);
+            results2.AddNodeRemaps(nodeRemaps);
 
             List<BranchPatchEntity> branchPatches =
                 new()
@@ -665,8 +664,9 @@ namespace TPRandomizer
 
                     // Test sign remap
                     new(
-                        StgBmg.zel_00,
-                        0x193,
+                        Node.brZel00ThreeOptsResultBranch,
+                        // StgBmg.zel_00,
+                        // 0x193,
                         10,
                         nextNodeIndexes: new() { 0x28, 0x9, 0x9, 0xFFFF }
                     ),
@@ -680,15 +680,16 @@ namespace TPRandomizer
                     // to afford the Hylian shield regardless of your current Rupee
                     // count.
                     new(
-                        StgBmg.Kakariko_Village_Interiors,
-                        0x421,
+                        Node.brKakMaloMartHylianShieldCanAfford,
+                        // StgBmg.Kakariko_Village_Interiors,
+                        // 0x421,
                         15,
                         queryIndex: 53,
                         parameters: 0
                     ),
                 };
 
-            stringTableResult2.AddBranchPatches(branchPatches);
+            results2.AddBranchPatches(branchPatches);
 
             List<EventPatchEntity> eventPatches =
                 new()
@@ -715,7 +716,7 @@ namespace TPRandomizer
                     new(Node.evKakMaloMartHylianShieldBeforePay, 15, nextNodeIdx: 0x428),
                 };
 
-            stringTableResult2.AddEventEntities(eventPatches);
+            results2.AddEventEntities(eventPatches);
 
             AddMidnaConversationStuff();
         }
@@ -769,8 +770,9 @@ namespace TPRandomizer
                 {
                     // Check if can change ToD:
                     new(
-                        StgBmg.zel_00,
-                        0x199,
+                        Node.brZel00CtxPatch,
+                        // StgBmg.zel_00,
+                        // 0x199,
                         3,
                         queryIndex: 54,
                         nextNodeIndexes: new() { 0x1a0, 0x27 }
@@ -778,8 +780,9 @@ namespace TPRandomizer
                     // Menu branch for "Change ToD / Hints"
                     // new(StgBmg.zel_00, 0x1a3, 3, nextNodeIndexes: new() { 0x1a4, 0x27, 0xFFFF }),
                     new(
-                        StgBmg.zel_00,
-                        0x1a3,
+                        Node.brZel00TwoOptsResultBranch,
+                        // StgBmg.zel_00,
+                        // 0x1a3,
                         3,
                         nextNodeIndexes: new() { Node.evZel00CtxPatch.flwIdx, 0x27, 0xFFFF }
                     ),
