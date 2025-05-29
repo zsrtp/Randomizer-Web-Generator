@@ -611,6 +611,22 @@ namespace TPRandomizer.Assets
         public ushort infIndex { get; private set; }
         public string str { get; private set; }
 
+        public static StrReplEntity CustomSignText(ushort? context, string str)
+        {
+            return new StrReplEntity(BmgNumber.zel_00, context, 0x1369, str);
+        }
+
+        public static StrReplEntity CustomSignOptions(ushort? context, string str)
+        {
+            return new StrReplEntity(BmgNumber.zel_00, context, 0x136a, str);
+        }
+
+        public StrReplEntity(MsgNodeInst msgNode, ushort? context, string str)
+        {
+            BmgNumber bmgNumber = BmgNumUtils.StgBmgToBmgNumber(msgNode.stgBmg);
+            Init(bmgNumber, context, msgNode.infIndex, str);
+        }
+
         public StrReplEntity(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
         {
             Init(bmgNumber, context, infIndex, str);

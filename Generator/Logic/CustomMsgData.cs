@@ -591,38 +591,51 @@ namespace TPRandomizer
                     //     0xa11,
                     //     cmEntry.message
                     // ),
-                    new(StageIDs.Castle_Town, null, 0x4ce, "Test text for star signs outside"),
-                    new(StageIDs.Castle_Town, null, 0x368, "test talk to girls1"),
-                    new(StageIDs.Castle_Town, null, 0x369, "test talk to girls2"),
-                    new(StageIDs.Castle_Town, null, 0x36a, "test talk to girls3"),
-                    new(BmgNumber.zel_00, 4, 0x136b, "ctx:4, inf: 0x136b"),
-                    new(BmgNumber.zel_00, 5, 0x136b, "ctx:5, inf: 0x136b"),
-                    new(
-                        BmgNumber.zel_00,
+                    // new(StageIDs.Castle_Town, null, 0x4ce, "Test text for star signs outside"),
+                    new(Node.msgCT_StarSigns, null, "Test text for star signs outside"),
+                    // new(StageIDs.Castle_Town, null, 0x368, "test talk to girls1"),
+                    new(Node.msgCT_StarGirlsNoAttemptFirst, null, "test talk to girls1"),
+                    // new(StageIDs.Castle_Town, null, 0x369, "test talk to girls2"),
+                    new(Node.msgCT_StarGirlsNoAttemptSecond, null, "test talk to girls2"),
+                    // new(StageIDs.Castle_Town, null, 0x36a, "test talk to girls3"),
+                    new(Node.msgCT_StarGirlsNoAttemptThird, null, "test talk to girls3"),
+                    //
+                    // new(
+                    //     BmgNumber.zel_00,
+                    //     10,
+                    //     // 0xbbb,
+                    //     0x1369,
+                    //     Res.LangSpecificNormalize(
+                    //         "How many Cuccos are at Lake Hylia?" + CustomMessages.shopOption
+                    //     )
+                    StrReplEntity.CustomSignText(
                         10,
-                        // 0xbbb,
-                        0x1369,
                         Res.LangSpecificNormalize(
                             "How many Cuccos are at Lake Hylia?" + CustomMessages.shopOption
                         )
+                    ),
                     // $"CustomMenu{CustomMessages.shopOption}"
-                    ),
-                    new(
-                        BmgNumber.zel_00,
+                    // new(
+                    //     BmgNumber.zel_00,
+                    //     10,
+                    //     // 0xa2e,
+                    //     0x136a,
+                    //     $"{CustomMessages.messageOption1}7\n{CustomMessages.messageOption2}8\n{CustomMessages.messageOption3}9"
+                    // // $"{CustomMessages.messageOption1}Hints\n{CustomMessages.messageOption2}Change time of day"
+                    // ),
+                    StrReplEntity.CustomSignOptions(
                         10,
-                        // 0xa2e,
-                        0x136a,
                         $"{CustomMessages.messageOption1}7\n{CustomMessages.messageOption2}8\n{CustomMessages.messageOption3}9"
-                    // $"{CustomMessages.messageOption1}Hints\n{CustomMessages.messageOption2}Change time of day"
                     ),
-                    new(
-                        BmgNumber.zel_00,
-                        11,
-                        0x1369, // FLW 0x28, but sign flow always uses 1369 for msg
-                        // $"Hint from correct answer!"
-                        // "Correct!\n\n\n\n" + cmEntry.message
-                        "Correct!"
-                    ),
+                    // new(
+                    //     BmgNumber.zel_00,
+                    //     11,
+                    //     0x1369, // FLW 0x28, but sign flow always uses 1369 for msg
+                    //     // $"Hint from correct answer!"
+                    //     // "Correct!\n\n\n\n" + cmEntry.message
+                    //     "Correct!"
+                    // ),
+                    StrReplEntity.CustomSignText(11, "Correct!"),
                 };
 
             results2.AddStrReplacements(strEntries2);

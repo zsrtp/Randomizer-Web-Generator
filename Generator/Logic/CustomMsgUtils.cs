@@ -26,6 +26,16 @@ namespace TPRandomizer
         }
     }
 
+    public class MsgNodeInst : NodeInst
+    {
+        public ushort infIndex { get; private set; }
+
+        public MsgNodeInst(StgBmg stgBmg, ushort flwIdx, ushort infIndex) : base(stgBmg, flwIdx)
+        {
+            this.infIndex = infIndex;
+        }
+    }
+
     public class Node
     {
         // Generic branch node in zel_00 we can patch under context.
@@ -51,6 +61,13 @@ namespace TPRandomizer
         public static NodeInst msgZel00_0x27 = new(StgBmg.zel_00, 0x27);
         public static NodeInst msgZel00_0x28 = new(StgBmg.zel_00, 0x28);
         public static NodeInst zel00_FFFF = new(StgBmg.zel_00, 0xFFFF);
+        public static MsgNodeInst msgCT_StarSigns = new(StgBmg.Castle_Town, 0x883, 0x4ce);
+        public static MsgNodeInst msgCT_StarGirlsNoAttemptFirst =
+            new(StgBmg.Castle_Town, 0x73, 0x368);
+        public static MsgNodeInst msgCT_StarGirlsNoAttemptSecond =
+            new(StgBmg.Castle_Town, 0x75, 0x369);
+        public static MsgNodeInst msgCT_StarGirlsNoAttemptThird =
+            new(StgBmg.Castle_Town, 0x76, 0x36a);
     }
 
     public enum MsgEntryId
