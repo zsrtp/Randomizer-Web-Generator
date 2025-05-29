@@ -62,7 +62,7 @@ namespace TPRandomizer
         public static NodeInst brZ0_MidnaTwoOptsResultBranch = new(StgBmg.zel_00, 0x1a3);
         public static NodeInst msgZel00_0x9 = new(StgBmg.zel_00, 0x9);
         public static MsgNodeInst msgZ0_0x27 = new(StgBmg.zel_00, 0x27, 0x5e5);
-        public static NodeInst msgZel00_0x28 = new(StgBmg.zel_00, 0x28);
+        public static NodeInst msgZ0_0x28 = new(StgBmg.zel_00, 0x28);
         public static NodeInst zel00_FFFF = new(StgBmg.zel_00, 0xFFFF);
         public static MsgNodeInst msgCT_StarSigns = new(StgBmg.Castle_Town, 0x883, 0x4ce);
         public static MsgNodeInst msgCT_StarGirlsNoAttemptFirst =

@@ -23,6 +23,7 @@ namespace TPRandomizer
         // Increment this when we need to change something about encoding and
         // decoding the data.
         private static readonly ushort latestEncodingVersion = 0;
+        private CtxGen ctxGen = new();
 
         private byte requiredDungeons;
         private bool updateShopText;
@@ -675,7 +676,7 @@ namespace TPRandomizer
                     new(Node.msgZ0_0x27, 0x26, 5, context: 4),
                     new(Node.msgZ0_0x27, 0xffff, 0, context: 5),
                     new(Node.msgZel00_0x9, 0x9, 11, context: 10),
-                    new(Node.msgZel00_0x28, 0x28, 11, context: 10),
+                    new(Node.msgZ0_0x28, 0x28, 11, context: 10),
 
                     // Temp, test skipping over payment evNode of Hylian shield
                     // new(StgBmg.Kakariko_Village_Interiors, 0x424, 0x428, 15, context: 15),
@@ -717,6 +718,32 @@ namespace TPRandomizer
 
             results2.AddBranchPatches(branchPatches);
 
+            // List<EventPatchEntity> eventPatches =
+            //     new()
+            //     {
+            //         // new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
+
+            //         // Custom func to give item (ice trap at 0x13)
+            //         // new(StgBmg.zel_00, 0x9, 11, eventIndex: 44, ushortParams: new() {0x13}, nextNodeIdx: 0xFFFF),
+            //         new(
+            //             Node.evZel00Other,
+            //             11,
+            //             eventIndex: 44,
+            //             ushortParams: new() { 0x13 },
+            //             nextNodeIdx: 0xFFFF
+            //         ),
+            //         // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
+            //         // TODO: probably don't need a context for this?
+            //         // new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
+            //         new(Node.evKakMaloMartHylianShieldPay, 15, intParam: 0x13b),
+            //         // Here is a different version of skipping over the payment
+            //         // event node. This is preferable to using a nodeRemap since
+            //         // those take 4 bytes in their table and this only takes 2.
+            //         // new(StgBmg.Kakariko_Village_Interiors, 0x429, 15, nextNodeIdx: 0x428),
+            //         new(Node.evKakMaloMartHylianShieldBeforePay, 15, nextNodeIdx: 0x428),
+            //     };
+            // results2.AddEventEntities(eventPatches);
+
             List<EventPatchEntity> eventPatches =
                 new()
                 {
@@ -724,85 +751,66 @@ namespace TPRandomizer
 
                     // Custom func to give item (ice trap at 0x13)
                     // new(StgBmg.zel_00, 0x9, 11, eventIndex: 44, ushortParams: new() {0x13}, nextNodeIdx: 0xFFFF),
-                    new(
-                        Node.evZel00Other,
-                        11,
-                        eventIndex: 44,
-                        ushortParams: new() { 0x13 },
-                        nextNodeIdx: 0xFFFF
-                    ),
-                    // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
-                    // TODO: probably don't need a context for this?
-                    // new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
-                    new(Node.evKakMaloMartHylianShieldPay, 15, intParam: 0x13b),
-                    // Here is a different version of skipping over the payment
-                    // event node. This is preferable to using a nodeRemap since
-                    // those take 4 bytes in their table and this only takes 2.
-                    // new(StgBmg.Kakariko_Village_Interiors, 0x429, 15, nextNodeIdx: 0x428),
-                    new(Node.evKakMaloMartHylianShieldBeforePay, 15, nextNodeIdx: 0x428),
                 };
 
-            results2.AddEventEntities(eventPatches);
+            results2.AddEventEntities(
+                new(
+                    Node.evZel00Other,
+                    11,
+                    eventIndex: 44,
+                    ushortParams: new() { 0x13 },
+                    nextNodeIdx: 0xFFFF
+                ),
+                // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
+                // TODO: probably don't need a context for this?
+                // new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
+                new(Node.evKakMaloMartHylianShieldPay, 15, intParam: 0x13b),
+                // Here is a different version of skipping over the payment
+                // event node. This is preferable to using a nodeRemap since
+                // those take 4 bytes in their table and this only takes 2.
+                // new(StgBmg.Kakariko_Village_Interiors, 0x429, 15, nextNodeIdx: 0x428),
+                new(Node.evKakMaloMartHylianShieldBeforePay, 15, nextNodeIdx: 0x428)
+            );
 
             AddMidnaConversationStuff();
         }
 
         private void AddMidnaConversationStuff()
         {
-            // List<CustomMessages.MessageEntry> cmEntries = GenMessageEntries();
-
-            // CustomMessages.MessageEntry cmEntryLh = cmEntries.Find(
-            //     entry =>
-            //     {
-            //         return entry.stageIDX == (byte)StageIDs.Ordon_Village
-            //             && entry.roomIDX == 1
-            //             && entry.messageID == 0x658;
-            //     }
-            // );
-
-            // CustomMessages.MessageEntry cmEntry = cmEntries[cmEntries.Count - 1];
+            ushort baseMidnaCtx = ctxGen.getNewContext();
 
             string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
             string messageOption2_8not9 = "\x1A\x06\x00\x00\x08\x02";
 
+            List<string> hintMessages = new() { "msg 1", "msg 2", "msg 3", "msg 4", "msg 5", };
+            // TODO: when calculate the correct hintMessages, use a single
+            // fallback text if there is no text at all. Should never happen
+            // since there will always be text about required dungeons.
+
             List<StrReplEntity> strEntries2 =
                 new()
                 {
-                    // new(BmgNumber.zel_00, 3, 0x5de, "Need something2?" + CustomMessages.shopOption),
                     new(
                         Node.msgZ0_MidnaTwoOptsBody,
-                        3,
+                        baseMidnaCtx,
                         "Need something2?" + CustomMessages.shopOption
                     ),
-                    // new(
-                    //     BmgNumber.zel_00,
-                    //     3,
-                    //     0x5df,
-                    //     $"{messageOption1_8not9}Change time of day2\n{messageOption2_8not9}Hints2"
-                    // ),
                     new(
                         Node.msgZ0_MidnaTwoOptsOptions,
-                        3,
+                        baseMidnaCtx,
                         $"{messageOption1_8not9}Change time of day2\n{messageOption2_8not9}Hints22"
                     ),
-                    // new(BmgNumber.zel_00, 3, 0x5e5, "Required dungeons2:\n" + cmEntryLh.message),
-                    // new(BmgNumber.zel_00, 3, 0x5e5, "Required dungeons2:"),
-                    new(Node.msgZ0_0x27, 3, "Required dungeons2:"),
-                    // new(BmgNumber.zel_00, 3, 0xa11, cmEntry.message),
                 };
             results2.AddStrReplacements(strEntries2);
 
             List<NodeRemapEntity> nodeRemaps =
                 new()
                 {
-                    // new(StgBmg.zel_00, 0x8f, 0x1a0, 3, fliValue: 0xbb8),
-
-                    // Go to node to decide if can change ToD or not
-                    // new(StgBmg.zel_00, 0x8f, 0x199, 3, fliValue: 0xbb8),
+                    // Start at custom branch node to decide if can change ToD or not
                     new(
                         Node.brTalkToMidnaRootNode,
                         Node.brZ0_GeneriCtxBranch.flwIdx,
-                        3,
+                        baseMidnaCtx,
                         fliValue: 0xbb8
                     ),
                 };
@@ -814,24 +822,18 @@ namespace TPRandomizer
                     // Check if can change ToD:
                     new(
                         Node.brZ0_GeneriCtxBranch,
-                        // StgBmg.zel_00,
-                        // 0x199,
-                        3,
+                        baseMidnaCtx,
                         queryIndex: 54,
-                        // nextNodeIndexes: new() { 0x1a0, 0x27 }
                         nextNodeIndexes: new()
                         {
                             Node.evZ0_MidnaTwoOptsInitEv.flwIdx,
                             Node.msgZ0_0x27.flwIdx
                         }
                     ),
-                    // Menu branch for "Change ToD / Hints"
-                    // new(StgBmg.zel_00, 0x1a3, 3, nextNodeIndexes: new() { 0x1a4, 0x27, 0xFFFF }),
+                    // Handle choice of "Change ToD / Hints" menu
                     new(
                         Node.brZ0_MidnaTwoOptsResultBranch,
-                        // StgBmg.zel_00,
-                        // 0x1a3,
-                        3,
+                        baseMidnaCtx,
                         nextNodeIndexes: new()
                         {
                             Node.evZ0_GenericCtxEvent.flwIdx,
@@ -842,13 +844,52 @@ namespace TPRandomizer
                 };
             results2.AddBranchPatches(branchPatches);
 
-            List<EventPatchEntity> eventPatches =
-                new()
+            // Make event change ToD
+            results2.AddEventEntities(
+                new(Node.evZ0_GenericCtxEvent, baseMidnaCtx, eventIndex: 43, nextNodeIdx: 0xFFFF)
+            );
+
+            // Add Midna hint messages
+            ushort latestContext = baseMidnaCtx;
+            for (int i = 0; i < hintMessages.Count; i++)
+            {
+                string msg = hintMessages[i];
+
+                List<StrReplEntity> strEntries =
+                    new() { new(Node.msgZ0_0x27, latestContext, msg), };
+                results2.AddStrReplacements(strEntries);
+
+                if (i == hintMessages.Count - 1)
                 {
-                    // new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
-                    new(Node.evZ0_GenericCtxEvent, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
-                };
-            results2.AddEventEntities(eventPatches);
+                    // Last one
+                    List<NodeRemapEntity> nodeRemaps3 =
+                        new()
+                        {
+                            // Start at custom branch node to decide if can change ToD or not
+                            new(Node.msgZ0_0x28, 0xFFFF, latestContext, context: latestContext),
+                        };
+                    results2.AddNodeRemaps(nodeRemaps3);
+                }
+                else
+                {
+                    // Has more messages
+                    ushort prevCtx = latestContext;
+                    latestContext = GetNewContext();
+
+                    List<NodeRemapEntity> nodeRemaps2 =
+                        new()
+                        {
+                            // Start at custom branch node to decide if can change ToD or not
+                            new(
+                                Node.msgZ0_0x28,
+                                Node.msgZ0_0x27.flwIdx,
+                                latestContext,
+                                context: prevCtx
+                            ),
+                        };
+                    results2.AddNodeRemaps(nodeRemaps2);
+                }
+            }
         }
 
         private void AddShopConfirmationMsg(
@@ -2191,6 +2232,25 @@ namespace TPRandomizer
         public StringTableResult2.Header AddBytesGenHeader(ushort headerSize, List<byte> bodyData)
         {
             return results2.AddBytesGenHeader(headerSize, bodyData);
+        }
+
+        private ushort GetNewContext()
+        {
+            return ctxGen.getNewContext();
+        }
+
+        private class CtxGen
+        {
+            private ushort nextContext = 1;
+
+            public ushort getNewContext()
+            {
+                ushort result = nextContext;
+                nextContext += 1;
+                if (result == 0)
+                    throw new Exception("Was returning an invalid context value of '0'.");
+                return result;
+            }
         }
     }
 }
