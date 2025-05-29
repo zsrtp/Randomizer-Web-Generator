@@ -630,26 +630,39 @@ namespace TPRandomizer
             List<NodeRemapEntity> nodeRemaps =
                 new()
                 {
-                    new(StgBmg.zel_00, 0xFFFF, 0x24, 1, fliValue: 0x7700),
-                    new(StgBmg.zel_00, 0xFFFF, 0x25, 1, fliValue: 0x7701),
+                    // new(StgBmg.zel_00, 0xFFFF, 0x24, 1, fliValue: 0x7700),
+                    new(Node.zel00_FFFF, 0x24, 1, fliValue: 0x7700),
+                    new(Node.zel00_FFFF, 0x25, 1, fliValue: 0x7701),
                     // new(StgBmg.zel_00, 0x7702, 0xFFFF, 0x26, 4),
                     // new(StgBmg.zel_00, 0x7702, 0xFFFF, 0x33, 0),
-                    new(StgBmg.zel_00, 0xFFFF, 0x194, 10, fliValue: 0x7702),
-                    new(StgBmg.zel_00, 0xFFFF, 0x27, 1, fliValue: 0x7703),
-                    new(StgBmg.zel_00, 0xFFFF, 0x28, 1, fliValue: 0x7704),
-                    new(StgBmg.zel_00, 0xFFFF, 0x24, 1, fliValue: 0x7710),
-                    new(StgBmg.zel_00, 0xFFFF, 0x25, 1, fliValue: 0x7711),
-                    new(StgBmg.zel_00, 0xFFFF, 0x26, 1, fliValue: 0x7712),
-                    new(StgBmg.zel_00, 0xFFFF, 0x27, 1, fliValue: 0x7713),
-                    new(StgBmg.zel_00, 0xFFFF, 0x28, 1, fliValue: 0x7714),
+                    new(Node.zel00_FFFF, 0x194, 10, fliValue: 0x7702),
+                    new(Node.zel00_FFFF, 0x27, 1, fliValue: 0x7703),
+                    new(Node.zel00_FFFF, 0x28, 1, fliValue: 0x7704),
+                    new(Node.zel00_FFFF, 0x24, 1, fliValue: 0x7710),
+                    new(Node.zel00_FFFF, 0x25, 1, fliValue: 0x7711),
+                    new(Node.zel00_FFFF, 0x26, 1, fliValue: 0x7712),
+                    new(Node.zel00_FFFF, 0x27, 1, fliValue: 0x7713),
+                    new(Node.zel00_FFFF, 0x28, 1, fliValue: 0x7714),
                     // new(StgBmg.zel_00, 0x8f, 0x1a0, 3, fliValue: 0xbb8),
+
                     // Test for hylian shield price change
-                    new(StgBmg.Kakariko_Village_Interiors, 0x421, 0x421, 15, fliValue: 0x145),
-                    // 0x26 has INF 0x136b
-                    new(StgBmg.zel_00, 0x27, 0x26, 5, context: 4),
-                    new(StgBmg.zel_00, 0x27, 0xffff, 0, context: 5),
-                    new(StgBmg.zel_00, 0x9, 0x9, 11, context: 10),
-                    new(StgBmg.zel_00, 0x28, 0x28, 11, context: 10),
+                    // new(StgBmg.Kakariko_Village_Interiors, 0x421, 0x421, 15, fliValue: 0x145),
+
+                    // TODO: I think we do not need to set a context for this
+                    // since we are always adjusting the existing thing that is
+                    // there rather than reusing nodes in a different way that
+                    // the game normally does.
+                    new(
+                        Node.brKakMaloMartHylianShieldCanAfford,
+                        Node.brKakMaloMartHylianShieldCanAfford.flwIdx,
+                        15,
+                        fliValue: 0x145
+                    ),
+                    //
+                    new(Node.msgZel00_0x27, 0x26, 5, context: 4),
+                    new(Node.msgZel00_0x27, 0xffff, 0, context: 5),
+                    new(Node.msgZel00_0x9, 0x9, 11, context: 10),
+                    new(Node.msgZel00_0x28, 0x28, 11, context: 10),
 
                     // Temp, test skipping over payment evNode of Hylian shield
                     // new(StgBmg.Kakariko_Village_Interiors, 0x424, 0x428, 15, context: 15),
@@ -761,7 +774,13 @@ namespace TPRandomizer
                     // new(StgBmg.zel_00, 0x8f, 0x1a0, 3, fliValue: 0xbb8),
 
                     // Go to node to decide if can change ToD or not
-                    new(StgBmg.zel_00, 0x8f, 0x199, 3, fliValue: 0xbb8),
+                    // new(StgBmg.zel_00, 0x8f, 0x199, 3, fliValue: 0xbb8),
+                    new(
+                        Node.brTalkToMidnaRootNode,
+                        Node.brZel00CtxPatch.flwIdx,
+                        3,
+                        fliValue: 0xbb8
+                    ),
                 };
             results2.AddNodeRemaps(nodeRemaps);
 

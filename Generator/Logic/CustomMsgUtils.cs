@@ -46,6 +46,11 @@ namespace TPRandomizer
             new(StgBmg.Kakariko_Village_Interiors, 0x429);
 
         // new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
+
+        public static NodeInst msgZel00_0x9 = new(StgBmg.zel_00, 0x9);
+        public static NodeInst msgZel00_0x27 = new(StgBmg.zel_00, 0x27);
+        public static NodeInst msgZel00_0x28 = new(StgBmg.zel_00, 0x28);
+        public static NodeInst zel00_FFFF = new(StgBmg.zel_00, 0xFFFF);
     }
 
     public enum MsgEntryId

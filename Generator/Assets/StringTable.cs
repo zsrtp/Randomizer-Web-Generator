@@ -316,16 +316,17 @@ namespace TPRandomizer.Assets
         public ushort newContext { get; private set; }
 
         public NodeRemapEntity(
-            StgBmg stgBmg,
-            ushort flwIndex,
+            NodeInst node,
+            // StgBmg stgBmg,
+            // ushort flwIndex,
             ushort newFlwIndex,
             ushort newContext,
             ushort? fliValue = null,
             ushort? context = null
         )
         {
-            BmgNumber bmgNumber = BmgNumUtils.StgBmgToBmgNumber(stgBmg);
-            Init(bmgNumber, fliValue, context, flwIndex, newFlwIndex, newContext);
+            BmgNumber bmgNumber = BmgNumUtils.StgBmgToBmgNumber(node.stgBmg);
+            Init(bmgNumber, fliValue, context, node.flwIdx, newFlwIndex, newContext);
         }
 
         private void Init(
