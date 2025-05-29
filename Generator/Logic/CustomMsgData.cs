@@ -672,8 +672,8 @@ namespace TPRandomizer
                         fliValue: 0x145
                     ),
                     //
-                    new(Node.msgZel00_0x27, 0x26, 5, context: 4),
-                    new(Node.msgZel00_0x27, 0xffff, 0, context: 5),
+                    new(Node.msgZ0_0x27, 0x26, 5, context: 4),
+                    new(Node.msgZ0_0x27, 0xffff, 0, context: 5),
                     new(Node.msgZel00_0x9, 0x9, 11, context: 10),
                     new(Node.msgZel00_0x28, 0x28, 11, context: 10),
 
@@ -768,15 +768,26 @@ namespace TPRandomizer
             List<StrReplEntity> strEntries2 =
                 new()
                 {
-                    new(BmgNumber.zel_00, 3, 0x5de, "Need something2?" + CustomMessages.shopOption),
+                    // new(BmgNumber.zel_00, 3, 0x5de, "Need something2?" + CustomMessages.shopOption),
                     new(
-                        BmgNumber.zel_00,
+                        Node.msgZ0_MidnaTwoOptsBody,
                         3,
-                        0x5df,
-                        $"{messageOption1_8not9}Change time of day2\n{messageOption2_8not9}Hints2"
+                        "Need something2?" + CustomMessages.shopOption
+                    ),
+                    // new(
+                    //     BmgNumber.zel_00,
+                    //     3,
+                    //     0x5df,
+                    //     $"{messageOption1_8not9}Change time of day2\n{messageOption2_8not9}Hints2"
+                    // ),
+                    new(
+                        Node.msgZ0_MidnaTwoOptsOptions,
+                        3,
+                        $"{messageOption1_8not9}Change time of day2\n{messageOption2_8not9}Hints22"
                     ),
                     // new(BmgNumber.zel_00, 3, 0x5e5, "Required dungeons2:\n" + cmEntryLh.message),
-                    new(BmgNumber.zel_00, 3, 0x5e5, "Required dungeons2:"),
+                    // new(BmgNumber.zel_00, 3, 0x5e5, "Required dungeons2:"),
+                    new(Node.msgZ0_0x27, 3, "Required dungeons2:"),
                     // new(BmgNumber.zel_00, 3, 0xa11, cmEntry.message),
                 };
             results2.AddStrReplacements(strEntries2);
@@ -790,7 +801,7 @@ namespace TPRandomizer
                     // new(StgBmg.zel_00, 0x8f, 0x199, 3, fliValue: 0xbb8),
                     new(
                         Node.brTalkToMidnaRootNode,
-                        Node.brZel00CtxPatch.flwIdx,
+                        Node.brZ0_GeneriCtxBranch.flwIdx,
                         3,
                         fliValue: 0xbb8
                     ),
@@ -802,21 +813,31 @@ namespace TPRandomizer
                 {
                     // Check if can change ToD:
                     new(
-                        Node.brZel00CtxPatch,
+                        Node.brZ0_GeneriCtxBranch,
                         // StgBmg.zel_00,
                         // 0x199,
                         3,
                         queryIndex: 54,
-                        nextNodeIndexes: new() { 0x1a0, 0x27 }
+                        // nextNodeIndexes: new() { 0x1a0, 0x27 }
+                        nextNodeIndexes: new()
+                        {
+                            Node.evZ0_MidnaTwoOptsInitEv.flwIdx,
+                            Node.msgZ0_0x27.flwIdx
+                        }
                     ),
                     // Menu branch for "Change ToD / Hints"
                     // new(StgBmg.zel_00, 0x1a3, 3, nextNodeIndexes: new() { 0x1a4, 0x27, 0xFFFF }),
                     new(
-                        Node.brZel00TwoOptsResultBranch,
+                        Node.brZ0_MidnaTwoOptsResultBranch,
                         // StgBmg.zel_00,
                         // 0x1a3,
                         3,
-                        nextNodeIndexes: new() { Node.evZel00CtxPatch.flwIdx, 0x27, 0xFFFF }
+                        nextNodeIndexes: new()
+                        {
+                            Node.evZ0_GenericCtxEvent.flwIdx,
+                            Node.msgZ0_0x27.flwIdx,
+                            0xFFFF
+                        }
                     ),
                 };
             results2.AddBranchPatches(branchPatches);
@@ -825,7 +846,7 @@ namespace TPRandomizer
                 new()
                 {
                     // new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
-                    new(Node.evZel00CtxPatch, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
+                    new(Node.evZ0_GenericCtxEvent, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
                 };
             results2.AddEventEntities(eventPatches);
         }
