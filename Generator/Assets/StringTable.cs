@@ -800,7 +800,7 @@ namespace TPRandomizer.Assets
             }
         }
 
-        private void HandleAddEventEntity(EventPatchEntity entity)
+        public void AddEventEntity(EventPatchEntity entity)
         {
             if (entity.hasPatchBytes())
                 storedEventPatches.Add(entity);
@@ -809,15 +809,11 @@ namespace TPRandomizer.Assets
                 storedEventNextNodes.Add(entity);
         }
 
-        public void AddEventEntities(
-            EventPatchEntity entity,
-            params EventPatchEntity[] eventPatches
-        )
+        public void AddEventEntities(List<EventPatchEntity> eventPatches)
         {
-            HandleAddEventEntity(entity);
             foreach (EventPatchEntity eventPatch in eventPatches)
             {
-                HandleAddEventEntity(eventPatch);
+                AddEventEntity(eventPatch);
             }
         }
 

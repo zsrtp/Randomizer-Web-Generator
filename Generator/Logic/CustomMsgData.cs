@@ -562,81 +562,13 @@ namespace TPRandomizer
             // menus have 1a 06 00 00 **09** xx when there are 3 options, but 1a
             // 06 00 00 **08** xx when there are 2 options.
 
-            // Need one of bmgNumber or stageId (stageId to be developed so can map to bmgNumber)
-
-            // Also need optional context
-            // Also need mandatory infIndex
-            // Also need mandatory string content
-
-            // Test 2
             List<StrReplEntity> strEntries2 =
                 new()
                 {
-                    // new(BmgNumber.zel_00, 3, 0x5de, "Need something2?" + CustomMessages.shopOption),
-                    // new(
-                    //     BmgNumber.zel_00,
-                    //     3,
-                    //     0x5df,
-                    //     $"{messageOption1_8not9}Hints2\n{messageOption2_8not9}Change time of day2"
-                    //     // $"{CustomMessages.messageOption1}Hints\n{CustomMessages.messageOption2}Change time of day"
-                    // ),
-                    // new(
-                    //     BmgNumber.zel_00,
-                    //     3,
-                    //     0x5e5,
-                    //     "Required dungeons2:\n" + cmEntryLh.message
-                    // ),
-                    // new(
-                    //     BmgNumber.zel_00,
-                    //     3,
-                    //     0xa11,
-                    //     cmEntry.message
-                    // ),
-                    // new(StageIDs.Castle_Town, null, 0x4ce, "Test text for star signs outside"),
                     new(Node.msgCT_StarSigns, null, "Test text for star signs outside"),
-                    // new(StageIDs.Castle_Town, null, 0x368, "test talk to girls1"),
                     new(Node.msgCT_StarGirlsNoAttemptFirst, null, "test talk to girls1"),
-                    // new(StageIDs.Castle_Town, null, 0x369, "test talk to girls2"),
                     new(Node.msgCT_StarGirlsNoAttemptSecond, null, "test talk to girls2"),
-                    // new(StageIDs.Castle_Town, null, 0x36a, "test talk to girls3"),
                     new(Node.msgCT_StarGirlsNoAttemptThird, null, "test talk to girls3"),
-                    //
-                    // new(
-                    //     BmgNumber.zel_00,
-                    //     10,
-                    //     // 0xbbb,
-                    //     0x1369,
-                    //     Res.LangSpecificNormalize(
-                    //         "How many Cuccos are at Lake Hylia?" + CustomMessages.shopOption
-                    //     )
-                    StrReplEntity.CustomSignText(
-                        10,
-                        Res.LangSpecificNormalize(
-                            "How many Cuccos are at Lake Hylia?" + CustomMessages.shopOption
-                        )
-                    ),
-                    // $"CustomMenu{CustomMessages.shopOption}"
-                    // new(
-                    //     BmgNumber.zel_00,
-                    //     10,
-                    //     // 0xa2e,
-                    //     0x136a,
-                    //     $"{CustomMessages.messageOption1}7\n{CustomMessages.messageOption2}8\n{CustomMessages.messageOption3}9"
-                    // // $"{CustomMessages.messageOption1}Hints\n{CustomMessages.messageOption2}Change time of day"
-                    // ),
-                    StrReplEntity.CustomSignOptions(
-                        10,
-                        $"{CustomMessages.messageOption1}7\n{CustomMessages.messageOption2}8\n{CustomMessages.messageOption3}9"
-                    ),
-                    // new(
-                    //     BmgNumber.zel_00,
-                    //     11,
-                    //     0x1369, // FLW 0x28, but sign flow always uses 1369 for msg
-                    //     // $"Hint from correct answer!"
-                    //     // "Correct!\n\n\n\n" + cmEntry.message
-                    //     "Correct!"
-                    // ),
-                    StrReplEntity.CustomSignText(11, "Correct!"),
                     // Fallback text
                     StrReplEntity.CustomSignText(
                         1, // TODO: create an enum of reserved context values probably.
@@ -649,21 +581,6 @@ namespace TPRandomizer
             List<NodeRemapEntity> nodeRemaps =
                 new()
                 {
-                    // new(StgBmg.zel_00, 0xFFFF, 0x24, 1, fliValue: 0x7700),
-                    new(Node.zel00_FFFF, 0x24, 1, fliValue: 0x7700),
-                    new(Node.zel00_FFFF, 0x25, 1, fliValue: 0x7701),
-                    // new(StgBmg.zel_00, 0x7702, 0xFFFF, 0x26, 4),
-                    // new(StgBmg.zel_00, 0x7702, 0xFFFF, 0x33, 0),
-                    new(Node.zel00_FFFF, 0x194, 10, fliValue: 0x7702),
-                    new(Node.zel00_FFFF, 0x27, 1, fliValue: 0x7703),
-                    new(Node.zel00_FFFF, 0x28, 1, fliValue: 0x7704),
-                    new(Node.zel00_FFFF, 0x24, 1, fliValue: 0x7710),
-                    new(Node.zel00_FFFF, 0x25, 1, fliValue: 0x7711),
-                    new(Node.zel00_FFFF, 0x26, 1, fliValue: 0x7712),
-                    new(Node.zel00_FFFF, 0x27, 1, fliValue: 0x7713),
-                    new(Node.zel00_FFFF, 0x28, 1, fliValue: 0x7714),
-                    // new(StgBmg.zel_00, 0x8f, 0x1a0, 3, fliValue: 0xbb8),
-
                     // Test for hylian shield price change
                     // new(StgBmg.Kakariko_Village_Interiors, 0x421, 0x421, 15, fliValue: 0x145),
 
@@ -677,12 +594,6 @@ namespace TPRandomizer
                         15,
                         fliValue: 0x145
                     ),
-                    //
-                    new(Node.msgZ0_0x27, 0x26, 5, context: 4),
-                    new(Node.msgZ0_0x27, 0xffff, 0, context: 5),
-                    new(Node.msgZel00_0x9, 0x9, 11, context: 10),
-                    new(Node.msgZ0_0x28, 0x28, 11, context: 10),
-
                     // Temp, test skipping over payment evNode of Hylian shield
                     // new(StgBmg.Kakariko_Village_Interiors, 0x424, 0x428, 15, context: 15),
                 };
@@ -692,16 +603,6 @@ namespace TPRandomizer
             List<BranchPatchEntity> branchPatches =
                 new()
                 {
-                    // new(StgBmg.zel_00, 0x1a3, 3, nextNodeIndexes: new() { 0x27, 0x1a4, 0xFFFF }),
-
-                    // Test sign remap
-                    new(
-                        Node.brZel00ThreeOptsResultBranch,
-                        // StgBmg.zel_00,
-                        // 0x193,
-                        10,
-                        nextNodeIndexes: new() { 0x28, 0x9, 0x9, 0xFFFF }
-                    ),
                     // Patch comparison to see if you can afford hylian shield
                     // Change price to 0x13b (315)
                     // new(StgBmg.Kakariko_Village_Interiors, 0x421, 15, parameters: 0x13b),
@@ -723,58 +624,19 @@ namespace TPRandomizer
 
             results2.AddBranchPatches(branchPatches);
 
-            // List<EventPatchEntity> eventPatches =
-            //     new()
-            //     {
-            //         // new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
-
-            //         // Custom func to give item (ice trap at 0x13)
-            //         // new(StgBmg.zel_00, 0x9, 11, eventIndex: 44, ushortParams: new() {0x13}, nextNodeIdx: 0xFFFF),
-            //         new(
-            //             Node.evZel00Other,
-            //             11,
-            //             eventIndex: 44,
-            //             ushortParams: new() { 0x13 },
-            //             nextNodeIdx: 0xFFFF
-            //         ),
-            //         // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
-            //         // TODO: probably don't need a context for this?
-            //         // new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
-            //         new(Node.evKakMaloMartHylianShieldPay, 15, intParam: 0x13b),
-            //         // Here is a different version of skipping over the payment
-            //         // event node. This is preferable to using a nodeRemap since
-            //         // those take 4 bytes in their table and this only takes 2.
-            //         // new(StgBmg.Kakariko_Village_Interiors, 0x429, 15, nextNodeIdx: 0x428),
-            //         new(Node.evKakMaloMartHylianShieldBeforePay, 15, nextNodeIdx: 0x428),
-            //     };
-            // results2.AddEventEntities(eventPatches);
-
-            List<EventPatchEntity> eventPatches =
+            results2.AddEventEntities(
                 new()
                 {
-                    // new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
-
-                    // Custom func to give item (ice trap at 0x13)
-                    // new(StgBmg.zel_00, 0x9, 11, eventIndex: 44, ushortParams: new() {0x13}, nextNodeIdx: 0xFFFF),
-                };
-
-            results2.AddEventEntities(
-                new(
-                    Node.evZel00Other,
-                    11,
-                    eventIndex: 44,
-                    ushortParams: new() { 0x13 },
-                    nextNodeIdx: 0xFFFF
-                ),
-                // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
-                // TODO: probably don't need a context for this?
-                // new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
-                new(Node.evKakMaloMartHylianShieldPay, 15, intParam: 0x13b),
-                // Here is a different version of skipping over the payment
-                // event node. This is preferable to using a nodeRemap since
-                // those take 4 bytes in their table and this only takes 2.
-                // new(StgBmg.Kakariko_Village_Interiors, 0x429, 15, nextNodeIdx: 0x428),
-                new(Node.evKakMaloMartHylianShieldBeforePay, 15, nextNodeIdx: 0x428)
+                    new(Node.evKakMaloMartHylianShieldPay, 15, intParam: 0x13b),
+                    // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
+                    // TODO: probably don't need a context for this?
+                    // new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
+                    // Here is a different version of skipping over the payment
+                    // event node. This is preferable to using a nodeRemap since
+                    // those take 4 bytes in their table and this only takes 2.
+                    // new(StgBmg.Kakariko_Village_Interiors, 0x429, 15, nextNodeIdx: 0x428),
+                    new(Node.evKakMaloMartHylianShieldBeforePay, 15, nextNodeIdx: 0x428),
+                }
             );
 
             AddMidnaConversationStuff();
@@ -850,7 +712,7 @@ namespace TPRandomizer
             results2.AddBranchPatches(branchPatches);
 
             // Make event change ToD
-            results2.AddEventEntities(
+            results2.AddEventEntity(
                 new(Node.evZ0_GenericCtxEvent, baseMidnaCtx, eventIndex: 43, nextNodeIdx: 0xFFFF)
             );
 
