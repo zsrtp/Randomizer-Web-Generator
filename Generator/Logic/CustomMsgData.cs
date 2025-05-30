@@ -637,6 +637,11 @@ namespace TPRandomizer
                     //     "Correct!"
                     // ),
                     StrReplEntity.CustomSignText(11, "Correct!"),
+                    // Fallback text
+                    StrReplEntity.CustomSignText(
+                        1, // TODO: create an enum of reserved context values probably.
+                        Res.LangSpecificNormalize(Res.SimpleMsg("hint.none-placed-here"))
+                    ),
                 };
 
             results2.AddStrReplacements(strEntries2);
@@ -2241,7 +2246,9 @@ namespace TPRandomizer
 
         private class CtxGen
         {
-            private ushort nextContext = 1;
+            // Starting at 2 since context of 1 is reserved for custom sign
+            // fallback msg.
+            private ushort nextContext = 2;
 
             public ushort getNewContext()
             {
