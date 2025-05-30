@@ -416,18 +416,6 @@ namespace TPRandomizer
             List<MessageEntry> ret = results;
             results = null;
 
-            // TODO: temp remap to a new thing. Works.
-            for (int i = 0; i < ret.Count; i++)
-            {
-                MessageEntry entry = ret[i];
-                if (entry.messageID == 0x1369)
-                {
-                    // temp remap
-                    entry.messageID = 0x136d;
-                }
-                ret[i] = entry;
-            }
-
             return ret;
         }
 
@@ -1482,6 +1470,11 @@ namespace TPRandomizer
 
                         spotToTexts[hintSpot.location] = msgNodeTexts;
 
+                        TestPuttingCustomSignStuff(hintSpot.location, msgNodeTexts);
+
+                        // TODO: copy Midna approach for putting an array of
+                        // texts on a spot.
+
                         // Need to operate over the hints on the spot. They will
                         // need to be converted into a list of strings where
                         // each string is a merging of hints such that they do
@@ -1561,41 +1554,55 @@ namespace TPRandomizer
                 )
             );
 
-            if (spotToTexts.TryGetValue(SpotId.Ordon_Sign, out List<string> midnaTexts))
-            {
-                if (midnaTexts.Count > 5)
-                    throw new Exception(
-                        $"Expected at most 5 nodeTexts, but had '{midnaTexts.Count}'."
-                    );
-
-                UInt16 val = (UInt16)(0x1378 - midnaTexts.Count);
-
-                for (int i = 0; i < midnaTexts.Count; i++)
-                {
-                    MessageEntry a = new(0xFF, 0xFF, (short)(val + i));
-                    a.message = midnaTexts[i];
-                    results.Add(a);
-                }
-
-                // // TODO: temp adding text for Midna
-                // MessageEntry a = new(0xFF, 0xFF, 0x1373);
-                // a.message = "Midna first";
-                // MessageEntry b = new(0xFF, 0xFF, 0x1374);
-                // b.message = "Midna 2nd";
-                // MessageEntry c = new(0xFF, 0xFF, 0x1375);
-                // c.message = "Midna 3rd";
-                // MessageEntry d = new(0xFF, 0xFF, 0x1376);
-                // d.message = "Midna 4thh";
-                // MessageEntry e = new(0xFF, 0xFF, 0x1377);
-                // e.message = "Midna 5555";
-                // results.Add(a);
-                // results.Add(b);
-                // results.Add(c);
-                // results.Add(d);
-                // results.Add(e);
-            }
-
             return spotToTexts;
+        }
+
+        private void TestPuttingCustomSignStuff(SpotId spotId, List<string> messages)
+        {
+            if (ListUtils.isEmpty(messages))
+                return;
+
+            ushort fliValue = CustomMsgUtils.GetFliValueOfSpot(spotId);
+
+            // Add Midna hint messages
+            ushort latestContext = GetNewContext();
+
+            results2.AddNodeRemap(
+                new(Node.zel00_FFFF, Node.msgZ0_0x28.flwIdx, latestContext, fliValue: fliValue)
+            );
+
+            for (int i = 0; i < messages.Count; i++)
+            {
+                string msg = messages[i];
+
+                List<StrReplEntity> strEntries =
+                    new()
+                    {
+                        // new(Node.msgZ0_0x28, latestContext, msg),
+                        StrReplEntity.CustomSignText(latestContext, msg),
+                    };
+                results2.AddStrReplacements(strEntries);
+
+                if (i < messages.Count - 1)
+                {
+                    // If has more messages, map back to same node instead of
+                    // continuing to 0xFFFF.
+                    ushort prevCtx = latestContext;
+                    latestContext = GetNewContext();
+
+                    List<NodeRemapEntity> nodeRemaps2 =
+                        new()
+                        {
+                            new(
+                                Node.zel00_FFFF,
+                                Node.msgZ0_0x28.flwIdx,
+                                latestContext,
+                                context: prevCtx
+                            ),
+                        };
+                    results2.AddNodeRemaps(nodeRemaps2);
+                }
+            }
         }
 
         private void AddShopSlotMsg(

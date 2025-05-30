@@ -62,7 +62,7 @@ namespace TPRandomizer
         public static NodeInst brZ0_MidnaTwoOptsResultBranch = new(StgBmg.zel_00, 0x1a3);
         public static NodeInst msgZel00_0x9 = new(StgBmg.zel_00, 0x9);
         public static MsgNodeInst msgZ0_0x27 = new(StgBmg.zel_00, 0x27, 0x5e5);
-        public static NodeInst msgZ0_0x28 = new(StgBmg.zel_00, 0x28);
+        public static MsgNodeInst msgZ0_0x28 = new(StgBmg.zel_00, 0x28, 0xa11);
         public static NodeInst zel00_FFFF = new(StgBmg.zel_00, 0xFFFF);
         public static MsgNodeInst msgCT_StarSigns = new(StgBmg.Castle_Town, 0x883, 0x4ce);
         public static MsgNodeInst msgCT_StarGirlsNoAttemptFirst =
@@ -500,6 +500,59 @@ namespace TPRandomizer
         public static bool SpotIdHasBmgData(SpotId spotId)
         {
             return spotToBmgData.ContainsKey(spotId);
+        }
+
+        private static readonly Dictionary<SpotId, ushort> spotToFliValue =
+            new()
+            {
+                { SpotId.Ordon_Sign, 0x72b0 },
+                { SpotId.Sacred_Grove_Sign, 0x7360 },
+                { SpotId.Faron_Field_Sign, 0x7381 },
+                { SpotId.Faron_Woods_Sign, 0x72d0 },
+                { SpotId.Kakariko_Gorge_Sign, 0x7382 },
+                { SpotId.Kakariko_Village_Sign, 0x72e0 },
+                { SpotId.Kakariko_Graveyard_Sign, 0x7300 },
+                { SpotId.Eldin_Field_Sign, 0x7380 },
+                { SpotId.North_Eldin_Sign, 0x7383 },
+                { SpotId.Death_Mountain_Sign, 0x72f0 },
+                { SpotId.Hidden_Village_Sign, 0x73f0 },
+                { SpotId.Lanayru_Field_Sign, 0x7384 },
+                { SpotId.Beside_Castle_Town_Sign, 0x7390 },
+                { SpotId.South_of_Castle_Town_Sign, 0x7391 },
+                { SpotId.Castle_Town_Sign, 0x7350 },
+                { SpotId.Great_Bridge_of_Hylia_Sign, 0x7385 },
+                { SpotId.Lake_Hylia_Sign, 0x7340 },
+                { SpotId.Lake_Lantern_Cave_Sign, 0x7210 },
+                { SpotId.Lanayru_Spring_Sign, 0x7341 },
+                { SpotId.Zoras_Domain_Sign, 0x7320 },
+                { SpotId.Upper_Zoras_River_Sign, 0x73e0 },
+                { SpotId.Gerudo_Desert_Sign, 0x73b0 },
+                { SpotId.Bulblin_Camp_Sign, 0x7370 },
+                { SpotId.Snowpeak_Mountain_Sign, 0x7330 },
+                { SpotId.Cave_of_Ordeals_Sign, 0x71f0 },
+                { SpotId.Forest_Temple_Sign, 0x7060 },
+                { SpotId.Goron_Mines_Sign, 0x7030 },
+                { SpotId.Lakebed_Temple_Sign, 0x7000 },
+                { SpotId.Arbiters_Grounds_Sign, 0x7180 },
+                { SpotId.Snowpeak_Ruins_Sign, 0x71b0 },
+                { SpotId.Temple_of_Time_Sign, 0x7090 },
+                { SpotId.Temple_of_Time_Beyond_Point_Sign, 0x7091 },
+                { SpotId.City_in_the_Sky_Sign, 0x70c0 },
+                { SpotId.Palace_of_Twilight_Sign, 0x70f0 },
+                { SpotId.Hyrule_Castle_Sign, 0x7140 },
+            };
+
+        public static bool SpotHasCustomFliValue(SpotId spotId)
+        {
+            return spotToFliValue.ContainsKey(spotId);
+        }
+
+        public static ushort GetFliValueOfSpot(SpotId spotId)
+        {
+            if (!spotToFliValue.TryGetValue(spotId, out ushort fliValue))
+                throw new Exception($"Failed to find fliValue for spotId '{spotId}'.");
+
+            return fliValue;
         }
 
         public static MessageEntry GetEntryForSpotId(SpotId spotId)

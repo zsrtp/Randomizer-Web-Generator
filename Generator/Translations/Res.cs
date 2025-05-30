@@ -665,33 +665,33 @@ namespace TPRandomizer
             if (doFancy)
             {
                 // hintTexts[0] = LangSpecificNormalize(
-                //     "What's this you've said to me, my good friend? Ill have you know I graduated top of my class in conflict resolution, and Ive been involved in numerous friendly discussions, and I have over 300 confirmed friends. I am trained in polite discussions and I'm the top mediator in the entire neighborhood. You are worth more to me than just another target. I hope we will come to have a friendship never before seen on this Earth. Don't you think you might be hurting someone's feelings saying that over the internet? Think about it, my friend. As we speak I am contacting my good friends across the USA and your P.O. box is being traced right now so you better prepare for the greeting cards, friend. The greeting cards that help you with your hate. You should look forward to it, friend. I can be anywhere, anytime for you, and I can calm you in over seven hundred ways, and that's just with my chess set. Not only am I extensively trained in conflict resolution, but I have access to the entire group of my friends and I will use them to their full extent to start our new friendship. If only you could have known what kindness and love your little comment was about to bring you, maybe you would have reached out sooner. But you couldn't, you didn't, and now we get to start a new friendship, you unique person. I will give you gifts and you might have a hard time keeping up. You're finally living, friend."
+                //     "What's this you've said to me, my good friend? Ill have you know I graduated top of my class in conflict resolution, and Ive been involved in numerous friendly discussions, and I have over 300 confirmed friends. I am trained in polite discussions and I'm the top mediator in the entire neighborhood. You are worth more to me than just another target. I hope we will come to have a friendship never before seen on this Earth. Don't you think you might be hurting someone's feelings saying that over the internet? Think about it, my friend. As we speak I am contacting my good friends across the USA and your P.O. box is being traced right now so you better prepare for the greeting cards, friend. The greeting cards that help you with your hate. You should look forward to it, friend. I can be anywhere, anytime for you, and I can calm you in over seven hundred ways, and that's just with my chess set. Not only am I extensively trained in conflict resolution, but I have access to the entire group of my friends and I will use them to their full extent to start our new friendship. If only you could have known what kindness and love your little comment was about to bring you, maybe you would have reached out sooner. But you couldn't, you didn't, and now we get to start a new friendship, you unique person. I will give you gifts and you might have a hard time keeping up. You're finally living, friend. What's this you've said to me, my good friend? Ill have you know I graduated top of my class in conflict resolution, and Ive been involved in numerous friendly discussions, and I have over 300 confirmed friends. I am trained in polite discussions and I'm the top mediator in the entire neighborhood. You are worth more to me than just another target. I hope we will come to have a friendship never before seen on this Earth. Don't you think you might be hurting someone's feelings saying that over the internet? Think about it, my friend. As we speak I am contacting my good friends across the USA and your P.O. box is being traced right now so you better prepare for the greeting cards, friend. The greeting cards that help you with your hate. You should look forward to it, friend. I can be anywhere, anytime for you, and I can calm you in over seven hundred ways, and that's just with my chess set. Not only am I extensively trained in conflict resolution, but I have access to the entire group of my friends and I will use them to their full extent to start our new friendship. If only you could have known what kindness and love your little comment was about to bring you, maybe you would have reached out sooner. But you couldn't, you didn't, and now we get to start a new friendship, you unique person. I will give you gifts and you might have a hard time keeping up. You're finally living, friend."
                 // );
 
                 // hintTexts.add ($"Required Dungeons:");
             }
 
             int linesPerNode = IsCultureJa() ? 15 : 16;
-            int linesPerTextbox = IsCultureJa() ? 3 : 4;
+            // int linesPerTextbox = IsCultureJa() ? 3 : 4;
             List<string> retNodes = new();
-
-            string currNodeText = "";
-            int currNodeNumNewLines = 0;
 
             for (int hintIdx = 0; hintIdx < hintTexts.Count; hintIdx++)
             {
+                string currNodeText = "";
+                int currNodeNumNewLines = 0;
+
                 string currBaseText = hintTexts[hintIdx];
                 if (StringUtils.isEmpty(currBaseText))
                     continue;
 
-                if (hintIdx > 0)
-                {
-                    int numToAdd = linesPerTextbox - (currNodeNumNewLines % linesPerTextbox);
-                    for (int i = 0; i < numToAdd; i++)
-                    {
-                        currNodeText += '\n';
-                    }
-                }
+                // if (hintIdx > 0)
+                // {
+                //     int numToAdd = linesPerTextbox - (currNodeNumNewLines % linesPerTextbox);
+                //     for (int i = 0; i < numToAdd; i++)
+                //     {
+                //         currNodeText += '\n';
+                //     }
+                // }
 
                 int currIdx = 0;
                 while (currIdx < currBaseText.Length)
@@ -713,7 +713,7 @@ namespace TPRandomizer
                     if (c == '\n')
                     {
                         currNodeNumNewLines += 1;
-                        if (retNodes.Count < 5 && currNodeNumNewLines >= linesPerNode)
+                        if (currNodeNumNewLines >= linesPerNode)
                         {
                             // break current text into its own node and start over
                             retNodes.Add(currNodeText);
@@ -727,27 +727,13 @@ namespace TPRandomizer
                     currNodeText += c;
                     currIdx += 1;
                 }
+
+                if (!StringUtils.isEmpty(currNodeText))
+                {
+                    retNodes.Add(currNodeText);
+                }
             }
 
-            if (!StringUtils.isEmpty(currNodeText))
-                retNodes.Add(currNodeText);
-
-            // int linesPerTextbox = IsCultureJa() ? 3 : 4;
-
-            // int numToAdd;
-            // if (numNewLines == 0)
-            //     numToAdd = linesPerTextbox;
-            // else
-            //     numToAdd = linesPerTextbox - (numNewLines % linesPerTextbox);
-
-            // for (int i = 0; i < numToAdd; i++)
-            // {
-            //     output += '\n';
-            // }
-
-            // return output;
-
-            //
             return retNodes;
         }
 

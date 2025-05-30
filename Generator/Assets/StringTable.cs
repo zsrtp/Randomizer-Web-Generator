@@ -783,6 +783,11 @@ namespace TPRandomizer.Assets
             }
         }
 
+        public void AddNodeRemap(NodeRemapEntity nodeRemap)
+        {
+            storedNodeRemaps.Add(nodeRemap);
+        }
+
         public void AddNodeRemaps(List<NodeRemapEntity> nodeRemaps)
         {
             storedNodeRemaps.AddRange(nodeRemaps);
