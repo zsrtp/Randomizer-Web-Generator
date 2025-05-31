@@ -73,11 +73,11 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town, 0x76, 0x36a);
         public static MsgNodeInst msgCT_AgithaSign = new(StgBmg.Castle_Town, 0xa2d, 0x456);
         public static MsgNodeInst msgCT_JovaniSign = new(StgBmg.Castle_Town, 0xa2e, 0x457);
+        public static MsgNodeInst msgOrdon_LinksHouseSign = new(StgBmg.Ordon_Village, 0x467, 0x658);
     }
 
     public enum MsgEntryId
     {
-        Link_House_Sign,
         Sera_Slingshot_Slot,
         Sera_Slingshot_Cant_Afford,
         Sera_Slingshot_Confirmation,
@@ -130,21 +130,6 @@ namespace TPRandomizer
         private static readonly Dictionary<MsgEntryId, MessageEntry> idToEntry =
             new()
             {
-                // new MessageEntry
-                // {
-                //     stageIDX = (byte)StageIDs.Ordon_Village_Interiors,
-                //     roomIDX = 1,
-                //     // messageID = 0x5AD, // Slingshot Check
-                //     messageID = 0x5AE, // Slingshot Check
-                //     message =
-                //         getShortenedItemName(Randomizer.Checks.CheckDict["Sera Shop Slingshot"].itemId)
-                //         + ": "
-                //         + messageColorPurple
-                //         + "30 Rupees\n"
-                //         + messageColorWhite
-                //         + "     LIMITED SUPPLY!\nDon't let them sell out before you\nbuy one!"
-                // },
-                { MsgEntryId.Link_House_Sign, new(StageIDs.Ordon_Village, 1, 0x658) },
                 { MsgEntryId.Sera_Slingshot_Slot, new(StageIDs.Ordon_Village_Interiors, 1, 0x5AE) },
                 {
                     MsgEntryId.Sera_Slingshot_Cant_Afford,

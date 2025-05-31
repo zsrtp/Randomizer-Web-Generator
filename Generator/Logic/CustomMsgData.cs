@@ -935,7 +935,7 @@ namespace TPRandomizer
                 text = Res.SimpleMsg("required-dungeon.none", null);
 
             string normalized = Res.LangSpecificNormalize(text);
-            results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Link_House_Sign, normalized));
+            results2.AddStrReplacement(new(Node.msgOrdon_LinksHouseSign, null, normalized));
         }
 
         private void GenSelfHinterEntries()

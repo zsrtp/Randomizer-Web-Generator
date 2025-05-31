@@ -645,17 +645,17 @@ namespace TPRandomizer.Assets
             Init(bmgNumber, context, msgNode.infIndex, str);
         }
 
-        public StrReplEntity(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
+        private StrReplEntity(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
         {
             Init(bmgNumber, context, infIndex, str);
         }
 
-        public StrReplEntity(StageIDs stageId, ushort? context, ushort infIndex, string str)
-        {
-            BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
+        // public StrReplEntity(StageIDs stageId, ushort? context, ushort infIndex, string str)
+        // {
+        //     BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
 
-            Init(bmgNumber, context, infIndex, str);
-        }
+        //     Init(bmgNumber, context, infIndex, str);
+        // }
 
         private void Init(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
         {
@@ -838,6 +838,11 @@ namespace TPRandomizer.Assets
             {
                 AddEventEntity(eventPatch);
             }
+        }
+
+        public void AddStrReplacement(StrReplEntity strReplacement)
+        {
+            storedStrRepl.Add(strReplacement);
         }
 
         public void AddStrReplacements(List<StrReplEntity> strReplacements)
