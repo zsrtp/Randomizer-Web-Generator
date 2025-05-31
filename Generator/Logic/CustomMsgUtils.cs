@@ -118,46 +118,6 @@ namespace TPRandomizer
         Castle_Town_Goron_Arrows_Confirmation_Second,
         Castle_Town_Goron_Shield_Confirmation_Intitial,
         Castle_Town_Goron_Shield_Confirmation_Second,
-        Agithas_Castle_Sign,
-        Jovani_House_Sign,
-        Custom_Sign_Ordon,
-        Custom_Sign_Sacred_Grove,
-        Custom_Sign_Faron_Field,
-        Custom_Sign_Faron_Woods,
-        Custom_Sign_Kakariko_Gorge,
-        Custom_Sign_Kakariko_Village,
-        Custom_Sign_Kakariko_Graveyard,
-        Custom_Sign_Eldin_Field,
-        Custom_Sign_North_Eldin,
-        Custom_Sign_Death_Mountain,
-        Custom_Sign_Hidden_Village,
-        Custom_Sign_Lanayru_Field,
-        Custom_Sign_Beside_Castle_Town,
-        Custom_Sign_South_of_Castle_Town,
-        Custom_Sign_Castle_Town,
-        Custom_Sign_Great_Bridge_of_Hylia,
-        Custom_Sign_Lake_Hylia,
-        Custom_Sign_Lake_Lantern_Cave,
-        Custom_Sign_Lanayru_Spring,
-        Custom_Sign_Zoras_Domain,
-        Custom_Sign_Upper_Zoras_River,
-        Custom_Sign_Gerudo_Desert,
-        Custom_Sign_Bulblin_Camp,
-        Custom_Sign_Snowpeak_Mountain,
-        Custom_Sign_Golden_Wolf,
-        Custom_Sign_Cave_of_Ordeals,
-        Custom_Sign_LongMinigames,
-        Custom_Sign_Forest_Temple,
-        Custom_Sign_Goron_Mines,
-        Custom_Sign_Lakebed_Temple,
-        Custom_Sign_Arbiters_Grounds,
-        Custom_Sign_Snowpeak_Ruins,
-        Custom_Sign_Temple_of_Time,
-        Custom_Sign_Temple_of_Time_Midpoint,
-        Custom_Sign_City_in_the_Sky,
-        Custom_Sign_Palace_of_Twilight,
-        Custom_Sign_Hyrule_Castle,
-        Custom_Sign_Fallback,
         Barnes_Bomb_Bag_Confirmation,
         Barnes_Bomb_Bag_Cant_Afford,
         Charlo_Donation_Confirmation,
@@ -167,51 +127,6 @@ namespace TPRandomizer
 
     public class CustomMsgUtils
     {
-        private static readonly Dictionary<SpotId, MsgEntryId> spotIdToEntry =
-            new()
-            {
-                { SpotId.Agithas_Castle_Sign, MsgEntryId.Agithas_Castle_Sign },
-                { SpotId.Jovani_House_Sign, MsgEntryId.Jovani_House_Sign },
-                { SpotId.Ordon_Sign, MsgEntryId.Custom_Sign_Ordon },
-                { SpotId.Sacred_Grove_Sign, MsgEntryId.Custom_Sign_Sacred_Grove },
-                { SpotId.Faron_Field_Sign, MsgEntryId.Custom_Sign_Faron_Field },
-                { SpotId.Faron_Woods_Sign, MsgEntryId.Custom_Sign_Faron_Woods },
-                { SpotId.Kakariko_Gorge_Sign, MsgEntryId.Custom_Sign_Kakariko_Gorge },
-                { SpotId.Kakariko_Village_Sign, MsgEntryId.Custom_Sign_Kakariko_Village },
-                { SpotId.Kakariko_Graveyard_Sign, MsgEntryId.Custom_Sign_Kakariko_Graveyard },
-                { SpotId.Eldin_Field_Sign, MsgEntryId.Custom_Sign_Eldin_Field },
-                { SpotId.North_Eldin_Sign, MsgEntryId.Custom_Sign_North_Eldin },
-                { SpotId.Death_Mountain_Sign, MsgEntryId.Custom_Sign_Death_Mountain },
-                { SpotId.Hidden_Village_Sign, MsgEntryId.Custom_Sign_Hidden_Village },
-                { SpotId.Lanayru_Field_Sign, MsgEntryId.Custom_Sign_Lanayru_Field },
-                { SpotId.Beside_Castle_Town_Sign, MsgEntryId.Custom_Sign_Beside_Castle_Town },
-                { SpotId.South_of_Castle_Town_Sign, MsgEntryId.Custom_Sign_South_of_Castle_Town },
-                { SpotId.Castle_Town_Sign, MsgEntryId.Custom_Sign_Castle_Town },
-                { SpotId.Great_Bridge_of_Hylia_Sign, MsgEntryId.Custom_Sign_Great_Bridge_of_Hylia },
-                { SpotId.Lake_Hylia_Sign, MsgEntryId.Custom_Sign_Lake_Hylia },
-                { SpotId.Lake_Lantern_Cave_Sign, MsgEntryId.Custom_Sign_Lake_Lantern_Cave },
-                { SpotId.Lanayru_Spring_Sign, MsgEntryId.Custom_Sign_Lanayru_Spring },
-                { SpotId.Zoras_Domain_Sign, MsgEntryId.Custom_Sign_Zoras_Domain },
-                { SpotId.Upper_Zoras_River_Sign, MsgEntryId.Custom_Sign_Upper_Zoras_River },
-                { SpotId.Gerudo_Desert_Sign, MsgEntryId.Custom_Sign_Gerudo_Desert },
-                { SpotId.Bulblin_Camp_Sign, MsgEntryId.Custom_Sign_Bulblin_Camp },
-                { SpotId.Snowpeak_Mountain_Sign, MsgEntryId.Custom_Sign_Snowpeak_Mountain },
-                { SpotId.Cave_of_Ordeals_Sign, MsgEntryId.Custom_Sign_Cave_of_Ordeals },
-                { SpotId.Forest_Temple_Sign, MsgEntryId.Custom_Sign_Forest_Temple },
-                { SpotId.Goron_Mines_Sign, MsgEntryId.Custom_Sign_Goron_Mines },
-                { SpotId.Lakebed_Temple_Sign, MsgEntryId.Custom_Sign_Lakebed_Temple },
-                { SpotId.Arbiters_Grounds_Sign, MsgEntryId.Custom_Sign_Arbiters_Grounds },
-                { SpotId.Snowpeak_Ruins_Sign, MsgEntryId.Custom_Sign_Snowpeak_Ruins },
-                { SpotId.Temple_of_Time_Sign, MsgEntryId.Custom_Sign_Temple_of_Time },
-                { SpotId.City_in_the_Sky_Sign, MsgEntryId.Custom_Sign_City_in_the_Sky },
-                { SpotId.Palace_of_Twilight_Sign, MsgEntryId.Custom_Sign_Palace_of_Twilight },
-                { SpotId.Hyrule_Castle_Sign, MsgEntryId.Custom_Sign_Hyrule_Castle },
-                {
-                    SpotId.Temple_of_Time_Beyond_Point_Sign,
-                    MsgEntryId.Custom_Sign_Temple_of_Time_Midpoint
-                },
-            };
-
         private static readonly Dictionary<MsgEntryId, MessageEntry> idToEntry =
             new()
             {
@@ -375,77 +290,6 @@ namespace TPRandomizer
                     MsgEntryId.Castle_Town_Goron_Shield_Confirmation_Second,
                     new(StageIDs.Castle_Town_Shops, 4, 0x3E5)
                 },
-                { MsgEntryId.Agithas_Castle_Sign, new(StageIDs.Castle_Town, 3, 0x456) },
-                { MsgEntryId.Jovani_House_Sign, new(StageIDs.Castle_Town, 3, 0x457) },
-                { MsgEntryId.Custom_Sign_Ordon, new(StageIDs.Ordon_Village, 1, 0x1369) },
-                { MsgEntryId.Custom_Sign_Sacred_Grove, new(StageIDs.Sacred_Grove, 1, 0x1369) },
-                { MsgEntryId.Custom_Sign_Faron_Field, new(StageIDs.Hyrule_Field, 6, 0x1369) },
-                { MsgEntryId.Custom_Sign_Faron_Woods, new(StageIDs.Faron_Woods, 4, 0x1369) },
-                { MsgEntryId.Custom_Sign_Kakariko_Gorge, new(StageIDs.Hyrule_Field, 3, 0x1369) },
-                {
-                    MsgEntryId.Custom_Sign_Kakariko_Village,
-                    new(StageIDs.Kakariko_Village, 0, 0x1369)
-                },
-                {
-                    MsgEntryId.Custom_Sign_Kakariko_Graveyard,
-                    new(StageIDs.Kakariko_Graveyard, 0, 0x1369)
-                },
-                { MsgEntryId.Custom_Sign_Eldin_Field, new(StageIDs.Hyrule_Field, 0, 0x1369) },
-                { MsgEntryId.Custom_Sign_North_Eldin, new(StageIDs.Hyrule_Field, 7, 0x1369) },
-                { MsgEntryId.Custom_Sign_Death_Mountain, new(StageIDs.Death_Mountain, 3, 0x1369) },
-                { MsgEntryId.Custom_Sign_Hidden_Village, new(StageIDs.Hidden_Village, 0, 0x1369) },
-                { MsgEntryId.Custom_Sign_Lanayru_Field, new(StageIDs.Hyrule_Field, 10, 0x1369) },
-                {
-                    MsgEntryId.Custom_Sign_Beside_Castle_Town,
-                    new(StageIDs.Outside_Castle_Town, 8, 0x1369)
-                },
-                {
-                    MsgEntryId.Custom_Sign_South_of_Castle_Town,
-                    new(StageIDs.Outside_Castle_Town, 16, 0x1369)
-                },
-                { MsgEntryId.Custom_Sign_Castle_Town, new(StageIDs.Castle_Town, 0, 0x1369) },
-                {
-                    MsgEntryId.Custom_Sign_Great_Bridge_of_Hylia,
-                    new(StageIDs.Hyrule_Field, 13, 0x1369)
-                },
-                { MsgEntryId.Custom_Sign_Lake_Hylia, new(StageIDs.Lake_Hylia, 0, 0x1369) },
-                {
-                    MsgEntryId.Custom_Sign_Lake_Lantern_Cave,
-                    new(StageIDs.Lake_Hylia_Long_Cave, 0, 0x1369)
-                },
-                { MsgEntryId.Custom_Sign_Lanayru_Spring, new(StageIDs.Lake_Hylia, 1, 0x1369) },
-                { MsgEntryId.Custom_Sign_Zoras_Domain, new(StageIDs.Zoras_Domain, 1, 0x1369) },
-                { MsgEntryId.Custom_Sign_Upper_Zoras_River, new(StageIDs.Fishing_Pond, 0, 0x1369) },
-                { MsgEntryId.Custom_Sign_Gerudo_Desert, new(StageIDs.Gerudo_Desert, 0, 0x1369) },
-                { MsgEntryId.Custom_Sign_Bulblin_Camp, new(StageIDs.Bulblin_Camp, 1, 0x1369) },
-                { MsgEntryId.Custom_Sign_Snowpeak_Mountain, new(StageIDs.Snowpeak, 0, 0x1369) },
-                {
-                    MsgEntryId.Custom_Sign_Cave_of_Ordeals,
-                    new(StageIDs.Cave_of_Ordeals, 0, 0x1369)
-                },
-                { MsgEntryId.Custom_Sign_Forest_Temple, new(StageIDs.Forest_Temple, 0, 0x1369) },
-                { MsgEntryId.Custom_Sign_Goron_Mines, new(StageIDs.Goron_Mines, 17, 0x1369) },
-                { MsgEntryId.Custom_Sign_Lakebed_Temple, new(StageIDs.Lakebed_Temple, 2, 0x1369) },
-                {
-                    MsgEntryId.Custom_Sign_Arbiters_Grounds,
-                    new(StageIDs.Arbiters_Grounds, 2, 0x1369)
-                },
-                { MsgEntryId.Custom_Sign_Snowpeak_Ruins, new(StageIDs.Snowpeak_Ruins, 1, 0x1369) },
-                { MsgEntryId.Custom_Sign_Temple_of_Time, new(StageIDs.Temple_of_Time, 0, 0x1369) },
-                {
-                    MsgEntryId.Custom_Sign_Temple_of_Time_Midpoint,
-                    new(StageIDs.Temple_of_Time, 4, 0x1369)
-                },
-                {
-                    MsgEntryId.Custom_Sign_City_in_the_Sky,
-                    new(StageIDs.City_in_the_Sky, 2, 0x1369)
-                },
-                {
-                    MsgEntryId.Custom_Sign_Palace_of_Twilight,
-                    new(StageIDs.Palace_of_Twilight, 0, 0x1369)
-                },
-                { MsgEntryId.Custom_Sign_Hyrule_Castle, new(StageIDs.Hyrule_Castle, 11, 0x1369) },
-                { MsgEntryId.Custom_Sign_Fallback, new(0xFF, 0xFF, 0x1369) },
                 {
                     MsgEntryId.Barnes_Bomb_Bag_Confirmation,
                     new(StageIDs.Kakariko_Village_Interiors, 1, 0x9B)
@@ -522,13 +366,6 @@ namespace TPRandomizer
                 throw new Exception($"Failed to find fliValue for spotId '{spotId}'.");
 
             return fliValue;
-        }
-
-        public static MessageEntry GetEntryForSpotId(SpotId spotId)
-        {
-            if (!spotIdToEntry.TryGetValue(spotId, out MsgEntryId msgEntryId))
-                throw new Exception($"Failed to find MsgEntryId for SpotId '{spotId}'.");
-            return GetEntry(msgEntryId);
         }
 
         public static MessageEntry GetEntry(MsgEntryId messageId, string message = null)
