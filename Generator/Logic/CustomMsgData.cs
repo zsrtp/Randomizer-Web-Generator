@@ -553,10 +553,10 @@ namespace TPRandomizer
             List<StrReplEntity> strEntries2 =
                 new()
                 {
-                    new(Node.msgCT_StarSigns, null, "Test text for star signs outside"),
-                    new(Node.msgCT_StarGirlsNoAttemptFirst, null, "test talk to girls1"),
-                    new(Node.msgCT_StarGirlsNoAttemptSecond, null, "test talk to girls2"),
-                    new(Node.msgCT_StarGirlsNoAttemptThird, null, "test talk to girls3"),
+                    new(Node.msgCT_StarSigns, "Test text for star signs outside"),
+                    new(Node.msgCT_StarGirlsNoAttemptFirst, "test talk to girls1"),
+                    new(Node.msgCT_StarGirlsNoAttemptSecond, "test talk to girls2"),
+                    new(Node.msgCT_StarGirlsNoAttemptThird, "test talk to girls3"),
                     // Fallback text
                     StrReplEntity.CustomSignText(
                         1, // TODO: create an enum of reserved context values probably.
@@ -648,13 +648,13 @@ namespace TPRandomizer
                 {
                     new(
                         Node.msgZ0_MidnaTwoOptsBody,
-                        baseMidnaCtx,
-                        "Need something2?" + CustomMessages.shopOption
+                        "Need something2?" + CustomMessages.shopOption,
+                        baseMidnaCtx
                     ),
                     new(
                         Node.msgZ0_MidnaTwoOptsOptions,
-                        baseMidnaCtx,
-                        $"{messageOption1_8not9}Change time of day2\n{messageOption2_8not9}Hints22"
+                        $"{messageOption1_8not9}Change time of day2\n{messageOption2_8not9}Hints22",
+                        baseMidnaCtx
                     ),
                 };
             results2.AddStrReplacements(strEntries2);
@@ -720,9 +720,7 @@ namespace TPRandomizer
             {
                 string msg = hintMessages[i];
 
-                List<StrReplEntity> strEntries =
-                    new() { new(Node.msgZ0_0x28, latestContext, msg), };
-                results2.AddStrReplacements(strEntries);
+                results2.AddStrReplacement(new(Node.msgZ0_0x28, msg, latestContext));
 
                 if (i < hintMessages.Count - 1)
                 {
@@ -935,7 +933,7 @@ namespace TPRandomizer
                 text = Res.SimpleMsg("required-dungeon.none", null);
 
             string normalized = Res.LangSpecificNormalize(text);
-            results2.AddStrReplacement(new(Node.msgOrdon_LinksHouseSign, null, normalized));
+            results2.AddStrReplacement(new(Node.msgOrdon_LinksHouseSign, normalized));
         }
 
         private void GenSelfHinterEntries()
@@ -1470,7 +1468,7 @@ namespace TPRandomizer
                             );
 
                         string text = hints[0].toHintTextList(this)[0].text;
-                        results2.AddStrReplacements(new() { new(node, null, text) });
+                        results2.AddStrReplacement(new(node, text));
                     }
                     else
                     {

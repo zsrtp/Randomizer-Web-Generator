@@ -639,7 +639,7 @@ namespace TPRandomizer.Assets
             return new StrReplEntity(BmgNumber.zel_00, context, 0x136a, str);
         }
 
-        public StrReplEntity(MsgNodeInst msgNode, ushort? context, string str)
+        public StrReplEntity(MsgNodeInst msgNode, string str, ushort? context = null)
         {
             BmgNumber bmgNumber = BmgNumUtils.StgBmgToBmgNumber(msgNode.stgBmg);
             Init(bmgNumber, context, msgNode.infIndex, str);
