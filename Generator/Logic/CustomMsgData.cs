@@ -566,7 +566,7 @@ namespace TPRandomizer
 
             results2.AddStrReplacements(strEntries2);
 
-            List<NodeRemapEntity> nodeRemaps =
+            List<NodeRemap> nodeRemaps =
                 new()
                 {
                     // Test for hylian shield price change
@@ -576,12 +576,12 @@ namespace TPRandomizer
                     // since we are always adjusting the existing thing that is
                     // there rather than reusing nodes in a different way that
                     // the game normally does.
-                    new(
+                    NodeRemap.Fli(
+                        0x145,
                         Node.brKakMaloMartHylianShieldCanAfford,
                         Node.brKakMaloMartHylianShieldCanAfford.flwIdx,
-                        15,
-                        fliValue: 0x145
-                    ),
+                        15
+                    )
                     // Temp, test skipping over payment evNode of Hylian shield
                     // new(StgBmg.Kakariko_Village_Interiors, 0x424, 0x428, 15, context: 15),
                 };
@@ -633,6 +633,7 @@ namespace TPRandomizer
         private void AddMidnaConversationStuff()
         {
             ushort baseMidnaCtx = ctxGen.getNewContext();
+            ushort hintsBaseCtx = ctxGen.getNewContext();
 
             string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
             string messageOption2_8not9 = "\x1A\x06\x00\x00\x08\x02";
@@ -658,16 +659,25 @@ namespace TPRandomizer
                 };
             results2.AddStrReplacements(strEntries2);
 
-            List<NodeRemapEntity> nodeRemaps =
+            List<NodeRemap> nodeRemaps =
                 new()
                 {
                     // Start at custom branch node to decide if can change ToD or not
-                    new(
+                    NodeRemap.Fli(
+                        0xbb8,
                         Node.brTalkToMidnaRootNode,
                         Node.brZ0_GeneriCtxBranch.flwIdx,
-                        baseMidnaCtx,
-                        fliValue: 0xbb8
+                        baseMidnaCtx
                     ),
+                    // When we first enter the Hints text, update to a new
+                    // context. The base Midna context needs 0xFFFF to not be
+                    // remapped (so backing out of the menu works).
+                    NodeRemap.Ctx(
+                        baseMidnaCtx,
+                        Node.msgZ0_0x28,
+                        Node.msgZ0_0x28.flwIdx,
+                        hintsBaseCtx
+                    )
                 };
             results2.AddNodeRemaps(nodeRemaps);
 
@@ -682,7 +692,7 @@ namespace TPRandomizer
                         nextNodeIndexes: new()
                         {
                             Node.evZ0_MidnaTwoOptsInitEv.flwIdx,
-                            Node.msgZ0_0x27.flwIdx
+                            Node.msgZ0_0x28.flwIdx
                         }
                     ),
                     // Handle choice of "Change ToD / Hints" menu
@@ -692,7 +702,7 @@ namespace TPRandomizer
                         nextNodeIndexes: new()
                         {
                             Node.evZ0_GenericCtxEvent.flwIdx,
-                            Node.msgZ0_0x27.flwIdx,
+                            Node.msgZ0_0x28.flwIdx,
                             0xFFFF
                         }
                     ),
@@ -705,44 +715,30 @@ namespace TPRandomizer
             );
 
             // Add Midna hint messages
-            ushort latestContext = baseMidnaCtx;
+            ushort latestContext = hintsBaseCtx;
             for (int i = 0; i < hintMessages.Count; i++)
             {
                 string msg = hintMessages[i];
 
                 List<StrReplEntity> strEntries =
-                    new() { new(Node.msgZ0_0x27, latestContext, msg), };
+                    new() { new(Node.msgZ0_0x28, latestContext, msg), };
                 results2.AddStrReplacements(strEntries);
 
-                if (i == hintMessages.Count - 1)
+                if (i < hintMessages.Count - 1)
                 {
-                    // Last one
-                    List<NodeRemapEntity> nodeRemaps3 =
-                        new()
-                        {
-                            // Start at custom branch node to decide if can change ToD or not
-                            new(Node.msgZ0_0x28, 0xFFFF, latestContext, context: latestContext),
-                        };
-                    results2.AddNodeRemaps(nodeRemaps3);
-                }
-                else
-                {
-                    // Has more messages
+                    // If has more messages, map back to same node instead of
+                    // continuing to 0xFFFF.
                     ushort prevCtx = latestContext;
                     latestContext = GetNewContext();
 
-                    List<NodeRemapEntity> nodeRemaps2 =
-                        new()
-                        {
-                            // Start at custom branch node to decide if can change ToD or not
-                            new(
-                                Node.msgZ0_0x28,
-                                Node.msgZ0_0x27.flwIdx,
-                                latestContext,
-                                context: prevCtx
-                            ),
-                        };
-                    results2.AddNodeRemaps(nodeRemaps2);
+                    results2.AddNodeRemap(
+                        NodeRemap.Ctx(
+                            prevCtx,
+                            Node.zel00_FFFF,
+                            Node.msgZ0_0x28.flwIdx,
+                            latestContext
+                        )
+                    );
                 }
             }
         }
@@ -1568,7 +1564,7 @@ namespace TPRandomizer
             ushort latestContext = GetNewContext();
 
             results2.AddNodeRemap(
-                new(Node.zel00_FFFF, Node.msgZ0_0x28.flwIdx, latestContext, fliValue: fliValue)
+                NodeRemap.Fli(fliValue, Node.zel00_FFFF, Node.msgZ0_0x28.flwIdx, latestContext)
             );
 
             for (int i = 0; i < messages.Count; i++)
@@ -1590,15 +1586,15 @@ namespace TPRandomizer
                     ushort prevCtx = latestContext;
                     latestContext = GetNewContext();
 
-                    List<NodeRemapEntity> nodeRemaps2 =
+                    List<NodeRemap> nodeRemaps2 =
                         new()
                         {
-                            new(
+                            NodeRemap.Ctx(
+                                prevCtx,
                                 Node.zel00_FFFF,
                                 Node.msgZ0_0x28.flwIdx,
-                                latestContext,
-                                context: prevCtx
-                            ),
+                                latestContext
+                            )
                         };
                     results2.AddNodeRemaps(nodeRemaps2);
                 }

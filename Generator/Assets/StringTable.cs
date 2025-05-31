@@ -307,7 +307,7 @@ namespace TPRandomizer.Assets
         }
     }
 
-    public class NodeRemapEntity : Entity
+    public class NodeRemap : Entity
     {
         public ushort? fliValue { get; private set; }
         public ushort? context { get; private set; }
@@ -315,10 +315,28 @@ namespace TPRandomizer.Assets
         public ushort newFlwIndex { get; private set; }
         public ushort newContext { get; private set; }
 
-        public NodeRemapEntity(
+        public static NodeRemap Fli(
+            ushort fliValue,
             NodeInst node,
-            // StgBmg stgBmg,
-            // ushort flwIndex,
+            ushort newFlwIndex,
+            ushort newContext
+        )
+        {
+            return new NodeRemap(node, newFlwIndex, newContext, fliValue: fliValue);
+        }
+
+        public static NodeRemap Ctx(
+            ushort context,
+            NodeInst node,
+            ushort newFlwIndex,
+            ushort newContext
+        )
+        {
+            return new NodeRemap(node, newFlwIndex, newContext, context: context);
+        }
+
+        private NodeRemap(
+            NodeInst node,
             ushort newFlwIndex,
             ushort newContext,
             ushort? fliValue = null,
@@ -783,12 +801,12 @@ namespace TPRandomizer.Assets
             }
         }
 
-        public void AddNodeRemap(NodeRemapEntity nodeRemap)
+        public void AddNodeRemap(NodeRemap nodeRemap)
         {
             storedNodeRemaps.Add(nodeRemap);
         }
 
-        public void AddNodeRemaps(List<NodeRemapEntity> nodeRemaps)
+        public void AddNodeRemaps(List<NodeRemap> nodeRemaps)
         {
             storedNodeRemaps.AddRange(nodeRemaps);
         }
@@ -935,10 +953,8 @@ namespace TPRandomizer.Assets
 
         private void UpdateNodeRemapTable(EntityLookupInfo nodeRemapInfo)
         {
-            List<NodeRemapEntity> nodeRemapEntities = nodeRemapInfo.entityList
-                .Cast<NodeRemapEntity>()
-                .ToList();
-            foreach (NodeRemapEntity entity in nodeRemapEntities)
+            List<NodeRemap> nodeRemapEntities = nodeRemapInfo.entityList.Cast<NodeRemap>().ToList();
+            foreach (NodeRemap entity in nodeRemapEntities)
             {
                 nodeRemapTable.Add(entity.getEntityTableUint());
             }
