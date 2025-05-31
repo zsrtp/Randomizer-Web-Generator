@@ -74,6 +74,105 @@ namespace TPRandomizer
         public static MsgNodeInst msgCT_AgithaSign = new(StgBmg.Castle_Town, 0xa2d, 0x456);
         public static MsgNodeInst msgCT_JovaniSign = new(StgBmg.Castle_Town, 0xa2e, 0x457);
         public static MsgNodeInst msgOrdon_LinksHouseSign = new(StgBmg.Ordon_Village, 0x467, 0x658);
+
+        //
+        public static MsgNodeInst Sera_Slingshot_Slot =
+            new(StgBmg.Ordon_Village_Interiors, 0x4d7, 0x5AE);
+        public static MsgNodeInst Sera_Slingshot_Cant_Afford =
+            new(StgBmg.Ordon_Village_Interiors, 0x4c9, 0x5B3);
+        public static MsgNodeInst Sera_Slingshot_Confirmation =
+            new(StgBmg.Ordon_Village_Interiors, 0x4cb, 0x5B4);
+        public static MsgNodeInst Sera_Slingshot_Bought =
+            new(StgBmg.Ordon_Village_Interiors, 0x4d0, 0x5B5);
+        public static MsgNodeInst Sera_Slingshot_Bought_2 =
+            new(StgBmg.Ordon_Village_Interiors, 0x4d5, 0x5B6);
+        public static MsgNodeInst Kakariko_Malo_Mart_Hawkeye_Slot =
+            new(StgBmg.Kakariko_Village_Interiors, 0x43b, 0x307);
+        public static MsgNodeInst Kakariko_Malo_Mart_Hawkeye_Cant_Afford =
+            new(StgBmg.Kakariko_Village_Interiors, 0x434, 0x2D3);
+        public static MsgNodeInst Kakariko_Malo_Mart_Hawkeye_Confirmation =
+            new(StgBmg.Kakariko_Village_Interiors, 0x430, 0x2D2);
+        public static MsgNodeInst Kakariko_Malo_Mart_Hawkeye_Sold_Out =
+            new(StgBmg.Kakariko_Village_Interiors, 0x43d, 0x306);
+        public static MsgNodeInst Kakariko_Malo_Mart_Hawkeye_Sold_Out_Read =
+            new(StgBmg.Kakariko_Village_Interiors, 0x43c, 0x2D4);
+        public static MsgNodeInst Kakariko_Malo_Mart_Wooden_Shield_Slot =
+            new(StgBmg.Kakariko_Village_Interiors, 0x41d, 0x30D);
+        public static MsgNodeInst Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford =
+            new(StgBmg.Kakariko_Village_Interiors, 0x415, 0x2C8);
+        public static MsgNodeInst Kakariko_Malo_Mart_Wooden_Shield_Confirmation =
+            new(StgBmg.Kakariko_Village_Interiors, 0x40f, 0x2C7);
+        public static MsgNodeInst Kakariko_Malo_Mart_Hylian_Shield_Slot =
+            new(StgBmg.Kakariko_Village_Interiors, 0x42a, 0x30E);
+        public static MsgNodeInst Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford =
+            new(StgBmg.Kakariko_Village_Interiors, 0x422, 0x2CC);
+        public static MsgNodeInst Kakariko_Malo_Mart_Hylian_Shield_Confirmation =
+            new(StgBmg.Kakariko_Village_Interiors, 0x41e, 0x2CB);
+        public static MsgNodeInst Kakariko_Malo_Mart_Hylian_Shield_Sold_Out =
+            new(StgBmg.Kakariko_Village_Interiors, 0x42f, 0x30B);
+        public static MsgNodeInst Kakariko_Malo_Mart_Hylian_Shield_Sold_Out_Read =
+            new(StgBmg.Kakariko_Village_Interiors, 0x42c, 0x2D0);
+
+        // If you buy the wooden shield slot before anything else, you will see
+        // this one instead for that slot. For Vanilla, I think this might be so
+        // the message changes depending on if you bought your Hylian Shield
+        // here or somewhere else (since once you buy one you can never buy a
+        // 2nd one; "you bought my last one" vs "there are no more"). Wooden
+        // shield is only relevant due to custom rando shop slot stuff I think.
+        // - isaac
+        public static MsgNodeInst Kakariko_Malo_Mart_Hylian_Shield_Sold_Out_Read_2 =
+            new(StgBmg.Kakariko_Village_Interiors, 0x42e, 0x2E0);
+        public static MsgNodeInst Kakariko_Malo_Mart_Red_Potion_Slot =
+            new(StgBmg.Kakariko_Village_Interiors, 0x44a, 0x305);
+        public static MsgNodeInst Kakariko_Malo_Mart_Red_Potion_Cant_Afford =
+            new(StgBmg.Kakariko_Village_Interiors, 0x43e, 0x2D6);
+        public static MsgNodeInst Kakariko_Malo_Mart_Red_Potion_Confirmation =
+            new(StgBmg.Kakariko_Village_Interiors, 0x441, 0x2D7);
+        public static MsgNodeInst Kakariko_Malo_Mart_Red_Potion_Bought =
+            new(StgBmg.Kakariko_Village_Interiors, 0x446, 0x2D8);
+        public static MsgNodeInst Chudleys_Fine_Goods_Magic_Armor_Slot =
+            new(StgBmg.Castle_Town_Shops, 0x3aa, 0x10A);
+        public static MsgNodeInst Castle_Town_Malo_Mart_Magic_Armor_Slot =
+            new(StgBmg.Castle_Town_Shops, 0x612, 0x125);
+        public static MsgNodeInst Castle_Town_Malo_Mart_Magic_Armor_Bought =
+            new(StgBmg.Castle_Town_Shops, 0x60e, 0x11E);
+        public static MsgNodeInst Castle_Town_Malo_Mart_Magic_Armor_Sold_Out =
+            new(StgBmg.Castle_Town_Shops, 0x614, 0x130);
+        public static MsgNodeInst Castle_Town_Goron_Red_Potion_Confirmation_Initial =
+            new(StgBmg.Castle_Town_Shops, 0x9ae, 0x3BF);
+        public static MsgNodeInst Castle_Town_Goron_Red_Potion_Confirmation_Second =
+            new(StgBmg.Castle_Town_Shops, 0x9b1, 0x3C1);
+        public static MsgNodeInst Castle_Town_Goron_Red_Potion_Cant_Afford =
+            new(StgBmg.Castle_Town_Shops, 0x9b4, 0x3C2);
+        public static MsgNodeInst Castle_Town_Goron_Lantern_Oil_Confirmation_Initial =
+            new(StgBmg.Castle_Town_Shops, 0x99d, 0x3B3);
+        public static MsgNodeInst Castle_Town_Goron_Lantern_Oil_Confirmation_Second =
+            new(StgBmg.Castle_Town_Shops, 0x99f, 0x3B5);
+
+        // TODO: test if text is wrong if MDH is not cleared. This is probably
+        // the issue the person reported in the discord. Also need to test with
+        // the Arrows goron since seems like the same thing. Red potion and
+        // Hylian shield ones do not appear to do this from looking at the
+        // graph.
+        public static MsgNodeInst Castle_Town_Goron_Lantern_Oil_Cant_Afford =
+            new(StgBmg.Castle_Town_Shops, 0x97e, 0x3AC); // Also used by FLW index 0x993
+        public static MsgNodeInst Castle_Town_Goron_Arrows_Confirmation_Initial =
+            new(StgBmg.Castle_Town, 0x9eb, 0x3D8);
+        public static MsgNodeInst Castle_Town_Goron_Arrows_Confirmation_Second =
+            new(StgBmg.Castle_Town, 0x9ed, 0x3DB);
+        public static MsgNodeInst Castle_Town_Goron_Shield_Confirmation_Intitial =
+            new(StgBmg.Castle_Town_Shops, 0xa06, 0x3E3);
+        public static MsgNodeInst Castle_Town_Goron_Shield_Confirmation_Second =
+            new(StgBmg.Castle_Town_Shops, 0xa09, 0x3E5);
+        public static MsgNodeInst Barnes_Bomb_Bag_Confirmation =
+            new(StgBmg.Kakariko_Village_Interiors, 0x47f, 0x9B);
+        public static MsgNodeInst Barnes_Bomb_Bag_Cant_Afford =
+            new(StgBmg.Kakariko_Village_Interiors, 0x484, 0xA0); // Also used by FLW index 0x523
+        public static MsgNodeInst Charlo_Donation_Confirmation =
+            new(StgBmg.Castle_Town, 0x346, 0x355);
+        public static MsgNodeInst Fishing_Hole_Bottle_Sign = new(StgBmg.Fishing_Pond, 0x2d5, 0x47A);
+        public static MsgNodeInst Coro_Buy_Options_Confirmation =
+            new(StgBmg.Faron_Woods, 0x6a, 0xDD);
     }
 
     public enum MsgEntryId
