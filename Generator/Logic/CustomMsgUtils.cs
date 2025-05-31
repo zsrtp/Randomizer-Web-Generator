@@ -71,6 +71,8 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town, 0x75, 0x369);
         public static MsgNodeInst msgCT_StarGirlsNoAttemptThird =
             new(StgBmg.Castle_Town, 0x76, 0x36a);
+        public static MsgNodeInst msgCT_AgithaSign = new(StgBmg.Castle_Town, 0xa2d, 0x456);
+        public static MsgNodeInst msgCT_JovaniSign = new(StgBmg.Castle_Town, 0xa2e, 0x457);
     }
 
     public enum MsgEntryId
@@ -457,52 +459,19 @@ namespace TPRandomizer
                 { MsgEntryId.Coro_Buy_Options_Confirmation, new(StageIDs.Faron_Woods, 4, 0xDD) },
             };
 
-        private static readonly Dictionary<SpotId, HintSpotBmgData> spotToBmgData =
+        private static readonly Dictionary<SpotId, MsgNodeInst> spotIdToVanillaNode =
             new()
             {
-                { SpotId.Ordon_Sign, new(StageIDs.Ordon_Village, 1) },
-                { SpotId.Sacred_Grove_Sign, new(StageIDs.Sacred_Grove, 1) },
-                { SpotId.Faron_Field_Sign, new(StageIDs.Hyrule_Field, 6) },
-                { SpotId.Faron_Woods_Sign, new(StageIDs.Faron_Woods, 4) },
-                { SpotId.Kakariko_Gorge_Sign, new(StageIDs.Hyrule_Field, 3) },
-                { SpotId.Kakariko_Village_Sign, new(StageIDs.Kakariko_Village, 0) },
-                { SpotId.Kakariko_Graveyard_Sign, new(StageIDs.Kakariko_Graveyard, 0) },
-                { SpotId.Eldin_Field_Sign, new(StageIDs.Hyrule_Field, 0) },
-                { SpotId.North_Eldin_Sign, new(StageIDs.Hyrule_Field, 7) },
-                { SpotId.Death_Mountain_Sign, new(StageIDs.Death_Mountain, 3) },
-                { SpotId.Hidden_Village_Sign, new(StageIDs.Hidden_Village, 0) },
-                { SpotId.Lanayru_Field_Sign, new(StageIDs.Hyrule_Field, 10) },
-                { SpotId.Beside_Castle_Town_Sign, new(StageIDs.Outside_Castle_Town, 8) },
-                { SpotId.South_of_Castle_Town_Sign, new(StageIDs.Outside_Castle_Town, 16) },
-                { SpotId.Castle_Town_Sign, new(StageIDs.Castle_Town, 0) },
-                { SpotId.Great_Bridge_of_Hylia_Sign, new(StageIDs.Hyrule_Field, 13) },
-                { SpotId.Lake_Hylia_Sign, new(StageIDs.Lake_Hylia, 0) },
-                { SpotId.Lake_Lantern_Cave_Sign, new(StageIDs.Lake_Hylia_Long_Cave, 0) },
-                { SpotId.Lanayru_Spring_Sign, new(StageIDs.Lake_Hylia, 1) },
-                { SpotId.Zoras_Domain_Sign, new(StageIDs.Zoras_Domain, 1) },
-                { SpotId.Upper_Zoras_River_Sign, new(StageIDs.Fishing_Pond, 0) },
-                { SpotId.Gerudo_Desert_Sign, new(StageIDs.Gerudo_Desert, 0) },
-                { SpotId.Bulblin_Camp_Sign, new(StageIDs.Bulblin_Camp, 1) },
-                { SpotId.Snowpeak_Mountain_Sign, new(StageIDs.Snowpeak, 0) },
-                { SpotId.Cave_of_Ordeals_Sign, new(StageIDs.Cave_of_Ordeals, 0) },
-                { SpotId.Forest_Temple_Sign, new(StageIDs.Forest_Temple, 0) },
-                { SpotId.Goron_Mines_Sign, new(StageIDs.Goron_Mines, 17) },
-                { SpotId.Lakebed_Temple_Sign, new(StageIDs.Lakebed_Temple, 2) },
-                { SpotId.Arbiters_Grounds_Sign, new(StageIDs.Arbiters_Grounds, 2) },
-                { SpotId.Snowpeak_Ruins_Sign, new(StageIDs.Snowpeak_Ruins, 1) },
-                { SpotId.Temple_of_Time_Sign, new(StageIDs.Temple_of_Time, 0) },
-                { SpotId.Temple_of_Time_Beyond_Point_Sign, new(StageIDs.Temple_of_Time, 4) },
-                { SpotId.City_in_the_Sky_Sign, new(StageIDs.City_in_the_Sky, 2) },
-                { SpotId.Palace_of_Twilight_Sign, new(StageIDs.Palace_of_Twilight, 0) },
-                { SpotId.Hyrule_Castle_Sign, new(StageIDs.Hyrule_Castle, 11) },
+                { SpotId.Agithas_Castle_Sign, Node.msgCT_AgithaSign },
+                { SpotId.Jovani_House_Sign, Node.msgCT_JovaniSign },
             };
 
-        public static bool SpotIdHasBmgData(SpotId spotId)
+        public static bool TryGetSpotIdVanillaNode(SpotId spotId, out MsgNodeInst node)
         {
-            return spotToBmgData.ContainsKey(spotId);
+            return spotIdToVanillaNode.TryGetValue(spotId, out node);
         }
 
-        private static readonly Dictionary<SpotId, ushort> spotToFliValue =
+        private static readonly Dictionary<SpotId, ushort> spotIdToFliValue =
             new()
             {
                 { SpotId.Ordon_Sign, 0x72b0 },
@@ -542,14 +511,14 @@ namespace TPRandomizer
                 { SpotId.Hyrule_Castle_Sign, 0x7140 },
             };
 
-        public static bool SpotHasCustomFliValue(SpotId spotId)
+        public static bool TryGetCustomSignFliValue(SpotId spotId, out ushort fliValue)
         {
-            return spotToFliValue.ContainsKey(spotId);
+            return spotIdToFliValue.TryGetValue(spotId, out fliValue);
         }
 
         public static ushort GetFliValueOfSpot(SpotId spotId)
         {
-            if (!spotToFliValue.TryGetValue(spotId, out ushort fliValue))
+            if (!spotIdToFliValue.TryGetValue(spotId, out ushort fliValue))
                 throw new Exception($"Failed to find fliValue for spotId '{spotId}'.");
 
             return fliValue;

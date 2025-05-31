@@ -410,8 +410,8 @@ namespace TPRandomizer
 
             GenSelfHinterEntries();
 
-            // Handle custom hint signs
-            GenHintSignEntries(results);
+            // Handle custom hint signs, Agitha and Jovani signs
+            GenHintSignEntries();
 
             List<MessageEntry> ret = results;
             results = null;
@@ -1430,31 +1430,20 @@ namespace TPRandomizer
             }
         }
 
-        private Dictionary<SpotId, List<string>> GenHintSignEntries(List<MessageEntry> results)
+        private void GenHintSignEntries()
         {
-            // TODO: if the hintSpot uses custom BMG stuff, then we need to
-            // handle converting it into a result of a different type. Also it
-            // might be good to put a simple bool on the result for quickAccess
-            // to whether or not there are hints on Midna.
-
-            // Maybe we return a class with the following:
-            // - a dictionary from SpotId to its list of nodeTexts.
-            // Currently we don't return anything since we are passing results
-            // as a param, so we can return the dictionary.
-
-            Dictionary<SpotId, List<string>> spotToTexts = new();
-
             if (!ListUtils.isEmpty(hintSpots))
             {
                 foreach (HintSpot hintSpot in hintSpots)
                 {
-                    if (CustomMsgUtils.SpotIdHasBmgData(hintSpot.location))
+                    if (
+                        CustomMsgUtils.TryGetCustomSignFliValue(
+                            hintSpot.location,
+                            out ushort customSignFli
+                        )
+                    )
                     {
-                        if (spotToTexts.ContainsKey(hintSpot.location))
-                            throw new Exception(
-                                $"Tried multiple times to put hint text on the same spotId '{hintSpot.location}'."
-                            );
-
+                        // Is custom sign
                         List<string> hintTexts = hintSpot.hints
                             .Select((hint) => hint.toHintTextList(this)[0].text)
                             .ToList();
@@ -1464,93 +1453,33 @@ namespace TPRandomizer
                             hintSpot.location == SpotId.Ordon_Sign
                         );
 
-                        spotToTexts[hintSpot.location] = msgNodeTexts;
-
                         TestPuttingCustomSignStuff(hintSpot.location, msgNodeTexts);
+                    }
+                    else if (
+                        CustomMsgUtils.TryGetSpotIdVanillaNode(
+                            hintSpot.location,
+                            out MsgNodeInst node
+                        )
+                    )
+                    {
+                        // Is vanilla node (Agitha, Jovani)
+                        List<Hint> hints = hintSpot.hints;
+                        if (hints.Count > 1)
+                            throw new Exception(
+                                $"Expected only a single hint for SpotId '{hintSpot.location}'."
+                            );
 
-                        // TODO: copy Midna approach for putting an array of
-                        // texts on a spot.
-
-                        // Need to operate over the hints on the spot. They will
-                        // need to be converted into a list of strings where
-                        // each string is a merging of hints such that they do
-                        // not have more than 4 boxes (16 lines) in the same
-                        // string.
-
-                        // In fact, we can probably use the same function in
-                        // both cases, but manually merge them if we are not
-                        // using custom BMG stuff. Or really we can just throw
-                        // an Exception for now since it is not expected to ever
-                        // run, rather than trying to make a trustworthy
-                        // implementation that won't actually be used.
+                        string text = hints[0].toHintTextList(this)[0].text;
+                        results2.AddStrReplacements(new() { new(node, null, text) });
                     }
                     else
                     {
-                        // Implementation for Agitha, Jovani, etc.
-                        List<Hint> hints = hintSpot.hints;
-                        MessageEntry messageEntry = CustomMsgUtils.GetEntryForSpotId(
-                            hintSpot.location
+                        throw new Exception(
+                            $"Failed to find spot info for SpotId '{hintSpot.location}'."
                         );
-                        StringBuilder sb = new();
-
-                        for (int i = 0; i < hints.Count; i++)
-                        {
-                            Hint hint = hints[i];
-
-                            string text = hint.toHintTextList(this)[0].text;
-                            if (i < hints.Count - 1)
-                                text = Res.NormalizeForMergingOnSign(text);
-
-                            sb.Append(text);
-                        }
-
-                        // When processing a hint, we have a list of (string for node, total newLines).
-                        // When we append text to it, we need to see:
-
-                        // if I was appending this, how many newlines would it be
-                        // total (including how many I have to add before appending
-                        // myself)?
-
-                        // Actually what if while we are processing them, we just
-                        // bunch them together and make splits automatically? Then
-                        // if we already have 5 items in the array, we just keep
-                        // appending to the final one?
-
-                        // So as input, we take the entire list of Hints and do all
-                        // of the processing?
-
-                        // The hint's text can be super long, but we will assume it
-                        // already has newlines where it should. We need to break it
-                        // at certain newlines as we process it.
-
-                        // Before we can add our text to the current text, we need
-                        // to determine how many newlines we would have to add
-                        // before our text (for example, rounding up to a multiple
-                        // of 3 for JP or 4). If that number would be >= the max for
-                        // a single node, then we should break that text off and
-                        // start a new one (unless we are already at max of 5 texts
-                        // in the list). Let's assume for now the max for any node
-                        // is 16 newlines for non-JP and 15 for JP (15 so that it is
-                        // a multiple of 3 and we don't get an awkward single text
-                        // box that leads into a new text box).
-
-                        string textForSign = sb.ToString();
-                        messageEntry.message = textForSign;
-
-                        results.Add(messageEntry);
                     }
                 }
             }
-
-            // Always add the fallback text
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Fallback,
-                    Res.LangSpecificNormalize(Res.SimpleMsg("hint.none-placed-here"))
-                )
-            );
-
-            return spotToTexts;
         }
 
         private void TestPuttingCustomSignStuff(SpotId spotId, List<string> messages)
