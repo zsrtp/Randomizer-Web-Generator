@@ -1135,7 +1135,7 @@ namespace TPRandomizer
 
             uint seraSlingshotPrice = 30;
             AddShopSlotMsg(
-                MsgEntryId.Sera_Slingshot_Slot,
+                Node.msg_SeraSlingshotSlot,
                 "Sera Shop Slingshot",
                 Item.Slingshot,
                 seraSlingshotPrice,
@@ -1173,7 +1173,7 @@ namespace TPRandomizer
 
             uint kakMaloHawkeyePrice = 100;
             AddShopSlotMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Slot,
+                Node.msgKV_MaloMartHawkeyeSlot,
                 "Kakariko Village Malo Mart Hawkeye",
                 Item.Hawkeye,
                 kakMaloHawkeyePrice
@@ -1195,7 +1195,7 @@ namespace TPRandomizer
 
             uint kakMaloWoodenShieldPrice = 50;
             AddShopSlotMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Slot,
+                Node.msgKV_MaloMartWoodenShieldSlot,
                 "Kakariko Village Malo Mart Wooden Shield",
                 Item.Wooden_Shield,
                 kakMaloWoodenShieldPrice
@@ -1218,7 +1218,7 @@ namespace TPRandomizer
             // uint kakMaloHylianShieldPrice = 200;
             uint kakMaloHylianShieldPrice = 315;
             AddShopSlotMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Slot,
+                Node.msgKV_MaloMartHylianShieldSlot,
                 "Kakariko Village Malo Mart Hylian Shield",
                 Item.Hylian_Shield,
                 kakMaloHylianShieldPrice
@@ -1240,7 +1240,7 @@ namespace TPRandomizer
 
             uint kakMaloRedPotionPrice = 30;
             AddShopSlotMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Slot,
+                Node.msgKV_MaloMartRedPotionSlot,
                 "Kakariko Village Malo Mart Red Potion",
                 Item.Red_Potion_Shop,
                 kakMaloRedPotionPrice
@@ -1263,7 +1263,7 @@ namespace TPRandomizer
             // ----- Castle Town Malo Mart -----
 
             AddShopSlotMsg(
-                MsgEntryId.Chudleys_Fine_Goods_Magic_Armor_Slot,
+                Node.msg_ChudleysFineGoodsMagicArmorSlot,
                 "Castle Town Malo Mart Magic Armor",
                 Item.Magic_Armor,
                 598,
@@ -1271,7 +1271,7 @@ namespace TPRandomizer
             );
 
             AddShopSlotMsg(
-                MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Slot,
+                Node.msgCT_MaloMartMagicArmorSlot,
                 "Castle Town Malo Mart Magic Armor",
                 Item.Magic_Armor,
                 598,
@@ -1515,7 +1515,7 @@ namespace TPRandomizer
         }
 
         private void AddShopSlotMsg(
-            MsgEntryId msgEntryId,
+            MsgNodeInst msgNode,
             string checkName,
             Item defaultItem,
             uint price,
@@ -1555,7 +1555,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text);
 
-            results.Add(CustomMsgUtils.GetEntry(msgEntryId, normalizedText));
+            results2.AddStrReplacement(new(msgNode, normalizedText));
         }
 
         public static string BuildContextFromMeta(Dictionary<string, string> meta)

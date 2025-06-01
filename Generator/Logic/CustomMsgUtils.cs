@@ -76,7 +76,7 @@ namespace TPRandomizer
         public static MsgNodeInst msgOrdon_LinksHouseSign = new(StgBmg.Ordon_Village, 0x467, 0x658);
 
         //
-        public static MsgNodeInst Sera_Slingshot_Slot =
+        public static MsgNodeInst msg_SeraSlingshotSlot =
             new(StgBmg.Ordon_Village_Interiors, 0x4d7, 0x5AE);
         public static MsgNodeInst Sera_Slingshot_Cant_Afford =
             new(StgBmg.Ordon_Village_Interiors, 0x4c9, 0x5B3);
@@ -86,7 +86,7 @@ namespace TPRandomizer
             new(StgBmg.Ordon_Village_Interiors, 0x4d0, 0x5B5);
         public static MsgNodeInst msg_SeraSlingshotBought2 =
             new(StgBmg.Ordon_Village_Interiors, 0x4d5, 0x5B6);
-        public static MsgNodeInst Kakariko_Malo_Mart_Hawkeye_Slot =
+        public static MsgNodeInst msgKV_MaloMartHawkeyeSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x43b, 0x307);
         public static MsgNodeInst Kakariko_Malo_Mart_Hawkeye_Cant_Afford =
             new(StgBmg.Kakariko_Village_Interiors, 0x434, 0x2D3);
@@ -96,13 +96,13 @@ namespace TPRandomizer
             new(StgBmg.Kakariko_Village_Interiors, 0x43d, 0x306);
         public static MsgNodeInst msgKV_MaloMartHawkeyeSoldOutRead =
             new(StgBmg.Kakariko_Village_Interiors, 0x43c, 0x2D4);
-        public static MsgNodeInst Kakariko_Malo_Mart_Wooden_Shield_Slot =
+        public static MsgNodeInst msgKV_MaloMartWoodenShieldSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x41d, 0x30D);
         public static MsgNodeInst Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford =
             new(StgBmg.Kakariko_Village_Interiors, 0x415, 0x2C8);
         public static MsgNodeInst Kakariko_Malo_Mart_Wooden_Shield_Confirmation =
             new(StgBmg.Kakariko_Village_Interiors, 0x40f, 0x2C7);
-        public static MsgNodeInst Kakariko_Malo_Mart_Hylian_Shield_Slot =
+        public static MsgNodeInst msgKV_MaloMartHylianShieldSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x42a, 0x30E);
         public static MsgNodeInst Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford =
             new(StgBmg.Kakariko_Village_Interiors, 0x422, 0x2CC);
@@ -122,7 +122,7 @@ namespace TPRandomizer
         // - isaac
         public static MsgNodeInst msgKV_MaloMartHylianShieldSoldOutRead2 =
             new(StgBmg.Kakariko_Village_Interiors, 0x42e, 0x2E0);
-        public static MsgNodeInst Kakariko_Malo_Mart_Red_Potion_Slot =
+        public static MsgNodeInst msgKV_MaloMartRedPotionSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x44a, 0x305);
         public static MsgNodeInst Kakariko_Malo_Mart_Red_Potion_Cant_Afford =
             new(StgBmg.Kakariko_Village_Interiors, 0x43e, 0x2D6);
@@ -130,9 +130,9 @@ namespace TPRandomizer
             new(StgBmg.Kakariko_Village_Interiors, 0x441, 0x2D7);
         public static MsgNodeInst msgKV_MaloMartRedPotionBought =
             new(StgBmg.Kakariko_Village_Interiors, 0x446, 0x2D8);
-        public static MsgNodeInst Chudleys_Fine_Goods_Magic_Armor_Slot =
+        public static MsgNodeInst msg_ChudleysFineGoodsMagicArmorSlot =
             new(StgBmg.Castle_Town_Shops, 0x3aa, 0x10A);
-        public static MsgNodeInst Castle_Town_Malo_Mart_Magic_Armor_Slot =
+        public static MsgNodeInst msgCT_MaloMartMagicArmorSlot =
             new(StgBmg.Castle_Town_Shops, 0x612, 0x125);
         public static MsgNodeInst msgCT_MaloMartMagicArmorBought =
             new(StgBmg.Castle_Town_Shops, 0x60e, 0x11E);
@@ -178,23 +178,16 @@ namespace TPRandomizer
 
     public enum MsgEntryId
     {
-        Sera_Slingshot_Slot,
         Sera_Slingshot_Cant_Afford,
         Sera_Slingshot_Confirmation,
-        Kakariko_Malo_Mart_Hawkeye_Slot,
         Kakariko_Malo_Mart_Hawkeye_Cant_Afford,
         Kakariko_Malo_Mart_Hawkeye_Confirmation,
-        Kakariko_Malo_Mart_Wooden_Shield_Slot,
         Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford,
         Kakariko_Malo_Mart_Wooden_Shield_Confirmation,
-        Kakariko_Malo_Mart_Hylian_Shield_Slot,
         Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford,
         Kakariko_Malo_Mart_Hylian_Shield_Confirmation,
-        Kakariko_Malo_Mart_Red_Potion_Slot,
         Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
         Kakariko_Malo_Mart_Red_Potion_Confirmation,
-        Chudleys_Fine_Goods_Magic_Armor_Slot,
-        Castle_Town_Malo_Mart_Magic_Armor_Slot,
         Castle_Town_Goron_Red_Potion_Confirmation_Initial,
         Castle_Town_Goron_Red_Potion_Confirmation_Second,
         Castle_Town_Goron_Red_Potion_Cant_Afford,
@@ -213,7 +206,6 @@ namespace TPRandomizer
         private static readonly Dictionary<MsgEntryId, MessageEntry> idToEntry =
             new()
             {
-                { MsgEntryId.Sera_Slingshot_Slot, new(StageIDs.Ordon_Village_Interiors, 1, 0x5AE) },
                 {
                     MsgEntryId.Sera_Slingshot_Cant_Afford,
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5B3)
@@ -221,10 +213,6 @@ namespace TPRandomizer
                 {
                     MsgEntryId.Sera_Slingshot_Confirmation,
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5B4)
-                },
-                {
-                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Slot,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x307)
                 },
                 {
                     MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Cant_Afford,
@@ -235,20 +223,12 @@ namespace TPRandomizer
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D2)
                 },
                 {
-                    MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Slot,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x30D)
-                },
-                {
                     MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford,
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2C8)
                 },
                 {
                     MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Confirmation,
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2C7)
-                },
-                {
-                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Slot,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x30E)
                 },
                 {
                     MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford,
@@ -259,24 +239,12 @@ namespace TPRandomizer
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2CB)
                 },
                 {
-                    MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Slot,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x305)
-                },
-                {
                     MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D6)
                 },
                 {
                     MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Confirmation,
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D7)
-                },
-                {
-                    MsgEntryId.Chudleys_Fine_Goods_Magic_Armor_Slot,
-                    new(StageIDs.Castle_Town_Shops, 0, 0x10A)
-                },
-                {
-                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Slot,
-                    new(StageIDs.Castle_Town_Shops, 0, 0x125)
                 },
                 {
                     MsgEntryId.Castle_Town_Goron_Red_Potion_Confirmation_Initial,
