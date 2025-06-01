@@ -80,7 +80,7 @@ namespace TPRandomizer
             new(StgBmg.Ordon_Village_Interiors, 0x4d7, 0x5AE);
         public static MsgNodeInst Sera_Slingshot_Cant_Afford =
             new(StgBmg.Ordon_Village_Interiors, 0x4c9, 0x5B3);
-        public static MsgNodeInst Sera_Slingshot_Confirmation =
+        public static MsgNodeInst msg_SeraSlingshotConfirmation =
             new(StgBmg.Ordon_Village_Interiors, 0x4cb, 0x5B4);
         public static MsgNodeInst msg_SeraSlingshotBought =
             new(StgBmg.Ordon_Village_Interiors, 0x4d0, 0x5B5);
@@ -90,7 +90,7 @@ namespace TPRandomizer
             new(StgBmg.Kakariko_Village_Interiors, 0x43b, 0x307);
         public static MsgNodeInst Kakariko_Malo_Mart_Hawkeye_Cant_Afford =
             new(StgBmg.Kakariko_Village_Interiors, 0x434, 0x2D3);
-        public static MsgNodeInst Kakariko_Malo_Mart_Hawkeye_Confirmation =
+        public static MsgNodeInst msgKV_MaloMartHawkeyeConfirmation =
             new(StgBmg.Kakariko_Village_Interiors, 0x430, 0x2D2);
         public static MsgNodeInst msgKV_MaloMartHawkeyeSoldOut =
             new(StgBmg.Kakariko_Village_Interiors, 0x43d, 0x306);
@@ -100,13 +100,13 @@ namespace TPRandomizer
             new(StgBmg.Kakariko_Village_Interiors, 0x41d, 0x30D);
         public static MsgNodeInst Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford =
             new(StgBmg.Kakariko_Village_Interiors, 0x415, 0x2C8);
-        public static MsgNodeInst Kakariko_Malo_Mart_Wooden_Shield_Confirmation =
+        public static MsgNodeInst msgKV_MaloMartWoodenShieldConfirmation =
             new(StgBmg.Kakariko_Village_Interiors, 0x40f, 0x2C7);
         public static MsgNodeInst msgKV_MaloMartHylianShieldSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x42a, 0x30E);
         public static MsgNodeInst Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford =
             new(StgBmg.Kakariko_Village_Interiors, 0x422, 0x2CC);
-        public static MsgNodeInst Kakariko_Malo_Mart_Hylian_Shield_Confirmation =
+        public static MsgNodeInst msgKV_MaloMartHylianShieldConfirmation =
             new(StgBmg.Kakariko_Village_Interiors, 0x41e, 0x2CB);
         public static MsgNodeInst msgKV_MaloMartHylianShieldSoldOut =
             new(StgBmg.Kakariko_Village_Interiors, 0x42f, 0x30B);
@@ -126,7 +126,7 @@ namespace TPRandomizer
             new(StgBmg.Kakariko_Village_Interiors, 0x44a, 0x305);
         public static MsgNodeInst Kakariko_Malo_Mart_Red_Potion_Cant_Afford =
             new(StgBmg.Kakariko_Village_Interiors, 0x43e, 0x2D6);
-        public static MsgNodeInst Kakariko_Malo_Mart_Red_Potion_Confirmation =
+        public static MsgNodeInst msgKV_MaloMartRedPotionConfirmation =
             new(StgBmg.Kakariko_Village_Interiors, 0x441, 0x2D7);
         public static MsgNodeInst msgKV_MaloMartRedPotionBought =
             new(StgBmg.Kakariko_Village_Interiors, 0x446, 0x2D8);
@@ -138,15 +138,15 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town_Shops, 0x60e, 0x11E);
         public static MsgNodeInst msgCT_MaloMartMagicArmorSoldOut =
             new(StgBmg.Castle_Town_Shops, 0x614, 0x130);
-        public static MsgNodeInst Castle_Town_Goron_Red_Potion_Confirmation_Initial =
+        public static MsgNodeInst msgCT_GoronRedPotionConfirmationInitial =
             new(StgBmg.Castle_Town_Shops, 0x9ae, 0x3BF);
-        public static MsgNodeInst Castle_Town_Goron_Red_Potion_Confirmation_Second =
+        public static MsgNodeInst msgCT_GoronRedPotionConfirmationSecond =
             new(StgBmg.Castle_Town_Shops, 0x9b1, 0x3C1);
         public static MsgNodeInst Castle_Town_Goron_Red_Potion_Cant_Afford =
             new(StgBmg.Castle_Town_Shops, 0x9b4, 0x3C2);
-        public static MsgNodeInst Castle_Town_Goron_Lantern_Oil_Confirmation_Initial =
+        public static MsgNodeInst msgCT_GoronLanternOilConfirmationInitial =
             new(StgBmg.Castle_Town_Shops, 0x99d, 0x3B3);
-        public static MsgNodeInst Castle_Town_Goron_Lantern_Oil_Confirmation_Second =
+        public static MsgNodeInst msgCT_GoronLanternOilConfirmationSecond =
             new(StgBmg.Castle_Town_Shops, 0x99f, 0x3B5);
 
         // TODO: test if text is wrong if MDH is not cleared. This is probably
@@ -156,13 +156,13 @@ namespace TPRandomizer
         // graph.
         public static MsgNodeInst Castle_Town_Goron_Lantern_Oil_Cant_Afford =
             new(StgBmg.Castle_Town_Shops, 0x97e, 0x3AC); // Also used by FLW index 0x993
-        public static MsgNodeInst Castle_Town_Goron_Arrows_Confirmation_Initial =
+        public static MsgNodeInst msgCT_GoronArrowsConfirmationInitial =
             new(StgBmg.Castle_Town, 0x9eb, 0x3D8);
-        public static MsgNodeInst Castle_Town_Goron_Arrows_Confirmation_Second =
+        public static MsgNodeInst msgCT_GoronArrowsConfirmationSecond =
             new(StgBmg.Castle_Town, 0x9ed, 0x3DB);
-        public static MsgNodeInst Castle_Town_Goron_Shield_Confirmation_Intitial =
+        public static MsgNodeInst msgCT_GoronShieldConfirmationIntitial =
             new(StgBmg.Castle_Town_Shops, 0xa06, 0x3E3);
-        public static MsgNodeInst Castle_Town_Goron_Shield_Confirmation_Second =
+        public static MsgNodeInst msgCT_GoronShieldConfirmationSecond =
             new(StgBmg.Castle_Town_Shops, 0xa09, 0x3E5);
         public static MsgNodeInst msg_BarnesBombBagConfirmation =
             new(StgBmg.Kakariko_Village_Interiors, 0x47f, 0x9B);
@@ -172,33 +172,19 @@ namespace TPRandomizer
         public static MsgNodeInst msgCT_CharloOptsOptions = new(StgBmg.Castle_Town, 0x347, 0x356);
         public static MsgNodeInst msg_FishingHoleBottleSign =
             new(StgBmg.Fishing_Pond, 0x2d5, 0x47A);
-        public static MsgNodeInst Coro_Buy_Options_Confirmation =
+        public static MsgNodeInst msg_CoroBuyOptionsConfirmation =
             new(StgBmg.Faron_Woods, 0x6a, 0xDD);
     }
 
     public enum MsgEntryId
     {
         Sera_Slingshot_Cant_Afford,
-        Sera_Slingshot_Confirmation,
         Kakariko_Malo_Mart_Hawkeye_Cant_Afford,
-        Kakariko_Malo_Mart_Hawkeye_Confirmation,
         Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford,
-        Kakariko_Malo_Mart_Wooden_Shield_Confirmation,
         Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford,
-        Kakariko_Malo_Mart_Hylian_Shield_Confirmation,
         Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
-        Kakariko_Malo_Mart_Red_Potion_Confirmation,
-        Castle_Town_Goron_Red_Potion_Confirmation_Initial,
-        Castle_Town_Goron_Red_Potion_Confirmation_Second,
         Castle_Town_Goron_Red_Potion_Cant_Afford,
-        Castle_Town_Goron_Lantern_Oil_Confirmation_Initial,
-        Castle_Town_Goron_Lantern_Oil_Confirmation_Second,
         Castle_Town_Goron_Lantern_Oil_Cant_Afford,
-        Castle_Town_Goron_Arrows_Confirmation_Initial,
-        Castle_Town_Goron_Arrows_Confirmation_Second,
-        Castle_Town_Goron_Shield_Confirmation_Intitial,
-        Castle_Town_Goron_Shield_Confirmation_Second,
-        Coro_Buy_Options_Confirmation,
     }
 
     public class CustomMsgUtils
@@ -211,82 +197,29 @@ namespace TPRandomizer
                     new(StageIDs.Ordon_Village_Interiors, 1, 0x5B3)
                 },
                 {
-                    MsgEntryId.Sera_Slingshot_Confirmation,
-                    new(StageIDs.Ordon_Village_Interiors, 1, 0x5B4)
-                },
-                {
                     MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Cant_Afford,
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D3)
-                },
-                {
-                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Confirmation,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D2)
                 },
                 {
                     MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford,
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2C8)
                 },
                 {
-                    MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Confirmation,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x2C7)
-                },
-                {
                     MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford,
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2CC)
-                },
-                {
-                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Confirmation,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x2CB)
                 },
                 {
                     MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
                     new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D6)
                 },
                 {
-                    MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Confirmation,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D7)
-                },
-                {
-                    MsgEntryId.Castle_Town_Goron_Red_Potion_Confirmation_Initial,
-                    new(StageIDs.Castle_Town_Shops, 4, 0x3BF)
-                },
-                {
-                    MsgEntryId.Castle_Town_Goron_Red_Potion_Confirmation_Second,
-                    new(StageIDs.Castle_Town_Shops, 4, 0x3C1)
-                },
-                {
                     MsgEntryId.Castle_Town_Goron_Red_Potion_Cant_Afford,
                     new(StageIDs.Castle_Town_Shops, 4, 0x3C2)
-                },
-                {
-                    MsgEntryId.Castle_Town_Goron_Lantern_Oil_Confirmation_Initial,
-                    new(StageIDs.Castle_Town_Shops, 4, 0x3B3)
-                },
-                {
-                    MsgEntryId.Castle_Town_Goron_Lantern_Oil_Confirmation_Second,
-                    new(StageIDs.Castle_Town_Shops, 4, 0x3B5)
                 },
                 {
                     MsgEntryId.Castle_Town_Goron_Lantern_Oil_Cant_Afford,
                     new(StageIDs.Castle_Town_Shops, 4, 0x3AC)
                 },
-                {
-                    MsgEntryId.Castle_Town_Goron_Arrows_Confirmation_Initial,
-                    new(StageIDs.Castle_Town, 0, 0x3D8)
-                },
-                {
-                    MsgEntryId.Castle_Town_Goron_Arrows_Confirmation_Second,
-                    new(StageIDs.Castle_Town, 0, 0x3DB)
-                },
-                {
-                    MsgEntryId.Castle_Town_Goron_Shield_Confirmation_Intitial,
-                    new(StageIDs.Castle_Town_Shops, 4, 0x3E3)
-                },
-                {
-                    MsgEntryId.Castle_Town_Goron_Shield_Confirmation_Second,
-                    new(StageIDs.Castle_Town_Shops, 4, 0x3E5)
-                },
-                { MsgEntryId.Coro_Buy_Options_Confirmation, new(StageIDs.Faron_Woods, 4, 0xDD) },
             };
 
         private static readonly Dictionary<SpotId, MsgNodeInst> spotIdToVanillaNode =

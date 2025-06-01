@@ -738,7 +738,7 @@ namespace TPRandomizer
         }
 
         private void AddShopConfirmationMsg(
-            MsgEntryId msgEntryId,
+            MsgNodeInst msgNode,
             string checkName,
             Item defaultItem,
             uint price,
@@ -793,7 +793,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text) + CustomMessages.shopOption;
 
-            results.Add(CustomMsgUtils.GetEntry(msgEntryId, normalizedText));
+            results2.AddStrReplacement(new(msgNode, normalizedText));
         }
 
         private void AddShopCantAffordMsg(
@@ -1148,7 +1148,7 @@ namespace TPRandomizer
                 seraSlingshotPrice
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Sera_Slingshot_Confirmation,
+                Node.msg_SeraSlingshotConfirmation,
                 "Sera Shop Slingshot",
                 Item.Slingshot,
                 30,
@@ -1162,7 +1162,7 @@ namespace TPRandomizer
             // easier to read since there is the red "refills" in the text also,
             // so leaving it as orange intentionally.
             AddShopConfirmationMsg(
-                MsgEntryId.Coro_Buy_Options_Confirmation,
+                Node.msg_CoroBuyOptionsConfirmation,
                 "Coro Bottle",
                 Item.Coro_Bottle,
                 100,
@@ -1186,7 +1186,7 @@ namespace TPRandomizer
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Confirmation,
+                Node.msgKV_MaloMartHawkeyeConfirmation,
                 "Kakariko Village Malo Mart Hawkeye",
                 Item.Hawkeye,
                 kakMaloHawkeyePrice,
@@ -1208,7 +1208,7 @@ namespace TPRandomizer
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Confirmation,
+                Node.msgKV_MaloMartWoodenShieldConfirmation,
                 "Kakariko Village Malo Mart Wooden Shield",
                 Item.Wooden_Shield,
                 kakMaloWoodenShieldPrice,
@@ -1231,7 +1231,7 @@ namespace TPRandomizer
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Confirmation,
+                Node.msgKV_MaloMartHylianShieldConfirmation,
                 "Kakariko Village Malo Mart Hylian Shield",
                 Item.Hylian_Shield,
                 kakMaloHylianShieldPrice,
@@ -1253,7 +1253,7 @@ namespace TPRandomizer
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Confirmation,
+                Node.msgKV_MaloMartRedPotionConfirmation,
                 "Kakariko Village Malo Mart Red Potion",
                 Item.Red_Potion_Shop,
                 kakMaloRedPotionPrice,
@@ -1294,7 +1294,7 @@ namespace TPRandomizer
 
             uint ctGoronRedPotionPrice = 40;
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Red_Potion_Confirmation_Initial,
+                Node.msgCT_GoronRedPotionConfirmationInitial,
                 "Castle Town Goron Shop Red Potion",
                 Item.Red_Potion_Shop,
                 ctGoronRedPotionPrice,
@@ -1302,7 +1302,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Red_Potion_Confirmation_Second,
+                Node.msgCT_GoronRedPotionConfirmationSecond,
                 "Castle Town Goron Shop Red Potion",
                 Item.Red_Potion_Shop,
                 ctGoronRedPotionPrice,
@@ -1319,7 +1319,7 @@ namespace TPRandomizer
 
             uint ctGoronLanternOilPrice = 30;
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Lantern_Oil_Confirmation_Initial,
+                Node.msgCT_GoronLanternOilConfirmationInitial,
                 "Castle Town Goron Shop Lantern Oil",
                 Item.Lantern_Oil_Shop,
                 ctGoronLanternOilPrice,
@@ -1327,7 +1327,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Lantern_Oil_Confirmation_Second,
+                Node.msgCT_GoronLanternOilConfirmationSecond,
                 "Castle Town Goron Shop Lantern Oil",
                 Item.Lantern_Oil_Shop,
                 ctGoronLanternOilPrice,
@@ -1344,7 +1344,7 @@ namespace TPRandomizer
 
             uint ctGoronArrowsPrice = 40;
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Arrows_Confirmation_Initial,
+                Node.msgCT_GoronArrowsConfirmationInitial,
                 "Castle Town Goron Shop Arrow Refill",
                 Item.Arrows_30,
                 ctGoronArrowsPrice,
@@ -1352,7 +1352,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Arrows_Confirmation_Second,
+                Node.msgCT_GoronArrowsConfirmationSecond,
                 "Castle Town Goron Shop Arrow Refill",
                 Item.Arrows_30,
                 ctGoronArrowsPrice,
@@ -1362,7 +1362,7 @@ namespace TPRandomizer
 
             uint ctGoronShieldPrice = 210;
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Shield_Confirmation_Intitial,
+                Node.msgCT_GoronShieldConfirmationIntitial,
                 "Castle Town Goron Shop Hylian Shield",
                 Item.Hylian_Shield,
                 ctGoronShieldPrice,
@@ -1370,7 +1370,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Shield_Confirmation_Second,
+                Node.msgCT_GoronShieldConfirmationSecond,
                 "Castle Town Goron Shop Hylian Shield",
                 Item.Hylian_Shield,
                 ctGoronShieldPrice,
