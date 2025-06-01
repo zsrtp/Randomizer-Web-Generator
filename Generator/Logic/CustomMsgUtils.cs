@@ -78,7 +78,7 @@ namespace TPRandomizer
         //
         public static MsgNodeInst msg_SeraSlingshotSlot =
             new(StgBmg.Ordon_Village_Interiors, 0x4d7, 0x5AE);
-        public static MsgNodeInst Sera_Slingshot_Cant_Afford =
+        public static MsgNodeInst msg_SeraSlingshotCantAfford =
             new(StgBmg.Ordon_Village_Interiors, 0x4c9, 0x5B3);
         public static MsgNodeInst msg_SeraSlingshotConfirmation =
             new(StgBmg.Ordon_Village_Interiors, 0x4cb, 0x5B4);
@@ -88,7 +88,7 @@ namespace TPRandomizer
             new(StgBmg.Ordon_Village_Interiors, 0x4d5, 0x5B6);
         public static MsgNodeInst msgKV_MaloMartHawkeyeSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x43b, 0x307);
-        public static MsgNodeInst Kakariko_Malo_Mart_Hawkeye_Cant_Afford =
+        public static MsgNodeInst msgKV_MaloMartHawkeyeCantAfford =
             new(StgBmg.Kakariko_Village_Interiors, 0x434, 0x2D3);
         public static MsgNodeInst msgKV_MaloMartHawkeyeConfirmation =
             new(StgBmg.Kakariko_Village_Interiors, 0x430, 0x2D2);
@@ -98,13 +98,13 @@ namespace TPRandomizer
             new(StgBmg.Kakariko_Village_Interiors, 0x43c, 0x2D4);
         public static MsgNodeInst msgKV_MaloMartWoodenShieldSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x41d, 0x30D);
-        public static MsgNodeInst Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford =
+        public static MsgNodeInst msgKV_MaloMartWoodenShieldCantAfford =
             new(StgBmg.Kakariko_Village_Interiors, 0x415, 0x2C8);
         public static MsgNodeInst msgKV_MaloMartWoodenShieldConfirmation =
             new(StgBmg.Kakariko_Village_Interiors, 0x40f, 0x2C7);
         public static MsgNodeInst msgKV_MaloMartHylianShieldSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x42a, 0x30E);
-        public static MsgNodeInst Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford =
+        public static MsgNodeInst msgKV_MaloMartHylianShieldCantAfford =
             new(StgBmg.Kakariko_Village_Interiors, 0x422, 0x2CC);
         public static MsgNodeInst msgKV_MaloMartHylianShieldConfirmation =
             new(StgBmg.Kakariko_Village_Interiors, 0x41e, 0x2CB);
@@ -124,7 +124,7 @@ namespace TPRandomizer
             new(StgBmg.Kakariko_Village_Interiors, 0x42e, 0x2E0);
         public static MsgNodeInst msgKV_MaloMartRedPotionSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x44a, 0x305);
-        public static MsgNodeInst Kakariko_Malo_Mart_Red_Potion_Cant_Afford =
+        public static MsgNodeInst msgKV_MaloMartRedPotionCantAfford =
             new(StgBmg.Kakariko_Village_Interiors, 0x43e, 0x2D6);
         public static MsgNodeInst msgKV_MaloMartRedPotionConfirmation =
             new(StgBmg.Kakariko_Village_Interiors, 0x441, 0x2D7);
@@ -142,7 +142,7 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town_Shops, 0x9ae, 0x3BF);
         public static MsgNodeInst msgCT_GoronRedPotionConfirmationSecond =
             new(StgBmg.Castle_Town_Shops, 0x9b1, 0x3C1);
-        public static MsgNodeInst Castle_Town_Goron_Red_Potion_Cant_Afford =
+        public static MsgNodeInst msgCT_GoronRedPotionCantAfford =
             new(StgBmg.Castle_Town_Shops, 0x9b4, 0x3C2);
         public static MsgNodeInst msgCT_GoronLanternOilConfirmationInitial =
             new(StgBmg.Castle_Town_Shops, 0x99d, 0x3B3);
@@ -154,7 +154,7 @@ namespace TPRandomizer
         // the Arrows goron since seems like the same thing. Red potion and
         // Hylian shield ones do not appear to do this from looking at the
         // graph.
-        public static MsgNodeInst Castle_Town_Goron_Lantern_Oil_Cant_Afford =
+        public static MsgNodeInst msgCT_GoronLanternOilCantAfford =
             new(StgBmg.Castle_Town_Shops, 0x97e, 0x3AC); // Also used by FLW index 0x993
         public static MsgNodeInst msgCT_GoronArrowsConfirmationInitial =
             new(StgBmg.Castle_Town, 0x9eb, 0x3D8);
@@ -176,52 +176,8 @@ namespace TPRandomizer
             new(StgBmg.Faron_Woods, 0x6a, 0xDD);
     }
 
-    public enum MsgEntryId
-    {
-        Sera_Slingshot_Cant_Afford,
-        Kakariko_Malo_Mart_Hawkeye_Cant_Afford,
-        Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford,
-        Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford,
-        Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
-        Castle_Town_Goron_Red_Potion_Cant_Afford,
-        Castle_Town_Goron_Lantern_Oil_Cant_Afford,
-    }
-
     public class CustomMsgUtils
     {
-        private static readonly Dictionary<MsgEntryId, MessageEntry> idToEntry =
-            new()
-            {
-                {
-                    MsgEntryId.Sera_Slingshot_Cant_Afford,
-                    new(StageIDs.Ordon_Village_Interiors, 1, 0x5B3)
-                },
-                {
-                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Cant_Afford,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D3)
-                },
-                {
-                    MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x2C8)
-                },
-                {
-                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x2CC)
-                },
-                {
-                    MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
-                    new(StageIDs.Kakariko_Village_Interiors, 3, 0x2D6)
-                },
-                {
-                    MsgEntryId.Castle_Town_Goron_Red_Potion_Cant_Afford,
-                    new(StageIDs.Castle_Town_Shops, 4, 0x3C2)
-                },
-                {
-                    MsgEntryId.Castle_Town_Goron_Lantern_Oil_Cant_Afford,
-                    new(StageIDs.Castle_Town_Shops, 4, 0x3AC)
-                },
-            };
-
         private static readonly Dictionary<SpotId, MsgNodeInst> spotIdToVanillaNode =
             new()
             {
@@ -285,18 +241,6 @@ namespace TPRandomizer
                 throw new Exception($"Failed to find fliValue for spotId '{spotId}'.");
 
             return fliValue;
-        }
-
-        public static MessageEntry GetEntry(MsgEntryId messageId, string message = null)
-        {
-            if (!idToEntry.TryGetValue(messageId, out MessageEntry entry))
-                throw new Exception($"Failed to find MessageEntry for '{messageId}'.");
-
-            if (!StringUtils.isEmpty(message))
-                entry.message = message;
-            else
-                entry.message = "";
-            return entry;
         }
     }
 }

@@ -797,7 +797,7 @@ namespace TPRandomizer
         }
 
         private void AddShopCantAffordMsg(
-            MsgEntryId msgEntryId,
+            MsgNodeInst msgNode,
             string checkName,
             Item defaultItem,
             uint price,
@@ -853,7 +853,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text);
 
-            results.Add(CustomMsgUtils.GetEntry(msgEntryId, normalizedText));
+            results2.AddStrReplacement(new(msgNode, normalizedText));
         }
 
         private string GenShopBoughtText(Item item, string context)
@@ -1142,7 +1142,7 @@ namespace TPRandomizer
                 "sera"
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Sera_Slingshot_Cant_Afford,
+                Node.msg_SeraSlingshotCantAfford,
                 "Sera Shop Slingshot",
                 Item.Slingshot,
                 seraSlingshotPrice
@@ -1179,7 +1179,7 @@ namespace TPRandomizer
                 kakMaloHawkeyePrice
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Cant_Afford,
+                Node.msgKV_MaloMartHawkeyeCantAfford,
                 "Kakariko Village Malo Mart Hawkeye",
                 Item.Hawkeye,
                 kakMaloHawkeyePrice,
@@ -1201,7 +1201,7 @@ namespace TPRandomizer
                 kakMaloWoodenShieldPrice
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford,
+                Node.msgKV_MaloMartWoodenShieldCantAfford,
                 "Kakariko Village Malo Mart Wooden Shield",
                 Item.Wooden_Shield,
                 kakMaloWoodenShieldPrice,
@@ -1216,6 +1216,7 @@ namespace TPRandomizer
             );
 
             // uint kakMaloHylianShieldPrice = 200;
+            // TODO: temp test code
             uint kakMaloHylianShieldPrice = 315;
             AddShopSlotMsg(
                 Node.msgKV_MaloMartHylianShieldSlot,
@@ -1224,7 +1225,7 @@ namespace TPRandomizer
                 kakMaloHylianShieldPrice
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford,
+                Node.msgKV_MaloMartHylianShieldCantAfford,
                 "Kakariko Village Malo Mart Hylian Shield",
                 Item.Hylian_Shield,
                 kakMaloHylianShieldPrice,
@@ -1246,7 +1247,7 @@ namespace TPRandomizer
                 kakMaloRedPotionPrice
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
+                Node.msgKV_MaloMartRedPotionCantAfford,
                 "Kakariko Village Malo Mart Red Potion",
                 Item.Red_Potion_Shop,
                 kakMaloRedPotionPrice,
@@ -1310,7 +1311,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Castle_Town_Goron_Red_Potion_Cant_Afford,
+                Node.msgCT_GoronRedPotionCantAfford,
                 "Castle Town Goron Shop Red Potion",
                 Item.Red_Potion_Shop,
                 ctGoronRedPotionPrice,
@@ -1335,7 +1336,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Castle_Town_Goron_Lantern_Oil_Cant_Afford,
+                Node.msgCT_GoronLanternOilCantAfford,
                 "Castle Town Goron Shop Lantern Oil",
                 Item.Lantern_Oil_Shop,
                 ctGoronLanternOilPrice,
