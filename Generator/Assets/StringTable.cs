@@ -1027,6 +1027,10 @@ namespace TPRandomizer.Assets
                 if (!stringToStrTableOffset.TryGetValue(str, out ushort strOffset))
                 {
                     // Is a new string
+                    if (strTable.Count > 0xFFFF)
+                        throw new Exception(
+                            $"Cannot use a u16 offset to string in table. Offset was going to be '{strTable.Count}'."
+                        );
                     strOffset = (ushort)strTable.Count;
                     strTable.AddRange(Converter.MessageStringBytes(str));
                     strTable.Add(Converter.GcByte(0x0));
