@@ -1277,9 +1277,9 @@ namespace TPRandomizer
                 598,
                 "magic-armor"
             );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Sold_Out,
+            results2.AddStrReplacement(
+                new(
+                    Node.msgCT_MaloMartMagicArmorSoldOut,
                     GenShopSoldOutText(
                         HintUtils.getCheckContents("Castle Town Malo Mart Magic Armor"),
                         "magic-armor"
@@ -1405,9 +1405,9 @@ namespace TPRandomizer
                     new() { { "item", itemText }, { "price", priceText } }
                 );
 
-                results.Add(
-                    CustomMsgUtils.GetEntry(
-                        MsgEntryId.Barnes_Bomb_Bag_Confirmation,
+                results2.AddStrReplacement(
+                    new(
+                        Node.msg_BarnesBombBagConfirmation,
                         Res.LangSpecificNormalize(text) + CustomMessages.shopOption
                     )
                 );

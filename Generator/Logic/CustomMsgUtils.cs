@@ -136,7 +136,7 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town_Shops, 0x612, 0x125);
         public static MsgNodeInst msgCT_MaloMartMagicArmorBought =
             new(StgBmg.Castle_Town_Shops, 0x60e, 0x11E);
-        public static MsgNodeInst Castle_Town_Malo_Mart_Magic_Armor_Sold_Out =
+        public static MsgNodeInst msgCT_MaloMartMagicArmorSoldOut =
             new(StgBmg.Castle_Town_Shops, 0x614, 0x130);
         public static MsgNodeInst Castle_Town_Goron_Red_Potion_Confirmation_Initial =
             new(StgBmg.Castle_Town_Shops, 0x9ae, 0x3BF);
@@ -164,7 +164,7 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town_Shops, 0xa06, 0x3E3);
         public static MsgNodeInst Castle_Town_Goron_Shield_Confirmation_Second =
             new(StgBmg.Castle_Town_Shops, 0xa09, 0x3E5);
-        public static MsgNodeInst Barnes_Bomb_Bag_Confirmation =
+        public static MsgNodeInst msg_BarnesBombBagConfirmation =
             new(StgBmg.Kakariko_Village_Interiors, 0x47f, 0x9B);
         public static MsgNodeInst msgKV_BarnesBombBagCantAfford =
             new(StgBmg.Kakariko_Village_Interiors, 0x484, 0xA0); // Also used by FLW index 0x523
@@ -195,7 +195,6 @@ namespace TPRandomizer
         Kakariko_Malo_Mart_Red_Potion_Confirmation,
         Chudleys_Fine_Goods_Magic_Armor_Slot,
         Castle_Town_Malo_Mart_Magic_Armor_Slot,
-        Castle_Town_Malo_Mart_Magic_Armor_Sold_Out,
         Castle_Town_Goron_Red_Potion_Confirmation_Initial,
         Castle_Town_Goron_Red_Potion_Confirmation_Second,
         Castle_Town_Goron_Red_Potion_Cant_Afford,
@@ -206,7 +205,6 @@ namespace TPRandomizer
         Castle_Town_Goron_Arrows_Confirmation_Second,
         Castle_Town_Goron_Shield_Confirmation_Intitial,
         Castle_Town_Goron_Shield_Confirmation_Second,
-        Barnes_Bomb_Bag_Confirmation,
         Coro_Buy_Options_Confirmation,
     }
 
@@ -281,10 +279,6 @@ namespace TPRandomizer
                     new(StageIDs.Castle_Town_Shops, 0, 0x125)
                 },
                 {
-                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Sold_Out,
-                    new(StageIDs.Castle_Town_Shops, 0, 0x130)
-                },
-                {
                     MsgEntryId.Castle_Town_Goron_Red_Potion_Confirmation_Initial,
                     new(StageIDs.Castle_Town_Shops, 4, 0x3BF)
                 },
@@ -323,10 +317,6 @@ namespace TPRandomizer
                 {
                     MsgEntryId.Castle_Town_Goron_Shield_Confirmation_Second,
                     new(StageIDs.Castle_Town_Shops, 4, 0x3E5)
-                },
-                {
-                    MsgEntryId.Barnes_Bomb_Bag_Confirmation,
-                    new(StageIDs.Kakariko_Village_Interiors, 1, 0x9B)
                 },
                 { MsgEntryId.Coro_Buy_Options_Confirmation, new(StageIDs.Faron_Woods, 4, 0xDD) },
             };
