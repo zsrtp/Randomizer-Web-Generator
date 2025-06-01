@@ -990,16 +990,11 @@ namespace TPRandomizer
                     contextIn: "fishing-bottle"
                 );
                 Res.Result fishingBottleRes = Res.Msg("self-hinter.fishing-bottle", null);
-                string fishingBottleText = fishingBottleRes.Substitute(
-                    new() { { "item", fishingBottleItemText } }
+                string fishingBottleText = Res.LangSpecificNormalize(
+                    fishingBottleRes.Substitute(new() { { "item", fishingBottleItemText } }),
+                    Res.IsCultureJa() ? 25 : 30
                 );
-
-                results.Add(
-                    CustomMsgUtils.GetEntry(
-                        MsgEntryId.Fishing_Hole_Bottle_Sign,
-                        Res.LangSpecificNormalize(fishingBottleText, Res.IsCultureJa() ? 25 : 30)
-                    )
-                );
+                results2.AddStrReplacement(new(Node.msg_FishingHoleBottleSign, fishingBottleText));
             }
         }
 

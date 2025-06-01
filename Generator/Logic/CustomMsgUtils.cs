@@ -170,7 +170,8 @@ namespace TPRandomizer
             new(StgBmg.Kakariko_Village_Interiors, 0x484, 0xA0); // Also used by FLW index 0x523
         public static MsgNodeInst msgCT_CharloOptsBody = new(StgBmg.Castle_Town, 0x346, 0x355);
         public static MsgNodeInst msgCT_CharloOptsOptions = new(StgBmg.Castle_Town, 0x347, 0x356);
-        public static MsgNodeInst Fishing_Hole_Bottle_Sign = new(StgBmg.Fishing_Pond, 0x2d5, 0x47A);
+        public static MsgNodeInst msg_FishingHoleBottleSign =
+            new(StgBmg.Fishing_Pond, 0x2d5, 0x47A);
         public static MsgNodeInst Coro_Buy_Options_Confirmation =
             new(StgBmg.Faron_Woods, 0x6a, 0xDD);
     }
@@ -219,7 +220,6 @@ namespace TPRandomizer
         Castle_Town_Goron_Shield_Confirmation_Second,
         Barnes_Bomb_Bag_Confirmation,
         Barnes_Bomb_Bag_Cant_Afford,
-        Fishing_Hole_Bottle_Sign,
         Coro_Buy_Options_Confirmation,
     }
 
@@ -381,7 +381,6 @@ namespace TPRandomizer
                     MsgEntryId.Barnes_Bomb_Bag_Cant_Afford,
                     new(StageIDs.Kakariko_Village_Interiors, 1, 0xA0)
                 },
-                { MsgEntryId.Fishing_Hole_Bottle_Sign, new(StageIDs.Fishing_Pond, 0, 0x47A) },
                 { MsgEntryId.Coro_Buy_Options_Confirmation, new(StageIDs.Faron_Woods, 4, 0xDD) },
             };
 
