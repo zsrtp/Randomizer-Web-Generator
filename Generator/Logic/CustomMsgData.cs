@@ -938,9 +938,7 @@ namespace TPRandomizer
 
         private void GenSelfHinterEntries()
         {
-            // For Charlo, we still need to use custom text even if disabled in
-            // order to update the "Donate 100", "Donate 50" text.
-            string charloText;
+            // Charlo donation
             if (
                 selfHinterChecks.TryGetValue(
                     "Charlo Donation Blessing",
@@ -964,23 +962,20 @@ namespace TPRandomizer
                     optionalContextMetaIn: resultSlotMetaItem
                 );
 
-                charloText = Res.LangSpecificNormalize(
+                string charloText = Res.LangSpecificNormalize(
                     result.Substitute(new() { { "item", itemText } })
                 );
-            }
-            else
-            {
-                charloText = Res.LangSpecificNormalize(
-                    Res.SimpleMsg("self-hinter.charlo", new() { { "context", "default" } }),
-                    addLineBreaks: false
+                results2.AddStrReplacement(
+                    new(Node.msgCT_CharloOptsBody, charloText + CustomMessages.shopOption)
                 );
             }
-            // Specifically do not want to normalize this part.
-            charloText += Res.SimpleMsg("self-hinter.charlo-options", null);
-            results.Add(
-                CustomMsgUtils.GetEntry(MsgEntryId.Charlo_Donation_Confirmation, charloText)
-            );
 
+            // Note we always need to update the options text to 100 Rupees, 50
+            // Rupees, etc. even if the body text is vanilla based on settings.
+            string charloOptionsText = Res.SimpleMsg("self-hinter.charlo-options", null);
+            results2.AddStrReplacement(new(Node.msgCT_CharloOptsOptions, charloOptionsText));
+
+            // Fishing Hole Bottle sign
             if (
                 selfHinterChecks.TryGetValue(
                     "Fishing Hole Bottle",
