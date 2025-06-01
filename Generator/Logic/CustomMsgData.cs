@@ -400,7 +400,7 @@ namespace TPRandomizer
             // There are some static things that should always be applied which
             // do not depend on the item.
             GenStaticEntries(results);
-            GenLinkHouseSignText(results);
+            GenLinkHouseSignText();
 
             // handle shop text first
             if (updateShopText)
@@ -426,15 +426,12 @@ namespace TPRandomizer
             Item seraSlingshotItem = updateShopText
                 ? HintUtils.getCheckContents("Sera Shop Slingshot")
                 : Item.Slingshot;
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Sera_Slingshot_Bought,
-                    GenShopBoughtText(seraSlingshotItem, "sera")
-                )
+            results2.AddStrReplacement(
+                new(Node.msg_SeraSlingshotBought, GenShopBoughtText(seraSlingshotItem, "sera"))
             );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Sera_Slingshot_Bought_2,
+            results2.AddStrReplacement(
+                new(
+                    Node.msg_SeraSlingshotBought2,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought-sera2", null))
                 )
             );
@@ -464,58 +461,57 @@ namespace TPRandomizer
                 CustomMessages.messageColorOrange
                     + hawkeyeSoldOutRes.Substitute(new() { { "item", hawkeyeItemText } })
             );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Sold_Out,
-                    hawkeyeSoldOutMsg
-                )
-            );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Sold_Out_Read,
+            results2.AddStrReplacement(new(Node.msgKV_MaloMartHawkeyeSoldOut, hawkeyeSoldOutMsg));
+            results2.AddStrReplacement(
+                new(
+                    Node.msgKV_MaloMartHawkeyeSoldOutRead,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.coming-soon-read", null))
                 )
             );
 
             // This is used for the sold out sign for all slots in this shop.
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out,
+            results2.AddStrReplacement(
+                new(
+                    Node.msgKV_MaloMartHylianShieldSoldOut,
                     Res.LangSpecificNormalize(
                         CustomMessages.messageColorOrange + Res.SimpleMsg("shop.sold-out", null)
                     )
                 )
             );
+
+            string textKvMaloMartHylianShieldSoldOutRead = Res.LangSpecificNormalize(
+                Res.SimpleMsg("shop.sold-out-read", null)
+            );
             // When you read the sold out sign
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out_Read,
-                    Res.LangSpecificNormalize(Res.SimpleMsg("shop.sold-out-read", null))
+            results2.AddStrReplacement(
+                new(
+                    Node.msgKV_MaloMartHylianShieldSoldOutRead,
+                    textKvMaloMartHylianShieldSoldOutRead
                 )
             );
             // If you buy the wooden shield slot before anything else, you will
             // see this one instead for that slot.
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out_Read_2,
-                    Res.LangSpecificNormalize(Res.SimpleMsg("shop.sold-out-read", null))
+            results2.AddStrReplacement(
+                new(
+                    Node.msgKV_MaloMartHylianShieldSoldOutRead2,
+                    textKvMaloMartHylianShieldSoldOutRead
                 )
             );
 
             // Need to replace this one so it does not reference your bottle.
             // Replacing with the same text used for the Hylian shield.
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Bought,
+            results2.AddStrReplacement(
+                new(
+                    Node.msgKV_MaloMartRedPotionBought,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought", null))
                 )
             );
 
             // ----- Castle Town Malo Mart -----
 
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Bought,
+            results2.AddStrReplacement(
+                new(
+                    Node.msgCT_MaloMartMagicArmorBought,
                     Res.LangSpecificNormalize(
                         Res.SimpleMsg("shop.bought", new() { { "context", "magic-armor" } })
                     )
@@ -532,9 +528,9 @@ namespace TPRandomizer
             // For some languages (like English), we use the default text.
             if (!barnesCantAffordRes.MetaHasVal("skip-msg", "true"))
             {
-                results.Add(
-                    CustomMsgUtils.GetEntry(
-                        MsgEntryId.Barnes_Bomb_Bag_Cant_Afford,
+                results2.AddStrReplacement(
+                    new(
+                        Node.msgKV_BarnesBombBagCantAfford,
                         Res.LangSpecificNormalize(barnesCantAffordRes.Substitute(null))
                     )
                 );
@@ -894,7 +890,7 @@ namespace TPRandomizer
             return Res.LangSpecificNormalize(text);
         }
 
-        private void GenLinkHouseSignText(List<MessageEntry> results)
+        private void GenLinkHouseSignText()
         {
             List<(string, byte, string)> dungeonData =
                 new()
@@ -1293,7 +1289,7 @@ namespace TPRandomizer
 
             // ----- Castle Town Gorons -----
 
-            // Gorons use "rrubis" istead of "rubis"
+            // Gorons use "rrubis" instead of "rubis" for French
             Dictionary<string, string> goronPriceContextMeta = new() { { "goron", "true" } };
 
             uint ctGoronRedPotionPrice = 40;
