@@ -712,6 +712,41 @@ namespace TPRandomizer.Assets
         }
     }
 
+    public class EntityLookupInfo2
+    {
+        public short indexAdjustment;
+
+        // Note: using a byte for this is fine for up to 14 entityTypes. The
+        // 6-bit part of the bmgLookupBytes will only ever be a value between 0
+        // and 8 which gets added to this byte value.
+        public byte tableSliceInfoStartIdx;
+        public List<bool> bmgHasData = new();
+
+        //
+        public List<Entity> entityList = new();
+
+        public List<byte> toBytes()
+        {
+            // Result is 4 bytes long.
+            List<byte> bytes = new();
+            bytes.AddRange(Converter.GcBytes(indexAdjustment)); // s16
+
+            int abc = tableSliceInfoStartIdx << 9;
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (bmgHasData[i])
+                    abc |= 1 << i;
+            }
+
+            bytes.AddRange(Converter.GcBytes((ushort)abc)); // u16
+
+            if (bytes.Count != 4)
+                throw new Exception($"Expected bytes.Count to be 4, but was '{bytes.Count}'.");
+            return bytes;
+        }
+    }
+
     public class StringTableResult2
     {
         private static EntityComparer entityComparer = new();
@@ -799,6 +834,34 @@ namespace TPRandomizer.Assets
                 }
                 return byteVal;
             }
+
+            public bool UpdateTableSliceInfoTable2(
+                List<ushort> tableSliceInfoTable,
+                byte tableSliceInfoStartIdx,
+                bool isContext
+            )
+            {
+                // Need to calculate this before adding to the table
+                byte baseOffset = (byte)(tableSliceInfoTable.Count / 2 - tableSliceInfoStartIdx);
+
+                if (isContext)
+                {
+                    if (ctxLen > 0)
+                    {
+                        tableSliceInfoTable.Add(ctxStartIdx);
+                        tableSliceInfoTable.Add(ctxLen);
+                        return true;
+                    }
+                }
+                else if (basicLen > 0)
+                {
+                    tableSliceInfoTable.Add(basicStartIdx);
+                    tableSliceInfoTable.Add(basicLen);
+                    return true;
+                }
+
+                return false;
+            }
         }
 
         public void AddNodeRemap(NodeRemap nodeRemap)
@@ -850,12 +913,14 @@ namespace TPRandomizer.Assets
             storedStrRepl.AddRange(strReplacements);
         }
 
-        private EntityLookupInfo BuildDataForEntityType(
+        private List<EntityLookupInfo2> BuildDataForEntityType(
             List<Entity> entities,
             bool basicUsesWordComp = false
         )
         {
             EntityLookupInfo result = new();
+            EntityLookupInfo2 ctxResult = new();
+            EntityLookupInfo2 basicResult = new();
             List<CompLists<Entity>> compListsList = new();
             List<TableSlicesPair> pairsList = new();
             // Init lists
@@ -907,6 +972,7 @@ namespace TPRandomizer.Assets
                     tableSlicesPair.ctxLen += 1;
 
                     result.entityList.Add(entity);
+                    ctxResult.entityList.Add(entity);
                     numCtxEntities += 1;
                 }
             }
@@ -937,106 +1003,164 @@ namespace TPRandomizer.Assets
                     tableSlicesPair.basicLen += 1;
 
                     result.entityList.Add(entity);
+                    basicResult.entityList.Add(entity);
                 }
             }
 
             result.ctxCompAdjustment = (short)(-1 * firstCtxCompOffset);
             result.basicCompAdjustment = (short)(numCtxEntities - firstBasicCompOffset);
+
+            // TODO: this is the 7-bit value which needs to be determined for both ctx and basic
             result.tableSliceInfoStartIdx = (byte)(tableSliceInfoTable.Count / 2);
 
+            // Context
+            // TODO: get correct indexAdjustment working
+            byte ctxTableSliceStart = (byte)(tableSliceInfoTable.Count / 2);
+            ctxResult.indexAdjustment = result.ctxCompAdjustment;
+            ctxResult.tableSliceInfoStartIdx = ctxTableSliceStart;
             foreach (TableSlicesPair pair in pairsList)
             {
-                byte lookupByte = pair.UpdateTableSliceInfoTable(
+                bool hasData = pair.UpdateTableSliceInfoTable2(
                     tableSliceInfoTable,
-                    result.tableSliceInfoStartIdx
+                    result.tableSliceInfoStartIdx,
+                    true
                 );
-                result.bmgLookupBytes.Add(lookupByte);
+                ctxResult.bmgHasData.Add(hasData);
             }
 
-            return result;
-        }
-
-        private void UpdateNodeRemapTable(EntityLookupInfo nodeRemapInfo)
-        {
-            List<NodeRemap> nodeRemapEntities = nodeRemapInfo.entityList.Cast<NodeRemap>().ToList();
-            foreach (NodeRemap entity in nodeRemapEntities)
+            // Basic
+            byte basicTableSliceStart = (byte)(tableSliceInfoTable.Count / 2);
+            basicResult.indexAdjustment = result.basicCompAdjustment;
+            basicResult.tableSliceInfoStartIdx = basicTableSliceStart;
+            foreach (TableSlicesPair pair in pairsList)
             {
-                nodeRemapTable.Add(entity.getEntityTableUint());
+                bool hasData = pair.UpdateTableSliceInfoTable2(
+                    tableSliceInfoTable,
+                    result.tableSliceInfoStartIdx,
+                    false
+                );
+                basicResult.bmgHasData.Add(hasData);
             }
+
+            // EntityLookupInfo2 basicResult = new();
+            // byte basicTableSliceStart = (byte)(tableSliceInfoTable.Count / 2);
+            // basicResult.tableSliceInfoStartIdx = basicTableSliceStart;
+            // foreach (TableSlicesPair pair in pairsList)
+            // {
+            //     byte lookupByte = pair.UpdateTableSliceInfoTable2(
+            //         tableSliceInfoTable,
+            //         result.tableSliceInfoStartIdx,
+            //         false
+            //     );
+            //     result.bmgLookupBytes.Add(lookupByte);
+            // }
+
+            return new() { ctxResult, basicResult };
+
+            // return result;
         }
 
-        private void UpdateBranchPatchTableData(EntityLookupInfo branchPatchInfo)
+        private void UpdateNodeRemapTable(List<EntityLookupInfo2> nodeRemapInfoLists)
         {
-            List<BranchPatchEntity> entities = branchPatchInfo.entityList
-                .Cast<BranchPatchEntity>()
-                .ToList();
-            foreach (BranchPatchEntity entity in entities)
+            foreach (EntityLookupInfo2 nodeRemapInfo in nodeRemapInfoLists)
             {
-                branchPatchTableData.AddRange(entity.getPatchBytes());
+                List<NodeRemap> nodeRemapEntities = nodeRemapInfo.entityList
+                    .Cast<NodeRemap>()
+                    .ToList();
+                foreach (NodeRemap entity in nodeRemapEntities)
+                {
+                    nodeRemapTable.Add(entity.getEntityTableUint());
+                }
             }
         }
 
-        private void UpdateBranchNextNodeTable(EntityLookupInfo branchNextNodeInfo)
+        private void UpdateBranchPatchTableData(List<EntityLookupInfo2> branchPatchInfoLists)
         {
-            List<BranchPatchEntity> entities = branchNextNodeInfo.entityList
-                .Cast<BranchPatchEntity>()
-                .ToList();
-            foreach (BranchPatchEntity entity in entities)
+            foreach (EntityLookupInfo2 branchPatchInfo in branchPatchInfoLists)
             {
-                branchNextNodeBaseIdxTable.Add((ushort)branchNextNodeTable.Count);
-                branchNextNodeTable.AddRange(entity.nextNodeIndexes);
+                List<BranchPatchEntity> entities = branchPatchInfo.entityList
+                    .Cast<BranchPatchEntity>()
+                    .ToList();
+                foreach (BranchPatchEntity entity in entities)
+                {
+                    branchPatchTableData.AddRange(entity.getPatchBytes());
+                }
             }
         }
 
-        private void UpdateEventPatchTableData(EntityLookupInfo eventPatchInfo)
+        private void UpdateBranchNextNodeTable(List<EntityLookupInfo2> branchNextNodeInfoLists)
         {
-            List<EventPatchEntity> entities = eventPatchInfo.entityList
-                .Cast<EventPatchEntity>()
-                .ToList();
-            foreach (EventPatchEntity entity in entities)
+            foreach (EntityLookupInfo2 branchNextNodeInfo in branchNextNodeInfoLists)
             {
-                eventPatchTableData.AddRange(entity.getPatchBytes());
+                List<BranchPatchEntity> entities = branchNextNodeInfo.entityList
+                    .Cast<BranchPatchEntity>()
+                    .ToList();
+                foreach (BranchPatchEntity entity in entities)
+                {
+                    branchNextNodeBaseIdxTable.Add((ushort)branchNextNodeTable.Count);
+                    branchNextNodeTable.AddRange(entity.nextNodeIndexes);
+                }
             }
         }
 
-        private void UpdateEventNextNodeTable(EntityLookupInfo eventNextNodeInfo)
+        private void UpdateEventPatchTableData(List<EntityLookupInfo2> eventPatchInfoLists)
         {
-            List<EventPatchEntity> entities = eventNextNodeInfo.entityList
-                .Cast<EventPatchEntity>()
-                .ToList();
-            foreach (EventPatchEntity entity in entities)
+            foreach (EntityLookupInfo2 eventPatchInfo in eventPatchInfoLists)
             {
-                if (entity.nextNodeIdx == null)
-                    throw new Exception("nextNodeIdx was null, but expected to not be null.");
-
-                eventNextNodeTable.Add((ushort)entity.nextNodeIdx);
+                List<EventPatchEntity> entities = eventPatchInfo.entityList
+                    .Cast<EventPatchEntity>()
+                    .ToList();
+                foreach (EventPatchEntity entity in entities)
+                {
+                    eventPatchTableData.AddRange(entity.getPatchBytes());
+                }
             }
         }
 
-        private void UpdateStrTables(EntityLookupInfo strReplInfo)
+        private void UpdateEventNextNodeTable(List<EntityLookupInfo2> eventNextNodeInfoLists)
+        {
+            foreach (EntityLookupInfo2 eventNextNodeInfo in eventNextNodeInfoLists)
+            {
+                List<EventPatchEntity> entities = eventNextNodeInfo.entityList
+                    .Cast<EventPatchEntity>()
+                    .ToList();
+                foreach (EventPatchEntity entity in entities)
+                {
+                    if (entity.nextNodeIdx == null)
+                        throw new Exception("nextNodeIdx was null, but expected to not be null.");
+
+                    eventNextNodeTable.Add((ushort)entity.nextNodeIdx);
+                }
+            }
+        }
+
+        private void UpdateStrTables(List<EntityLookupInfo2> strReplInfoLists)
         {
             Dictionary<string, ushort> stringToStrTableOffset = new();
 
-            List<StrReplEntity> nodeRemapEntities = strReplInfo.entityList
-                .Cast<StrReplEntity>()
-                .ToList();
-            foreach (StrReplEntity entity in nodeRemapEntities)
+            foreach (EntityLookupInfo2 strReplInfo in strReplInfoLists)
             {
-                string str = entity.str;
-
-                if (!stringToStrTableOffset.TryGetValue(str, out ushort strOffset))
+                List<StrReplEntity> nodeRemapEntities = strReplInfo.entityList
+                    .Cast<StrReplEntity>()
+                    .ToList();
+                foreach (StrReplEntity entity in nodeRemapEntities)
                 {
-                    // Is a new string
-                    if (strTable.Count > 0xFFFF)
-                        throw new Exception(
-                            $"Cannot use a u16 offset to string in table. Offset was going to be '{strTable.Count}'."
-                        );
-                    strOffset = (ushort)strTable.Count;
-                    strTable.AddRange(Converter.MessageStringBytes(str));
-                    strTable.Add(Converter.GcByte(0x0));
-                    stringToStrTableOffset[str] = strOffset;
+                    string str = entity.str;
+
+                    if (!stringToStrTableOffset.TryGetValue(str, out ushort strOffset))
+                    {
+                        // Is a new string
+                        if (strTable.Count > 0xFFFF)
+                            throw new Exception(
+                                $"Cannot use a u16 offset to string in table. Offset was going to be '{strTable.Count}'."
+                            );
+                        strOffset = (ushort)strTable.Count;
+                        strTable.AddRange(Converter.MessageStringBytes(str));
+                        strTable.Add(Converter.GcByte(0x0));
+                        stringToStrTableOffset[str] = strOffset;
+                    }
+                    strOffsetTable.Add(strOffset);
                 }
-                strOffsetTable.Add(strOffset);
             }
         }
 
@@ -1046,36 +1170,41 @@ namespace TPRandomizer.Assets
             // wordCompVals.Add(1);
             // wordCompVals.Add(17);
 
-            List<EntityLookupInfo> orderedEntityInfos = new();
+            List<EntityLookupInfo2> orderedEntityInfos = new();
 
-            EntityLookupInfo nodeRemapInfo = BuildDataForEntityType(storedNodeRemaps, true);
-            orderedEntityInfos.Add(nodeRemapInfo);
+            List<EntityLookupInfo2> nodeRemapInfo = BuildDataForEntityType(storedNodeRemaps, true);
+            orderedEntityInfos.AddRange(nodeRemapInfo);
             UpdateNodeRemapTable(nodeRemapInfo);
 
-            EntityLookupInfo branchPatchInfo = BuildDataForEntityType(storedBranchPatches);
-            orderedEntityInfos.Add(branchPatchInfo);
+            List<EntityLookupInfo2> branchPatchInfo = BuildDataForEntityType(storedBranchPatches);
+            orderedEntityInfos.AddRange(branchPatchInfo);
             UpdateBranchPatchTableData(branchPatchInfo);
 
-            EntityLookupInfo branchNextNodeInfo = BuildDataForEntityType(storedBranchNextNodes);
-            orderedEntityInfos.Add(branchNextNodeInfo);
+            List<EntityLookupInfo2> branchNextNodeInfo = BuildDataForEntityType(
+                storedBranchNextNodes
+            );
+            orderedEntityInfos.AddRange(branchNextNodeInfo);
             UpdateBranchNextNodeTable(branchNextNodeInfo);
 
-            EntityLookupInfo eventPatchInfo = BuildDataForEntityType(storedEventPatches);
-            orderedEntityInfos.Add(eventPatchInfo);
+            List<EntityLookupInfo2> eventPatchInfo = BuildDataForEntityType(storedEventPatches);
+            orderedEntityInfos.AddRange(eventPatchInfo);
             UpdateEventPatchTableData(eventPatchInfo);
 
-            EntityLookupInfo eventNextNodeInfo = BuildDataForEntityType(storedEventNextNodes);
-            orderedEntityInfos.Add(eventNextNodeInfo);
+            List<EntityLookupInfo2> eventNextNodeInfo = BuildDataForEntityType(
+                storedEventNextNodes
+            );
+            orderedEntityInfos.AddRange(eventNextNodeInfo);
             UpdateEventNextNodeTable(eventNextNodeInfo);
 
-            EntityLookupInfo strReplInfo = BuildDataForEntityType(storedStrRepl);
-            orderedEntityInfos.Add(strReplInfo);
+            List<EntityLookupInfo2> strReplInfo = BuildDataForEntityType(storedStrRepl);
+            orderedEntityInfos.AddRange(strReplInfo);
             UpdateStrTables(strReplInfo);
 
             Header header = new();
 
             header.entityInfoTableOffset = (ushort)(headerSize + bodyData.Count);
-            foreach (EntityLookupInfo entityLookupInfo in orderedEntityInfos)
+            // foreach (EntityLookupInfo entityLookupInfo in orderedEntityInfos)
+            foreach (EntityLookupInfo2 entityLookupInfo in orderedEntityInfos)
             {
                 bodyData.AddRange(entityLookupInfo.toBytes());
             }

@@ -2372,19 +2372,12 @@ namespace TPRandomizer.Assets
             // u16 - infRemapOffset
             // u16 - numInfRemapEntries
 
-            ushort headerSize = 0x28;
-
-            ushort signToInitFliOffset = (ushort)(headerSize + bodyData.Count);
-            ushort numSignToInitFliOffsetEntries = 0;
-
+            ushort headerSize = 0x20;
 
             StringTableResult2.Header header = customMsgData.AddBytesGenHeader(headerSize, bodyData);
 
-
             // Build header
             allData.AddRange(Converter.MessageStringBytes("BMG0")); // 0x00
-            allData.AddRange(Converter.GcBytes(signToInitFliOffset)); // 0x04
-            allData.AddRange(Converter.GcBytes(numSignToInitFliOffsetEntries)); // 0x06
 
             // TODO: there is probably an issue with converting the foundIndex
             // in the table with the value. We might need to add all ctx and
@@ -2414,19 +2407,19 @@ namespace TPRandomizer.Assets
             // zero. One could be greater than the other? That is true. So our
             // diff could be positive or negative. The result is guaranteed to
             // be at least 0 though once we add everything together.
-            allData.AddRange(Converter.GcBytes(header.entityInfoTableOffset)); // 0x08
-            allData.AddRange(Converter.GcBytes(header.tableSliceInfosOffset)); // 0x0a
-            allData.AddRange(Converter.GcBytes(header.wordCompValsOffset)); // 0x0c
-            allData.AddRange(Converter.GcBytes(header.shortCompValsOffset)); // 0x0e
-            allData.AddRange(Converter.GcBytes(header.nodeRemapTableOffset)); // 0x10
-            allData.AddRange(Converter.GcBytes(header.branchPatchTableOffset)); // 0x12
-            allData.AddRange(Converter.GcBytes(header.branchNextNodeBaseIdxTableOffset)); // 0x14
-            allData.AddRange(Converter.GcBytes(header.branchNextNodeTableOffset)); // 0x16
-            allData.AddRange(Converter.GcBytes(header.eventNextNodeTableOffset)); // 0x18
-            allData.AddRange(Converter.GcBytes(header.eventPatchTableOffset)); // 0x1a
-            allData.AddRange(Converter.GcBytes(header.strOffsetTableOffset)); // 0x1c
-            allData.AddRange(Converter.GcBytes(header.strTableOffset)); // 0x1e
-            allData.AddRange(Converter.GcBytes(header.strTableLen)); // 0x20
+            allData.AddRange(Converter.GcBytes(header.entityInfoTableOffset)); // 0x04
+            allData.AddRange(Converter.GcBytes(header.tableSliceInfosOffset)); // 0x06
+            allData.AddRange(Converter.GcBytes(header.wordCompValsOffset)); // 0x08
+            allData.AddRange(Converter.GcBytes(header.shortCompValsOffset)); // 0x0a
+            allData.AddRange(Converter.GcBytes(header.nodeRemapTableOffset)); // 0x0c
+            allData.AddRange(Converter.GcBytes(header.branchPatchTableOffset)); // 0x0e
+            allData.AddRange(Converter.GcBytes(header.branchNextNodeBaseIdxTableOffset)); // 0x10
+            allData.AddRange(Converter.GcBytes(header.branchNextNodeTableOffset)); // 0x12
+            allData.AddRange(Converter.GcBytes(header.eventNextNodeTableOffset)); // 0x14
+            allData.AddRange(Converter.GcBytes(header.eventPatchTableOffset)); // 0x16
+            allData.AddRange(Converter.GcBytes(header.strOffsetTableOffset)); // 0x18
+            allData.AddRange(Converter.GcBytes(header.strTableOffset)); // 0x1a
+            allData.AddRange(Converter.GcBytes(header.strTableLen)); // 0x1c
 
             while (allData.Count < headerSize)
                 allData.Add(0);
