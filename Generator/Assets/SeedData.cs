@@ -2372,7 +2372,7 @@ namespace TPRandomizer.Assets
             // u16 - infRemapOffset
             // u16 - numInfRemapEntries
 
-            ushort headerSize = 0x20;
+            ushort headerSize = 0x38;
 
             StringTableResult2.Header header = customMsgData.AddBytesGenHeader(headerSize, bodyData);
 
@@ -2419,7 +2419,13 @@ namespace TPRandomizer.Assets
             allData.AddRange(Converter.GcBytes(header.eventPatchTableOffset)); // 0x16
             allData.AddRange(Converter.GcBytes(header.strOffsetTableOffset)); // 0x18
             allData.AddRange(Converter.GcBytes(header.strTableOffset)); // 0x1a
-            allData.AddRange(Converter.GcBytes(header.strTableLen)); // 0x1c
+            allData.AddRange(Converter.GcBytes(header.strTableEncodedStart)); // 0x1c
+            allData.AddRange(Converter.GcBytes(header.encodedStrTableNumBlocks)); // 0x1e
+            for (int i = 0; i < 4; i++) // 0x20
+            {
+                allData.AddRange(Converter.GcBytes(header.encryptionKey[i]));
+            }
+            allData.Add(0); // 0x30
 
             while (allData.Count < headerSize)
                 allData.Add(0);

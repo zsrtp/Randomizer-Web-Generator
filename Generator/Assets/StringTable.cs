@@ -750,6 +750,7 @@ namespace TPRandomizer.Assets
     public class StringTableResult2
     {
         private static EntityComparer entityComparer = new();
+        private List<uint> encryptionKey = new();
         private List<Entity> storedNodeRemaps = new();
         private List<Entity> storedStrRepl = new();
         private List<Entity> storedBranchPatches = new();
@@ -770,7 +771,18 @@ namespace TPRandomizer.Assets
         public List<ushort> strOffsetTable = new();
         public List<byte> strTable = new();
 
-        public StringTableResult2() { }
+        public StringTableResult2()
+        {
+            // Note: using a new Random here is intentional. The exact
+            // encryptionKey will be different for each GCI which is generated.
+            Random random = new Random();
+            for (int i = 0; i < 4; i++)
+            {
+                // We get 64 bits and take 32 since asking for 32 actually only
+                // gives us 31 (never negative).
+                encryptionKey.Add((uint)random.NextInt64());
+            }
+        }
 
         public class Header
         {
@@ -786,7 +798,9 @@ namespace TPRandomizer.Assets
             public ushort eventPatchTableOffset;
             public ushort strOffsetTableOffset;
             public ushort strTableOffset;
-            public ushort strTableLen;
+            public ushort strTableEncodedStart;
+            public ushort encodedStrTableNumBlocks;
+            public List<uint> encryptionKey;
         }
 
         class CompLists<T>
@@ -1162,6 +1176,122 @@ namespace TPRandomizer.Assets
                     strOffsetTable.Add(strOffset);
                 }
             }
+
+            while (strTable.Count % 8 != 0)
+                strTable.Add(0);
+
+            EncryptStrTable();
+        }
+
+        private void EncryptStrTable()
+        {
+            if (strTable.Count % 8 != 0)
+                throw new Exception($"Expected stringTable to contain a multiple of 8 bytes.");
+
+            List<uint> key = encryptionKey;
+
+            List<uint> beforeEncoded = new();
+
+            for (int i = 0; i < strTable.Count; i += 4)
+            {
+                uint val = 0;
+                for (int j = 0; j < 4; j++)
+                {
+                    val |= (uint)(strTable[i + 3 - j] << 8 * j);
+                }
+                beforeEncoded.Add(val);
+            }
+
+            List<uint> prevCipherText = new();
+            prevCipherText.Add(key[0]);
+            prevCipherText.Add(key[1]);
+
+            List<uint> encoded = new();
+            for (int idx = 0; idx < beforeEncoded.Count; idx += 2)
+            {
+                List<uint> slice = beforeEncoded.Slice(idx, 2);
+                slice[0] ^= prevCipherText[0];
+                slice[1] ^= prevCipherText[1];
+                encipher(2, slice, key);
+                prevCipherText[0] = slice[0];
+                prevCipherText[1] = slice[1];
+                encoded.AddRange(slice);
+            }
+
+            for (int idx = 0; idx < encoded.Count; idx++)
+            {
+                int effIdx = idx * 4;
+                uint val = encoded[idx];
+                strTable[effIdx] = (byte)(val >> 24);
+                strTable[effIdx + 1] = (byte)(val >> 16);
+                strTable[effIdx + 2] = (byte)(val >> 8);
+                strTable[effIdx + 3] = (byte)val;
+            }
+
+            List<uint> decPrevCipherText = new();
+            decPrevCipherText.Add(key[0]);
+            decPrevCipherText.Add(key[1]);
+
+            List<uint> decoded = new();
+            for (int idx = 0; idx < encoded.Count; idx += 2)
+            {
+                List<uint> slice = encoded.Slice(idx, 2);
+                List<uint> tempSliceCopy = slice.Slice(0, 2);
+                decipher(2, slice, key);
+                slice[0] ^= decPrevCipherText[0];
+                slice[1] ^= decPrevCipherText[1];
+                decoded.AddRange(slice);
+
+                decPrevCipherText[0] = tempSliceCopy[0];
+                decPrevCipherText[1] = tempSliceCopy[1];
+            }
+
+            for (int idx = 0; idx < beforeEncoded.Count; idx++)
+            {
+                if (beforeEncoded[idx] != decoded[idx])
+                {
+                    throw new Exception($"Did not match at '{idx}'.");
+                }
+            }
+
+            int abcd = 7;
+        }
+
+        private void encipher(uint numRounds, List<uint> v, List<uint> key)
+        {
+            const uint delta = 0x9E3779B9;
+
+            uint v0 = v[0];
+            uint v1 = v[1];
+            uint sum = 0;
+
+            for (int i = 0; i < numRounds; i++)
+            {
+                v0 += (((v1 << 4) ^ (v1 >> 5)) + v1) ^ (sum + key[(int)(sum & 3)]);
+                sum += delta;
+                v1 += (((v0 << 4) ^ (v0 >> 5)) + v0) ^ (sum + key[(int)((sum >> 11) & 3)]);
+            }
+
+            v[0] = v0;
+            v[1] = v1;
+        }
+
+        void decipher(uint numRounds, List<uint> v, List<uint> key)
+        {
+            uint v0 = v[0];
+            uint v1 = v[1];
+            uint delta = 0x9E3779B9;
+            uint sum = delta * numRounds;
+
+            for (int i = 0; i < numRounds; i++)
+            {
+                v1 -= (((v0 << 4) ^ (v0 >> 5)) + v0) ^ (sum + key[(int)((sum >> 11) & 3)]);
+                sum -= delta;
+                v0 -= (((v1 << 4) ^ (v1 >> 5)) + v1) ^ (sum + key[(int)(sum & 3)]);
+            }
+
+            v[0] = v0;
+            v[1] = v1;
         }
 
         public Header AddBytesGenHeader(ushort headerSize, List<byte> bodyData)
@@ -1277,7 +1407,13 @@ namespace TPRandomizer.Assets
             header.strTableOffset = (ushort)(headerSize + bodyData.Count);
             bodyData.AddRange(strTable);
 
-            header.strTableLen = (ushort)(headerSize + bodyData.Count - header.strTableOffset);
+            // TODO: calculate these correctly
+            header.strTableEncodedStart = 0;
+            header.encodedStrTableNumBlocks = (ushort)(
+                (headerSize + bodyData.Count - header.strTableOffset) / 8
+            );
+
+            header.encryptionKey = encryptionKey;
 
             return header;
         }
