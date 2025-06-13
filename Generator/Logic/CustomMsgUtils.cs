@@ -36,6 +36,18 @@ namespace TPRandomizer
         }
     }
 
+    public class InfInst
+    {
+        public StgBmg stgBmg { get; private set; }
+        public ushort infIdx { get; private set; }
+
+        public InfInst(StgBmg stgBmg, ushort infIdx)
+        {
+            this.stgBmg = stgBmg;
+            this.infIdx = infIdx;
+        }
+    }
+
     public class Node
     {
         // Generic branch node in zel_00 we can patch under context.
@@ -174,6 +186,14 @@ namespace TPRandomizer
             new(StgBmg.Fishing_Pond, 0x2d5, 0x47A);
         public static MsgNodeInst msg_CoroBuyOptionsConfirmation =
             new(StgBmg.Faron_Woods, 0x6a, 0xDD);
+    }
+
+    public class Inf
+    {
+        public static InfInst zel00_ChooseAQuestLog = new(StgBmg.zel_00, 0x42);
+        public static InfInst zel00_RatioCheckSample = new(StgBmg.zel_00, 0x556);
+        // Would have to shrink the font size on this one
+        // public static InfInst zel00_TvSettings = new(StgBmg.zel_00, 0x55b);
     }
 
     public class CustomMsgUtils

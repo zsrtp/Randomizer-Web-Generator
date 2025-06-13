@@ -3,6 +3,8 @@ namespace TPRandomizer.Assets
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Cryptography.X509Certificates;
+    using System.Threading.Tasks.Dataflow;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using TPRandomizer.Util;
 
@@ -623,31 +625,63 @@ namespace TPRandomizer.Assets
         }
     }
 
-    public class StrReplEntity : Entity
+    public class StrRepl : Entity
     {
         public ushort? context { get; private set; }
         public ushort infIndex { get; private set; }
         public string str { get; private set; }
+        public bool hidden { get; private set; }
 
-        public static StrReplEntity CustomSignText(ushort? context, string str)
+        public static StrRepl CustomSignText(ushort? context, string str)
         {
-            return new StrReplEntity(BmgNumber.zel_00, context, 0x1369, str);
+            return new StrRepl(BmgNumber.zel_00, context, 0x1369, str);
         }
 
-        public static StrReplEntity CustomSignOptions(ushort? context, string str)
+        public static StrRepl CustomSignOptions(ushort? context, string str)
         {
-            return new StrReplEntity(BmgNumber.zel_00, context, 0x136a, str);
+            return new StrRepl(BmgNumber.zel_00, context, 0x136a, str);
         }
 
-        public StrReplEntity(MsgNodeInst msgNode, string str, ushort? context = null)
+        public static StrRepl Hidden(MsgNodeInst msgNode, string str, ushort? context = null)
+        {
+            return new StrRepl(msgNode, str, context, true);
+        }
+
+        public static StrRepl Public(MsgNodeInst msgNode, string str, ushort? context = null)
+        {
+            return new StrRepl(msgNode, str, context, false);
+        }
+
+        public static StrRepl PublicInf(InfInst infInst, string str)
+        {
+            return new StrRepl(infInst, str, false);
+        }
+
+        public static StrRepl HiddenInf(InfInst infInst, string str)
+        {
+            return new StrRepl(infInst, str, true);
+        }
+
+        private StrRepl(InfInst infInst, string str, bool hidden)
+        {
+            BmgNumber bmgNumber = BmgNumUtils.StgBmgToBmgNumber(infInst.stgBmg);
+            Init(bmgNumber, null, infInst.infIdx, str, hidden);
+        }
+
+        private StrRepl(
+            MsgNodeInst msgNode,
+            string str,
+            ushort? context = null,
+            bool? hidden = true
+        )
         {
             BmgNumber bmgNumber = BmgNumUtils.StgBmgToBmgNumber(msgNode.stgBmg);
-            Init(bmgNumber, context, msgNode.infIndex, str);
+            Init(bmgNumber, context, msgNode.infIndex, str, hidden);
         }
 
-        private StrReplEntity(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
+        private StrRepl(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
         {
-            Init(bmgNumber, context, infIndex, str);
+            Init(bmgNumber, context, infIndex, str, true);
         }
 
         // public StrReplEntity(StageIDs stageId, ushort? context, ushort infIndex, string str)
@@ -657,12 +691,23 @@ namespace TPRandomizer.Assets
         //     Init(bmgNumber, context, infIndex, str);
         // }
 
-        private void Init(BmgNumber bmgNumber, ushort? context, ushort infIndex, string str)
+        private void Init(
+            BmgNumber bmgNumber,
+            ushort? context,
+            ushort infIndex,
+            string str,
+            bool? hidden
+        )
         {
             this.bmgNumber = bmgNumber;
             this.context = context;
             this.infIndex = infIndex;
             this.str = str;
+            if (hidden != null)
+                this.hidden = (bool)hidden;
+            else
+                this.hidden = true;
+
             if (context != null)
             {
                 uint contextVal = (uint)context;
@@ -770,6 +815,8 @@ namespace TPRandomizer.Assets
         public List<ushort> eventNextNodeTable = new();
         public List<ushort> strOffsetTable = new();
         public List<byte> strTable = new();
+        public ushort strTableEncodedStart;
+        public ushort encodedStrTableNumBlocks;
 
         public StringTableResult2()
         {
@@ -917,12 +964,12 @@ namespace TPRandomizer.Assets
             }
         }
 
-        public void AddStrReplacement(StrReplEntity strReplacement)
+        public void AddStrReplacement(StrRepl strReplacement)
         {
             storedStrRepl.Add(strReplacement);
         }
 
-        public void AddStrReplacements(List<StrReplEntity> strReplacements)
+        public void AddStrReplacements(List<StrRepl> strReplacements)
         {
             storedStrRepl.AddRange(strReplacements);
         }
@@ -1150,54 +1197,101 @@ namespace TPRandomizer.Assets
 
         private void UpdateStrTables(List<EntityLookupInfo2> strReplInfoLists)
         {
-            Dictionary<string, ushort> stringToStrTableOffset = new();
+            // strTable starts with static str so we can point to it if we are
+            // trying to display a string which has not been decrypted.
+            this.strOffsetTable = new();
+            this.strTable = new();
+            strTable.AddRange(Converter.MessageStringBytes("MsgNotFound"));
+            strTable.Add(0x0);
+
+            // Start encoded part of strTable with 4 random bytes to make
+            // decrypting more difficult.
+            List<byte> encryptedPart = new();
+            Random random = new Random();
+            encryptedPart.AddRange(Converter.GcBytes((uint)random.NextInt64()));
+
+            Dictionary<string, ushort> publicStrToOffset = new();
+            Dictionary<string, ushort> hiddenStrToOffset = new();
+
+            List<(bool, ushort)> relativeOffsets = new();
 
             foreach (EntityLookupInfo2 strReplInfo in strReplInfoLists)
             {
-                List<StrReplEntity> nodeRemapEntities = strReplInfo.entityList
-                    .Cast<StrReplEntity>()
-                    .ToList();
-                foreach (StrReplEntity entity in nodeRemapEntities)
+                List<StrRepl> entities = strReplInfo.entityList.Cast<StrRepl>().ToList();
+                foreach (StrRepl entity in entities)
                 {
+                    List<byte> strTableToAddTo;
+                    Dictionary<string, ushort> offsetDict;
+                    if (entity.hidden)
+                    {
+                        strTableToAddTo = encryptedPart;
+                        offsetDict = hiddenStrToOffset;
+                    }
+                    else
+                    {
+                        strTableToAddTo = strTable;
+                        offsetDict = publicStrToOffset;
+                    }
+
                     string str = entity.str;
 
-                    if (!stringToStrTableOffset.TryGetValue(str, out ushort strOffset))
+                    if (!offsetDict.TryGetValue(str, out ushort strOffset))
                     {
                         // Is a new string
-                        if (strTable.Count > 0xFFFF)
-                            throw new Exception(
-                                $"Cannot use a u16 offset to string in table. Offset was going to be '{strTable.Count}'."
-                            );
-                        strOffset = (ushort)strTable.Count;
-                        strTable.AddRange(Converter.MessageStringBytes(str));
-                        strTable.Add(Converter.GcByte(0x0));
-                        stringToStrTableOffset[str] = strOffset;
+                        strOffset = (ushort)strTableToAddTo.Count;
+                        strTableToAddTo.AddRange(Converter.MessageStringBytes(str));
+                        strTableToAddTo.Add(0x0);
+                        offsetDict[str] = strOffset;
                     }
-                    strOffsetTable.Add(strOffset);
+                    relativeOffsets.Add((entity.hidden, strOffset));
+                    // strOffsetTable.Add(strOffset);
                 }
             }
 
+            EncryptStrTable(encryptedPart);
+            encodedStrTableNumBlocks = (ushort)(encryptedPart.Count / 8);
+
+            // Decrypted part should be multiple of 4 bytes so encrypted part is
+            // nicely aligned
+            while (strTable.Count % 4 != 0)
+                strTable.Add(0);
+
+            // Add encrypted part to table
+            strTableEncodedStart = (ushort)strTable.Count;
+            strTable.AddRange(encryptedPart);
+
+            // Align entire BMG0 chunk to 8 bytes
             while (strTable.Count % 8 != 0)
                 strTable.Add(0);
 
-            EncryptStrTable();
+            // Fill out strOffsetTable
+            foreach ((bool, ushort) pair in relativeOffsets)
+            {
+                bool hidden = pair.Item1;
+                ushort offset = pair.Item2;
+                if (hidden)
+                    offset += strTableEncodedStart;
+                strOffsetTable.Add(offset);
+            }
         }
 
-        private void EncryptStrTable()
+        private void EncryptStrTable(List<byte> encryptedPart)
         {
-            if (strTable.Count % 8 != 0)
-                throw new Exception($"Expected stringTable to contain a multiple of 8 bytes.");
+            // Encrypted part MUST be a multiple of 8 bytes since that is the
+            // block size
+            while (encryptedPart.Count % 8 != 0)
+                encryptedPart.Add(0);
 
             List<uint> key = encryptionKey;
 
             List<uint> beforeEncoded = new();
 
-            for (int i = 0; i < strTable.Count; i += 4)
+            for (int i = 0; i < encryptedPart.Count; i += 4)
             {
                 uint val = 0;
                 for (int j = 0; j < 4; j++)
                 {
-                    val |= (uint)(strTable[i + 3 - j] << 8 * j);
+                    val |= (uint)(encryptedPart[i + 3 - j] << 8 * j);
                 }
                 beforeEncoded.Add(val);
             }
@@ -1222,10 +1316,10 @@ namespace TPRandomizer.Assets
             {
                 int effIdx = idx * 4;
                 uint val = encoded[idx];
-                strTable[effIdx] = (byte)(val >> 24);
-                strTable[effIdx + 1] = (byte)(val >> 16);
-                strTable[effIdx + 2] = (byte)(val >> 8);
-                strTable[effIdx + 3] = (byte)val;
+                encryptedPart[effIdx] = (byte)(val >> 24);
+                encryptedPart[effIdx + 1] = (byte)(val >> 16);
+                encryptedPart[effIdx + 2] = (byte)(val >> 8);
+                encryptedPart[effIdx + 3] = (byte)val;
             }
 
             List<uint> decPrevCipherText = new();
@@ -1296,10 +1390,6 @@ namespace TPRandomizer.Assets
 
         public Header AddBytesGenHeader(ushort headerSize, List<byte> bodyData)
         {
-            // wordCompVals.Add(0);
-            // wordCompVals.Add(1);
-            // wordCompVals.Add(17);
-
             List<EntityLookupInfo2> orderedEntityInfos = new();
 
             List<EntityLookupInfo2> nodeRemapInfo = BuildDataForEntityType(storedNodeRemaps, true);
@@ -1407,11 +1497,8 @@ namespace TPRandomizer.Assets
             header.strTableOffset = (ushort)(headerSize + bodyData.Count);
             bodyData.AddRange(strTable);
 
-            // TODO: calculate these correctly
-            header.strTableEncodedStart = 0;
-            header.encodedStrTableNumBlocks = (ushort)(
-                (headerSize + bodyData.Count - header.strTableOffset) / 8
-            );
+            header.strTableEncodedStart = strTableEncodedStart;
+            header.encodedStrTableNumBlocks = encodedStrTableNumBlocks;
 
             header.encryptionKey = encryptionKey;
 

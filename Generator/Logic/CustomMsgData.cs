@@ -377,7 +377,7 @@ namespace TPRandomizer
             }
         }
 
-        public List<MessageEntry> GenMessageEntries()
+        public List<MessageEntry> GenMessageEntries(SeedGenResults seedGenResults)
         {
             // TODO: this should return a structure.
             // It includes what it returns right now.
@@ -399,7 +399,7 @@ namespace TPRandomizer
 
             // There are some static things that should always be applied which
             // do not depend on the item.
-            GenStaticEntries(results);
+            GenStaticEntries(seedGenResults);
             GenLinkHouseSignText();
 
             // handle shop text first
@@ -419,18 +419,25 @@ namespace TPRandomizer
             return ret;
         }
 
-        private void GenStaticEntries(List<MessageEntry> results)
+        private void GenStaticEntries(SeedGenResults seedGenResults)
         {
+            string seedName = seedGenResults.playthroughName;
+            results2.AddStrReplacement(StrRepl.PublicInf(Inf.zel00_ChooseAQuestLog, seedName));
+            results2.AddStrReplacement(StrRepl.PublicInf(Inf.zel00_RatioCheckSample, seedName));
+
             // ----- Sera Shop -----
 
             Item seraSlingshotItem = updateShopText
                 ? HintUtils.getCheckContents("Sera Shop Slingshot")
                 : Item.Slingshot;
             results2.AddStrReplacement(
-                new(Node.msg_SeraSlingshotBought, GenShopBoughtText(seraSlingshotItem, "sera"))
+                StrRepl.Hidden(
+                    Node.msg_SeraSlingshotBought,
+                    GenShopBoughtText(seraSlingshotItem, "sera")
+                )
             );
             results2.AddStrReplacement(
-                new(
+                StrRepl.Public(
                     Node.msg_SeraSlingshotBought2,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought-sera2", null))
                 )
@@ -461,9 +468,11 @@ namespace TPRandomizer
                 CustomMessages.messageColorOrange
                     + hawkeyeSoldOutRes.Substitute(new() { { "item", hawkeyeItemText } })
             );
-            results2.AddStrReplacement(new(Node.msgKV_MaloMartHawkeyeSoldOut, hawkeyeSoldOutMsg));
             results2.AddStrReplacement(
-                new(
+                StrRepl.Hidden(Node.msgKV_MaloMartHawkeyeSoldOut, hawkeyeSoldOutMsg)
+            );
+            results2.AddStrReplacement(
+                StrRepl.Public(
                     Node.msgKV_MaloMartHawkeyeSoldOutRead,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.coming-soon-read", null))
                 )
@@ -471,7 +480,7 @@ namespace TPRandomizer
 
             // This is used for the sold out sign for all slots in this shop.
             results2.AddStrReplacement(
-                new(
+                StrRepl.Public(
                     Node.msgKV_MaloMartHylianShieldSoldOut,
                     Res.LangSpecificNormalize(
                         CustomMessages.messageColorOrange + Res.SimpleMsg("shop.sold-out", null)
@@ -484,7 +493,7 @@ namespace TPRandomizer
             );
             // When you read the sold out sign
             results2.AddStrReplacement(
-                new(
+                StrRepl.Public(
                     Node.msgKV_MaloMartHylianShieldSoldOutRead,
                     textKvMaloMartHylianShieldSoldOutRead
                 )
@@ -492,7 +501,7 @@ namespace TPRandomizer
             // If you buy the wooden shield slot before anything else, you will
             // see this one instead for that slot.
             results2.AddStrReplacement(
-                new(
+                StrRepl.Public(
                     Node.msgKV_MaloMartHylianShieldSoldOutRead2,
                     textKvMaloMartHylianShieldSoldOutRead
                 )
@@ -501,7 +510,7 @@ namespace TPRandomizer
             // Need to replace this one so it does not reference your bottle.
             // Replacing with the same text used for the Hylian shield.
             results2.AddStrReplacement(
-                new(
+                StrRepl.Public(
                     Node.msgKV_MaloMartRedPotionBought,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought", null))
                 )
@@ -510,7 +519,7 @@ namespace TPRandomizer
             // ----- Castle Town Malo Mart -----
 
             results2.AddStrReplacement(
-                new(
+                StrRepl.Public(
                     Node.msgCT_MaloMartMagicArmorBought,
                     Res.LangSpecificNormalize(
                         Res.SimpleMsg("shop.bought", new() { { "context", "magic-armor" } })
@@ -529,7 +538,7 @@ namespace TPRandomizer
             if (!barnesCantAffordRes.MetaHasVal("skip-msg", "true"))
             {
                 results2.AddStrReplacement(
-                    new(
+                    StrRepl.Public(
                         Node.msgKV_BarnesBombBagCantAfford,
                         Res.LangSpecificNormalize(barnesCantAffordRes.Substitute(null))
                     )
@@ -546,15 +555,15 @@ namespace TPRandomizer
             // menus have 1a 06 00 00 **09** xx when there are 3 options, but 1a
             // 06 00 00 **08** xx when there are 2 options.
 
-            List<StrReplEntity> strEntries2 =
+            List<StrRepl> strEntries2 =
                 new()
                 {
-                    new(Node.msgCT_StarSigns, "Test text for star signs outside"),
-                    new(Node.msgCT_StarGirlsNoAttemptFirst, "test talk to girls1"),
-                    new(Node.msgCT_StarGirlsNoAttemptSecond, "test talk to girls2"),
-                    new(Node.msgCT_StarGirlsNoAttemptThird, "test talk to girls3"),
+                    StrRepl.Public(Node.msgCT_StarSigns, "Test text for star signs outside"),
+                    StrRepl.Public(Node.msgCT_StarGirlsNoAttemptFirst, "test talk to girls1"),
+                    StrRepl.Public(Node.msgCT_StarGirlsNoAttemptSecond, "test talk to girls2"),
+                    StrRepl.Public(Node.msgCT_StarGirlsNoAttemptThird, "test talk to girls3"),
                     // Fallback text
-                    StrReplEntity.CustomSignText(
+                    StrRepl.CustomSignText(
                         1, // TODO: create an enum of reserved context values probably.
                         Res.LangSpecificNormalize(Res.SimpleMsg("hint.none-placed-here"))
                     ),
@@ -639,15 +648,15 @@ namespace TPRandomizer
             // fallback text if there is no text at all. Should never happen
             // since there will always be text about required dungeons.
 
-            List<StrReplEntity> strEntries2 =
+            List<StrRepl> strEntries2 =
                 new()
                 {
-                    new(
+                    StrRepl.Public(
                         Node.msgZ0_MidnaTwoOptsBody,
                         "Need something2?" + CustomMessages.shopOption,
                         baseMidnaCtx
                     ),
-                    new(
+                    StrRepl.Public(
                         Node.msgZ0_MidnaTwoOptsOptions,
                         $"{messageOption1_8not9}Change time of day2\n{messageOption2_8not9}Hints22",
                         baseMidnaCtx
@@ -716,7 +725,7 @@ namespace TPRandomizer
             {
                 string msg = hintMessages[i];
 
-                results2.AddStrReplacement(new(Node.msgZ0_0x28, msg, latestContext));
+                results2.AddStrReplacement(StrRepl.Hidden(Node.msgZ0_0x28, msg, latestContext));
 
                 if (i < hintMessages.Count - 1)
                 {
@@ -793,7 +802,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text) + CustomMessages.shopOption;
 
-            results2.AddStrReplacement(new(msgNode, normalizedText));
+            results2.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
         }
 
         private void AddShopCantAffordMsg(
@@ -853,7 +862,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text);
 
-            results2.AddStrReplacement(new(msgNode, normalizedText));
+            results2.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
         }
 
         private string GenShopBoughtText(Item item, string context)
@@ -929,7 +938,7 @@ namespace TPRandomizer
                 text = Res.SimpleMsg("required-dungeon.none", null);
 
             string normalized = Res.LangSpecificNormalize(text);
-            results2.AddStrReplacement(new(Node.msgOrdon_LinksHouseSign, normalized));
+            results2.AddStrReplacement(StrRepl.Hidden(Node.msgOrdon_LinksHouseSign, normalized));
         }
 
         private void GenSelfHinterEntries()
@@ -962,14 +971,19 @@ namespace TPRandomizer
                     result.Substitute(new() { { "item", itemText } })
                 );
                 results2.AddStrReplacement(
-                    new(Node.msgCT_CharloOptsBody, charloText + CustomMessages.shopOption)
+                    StrRepl.Hidden(
+                        Node.msgCT_CharloOptsBody,
+                        charloText + CustomMessages.shopOption
+                    )
                 );
             }
 
             // Note we always need to update the options text to 100 Rupees, 50
             // Rupees, etc. even if the body text is vanilla based on settings.
             string charloOptionsText = Res.SimpleMsg("self-hinter.charlo-options", null);
-            results2.AddStrReplacement(new(Node.msgCT_CharloOptsOptions, charloOptionsText));
+            results2.AddStrReplacement(
+                StrRepl.Public(Node.msgCT_CharloOptsOptions, charloOptionsText)
+            );
 
             // Fishing Hole Bottle sign
             if (
@@ -990,7 +1004,9 @@ namespace TPRandomizer
                     fishingBottleRes.Substitute(new() { { "item", fishingBottleItemText } }),
                     Res.IsCultureJa() ? 25 : 30
                 );
-                results2.AddStrReplacement(new(Node.msg_FishingHoleBottleSign, fishingBottleText));
+                results2.AddStrReplacement(
+                    StrRepl.Hidden(Node.msg_FishingHoleBottleSign, fishingBottleText)
+                );
             }
         }
 
@@ -1279,7 +1295,7 @@ namespace TPRandomizer
                 "magic-armor"
             );
             results2.AddStrReplacement(
-                new(
+                StrRepl.Hidden(
                     Node.msgCT_MaloMartMagicArmorSoldOut,
                     GenShopSoldOutText(
                         HintUtils.getCheckContents("Castle Town Malo Mart Magic Armor"),
@@ -1407,7 +1423,7 @@ namespace TPRandomizer
                 );
 
                 results2.AddStrReplacement(
-                    new(
+                    StrRepl.Hidden(
                         Node.msg_BarnesBombBagConfirmation,
                         Res.LangSpecificNormalize(text) + CustomMessages.shopOption
                     )
@@ -1455,7 +1471,7 @@ namespace TPRandomizer
                             );
 
                         string text = hints[0].toHintTextList(this)[0].text;
-                        results2.AddStrReplacement(new(node, text));
+                        results2.AddStrReplacement(StrRepl.Hidden(node, text));
                     }
                     else
                     {
@@ -1485,11 +1501,11 @@ namespace TPRandomizer
             {
                 string msg = messages[i];
 
-                List<StrReplEntity> strEntries =
+                List<StrRepl> strEntries =
                     new()
                     {
                         // new(Node.msgZ0_0x28, latestContext, msg),
-                        StrReplEntity.CustomSignText(latestContext, msg),
+                        StrRepl.CustomSignText(latestContext, msg),
                     };
                 results2.AddStrReplacements(strEntries);
 
@@ -1556,7 +1572,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text);
 
-            results2.AddStrReplacement(new(msgNode, normalizedText));
+            results2.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
         }
 
         public static string BuildContextFromMeta(Dictionary<string, string> meta)
