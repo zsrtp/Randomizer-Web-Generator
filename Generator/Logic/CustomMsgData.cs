@@ -400,7 +400,10 @@ namespace TPRandomizer
             // There are some static things that should always be applied which
             // do not depend on the item.
             GenStaticEntries(seedGenResults);
-            GenLinkHouseSignText();
+            string linkHouseSignText = GenLinkHouseSignText();
+            results2.AddStrReplacement(
+                StrRepl.Hidden(Node.msgOrdon_LinksHouseSign, linkHouseSignText)
+            );
 
             // handle shop text first
             if (updateShopText)
@@ -637,13 +640,38 @@ namespace TPRandomizer
 
         private void AddMidnaConversationStuff()
         {
+            // Note: Midna voice is only guaranteed to work normally when the
+            // instantText option is not enabled. Even in the vanilla game, if
+            // Midna starts going through a line with text and you press A to
+            // make the rest of the text instantly appear, she stops talking
+            // right when you press A.
+
             ushort baseMidnaCtx = ctxGen.getNewContext();
             ushort hintsBaseCtx = ctxGen.getNewContext();
 
             string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
             string messageOption2_8not9 = "\x1A\x06\x00\x00\x08\x02";
 
-            List<string> hintMessages = new() { "msg 1", "msg 2", "msg 3", "msg 4", "msg 5", };
+            string midnaText =
+                $"There are {CustomMessages.messageColorRed}3 required dungeons{CustomMessages.messageColorWhite}:\n\n\n\n"
+                + GenLinkHouseSignText();
+            // midnaText = "dog";
+
+            List<string> hintMessages = new() { midnaText, };
+            // List<string> hintMessages = new() { };
+
+            foreach (HintSpot hintSpot in hintSpots)
+            {
+                if (hintSpot.location == SpotId.Ordon_Sign)
+                {
+                    List<string> hintTexts = hintSpot.hints
+                        .Select((hint) => hint.toHintTextList(this)[0].text)
+                        .ToList();
+                    hintMessages.AddRange(hintTexts);
+                    break;
+                }
+            }
+
             // TODO: when calculate the correct hintMessages, use a single
             // fallback text if there is no text at all. Should never happen
             // since there will always be text about required dungeons.
@@ -653,12 +681,12 @@ namespace TPRandomizer
                 {
                     StrRepl.Public(
                         Node.msgZ0_MidnaTwoOptsBody,
-                        "Need something2?" + CustomMessages.shopOption,
+                        "Need something?" + CustomMessages.shopOption,
                         baseMidnaCtx
                     ),
                     StrRepl.Public(
                         Node.msgZ0_MidnaTwoOptsOptions,
-                        $"{messageOption1_8not9}Change time of day2\n{messageOption2_8not9}Hints22",
+                        $"{messageOption1_8not9}Change time of day\n{messageOption2_8not9}Hints",
                         baseMidnaCtx
                     ),
                 };
@@ -679,8 +707,14 @@ namespace TPRandomizer
                     // remapped (so backing out of the menu works).
                     NodeRemap.Ctx(
                         baseMidnaCtx,
-                        Node.msgZ0_0x28,
-                        Node.msgZ0_0x28.flwIdx,
+                        // Node.msgZ0_0x28,
+                        // Node.msgZ0_0x28.flwIdx,
+                        // Node.msgZ0_0x26,
+                        // Node.msgZ0_0x26.flwIdx,
+                        // Node.msgZ0_0x27,
+                        // Node.msgZ0_0x27.flwIdx,
+                        Node.msgZ0_0x4d,
+                        Node.msgZ0_0x4d.flwIdx,
                         hintsBaseCtx
                     )
                 };
@@ -697,7 +731,14 @@ namespace TPRandomizer
                         nextNodeIndexes: new()
                         {
                             Node.evZ0_MidnaTwoOptsInitEv.flwIdx,
-                            Node.msgZ0_0x28.flwIdx
+                            // Node.msgZ0_0x28.flwIdx,
+                            // Node.msgZ0_0x28.flwIdx
+                            // Node.msgZ0_0x26.flwIdx,
+                            // Node.msgZ0_0x26.flwIdx
+                            Node.msgZ0_0x4d.flwIdx
+                            // Node.msgZ0_0x4a.flwIdx,
+                            // Node.msgZ0_0x4a.flwIdx
+                            // Node.msgZ0_0x27.flwIdx
                         }
                     ),
                     // Handle choice of "Change ToD / Hints" menu
@@ -707,7 +748,11 @@ namespace TPRandomizer
                         nextNodeIndexes: new()
                         {
                             Node.evZ0_GenericCtxEvent.flwIdx,
-                            Node.msgZ0_0x28.flwIdx,
+                            // Node.msgZ0_0x28.flwIdx,
+                            // Node.msgZ0_0x26.flwIdx,
+                            Node.msgZ0_0x4d.flwIdx,
+                            // Node.msgZ0_0x4a.flwIdx,
+                            // Node.msgZ0_0x27.flwIdx,
                             0xFFFF
                         }
                     ),
@@ -725,7 +770,18 @@ namespace TPRandomizer
             {
                 string msg = hintMessages[i];
 
-                results2.AddStrReplacement(StrRepl.Hidden(Node.msgZ0_0x28, msg, latestContext));
+                // MsgNodeInst node;
+                // if (i == 0)
+                //     node = Node.msgZ0_0x26;
+                // else if (i == 1)
+                //     node = Node.msgZ0_0x27;
+                // else
+                //     node = Node.msgZ0_0x28;
+
+                // results2.AddStrReplacement(StrRepl.Hidden(Node.msgZ0_0x28, msg, latestContext));
+                results2.AddStrReplacement(StrRepl.Hidden(Node.msgZ0_0x4d, msg, latestContext));
+                // results2.AddStrReplacement(StrRepl.Hidden(node, msg, latestContext));
+                // latestContext = GetNewContext();
 
                 if (i < hintMessages.Count - 1)
                 {
@@ -738,7 +794,8 @@ namespace TPRandomizer
                         NodeRemap.Ctx(
                             prevCtx,
                             Node.zel00_FFFF,
-                            Node.msgZ0_0x28.flwIdx,
+                            // Node.msgZ0_0x28.flwIdx,
+                            Node.msgZ0_0x4d.flwIdx,
                             latestContext
                         )
                     );
@@ -899,7 +956,7 @@ namespace TPRandomizer
             return Res.LangSpecificNormalize(text);
         }
 
-        private void GenLinkHouseSignText()
+        private string GenLinkHouseSignText()
         {
             List<(string, byte, string)> dungeonData =
                 new()
@@ -938,7 +995,7 @@ namespace TPRandomizer
                 text = Res.SimpleMsg("required-dungeon.none", null);
 
             string normalized = Res.LangSpecificNormalize(text);
-            results2.AddStrReplacement(StrRepl.Hidden(Node.msgOrdon_LinksHouseSign, normalized));
+            return normalized;
         }
 
         private void GenSelfHinterEntries()
