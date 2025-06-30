@@ -1206,7 +1206,20 @@ namespace TPRandomizer
 
             // ----- Sera Shop -----
 
-            uint seraSlingshotPrice = 30;
+            // uint seraSlingshotPrice = 30;
+            // TODO: temp change for demo
+            ushort seraSlingshotPrice = 55;
+
+            results2.AddBranchPatches(
+                new()
+                {
+                    new(Node.brSeraSlingshotCheckCanAfford, null, parameters: seraSlingshotPrice),
+                }
+            );
+            results2.AddEventEntity(
+                new(Node.ev_SeraSlingshotPayPrice, null, intParam: seraSlingshotPrice)
+            );
+
             AddShopSlotMsg(
                 Node.msg_SeraSlingshotSlot,
                 "Sera Shop Slingshot",
@@ -1224,7 +1237,7 @@ namespace TPRandomizer
                 Node.msg_SeraSlingshotConfirmation,
                 "Sera Shop Slingshot",
                 Item.Slingshot,
-                30,
+                seraSlingshotPrice,
                 "sera"
             );
 

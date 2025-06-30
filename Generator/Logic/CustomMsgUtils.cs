@@ -95,8 +95,12 @@ namespace TPRandomizer
             new(StgBmg.Ordon_Village_Interiors, 0x4d7, 0x5AE);
         public static MsgNodeInst msg_SeraSlingshotCantAfford =
             new(StgBmg.Ordon_Village_Interiors, 0x4c9, 0x5B3);
+        public static NodeInst brSeraSlingshotCheckCanAfford =
+            new(StgBmg.Ordon_Village_Interiors, 0x4ca);
         public static MsgNodeInst msg_SeraSlingshotConfirmation =
             new(StgBmg.Ordon_Village_Interiors, 0x4cb, 0x5B4);
+        public static NodeInst ev_SeraSlingshotPayPrice =
+            new(StgBmg.Ordon_Village_Interiors, 0x4cf);
         public static MsgNodeInst msg_SeraSlingshotBought =
             new(StgBmg.Ordon_Village_Interiors, 0x4d0, 0x5B5);
         public static MsgNodeInst msg_SeraSlingshotBought2 =
