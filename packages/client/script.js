@@ -676,6 +676,61 @@ var arrayOfSettingsItems = [
   'openDotCheckbox',
 ];
 
+function saveSettingsString() {
+  const settingsString = $('#combinedSettingsString').text().trim();
+  const version = $('#envImageVersion').val();
+
+  if (!settingsString) {
+    console.warn('No settings string to save.');
+    return;
+  }
+
+  const payload = JSON.stringify({
+    settingsString,
+    version: version ?? null, // The explicit null check here is only for dev purposes. This should never happen in a production environment, and isn't a very critical feature anyways.
+  });
+
+  localStorage.setItem('settingsString', payload);
+}
+
+function loadSettingsString() {
+  const fieldErrorText = $('#loadFieldError');
+  const raw = localStorage.getItem('settingsString');
+
+  if (!raw) {
+    console.warn('No saved settings string.');
+    return;
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (e) {
+    console.warn('Corrupted settings string.');
+    localStorage.removeItem('settingsString');
+    return;
+  }
+
+  const { settingsString, version } = parsed;
+
+  const currentVersion = $('#envImageVersion').val();
+  if (version != currentVersion) {
+    fieldErrorText.text(
+      'Your setting string was saved on a previous version of the generator, rendering it incompatible with the current version. Your saved setting string will now be deleted.'
+    );
+    localStorage.removeItem('settingsString');
+    return;
+  }
+
+  const error = populateFromSettingsString(settingsString);
+  if (error) {
+    fieldErrorText.text('Unable to understand those settings.').show();
+    return;
+  }
+
+  $('#combinedSettingsString').text(`${settingsString}`);
+}
+
 function parseSettingsString(settingsString) {
   settingsString = atob(settingsString);
   //Convert the settings string into a binary string to be interpreted.

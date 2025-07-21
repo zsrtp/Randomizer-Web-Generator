@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <link rel="icon" target="_blank" href="/favicon.png" />
@@ -879,6 +879,26 @@
               ></path>
             </svg>
           </button>
+          <div style="margin-left: 8px">
+            <button
+              data-tooltip-text="This button will save the current seed in the browser&#39;s local storage. It is important to note that the seed will be erased when a new version of the generator is released."
+              onclick="saveSettingsString()"
+            >
+              Save string
+            </button>
+
+            <button
+              data-tooltip-text="Loads the string saved in the browser's local storage."
+              onclick="loadSettingsString()"
+            >
+              Load string
+            </button>
+            <div
+              id="loadFieldError"
+              class="fieldErrorText"
+              style="display: none"
+            ></div>
+          </div>
           <span id="combinedSettingsString" class="settingsStringValue"></span>
         </div>
 
