@@ -636,6 +636,9 @@ namespace TPRandomizer
             );
 
             AddMidnaConversationStuff();
+
+            // TODO: temp quiz sign for demo
+            AddTestQuizSign();
         }
 
         private void AddMidnaConversationStuff()
@@ -801,6 +804,108 @@ namespace TPRandomizer
                     );
                 }
             }
+
+            // Update "Talk to Midna" text in menu options to be "Other":
+            // TODO: use resources for different langauges
+            results2.AddStrReplacements(
+                new()
+                {
+                    StrRepl.PublicInf(
+                        Inf.zel00_MidnaOpts_WarpTalk,
+                        $"{CustomMessages.option1of2}Warp\n{CustomMessages.option2of2}Something else"
+                    ),
+                    StrRepl.PublicInf(
+                        Inf.zel00_MidnaOpts_TransToWolfTalk,
+                        $"{CustomMessages.option1of2}Transform into wolf\n{CustomMessages.option2of2}Something else"
+                    ),
+                    StrRepl.PublicInf(
+                        Inf.zel00_MidnaOpts_TransToHumanTalk,
+                        $"{CustomMessages.option1of2}Transform into human\n{CustomMessages.option2of2}Something else"
+                    ),
+                    StrRepl.PublicInf(
+                        Inf.zel00_MidnaOpts_TransToWolfWarpTalk,
+                        $"{CustomMessages.messageOption1}Transform into wolf\n{CustomMessages.messageOption2}Warp\n{CustomMessages.messageOption3}Something else"
+                    ),
+                    StrRepl.PublicInf(
+                        Inf.zel00_MidnaOpts_TransToHumanWarpTalk,
+                        $"{CustomMessages.messageOption1}Transform into human\n{CustomMessages.messageOption2}Warp\n{CustomMessages.messageOption3}Something else"
+                    )
+                }
+            );
+        }
+
+        private void AddTestQuizSign()
+        {
+            // Add Midna hint messages
+            ushort ctx = GetNewContext();
+            ushort endHintCtx = GetNewContext();
+
+            // Start on node with ctx.
+            results2.AddNodeRemap(
+                NodeRemap.Fli(0x72b1, Node.zel00_FFFF, Node.evZ0_MidnaThreeOptsInitEv.flwIdx, ctx)
+            );
+            // Change context for end hint since needs to be unique since
+            // sharing same INF index for all custom sign stuff.
+            results2.AddNodeRemap(
+                NodeRemap.Ctx(ctx, Node.msgZ0_0x4d, Node.msgZ0_0x4d.flwIdx, endHintCtx)
+            );
+
+            // Change text for body and options under this context:
+            List<StrRepl> strEntries2 =
+                new()
+                {
+                    StrRepl.CustomSignText(
+                        // Node.msgZ0_MidnaThreeOptsBody,
+                        ctx,
+                        Res.LangSpecificNormalize(
+                            "How many cuccos are at Lake Hylia?" + CustomMessages.shopOption
+                        )
+                    ),
+                    StrRepl.CustomSignOptions(
+                        // Node.msgZ0_MidnaThreeOptsOptions,
+                        ctx,
+                        $"{CustomMessages.messageOption1}7\n{CustomMessages.messageOption2}8\n{CustomMessages.messageOption3}9"
+                    ),
+                    // Set custom text for correct selection.
+                    StrRepl.CustomSignText(
+                        // Node.msgZ0_0x4d,
+                        endHintCtx,
+                        Res.LangSpecificNormalize("Correct!\n\n\n\nCustom hint text would go here.")
+                    ),
+                };
+            results2.AddStrReplacements(strEntries2);
+
+            // Handle option choice
+            List<BranchPatchEntity> branchPatches =
+                new()
+                {
+                    // Handle choice of "Change ToD / Hints" menu
+                    new(
+                        Node.brZ0_MidnaThreeOptsResultBranch,
+                        ctx,
+                        nextNodeIndexes: new()
+                        {
+                            // Node.evZ0_GenericCtxEvent.flwIdx,
+                            // Node.msgZ0_0x28.flwIdx,
+                            // Node.msgZ0_0x26.flwIdx,
+                            Node.msgZ0_0x4d.flwIdx,
+                            Node.evZ0_GenericCtxEvent.flwIdx,
+                            Node.evZ0_GenericCtxEvent.flwIdx,
+                            0xFFFF
+                        }
+                    ),
+                };
+            results2.AddBranchPatches(branchPatches);
+
+            // Set custom event node to queue trap item
+            results2.AddEventEntity(
+                new(
+                    Node.evZ0_GenericCtxEvent,
+                    ctx,
+                    eventIndex: 44,
+                    intParam: (ushort)Item.Foolish_Item
+                )
+            );
         }
 
         private void AddShopConfirmationMsg(

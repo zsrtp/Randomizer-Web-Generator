@@ -72,6 +72,10 @@ namespace TPRandomizer
         public static MsgNodeInst msgZ0_MidnaTwoOptsBody = new(StgBmg.zel_00, 0x19f, 0x5de);
         public static MsgNodeInst msgZ0_MidnaTwoOptsOptions = new(StgBmg.zel_00, 0x1a1, 0x5df);
         public static NodeInst brZ0_MidnaTwoOptsResultBranch = new(StgBmg.zel_00, 0x1a3);
+        public static NodeInst evZ0_MidnaThreeOptsInitEv = new(StgBmg.zel_00, 0x194);
+        public static MsgNodeInst msgZ0_MidnaThreeOptsBody = new(StgBmg.zel_00, 0x18d, 0xbbb);
+        public static MsgNodeInst msgZ0_MidnaThreeOptsOptions = new(StgBmg.zel_00, 0x1aa, 0xa2e);
+        public static NodeInst brZ0_MidnaThreeOptsResultBranch = new(StgBmg.zel_00, 0x193);
         public static NodeInst msgZel00_0x9 = new(StgBmg.zel_00, 0x9);
         public static MsgNodeInst msgZ0_0x26 = new(StgBmg.zel_00, 0x26, 0x5e4);
         public static MsgNodeInst msgZ0_0x27 = new(StgBmg.zel_00, 0x27, 0x5e5);
@@ -199,8 +203,14 @@ namespace TPRandomizer
     {
         public static InfInst zel00_ChooseAQuestLog = new(StgBmg.zel_00, 0x42);
         public static InfInst zel00_RatioCheckSample = new(StgBmg.zel_00, 0x556);
+
         // Would have to shrink the font size on this one
         // public static InfInst zel00_TvSettings = new(StgBmg.zel_00, 0x55b);
+        public static InfInst zel00_MidnaOpts_WarpTalk = new(StgBmg.zel_00, 0xa2d);
+        public static InfInst zel00_MidnaOpts_TransToWolfTalk = new(StgBmg.zel_00, 0x5df);
+        public static InfInst zel00_MidnaOpts_TransToHumanTalk = new(StgBmg.zel_00, 0x5e0);
+        public static InfInst zel00_MidnaOpts_TransToWolfWarpTalk = new(StgBmg.zel_00, 0xa2e);
+        public static InfInst zel00_MidnaOpts_TransToHumanWarpTalk = new(StgBmg.zel_00, 0xbba);
     }
 
     public class CustomMsgUtils

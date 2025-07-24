@@ -31,6 +31,8 @@ namespace TPRandomizer.Assets
         public static string messageOption2 = "\x1A\x06\x00\x00\x09\x02";
         public static string messageOption3 = "\x1A\x06\x00\x00\x09\x03";
         public static string shopOption = "\x1A\x05\x00\x00\x20";
+        public static string option1of2 = "\x1A\x06\x00\x00\x08\x01";
+        public static string option2of2 = "\x1A\x06\x00\x00\x08\x02";
         public const string maleSign = "\x1A\x05\x06\x00\x02";
         public const string femaleSign = "\x1A\x05\x06\x00\x03";
         public const string referenceMark = "\x1A\x05\x06\x00\x05";
