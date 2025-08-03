@@ -136,14 +136,66 @@ namespace TPRandomizer
                         ),
                         "Goron Mines Boss Room"
                     ),
-
-                    // "Palace of Twilight Boss Room",
-                    // "City in The Sky Boss Room",
-                    // "Temple of Time Boss Room",
-                    // "Snowpeak Ruins Boss Room",
-                    // "Arbiters Grounds Boss Room",
-                    // "Lakebed Temple Boss Room",
-                    // "Goron Mines Boss Room",
+                    (
+                        new(
+                            "Lakebed Temple Ooccoo Out",
+                            "",
+                            (int)StageIDs.Lake_Hylia,
+                            0,
+                            "96",
+                            "FF",
+                            ""
+                        ),
+                        "Lakebed Temple Boss Room"
+                    ),
+                    (
+                        new(
+                            "Arbiters Grounds Ooccoo Out",
+                            "",
+                            (int)StageIDs.Bulblin_Camp,
+                            3,
+                            "05",
+                            "FF",
+                            ""
+                        ),
+                        "Arbiters Grounds Boss Room"
+                    ),
+                    (
+                        new(
+                            "Snowpeak Ruins Ooccoo Out",
+                            "",
+                            (int)StageIDs.Snowpeak,
+                            1,
+                            "0D",
+                            "FF",
+                            ""
+                        ),
+                        "Snowpeak Ruins Boss Room"
+                    ),
+                    (
+                        new(
+                            "Temple of Time Ooccoo Out",
+                            "",
+                            (int)StageIDs.Sacred_Grove,
+                            1,
+                            "64",
+                            "FF",
+                            ""
+                        ),
+                        "Temple of Time Boss Room"
+                    ),
+                    (
+                        new(
+                            "City in The Sky Ooccooo Out",
+                            "",
+                            (int)StageIDs.City_in_the_Sky,
+                            16,
+                            "02",
+                            "FF",
+                            ""
+                        ),
+                        "City in The Sky Boss Room"
+                    ),
                 };
 
             foreach ((EntranceInfo, string) pair in ooccooSpawns)
