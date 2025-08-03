@@ -109,37 +109,63 @@ namespace TPRandomizer
                 encodedString = encodedString + vanillaSpawn.State + ",";
             }
 
-            List<EntranceInfo> ooccooSpawns =
+            List<(EntranceInfo, string)> ooccooSpawns =
                 new()
                 {
-                    new("Forest Temple Entrance", "", (int)StageIDs.Faron_Woods, 6, "96", "FF", "")
+                    (
+                        new(
+                            "Forest Temple Ooccoo Out",
+                            "",
+                            (int)StageIDs.Faron_Woods,
+                            6,
+                            "96",
+                            "FF",
+                            ""
+                        ),
+                        "Forest Temple Boss Room"
+                    ),
+                    (
+                        new(
+                            "Goron Mines Ooccoo Out",
+                            "",
+                            (int)StageIDs.Death_Mountain,
+                            3,
+                            "06",
+                            "FF",
+                            ""
+                        ),
+                        "Goron Mines Boss Room"
+                    ),
+
+                    // "Palace of Twilight Boss Room",
+                    // "City in The Sky Boss Room",
+                    // "Temple of Time Boss Room",
+                    // "Snowpeak Ruins Boss Room",
+                    // "Arbiters Grounds Boss Room",
+                    // "Lakebed Temple Boss Room",
+                    // "Goron Mines Boss Room",
                 };
 
-            foreach (EntranceInfo ooccooSpawn in ooccooSpawns)
+            foreach ((EntranceInfo, string) pair in ooccooSpawns)
             {
-                encodedString +=
-                    ooccooSpawn.Stage.ToString("X")
-                    + ","
-                    + ooccooSpawn.Room.ToString("X")
-                    + ","
-                    + ooccooSpawn.Spawn
-                    + ","
-                    + ooccooSpawn.State
-                    + ",";
+                EntranceInfo ooccooSpawn = pair.Item1;
+                string bossRoom = pair.Item2;
 
-                Entrance ftBossExit = Randomizer.Rooms.RoomDict["Forest Temple Boss Room"].Exits[
+                encodedString += ooccooSpawn.Stage.ToString("X") + ",";
+                encodedString += ooccooSpawn.Room.ToString("X") + ",";
+                encodedString += ooccooSpawn.Spawn + ",";
+                encodedString += ooccooSpawn.State + ",";
+
+                Entrance bossExit = Randomizer.Rooms.RoomDict[bossRoom].Exits[
                     0
                 ].GetReplacedEntrance();
-                Console.WriteLine("Replaced thing is " + ftBossExit.OriginalName);
-                encodedString +=
-                    ftBossExit.GetStage().ToString("X")
-                    + ","
-                    + ftBossExit.GetRoom().ToString("X")
-                    + ","
-                    + ftBossExit.GetSpawn()
-                    + ","
-                    + ftBossExit.GetState()
-                    + ",";
+                Console.WriteLine(
+                    $"---------Replaced thing for bossRoom '{bossRoom}' is " + bossExit.OriginalName
+                );
+                encodedString += bossExit.GetStage().ToString("X") + ",";
+                encodedString += bossExit.GetRoom().ToString("X") + ",";
+                encodedString += bossExit.GetSpawn() + ",";
+                encodedString += bossExit.GetState() + ",";
             }
 
             foreach (KeyValuePair<string, Room> roomEntry in Randomizer.Rooms.RoomDict)
