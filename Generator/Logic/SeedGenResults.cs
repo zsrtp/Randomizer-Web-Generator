@@ -118,20 +118,23 @@ namespace TPRandomizer
             foreach (EntranceInfo ooccooSpawn in ooccooSpawns)
             {
                 encodedString +=
-                    ooccooSpawn.Stage
+                    ooccooSpawn.Stage.ToString("X")
                     + ","
-                    + ooccooSpawn.Room
+                    + ooccooSpawn.Room.ToString("X")
                     + ","
                     + ooccooSpawn.Spawn
                     + ","
                     + ooccooSpawn.State
                     + ",";
 
-                Entrance ftBossExit = Randomizer.Rooms.RoomDict["Forest Temple Boss Room"].Exits[0];
+                Entrance ftBossExit = Randomizer.Rooms.RoomDict["Forest Temple Boss Room"].Exits[
+                    0
+                ].GetReplacedEntrance();
+                Console.WriteLine("Replaced thing is " + ftBossExit.OriginalName);
                 encodedString +=
-                    ftBossExit.GetStage()
+                    ftBossExit.GetStage().ToString("X")
                     + ","
-                    + ftBossExit.GetRoom()
+                    + ftBossExit.GetRoom().ToString("X")
                     + ","
                     + ftBossExit.GetSpawn()
                     + ","
