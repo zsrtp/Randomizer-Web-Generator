@@ -500,13 +500,13 @@ namespace TPRandomizer.Assets
         public static readonly byte[,] DungeonERRegionFlags = new byte[,]
         {
             // Set Ooccoo Flags
-            { 0x10, 0xE9 },
-            { 0x11, 0xE9 },
-            { 0x12, 0xE9 },
-            { 0x13, 0xE9 },
-            { 0x14, 0xE9 },
-            { 0x15, 0xE9 },
-            { 0x16, 0xE9 },
+            // { 0x10, 0xE9 },
+            // { 0x11, 0xE9 },
+            // { 0x12, 0xE9 },
+            // { 0x13, 0xE9 },
+            // { 0x14, 0xE9 },
+            // { 0x15, 0xE9 },
+            // { 0x16, 0xE9 },
         };
 
         public static readonly byte[,] HCBKRegionFlags = new byte[,]

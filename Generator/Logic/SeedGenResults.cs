@@ -109,6 +109,36 @@ namespace TPRandomizer
                 encodedString = encodedString + vanillaSpawn.State + ",";
             }
 
+            List<EntranceInfo> ooccooSpawns =
+                new()
+                {
+                    new("Forest Temple Entrance", "", (int)StageIDs.Faron_Woods, 6, "96", "FF", "")
+                };
+
+            foreach (EntranceInfo ooccooSpawn in ooccooSpawns)
+            {
+                encodedString +=
+                    ooccooSpawn.Stage
+                    + ","
+                    + ooccooSpawn.Room
+                    + ","
+                    + ooccooSpawn.Spawn
+                    + ","
+                    + ooccooSpawn.State
+                    + ",";
+
+                Entrance ftBossExit = Randomizer.Rooms.RoomDict["Forest Temple Boss Room"].Exits[0];
+                encodedString +=
+                    ftBossExit.GetStage()
+                    + ","
+                    + ftBossExit.GetRoom()
+                    + ","
+                    + ftBossExit.GetSpawn()
+                    + ","
+                    + ftBossExit.GetState()
+                    + ",";
+            }
+
             foreach (KeyValuePair<string, Room> roomEntry in Randomizer.Rooms.RoomDict)
             {
                 //Console.WriteLine("checking room: " + roomEntry.Value.RoomName);
