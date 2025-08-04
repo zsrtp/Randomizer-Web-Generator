@@ -1252,7 +1252,7 @@ namespace TPRandomizer
 
                 bossEntrance.Disconnect();
                 bossEntrance.SetAsShuffled();
-                bossEntrance.Connect(newEntrance.GetConnectedArea());
+                bossEntrance.Connect(newEntrance.GetOriginalConnectedArea());
                 bossEntrance.SetReplacedEntrance(newEntrance);
             }
 
