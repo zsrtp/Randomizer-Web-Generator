@@ -109,7 +109,7 @@ namespace TPRandomizer
                 encodedString = encodedString + vanillaSpawn.State + ",";
             }
 
-            List<(EntranceInfo, string)> ooccooSpawns =
+            List<(EntranceInfo, string, string)> ooccooSpawns =
                 new()
                 {
                     (
@@ -122,7 +122,8 @@ namespace TPRandomizer
                             "FF",
                             ""
                         ),
-                        "Forest Temple Boss Room"
+                        "Forest Temple Entrance",
+                        "North Faron Woods"
                     ),
                     (
                         new(
@@ -134,7 +135,8 @@ namespace TPRandomizer
                             "FF",
                             ""
                         ),
-                        "Goron Mines Boss Room"
+                        "Goron Mines Entrance",
+                        "Death Mountain Sumo Hall Goron Mines Tunnel"
                     ),
                     (
                         new(
@@ -146,7 +148,8 @@ namespace TPRandomizer
                             "FF",
                             ""
                         ),
-                        "Lakebed Temple Boss Room"
+                        "Lakebed Temple Entrance",
+                        "Lake Hylia Lakebed Temple Entrance"
                     ),
                     (
                         new(
@@ -158,7 +161,8 @@ namespace TPRandomizer
                             "FF",
                             ""
                         ),
-                        "Arbiters Grounds Boss Room"
+                        "Arbiters Grounds Entrance",
+                        "Outside Arbiters Grounds"
                     ),
                     (
                         new(
@@ -170,7 +174,8 @@ namespace TPRandomizer
                             "FF",
                             ""
                         ),
-                        "Snowpeak Ruins Boss Room"
+                        "Snowpeak Ruins Left Door",
+                        "Snowpeak Summit Lower Left Door"
                     ),
                     (
                         new(
@@ -182,7 +187,8 @@ namespace TPRandomizer
                             "FF",
                             ""
                         ),
-                        "Temple of Time Boss Room"
+                        "Temple of Time Entrance",
+                        "Sacred Grove Past Behind Window"
                     ),
                     (
                         new(
@@ -194,30 +200,45 @@ namespace TPRandomizer
                             "FF",
                             ""
                         ),
-                        "City in The Sky Boss Room"
+                        "City in The Sky Entrance",
+                        "Lake Hylia"
                     ),
                 };
 
-            foreach ((EntranceInfo, string) pair in ooccooSpawns)
+            foreach ((EntranceInfo, string, string) tuple in ooccooSpawns)
             {
-                EntranceInfo ooccooSpawn = pair.Item1;
-                string bossRoom = pair.Item2;
+                EntranceInfo ooccooSpawn = tuple.Item1;
+                string dungeonEntrance = tuple.Item2;
+                string origConnectedArea = tuple.Item3;
 
                 encodedString += ooccooSpawn.Stage.ToString("X") + ",";
                 encodedString += ooccooSpawn.Room.ToString("X") + ",";
                 encodedString += ooccooSpawn.Spawn + ",";
                 encodedString += ooccooSpawn.State + ",";
 
-                Entrance bossExit = Randomizer.Rooms.RoomDict[bossRoom].Exits[
-                    0
-                ].GetReplacedEntrance();
+                Entrance exitToMatch = null;
+
+                Room dungeonEntranceRoom = Randomizer.Rooms.RoomDict[dungeonEntrance];
+                foreach (Entrance exit in dungeonEntranceRoom.Exits)
+                {
+                    if (exit.OriginalConnectedArea == origConnectedArea)
+                    {
+                        exitToMatch = exit.GetReplacedEntrance();
+                        break;
+                    }
+                }
+
+                if (exitToMatch == null)
+                    throw new Exception($"Failed to find origConnectedArea '{origConnectedArea}'.");
+
                 Console.WriteLine(
-                    $"---------Replaced thing for bossRoom '{bossRoom}' is " + bossExit.OriginalName
+                    $"---------Replaced thing for bossRoom '{dungeonEntrance}' is "
+                        + exitToMatch.OriginalName
                 );
-                encodedString += bossExit.GetStage().ToString("X") + ",";
-                encodedString += bossExit.GetRoom().ToString("X") + ",";
-                encodedString += bossExit.GetSpawn() + ",";
-                encodedString += bossExit.GetState() + ",";
+                encodedString += exitToMatch.GetStage().ToString("X") + ",";
+                encodedString += exitToMatch.GetRoom().ToString("X") + ",";
+                encodedString += exitToMatch.GetSpawn() + ",";
+                encodedString += exitToMatch.GetState() + ",";
             }
 
             foreach (KeyValuePair<string, Room> roomEntry in Randomizer.Rooms.RoomDict)
