@@ -376,7 +376,7 @@ namespace TPRandomizer
 
             // TODO: review if the above comment needs a little revision
 
-            SeedGenResults.Builder builder = new();
+            SeedGenResults.Builder builder = new(SSettings);
             // inputs
             builder.settingsString = settingsString;
             builder.seed = seed;

@@ -1,8 +1,7 @@
 [
   {
     "RoomName": "Kakariko Gorge",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Kakariko Gorge Cave Entrance",
         "Requirements": "CanSmash",
@@ -29,23 +28,21 @@
         "GlitchedRequirements": "Shadow_Crystal and CanCompleteEldinTwilight"
       }
     ],
-    "Checks":
-    [
-        "Kakariko Gorge Owl Statue Chest",
-        "Kakariko Gorge Double Clawshot Chest",
-        "Kakariko Gorge Spire Heart Piece",
-        "Kakariko Gorge Owl Statue Sky Character",
-        "Kakariko Gorge Male Pill Bug",
-        "Kakariko Gorge Female Pill Bug",
-        "Kakariko Gorge Poe",
-        "Kakariko Gorge Portal"
+    "Checks": [
+      "Kakariko Gorge Owl Statue Chest",
+      "Kakariko Gorge Double Clawshot Chest",
+      "Kakariko Gorge Spire Heart Piece",
+      "Kakariko Gorge Owl Statue Sky Character",
+      "Kakariko Gorge Male Pill Bug",
+      "Kakariko Gorge Female Pill Bug",
+      "Kakariko Gorge Poe",
+      "Kakariko Gorge Portal"
     ],
     "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Kakariko Gorge Cave Entrance",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Kakariko Gorge",
         "Requirements": "CanSmash",
@@ -62,8 +59,7 @@
   },
   {
     "RoomName": "Kakariko Gorge Behind Gate",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Kakariko Gorge",
         "Requirements": "Shadow_Crystal or Gate_Keys", // or acccess to epona
@@ -80,27 +76,24 @@
   },
   {
     "RoomName": "Eldin Lantern Cave",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Kakariko Gorge Cave Entrance",
         "Requirements": "true",
         "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Eldin Lantern Cave First Chest",
-        "Eldin Lantern Cave Lantern Chest",
-        "Eldin Lantern Cave Second Chest",
-        "Eldin Lantern Cave Poe"
+    "Checks": [
+      "Eldin Lantern Cave First Chest",
+      "Eldin Lantern Cave Lantern Chest",
+      "Eldin Lantern Cave Second Chest",
+      "Eldin Lantern Cave Poe"
     ],
     "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Kakariko Gorge Keese Grotto",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Kakariko Gorge",
         "Requirements": "true",
@@ -112,11 +105,10 @@
   },
   {
     "RoomName": "Eldin Field",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Eldin Field Near Castle Town",
-        // When it comes time for ER, we will add (Room.Kakariko_Malo_Mart and Setting.randomizeOverworldEntrances) or  . . . 
+        // When it comes time for ER, we will add (Room.Kakariko_Malo_Mart and Setting.randomizeOverworldEntrances) or  . . .
         // For now, it's only in logic if we have visited the other side.
         "Requirements": "(Room.Eldin_Field_Near_Castle_Town and CanCompleteEldinTwilight and CanCompleteLanayruTwilight and Room.Kakariko_Malo_Mart) or (Setting.skipBridgeDonation equals true)",
         "GlitchedRequirements": "((Room.Kakariko_Malo_Mart or Shadow_Crystal) and CanCompleteEldinTwilight) or (Setting.skipBridgeDonation equals true)"
@@ -157,24 +149,21 @@
         "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
-    "Checks":
-    [
-        "Eldin Field Bomb Rock Chest",
-        "Bridge of Eldin Owl Statue Chest",
-        "Goron Springwater Rush",
-        "Bridge of Eldin Owl Statue Sky Character",
-        "Eldin Field Male Grasshopper",
-        "Eldin Field Female Grasshopper",
-        "Bridge of Eldin Male Phasmid",
-        "Bridge of Eldin Female Phasmid",
-        "Bridge of Eldin Portal"
+    "Checks": [
+      "Eldin Field Bomb Rock Chest",
+      "Bridge of Eldin Owl Statue Chest",
+      "Bridge of Eldin Owl Statue Sky Character",
+      "Eldin Field Male Grasshopper",
+      "Eldin Field Female Grasshopper",
+      "Bridge of Eldin Male Phasmid",
+      "Bridge of Eldin Female Phasmid",
+      "Bridge of Eldin Portal"
     ],
     "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Near Castle Town",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Eldin Field",
         "Requirements": "(Room.Kakariko_Malo_Mart and CanCompleteEldinTwilight and CanCompleteLanayruTwilight) or (Setting.skipBridgeDonation equals true)",
@@ -186,13 +175,12 @@
         "GlitchedRequirements": "true"
       }
     ],
-    "Checks": [""],
+    "Checks": ["Goron Springwater Rush"],
     "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Lava Cave Ledge",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Eldin Field",
         "Requirements": "true",
@@ -209,8 +197,7 @@
   },
   {
     "RoomName": "Eldin Field From Lava Cave Lower",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Eldin Field",
         "Requirements": "(Progressive_Clawshot, 1)",
@@ -228,8 +215,7 @@
   {
     // This is the area between Lanayru Field Wall of Twilight and the Bridge of Eldin Rocks
     "RoomName": "North Eldin Field",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Eldin Field",
         "Requirements": "CanSmash",
@@ -253,11 +239,10 @@
     ],
     "Checks": [""],
     "Region": "Hyrule Field - Eldin Province"
-},
+  },
   {
     "RoomName": "Eldin Field Outside Hidden Village",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "North Eldin Field",
         "Requirements": "Room.Kakariko_Renados_Sanctuary and Wooden_Statue",
@@ -274,8 +259,7 @@
   },
   {
     "RoomName": "Eldin Field Grotto Platform",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "North Eldin Field",
         "Requirements": "Spinner",
@@ -292,8 +276,7 @@
   },
   {
     "RoomName": "Eldin Field Lava Cave Upper",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Eldin Field Lava Cave Ledge",
         "Requirements": "true",
@@ -306,77 +289,61 @@
         "GlitchedRequirements": "Iron_Boots or Shadow_Crystal"
       }
     ],
-    "Checks": 
-	[
-	    "Eldin Stockcave Upper Chest"
-	],
+    "Checks": ["Eldin Stockcave Upper Chest"],
     "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Lava Cave Lower",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Eldin Field From Lava Cave Lower",
         "Requirements": "true",
         "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Eldin Stockcave Lantern Chest",
-        "Eldin Stockcave Lowest Chest"
-    ],
+    "Checks": ["Eldin Stockcave Lantern Chest", "Eldin Stockcave Lowest Chest"],
     "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Bomskit Grotto",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Eldin Field",
         "Requirements": "true",
         "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Eldin Field Bomskit Grotto Left Chest",
-        "Eldin Field Bomskit Grotto Lantern Chest"
-     ],
+    "Checks": [
+      "Eldin Field Bomskit Grotto Left Chest",
+      "Eldin Field Bomskit Grotto Lantern Chest"
+    ],
     "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Water Bomb Fish Grotto",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Eldin Field",
         "Requirements": "true",
         "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Eldin Field Water Bomb Fish Grotto Chest"
-    ],
+    "Checks": ["Eldin Field Water Bomb Fish Grotto Chest"],
     "Region": "Hyrule Field - Eldin Province"
   },
   {
     "RoomName": "Eldin Field Stalfos Grotto",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Eldin Field Grotto Platform",
         "Requirements": "true",
         "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Eldin Field Stalfos Grotto Right Small Chest",
-        "Eldin Field Stalfos Grotto Left Small Chest",
-        "Eldin Field Stalfos Grotto Stalfos Chest"
+    "Checks": [
+      "Eldin Field Stalfos Grotto Right Small Chest",
+      "Eldin Field Stalfos Grotto Left Small Chest",
+      "Eldin Field Stalfos Grotto Stalfos Chest"
     ],
     "Region": "Hyrule Field - Eldin Province"
   }

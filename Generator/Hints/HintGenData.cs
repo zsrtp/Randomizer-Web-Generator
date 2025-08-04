@@ -322,8 +322,11 @@ namespace TPRandomizer.Hints
 
             // Can address this more when work is done around shop prices
             if (
-                !HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor")
-                && (sSettings.walletSize <= WalletSize.HD)
+                sSettings.walletSize == WalletSize.Reduced
+                || (
+                    !HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor")
+                    && (sSettings.walletSize <= WalletSize.HD)
+                )
             )
                 itemSet.Add(Item.Progressive_Wallet);
 

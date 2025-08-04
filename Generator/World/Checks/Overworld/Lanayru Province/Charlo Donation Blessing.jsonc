@@ -1,6 +1,6 @@
 {
-    "requirements": "CanCompleteLanayruTwilight",
-    "glitchedRequirements": "CanCompleteLanayruTwilight",
+    "requirements": "CanCompleteLanayruTwilight and ((Setting.walletSize not_equal Reduced) or Progressive_Wallet)",
+    "glitchedRequirements": "CanCompleteLanayruTwilight and ((Setting.walletSize not_equal Reduced) or Progressive_Wallet)",
     "checkCategory": ["Overworld", "Npc", "Castle Town"],
     "itemId": "Piece_of_Heart"
 }
