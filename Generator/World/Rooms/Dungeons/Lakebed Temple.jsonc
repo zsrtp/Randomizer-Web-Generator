@@ -112,7 +112,7 @@
           },
           {
             "ConnectedArea": "Lakebed Temple Central Room",
-            "Requirements": "CanLaunchBombs and (Zora_Armor or CanDoAirRefill)",
+            "Requirements": "Zora_Armor and CanLaunchBombs",
             "GlitchedRequirements": "(Zora_Armor or CanDoAirRefill) and (CanLaunchBombs or CanDoLJA or CanDoJSMoonBoots)"
           }
         ],
