@@ -32,11 +32,19 @@ namespace TPRandomizer
         }
 
         /// <summary>
+        /// A tempoarary function for CanUse and for HasDefeatedBoss.
+        /// </summary>
+        public static bool HasItem(Item item)
+        {
+            return Randomizer.Items.heldItems.Contains(item);
+        }
+
+        /// <summary>
         /// summary text.
         /// </summary>
         public static bool CanUse(Item item)
         {
-            if (Randomizer.Items.heldItems.Contains(item) && CanReplenishItem(item))
+            if (HasItem(item) && CanReplenishItem(item))
             {
                 return true;
             }
@@ -1911,11 +1919,19 @@ namespace TPRandomizer
         }
 
         /// <summary>
+        /// A temporary function to help with the stack overflow bug until a better fix is found.
+        /// </summary>
+        public static bool HasDefeatedBoss(Item boss)
+        {
+            return HasItem(boss);
+        }
+
+        /// <summary>
         /// summary text.
         /// </summary>
         public static bool CanCompleteForestTemple()
         {
-            return CanUse(Item.Diababa_Defeated);
+            return HasItem(Item.Diababa_Defeated);
         }
 
         /// <summary>
@@ -1923,7 +1939,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteGoronMines()
         {
-            return CanUse(Item.Fyrus_Defeated);
+            return HasItem(Item.Fyrus_Defeated);
         }
 
         /// <summary>
@@ -1931,7 +1947,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteLakebedTemple()
         {
-            return CanUse(Item.Morpheel_Defeated);
+            return HasItem(Item.Morpheel_Defeated);
         }
 
         /// <summary>
@@ -1939,7 +1955,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteArbitersGrounds()
         {
-            return CanUse(Item.Stallord_Defeated);
+            return HasItem(Item.Stallord_Defeated);
         }
 
         /// <summary>
@@ -1947,7 +1963,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteSnowpeakRuins()
         {
-            return CanUse(Item.Blizzeta_Defeated);
+            return HasItem(Item.Blizzeta_Defeated);
         }
 
         /// <summary>
@@ -1955,7 +1971,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteTempleofTime()
         {
-            return CanUse(Item.Armogohma_Defeated);
+            return HasItem(Item.Armogohma_Defeated);
         }
 
         /// <summary>
@@ -1963,7 +1979,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteCityinTheSky()
         {
-            return CanUse(Item.Argorok_Defeated);
+            return HasItem(Item.Argorok_Defeated);
         }
 
         /// <summary>
@@ -1971,7 +1987,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompletePalaceofTwilight()
         {
-            return CanUse(Item.Zant_Defeated);
+            return HasItem(Item.Zant_Defeated);
         }
 
         /// <summary>
