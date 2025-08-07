@@ -34,7 +34,7 @@ namespace TPRandomizer
         /// <summary>
         /// A tempoarary function for CanUse and for HasDefeatedBoss.
         /// </summary>
-        public static bool HasItem(Item item)
+        private static bool HasItem(Item item)
         {
             return Randomizer.Items.heldItems.Contains(item);
         }
@@ -1916,14 +1916,6 @@ namespace TPRandomizer
                 && CanCompleteEldinTwilight()
                 && CanCompleteLanayruTwilight()
             );
-        }
-
-        /// <summary>
-        /// A temporary function to help with the stack overflow bug until a better fix is found.
-        /// </summary>
-        public static bool HasDefeatedBoss(Item boss)
-        {
-            return HasItem(boss);
         }
 
         /// <summary>
