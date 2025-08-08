@@ -402,6 +402,35 @@ namespace TPRandomizer.Assets
             { 0x15, 0xBF }, // statue placed in slot in room 1
         };
 
+        public static readonly byte[,] GmShortcutFlags = new byte[,]
+        {
+            { 0x11, 0xBB }, // activated magnet from water before first elder
+            { 0x11, 0x8F }, // activated ceiling maze magnet after first elder
+            { 0x11, 0x5B }, // activated main magnet room 1st magnet
+            { 0x11, 0x4A }, // watched main magnet room 1st magnet cs
+            { 0x11, 0x61 }, // activated main magnet room 2nd magnet
+            { 0x11, 0x44 }, // watched main magnet room 2nd magnet cs
+            { 0x11, 0x9E }, // crystal switch room 1st Iron Boots switch pressed
+            { 0x11, 0x83 }, // crystal switch room 1st Iron Boots switch cs shown
+            { 0x11, 0x82 }, // crystal switch room 1st magnet active
+            { 0x11, 0x9F }, // crystal switch room 2nd Iron Boots switch pressed
+            { 0x11, 0x85 }, // crystal switch room 2nd Iron Boots switch cs shown
+            { 0x11, 0x86 }, // crystal switch room 2nd magnet active
+            { 0x11, 0x54 }, // activated outside room magnet
+            { 0x11, 0x68 }, // watched outside room magnet cs
+            { 0x11, 0x8d }, // activated east wing dodongo room magnet
+            // Note: the final magnet is not activated because there is a
+            // softlock when you exit the main magnet room through the top door
+            // as wolf while the gate beyond the door in the Dodongo room is not
+            // open. Alternatively if we do open this gate, it leads to much
+            // more complicated logic and some jank where you can walk through
+            // Dangoro while he sits there (and the gate covering the door
+            // animation is also a bit jank). Also you can die during the
+            // Dangoro fight to appear on the north side of his arena. There are
+            // too many nuances for it to be reasonable for glitchless logic,
+            // and also every small key door would require 3 keys.
+        };
+
         public static readonly byte[,] HcShortcutFlags = new byte[,]
         {
             { 0x18, 0x6F }, // watched double Dinalfos cs 1
@@ -537,6 +566,7 @@ namespace TPRandomizer.Assets
                 { 28, DungeonERRegionFlags },
                 { 29, HCBKRegionFlags },
                 { 30, bridgeDonationRegionFlags },
+                { 31, GmShortcutFlags },
             };
 
         /// <summary>
@@ -791,6 +821,7 @@ namespace TPRandomizer.Assets
             /* 28 */RandomizerSettings.shuffleDungeonEntrances != DungeonER.Off,
             /* 29 */RandomizerSettings.castleBKRequirements == CastleBKRequirements.None,
             /* 30 */RandomizerSettings.skipBridgeDonation,
+            /* 31 */RandomizerSettings.gmShortcut,
         };
     }
 }

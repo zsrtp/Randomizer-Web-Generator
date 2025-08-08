@@ -606,6 +606,9 @@ document
   .getElementById('hiddenRupeeCheckbox')
   .addEventListener('click', setSettingsString);
 document
+  .getElementById('gmShortcutCheckbox')
+  .addEventListener('click', setSettingsString);
+document
   .getElementById('hcShortcutCheckbox')
   .addEventListener('click', setSettingsString);
 document.getElementById('itemScarcityFieldset').onchange = setSettingsString;
@@ -2337,6 +2340,7 @@ function populateSSettings(s) {
     s.randomizeStartingPoint
   );
   $('#hiddenRupeeCheckbox').prop('checked', s.hiddenRupees);
+  $('#gmShortcutCheckbox').prop('checked', s.gmShortcut);
   $('#hcShortcutCheckbox').prop('checked', s.hcShortcut);
   $('#iliaQuestFieldset').val(s.iliaQuest);
   $('#mirrorChamberFieldset').val(s.mirrorChamber);
