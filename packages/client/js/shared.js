@@ -443,6 +443,7 @@
       { id: 'hintDistributionFieldset', bitLength: 5 },
       { id: 'randomizeStartingPointCheckbox' },
       { id: 'hiddenRupeeCheckbox' },
+      { id: 'gmShortcutCheckbox' },
       { id: 'hcShortcutCheckbox' },
       { id: 'iliaQuestFieldset', bitLength: 3 },
       { id: 'mirrorChamberFieldset', bitLength: 2 },
@@ -853,12 +854,9 @@
         large: 3,
       };
       const walletSizeValue = processor.nextBoolean();
-      if (walletSizeValue)
-      {
+      if (walletSizeValue) {
         res.walletSize = walletSize.large;
-      }
-      else
-      {
+      } else {
         res.walletSize = walletSize.vanilla;
       }
     }
@@ -954,6 +952,7 @@
     if (version >= 6) {
       processBasic({ id: 'randomizeStartingPoint' });
       processBasic({ id: 'hiddenRupees' });
+      processBasic({ id: 'gmShortcut' });
       processBasic({ id: 'hcShortcut' });
       processBasic({ id: 'iliaQuest', bitLength: 3 });
       processBasic({ id: 'mirrorChamber', bitLength: 2 });
@@ -970,6 +969,7 @@
     } else {
       res.randomizeStartingPoint = false; // Vanilla
       res.hiddenRupees = false; // Vanilla
+      res.gmShortcut = false;
       res.hcShortcut = false;
       res.iliaQuest = 0; // Vanilla
       res.mirrorChamber = 0; // Vanilla
@@ -977,28 +977,23 @@
       res.unpairEntrances = false; // Vanilla
       res.decoupleEntrances = false; // Vanilla
       res.freestandingRupees = false; // Vanilla
-      switch(res.castleRequirements)
-      {
-        case 1:
-          {
-            res.castleRequirementCount = 3;
-            break;
-          }
-        case 2:
-            {
-              res.castleRequirementCount = 4;
-              break;
-            }
-        case 3:
-          {
-            res.castleRequirementCount = 8;
-            break;
-          }
-        default:
-          {
-            res.castleRequirementCount = 1;
-            break;
-          }
+      switch (res.castleRequirements) {
+        case 1: {
+          res.castleRequirementCount = 3;
+          break;
+        }
+        case 2: {
+          res.castleRequirementCount = 4;
+          break;
+        }
+        case 3: {
+          res.castleRequirementCount = 8;
+          break;
+        }
+        default: {
+          res.castleRequirementCount = 1;
+          break;
+        }
       }
       res.castleBKRequirements = 0;
       res.castleBKRequirementCount = 1;

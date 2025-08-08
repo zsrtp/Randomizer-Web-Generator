@@ -59,6 +59,7 @@ namespace TPRandomizer
         public bool increaseSpinnerSpeed { get; set; }
         public bool openDot { get; set; }
         public bool noSmallKeysOnBosses { get; set; }
+        public bool gmShortcut { get; set; }
         public bool hcShortcut { get; set; }
         public StartingToD startingToD { get; set; }
         public HintDistribution hintDistribution { get; set; }
@@ -132,6 +133,7 @@ namespace TPRandomizer
             hintDistribution = (HintDistribution)processor.NextInt(5);
             randomizeStartingPoint = processor.NextBool();
             shuffleHiddenRupees = processor.NextBool();
+            gmShortcut = processor.NextBool();
             hcShortcut = processor.NextBool();
             iliaQuest = (IliaQuest)processor.NextInt(3);
             mirrorChamberEntrance = (MirrorChamberEntrance)processor.NextInt(2);

@@ -708,6 +708,7 @@ namespace TPRandomizer
             result.Add("hintDistribution", sSettings.hintDistribution.ToString());
             result.Add("randomizeStartingPoint", sSettings.randomizeStartingPoint);
             result.Add("shuffleHiddenRupees", sSettings.shuffleHiddenRupees);
+            result.Add("gmShortcut", sSettings.gmShortcut);
             result.Add("hcShortcut", sSettings.hcShortcut);
             result.Add("iliaQuest", sSettings.iliaQuest.ToString());
             result.Add("mirrorChamberEntrance", sSettings.mirrorChamberEntrance.ToString());
