@@ -32,55 +32,24 @@ namespace TPRandomizer
         }
 
         /// <summary>
-        /// A tempoarary function for CanUse and for HasDefeatedBoss.
-        /// </summary>
-        private static bool HasItem(Item item)
-        {
-            return Randomizer.Items.heldItems.Contains(item);
-        }
-
-        /// <summary>
         /// summary text.
         /// </summary>
         public static bool CanUse(Item item)
         {
-            if (HasItem(item) && CanReplenishItem(item))
-            {
-                return true;
-            }
-            return false;
+            return Randomizer.Items.heldItems.Contains(item) && CanReplenishItem(item);
         }
 
         public static bool CanReplenishItem(Item item)
         {
-            bool replenish = false;
             switch (item)
             {
                 case Item.Lantern:
-                {
-                    if (CanRefillOil())
-                    {
-                        replenish = true;
-                    }
-                    break;
-                }
-
+                    return CanRefillOil();
                 case Item.Progressive_Bow:
-                {
-                    if (CanGetArrows())
-                    {
-                        replenish = true;
-                    }
-                    break;
-                }
-
+                    return CanGetArrows();
                 default:
-                {
-                    replenish = true;
-                    break;
-                }
+                    return true;
             }
-            return replenish;
         }
 
         /// <summary>
@@ -1460,6 +1429,11 @@ namespace TPRandomizer
             return CanUse(Item.Lantern) || HasBombs() || CanUse(Item.Ball_and_Chain);
         }
 
+        public static bool CanDestroyWebsWithoutLantern()
+        {
+            return HasBombs() || CanUse(Item.Ball_and_Chain);
+        }
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -1705,6 +1679,12 @@ namespace TPRandomizer
 
         public static bool CanRefillOil()
         {
+            // Note: it is critical that this function does not rely on you
+            // having access to a functioning lantern. The question is "can you
+            // refill your oil if you ran out" which means you do not have
+            // access to the lantern here. To avoid a stack overflow from a
+            // circular dependency (and because it just makes sense), we check
+            // if you can destroy webs without the lantern in this function.
             return (
                 Randomizer.Rooms.RoomDict["North Faron Woods"].ReachedByPlaythrough
                 || Randomizer.Rooms.RoomDict["South Faron Woods"].ReachedByPlaythrough
@@ -1734,7 +1714,7 @@ namespace TPRandomizer
                 )
                 || (
                     Randomizer.Rooms.RoomDict["Eldin Lantern Cave"].ReachedByPlaythrough
-                    && CanBurnWebs()
+                    && CanDestroyWebsWithoutLantern()
                     && CanDefeatChu()
                 )
             );
@@ -1923,7 +1903,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteForestTemple()
         {
-            return HasItem(Item.Diababa_Defeated);
+            return CanUse(Item.Diababa_Defeated);
         }
 
         /// <summary>
@@ -1931,7 +1911,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteGoronMines()
         {
-            return HasItem(Item.Fyrus_Defeated);
+            return CanUse(Item.Fyrus_Defeated);
         }
 
         /// <summary>
@@ -1939,7 +1919,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteLakebedTemple()
         {
-            return HasItem(Item.Morpheel_Defeated);
+            return CanUse(Item.Morpheel_Defeated);
         }
 
         /// <summary>
@@ -1947,7 +1927,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteArbitersGrounds()
         {
-            return HasItem(Item.Stallord_Defeated);
+            return CanUse(Item.Stallord_Defeated);
         }
 
         /// <summary>
@@ -1955,7 +1935,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteSnowpeakRuins()
         {
-            return HasItem(Item.Blizzeta_Defeated);
+            return CanUse(Item.Blizzeta_Defeated);
         }
 
         /// <summary>
@@ -1963,7 +1943,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteTempleofTime()
         {
-            return HasItem(Item.Armogohma_Defeated);
+            return CanUse(Item.Armogohma_Defeated);
         }
 
         /// <summary>
@@ -1971,7 +1951,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompleteCityinTheSky()
         {
-            return HasItem(Item.Argorok_Defeated);
+            return CanUse(Item.Argorok_Defeated);
         }
 
         /// <summary>
@@ -1979,7 +1959,7 @@ namespace TPRandomizer
         /// </summary>
         public static bool CanCompletePalaceofTwilight()
         {
-            return HasItem(Item.Zant_Defeated);
+            return CanUse(Item.Zant_Defeated);
         }
 
         /// <summary>
