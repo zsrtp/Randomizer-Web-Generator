@@ -1679,12 +1679,12 @@ namespace TPRandomizer
 
         public static bool CanRefillOil()
         {
-            // Note: it is critical that this function does not rely on you
-            // having access to a functioning lantern. The question is "can you
-            // refill your oil if you ran out" which means you do not have
-            // access to the lantern here. To avoid a stack overflow from a
-            // circular dependency (and because it just makes sense), we check
-            // if you can destroy webs without the lantern in this function.
+            // Note: we need to assume the worse-case scenario that the player
+            // has run out of oil when checking if they can refill the Lantern.
+            // This also prevents stack overflows where we check if they can
+            // refill oil in order to use Lantern in order to refill oil, etc.
+            // So for going through giant webs in order to find oil refills,
+            // using the Lantern is not valid.
             return (
                 Randomizer.Rooms.RoomDict["North Faron Woods"].ReachedByPlaythrough
                 || Randomizer.Rooms.RoomDict["South Faron Woods"].ReachedByPlaythrough
