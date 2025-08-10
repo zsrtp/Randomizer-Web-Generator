@@ -2,6 +2,7 @@ namespace TPRandomizer.Hints.HintCreator
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Newtonsoft.Json.Linq;
     using TPRandomizer.Hints;
     using TPRandomizer.Hints.Settings;
@@ -39,6 +40,32 @@ namespace TPRandomizer.Hints.HintCreator
                 { Zone.Temple_of_Time, CheckFunctions.totRequirementChecks },
                 { Zone.City_in_the_Sky, CheckFunctions.cityRequirementChecks },
                 { Zone.Palace_of_Twilight, CheckFunctions.palaceRequirementChecks },
+            };
+
+        private static readonly Dictionary<Zone, string> dungeonZoneToRegionName =
+            new()
+            {
+                { Zone.Forest_Temple, "Forest Temple" },
+                { Zone.Goron_Mines, "Goron Mines" },
+                { Zone.Lakebed_Temple, "Lakebed Temple" },
+                { Zone.Arbiters_Grounds, "Arbiters Grounds" },
+                { Zone.Snowpeak_Ruins, "Snowpeak Ruins" },
+                { Zone.Temple_of_Time, "Temple of Time" },
+                { Zone.City_in_the_Sky, "City in The Sky" },
+                { Zone.Palace_of_Twilight, "Palace of Twilight" },
+            };
+
+        private static readonly List<string> bossRooms =
+            new()
+            {
+                "Forest Temple Boss Room",
+                "Goron Mines Boss Room",
+                "Lakebed Temple Boss Room",
+                "Arbiters Grounds Boss Room",
+                "Snowpeak Ruins Boss Room",
+                "Temple of Time Boss Room",
+                "City in The Sky Boss Room",
+                "Palace of Twilight Boss Room",
             };
 
         private static readonly HashSet<AreaId.AreaType> validAreaTypes =
@@ -274,13 +301,51 @@ namespace TPRandomizer.Hints.HintCreator
             if (areaId.type == AreaId.AreaType.Zone)
             {
                 Zone zone = ZoneUtils.StringToId(areaId.stringId);
-                if (dungeonZoneToReqChecks.TryGetValue(zone, out List<string> checksList))
+                if (dungeonZoneToReqChecks.TryGetValue(zone, out List<string> baseDungeonChecks))
                 {
-                    return new(checksList);
+                    List<string> bossAndPostDungeonChecks = ResolveBossAndPostDungeonChecks(zone);
+
+                    return new(baseDungeonChecks.Concat(bossAndPostDungeonChecks));
                 }
             }
 
             return areaId.ResolveToChecks();
+        }
+
+        private List<string> ResolveBossAndPostDungeonChecks(Zone zone)
+        {
+            if (!dungeonZoneToRegionName.TryGetValue(zone, out string dungeonRegionName))
+                throw new Exception($"Failed to find dungeonRegionName for Zone '{zone}'.");
+
+            // Given a dungeon, we need to scan through the boss rooms until we
+            // find the one that is hooked up to the end of the dungeon.
+            foreach (string bossRoom in bossRooms)
+            {
+                Room bRoom = Randomizer.Rooms.RoomDict[bossRoom];
+                if (bRoom.Region == dungeonRegionName)
+                {
+                    // Add bossRoom checks to result as well as any post-dungeon
+                    // checks based on the boss (ex: post-Fyrus checks block
+                    // barren for FT if Fyrus is randomized to be the boss at
+                    // the end of FT).
+                    List<string> result = new(bRoom.Checks);
+                    switch (bossRoom)
+                    {
+                        case "Goron Mines Boss Room":
+                            result.AddRange(CheckFunctions.postFyrusChecks);
+                            break;
+                        case "Snowpeak Ruins Boss Room":
+                            result.AddRange(CheckFunctions.postBlizettaChecks);
+                            break;
+                        case "Temple of Time Boss Room":
+                            result.AddRange(CheckFunctions.postArmogohmaChecks);
+                            break;
+                    }
+                    return result;
+                }
+            }
+
+            throw new Exception($"Failed to find bossRoom for Zone '${zone}'.");
         }
 
         private HashSet<AreaId> GetBaseAreaIds(HintGenData genData, HintSettings hintSettings)

@@ -97,7 +97,6 @@ namespace TPRandomizer
         public static List<string> minesRequirementChecks =
             new()
             {
-                "Death Mountain Trail Poe",
                 "Goron Mines After Crystal Switch Room Magnet Wall Chest",
                 "Goron Mines Beamos Room Chest",
                 "Goron Mines Chest Before Dangoro",
@@ -284,7 +283,12 @@ namespace TPRandomizer
             };
 
         public static List<string> postFyrusChecks =
-            new() { "Kakariko Village Malo Mart Hawkeye", "Talo Sharpshooting", };
+            new()
+            {
+                "Kakariko Village Malo Mart Hawkeye",
+                "Talo Sharpshooting",
+                "Death Mountain Trail Poe",
+            };
 
         public static List<string> postBlizettaChecks = new() { "Snowboard Racing Prize", };
 
