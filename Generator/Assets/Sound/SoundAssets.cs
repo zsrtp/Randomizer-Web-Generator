@@ -4316,18 +4316,18 @@ namespace TPRandomizer.Assets
             {
                 JAISoundID.Z2SE_HIT_SWORD, // Sword Hit
                 JAISoundID.Z2SE_HIT_SWORD_STAB, // Sword Stab
-                JAISoundID.Z2SE_HIT_SHIELD_ATTACK, // Shield Attack
-                JAISoundID.Z2SE_HIT_HAMMER, // Dom Rod Statue Hammer
+                //JAISoundID.Z2SE_HIT_SHIELD_ATTACK, // Shield Attack
+                //JAISoundID.Z2SE_HIT_HAMMER, // Dom Rod Statue Hammer
                 //JAISoundID.Z2SE_HIT_ARROW_STICK, // Arrow Stab Sound
                 //JAISoundID.Z2SE_HIT_ARROW_REBOUND, // Arrow Rebound
-                JAISoundID.Z2SE_HIT_METAL_WEAPON, // Weapon Hitting Metal
-                JAISoundID.Z2SE_HIT_STONE_WEAPON, // Weapon Hitting Stone
-                JAISoundID.Z2SE_HIT_HARD_BODY, // Weapon Hitting hard Body
-                JAISoundID.Z2SE_HIT_SOFT_BODY, // Weapon Hitting Soft Body
-                JAISoundID.Z2SE_HIT_SWORD_RUN, // Running Sword Hit
-                JAISoundID.Z2SE_HIT_SPINNER, // Spinner Hit
-                JAISoundID.Z2SE_HIT_COPYROD, // Dom Rod Statue hit
-                JAISoundID.Z2SE_HIT_STATUE_HAMMER, // Domt Rod Statue Hammer Hit
+                //JAISoundID.Z2SE_HIT_METAL_WEAPON, // Weapon Hitting Metal
+                //JAISoundID.Z2SE_HIT_STONE_WEAPON, // Weapon Hitting Stone
+                //JAISoundID.Z2SE_HIT_HARD_BODY, // Weapon Hitting hard Body
+                //JAISoundID.Z2SE_HIT_SOFT_BODY, // Weapon Hitting Soft Body
+                //JAISoundID.Z2SE_HIT_SWORD_RUN, // Running Sword Hit
+                //JAISoundID.Z2SE_HIT_SPINNER, // Spinner Hit
+                //JAISoundID.Z2SE_HIT_COPYROD, // Dom Rod Statue hit
+                //JAISoundID.Z2SE_HIT_STATUE_HAMMER, // Domt Rod Statue Hammer Hit
                 //JAISoundID.Z2SE_HIT_AL_ARROW_STICK, // Adult Link - Arrow Stick
                 //JAISoundID.Z2SE_HIT_AL_ARROW_REBOUND, // Adult Link - Arrow Rebound
                 //JAISoundID.Z2SE_HIT_PACHINKO, // Slingshot hit
