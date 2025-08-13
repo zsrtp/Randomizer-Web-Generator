@@ -2215,18 +2215,12 @@ namespace TPRandomizer
         {
             switch (Randomizer.SSettings.walletSize)
             {
-                case WalletSize.Reduced:
-                {
-                    return GetItemCount(Item.Progressive_Wallet) >= 2;
-                }
-                case WalletSize.Vanilla:
-                {
-                    return CanUse(Item.Progressive_Wallet);
-                }
-                default:
-                {
+                case WalletSize.Large:
                     return true;
-                }
+                case WalletSize.Reduced:
+                    return GetItemCount(Item.Progressive_Wallet) >= 2;
+                default:
+                    return CanUse(Item.Progressive_Wallet);
             }
         }
 
