@@ -548,6 +548,8 @@ namespace TPRandomizer
                 );
             }
 
+            AddBarnesShopAdjustments();
+
             // ----- New Stuff -----
 
             // string table stuff
@@ -639,6 +641,111 @@ namespace TPRandomizer
 
             // TODO: temp quiz sign for demo
             AddTestQuizSign();
+        }
+
+        private void AddBarnesShopAdjustments()
+        {
+            ushort firstSlotBaseCtx = ctxGen.getNewContext();
+            ushort checkBombSlotCtx = ctxGen.getNewContext();
+
+            results2.AddNodeRemaps(
+                new()
+                {
+                    // Set base context when selecting first slot.
+                    NodeRemap.Fli(
+                        0x169,
+                        Node.br_BarnesBombsSlot,
+                        Node.br_BarnesBombsSlot.flwIdx,
+                        firstSlotBaseCtx
+                    ),
+                    // If remapping back to the initial branch node (because had
+                    // already done the check), then set the context so we can
+                    // do custom handling for branch result 0 (no bomb bags).
+                    // This context is used for all 3 bomb slots when you have
+                    // no bomb bags in order to show the "oh, you have no bomb
+                    // bags" msg and then end the flow.
+                    NodeRemap.Ctx(
+                        firstSlotBaseCtx,
+                        Node.br_BarnesBombsSlot,
+                        Node.br_BarnesBombsSlot.flwIdx,
+                        checkBombSlotCtx
+                    ),
+                    // Set context when entering water bomb slot selection flow.
+                    NodeRemap.Fli(
+                        0x178,
+                        Node.br_BarnesWaterBombSlot,
+                        Node.br_BarnesWaterBombSlot.flwIdx,
+                        checkBombSlotCtx
+                    ),
+                    // Set context when entering bomblings slot selection flow.
+                    NodeRemap.Fli(
+                        0x185,
+                        Node.br_BarnesBomblingsSlot,
+                        Node.br_BarnesBomblingsSlot.flwIdx,
+                        checkBombSlotCtx
+                    ),
+                    // Map to 0xFFFF after showing "no bomb bag" msg for the
+                    // appropriate context.
+                    NodeRemap.Ctx(checkBombSlotCtx, Node.ev_BarnesNoBombBagMenu, 0xFFFF, 0)
+                }
+            );
+
+            List<BranchPatchEntity> branchPatches =
+                new()
+                {
+                    new(
+                        Node.br_BarnesBombsSlot,
+                        firstSlotBaseCtx,
+                        queryIndex: 0x1, // query001 (checks eventBit)
+                        // M_044 = 0x0908, // Kakariko Village - [Barnes Bomb Shop] Bought premium pack,
+                        // Found at index 0x4d (77) in `dSv_event_flag_c::saveBitLabels`
+                        parameters: 0x4d,
+                        nextNodeIndexes: new()
+                        {
+                            // Has done check, so return to same node to run
+                            // vanilla query023 and proceed as normal. We change
+                            // the context so that result 0 in this case says
+                            // "oh, you have no bomb bag?" but does not ask you
+                            // to buy the check.
+                            Node.br_BarnesBombsSlot.flwIdx,
+                            // Has not done check, so go directly to the menu
+                            // event node. We skip over the "no bomb bag?" part
+                            // since since we use this msg legitimately in other
+                            // places, and it is more convenient and
+                            // understandable to go directly to the menu.
+                            Node.ev_BarnesNoBombBagMenu.flwIdx,
+                        }
+                    ),
+                    // Patch water bombs and bombling slots to show "no bombs
+                    // msg" when you have no bomb bags instead of resolving to
+                    // 0xFFFF and showing nothing.
+                    new(
+                        Node.br_BarnesWaterBombSlot,
+                        checkBombSlotCtx,
+                        nextNodeIndexes: new()
+                        {
+                            Node.msg_BarnesNoBombBag.flwIdx,
+                            // Vanilla results for 1 through 3:
+                            0x62d,
+                            0x62b,
+                            0x62a
+                        }
+                    ),
+                    new(
+                        Node.br_BarnesBomblingsSlot,
+                        checkBombSlotCtx,
+                        nextNodeIndexes: new()
+                        {
+                            Node.msg_BarnesNoBombBag.flwIdx,
+                            // Vanilla results for 1 through 3:
+                            0x776,
+                            0x774,
+                            0x773
+                        }
+                    ),
+                };
+
+            results2.AddBranchPatches(branchPatches);
         }
 
         private void AddMidnaConversationStuff()

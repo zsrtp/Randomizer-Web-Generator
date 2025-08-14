@@ -56,6 +56,15 @@ namespace TPRandomizer
         public static NodeInst brZ0_GeneriCtxBranch = new(StgBmg.zel_00, 0x199);
         public static NodeInst brKakMaloMartHylianShieldCanAfford =
             new(StgBmg.Kakariko_Village_Interiors, 0x421);
+        public static NodeInst br_BarnesWaterBombSlot =
+            new(StgBmg.Kakariko_Village_Interiors, 0x62c);
+        public static NodeInst br_BarnesBomblingsSlot =
+            new(StgBmg.Kakariko_Village_Interiors, 0x775);
+        public static NodeInst br_BarnesBombsSlot = new(StgBmg.Kakariko_Village_Interiors, 0x47c);
+        public static MsgNodeInst msg_BarnesNoBombBag =
+            new(StgBmg.Kakariko_Village_Interiors, 0x47d, 0x9a);
+        public static NodeInst ev_BarnesNoBombBagMenu =
+            new(StgBmg.Kakariko_Village_Interiors, 0x47e);
 
         // Generic event node in zel_00 we can patch under context.
         public static NodeInst evZ0_GenericCtxEvent = new(StgBmg.zel_00, 0x1a4);
