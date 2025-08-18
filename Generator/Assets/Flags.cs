@@ -321,8 +321,6 @@ namespace TPRandomizer.Assets
             { 0x16, 0xED }, // Got City in The Sky Big Key.
             { 0x17, 0x56 }, // Unlocked Palace of Twilight Boss Door.
             { 0x17, 0xED }, // Got Palace of Twilight Big Key.
-            { 0x18, 0xA1 }, // Unlocked Hyrule Castle Boss Door.
-            { 0x18, 0xED }, // Got Hyrule Castle Big Key.
         };
 
         public static readonly byte[,] MapAndCompassRegionFlags = new byte[,]
@@ -402,7 +400,7 @@ namespace TPRandomizer.Assets
             { 0x15, 0xBF }, // statue placed in slot in room 1
         };
 
-        public static readonly byte[,] GmShortcutFlags = new byte[,]
+        public static readonly byte[,] GmShortcutRegionFlags = new byte[,]
         {
             { 0x11, 0xBB }, // activated magnet from water before first elder
             { 0x11, 0x8F }, // activated ceiling maze magnet after first elder
@@ -538,6 +536,12 @@ namespace TPRandomizer.Assets
             { 0x6, 0x44 }, // East Castle Town Bridge
         };
 
+        public static readonly byte[,] HCBKDoorRegionFlags = new byte[,]
+        {
+            { 0x18, 0xA1 }, // Unlocked Hyrule Castle Boss Door.
+            { 0x18, 0xED }, // Got Hyrule Castle Big Key.
+        };
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -566,7 +570,8 @@ namespace TPRandomizer.Assets
                 { 28, DungeonERRegionFlags },
                 { 29, HCBKRegionFlags },
                 { 30, bridgeDonationRegionFlags },
-                { 31, GmShortcutFlags },
+                { 31, GmShortcutRegionFlags },
+                { 32, HCBKDoorRegionFlags },
             };
 
         /// <summary>
@@ -822,6 +827,8 @@ namespace TPRandomizer.Assets
             /* 29 */RandomizerSettings.castleBKRequirements == CastleBKRequirements.None,
             /* 30 */RandomizerSettings.skipBridgeDonation,
             /* 31 */RandomizerSettings.gmShortcut,
+            /* 32 */RandomizerSettings.bigKeySettings == BigKeySettings.Keysy
+                && RandomizerSettings.castleBKRequirements == CastleBKRequirements.None,
         };
     }
 }
