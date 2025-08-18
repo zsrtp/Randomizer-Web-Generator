@@ -901,7 +901,7 @@
     <value>Auru&apos;s memo</value>
     <comment></comment>
   </data>
-  <data name="item.91-asheis_sketch@ac(,an,b,s)" xml:space="preserve">
+  <data name="item.91-asheis_sketch@ac(,an,b,es)" xml:space="preserve">
     <value>Ashei&apos;s sketch</value>
     <comment></comment>
   </data>
@@ -953,7 +953,7 @@
     <value>PoT big key</value>
     <comment></comment>
   </data>
-  <data name="item.98-hyrule_castle_big_key@ac(t,a,b,es)" xml:space="preserve">
+  <data name="item.98-hyrule_castle_big_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Hyrule Castle big key</value>
     <comment></comment>
   </data>
