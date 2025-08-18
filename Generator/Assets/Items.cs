@@ -889,6 +889,10 @@ namespace TPRandomizer
             else if (parseSetting.bigKeySettings == BigKeySettings.Keysy)
             {
                 parseSetting.startingItems.AddRange(this.DungeonBigKeys);
+                if (parseSetting.castleBKRequirements != CastleBKRequirements.None)
+                {
+                    parseSetting.startingItems.Remove(Item.Hyrule_Castle_Big_Key);
+                }
             }
 
             // Check Map and Compass settings before adding to pool
