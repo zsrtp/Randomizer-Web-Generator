@@ -366,6 +366,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.bonksDoDamage,
                 randomizerSettings.autoFillWallet,
                 randomizerSettings.modifyShopModels,
+                fcSettings.lanternGlowColor.getResult().basicDataEntry == 0xFFFFFE, // Rainbow Lantern
             };
 
             List<bool[]> flagArrayList = new()
