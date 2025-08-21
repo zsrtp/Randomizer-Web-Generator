@@ -2290,4 +2290,64 @@ window.tpr.checkData = {
     category: ['Overworld', 'Poe', 'Zoras Domain'],
     itemId: 'Poe_Soul',
   },
+  'Zoras Domain Waterfall Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Central Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain North Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Shortcut Ledge Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Shortcut Lower Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Shortcut Upper Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne East Gate Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne East Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne Northwest Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne West Gate Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne South Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne West Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Top Ledge Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Vine Ledge Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Waterfall Ledge Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
 };
