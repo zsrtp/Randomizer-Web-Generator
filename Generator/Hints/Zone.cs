@@ -539,7 +539,22 @@ namespace TPRandomizer.Hints
                         "Zoras Domain Male Dragonfly",
                         "Zoras Domain Mother and Child Isle Poe",
                         "Zoras Domain Underwater Goron",
-                        "Zoras Domain Waterfall Poe"
+                        "Zoras Domain Waterfall Poe",
+                        "Zoras Domain Behind Waterfall Rupee",
+                        "Zoras Domain Central Underwater Boulder Rupee",
+                        "Zoras Domain North Underwater Boulder Rupee",
+                        "Zoras Domain Shortcut Ledge Rupee",
+                        "Zoras Domain Shortcut Lower Boulder Rupee",
+                        "Zoras Domain Shortcut Upper Boulder Rupee",
+                        "Zoras Domain Throne East Gate Underwater Rupee",
+                        "Zoras Domain Throne East Underwater Rupee",
+                        "Zoras Domain Throne Northwest Underwater Rupee",
+                        "Zoras Domain Throne South Underwater Rupee",
+                        "Zoras Domain Throne West Gate Underwater Rupee",
+                        "Zoras Domain Throne West Underwater Rupee",
+                        "Zoras Domain Top Ledge Rupee",
+                        "Zoras Domain Vine Ledge Rupee",
+                        "Zoras Domain Waterfall Ledge Rupee",
                     }
                 },
                 {

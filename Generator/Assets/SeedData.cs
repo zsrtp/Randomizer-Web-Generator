@@ -1706,7 +1706,7 @@ namespace TPRandomizer.Assets
                     0
                 ),
 
-                // Rupee in River
+                // Rupee in Ordon River
                 new ARCReplacement(
                     "3D4F",
                     "0013FF91",
@@ -1715,6 +1715,154 @@ namespace TPRandomizer.Assets
                     (int)StageIDs.Ordon_Village,
                     0
                 ),
+
+                // ZD North Underwater Boulder Rupees
+                new ARCReplacement(
+                    "31DB",
+                    "00133AFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "31FB",
+                    "00133AFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "321B",
+                    "00133AFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+
+                // ZD Central Underwater Boulder Rupees
+                new ARCReplacement(
+                    "323B",
+                    "00133BFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "325B",
+                    "00133BFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "327B",
+                    "00133BFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "329B",
+                    "00133BFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+
+                // ZD Shortcut Boulders
+                new ARCReplacement(
+                    "1B13",
+                    "00F365FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "1B53",
+                    "00F365FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "1B93",
+                    "00F365FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "1B33",
+                    "00F324FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "1B73",
+                    "00F324FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "1BB3",
+                    "00F324FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+
+                // ZD Throne West Gate underwater rupees
+                new ARCReplacement(
+                    "1043",
+                    "0013FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    0
+                ),
+                new ARCReplacement(
+                    "1063",
+                    "0013FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    0
+                ),
+
+                // ZD Throne East Gate Underwater Rupees
+                new ARCReplacement(
+                    "10A3",
+                    "0013FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    0
+                ),
+                new ARCReplacement(
+                    "10C3",
+                    "0013FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    0
+                ),
+
+
                 /*
             // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here.
             new ARCReplacement(

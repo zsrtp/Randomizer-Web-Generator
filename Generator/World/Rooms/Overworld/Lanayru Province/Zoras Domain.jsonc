@@ -138,7 +138,14 @@
         "Zoras Domain Chest Behind Waterfall",
         "Zoras Domain Male Dragonfly",
         "Zoras Domain Mother and Child Isle Poe",
-        "Zoras Domain Waterfall Poe"
+        "Zoras Domain Waterfall Poe",
+        "Zoras Domain Behind Waterfall Rupee",
+        "Zoras Domain Central Underwater Boulder Rupee",
+        "Zoras Domain North Underwater Boulder Rupee",
+        "Zoras Domain Shortcut Ledge Rupee",
+        "Zoras Domain Top Ledge Rupee",
+        "Zoras Domain Vine Ledge Rupee",
+        "Zoras Domain Waterfall Ledge Rupee"
     ],
     "Region": "Zoras Domain"
   },
@@ -180,7 +187,11 @@
         "GlitchedRequirements": "true"
       }
     ],
-    "Checks": [""],
+    "Checks": 
+    [
+      
+      "Zoras Domain Shortcut Lower Boulder Rupee"
+    ],
     "Region": "Zoras Domain"
   },
   {
@@ -198,7 +209,14 @@
         "Zoras Domain Light All Torches Chest",
         "Zoras Domain Extinguish All Torches Chest",
         "Zoras Domain Underwater Goron",
-        "Zoras Domain Portal"
+        "Zoras Domain Portal",
+        "Zoras Domain Behind Waterfall Rupee",
+        "Zoras Domain Throne East Gate Underwater Rupee",
+        "Zoras Domain Throne East Underwater Rupee",
+        "Zoras Domain Throne Northwest Underwater Rupee",
+        "Zoras Domain Throne South Underwater Rupee",
+        "Zoras Domain Throne West Gate Underwater Rupee",
+        "Zoras Domain Throne West Underwater Rupee",
     ],
     "Region": "Zoras Domain"
   },
@@ -217,7 +235,10 @@
         "GlitchedRequirements": "true"
       }
     ],
-    "Checks": [""],
+    "Checks": 
+    [
+      "Zoras Domain Shortcut Upper Boulder Rupee"
+    ],
     "Region": "Zoras Domain"
   }
 ]

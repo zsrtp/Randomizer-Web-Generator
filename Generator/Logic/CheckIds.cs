@@ -585,6 +585,21 @@ namespace TPRandomizer
                 "Ordon Shield House Ledge Grass Rupee",
                 "Ordon Tree Long Branch Rupee",
                 "Ordon Tree Short Branch Rupee",
+                "Zoras Domain Behind Waterfall Rupee",
+                "Zoras Domain Central Underwater Boulder Rupee",
+                "Zoras Domain North Underwater Boulder Rupee",
+                "Zoras Domain Shortcut Ledge Rupee",
+                "Zoras Domain Shortcut Lower Boulder Rupee",
+                "Zoras Domain Shortcut Upper Boulder Rupee",
+                "Zoras Domain Throne East Gate Underwater Rupee",
+                "Zoras Domain Throne East Underwater Rupee",
+                "Zoras Domain Throne Northwest Underwater Rupee",
+                "Zoras Domain Throne South Underwater Rupee",
+                "Zoras Domain Throne West Gate Underwater Rupee",
+                "Zoras Domain Throne West Underwater Rupee",
+                "Zoras Domain Top Ledge Rupee",
+                "Zoras Domain Vine Ledge Rupee",
+                "Zoras Domain Waterfall Ledge Rupee",
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.
