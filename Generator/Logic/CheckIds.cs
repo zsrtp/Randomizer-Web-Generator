@@ -600,6 +600,10 @@ namespace TPRandomizer
                 "Zoras Domain Top Ledge Rupee",
                 "Zoras Domain Vine Ledge Rupee",
                 "Zoras Domain Waterfall Ledge Rupee",
+                "Upper Zoras River East Underwater Boulder Rupee",
+                "Upper Zoras River Central Underwater Boulder Rupee",
+                "Upper Zoras River South Underwater Boulder Rupee",
+                "Upper Zoras River Ledge Boulder Rupee",
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.

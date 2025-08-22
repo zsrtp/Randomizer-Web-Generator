@@ -566,7 +566,11 @@ namespace TPRandomizer.Hints
                         "Iza Helping Hand",
                         "Iza Raging Rapids Minigame",
                         "Upper Zoras River Female Dragonfly",
-                        "Upper Zoras River Poe"
+                        "Upper Zoras River Poe",
+                        "Upper Zoras River East Underwater Boulder Rupee",
+                        "Upper Zoras River Central Underwater Boulder Rupee",
+                        "Upper Zoras River South Underwater Boulder Rupee",
+                        "Upper Zoras River Ledge Boulder Rupee",
                     }
                 },
                 {

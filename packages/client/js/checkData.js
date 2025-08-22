@@ -2350,4 +2350,20 @@ window.tpr.checkData = {
     category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
     itemId: 'Yellow_Rupee',
   },
+  'Upper Zoras River Central Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Upper Zoras River'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Upper Zoras River South Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Upper Zoras River'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Upper Zoras River East Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Upper Zoras River'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Upper Zoras River Ledge Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Upper Zoras River'],
+    itemId: 'Yellow_Rupee',
+  },
 };

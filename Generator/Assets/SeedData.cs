@@ -1862,6 +1862,198 @@ namespace TPRandomizer.Assets
                     0
                 ),
 
+                // UZR Central Underwater Boulder Rupees
+                new ARCReplacement(
+                    "26DB",
+                    "001360FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "26FB",
+                    "001360FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "271B",
+                    "001360FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "273B",
+                    "001360FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "275B",
+                    "001360FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+
+                // UZR South Underwater Boulder
+                new ARCReplacement(
+                    "279B",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "27BB",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "27DB",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "27FB",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "281B",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "283B",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "285B",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "287B",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+
+                // UZR Underwater East Boulder
+                new ARCReplacement(
+                    "28BB",
+                    "001354FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "28DB",
+                    "001354FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "28FB",
+                    "001354FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "291B",
+                    "001354FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "293B",
+                    "001354FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+
+                // UZR Ledge Boulder
+                new ARCReplacement(
+                    "299B",
+                    "001367FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "29BB",
+                    "001367FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "29DB",
+                    "001367FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "29FB",
+                    "001367FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "2A1B",
+                    "001367FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+
 
                 /*
             // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here.
