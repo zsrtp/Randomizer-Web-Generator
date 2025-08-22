@@ -1717,6 +1717,10 @@ namespace TPRandomizer
                     && CanDestroyWebsWithoutLantern()
                     && CanDefeatChu()
                 )
+                || (
+                    Randomizer.Rooms.RoomDict["Hyrule Castle Graveyard"].ReachedByPlaythrough
+                    && CanSmash()
+                )
             );
         }
 
