@@ -367,6 +367,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.autoFillWallet,
                 randomizerSettings.modifyShopModels,
                 fcSettings.lanternGlowColor.getResult().basicDataEntry == 0xFFFFFE, // Rainbow Lantern
+                fcSettings.midnaHairBaseLightWorldInactive == 0xFFFFFE, // Rainbow Midna Hair
             };
 
             List<bool[]> flagArrayList = new()
