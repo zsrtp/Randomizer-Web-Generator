@@ -325,9 +325,14 @@ namespace TPRandomizer
                 "Eldin Field Lava Cave Ledge",
                 "Eldin Field From Lava Cave Lower",
                 "Eldin Field Grotto Platform",
-                // Note: the following rooms do not unlock Eldin province for
-                // warping unless you have a way to itemlessly proceed to one of
-                // the above rooms, so they are not in this list:
+                // Note that the rooms listed below do not unlock Eldin Province
+                // on their own. When approaching from Lanayru Province, you
+                // must be able to enter a room listed above in order to unlock
+                // Eldin warping (by either destroying the North Eldin rocks,
+                // approaching from the north when the rocks are already
+                // destroyed, or entering from CT when the bridge is already
+                // repaired).
+
                 // "Eldin Field Near Castle Town",
                 // "North Eldin Field",
                 // "Outside Hidden Village",
