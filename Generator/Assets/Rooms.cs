@@ -322,13 +322,16 @@ namespace TPRandomizer
                 "Death Mountain Outside Sumo Hall",
                 "Death Mountain Elevator Lower",
                 "Eldin Field",
-                "Eldin Field Near Castle Town",
                 "Eldin Field Lava Cave Ledge",
                 "Eldin Field From Lava Cave Lower",
-                "North Eldin Field",
-                "Eldin Field Outside Hidden Village",
                 "Eldin Field Grotto Platform",
-                "Hidden Village",
+                // Note: the following rooms do not unlock Eldin province for
+                // warping unless you have a way to itemlessly proceed to one of
+                // the above rooms, so they are not in this list:
+                // "Eldin Field Near Castle Town",
+                // "North Eldin Field",
+                // "Outside Hidden Village",
+                // "Hidden Village",
             };
 
         public static List<string> LanayruMapRooms =
