@@ -324,7 +324,6 @@ namespace TPRandomizer
                 "Eldin Field",
                 "Eldin Field Lava Cave Ledge",
                 "Eldin Field From Lava Cave Lower",
-                "Eldin Field Grotto Platform",
                 // Note that the rooms listed below do not unlock Eldin Province
                 // on their own. When approaching from Lanayru Province, you
                 // must be able to enter a room listed above in order to unlock
@@ -335,6 +334,7 @@ namespace TPRandomizer
 
                 // "Eldin Field Near Castle Town",
                 // "North Eldin Field",
+                // "Eldin Field Grotto Platform",
                 // "Outside Hidden Village",
                 // "Hidden Village",
             };
