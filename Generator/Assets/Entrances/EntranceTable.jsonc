@@ -950,9 +950,23 @@
             "State": "FF"
         }
     },
-    // Exterior One-Way Exits
+    // Overworld One-Way Exits
+	{
+        "Type": "Overworld One-Way",
+        "SourceRoomSpawn":
+        {
+            "SourceRoom": "Ordon Shield House Upper",
+            "TargetRoom": "Ordon Village",
+            "Stage": 52,
+            "Room": 0,
+            "Spawn": "19",
+            "SpawnType": "D0",
+            "Parameters": "00FF",
+            "State": "FF" // TODO: update metadata
+        }
+    },
     {
-        "Type": "Exterior One-Way",
+        "Type": "Overworld One-Way",
         "SourceRoomSpawn":
         {
             "SourceRoom": "Kakariko Graveyard",
@@ -966,7 +980,7 @@
         }
     },
     {
-        "Type": "Exterior One-Way",
+        "Type": "Overworld One-Way",
         "SourceRoomSpawn":
         {
             "SourceRoom": "Upper Zoras River",
@@ -980,7 +994,7 @@
         }
     },
     {
-        "Type": "Exterior One-Way",
+        "Type": "Overworld One-Way",
         "SourceRoomSpawn":
         {
             "SourceRoom": "Outside Castle Town South",
@@ -994,7 +1008,7 @@
         }
     },
     {
-        "Type": "Exterior One-Way",
+        "Type": "Overworld One-Way",
         "SourceRoomSpawn":
         {
             "SourceRoom": "Lake Hylia",
@@ -1008,7 +1022,7 @@
         }
     },
     {
-        "Type": "Exterior One-Way",
+        "Type": "Overworld One-Way",
         "SourceRoomSpawn":
         {
             "SourceRoom": "Lake Hylia",
