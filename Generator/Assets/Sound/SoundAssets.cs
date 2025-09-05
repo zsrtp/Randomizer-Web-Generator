@@ -4314,8 +4314,8 @@ namespace TPRandomizer.Assets
         public static List<JAISoundID> itemSoundEffects =
             new()
             {
-                JAISoundID.Z2SE_HIT_SWORD, // Sword Hit
-                JAISoundID.Z2SE_HIT_SWORD_STAB, // Sword Stab
+                // JAISoundID.Z2SE_HIT_SWORD, // Sword Hit
+                // JAISoundID.Z2SE_HIT_SWORD_STAB, // Sword Stab
                 //JAISoundID.Z2SE_HIT_SHIELD_ATTACK, // Shield Attack
                 //JAISoundID.Z2SE_HIT_HAMMER, // Dom Rod Statue Hammer
                 //JAISoundID.Z2SE_HIT_ARROW_STICK, // Arrow Stab Sound
@@ -4331,8 +4331,8 @@ namespace TPRandomizer.Assets
                 //JAISoundID.Z2SE_HIT_AL_ARROW_STICK, // Adult Link - Arrow Stick
                 //JAISoundID.Z2SE_HIT_AL_ARROW_REBOUND, // Adult Link - Arrow Rebound
                 //JAISoundID.Z2SE_HIT_PACHINKO, // Slingshot hit
-                JAISoundID.Z2SE_SWORD_STICK_PULLOUT, // Unsheath Sword
-                JAISoundID.Z2SE_HIT_ROPE_CUT, // Rope Cut
+                // JAISoundID.Z2SE_SWORD_STICK_PULLOUT, // Unsheath Sword
+                // JAISoundID.Z2SE_HIT_ROPE_CUT, // Rope Cut
                 JAISoundID.Z2SE_HIT_ROPE_REBOUND, // Rope Rebound
                 JAISoundID.Z2SE_HIT_CHAIN_REBOUND, // Chain Rebound
                 JAISoundID.JA_SE_OBJ_BREAK_WOOD_S, // Break Wood Object - Small
