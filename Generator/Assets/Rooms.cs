@@ -261,8 +261,6 @@ namespace TPRandomizer
                 "Mirror Chamber Lower",
                 "Mirror Chamber Upper",
                 "Mirror Chamber Portal",
-                "Ordon Spring",
-                "Ordon Bridge",
             };
 
         public static List<string> OrdonaMapRooms =
