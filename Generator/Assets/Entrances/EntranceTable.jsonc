@@ -1091,7 +1091,7 @@
         "SourceRoomSpawn":
         {
             "SourceRoom": "Ordon Village",
-            "TargetRoom": "Ordon Shield House",
+            "TargetRoom": "Ordon Shield House Lower",
             "Stage": 65,
             "Room": 2,
             "Spawn": "00",
@@ -1101,7 +1101,7 @@
         },
         "TargetRoomSpawn":
         {
-            "SourceRoom": "Ordon Shield House",
+            "SourceRoom": "Ordon Shield House Lower",
             "TargetRoom": "Ordon Village",
             "Stage": 43,
             "Room": 0,
