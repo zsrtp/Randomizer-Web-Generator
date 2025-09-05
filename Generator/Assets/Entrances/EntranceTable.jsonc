@@ -957,12 +957,12 @@
         {
             "SourceRoom": "Ordon Shield House Upper",
             "TargetRoom": "Ordon Village",
-            "Stage": 52,
+            "Stage": 43,
             "Room": 0,
-            "Spawn": "19",
-            "SpawnType": "D0",
-            "Parameters": "00FF",
-            "State": "FF" // TODO: update metadata
+            "Spawn": "0F",
+            "SpawnType": "A0", // TODO: update spawnType and parameters
+            "Parameters": "F09F",
+            "State": "FF"
         }
     },
     {
