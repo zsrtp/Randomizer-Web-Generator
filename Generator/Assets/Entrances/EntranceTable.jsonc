@@ -960,8 +960,8 @@
             "Stage": 43,
             "Room": 0,
             "Spawn": "0F",
-            "SpawnType": "A0", // TODO: update spawnType and parameters
-            "Parameters": "F09F",
+            "SpawnType": "40",
+            "Parameters": "1000",
             "State": "FF"
         }
     },
