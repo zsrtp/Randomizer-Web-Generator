@@ -199,7 +199,7 @@
 
     let numLengthChars = 0;
     for (let i = 1; i < 6; i++) {
-      const maxNum = 1 << (i * 6);
+      const maxNum = (1 << (i * 6)) - 1;
       if (bitsAsChars.length <= maxNum) {
         numLengthChars = i;
         break;
