@@ -1,6 +1,7 @@
 {
-    "requirements": "(Progressive_Bow, 1) and Room.Kakariko_Renados_Sanctuary and Ilias_Charm and Shadow_Crystal and (Progressive_Clawshot, 1)",
-    "glitchedRequirements": "Ilias_Charm and Room.Kakariko_Renados_Sanctuary and CanDoHiddenVillageGlitched and Shadow_Crystal",
+    // As of 1.3, Hidden Village is in the "saved" state until the statue is shown to Ilia, so technically the charm is not needed for this check, however the bow/glitched requirements remain as a softlock prevention in the event that the player shows the statue to Ilia and triggers Bulblin Archery. 
+    "requirements": "(Progressive_Bow, 1) and Shadow_Crystal and (Progressive_Clawshot, 1)",
+    "glitchedRequirements": "CanDoHiddenVillageGlitched and Shadow_Crystal",
     "checkCategory": ["Overworld", "Poe", "Hidden Village"],
     "itemId": "Poe_Soul"
 }

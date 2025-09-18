@@ -1,0 +1,6 @@
+{
+    "requirements": "Boomerang",
+    "glitchedRequirements": "Boomerang",
+    "checkCategory": [ "Overworld", "Faron Woods", "Rupee - Freestanding" ],
+    "itemId": "Orange_Rupee"
+  }

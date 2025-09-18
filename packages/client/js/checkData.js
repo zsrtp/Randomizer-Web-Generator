@@ -601,6 +601,22 @@ window.tpr.checkData = {
     category: ['Overworld', 'Chest', 'Faron Woods', 'DZX'],
     itemId: 'Red_Rupee',
   },
+  'Faron Woods Coro Boulder Rupee 1': {
+    category: ['Overworld', 'Rupee - Hidden', 'Faron Woods', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Faron Woods Coro Boulder Rupee 2': {
+    category: ['Overworld', 'Rupee - Hidden', 'Faron Woods', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Faron Woods Coro Boulder Rupee 3': {
+    category: ['Overworld', 'Rupee - Hidden', 'Faron Woods', 'ARC'],
+    itemId: 'Blue_Rupee',
+  },
+  'Faron Woods Coro Boulder Rupee 4': {
+    category: ['Overworld', 'Rupee - Hidden', 'Faron Woods', 'ARC'],
+    itemId: 'Yellow_Rupee',
+  },
   'Faron Woods Golden Wolf': {
     category: ['Overworld', 'Hidden Skill', 'Faron Woods', 'ARC'],
     itemId: 'Progressive_Hidden_Skill',
@@ -1209,7 +1225,7 @@ window.tpr.checkData = {
     itemId: 'Red_Rupee',
   },
   'Kakariko Village Bell Rupee': {
-    category: ['Overworld','Kakariko Village', 'ARC'],
+    category: ['Overworld','Kakariko Village', 'Rupee - Hidden', 'ARC'],
     itemId: 'Silver_Rupee',
   },
   'Kakariko Village Bomb Rock Spire Heart Piece': {
@@ -1637,6 +1653,70 @@ window.tpr.checkData = {
   'Ordon Sword': {
     category: ['Overworld', 'Ordona Province'],
     itemId: 'Progressive_Sword',
+  },
+  'Ordon Bo Cliff Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Bo Roof Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Bo Window Rupee 1': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Bo Window Rupee 2': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Hidden Rusl House Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Rupee In Grass By Bo': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Rupee In River 1': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Rupee In River 2': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Rupee Under Bridge': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Rupee Under Tall Tree 1': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Rupee Under Tall Tree 2': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Rusl House Roof Rupee 1': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Rusl House Roof Rupee 2': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Shield House Ledge Grass Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Tree Long Branch Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
+  },
+  'Ordon Tree Short Branch Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Ordona Province', 'ARC'],
+    itemId: 'Green_Rupee',
   },
   'Outside Arbiters Grounds Lantern Chest': {
     category: ['Overworld', 'Chest', 'Bulblin Camp', 'ARC'],
@@ -2135,7 +2215,7 @@ window.tpr.checkData = {
     itemId: 'Red_Rupee',
   },
   'Uli Cradle Delivery': {
-    category: ['Overworld', 'Ordona Province', 'ARC'],
+    category: ['Overworld', 'Ordona Province', 'Npc', 'ARC'],
     itemId: 'Progressive_Fishing_Rod',
   },
   'Upper Zoras River Female Dragonfly': {
@@ -2209,5 +2289,81 @@ window.tpr.checkData = {
   'Zoras Domain Waterfall Poe': {
     category: ['Overworld', 'Poe', 'Zoras Domain'],
     itemId: 'Poe_Soul',
+  },
+  'Zoras Domain Waterfall Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Central Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain North Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Shortcut Ledge Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Shortcut Lower Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Shortcut Upper Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne East Gate Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne East Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne Northwest Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne West Gate Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne South Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Throne West Underwater Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Top Ledge Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Vine Ledge Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Zoras Domain Waterfall Ledge Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Upper Zoras River Central Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Upper Zoras River'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Upper Zoras River South Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Upper Zoras River'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Upper Zoras River East Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Upper Zoras River'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Upper Zoras River Ledge Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Upper Zoras River'],
+    itemId: 'Yellow_Rupee',
   },
 };

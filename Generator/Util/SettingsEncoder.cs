@@ -263,8 +263,8 @@ namespace TPRandomizer.Util
 
             while (true)
             {
-                int checkIdNum = NextInt(9);
-                if (checkIdNum >= 0 && checkIdNum < 0x1FF)
+                int checkIdNum = NextInt(10);
+                if (checkIdNum >= 0 && checkIdNum < 0x3FF)
                 {
                     list.Add(CheckIdClass.GetCheckName(checkIdNum));
                 }
@@ -315,9 +315,9 @@ namespace TPRandomizer.Util
 
             while (true)
             {
-                int checkIdNum = NextInt(9);
+                int checkIdNum = NextInt(10);
                 string checkName = CheckIdClass.GetCheckName(checkIdNum);
-                // Expected to fail once the checkIdNum is 0x1FF.
+                // Expected to fail once the checkIdNum is 0x3FF.
                 if (checkName == null)
                     break;
 

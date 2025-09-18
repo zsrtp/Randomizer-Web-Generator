@@ -1,6 +1,6 @@
 {
-    "requirements": "Shadow_Crystal and Room.Death_Mountain_Trail and canCompletePrologue and CanCompleteFaronTwilight",
-    "glitchedRequirements": "Shadow_Crystal and Room.Death_Mountain_Trail and canCompletePrologue and CanCompleteFaronTwilight",
+    "requirements": "Shadow_Crystal and Room.Death_Mountain_Trail and CanCompletePrologue and CanCompleteFaronTwilight",
+    "glitchedRequirements": "Shadow_Crystal and Room.Death_Mountain_Trail and CanCompletePrologue and CanCompleteFaronTwilight",
     "checkCategory": ["Overworld", "Hidden Skill", "Ordona Province"],
     "itemId": "Progressive_Hidden_Skill"
 }

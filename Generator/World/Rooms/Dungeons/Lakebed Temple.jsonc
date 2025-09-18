@@ -38,12 +38,12 @@
             },
             {
               "ConnectedArea": "Lakebed Temple West Wing",
-              "Requirements": "(Lakebed_Temple_Small_Key, 3) and canSmash and (Progressive_Clawshot, 1)",
-              "GlitchedRequirements": "(Lakebed_Temple_Small_Key, 3) and canSmash and (Progressive_Clawshot, 1)"
+              "Requirements": "(Lakebed_Temple_Small_Key, 3) and CanSmash and (Progressive_Clawshot, 1)",
+              "GlitchedRequirements": "(Lakebed_Temple_Small_Key, 3) and CanSmash and (Progressive_Clawshot, 1)"
             },
             {
               "ConnectedArea": "Lakebed Temple Boss Room",
-              "Requirements": "(Lakebed_Temple_Small_Key, 3) and canLaunchBombs and (Progressive_Clawshot, 1) and Lakebed_Temple_Big_Key",
+              "Requirements": "(Lakebed_Temple_Small_Key, 3) and CanLaunchBombs and (Progressive_Clawshot, 1) and Lakebed_Temple_Big_Key",
               "GlitchedRequirements": "((Progressive_Clawshot, 1) and ((Progressive_Sword, 1) or Lakebed_Temple_Big_Key)) or CanDoLJA"
             }
           ],
@@ -88,8 +88,8 @@
         },
         {
             "ConnectedArea": "Lakebed Temple East Wing First Floor",
-            "Requirements": "canLaunchBombs or (Progressive_Clawshot, 1)",
-            "GlitchedRequirements": "canLaunchBombs or (Progressive_Clawshot, 1)"
+            "Requirements": "CanLaunchBombs or (Progressive_Clawshot, 1)",
+            "GlitchedRequirements": "CanLaunchBombs or (Progressive_Clawshot, 1)"
         }
         ],
         "Checks": 
@@ -112,8 +112,8 @@
           },
           {
             "ConnectedArea": "Lakebed Temple Central Room",
-            "Requirements": "canLaunchBombs",
-            "GlitchedRequirements": "CanDoAirRefill and (canLaunchBombs or CanDoLJA or CanDoJSMoonBoots)"
+            "Requirements": "Zora_Armor and CanLaunchBombs",
+            "GlitchedRequirements": "(Zora_Armor or CanDoAirRefill) and (CanLaunchBombs or CanDoLJA or CanDoJSMoonBoots)"
           }
         ],
         "Checks": 

@@ -770,11 +770,27 @@
     <comment></comment>
   </data>
   <data name="item.61-red_potion_shop@ac(t,a,b,s)" xml:space="preserve">
-    <value>Red Potion</value>
+    <value>red potion</value>
     <comment></comment>
   </data>
   <data name="item.65-sera_bottle@ac(t,a,b,s)" xml:space="preserve">
     <value>half-empty milk bottle</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop" xml:space="preserve">
+    <value>$(objpro:some)lantern oil</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$count" xml:space="preserve">
+    <value>{cs}{count} lantern oil refill{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$count#other" xml:space="preserve">
+    <value>$(plural){cs}{count} lantern oil refills{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$indef" xml:space="preserve">
+    <value>a {cs}lantern oil refill{ce}</value>
     <comment></comment>
   </data>
   <data name="item.75-jovani_bottle@ac(t,a,p)" xml:space="preserve">
@@ -885,7 +901,7 @@
     <value>Auru&apos;s memo</value>
     <comment></comment>
   </data>
-  <data name="item.91-asheis_sketch@ac(,an,b,s)" xml:space="preserve">
+  <data name="item.91-asheis_sketch@ac(,an,b,es)" xml:space="preserve">
     <value>Ashei&apos;s sketch</value>
     <comment></comment>
   </data>
@@ -937,7 +953,7 @@
     <value>PoT big key</value>
     <comment></comment>
   </data>
-  <data name="item.98-hyrule_castle_big_key@ac(t,a,b,es)" xml:space="preserve">
+  <data name="item.98-hyrule_castle_big_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Hyrule Castle big key</value>
     <comment></comment>
   </data>
@@ -1242,7 +1258,7 @@
     <comment></comment>
   </data>
   <data name="item.ee-north_faron_woods_gate_key@ac(t,a,b,s)" xml:space="preserve">
-    <value>Faron Woods key</value>
+    <value>North Faron Woods key</value>
     <comment></comment>
   </data>
   <data name="item.f3-gate_keys@unc(set,t,a,p)" xml:space="preserve">
@@ -1263,6 +1279,10 @@
   </data>
   <data name="item.f9-goron_mines_key_shard@ac(t,a,b,s)" xml:space="preserve">
     <value>key shard</value>
+    <comment></comment>
+  </data>
+  <data name="item.fe-faron_woods_coro_key@ac(,a,b,s)" xml:space="preserve">
+    <value>Coro&apos;s key</value>
     <comment></comment>
   </data>
   <data name="junk-hint.000" xml:space="preserve">
@@ -1446,7 +1466,7 @@
     <comment></comment>
   </data>
   <data name="junk-hint.045" xml:space="preserve">
-    <value>They say that those who clear all Rollgoal levels will be handsomely rewarded.</value>
+    <value>They say that Hena will fill the wallet of anyone who clears all 64 Rollgoal levels.</value>
     <comment></comment>
   </data>
   <data name="junk-hint.046" xml:space="preserve">
@@ -1729,11 +1749,15 @@
     <value>nothing of value</value>
     <comment></comment>
   </data>
-  <data name="noun.shop-it" xml:space="preserve">
+  <data name="noun.objpro" xml:space="preserve">
     <value>it</value>
     <comment></comment>
   </data>
-  <data name="noun.shop-it$plural" xml:space="preserve">
+  <data name="noun.objpro$objpro-some" xml:space="preserve">
+    <value>some</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$plural" xml:space="preserve">
     <value>them</value>
     <comment></comment>
   </data>
@@ -1818,7 +1842,7 @@
     <comment></comment>
   </data>
   <data name="shop.cant-afford" xml:space="preserve">
-    <value>{item(capitalize)} {verb(name:is)} {price}. If you want {noun(name:shop-it)}, bring some money with you, all right, m&apos;dear?</value>
+    <value>{item(capitalize)} {verb(name:is)} {price}. If you want {noun(name:objpro)}, bring some money with you, all right, m&apos;dear?</value>
     <comment>From Sera Slingshot</comment>
   </data>
   <data name="shop.cant-afford$barnes-bomb-bag" xml:space="preserve">
@@ -1846,7 +1870,7 @@
     <comment></comment>
   </data>
   <data name="shop.confirmation" xml:space="preserve">
-    <value>{item(capitalize)} will cost you {price}. Want {noun(name:shop-it)} or not?</value>
+    <value>{item(capitalize)} will cost you {price}. Want {noun(name:objpro)} or not?</value>
     <comment>From kak malo mart.</comment>
   </data>
   <data name="shop.confirmation$coro" xml:space="preserve">
@@ -1878,7 +1902,7 @@
     <comment></comment>
   </data>
   <data name="shop.confirmation$sera" xml:space="preserve">
-    <value>{item(capitalize)} {verb(name:is)} {price}. Do you want to buy {noun(name:shop-it)}, m&apos;dear?</value>
+    <value>{item(capitalize)} {verb(name:is)} {price}. Do you want to buy {noun(name:objpro)}, m&apos;dear?</value>
     <comment></comment>
   </data>
   <data name="shop.price" xml:space="preserve">
@@ -1902,7 +1926,7 @@
     <comment></comment>
   </data>
   <data name="shop.slot$sera" xml:space="preserve">
-    <value>{item(shop:true)} {price}\nI got {noun(name:shop-this)} in for the kids, but I&apos;ll sell {noun2(name:shop-it)} if you really want {noun2b}.</value>
+    <value>{item(shop:true)} {price}\nI got {noun(name:shop-this)} in for the kids, but I&apos;ll sell {noun2(name:objpro)} if you really want {noun2b}.</value>
     <comment></comment>
   </data>
   <data name="shop.sold-out" xml:space="preserve">

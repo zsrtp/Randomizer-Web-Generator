@@ -1,6 +1,6 @@
 {
-    "requirements": "CanDefeatSkulltula and Lantern and canBreakWoodenDoor",
-    "glitchedRequirements": "Lantern and canBreakWoodenDoor",
+    "requirements": "CanDefeatSkulltula and Lantern and CanBreakWoodenDoor",
+    "glitchedRequirements": "Lantern and CanBreakWoodenDoor",
     "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province"],
     "itemId": "Orange_Rupee"
 }

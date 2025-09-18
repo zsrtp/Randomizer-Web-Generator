@@ -1,6 +1,6 @@
 {
-  "requirements": "Lantern and canCompletePrologue and (CanCompleteFaronTwilight or Shadow_Crystal)",
-  "glitchedRequirements": "((Lantern and (CanCompleteFaronTwilight or Shadow_Crystal)) or CanDoMapGlitch) and canCompletePrologue",
+  "requirements": "Lantern and CanCompletePrologue and (CanCompleteFaronTwilight or Shadow_Crystal)",
+  "glitchedRequirements": "((Lantern and (CanCompleteFaronTwilight or Shadow_Crystal)) or CanDoMapGlitch) and CanCompletePrologue",
   "checkCategory": [ "Overworld", "Chest", "Faron Woods" ],
   "itemId": "Purple_Rupee"
 }

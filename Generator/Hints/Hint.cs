@@ -102,7 +102,7 @@ namespace TPRandomizer.Hints
     public class HintEncodingBitLengths
     {
         public byte hintType = HintTypeUtils.NumBitsToEncode;
-        public byte checkId = 9;
+        public byte checkId = 10;
         public byte zoneId = ZoneUtils.NumBitsToEncode;
         public byte categoryId = HintCategoryUtils.NumBitsToEncode;
         public byte areaId = AreaId.NumBitsToEncode;

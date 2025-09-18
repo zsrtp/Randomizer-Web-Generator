@@ -73,7 +73,7 @@ namespace TPRandomizer
 
             public override bool Evaluate()
             {
-                int heldCount = Randomizer.Items.heldItems.Where(i => i == ItemId).Count();
+                int heldCount = LogicFunctions.GetItemCount(ItemId);
                 // Console.WriteLine($"Item.Evaluate {heldCount} {Count} {ItemId}");
                 return heldCount >= Count;
             }

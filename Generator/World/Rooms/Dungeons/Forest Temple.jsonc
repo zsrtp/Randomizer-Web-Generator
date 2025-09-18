@@ -51,8 +51,8 @@
           },
           {
             "ConnectedArea": "Forest Temple Lobby",
-            "Requirements": "CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage",
-            "GlitchedRequirements": "CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage"
+            "Requirements": "CanDefeatWalltula and CanDefeatBokoblin and CanBreakMonkeyCage",
+            "GlitchedRequirements": "CanDefeatWalltula and CanDefeatBokoblin and CanBreakMonkeyCage"
           }
         ],
         "Checks": 
@@ -77,13 +77,13 @@
             },
             {
               "ConnectedArea": "Forest Temple West Wing",
-                "Requirements": "canBurnWebs and (((Forest_Temple_Small_Key, 2) and CanDefeatBokoblin) or (Progressive_Clawshot, 1))",
-                "GlitchedRequirements": "canBurnWebs and (((Forest_Temple_Small_Key, 2) and CanDefeatBokoblin) or (Progressive_Clawshot, 1) or CanDoLJA)"
+                "Requirements": "CanBurnWebs and (((Forest_Temple_Small_Key, 2) and CanDefeatBokoblin) or (Progressive_Clawshot, 1))",
+                "GlitchedRequirements": "CanBurnWebs and (((Forest_Temple_Small_Key, 2) and CanDefeatBokoblin) or (Progressive_Clawshot, 1) or CanDoLJA)"
             },
             {
               "ConnectedArea": "Ook",
-                "Requirements": "Lantern and CanDefeatWalltula and CanDefeatBokoblin and canBreakMonkeyCage and (Forest_Temple_Small_Key, 4)",
-                "GlitchedRequirements": "(Room.Forest_Temple_West_Wing and CanDoLJA) or (Lantern and CanDefeatBombling and CanDefeatWalltula and CanDefeatBigBaba and CanDefeatBokoblin and canBreakMonkeyCage and (Forest_Temple_Small_Key, 4))"
+                "Requirements": "Lantern and CanDefeatWalltula and CanDefeatBokoblin and CanBreakMonkeyCage and (Forest_Temple_Small_Key, 4)",
+                "GlitchedRequirements": "(Room.Forest_Temple_West_Wing and CanDoLJA) or (Lantern and CanDefeatBombling and CanDefeatWalltula and CanDefeatBigBaba and CanDefeatBokoblin and CanBreakMonkeyCage and (Forest_Temple_Small_Key, 4))"
             }
         ], 
         "Checks": 
@@ -105,8 +105,8 @@
             },
             {
               "ConnectedArea": "Forest Temple Boss Room",
-              "Requirements": "Forest_Temple_Big_Key and Boomerang and (canFreeAllMonkeys or (Progressive_Clawshot, 1))",
-              "GlitchedRequirements": "Forest_Temple_Big_Key and (CanDoLJA or (Boomerang and (canFreeAllMonkeys or (Progressive_Clawshot, 1))))"
+              "Requirements": "Forest_Temple_Big_Key and Boomerang and (CanFreeAllMonkeys or (Progressive_Clawshot, 1))",
+              "GlitchedRequirements": "Forest_Temple_Big_Key and (CanDoLJA or (Boomerang and (CanFreeAllMonkeys or (Progressive_Clawshot, 1))))"
             }
         ],
         "Checks": 
@@ -129,7 +129,7 @@
           {
             "ConnectedArea": "Ook",
             "Requirements": "Boomerang",
-            "GlitchedRequirements": "Boomerang or Shadow_Crystal or HasSword or hasBombs"
+            "GlitchedRequirements": "Boomerang or Shadow_Crystal or HasSword or HasBombs"
           }
         ],
         "Checks": 

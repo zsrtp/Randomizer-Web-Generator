@@ -1,6 +1,6 @@
 {
-  "requirements": "(Lakebed_Temple_Small_Key, 3) and Iron_Boots and canLaunchBombs",
-  "glitchedRequirements": "(((Lakebed_Temple_Small_Key, 3) and canLaunchBombs) or (Progressive_Clawshot and HasSword)) and Iron_Boots",
+  "requirements": "(Lakebed_Temple_Small_Key, 3) and Iron_Boots and CanLaunchBombs",
+  "glitchedRequirements": "(((Lakebed_Temple_Small_Key, 3) and CanLaunchBombs) or (Progressive_Clawshot and HasSword)) and Iron_Boots",
   "checkCategory": [ "Chest", "Dungeon", "Lakebed Temple"],
   "itemId": "Red_Rupee"
 }

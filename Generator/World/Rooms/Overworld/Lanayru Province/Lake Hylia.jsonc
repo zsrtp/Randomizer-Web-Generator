@@ -5,8 +5,8 @@
     [
       {
         "ConnectedArea": "Lake Hylia Cave Entrance",
-        "Requirements": "canSmash and ((Room.Zoras_Domain_Throne_Room and CanCompleteEldinTwilight) or CanCompleteLanayruTwilight)",
-        "GlitchedRequirements": "canSmash and ((Room.Zoras_Domain_Throne_Room and CanCompleteEldinTwilight) or CanCompleteLanayruTwilight)"
+        "Requirements": "CanSmash and CanWarpMeteor",
+        "GlitchedRequirements": "CanSmash and CanWarpMeteor"
       },
       {
         "ConnectedArea": "Lake Hylia Lakebed Temple Entrance",
@@ -30,8 +30,8 @@
       },
       {
         "ConnectedArea": "Lake Hylia Lanayru Spring",
-        "Requirements": "((Room.Zoras_Domain_Throne_Room and CanCompleteEldinTwilight) or CanCompleteLanayruTwilight)",
-        "GlitchedRequirements": "((Room.Zoras_Domain_Throne_Room and CanCompleteEldinTwilight) or CanCompleteLanayruTwilight)"
+        "Requirements": "CanWarpMeteor",
+        "GlitchedRequirements": "CanWarpMeteor"
       },
       {
         "ConnectedArea": "Lake Hylia Water Toadpoli Grotto",
@@ -75,7 +75,7 @@
         "ConnectedArea": "Lake Hylia Shell Blade Grotto",
         "Requirements": "Shadow_Crystal and CanCompleteLanayruTwilight",
         "GlitchedRequirements": "Shadow_Crystal and CanCompleteLanayruTwilight"
-      },
+      }
     ],
     "Checks":[
       "Outside Lanayru Spring Left Statue Chest",
@@ -96,8 +96,8 @@
     [
       {
         "ConnectedArea": "Lake Hylia",
-        "Requirements": "canSmash",
-        "GlitchedRequirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "Lake Hylia Long Cave",

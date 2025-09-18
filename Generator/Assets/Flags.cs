@@ -48,6 +48,7 @@ namespace TPRandomizer.Assets
         {
             { 0x0, 0x57 }, // Spider on Link's Ladder killed.
             { 0x2, 0x63 }, // Trill lets you shop at his store.
+            { 0x2, 0x48 }, // Talked to Coro after bugs
             { 0x3, 0xB9 }, // Barnes sells water bombs.
             { 0x3, 0xB3 }, // Colin Rescued CS (Malo Mart is Open).
             { 0x2, 0x60 }, // Got Lantern Back from Monkey
@@ -86,13 +87,13 @@ namespace TPRandomizer.Assets
             { 0x0, 0x6B }, // Ordon Spring Portal.
             { 0x0, 0x44 }, // Midna Text after Ordon Shield (Spawns sword)
             { 0x0, 0x46 }, // Midna Text after Ordon Sword
-            { 0x0, 0x70 }, // Midna Text after sewers
             { 0x0, 0x68 }, // Approach faron wall with Midna
             { 0x0, 0xA0 }, // Midna allows player to approach Faron Twilight Wall
             { 0x0, 0xBA }, // Explored area outside Link's house as wolf
             { 0x0, 0x61 }, // Defeated first bulblin outside link's house
             { 0x0, 0x62 }, // Defeated second bulblin outside link's house
             { 0x0, 0x60 }, // Defeated Hugo
+            { 0x18, 0x4B }, // Watched CS with Allies in HC.
         };
 
         /// <summary>
@@ -252,8 +253,6 @@ namespace TPRandomizer.Assets
             { 0x18, 0xA4 }, // Midna text after Owl Statue chest in graveyard.
             { 0x18, 0xB7 }, // Lit southeast torch in second floor north room for the first time CS.
             { 0x18, 0xB8 }, // Lit northeast torch in second floor north room for the first time CS.
-            { 0x18, 0x4B }, // Watched CS with Allies in HC.
-            { 0x18, 0x94 }, // BK Gate opened in HC.
             { 0x13, 0x9C }, // Main room poes taking flames cs.
             { 0x13, 0x9A }, // Close poe door
             { 0x15, 0x54 }, // statue getting possessed for the first time cs
@@ -322,8 +321,6 @@ namespace TPRandomizer.Assets
             { 0x16, 0xED }, // Got City in The Sky Big Key.
             { 0x17, 0x56 }, // Unlocked Palace of Twilight Boss Door.
             { 0x17, 0xED }, // Got Palace of Twilight Big Key.
-            { 0x18, 0xA1 }, // Unlocked Hyrule Castle Boss Door.
-            { 0x18, 0xED }, // Got Hyrule Castle Big Key.
         };
 
         public static readonly byte[,] MapAndCompassRegionFlags = new byte[,]
@@ -401,6 +398,35 @@ namespace TPRandomizer.Assets
             { 0x15, 0xBE }, // open big door in room 1 cs part 1 trigger
             { 0x15, 0xBD }, // open big door in room 1 cs part 2 trigger
             { 0x15, 0xBF }, // statue placed in slot in room 1
+        };
+
+        public static readonly byte[,] GmShortcutRegionFlags = new byte[,]
+        {
+            { 0x11, 0xBB }, // activated magnet from water before first elder
+            { 0x11, 0x8F }, // activated ceiling maze magnet after first elder
+            { 0x11, 0x5B }, // activated main magnet room 1st magnet
+            { 0x11, 0x4A }, // watched main magnet room 1st magnet cs
+            { 0x11, 0x61 }, // activated main magnet room 2nd magnet
+            { 0x11, 0x44 }, // watched main magnet room 2nd magnet cs
+            { 0x11, 0x9E }, // crystal switch room 1st Iron Boots switch pressed
+            { 0x11, 0x83 }, // crystal switch room 1st Iron Boots switch cs shown
+            { 0x11, 0x82 }, // crystal switch room 1st magnet active
+            { 0x11, 0x9F }, // crystal switch room 2nd Iron Boots switch pressed
+            { 0x11, 0x85 }, // crystal switch room 2nd Iron Boots switch cs shown
+            { 0x11, 0x86 }, // crystal switch room 2nd magnet active
+            { 0x11, 0x54 }, // activated outside room magnet
+            { 0x11, 0x68 }, // watched outside room magnet cs
+            { 0x11, 0x8d }, // activated east wing dodongo room magnet
+            // Note: the final magnet is not activated because there is a
+            // softlock when you exit the main magnet room through the top door
+            // as wolf while the gate beyond the door in the Dodongo room is not
+            // open. Alternatively if we do open this gate, it leads to much
+            // more complicated logic and some jank where you can walk through
+            // Dangoro while he sits there (and the gate covering the door
+            // animation is also a bit jank). Also you can die during the
+            // Dangoro fight to appear on the north side of his arena. There are
+            // too many nuances for it to be reasonable for glitchless logic,
+            // and also every small key door would require 3 keys.
         };
 
         public static readonly byte[,] HcShortcutFlags = new byte[,]
@@ -487,6 +513,35 @@ namespace TPRandomizer.Assets
             { 0x19, 0xBB },
         };
 
+        public static readonly byte[,] StatueRegionFlags = new byte[,]
+        {
+            { 0x9, 0x56 }, // Remove invisible wall from Doctor
+        };
+
+        public static readonly byte[,] CharmRegionFlags = new byte[,]
+        {
+            { 0x6, 0x43 }, // Remove HV rocks from Hyrule field
+            { 0x3, 0x70 }, // Darbus destroyed HV rocks
+        };
+
+        public static readonly byte[,] DungeonERRegionFlags = new byte[,] { };
+
+        public static readonly byte[,] HCBKRegionFlags = new byte[,]
+        {
+            { 0x18, 0x94 }, // Open HC BK gate
+        };
+
+        public static readonly byte[,] bridgeDonationRegionFlags = new byte[,]
+        {
+            { 0x6, 0x44 }, // East Castle Town Bridge
+        };
+
+        public static readonly byte[,] HCBKDoorRegionFlags = new byte[,]
+        {
+            { 0x18, 0xA1 }, // Unlocked Hyrule Castle Boss Door.
+            { 0x18, 0xED }, // Got Hyrule Castle Big Key.
+        };
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -510,6 +565,13 @@ namespace TPRandomizer.Assets
                 { 20, OpenDotRegionFlags },
                 { 21, OpenMapRegionFlags },
                 { 22, HcShortcutFlags },
+                { 26, StatueRegionFlags },
+                { 27, CharmRegionFlags },
+                { 28, DungeonERRegionFlags },
+                { 29, HCBKRegionFlags },
+                { 30, bridgeDonationRegionFlags },
+                { 31, GmShortcutRegionFlags },
+                { 32, HCBKDoorRegionFlags },
             };
 
         /// <summary>
@@ -518,13 +580,12 @@ namespace TPRandomizer.Assets
         public static readonly byte[,] BaseRandomizerEventFlags = new byte[,]
         {
             { 0x3, 0x82 }, // Gave wooden sword to Talo. Talked to squirrel outside link's house
-            { 0x5, 0x7E }, // Finished Sewers, Midna text after entering Faron Twilight, Met Zelda in sewers, Midna cut prison chain, Watched Sewers intro CS, Escaped cell in sewers.
             { 0x6, 0x29 }, // Tame Epona, KB1 trigger activated, Warped Kakariko Bridge Back.
-            { 0xC, 0x10 }, // Midna accompanies Wolf
+            { 0xF, 0x40 }, // Talked to Doctor for the first time.
             { 0x12, 0x8 }, // Can use Sera's Shop.
             { 0x14, 0x10 }, // Put Bo outside, ready to wrestle
             { 0xA, 0x2F }, // Bridge of Eldin Stolen, KB1 defeated, KB1 started
-            { 0xF, 0x8 }, // Bridge of Eldin Warped Back
+            { 0xF, 0x68 }, // Bridge of Eldin Warped Back, forced text when entering dr. clinic, talked to dr before giving invoice
             { 0x40, 0x88 }, // Saved monkey from puppets, Visited Gerudo Desert for the first time.
             { 0x41, 0x18 }, // Talked to Fado after Faron and Eldin Twilight
             { 0x7, 0xA0 }, // Watched Colin CS after KB1, talked to Bo before sumo
@@ -536,8 +597,6 @@ namespace TPRandomizer.Assets
             { 0x5F, 0x20 }, // Shad leaves sanctuary.
             { 0xF7, 0x1 }, // Add 256 Rupees to Charlo.
             { 0xF8, 0xF4 }, // Add 244 Rupees to Charlo.
-            { 0xF9, 0x1 }, // Add 256 Rupees to Malo Mart.
-            { 0xFA, 0xF4 }, // Add 244 Rupees to Malo Mart.
             { 0x60, 0x1 }, // Talked to Fyer after Lanayru Twilight
             { 0x38, 0x80 }, // Talked to Jovani after defeating Poe.
             { 0x22, 0x8 }, // Talked to Yeto on top of the mountain after clearing SPR
@@ -556,9 +615,9 @@ namespace TPRandomizer.Assets
         /// </summary>
         public static readonly byte[,] FaronTwilightEventFlags = new byte[,]
         {
-            { 0x5, 0x1 }, // Midna Charge Unlocked
+            { 0x5, 0x7F }, // Midna Charge Unlocked, Finished Sewers, Met Zelda in swers, Midna cut prison chain, watched sewers intro CS, Escaped Cell in Sewers.
             { 0x6, 0x10 }, // Cleared Faron Twilight
-            { 0xC, 0x8 }, // Sword and shield removed from wolf's back.
+            { 0xC, 0x18 }, // Midna Accompanies Wolf, Sword and shield removed from wolf's back.
         };
 
         /// <summary>
@@ -599,7 +658,7 @@ namespace TPRandomizer.Assets
             { 0x6, 0xC0 }, // CS After beating Ordon Shadow, CS after entering Faron Twilight.
             { 0x7, 0x2 }, // First Time Talking to Gor Coron in Sumo Hall
             { 0x15, 0x1 }, // Talked to Agitha for the first time.
-            { 0xF, 0x40 }, // Talked to Doctor for the first time.
+            { 0x20, 0x1 }, // Talked to Telma for the first time.
             { 0x5E, 0x10 }, // Midna text after beating Forest Temple.
             { 0x1D, 0x40 }, // Listened to Fyer at drained lake.
             { 0x22, 0x1 }, // Plumm initial CS watched.
@@ -671,6 +730,38 @@ namespace TPRandomizer.Assets
             { 0x3B, 0x8 }, // Sky Cannon Repaired.
         };
 
+        public static readonly byte[,] OverworldEREventFlags = new byte[,]
+        {
+            { 0x5, 0x7A }, // Finished Sewers, Midna text after entering Faron Twilight, Met Zelda in sewers, Midna cut prison chain, Watched Sewers intro CS, Escaped cell in sewers.
+            { 0xC, 0x10 }, // Midna accompanies Wolf
+        };
+
+        public static readonly byte[,] RenadoLetterEventFlags = new byte[,]
+        {
+            { 0x20, 0x4 }, // ToT Story Progression Flag
+            { 0xF, 0x80 }, // Renados Letter Check
+        };
+
+        public static readonly byte[,] WoodStatueEventFlags = new byte[,]
+        {
+            { 0x27, 0x10 }, // Showed Invoice to Doctor
+            { 0x2F, 0x4 }, // Got Medicine Scent
+            { 0x21, 0x2 }, // Talked to Louise after Medicine Scent
+            { 0x22, 0x4 }, // Got Wooden Statue
+        };
+
+        public static readonly byte[,] CharmEventFlags = new byte[,]
+        {
+            { 0x23, 0x40 }, // Gave statue to Ilia
+            { 0x2E, 0x8 }, // HV barrier removed
+            { 0x22, 0x80 }, // Got Ilia's Charm
+        };
+
+        public static readonly byte[,] bridgeDonationEventFlags = new byte[,]
+        {
+            { 0x2E, 0x20 }, // Bridge Fundraising completed.
+        };
+
         /// <summary>
         /// summary text.
         /// </summary>
@@ -691,6 +782,11 @@ namespace TPRandomizer.Assets
                 { 14, OpenArbitersEventFlags },
                 { 15, OpenSnowpeakEventFlags },
                 { 17, OpenCityEventFlags },
+                { 23, OverworldEREventFlags },
+                { 24, RenadoLetterEventFlags },
+                { 26, WoodStatueEventFlags },
+                { 27, CharmEventFlags },
+                { 30, bridgeDonationEventFlags },
             };
         private static readonly SharedSettings RandomizerSettings = Randomizer.SSettings;
 
@@ -722,6 +818,17 @@ namespace TPRandomizer.Assets
             /* 20 */RandomizerSettings.openDot,
             /* 21 */RandomizerSettings.openMap,
             /* 22 */RandomizerSettings.hcShortcut,
+            /* 23 */RandomizerSettings.randomizeStartingPoint,
+            /* 24 */RandomizerSettings.iliaQuest >= IliaQuest.Letter,
+            /* 25 */RandomizerSettings.iliaQuest >= IliaQuest.Invoice,
+            /* 26 */RandomizerSettings.iliaQuest >= IliaQuest.Statue,
+            /* 27 */RandomizerSettings.iliaQuest >= IliaQuest.Charm,
+            /* 28 */RandomizerSettings.shuffleDungeonEntrances != DungeonER.Off,
+            /* 29 */RandomizerSettings.castleBKRequirements == CastleBKRequirements.None,
+            /* 30 */RandomizerSettings.skipBridgeDonation,
+            /* 31 */RandomizerSettings.gmShortcut,
+            /* 32 */RandomizerSettings.bigKeySettings == BigKeySettings.Keysy
+                && RandomizerSettings.castleBKRequirements == CastleBKRequirements.None,
         };
     }
 }

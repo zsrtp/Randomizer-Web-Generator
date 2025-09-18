@@ -1,10 +1,12 @@
 {
-  //"requirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village",  this will be the ER logic, but not yet
-  // we don't want this logic to exist because we don't want to have the bridge donation in logic for lanayru access
-  // and having this check with a differing logic could confuse the player if they are required to get this check, but 
-  // then it is not in logic for them to just walk into the castle town.
-  "requirements": "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and Gate_Keys) and CanCompleteEldinTwilight",
-  "glitchedRequirements": "Room.Kakariko_Malo_Mart and Room.Lower_Kakariko_Village and CanCompleteEldinTwilight",
-  "checkCategory": [ "Overworld", "Npc", "Hyrule Field - Eldin Province", "Boss" ],
+  // Note: this check is in the "Eldin Field Near Castle Town" room which takes
+  // care of a lot of the logic. The important thing is that paying the initial
+  // donation is not a way to logically gain access to Lanayru. Therefore we
+  // require that they already have access to the Lanayru side of the bridge to
+  // avoid a confusing scenario where the player is expected to build the bridge
+  // to do this check but then crossing the bridge would be going out of logic.
+  "requirements": "CanCompleteEldinTwilight and Room.Lower_Kakariko_Village and ((Setting.skipBridgeDonation equals True) or (Room.Kakariko_Malo_Mart and ((Setting.walletSize not_equal Reduced) or Progressive_Wallet)))",
+  "glitchedRequirements": "CanCompleteEldinTwilight and Room.Lower_Kakariko_Village and ((Setting.skipBridgeDonation equals True) or (Room.Kakariko_Malo_Mart and ((Setting.walletSize not_equal Reduced) or Progressive_Wallet)))",
+  "checkCategory": ["Overworld", "Npc", "Hyrule Field - Eldin Province", "Boss"],
   "itemId": "Piece_of_Heart"
 }

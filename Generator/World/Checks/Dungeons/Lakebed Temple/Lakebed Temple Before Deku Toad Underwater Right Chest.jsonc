@@ -1,6 +1,6 @@
 {
-  "requirements": "Zora_Armor and Iron_Boots and (Lakebed_Temple_Small_Key, 3) and (canLaunchBombs or ((Progressive_Clawshot, 1) and canSmash))",
-  "glitchedRequirements": "((CanDoLJA and (CanSkipKeyToDekuToad or (Lakebed_Temple_Small_Key, 1)))) or ((CanSkipKeyToDekuToad or (Lakebed_Temple_Small_Key, 3)) and (Progressive_Clawshot, 1) and canLaunchBombs) and HasHeavyMod",
+  "requirements": "Zora_Armor and Iron_Boots and (Lakebed_Temple_Small_Key, 3) and (CanLaunchBombs or ((Progressive_Clawshot, 1) and CanSmash))",
+  "glitchedRequirements": "((CanDoLJA and (CanSkipKeyToDekuToad or (Lakebed_Temple_Small_Key, 1)))) or ((CanSkipKeyToDekuToad or (Lakebed_Temple_Small_Key, 3)) and (Progressive_Clawshot, 1) and CanLaunchBombs) and HasHeavyMod",
   "checkCategory": [ "Chest", "Dungeon", "Lakebed Temple" ],
   "itemId": "Water_Bombs_5"
 }

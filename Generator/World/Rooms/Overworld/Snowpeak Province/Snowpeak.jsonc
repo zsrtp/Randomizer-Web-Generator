@@ -111,12 +111,12 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Snowpeak Ruins Left Door",
+        "ConnectedArea": "Snowpeak Summit Lower Left Door",
         "Requirements": "true",
         "GlitchedRequirements": "true"
       },
 	  {
-	    "ConnectedArea": "Snowpeak Ruins Right Door",
+	    "ConnectedArea": "Snowpeak Summit Lower Right Door",
 		"Requirements": "true",
     "GlitchedRequirements": "true"
 	  }
@@ -125,6 +125,34 @@
     [
         "Snowpeak Icy Summit Poe"
     ],
+    "Region": "Snowpeak Province"
+  },
+  {
+    "RoomName": "Snowpeak Summit Lower Left Door",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Snowpeak Ruins Left Door",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+    ],
+    "Checks":
+    [],
+    "Region": "Snowpeak Province"
+  },
+  {
+    "RoomName": "Snowpeak Summit Lower Right Door",
+    "Exits":
+    [
+    {
+	    "ConnectedArea": "Snowpeak Ruins Right Door",
+		"Requirements": "true",
+    "GlitchedRequirements": "true"
+	  }
+    ],
+    "Checks":
+    [],
     "Region": "Snowpeak Province"
   }
 ]

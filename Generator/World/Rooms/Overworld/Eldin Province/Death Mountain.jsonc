@@ -10,8 +10,8 @@
       },
       {
         "ConnectedArea": "Death Mountain Trail",
-        "Requirements": "Iron_Boots or canCompleteGoronMines",
-        "GlitchedRequirements": "Iron_Boots or canCompleteGoronMines"
+        "Requirements": "Iron_Boots or CanCompleteGoronMines",
+        "GlitchedRequirements": "Iron_Boots or CanCompleteGoronMines"
       }
     ],
     "Checks": [""],
@@ -50,8 +50,8 @@
       },
       {
         "ConnectedArea": "Death Mountain Outside Sumo Hall",
-        "Requirements": "Iron_Boots and (CanDefeatGoron or canCompleteGoronMines) and CanCompleteEldinTwilight",
-        "GlitchedRequirements": "Iron_Boots and (CanDefeatGoron or canCompleteGoronMines) and CanCompleteEldinTwilight"
+        "Requirements": "Iron_Boots and (CanDefeatGoron or CanCompleteGoronMines) and CanCompleteEldinTwilight",
+        "GlitchedRequirements": "Iron_Boots and (CanDefeatGoron or CanCompleteGoronMines) and CanCompleteEldinTwilight"
       },
       {
         "ConnectedArea": "Death Mountain Elevator Lower",

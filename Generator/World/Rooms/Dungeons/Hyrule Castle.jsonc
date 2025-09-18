@@ -128,8 +128,8 @@
             },
             {
                 "ConnectedArea": "Hyrule Castle After Double Darknuts",
-                "Requirements": "canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut",
-                "GlitchedRequirements": "canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut"
+                "Requirements": "CanKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut",
+                "GlitchedRequirements": "CanKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut"
             }
         ],
         "Checks": ["Hyrule Castle Lantern Staircase Chest"],
@@ -192,8 +192,8 @@
             },
             {
                 "ConnectedArea": "Hyrule Castle After Double Darknuts",
-                "Requirements": "CanDefeatDarknut and CanDefeatLizalfos and canKnockDownHCPainting",
-                "GlitchedRequirements": "CanDefeatDarknut and CanDefeatLizalfos and canKnockDownHCPainting"
+                "Requirements": "CanDefeatDarknut and CanDefeatLizalfos and CanKnockDownHCPainting",
+                "GlitchedRequirements": "CanDefeatDarknut and CanDefeatLizalfos and CanKnockDownHCPainting"
             },
             {
                 "ConnectedArea": "Hyrule Castle Tower Climb",

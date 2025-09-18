@@ -9,7 +9,7 @@
           "GlitchedRequirements": "true"
           },
           {
-            "ConnectedArea": "Snowpeak Summit Lower",
+            "ConnectedArea": "Snowpeak Summit Lower Left Door",
             "Requirements": "true",
             "GlitchedRequirements": "true"
           }
@@ -27,7 +27,7 @@
 			"GlitchedRequirements": "true"
 		  },
           {
-            "ConnectedArea": "Snowpeak Summit Lower",
+            "ConnectedArea": "Snowpeak Summit Lower Right Door",
             "Requirements": "true",
             "GlitchedRequirements": "true"
           }
@@ -86,16 +86,10 @@
           "GlitchedRequirements": "true"
         },
         {
-          "ConnectedArea": "Snowpeak Ruins Boss Room",
-          "Requirements": "false",
-          // If coming from the Lobby, 2F floor clip is in logic, which explains the lack of the B&C requirement. Then you can Freezard Ladder Cancel
-          "GlitchedRequirements": "Snowpeak_Ruins_Bedroom_Key"
-        },
-        {
           "ConnectedArea": "Snowpeak Ruins Caged Freezard Room Lower",
           // Breaking the floor
-          "Requirements": "canSmash",
-          "GlitchedRequirements": "canSmash"
+          "Requirements": "CanSmash",
+          "GlitchedRequirements": "CanSmash"
         }
         ],
         "Checks": 
@@ -134,6 +128,11 @@
             "ConnectedArea": "Snowpeak Ruins West Courtyard",
             "Requirements": "CanDefeatChilfos",
             "GlitchedRequirements": "CanDefeatChilfos"
+          },
+          {
+            "ConnectedArea": "Snowpeak Ruins Boss Room",
+            "Requirements": "Snowpeak_Ruins_Bedroom_Key",
+            "GlitchedRequirements": "Snowpeak_Ruins_Bedroom_Key"
           }
         ],
         "Checks": 
@@ -314,8 +313,8 @@
           },
           {
             "ConnectedArea": "Snowpeak Ruins Wooden Beam Room",
-            "Requirements": "canSmash",
-            "GlitchedRequirements": "canSmash"
+            "Requirements": "CanSmash",
+            "GlitchedRequirements": "CanSmash"
           }
         ], 
         "Checks": 
@@ -347,22 +346,16 @@
           },
           {
             "ConnectedArea": "Snowpeak Ruins Chapel",
-            "Requirements": "(Snowpeak_Ruins_Small_Key, 4) and Snowpeak_Ruins_Ordon_Goat_Cheese and Ball_and_Chain and hasBombs",
+            "Requirements": "(Snowpeak_Ruins_Small_Key, 4) and Snowpeak_Ruins_Ordon_Goat_Cheese and Ball_and_Chain and HasBombs",
             // Freezard Ladder Cancel
             "GlitchedRequirements": "(Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese"
           },
           {
             "ConnectedArea": "Snowpeak Ruins Darkhammer Room",
             //Don't require gate to be unlocked for cannonballs if we have Cheese since we can get to the other side by going through Yeta's room.
-            "Requirements": "Ball_and_Chain or (((Snowpeak_Ruins_Small_Key, 2) or Snowpeak_Ruins_Ordon_Goat_Cheese) and hasBombs)",
+            "Requirements": "Ball_and_Chain or (((Snowpeak_Ruins_Small_Key, 2) or Snowpeak_Ruins_Ordon_Goat_Cheese) and HasBombs)",
             // We can also just wolf clip in.
-            "GlitchedRequirements": "Ball_and_Chain or (((Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese) and hasBombs) or (Shadow_Crystal and (Setting.damageMagnification not_equal OHKO))"
-          },
-          {
-            "ConnectedArea": "Snowpeak Ruins Boss Room",
-            "Requirements": "(Snowpeak_Ruins_Small_Key, 4) and Snowpeak_Ruins_Ordon_Goat_Cheese and Ball_and_Chain and hasBombs and Snowpeak_Ruins_Bedroom_Key",
-            // Freezard Ladder Cancel
-            "GlitchedRequirements": "((Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese) and Snowpeak_Ruins_Bedroom_Key"
+            "GlitchedRequirements": "Ball_and_Chain or (((Snowpeak_Ruins_Small_Key, 4) or Snowpeak_Ruins_Ordon_Goat_Cheese) and HasBombs) or (Shadow_Crystal and (Setting.damageMagnification not_equal OHKO))"
           }
         ],
         "Checks": 

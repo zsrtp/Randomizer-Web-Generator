@@ -199,7 +199,7 @@
 
     let numLengthChars = 0;
     for (let i = 1; i < 6; i++) {
-      const maxNum = 1 << (i * 6);
+      const maxNum = (1 << (i * 6)) - 1;
       if (bitsAsChars.length <= maxNum) {
         numLengthChars = i;
         break;
@@ -255,12 +255,12 @@
       .find('input[type="checkbox"]')
       .each(function () {
         if ($(this).prop('checked')) {
-          const itemId = parseInt($(this).attr('data-checkId'), 10);
-          bits += numToPaddedBits(itemId, 9);
+          const checkId = parseInt($(this).attr('data-checkId'), 10);
+          bits += numToPaddedBits(checkId, 10);
         }
       });
 
-    bits += '111111111';
+    bits += '1111111111';
 
     return {
       type: RawSettingType.bitString,
@@ -273,13 +273,13 @@
     $('.plandoListItem').each(function () {
       const itemId = parseInt($(this).attr('data-itemid'), 10);
       const checkId = parseInt($(this).attr('data-checkid'), 10);
-      bits += numToPaddedBits(checkId, 9);
+      bits += numToPaddedBits(checkId, 10);
       bits += numToPaddedBits(itemId, 8);
     });
     if (bits.length < 1) {
       bits = '0';
     } else {
-      bits = '1' + bits + '111111111';
+      bits = '1' + bits + '1111111111';
     }
 
     return {
@@ -418,7 +418,7 @@
       { id: 'fastIBCheckbox' },
       { id: 'quickTransformCheckbox' },
       { id: 'transformAnywhereCheckbox' },
-      { id: 'increaseWalletCheckbox' },
+      { id: 'walletSizeFieldset', bitLength: 2 },
       { id: 'modifyShopModelsCheckbox' },
       { id: 'trapItemFieldset', bitLength: 3 },
       { id: 'barrenCheckbox' },
@@ -442,8 +442,21 @@
       { id: 'todFieldset', bitLength: 3 },
       { id: 'hintDistributionFieldset', bitLength: 5 },
       { id: 'randomizeStartingPointCheckbox' },
-      { id: 'rupeeCheckbox' },
+      { id: 'hiddenRupeeCheckbox' },
+      { id: 'gmShortcutCheckbox' },
       { id: 'hcShortcutCheckbox' },
+      { id: 'iliaQuestFieldset', bitLength: 3 },
+      { id: 'mirrorChamberFieldset', bitLength: 2 },
+      { id: 'dungeonERFieldset', bitLength: 2 },
+      { id: 'unpairedEntrancesCheckbox' },
+      { id: 'decoupleEntrancesCheckbox' },
+      { id: 'freestandingRupeeCheckbox' },
+      { id: 'castleRequirementsSlider', bitLength: 6 },
+      { id: 'castleBKRequirementsFieldset', bitLength: 3 },
+      { id: 'castleBKRequirementsSlider', bitLength: 6 },
+      { id: 'autoFillWalletCheckbox' },
+      { id: 'skipBridgeDonationCheckbox' },
+      { id: 'maloShopDonationSlider', bitLength: 11 },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -648,10 +661,7 @@
     }
 
     function nextEolList(bitLength) {
-      let eolValue = 0;
-      for (let i = 0; i < bitLength; i++) {
-        eolValue += 1 << i;
-      }
+      const eolValue = genEolValue(bitLength);
 
       const list = [];
 
@@ -672,17 +682,26 @@
       return list;
     }
 
-    function nextPlandoList() {
-      // 9 bits of all 1s
-      const eolValue = 0x1ff;
+    function genEolValue(bitLength) {
+      let eolValue = 0;
+      for (let i = 0; i < bitLength; i++) {
+        eolValue += 1 << i;
+      }
+      return eolValue;
+    }
+
+    function nextPlandoList(version) {
       const list = [];
 
+      const numCheckIdBits = version >= 6 ? 10 : 9;
+      const eolValue = genEolValue(numCheckIdBits);
+
       while (true) {
-        if (remaining.length < 9) {
+        if (remaining.length < numCheckIdBits) {
           throw new Error('Not enough bits remaining.');
         }
 
-        const checkId = nextXBitsAsNum(9);
+        const checkId = nextXBitsAsNum(numCheckIdBits);
         if (checkId === eolValue) {
           break;
         } else {
@@ -824,7 +843,23 @@
     processBasic({ id: 'fastIronBoots' });
     processBasic({ id: 'quickTransform' });
     processBasic({ id: 'transformAnywhere' });
-    processBasic({ id: 'increaseWalletCapacity' });
+    if (version >= 6) {
+      // `increaseWalletCapacity` changed from a checkbox to a select
+      processBasic({ id: 'walletSize', bitLength: 2 });
+    } else {
+      const walletSize = {
+        minimal: 0,
+        vanilla: 1,
+        hd: 2,
+        large: 3,
+      };
+      const walletSizeValue = processor.nextBoolean();
+      if (walletSizeValue) {
+        res.walletSize = walletSize.large;
+      } else {
+        res.walletSize = walletSize.vanilla;
+      }
+    }
     processBasic({ id: 'shopModelsShowTheReplacedItem' });
     processBasic({ id: 'trapItemsFrequency', bitLength: 3 });
     processBasic({ id: 'barrenDungeons' });
@@ -916,21 +951,67 @@
     }
     if (version >= 6) {
       processBasic({ id: 'randomizeStartingPoint' });
-      processBasic({ id: 'rupees' });
+      processBasic({ id: 'hiddenRupees' });
+      processBasic({ id: 'gmShortcut' });
       processBasic({ id: 'hcShortcut' });
+      processBasic({ id: 'iliaQuest', bitLength: 3 });
+      processBasic({ id: 'mirrorChamber', bitLength: 2 });
+      processBasic({ id: 'dungeonER', bitLength: 2 });
+      processBasic({ id: 'unpairEntrances' });
+      processBasic({ id: 'decoupleEntrances' });
+      processBasic({ id: 'freestandingRupees' });
+      processBasic({ id: 'castleRequirementCount', bitLength: 6 });
+      processBasic({ id: 'castleBKRequirements', bitLength: 3 });
+      processBasic({ id: 'castleBKRequirementCount', bitLength: 6 });
+      processBasic({ id: 'autoFillWallet' });
+      processBasic({ id: 'skipBridgeDonation' });
+      processBasic({ id: 'maloShopDonation', bitLength: 11 });
     } else {
       res.randomizeStartingPoint = false; // Vanilla
-      res.rupees = false; // Vanilla
+      res.hiddenRupees = false; // Vanilla
+      res.gmShortcut = false;
       res.hcShortcut = false;
+      res.iliaQuest = 0; // Vanilla
+      res.mirrorChamber = 0; // Vanilla
+      res.dungeonER = 0; // Vanilla
+      res.unpairEntrances = false; // Vanilla
+      res.decoupleEntrances = false; // Vanilla
+      res.freestandingRupees = false; // Vanilla
+      switch (res.castleRequirements) {
+        case 1: {
+          res.castleRequirementCount = 3;
+          break;
+        }
+        case 2: {
+          res.castleRequirementCount = 4;
+          break;
+        }
+        case 3: {
+          res.castleRequirementCount = 8;
+          break;
+        }
+        default: {
+          res.castleRequirementCount = 1;
+          break;
+        }
+      }
+      res.castleBKRequirements = 0;
+      res.castleBKRequirementCount = 1;
+      res.autoFillWallet = false;
+      res.skipBridgeDonation = false;
+      res.maloShopDonation = 2000;
     }
 
     res.startingItems = processor.nextEolList(9);
-    res.excludedChecks = processor.nextEolList(9);
+
+    const numCheckIdBits = version >= 6 ? 10 : 9;
+    res.excludedChecks = processor.nextEolList(numCheckIdBits);
+
     if (version >= 5) {
       res.plando = [];
       const hasPlando = processor.nextBoolean();
       if (hasPlando) {
-        res.plando = processor.nextPlandoList();
+        res.plando = processor.nextPlandoList(version);
       }
     } else {
       res.plando = [];
@@ -1287,6 +1368,7 @@
 
         { id: 'bgmFieldset', bitLength: 2 },
         { id: 'randomizeFanfaresCheckbox' },
+        { id: 'randomizeSfxCheckbox' },
         { id: 'disableEnemyBGMCheckbox' },
         { id: 'invertCameraCheckbox' },
         { id: 'hTunicHatColorFieldset', rgb: true },
@@ -1303,6 +1385,8 @@
         { id: 'ironsColorFieldset', rgb: true },
         { id: 'spinnerColorFieldset', rgb: true },
         { id: 'woodSwordColorFieldset', rgb: true },
+        { id: 'eponaColorFieldset', rgb: true },
+        { id: 'wolfColorFieldset', rgb: true },
         { id: 'lanternColorFieldset', rgb: true },
         // { id: 'midnaHairColorFieldset', bitLength: 1 },
         { id: 'heartColorFieldset', rgb: true },

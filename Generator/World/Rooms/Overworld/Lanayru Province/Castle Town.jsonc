@@ -162,7 +162,7 @@
         "ConnectedArea": "Castle Town Goron House",
         "Requirements": "true",
         "GlitchedRequirements": "true"
-      },
+      }
     ],
     "Checks": 
     [
@@ -215,8 +215,8 @@
       },
       {
         "ConnectedArea": "Castle Town North Inside Barrier",
-        "Requirements": "(Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons)",
-        "GlitchedRequirements": "(Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons)"
+        "Requirements": "CanBreakHCBarrier",
+        "GlitchedRequirements": "CanBreakHCBarrier"
       }
     ],
     "Checks":
@@ -350,8 +350,8 @@
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Lower",
-        "Requirements": "Invoice",
-        "GlitchedRequirements": "Invoice"
+        "Requirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)",
+        "GlitchedRequirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)"
       }
     ],
     "Checks": [""],
@@ -363,8 +363,8 @@
     [
       {
         "ConnectedArea": "Castle Town Doctors Office Entrance",
-        "Requirements": "Invoice",
-        "GlitchedRequirements": "Invoice"
+        "Requirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)",
+        "GlitchedRequirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Upper",

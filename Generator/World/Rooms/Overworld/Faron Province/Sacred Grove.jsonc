@@ -42,8 +42,8 @@
       },
       {
         "ConnectedArea": "Lost Woods Baba Serpent Grotto",
-        "Requirements": "canSmash and Shadow_Crystal",
-        "GlitchedRequirements": "canSmash and Shadow_Crystal"
+        "Requirements": "CanSmash and Shadow_Crystal",
+        "GlitchedRequirements": "CanSmash and Shadow_Crystal"
       }
     ],
     "Checks":

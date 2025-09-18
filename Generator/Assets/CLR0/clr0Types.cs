@@ -151,6 +151,8 @@ namespace TPRandomizer.Assets.CLR0
         ALink = 3,
         MagicArmor = 4,
         AlAnm = 5,
+        Horse = 6,
+        Wolf = 7,
     }
 
     public class ColorArrays
@@ -170,6 +172,7 @@ namespace TPRandomizer.Assets.CLR0
             new[] { 0x000000, 0x000000, 0x1A0500, 0x3C190E, 0x3F1D0B, 0x3F187E }, // Brown
             new[] { 0xF0F1F1, 0xA9947E, 0x090B0C, 0x222424, 0xFFFFFF, 0xFFD5FF }, // White
             new[] { 0x000000, 0x000000, 0x0B0B0B, 0x232323, 0x000000, 0x000078 }, // Black
+            new[] { 0xFFFFFE, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000 }, // Rainbow Placeholder
         };
 
         public static readonly int[][] MidnaHairTipsColors = new int[][]

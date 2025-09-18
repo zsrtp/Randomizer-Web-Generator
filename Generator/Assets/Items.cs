@@ -303,6 +303,8 @@ namespace TPRandomizer
     public class ItemFunctions
     {
         public List<Item> RandomizedImportantItems = new();
+
+        public List<Item> RandomizedImportantItemsStatic = new(); // A copy of the randomized important items to be read and referenced.
         public List<Item> StartingItems = new(); // Any items that the player starts with as selected by the gui.
         public List<Item> RandomizedDungeonRegionItems = new(); // Items that are shuffled among dungeons.
         public List<Item> JunkItems = new(); // Extra junk items that are put in the pool if there are checks left and all items have been placed..
@@ -347,7 +349,7 @@ namespace TPRandomizer
                 Item.Armogohma_Defeated,
                 Item.Argorok_Defeated,
                 Item.Zant_Defeated,
-                Item.Ganondorf_Defeated,
+                Item.Ganondorf_Defeated
             };
 
         public List<Item> PortalItems =
@@ -582,11 +584,8 @@ namespace TPRandomizer
                 Item.Female_Snail,
             };
 
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        public List<Item> alwaysItems =
-            new() // Items from the vanilla pool that are guaranteed to be in every seed
+        public List<Item> healthItems =
+            new()
             {
                 Item.Piece_of_Heart,
                 Item.Piece_of_Heart,
@@ -641,6 +640,14 @@ namespace TPRandomizer
                 Item.Heart_Container,
                 Item.Heart_Container,
                 Item.Heart_Container,
+            };
+
+        /// <summary>
+        /// summary text.
+        /// </summary>
+        public List<Item> alwaysItems =
+            new() // Items from the vanilla pool that are guaranteed to be in every seed
+            {
                 Item.Purple_Rupee_Links_House,
                 Item.Green_Rupee,
                 Item.Green_Rupee,
@@ -882,6 +889,10 @@ namespace TPRandomizer
             else if (parseSetting.bigKeySettings == BigKeySettings.Keysy)
             {
                 parseSetting.startingItems.AddRange(this.DungeonBigKeys);
+                if (parseSetting.castleBKRequirements != CastleBKRequirements.None)
+                {
+                    parseSetting.startingItems.Remove(Item.Hyrule_Castle_Big_Key);
+                }
             }
 
             // Check Map and Compass settings before adding to pool
@@ -899,6 +910,24 @@ namespace TPRandomizer
             else if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Start_With)
             {
                 parseSetting.startingItems.AddRange(this.DungeonMapsAndCompasses);
+            }
+
+            // Handle Castle settings
+            if (
+                (parseSetting.castleBKRequirements == CastleBKRequirements.Hearts)
+                || (parseSetting.castleRequirements == CastleRequirements.Hearts)
+            )
+            {
+                Randomizer.Items.RandomizedImportantItems.AddRange(this.healthItems);
+            }
+            else
+            {
+                Randomizer.Items.alwaysItems.AddRange(this.healthItems);
+            }
+
+            if (parseSetting.castleBKRequirements != CastleBKRequirements.None)
+            {
+                RemoveItem(Item.Hyrule_Castle_Big_Key);
             }
 
             // Modifying Item Pool based on ice trap settings
@@ -1008,11 +1037,14 @@ namespace TPRandomizer
 
                     // If wallet size is not increased, we need to be able to
                     // find 1 wallet so we can afford the magic armor check.
-                    updateItemToCount(
-                        RandomizedImportantItems,
-                        Item.Progressive_Wallet,
-                        Randomizer.SSettings.increaseWallet ? 0 : 1
-                    );
+                    if (Randomizer.SSettings.walletSize == WalletSize.Vanilla)
+                    {
+                        updateItemToCount(RandomizedImportantItems, Item.Progressive_Wallet, 1);
+                    }
+                    else if (Randomizer.SSettings.walletSize >= WalletSize.HD)
+                    {
+                        updateItemToCount(RandomizedImportantItems, Item.Progressive_Wallet, 0);
+                    }
 
                     break;
                 }
@@ -1147,10 +1179,7 @@ namespace TPRandomizer
             if (parseSetting.skipCityEntrance)
             {
                 // We still need a skybook for Shad
-                for (int i = 0; i < 6; i++)
-                {
-                    RemoveItem(Item.Progressive_Sky_Book);
-                }
+                updateItemToCount(RandomizedImportantItems, Item.Progressive_Sky_Book, 1);
             }
 
             foreach (Item startingItem in parseSetting.startingItems)
@@ -1161,6 +1190,7 @@ namespace TPRandomizer
             Randomizer.Items.BaseItemPool.AddRange(this.ShuffledDungeonRewards);
             Randomizer.Items.BaseItemPool.AddRange(this.RandomizedImportantItems);
             Randomizer.Items.BaseItemPool.AddRange(this.RandomizedDungeonRegionItems);
+            Randomizer.Items.RandomizedImportantItemsStatic.AddRange(this.RandomizedImportantItems);
             // Adjust Poe souls for BaseItemPool to match calculated value
             updateItemToCount(Randomizer.Items.BaseItemPool, Item.Poe_Soul, numPoesForBaseItemPool);
             return;

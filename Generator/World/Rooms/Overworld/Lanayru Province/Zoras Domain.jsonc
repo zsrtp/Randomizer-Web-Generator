@@ -28,7 +28,11 @@
     [
         "Upper Zoras River Female Dragonfly",
         "Upper Zoras River Poe",
-        "Upper Zoras River Portal"
+        "Upper Zoras River Portal",
+        "Upper Zoras River East Underwater Boulder Rupee",
+        "Upper Zoras River Central Underwater Boulder Rupee",
+        "Upper Zoras River South Underwater Boulder Rupee",
+        "Upper Zoras River Ledge Boulder Rupee"
     ],
     "Region": "Zoras Domain"
   },
@@ -67,11 +71,15 @@
         "ConnectedArea": "Fishing Hole House",
         "Requirements": "true",
         "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Fishing Hole Piece of Heart",
+        "Requirements": "(Progressive_Clawshot, 1)",
+        "GlitchedRequirements": "(Progressive_Clawshot, 1)"
       }
     ],
     "Checks":
     [
-        "Fishing Hole Heart Piece",
         "Fishing Hole Bottle"
     ],
     "Region": "Zoras Domain"
@@ -84,9 +92,23 @@
         "ConnectedArea": "Fishing Hole",
         "Requirements": "true",
         "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Fishing Hole Piece of Heart",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Fishing Hole Piece of Heart",
+    "Exits": [],
+    "Checks":
+    [
+        "Fishing Hole Heart Piece"
+    ],
     "Region": "Zoras Domain"
   },
   {
@@ -95,8 +117,8 @@
     [
       {
         "ConnectedArea": "Zoras Domain West Ledge",
-        "Requirements": "(Progressive_Clawshot, 1) or Shadow_Crystal or canSmash",
-        "GlitchedRequirements": "(Progressive_Clawshot, 1) or Shadow_Crystal or canSmash"
+        "Requirements": "(Progressive_Clawshot, 1) or Shadow_Crystal or CanSmash",
+        "GlitchedRequirements": "(Progressive_Clawshot, 1) or Shadow_Crystal or CanSmash"
       },
       {
         "ConnectedArea": "Upper Zoras River",
@@ -105,8 +127,8 @@
       },
       {
         "ConnectedArea": "Zoras Domain Top of Waterfall",
-        "Requirements": "((Room.Zoras_Domain_Throne_Room and CanCompleteEldinTwilight) or CanCompleteLanayruTwilight)",
-        "GlitchedRequirements": "((Room.Zoras_Domain_Throne_Room and CanCompleteEldinTwilight) or CanCompleteLanayruTwilight)"
+        "Requirements": "CanWarpMeteor or Shadow_Crystal",
+        "GlitchedRequirements": "CanWarpMeteor or Shadow_Crystal"
       },
       {
         "ConnectedArea": "Zoras Domain Snowpeak Entrance",
@@ -120,7 +142,14 @@
         "Zoras Domain Chest Behind Waterfall",
         "Zoras Domain Male Dragonfly",
         "Zoras Domain Mother and Child Isle Poe",
-        "Zoras Domain Waterfall Poe"
+        "Zoras Domain Waterfall Poe",
+        "Zoras Domain Behind Waterfall Rupee",
+        "Zoras Domain Central Underwater Boulder Rupee",
+        "Zoras Domain North Underwater Boulder Rupee",
+        "Zoras Domain Shortcut Ledge Rupee",
+        "Zoras Domain Top Ledge Rupee",
+        "Zoras Domain Vine Ledge Rupee",
+        "Zoras Domain Waterfall Ledge Rupee"
     ],
     "Region": "Zoras Domain"
   },
@@ -153,8 +182,8 @@
       },
       {
         "ConnectedArea": "Zoras Domain Top of Waterfall",
-        "Requirements": "canSmash",
-        "GlitchedRequirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "Lanayru Field Behind Boulder",
@@ -162,7 +191,11 @@
         "GlitchedRequirements": "true"
       }
     ],
-    "Checks": [""],
+    "Checks": 
+    [
+      
+      "Zoras Domain Shortcut Lower Boulder Rupee"
+    ],
     "Region": "Zoras Domain"
   },
   {
@@ -180,7 +213,14 @@
         "Zoras Domain Light All Torches Chest",
         "Zoras Domain Extinguish All Torches Chest",
         "Zoras Domain Underwater Goron",
-        "Zoras Domain Portal"
+        "Zoras Domain Portal",
+        "Zoras Domain Behind Waterfall Rupee",
+        "Zoras Domain Throne East Gate Underwater Rupee",
+        "Zoras Domain Throne East Underwater Rupee",
+        "Zoras Domain Throne Northwest Underwater Rupee",
+        "Zoras Domain Throne South Underwater Rupee",
+        "Zoras Domain Throne West Gate Underwater Rupee",
+        "Zoras Domain Throne West Underwater Rupee",
     ],
     "Region": "Zoras Domain"
   },
@@ -199,7 +239,10 @@
         "GlitchedRequirements": "true"
       }
     ],
-    "Checks": [""],
+    "Checks": 
+    [
+      "Zoras Domain Shortcut Upper Boulder Rupee"
+    ],
     "Region": "Zoras Domain"
   }
 ]

@@ -188,7 +188,8 @@
     [
       {
         "ConnectedArea": "Gerudo Desert Outside Bulblin Camp",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Outside Arbiters Grounds",
@@ -233,6 +234,7 @@
     "Exits":
     [
       {
+        // Dynamic logic for this connection can be found in EntranceRando.cs
         "ConnectedArea": "Arbiters Grounds Boss Room",
         "Requirements": "Room.Arbiters_Grounds_Boss_Room and CanDefeatStallord",
         "GlitchedRequirements": "Room.Arbiters_Grounds_Boss_Room and CanDefeatStallord"
@@ -259,8 +261,8 @@
       {
         // This is a temporary requirement since eventually whenever portals are actually checks, having the portal won't get rid of the Shadow beasts.
         "ConnectedArea": "Mirror Chamber Portal",
-        "Requirements": "(CanDefeatShadowBeast or (Shadow_Crystal and Mirror_Chamber_Portal)) and ((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky))",
-        "GlitchedRequirements": "(CanDefeatShadowBeast or (Shadow_Crystal and Mirror_Chamber_Portal)) and ((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.palaceRequirements equals Vanilla) and canCompleteCityinTheSky))"
+        "Requirements": "(CanDefeatShadowBeast or (Shadow_Crystal and Mirror_Chamber_Portal)) and ((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.palaceRequirements equals Vanilla) and CanCompleteCityinTheSky))",
+        "GlitchedRequirements": "(CanDefeatShadowBeast or (Shadow_Crystal and Mirror_Chamber_Portal)) and ((Setting.palaceRequirements equals Open) or ((Setting.palaceRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.palaceRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.palaceRequirements equals Vanilla) and CanCompleteCityinTheSky))"
       }
     ],
     "Checks": 

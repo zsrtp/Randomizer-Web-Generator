@@ -155,6 +155,108 @@ namespace TPRandomizer
             }
         }
 
+        public static bool ValidatePlaythroughBeatable(Room startingRoom, bool printResults = false)
+        {
+            List<Item> playthroughItems = new();
+            List<Item> validationItems = new();
+            SharedSettings parseSetting = Randomizer.SSettings;
+
+            if (parseSetting.logicRules == SSettings.Enums.LogicRules.No_Logic)
+            {
+                return true;
+            }
+
+            // Console.WriteLine("Item to place: " + itemToPlace);
+            foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
+            {
+                Check currentCheck = checkList.Value;
+                currentCheck.hasBeenReached = false;
+                Randomizer.Checks.CheckDict[currentCheck.checkName] = currentCheck;
+            }
+
+            HashSet<string> allowedUnreachableChecks = CalcAllowedUnreachableChecks(parseSetting);
+
+            /*foreach (Item item in Randomizer.Items.heldItems)
+            {
+                Console.WriteLine(item);
+            }*/
+
+            // Walk through the current graph and get a list of rooms that we can currently access
+            // If we collect any items during the playthrough, we add them to the player's inventory
+            // and try walking through the graph again until we have collected every item that we can.
+            do
+            {
+                playthroughItems.Clear();
+                List<Room> currentPlaythroughGraph = Randomizer.GeneratePlaythroughGraph(
+                    startingRoom
+                );
+                foreach (Room graphRoom in currentPlaythroughGraph)
+                {
+                    graphRoom.Visited = true;
+                    //Console.WriteLine("Currently Exploring: " + graphRoom.RoomName);
+                    for (int i = 0; i < graphRoom.Checks.Count; i++)
+                    {
+                        // Create reference to the dictionary entry of the check whose logic we are evaluating
+                        if (
+                            !Randomizer.Checks.CheckDict.TryGetValue(
+                                graphRoom.Checks[i],
+                                out Check currentCheck
+                            )
+                        )
+                        {
+                            if (graphRoom.Checks[i].ToString() == string.Empty)
+                            {
+                                // Console.WriteLine("Room has no checks, continuing on....");
+                                break;
+                            }
+                        }
+
+                        if (!currentCheck.hasBeenReached)
+                        {
+                            if (currentCheck.CachedRequirements().Evaluate())
+                            {
+                                if (currentCheck.itemWasPlaced)
+                                {
+                                    playthroughItems.Add(currentCheck.itemId);
+
+                                    /*Console.WriteLine(
+                                        "Added " + currentCheck.itemId + " to item list."
+                                    );*/
+                                }
+
+                                currentCheck.hasBeenReached = true;
+                            }
+                        }
+                    }
+                }
+
+                Randomizer.Items.heldItems.AddRange(playthroughItems);
+                validationItems.AddRange(playthroughItems);
+            } while (playthroughItems.Count > 0);
+
+            foreach (Item item in validationItems)
+            {
+                Randomizer.Items.heldItems.Remove(item);
+            }
+
+            if (Randomizer.Rooms.RoomDict["Ganondorf Castle"].Visited)
+            {
+                if (printResults)
+                {
+                    Console.WriteLine("Playthrough Beatable");
+                }
+                return true;
+            }
+            else
+            {
+                if (printResults)
+                {
+                    Console.WriteLine("Playthrough Not Beatable");
+                }
+                return false;
+            }
+        }
+
         private static HashSet<string> CalcAllowedUnreachableChecks(SharedSettings sSettings)
         {
             // Can revisit where this code lives once we develop a "Guarantee
@@ -168,38 +270,74 @@ namespace TPRandomizer
                 // include any number of Agitha checks (not just 0 or 24)
                 // without having to memorize which bugs are valid or invalid.
 
-                HashSet<string> agithaChecks = new()
-                {
-                    "Agitha Female Ant Reward",
-                    "Agitha Female Beetle Reward",
-                    "Agitha Female Butterfly Reward",
-                    "Agitha Female Dayfly Reward",
-                    "Agitha Female Dragonfly Reward",
-                    "Agitha Female Grasshopper Reward",
-                    "Agitha Female Ladybug Reward",
-                    "Agitha Female Mantis Reward",
-                    "Agitha Female Phasmid Reward",
-                    "Agitha Female Pill Bug Reward",
-                    "Agitha Female Snail Reward",
-                    "Agitha Female Stag Beetle Reward",
-                    "Agitha Male Ant Reward",
-                    "Agitha Male Beetle Reward",
-                    "Agitha Male Butterfly Reward",
-                    "Agitha Male Dayfly Reward",
-                    "Agitha Male Dragonfly Reward",
-                    "Agitha Male Grasshopper Reward",
-                    "Agitha Male Ladybug Reward",
-                    "Agitha Male Mantis Reward",
-                    "Agitha Male Phasmid Reward",
-                    "Agitha Male Pill Bug Reward",
-                    "Agitha Male Snail Reward",
-                    "Agitha Male Stag Beetle Reward",
-                };
+                HashSet<string> agithaChecks =
+                    new()
+                    {
+                        "Agitha Female Ant Reward",
+                        "Agitha Female Beetle Reward",
+                        "Agitha Female Butterfly Reward",
+                        "Agitha Female Dayfly Reward",
+                        "Agitha Female Dragonfly Reward",
+                        "Agitha Female Grasshopper Reward",
+                        "Agitha Female Ladybug Reward",
+                        "Agitha Female Mantis Reward",
+                        "Agitha Female Phasmid Reward",
+                        "Agitha Female Pill Bug Reward",
+                        "Agitha Female Snail Reward",
+                        "Agitha Female Stag Beetle Reward",
+                        "Agitha Male Ant Reward",
+                        "Agitha Male Beetle Reward",
+                        "Agitha Male Butterfly Reward",
+                        "Agitha Male Dayfly Reward",
+                        "Agitha Male Dragonfly Reward",
+                        "Agitha Male Grasshopper Reward",
+                        "Agitha Male Ladybug Reward",
+                        "Agitha Male Mantis Reward",
+                        "Agitha Male Phasmid Reward",
+                        "Agitha Male Pill Bug Reward",
+                        "Agitha Male Snail Reward",
+                        "Agitha Male Stag Beetle Reward",
+                    };
 
                 foreach (string excludedCheckName in sSettings.excludedChecks)
                 {
                     if (agithaChecks.Contains(excludedCheckName))
                         allowedUnreachableChecks.Add(excludedCheckName);
+                }
+            }
+
+            switch (sSettings.iliaQuest)
+            {
+                case SSettings.Enums.IliaQuest.Letter:
+                {
+                    allowedUnreachableChecks.Add("Renados Letter");
+                    break;
+                }
+                case SSettings.Enums.IliaQuest.Invoice:
+                {
+                    allowedUnreachableChecks.Add("Renados Letter");
+                    allowedUnreachableChecks.Add("Telma Invoice");
+                    break;
+                }
+                case SSettings.Enums.IliaQuest.Statue:
+                {
+                    allowedUnreachableChecks.Add("Renados Letter");
+                    allowedUnreachableChecks.Add("Telma Invoice");
+                    allowedUnreachableChecks.Add("Wooden Statue");
+                    break;
+                }
+                case SSettings.Enums.IliaQuest.Charm:
+                {
+                    allowedUnreachableChecks.Add("Renados Letter");
+                    allowedUnreachableChecks.Add("Telma Invoice");
+                    allowedUnreachableChecks.Add("Wooden Statue");
+                    allowedUnreachableChecks.Add("Ilia Charm");
+                    break;
+                }
+
+                default:
+                {
+                    break;
                 }
             }
 
@@ -283,7 +421,9 @@ namespace TPRandomizer
                                 sphereItems.Add(currentCheck.itemId);
                                 currentCheck.hasBeenReached = true;
                                 if (
-                                    Randomizer.Items.ImportantItems.Contains(currentCheck.itemId)
+                                    Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                        currentCheck.itemId
+                                    )
                                     || Randomizer.Items.RegionSmallKeys.Contains(
                                         currentCheck.itemId
                                     )
@@ -452,7 +592,9 @@ namespace TPRandomizer
                                 sphereItems.Add(currentCheck.itemId);
                                 currentCheck.hasBeenReached = true;
                                 if (
-                                    Randomizer.Items.ImportantItems.Contains(currentCheck.itemId)
+                                    Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                        currentCheck.itemId
+                                    )
                                     || Randomizer.Items.RegionSmallKeys.Contains(
                                         currentCheck.itemId
                                     )
@@ -475,9 +617,9 @@ namespace TPRandomizer
                                     );
                                     hasCompletedSphere = true;
                                     currentCheck.isRequired = true;
-                                    Console.WriteLine(
+                                    /*Console.WriteLine(
                                         $"Did check '{currentCheck.checkName}' which had item '{currentCheck.itemId}'."
-                                    );
+                                    );*/
                                 }
                             }
                         }
@@ -643,7 +785,7 @@ namespace TPRandomizer
                                 {
                                     currentCheck.hasBeenReached = true;
                                     if (
-                                        Randomizer.Items.ImportantItems.Contains(
+                                        Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                             currentCheck.itemId
                                         )
                                         || Randomizer.Items.RegionSmallKeys.Contains(
@@ -695,7 +837,6 @@ namespace TPRandomizer
             }
 
             bool hasCompletedSphere;
-            bool hasConcludedPlaythrough;
             List<Room> currentPlaythroughGraph;
             List<Item> sphereItems = new();
             SharedSettings parseSetting = Randomizer.SSettings;
@@ -724,20 +865,21 @@ namespace TPRandomizer
 
             if (startWithBigKeys)
             {
-                List<Item> bigKeys = new()
-                {
-                    Item.Forest_Temple_Big_Key,
-                    Item.Goron_Mines_Key_Shard,
-                    Item.Goron_Mines_Key_Shard,
-                    Item.Goron_Mines_Key_Shard,
-                    Item.Lakebed_Temple_Big_Key,
-                    Item.Arbiters_Grounds_Big_Key,
-                    Item.Temple_of_Time_Big_Key,
-                    Item.Snowpeak_Ruins_Bedroom_Key,
-                    Item.City_in_The_Sky_Big_Key,
-                    Item.Palace_of_Twilight_Big_Key,
-                    Item.Hyrule_Castle_Big_Key,
-                };
+                List<Item> bigKeys =
+                    new()
+                    {
+                        Item.Forest_Temple_Big_Key,
+                        Item.Goron_Mines_Key_Shard,
+                        Item.Goron_Mines_Key_Shard,
+                        Item.Goron_Mines_Key_Shard,
+                        Item.Lakebed_Temple_Big_Key,
+                        Item.Arbiters_Grounds_Big_Key,
+                        Item.Temple_of_Time_Big_Key,
+                        Item.Snowpeak_Ruins_Bedroom_Key,
+                        Item.City_in_The_Sky_Big_Key,
+                        Item.Palace_of_Twilight_Big_Key,
+                        Item.Hyrule_Castle_Big_Key,
+                    };
 
                 foreach (Item bk in bigKeys)
                 {
@@ -764,7 +906,6 @@ namespace TPRandomizer
             while (true)
             {
                 hasCompletedSphere = false;
-                hasConcludedPlaythrough = false;
                 currentPlaythroughGraph = Randomizer.GeneratePlaythroughGraph(startingRoom);
 
                 // Walk through the current graph and get a list of rooms that we can currently access
@@ -806,7 +947,7 @@ namespace TPRandomizer
                                 {
                                     currentCheck.hasBeenReached = true;
                                     if (
-                                        Randomizer.Items.ImportantItems.Contains(
+                                        Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                             currentCheck.itemId
                                         )
                                         || Randomizer.Items.RegionSmallKeys.Contains(

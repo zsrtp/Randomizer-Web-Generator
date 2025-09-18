@@ -1,6 +1,6 @@
 {
-    "requirements": "canCompleteGoronMines and (Progressive_Bow, 1) and CanChangeTime and CanCompleteEldinTwilight",
-    "glitchedRequirements": "canCompleteGoronMines and (Progressive_Bow, 1) and CanChangeTime and CanCompleteEldinTwilight",
+    "requirements": "CanCompleteGoronMines and (Progressive_Bow, 1) and CanChangeTime and CanCompleteEldinTwilight",
+    "glitchedRequirements": "CanCompleteGoronMines and (Progressive_Bow, 1) and CanChangeTime and CanCompleteEldinTwilight",
     "checkCategory": ["Overworld", "Npc", "Kakariko Village", "ARC"],
     "itemId": "Piece_of_Heart"
 }

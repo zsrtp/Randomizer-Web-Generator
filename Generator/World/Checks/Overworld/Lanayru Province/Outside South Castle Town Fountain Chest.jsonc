@@ -1,6 +1,6 @@
 {
     "requirements": "Spinner and (Progressive_Clawshot, 1)",
-    "glitchedRequirements": "(Spinner and (Progressive_Clawshot, 1)) or (CanDoMapGlitch and HasBottle) or CanDoMoonBoots or CanDoBSMoonBoots or CanDoLJA or (HasSword and ((Progressive_Hidden_Skill, 3) or hasBombs))",
+    "glitchedRequirements": "(Spinner and (Progressive_Clawshot, 1)) or (CanDoMapGlitch and HasBottle) or CanDoMoonBoots or CanDoBSMoonBoots or CanDoLJA or (HasSword and ((Progressive_Hidden_Skill, 3) or HasBombs))",
     "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province"],
     "itemId": "Orange_Rupee"
 }

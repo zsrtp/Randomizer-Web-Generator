@@ -482,7 +482,7 @@ namespace TPRandomizer.Hints
                     result.Add(GoalConstants.Stallord);
                     result.Add(GoalConstants.Zant);
                 }
-                else if (sSettings.castleRequirements == CastleRequirements.All_Dungeons)
+                else if (sSettings.castleRequirements == CastleRequirements.Dungeons)
                 {
                     result.Add(GoalConstants.Diababa);
                     result.Add(GoalConstants.Fyrus);
@@ -603,17 +603,17 @@ namespace TPRandomizer.Hints
                     if (pair.Value)
                     {
                         // Was able to complete goal after replacing check contents.
-                        Console.WriteLine(
+                        /*Console.WriteLine(
                             $"NOT needed for Goal {pair.Key.id}: {originalContents} in {checkName}"
-                        );
+                        );*/
                     }
                     else
                     {
                         // Was unable to complete goal after replacing check contents.
                         goalsToRequiredChecks[pair.Key].Add(checkName);
-                        Console.WriteLine(
+                        /*Console.WriteLine(
                             $"Needed for Goal {pair.Key.id}: {originalContents} in {checkName}"
-                        );
+                        );*/
                     }
                 }
 
@@ -962,6 +962,11 @@ namespace TPRandomizer.Hints
             return getCheckToHintZoneMap()[checkName];
         }
 
+        public static bool checkNameHasHintZone(string checkName)
+        {
+            return getCheckToHintZoneMap().ContainsKey(checkName);
+        }
+
         public static Province checkNameToHintProvince(string checkName)
         {
             string hintZone = checkNameToHintZone(checkName);
@@ -1172,7 +1177,7 @@ namespace TPRandomizer.Hints
         {
             return new(
                 HintTypeUtils.NumBitsToEncode,
-                9,
+                SeedGenResults.checkIDBitLength,
                 ZoneUtils.NumBitsToEncode,
                 HintCategoryUtils.NumBitsToEncode,
                 AreaId.NumBitsToEncode,

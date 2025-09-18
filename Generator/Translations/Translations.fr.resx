@@ -1293,6 +1293,30 @@
     <value>bouteilles de lait à moitié vide</value>
     <comment></comment>
   </data>
+  <data name="item.66-lantern_oil_shop" xml:space="preserve">
+    <value>$(gender:f){que-transform}huile de lanterne</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$count" xml:space="preserve">
+    <value>$(gender:f){cs}{count} recharge d&apos;huile{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$count#other" xml:space="preserve">
+    <value>$(gender:f,plural){cs}{count} recharges d&apos;huile{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$count#zero" xml:space="preserve">
+    <value>$(gender:f,negative){cs}aucune recharge d&apos;huile{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$def" xml:space="preserve">
+    <value>$(gender:f,objpro:en)l&apos;{cs}huile de lanterne{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$indef" xml:space="preserve">
+    <value>$(gender:f,objpro:en)une {cs}huile de lanterne{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.75-jovani_bottle@ac(f)" xml:space="preserve">
     <value>bouteille de larmes de Fée</value>
     <comment></comment>
@@ -1886,11 +1910,11 @@
     <comment></comment>
   </data>
   <data name="item.ee-north_faron_woods_gate_key@ac(f)" xml:space="preserve">
-    <value>clé de la Forêt de Firone</value>
+    <value>clé du Nord de la Forêt de Firone</value>
     <comment></comment>
   </data>
   <data name="item.ee-north_faron_woods_gate_key#other@ac(f)" xml:space="preserve">
-    <value>clés de la Forêt de Firone</value>
+    <value>clés du Nord de la Forêt de Firone</value>
     <comment></comment>
   </data>
   <data name="item.f3-gate_keys@ac(f)" xml:space="preserve">
@@ -1933,6 +1957,14 @@
     <value>fragments de clé</value>
     <comment></comment>
   </data>
+  <data name="item.fe-faron_woods_coro_key@ac(f)" xml:space="preserve">
+    <value>clé de Kikolou</value>
+    <comment></comment>
+  </data>
+  <data name="item.fe-faron_woods_coro_key#other@ac(f)" xml:space="preserve">
+    <value>clés de Kikolou</value>
+    <comment></comment>
+  </data>
   <data name="noun.a-bug" xml:space="preserve">
     <value>un {cs}insecte{ce}</value>
     <comment></comment>
@@ -1961,28 +1993,36 @@
     <value>Pas d&apos;indice</value>
     <comment></comment>
   </data>
+  <data name="noun.objpro" xml:space="preserve">
+    <value>le</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$gender-f" xml:space="preserve">
+    <value>la</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$gender-f,objpro-en" xml:space="preserve">
+    <value>en</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$gender-f,plural" xml:space="preserve">
+    <value>les</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$objpro-en" xml:space="preserve">
+    <value>en</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$plural" xml:space="preserve">
+    <value>les</value>
+    <comment></comment>
+  </data>
   <data name="noun.rien" xml:space="preserve">
     <value>rien</value>
     <comment></comment>
   </data>
   <data name="noun.something-good" xml:space="preserve">
     <value>quelque chose de bien</value>
-    <comment></comment>
-  </data>
-  <data name="noun.the-article" xml:space="preserve">
-    <value>le</value>
-    <comment></comment>
-  </data>
-  <data name="noun.the-article$gender-f" xml:space="preserve">
-    <value>la</value>
-    <comment></comment>
-  </data>
-  <data name="noun.the-article$gender-f,plural" xml:space="preserve">
-    <value>les</value>
-    <comment></comment>
-  </data>
-  <data name="noun.the-article$plural" xml:space="preserve">
-    <value>les</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
@@ -2050,11 +2090,11 @@
     <comment>From magic armor, minus the MA reference.</comment>
   </data>
   <data name="shop.bought$sera" xml:space="preserve">
-    <value>Je ne pensais pas que tu voudrais {noun(name:the-article)} {que-transform}acheter...</value>
+    <value>Je ne pensais pas que tu voudrais {noun(name:objpro)} {que-transform}acheter...</value>
     <comment></comment>
   </data>
   <data name="shop.cant-afford" xml:space="preserve">
-    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}. Si tu {noun(name:the-article)} veux, il faut {noun2} payer.</value>
+    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}. Si tu {noun(name:objpro)} veux, il faut {noun2} payer.</value>
     <comment>From Sera Slingshot</comment>
   </data>
   <data name="shop.cant-afford$barnes-bomb-bag" xml:space="preserve">
@@ -2082,7 +2122,7 @@
     <comment></comment>
   </data>
   <data name="shop.confirmation" xml:space="preserve">
-    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}, tu {noun(name:the-article)} veux?</value>
+    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}, tu {noun(name:objpro)} veux?</value>
     <comment></comment>
   </data>
   <data name="shop.confirmation$coro" xml:space="preserve">
@@ -2110,11 +2150,11 @@
     <comment></comment>
   </data>
   <data name="shop.confirmation$ct-goron-shield-later" xml:space="preserve">
-    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}, tu {noun(name:the-article)} veux?</value>
+    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}, tu {noun(name:objpro)} veux?</value>
     <comment>Matches the base shop.confirmation, but putting here so this doesn&apos;t change if the fallback changes.</comment>
   </data>
   <data name="shop.confirmation$sera" xml:space="preserve">
-    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}.\nTu {noun(name:the-article)} veux?</value>
+    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}.\nTu {noun(name:objpro)} veux?</value>
     <comment></comment>
   </data>
   <data name="shop.no" xml:space="preserve">

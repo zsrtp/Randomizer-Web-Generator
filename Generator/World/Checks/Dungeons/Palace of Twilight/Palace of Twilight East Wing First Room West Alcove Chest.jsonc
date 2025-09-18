@@ -1,6 +1,6 @@
 {
-    "requirements": "(Progressive_Sword, 4) or (CanDefeatPhantomZant and (Progressive_Clawshot, 1) and CanDefeatZantHead and (Palace_of_Twilight_Small_Key, 6) and CanDefeatShadowBeast)",
-    "glitchedRequirements": "(Progressive_Sword, 4) or (CanDefeatPhantomZant and (Progressive_Clawshot, 1) and CanDefeatZantHead and (Palace_of_Twilight_Small_Key, 6) and CanDefeatShadowBeast)",
+    "requirements": "(Progressive_Sword, 4) or (CanDefeatPhantomZant and (Progressive_Clawshot, 1) and CanDefeatZantHead and (Palace_of_Twilight_Small_Key, 7) and CanDefeatShadowBeast)",
+    "glitchedRequirements": "(Progressive_Sword, 4) or (CanDefeatPhantomZant and (Progressive_Clawshot, 1) and CanDefeatZantHead and (Palace_of_Twilight_Small_Key, 7) and CanDefeatShadowBeast)",
     "checkCategory": ["Chest", "Dungeon", "Palace of Twilight"],
     "itemId": "Purple_Rupee"
 }

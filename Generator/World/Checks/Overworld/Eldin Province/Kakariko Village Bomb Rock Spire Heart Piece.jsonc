@@ -1,6 +1,6 @@
 {
-    "requirements": "hasBombs and Boomerang and CanCompleteEldinTwilight",
-    "glitchedRequirements": "(CanDoMapGlitch or (canLaunchBombs and (Boomerang or (Progressive_Clawshot, 1)))) and CanCompleteEldinTwilight",
+    "requirements": "HasBombs and Boomerang and CanCompleteEldinTwilight",
+    "glitchedRequirements": "(CanDoMapGlitch or (CanLaunchBombs and (Boomerang or (Progressive_Clawshot, 1)))) and CanCompleteEldinTwilight",
     "checkCategory": ["Overworld", "Chest", "Kakariko Village"],
     "itemId": "Piece_of_Heart"
 }

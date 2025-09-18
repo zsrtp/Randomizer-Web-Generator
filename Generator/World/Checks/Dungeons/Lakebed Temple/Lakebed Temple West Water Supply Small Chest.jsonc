@@ -1,6 +1,6 @@
 {
-    "requirements": "(Progressive_Clawshot, 1) and canLaunchBombs and Iron_Boots",
-    "glitchedRequirements": "(Progressive_Clawshot, 1) and canLaunchBombs",
+    "requirements": "(Progressive_Clawshot, 1) and CanLaunchBombs and Iron_Boots",
+    "glitchedRequirements": "(Progressive_Clawshot, 1) and CanLaunchBombs",
     "checkCategory": ["Chest", "Dungeon", "Lakebed Temple"],
     "itemId": "Water_Bombs_10"
 }

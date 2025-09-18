@@ -1,6 +1,6 @@
 {
-  "requirements": "canCompletePrologue and CanChangeTime and CanCompleteGoats1",
-  "glitchedRequirements": "canCompletePrologue and CanChangeTime and CanCompleteGoats1",
+  "requirements": "CanCompletePrologue and CanChangeTime and CanCompleteGoats1",
+  "glitchedRequirements": "CanCompletePrologue and CanChangeTime and CanCompleteGoats1",
   "checkCategory": [ "Overworld", "Npc", "Ordona Province" ],
   "itemId": "Piece_of_Heart"
 }

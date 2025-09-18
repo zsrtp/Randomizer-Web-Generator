@@ -11,13 +11,33 @@ namespace TPRandomizer.SSettings.Enums
         No_Logic = 2,
     }
 
+    public enum WalletSize
+    {
+        Reduced = 0,
+        Vanilla = 1,
+        HD = 2,
+        Large = 3,
+    }
+
     public enum CastleRequirements
     {
         Open = 0,
         Fused_Shadows = 1,
         Mirror_Shards = 2,
-        All_Dungeons = 3,
+        Dungeons = 3,
         Vanilla = 4,
+        Poe_Souls = 5,
+        Hearts = 6,
+    }
+
+    public enum CastleBKRequirements
+    {
+        None = 0,
+        Fused_Shadows = 1,
+        Mirror_Shards = 2,
+        Dungeons = 3,
+        Poe_Souls = 4,
+        Hearts = 5,
     }
 
     public enum PalaceRequirements
@@ -126,5 +146,28 @@ namespace TPRandomizer.SSettings.Enums
         Balanced = 3,
         Strong = 4,
         Very_Strong = 5,
+    }
+
+    public enum IliaQuest
+    {
+        Vanilla = 0,
+        Letter = 1,
+        Invoice = 2,
+        Statue = 3,
+        Charm = 4,
+    }
+
+    public enum MirrorChamberEntrance
+    {
+        Open = 0,
+        Barrier = 1,
+        Closed = 2,
+    }
+
+    public enum DungeonER
+    {
+        Off = 0,
+        Dungeon = 1,
+        Dungeon_Hyrule = 2,
     }
 }

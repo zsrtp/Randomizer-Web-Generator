@@ -5,18 +5,18 @@
     [
       {
         "ConnectedArea": "Lanayru Field Cave Entrance",
-        "Requirements": "canSmash",
-        "GlitchedRequirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "Lanayru Field Behind Boulder",
-        "Requirements": "canSmash",
-        "GlitchedRequirements": "canSmash or CanDoMapGlitch"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash or CanDoMapGlitch"
       },
       {
         "ConnectedArea": "Hyrule Field Near Spinner Rails",
-        "Requirements": "canSmash",
-        "GlitchedRequirements": "canSmash or (CanDoMapGlitch and CanCompleteLanayruTwilight)"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash or (CanDoMapGlitch and CanCompleteLanayruTwilight)"
       },
       {
         "ConnectedArea": "North Eldin Field",
@@ -59,8 +59,8 @@
     [
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "canSmash",
-        "GlitchedRequirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "Lanayru Ice Puzzle Cave",
@@ -77,8 +77,8 @@
     [
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "canSmash",
-        "GlitchedRequirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "Zoras Domain West Ledge",
@@ -95,13 +95,13 @@
     [
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "canSmash",
-        "GlitchedRequirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "Lake Hylia Bridge",
-        "Requirements": "canSmash",
-        "GlitchedRequirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       }
     ],
     "Checks":
@@ -276,8 +276,8 @@
       },
       {
         "ConnectedArea": "Faron Field Behind Boulder",
-        "Requirements": "canGetHotSpringWater",
-        "GlitchedRequirements": "canGetHotSpringWater"
+        "Requirements": "CanGetHotSpringWater",
+        "GlitchedRequirements": "CanGetHotSpringWater"
       },
       {
         "ConnectedArea": "Lake Hylia",
@@ -310,8 +310,8 @@
     [
       {
         "ConnectedArea": "Outside Castle Town South",
-        "Requirements": "canGetHotSpringWater and Room.Outside_Castle_Town_South",
-        "GlitchedRequirements": "canGetHotSpringWater and Room.Outside_Castle_Town_South"
+        "Requirements": "CanGetHotSpringWater and Room.Outside_Castle_Town_South",
+        "GlitchedRequirements": "CanGetHotSpringWater and Room.Outside_Castle_Town_South"
       }
     ],
     "Checks": [""],
@@ -339,13 +339,13 @@
     [
       {
         "ConnectedArea": "Lake Hylia Bridge Grotto Ledge",
-        "Requirements": "canLaunchBombs and (Progressive_Clawshot, 1)",
-        "GlitchedRequirements": "canLaunchBombs and (Progressive_Clawshot, 1)"
+        "Requirements": "CanLaunchBombs and (Progressive_Clawshot, 1)",
+        "GlitchedRequirements": "CanLaunchBombs and (Progressive_Clawshot, 1)"
       },
       {
         "ConnectedArea": "Hyrule Field Near Spinner Rails",
-        "Requirements": "canSmash",
-        "GlitchedRequirements": "canSmash or CanDoMapGlitch"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash or CanDoMapGlitch"
       },
       {
         "ConnectedArea": "Outside Castle Town West",
@@ -359,8 +359,8 @@
       },
       {
         "ConnectedArea": "Faron Field",
-        "Requirements": "Gate_Keys",
-        "GlitchedRequirements": "Gate_Keys or Shadow_Crystal"
+        "Requirements": "Gate_Keys and CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "(Gate_Keys or Shadow_Crystal) and CanCompleteLanayruTwilight"
       }
     ],
     "Checks":

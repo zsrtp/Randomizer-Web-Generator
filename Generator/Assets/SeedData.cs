@@ -173,10 +173,10 @@ namespace TPRandomizer.Assets
                 GCIDataRaw.AddRange(dataBytes);
             }
 
-            dataBytes = GenerateBmg0SectionData(seedGenResults.customMsgData);
+            dataBytes = GenerateSfxData();
             if (dataBytes != null)
             {
-                SeedHeaderRaw.bmg0Offset = (UInt16)GCIDataRaw.Count();
+                SeedHeaderRaw.sfxInfoDataOffset = (UInt16)GCIDataRaw.Count();
                 GCIDataRaw.AddRange(dataBytes);
             }
 
@@ -184,6 +184,13 @@ namespace TPRandomizer.Assets
             if (dataBytes != null)
             {
                 SeedHeaderRaw.clr0Offset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
+
+            dataBytes = GenerateBmg0SectionData(seedGenResults.customMsgData);
+            if (dataBytes != null)
+            {
+                SeedHeaderRaw.bmg0Offset = (UInt16)GCIDataRaw.Count();
                 GCIDataRaw.AddRange(dataBytes);
             }
 
@@ -263,6 +270,7 @@ namespace TPRandomizer.Assets
                 }
             }
 
+            seedHeader.AddRange(Converter.GcBytes((UInt16) (2000 - randomizerSettings.maloShopDonation)));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirements));
             seedHeader.Add(Converter.GcByte((int)randomizerSettings.palaceRequirements));
             int mapBits = 0;
@@ -306,6 +314,29 @@ namespace TPRandomizer.Assets
                 )
             );
 
+            seedHeader.Add(Converter.GcByte((int)randomizerSettings.mirrorChamberEntrance));
+            
+            if (randomizerSettings.castleRequirements == CastleRequirements.Hearts)
+            {
+                seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirementCount * 5));
+            }
+            else
+            {
+                seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleRequirementCount));
+            }
+
+            seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleBKRequirements));
+            if (randomizerSettings.castleBKRequirements == CastleBKRequirements.Hearts)
+            {
+                seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleBKRequirementCount * 5));
+            }
+            else
+            {
+                seedHeader.Add(Converter.GcByte((int)randomizerSettings.castleBKRequirementCount));
+            }
+
+            seedHeader.Add(Converter.GcByte((int)randomizerSettings.walletSize));
+
             while (seedHeader.Count < SeedHeaderSize)
             {
                 seedHeader.Add((byte)0x0);
@@ -329,7 +360,6 @@ namespace TPRandomizer.Assets
             };
             bool[] oneTimePatchSettingsArray =
             {
-                randomizerSettings.increaseWallet,
                 randomizerSettings.fastIronBoots,
                 fcSettings.disableEnemyBgm,
                 randomizerSettings.instantText,
@@ -342,8 +372,10 @@ namespace TPRandomizer.Assets
                 randomizerSettings.quickTransform,
                 randomizerSettings.increaseSpinnerSpeed,
                 randomizerSettings.bonksDoDamage,
-                randomizerSettings.increaseWallet,
+                randomizerSettings.autoFillWallet,
                 randomizerSettings.modifyShopModels,
+                fcSettings.lanternGlowColor.getResult().basicDataEntry == 0xFFFFFE, // Rainbow Lantern
+                fcSettings.midnaHairBaseLightWorldInactive == 0xFFFFFE, // Rainbow Midna Hair
             };
 
             List<bool[]> flagArrayList = new()
@@ -582,21 +614,8 @@ namespace TPRandomizer.Assets
                             )
                         );
                         listOfDZXReplacements.Add(Converter.GcByte(currentCheck.stageIDX[i]));
-                        if (currentCheck.magicByte == null)
-                        {
-                            listOfDZXReplacements.Add(Converter.GcByte(0xFF)); // If a magic byte is not set, use 0xFF as a default.
-                        }
-                        else
-                        {
-                            listOfDZXReplacements.Add(
-                                Converter.GcByte(
-                                    byte.Parse(
-                                        currentCheck.magicByte[i],
-                                        System.Globalization.NumberStyles.HexNumber
-                                    )
-                                )
-                            );
-                        }
+                        listOfDZXReplacements.Add(Converter.GcByte(0xFF)); // padding
+                        
 
                         listOfDZXReplacements.AddRange(dataArray);
                         count++;
@@ -986,6 +1005,16 @@ namespace TPRandomizer.Assets
             ushort count = 0;
             byte[,] arrayOfEventFlags = { };
 
+            if (!Randomizer.SSettings.skipBridgeDonation)
+            {
+                byte[,] donationBits = new byte[,]
+                {
+                    { 0xF9, 0x1 }, // Add 256 Rupees to Malo Mart.
+                    { 0xFA, 0xF4 }, // Add 244 Rupees to Malo Mart.
+                };
+                arrayOfEventFlags = BackendFunctions.ConcatFlagArrays(arrayOfEventFlags, donationBits);
+            }
+
             arrayOfEventFlags = BackendFunctions.ConcatFlagArrays(
                 arrayOfEventFlags,
                 Assets.Flags.BaseRandomizerEventFlags
@@ -1143,6 +1172,24 @@ namespace TPRandomizer.Assets
         {
             List<ARCReplacement> listOfStaticReplacements =
             [
+                new ARCReplacement(
+                    "2F58",
+                    "FFFF3777",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Ordon_Village,
+                    0
+                ), // Patch Bo Right Door so it always opens
+
+                new ARCReplacement(
+                    "2F7C",
+                    "FFFFB778",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Ordon_Village,
+                    0
+                ), // Patch Bo Left Door so it always opens
+
                 new ARCReplacement(
                     "1A62",
                     "00060064",
@@ -1355,7 +1402,7 @@ namespace TPRandomizer.Assets
                     4
                 ), // Set the new flag for buying the shield
                 new ARCReplacement(
-                    "5418",
+                    "418",
                     "C493D583",
                     (byte)FileDirectory.Room,
                     (byte)ReplacementType.Instruction,
@@ -1540,13 +1587,13 @@ namespace TPRandomizer.Assets
                     4
                 ), // Check coro key flag
                 new ARCReplacement(
-                    "4F4",
-                    "00000000",
+                    "4FC",
+                    "00000003",
                     (byte)FileDirectory.Stage,
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.City_in_the_Sky,
                     0
-                ), // Delete Savemem actr that causes the player to spawn in west wing
+                ), // Modify Savemem actr that causes the player to spawn in west wing
 
                 // Shad FLW Patches
                 new ARCReplacement(
@@ -1558,16 +1605,16 @@ namespace TPRandomizer.Assets
                     7
                 ), // Set custom check flag
                 new ARCReplacement(
-                    "49C8",
-                    "031108CC",
+                    "4A70",
+                    "031108C7",
                     (byte)FileDirectory.Message,
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Graveyard_Interiors,
                     7
                 ), // Call event017 to give player item
                 new ARCReplacement(
-                    "49CE",
-                    "00000202",
+                    "4A76",
+                    "0000030B",
                     (byte)FileDirectory.Message,
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Kakariko_Graveyard_Interiors,
@@ -1656,48 +1703,510 @@ namespace TPRandomizer.Assets
                     3
                 ), // Add flag to DM milk shop item
 
+                // Modify LBT scnChg so player can swim into it
                 new ARCReplacement(
-                    "3034",
-                    "FF28FFFF",
+                    "8F0",
+                    "46C35000",
                     (byte)FileDirectory.Room,
                     (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Death_Mountain,
-                    3
-                ),
-                new ARCReplacement(
-                    "3970",
-                    "FF28FFFF",
-                    (byte)FileDirectory.Room,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Death_Mountain,
-                    3
-                ), // Add flag to DM wooden shield shop item
-
-                new ARCReplacement(
-                    "3054",
-                    "FF04FFFF",
-                    (byte)FileDirectory.Room,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Death_Mountain,
-                    3
-                ),
-                new ARCReplacement(
-                    "3990",
-                    "FF04FFFF",
-                    (byte)FileDirectory.Room,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Death_Mountain,
-                    3
-                ), // Add flag to DM oil shop item
-
-                new ARCReplacement(
-                    "49C",
-                    "FF3CFFFF",
-                    (byte)FileDirectory.Room,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
+                    (int)StageIDs.Lakebed_Temple,
                     0
-                ), // Add flag to CT Red Potion */
+                ),
+
+                // Modify Faron woods to remove the boulders in front of the dungeon during prologue
+                new ARCReplacement(
+                    "1774",
+                    "00000000",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Faron_Woods,
+                    6
+                ),
+                new ARCReplacement(
+                    "1794",
+                    "00000000",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Faron_Woods,
+                    6
+                ),
+
+                // Freestanding Rupee Archive patches
+
+                // Rupees in rock near Coro
+                new ARCReplacement(
+                    "697",
+                    "00F30481",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Faron_Woods,
+                    4
+                ),
+                new ARCReplacement(
+                    "6B7",
+                    "00F30482",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Faron_Woods,
+                    4
+                ),
+                new ARCReplacement(
+                    "6D7",
+                    "00F30483",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Faron_Woods,
+                    4
+                ),
+
+                // Rupee on Rusl's House
+                new ARCReplacement(
+                    "3BAF",
+                    "00F3FF84",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Ordon_Village,
+                    0
+                ),
+                new ARCReplacement(
+                    "89B3",
+                    "00F3FF84",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Ordon_Village,
+                    0
+                ),
+
+                // Rupee Above Hanch's house
+                new ARCReplacement(
+                    "3B4F",
+                    "00F3FF85",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Ordon_Village,
+                    0
+                ),
+
+                // Rupee by Bo's Window
+                new ARCReplacement(
+                    "3C0F",
+                    "00F3FF8A",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Ordon_Village,
+                    0
+                ),
+
+                // Rupee in Ordon River
+                new ARCReplacement(
+                    "3D4F",
+                    "0013FF91",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Ordon_Village,
+                    0
+                ),
+
+                // ZD North Underwater Boulder Rupees
+                new ARCReplacement(
+                    "31DB",
+                    "00133AFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "31FB",
+                    "00133AFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "321B",
+                    "00133AFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+
+                // ZD Central Underwater Boulder Rupees
+                new ARCReplacement(
+                    "323B",
+                    "00133BFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "325B",
+                    "00133BFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "327B",
+                    "00133BFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "329B",
+                    "00133BFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+
+                // ZD Shortcut Boulders
+                new ARCReplacement(
+                    "1B13",
+                    "00F365FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "1B53",
+                    "00F365FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "1B93",
+                    "00F365FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "1B33",
+                    "00F324FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "1B73",
+                    "00F324FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+                new ARCReplacement(
+                    "1BB3",
+                    "00F324FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    1
+                ),
+
+                // ZD Throne West Gate underwater rupees
+                new ARCReplacement(
+                    "1043",
+                    "0013FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    0
+                ),
+                new ARCReplacement(
+                    "1063",
+                    "0013FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    0
+                ),
+
+                // ZD Throne East Gate Underwater Rupees
+                new ARCReplacement(
+                    "10A3",
+                    "0013FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    0
+                ),
+                new ARCReplacement(
+                    "10C3",
+                    "0013FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Zoras_Domain,
+                    0
+                ),
+
+                // UZR Central Underwater Boulder Rupees
+                new ARCReplacement(
+                    "26DB",
+                    "001360FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "26FB",
+                    "001360FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "271B",
+                    "001360FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "273B",
+                    "001360FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "275B",
+                    "001360FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+
+                // UZR South Underwater Boulder
+                new ARCReplacement(
+                    "279B",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "27BB",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "27DB",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "27FB",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "281B",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "283B",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "285B",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "287B",
+                    "00135FFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+
+                // UZR Underwater East Boulder
+                new ARCReplacement(
+                    "28BB",
+                    "001354FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "28DB",
+                    "001354FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "28FB",
+                    "001354FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "291B",
+                    "001354FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "293B",
+                    "001354FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+
+                // UZR Ledge Boulder
+                new ARCReplacement(
+                    "299B",
+                    "001367FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "29BB",
+                    "001367FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "29DB",
+                    "001367FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "29FB",
+                    "001367FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+                new ARCReplacement(
+                    "2A1B",
+                    "001367FF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Upper_Zoras_River,
+                    0
+                ),
+
+
+                /*
+            // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here.
+            new ARCReplacement(
+                "3014",
+                "FF05FFFF",
+                (byte)FileDirectory.Room,
+                (byte)ReplacementType.Instruction,
+                (int)StageIDs.Death_Mountain,
+                3
+            ),
+            new ARCReplacement(
+                "3950",
+                "FF05FFFF",
+                (byte)FileDirectory.Room,
+                (byte)ReplacementType.Instruction,
+                (int)StageIDs.Death_Mountain,
+                3
+            ), // Add flag to DM milk shop item
+
+            new ARCReplacement(
+                "3034",
+                "FF28FFFF",
+                (byte)FileDirectory.Room,
+                (byte)ReplacementType.Instruction,
+                (int)StageIDs.Death_Mountain,
+                3
+            ),
+            new ARCReplacement(
+                "3970",
+                "FF28FFFF",
+                (byte)FileDirectory.Room,
+                (byte)ReplacementType.Instruction,
+                (int)StageIDs.Death_Mountain,
+                3
+            ), // Add flag to DM wooden shield shop item
+
+            new ARCReplacement(
+                "3054",
+                "FF04FFFF",
+                (byte)FileDirectory.Room,
+                (byte)ReplacementType.Instruction,
+                (int)StageIDs.Death_Mountain,
+                3
+            ),
+            new ARCReplacement(
+                "3990",
+                "FF04FFFF",
+                (byte)FileDirectory.Room,
+                (byte)ReplacementType.Instruction,
+                (int)StageIDs.Death_Mountain,
+                3
+            ), // Add flag to DM oil shop item
+
+            new ARCReplacement(
+                "49C",
+                "FF3CFFFF",
+                (byte)FileDirectory.Room,
+                (byte)ReplacementType.Instruction,
+                (int)StageIDs.Castle_Town_Shops,
+                0
+            ), // Add flag to CT Red Potion */
 
                 //.. ModifyChestAppearanceARC(), This is still in development
             ];
@@ -2275,6 +2784,66 @@ namespace TPRandomizer.Assets
 
             return data;
         }
+        
+        private List<byte> GenerateSfxData()
+        {
+            List<byte> data = new();
+            int replacementCount = 0;
+            if (fcSettings.randomizeSfx)
+            {
+
+                List<List<SoundAssets.JAISoundID>> sfxLists = new()
+                {
+                    SoundAssets.itemSoundEffects,
+                    SoundAssets.playerSoundEffects,
+                    SoundAssets.gameSoundEffects,
+                    SoundAssets.equipmentSoundEffects,
+                };
+                List<SoundAssets.JAISoundID> originalSfxList = new();
+                List<SoundAssets.JAISoundID> replacementSfxList = new();
+
+                foreach (List<SoundAssets.JAISoundID> sfxList in sfxLists)
+                {
+                    originalSfxList.AddRange(sfxList);
+
+                }
+                foreach (SoundAssets.JAISoundID sfx in originalSfxList)
+                {
+                    
+                    Random rnd = new();
+                    while (true)
+                    {
+                        SoundAssets.JAISoundID replacement = originalSfxList[rnd.Next(originalSfxList.Count)];
+                        if (replacement != sfx)
+                        {
+                            replacementSfxList.Add(replacement);
+                            break;
+                        }
+                    }
+                }
+                if (originalSfxList.Count != replacementSfxList.Count)
+                {
+                    Console.WriteLine(
+                        "Sfx Pool ("
+                            + originalSfxList.Count
+                            + ") and Replacement ("
+                            + replacementSfxList.Count
+                            + ") have different lengths!"
+                    );
+                }
+                
+
+                for (int i = 0; i < originalSfxList.Count; i++)
+                {
+                    data.AddRange(Converter.GcBytes((UInt32)originalSfxList[i]));
+                    data.AddRange(Converter.GcBytes((UInt32)replacementSfxList[i]));
+                }
+                replacementCount = replacementSfxList.Count;
+            }
+            SeedHeaderRaw.sfxInfoNumEntries = (byte)replacementCount;
+
+            return data;
+        }
 
         private List<byte> GenerateBmg0SectionData(CustomMsgData customMsgData)
         {
@@ -2452,20 +3021,20 @@ namespace TPRandomizer.Assets
             switch (Randomizer.SSettings.startingToD)
             {
                 case StartingToD.Morning:
-                {
-                    time = "700F"; // Set time to 105
-                    break;
-                }
+                    {
+                        time = "700F"; // Set time to 105
+                        break;
+                    }
                 case StartingToD.Noon:
-                {
-                    time = "C00F"; // Set time to 180
-                    break;
-                }
+                    {
+                        time = "C00F"; // Set time to 180
+                        break;
+                    }
                 case StartingToD.Night:
-                {
-                    time = "000F"; // Set time to 0
-                    break;
-                }
+                    {
+                        time = "000F"; // Set time to 0
+                        break;
+                    }
             }
             return time;
         }
@@ -2541,16 +3110,6 @@ namespace TPRandomizer.Assets
             public UInt32 msgTableSize { get; set; }
             public UInt32 msgIdTableOffset { get; set; }
         }
-    }
-
-    public class BgmHeader
-    {
-        public UInt16 bgmTableSize { get; set; }
-        public UInt16 fanfareTableSize { get; set; }
-        public UInt16 bgmTableOffset { get; set; }
-        public UInt16 fanfareTableOffset { get; set; }
-        public byte bgmTableNumEntries { get; set; }
-        public byte fanfareTableNumEntries { get; set; }
     }
 
     public class ARCReplacement

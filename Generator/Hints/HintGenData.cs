@@ -167,6 +167,10 @@ namespace TPRandomizer.Hints
             if (!sSettings.skipArbitersEntrance)
                 itemSet.Add(Item.Gerudo_Desert_Bulblin_Camp_Key);
 
+            // Note: Coro's key should be handled by starting items with keysy
+            // as well I think. Will be updating all of this logic with the
+            // better algorithm in a few weeks. - isaac
+
             // Add all of the dungeon stuff.
 
             bool bigKeysPreventBarren =
@@ -318,8 +322,11 @@ namespace TPRandomizer.Hints
 
             // Can address this more when work is done around shop prices
             if (
-                !HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor")
-                && !sSettings.increaseWallet
+                sSettings.walletSize == WalletSize.Reduced
+                || (
+                    !HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor")
+                    && (sSettings.walletSize <= WalletSize.HD)
+                )
             )
                 itemSet.Add(Item.Progressive_Wallet);
 
@@ -480,6 +487,7 @@ namespace TPRandomizer.Hints
                     // __Other__
                     { Item.Shadow_Crystal, 1 },
                     { Item.Gate_Keys, 1 },
+                    { Item.Faron_Woods_Coro_Key, 1 },
                     { Item.North_Faron_Woods_Gate_Key, 1 },
                     { Item.Gerudo_Desert_Bulblin_Camp_Key, 1 },
                     { Item.Progressive_Fused_Shadow, 3 },
@@ -488,11 +496,17 @@ namespace TPRandomizer.Hints
 
             // Currently, wallets can only matter for the Magic Armor check, and
             // getting the largest wallet never matters.
-            if (
-                !HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor")
-                && !sSettings.increaseWallet
-            )
-                itemToProgCount[Item.Progressive_Wallet] = 1;
+            if (!HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor"))
+            {
+                if (sSettings.walletSize == WalletSize.Vanilla)
+                {
+                    itemToProgCount[Item.Progressive_Wallet] = 1;
+                }
+                else if (sSettings.walletSize == WalletSize.Reduced)
+                {
+                    itemToProgCount[Item.Progressive_Wallet] = 2;
+                }
+            }
 
             Dictionary<Item, int> itemToInflexibleCount = new();
             foreach (string checkName in requiredChecks)

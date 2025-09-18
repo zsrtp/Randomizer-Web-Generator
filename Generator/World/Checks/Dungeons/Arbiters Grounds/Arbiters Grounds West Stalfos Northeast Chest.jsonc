@@ -1,7 +1,7 @@
 {
-  "requirements": "canBreakWoodenDoor and (Arbiters_Grounds_Small_Key, 4) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat",
+  "requirements": "CanBreakWoodenDoor and (Arbiters_Grounds_Small_Key, 4) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat",
   // Either coming from East Wing or doing Poe 1 Skip LJA
-  "glitchedRequirements": "canBreakWoodenDoor and (((Arbiters_Grounds_Small_Key, 4) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat) or CanDoLJA)",
+  "glitchedRequirements": "CanBreakWoodenDoor and (((Arbiters_Grounds_Small_Key, 4) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat) or CanDoLJA)",
   "checkCategory": [ "Chest", "Dungeon", "Arbiters Grounds" ],
   "itemId": "Bombs_5"
 }

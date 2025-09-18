@@ -37,7 +37,8 @@ namespace TPRandomizer
         public bool fastIronBoots { get; set; }
         public bool quickTransform { get; set; }
         public bool transformAnywhere { get; set; }
-        public bool increaseWallet { get; set; }
+        public WalletSize walletSize { get; set; }
+        public bool autoFillWallet { get; set; }
         public bool modifyShopModels { get; set; }
         public TrapFrequency trapFrequency { get; set; }
         public bool barrenDungeons { get; set; }
@@ -58,11 +59,23 @@ namespace TPRandomizer
         public bool increaseSpinnerSpeed { get; set; }
         public bool openDot { get; set; }
         public bool noSmallKeysOnBosses { get; set; }
+        public bool gmShortcut { get; set; }
         public bool hcShortcut { get; set; }
         public StartingToD startingToD { get; set; }
         public HintDistribution hintDistribution { get; set; }
         public bool randomizeStartingPoint { get; set; }
-        public bool shuffleRupees { get; set; }
+        public bool shuffleHiddenRupees { get; set; }
+        public IliaQuest iliaQuest { get; set; }
+        public MirrorChamberEntrance mirrorChamberEntrance { get; set; }
+        public DungeonER shuffleDungeonEntrances { get; set; }
+        public bool unpairEntrances { get; set; }
+        public bool decoupleEntrances { get; set; }
+        public bool shuffleFreestandingRupees { get; set; }
+        public int castleRequirementCount { get; set; }
+        public CastleBKRequirements castleBKRequirements { get; set; }
+        public int castleBKRequirementCount { get; set; }
+        public bool skipBridgeDonation { get; set; }
+        public int maloShopDonation { get; set; }
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
         public List<(string, Item)> plandoChecks { get; set; }
@@ -95,7 +108,7 @@ namespace TPRandomizer
             fastIronBoots = processor.NextBool();
             quickTransform = processor.NextBool();
             transformAnywhere = processor.NextBool();
-            increaseWallet = processor.NextBool();
+            walletSize = (WalletSize)processor.NextInt(2);
             modifyShopModels = processor.NextBool();
             trapFrequency = (TrapFrequency)processor.NextInt(3);
             barrenDungeons = processor.NextBool();
@@ -119,8 +132,21 @@ namespace TPRandomizer
             startingToD = (StartingToD)processor.NextInt(3);
             hintDistribution = (HintDistribution)processor.NextInt(5);
             randomizeStartingPoint = processor.NextBool();
-            shuffleRupees = processor.NextBool();
+            shuffleHiddenRupees = processor.NextBool();
+            gmShortcut = processor.NextBool();
             hcShortcut = processor.NextBool();
+            iliaQuest = (IliaQuest)processor.NextInt(3);
+            mirrorChamberEntrance = (MirrorChamberEntrance)processor.NextInt(2);
+            shuffleDungeonEntrances = (DungeonER)processor.NextInt(2);
+            unpairEntrances = processor.NextBool();
+            decoupleEntrances = processor.NextBool();
+            shuffleFreestandingRupees = processor.NextBool();
+            castleRequirementCount = processor.NextInt(6);
+            castleBKRequirements = (CastleBKRequirements)processor.NextInt(3);
+            castleBKRequirementCount = processor.NextInt(6);
+            autoFillWallet = processor.NextBool();
+            skipBridgeDonation = processor.NextBool();
+            maloShopDonation = processor.NextInt(11);
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();

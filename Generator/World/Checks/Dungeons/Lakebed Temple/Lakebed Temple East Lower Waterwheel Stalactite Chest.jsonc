@@ -1,6 +1,6 @@
 {
-    "requirements": "canLaunchBombs",
-    "glitchedRequirements": "canLaunchBombs or CanDoLJA",
+    "requirements": "CanLaunchBombs",
+    "glitchedRequirements": "CanLaunchBombs or CanDoLJA",
     "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "Small Key"],
     "itemId": "Lakebed_Temple_Small_Key"
 }

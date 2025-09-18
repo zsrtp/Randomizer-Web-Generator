@@ -261,8 +261,6 @@ namespace TPRandomizer
                 "Mirror Chamber Lower",
                 "Mirror Chamber Upper",
                 "Mirror Chamber Portal",
-                "Ordon Spring",
-                "Ordon Bridge",
             };
 
         public static List<string> OrdonaMapRooms =
@@ -322,13 +320,21 @@ namespace TPRandomizer
                 "Death Mountain Outside Sumo Hall",
                 "Death Mountain Elevator Lower",
                 "Eldin Field",
-                "Eldin Field Near Castle Town",
                 "Eldin Field Lava Cave Ledge",
                 "Eldin Field From Lava Cave Lower",
-                "North Eldin Field",
-                "Eldin Field Outside Hidden Village",
-                "Eldin Field Grotto Platform",
-                "Hidden Village",
+                // Note that the rooms listed below do not unlock Eldin Province
+                // on their own. When approaching from Lanayru Province, you
+                // must be able to enter a room listed above in order to unlock
+                // Eldin warping (by either destroying the North Eldin rocks,
+                // approaching from the north when the rocks are already
+                // destroyed, or entering from CT when the bridge is already
+                // repaired).
+
+                // "Eldin Field Near Castle Town",
+                // "North Eldin Field",
+                // "Eldin Field Grotto Platform",
+                // "Outside Hidden Village",
+                // "Hidden Village",
             };
 
         public static List<string> LanayruMapRooms =
@@ -389,6 +395,19 @@ namespace TPRandomizer
                 "Mirror Chamber Lower",
                 "Mirror Chamber Upper",
                 "Mirror Chamber Portal",
+            };
+
+        public static List<string> DungeonNames =
+            new()
+            {
+                "Forest Temple",
+                "Goron Mines",
+                "Lakebed Temple",
+                "Arbiters Grounds",
+                "Snowpeak Ruins",
+                "Temple of Time",
+                "City in The Sky",
+                "Palace of Twilight"
             };
 
         /// <summary>

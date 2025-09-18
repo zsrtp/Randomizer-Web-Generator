@@ -5,8 +5,8 @@
     [
       {
         "ConnectedArea": "Upper Kakariko Village",
-        "Requirements": "((canCompleteGoronMines and CanChangeTime) or canSmash) and CanCompleteEldinTwilight",
-        "GlitchedRequirements": "((canCompleteGoronMines and CanChangeTime) or canSmash) and CanCompleteEldinTwilight"
+        "Requirements": "((CanCompleteGoronMines and CanChangeTime) or CanSmash) and CanCompleteEldinTwilight",
+        "GlitchedRequirements": "((CanCompleteGoronMines and CanChangeTime) or CanSmash) and CanCompleteEldinTwilight"
       },
       {
         "ConnectedArea": "Kakariko Village Behind Gate",
@@ -99,8 +99,8 @@
       },
       {
         "ConnectedArea": "Kakariko Top of Watchtower",
-        "Requirements": "canCompleteGoronMines and CanChangeTime and CanCompleteEldinTwilight",
-        "GlitchedRequirements": "canCompleteGoronMines and CanChangeTime and CanCompleteEldinTwilight"
+        "Requirements": "CanCompleteGoronMines and CanChangeTime and CanCompleteEldinTwilight",
+        "GlitchedRequirements": "CanCompleteGoronMines and CanChangeTime and CanCompleteEldinTwilight"
       },
       {
         "ConnectedArea": "Kakariko Barnes Bomb Shop Upper",
@@ -554,7 +554,7 @@
       {
         "ConnectedArea": "Lake Hylia",
         "Requirements": "Gate_Keys and (Iron_Boots or Zora_Armor) and CanUseWaterBombs and CanCompleteEldinTwilight",
-        "GlitchedRequirements": "(HasHeavyMod and CanUseWaterBombs and Gate_Keys and CanCompleteEldinTwilight) or ((HasHeavyMod or Zora_Armor) and ((hasBombs and (HasSword or Spinner)) or CanDoLJA or CanDoMoonBoots))"
+        "GlitchedRequirements": "(HasHeavyMod and CanUseWaterBombs and Gate_Keys and CanCompleteEldinTwilight) or ((HasHeavyMod or Zora_Armor) and ((HasBombs and (HasSword or Spinner)) or CanDoLJA or CanDoMoonBoots))"
       }
     ],
     "Checks":

@@ -1,6 +1,6 @@
 {
-    "requirements": "CanDefeatArmos and hasRangedItem",
-    "glitchedRequirements": "CanDefeatArmos and hasRangedItem",
+    "requirements": "CanDefeatArmos and HasRangedItem",
+    "glitchedRequirements": "CanDefeatArmos and HasRangedItem",
     "checkCategory": ["Chest", "Dungeon", "Temple of Time", "Dungeon Items", "Dungeon Map"],
     "itemId": "Temple_of_Time_Dungeon_Map"
 }

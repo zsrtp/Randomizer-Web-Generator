@@ -185,6 +185,22 @@ namespace TPRandomizer.Hints
                         "Ordon Shield",
                         "Ordon Spring Golden Wolf",
                         "Ordon Sword",
+                        "Ordon Bo Cliff Rupee",
+                        "Ordon Bo Roof Rupee",
+                        "Ordon Bo Window Rupee 1",
+                        "Ordon Bo Window Rupee 2",
+                        "Ordon Hidden Rusl House Rupee",
+                        "Ordon Rupee In Grass By Bo",
+                        "Ordon Rupee In River 1",
+                        "Ordon Rupee In River 2",
+                        "Ordon Rupee Under Bridge",
+                        "Ordon Rupee Under Tall Tree 1",
+                        "Ordon Rupee Under Tall Tree 2",
+                        "Ordon Rusl House Roof Rupee 1",
+                        "Ordon Rusl House Roof Rupee 2",
+                        "Ordon Shield House Ledge Grass Rupee",
+                        "Ordon Tree Long Branch Rupee",
+                        "Ordon Tree Short Branch Rupee",
                         "Sera Shop Slingshot",
                         "Uli Cradle Delivery",
                         "Wooden Sword Chest",
@@ -240,7 +256,11 @@ namespace TPRandomizer.Hints
                         "Faron Woods Owl Statue Chest",
                         "Faron Woods Owl Statue Sky Character",
                         "North Faron Woods Deku Baba Chest",
-                        "South Faron Cave Chest"
+                        "South Faron Cave Chest",
+                        "Faron Woods Coro Boulder Rupee 1",
+                        "Faron Woods Coro Boulder Rupee 2",
+                        "Faron Woods Coro Boulder Rupee 3",
+                        "Faron Woods Coro Boulder Rupee 4"
                     }
                 },
                 {
@@ -281,7 +301,7 @@ namespace TPRandomizer.Hints
                         "Renados Letter",
                         "Talo Sharpshooting",
                         "Kakariko Village Bell Rupee",
-                        "Shad Dominion Rod",
+                        "Shad Dominion Rod"
                     }
                 },
                 {
@@ -519,7 +539,22 @@ namespace TPRandomizer.Hints
                         "Zoras Domain Male Dragonfly",
                         "Zoras Domain Mother and Child Isle Poe",
                         "Zoras Domain Underwater Goron",
-                        "Zoras Domain Waterfall Poe"
+                        "Zoras Domain Waterfall Poe",
+                        "Zoras Domain Behind Waterfall Rupee",
+                        "Zoras Domain Central Underwater Boulder Rupee",
+                        "Zoras Domain North Underwater Boulder Rupee",
+                        "Zoras Domain Shortcut Ledge Rupee",
+                        "Zoras Domain Shortcut Lower Boulder Rupee",
+                        "Zoras Domain Shortcut Upper Boulder Rupee",
+                        "Zoras Domain Throne East Gate Underwater Rupee",
+                        "Zoras Domain Throne East Underwater Rupee",
+                        "Zoras Domain Throne Northwest Underwater Rupee",
+                        "Zoras Domain Throne South Underwater Rupee",
+                        "Zoras Domain Throne West Gate Underwater Rupee",
+                        "Zoras Domain Throne West Underwater Rupee",
+                        "Zoras Domain Top Ledge Rupee",
+                        "Zoras Domain Vine Ledge Rupee",
+                        "Zoras Domain Waterfall Ledge Rupee",
                     }
                 },
                 {
@@ -531,7 +566,11 @@ namespace TPRandomizer.Hints
                         "Iza Helping Hand",
                         "Iza Raging Rapids Minigame",
                         "Upper Zoras River Female Dragonfly",
-                        "Upper Zoras River Poe"
+                        "Upper Zoras River Poe",
+                        "Upper Zoras River East Underwater Boulder Rupee",
+                        "Upper Zoras River Central Underwater Boulder Rupee",
+                        "Upper Zoras River South Underwater Boulder Rupee",
+                        "Upper Zoras River Ledge Boulder Rupee",
                     }
                 },
                 {

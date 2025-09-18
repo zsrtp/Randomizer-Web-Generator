@@ -1,0 +1,6 @@
+{
+    "requirements": "CanCompleteLanayruTwilight and Iron_Boots and CanUseWaterBombs",
+    "glitchedRequirements": "CanCompleteLanayruTwilight and Iron_Boots and CanUseWaterBombs",
+    "checkCategory": [ "Overworld", "Zoras Domain", "Rupee - Hidden" ],
+    "itemId": "Blue_Rupee"
+  }

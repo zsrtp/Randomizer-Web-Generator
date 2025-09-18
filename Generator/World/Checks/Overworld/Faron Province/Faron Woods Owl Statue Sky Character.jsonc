@@ -1,6 +1,6 @@
 {
-  "requirements": "canClearForest and (Progressive_Dominion_Rod, 2)",
-  "glitchedRequirements": "(Progressive_Dominion_Rod, 2) and (CanDoMapGlitch or (canSmash and canClearForest))",
+  "requirements": "CanClearForest and (Progressive_Dominion_Rod, 2)",
+  "glitchedRequirements": "(Progressive_Dominion_Rod, 2) and (CanDoMapGlitch or (CanSmash and CanClearForest))",
   "checkCategory": [ "Overworld", "Faron Woods", "Sky Book" ],
   "itemId": "Progressive_Sky_Book"
 }

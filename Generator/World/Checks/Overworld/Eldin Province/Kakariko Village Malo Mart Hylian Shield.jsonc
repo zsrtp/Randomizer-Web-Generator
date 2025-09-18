@@ -1,6 +1,6 @@
 {
-    "requirements": "CanCompleteEldinTwilight",
-    "glitchedRequirements": "CanCompleteEldinTwilight",
+    "requirements": "CanCompleteEldinTwilight and ((Setting.walletSize not_equal Reduced) or Progressive_Wallet)",
+    "glitchedRequirements": "CanCompleteEldinTwilight and ((Setting.walletSize not_equal Reduced) or Progressive_Wallet)",
     "checkCategory": ["Overworld", "Kakariko Village", "Shop"],
     "itemId": "Hylian_Shield"
 }

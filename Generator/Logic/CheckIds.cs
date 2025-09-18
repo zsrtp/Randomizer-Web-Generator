@@ -3,6 +3,7 @@ namespace TPRandomizer
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using TPRandomizer.Util;
 
     public class CheckIdClass
     {
@@ -564,6 +565,45 @@ namespace TPRandomizer
                 "Coro Lantern",
                 "Coro Gate Key",
                 "Shad Dominion Rod",
+                "Faron Woods Coro Boulder Rupee 1",
+                "Faron Woods Coro Boulder Rupee 2",
+                "Faron Woods Coro Boulder Rupee 3",
+                "Faron Woods Coro Boulder Rupee 4",
+                "Ordon Bo Cliff Rupee",
+                "Ordon Bo Roof Rupee",
+                "Ordon Bo Window Rupee 1",
+                "Ordon Bo Window Rupee 2",
+                "Ordon Hidden Rusl House Rupee",
+                "Ordon Rupee In Grass By Bo",
+                "Ordon Rupee In River 1",
+                "Ordon Rupee In River 2",
+                "Ordon Rupee Under Bridge",
+                "Ordon Rupee Under Tall Tree 1",
+                "Ordon Rupee Under Tall Tree 2",
+                "Ordon Rusl House Roof Rupee 1",
+                "Ordon Rusl House Roof Rupee 2",
+                "Ordon Shield House Ledge Grass Rupee",
+                "Ordon Tree Long Branch Rupee",
+                "Ordon Tree Short Branch Rupee",
+                "Zoras Domain Behind Waterfall Rupee",
+                "Zoras Domain Central Underwater Boulder Rupee",
+                "Zoras Domain North Underwater Boulder Rupee",
+                "Zoras Domain Shortcut Ledge Rupee",
+                "Zoras Domain Shortcut Lower Boulder Rupee",
+                "Zoras Domain Shortcut Upper Boulder Rupee",
+                "Zoras Domain Throne East Gate Underwater Rupee",
+                "Zoras Domain Throne East Underwater Rupee",
+                "Zoras Domain Throne Northwest Underwater Rupee",
+                "Zoras Domain Throne South Underwater Rupee",
+                "Zoras Domain Throne West Gate Underwater Rupee",
+                "Zoras Domain Throne West Underwater Rupee",
+                "Zoras Domain Top Ledge Rupee",
+                "Zoras Domain Vine Ledge Rupee",
+                "Zoras Domain Waterfall Ledge Rupee",
+                "Upper Zoras River East Underwater Boulder Rupee",
+                "Upper Zoras River Central Underwater Boulder Rupee",
+                "Upper Zoras River South Underwater Boulder Rupee",
+                "Upper Zoras River Ledge Boulder Rupee",
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.
@@ -663,6 +703,14 @@ namespace TPRandomizer
             }
 
             return nameToIdNum;
+        }
+
+        public static bool GetIsHideFromUiCheckName(string checkName)
+        {
+            if (StringUtils.isEmpty(checkName))
+                throw new Exception($"checkName was empty.");
+
+            return hideFromUiCheckNames.Contains(checkName);
         }
     }
 }

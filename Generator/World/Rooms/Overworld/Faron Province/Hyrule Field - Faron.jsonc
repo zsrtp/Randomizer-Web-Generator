@@ -5,7 +5,7 @@
     [
       {
         "ConnectedArea": "Faron Field Behind Boulder",
-        "Requirements": "canGetHotSpringWater and Room.Outside_Castle_Town_South",
+        "Requirements": "CanGetHotSpringWater and Room.Outside_Castle_Town_South",
         "GlitchedRequirements": "Room.Castle_Town_South and HasBottle and Room.Outside_Castle_Town_South"
       },
       {
@@ -50,8 +50,8 @@
     [
       {
         "ConnectedArea": "Faron Field",
-        "Requirements": "canGetHotSpringWater and Room.Outside_Castle_Town_South",
-        "GlitchedRequirements": "canGetHotSpringWater and HasBottle and Room.Outside_Castle_Town_South"
+        "Requirements": "CanGetHotSpringWater and Room.Outside_Castle_Town_South",
+        "GlitchedRequirements": "CanGetHotSpringWater and HasBottle and Room.Outside_Castle_Town_South"
       },
       {
          // If you enter Outside Castle Town from there while the boulder is still there, you get stuck and are forced to save-warp or portal-warp.

@@ -3,6 +3,285 @@ const $ = window.$;
 let userJwt;
 let generateCallInProgress = false;
 
+const presetsMgr = (function () {
+  const SYSTEM_PRESETS = [
+    {
+      name: 'Default',
+      origSettingsStr: '6s1M9m000201W21600109z3__-',
+      description:
+        'Aimed towards players who may have played the vanilla game but are not as familiar with the world. No timesavers are enabled and only the absolute minimum amount of checks are randomized.',
+    },
+    {
+      name: 'Easy',
+      origSettingsStr: '6s1M9m80W201W21701109z3__-',
+      description:
+        'Aimed towards players who are familiar with randomizers and want a little more randomness. Many of the story timesavers are skipped and the world is much more random. A number of time-intensive checks are excluded.',
+    },
+    {
+      name: 'Experienced',
+      origSettingsStr: '6s1M3m80W201W21701109z3__-',
+      description:
+        'These settings are aimed towards players who have a lot of seeds under their belt and are looking for a new challenge. A majority of timesavers are enabled, all check types are randomized, and no checks are excluded.',
+    },
+    {
+      name: 'Nightmare',
+      origSettingsStr: '6s1M9m000201W21600109z3__-',
+      description:
+        'These settings are designed to cause pain. Everything is randomized and settings such as One-Hit-KO, Bonks Do Damage, and Nightmare trap items are enabled. These seeds rely on glitchless logic to be beatable. Good luck.',
+    },
+    {
+      name: 'Nightmare²',
+      origSettingsStr: '6s1M9m000201W21600109z3__-',
+      description:
+        'Was the previous Nightmare setting too easy for you? These settings take things to the next level by setting the logical requirements to Glitched.',
+    },
+    {
+      name: 'Bingo',
+      origSettingsStr: '6s1M9m000201W21600109z3__-',
+      description: '',
+    },
+    {
+      name: 'Glitched',
+      origSettingsStr: '6s1M9m000201W21600109z3__-',
+      description: '',
+    },
+    {
+      name: 'No Logic',
+      origSettingsStr: '',
+      description: '',
+    },
+    {
+      name: 'Season 1',
+      origSettingsStr:
+        '5sQ3g2kPC_-CfeJ8HaX7cJny-NoYqQZKQc7IwNIwNIwN0u70u70u70u70u70u70u71_qwFLTZK61gbCq2Z80-pphmuHTHbBB1BaDknYf_AxydhLmPgSZZbUoyNT5KTnKnI8b6WSbx66LYROE-5GjUYcccP9CNGx20M_b6WAXskPHcrbw8PUjs-vEAKmKvfKLWdIa4eJUDhKdJMGx1QMhM69tq6YE6yvHGff3dsMtKCbWX_m',
+      description: '',
+    },
+  ];
+
+  let inited = false;
+  let customByName = {};
+
+  function init() {
+    if (inited) {
+      return;
+    }
+    inited = true;
+
+    try {
+      const str = localStorage.getItem('customSettingsPresets');
+      if (str != null) {
+        const byName = JSON.parse(str);
+        Object.keys(byName).forEach((key) => {
+          const obj = byName[key];
+          // Only retrieve objects which have expected properties, and only
+          // retrive expected properties.
+          if (obj.name && obj.origSettingsStr) {
+            customByName[key] = {
+              name: obj.name,
+              description: obj.description,
+              origSettingsStr: obj.origSettingsStr,
+              origCommit: obj.origCommit,
+              latestSettingsStr: obj.latestSettingsStr,
+            };
+          }
+        });
+      }
+    } catch (e) {
+      console.error(
+        'Failed to retrieve customSettingsPresets from localStorage.'
+      );
+      console.error(e);
+    }
+  }
+
+  function getPresetsByType() {
+    return {
+      system: SYSTEM_PRESETS,
+      custom: Object.values(customByName).sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      }),
+    };
+  }
+
+  function isNameTaken(name) {
+    if (customByName[name]) {
+      return 'custom';
+    }
+    for (let i = 0; i < SYSTEM_PRESETS.length; i++) {
+      const systemPreset = SYSTEM_PRESETS[i];
+      if (systemPreset.name === name) {
+        return 'system';
+      }
+    }
+    return '';
+  }
+
+  function savePreset({
+    name,
+    description,
+    origSettingsStr,
+    origCommit,
+    latestSettingsStr,
+  }) {
+    customByName[name] = {
+      name,
+      description,
+      origSettingsStr,
+      origCommit,
+      latestSettingsStr,
+    };
+
+    // Try to write to localStorage
+    try {
+      localStorage.setItem(
+        'customSettingsPresets',
+        JSON.stringify(customByName)
+      );
+    } catch (e) {
+      console.error('Could not save custom settings to localStorage.');
+      console.error(e);
+      return false;
+    }
+
+    return true;
+  }
+
+  function renamePreset(oldName, newName) {
+    const presetObj = customByName[oldName];
+    if (!presetObj) {
+      return 'Did not find existing preset to edit.';
+    }
+
+    // Note: once we can edit description, it is possible that the newName will
+    // match the old name, so it is fine if these match. Otherwise, the new name
+    // should not match any preset names.
+    if (oldName !== newName && isNameTaken(newName)) {
+      if (presetTakenResult === 'custom') {
+        return 'A custom preset with this name already exists.';
+      } else {
+        return 'A system preset with this name already exists.';
+      }
+    }
+
+    // Filter out oldName when creating newCustomByName obj.
+    let newCustomByName = {};
+    const keys = Object.keys(customByName);
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      if (key !== oldName) {
+        newCustomByName[key] = customByName[key];
+      }
+    }
+    newCustomByName[newName] = { ...presetObj, name: newName };
+
+    // Try to write to localStorage
+    try {
+      localStorage.setItem(
+        'customSettingsPresets',
+        JSON.stringify(newCustomByName)
+      );
+      customByName = newCustomByName;
+    } catch (e) {
+      const msg = 'Could not save custom settings to localStorage during edit.';
+      console.error(msg);
+      console.error(e);
+      return msg;
+    }
+
+    return '';
+  }
+
+  function deletePreset(name) {
+    if (!customByName[name]) {
+      return 'Did not find preset to delete.';
+    }
+
+    // Filter out name when creating newCustomByName obj.
+    let newCustomByName = {};
+    const keys = Object.keys(customByName);
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      if (key !== name) {
+        newCustomByName[key] = customByName[key];
+      }
+    }
+
+    // Try to write to localStorage
+    try {
+      localStorage.setItem(
+        'customSettingsPresets',
+        JSON.stringify(newCustomByName)
+      );
+      customByName = newCustomByName;
+    } catch (e) {
+      const msg =
+        'Could not save custom settings to localStorage during delete.';
+      console.error(msg);
+      console.error(e);
+      return msg;
+    }
+
+    return '';
+  }
+
+  function loadSettings(name) {
+    let settingsStr = '';
+
+    if (customByName[name]) {
+      settingsStr = customByName[name].origSettingsStr;
+    } else {
+      for (let i = 0; i < SYSTEM_PRESETS.length; i++) {
+        const systemPreset = SYSTEM_PRESETS[i];
+        if (systemPreset.name === name) {
+          settingsStr = systemPreset.origSettingsStr;
+        }
+      }
+    }
+
+    if (!settingsStr) {
+      const msg = 'Settings string was empty.';
+      console.error(msg);
+      return msg;
+    }
+
+    const error = populateFromSettingsString(settingsStr);
+    return error;
+  }
+
+  function getDebugStr() {
+    return new Promise((resolve) => {
+      try {
+        const str = localStorage.getItem('customSettingsPresets');
+        navigator.clipboard.writeText(str).then(
+          () => {
+            resolve('');
+          },
+          (err) => {
+            resolve('Failed to copy');
+          }
+        );
+        return '';
+      } catch (e) {
+        const msg = 'Failed to create presets debug string.';
+        console.error(msg);
+        console.error(e);
+        resolve(msg);
+      }
+    });
+  }
+
+  return {
+    init,
+    getPresetsByType,
+    isNameTaken,
+    savePreset,
+    renamePreset,
+    deletePreset,
+    loadSettings,
+    getDebugStr,
+  };
+})();
+
 function normalizeStringToMax128Bytes(inputStr, doTrims) {
   // substring to save lodash some work potentially. 256 because some
   // characters like emojis have length 2, and we want to leave at least 128
@@ -119,15 +398,25 @@ function onDomContentLoaded() {
   initDevFooter();
 
   initTabButtons();
+  presetsMgr.init();
 
   // Set default settings string in UI.
-  setSettingsString();
+  const defaultSettingsString = setSettingsString();
+  setDungeonERSettings();
+  setOverworldERSettings();
   // If returning back from the seed page, the browser will fill in the state.
   // This updates the string after the browser updates all of the fields to
   // their previous values.
   window.addEventListener('load', setSettingsString, { once: true });
 
+  // Hide the load string button if no strings are saved in local storage.
+  if (!localStorage.getItem('settingsString')) {
+    $('#loadString').hide();
+  }
+
   initSettingsModal();
+  initManagePresetsModal();
+  initSavePresetModal();
   initGeneratingModal();
 
   document.getElementById('seed').addEventListener('input', (e) => {
@@ -142,6 +431,8 @@ function onDomContentLoaded() {
 
   $('#plandoCheckSelect').select2();
   $('#plandoItemSelect').select2();
+
+  updatePresetsSelect();
 }
 
 function buildPlandoListItemElStr(checkId, checkName, itemId, itemName) {
@@ -282,7 +573,7 @@ document.getElementById('logicRulesFieldset').onchange = setSettingsString;
 document.getElementById('gameRegionFieldset').onchange = setSettingsString;
 document.getElementById('seedNumberFieldset').onchange = setSettingsString;
 document.getElementById('castleRequirementsFieldset').onchange =
-  setSettingsString;
+  setCastleRequirementsSettings;
 document.getElementById('palaceRequirementsFieldset').onchange =
   setSettingsString;
 document.getElementById('faronLogicFieldset').onchange = setSettingsString;
@@ -312,7 +603,10 @@ document
   .getElementById('hiddenSkillsCheckbox')
   .addEventListener('click', setSettingsString);
 document
-  .getElementById('rupeeCheckbox')
+  .getElementById('hiddenRupeeCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('gmShortcutCheckbox')
   .addEventListener('click', setSettingsString);
 document
   .getElementById('hcShortcutCheckbox')
@@ -381,9 +675,7 @@ document
 document
   .getElementById('openDotCheckbox')
   .addEventListener('click', setSettingsString);
-document
-  .getElementById('increaseWalletCheckbox')
-  .addEventListener('click', setSettingsString);
+document.getElementById('walletSizeFieldset').onchange = setSettingsString;
 document
   .getElementById('modifyShopModelsCheckbox')
   .addEventListener('click', setSettingsString);
@@ -398,13 +690,227 @@ document
   .addEventListener('click', setSettingsString);
 document
   .getElementById('randomizeStartingPointCheckbox')
+  .addEventListener('click', setOverworldERSettings);
+document.getElementById('iliaQuestFieldset').onchange = setSettingsString;
+document.getElementById('mirrorChamberFieldset').onchange = setSettingsString;
+document.getElementById('dungeonERFieldset').onchange = setDungeonERSettings;
+document
+  .getElementById('unpairedEntrancesCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('decoupleEntrancesCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('freestandingRupeeCheckbox')
   .addEventListener('click', setSettingsString);
 document
   .getElementById('importSettingsStringButton')
   .addEventListener('click', importSettingsString);
 
+document.getElementById('castleRequirementsSlider').oninput =
+  setCastleRequirementsValue;
+document.getElementById('castleBKRequirementsFieldset').onchange =
+  setCastleBKRequirementsSettings;
+document.getElementById('castleBKRequirementsSlider').oninput =
+  setCastleBKRequirementsValue;
+
+document
+  .getElementById('autoFillWalletCheckbox')
+  .addEventListener('click', setSettingsString);
+
+document
+  .getElementById('skipBridgeDonationCheckbox')
+  .addEventListener('click', setSettingsString);
+
+document.getElementById('maloShopDonationSlider').oninput =
+  setMaloShopDonationValue;
+
 function importSettingsString() {
   parseSettingsString(document.getElementById('settingsStringTextbox').value);
+}
+
+function setCastleRequirementsSettings() {
+  var reqs = document.getElementById('castleRequirementsFieldset').value;
+  let sliderName = 'castleRequirementsSlider';
+
+  document.getElementById(sliderName).min = 1;
+  document.getElementById(sliderName).value = 1;
+
+  // Hide the slider info if we are not using an option that uses it
+  if (reqs == '0' || reqs == '4') {
+    document.getElementById(sliderName).hidden = true;
+    document.getElementById(sliderName + 'Label').hidden = true;
+    document.getElementById(sliderName + 'Output').hidden = true;
+  } else {
+    document.getElementById(sliderName).hidden = false;
+    document.getElementById(sliderName + 'Label').hidden = false;
+    document.getElementById(sliderName + 'Output').hidden = false;
+  }
+
+  switch (reqs) {
+    case '1': {
+      // Fused Shadows
+      document.getElementById(sliderName).max = 3;
+      document.getElementById(sliderName + 'Label').innerHTML =
+        'Fused Shadows Required:';
+
+      break;
+    }
+    case '2': {
+      // Mirror Shards
+      document.getElementById(sliderName).max = 4;
+      document.getElementById(sliderName + 'Label').innerHTML =
+        'Mirror Shards Required:';
+
+      break;
+    }
+    case '3': {
+      // Dungeons
+      document.getElementById(sliderName).max = 8;
+      document.getElementById(sliderName + 'Label').innerHTML =
+        'Number of Dungeons Required:';
+
+      break;
+    }
+    case '5': {
+      // Poe Souls
+      document.getElementById(sliderName).max = 60;
+      document.getElementById(sliderName + 'Label').innerHTML =
+        'Poe Souls Required:';
+
+      break;
+    }
+    case '6': {
+      // Hearts
+      document.getElementById(sliderName).min = 4;
+      document.getElementById(sliderName).value = 4;
+      document.getElementById(sliderName).max = 20;
+      document.getElementById(sliderName + 'Label').innerHTML =
+        'Hearts Required:';
+
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+
+  document.getElementById(sliderName + 'Output').innerHTML =
+    document.getElementById(sliderName).value;
+  setSettingsString();
+}
+
+function setCastleRequirementsValue() {
+  document.getElementById('castleRequirementsSliderOutput').innerHTML =
+    document.getElementById('castleRequirementsSlider').value;
+  setSettingsString();
+}
+
+function setMaloShopDonationValue() {
+  document.getElementById('maloShopDonationSliderOutput').innerHTML =
+    document.getElementById('maloShopDonationSlider').value;
+  setSettingsString();
+}
+
+function setCastleBKRequirementsSettings() {
+  var reqs = document.getElementById('castleBKRequirementsFieldset').value;
+  let sliderName = 'castleBKRequirementsSlider';
+  document.getElementById(sliderName).min = 1;
+  document.getElementById(sliderName).value = 1;
+
+  // Hide the slider info if we are not using an option that uses it
+  if (reqs == '0') {
+    document.getElementById(sliderName).hidden = true;
+    document.getElementById(sliderName + 'Label').hidden = true;
+    document.getElementById(sliderName + 'Output').hidden = true;
+  } else {
+    document.getElementById(sliderName).hidden = false;
+    document.getElementById(sliderName + 'Label').hidden = false;
+    document.getElementById(sliderName + 'Output').hidden = false;
+  }
+
+  switch (reqs) {
+    case '1': {
+      // Fused Shadows
+      document.getElementById(sliderName).max = 3;
+      document.getElementById(sliderName + 'Label').innerHTML =
+        'Fused Shadows Required:';
+
+      break;
+    }
+    case '2': {
+      // Mirror Shards
+      document.getElementById(sliderName).max = 4;
+      document.getElementById(sliderName + 'Label').innerHTML =
+        'Mirror Shards Required:';
+
+      break;
+    }
+    case '3': {
+      // Dungeons
+      document.getElementById(sliderName).max = 8;
+      document.getElementById(sliderName + 'Label').innerHTML =
+        'Number of Dungeons Required:';
+
+      break;
+    }
+    case '4': {
+      // Poe Souls
+      document.getElementById(sliderName).max = 60;
+      document.getElementById(sliderName + 'Label').innerHTML =
+        'Poe Souls Required:';
+
+      break;
+    }
+    case '5': {
+      // Hearts
+      document.getElementById(sliderName).min = 4;
+      document.getElementById(sliderName).value = 4;
+      document.getElementById(sliderName).max = 20;
+      document.getElementById(sliderName + 'Label').innerHTML =
+        'Hearts Required:';
+
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+
+  document.getElementById(sliderName + 'Output').innerHTML =
+    document.getElementById(sliderName).value;
+  setSettingsString();
+}
+
+function setCastleBKRequirementsValue() {
+  document.getElementById('castleBKRequirementsSliderOutput').innerHTML =
+    document.getElementById('castleBKRequirementsSlider').value;
+  setSettingsString();
+}
+
+function setOverworldERSettings() {
+  var overworldEREnabled = document.getElementById(
+    'randomizeStartingPointCheckbox'
+  ).checked;
+  document.getElementById('introCheckbox').checked = overworldEREnabled;
+  document.getElementById('introCheckbox').disabled = overworldEREnabled;
+  setSettingsString();
+}
+
+function setDungeonERSettings() {
+  if (document.getElementById('dungeonERFieldset').value != 0) {
+    document.getElementById('mdhCheckbox').checked = true;
+    document.getElementById('mdhCheckbox').disabled = true;
+    document.getElementById('unpairedEntrancesCheckbox').disabled = false;
+    document.getElementById('decoupleEntrancesCheckbox').disabled = false;
+  } else {
+    document.getElementById('mdhCheckbox').disabled = false;
+    document.getElementById('unpairedEntrancesCheckbox').checked = false;
+    document.getElementById('decoupleEntrancesCheckbox').checked = false;
+    document.getElementById('unpairedEntrancesCheckbox').disabled = true;
+    document.getElementById('decoupleEntrancesCheckbox').disabled = true;
+  }
+  setSettingsString();
 }
 
 function setSettingsString() {
@@ -489,9 +995,8 @@ function setSettingsString() {
   ).checked;
   settingsStringRaw[27] =
     document.getElementById('seedNumberFieldset').selectedIndex;
-  settingsStringRaw[28] = document.getElementById(
-    'increaseWalletCheckbox'
-  ).checked;
+  settingsStringRaw[28] =
+    document.getElementById('walletSizeFieldset').selectedIndex;
   settingsStringRaw[29] = document.getElementById(
     'modifyShopModelsCheckbox'
   ).checked;
@@ -527,8 +1032,13 @@ function setSettingsString() {
   document.getElementById('settingsStringTextbox').textContent =
     getSettingsString(settingsStringRaw);
 
+  const combinedSettingsString = window.tpr.shared.genSSettingsFromUi();
   document.getElementById('combinedSettingsString').textContent =
-    window.tpr.shared.genSSettingsFromUi();
+    combinedSettingsString;
+
+  $('#presetsSelect').val('').trigger('change');
+
+  return combinedSettingsString;
 }
 
 function getSettingsString(settingsStringRaw) {
@@ -686,6 +1196,67 @@ var arrayOfSettingsItems = [
   'spinnerSpeedCheckbox',
   'openDotCheckbox',
 ];
+
+function saveSettingsString() {
+  const settingsString = $('#combinedSettingsString').text().trim();
+  const version = $('#envImageVersion').val();
+
+  if (!settingsString) {
+    console.warn('No settings string to save.');
+    return;
+  }
+
+  const payload = JSON.stringify({
+    settingsString,
+    version: version ?? null, // The explicit null check here is only for dev purposes. This should never happen in a production environment, and isn't a very critical feature anyways.
+  });
+
+  localStorage.setItem('settingsString', payload);
+
+  $('#loadString').show();
+}
+
+function loadSettingsString() {
+  const fieldErrorText = $('#loadFieldError');
+  const raw = localStorage.getItem('settingsString');
+
+  if (!raw) {
+    console.warn('No saved settings string.');
+    return;
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (e) {
+    console.warn('Corrupted settings string.');
+    localStorage.removeItem('settingsString');
+    return;
+  }
+
+  const { settingsString, version } = parsed;
+
+  const currentVersion = $('#envImageVersion').val();
+  if (version != currentVersion) {
+    fieldErrorText.text(
+      'Your setting string was saved on a previous version of the generator, rendering it incompatible with the current version. Your saved setting string will now be deleted.'
+    );
+    localStorage.removeItem('settingsString');
+    return;
+  }
+
+  const error = populateFromSettingsString(settingsString);
+  if (error) {
+    fieldErrorText
+      .text(
+        'Unable to understand the settings string saved in local storage. Please select new settings or enter a new settings string manually.'
+      )
+      .show();
+    return;
+  }
+
+  $('#combinedSettingsString').text(`${settingsString}`);
+}
 
 function parseSettingsString(settingsString) {
   settingsString = atob(settingsString);
@@ -941,6 +1512,19 @@ $('#generateRaceSeed').on('click', () => {
 });
 
 function initSettingsModal() {
+  $('#copySettingsBtn').on('click', function () {
+    const text = $('#combinedSettingsString').text().trim();
+    navigator.clipboard.writeText(text).then(
+      () => {
+        showPresetToast('Copied settings');
+      },
+      (err) => {
+        showPresetToast('Failed to copy', true);
+      }
+    );
+  });
+
+  // Init modal
   const modal = document.getElementById('myModal');
   const btn = document.getElementById('editSettingsBtn');
   const span = modal.querySelector('.modal-close');
@@ -1020,6 +1604,379 @@ function initSettingsModal() {
     .on('mouseup', function (e) {
       if (canHide && e.target === this) {
         $(modal).hide();
+      }
+    });
+}
+
+function validatePresetName(name) {
+  if (name.length < 1) {
+    return 'Name is required.';
+  } else if (name.length > 50) {
+    return 'Name must be at most 50 characters.';
+  } else {
+    const presetTakenResult = presetsMgr.isNameTaken(name);
+    if (presetTakenResult) {
+      if (presetTakenResult === 'custom') {
+        return 'A custom preset with this name already exists.';
+      } else {
+        return 'A system preset with this name already exists.';
+      }
+    }
+  }
+  return '';
+}
+
+function initManagePresetsModal() {
+  const modal = document.getElementById('managePresetsModal');
+  const $modal = $(modal);
+  const btn = document.getElementById('managePresets');
+  const span = modal.querySelector('.modal-close');
+  const $copySuccessText = $('#modalFieldCopiedText');
+  const fieldErrorText = document.getElementById('modalFieldError');
+  const input = document.getElementById('modalSettingsStringInput');
+  const $select = $('#managePresetsModal-selectPreset');
+  const $editBtn = $('#managePresetsModal-edit');
+  const $deleteBtn = $('#managePresetsModal-delete');
+  const $selectError = $('#managePresetsModal-selectError');
+  const $pageMain = $('#managePresetsModal-pageMain');
+  const $pageEdit = $('#managePresetsModal-pageEdit');
+  const $pageDelete = $('#managePresetsModal-pageDelete');
+  const nameInput = document.getElementById('managePresetsModal-nameInput');
+  const $nameInputError = $('#managePresetsModal-nameInputError');
+  const $editError = $('#managePresetsModal-editError');
+  const $deleteError = $('#managePresetsModal-deleteError');
+  const $mainDebugAlert = $('#managePresetsModal-mainDebugAlert');
+
+  let selectedPresetName = null;
+
+  function setPage(pageName) {
+    $mainDebugAlert.hide();
+    $pageMain.toggle(pageName === 'main');
+    $pageEdit.toggle(pageName === 'edit');
+    $pageDelete.toggle(pageName === 'delete');
+  }
+
+  function showPresetSelectError(msg) {
+    $selectError.text(msg).show();
+  }
+
+  $('#managePresetsModal-debug').on('click', () => {
+    $mainDebugAlert.hide();
+    presetsMgr.getDebugStr().then((errorMsg) => {
+      if (errorMsg) {
+        $mainDebugAlert.text(errorMsg);
+      } else {
+        $mainDebugAlert.text('Copied debug string.');
+      }
+
+      $mainDebugAlert
+        .toggleClass('alert-success-light', !errorMsg)
+        .toggleClass('alert-error-light', Boolean(errorMsg))
+        .show();
+    });
+  });
+
+  $editBtn.on('click', function () {
+    if (!selectedPresetName) {
+      showPresetSelectError('Select a preset');
+      return;
+    }
+
+    setPage('edit');
+    $('#managePresetsModal-editInfo').text(`Editing "${selectedPresetName}"`);
+    console.log(`selectedPresetName: "${selectedPresetName}"`);
+    nameInput.value = selectedPresetName;
+    nameInput.focus();
+    $nameInputError.hide();
+    $editError.hide();
+  });
+
+  nameInput.addEventListener('input', () => {
+    $nameInputError.hide();
+    $editError.hide();
+  });
+
+  $deleteBtn.on('click', function () {
+    if (!selectedPresetName) {
+      showPresetSelectError('Select a preset');
+      return;
+    }
+
+    setPage('delete');
+    $deleteError.hide();
+    $('#managePresetsModal-deleteInfo').text(
+      `Are you sure you want to delete "${selectedPresetName}"?`
+    );
+  });
+
+  $('#managePresetsModal-deleteConfirm').on('click', () => {
+    $deleteError.hide();
+
+    const errorMsg = presetsMgr.deletePreset(selectedPresetName);
+    if (errorMsg) {
+      $deleteError.text(errorMsg).show();
+    } else {
+      $modal.hide();
+      showPresetToast(`Deleted preset "${selectedPresetName}"`);
+      updatePresetsSelect();
+    }
+  });
+
+  $('#managePresetsModal-editBack, #managePresetsModal-deleteBack').on(
+    'click',
+    () => {
+      setPage('main');
+    }
+  );
+
+  $('#managePresetsModal-editSave').on('click', () => {
+    $nameInputError.hide();
+    $editError.hide();
+
+    const name = nameInput.value.trim();
+
+    let nameError = '';
+    if (name !== selectedPresetName) {
+      nameError = validatePresetName(name);
+    }
+    if (nameError) {
+      $nameInputError.text(nameError).show();
+      return;
+    }
+
+    const errorMsg = presetsMgr.renamePreset(selectedPresetName, name);
+    if (errorMsg) {
+      $editError.text(errorMsg).show();
+    } else {
+      $modal.hide();
+      showPresetToast('Successfully updated preset');
+      updatePresetsSelect();
+    }
+  });
+
+  function handlePresetChange(optionValue) {
+    $selectError.hide();
+    selectedPresetName = optionValue;
+  }
+
+  function presetChangeListener(e) {
+    handlePresetChange(e.target.value);
+  }
+
+  function initPresetSelect() {
+    if ($select.data('select2')) {
+      $select.select2('destroy').off('change', presetChangeListener);
+    }
+
+    // Set values
+    $select.empty();
+
+    const customPresets = presetsMgr.getPresetsByType().custom;
+    if (customPresets.length > 0) {
+      for (let i = 0; i < customPresets.length; i++) {
+        const preset = customPresets[i];
+        const option = document.createElement('option');
+        option.setAttribute('value', preset.name);
+        option.textContent = preset.name;
+        $select.append(option);
+      }
+    }
+
+    $select
+      .select2({
+        minimumResultsForSearch: 10,
+        allowClear: true,
+        placeholder: 'Select preset',
+      })
+      .on('change', presetChangeListener)
+      .val('')
+      .trigger('change');
+  }
+
+  input.addEventListener('input', () => {
+    $copySuccessText.hide();
+    $(fieldErrorText).hide();
+  });
+
+  // When the user clicks the button, open the modal
+  btn.addEventListener('click', () => {
+    setPage('main');
+
+    $modal.show();
+
+    initPresetSelect();
+  });
+
+  span.addEventListener('click', () => {
+    $modal.hide();
+  });
+
+  let canHide = true;
+  $modal
+    .on('mousedown', function (e) {
+      canHide = e.target === this;
+    })
+    .on('mouseup', function (e) {
+      if (canHide && e.target === this) {
+        $modal.hide();
+      }
+    });
+}
+
+function initSavePresetModal() {
+  const modal = document.getElementById('savePresetModal');
+  const $modal = $(modal);
+  const btn = document.getElementById('savePreset');
+  const span = modal.querySelector('.modal-close');
+  const $fieldErrorText = $('#savePresetModal-nameError');
+  const $error = $('#savePresetModal-error');
+  const input = document.getElementById('savePresetModal-nameInput');
+  const $presetSelect = $('#savePresetModal-selectPreset');
+  const $nameInputBlock = $('#savePresetModal-nameInputBlock');
+  const $warning = $('#savePresetModal-warning');
+
+  let newPresetValue = null;
+
+  function handlePresetChange(optionValue) {
+    const newPresetSelected = optionValue === newPresetValue;
+    $nameInputBlock.toggle(newPresetSelected);
+    $warning.toggle(!newPresetSelected);
+    hideErrors();
+
+    if (!newPresetSelected) {
+      const $option = $presetSelect.find(`option[value="${optionValue}"]`);
+      if ($option.length > 0) {
+        const option = $option[0];
+        const optionText = option.textContent.trim();
+        $warning.text(
+          `This will overwrite your custom preset "${optionText}"!`
+        );
+      }
+    }
+  }
+
+  function presetChangeListener(e) {
+    handlePresetChange(e.target.value);
+  }
+
+  function showError(msg) {
+    $error.text(msg).show();
+  }
+
+  function showNameError(msg) {
+    $fieldErrorText.text(msg).show();
+  }
+
+  function hideErrors() {
+    $error.hide();
+    $fieldErrorText.hide();
+  }
+
+  function initPresetSelect() {
+    if ($presetSelect.data('select2')) {
+      $presetSelect.select2('destroy').off('change', presetChangeListener);
+    }
+
+    // Set values
+    $presetSelect.empty();
+
+    const takenValues = {};
+
+    const customPresets = presetsMgr.getPresetsByType().custom;
+    if (customPresets.length > 0) {
+      for (let i = 0; i < customPresets.length; i++) {
+        const preset = customPresets[i];
+        const option = document.createElement('option');
+        option.setAttribute('value', preset.name);
+        option.textContent = preset.name;
+        $presetSelect.append(option);
+        takenValues[preset.name] = true;
+      }
+    }
+
+    // Ensure unique value to know we are creating a new preset as opposed to
+    // updating an existing preset.
+    while (newPresetValue == null || takenValues[newPresetValue]) {
+      newPresetValue = String(Math.random());
+    }
+    $presetSelect.prepend(
+      $(`<option value="${newPresetValue}">(New preset)</option>`)
+    );
+
+    $presetSelect
+      .select2({
+        minimumResultsForSearch: 10,
+      })
+      .on('change', presetChangeListener)
+      .val(newPresetValue)
+      .trigger('change');
+  }
+
+  input.addEventListener('input', () => {
+    hideErrors();
+  });
+
+  // When the user clicks the button, open the modal
+  btn.addEventListener('click', () => {
+    input.value = '';
+    handlePresetChange($presetSelect.val());
+
+    $modal.show();
+
+    initPresetSelect();
+    input.focus();
+  });
+
+  span.addEventListener('click', () => {
+    $modal.hide();
+  });
+
+  document
+    .getElementById('savePresetModal-cancel')
+    .addEventListener('click', () => {
+      $modal.hide();
+    });
+
+  document
+    .getElementById('savePresetModal-save')
+    .addEventListener('click', () => {
+      hideErrors();
+
+      let name = $presetSelect.val();
+      if (name === newPresetValue) {
+        // Saving new preset. Otherwise we're updating an existing one.
+        name = input.value.trim();
+
+        const nameError = validatePresetName(name);
+        if (nameError) {
+          showNameError(nameError);
+          return;
+        }
+      }
+
+      const success = presetsMgr.savePreset({
+        name,
+        description: '',
+        origCommit: $('#envGitCommit').val(),
+        origSettingsStr: $('#combinedSettingsString').text().trim(),
+      });
+      if (success) {
+        updatePresetsSelect(name);
+        $modal.hide();
+        showPresetToast(`Saved preset "${name}"`);
+      } else {
+        showError('Failed to save preset');
+      }
+    });
+
+  let canHide = true;
+  $modal
+    .on('mousedown', function (e) {
+      canHide = e.target === this;
+    })
+    .on('mouseup', function (e) {
+      if (canHide && e.target === this) {
+        $modal.hide();
       }
     });
 }
@@ -1175,6 +2132,7 @@ function populateFromSettingsString(settingsString) {
   }
 
   if (byType.s) {
+    setHiddenUIValues(byType.s);
     populateSSettings(byType.s);
   }
 
@@ -1185,6 +2143,136 @@ function populateFromSettingsString(settingsString) {
   setSettingsString();
 
   return null;
+}
+
+function setHiddenUIValues(s) {
+  let val = s.castleRequirementCount;
+  document.getElementById('castleRequirementsSliderOutput').innerHTML =
+    s.castleRequirementCount;
+
+  document.getElementById('castleRequirementsSlider').min = 1;
+  // Hide the slider info if we are not using an option that uses it
+  if (s.castleRequirements == 0 || s.castleRequirements == 4) {
+    document.getElementById('castleRequirementsSlider').hidden = true;
+    document.getElementById('castleRequirementsSliderLabel').hidden = true;
+    document.getElementById('castleRequirementsSliderOutput').hidden = true;
+  } else {
+    document.getElementById('castleRequirementsSlider').hidden = false;
+    document.getElementById('castleRequirementsSliderLabel').hidden = false;
+    document.getElementById('castleRequirementsSliderOutput').hidden = false;
+  }
+
+  switch (s.castleRequirements) {
+    case 1: {
+      // Fused Shadows
+      document.getElementById('castleRequirementsSlider').max = 3;
+      document.getElementById('castleRequirementsSliderLabel').innerHTML =
+        'Fused Shadows Required:';
+
+      break;
+    }
+    case 2: {
+      // Mirror Shards
+      document.getElementById('castleRequirementsSlider').max = 4;
+      document.getElementById('castleRequirementsSliderLabel').innerHTML =
+        'Mirror Shards Required:';
+
+      break;
+    }
+    case 3: {
+      // Dungeons
+      document.getElementById('castleRequirementsSlider').max = 8;
+      document.getElementById('castleRequirementsSliderLabel').innerHTML =
+        'Number of Dungeons Required:';
+
+      break;
+    }
+    case 5: {
+      // Poe Souls
+      document.getElementById('castleRequirementsSlider').max = 60;
+      document.getElementById('castleRequirementsSliderLabel').innerHTML =
+        'Poe Souls Required:';
+
+      break;
+    }
+    case 6: {
+      // Hearts
+      document.getElementById('castleRequirementsSlider').min = 4; // Maybe 4, because 3 would match "Open"
+      document.getElementById('castleRequirementsSlider').max = 20;
+      document.getElementById('castleRequirementsSliderLabel').innerHTML =
+        'Hearts Required:';
+
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+
+  val = s.castleBKRequirementCount;
+  document.getElementById('castleBKRequirementsSliderOutput').innerHTML =
+    s.castleBKRequirementCount;
+
+  document.getElementById('castleBKRequirementsSliderOutput').min = 1;
+  // Hide the slider info if we are not using an option that uses it
+  if (s.castleBKRequirements == 0) {
+    document.getElementById('castleBKRequirementsSlider').hidden = true;
+    document.getElementById('castleBKRequirementsSliderLabel').hidden = true;
+    document.getElementById('castleBKRequirementsSliderOutput').hidden = true;
+  } else {
+    document.getElementById('castleBKRequirementsSlider').hidden = false;
+    document.getElementById('castleBKRequirementsSliderLabel').hidden = false;
+    document.getElementById('castleBKRequirementsSliderOutput').hidden = false;
+  }
+
+  switch (s.castleBKRequirements) {
+    case 1: {
+      // Fused Shadows
+      document.getElementById('castleBKRequirementsSlider').max = 3;
+      document.getElementById('castleBKRequirementsSliderLabel').innerHTML =
+        'Fused Shadows Required:';
+
+      break;
+    }
+    case 2: {
+      // Mirror Shards
+      document.getElementById('castleBKRequirementsSlider').max = 4;
+      document.getElementById('castleBKRequirementsSliderLabel').innerHTML =
+        'Mirror Shards Required:';
+
+      break;
+    }
+    case 3: {
+      // Dungeons
+      document.getElementById('castleBKRequirementsSlider').max = 8;
+      document.getElementById('castleBKRequirementsSliderLabel').innerHTML =
+        'Number of Dungeons Required:';
+
+      break;
+    }
+    case 4: {
+      // Poe Souls
+      document.getElementById('castleBKRequirementsSlider').max = 60;
+      document.getElementById('castleBKRequirementsSliderLabel').innerHTML =
+        'Poe Souls Required:';
+
+      break;
+    }
+    case 5: {
+      // Hearts
+      document.getElementById('castleBKRequirementsSlider').min = 4;
+      document.getElementById('castleBKRequirementsSlider').max = 20;
+      document.getElementById('castleBKRequirementsSliderLabel').innerHTML =
+        'Hearts Required:';
+
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+  document.getElementById('maloShopDonationSliderOutput').innerHTML =
+    s.maloShopDonation;
 }
 
 function populateSSettings(s) {
@@ -1222,7 +2310,7 @@ function populateSSettings(s) {
   $('#fastIBCheckbox').prop('checked', s.fastIronBoots);
   $('#quickTransformCheckbox').prop('checked', s.quickTransform);
   $('#transformAnywhereCheckbox').prop('checked', s.transformAnywhere);
-  $('#increaseWalletCheckbox').prop('checked', s.increaseWalletCapacity);
+  $('#walletSizeFieldset').val(s.walletSize);
   $('#modifyShopModelsCheckbox').prop(
     'checked',
     s.shopModelsShowTheReplacedItem
@@ -1251,8 +2339,21 @@ function populateSSettings(s) {
     'checked',
     s.randomizeStartingPoint
   );
-  $('#rupeeCheckbox').prop('checked', s.rupees);
+  $('#hiddenRupeeCheckbox').prop('checked', s.hiddenRupees);
+  $('#gmShortcutCheckbox').prop('checked', s.gmShortcut);
   $('#hcShortcutCheckbox').prop('checked', s.hcShortcut);
+  $('#iliaQuestFieldset').val(s.iliaQuest);
+  $('#mirrorChamberFieldset').val(s.mirrorChamber);
+  $('#dungeonERFieldset').val(s.dungeonER).trigger('change');
+  $('#unpairedEntrancesCheckbox').prop('checked', s.upairEntrances);
+  $('#decoupleEntrancesCheckbox').prop('checked', s.decoupleEntrances);
+  $('#freestandingRupeeCheckbox').prop('checked', s.freestandingRupees);
+  $('#castleRequirementsSlider').val(s.castleRequirementCount);
+  $('#castleBKRequirementsFieldset').val(s.castleBKRequirements);
+  $('#castleBKRequirementsSlider').val(s.castleBKRequirementCount);
+  $('#autoFillWalletCheckbox').prop('checked', s.autoFillWallet);
+  $('#skipBridgeDonationCheckbox').prop('checked', s.skipBridgeDonation);
+  $('#maloShopDonationSlider').val(s.maloShopDonation);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {
@@ -1331,4 +2432,101 @@ function testProgressFunc(id) {
       console.error('/api/seed/progress error');
       console.error(err);
     });
+}
+
+function showPresetToast(msg, isError) {
+  const $toast = $('#presetUpdateStatus');
+  $toast
+    .toggleClass('preset-toast-error', Boolean(isError))
+    .text(msg)
+    .css('display', 'block');
+
+  // Allow time for display to apply before adding transition class
+  requestAnimationFrame(() => {
+    $toast.addClass('show');
+  });
+
+  setTimeout(() => {
+    $toast.removeClass('show');
+    setTimeout(() => {
+      $toast.css('display', 'none');
+    }, 200);
+  }, 3000);
+}
+
+function updatePresetsSelect(defaultToValue) {
+  const $select = $('#presetsSelect');
+
+  if ($select.data('select2')) {
+    $select.select2('destroy').off('change', handleChange);
+  }
+
+  const presetsByType = presetsMgr.getPresetsByType();
+
+  $select.empty();
+  $select.append($(`<option value=""></option>`));
+
+  const presetTypes = Object.keys(presetsByType);
+  for (let typeIdx = 0; typeIdx < presetTypes.length; typeIdx++) {
+    const presetType = presetTypes[typeIdx];
+    const label = presetType === 'system' ? 'System' : 'Custom';
+    const presets = presetsByType[presetType];
+
+    const optGroup = document.createElement('optgroup');
+    if (typeIdx === 0) {
+      optGroup.setAttribute('label', 'System');
+    } else {
+      optGroup.setAttribute('label', 'Custom');
+    }
+
+    for (let i = 0; i < presets.length; i++) {
+      const preset = presets[i];
+      const option = document.createElement('option');
+      option.setAttribute('value', preset.name);
+      option.textContent = preset.name;
+      optGroup.append(option);
+    }
+
+    if (presets.length > 0) {
+      $select.append(optGroup);
+    }
+  }
+
+  let skipListener = false;
+
+  function handleChange(e) {
+    if (skipListener) {
+      return;
+    }
+
+    const val = e.target.value;
+    if (val) {
+      const error = presetsMgr.loadSettings(val);
+      if (error) {
+        showPresetToast('Failed to load preset', true);
+      }
+
+      // Changing settings in the UI will always reset the presets select, so
+      // change its value back to the selection without triggering another
+      // load.
+      skipListener = true;
+      $select.val(val).trigger('change');
+      skipListener = false;
+    }
+  }
+
+  $select
+    .select2({
+      allowClear: true,
+      default: null,
+      placeholder: 'Select preset',
+    })
+    .on('change', handleChange);
+
+  // For showing newly created custom option as the current selection.
+  if (defaultToValue) {
+    skipListener = true;
+    $select.val(defaultToValue).trigger('change');
+    skipListener = false;
+  }
 }

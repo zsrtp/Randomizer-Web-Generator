@@ -1,6 +1,6 @@
 {
     "requirements": "(Progressive_Clawshot, 1)",
-    "glitchedRequirements": "(Progressive_Clawshot, 1) or CanDoLJA or (Shadow_Crystal and hasBombs)",
+    "glitchedRequirements": "(Progressive_Clawshot, 1) or CanDoLJA or (Shadow_Crystal and HasBombs)",
     "checkCategory": ["Overworld", "Chest", "Gerudo Desert"],
     "itemId": "Purple_Rupee"
 }

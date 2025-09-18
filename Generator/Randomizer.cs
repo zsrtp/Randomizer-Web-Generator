@@ -15,6 +15,7 @@ namespace TPRandomizer
     using Newtonsoft.Json.Linq;
     using TPRandomizer.FcSettings.Enums;
     using TPRandomizer.SSettings.Enums;
+    using TPRandomizer.Util;
 
     /// <summary>
     /// Generates a randomizer seed given a settings string.
@@ -143,10 +144,6 @@ namespace TPRandomizer
             while (remainingGenerationAttempts > 0)
             {
                 remainingGenerationAttempts--;
-                foreach (Item startingItem in Randomizer.SSettings.startingItems)
-                {
-                    Randomizer.Items.heldItems.Add(startingItem);
-                }
                 Randomizer.Items.heldItems.AddRange(Randomizer.Items.BaseItemPool);
 
                 // Place plando checks first
@@ -155,6 +152,12 @@ namespace TPRandomizer
 
                 Console.WriteLine("Placing Vanilla Checks.");
                 PlaceVanillaChecks();
+
+                // We want to add starting items to the player after plando/vanilla items are placed because we don't want to assume a 1:1 balace on certain items.
+                foreach (Item startingItem in Randomizer.SSettings.startingItems)
+                {
+                    Randomizer.Items.heldItems.Add(startingItem);
+                }
 
                 // Once we have placed all vanilla checks, we want to give the player all of the items they should be searching for and then generate the world based on the room class values and their neighbour values.
                 try
@@ -373,7 +376,7 @@ namespace TPRandomizer
 
             // TODO: review if the above comment needs a little revision
 
-            SeedGenResults.Builder builder = new();
+            SeedGenResults.Builder builder = new(SSettings);
             // inputs
             builder.settingsString = settingsString;
             builder.seed = seed;
@@ -461,8 +464,8 @@ namespace TPRandomizer
                 part2Settings.Add("quickTransform", SSettings.quickTransform);
             if (SSettings.transformAnywhere)
                 part2Settings.Add("transformAnywhere", SSettings.transformAnywhere);
-            if (SSettings.increaseWallet)
-                part2Settings.Add("increaseWallet", SSettings.increaseWallet);
+            if (SSettings.walletSize != WalletSize.Reduced)
+                part2Settings.Add("walletSize", SSettings.walletSize);
             if (SSettings.modifyShopModels)
                 part2Settings.Add("modifyShopModels", SSettings.modifyShopModels);
 
@@ -550,12 +553,8 @@ namespace TPRandomizer
                 {
                     // For now, 'All' only generates for GameCube until we do more
                     // work related to Wii code.
-                    List<GameRegion> gameRegionsForAll = new()
-                    {
-                        GameRegion.GC_USA,
-                        GameRegion.GC_EUR,
-                        GameRegion.GC_JAP,
-                    };
+                    List<GameRegion> gameRegionsForAll =
+                        new() { GameRegion.GC_USA, GameRegion.GC_EUR, GameRegion.GC_JAP, };
 
                     // Create files for all regions
                     // foreach (GameRegion gameRegion in GameRegion.GetValues(typeof(GameRegion)))
@@ -768,11 +767,8 @@ namespace TPRandomizer
             var filename =
                 "Tpr-" + region + "-" + seedGenResults.playthroughName + "-" + seedId + ".patch";
 
-            Dictionary<string, object> dict = new()
-            {
-                { "name", filename },
-                { "length", patchBytes.Count },
-            };
+            Dictionary<string, object> dict =
+                new() { { "name", filename }, { "length", patchBytes.Count }, };
 
             return new(dict, patchBytes.ToArray());
         }
@@ -964,10 +960,9 @@ namespace TPRandomizer
                         if (roomsToExplore[0].Exits[i].ConnectedArea != "")
                         {
                             if (
-                                Randomizer
-                                    .Rooms
-                                    .RoomDict[roomsToExplore[0].Exits[i].ConnectedArea]
-                                    .Visited == false
+                                Randomizer.Rooms.RoomDict[
+                                    roomsToExplore[0].Exits[i].ConnectedArea
+                                ].Visited == false
                             )
                             {
                                 // Parse the neighbour's requirements to find out if we can access it
@@ -983,17 +978,15 @@ namespace TPRandomizer
                                 )
                                 {
                                     if (
-                                        !Randomizer
-                                            .Rooms
-                                            .RoomDict[roomsToExplore[0].Exits[i].ConnectedArea]
-                                            .ReachedByPlaythrough
+                                        !Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ].ReachedByPlaythrough
                                     )
                                     {
                                         availableRooms++;
-                                        Randomizer
-                                            .Rooms
-                                            .RoomDict[roomsToExplore[0].Exits[i].ConnectedArea]
-                                            .ReachedByPlaythrough = true;
+                                        Randomizer.Rooms.RoomDict[
+                                            roomsToExplore[0].Exits[i].ConnectedArea
+                                        ].ReachedByPlaythrough = true;
                                         playthroughGraph.Add(
                                             Randomizer.Rooms.RoomDict[
                                                 roomsToExplore[0].Exits[i].ConnectedArea
@@ -1005,10 +998,9 @@ namespace TPRandomizer
                                             roomsToExplore[0].Exits[i].ConnectedArea
                                         ]
                                     );
-                                    Randomizer
-                                        .Rooms
-                                        .RoomDict[roomsToExplore[0].Exits[i].ConnectedArea]
-                                        .Visited = true;
+                                    Randomizer.Rooms.RoomDict[
+                                        roomsToExplore[0].Exits[i].ConnectedArea
+                                    ].Visited = true;
 
                                     /* Console.WriteLine(
                                          "Neighbour: "
@@ -1078,7 +1070,7 @@ namespace TPRandomizer
             // We determine which dungeons are required after the dungeon rewards are placed but before the other checks
             // are placed because if a certain dungeon's checks need to be excluded, we want to exclude the check before
             // any items are placed in it.
-            CheckUnrequiredDungeons();
+            CheckUnrequiredDungeons(startingRoom);
 
             // Next we want to place items that are locked to a specific region such as keys, maps, compasses, etc.
             Console.WriteLine("Placing Region-Restricted Checks.");
@@ -1409,7 +1401,7 @@ namespace TPRandomizer
             check.itemWasPlaced = true;
             check.itemId = item;
 
-            Console.WriteLine("Placed " + check.itemId + " in check " + check.checkName);
+            // Console.WriteLine("Placed " + check.itemId + " in check " + check.checkName);
         }
 
         private static void StartOver()
@@ -1440,41 +1432,33 @@ namespace TPRandomizer
             Randomizer.RequiredDungeons = 0;
         }
 
-        private static void CheckUnrequiredDungeons()
+        private static void CheckUnrequiredDungeons(Room startingRoom)
         {
-            int palace = 0;
-            int city = 1;
-            int tot = 2;
-            //int snowpeak = 3;
-            int arbiters = 4;
-            int lakebed = 5;
-            //int mines = 6;
-            int forest = 7;
-            List<string>[] listOfAffectedChecks = new List<string>[]
-            {
-                CheckFunctions.palaceRequirementChecks,
-                CheckFunctions.cityRequirementChecks,
-                CheckFunctions.totRequirementChecks,
-                CheckFunctions.snowpeakRequirementChecks,
-                CheckFunctions.arbitersRequirementChecks,
-                CheckFunctions.lakebedRequirementChecks,
-                CheckFunctions.minesRequirementChecks,
-                CheckFunctions.forestRequirementChecks,
-            };
+            // Use shallow copies of the requirementChecks lists since we mutate
+            // them here and we may need to run this function multiple times.
+            // This change was to fix a bug.
+            List<List<string>> listOfAffectedChecks =
+                new()
+                {
+                    new(CheckFunctions.palaceRequirementChecks),
+                    new(CheckFunctions.cityRequirementChecks),
+                    new(CheckFunctions.totRequirementChecks),
+                    new(CheckFunctions.snowpeakRequirementChecks),
+                    new(CheckFunctions.arbitersRequirementChecks),
+                    new(CheckFunctions.lakebedRequirementChecks),
+                    new(CheckFunctions.minesRequirementChecks),
+                    new(CheckFunctions.forestRequirementChecks),
+                };
 
             // Create the dungeon entries
-            requiredDungeons forestTemple = new("Forest Temple Dungeon Reward", false, null);
-            requiredDungeons goronMines = new("Goron Mines Dungeon Reward", false, null);
-            requiredDungeons lakebedTemple = new("Lakebed Temple Dungeon Reward", false, null);
-            requiredDungeons arbitersGrounds = new("Arbiters Grounds Dungeon Reward", false, null);
-            requiredDungeons snowpeakRuins = new("Snowpeak Ruins Dungeon Reward", false, null);
-            requiredDungeons templeOfTime = new("Temple of Time Dungeon Reward", false, null);
-            requiredDungeons cityInTheSky = new("City in The Sky Dungeon Reward", false, null);
-            requiredDungeons palaceOfTwilight = new(
-                "Palace of Twilight Zant Heart Container",
-                false,
-                null
-            );
+            requiredDungeons forestTemple = new("Forest Temple", false, null);
+            requiredDungeons goronMines = new("Goron Mines", false, null);
+            requiredDungeons lakebedTemple = new("Lakebed Temple", false, null);
+            requiredDungeons arbitersGrounds = new("Arbiters Grounds", false, null);
+            requiredDungeons snowpeakRuins = new("Snowpeak Ruins", false, null);
+            requiredDungeons templeOfTime = new("Temple of Time", false, null);
+            requiredDungeons cityInTheSky = new("City in The Sky", false, null);
+            requiredDungeons palaceOfTwilight = new("Palace of Twilight", false, null);
 
             requiredDungeons[] listOfRequiredDungeons = new requiredDungeons[]
             {
@@ -1488,193 +1472,141 @@ namespace TPRandomizer
                 forestTemple,
             };
 
+            string[] bossRooms =
+            {
+                "Palace of Twilight Boss Room",
+                "City in The Sky Boss Room",
+                "Temple of Time Boss Room",
+                "Snowpeak Ruins Boss Room",
+                "Arbiters Grounds Boss Room",
+                "Lakebed Temple Boss Room",
+                "Goron Mines Boss Room",
+                "Forest Temple Boss Room",
+            };
+
+            string[] DungeonNames =
+            {
+                "Palace of Twilight",
+                "City in The Sky",
+                "Temple of Time",
+                "Snowpeak Ruins",
+                "Arbiters Grounds",
+                "Lakebed Temple",
+                "Goron Mines",
+                "Forest Temple",
+            };
+
+            // We want to loop through every dungeon and attempt to pair a boss room to the dungeon.
+            for (int i = 0; i < DungeonNames.GetLength(0); i++)
+            {
+                foreach (string bossRoom in bossRooms)
+                {
+                    Room bRoom = Randomizer.Rooms.RoomDict[bossRoom];
+                    // If there's a match, we want to account for the boss room and all affected checks in relation to the dungeon.
+                    // Example: if Fyrus is after Forest, we want to associate the Fyrus check and post GM checks with Forest.
+                    //Console.WriteLine("region: " + bRoom.Region + " for room: " + bRoom.RoomName);
+                    if (bRoom.Region == DungeonNames[i])
+                    {
+                        listOfAffectedChecks[i].AddRange(bRoom.Checks);
+                        switch (bossRoom)
+                        {
+                            case "Goron Mines Boss Room":
+                            {
+                                listOfAffectedChecks[i].AddRange(CheckFunctions.postFyrusChecks);
+                                break;
+                            }
+                            case "Snowpeak Ruins Boss Room":
+                            {
+                                listOfAffectedChecks[i].AddRange(CheckFunctions.postBlizettaChecks);
+                                break;
+                            }
+                            case "Temple of Time Boss Room":
+                            {
+                                listOfAffectedChecks[i].AddRange(
+                                    CheckFunctions.postArmogohmaChecks
+                                );
+                                break;
+                            }
+                            default:
+                            {
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+
+            // Next we want to associate the check lists with their respective dungeons.
             for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
             {
                 listOfRequiredDungeons[i].requirementChecks = listOfAffectedChecks[i];
             }
 
-            // First we want to check the Hyrule Castle access requirements to get the base required dungeons to access Hyrule.
-            if (Randomizer.SSettings.castleRequirements == CastleRequirements.Fused_Shadows)
+            Console.WriteLine("Checking Required Dungeons!");
+            // Now loop through all dungeons and validate the necessity of every check related to the dungeon.
+
+            Dictionary<string, Item> checkData = new();
+            List<Item> requiredItems = new();
+            for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
             {
-                // First we want to loop through all of our potentially required dungeons
-                for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
+                foreach (string dungeonCheck in listOfRequiredDungeons[i].requirementChecks)
                 {
-                    // Next we want to loop through each required check for each dungeon and see if there is a dungeon reward that matches the requirement. Note: we check all requirement checks as they can still signify that a dungeon is required, even if the check isn't necessarily in a dungeon (i.e DMT Poe signifies that GM is required.)
+                    Check check = Randomizer.Checks.CheckDict[dungeonCheck];
+                    // We can skip over verifying any checks for which an item
+                    // has not yet been placed.
+                    if (check.itemWasPlaced)
+                    {
+                        Item checkItem = check.itemId;
+
+                        check.itemId = Item.Recovery_Heart;
+                        bool isBeatable = BackendFunctions.ValidatePlaythroughBeatable(
+                            startingRoom,
+                            false
+                        );
+
+                        // If the world is no longer completable we want to put the item back and mark the dungeon as required
+                        if (!isBeatable)
+                        {
+                            check.itemId = checkItem;
+                            requiredItems.Add(checkItem);
+                            listOfRequiredDungeons[i].isRequired = true;
+                        }
+                        else
+                        {
+                            checkData.Add(dungeonCheck, checkItem);
+                        }
+                    }
+                }
+            }
+
+            // After we are done, we want to restore any checks that were listed as "unrequired"
+            foreach (KeyValuePair<string, Item> pair in checkData)
+            {
+                Randomizer.Checks.CheckDict[pair.Key].itemId = pair.Value;
+            }
+
+            // Next we want to account for items that are multiple and list the dungeon as required as we don't want to assume player preference.
+            // Example, if 2 Fused Shadows are required to complete the seed and the is one in Forest, one in Mines, and one in City, we want all 3 dungeons to be listed as required because they do contain an item required to complete the seed.
+            for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
+            {
+                // We can skip checking to mark a dungeon as required when it is
+                // already marked as required.
+                if (!listOfRequiredDungeons[i].isRequired)
+                {
                     foreach (string dungeonCheck in listOfRequiredDungeons[i].requirementChecks)
                     {
-                        Check currentCheck = Checks.CheckDict[dungeonCheck];
-                        if (
-                            currentCheck.itemId == Item.Progressive_Fused_Shadow
-                            && currentCheck.itemWasPlaced
-                        )
+                        Check check = Randomizer.Checks.CheckDict[dungeonCheck];
+                        // Note: we must confirm the itemWasPlaced so we don't
+                        // mark a dungeon as required when it still has its
+                        // original dungeon reward because it has not yet been
+                        // assigned an item.
+                        if (check.itemWasPlaced && requiredItems.Contains(check.itemId))
                         {
                             listOfRequiredDungeons[i].isRequired = true;
                             break;
                         }
                     }
-                }
-            }
-            else if (Randomizer.SSettings.castleRequirements == CastleRequirements.Mirror_Shards)
-            {
-                // First we want to loop through all of our potentially required dungeons
-                for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
-                {
-                    // Next we want to loop through each required check for each dungeon and see if there is a dungeon reward that matches the requirement. Note: we check all requirement checks as they can still signify that a dungeon is required, even if the check isn't necessarily in a dungeon (i.e DMT Poe signifies that GM is required.)
-                    foreach (string dungeonCheck in listOfRequiredDungeons[i].requirementChecks)
-                    {
-                        Check currentCheck = Checks.CheckDict[dungeonCheck];
-                        if (
-                            currentCheck.itemId == Item.Progressive_Mirror_Shard
-                            && currentCheck.itemWasPlaced
-                        )
-                        {
-                            listOfRequiredDungeons[i].isRequired = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            else if (Randomizer.SSettings.castleRequirements == CastleRequirements.Vanilla)
-            {
-                // If Palace is required and the player doesn't have the mirror chamber portal, then Arbiters is automatically required.
-                if (!Randomizer.SSettings.startingItems.Contains(Item.Mirror_Chamber_Portal))
-                {
-                    listOfRequiredDungeons[arbiters].isRequired = true;
-                }
-                listOfRequiredDungeons[palace].isRequired = true;
-                if (Randomizer.SSettings.palaceRequirements == PalaceRequirements.Fused_Shadows)
-                {
-                    // First we want to loop through all of our potentially required dungeons
-                    for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
-                    {
-                        // Next we want to loop through each required check for each dungeon and see if there is a dungeon reward that matches the requirement. Note: we check all requirement checks as they can still signify that a dungeon is required, even if the check isn't necessarily in a dungeon (i.e DMT Poe signifies that GM is required.)
-                        foreach (string dungeonCheck in listOfRequiredDungeons[i].requirementChecks)
-                        {
-                            Check currentCheck = Checks.CheckDict[dungeonCheck];
-                            if (
-                                currentCheck.itemId == Item.Progressive_Fused_Shadow
-                                && currentCheck.itemWasPlaced
-                            )
-                            {
-                                listOfRequiredDungeons[i].isRequired = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-                else if (
-                    Randomizer.SSettings.palaceRequirements == PalaceRequirements.Mirror_Shards
-                )
-                {
-                    // First we want to loop through all of our potentially required dungeons
-                    for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
-                    {
-                        // Next we want to loop through each required check for each dungeon and see if there is a dungeon reward that matches the requirement. Note: we check all requirement checks as they can still signify that a dungeon is required, even if the check isn't necessarily in a dungeon (i.e DMT Poe signifies that GM is required.)
-                        foreach (string dungeonCheck in listOfRequiredDungeons[i].requirementChecks)
-                        {
-                            Check currentCheck = Checks.CheckDict[dungeonCheck];
-                            if (
-                                currentCheck.itemId == Item.Progressive_Mirror_Shard
-                                && currentCheck.itemWasPlaced
-                            )
-                            {
-                                listOfRequiredDungeons[i].isRequired = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-                else if (Randomizer.SSettings.palaceRequirements == PalaceRequirements.Vanilla)
-                {
-                    listOfRequiredDungeons[city].isRequired = true;
-                }
-            }
-            else if (Randomizer.SSettings.castleRequirements == CastleRequirements.All_Dungeons)
-            {
-                for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
-                {
-                    listOfRequiredDungeons[i].isRequired = true;
-                }
-            }
-
-            if (listOfRequiredDungeons[palace].isRequired)
-            {
-                // If Palace is required and the player doesn't have the mirror chamber portal, then Arbiters is automatically required.
-                if (!Randomizer.SSettings.startingItems.Contains(Item.Mirror_Chamber_Portal))
-                {
-                    listOfRequiredDungeons[arbiters].isRequired = true;
-                }
-                listOfRequiredDungeons[palace].isRequired = true;
-                if (Randomizer.SSettings.palaceRequirements == PalaceRequirements.Fused_Shadows)
-                {
-                    // First we want to loop through all of our potentially required dungeons
-                    for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
-                    {
-                        // Next we want to loop through each required check for each dungeon and see if there is a dungeon reward that matches the requirement. Note: we check all requirement checks as they can still signify that a dungeon is required, even if the check isn't necessarily in a dungeon (i.e DMT Poe signifies that GM is required.)
-                        foreach (string dungeonCheck in listOfRequiredDungeons[i].requirementChecks)
-                        {
-                            Check currentCheck = Checks.CheckDict[dungeonCheck];
-                            if (
-                                currentCheck.itemId == Item.Progressive_Fused_Shadow
-                                && currentCheck.itemWasPlaced
-                            )
-                            {
-                                listOfRequiredDungeons[i].isRequired = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-                else if (
-                    Randomizer.SSettings.palaceRequirements == PalaceRequirements.Mirror_Shards
-                )
-                {
-                    // First we want to loop through all of our potentially required dungeons
-                    for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
-                    {
-                        // Next we want to loop through each required check for each dungeon and see if there is a dungeon reward that matches the requirement. Note: we check all requirement checks as they can still signify that a dungeon is required, even if the check isn't necessarily in a dungeon (i.e DMT Poe signifies that GM is required.)
-                        foreach (string dungeonCheck in listOfRequiredDungeons[i].requirementChecks)
-                        {
-                            Check currentCheck = Checks.CheckDict[dungeonCheck];
-                            if (
-                                currentCheck.itemId == Item.Progressive_Mirror_Shard
-                                && currentCheck.itemWasPlaced
-                            )
-                            {
-                                listOfRequiredDungeons[i].isRequired = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-                else if (Randomizer.SSettings.palaceRequirements == PalaceRequirements.Vanilla)
-                {
-                    listOfRequiredDungeons[city].isRequired = true;
-                }
-            }
-
-            // If MDH is not skipped then we need to complete Lakebed to enter Hyrule
-            if (!Randomizer.SSettings.skipMdh)
-            {
-                listOfRequiredDungeons[lakebed].isRequired = true;
-            }
-
-            if (Randomizer.SSettings.logicRules == LogicRules.Glitchless)
-            {
-                // If we are playing glitchless and Skybooks are vanilla and are needed for City, we conclude that ToT is required as Impaz will have a book in village. This will change with ER.
-                if (
-                    listOfRequiredDungeons[city].isRequired
-                    && !Randomizer.SSettings.shuffleNpcItems
-                    && !Randomizer.SSettings.skipCityEntrance
-                )
-                {
-                    listOfRequiredDungeons[tot].isRequired = true;
-                }
-
-                // If Faron Woods is closed then we need to beat Forest Temple to leave.
-                if (Randomizer.SSettings.faronWoodsLogic == FaronWoodsLogic.Closed)
-                {
-                    listOfRequiredDungeons[forest].isRequired = true;
                 }
             }
 
@@ -1706,7 +1638,7 @@ namespace TPRandomizer
                 {
                     Randomizer.RequiredDungeons |= 0x80 >> i;
                     Console.WriteLine(
-                        listOfRequiredDungeons[i].dungeonReward + " is a required Dungeon!"
+                        listOfRequiredDungeons[i].dungeon + " is a required Dungeon!"
                     );
                 }
             }
@@ -1775,6 +1707,19 @@ namespace TPRandomizer
                     Checks.CheckDict[fileName].itemWasPlaced = false;
                     Checks.CheckDict[fileName].isRequired = false;
                     Checks.CheckDict[fileName].itemId = currentCheck.itemId;
+                }
+            }
+
+            // Validate that all non-hidden checks belong to a hint zone
+            foreach (KeyValuePair<string, Check> pair in Randomizer.Checks.CheckDict)
+            {
+                string checkName = pair.Value.checkName;
+                if (
+                    !CheckIdClass.GetIsHideFromUiCheckName(checkName)
+                    && !HintUtils.checkNameHasHintZone(checkName)
+                )
+                {
+                    throw new Exception($"Hint zone not defined for checkName '{checkName}'.");
                 }
             }
         }
@@ -1881,9 +1826,10 @@ namespace TPRandomizer
                                 "(" + currentRoom.Exits[i].GlitchedRequirements + ")";
                         }
                         currentRoom.Exits[i].ParentArea = currentRoom.RoomName;
-                        currentRoom.Exits[i].OriginalConnectedArea = currentRoom
-                            .Exits[i]
-                            .ConnectedArea;
+                        currentRoom.Exits[i].ParentRegion = currentRoom.Region;
+                        currentRoom.Exits[i].OriginalConnectedArea = currentRoom.Exits[
+                            i
+                        ].ConnectedArea;
                     }
 
                     Randomizer.Rooms.RoomDict[room.RoomName] = currentRoom;
@@ -1911,17 +1857,13 @@ namespace TPRandomizer
 
         public struct requiredDungeons
         {
-            public string dungeonReward;
+            public string dungeon;
             public bool isRequired;
             public List<String> requirementChecks;
 
-            public requiredDungeons(
-                string dungeonReward,
-                bool isRequired,
-                List<string> requirementChecks
-            )
+            public requiredDungeons(string dungeon, bool isRequired, List<string> requirementChecks)
             {
-                this.dungeonReward = dungeonReward;
+                this.dungeon = dungeon;
                 this.isRequired = isRequired;
                 this.requirementChecks = requirementChecks;
             }
