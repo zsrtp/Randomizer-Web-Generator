@@ -549,6 +549,7 @@ namespace TPRandomizer
             }
 
             AddBarnesShopAdjustments();
+            AddIzaMinigameSkipAbility();
 
             // ----- New Stuff -----
 
@@ -746,6 +747,119 @@ namespace TPRandomizer
                 };
 
             results2.AddBranchPatches(branchPatches);
+        }
+
+        private void AddIzaMinigameSkipAbility()
+        {
+            ushort izaContext = ctxGen.getNewContext();
+            ushort izaIsSkippingCtx = ctxGen.getNewContext();
+
+            // When reach 0x2ac with no context,
+            // map to event node and set context
+
+            results2.AddNodeRemaps(
+                new()
+                {
+                    // Set base context when selecting first slot.
+                    NodeRemap.Fli(
+                        0x3e3,
+                        Node.msg_IzaRentedAndPaid,
+                        Node.ev_IzaRentalMenu.flwIdx,
+                        izaContext
+                    ),
+                    // If arriving back at this node while under context, set
+                    // context back to 0 and proceed normally. Rupees aren't
+                    // paid until after this point, but they have been checked
+                    // in order to enter the custom menu stuff at all.
+                    NodeRemap.Ctx(
+                        izaContext,
+                        Node.msg_IzaRentedAndPaid,
+                        Node.msg_IzaRentedAndPaid.flwIdx,
+                        0
+                    ),
+                    NodeRemap.Ctx(
+                        izaContext,
+                        Node.msg_IzaRentalMenuCancel1,
+                        Node.msg_IzaRentedAndPaid.flwIdx,
+                        izaIsSkippingCtx
+                    )
+                }
+            );
+
+            results2.AddEventEntities(
+                new()
+                {
+                    new(
+                        Node.ev_IzaRentalMenu,
+                        izaContext,
+                        // Zero param disables pressing B to pick an option. You
+                        // must pick an option by moving to it and pressing A.
+                        intParam: 0
+                    ),
+                    new(
+                        Node.ev_IzaRentedLastEvent,
+                        izaIsSkippingCtx,
+                        eventIndex: 46 // Do warp
+                    )
+                }
+            );
+
+            string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
+            string messageOption2_8not9 = "\x1A\x06\x00\x00\x08\x02";
+
+            results2.AddStrReplacements(
+                new()
+                {
+                    StrRepl.Public(
+                        Node.msg_IzaRentalMenuBody,
+                        Res.LangSpecificNormalize(
+                            $"You want to shoot the targets? Or did you want to skip to the bottom?{CustomMessages.shopOption}"
+                        ),
+                        izaContext
+                    ),
+                    StrRepl.Public(
+                        Node.msg_IzaRentalMenuOptions,
+                        $"{messageOption1_8not9}I'll play.\n{messageOption2_8not9}I'll skip.",
+                        izaContext
+                    ),
+                }
+            );
+
+            results2.AddBranchPatches(
+                new()
+                {
+                    new(
+                        Node.br_IzaRentalMenuResult,
+                        izaContext,
+                        // query005, 2-option menu with no hidden result.
+                        // Parameters not used
+                        queryIndex: 0x0,
+                        nextNodeIndexes: new()
+                        {
+                            Node.msg_IzaRentedAndPaid.flwIdx,
+                            Node.msg_IzaRentalMenuCancel1.flwIdx,
+                        }
+                    ),
+                }
+            );
+
+            // List<StrRepl> strEntries2 =
+            //     new()
+            //     {
+            //         StrRepl.Public(
+            //             Node.msgZ0_MidnaTwoOptsBody,
+            //             "Need something?" + CustomMessages.shopOption,
+            //             baseMidnaCtx
+            //         ),
+            //         StrRepl.Public(
+            //             Node.msgZ0_MidnaTwoOptsOptions,
+            //             $"{messageOption1_8not9}Change time of day\n{messageOption2_8not9}Hints",
+            //             baseMidnaCtx
+            //         ),
+            //     };
+            // results2.AddStrReplacements(strEntries2);
+
+            //
         }
 
         private void AddMidnaConversationStuff()

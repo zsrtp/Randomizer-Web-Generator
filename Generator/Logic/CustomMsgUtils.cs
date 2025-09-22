@@ -66,6 +66,14 @@ namespace TPRandomizer
         public static NodeInst ev_BarnesNoBombBagMenu =
             new(StgBmg.Kakariko_Village_Interiors, 0x47e);
 
+        public static MsgNodeInst msg_IzaRentedAndPaid = new(StgBmg.Zoras_River, 0x2ac, 0x1c5);
+        public static NodeInst ev_IzaRentedLastEvent = new(StgBmg.Zoras_River, 0x29f);
+        public static NodeInst ev_IzaRentalMenu = new(StgBmg.Zoras_River, 0x29a);
+        public static MsgNodeInst msg_IzaRentalMenuBody = new(StgBmg.Zoras_River, 0x29b, 0x1be);
+        public static MsgNodeInst msg_IzaRentalMenuOptions = new(StgBmg.Zoras_River, 0x29c, 0x1bf);
+        public static NodeInst br_IzaRentalMenuResult = new(StgBmg.Zoras_River, 0x29d);
+        public static MsgNodeInst msg_IzaRentalMenuCancel1 = new(StgBmg.Zoras_River, 0x2a8, 0x1c0);
+
         // Generic event node in zel_00 we can patch under context.
         public static NodeInst evZ0_GenericCtxEvent = new(StgBmg.zel_00, 0x1a4);
         public static NodeInst evZel00Other = new(StgBmg.zel_00, 0x9);
