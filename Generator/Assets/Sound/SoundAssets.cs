@@ -4293,22 +4293,22 @@ namespace TPRandomizer.Assets
                 //JAISoundID.Z2SE_HS_GALLOP_L_DUMMY, // Epona - Left Leg Gallop
                 //JAISoundID.Z2SE_HS_GALLOP_R_DUMMY, // Epona - Right Leg Galop
                 //JAISoundID.Z2SE_FT_HORSE_PEDAL, // Epona - Turn sound
-                JAISoundID.Z2SE_AL_SWIM, // Adult Link - Swim
-                JAISoundID.Z2SE_AL_INTO_WATER, // Adult Link - Walking into water
-                JAISoundID.Z2SE_AL_OUTOF_WATER, // Adult Link - Walking out of water
-                JAISoundID.Z2SE_AL_DIVE_INTO_WATER, // Adult Link - Dive into water
-                JAISoundID.Z2SE_AL_DIVE_SWIM, // Adult Link - Diving Swim
-                JAISoundID.Z2SE_AL_SWIM_UNDERWATER, // Adult Link - Swim Undetwater
-                JAISoundID.Z2SE_WL_SWIM, // Wolf Link - Swim
-                JAISoundID.Z2SE_WL_OUTOF_WATER, // Wolf Link - Out of Water
+                //JAISoundID.Z2SE_AL_SWIM, // Adult Link - Swim
+                //JAISoundID.Z2SE_AL_INTO_WATER, // Adult Link - Walking into water
+                //JAISoundID.Z2SE_AL_OUTOF_WATER, // Adult Link - Walking out of water
+                //JAISoundID.Z2SE_AL_DIVE_INTO_WATER, // Adult Link - Dive into water
+                //JAISoundID.Z2SE_AL_DIVE_SWIM, // Adult Link - Diving Swim
+                //JAISoundID.Z2SE_AL_SWIM_UNDERWATER, // Adult Link - Swim Undetwater
+                //JAISoundID.Z2SE_WL_SWIM, // Wolf Link - Swim
+                //JAISoundID.Z2SE_WL_OUTOF_WATER, // Wolf Link - Out of Water
                 JAISoundID.Z2SE_FN_ARMER_LIGHT_ADD, // MA - Light Walk
                 JAISoundID.Z2SE_FN_ARMER_HEAVY_ADD, // MA - Heavy Walk
                 JAISoundID.Z2SE_FN_SEKIZOU_L, // Statue Walk
                 JAISoundID.Z2SE_FN_SEKIZOU_R, // Statue Walk
                 JAISoundID.Z2SE_FN_ZORA_L, // Zora Armor Left Leg
                 JAISoundID.Z2SE_FN_ZORA_R, // Zora Armor Right Leg
-                JAISoundID.Z2SE_AL_SWIM_DASH, // Adult Link - Swim Dash
-                JAISoundID.Z2SE_WL_SWIM_DASH, // Wolf Link - Swim Dash
+                //JAISoundID.Z2SE_AL_SWIM_DASH, // Adult Link - Swim Dash
+                //JAISoundID.Z2SE_WL_SWIM_DASH, // Wolf Link - Swim Dash
             };
 
         public static List<JAISoundID> itemSoundEffects =

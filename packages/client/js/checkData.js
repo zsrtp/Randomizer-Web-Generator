@@ -2294,6 +2294,10 @@ window.tpr.checkData = {
     category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
     itemId: 'Yellow_Rupee',
   },
+  'Zoras Domain Behind Waterfall Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Zoras Domain'],
+    itemId: 'Yellow_Rupee',
+  },
   'Zoras Domain Central Underwater Boulder Rupee': {
     category: ['Overworld', 'Rupee - Hidden', 'Zoras Domain'],
     itemId: 'Yellow_Rupee',

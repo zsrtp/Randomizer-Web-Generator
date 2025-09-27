@@ -1,6 +1,6 @@
 {
-    "requirements": "Boomerang",
-    "glitchedRequirements": "Boomerang",
+    "requirements": "Boomerang or Progressive_Clawshot",
+    "glitchedRequirements": "Boomerang or Progressive_Clawshot",
     "checkCategory": [ "Overworld", "Faron Woods", "Rupee - Freestanding" ],
     "itemId": "Orange_Rupee"
   }
