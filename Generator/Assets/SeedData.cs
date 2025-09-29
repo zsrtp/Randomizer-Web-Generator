@@ -2549,12 +2549,14 @@ namespace TPRandomizer.Assets
                     gciBytes[offset + 10] = (byte)((relOffset & 0xFF00) >> 8);
                     gciBytes[offset + 11] = (byte)(relOffset & 0xFF);
 
-                    // Calculate new size of gci
+                    // Calculate new size of gci.
+                    // First round content up to a block
                     int newSize = (int)(relOffset + SeedHeaderRaw.totalSize);
-                    while ((newSize - 0x40) % 0x2000 != 0)
+                    while (newSize % 0x2000 != 0)
                     {
                         newSize++;
                     }
+                    newSize += 0x40; // Then add room for the GCI header
 
                     while (gciBytes.Count < newSize)
                     {
