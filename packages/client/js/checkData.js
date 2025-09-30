@@ -2175,7 +2175,7 @@ window.tpr.checkData = {
     category: ['Chest', 'Dungeon', 'Temple of Time', 'ARC'],
     itemId: 'Red_Rupee',
   },
-  'Temple of Time Gilloutine Chest': {
+  'Temple of Time Guillotine Chest': {
     category: ['Chest', 'Dungeon', 'Temple of Time', 'Small Key', 'ARC'],
     itemId: 'Temple_of_Time_Small_Key',
   },
