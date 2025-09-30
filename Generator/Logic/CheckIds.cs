@@ -435,7 +435,7 @@ namespace TPRandomizer
                 "Temple of Time Armos Antechamber Statue Chest",
                 "Cave of Ordeals Floor 17 Poe",
                 "Arbiters Grounds West Small Chest Behind Block",
-                "Temple of Time Gilloutine Chest",
+                "Temple of Time Guillotine Chest",
                 "Cats Hide and Seek Minigame",
                 "Goron Mines Entrance Chest",
                 "Auru Gift To Fyer",
