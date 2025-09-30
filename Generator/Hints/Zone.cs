@@ -804,7 +804,7 @@ namespace TPRandomizer.Hints
                         "Temple of Time First Staircase Gohma Gate Chest",
                         "Temple of Time First Staircase Window Chest",
                         "Temple of Time Floor Switch Puzzle Room Upper Chest",
-                        "Temple of Time Gilloutine Chest",
+                        "Temple of Time Guillotine Chest",
                         "Temple of Time Lobby Lantern Chest",
                         "Temple of Time Moving Wall Beamos Room Chest",
                         "Temple of Time Moving Wall Dinalfos Room Chest",
