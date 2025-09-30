@@ -208,7 +208,7 @@ namespace TPRandomizer.Hints
                         "Temple of Time Scales Upper Chest",
                         "Temple of Time Floor Switch Puzzle Room Upper Chest",
                         "Temple of Time Big Key Chest",
-                        "Temple of Time Gilloutine Chest",
+                        "Temple of Time Guillotine Chest",
                         "Temple of Time Chest Before Darknut",
                         "Temple of Time Darknut Chest",
                     }
