@@ -378,19 +378,7 @@ namespace TPRandomizer
                 }
             }
 
-            string startingRoom;
-
-            if (Randomizer.SSettings.randomizeStartingPoint)
-            {
-                Randomizer.spawnIndex = rnd.Next(this.spawnList.Count());
-                startingRoom = this.spawnList[Randomizer.spawnIndex].ConnectedArea;
-            }
-            else
-            {
-                startingRoom = "Outside Links House";
-            }
-
-            Console.WriteLine("Spawn is: " + startingRoom);
+            string startingRoom = "Outside Links House";
 
             Entrance rootExit = new();
             rootExit.ConnectedArea = startingRoom;
@@ -435,6 +423,20 @@ namespace TPRandomizer
 
             // Any additional logic or special cases should be handled here
             ShuffleSpecialEntrances();
+
+            if (Randomizer.SSettings.randomizeStartingPoint)
+            {
+                Randomizer.Rooms.RoomDict["Root"].Exits.Clear();
+                Randomizer.spawnIndex = rnd.Next(this.spawnList.Count());
+                startingRoom = this.spawnList[Randomizer.spawnIndex].GetConnectedArea();
+                rootExit = new();
+                rootExit.ConnectedArea = startingRoom;
+                rootExit.Requirements = "(true)";
+
+                Randomizer.Rooms.RoomDict["Root"].Exits.Add(rootExit);
+            }
+
+            Console.WriteLine("Spawn is: " + startingRoom);
 
             // Validate the world one last time to ensure that everything went okay
             err = ValidateWorld();
