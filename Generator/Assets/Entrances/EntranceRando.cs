@@ -354,43 +354,7 @@ namespace TPRandomizer
             // Once we have the spawn table created, we want to verify that the data in the table is valid and generate a list of entrances from it.
             GetEntranceList();
 
-            // We want to be safe and make sure that the room classes are prepped and ready to be linked together. Then we define our starting room.
-            foreach (KeyValuePair<string, Room> roomList in Randomizer.Rooms.RoomDict.ToList())
-            {
-                Room currentRoom = roomList.Value;
-                currentRoom.Visited = false;
-                Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
-                foreach (Entrance exit in currentRoom.Exits)
-                {
-                    // We don't want to start the player in Hyrule Castle and we don't want to start them in a boss room.
-                    if (
-                        currentRoom.RoomName != "Hyrule Castle Entrance"
-                        && (exit.State != null)
-                        && (
-                            (exit.GetEntranceType() != EntranceType.Boss)
-                            || (exit.GetEntranceType() != EntranceType.Boss_Reverse)
-                            || (exit.GetEntranceType() != EntranceType.Boss_Exit)
-                        )
-                    )
-                    {
-                        this.spawnList.Add(exit);
-                    }
-                }
-            }
-
-            string startingRoom;
-
-            if (Randomizer.SSettings.randomizeStartingPoint)
-            {
-                Randomizer.spawnIndex = rnd.Next(this.spawnList.Count());
-                startingRoom = this.spawnList[Randomizer.spawnIndex].ConnectedArea;
-            }
-            else
-            {
-                startingRoom = "Outside Links House";
-            }
-
-            Console.WriteLine("Spawn is: " + startingRoom);
+            string startingRoom = "Outside Links House";
 
             Entrance rootExit = new();
             rootExit.ConnectedArea = startingRoom;
@@ -435,6 +399,43 @@ namespace TPRandomizer
 
             // Any additional logic or special cases should be handled here
             ShuffleSpecialEntrances();
+
+            if (Randomizer.SSettings.randomizeStartingPoint)
+            {
+                // We want to be safe and make sure that the room classes are prepped and ready to be linked together. Then we define our starting room.
+                foreach (KeyValuePair<string, Room> roomList in Randomizer.Rooms.RoomDict.ToList())
+                {
+                    Room currentRoom = roomList.Value;
+                    currentRoom.Visited = false;
+                    Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
+                    foreach (Entrance exit in currentRoom.Exits)
+                    {
+                        // We don't want to start the player in Hyrule Castle and we don't want to start them in a boss room.
+                        if (
+                            currentRoom.RoomName != "Hyrule Castle Entrance"
+                            && (exit.State != null)
+                            && (
+                                (exit.GetEntranceType() != EntranceType.Boss)
+                                && (exit.GetEntranceType() != EntranceType.Boss_Reverse)
+                                && (exit.GetEntranceType() != EntranceType.Boss_Exit)
+                            )
+                        )
+                        {
+                            this.spawnList.Add(exit);
+                        }
+                    }
+                }
+                Randomizer.Rooms.RoomDict["Root"].Exits.Clear();
+                Randomizer.spawnIndex = rnd.Next(this.spawnList.Count());
+                startingRoom = this.spawnList[Randomizer.spawnIndex].GetConnectedArea();
+                rootExit = new();
+                rootExit.ConnectedArea = startingRoom;
+                rootExit.Requirements = "(true)";
+
+                Randomizer.Rooms.RoomDict["Root"].Exits.Add(rootExit);
+            }
+
+            Console.WriteLine("Spawn is: " + startingRoom);
 
             // Validate the world one last time to ensure that everything went okay
             err = ValidateWorld();

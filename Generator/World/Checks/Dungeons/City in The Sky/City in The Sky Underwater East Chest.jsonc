@@ -1,6 +1,6 @@
 {
     "requirements": "Iron_Boots",
-    "glitchedRequirements": "Iron_Boots",
+    "glitchedRequirements": "HasHeavyMod",
     "checkCategory": ["Chest", "Dungeon", "City in The Sky"],
     "itemId": "Red_Rupee"
 }
