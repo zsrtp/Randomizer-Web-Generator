@@ -549,7 +549,7 @@ namespace TPRandomizer
             }
 
             AddBarnesShopAdjustments();
-            AddIzaMinigameSkipAbility();
+            // AddIzaMinigameSkipAbility();
 
             // ----- New Stuff -----
 
@@ -641,7 +641,7 @@ namespace TPRandomizer
             AddMidnaConversationStuff();
 
             // TODO: temp quiz sign for demo
-            AddTestQuizSign();
+            // AddTestQuizSign();
         }
 
         private void AddBarnesShopAdjustments()
@@ -749,118 +749,118 @@ namespace TPRandomizer
             results2.AddBranchPatches(branchPatches);
         }
 
-        private void AddIzaMinigameSkipAbility()
-        {
-            ushort izaContext = ctxGen.getNewContext();
-            ushort izaIsSkippingCtx = ctxGen.getNewContext();
+        // private void AddIzaMinigameSkipAbility()
+        // {
+        //     ushort izaContext = ctxGen.getNewContext();
+        //     ushort izaIsSkippingCtx = ctxGen.getNewContext();
 
-            // When reach 0x2ac with no context,
-            // map to event node and set context
+        //     // When reach 0x2ac with no context,
+        //     // map to event node and set context
 
-            results2.AddNodeRemaps(
-                new()
-                {
-                    // Set base context when selecting first slot.
-                    NodeRemap.Fli(
-                        0x3e3,
-                        Node.msg_IzaRentedAndPaid,
-                        Node.ev_IzaRentalMenu.flwIdx,
-                        izaContext
-                    ),
-                    // If arriving back at this node while under context, set
-                    // context back to 0 and proceed normally. Rupees aren't
-                    // paid until after this point, but they have been checked
-                    // in order to enter the custom menu stuff at all.
-                    NodeRemap.Ctx(
-                        izaContext,
-                        Node.msg_IzaRentedAndPaid,
-                        Node.msg_IzaRentedAndPaid.flwIdx,
-                        0
-                    ),
-                    NodeRemap.Ctx(
-                        izaContext,
-                        Node.msg_IzaRentalMenuCancel1,
-                        Node.msg_IzaRentedAndPaid.flwIdx,
-                        izaIsSkippingCtx
-                    )
-                }
-            );
+        //     results2.AddNodeRemaps(
+        //         new()
+        //         {
+        //             // Set base context when selecting first slot.
+        //             NodeRemap.Fli(
+        //                 0x3e3,
+        //                 Node.msg_IzaRentedAndPaid,
+        //                 Node.ev_IzaRentalMenu.flwIdx,
+        //                 izaContext
+        //             ),
+        //             // If arriving back at this node while under context, set
+        //             // context back to 0 and proceed normally. Rupees aren't
+        //             // paid until after this point, but they have been checked
+        //             // in order to enter the custom menu stuff at all.
+        //             NodeRemap.Ctx(
+        //                 izaContext,
+        //                 Node.msg_IzaRentedAndPaid,
+        //                 Node.msg_IzaRentedAndPaid.flwIdx,
+        //                 0
+        //             ),
+        //             NodeRemap.Ctx(
+        //                 izaContext,
+        //                 Node.msg_IzaRentalMenuCancel1,
+        //                 Node.msg_IzaRentedAndPaid.flwIdx,
+        //                 izaIsSkippingCtx
+        //             )
+        //         }
+        //     );
 
-            results2.AddEventEntities(
-                new()
-                {
-                    new(
-                        Node.ev_IzaRentalMenu,
-                        izaContext,
-                        // Zero param disables pressing B to pick an option. You
-                        // must pick an option by moving to it and pressing A.
-                        intParam: 0
-                    ),
-                    new(
-                        Node.ev_IzaRentedLastEvent,
-                        izaIsSkippingCtx,
-                        eventIndex: 46 // Do warp
-                    )
-                }
-            );
+        //     results2.AddEventEntities(
+        //         new()
+        //         {
+        //             new(
+        //                 Node.ev_IzaRentalMenu,
+        //                 izaContext,
+        //                 // Zero param disables pressing B to pick an option. You
+        //                 // must pick an option by moving to it and pressing A.
+        //                 intParam: 0
+        //             ),
+        //             new(
+        //                 Node.ev_IzaRentedLastEvent,
+        //                 izaIsSkippingCtx,
+        //                 eventIndex: 46 // Do warp
+        //             )
+        //         }
+        //     );
 
-            string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
-            string messageOption2_8not9 = "\x1A\x06\x00\x00\x08\x02";
+        //     string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
+        //     string messageOption2_8not9 = "\x1A\x06\x00\x00\x08\x02";
 
-            results2.AddStrReplacements(
-                new()
-                {
-                    StrRepl.Public(
-                        Node.msg_IzaRentalMenuBody,
-                        Res.LangSpecificNormalize(
-                            $"You want to shoot the targets? Or did you want to skip to the bottom?{CustomMessages.shopOption}"
-                        ),
-                        izaContext
-                    ),
-                    StrRepl.Public(
-                        Node.msg_IzaRentalMenuOptions,
-                        $"{messageOption1_8not9}I'll play.\n{messageOption2_8not9}I'll skip.",
-                        izaContext
-                    ),
-                }
-            );
+        //     results2.AddStrReplacements(
+        //         new()
+        //         {
+        //             StrRepl.Public(
+        //                 Node.msg_IzaRentalMenuBody,
+        //                 Res.LangSpecificNormalize(
+        //                     $"You want to shoot the targets? Or did you want to skip to the bottom?{CustomMessages.shopOption}"
+        //                 ),
+        //                 izaContext
+        //             ),
+        //             StrRepl.Public(
+        //                 Node.msg_IzaRentalMenuOptions,
+        //                 $"{messageOption1_8not9}I'll play.\n{messageOption2_8not9}I'll skip.",
+        //                 izaContext
+        //             ),
+        //         }
+        //     );
 
-            results2.AddBranchPatches(
-                new()
-                {
-                    new(
-                        Node.br_IzaRentalMenuResult,
-                        izaContext,
-                        // query005, 2-option menu with no hidden result.
-                        // Parameters not used
-                        queryIndex: 0x0,
-                        nextNodeIndexes: new()
-                        {
-                            Node.msg_IzaRentedAndPaid.flwIdx,
-                            Node.msg_IzaRentalMenuCancel1.flwIdx,
-                        }
-                    ),
-                }
-            );
+        //     results2.AddBranchPatches(
+        //         new()
+        //         {
+        //             new(
+        //                 Node.br_IzaRentalMenuResult,
+        //                 izaContext,
+        //                 // query005, 2-option menu with no hidden result.
+        //                 // Parameters not used
+        //                 queryIndex: 0x0,
+        //                 nextNodeIndexes: new()
+        //                 {
+        //                     Node.msg_IzaRentedAndPaid.flwIdx,
+        //                     Node.msg_IzaRentalMenuCancel1.flwIdx,
+        //                 }
+        //             ),
+        //         }
+        //     );
 
-            // List<StrRepl> strEntries2 =
-            //     new()
-            //     {
-            //         StrRepl.Public(
-            //             Node.msgZ0_MidnaTwoOptsBody,
-            //             "Need something?" + CustomMessages.shopOption,
-            //             baseMidnaCtx
-            //         ),
-            //         StrRepl.Public(
-            //             Node.msgZ0_MidnaTwoOptsOptions,
-            //             $"{messageOption1_8not9}Change time of day\n{messageOption2_8not9}Hints",
-            //             baseMidnaCtx
-            //         ),
-            //     };
-            // results2.AddStrReplacements(strEntries2);
+        //     // List<StrRepl> strEntries2 =
+        //     //     new()
+        //     //     {
+        //     //         StrRepl.Public(
+        //     //             Node.msgZ0_MidnaTwoOptsBody,
+        //     //             "Need something?" + CustomMessages.shopOption,
+        //     //             baseMidnaCtx
+        //     //         ),
+        //     //         StrRepl.Public(
+        //     //             Node.msgZ0_MidnaTwoOptsOptions,
+        //     //             $"{messageOption1_8not9}Change time of day\n{messageOption2_8not9}Hints",
+        //     //             baseMidnaCtx
+        //     //         ),
+        //     //     };
+        //     // results2.AddStrReplacements(strEntries2);
 
-            //
-        }
+        //     //
+        // }
 
         private void AddMidnaConversationStuff()
         {
@@ -985,7 +985,7 @@ namespace TPRandomizer
 
             // Make event change ToD
             results2.AddEventEntity(
-                new(Node.evZ0_GenericCtxEvent, baseMidnaCtx, eventIndex: 43, nextNodeIdx: 0xFFFF)
+                new(Node.evZ0_GenericCtxEvent, baseMidnaCtx, eventIndex: 44, nextNodeIdx: 0xFFFF)
             );
 
             // Add Midna hint messages
@@ -1055,79 +1055,79 @@ namespace TPRandomizer
             );
         }
 
-        private void AddTestQuizSign()
-        {
-            // Add Midna hint messages
-            ushort ctx = GetNewContext();
-            ushort endHintCtx = GetNewContext();
+        // private void AddTestQuizSign()
+        // {
+        //     // Add Midna hint messages
+        //     ushort ctx = GetNewContext();
+        //     ushort endHintCtx = GetNewContext();
 
-            // Start on node with ctx.
-            results2.AddNodeRemap(
-                NodeRemap.Fli(0x72b1, Node.zel00_FFFF, Node.evZ0_MidnaThreeOptsInitEv.flwIdx, ctx)
-            );
-            // Change context for end hint since needs to be unique since
-            // sharing same INF index for all custom sign stuff.
-            results2.AddNodeRemap(
-                NodeRemap.Ctx(ctx, Node.msgZ0_0x4d, Node.msgZ0_0x4d.flwIdx, endHintCtx)
-            );
+        //     // Start on node with ctx.
+        //     results2.AddNodeRemap(
+        //         NodeRemap.Fli(0x72b1, Node.zel00_FFFF, Node.evZ0_MidnaThreeOptsInitEv.flwIdx, ctx)
+        //     );
+        //     // Change context for end hint since needs to be unique since
+        //     // sharing same INF index for all custom sign stuff.
+        //     results2.AddNodeRemap(
+        //         NodeRemap.Ctx(ctx, Node.msgZ0_0x4d, Node.msgZ0_0x4d.flwIdx, endHintCtx)
+        //     );
 
-            // Change text for body and options under this context:
-            List<StrRepl> strEntries2 =
-                new()
-                {
-                    StrRepl.CustomSignText(
-                        // Node.msgZ0_MidnaThreeOptsBody,
-                        ctx,
-                        Res.LangSpecificNormalize(
-                            "How many cuccos are at Lake Hylia?" + CustomMessages.shopOption
-                        )
-                    ),
-                    StrRepl.CustomSignOptions(
-                        // Node.msgZ0_MidnaThreeOptsOptions,
-                        ctx,
-                        $"{CustomMessages.messageOption1}7\n{CustomMessages.messageOption2}8\n{CustomMessages.messageOption3}9"
-                    ),
-                    // Set custom text for correct selection.
-                    StrRepl.CustomSignText(
-                        // Node.msgZ0_0x4d,
-                        endHintCtx,
-                        Res.LangSpecificNormalize("Correct!\n\n\n\nCustom hint text would go here.")
-                    ),
-                };
-            results2.AddStrReplacements(strEntries2);
+        //     // Change text for body and options under this context:
+        //     List<StrRepl> strEntries2 =
+        //         new()
+        //         {
+        //             StrRepl.CustomSignText(
+        //                 // Node.msgZ0_MidnaThreeOptsBody,
+        //                 ctx,
+        //                 Res.LangSpecificNormalize(
+        //                     "How many cuccos are at Lake Hylia?" + CustomMessages.shopOption
+        //                 )
+        //             ),
+        //             StrRepl.CustomSignOptions(
+        //                 // Node.msgZ0_MidnaThreeOptsOptions,
+        //                 ctx,
+        //                 $"{CustomMessages.messageOption1}7\n{CustomMessages.messageOption2}8\n{CustomMessages.messageOption3}9"
+        //             ),
+        //             // Set custom text for correct selection.
+        //             StrRepl.CustomSignText(
+        //                 // Node.msgZ0_0x4d,
+        //                 endHintCtx,
+        //                 Res.LangSpecificNormalize("Correct!\n\n\n\nCustom hint text would go here.")
+        //             ),
+        //         };
+        //     results2.AddStrReplacements(strEntries2);
 
-            // Handle option choice
-            List<BranchPatchEntity> branchPatches =
-                new()
-                {
-                    // Handle choice of "Change ToD / Hints" menu
-                    new(
-                        Node.brZ0_MidnaThreeOptsResultBranch,
-                        ctx,
-                        nextNodeIndexes: new()
-                        {
-                            // Node.evZ0_GenericCtxEvent.flwIdx,
-                            // Node.msgZ0_0x28.flwIdx,
-                            // Node.msgZ0_0x26.flwIdx,
-                            Node.msgZ0_0x4d.flwIdx,
-                            Node.evZ0_GenericCtxEvent.flwIdx,
-                            Node.evZ0_GenericCtxEvent.flwIdx,
-                            0xFFFF
-                        }
-                    ),
-                };
-            results2.AddBranchPatches(branchPatches);
+        //     // Handle option choice
+        //     List<BranchPatchEntity> branchPatches =
+        //         new()
+        //         {
+        //             // Handle choice of "Change ToD / Hints" menu
+        //             new(
+        //                 Node.brZ0_MidnaThreeOptsResultBranch,
+        //                 ctx,
+        //                 nextNodeIndexes: new()
+        //                 {
+        //                     // Node.evZ0_GenericCtxEvent.flwIdx,
+        //                     // Node.msgZ0_0x28.flwIdx,
+        //                     // Node.msgZ0_0x26.flwIdx,
+        //                     Node.msgZ0_0x4d.flwIdx,
+        //                     Node.evZ0_GenericCtxEvent.flwIdx,
+        //                     Node.evZ0_GenericCtxEvent.flwIdx,
+        //                     0xFFFF
+        //                 }
+        //             ),
+        //         };
+        //     results2.AddBranchPatches(branchPatches);
 
-            // Set custom event node to queue trap item
-            results2.AddEventEntity(
-                new(
-                    Node.evZ0_GenericCtxEvent,
-                    ctx,
-                    eventIndex: 44,
-                    intParam: (ushort)Item.Foolish_Item
-                )
-            );
-        }
+        //     // Set custom event node to queue trap item
+        //     results2.AddEventEntity(
+        //         new(
+        //             Node.evZ0_GenericCtxEvent,
+        //             ctx,
+        //             eventIndex: 44,
+        //             intParam: (ushort)Item.Foolish_Item
+        //         )
+        //     );
+        // }
 
         private void AddShopConfirmationMsg(
             MsgNodeInst msgNode,

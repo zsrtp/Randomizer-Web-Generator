@@ -1641,48 +1641,48 @@ namespace TPRandomizer.Assets
                 //     0xFF
                 // ), // for FLW index 422 (0x1a6)
 
-                // Patch INF indexes for custom Talk to Midna hints to use the
-                // blue text with Midna talking sounds.
-                new ARCReplacement(
-                    "18534",
-                    "150d0000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    0xFE,
-                    0xFF
-                ), // For index 0x1373 in INF1 section (offset 0x8 in this)
-                new ARCReplacement(
-                    "18548",
-                    "150d0000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    0xFE,
-                    0xFF
-                ), // For index 0x1374 in INF1 section (offset 0x8 in this)
-                new ARCReplacement(
-                    "1855C",
-                    "150d0000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    0xFE,
-                    0xFF
-                ), // For index 0x1375 in INF1 section (offset 0x8 in this)
-                new ARCReplacement(
-                    "18570",
-                    "150d0000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    0xFE,
-                    0xFF
-                ), // For index 0x1376 in INF1 section (offset 0x8 in this)
-                new ARCReplacement(
-                    "18584",
-                    "150d0000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    0xFE,
-                    0xFF
-                ), // For index 0x1377 in INF1 section (offset 0x8 in this)
+                // // Patch INF indexes for custom Talk to Midna hints to use the
+                // // blue text with Midna talking sounds.
+                // new ARCReplacement(
+                //     "18534",
+                //     "150d0000",
+                //     (byte)FileDirectory.Message,
+                //     (byte)ReplacementType.Instruction,
+                //     0xFE,
+                //     0xFF
+                // ), // For index 0x1373 in INF1 section (offset 0x8 in this)
+                // new ARCReplacement(
+                //     "18548",
+                //     "150d0000",
+                //     (byte)FileDirectory.Message,
+                //     (byte)ReplacementType.Instruction,
+                //     0xFE,
+                //     0xFF
+                // ), // For index 0x1374 in INF1 section (offset 0x8 in this)
+                // new ARCReplacement(
+                //     "1855C",
+                //     "150d0000",
+                //     (byte)FileDirectory.Message,
+                //     (byte)ReplacementType.Instruction,
+                //     0xFE,
+                //     0xFF
+                // ), // For index 0x1375 in INF1 section (offset 0x8 in this)
+                // new ARCReplacement(
+                //     "18570",
+                //     "150d0000",
+                //     (byte)FileDirectory.Message,
+                //     (byte)ReplacementType.Instruction,
+                //     0xFE,
+                //     0xFF
+                // ), // For index 0x1376 in INF1 section (offset 0x8 in this)
+                // new ARCReplacement(
+                //     "18584",
+                //     "150d0000",
+                //     (byte)FileDirectory.Message,
+                //     (byte)ReplacementType.Instruction,
+                //     0xFE,
+                //     0xFF
+                // ), // For index 0x1377 in INF1 section (offset 0x8 in this)
 
                 /*
                 // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here.
