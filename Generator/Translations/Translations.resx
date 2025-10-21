@@ -1733,6 +1733,34 @@
     <value>They say that the Ball and Chain can destroy wooden towers.</value>
     <comment></comment>
   </data>
+  <data name="menu.midna-base.option.something-else" xml:space="preserve">
+    <value>Something else</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-human" xml:space="preserve">
+    <value>Transform into human</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-wolf" xml:space="preserve">
+    <value>Transform into wolf</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.warp" xml:space="preserve">
+    <value>Warp</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.body" xml:space="preserve">
+    <value>Need something?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.change-time-of-day" xml:space="preserve">
+    <value>Change time of day</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.hints" xml:space="preserve">
+    <value>Hints</value>
+    <comment></comment>
+  </data>
   <data name="noun.a-bug" xml:space="preserve">
     <value>a {cs}bug{ce}</value>
     <comment></comment>

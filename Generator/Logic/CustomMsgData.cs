@@ -905,12 +905,12 @@ namespace TPRandomizer
                 {
                     StrRepl.Public(
                         Node.msgZ0_MidnaTwoOptsBody,
-                        "Need something?" + CustomMessages.shopOption,
+                        Res.SimpleMsg("menu.midna-other.body") + CustomMessages.shopOption,
                         baseMidnaCtx
                     ),
                     StrRepl.Public(
                         Node.msgZ0_MidnaTwoOptsOptions,
-                        $"{messageOption1_8not9}Change time of day\n{messageOption2_8not9}Hints",
+                        $"{messageOption1_8not9}{Res.SimpleMsg("menu.midna-other.option.change-time-of-day")}\n{messageOption2_8not9}{Res.SimpleMsg("menu.midna-other.option.hints")}",
                         baseMidnaCtx
                     ),
                 };
@@ -1026,30 +1026,37 @@ namespace TPRandomizer
                 }
             }
 
-            // Update "Talk to Midna" text in menu options to be "Other":
-            // TODO: use resources for different langauges
+            string msgWarp = Res.SimpleMsg("menu.midna-base.option.warp");
+            string msgTransformIntoWolf = Res.SimpleMsg(
+                "menu.midna-base.option.transform-into-wolf"
+            );
+            string msgTransformIntoHuman = Res.SimpleMsg(
+                "menu.midna-base.option.transform-into-human"
+            );
+            string msgSomethingElse = Res.SimpleMsg("menu.midna-base.option.something-else");
+
             results2.AddStrReplacements(
                 new()
                 {
                     StrRepl.PublicInf(
                         Inf.zel00_MidnaOpts_WarpTalk,
-                        $"{CustomMessages.option1of2}Warp\n{CustomMessages.option2of2}Something else"
+                        $"{CustomMessages.option1of2}{msgWarp}\n{CustomMessages.option2of2}{msgSomethingElse}"
                     ),
                     StrRepl.PublicInf(
                         Inf.zel00_MidnaOpts_TransToWolfTalk,
-                        $"{CustomMessages.option1of2}Transform into wolf\n{CustomMessages.option2of2}Something else"
+                        $"{CustomMessages.option1of2}{msgTransformIntoWolf}\n{CustomMessages.option2of2}{msgSomethingElse}"
                     ),
                     StrRepl.PublicInf(
                         Inf.zel00_MidnaOpts_TransToHumanTalk,
-                        $"{CustomMessages.option1of2}Transform into human\n{CustomMessages.option2of2}Something else"
+                        $"{CustomMessages.option1of2}{msgTransformIntoHuman}\n{CustomMessages.option2of2}{msgSomethingElse}"
                     ),
                     StrRepl.PublicInf(
                         Inf.zel00_MidnaOpts_TransToWolfWarpTalk,
-                        $"{CustomMessages.messageOption1}Transform into wolf\n{CustomMessages.messageOption2}Warp\n{CustomMessages.messageOption3}Something else"
+                        $"{CustomMessages.messageOption1}{msgTransformIntoWolf}\n{CustomMessages.messageOption2}{msgWarp}\n{CustomMessages.messageOption3}{msgSomethingElse}"
                     ),
                     StrRepl.PublicInf(
                         Inf.zel00_MidnaOpts_TransToHumanWarpTalk,
-                        $"{CustomMessages.messageOption1}Transform into human\n{CustomMessages.messageOption2}Warp\n{CustomMessages.messageOption3}Something else"
+                        $"{CustomMessages.messageOption1}{msgTransformIntoHuman}\n{CustomMessages.messageOption2}{msgWarp}\n{CustomMessages.messageOption3}{msgSomethingElse}"
                     )
                 }
             );
