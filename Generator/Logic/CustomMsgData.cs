@@ -876,6 +876,13 @@ namespace TPRandomizer
             string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
             string messageOption2_8not9 = "\x1A\x06\x00\x00\x08\x02";
 
+            // TODO: use resources for this.
+            // Also, probably should use a different text box for the leading
+            // text. I know all of the dungeon colors uses a lot of bytes when
+            // all of them are required. Those ones may need to be broken up
+            // into different text boxes as well if they were for example
+            // "{lightblue}Snowpeak Ruins{white} found in {blue}Lanayru
+            // Province{white}," up to 8 times.
             string midnaText =
                 $"There are {CustomMessages.messageColorRed}3 required dungeons{CustomMessages.messageColorWhite}:\n\n\n\n"
                 + GenLinkHouseSignText();
