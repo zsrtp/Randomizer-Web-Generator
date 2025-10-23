@@ -223,6 +223,9 @@ namespace TPRandomizer
 
         // Would have to shrink the font size on this one
         // public static InfInst zel00_TvSettings = new(StgBmg.zel_00, 0x55b);
+
+        // Note: we use INF indexes for the Midna menus since they are used by many nodes.
+        // This is only for the sake of clarity; strReplacements are always done by INF.
         public static InfInst zel00_MidnaOpts_WarpTalk = new(StgBmg.zel_00, 0xa2d);
         public static InfInst zel00_MidnaOpts_TransToWolfTalk = new(StgBmg.zel_00, 0x5df);
         public static InfInst zel00_MidnaOpts_TransToHumanTalk = new(StgBmg.zel_00, 0x5e0);

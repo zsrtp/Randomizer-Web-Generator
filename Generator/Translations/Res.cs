@@ -32,6 +32,21 @@ namespace TPRandomizer
 
         private static Translations translations;
 
+        private static readonly Dictionary<string, string> jaNumConvertMap =
+            new()
+            {
+                { "0", "０" },
+                { "1", "１" },
+                { "2", "２" },
+                { "3", "３" },
+                { "4", "４" },
+                { "5", "５" },
+                { "6", "６" },
+                { "7", "７" },
+                { "8", "８" },
+                { "9", "９" },
+            };
+
         static Res()
         {
             IServiceProvider provider = Global.GetServiceProvider();
@@ -280,6 +295,8 @@ namespace TPRandomizer
             // List<string> escapedList = new();
             List<TextChunk> chunks = new();
 
+            bool cultureIsJapanese = IsCultureJa();
+
             int index = 0;
             // StringBuilder sb = new();
             TextChunk currentChunk = new TextChunk();
@@ -346,7 +363,17 @@ namespace TPRandomizer
                     if (hasRenderedEsc)
                         currentChunk.AddRenderedEscapeSequence(renderedEsc);
                     else
+                    {
+                        // If JP, convert numbers from 3 to full-width such as ３.
+                        if (
+                            cultureIsJapanese
+                            && jaNumConvertMap.TryGetValue(currentChar, out string newJaNumStr)
+                        )
+                        {
+                            currentChar = newJaNumStr;
+                        }
                         currentChunk.AddChar(currentChar);
+                    }
                 }
 
                 if (!hasRenderedEsc)

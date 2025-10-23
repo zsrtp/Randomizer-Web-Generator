@@ -1761,6 +1761,18 @@
     <value>Hints</value>
     <comment></comment>
   </data>
+  <data name="midna.required-dungeons" xml:space="preserve">
+    <value>There is #(red)1#(white) required dungeon:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#other" xml:space="preserve">
+    <value>There are #(red){count}#(white) required dungeons:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#zero" xml:space="preserve">
+    <value>There are no required dungeons.</value>
+    <comment></comment>
+  </data>
   <data name="noun.a-bug" xml:space="preserve">
     <value>a {cs}bug{ce}</value>
     <comment></comment>

@@ -1965,6 +1965,46 @@
     <value>clés de Kikolou</value>
     <comment></comment>
   </data>
+  <data name="menu.midna-base.option.something-else" xml:space="preserve">
+    <value>Je veux autre chose</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-human" xml:space="preserve">
+    <value>Je veux redevenir humain</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-wolf" xml:space="preserve">
+    <value>Je veux redevenir un loup</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.warp" xml:space="preserve">
+    <value>Je veux me téléporter</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.body" xml:space="preserve">
+    <value>Que veux-tu alors?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.change-time-of-day" xml:space="preserve">
+    <value>Je veux changer l&apos;heure</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.hints" xml:space="preserve">
+    <value>Indices</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons" xml:space="preserve">
+    <value>Il y a #(red)1#(white) donjon requis :</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#other" xml:space="preserve">
+    <value>Il y a #(red){count}#(white) donjons requis :</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#zero" xml:space="preserve">
+    <value>Il n&apos;y a aucun donjon requis.</value>
+    <comment></comment>
+  </data>
   <data name="noun.a-bug" xml:space="preserve">
     <value>un {cs}insecte{ce}</value>
     <comment></comment>
