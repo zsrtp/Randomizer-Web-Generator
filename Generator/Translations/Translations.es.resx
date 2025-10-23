@@ -117,6 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="menu.midna-base.option.something-else" xml:space="preserve">
+    <value>Más opciones</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-human" xml:space="preserve">
+    <value>Humano</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-wolf" xml:space="preserve">
+    <value>Bestia</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.warp" xml:space="preserve">
+    <value>Teletransportar</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.body" xml:space="preserve">
+    <value>¿Qué quieres?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.change-time-of-day" xml:space="preserve">
+    <value>Cambiar la hora</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.hints" xml:space="preserve">
+    <value>Consejos</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons" xml:space="preserve">
+    <value>Hay #(red)1#(white) mazmorra requerida:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#other" xml:space="preserve">
+    <value>Hay #(red){count}#(white) mazmorras requeridas:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#zero" xml:space="preserve">
+    <value>No hay mazmorras requeridas.</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
     <value>Patíbulo del Desierto</value>
     <comment></comment>
