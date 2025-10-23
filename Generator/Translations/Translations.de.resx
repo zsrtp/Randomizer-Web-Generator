@@ -145,6 +145,18 @@
     <value>Hinweise</value>
     <comment></comment>
   </data>
+  <data name="midna.required-dungeons" xml:space="preserve">
+    <value>Es ist #(red)1#(white) Dungeon erforderlich:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#other" xml:space="preserve">
+    <value>Es sind #(red){count}#(white) Dungeons erforderlich:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#zero" xml:space="preserve">
+    <value>Es ist kein Dungeon erforderlich.</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
     <value>Wüstenburg</value>
     <comment></comment>
