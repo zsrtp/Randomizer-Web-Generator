@@ -34,21 +34,20 @@ namespace TPRandomizer.Hints.Settings
             Dictionary<string, Func<HintGenData, bool>> conditionalAlways =
                 new()
                 {
-                    // {
-                    //     "Lake Hylia Shell Blade Grotto Chest",
-                    //     // Only hint when the poe next to the grotto is excluded
-                    //     // or vanilla
-                    //     (genData) => HintUtils.checkIsPlayerKnownStatus("Flight By Fowl Ledge Poe")
-                    // },
                     {
                         "Snowpeak Icy Summit Poe",
                         // Only hint when the poe is shuffled and there is no
                         // reason to go to SPR (unrequired is barren and SPR is
-                        // unrequired).
+                        // unrequired and unshuffled dungeon entrances so you
+                        // know that unrequired SPR is all that is behind the
+                        // doors).
                         (genData) =>
-                            !HintUtils.checkIsPlayerKnownStatus("Snowpeak Icy Summit Poe")
-                            && genData.sSettings.barrenDungeons
-                            && !HintUtils.getRequiredDungeonZones().Contains("Snowpeak Ruins")
+                        {
+                            return !HintUtils.checkIsPlayerKnownStatus("Snowpeak Icy Summit Poe")
+                                && genData.sSettings.barrenDungeons
+                                && genData.sSettings.shuffleDungeonEntrances == DungeonER.Off
+                                && !HintUtils.getRequiredDungeonZones().Contains("Snowpeak Ruins");
+                        }
                     },
                 };
             foreach (KeyValuePair<string, Func<HintGenData, bool>> pair in conditionalAlways)

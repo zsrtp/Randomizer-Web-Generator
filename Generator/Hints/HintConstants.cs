@@ -191,11 +191,32 @@ namespace TPRandomizer.Hints
         private static readonly Func<HintGenData, Zone, bool> alwaysPassFn = (genData, zone) =>
             true;
         private static readonly Func<HintGenData, Zone, bool> snowpeakFn = (genData, zone) =>
-            !genData.sSettings.skipSnowpeakEntrance
-            && genData.sSettings.shufflePoes != PoeSettings.All
-            && genData.sSettings.shufflePoes != PoeSettings.Overworld
-            && genData.sSettings.barrenDungeons
-            && !HintUtils.DungeonIsRequired(ZoneUtils.IdToString(Zone.Snowpeak_Ruins));
+        {
+            if (
+                !genData.sSettings.skipSnowpeakEntrance
+                && genData.sSettings.shufflePoes != PoeSettings.All
+                && genData.sSettings.shufflePoes != PoeSettings.Overworld
+                && genData.sSettings.barrenDungeons
+                && !genData.sSettings.decoupleEntrances
+                && !genData.sSettings.unpairEntrances
+            )
+            {
+                if (
+                    !genData.dungeonEntrances.TryGetValue(
+                        Zone.Snowpeak_Ruins,
+                        out Zone beyondSprDoorsDungeon
+                    )
+                )
+                    throw new Exception(
+                        $"Failed to find dungeon behind SPR doors for Snowpeak BeyondThisPoint hint."
+                    );
+
+                // Dungeon behind the SPR doors must be an unrequiredBarren dungeon.
+                return !HintUtils.DungeonIsRequired(ZoneUtils.IdToString(beyondSprDoorsDungeon));
+            }
+            return false; // Don't create BeyondThisPoint hint
+        };
+
         private static readonly Func<HintGenData, Zone, bool> dungeonFn = (genData, zone) =>
             ZoneUtils.IsDungeonZone(zone)
             && (

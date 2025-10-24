@@ -48,11 +48,12 @@ namespace TPRandomizer.Hints.HintCreator
                     Item.Iron_Boots,
                     Item.Progressive_Bow,
                     Item.Filled_Bomb_Bag,
-                    Item.Progressive_Clawshot,
                     Item.Aurus_Memo,
                     Item.Spinner,
                     Item.Ball_and_Chain,
                     Item.Progressive_Dominion_Rod,
+                    // Note: Clawshot leads to far too many checks to be
+                    // helpful, so removed from this base list.
                 };
 
             // Remove any baseSrcItems which have a check that is already
