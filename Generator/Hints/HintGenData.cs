@@ -29,6 +29,7 @@ namespace TPRandomizer.Hints
         public Dictionary<string, Item> tradeChainStartToReward = new();
         public Dictionary<Item, string> tradeItemToChainEndCheck = new();
         public Dictionary<AreaId, HashSet<Item>> areaIdToAllowBarrenItems { get; private set; }
+        public Dictionary<Zone, Zone> dungeonEntrances = new(); // Entering Key sends to Value
 
         public HintGenData(
             Random rnd,
@@ -44,6 +45,7 @@ namespace TPRandomizer.Hints
             hinted = new HintedThings3();
             vars = new HintVars();
 
+            dungeonEntrances = calcDungeonEntrances();
             areaIdToAllowBarrenItems = prepareAreaIdToAllowBarrenItems();
             itemToChecksList = calcItemToChecksList();
             prepareTradeItemData();
@@ -652,6 +654,111 @@ namespace TPRandomizer.Hints
             }
 
             return false;
+        }
+
+        private Dictionary<Zone, Zone> calcDungeonEntrances()
+        {
+            Dictionary<Zone, Zone> result = new();
+
+            List<(string, string, Zone)> exitToDungeonList =
+                new()
+                {
+                    ("North Faron Woods", "Forest Temple Entrance", Zone.Forest_Temple),
+                    (
+                        "Death Mountain Sumo Hall Goron Mines Tunnel",
+                        "Goron Mines Entrance",
+                        Zone.Goron_Mines
+                    ),
+                    (
+                        "Lake Hylia Lakebed Temple Entrance",
+                        "Lakebed Temple Entrance",
+                        Zone.Lakebed_Temple
+                    ),
+                    (
+                        "Outside Arbiters Grounds",
+                        "Arbiters Grounds Entrance",
+                        Zone.Arbiters_Grounds
+                    ),
+                    (
+                        "Snowpeak Summit Lower Left Door",
+                        "Snowpeak Ruins Left Door",
+                        Zone.Snowpeak_Ruins
+                    ),
+                    (
+                        "Sacred Grove Past Behind Window",
+                        "Temple of Time Entrance",
+                        Zone.Temple_of_Time
+                    ),
+                    ("Lake Hylia", "City in The Sky Entrance", Zone.City_in_the_Sky),
+                    (
+                        "Mirror Chamber Portal",
+                        "Palace of Twilight Entrance",
+                        Zone.Palace_of_Twilight
+                    ),
+                    (
+                        "Castle Town North Inside Barrier",
+                        "Hyrule Castle Entrance",
+                        Zone.Hyrule_Castle
+                    ),
+                };
+
+            // Build quick lookups
+            Dictionary<string, Zone> entranceToZone = new();
+            foreach ((string, string, Zone) tuple in exitToDungeonList)
+            {
+                entranceToZone[tuple.Item2] = tuple.Item3;
+            }
+
+            foreach ((string, string, Zone) tuple in exitToDungeonList)
+            {
+                string srcRoom = tuple.Item1;
+                string vanillaTargetRoom = tuple.Item2;
+                Zone entranceZone = tuple.Item3;
+
+                bool exitIsNotRandomized = false;
+                Entrance exitToMatch = null;
+
+                Room dungeonEntranceRoom = Randomizer.Rooms.RoomDict[srcRoom];
+                foreach (Entrance exit in dungeonEntranceRoom.Exits)
+                {
+                    if (exit.OriginalConnectedArea == vanillaTargetRoom)
+                    {
+                        exitToMatch = exit.GetReplacedEntrance();
+                        if (exitToMatch == null)
+                        {
+                            // If found the exit but it has no replacedEntrance,
+                            // then this one was not randomized and the dungeon
+                            // connection is vanilla.
+                            exitIsNotRandomized = true;
+                        }
+                        break;
+                    }
+                }
+
+                if (exitIsNotRandomized)
+                {
+                    result[entranceZone] = entranceZone;
+                }
+                else
+                {
+                    if (exitToMatch == null)
+                    {
+                        throw new Exception(
+                            $"Failed to find vanillaTargetRoom '{vanillaTargetRoom}'."
+                        );
+                    }
+
+                    string newTargetRoom = exitToMatch.OriginalConnectedArea;
+                    if (!entranceToZone.TryGetValue(newTargetRoom, out Zone targetDungeon))
+                        throw new Exception(
+                            $"Failed to find dungeon zone for entrance '{newTargetRoom}'."
+                        );
+
+                    result[entranceZone] = targetDungeon;
+                }
+            }
+
+            return result;
         }
 
         private Dictionary<AreaId, HashSet<Item>> prepareAreaIdToAllowBarrenItems()
