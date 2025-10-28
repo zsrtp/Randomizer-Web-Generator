@@ -150,7 +150,7 @@
     <comment></comment>
   </data>
   <data name="midna.required-dungeons#zero" xml:space="preserve">
-    <value>必須ダンジョンは　ないらしい</value>
+    <value>必須ダンジョンが　ないらしい</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
