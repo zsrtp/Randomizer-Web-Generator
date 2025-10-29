@@ -23,9 +23,7 @@ namespace TPRandomizer
         // checkName to useDefArticle
         private Dictionary<string, SelfHinterData> selfHinterChecks;
         private List<HintSpot> hintSpots;
-
-        // private Dictionary<string, Status> checkToStatus;
-        private Bmg0Builder builder = null;
+        private Bmg0Builder builder;
         private SharedSettings sSettings;
 
         private CustomMsgData(SharedSettings sSettings)
@@ -377,7 +375,7 @@ namespace TPRandomizer
             // do not depend on the item.
             GenStaticEntries(seedGenResults);
 
-            AddMidnaConversationStuff();
+            AddMidnaAdjustments();
 
             // handle shop text first
             if (updateShopText)
@@ -648,7 +646,7 @@ namespace TPRandomizer
             builder.AddBranchPatches(branchPatches);
         }
 
-        private void AddMidnaConversationStuff()
+        private void AddMidnaAdjustments()
         {
             // Note: Midna voice is only guaranteed to work normally when the
             // instantText option is not enabled. Even in the vanilla game, if
@@ -679,7 +677,7 @@ namespace TPRandomizer
                 hintMessages.Add(GenLinkHouseSignText());
             }
 
-            // TODO: add Midna spot hints here once ability is developed.
+            // TODO: add Midna spot hints here once feature is developed.
 
             builder.AddStrReplacements(
                 new()
@@ -723,7 +721,7 @@ namespace TPRandomizer
             builder.AddBranchPatches(
                 new()
                 {
-                    // Check if can change ToD:
+                    // Check if can change ToD
                     new(
                         Node.br_Z0GeneriCtxBranch,
                         baseMidnaCtx,
@@ -758,6 +756,7 @@ namespace TPRandomizer
                 )
             );
 
+            // Should always have at least one message (required dungeon info).
             if (ListUtils.isEmpty(hintMessages))
                 throw new Exception($"Expected Midna hintMessages, but list was empty.");
 
