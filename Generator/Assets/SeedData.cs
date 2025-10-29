@@ -6,7 +6,6 @@ namespace TPRandomizer.Assets
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.Serialization;
     using Newtonsoft.Json;
     using TPRandomizer.Assets.CLR0;
     using TPRandomizer.FcSettings.Enums;
@@ -1621,88 +1620,6 @@ namespace TPRandomizer.Assets
                     7
                 ), // Call event017 to give player item
 
-                // // Temp change event for Transform (Midna)
-                // new ARCReplacement(
-                //     "4ACD8",
-                //     // "032b0132",
-                //     "032b0000",
-                //     (byte)FileDirectory.Message,
-                //     (byte)ReplacementType.Instruction,
-                //     0xFE,
-                //     0xFF
-                // ), // for FLW index 421 (0x1a5)
-                // new ARCReplacement(
-                //     "4ACE0",
-                //     // "032b0133",
-                //     "032b0000",
-                //     (byte)FileDirectory.Message,
-                //     (byte)ReplacementType.Instruction,
-                //     0xFE,
-                //     0xFF
-                // ), // for FLW index 422 (0x1a6)
-
-                // // Patch INF indexes for custom Talk to Midna hints to use the
-                // // blue text with Midna talking sounds.
-                // new ARCReplacement(
-                //     "18534",
-                //     "150d0000",
-                //     (byte)FileDirectory.Message,
-                //     (byte)ReplacementType.Instruction,
-                //     0xFE,
-                //     0xFF
-                // ), // For index 0x1373 in INF1 section (offset 0x8 in this)
-                // new ARCReplacement(
-                //     "18548",
-                //     "150d0000",
-                //     (byte)FileDirectory.Message,
-                //     (byte)ReplacementType.Instruction,
-                //     0xFE,
-                //     0xFF
-                // ), // For index 0x1374 in INF1 section (offset 0x8 in this)
-                // new ARCReplacement(
-                //     "1855C",
-                //     "150d0000",
-                //     (byte)FileDirectory.Message,
-                //     (byte)ReplacementType.Instruction,
-                //     0xFE,
-                //     0xFF
-                // ), // For index 0x1375 in INF1 section (offset 0x8 in this)
-                // new ARCReplacement(
-                //     "18570",
-                //     "150d0000",
-                //     (byte)FileDirectory.Message,
-                //     (byte)ReplacementType.Instruction,
-                //     0xFE,
-                //     0xFF
-                // ), // For index 0x1376 in INF1 section (offset 0x8 in this)
-                // new ARCReplacement(
-                //     "18584",
-                //     "150d0000",
-                //     (byte)FileDirectory.Message,
-                //     (byte)ReplacementType.Instruction,
-                //     0xFE,
-                //     0xFF
-                // ), // For index 0x1377 in INF1 section (offset 0x8 in this)
-
-                /*
-                // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here.
-                new ARCReplacement(
-                    "3014",
-                    "FF05FFFF",
-                    (byte)FileDirectory.Room,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Death_Mountain,
-                    3
-                ),
-                new ARCReplacement(
-                    "3950",
-                    "FF05FFFF",
-                    (byte)FileDirectory.Room,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Death_Mountain,
-                    3
-                ), // Add flag to DM milk shop item
-
                 // Modify LBT scnChg so player can swim into it
                 new ARCReplacement(
                     "8F0",
@@ -2852,132 +2769,12 @@ namespace TPRandomizer.Assets
             List<byte> allData = new();
             List<byte> bodyData = new();
 
-            // Maybe should combine everything into one table.
-            // - map signId to FLI value (what the sign starts on).
-
-            // DONE - map FLI value to initial FLW index
-            // - signs flows are static. Midna flow is dynamic depending on how
-            // many text boxes she should have.
-
-            // - map FLI value + FLW index to INF index (also happens for Midna)
-            // These mappings would be entirely static. We control what node a
-            // custom sign starts on using its flow, and we control what node
-            // Midna starts on using the FLI to initial FLW mapping.
-
-            // !!!!!!!!! NOTE: this will use the mask, so:
-            // [0xFFF0, 0x7700, 0x24, 0x1369]
-            // [0xFFF0, 0x7700, 0x25, 0x136A]
-            // ...
-            // [0xFFF0, 0x7710, 0x24, 0x136E]
-            // [0xFFF0, 0x7710, 0x25, 0x136F]
-            // [0xFFF0, 0x7710, 0x26, 0x1370]
-            // ...
-            // [0xFFFF, 0x0BB8, 0x24, 0x1372]
-            // [0xFFFF, 0x0BB8, 0x25, 0x1373]
-            // etc.
-            // Mask is good because it should speed up execution time and it
-            // also reduces the data size. And we would have to use 8 bytes per
-            // entry anyway, so doesn't cost any space.
-
-            // TODO: figure out the range of INF1 indexes we can work with for
-            // this. Start lower than 0x1369 + how high can we go?
-
-            // 0x1369 might be the lower bound? Not sure how Lunar found this
-            // value, but we can only go maybe 2 earlier at most? Index 4999 is
-            // 0x1387, so we have 31 values we can use right now.
-
-            // 0x1369 => 182842 offset in DAT1 data
-            // 0x1387 => 182872
-            // Each is 1 greater than the last, and each points to a dead byte.
-            // Maybe there is a way to use fake values here since we are
-            // translating to a custom string anyway, but don't super need to
-            // worry about that right now.
-            // So we can have 31 different values right now, and we are going to
-            // use 15 of them.
-            // I would put Talk To Midna at 0x1369 through 0x136d inclusive.
-
-            // Note: we use the mask because even if we start on flow 0x7703
-            // (for 3 groups of text boxes: 0x26,0x27,0x28), once we change to
-            // FLW node 0x27, we need to still map this to a custom INF index
-            // instead of the one defined on the FLW entry.
-
-            // 0x7700
-            // 0x7701
-            // 0x7702
-            // 0x7703
-            // 0x7704
-            // 0x7710 2nd sign - first of 5 nodes
-            // 0x7711 2nd sign - 2nd of 5 nodes
-            // 0x7712 2nd sign - 3rd of 5 nodes
-            // 0x7713 2nd sign - 4th of 5 nodes
-            // 0x7714 2nd sign - 5th of 5 nodes
-
-            // ^ these are values which need to map to initial FLW indexes.
-
-            // The game will already fall back to doing nothing if there is no
-            // mapping for the FLI?
-
-            // data.AddRange(Converter.GcBytes((UInt16)0xbb8)); // FLI
-            // data.AddRange(Converter.GcBytes((UInt16)0x25)); // FLW
-            // data.AddRange(Converter.GcBytes((UInt16)0x136d)); // INF
-            // data.Add(Converter.GcByte(0)); // bool
-            // data.Add(Converter.GcByte(0)); // padding
-
-            // List<(UInt16, UInt16, UInt16)> aa = new() {
-            //     (0x7700, 0x24, 0x1369),
-            //     (0x7701, 0x25, 0x136A),
-            //     (0x7702, 0x26, 0x136B),
-            //     (0x7703, 0x27, 0x136C),
-            //     (0x7704, 0x28, 0x136D),
-            //     (0x7710, 0x24, 0x1369),
-            //     (0x7711, 0x25, 0x136A),
-            //     (0x7712, 0x26, 0x136B),
-            //     (0x7713, 0x27, 0x136C),
-            //     (0x7714, 0x28, 0x136D),
-            // };
-
-            // u16 - signToFliOffset
-            // u16 - numSignToFliEntries
-            // u16 - flwIdxRemapOffset
-            // u16 - numFlwIdxRemapEntries
-            // u16 - infRemapOffset
-            // u16 - numInfRemapEntries
-
             ushort headerSize = 0x38;
 
             StringTableResult2.Header header = customMsgData.AddBytesGenHeader(headerSize, bodyData);
 
             // Build header
             allData.AddRange(Converter.MessageStringBytes("BMG0")); // 0x00
-
-            // TODO: there is probably an issue with converting the foundIndex
-            // in the table with the value. We might need to add all ctx and
-            // then all basic? We get an absolute index when searching in a
-            // wordComp table for example, and we need to convert this into an
-            // effectiveIndex in the entities table.
-
-            // We might need a diff to apply to the absolute index stored
-            // somewhere.
-
-            // Maybe when we do the binarySearch, we pass a pointer to our first
-            // element in the table slice as if it was the table, set the
-            // startIdx to 0, and pass the same length. Then when we get a result, we add it to the 
-
-            // Note, our foundIndex will never be earlier than the finalIndex.
-            // It can easily be way later. It cannot be earlier though because
-            // at best we start our slice at the start of the table. What we can do it store 
-
-            // To convert a ctx foundIndex to its final index, we always
-            // subtract the startIdx of the ctx data for that comp in the table.
-            // So if we find a value at index 25 and our data starts at 10, our
-            // final index is 25 - 10 => 15.
-
-            // To convert a basic foundIndex to its final index, we need to do
-            // this: foundIndex - basicStartIdx + ctxCompsLength. foundIndex -
-            // basicStartIdx will be at least 0. ctxCompsLength will be at least
-            // zero. One could be greater than the other? That is true. So our
-            // diff could be positive or negative. The result is guaranteed to
-            // be at least 0 though once we add everything together.
             allData.AddRange(Converter.GcBytes(header.entityInfoTableOffset)); // 0x04
             allData.AddRange(Converter.GcBytes(header.tableSliceInfosOffset)); // 0x06
             allData.AddRange(Converter.GcBytes(header.wordCompValsOffset)); // 0x08
