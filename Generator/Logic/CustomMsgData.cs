@@ -681,18 +681,6 @@ namespace TPRandomizer
 
             // TODO: add Midna spot hints here once ability is developed.
 
-            // foreach (HintSpot hintSpot in hintSpots)
-            // {
-            //     if (hintSpot.location == SpotId.Ordon_Sign)
-            //     {
-            //         List<string> hintTexts = hintSpot.hints
-            //             .Select((hint) => hint.toHintTextList(this)[0].text)
-            //             .ToList();
-            //         hintMessages.AddRange(hintTexts);
-            //         break;
-            //     }
-            // }
-
             builder.AddStrReplacements(
                 new()
                 {
@@ -1236,20 +1224,7 @@ namespace TPRandomizer
 
             // ----- Sera Shop -----
 
-            // uint seraSlingshotPrice = 30;
-            // TODO: temp change for demo
-            ushort seraSlingshotPrice = 55;
-
-            builder.AddBranchPatches(
-                new()
-                {
-                    new(Node.br_SeraSlingshotCheckCanAfford, null, parameters: seraSlingshotPrice),
-                }
-            );
-            builder.AddEventEntity(
-                new(Node.ev_SeraSlingshotPayPrice, null, intParam: seraSlingshotPrice)
-            );
-
+            uint seraSlingshotPrice = 30;
             AddShopSlotMsg(
                 Node.msg_SeraSlingshotSlot,
                 "Sera Shop Slingshot",
@@ -1331,9 +1306,7 @@ namespace TPRandomizer
                 "kak-malo"
             );
 
-            // uint kakMaloHylianShieldPrice = 200;
-            // TODO: temp test code
-            uint kakMaloHylianShieldPrice = 315;
+            uint kakMaloHylianShieldPrice = 200;
             AddShopSlotMsg(
                 Node.msg_KakMaloMartHylianShieldSlot,
                 "Kakariko Village Malo Mart Hylian Shield",
