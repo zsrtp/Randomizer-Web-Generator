@@ -857,15 +857,20 @@ namespace TPRandomizer.Assets
             storedNodeRemaps.AddRange(nodeRemaps);
         }
 
+        public void AddBranchPatch(BranchPatchEntity entity)
+        {
+            if (entity.hasPatchBytes())
+                storedBranchPatches.Add(entity);
+
+            if (!ListUtils.isEmpty(entity.nextNodeIndexes))
+                storedBranchNextNodes.Add(entity);
+        }
+
         public void AddBranchPatches(List<BranchPatchEntity> branchPatches)
         {
             foreach (BranchPatchEntity entity in branchPatches)
             {
-                if (entity.hasPatchBytes())
-                    storedBranchPatches.Add(entity);
-
-                if (!ListUtils.isEmpty(entity.nextNodeIndexes))
-                    storedBranchNextNodes.Add(entity);
+                AddBranchPatch(entity);
             }
         }
 

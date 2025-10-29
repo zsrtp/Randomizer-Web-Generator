@@ -167,6 +167,11 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town, 0x9eb, 0x3D8);
         public static MsgNodeInst msg_CtGoronArrowsConfirmationSecond =
             new(StgBmg.Castle_Town, 0x9ed, 0x3DB);
+        public static NodeInst br_CtGoronShieldCheckHasHylianShield =
+            new(StgBmg.Castle_Town_Shops, 0xa16);
+        public static NodeInst ev_CtGoronShieldPayPrice = new(StgBmg.Castle_Town_Shops, 0xa0f);
+        public static NodeInst ev_CtGoronShieldSetTempAfterBuy =
+            new(StgBmg.Castle_Town_Shops, 0xa1c);
         public static MsgNodeInst msg_CtGoronShieldConfirmationIntitial =
             new(StgBmg.Castle_Town_Shops, 0xa06, 0x3E3);
         public static MsgNodeInst msg_CtGoronShieldConfirmationSecond =
@@ -276,7 +281,7 @@ namespace TPRandomizer
     public enum QueryIdx : ushort
     {
         query005 = 0,
-        query001 = 1,
+        query001_checkEventBit = 1,
         query002 = 2,
         query003 = 3,
         query006 = 4,
@@ -334,7 +339,7 @@ namespace TPRandomizer
 
     public enum EventIdx : byte
     {
-        event000 = 0,
+        event000_setEventBit = 0,
         event001 = 1,
         event002 = 2,
         event003 = 3,

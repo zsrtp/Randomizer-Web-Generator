@@ -2213,6 +2213,10 @@
     <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
     <comment></comment>
   </data>
+  <data name="shop.slot$barnes" xml:space="preserve">
+    <value>{item(shop:true)} {price}\nDisponible pour un temps limité !\nProfites en !</value>
+    <comment></comment>
+  </data>
   <data name="shop.slot$chudley" xml:space="preserve">
     <value>{item(shop:true)}\nUn seul exemplaire disponible.</value>
     <comment></comment>

@@ -496,6 +496,39 @@ namespace TPRandomizer
                 )
             );
 
+            // ----- Castle Town Gorons -----
+
+            // Hylian Shield Goron
+            builder.AddBranchPatch(
+                // Check custom "bought check" flag instead of "has Hylian Shield".
+                new(
+                    Node.br_CtGoronShieldCheckHasHylianShield,
+                    null,
+                    queryIndex: QueryIdx.query001_checkEventBit,
+                    // F_0815 = 0x6380, // Custom Rando Flag - Bought Hylian Shield From Goron
+                    // Found at index 0x32f in `dSv_event_flag_c::saveBitLabels`
+                    parameters: 0x32f
+                )
+            );
+            // Redo payment node as extra patched node for setting custom "bought check" flag.
+            ushort ctGoronShieldExtraEvCtx = ctxGen.getNewContext();
+            builder.AddNodeRemap(
+                NodeRemap.Fli(
+                    0x644,
+                    Node.ev_CtGoronShieldSetTempAfterBuy,
+                    Node.ev_CtGoronShieldPayPrice.flwIdx,
+                    ctGoronShieldExtraEvCtx
+                )
+            );
+            builder.AddEventEntity(
+                new(
+                    Node.ev_CtGoronShieldPayPrice,
+                    ctGoronShieldExtraEvCtx,
+                    eventIndex: EventIdx.event000_setEventBit,
+                    ushortParams: new() { 0x32f, 0x0 }
+                )
+            );
+
             // ----- Castle Town Malo Mart -----
 
             builder.AddStrReplacement(
@@ -594,7 +627,7 @@ namespace TPRandomizer
                     new(
                         Node.br_BarnesBombsSlot,
                         firstSlotBaseCtx,
-                        queryIndex: QueryIdx.query001, // query001 (checks eventBit)
+                        queryIndex: QueryIdx.query001_checkEventBit, // query001 (checks eventBit)
                         // M_044 = 0x0908, // Kakariko Village - [Barnes Bomb Shop] Bought premium pack,
                         // Found at index 0x4d (77) in `dSv_event_flag_c::saveBitLabels`
                         parameters: 0x4d,
@@ -649,26 +682,15 @@ namespace TPRandomizer
         private void UpdateBarnesBombsSlotMsg(Item item, uint price)
         {
             ushort baseCtx = ctxGen.getNewContext();
-            ushort returnCtx = ctxGen.getNewContext();
 
-            builder.AddNodeRemaps(
-                new()
-                {
-                    // Set base context when hovering first slot, and remap to branch node.
-                    NodeRemap.Fli(
-                        0x16a,
-                        Node.msg_BarnesBombsSlot,
-                        Node.br_BarnesBombsSlot.flwIdx,
-                        baseCtx
-                    ),
-                    // Change context when returning to node to avoid infinite loop.
-                    NodeRemap.Ctx(
-                        baseCtx,
-                        Node.msg_BarnesBombsSlot,
-                        Node.msg_BarnesBombsSlot.flwIdx,
-                        returnCtx
-                    ),
-                }
+            builder.AddNodeRemap(
+                // Set context when hovering first slot, and remap to branch node.
+                NodeRemap.Fli(
+                    0x16a,
+                    Node.msg_BarnesBombsSlot,
+                    Node.br_BarnesBombsSlot.flwIdx,
+                    baseCtx
+                )
             );
 
             builder.AddBranchPatches(
@@ -677,7 +699,7 @@ namespace TPRandomizer
                     new(
                         Node.br_BarnesBombsSlot,
                         baseCtx,
-                        queryIndex: QueryIdx.query001, // query001 (checks eventBit)
+                        queryIndex: QueryIdx.query001_checkEventBit,
                         // M_044 = 0x0908, // Kakariko Village - [Barnes Bomb Shop] Bought premium pack,
                         // Found at index 0x4d (77) in `dSv_event_flag_c::saveBitLabels`
                         parameters: 0x4d,
