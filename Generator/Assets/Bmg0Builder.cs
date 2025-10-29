@@ -23,13 +23,13 @@ namespace TPRandomizer.Assets
         zel_07 = 7, // ZD, Fishing Hole, Hena's house
         zel_08 = 8, // HF, Outside CT, LH, UZR, Zora's River, KB2, Title Screen
 
-        // zel_99 not included since it has no content and none of our listed
-        // stages map to it
+        // zel_99 not included since it has no content and none of our stages
+        // map to it. It is a developer test file with content only in JP.
     }
 
     class BmgNumUtils
     {
-        private static Dictionary<StageIDs, BmgNumber> stageToBmg =
+        private static readonly Dictionary<StageIDs, BmgNumber> stageToBmg =
             new()
             {
                 { StageIDs.Lakebed_Temple, BmgNumber.zel_05 },
@@ -372,10 +372,9 @@ namespace TPRandomizer.Assets
             {
                 if (flwIndex == 0xFFFF && newContext == 0)
                 {
-                    // This is to make it more difficult to create infinite flow
-                    // loops.
+                    // This is to make it more difficult to create infinite flow loops.
                     throw new Exception(
-                        $"Not allowed to remap an 0xFFFF FlwIndex using an FLI value unless you set a nonzero new flowContext."
+                        $"Not allowed to remap an 0xFFFF FlwIndex using a flowId unless you set a nonzero new flowContext."
                     );
                 }
                 this.sortValue = (uint)(flowId << 0x10) + flwIndex;
@@ -399,7 +398,7 @@ namespace TPRandomizer.Assets
     {
         public ushort? context;
         public ushort flwIndex;
-        public byte? field_0x1; // 0x1 u8
+        public byte? numQueryResults; // 0x1 u8
         public ushort? queryIndex; // 0x2 u16
         public ushort? parameters; // 0x04 u16
         public ushort? vanillaNextNodeTableBaseIdx; // 0x06 u16
@@ -407,10 +406,8 @@ namespace TPRandomizer.Assets
 
         public BranchPatchEntity(
             NodeInst node,
-            // StgBmg stgBmg,
-            // ushort flwIndex,
             ushort? context,
-            byte? field_0x1 = null,
+            byte? numQueryResults = null,
             ushort? queryIndex = null,
             ushort? parameters = null,
             ushort? vanillaNextNodeTableBaseIdx = null,
@@ -419,10 +416,8 @@ namespace TPRandomizer.Assets
         {
             this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(node.stgBmg);
             this.flwIndex = node.flwIdx;
-            // this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(stgBmg);
-            // this.flwIndex = flwIndex;
             this.context = context;
-            this.field_0x1 = field_0x1;
+            this.numQueryResults = numQueryResults;
             this.queryIndex = queryIndex;
             this.parameters = parameters;
             this.vanillaNextNodeTableBaseIdx = vanillaNextNodeTableBaseIdx;
@@ -448,7 +443,7 @@ namespace TPRandomizer.Assets
 
         public List<byte> getPatchBytes()
         {
-            List<byte?> maybeBytes = new(7) { field_0x1 };
+            List<byte?> maybeBytes = new(7) { numQueryResults };
             AddMaybeU16ToList(maybeBytes, queryIndex);
             AddMaybeU16ToList(maybeBytes, parameters);
             AddMaybeU16ToList(maybeBytes, vanillaNextNodeTableBaseIdx);
@@ -474,7 +469,18 @@ namespace TPRandomizer.Assets
     public class EventPatchEntity : Entity
     {
         private static Dictionary<BmgNumber, ushort> bmgToFfffNextNodeIdx =
-            new() { { BmgNumber.zel_00, 0 } };
+            new()
+            {
+                { BmgNumber.zel_00, 0 },
+                { BmgNumber.zel_01, 0 },
+                { BmgNumber.zel_02, 12 },
+                { BmgNumber.zel_03, 2 },
+                { BmgNumber.zel_04, 4 },
+                { BmgNumber.zel_05, 0 },
+                { BmgNumber.zel_06, 3 },
+                { BmgNumber.zel_07, 0 },
+                { BmgNumber.zel_08, 1 },
+            };
 
         public ushort? context { get; private set; }
         public ushort flwIndex { get; private set; }
@@ -491,8 +497,6 @@ namespace TPRandomizer.Assets
 
         public EventPatchEntity(
             NodeInst node,
-            // StgBmg stgBmg,
-            // ushort flwIndex,
             ushort? context,
             byte? eventIndex = null,
             ushort? vanillaNextNodeTableIdx = null,
@@ -502,8 +506,6 @@ namespace TPRandomizer.Assets
             ushort? nextNodeIdx = null
         )
         {
-            // this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(stgBmg);
-            // this.flwIndex = flwIndex;
             this.bmgNumber = BmgNumUtils.StgBmgToBmgNumber(node.stgBmg);
             this.flwIndex = node.flwIdx;
             this.context = context;
@@ -684,13 +686,6 @@ namespace TPRandomizer.Assets
             Init(bmgNumber, context, infIndex, str, true);
         }
 
-        // public StrReplEntity(StageIDs stageId, ushort? context, ushort infIndex, string str)
-        // {
-        //     BmgNumber bmgNumber = BmgNumUtils.StageIdToBmgNum(stageId);
-
-        //     Init(bmgNumber, context, infIndex, str);
-        // }
-
         private void Init(
             BmgNumber bmgNumber,
             ushort? context,
@@ -729,36 +724,6 @@ namespace TPRandomizer.Assets
 
     public class EntityLookupInfo
     {
-        public short ctxCompAdjustment;
-        public short basicCompAdjustment;
-
-        // Note: using a byte for this is fine for up to 14 entityTypes. The
-        // 6-bit part of the bmgLookupBytes will only ever be a value between 0
-        // and 8 which gets added to this byte value.
-        public byte tableSliceInfoStartIdx;
-        public List<byte> bmgLookupBytes = new();
-
-        //
-        public List<Entity> entityList = new();
-
-        public List<byte> toBytes()
-        {
-            // Result is 14 (0xE) bytes long which is fine since largest
-            // alignment is 2 bytes.
-            List<byte> bytes = new();
-            bytes.AddRange(Converter.GcBytes(ctxCompAdjustment)); // s16
-            bytes.AddRange(Converter.GcBytes(basicCompAdjustment)); // s16
-            bytes.Add(tableSliceInfoStartIdx); // u8
-            bytes.AddRange(bmgLookupBytes); // u8[9]
-
-            if (bytes.Count != 14)
-                throw new Exception($"Expected bytes.Count to be 14, but was '{bytes.Count}'.");
-            return bytes;
-        }
-    }
-
-    public class EntityLookupInfo2
-    {
         public short indexAdjustment;
 
         // Note: using a byte for this is fine for up to 14 entityTypes. The
@@ -776,15 +741,15 @@ namespace TPRandomizer.Assets
             List<byte> bytes = new();
             bytes.AddRange(Converter.GcBytes(indexAdjustment)); // s16
 
-            int abc = tableSliceInfoStartIdx << 9;
+            int bmgLookup = tableSliceInfoStartIdx << 9;
 
             for (int i = 0; i < 9; i++)
             {
                 if (bmgHasData[i])
-                    abc |= 1 << i;
+                    bmgLookup |= 1 << i;
             }
 
-            bytes.AddRange(Converter.GcBytes((ushort)abc)); // u16
+            bytes.AddRange(Converter.GcBytes((ushort)bmgLookup)); // u16
 
             if (bytes.Count != 4)
                 throw new Exception($"Expected bytes.Count to be 4, but was '{bytes.Count}'.");
@@ -792,7 +757,7 @@ namespace TPRandomizer.Assets
         }
     }
 
-    public class StringTableResult2
+    public class Bmg0Builder
     {
         private static EntityComparer entityComparer = new();
         private List<uint> encryptionKey = new();
@@ -818,7 +783,7 @@ namespace TPRandomizer.Assets
         public ushort strTableEncodedStart;
         public ushort encodedStrTableNumBlocks;
 
-        public StringTableResult2()
+        public Bmg0Builder()
         {
             // Note: using a new Random here is intentional. The exact
             // encryptionKey will be different for each GCI which is generated.
@@ -863,48 +828,8 @@ namespace TPRandomizer.Assets
             public ushort basicStartIdx;
             public ushort basicLen;
 
-            public byte UpdateTableSliceInfoTable(
-                List<ushort> tableSliceInfoTable,
-                byte tableSliceInfoStartIdx
-            )
+            public bool UpdateTableSliceInfoTable(List<ushort> tableSliceInfoTable, bool isContext)
             {
-                // Need to calculate this before adding to the table
-                byte baseOffset = (byte)(tableSliceInfoTable.Count / 2 - tableSliceInfoStartIdx);
-
-                byte byteVal = 0;
-                if (ctxLen > 0)
-                {
-                    tableSliceInfoTable.Add(ctxStartIdx);
-                    tableSliceInfoTable.Add(ctxLen);
-                    byteVal += baseOffset;
-                    baseOffset += 1;
-                }
-                else
-                {
-                    byteVal += 0xC;
-                }
-                if (basicLen > 0)
-                {
-                    tableSliceInfoTable.Add(basicStartIdx);
-                    tableSliceInfoTable.Add(basicLen);
-                    byteVal += (byte)((baseOffset << 4) & 0xF0);
-                }
-                else
-                {
-                    byteVal += 0xC0;
-                }
-                return byteVal;
-            }
-
-            public bool UpdateTableSliceInfoTable2(
-                List<ushort> tableSliceInfoTable,
-                byte tableSliceInfoStartIdx,
-                bool isContext
-            )
-            {
-                // Need to calculate this before adding to the table
-                byte baseOffset = (byte)(tableSliceInfoTable.Count / 2 - tableSliceInfoStartIdx);
-
                 if (isContext)
                 {
                     if (ctxLen > 0)
@@ -974,14 +899,13 @@ namespace TPRandomizer.Assets
             storedStrRepl.AddRange(strReplacements);
         }
 
-        private List<EntityLookupInfo2> BuildDataForEntityType(
+        private List<EntityLookupInfo> BuildDataForEntityType(
             List<Entity> entities,
             bool basicUsesWordComp = false
         )
         {
-            EntityLookupInfo result = new();
-            EntityLookupInfo2 ctxResult = new();
-            EntityLookupInfo2 basicResult = new();
+            EntityLookupInfo ctxResult = new();
+            EntityLookupInfo basicResult = new();
             List<CompLists<Entity>> compListsList = new();
             List<TableSlicesPair> pairsList = new();
             // Init lists
@@ -1032,7 +956,6 @@ namespace TPRandomizer.Assets
                     wordCompVals.Add(entity.sortValue);
                     tableSlicesPair.ctxLen += 1;
 
-                    result.entityList.Add(entity);
                     ctxResult.entityList.Add(entity);
                     numCtxEntities += 1;
                 }
@@ -1063,67 +986,39 @@ namespace TPRandomizer.Assets
                     entity.AddToCorrectList(basicUsesWordComp, wordCompVals, shortCompVals);
                     tableSlicesPair.basicLen += 1;
 
-                    result.entityList.Add(entity);
                     basicResult.entityList.Add(entity);
                 }
             }
 
-            result.ctxCompAdjustment = (short)(-1 * firstCtxCompOffset);
-            result.basicCompAdjustment = (short)(numCtxEntities - firstBasicCompOffset);
-
-            // TODO: this is the 7-bit value which needs to be determined for both ctx and basic
-            result.tableSliceInfoStartIdx = (byte)(tableSliceInfoTable.Count / 2);
+            short ctxCompAdjustment = (short)(-1 * firstCtxCompOffset);
+            short basicCompAdjustment = (short)(numCtxEntities - firstBasicCompOffset);
 
             // Context
-            // TODO: get correct indexAdjustment working
             byte ctxTableSliceStart = (byte)(tableSliceInfoTable.Count / 2);
-            ctxResult.indexAdjustment = result.ctxCompAdjustment;
+            ctxResult.indexAdjustment = ctxCompAdjustment;
             ctxResult.tableSliceInfoStartIdx = ctxTableSliceStart;
             foreach (TableSlicesPair pair in pairsList)
             {
-                bool hasData = pair.UpdateTableSliceInfoTable2(
-                    tableSliceInfoTable,
-                    result.tableSliceInfoStartIdx,
-                    true
-                );
+                bool hasData = pair.UpdateTableSliceInfoTable(tableSliceInfoTable, true);
                 ctxResult.bmgHasData.Add(hasData);
             }
 
             // Basic
             byte basicTableSliceStart = (byte)(tableSliceInfoTable.Count / 2);
-            basicResult.indexAdjustment = result.basicCompAdjustment;
+            basicResult.indexAdjustment = basicCompAdjustment;
             basicResult.tableSliceInfoStartIdx = basicTableSliceStart;
             foreach (TableSlicesPair pair in pairsList)
             {
-                bool hasData = pair.UpdateTableSliceInfoTable2(
-                    tableSliceInfoTable,
-                    result.tableSliceInfoStartIdx,
-                    false
-                );
+                bool hasData = pair.UpdateTableSliceInfoTable(tableSliceInfoTable, false);
                 basicResult.bmgHasData.Add(hasData);
             }
 
-            // EntityLookupInfo2 basicResult = new();
-            // byte basicTableSliceStart = (byte)(tableSliceInfoTable.Count / 2);
-            // basicResult.tableSliceInfoStartIdx = basicTableSliceStart;
-            // foreach (TableSlicesPair pair in pairsList)
-            // {
-            //     byte lookupByte = pair.UpdateTableSliceInfoTable2(
-            //         tableSliceInfoTable,
-            //         result.tableSliceInfoStartIdx,
-            //         false
-            //     );
-            //     result.bmgLookupBytes.Add(lookupByte);
-            // }
-
             return new() { ctxResult, basicResult };
-
-            // return result;
         }
 
-        private void UpdateNodeRemapTable(List<EntityLookupInfo2> nodeRemapInfoLists)
+        private void UpdateNodeRemapTable(List<EntityLookupInfo> nodeRemapInfoLists)
         {
-            foreach (EntityLookupInfo2 nodeRemapInfo in nodeRemapInfoLists)
+            foreach (EntityLookupInfo nodeRemapInfo in nodeRemapInfoLists)
             {
                 List<NodeRemap> nodeRemapEntities = nodeRemapInfo.entityList
                     .Cast<NodeRemap>()
@@ -1135,9 +1030,9 @@ namespace TPRandomizer.Assets
             }
         }
 
-        private void UpdateBranchPatchTableData(List<EntityLookupInfo2> branchPatchInfoLists)
+        private void UpdateBranchPatchTableData(List<EntityLookupInfo> branchPatchInfoLists)
         {
-            foreach (EntityLookupInfo2 branchPatchInfo in branchPatchInfoLists)
+            foreach (EntityLookupInfo branchPatchInfo in branchPatchInfoLists)
             {
                 List<BranchPatchEntity> entities = branchPatchInfo.entityList
                     .Cast<BranchPatchEntity>()
@@ -1149,9 +1044,9 @@ namespace TPRandomizer.Assets
             }
         }
 
-        private void UpdateBranchNextNodeTable(List<EntityLookupInfo2> branchNextNodeInfoLists)
+        private void UpdateBranchNextNodeTable(List<EntityLookupInfo> branchNextNodeInfoLists)
         {
-            foreach (EntityLookupInfo2 branchNextNodeInfo in branchNextNodeInfoLists)
+            foreach (EntityLookupInfo branchNextNodeInfo in branchNextNodeInfoLists)
             {
                 List<BranchPatchEntity> entities = branchNextNodeInfo.entityList
                     .Cast<BranchPatchEntity>()
@@ -1164,9 +1059,9 @@ namespace TPRandomizer.Assets
             }
         }
 
-        private void UpdateEventPatchTableData(List<EntityLookupInfo2> eventPatchInfoLists)
+        private void UpdateEventPatchTableData(List<EntityLookupInfo> eventPatchInfoLists)
         {
-            foreach (EntityLookupInfo2 eventPatchInfo in eventPatchInfoLists)
+            foreach (EntityLookupInfo eventPatchInfo in eventPatchInfoLists)
             {
                 List<EventPatchEntity> entities = eventPatchInfo.entityList
                     .Cast<EventPatchEntity>()
@@ -1178,9 +1073,9 @@ namespace TPRandomizer.Assets
             }
         }
 
-        private void UpdateEventNextNodeTable(List<EntityLookupInfo2> eventNextNodeInfoLists)
+        private void UpdateEventNextNodeTable(List<EntityLookupInfo> eventNextNodeInfoLists)
         {
-            foreach (EntityLookupInfo2 eventNextNodeInfo in eventNextNodeInfoLists)
+            foreach (EntityLookupInfo eventNextNodeInfo in eventNextNodeInfoLists)
             {
                 List<EventPatchEntity> entities = eventNextNodeInfo.entityList
                     .Cast<EventPatchEntity>()
@@ -1195,7 +1090,7 @@ namespace TPRandomizer.Assets
             }
         }
 
-        private void UpdateStrTables(List<EntityLookupInfo2> strReplInfoLists)
+        private void UpdateStrTables(List<EntityLookupInfo> strReplInfoLists)
         {
             // strTable starts with static str so we can point to it if we are
             // trying to display a string which has not been decrypted.
@@ -1215,7 +1110,7 @@ namespace TPRandomizer.Assets
 
             List<(bool, ushort)> relativeOffsets = new();
 
-            foreach (EntityLookupInfo2 strReplInfo in strReplInfoLists)
+            foreach (EntityLookupInfo strReplInfo in strReplInfoLists)
             {
                 List<StrRepl> entities = strReplInfo.entityList.Cast<StrRepl>().ToList();
                 foreach (StrRepl entity in entities)
@@ -1322,6 +1217,7 @@ namespace TPRandomizer.Assets
                 encryptedPart[effIdx + 3] = (byte)val;
             }
 
+            // Confirm we are able to decode and get the unencrypted result.
             List<uint> decPrevCipherText = new();
             decPrevCipherText.Add(key[0]);
             decPrevCipherText.Add(key[1]);
@@ -1347,8 +1243,6 @@ namespace TPRandomizer.Assets
                     throw new Exception($"Did not match at '{idx}'.");
                 }
             }
-
-            int abcd = 7;
         }
 
         private void encipher(uint numRounds, List<uint> v, List<uint> key)
@@ -1390,41 +1284,38 @@ namespace TPRandomizer.Assets
 
         public Header AddBytesGenHeader(ushort headerSize, List<byte> bodyData)
         {
-            List<EntityLookupInfo2> orderedEntityInfos = new();
+            List<EntityLookupInfo> orderedEntityInfos = new();
 
-            List<EntityLookupInfo2> nodeRemapInfo = BuildDataForEntityType(storedNodeRemaps, true);
+            List<EntityLookupInfo> nodeRemapInfo = BuildDataForEntityType(storedNodeRemaps, true);
             orderedEntityInfos.AddRange(nodeRemapInfo);
             UpdateNodeRemapTable(nodeRemapInfo);
 
-            List<EntityLookupInfo2> branchPatchInfo = BuildDataForEntityType(storedBranchPatches);
+            List<EntityLookupInfo> branchPatchInfo = BuildDataForEntityType(storedBranchPatches);
             orderedEntityInfos.AddRange(branchPatchInfo);
             UpdateBranchPatchTableData(branchPatchInfo);
 
-            List<EntityLookupInfo2> branchNextNodeInfo = BuildDataForEntityType(
+            List<EntityLookupInfo> branchNextNodeInfo = BuildDataForEntityType(
                 storedBranchNextNodes
             );
             orderedEntityInfos.AddRange(branchNextNodeInfo);
             UpdateBranchNextNodeTable(branchNextNodeInfo);
 
-            List<EntityLookupInfo2> eventPatchInfo = BuildDataForEntityType(storedEventPatches);
+            List<EntityLookupInfo> eventPatchInfo = BuildDataForEntityType(storedEventPatches);
             orderedEntityInfos.AddRange(eventPatchInfo);
             UpdateEventPatchTableData(eventPatchInfo);
 
-            List<EntityLookupInfo2> eventNextNodeInfo = BuildDataForEntityType(
-                storedEventNextNodes
-            );
+            List<EntityLookupInfo> eventNextNodeInfo = BuildDataForEntityType(storedEventNextNodes);
             orderedEntityInfos.AddRange(eventNextNodeInfo);
             UpdateEventNextNodeTable(eventNextNodeInfo);
 
-            List<EntityLookupInfo2> strReplInfo = BuildDataForEntityType(storedStrRepl);
+            List<EntityLookupInfo> strReplInfo = BuildDataForEntityType(storedStrRepl);
             orderedEntityInfos.AddRange(strReplInfo);
             UpdateStrTables(strReplInfo);
 
             Header header = new();
 
             header.entityInfoTableOffset = (ushort)(headerSize + bodyData.Count);
-            // foreach (EntityLookupInfo entityLookupInfo in orderedEntityInfos)
-            foreach (EntityLookupInfo2 entityLookupInfo in orderedEntityInfos)
+            foreach (EntityLookupInfo entityLookupInfo in orderedEntityInfos)
             {
                 bodyData.AddRange(entityLookupInfo.toBytes());
             }

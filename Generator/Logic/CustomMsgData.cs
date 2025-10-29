@@ -26,8 +26,7 @@ namespace TPRandomizer
         private List<HintSpot> hintSpots;
 
         // private Dictionary<string, Status> checkToStatus;
-        private List<MessageEntry> results = new();
-        private StringTableResult2 results2 = new();
+        private Bmg0Builder builder = null;
         private SharedSettings sSettings;
 
         private CustomMsgData(SharedSettings sSettings)
@@ -370,7 +369,7 @@ namespace TPRandomizer
             }
         }
 
-        public List<MessageEntry> GenMessageEntries(SeedGenResults seedGenResults)
+        public Bmg0Builder GenBmg0Builder(SeedGenResults seedGenResults)
         {
             // TODO: this should return a structure.
             // It includes what it returns right now.
@@ -387,14 +386,14 @@ namespace TPRandomizer
             // we return. However, we also need to return data which is used for
             // building the BMG section.
 
-            // We store results as a property so we do not need to pass it around.
-            results = new();
+            // We store the builder as a property so we do not need to pass it around.
+            builder = new();
 
             // There are some static things that should always be applied which
             // do not depend on the item.
             GenStaticEntries(seedGenResults);
             string linkHouseSignText = GenLinkHouseSignText();
-            results2.AddStrReplacement(StrRepl.Hidden(Node.msg_LinksHouseSign, linkHouseSignText));
+            builder.AddStrReplacement(StrRepl.Hidden(Node.msg_LinksHouseSign, linkHouseSignText));
 
             // handle shop text first
             if (updateShopText)
@@ -407,8 +406,8 @@ namespace TPRandomizer
             // Handle custom hint signs, Agitha and Jovani signs
             GenHintSignEntries();
 
-            List<MessageEntry> ret = results;
-            results = null;
+            Bmg0Builder ret = builder;
+            builder = null;
 
             return ret;
         }
@@ -416,21 +415,21 @@ namespace TPRandomizer
         private void GenStaticEntries(SeedGenResults seedGenResults)
         {
             string seedName = seedGenResults.playthroughName;
-            results2.AddStrReplacement(StrRepl.PublicInf(Inf.zel00_ChooseAQuestLog, seedName));
-            results2.AddStrReplacement(StrRepl.PublicInf(Inf.zel00_RatioCheckSample, seedName));
+            builder.AddStrReplacement(StrRepl.PublicInf(Inf.zel00_ChooseAQuestLog, seedName));
+            builder.AddStrReplacement(StrRepl.PublicInf(Inf.zel00_RatioCheckSample, seedName));
 
             // ----- Sera Shop -----
 
             Item seraSlingshotItem = updateShopText
                 ? HintUtils.getCheckContents("Sera Shop Slingshot")
                 : Item.Slingshot;
-            results2.AddStrReplacement(
+            builder.AddStrReplacement(
                 StrRepl.Hidden(
                     Node.msg_SeraSlingshotBought,
                     GenShopBoughtText(seraSlingshotItem, "sera")
                 )
             );
-            results2.AddStrReplacement(
+            builder.AddStrReplacement(
                 StrRepl.Public(
                     Node.msg_SeraSlingshotBought2,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought-sera2", null))
@@ -462,10 +461,10 @@ namespace TPRandomizer
                 CustomMessages.messageColorOrange
                     + hawkeyeSoldOutRes.Substitute(new() { { "item", hawkeyeItemText } })
             );
-            results2.AddStrReplacement(
+            builder.AddStrReplacement(
                 StrRepl.Hidden(Node.msg_KakMaloMartHawkeyeSoldOut, hawkeyeSoldOutMsg)
             );
-            results2.AddStrReplacement(
+            builder.AddStrReplacement(
                 StrRepl.Public(
                     Node.msg_KakMaloMartHawkeyeSoldOutRead,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.coming-soon-read", null))
@@ -473,7 +472,7 @@ namespace TPRandomizer
             );
 
             // This is used for the sold out sign for all slots in this shop.
-            results2.AddStrReplacement(
+            builder.AddStrReplacement(
                 StrRepl.Public(
                     Node.msg_KakMaloMartHylianShieldSoldOut,
                     Res.LangSpecificNormalize(
@@ -486,7 +485,7 @@ namespace TPRandomizer
                 Res.SimpleMsg("shop.sold-out-read", null)
             );
             // When you read the sold out sign
-            results2.AddStrReplacement(
+            builder.AddStrReplacement(
                 StrRepl.Public(
                     Node.msg_KakMaloMartHylianShieldSoldOutRead,
                     textKvMaloMartHylianShieldSoldOutRead
@@ -494,7 +493,7 @@ namespace TPRandomizer
             );
             // If you buy the wooden shield slot before anything else, you will
             // see this one instead for that slot.
-            results2.AddStrReplacement(
+            builder.AddStrReplacement(
                 StrRepl.Public(
                     Node.msg_KakMaloMartHylianShieldSoldOutRead2,
                     textKvMaloMartHylianShieldSoldOutRead
@@ -503,7 +502,7 @@ namespace TPRandomizer
 
             // Need to replace this one so it does not reference your bottle.
             // Replacing with the same text used for the Hylian shield.
-            results2.AddStrReplacement(
+            builder.AddStrReplacement(
                 StrRepl.Public(
                     Node.msg_KakMaloMartRedPotionBought,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought", null))
@@ -512,7 +511,7 @@ namespace TPRandomizer
 
             // ----- Castle Town Malo Mart -----
 
-            results2.AddStrReplacement(
+            builder.AddStrReplacement(
                 StrRepl.Public(
                     Node.msg_CtMaloMartMagicArmorBought,
                     Res.LangSpecificNormalize(
@@ -531,7 +530,7 @@ namespace TPRandomizer
             // For some languages (like English), we use the default text.
             if (!barnesCantAffordRes.MetaHasVal("skip-msg", "true"))
             {
-                results2.AddStrReplacement(
+                builder.AddStrReplacement(
                     StrRepl.Public(
                         Node.msg_BarnesBombBagCantAfford,
                         Res.LangSpecificNormalize(barnesCantAffordRes.Substitute(null))
@@ -553,7 +552,7 @@ namespace TPRandomizer
                     ),
                 };
 
-            results2.AddStrReplacements(strEntries2);
+            builder.AddStrReplacements(strEntries2);
 
             List<NodeRemap> nodeRemaps =
                 new()
@@ -575,7 +574,7 @@ namespace TPRandomizer
                     // new(StgBmg.Kakariko_Village_Interiors, 0x424, 0x428, 15, context: 15),
                 };
 
-            results2.AddNodeRemaps(nodeRemaps);
+            builder.AddNodeRemaps(nodeRemaps);
 
             List<BranchPatchEntity> branchPatches =
                 new()
@@ -599,9 +598,9 @@ namespace TPRandomizer
                     ),
                 };
 
-            results2.AddBranchPatches(branchPatches);
+            builder.AddBranchPatches(branchPatches);
 
-            results2.AddEventEntities(
+            builder.AddEventEntities(
                 new()
                 {
                     new(Node.ev_KakMaloMartHylianShieldPay, 15, intParam: 0x13b),
@@ -627,7 +626,7 @@ namespace TPRandomizer
             ushort firstSlotBaseCtx = ctxGen.getNewContext();
             ushort checkBombSlotCtx = ctxGen.getNewContext();
 
-            results2.AddNodeRemaps(
+            builder.AddNodeRemaps(
                 new()
                 {
                     // Set base context when selecting first slot.
@@ -724,7 +723,7 @@ namespace TPRandomizer
                     ),
                 };
 
-            results2.AddBranchPatches(branchPatches);
+            builder.AddBranchPatches(branchPatches);
         }
 
         private void AddMidnaConversationStuff()
@@ -789,7 +788,7 @@ namespace TPRandomizer
                         baseMidnaCtx
                     ),
                 };
-            results2.AddStrReplacements(strEntries2);
+            builder.AddStrReplacements(strEntries2);
 
             List<NodeRemap> nodeRemaps =
                 new()
@@ -817,7 +816,7 @@ namespace TPRandomizer
                         hintsBaseCtx
                     )
                 };
-            results2.AddNodeRemaps(nodeRemaps);
+            builder.AddNodeRemaps(nodeRemaps);
 
             List<BranchPatchEntity> branchPatches =
                 new()
@@ -856,10 +855,10 @@ namespace TPRandomizer
                         }
                     ),
                 };
-            results2.AddBranchPatches(branchPatches);
+            builder.AddBranchPatches(branchPatches);
 
             // Make event change ToD
-            results2.AddEventEntity(
+            builder.AddEventEntity(
                 new(Node.ev_Z0GenericCtxEvent, baseMidnaCtx, eventIndex: 44, nextNodeIdx: 0xFFFF)
             );
 
@@ -878,7 +877,7 @@ namespace TPRandomizer
                 //     node = Node.msgZ0_0x28;
 
                 // results2.AddStrReplacement(StrRepl.Hidden(Node.msgZ0_0x28, msg, latestContext));
-                results2.AddStrReplacement(StrRepl.Hidden(Node.msg_Z0_0x4d, msg, latestContext));
+                builder.AddStrReplacement(StrRepl.Hidden(Node.msg_Z0_0x4d, msg, latestContext));
                 // results2.AddStrReplacement(StrRepl.Hidden(node, msg, latestContext));
                 // latestContext = GetNewContext();
 
@@ -889,7 +888,7 @@ namespace TPRandomizer
                     ushort prevCtx = latestContext;
                     latestContext = GetNewContext();
 
-                    results2.AddNodeRemap(
+                    builder.AddNodeRemap(
                         NodeRemap.Ctx(
                             prevCtx,
                             Node.zel00_FFFF,
@@ -910,7 +909,7 @@ namespace TPRandomizer
             );
             string msgSomethingElse = Res.SimpleMsg("menu.midna-base.option.something-else");
 
-            results2.AddStrReplacements(
+            builder.AddStrReplacements(
                 new()
                 {
                     StrRepl.PublicInf(
@@ -993,7 +992,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text) + CustomMessages.endMenuBody;
 
-            results2.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
+            builder.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
         }
 
         private void AddShopCantAffordMsg(
@@ -1053,7 +1052,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text);
 
-            results2.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
+            builder.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
         }
 
         private string GenShopBoughtText(Item item, string context)
@@ -1161,7 +1160,7 @@ namespace TPRandomizer
                 string charloText = Res.LangSpecificNormalize(
                     result.Substitute(new() { { "item", itemText } })
                 );
-                results2.AddStrReplacement(
+                builder.AddStrReplacement(
                     StrRepl.Hidden(Node.msg_CharloOptsBody, charloText + CustomMessages.endMenuBody)
                 );
             }
@@ -1169,7 +1168,7 @@ namespace TPRandomizer
             // Note we always need to update the options text to 100 Rupees, 50
             // Rupees, etc. even if the body text is vanilla based on settings.
             string charloOptionsText = Res.SimpleMsg("self-hinter.charlo-options", null);
-            results2.AddStrReplacement(
+            builder.AddStrReplacement(
                 StrRepl.Public(Node.msg_CharloOptsOptions, charloOptionsText)
             );
 
@@ -1192,7 +1191,7 @@ namespace TPRandomizer
                     fishingBottleRes.Substitute(new() { { "item", fishingBottleItemText } }),
                     Res.IsCultureJa() ? 25 : 30
                 );
-                results2.AddStrReplacement(
+                builder.AddStrReplacement(
                     StrRepl.Hidden(Node.msg_FishingHoleBottleSign, fishingBottleText)
                 );
             }
@@ -1341,13 +1340,13 @@ namespace TPRandomizer
             // TODO: temp change for demo
             ushort seraSlingshotPrice = 55;
 
-            results2.AddBranchPatches(
+            builder.AddBranchPatches(
                 new()
                 {
                     new(Node.br_SeraSlingshotCheckCanAfford, null, parameters: seraSlingshotPrice),
                 }
             );
-            results2.AddEventEntity(
+            builder.AddEventEntity(
                 new(Node.ev_SeraSlingshotPayPrice, null, intParam: seraSlingshotPrice)
             );
 
@@ -1495,7 +1494,7 @@ namespace TPRandomizer
                 598,
                 "magic-armor"
             );
-            results2.AddStrReplacement(
+            builder.AddStrReplacement(
                 StrRepl.Hidden(
                     Node.msg_CtMaloMartMagicArmorSoldOut,
                     GenShopSoldOutText(
@@ -1623,7 +1622,7 @@ namespace TPRandomizer
                     new() { { "item", itemText }, { "price", priceText } }
                 );
 
-                results2.AddStrReplacement(
+                builder.AddStrReplacement(
                     StrRepl.Hidden(
                         Node.msg_BarnesBombBagConfirmation,
                         Res.LangSpecificNormalize(text) + CustomMessages.endMenuBody
@@ -1669,7 +1668,7 @@ namespace TPRandomizer
                             );
 
                         string text = hints[0].toHintTextList(this)[0].text;
-                        results2.AddStrReplacement(StrRepl.Hidden(node, text));
+                        builder.AddStrReplacement(StrRepl.Hidden(node, text));
                     }
                     else
                     {
@@ -1690,7 +1689,7 @@ namespace TPRandomizer
 
             ushort latestContext = GetNewContext();
 
-            results2.AddNodeRemap(
+            builder.AddNodeRemap(
                 NodeRemap.Fli(flowId, Node.zel00_FFFF, Node.msg_Z0_0x28.flwIdx, latestContext)
             );
 
@@ -1698,7 +1697,7 @@ namespace TPRandomizer
             {
                 string msg = messages[i];
 
-                results2.AddStrReplacement(StrRepl.CustomSignText(latestContext, msg));
+                builder.AddStrReplacement(StrRepl.CustomSignText(latestContext, msg));
 
                 if (i < messages.Count - 1)
                 {
@@ -1707,7 +1706,7 @@ namespace TPRandomizer
                     ushort prevCtx = latestContext;
                     latestContext = GetNewContext();
 
-                    results2.AddNodeRemap(
+                    builder.AddNodeRemap(
                         NodeRemap.Ctx(
                             prevCtx,
                             Node.zel00_FFFF,
@@ -1760,7 +1759,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text);
 
-            results2.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
+            builder.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
         }
 
         public static string BuildContextFromMeta(Dictionary<string, string> meta)
@@ -2215,11 +2214,6 @@ namespace TPRandomizer
             }
 
             return keyToHintInfos;
-        }
-
-        public StringTableResult2.Header AddBytesGenHeader(ushort headerSize, List<byte> bodyData)
-        {
-            return results2.AddBytesGenHeader(headerSize, bodyData);
         }
 
         private ushort GetNewContext()

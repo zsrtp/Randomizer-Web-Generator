@@ -91,10 +91,7 @@ namespace TPRandomizer.Assets
             List<byte> currentMessageEntryInfo = new();
             Dictionary<byte, List<CustomMessages.MessageEntry>> seedDictionary = new();
 
-            List<CustomMessages.MessageEntry> seedMessages =
-                seedGenResults.customMsgData.GenMessageEntries(seedGenResults);
-
-            seedDictionary.Add((byte)hintLanguage, seedMessages);
+            seedDictionary.Add((byte)hintLanguage, new());
 
             // If generating for all regions, we use the region passed in as an
             // argument rather than reading from fcSettings.
@@ -186,7 +183,8 @@ namespace TPRandomizer.Assets
                 GCIDataRaw.AddRange(dataBytes);
             }
 
-            dataBytes = GenerateBmg0SectionData(seedGenResults.customMsgData);
+            Bmg0Builder bmg0Builder = seedGenResults.customMsgData.GenBmg0Builder(seedGenResults);
+            dataBytes = GenerateBmg0SectionData(bmg0Builder);
             if (dataBytes != null)
             {
                 SeedHeaderRaw.bmg0Offset = (UInt16)GCIDataRaw.Count();
@@ -2764,14 +2762,14 @@ namespace TPRandomizer.Assets
             return data;
         }
 
-        private List<byte> GenerateBmg0SectionData(CustomMsgData customMsgData)
+        private List<byte> GenerateBmg0SectionData(Bmg0Builder bmg0Builder)
         {
             List<byte> allData = new();
             List<byte> bodyData = new();
 
             ushort headerSize = 0x38;
 
-            StringTableResult2.Header header = customMsgData.AddBytesGenHeader(headerSize, bodyData);
+            Bmg0Builder.Header header = bmg0Builder.AddBytesGenHeader(headerSize, bodyData);
 
             // Build header
             allData.AddRange(Converter.MessageStringBytes("BMG0")); // 0x00
