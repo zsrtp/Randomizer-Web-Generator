@@ -41,68 +41,20 @@ namespace TPRandomizer
 
     public class Node
     {
-        // Generic branch node in zel_00 we can patch under context.
+        /* zel_00 (global) */
         public static NodeInst brTalkToMidnaRootNode = new(StgBmg.zel_00, 0x8f);
-        public static NodeInst brZel00ThreeOptsResultBranch = new(StgBmg.zel_00, 0x193);
         public static NodeInst brZ0_GeneriCtxBranch = new(StgBmg.zel_00, 0x199);
-        public static NodeInst brKakMaloMartHylianShieldCanAfford =
-            new(StgBmg.Kakariko_Village_Interiors, 0x421);
-        public static NodeInst br_BarnesWaterBombSlot =
-            new(StgBmg.Kakariko_Village_Interiors, 0x62c);
-        public static NodeInst br_BarnesBomblingsSlot =
-            new(StgBmg.Kakariko_Village_Interiors, 0x775);
-        public static NodeInst br_BarnesBombsSlot = new(StgBmg.Kakariko_Village_Interiors, 0x47c);
-        public static MsgNodeInst msg_BarnesNoBombBag =
-            new(StgBmg.Kakariko_Village_Interiors, 0x47d, 0x9a);
-        public static NodeInst ev_BarnesNoBombBagMenu =
-            new(StgBmg.Kakariko_Village_Interiors, 0x47e);
-
-        public static MsgNodeInst msg_IzaRentedAndPaid = new(StgBmg.Zoras_River, 0x2ac, 0x1c5);
-        public static NodeInst ev_IzaRentedLastEvent = new(StgBmg.Zoras_River, 0x29f);
-        public static NodeInst ev_IzaRentalMenu = new(StgBmg.Zoras_River, 0x29a);
-        public static MsgNodeInst msg_IzaRentalMenuBody = new(StgBmg.Zoras_River, 0x29b, 0x1be);
-        public static MsgNodeInst msg_IzaRentalMenuOptions = new(StgBmg.Zoras_River, 0x29c, 0x1bf);
-        public static NodeInst br_IzaRentalMenuResult = new(StgBmg.Zoras_River, 0x29d);
-        public static MsgNodeInst msg_IzaRentalMenuCancel1 = new(StgBmg.Zoras_River, 0x2a8, 0x1c0);
-
-        // Generic event node in zel_00 we can patch under context.
         public static NodeInst evZ0_GenericCtxEvent = new(StgBmg.zel_00, 0x1a4);
-        public static NodeInst evZel00Other = new(StgBmg.zel_00, 0x9);
-
-        public static NodeInst evKakMaloMartHylianShieldPay =
-            new(StgBmg.Kakariko_Village_Interiors, 0x424);
-        public static NodeInst evKakMaloMartHylianShieldBeforePay =
-            new(StgBmg.Kakariko_Village_Interiors, 0x429);
-
-        // new(StgBmg.zel_00, 0x1a4, 3, eventIndex: 43, nextNodeIdx: 0xFFFF),
-
         public static NodeInst evZ0_MidnaTwoOptsInitEv = new(StgBmg.zel_00, 0x1a0);
         public static MsgNodeInst msgZ0_MidnaTwoOptsBody = new(StgBmg.zel_00, 0x19f, 0x5de);
         public static MsgNodeInst msgZ0_MidnaTwoOptsOptions = new(StgBmg.zel_00, 0x1a1, 0x5df);
         public static NodeInst brZ0_MidnaTwoOptsResultBranch = new(StgBmg.zel_00, 0x1a3);
-        public static NodeInst evZ0_MidnaThreeOptsInitEv = new(StgBmg.zel_00, 0x194);
-        public static MsgNodeInst msgZ0_MidnaThreeOptsBody = new(StgBmg.zel_00, 0x18d, 0xbbb);
-        public static MsgNodeInst msgZ0_MidnaThreeOptsOptions = new(StgBmg.zel_00, 0x1aa, 0xa2e);
-        public static NodeInst brZ0_MidnaThreeOptsResultBranch = new(StgBmg.zel_00, 0x193);
-        public static NodeInst msgZel00_0x9 = new(StgBmg.zel_00, 0x9);
-        public static MsgNodeInst msgZ0_0x26 = new(StgBmg.zel_00, 0x26, 0x5e4);
-        public static MsgNodeInst msgZ0_0x27 = new(StgBmg.zel_00, 0x27, 0x5e5);
         public static MsgNodeInst msgZ0_0x28 = new(StgBmg.zel_00, 0x28, 0xa11);
-        public static MsgNodeInst msgZ0_0x4a = new(StgBmg.zel_00, 0x4a, 0xa26);
         public static MsgNodeInst msgZ0_0x4d = new(StgBmg.zel_00, 0x4d, 0xa29);
         public static NodeInst zel00_FFFF = new(StgBmg.zel_00, 0xFFFF);
-        public static MsgNodeInst msgCT_StarSigns = new(StgBmg.Castle_Town, 0x883, 0x4ce);
-        public static MsgNodeInst msgCT_StarGirlsNoAttemptFirst =
-            new(StgBmg.Castle_Town, 0x73, 0x368);
-        public static MsgNodeInst msgCT_StarGirlsNoAttemptSecond =
-            new(StgBmg.Castle_Town, 0x75, 0x369);
-        public static MsgNodeInst msgCT_StarGirlsNoAttemptThird =
-            new(StgBmg.Castle_Town, 0x76, 0x36a);
-        public static MsgNodeInst msgCT_AgithaSign = new(StgBmg.Castle_Town, 0xa2d, 0x456);
-        public static MsgNodeInst msgCT_JovaniSign = new(StgBmg.Castle_Town, 0xa2e, 0x457);
-        public static MsgNodeInst msgOrdon_LinksHouseSign = new(StgBmg.Ordon_Village, 0x467, 0x658);
 
-        //
+        /* zel_01 // Ordon */
+        public static MsgNodeInst msgOrdon_LinksHouseSign = new(StgBmg.Ordon_Village, 0x467, 0x658);
         public static MsgNodeInst msg_SeraSlingshotSlot =
             new(StgBmg.Ordon_Village_Interiors, 0x4d7, 0x5AE);
         public static MsgNodeInst msg_SeraSlingshotCantAfford =
@@ -117,6 +69,23 @@ namespace TPRandomizer
             new(StgBmg.Ordon_Village_Interiors, 0x4d0, 0x5B5);
         public static MsgNodeInst msg_SeraSlingshotBought2 =
             new(StgBmg.Ordon_Village_Interiors, 0x4d5, 0x5B6);
+
+        /* zel_02 // KV (interiors), KGY (interiors) */
+        public static NodeInst brKakMaloMartHylianShieldCanAfford =
+            new(StgBmg.Kakariko_Village_Interiors, 0x421);
+        public static NodeInst br_BarnesWaterBombSlot =
+            new(StgBmg.Kakariko_Village_Interiors, 0x62c);
+        public static NodeInst br_BarnesBomblingsSlot =
+            new(StgBmg.Kakariko_Village_Interiors, 0x775);
+        public static NodeInst br_BarnesBombsSlot = new(StgBmg.Kakariko_Village_Interiors, 0x47c);
+        public static MsgNodeInst msg_BarnesNoBombBag =
+            new(StgBmg.Kakariko_Village_Interiors, 0x47d, 0x9a);
+        public static NodeInst ev_BarnesNoBombBagMenu =
+            new(StgBmg.Kakariko_Village_Interiors, 0x47e);
+        public static NodeInst evKakMaloMartHylianShieldPay =
+            new(StgBmg.Kakariko_Village_Interiors, 0x424);
+        public static NodeInst evKakMaloMartHylianShieldBeforePay =
+            new(StgBmg.Kakariko_Village_Interiors, 0x429);
         public static MsgNodeInst msgKV_MaloMartHawkeyeSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x43b, 0x307);
         public static MsgNodeInst msgKV_MaloMartHawkeyeCantAfford =
@@ -161,6 +130,22 @@ namespace TPRandomizer
             new(StgBmg.Kakariko_Village_Interiors, 0x441, 0x2D7);
         public static MsgNodeInst msgKV_MaloMartRedPotionBought =
             new(StgBmg.Kakariko_Village_Interiors, 0x446, 0x2D8);
+        public static MsgNodeInst msg_BarnesBombBagConfirmation =
+            new(StgBmg.Kakariko_Village_Interiors, 0x47f, 0x9B);
+        public static MsgNodeInst msgKV_BarnesBombBagCantAfford =
+            new(StgBmg.Kakariko_Village_Interiors, 0x484, 0xA0); // Also used by FLW index 0x523
+
+        /* zel_03 // Death Mountain (interiors) */
+        /* zel_04 // CT (interiors), sewers, HC in credits */
+        public static MsgNodeInst msgCT_StarSigns = new(StgBmg.Castle_Town, 0x883, 0x4ce);
+        public static MsgNodeInst msgCT_StarGirlsNoAttemptFirst =
+            new(StgBmg.Castle_Town, 0x73, 0x368);
+        public static MsgNodeInst msgCT_StarGirlsNoAttemptSecond =
+            new(StgBmg.Castle_Town, 0x75, 0x369);
+        public static MsgNodeInst msgCT_StarGirlsNoAttemptThird =
+            new(StgBmg.Castle_Town, 0x76, 0x36a);
+        public static MsgNodeInst msgCT_AgithaSign = new(StgBmg.Castle_Town, 0xa2d, 0x456);
+        public static MsgNodeInst msgCT_JovaniSign = new(StgBmg.Castle_Town, 0xa2e, 0x457);
         public static MsgNodeInst msg_ChudleysFineGoodsMagicArmorSlot =
             new(StgBmg.Castle_Town_Shops, 0x3aa, 0x10A);
         public static MsgNodeInst msgCT_MaloMartMagicArmorSlot =
@@ -189,16 +174,19 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town_Shops, 0xa06, 0x3E3);
         public static MsgNodeInst msgCT_GoronShieldConfirmationSecond =
             new(StgBmg.Castle_Town_Shops, 0xa09, 0x3E5);
-        public static MsgNodeInst msg_BarnesBombBagConfirmation =
-            new(StgBmg.Kakariko_Village_Interiors, 0x47f, 0x9B);
-        public static MsgNodeInst msgKV_BarnesBombBagCantAfford =
-            new(StgBmg.Kakariko_Village_Interiors, 0x484, 0xA0); // Also used by FLW index 0x523
         public static MsgNodeInst msgCT_CharloOptsBody = new(StgBmg.Castle_Town, 0x346, 0x355);
         public static MsgNodeInst msgCT_CharloOptsOptions = new(StgBmg.Castle_Town, 0x347, 0x356);
-        public static MsgNodeInst msg_FishingHoleBottleSign =
-            new(StgBmg.Fishing_Pond, 0x2d5, 0x47A);
+
+        /* zel_05 // All dungeons, (mini)bosses, grottos, caves, LA cutscene */
+        /* zel_06 // FW (interiors), SP, SG, BC, GD, Mirror Chamber, HV (interiors), Hidden Skill */
         public static MsgNodeInst msg_CoroBuyOptionsConfirmation =
             new(StgBmg.Faron_Woods, 0x6a, 0xDD);
+
+        /* zel_07 // ZD, Fishing Hole, Hena's house */
+        public static MsgNodeInst msg_FishingHoleBottleSign =
+            new(StgBmg.Fishing_Pond, 0x2d5, 0x47A);
+
+        /* zel_08 // HF, Outside CT, LH, UZR, Zora's River, KB2, Title Screen */
     }
 
     // We can update strings by INF rather than FLW for ones which either do not
