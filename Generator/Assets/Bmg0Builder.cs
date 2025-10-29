@@ -396,7 +396,7 @@ namespace TPRandomizer.Assets
         public ushort? context;
         public ushort flwIndex;
         public byte? numQueryResults; // 0x1 u8
-        public ushort? queryIndex; // 0x2 u16
+        public QueryIdx? queryIndex; // 0x2 u16
         public ushort? parameters; // 0x04 u16
         public ushort? vanillaNextNodeTableBaseIdx; // 0x06 u16
         public List<ushort> nextNodeIndexes;
@@ -405,7 +405,7 @@ namespace TPRandomizer.Assets
             NodeInst node,
             ushort? context,
             byte? numQueryResults = null,
-            ushort? queryIndex = null,
+            QueryIdx? queryIndex = null,
             ushort? parameters = null,
             ushort? vanillaNextNodeTableBaseIdx = null,
             List<ushort> nextNodeIndexes = null
@@ -441,7 +441,7 @@ namespace TPRandomizer.Assets
         public List<byte> getPatchBytes()
         {
             List<byte?> maybeBytes = new(7) { numQueryResults };
-            AddMaybeU16ToList(maybeBytes, queryIndex);
+            AddMaybeU16ToList(maybeBytes, (ushort?)queryIndex);
             AddMaybeU16ToList(maybeBytes, parameters);
             AddMaybeU16ToList(maybeBytes, vanillaNextNodeTableBaseIdx);
 
@@ -465,7 +465,7 @@ namespace TPRandomizer.Assets
 
     public class EventPatchEntity : Entity
     {
-        private static Dictionary<BmgNumber, ushort> bmgToFfffNextNodeIdx =
+        private static readonly Dictionary<BmgNumber, ushort> bmgToFfffNextNodeIdx =
             new()
             {
                 { BmgNumber.zel_00, 0 },
@@ -481,7 +481,7 @@ namespace TPRandomizer.Assets
 
         public ushort? context { get; private set; }
         public ushort flwIndex { get; private set; }
-        public byte? eventIndex { get; private set; } // 0x1 u8
+        public EventIdx? eventIndex { get; private set; } // 0x1 u8
 
         // Note: `vanillaNextNodeTableIdx` has a long name since this is
         // probably not what you want to use since it points to an existing
@@ -495,7 +495,7 @@ namespace TPRandomizer.Assets
         public EventPatchEntity(
             NodeInst node,
             ushort? context,
-            byte? eventIndex = null,
+            EventIdx? eventIndex = null,
             ushort? vanillaNextNodeTableIdx = null,
             List<byte?> byteParams = null,
             List<ushort?> ushortParams = null,
@@ -602,7 +602,7 @@ namespace TPRandomizer.Assets
 
         public List<byte> getPatchBytes()
         {
-            List<byte?> maybeBytes = new(7) { eventIndex };
+            List<byte?> maybeBytes = new(7) { (byte?)eventIndex };
             AddMaybeU16ToList(maybeBytes, vanillaNextNodeTableIdx);
             maybeBytes.AddRange(paramMaybeBytes);
 

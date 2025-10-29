@@ -9,7 +9,6 @@ namespace TPRandomizer
     using TPRandomizer.Assets;
     using TPRandomizer.Hints;
     using TPRandomizer.Util;
-    using MessageEntry = Assets.CustomMessages.MessageEntry;
 
     public class CustomMsgData
     {
@@ -371,29 +370,14 @@ namespace TPRandomizer
 
         public Bmg0Builder GenBmg0Builder(SeedGenResults seedGenResults)
         {
-            // TODO: this should return a structure.
-            // It includes what it returns right now.
-            // However, we need to properly handle:
-
-            // - breaking Midna and custom sign text into their own structures.
-            //   They should include "this hintSign id maps to this array of
-            //   text boxes". We should handle splitting the text for a spot
-            //   into the arrays here since the text manipulation is more of a
-            //   concern of this file compared to the other one which is more
-            //   about putting the data in the GCI.
-
-            // We should go ahead and put the messageEntries into the same list
-            // we return. However, we also need to return data which is used for
-            // building the BMG section.
-
             // We store the builder as a property so we do not need to pass it around.
             builder = new();
 
             // There are some static things that should always be applied which
             // do not depend on the item.
             GenStaticEntries(seedGenResults);
-            string linkHouseSignText = GenLinkHouseSignText();
-            builder.AddStrReplacement(StrRepl.Hidden(Node.msg_LinksHouseSign, linkHouseSignText));
+
+            AddMidnaConversationStuff();
 
             // handle shop text first
             if (updateShopText)
@@ -417,6 +401,11 @@ namespace TPRandomizer
             string seedName = seedGenResults.playthroughName;
             builder.AddStrReplacement(StrRepl.PublicInf(Inf.zel00_ChooseAQuestLog, seedName));
             builder.AddStrReplacement(StrRepl.PublicInf(Inf.zel00_RatioCheckSample, seedName));
+
+            // ----- Link's House sign -----
+
+            string linkHouseSignText = GenLinkHouseSignText();
+            builder.AddStrReplacement(StrRepl.Hidden(Node.msg_LinksHouseSign, linkHouseSignText));
 
             // ----- Sera Shop -----
 
@@ -540,89 +529,22 @@ namespace TPRandomizer
 
             AddBarnesShopAdjustments();
 
-            // ----- New Stuff -----
+            // ----- Custom Sign fallback text -----
 
-            List<StrRepl> strEntries2 =
-                new()
-                {
-                    // Fallback text
-                    StrRepl.CustomSignText(
-                        1, // TODO: create an enum of reserved context values probably.
-                        Res.LangSpecificNormalize(Res.SimpleMsg("hint.none-placed-here"))
-                    ),
-                };
-
-            builder.AddStrReplacements(strEntries2);
-
-            List<NodeRemap> nodeRemaps =
-                new()
-                {
-                    // Test for hylian shield price change
-                    // new(StgBmg.Kakariko_Village_Interiors, 0x421, 0x421, 15, fliValue: 0x145),
-
-                    // TODO: I think we do not need to set a context for this
-                    // since we are always adjusting the existing thing that is
-                    // there rather than reusing nodes in a different way that
-                    // the game normally does.
-                    NodeRemap.Fli(
-                        0x145,
-                        Node.br_KakMaloMartHylianShieldCanAfford,
-                        Node.br_KakMaloMartHylianShieldCanAfford.flwIdx,
-                        15
-                    )
-                    // Temp, test skipping over payment evNode of Hylian shield
-                    // new(StgBmg.Kakariko_Village_Interiors, 0x424, 0x428, 15, context: 15),
-                };
-
-            builder.AddNodeRemaps(nodeRemaps);
-
-            List<BranchPatchEntity> branchPatches =
-                new()
-                {
-                    // Patch comparison to see if you can afford hylian shield
-                    // Change price to 0x13b (315)
-                    // new(StgBmg.Kakariko_Village_Interiors, 0x421, 15, parameters: 0x13b),
-
-                    // Patches to use a custom queryFunction which always returns
-                    // the parameters as the procResult. In this case, we are always
-                    // returning 0 which means you are considered to always be able
-                    // to afford the Hylian shield regardless of your current Rupee
-                    // count.
-                    new(
-                        Node.br_KakMaloMartHylianShieldCanAfford,
-                        // StgBmg.Kakariko_Village_Interiors,
-                        // 0x421,
-                        15,
-                        queryIndex: 53,
-                        parameters: 0
-                    ),
-                };
-
-            builder.AddBranchPatches(branchPatches);
-
-            builder.AddEventEntities(
-                new()
-                {
-                    new(Node.ev_KakMaloMartHylianShieldPay, 15, intParam: 0x13b),
-                    // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
-                    // TODO: probably don't need a context for this?
-                    // new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
-                    // Here is a different version of skipping over the payment
-                    // event node. This is preferable to using a nodeRemap since
-                    // those take 4 bytes in their table and this only takes 2.
-                    // new(StgBmg.Kakariko_Village_Interiors, 0x429, 15, nextNodeIdx: 0x428),
-                    new(Node.ev_KakMaloMartHylianShieldBeforePay, 15, nextNodeIdx: 0x428),
-                }
+            builder.AddStrReplacement(
+                StrRepl.CustomSignText(
+                    CtxGen.CONTEXT_CUSTOM_SIGN_NO_HINTS,
+                    Res.LangSpecificNormalize(Res.SimpleMsg("hint.none-placed-here"))
+                )
             );
-
-            AddMidnaConversationStuff();
-
-            // TODO: temp quiz sign for demo
-            // AddTestQuizSign();
         }
 
         private void AddBarnesShopAdjustments()
         {
+            // Allow the player to do the following without having to first do
+            // the Barnes Bomb Bag check: (1) buy water bombs and bomblings and
+            // (2) sell bombs.
+
             ushort firstSlotBaseCtx = ctxGen.getNewContext();
             ushort checkBombSlotCtx = ctxGen.getNewContext();
 
@@ -674,7 +596,7 @@ namespace TPRandomizer
                     new(
                         Node.br_BarnesBombsSlot,
                         firstSlotBaseCtx,
-                        queryIndex: 0x1, // query001 (checks eventBit)
+                        queryIndex: QueryIdx.query001, // query001 (checks eventBit)
                         // M_044 = 0x0908, // Kakariko Village - [Barnes Bomb Shop] Bought premium pack,
                         // Found at index 0x4d (77) in `dSv_event_flag_c::saveBitLabels`
                         parameters: 0x4d,
@@ -737,8 +659,6 @@ namespace TPRandomizer
             ushort baseMidnaCtx = ctxGen.getNewContext();
             ushort hintsBaseCtx = ctxGen.getNewContext();
 
-            List<string> hintMessages = new() { };
-
             int numReqDungeons = 0;
             for (int i = 0; i < 8; i++)
             {
@@ -751,6 +671,7 @@ namespace TPRandomizer
                 new Dictionary<string, string>() { { "count", numReqDungeons.ToString() } }
             );
 
+            List<string> hintMessages = new();
             // Note: need to normalize so JP number converts to wide version.
             hintMessages.Add(Res.LangSpecificNormalize(midnaDungeonMsg));
             if (numReqDungeons > 0)
@@ -758,23 +679,21 @@ namespace TPRandomizer
                 hintMessages.Add(GenLinkHouseSignText());
             }
 
-            foreach (HintSpot hintSpot in hintSpots)
-            {
-                if (hintSpot.location == SpotId.Ordon_Sign)
-                {
-                    List<string> hintTexts = hintSpot.hints
-                        .Select((hint) => hint.toHintTextList(this)[0].text)
-                        .ToList();
-                    hintMessages.AddRange(hintTexts);
-                    break;
-                }
-            }
+            // TODO: add Midna spot hints here once ability is developed.
 
-            // TODO: when calculate the correct hintMessages, use a single
-            // fallback text if there is no text at all. Should never happen
-            // since there will always be text about required dungeons.
+            // foreach (HintSpot hintSpot in hintSpots)
+            // {
+            //     if (hintSpot.location == SpotId.Ordon_Sign)
+            //     {
+            //         List<string> hintTexts = hintSpot.hints
+            //             .Select((hint) => hint.toHintTextList(this)[0].text)
+            //             .ToList();
+            //         hintMessages.AddRange(hintTexts);
+            //         break;
+            //     }
+            // }
 
-            List<StrRepl> strEntries2 =
+            builder.AddStrReplacements(
                 new()
                 {
                     StrRepl.Public(
@@ -787,10 +706,10 @@ namespace TPRandomizer
                         $"{CustomMessages.option1of2}{Res.SimpleMsg("menu.midna-other.option.change-time-of-day")}\n{CustomMessages.option2of2}{Res.SimpleMsg("menu.midna-other.option.hints")}",
                         baseMidnaCtx
                     ),
-                };
-            builder.AddStrReplacements(strEntries2);
+                }
+            );
 
-            List<NodeRemap> nodeRemaps =
+            builder.AddNodeRemaps(
                 new()
                 {
                     // Start at custom branch node to decide if can change ToD or not
@@ -802,41 +721,29 @@ namespace TPRandomizer
                     ),
                     // When we first enter the Hints text, update to a new
                     // context. The base Midna context needs 0xFFFF to not be
-                    // remapped (so backing out of the menu works).
+                    // remapped (so backing out of the menu works), so we need a
+                    // 2nd context.
                     NodeRemap.Ctx(
                         baseMidnaCtx,
-                        // Node.msgZ0_0x28,
-                        // Node.msgZ0_0x28.flwIdx,
-                        // Node.msgZ0_0x26,
-                        // Node.msgZ0_0x26.flwIdx,
-                        // Node.msgZ0_0x27,
-                        // Node.msgZ0_0x27.flwIdx,
                         Node.msg_Z0_0x4d,
                         Node.msg_Z0_0x4d.flwIdx,
                         hintsBaseCtx
                     )
-                };
-            builder.AddNodeRemaps(nodeRemaps);
+                }
+            );
 
-            List<BranchPatchEntity> branchPatches =
+            builder.AddBranchPatches(
                 new()
                 {
                     // Check if can change ToD:
                     new(
                         Node.br_Z0GeneriCtxBranch,
                         baseMidnaCtx,
-                        queryIndex: 54,
+                        queryIndex: QueryIdx.customQuery054_canChangeTod,
                         nextNodeIndexes: new()
                         {
                             Node.ev_MidnaTwoOptsInitEv.flwIdx,
-                            // Node.msgZ0_0x28.flwIdx,
-                            // Node.msgZ0_0x28.flwIdx
-                            // Node.msgZ0_0x26.flwIdx,
-                            // Node.msgZ0_0x26.flwIdx
                             Node.msg_Z0_0x4d.flwIdx
-                            // Node.msgZ0_0x4a.flwIdx,
-                            // Node.msgZ0_0x4a.flwIdx
-                            // Node.msgZ0_0x27.flwIdx
                         }
                     ),
                     // Handle choice of "Change ToD / Hints" menu
@@ -846,21 +753,25 @@ namespace TPRandomizer
                         nextNodeIndexes: new()
                         {
                             Node.ev_Z0GenericCtxEvent.flwIdx,
-                            // Node.msgZ0_0x28.flwIdx,
-                            // Node.msgZ0_0x26.flwIdx,
                             Node.msg_Z0_0x4d.flwIdx,
-                            // Node.msgZ0_0x4a.flwIdx,
-                            // Node.msgZ0_0x27.flwIdx,
                             0xFFFF
                         }
                     ),
-                };
-            builder.AddBranchPatches(branchPatches);
+                }
+            );
 
             // Make event change ToD
             builder.AddEventEntity(
-                new(Node.ev_Z0GenericCtxEvent, baseMidnaCtx, eventIndex: 44, nextNodeIdx: 0xFFFF)
+                new(
+                    Node.ev_Z0GenericCtxEvent,
+                    baseMidnaCtx,
+                    eventIndex: EventIdx.customEvent044_changeTimeOfDay,
+                    nextNodeIdx: 0xFFFF
+                )
             );
+
+            if (ListUtils.isEmpty(hintMessages))
+                throw new Exception($"Expected Midna hintMessages, but list was empty.");
 
             // Add Midna hint messages
             ushort latestContext = hintsBaseCtx;
@@ -868,18 +779,7 @@ namespace TPRandomizer
             {
                 string msg = hintMessages[i];
 
-                // MsgNodeInst node;
-                // if (i == 0)
-                //     node = Node.msgZ0_0x26;
-                // else if (i == 1)
-                //     node = Node.msgZ0_0x27;
-                // else
-                //     node = Node.msgZ0_0x28;
-
-                // results2.AddStrReplacement(StrRepl.Hidden(Node.msgZ0_0x28, msg, latestContext));
                 builder.AddStrReplacement(StrRepl.Hidden(Node.msg_Z0_0x4d, msg, latestContext));
-                // results2.AddStrReplacement(StrRepl.Hidden(node, msg, latestContext));
-                // latestContext = GetNewContext();
 
                 if (i < hintMessages.Count - 1)
                 {
@@ -892,7 +792,6 @@ namespace TPRandomizer
                         NodeRemap.Ctx(
                             prevCtx,
                             Node.zel00_FFFF,
-                            // Node.msgZ0_0x28.flwIdx,
                             Node.msg_Z0_0x4d.flwIdx,
                             latestContext
                         )
@@ -900,6 +799,7 @@ namespace TPRandomizer
                 }
             }
 
+            // Update menu texts
             string msgWarp = Res.SimpleMsg("menu.midna-base.option.warp");
             string msgTransformIntoWolf = Res.SimpleMsg(
                 "menu.midna-base.option.transform-into-wolf"
@@ -2223,6 +2123,8 @@ namespace TPRandomizer
 
         private class CtxGen
         {
+            public static readonly ushort CONTEXT_CUSTOM_SIGN_NO_HINTS = 1;
+
             // Starting at 2 since context of 1 is reserved for custom sign
             // fallback msg.
             private ushort nextContext = 2;
