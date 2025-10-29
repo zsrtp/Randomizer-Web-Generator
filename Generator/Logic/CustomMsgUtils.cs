@@ -134,6 +134,10 @@ namespace TPRandomizer
             new(StgBmg.Kakariko_Village_Interiors, 0x47f, 0x9B);
         public static MsgNodeInst msg_BarnesBombBagCantAfford =
             new(StgBmg.Kakariko_Village_Interiors, 0x484, 0xA0); // Also used by FLW index 0x523
+        public static MsgNodeInst msg_BarnesBombsSlot =
+            new(StgBmg.Kakariko_Village_Interiors, 0x48b, 0x309);
+        public static MsgNodeInst msg_BarnesWaterBombsSlot =
+            new(StgBmg.Kakariko_Village_Interiors, 0x62e, 0x308);
 
         /* zel_03 // Death Mountain (interiors) */
         /* zel_04 // CT (interiors), sewers, HC in credits */

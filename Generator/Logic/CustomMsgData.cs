@@ -646,6 +646,64 @@ namespace TPRandomizer
             builder.AddBranchPatches(branchPatches);
         }
 
+        private void UpdateBarnesBombsSlotMsg(Item item, uint price)
+        {
+            ushort baseCtx = ctxGen.getNewContext();
+            ushort returnCtx = ctxGen.getNewContext();
+
+            builder.AddNodeRemaps(
+                new()
+                {
+                    // Set base context when hovering first slot, and remap to branch node.
+                    NodeRemap.Fli(
+                        0x16a,
+                        Node.msg_BarnesBombsSlot,
+                        Node.br_BarnesBombsSlot.flwIdx,
+                        baseCtx
+                    ),
+                    // Change context when returning to node to avoid infinite loop.
+                    NodeRemap.Ctx(
+                        baseCtx,
+                        Node.msg_BarnesBombsSlot,
+                        Node.msg_BarnesBombsSlot.flwIdx,
+                        returnCtx
+                    ),
+                }
+            );
+
+            builder.AddBranchPatches(
+                new()
+                {
+                    new(
+                        Node.br_BarnesBombsSlot,
+                        baseCtx,
+                        queryIndex: QueryIdx.query001, // query001 (checks eventBit)
+                        // M_044 = 0x0908, // Kakariko Village - [Barnes Bomb Shop] Bought premium pack,
+                        // Found at index 0x4d (77) in `dSv_event_flag_c::saveBitLabels`
+                        parameters: 0x4d,
+                        nextNodeIndexes: new()
+                        {
+                            // Has done check, so show vanilla.
+                            Node.msg_BarnesBombsSlot.flwIdx,
+                            // Has not done check, so show waterBomb slot under
+                            // "baseCtx". We update it to a custom string below.
+                            Node.msg_BarnesWaterBombsSlot.flwIdx,
+                        }
+                    ),
+                }
+            );
+
+            AddShopSlotMsg(
+                Node.msg_BarnesWaterBombsSlot,
+                "Barnes Bomb Bag",
+                item,
+                price,
+                context: "barnes",
+                shopSuffixIsColon: true,
+                msgNodeContext: baseCtx
+            );
+        }
+
         private void AddMidnaAdjustments()
         {
             // Note: Midna voice is only guaranteed to work normally when the
@@ -1488,7 +1546,8 @@ namespace TPRandomizer
                     optionalContextMetaIn: resultSlotMetaItem
                 );
 
-                string priceText = GenShopPriceText(120);
+                uint barnesBombBagPrice = 120;
+                string priceText = GenShopPriceText(barnesBombBagPrice);
 
                 string text = result.Substitute(
                     new() { { "item", itemText }, { "price", priceText } }
@@ -1500,6 +1559,9 @@ namespace TPRandomizer
                         Res.LangSpecificNormalize(text) + CustomMessages.endMenuBody
                     )
                 );
+
+                // Shop slot msg
+                UpdateBarnesBombsSlotMsg(barnesData.itemToHint, barnesBombBagPrice);
             }
         }
 
@@ -1596,7 +1658,8 @@ namespace TPRandomizer
             Item defaultItem,
             uint price,
             string context = null,
-            bool shopSuffixIsColon = false
+            bool shopSuffixIsColon = false,
+            ushort? msgNodeContext = null
         )
         {
             Res.Result res = Res.Msg("shop.slot", new() { { "context", context } });
@@ -1631,7 +1694,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text);
 
-            builder.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
+            builder.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText, msgNodeContext));
         }
 
         public static string BuildContextFromMeta(Dictionary<string, string> meta)
