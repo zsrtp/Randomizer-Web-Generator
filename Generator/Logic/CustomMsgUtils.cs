@@ -2,17 +2,8 @@ namespace TPRandomizer
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
-    using Newtonsoft.Json.Linq;
     using TPRandomizer.Assets;
     using TPRandomizer.Hints;
-    using TPRandomizer.Hints.Settings;
-    using TPRandomizer.Util;
-    using MessageEntry = Assets.CustomMessages.MessageEntry;
-    using HintSpotBmgData = Assets.CustomMessages.HintSpotBmgData;
-    using FLIGroup = Assets.CustomMessages.FLIGroup;
-    using System.Threading.Tasks.Dataflow;
 
     public class NodeInst
     {
@@ -188,12 +179,6 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town_Shops, 0x99d, 0x3B3);
         public static MsgNodeInst msgCT_GoronLanternOilConfirmationSecond =
             new(StgBmg.Castle_Town_Shops, 0x99f, 0x3B5);
-
-        // TODO: test if text is wrong if MDH is not cleared. This is probably
-        // the issue the person reported in the discord. Also need to test with
-        // the Arrows goron since seems like the same thing. Red potion and
-        // Hylian shield ones do not appear to do this from looking at the
-        // graph.
         public static MsgNodeInst msgCT_GoronLanternOilCantAfford =
             new(StgBmg.Castle_Town_Shops, 0x97e, 0x3AC); // Also used by FLW index 0x993
         public static MsgNodeInst msgCT_GoronArrowsConfirmationInitial =
@@ -216,6 +201,8 @@ namespace TPRandomizer
             new(StgBmg.Faron_Woods, 0x6a, 0xDD);
     }
 
+    // We can update strings by INF rather than FLW for ones which either do not
+    // show up in msgFlow conversations or which show up in several.
     public class Inf
     {
         public static InfInst zel00_ChooseAQuestLog = new(StgBmg.zel_00, 0x42);
@@ -292,7 +279,7 @@ namespace TPRandomizer
             return spotIdToFlowId.TryGetValue(spotId, out flowId);
         }
 
-        public static ushort GetFlowIdOfSpot(SpotId spotId)
+        public static ushort GetCustomSignFlowId(SpotId spotId)
         {
             if (!spotIdToFlowId.TryGetValue(spotId, out ushort flowId))
                 throw new Exception($"Failed to find flowId for spotId '{spotId}'.");

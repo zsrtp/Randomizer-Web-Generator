@@ -1901,7 +1901,7 @@ namespace TPRandomizer
             if (ListUtils.isEmpty(messages))
                 return;
 
-            ushort flowId = CustomMsgUtils.GetFlowIdOfSpot(spotId);
+            ushort flowId = CustomMsgUtils.GetCustomSignFlowId(spotId);
 
             ushort latestContext = GetNewContext();
 
