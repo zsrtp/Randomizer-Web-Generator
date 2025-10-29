@@ -540,17 +540,8 @@ namespace TPRandomizer
             }
 
             AddBarnesShopAdjustments();
-            // AddIzaMinigameSkipAbility();
 
             // ----- New Stuff -----
-
-            // string table stuff
-            string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
-            string messageOption2_8not9 = "\x1A\x06\x00\x00\x08\x02";
-            // NOTE: ^ CRITICAL that the mesasge options match this which is
-            // what is normally used for the nodes we are overwriting. The midna
-            // menus have 1a 06 00 00 **09** xx when there are 3 options, but 1a
-            // 06 00 00 **08** xx when there are 2 options.
 
             List<StrRepl> strEntries2 =
                 new()
@@ -747,9 +738,6 @@ namespace TPRandomizer
             ushort baseMidnaCtx = ctxGen.getNewContext();
             ushort hintsBaseCtx = ctxGen.getNewContext();
 
-            string messageOption1_8not9 = "\x1A\x06\x00\x00\x08\x01";
-            string messageOption2_8not9 = "\x1A\x06\x00\x00\x08\x02";
-
             List<string> hintMessages = new() { };
 
             int numReqDungeons = 0;
@@ -792,12 +780,12 @@ namespace TPRandomizer
                 {
                     StrRepl.Public(
                         Node.msg_MidnaTwoOptsBody,
-                        Res.SimpleMsg("menu.midna-other.body") + CustomMessages.shopOption,
+                        Res.SimpleMsg("menu.midna-other.body") + CustomMessages.endMenuBody,
                         baseMidnaCtx
                     ),
                     StrRepl.Public(
                         Node.msg_MidnaTwoOptsOptions,
-                        $"{messageOption1_8not9}{Res.SimpleMsg("menu.midna-other.option.change-time-of-day")}\n{messageOption2_8not9}{Res.SimpleMsg("menu.midna-other.option.hints")}",
+                        $"{CustomMessages.option1of2}{Res.SimpleMsg("menu.midna-other.option.change-time-of-day")}\n{CustomMessages.option2of2}{Res.SimpleMsg("menu.midna-other.option.hints")}",
                         baseMidnaCtx
                     ),
                 };
@@ -939,11 +927,11 @@ namespace TPRandomizer
                     ),
                     StrRepl.PublicInf(
                         Inf.zel00_MidnaOpts_TransToWolfWarpTalk,
-                        $"{CustomMessages.messageOption1}{msgTransformIntoWolf}\n{CustomMessages.messageOption2}{msgWarp}\n{CustomMessages.messageOption3}{msgSomethingElse}"
+                        $"{CustomMessages.option1of3}{msgTransformIntoWolf}\n{CustomMessages.option2of3}{msgWarp}\n{CustomMessages.option3of3}{msgSomethingElse}"
                     ),
                     StrRepl.PublicInf(
                         Inf.zel00_MidnaOpts_TransToHumanWarpTalk,
-                        $"{CustomMessages.messageOption1}{msgTransformIntoHuman}\n{CustomMessages.messageOption2}{msgWarp}\n{CustomMessages.messageOption3}{msgSomethingElse}"
+                        $"{CustomMessages.option1of3}{msgTransformIntoHuman}\n{CustomMessages.option2of3}{msgWarp}\n{CustomMessages.option3of3}{msgSomethingElse}"
                     )
                 }
             );
@@ -1077,7 +1065,7 @@ namespace TPRandomizer
                     { "noun", nounVal },
                 }
             );
-            string normalizedText = Res.LangSpecificNormalize(text) + CustomMessages.shopOption;
+            string normalizedText = Res.LangSpecificNormalize(text) + CustomMessages.endMenuBody;
 
             results2.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
         }
@@ -1248,7 +1236,7 @@ namespace TPRandomizer
                     result.Substitute(new() { { "item", itemText } })
                 );
                 results2.AddStrReplacement(
-                    StrRepl.Hidden(Node.msg_CharloOptsBody, charloText + CustomMessages.shopOption)
+                    StrRepl.Hidden(Node.msg_CharloOptsBody, charloText + CustomMessages.endMenuBody)
                 );
             }
 
@@ -1712,7 +1700,7 @@ namespace TPRandomizer
                 results2.AddStrReplacement(
                     StrRepl.Hidden(
                         Node.msg_BarnesBombBagConfirmation,
-                        Res.LangSpecificNormalize(text) + CustomMessages.shopOption
+                        Res.LangSpecificNormalize(text) + CustomMessages.endMenuBody
                     )
                 );
             }

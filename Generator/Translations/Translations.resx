@@ -1858,7 +1858,7 @@
     <comment></comment>
   </data>
   <data name="self-hinter.charlo-options" xml:space="preserve">
-    <value>#(option1)100 Rupees#(option2)50 Rupees#(option3)Sorry...</value>
+    <value>#(option1of3)100 Rupees#(option2of3)50 Rupees#(option3of3)Sorry...</value>
     <comment></comment>
   </data>
   <data name="self-hinter.fishing-bottle" xml:space="preserve">
