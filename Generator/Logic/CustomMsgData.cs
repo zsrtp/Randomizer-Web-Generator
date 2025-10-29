@@ -4,17 +4,10 @@ namespace TPRandomizer
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Text;
-    using System.Text.RegularExpressions;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
-    using Microsoft.Extensions.Logging.Abstractions;
-    using Microsoft.Win32.SafeHandles;
-    using Newtonsoft.Json.Linq;
     using SSettings.Enums;
     using TPRandomizer.Assets;
     using TPRandomizer.Hints;
-    using TPRandomizer.Hints.Settings;
     using TPRandomizer.Util;
     using MessageEntry = Assets.CustomMessages.MessageEntry;
 
@@ -401,9 +394,7 @@ namespace TPRandomizer
             // do not depend on the item.
             GenStaticEntries(seedGenResults);
             string linkHouseSignText = GenLinkHouseSignText();
-            results2.AddStrReplacement(
-                StrRepl.Hidden(Node.msgOrdon_LinksHouseSign, linkHouseSignText)
-            );
+            results2.AddStrReplacement(StrRepl.Hidden(Node.msg_LinksHouseSign, linkHouseSignText));
 
             // handle shop text first
             if (updateShopText)
@@ -472,11 +463,11 @@ namespace TPRandomizer
                     + hawkeyeSoldOutRes.Substitute(new() { { "item", hawkeyeItemText } })
             );
             results2.AddStrReplacement(
-                StrRepl.Hidden(Node.msgKV_MaloMartHawkeyeSoldOut, hawkeyeSoldOutMsg)
+                StrRepl.Hidden(Node.msg_KakMaloMartHawkeyeSoldOut, hawkeyeSoldOutMsg)
             );
             results2.AddStrReplacement(
                 StrRepl.Public(
-                    Node.msgKV_MaloMartHawkeyeSoldOutRead,
+                    Node.msg_KakMaloMartHawkeyeSoldOutRead,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.coming-soon-read", null))
                 )
             );
@@ -484,7 +475,7 @@ namespace TPRandomizer
             // This is used for the sold out sign for all slots in this shop.
             results2.AddStrReplacement(
                 StrRepl.Public(
-                    Node.msgKV_MaloMartHylianShieldSoldOut,
+                    Node.msg_KakMaloMartHylianShieldSoldOut,
                     Res.LangSpecificNormalize(
                         CustomMessages.messageColorOrange + Res.SimpleMsg("shop.sold-out", null)
                     )
@@ -497,7 +488,7 @@ namespace TPRandomizer
             // When you read the sold out sign
             results2.AddStrReplacement(
                 StrRepl.Public(
-                    Node.msgKV_MaloMartHylianShieldSoldOutRead,
+                    Node.msg_KakMaloMartHylianShieldSoldOutRead,
                     textKvMaloMartHylianShieldSoldOutRead
                 )
             );
@@ -505,7 +496,7 @@ namespace TPRandomizer
             // see this one instead for that slot.
             results2.AddStrReplacement(
                 StrRepl.Public(
-                    Node.msgKV_MaloMartHylianShieldSoldOutRead2,
+                    Node.msg_KakMaloMartHylianShieldSoldOutRead2,
                     textKvMaloMartHylianShieldSoldOutRead
                 )
             );
@@ -514,7 +505,7 @@ namespace TPRandomizer
             // Replacing with the same text used for the Hylian shield.
             results2.AddStrReplacement(
                 StrRepl.Public(
-                    Node.msgKV_MaloMartRedPotionBought,
+                    Node.msg_KakMaloMartRedPotionBought,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought", null))
                 )
             );
@@ -523,7 +514,7 @@ namespace TPRandomizer
 
             results2.AddStrReplacement(
                 StrRepl.Public(
-                    Node.msgCT_MaloMartMagicArmorBought,
+                    Node.msg_CtMaloMartMagicArmorBought,
                     Res.LangSpecificNormalize(
                         Res.SimpleMsg("shop.bought", new() { { "context", "magic-armor" } })
                     )
@@ -542,7 +533,7 @@ namespace TPRandomizer
             {
                 results2.AddStrReplacement(
                     StrRepl.Public(
-                        Node.msgKV_BarnesBombBagCantAfford,
+                        Node.msg_BarnesBombBagCantAfford,
                         Res.LangSpecificNormalize(barnesCantAffordRes.Substitute(null))
                     )
                 );
@@ -564,10 +555,6 @@ namespace TPRandomizer
             List<StrRepl> strEntries2 =
                 new()
                 {
-                    StrRepl.Public(Node.msgCT_StarSigns, "Test text for star signs outside"),
-                    StrRepl.Public(Node.msgCT_StarGirlsNoAttemptFirst, "test talk to girls1"),
-                    StrRepl.Public(Node.msgCT_StarGirlsNoAttemptSecond, "test talk to girls2"),
-                    StrRepl.Public(Node.msgCT_StarGirlsNoAttemptThird, "test talk to girls3"),
                     // Fallback text
                     StrRepl.CustomSignText(
                         1, // TODO: create an enum of reserved context values probably.
@@ -589,8 +576,8 @@ namespace TPRandomizer
                     // the game normally does.
                     NodeRemap.Fli(
                         0x145,
-                        Node.brKakMaloMartHylianShieldCanAfford,
-                        Node.brKakMaloMartHylianShieldCanAfford.flwIdx,
+                        Node.br_KakMaloMartHylianShieldCanAfford,
+                        Node.br_KakMaloMartHylianShieldCanAfford.flwIdx,
                         15
                     )
                     // Temp, test skipping over payment evNode of Hylian shield
@@ -612,7 +599,7 @@ namespace TPRandomizer
                     // to afford the Hylian shield regardless of your current Rupee
                     // count.
                     new(
-                        Node.brKakMaloMartHylianShieldCanAfford,
+                        Node.br_KakMaloMartHylianShieldCanAfford,
                         // StgBmg.Kakariko_Village_Interiors,
                         // 0x421,
                         15,
@@ -626,7 +613,7 @@ namespace TPRandomizer
             results2.AddEventEntities(
                 new()
                 {
-                    new(Node.evKakMaloMartHylianShieldPay, 15, intParam: 0x13b),
+                    new(Node.ev_KakMaloMartHylianShieldPay, 15, intParam: 0x13b),
                     // Patch to subtract 0x13b (315) when buying Hylian Shield at Kak Malo Mart
                     // TODO: probably don't need a context for this?
                     // new(StgBmg.Kakariko_Village_Interiors, 0x424, 15, intParam: 0x13b),
@@ -634,7 +621,7 @@ namespace TPRandomizer
                     // event node. This is preferable to using a nodeRemap since
                     // those take 4 bytes in their table and this only takes 2.
                     // new(StgBmg.Kakariko_Village_Interiors, 0x429, 15, nextNodeIdx: 0x428),
-                    new(Node.evKakMaloMartHylianShieldBeforePay, 15, nextNodeIdx: 0x428),
+                    new(Node.ev_KakMaloMartHylianShieldBeforePay, 15, nextNodeIdx: 0x428),
                 }
             );
 
@@ -804,12 +791,12 @@ namespace TPRandomizer
                 new()
                 {
                     StrRepl.Public(
-                        Node.msgZ0_MidnaTwoOptsBody,
+                        Node.msg_MidnaTwoOptsBody,
                         Res.SimpleMsg("menu.midna-other.body") + CustomMessages.shopOption,
                         baseMidnaCtx
                     ),
                     StrRepl.Public(
-                        Node.msgZ0_MidnaTwoOptsOptions,
+                        Node.msg_MidnaTwoOptsOptions,
                         $"{messageOption1_8not9}{Res.SimpleMsg("menu.midna-other.option.change-time-of-day")}\n{messageOption2_8not9}{Res.SimpleMsg("menu.midna-other.option.hints")}",
                         baseMidnaCtx
                     ),
@@ -822,8 +809,8 @@ namespace TPRandomizer
                     // Start at custom branch node to decide if can change ToD or not
                     NodeRemap.Fli(
                         0xbb8,
-                        Node.brTalkToMidnaRootNode,
-                        Node.brZ0_GeneriCtxBranch.flwIdx,
+                        Node.br_TalkToMidnaRootNode,
+                        Node.br_Z0GeneriCtxBranch.flwIdx,
                         baseMidnaCtx
                     ),
                     // When we first enter the Hints text, update to a new
@@ -837,8 +824,8 @@ namespace TPRandomizer
                         // Node.msgZ0_0x26.flwIdx,
                         // Node.msgZ0_0x27,
                         // Node.msgZ0_0x27.flwIdx,
-                        Node.msgZ0_0x4d,
-                        Node.msgZ0_0x4d.flwIdx,
+                        Node.msg_Z0_0x4d,
+                        Node.msg_Z0_0x4d.flwIdx,
                         hintsBaseCtx
                     )
                 };
@@ -849,17 +836,17 @@ namespace TPRandomizer
                 {
                     // Check if can change ToD:
                     new(
-                        Node.brZ0_GeneriCtxBranch,
+                        Node.br_Z0GeneriCtxBranch,
                         baseMidnaCtx,
                         queryIndex: 54,
                         nextNodeIndexes: new()
                         {
-                            Node.evZ0_MidnaTwoOptsInitEv.flwIdx,
+                            Node.ev_MidnaTwoOptsInitEv.flwIdx,
                             // Node.msgZ0_0x28.flwIdx,
                             // Node.msgZ0_0x28.flwIdx
                             // Node.msgZ0_0x26.flwIdx,
                             // Node.msgZ0_0x26.flwIdx
-                            Node.msgZ0_0x4d.flwIdx
+                            Node.msg_Z0_0x4d.flwIdx
                             // Node.msgZ0_0x4a.flwIdx,
                             // Node.msgZ0_0x4a.flwIdx
                             // Node.msgZ0_0x27.flwIdx
@@ -867,14 +854,14 @@ namespace TPRandomizer
                     ),
                     // Handle choice of "Change ToD / Hints" menu
                     new(
-                        Node.brZ0_MidnaTwoOptsResultBranch,
+                        Node.br_MidnaTwoOptsResultBranch,
                         baseMidnaCtx,
                         nextNodeIndexes: new()
                         {
-                            Node.evZ0_GenericCtxEvent.flwIdx,
+                            Node.ev_Z0GenericCtxEvent.flwIdx,
                             // Node.msgZ0_0x28.flwIdx,
                             // Node.msgZ0_0x26.flwIdx,
-                            Node.msgZ0_0x4d.flwIdx,
+                            Node.msg_Z0_0x4d.flwIdx,
                             // Node.msgZ0_0x4a.flwIdx,
                             // Node.msgZ0_0x27.flwIdx,
                             0xFFFF
@@ -885,7 +872,7 @@ namespace TPRandomizer
 
             // Make event change ToD
             results2.AddEventEntity(
-                new(Node.evZ0_GenericCtxEvent, baseMidnaCtx, eventIndex: 44, nextNodeIdx: 0xFFFF)
+                new(Node.ev_Z0GenericCtxEvent, baseMidnaCtx, eventIndex: 44, nextNodeIdx: 0xFFFF)
             );
 
             // Add Midna hint messages
@@ -903,7 +890,7 @@ namespace TPRandomizer
                 //     node = Node.msgZ0_0x28;
 
                 // results2.AddStrReplacement(StrRepl.Hidden(Node.msgZ0_0x28, msg, latestContext));
-                results2.AddStrReplacement(StrRepl.Hidden(Node.msgZ0_0x4d, msg, latestContext));
+                results2.AddStrReplacement(StrRepl.Hidden(Node.msg_Z0_0x4d, msg, latestContext));
                 // results2.AddStrReplacement(StrRepl.Hidden(node, msg, latestContext));
                 // latestContext = GetNewContext();
 
@@ -919,7 +906,7 @@ namespace TPRandomizer
                             prevCtx,
                             Node.zel00_FFFF,
                             // Node.msgZ0_0x28.flwIdx,
-                            Node.msgZ0_0x4d.flwIdx,
+                            Node.msg_Z0_0x4d.flwIdx,
                             latestContext
                         )
                     );
@@ -1261,10 +1248,7 @@ namespace TPRandomizer
                     result.Substitute(new() { { "item", itemText } })
                 );
                 results2.AddStrReplacement(
-                    StrRepl.Hidden(
-                        Node.msgCT_CharloOptsBody,
-                        charloText + CustomMessages.shopOption
-                    )
+                    StrRepl.Hidden(Node.msg_CharloOptsBody, charloText + CustomMessages.shopOption)
                 );
             }
 
@@ -1272,7 +1256,7 @@ namespace TPRandomizer
             // Rupees, etc. even if the body text is vanilla based on settings.
             string charloOptionsText = Res.SimpleMsg("self-hinter.charlo-options", null);
             results2.AddStrReplacement(
-                StrRepl.Public(Node.msgCT_CharloOptsOptions, charloOptionsText)
+                StrRepl.Public(Node.msg_CharloOptsOptions, charloOptionsText)
             );
 
             // Fishing Hole Bottle sign
@@ -1446,7 +1430,7 @@ namespace TPRandomizer
             results2.AddBranchPatches(
                 new()
                 {
-                    new(Node.brSeraSlingshotCheckCanAfford, null, parameters: seraSlingshotPrice),
+                    new(Node.br_SeraSlingshotCheckCanAfford, null, parameters: seraSlingshotPrice),
                 }
             );
             results2.AddEventEntity(
@@ -1492,20 +1476,20 @@ namespace TPRandomizer
 
             uint kakMaloHawkeyePrice = 100;
             AddShopSlotMsg(
-                Node.msgKV_MaloMartHawkeyeSlot,
+                Node.msg_KakMaloMartHawkeyeSlot,
                 "Kakariko Village Malo Mart Hawkeye",
                 Item.Hawkeye,
                 kakMaloHawkeyePrice
             );
             AddShopCantAffordMsg(
-                Node.msgKV_MaloMartHawkeyeCantAfford,
+                Node.msg_KakMaloMartHawkeyeCantAfford,
                 "Kakariko Village Malo Mart Hawkeye",
                 Item.Hawkeye,
                 kakMaloHawkeyePrice,
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                Node.msgKV_MaloMartHawkeyeConfirmation,
+                Node.msg_KakMaloMartHawkeyeConfirmation,
                 "Kakariko Village Malo Mart Hawkeye",
                 Item.Hawkeye,
                 kakMaloHawkeyePrice,
@@ -1514,20 +1498,20 @@ namespace TPRandomizer
 
             uint kakMaloWoodenShieldPrice = 50;
             AddShopSlotMsg(
-                Node.msgKV_MaloMartWoodenShieldSlot,
+                Node.msg_KakMaloMartWoodenShieldSlot,
                 "Kakariko Village Malo Mart Wooden Shield",
                 Item.Wooden_Shield,
                 kakMaloWoodenShieldPrice
             );
             AddShopCantAffordMsg(
-                Node.msgKV_MaloMartWoodenShieldCantAfford,
+                Node.msg_KakMaloMartWoodenShieldCantAfford,
                 "Kakariko Village Malo Mart Wooden Shield",
                 Item.Wooden_Shield,
                 kakMaloWoodenShieldPrice,
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                Node.msgKV_MaloMartWoodenShieldConfirmation,
+                Node.msg_KakMaloMartWoodenShieldConfirmation,
                 "Kakariko Village Malo Mart Wooden Shield",
                 Item.Wooden_Shield,
                 kakMaloWoodenShieldPrice,
@@ -1538,20 +1522,20 @@ namespace TPRandomizer
             // TODO: temp test code
             uint kakMaloHylianShieldPrice = 315;
             AddShopSlotMsg(
-                Node.msgKV_MaloMartHylianShieldSlot,
+                Node.msg_KakMaloMartHylianShieldSlot,
                 "Kakariko Village Malo Mart Hylian Shield",
                 Item.Hylian_Shield,
                 kakMaloHylianShieldPrice
             );
             AddShopCantAffordMsg(
-                Node.msgKV_MaloMartHylianShieldCantAfford,
+                Node.msg_KakMaloMartHylianShieldCantAfford,
                 "Kakariko Village Malo Mart Hylian Shield",
                 Item.Hylian_Shield,
                 kakMaloHylianShieldPrice,
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                Node.msgKV_MaloMartHylianShieldConfirmation,
+                Node.msg_KakMaloMartHylianShieldConfirmation,
                 "Kakariko Village Malo Mart Hylian Shield",
                 Item.Hylian_Shield,
                 kakMaloHylianShieldPrice,
@@ -1560,20 +1544,20 @@ namespace TPRandomizer
 
             uint kakMaloRedPotionPrice = 30;
             AddShopSlotMsg(
-                Node.msgKV_MaloMartRedPotionSlot,
+                Node.msg_KakMaloMartRedPotionSlot,
                 "Kakariko Village Malo Mart Red Potion",
                 Item.Red_Potion_Shop,
                 kakMaloRedPotionPrice
             );
             AddShopCantAffordMsg(
-                Node.msgKV_MaloMartRedPotionCantAfford,
+                Node.msg_KakMaloMartRedPotionCantAfford,
                 "Kakariko Village Malo Mart Red Potion",
                 Item.Red_Potion_Shop,
                 kakMaloRedPotionPrice,
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                Node.msgKV_MaloMartRedPotionConfirmation,
+                Node.msg_KakMaloMartRedPotionConfirmation,
                 "Kakariko Village Malo Mart Red Potion",
                 Item.Red_Potion_Shop,
                 kakMaloRedPotionPrice,
@@ -1591,7 +1575,7 @@ namespace TPRandomizer
             );
 
             AddShopSlotMsg(
-                Node.msgCT_MaloMartMagicArmorSlot,
+                Node.msg_CtMaloMartMagicArmorSlot,
                 "Castle Town Malo Mart Magic Armor",
                 Item.Magic_Armor,
                 598,
@@ -1599,7 +1583,7 @@ namespace TPRandomizer
             );
             results2.AddStrReplacement(
                 StrRepl.Hidden(
-                    Node.msgCT_MaloMartMagicArmorSoldOut,
+                    Node.msg_CtMaloMartMagicArmorSoldOut,
                     GenShopSoldOutText(
                         HintUtils.getCheckContents("Castle Town Malo Mart Magic Armor"),
                         "magic-armor"
@@ -1614,7 +1598,7 @@ namespace TPRandomizer
 
             uint ctGoronRedPotionPrice = 40;
             AddShopConfirmationMsg(
-                Node.msgCT_GoronRedPotionConfirmationInitial,
+                Node.msg_CtGoronRedPotionConfirmationInitial,
                 "Castle Town Goron Shop Red Potion",
                 Item.Red_Potion_Shop,
                 ctGoronRedPotionPrice,
@@ -1622,7 +1606,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                Node.msgCT_GoronRedPotionConfirmationSecond,
+                Node.msg_CtGoronRedPotionConfirmationSecond,
                 "Castle Town Goron Shop Red Potion",
                 Item.Red_Potion_Shop,
                 ctGoronRedPotionPrice,
@@ -1630,7 +1614,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopCantAffordMsg(
-                Node.msgCT_GoronRedPotionCantAfford,
+                Node.msg_CtGoronRedPotionCantAfford,
                 "Castle Town Goron Shop Red Potion",
                 Item.Red_Potion_Shop,
                 ctGoronRedPotionPrice,
@@ -1639,7 +1623,7 @@ namespace TPRandomizer
 
             uint ctGoronLanternOilPrice = 30;
             AddShopConfirmationMsg(
-                Node.msgCT_GoronLanternOilConfirmationInitial,
+                Node.msg_CtGoronLanternOilConfirmationInitial,
                 "Castle Town Goron Shop Lantern Oil",
                 Item.Lantern_Oil_Shop,
                 ctGoronLanternOilPrice,
@@ -1647,7 +1631,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                Node.msgCT_GoronLanternOilConfirmationSecond,
+                Node.msg_CtGoronLanternOilConfirmationSecond,
                 "Castle Town Goron Shop Lantern Oil",
                 Item.Lantern_Oil_Shop,
                 ctGoronLanternOilPrice,
@@ -1655,7 +1639,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopCantAffordMsg(
-                Node.msgCT_GoronLanternOilCantAfford,
+                Node.msg_CtGoronLanternOilCantAfford,
                 "Castle Town Goron Shop Lantern Oil",
                 Item.Lantern_Oil_Shop,
                 ctGoronLanternOilPrice,
@@ -1664,7 +1648,7 @@ namespace TPRandomizer
 
             uint ctGoronArrowsPrice = 40;
             AddShopConfirmationMsg(
-                Node.msgCT_GoronArrowsConfirmationInitial,
+                Node.msg_CtGoronArrowsConfirmationInitial,
                 "Castle Town Goron Shop Arrow Refill",
                 Item.Arrows_30,
                 ctGoronArrowsPrice,
@@ -1672,7 +1656,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                Node.msgCT_GoronArrowsConfirmationSecond,
+                Node.msg_CtGoronArrowsConfirmationSecond,
                 "Castle Town Goron Shop Arrow Refill",
                 Item.Arrows_30,
                 ctGoronArrowsPrice,
@@ -1682,7 +1666,7 @@ namespace TPRandomizer
 
             uint ctGoronShieldPrice = 210;
             AddShopConfirmationMsg(
-                Node.msgCT_GoronShieldConfirmationIntitial,
+                Node.msg_CtGoronShieldConfirmationIntitial,
                 "Castle Town Goron Shop Hylian Shield",
                 Item.Hylian_Shield,
                 ctGoronShieldPrice,
@@ -1690,7 +1674,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                Node.msgCT_GoronShieldConfirmationSecond,
+                Node.msg_CtGoronShieldConfirmationSecond,
                 "Castle Town Goron Shop Hylian Shield",
                 Item.Hylian_Shield,
                 ctGoronShieldPrice,
@@ -1793,7 +1777,7 @@ namespace TPRandomizer
             ushort latestContext = GetNewContext();
 
             results2.AddNodeRemap(
-                NodeRemap.Fli(flowId, Node.zel00_FFFF, Node.msgZ0_0x28.flwIdx, latestContext)
+                NodeRemap.Fli(flowId, Node.zel00_FFFF, Node.msg_Z0_0x28.flwIdx, latestContext)
             );
 
             for (int i = 0; i < messages.Count; i++)
@@ -1813,7 +1797,7 @@ namespace TPRandomizer
                         NodeRemap.Ctx(
                             prevCtx,
                             Node.zel00_FFFF,
-                            Node.msgZ0_0x28.flwIdx,
+                            Node.msg_Z0_0x28.flwIdx,
                             latestContext
                         )
                     );
