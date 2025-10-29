@@ -247,7 +247,7 @@ namespace TPRandomizer
             return spotIdToVanillaNode.TryGetValue(spotId, out node);
         }
 
-        private static readonly Dictionary<SpotId, ushort> spotIdToFliValue =
+        private static readonly Dictionary<SpotId, ushort> spotIdToFlowId =
             new()
             {
                 { SpotId.Ordon_Sign, 0x72b0 },
@@ -287,17 +287,17 @@ namespace TPRandomizer
                 { SpotId.Hyrule_Castle_Sign, 0x7140 },
             };
 
-        public static bool TryGetCustomSignFliValue(SpotId spotId, out ushort fliValue)
+        public static bool TryGetCustomSignFlowId(SpotId spotId, out ushort flowId)
         {
-            return spotIdToFliValue.TryGetValue(spotId, out fliValue);
+            return spotIdToFlowId.TryGetValue(spotId, out flowId);
         }
 
-        public static ushort GetFliValueOfSpot(SpotId spotId)
+        public static ushort GetFlowIdOfSpot(SpotId spotId)
         {
-            if (!spotIdToFliValue.TryGetValue(spotId, out ushort fliValue))
-                throw new Exception($"Failed to find fliValue for spotId '{spotId}'.");
+            if (!spotIdToFlowId.TryGetValue(spotId, out ushort flowId))
+                throw new Exception($"Failed to find flowId for spotId '{spotId}'.");
 
-            return fliValue;
+            return flowId;
         }
     }
 }

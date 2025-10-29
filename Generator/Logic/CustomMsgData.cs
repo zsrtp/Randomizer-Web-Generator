@@ -1854,9 +1854,9 @@ namespace TPRandomizer
                 foreach (HintSpot hintSpot in hintSpots)
                 {
                     if (
-                        CustomMsgUtils.TryGetCustomSignFliValue(
+                        CustomMsgUtils.TryGetCustomSignFlowId(
                             hintSpot.location,
-                            out ushort customSignFli
+                            out ushort customSignFlowId
                         )
                     )
                     {
@@ -1865,12 +1865,9 @@ namespace TPRandomizer
                             .Select((hint) => hint.toHintTextList(this)[0].text)
                             .ToList();
 
-                        List<string> msgNodeTexts = Res.GenMsgNodeTexts(
-                            hintTexts,
-                            hintSpot.location == SpotId.Ordon_Sign
-                        );
+                        List<string> msgNodeTexts = Res.SplitOversizedTexts(hintTexts);
 
-                        TestPuttingCustomSignStuff(hintSpot.location, msgNodeTexts);
+                        AddCustomSignEntityData(hintSpot.location, msgNodeTexts);
                     }
                     else if (
                         CustomMsgUtils.TryGetSpotIdVanillaNode(
@@ -1899,31 +1896,24 @@ namespace TPRandomizer
             }
         }
 
-        private void TestPuttingCustomSignStuff(SpotId spotId, List<string> messages)
+        private void AddCustomSignEntityData(SpotId spotId, List<string> messages)
         {
             if (ListUtils.isEmpty(messages))
                 return;
 
-            ushort fliValue = CustomMsgUtils.GetFliValueOfSpot(spotId);
+            ushort flowId = CustomMsgUtils.GetFlowIdOfSpot(spotId);
 
-            // Add Midna hint messages
             ushort latestContext = GetNewContext();
 
             results2.AddNodeRemap(
-                NodeRemap.Fli(fliValue, Node.zel00_FFFF, Node.msgZ0_0x28.flwIdx, latestContext)
+                NodeRemap.Fli(flowId, Node.zel00_FFFF, Node.msgZ0_0x28.flwIdx, latestContext)
             );
 
             for (int i = 0; i < messages.Count; i++)
             {
                 string msg = messages[i];
 
-                List<StrRepl> strEntries =
-                    new()
-                    {
-                        // new(Node.msgZ0_0x28, latestContext, msg),
-                        StrRepl.CustomSignText(latestContext, msg),
-                    };
-                results2.AddStrReplacements(strEntries);
+                results2.AddStrReplacement(StrRepl.CustomSignText(latestContext, msg));
 
                 if (i < messages.Count - 1)
                 {
@@ -1932,17 +1922,14 @@ namespace TPRandomizer
                     ushort prevCtx = latestContext;
                     latestContext = GetNewContext();
 
-                    List<NodeRemap> nodeRemaps2 =
-                        new()
-                        {
-                            NodeRemap.Ctx(
-                                prevCtx,
-                                Node.zel00_FFFF,
-                                Node.msgZ0_0x28.flwIdx,
-                                latestContext
-                            )
-                        };
-                    results2.AddNodeRemaps(nodeRemaps2);
+                    results2.AddNodeRemap(
+                        NodeRemap.Ctx(
+                            prevCtx,
+                            Node.zel00_FFFF,
+                            Node.msgZ0_0x28.flwIdx,
+                            latestContext
+                        )
+                    );
                 }
             }
         }

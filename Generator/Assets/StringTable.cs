@@ -311,20 +311,20 @@ namespace TPRandomizer.Assets
 
     public class NodeRemap : Entity
     {
-        public ushort? fliValue { get; private set; }
+        public ushort? flowId { get; private set; }
         public ushort? context { get; private set; }
         public ushort flwIndex { get; private set; }
         public ushort newFlwIndex { get; private set; }
         public ushort newContext { get; private set; }
 
         public static NodeRemap Fli(
-            ushort fliValue,
+            ushort flowId,
             NodeInst node,
             ushort newFlwIndex,
             ushort newContext
         )
         {
-            return new NodeRemap(node, newFlwIndex, newContext, fliValue: fliValue);
+            return new NodeRemap(node, newFlwIndex, newContext, flowId: flowId);
         }
 
         public static NodeRemap Ctx(
@@ -341,17 +341,17 @@ namespace TPRandomizer.Assets
             NodeInst node,
             ushort newFlwIndex,
             ushort newContext,
-            ushort? fliValue = null,
+            ushort? flowId = null,
             ushort? context = null
         )
         {
             BmgNumber bmgNumber = BmgNumUtils.StgBmgToBmgNumber(node.stgBmg);
-            Init(bmgNumber, fliValue, context, node.flwIdx, newFlwIndex, newContext);
+            Init(bmgNumber, flowId, context, node.flwIdx, newFlwIndex, newContext);
         }
 
         private void Init(
             BmgNumber bmgNumber,
-            ushort? fliValue,
+            ushort? flowId,
             ushort? context,
             ushort flwIndex,
             ushort newFlwIndex,
@@ -359,16 +359,16 @@ namespace TPRandomizer.Assets
         )
         {
             this.bmgNumber = bmgNumber;
-            this.fliValue = fliValue;
+            this.flowId = flowId;
             this.context = context;
             this.flwIndex = flwIndex;
             this.newFlwIndex = newFlwIndex;
             this.newContext = newContext;
 
-            if ((fliValue == null && context == null) || (fliValue != null && context != null))
-                throw new Exception("Must have exactly one of fliValue or context.");
+            if ((flowId == null && context == null) || (flowId != null && context != null))
+                throw new Exception("Must have exactly one of flowId or context.");
 
-            if (fliValue != null)
+            if (flowId != null)
             {
                 if (flwIndex == 0xFFFF && newContext == 0)
                 {
@@ -378,7 +378,7 @@ namespace TPRandomizer.Assets
                         $"Not allowed to remap an 0xFFFF FlwIndex using an FLI value unless you set a nonzero new flowContext."
                     );
                 }
-                this.sortValue = (uint)(fliValue << 0x10) + flwIndex;
+                this.sortValue = (uint)(flowId << 0x10) + flwIndex;
             }
             else if (context != null)
                 this.sortValue = (uint)(context << 0x10) + flwIndex;
@@ -386,7 +386,7 @@ namespace TPRandomizer.Assets
 
         public override bool getIsContextCompare()
         {
-            return fliValue == null;
+            return flowId == null;
         }
 
         public uint getEntityTableUint()
