@@ -3,7 +3,6 @@ namespace TPRandomizer.Assets
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using TPRandomizer.Hints;
     using TPRandomizer.SSettings.Enums;
 
     /// <summary>
@@ -27,12 +26,12 @@ namespace TPRandomizer.Assets
         public const string horseName = "\x1A\x05\x00\x00\x22";
         public const string bBtn = "\x1A\x05\x00\x00\x0B";
         public const string heart = "\x1A\x05\x00\x00\x39";
-        public static string option1of3 = "\x1A\x06\x00\x00\x09\x01";
-        public static string option2of3 = "\x1A\x06\x00\x00\x09\x02";
-        public static string option3of3 = "\x1A\x06\x00\x00\x09\x03";
         public static string endMenuBody = "\x1A\x05\x00\x00\x20";
         public static string option1of2 = "\x1A\x06\x00\x00\x08\x01";
         public static string option2of2 = "\x1A\x06\x00\x00\x08\x02";
+        public static string option1of3 = "\x1A\x06\x00\x00\x09\x01";
+        public static string option2of3 = "\x1A\x06\x00\x00\x09\x02";
+        public static string option3of3 = "\x1A\x06\x00\x00\x09\x03";
         public const string maleSign = "\x1A\x05\x06\x00\x02";
         public const string femaleSign = "\x1A\x05\x06\x00\x03";
         public const string referenceMark = "\x1A\x05\x06\x00\x05";
@@ -68,34 +67,6 @@ namespace TPRandomizer.Assets
                 messageID = messageId;
                 stageIDX = (byte)stageIdx;
                 roomIDX = roomIdx;
-            }
-        }
-
-        public enum FLIGroup
-        {
-            Midna,
-            Room_Custom_Sign,
-            Room_Custom_Sign_2,
-        }
-
-        public class HintSpotBmgData
-        {
-            public byte stageIDX;
-            public byte roomIDX;
-            public FLIGroup fliGroup;
-
-            public HintSpotBmgData(StageIDs stageIdx, byte roomIdx, FLIGroup fliGroup = FLIGroup.Room_Custom_Sign)
-            {
-                stageIDX = (byte)stageIdx;
-                roomIDX = roomIdx;
-                this.fliGroup = fliGroup;
-            }
-
-            public HintSpotBmgData(byte stageIdx, byte roomIdx, FLIGroup fliGroup = FLIGroup.Room_Custom_Sign)
-            {
-                stageIDX = stageIdx;
-                roomIDX = roomIdx;
-                this.fliGroup = fliGroup;
             }
         }
 
