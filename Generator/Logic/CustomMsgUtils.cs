@@ -51,24 +51,24 @@ namespace TPRandomizer
         public static NodeInst br_MidnaTwoOptsResultBranch = new(StgBmg.zel_00, 0x1a3);
         public static MsgNodeInst msg_Z0_0x28 = new(StgBmg.zel_00, 0x28, 0xa11);
         public static MsgNodeInst msg_Z0_0x4d = new(StgBmg.zel_00, 0x4d, 0xa29);
-        public static NodeInst zel00_FFFF = new(StgBmg.zel_00, 0xFFFF);
+        public static NodeInst zel00_FFFF = new(StgBmg.zel_00, 0xffff);
 
         /* zel_01 // Ordon */
         public static MsgNodeInst msg_LinksHouseSign = new(StgBmg.Ordon_Village, 0x467, 0x658);
         public static MsgNodeInst msg_SeraSlingshotSlot =
-            new(StgBmg.Ordon_Village_Interiors, 0x4d7, 0x5AE);
+            new(StgBmg.Ordon_Village_Interiors, 0x4d7, 0x5ae);
         public static MsgNodeInst msg_SeraSlingshotCantAfford =
-            new(StgBmg.Ordon_Village_Interiors, 0x4c9, 0x5B3);
+            new(StgBmg.Ordon_Village_Interiors, 0x4c9, 0x5b3);
         public static NodeInst br_SeraSlingshotCheckCanAfford =
             new(StgBmg.Ordon_Village_Interiors, 0x4ca);
         public static MsgNodeInst msg_SeraSlingshotConfirmation =
-            new(StgBmg.Ordon_Village_Interiors, 0x4cb, 0x5B4);
+            new(StgBmg.Ordon_Village_Interiors, 0x4cb, 0x5b4);
         public static NodeInst ev_SeraSlingshotPayPrice =
             new(StgBmg.Ordon_Village_Interiors, 0x4cf);
         public static MsgNodeInst msg_SeraSlingshotBought =
-            new(StgBmg.Ordon_Village_Interiors, 0x4d0, 0x5B5);
+            new(StgBmg.Ordon_Village_Interiors, 0x4d0, 0x5b5);
         public static MsgNodeInst msg_SeraSlingshotBought2 =
-            new(StgBmg.Ordon_Village_Interiors, 0x4d5, 0x5B6);
+            new(StgBmg.Ordon_Village_Interiors, 0x4d5, 0x5b6);
 
         /* zel_02 // KV (interiors), KGY (interiors) */
         public static NodeInst br_KakMaloMartHylianShieldCanAfford =
@@ -89,29 +89,29 @@ namespace TPRandomizer
         public static MsgNodeInst msg_KakMaloMartHawkeyeSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x43b, 0x307);
         public static MsgNodeInst msg_KakMaloMartHawkeyeCantAfford =
-            new(StgBmg.Kakariko_Village_Interiors, 0x434, 0x2D3);
+            new(StgBmg.Kakariko_Village_Interiors, 0x434, 0x2d3);
         public static MsgNodeInst msg_KakMaloMartHawkeyeConfirmation =
-            new(StgBmg.Kakariko_Village_Interiors, 0x430, 0x2D2);
+            new(StgBmg.Kakariko_Village_Interiors, 0x430, 0x2d2);
         public static MsgNodeInst msg_KakMaloMartHawkeyeSoldOut =
             new(StgBmg.Kakariko_Village_Interiors, 0x43d, 0x306);
         public static MsgNodeInst msg_KakMaloMartHawkeyeSoldOutRead =
-            new(StgBmg.Kakariko_Village_Interiors, 0x43c, 0x2D4);
+            new(StgBmg.Kakariko_Village_Interiors, 0x43c, 0x2d4);
         public static MsgNodeInst msg_KakMaloMartWoodenShieldSlot =
-            new(StgBmg.Kakariko_Village_Interiors, 0x41d, 0x30D);
+            new(StgBmg.Kakariko_Village_Interiors, 0x41d, 0x30d);
         public static MsgNodeInst msg_KakMaloMartWoodenShieldCantAfford =
-            new(StgBmg.Kakariko_Village_Interiors, 0x415, 0x2C8);
+            new(StgBmg.Kakariko_Village_Interiors, 0x415, 0x2c8);
         public static MsgNodeInst msg_KakMaloMartWoodenShieldConfirmation =
-            new(StgBmg.Kakariko_Village_Interiors, 0x40f, 0x2C7);
+            new(StgBmg.Kakariko_Village_Interiors, 0x40f, 0x2c7);
         public static MsgNodeInst msg_KakMaloMartHylianShieldSlot =
-            new(StgBmg.Kakariko_Village_Interiors, 0x42a, 0x30E);
+            new(StgBmg.Kakariko_Village_Interiors, 0x42a, 0x30e);
         public static MsgNodeInst msg_KakMaloMartHylianShieldCantAfford =
-            new(StgBmg.Kakariko_Village_Interiors, 0x422, 0x2CC);
+            new(StgBmg.Kakariko_Village_Interiors, 0x422, 0x2cc);
         public static MsgNodeInst msg_KakMaloMartHylianShieldConfirmation =
-            new(StgBmg.Kakariko_Village_Interiors, 0x41e, 0x2CB);
+            new(StgBmg.Kakariko_Village_Interiors, 0x41e, 0x2cb);
         public static MsgNodeInst msg_KakMaloMartHylianShieldSoldOut =
-            new(StgBmg.Kakariko_Village_Interiors, 0x42f, 0x30B);
+            new(StgBmg.Kakariko_Village_Interiors, 0x42f, 0x30b);
         public static MsgNodeInst msg_KakMaloMartHylianShieldSoldOutRead =
-            new(StgBmg.Kakariko_Village_Interiors, 0x42c, 0x2D0);
+            new(StgBmg.Kakariko_Village_Interiors, 0x42c, 0x2d0);
 
         // If you buy the wooden shield slot before anything else, you will see
         // this one instead for that slot. For Vanilla, I think this might be so
@@ -121,19 +121,19 @@ namespace TPRandomizer
         // shield is only relevant due to custom rando shop slot stuff I think.
         // - isaac
         public static MsgNodeInst msg_KakMaloMartHylianShieldSoldOutRead2 =
-            new(StgBmg.Kakariko_Village_Interiors, 0x42e, 0x2E0);
+            new(StgBmg.Kakariko_Village_Interiors, 0x42e, 0x2e0);
         public static MsgNodeInst msg_KakMaloMartRedPotionSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x44a, 0x305);
         public static MsgNodeInst msg_KakMaloMartRedPotionCantAfford =
-            new(StgBmg.Kakariko_Village_Interiors, 0x43e, 0x2D6);
+            new(StgBmg.Kakariko_Village_Interiors, 0x43e, 0x2d6);
         public static MsgNodeInst msg_KakMaloMartRedPotionConfirmation =
-            new(StgBmg.Kakariko_Village_Interiors, 0x441, 0x2D7);
+            new(StgBmg.Kakariko_Village_Interiors, 0x441, 0x2d7);
         public static MsgNodeInst msg_KakMaloMartRedPotionBought =
-            new(StgBmg.Kakariko_Village_Interiors, 0x446, 0x2D8);
+            new(StgBmg.Kakariko_Village_Interiors, 0x446, 0x2d8);
         public static MsgNodeInst msg_BarnesBombBagConfirmation =
-            new(StgBmg.Kakariko_Village_Interiors, 0x47f, 0x9B);
+            new(StgBmg.Kakariko_Village_Interiors, 0x47f, 0x9b);
         public static MsgNodeInst msg_BarnesBombBagCantAfford =
-            new(StgBmg.Kakariko_Village_Interiors, 0x484, 0xA0); // Also used by FLW index 0x523
+            new(StgBmg.Kakariko_Village_Interiors, 0x484, 0xa0); // Also used by FLW index 0x523
         public static MsgNodeInst msg_BarnesBombsSlot =
             new(StgBmg.Kakariko_Village_Interiors, 0x48b, 0x309);
         public static MsgNodeInst msg_BarnesWaterBombsSlot =
@@ -144,22 +144,22 @@ namespace TPRandomizer
         public static MsgNodeInst msg_AgithaSign = new(StgBmg.Castle_Town, 0xa2d, 0x456);
         public static MsgNodeInst msg_JovaniSign = new(StgBmg.Castle_Town, 0xa2e, 0x457);
         public static MsgNodeInst msg_ChudleysFineGoodsMagicArmorSlot =
-            new(StgBmg.Castle_Town_Shops, 0x3aa, 0x10A);
+            new(StgBmg.Castle_Town_Shops, 0x3aa, 0x10a);
         public static MsgNodeInst msg_CtMaloMartMagicArmorSlot =
             new(StgBmg.Castle_Town_Shops, 0x612, 0x125);
         public static MsgNodeInst msg_CtMaloMartMagicArmorBought =
-            new(StgBmg.Castle_Town_Shops, 0x60e, 0x11E);
+            new(StgBmg.Castle_Town_Shops, 0x60e, 0x11e);
         public static MsgNodeInst msg_CtMaloMartMagicArmorSoldOut =
             new(StgBmg.Castle_Town_Shops, 0x614, 0x130);
 
         public static NodeInst br_CtGoronRedPotionCheckHasEmptyBottle =
             new(StgBmg.Castle_Town_Shops, 0x9a8);
         public static MsgNodeInst msg_CtGoronRedPotionConfirmationInitial =
-            new(StgBmg.Castle_Town_Shops, 0x9ae, 0x3BF);
+            new(StgBmg.Castle_Town_Shops, 0x9ae, 0x3bf);
         public static MsgNodeInst msg_CtGoronRedPotionConfirmationSecond =
-            new(StgBmg.Castle_Town_Shops, 0x9b1, 0x3C1);
+            new(StgBmg.Castle_Town_Shops, 0x9b1, 0x3c1);
         public static MsgNodeInst msg_CtGoronRedPotionCantAfford =
-            new(StgBmg.Castle_Town_Shops, 0x9b4, 0x3C2);
+            new(StgBmg.Castle_Town_Shops, 0x9b4, 0x3c2);
         public static NodeInst ev_CtGoronRedPotionSetTmpAfterBuy =
             new(StgBmg.Castle_Town_Shops, 0x9bd);
         public static NodeInst br_CtGoronRedPotionStartNode = new(StgBmg.Castle_Town_Shops, 0x9bf);
@@ -169,42 +169,42 @@ namespace TPRandomizer
         public static NodeInst br_CtGoronLanternOilCheckPostMdh =
             new(StgBmg.Castle_Town_Shops, 0x988);
         public static MsgNodeInst msg_CtGoronLanternOilConfirmationInitial =
-            new(StgBmg.Castle_Town_Shops, 0x99d, 0x3B3);
+            new(StgBmg.Castle_Town_Shops, 0x99d, 0x3b3);
         public static MsgNodeInst msg_CtGoronLanternOilConfirmationSecond =
-            new(StgBmg.Castle_Town_Shops, 0x99f, 0x3B5);
+            new(StgBmg.Castle_Town_Shops, 0x99f, 0x3b5);
         public static NodeInst ev_CtGoronLanternOilSetTmpAfterBuyPostMdh =
             new(StgBmg.Castle_Town_Shops, 0x97d);
         public static MsgNodeInst msg_CtGoronLanternOilCantAfford =
-            new(StgBmg.Castle_Town_Shops, 0x97e, 0x3AC); // Also used by FLW index 0x993
+            new(StgBmg.Castle_Town_Shops, 0x97e, 0x3ac); // Also used by FLW index 0x993
         public static NodeInst br_CtGoronArrowsCheckTmpBitPostMdh = new(StgBmg.Castle_Town, 0x9c1);
         public static NodeInst br_CtGoronArrowsMenuResultPostMdh = new(StgBmg.Castle_Town, 0x9c4);
         public static NodeInst br_CtGoronArrowsCheckPostMdh = new(StgBmg.Castle_Town, 0x9dd);
         public static NodeInst ev_CtGoronArrowsSetTmpAfterBuyPostMdh =
             new(StgBmg.Castle_Town_Shops, 0x9fc);
         public static MsgNodeInst msg_CtGoronArrowsConfirmationInitial =
-            new(StgBmg.Castle_Town, 0x9eb, 0x3D8);
+            new(StgBmg.Castle_Town, 0x9eb, 0x3d8);
         public static MsgNodeInst msg_CtGoronArrowsConfirmationSecond =
-            new(StgBmg.Castle_Town, 0x9ed, 0x3DB);
+            new(StgBmg.Castle_Town, 0x9ed, 0x3db);
         public static NodeInst br_CtGoronShieldCheckHasHylianShield =
             new(StgBmg.Castle_Town_Shops, 0xa16);
         public static NodeInst ev_CtGoronShieldPayPrice = new(StgBmg.Castle_Town_Shops, 0xa0f);
         public static NodeInst ev_CtGoronShieldSetTmpAfterBuy =
             new(StgBmg.Castle_Town_Shops, 0xa1c);
         public static MsgNodeInst msg_CtGoronShieldConfirmationIntitial =
-            new(StgBmg.Castle_Town_Shops, 0xa06, 0x3E3);
+            new(StgBmg.Castle_Town_Shops, 0xa06, 0x3e3);
         public static MsgNodeInst msg_CtGoronShieldConfirmationSecond =
-            new(StgBmg.Castle_Town_Shops, 0xa09, 0x3E5);
+            new(StgBmg.Castle_Town_Shops, 0xa09, 0x3e5);
         public static MsgNodeInst msg_CharloOptsBody = new(StgBmg.Castle_Town, 0x346, 0x355);
         public static MsgNodeInst msg_CharloOptsOptions = new(StgBmg.Castle_Town, 0x347, 0x356);
 
         /* zel_05 // All dungeons, (mini)bosses, grottos, caves, LA cutscene */
         /* zel_06 // FW (interiors), SP, SG, BC, GD, Mirror Chamber, HV (interiors), Hidden Skill */
         public static MsgNodeInst msg_CoroBuyOptionsConfirmation =
-            new(StgBmg.Faron_Woods, 0x6a, 0xDD);
+            new(StgBmg.Faron_Woods, 0x6a, 0xdd);
 
         /* zel_07 // ZD, Fishing Hole, Hena's house */
         public static MsgNodeInst msg_FishingHoleBottleSign =
-            new(StgBmg.Fishing_Pond, 0x2d5, 0x47A);
+            new(StgBmg.Fishing_Pond, 0x2d5, 0x47a);
 
         /* zel_08 // HF, Outside CT, LH, UZR, Zora's River, KB2, Title Screen */
     }
