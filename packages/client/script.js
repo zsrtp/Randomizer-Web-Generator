@@ -2345,7 +2345,7 @@ function populateSSettings(s) {
   $('#iliaQuestFieldset').val(s.iliaQuest);
   $('#mirrorChamberFieldset').val(s.mirrorChamber);
   $('#dungeonERFieldset').val(s.dungeonER).trigger('change');
-  $('#unpairedEntrancesCheckbox').prop('checked', s.upairEntrances);
+  $('#unpairedEntrancesCheckbox').prop('checked', s.unpairEntrances);
   $('#decoupleEntrancesCheckbox').prop('checked', s.decoupleEntrances);
   $('#freestandingRupeeCheckbox').prop('checked', s.freestandingRupees);
   $('#castleRequirementsSlider').val(s.castleRequirementCount);
