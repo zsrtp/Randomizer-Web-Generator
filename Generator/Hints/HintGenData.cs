@@ -29,7 +29,7 @@ namespace TPRandomizer.Hints
         public Dictionary<string, Item> tradeChainStartToReward = new();
         public Dictionary<Item, string> tradeItemToChainEndCheck = new();
         public Dictionary<AreaId, HashSet<Item>> areaIdToAllowBarrenItems { get; private set; }
-        public Dictionary<Zone, Zone> dungeonEntrances = new(); // Entering Key sends to Value
+        public Dictionary<Zone, HashSet<Zone>> dungeonEntrances = new(); // Entering Key sends to Value(s)
 
         public HintGenData(
             Random rnd,
@@ -656,9 +656,9 @@ namespace TPRandomizer.Hints
             return false;
         }
 
-        private Dictionary<Zone, Zone> calcDungeonEntrances()
+        private Dictionary<Zone, HashSet<Zone>> calcDungeonEntrances()
         {
-            Dictionary<Zone, Zone> result = new();
+            Dictionary<Zone, HashSet<Zone>> result = new();
 
             List<(string, string, Zone)> exitToDungeonList =
                 new()
@@ -682,6 +682,11 @@ namespace TPRandomizer.Hints
                     (
                         "Snowpeak Summit Lower Left Door",
                         "Snowpeak Ruins Left Door",
+                        Zone.Snowpeak_Ruins
+                    ),
+                    (
+                        "Snowpeak Summit Lower Right Door",
+                        "Snowpeak Ruins Right Door",
                         Zone.Snowpeak_Ruins
                     ),
                     (
@@ -735,9 +740,11 @@ namespace TPRandomizer.Hints
                     }
                 }
 
+                Zone dungeonUponEntering;
+
                 if (exitIsNotRandomized)
                 {
-                    result[entranceZone] = entranceZone;
+                    dungeonUponEntering = entranceZone;
                 }
                 else
                 {
@@ -754,8 +761,15 @@ namespace TPRandomizer.Hints
                             $"Failed to find dungeon zone for entrance '{newTargetRoom}'."
                         );
 
-                    result[entranceZone] = targetDungeon;
+                    dungeonUponEntering = targetDungeon;
                 }
+
+                if (!result.TryGetValue(entranceZone, out HashSet<Zone> set))
+                {
+                    set = new();
+                    result[entranceZone] = set;
+                }
+                set.Add(dungeonUponEntering);
             }
 
             return result;
