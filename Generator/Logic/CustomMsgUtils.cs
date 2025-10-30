@@ -151,12 +151,17 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town_Shops, 0x60e, 0x11E);
         public static MsgNodeInst msg_CtMaloMartMagicArmorSoldOut =
             new(StgBmg.Castle_Town_Shops, 0x614, 0x130);
+        public static NodeInst br_CtGoronRedPotionCheckHasEmptyBottle =
+            new(StgBmg.Castle_Town_Shops, 0x9a8);
         public static MsgNodeInst msg_CtGoronRedPotionConfirmationInitial =
             new(StgBmg.Castle_Town_Shops, 0x9ae, 0x3BF);
         public static MsgNodeInst msg_CtGoronRedPotionConfirmationSecond =
             new(StgBmg.Castle_Town_Shops, 0x9b1, 0x3C1);
         public static MsgNodeInst msg_CtGoronRedPotionCantAfford =
             new(StgBmg.Castle_Town_Shops, 0x9b4, 0x3C2);
+        public static NodeInst ev_CtGoronRedPotionSetTmpAfterBuy =
+            new(StgBmg.Castle_Town_Shops, 0x9bd);
+        public static NodeInst br_CtGoronRedPotionStartNode = new(StgBmg.Castle_Town_Shops, 0x9bf);
         public static MsgNodeInst msg_CtGoronLanternOilConfirmationInitial =
             new(StgBmg.Castle_Town_Shops, 0x99d, 0x3B3);
         public static MsgNodeInst msg_CtGoronLanternOilConfirmationSecond =
@@ -170,7 +175,7 @@ namespace TPRandomizer
         public static NodeInst br_CtGoronShieldCheckHasHylianShield =
             new(StgBmg.Castle_Town_Shops, 0xa16);
         public static NodeInst ev_CtGoronShieldPayPrice = new(StgBmg.Castle_Town_Shops, 0xa0f);
-        public static NodeInst ev_CtGoronShieldSetTempAfterBuy =
+        public static NodeInst ev_CtGoronShieldSetTmpAfterBuy =
             new(StgBmg.Castle_Town_Shops, 0xa1c);
         public static MsgNodeInst msg_CtGoronShieldConfirmationIntitial =
             new(StgBmg.Castle_Town_Shops, 0xa06, 0x3E3);
@@ -286,7 +291,7 @@ namespace TPRandomizer
         query003 = 3,
         query006 = 4,
         query007 = 5,
-        query004 = 6,
+        query004_checkRupees = 6,
         query008 = 7,
         query009 = 8,
         query010 = 9,
@@ -304,7 +309,7 @@ namespace TPRandomizer
         query022 = 21,
         query023 = 22,
         query024 = 23,
-        query025 = 24,
+        query025_checkEmptyBottle = 24,
         query026 = 25,
         query027 = 26,
         query028 = 27,
@@ -349,7 +354,7 @@ namespace TPRandomizer
         event007 = 7,
         event008 = 8,
         event009 = 9,
-        event010 = 10,
+        event010_setTmpBit = 10,
         event011 = 11,
         event012 = 12,
         event013 = 13,

@@ -2095,39 +2095,6 @@ namespace TPRandomizer.Assets
 
             List<ARCReplacement> listOfShopReplacements =
             [
-                // Castle Town Red Potion Goron FLW patches
-                new ARCReplacement(
-                    "4E0A",
-                    "00010330",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Check for custom flag before allowing player to buy CT red potion
-                new ARCReplacement(
-                    "4D52",
-                    "00060028",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Instead of checking for an empty bottle, only check for rupees
-                new ARCReplacement(
-                    "4DF8",
-                    "03000851",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Set custom event flag before proceeding in conversation
-                new ARCReplacement(
-                    "4DFC",
-                    "03300000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Set custom event flag before proceeding in conversation
                 // Castle Town Goron Shop Lantern Oil FLW patches
                 new ARCReplacement(
                     "4BF2",
@@ -2161,6 +2128,7 @@ namespace TPRandomizer.Assets
                     (int)StageIDs.Castle_Town_Shops,
                     4
                 ), // Set custom event flag before proceeding in conversation
+
                 // Castle Town Goron Shop Arrow Refill FLW patches
                 new ARCReplacement(
                     "4E1A",

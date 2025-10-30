@@ -515,7 +515,7 @@ namespace TPRandomizer
             builder.AddNodeRemap(
                 NodeRemap.Fli(
                     0x644,
-                    Node.ev_CtGoronShieldSetTempAfterBuy,
+                    Node.ev_CtGoronShieldSetTmpAfterBuy,
                     Node.ev_CtGoronShieldPayPrice.flwIdx,
                     ctGoronShieldExtraEvCtx
                 )
@@ -528,6 +528,49 @@ namespace TPRandomizer
                     ushortParams: new() { 0x32f, 0x0 }
                 )
             );
+
+            // The Hylian Shield goron above is updated even when not shuffled
+            // so players are not confused by talking to him and not getting to
+            // see the item he has (which happens in vanilla if you already have
+            // a Hylian shield). However, the other 3 CT gorons are left as
+            // vanilla when they are unshuffled since you can always buy refills
+            // from them as expected.
+            if (sSettings.shuffleShopItems)
+            {
+                // Red Potion Goron
+                builder.AddBranchPatches(
+                    new()
+                    {
+                        // Replace tmpBit check with custom eventBit check.
+                        new(
+                            Node.br_CtGoronRedPotionStartNode,
+                            null,
+                            queryIndex: QueryIdx.query001_checkEventBit,
+                            // F_0816 = 0x6340, // Custom Rando Flag - Bought Red Potion from Castle Town Goron
+                            // Found at index 0x330 in `dSv_event_flag_c::saveBitLabels`
+                            parameters: 0x330
+                        ),
+                        // Skip over emptyBottle check with static "0" result.
+                        new(
+                            Node.br_CtGoronRedPotionCheckHasEmptyBottle,
+                            null,
+                            queryIndex: QueryIdx.customQuery053_returnParams,
+                            parameters: 0
+                        ),
+                    }
+                );
+                // Overwrite setTmpBit to instead set custom eventBit.
+                builder.AddEventEntity(
+                    new(
+                        Node.ev_CtGoronRedPotionSetTmpAfterBuy,
+                        null,
+                        eventIndex: EventIdx.event000_setEventBit,
+                        ushortParams: new() { 0x330, 0x0 }
+                    )
+                );
+
+                // TODO: other 2 gorons
+            }
 
             // ----- Castle Town Malo Mart -----
 
