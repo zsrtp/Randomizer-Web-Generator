@@ -2093,54 +2093,6 @@ namespace TPRandomizer.Assets
                 //.. ModifyChestAppearanceARC(), This is still in development
             ];
 
-            List<ARCReplacement> listOfShopReplacements =
-            [
-                // Castle Town Goron Shop Arrow Refill FLW patches
-                new ARCReplacement(
-                    "4E1A",
-                    "00010332",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town,
-                    4
-                ), // Check for custom flag before allowing player to buy CT arrows
-                new ARCReplacement(
-                    "4E4A",
-                    "00060028",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town,
-                    4
-                ), // Instead of checking for the bow, only check for rupees
-                new ARCReplacement(
-                    "4E5A",
-                    "00010332",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town,
-                    4
-                ), // Instead of checking for ammo, just re-check the flag
-                new ARCReplacement(
-                    "4FF0",
-                    "03000887",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town,
-                    4
-                ), // Check for custom event flag before proceeding in conversation
-                new ARCReplacement(
-                    "4FF4",
-                    "03320000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town,
-                    4
-                ), // Check for custom event flag before proceeding in conversation
-            ];
-            if (Randomizer.SSettings.shuffleShopItems)
-            {
-                listOfStaticReplacements.AddRange(listOfShopReplacements);
-            }
             return listOfStaticReplacements;
         }
 

@@ -176,6 +176,11 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town_Shops, 0x97d);
         public static MsgNodeInst msg_CtGoronLanternOilCantAfford =
             new(StgBmg.Castle_Town_Shops, 0x97e, 0x3AC); // Also used by FLW index 0x993
+        public static NodeInst br_CtGoronArrowsCheckTmpBitPostMdh = new(StgBmg.Castle_Town, 0x9c1);
+        public static NodeInst br_CtGoronArrowsMenuResultPostMdh = new(StgBmg.Castle_Town, 0x9c4);
+        public static NodeInst br_CtGoronArrowsCheckPostMdh = new(StgBmg.Castle_Town, 0x9dd);
+        public static NodeInst ev_CtGoronArrowsSetTmpAfterBuyPostMdh =
+            new(StgBmg.Castle_Town_Shops, 0x9fc);
         public static MsgNodeInst msg_CtGoronArrowsConfirmationInitial =
             new(StgBmg.Castle_Town, 0x9eb, 0x3D8);
         public static MsgNodeInst msg_CtGoronArrowsConfirmationSecond =

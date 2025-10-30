@@ -608,7 +608,44 @@ namespace TPRandomizer
                     )
                 );
 
-                // TODO: Arrows Goron
+                // Arrows Goron
+                builder.AddBranchPatches(
+                    new()
+                    {
+                        // Replace tmpBit check with custom eventBit check.
+                        new(
+                            Node.br_CtGoronArrowsCheckTmpBitPostMdh,
+                            null,
+                            queryIndex: QueryIdx.query001_checkEventBit,
+                            // F_0818 = 0x6310, // Custom Rando Flag - Bought Arrows from Castle Town Goron
+                            // Found at index 0x332 in `dSv_event_flag_c::saveBitLabels`
+                            parameters: 0x332
+                        ),
+                        // Skip over bow/ammo checking section
+                        new(
+                            Node.br_CtGoronArrowsMenuResultPostMdh,
+                            null,
+                            // 0 => Rupee comparison; 1 => "Don't buy" response (vanilla)
+                            nextNodeIndexes: new() { 0x9c5, 0x9fb, }
+                        ),
+                        // Always take post-MDH half of flow.
+                        new(
+                            Node.br_CtGoronArrowsCheckPostMdh,
+                            null,
+                            queryIndex: QueryIdx.customQuery053_returnParams,
+                            parameters: 0
+                        ),
+                    }
+                );
+                // Overwrite setTmpBit to instead set custom eventBit.
+                builder.AddEventEntity(
+                    new(
+                        Node.ev_CtGoronArrowsSetTmpAfterBuyPostMdh,
+                        null,
+                        eventIndex: EventIdx.event000_onEventBit,
+                        ushortParams: new() { 0x332, 0x0 }
+                    )
+                );
             }
 
             // ----- Castle Town Malo Mart -----
