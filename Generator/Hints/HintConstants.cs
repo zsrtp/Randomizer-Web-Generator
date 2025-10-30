@@ -210,7 +210,7 @@ namespace TPRandomizer.Hints
                         $"Failed to find dungeon(s) behind SPR doors for Snowpeak BeyondThisPoint hint."
                     );
 
-                // If either SPR door SPR leads to Hyrule Castle or a required
+                // If either SPR door leads to Hyrule Castle or a required
                 // dungeon, then do not create the hint.
                 foreach (Zone dungeonZone in beyondSprDoorsDungeons)
                 {
