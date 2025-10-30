@@ -504,7 +504,7 @@ namespace TPRandomizer
                 new(
                     Node.br_CtGoronShieldCheckHasHylianShield,
                     null,
-                    queryIndex: QueryIdx.query001_checkEventBit,
+                    queryIndex: QueryIdx.query001_isEventBit,
                     // F_0815 = 0x6380, // Custom Rando Flag - Bought Hylian Shield From Goron
                     // Found at index 0x32f in `dSv_event_flag_c::saveBitLabels`
                     parameters: 0x32f
@@ -545,7 +545,7 @@ namespace TPRandomizer
                         new(
                             Node.br_CtGoronRedPotionStartNode,
                             null,
-                            queryIndex: QueryIdx.query001_checkEventBit,
+                            queryIndex: QueryIdx.query001_isEventBit,
                             // F_0816 = 0x6340, // Custom Rando Flag - Bought Red Potion from Castle Town Goron
                             // Found at index 0x330 in `dSv_event_flag_c::saveBitLabels`
                             parameters: 0x330
@@ -577,7 +577,7 @@ namespace TPRandomizer
                         new(
                             Node.br_CtGoronLanternOilStartNode,
                             null,
-                            queryIndex: QueryIdx.query001_checkEventBit,
+                            queryIndex: QueryIdx.query001_isEventBit,
                             // F_0817 = 0x6320, // Custom Rando Flag - Bought Lantern Oil from Castle Town Goron
                             // Found at index 0x331 in `dSv_event_flag_c::saveBitLabels`
                             parameters: 0x331
@@ -616,7 +616,7 @@ namespace TPRandomizer
                         new(
                             Node.br_CtGoronArrowsCheckTmpBitPostMdh,
                             null,
-                            queryIndex: QueryIdx.query001_checkEventBit,
+                            queryIndex: QueryIdx.query001_isEventBit,
                             // F_0818 = 0x6310, // Custom Rando Flag - Bought Arrows from Castle Town Goron
                             // Found at index 0x332 in `dSv_event_flag_c::saveBitLabels`
                             parameters: 0x332
@@ -746,7 +746,7 @@ namespace TPRandomizer
                     new(
                         Node.br_BarnesBombsSlot,
                         firstSlotBaseCtx,
-                        queryIndex: QueryIdx.query001_checkEventBit, // query001 (checks eventBit)
+                        queryIndex: QueryIdx.query001_isEventBit,
                         // M_044 = 0x0908, // Kakariko Village - [Barnes Bomb Shop] Bought premium pack,
                         // Found at index 0x4d (77) in `dSv_event_flag_c::saveBitLabels`
                         parameters: 0x4d,
@@ -818,7 +818,7 @@ namespace TPRandomizer
                     new(
                         Node.br_BarnesBombsSlot,
                         baseCtx,
-                        queryIndex: QueryIdx.query001_checkEventBit,
+                        queryIndex: QueryIdx.query001_isEventBit,
                         // M_044 = 0x0908, // Kakariko Village - [Barnes Bomb Shop] Bought premium pack,
                         // Found at index 0x4d (77) in `dSv_event_flag_c::saveBitLabels`
                         parameters: 0x4d,

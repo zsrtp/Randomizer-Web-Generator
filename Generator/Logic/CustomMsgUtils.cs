@@ -299,7 +299,7 @@ namespace TPRandomizer
     public enum QueryIdx : ushort
     {
         query005 = 0,
-        query001_checkEventBit = 1,
+        query001_isEventBit = 1,
         query002 = 2,
         query003 = 3,
         query006 = 4,
