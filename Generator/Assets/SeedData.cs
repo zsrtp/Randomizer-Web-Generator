@@ -2095,40 +2095,6 @@ namespace TPRandomizer.Assets
 
             List<ARCReplacement> listOfShopReplacements =
             [
-                // Castle Town Goron Shop Lantern Oil FLW patches
-                new ARCReplacement(
-                    "4BF2",
-                    "00010331",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Check for custom flag before allowing player to buy CT lantern oil
-                new ARCReplacement(
-                    "4C0A",
-                    "0006001E",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Instead of checking for an empty bottle, only check for rupees
-                new ARCReplacement(
-                    "4BF8",
-                    "03000826",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Set custom event flag before proceeding in conversation
-                new ARCReplacement(
-                    "4BFC",
-                    "03310000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Set custom event flag before proceeding in conversation
-
                 // Castle Town Goron Shop Arrow Refill FLW patches
                 new ARCReplacement(
                     "4E1A",

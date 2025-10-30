@@ -151,6 +151,7 @@ namespace TPRandomizer
             new(StgBmg.Castle_Town_Shops, 0x60e, 0x11E);
         public static MsgNodeInst msg_CtMaloMartMagicArmorSoldOut =
             new(StgBmg.Castle_Town_Shops, 0x614, 0x130);
+
         public static NodeInst br_CtGoronRedPotionCheckHasEmptyBottle =
             new(StgBmg.Castle_Town_Shops, 0x9a8);
         public static MsgNodeInst msg_CtGoronRedPotionConfirmationInitial =
@@ -162,10 +163,17 @@ namespace TPRandomizer
         public static NodeInst ev_CtGoronRedPotionSetTmpAfterBuy =
             new(StgBmg.Castle_Town_Shops, 0x9bd);
         public static NodeInst br_CtGoronRedPotionStartNode = new(StgBmg.Castle_Town_Shops, 0x9bf);
+        public static NodeInst br_CtGoronLanternOilStartNode = new(StgBmg.Castle_Town_Shops, 0x9a6);
+        public static NodeInst br_CtGoronLanternOilCheckHasEmptyBottle =
+            new(StgBmg.Castle_Town_Shops, 0x97f);
+        public static NodeInst br_CtGoronLanternOilCheckPostMdh =
+            new(StgBmg.Castle_Town_Shops, 0x988);
         public static MsgNodeInst msg_CtGoronLanternOilConfirmationInitial =
             new(StgBmg.Castle_Town_Shops, 0x99d, 0x3B3);
         public static MsgNodeInst msg_CtGoronLanternOilConfirmationSecond =
             new(StgBmg.Castle_Town_Shops, 0x99f, 0x3B5);
+        public static NodeInst ev_CtGoronLanternOilSetTmpAfterBuyPostMdh =
+            new(StgBmg.Castle_Town_Shops, 0x97d);
         public static MsgNodeInst msg_CtGoronLanternOilCantAfford =
             new(StgBmg.Castle_Town_Shops, 0x97e, 0x3AC); // Also used by FLW index 0x993
         public static MsgNodeInst msg_CtGoronArrowsConfirmationInitial =
@@ -295,7 +303,7 @@ namespace TPRandomizer
         query008 = 7,
         query009 = 8,
         query010 = 9,
-        query011 = 10,
+        query011_isTmpBit = 10,
         query012 = 11,
         query013 = 12,
         query014 = 13,
@@ -344,7 +352,7 @@ namespace TPRandomizer
 
     public enum EventIdx : byte
     {
-        event000_setEventBit = 0,
+        event000_onEventBit = 0,
         event001 = 1,
         event002 = 2,
         event003 = 3,
@@ -354,8 +362,8 @@ namespace TPRandomizer
         event007 = 7,
         event008 = 8,
         event009 = 9,
-        event010_setTmpBit = 10,
-        event011 = 11,
+        event010_onTmpBit = 10,
+        event011_offTmpBit = 11,
         event012 = 12,
         event013 = 13,
         event014 = 14,

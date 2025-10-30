@@ -524,7 +524,7 @@ namespace TPRandomizer
                 new(
                     Node.ev_CtGoronShieldPayPrice,
                     ctGoronShieldExtraEvCtx,
-                    eventIndex: EventIdx.event000_setEventBit,
+                    eventIndex: EventIdx.event000_onEventBit,
                     ushortParams: new() { 0x32f, 0x0 }
                 )
             );
@@ -564,12 +564,51 @@ namespace TPRandomizer
                     new(
                         Node.ev_CtGoronRedPotionSetTmpAfterBuy,
                         null,
-                        eventIndex: EventIdx.event000_setEventBit,
+                        eventIndex: EventIdx.event000_onEventBit,
                         ushortParams: new() { 0x330, 0x0 }
                     )
                 );
 
-                // TODO: other 2 gorons
+                // Lantern Oil Goron
+                builder.AddBranchPatches(
+                    new()
+                    {
+                        // Replace tmpBit check with custom eventBit check.
+                        new(
+                            Node.br_CtGoronLanternOilStartNode,
+                            null,
+                            queryIndex: QueryIdx.query001_checkEventBit,
+                            // F_0817 = 0x6320, // Custom Rando Flag - Bought Lantern Oil from Castle Town Goron
+                            // Found at index 0x331 in `dSv_event_flag_c::saveBitLabels`
+                            parameters: 0x331
+                        ),
+                        // Skip over emptyBottle check with static "0" result.
+                        new(
+                            Node.br_CtGoronLanternOilCheckHasEmptyBottle,
+                            null,
+                            queryIndex: QueryIdx.customQuery053_returnParams,
+                            parameters: 0
+                        ),
+                        // Always take post-MDH half of flow.
+                        new(
+                            Node.br_CtGoronLanternOilCheckPostMdh,
+                            null,
+                            queryIndex: QueryIdx.customQuery053_returnParams,
+                            parameters: 0
+                        ),
+                    }
+                );
+                // Overwrite setTmpBit to instead set custom eventBit.
+                builder.AddEventEntity(
+                    new(
+                        Node.ev_CtGoronLanternOilSetTmpAfterBuyPostMdh,
+                        null,
+                        eventIndex: EventIdx.event000_onEventBit,
+                        ushortParams: new() { 0x331, 0x0 }
+                    )
+                );
+
+                // TODO: Arrows Goron
             }
 
             // ----- Castle Town Malo Mart -----
