@@ -1982,7 +1982,7 @@
     <comment></comment>
   </data>
   <data name="menu.midna-other.body" xml:space="preserve">
-    <value>Que veux-tu alors?</value>
+    <value>Qu&apos;est-ce qu&apos;il y a?</value>
     <comment></comment>
   </data>
   <data name="menu.midna-other.option.change-time-of-day" xml:space="preserve">
