@@ -2510,6 +2510,21 @@ namespace TPRandomizer
             return count;
         }
 
+        public static bool CanStepClip()
+        {
+            return CanUse(Item.Progressive_Sword)
+                || CanUse(Item.Progressive_Clawshot)
+                || CanUse(Item.Progressive_Dominion_Rod)
+                || CanUse(Item.Ball_and_Chain)
+                || CanUse(Item.Progressive_Bow)
+                || CanUse(Item.Boomerang)
+                || CanUse(Item.Lantern)
+                || CanUse(Item.Slingshot)
+                || CanUse(Item.Progressive_Fishing_Rod)
+                || HasBombs()
+                || HasBottle();
+        }
+
         /// <summary>
         /// summary text.
         /// </summary>
