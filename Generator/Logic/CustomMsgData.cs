@@ -4,25 +4,18 @@ namespace TPRandomizer
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Text;
-    using System.Text.RegularExpressions;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
-    using Microsoft.Extensions.Logging.Abstractions;
-    using Microsoft.Win32.SafeHandles;
-    using Newtonsoft.Json.Linq;
     using SSettings.Enums;
     using TPRandomizer.Assets;
     using TPRandomizer.Hints;
-    using TPRandomizer.Hints.Settings;
     using TPRandomizer.Util;
-    using MessageEntry = Assets.CustomMessages.MessageEntry;
 
     public class CustomMsgData
     {
         // Increment this when we need to change something about encoding and
         // decoding the data.
         private static readonly ushort latestEncodingVersion = 0;
+        private CtxGen ctxGen = new();
 
         private byte requiredDungeons;
         private bool updateShopText;
@@ -30,9 +23,7 @@ namespace TPRandomizer
         // checkName to useDefArticle
         private Dictionary<string, SelfHinterData> selfHinterChecks;
         private List<HintSpot> hintSpots;
-
-        // private Dictionary<string, Status> checkToStatus;
-        private List<MessageEntry> results = new();
+        private Bmg0Builder builder;
         private SharedSettings sSettings;
 
         private CustomMsgData(SharedSettings sSettings)
@@ -375,15 +366,16 @@ namespace TPRandomizer
             }
         }
 
-        public List<MessageEntry> GenMessageEntries()
+        public Bmg0Builder GenBmg0Builder(SeedGenResults seedGenResults)
         {
-            // We store results as a property so we do not need to pass it around.
-            results = new();
+            // We store the builder as a property so we do not need to pass it around.
+            builder = new();
 
             // There are some static things that should always be applied which
             // do not depend on the item.
-            GenStaticEntries(results);
-            GenLinkHouseSignText(results);
+            GenStaticEntries(seedGenResults);
+
+            AddMidnaAdjustments();
 
             // handle shop text first
             if (updateShopText)
@@ -393,30 +385,40 @@ namespace TPRandomizer
 
             GenSelfHinterEntries();
 
-            // Handle custom hint signs
-            GenHintSignEntries(results);
+            // Handle custom hint signs, Agitha and Jovani signs
+            GenHintSignEntries();
 
-            List<MessageEntry> ret = results;
-            results = null;
+            Bmg0Builder ret = builder;
+            builder = null;
+
             return ret;
         }
 
-        private void GenStaticEntries(List<MessageEntry> results)
+        private void GenStaticEntries(SeedGenResults seedGenResults)
         {
+            string seedName = seedGenResults.playthroughName;
+            builder.AddStrReplacement(StrRepl.PublicInf(Inf.zel00_ChooseAQuestLog, seedName));
+            builder.AddStrReplacement(StrRepl.PublicInf(Inf.zel00_RatioCheckSample, seedName));
+
+            // ----- Link's House sign -----
+
+            string linkHouseSignText = GenLinkHouseSignText();
+            builder.AddStrReplacement(StrRepl.Hidden(Node.msg_LinksHouseSign, linkHouseSignText));
+
             // ----- Sera Shop -----
 
             Item seraSlingshotItem = updateShopText
                 ? HintUtils.getCheckContents("Sera Shop Slingshot")
                 : Item.Slingshot;
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Sera_Slingshot_Bought,
+            builder.AddStrReplacement(
+                StrRepl.Hidden(
+                    Node.msg_SeraSlingshotBought,
                     GenShopBoughtText(seraSlingshotItem, "sera")
                 )
             );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Sera_Slingshot_Bought_2,
+            builder.AddStrReplacement(
+                StrRepl.Public(
+                    Node.msg_SeraSlingshotBought2,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought-sera2", null))
                 )
             );
@@ -446,58 +448,211 @@ namespace TPRandomizer
                 CustomMessages.messageColorOrange
                     + hawkeyeSoldOutRes.Substitute(new() { { "item", hawkeyeItemText } })
             );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Sold_Out,
-                    hawkeyeSoldOutMsg
-                )
+            builder.AddStrReplacement(
+                StrRepl.Hidden(Node.msg_KakMaloMartHawkeyeSoldOut, hawkeyeSoldOutMsg)
             );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Sold_Out_Read,
+            builder.AddStrReplacement(
+                StrRepl.Public(
+                    Node.msg_KakMaloMartHawkeyeSoldOutRead,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.coming-soon-read", null))
                 )
             );
 
             // This is used for the sold out sign for all slots in this shop.
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out,
+            builder.AddStrReplacement(
+                StrRepl.Public(
+                    Node.msg_KakMaloMartHylianShieldSoldOut,
                     Res.LangSpecificNormalize(
                         CustomMessages.messageColorOrange + Res.SimpleMsg("shop.sold-out", null)
                     )
                 )
             );
+
+            string textKvMaloMartHylianShieldSoldOutRead = Res.LangSpecificNormalize(
+                Res.SimpleMsg("shop.sold-out-read", null)
+            );
             // When you read the sold out sign
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out_Read,
-                    Res.LangSpecificNormalize(Res.SimpleMsg("shop.sold-out-read", null))
+            builder.AddStrReplacement(
+                StrRepl.Public(
+                    Node.msg_KakMaloMartHylianShieldSoldOutRead,
+                    textKvMaloMartHylianShieldSoldOutRead
                 )
             );
             // If you buy the wooden shield slot before anything else, you will
             // see this one instead for that slot.
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Sold_Out_Read_2,
-                    Res.LangSpecificNormalize(Res.SimpleMsg("shop.sold-out-read", null))
+            builder.AddStrReplacement(
+                StrRepl.Public(
+                    Node.msg_KakMaloMartHylianShieldSoldOutRead2,
+                    textKvMaloMartHylianShieldSoldOutRead
                 )
             );
 
             // Need to replace this one so it does not reference your bottle.
             // Replacing with the same text used for the Hylian shield.
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Bought,
+            builder.AddStrReplacement(
+                StrRepl.Public(
+                    Node.msg_KakMaloMartRedPotionBought,
                     Res.LangSpecificNormalize(Res.SimpleMsg("shop.bought", null))
                 )
             );
 
+            // ----- Castle Town Gorons -----
+
+            // Hylian Shield Goron
+            builder.AddBranchPatch(
+                // Check custom "bought check" flag instead of "has Hylian Shield".
+                new(
+                    Node.br_CtGoronShieldCheckHasHylianShield,
+                    null,
+                    queryIndex: QueryIdx.query001_isEventBit,
+                    // F_0815 = 0x6380, // Custom Rando Flag - Bought Hylian Shield From Goron
+                    // Found at index 0x32f in `dSv_event_flag_c::saveBitLabels`
+                    parameters: 0x32f
+                )
+            );
+            // Redo payment node as extra patched node for setting custom "bought check" flag.
+            ushort ctGoronShieldExtraEvCtx = ctxGen.getNewContext();
+            builder.AddNodeRemap(
+                NodeRemap.Fli(
+                    0x644,
+                    Node.ev_CtGoronShieldSetTmpAfterBuy,
+                    Node.ev_CtGoronShieldPayPrice.flwIdx,
+                    ctGoronShieldExtraEvCtx
+                )
+            );
+            builder.AddEventEntity(
+                new(
+                    Node.ev_CtGoronShieldPayPrice,
+                    ctGoronShieldExtraEvCtx,
+                    eventIndex: EventIdx.event000_onEventBit,
+                    ushortParams: new() { 0x32f, 0x0 }
+                )
+            );
+
+            // The Hylian Shield goron above is updated even when not shuffled
+            // so players are not confused by talking to him and not getting to
+            // see the item he has (which happens in vanilla if you already have
+            // a Hylian shield). However, the other 3 CT gorons are left as
+            // vanilla when they are unshuffled since you can always buy refills
+            // from them as expected.
+            if (sSettings.shuffleShopItems)
+            {
+                // Red Potion Goron
+                builder.AddBranchPatches(
+                    new()
+                    {
+                        // Replace tmpBit check with custom eventBit check.
+                        new(
+                            Node.br_CtGoronRedPotionStartNode,
+                            null,
+                            queryIndex: QueryIdx.query001_isEventBit,
+                            // F_0816 = 0x6340, // Custom Rando Flag - Bought Red Potion from Castle Town Goron
+                            // Found at index 0x330 in `dSv_event_flag_c::saveBitLabels`
+                            parameters: 0x330
+                        ),
+                        // Skip over emptyBottle check with static "0" result.
+                        new(
+                            Node.br_CtGoronRedPotionCheckHasEmptyBottle,
+                            null,
+                            queryIndex: QueryIdx.customQuery053_returnParams,
+                            parameters: 0
+                        ),
+                    }
+                );
+                // Overwrite setTmpBit to instead set custom eventBit.
+                builder.AddEventEntity(
+                    new(
+                        Node.ev_CtGoronRedPotionSetTmpAfterBuy,
+                        null,
+                        eventIndex: EventIdx.event000_onEventBit,
+                        ushortParams: new() { 0x330, 0x0 }
+                    )
+                );
+
+                // Lantern Oil Goron
+                builder.AddBranchPatches(
+                    new()
+                    {
+                        // Replace tmpBit check with custom eventBit check.
+                        new(
+                            Node.br_CtGoronLanternOilStartNode,
+                            null,
+                            queryIndex: QueryIdx.query001_isEventBit,
+                            // F_0817 = 0x6320, // Custom Rando Flag - Bought Lantern Oil from Castle Town Goron
+                            // Found at index 0x331 in `dSv_event_flag_c::saveBitLabels`
+                            parameters: 0x331
+                        ),
+                        // Skip over emptyBottle check with static "0" result.
+                        new(
+                            Node.br_CtGoronLanternOilCheckHasEmptyBottle,
+                            null,
+                            queryIndex: QueryIdx.customQuery053_returnParams,
+                            parameters: 0
+                        ),
+                        // Always take post-MDH half of flow.
+                        new(
+                            Node.br_CtGoronLanternOilCheckPostMdh,
+                            null,
+                            queryIndex: QueryIdx.customQuery053_returnParams,
+                            parameters: 0
+                        ),
+                    }
+                );
+                // Overwrite setTmpBit to instead set custom eventBit.
+                builder.AddEventEntity(
+                    new(
+                        Node.ev_CtGoronLanternOilSetTmpAfterBuyPostMdh,
+                        null,
+                        eventIndex: EventIdx.event000_onEventBit,
+                        ushortParams: new() { 0x331, 0x0 }
+                    )
+                );
+
+                // Arrows Goron
+                builder.AddBranchPatches(
+                    new()
+                    {
+                        // Replace tmpBit check with custom eventBit check.
+                        new(
+                            Node.br_CtGoronArrowsCheckTmpBitPostMdh,
+                            null,
+                            queryIndex: QueryIdx.query001_isEventBit,
+                            // F_0818 = 0x6310, // Custom Rando Flag - Bought Arrows from Castle Town Goron
+                            // Found at index 0x332 in `dSv_event_flag_c::saveBitLabels`
+                            parameters: 0x332
+                        ),
+                        // Skip over bow/ammo checking section
+                        new(
+                            Node.br_CtGoronArrowsMenuResultPostMdh,
+                            null,
+                            // 0 => Rupee comparison; 1 => "Don't buy" response (vanilla)
+                            nextNodeIndexes: new() { 0x9c5, 0x9fb, }
+                        ),
+                        // Always take post-MDH half of flow.
+                        new(
+                            Node.br_CtGoronArrowsCheckPostMdh,
+                            null,
+                            queryIndex: QueryIdx.customQuery053_returnParams,
+                            parameters: 0
+                        ),
+                    }
+                );
+                // Overwrite setTmpBit to instead set custom eventBit.
+                builder.AddEventEntity(
+                    new(
+                        Node.ev_CtGoronArrowsSetTmpAfterBuyPostMdh,
+                        null,
+                        eventIndex: EventIdx.event000_onEventBit,
+                        ushortParams: new() { 0x332, 0x0 }
+                    )
+                );
+            }
+
             // ----- Castle Town Malo Mart -----
 
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Bought,
+            builder.AddStrReplacement(
+                StrRepl.Public(
+                    Node.msg_CtMaloMartMagicArmorBought,
                     Res.LangSpecificNormalize(
                         Res.SimpleMsg("shop.bought", new() { { "context", "magic-armor" } })
                     )
@@ -514,17 +669,361 @@ namespace TPRandomizer
             // For some languages (like English), we use the default text.
             if (!barnesCantAffordRes.MetaHasVal("skip-msg", "true"))
             {
-                results.Add(
-                    CustomMsgUtils.GetEntry(
-                        MsgEntryId.Barnes_Bomb_Bag_Cant_Afford,
+                builder.AddStrReplacement(
+                    StrRepl.Public(
+                        Node.msg_BarnesBombBagCantAfford,
                         Res.LangSpecificNormalize(barnesCantAffordRes.Substitute(null))
                     )
                 );
             }
+
+            AddBarnesShopAdjustments();
+
+            // ----- Custom Sign fallback text -----
+
+            builder.AddStrReplacement(
+                StrRepl.CustomSignText(
+                    CtxGen.CONTEXT_CUSTOM_SIGN_NO_HINTS,
+                    Res.LangSpecificNormalize(Res.SimpleMsg("hint.none-placed-here"))
+                )
+            );
+        }
+
+        private void AddBarnesShopAdjustments()
+        {
+            // Allow the player to do the following without having to first do
+            // the Barnes Bomb Bag check: (1) buy water bombs and bomblings and
+            // (2) sell bombs.
+
+            ushort firstSlotBaseCtx = ctxGen.getNewContext();
+            ushort checkBombSlotCtx = ctxGen.getNewContext();
+
+            builder.AddNodeRemaps(
+                new()
+                {
+                    // Set base context when selecting first slot.
+                    NodeRemap.Fli(
+                        0x169,
+                        Node.br_BarnesBombsSlot,
+                        Node.br_BarnesBombsSlot.flwIdx,
+                        firstSlotBaseCtx
+                    ),
+                    // If remapping back to the initial branch node (because had
+                    // already done the check), then set the context so we can
+                    // do custom handling for branch result 0 (no bomb bags).
+                    // This context is used for all 3 bomb slots when you have
+                    // no bomb bags in order to show the "oh, you have no bomb
+                    // bags" msg and then end the flow.
+                    NodeRemap.Ctx(
+                        firstSlotBaseCtx,
+                        Node.br_BarnesBombsSlot,
+                        Node.br_BarnesBombsSlot.flwIdx,
+                        checkBombSlotCtx
+                    ),
+                    // Set context when entering water bomb slot selection flow.
+                    NodeRemap.Fli(
+                        0x178,
+                        Node.br_BarnesWaterBombSlot,
+                        Node.br_BarnesWaterBombSlot.flwIdx,
+                        checkBombSlotCtx
+                    ),
+                    // Set context when entering bomblings slot selection flow.
+                    NodeRemap.Fli(
+                        0x185,
+                        Node.br_BarnesBomblingsSlot,
+                        Node.br_BarnesBomblingsSlot.flwIdx,
+                        checkBombSlotCtx
+                    ),
+                    // Map to 0xFFFF after showing "no bomb bag" msg for the
+                    // appropriate context.
+                    NodeRemap.Ctx(checkBombSlotCtx, Node.ev_BarnesNoBombBagMenu, 0xFFFF, 0)
+                }
+            );
+
+            List<BranchPatchEntity> branchPatches =
+                new()
+                {
+                    new(
+                        Node.br_BarnesBombsSlot,
+                        firstSlotBaseCtx,
+                        queryIndex: QueryIdx.query001_isEventBit,
+                        // M_044 = 0x0908, // Kakariko Village - [Barnes Bomb Shop] Bought premium pack,
+                        // Found at index 0x4d (77) in `dSv_event_flag_c::saveBitLabels`
+                        parameters: 0x4d,
+                        nextNodeIndexes: new()
+                        {
+                            // Has done check, so return to same node to run
+                            // vanilla query023 and proceed as normal. We change
+                            // the context so that result 0 in this case says
+                            // "oh, you have no bomb bag?" but does not ask you
+                            // to buy the check.
+                            Node.br_BarnesBombsSlot.flwIdx,
+                            // Has not done check, so go directly to the menu
+                            // event node. We skip over the "no bomb bag?" part
+                            // since since we use this msg legitimately in other
+                            // places, and it is more convenient and
+                            // understandable to go directly to the menu.
+                            Node.ev_BarnesNoBombBagMenu.flwIdx,
+                        }
+                    ),
+                    // Patch water bombs and bombling slots to show "no bombs
+                    // msg" when you have no bomb bags instead of resolving to
+                    // 0xFFFF and showing nothing.
+                    new(
+                        Node.br_BarnesWaterBombSlot,
+                        checkBombSlotCtx,
+                        nextNodeIndexes: new()
+                        {
+                            Node.msg_BarnesNoBombBag.flwIdx,
+                            // Vanilla results for 1 through 3:
+                            0x62d,
+                            0x62b,
+                            0x62a
+                        }
+                    ),
+                    new(
+                        Node.br_BarnesBomblingsSlot,
+                        checkBombSlotCtx,
+                        nextNodeIndexes: new()
+                        {
+                            Node.msg_BarnesNoBombBag.flwIdx,
+                            // Vanilla results for 1 through 3:
+                            0x776,
+                            0x774,
+                            0x773
+                        }
+                    ),
+                };
+
+            builder.AddBranchPatches(branchPatches);
+        }
+
+        private void UpdateBarnesBombsSlotMsg(Item item, uint price)
+        {
+            ushort baseCtx = ctxGen.getNewContext();
+
+            builder.AddNodeRemap(
+                // Set context when hovering first slot, and remap to branch node.
+                NodeRemap.Fli(
+                    0x16a,
+                    Node.msg_BarnesBombsSlot,
+                    Node.br_BarnesBombsSlot.flwIdx,
+                    baseCtx
+                )
+            );
+
+            builder.AddBranchPatches(
+                new()
+                {
+                    new(
+                        Node.br_BarnesBombsSlot,
+                        baseCtx,
+                        queryIndex: QueryIdx.query001_isEventBit,
+                        // M_044 = 0x0908, // Kakariko Village - [Barnes Bomb Shop] Bought premium pack,
+                        // Found at index 0x4d (77) in `dSv_event_flag_c::saveBitLabels`
+                        parameters: 0x4d,
+                        nextNodeIndexes: new()
+                        {
+                            // Has done check, so show vanilla.
+                            Node.msg_BarnesBombsSlot.flwIdx,
+                            // Has not done check, so show waterBomb slot under
+                            // "baseCtx". We update it to a custom string below.
+                            Node.msg_BarnesWaterBombsSlot.flwIdx,
+                        }
+                    ),
+                }
+            );
+
+            AddShopSlotMsg(
+                Node.msg_BarnesWaterBombsSlot,
+                "Barnes Bomb Bag",
+                item,
+                price,
+                context: "barnes",
+                shopSuffixIsColon: true,
+                msgNodeContext: baseCtx
+            );
+        }
+
+        private void AddMidnaAdjustments()
+        {
+            // Note: Midna voice is only guaranteed to work normally when the
+            // instantText option is not enabled. Even in the vanilla game, if
+            // Midna starts going through a line with text and you press A to
+            // make the rest of the text instantly appear, she stops talking
+            // right when you press A.
+
+            ushort baseMidnaCtx = ctxGen.getNewContext();
+            ushort hintsBaseCtx = ctxGen.getNewContext();
+
+            int numReqDungeons = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                if ((requiredDungeons & (1 << i)) != 0)
+                    numReqDungeons += 1;
+            }
+
+            string midnaDungeonMsg = Res.SimpleMsg(
+                "midna.required-dungeons",
+                new Dictionary<string, string>() { { "count", numReqDungeons.ToString() } }
+            );
+
+            List<string> hintMessages = new();
+            // Note: need to normalize so JP number converts to wide version.
+            hintMessages.Add(Res.LangSpecificNormalize(midnaDungeonMsg));
+            if (numReqDungeons > 0)
+            {
+                hintMessages.Add(GenLinkHouseSignText());
+            }
+
+            // TODO: add Midna spot hints here once feature is developed.
+
+            builder.AddStrReplacements(
+                new()
+                {
+                    StrRepl.Public(
+                        Node.msg_MidnaTwoOptsBody,
+                        Res.SimpleMsg("menu.midna-other.body") + CustomMessages.endMenuBody,
+                        baseMidnaCtx
+                    ),
+                    StrRepl.Public(
+                        Node.msg_MidnaTwoOptsOptions,
+                        $"{CustomMessages.option1of2}{Res.SimpleMsg("menu.midna-other.option.change-time-of-day")}\n{CustomMessages.option2of2}{Res.SimpleMsg("menu.midna-other.option.hints")}",
+                        baseMidnaCtx
+                    ),
+                }
+            );
+
+            builder.AddNodeRemaps(
+                new()
+                {
+                    // Start at custom branch node to decide if can change ToD or not
+                    NodeRemap.Fli(
+                        0xbb8,
+                        Node.br_TalkToMidnaRootNode,
+                        Node.br_Z0GeneriCtxBranch.flwIdx,
+                        baseMidnaCtx
+                    ),
+                    // When we first enter the Hints text, update to a new
+                    // context. The base Midna context needs 0xFFFF to not be
+                    // remapped (so backing out of the menu works), so we need a
+                    // 2nd context.
+                    NodeRemap.Ctx(
+                        baseMidnaCtx,
+                        Node.msg_Z0_0x4d,
+                        Node.msg_Z0_0x4d.flwIdx,
+                        hintsBaseCtx
+                    )
+                }
+            );
+
+            builder.AddBranchPatches(
+                new()
+                {
+                    // Check if can change ToD
+                    new(
+                        Node.br_Z0GeneriCtxBranch,
+                        baseMidnaCtx,
+                        queryIndex: QueryIdx.customQuery054_canChangeTod,
+                        nextNodeIndexes: new()
+                        {
+                            Node.ev_MidnaTwoOptsInitEv.flwIdx,
+                            Node.msg_Z0_0x4d.flwIdx
+                        }
+                    ),
+                    // Handle choice of "Change ToD / Hints" menu
+                    new(
+                        Node.br_MidnaTwoOptsResultBranch,
+                        baseMidnaCtx,
+                        nextNodeIndexes: new()
+                        {
+                            Node.ev_Z0GenericCtxEvent.flwIdx,
+                            Node.msg_Z0_0x4d.flwIdx,
+                            0xFFFF
+                        }
+                    ),
+                }
+            );
+
+            // Make event change ToD
+            builder.AddEventEntity(
+                new(
+                    Node.ev_Z0GenericCtxEvent,
+                    baseMidnaCtx,
+                    eventIndex: EventIdx.customEvent044_changeTimeOfDay,
+                    nextNodeIdx: 0xFFFF
+                )
+            );
+
+            // Should always have at least one message (required dungeon info).
+            if (ListUtils.isEmpty(hintMessages))
+                throw new Exception($"Expected Midna hintMessages, but list was empty.");
+
+            // Add Midna hint messages
+            ushort latestContext = hintsBaseCtx;
+            for (int i = 0; i < hintMessages.Count; i++)
+            {
+                string msg = hintMessages[i];
+
+                builder.AddStrReplacement(StrRepl.Hidden(Node.msg_Z0_0x4d, msg, latestContext));
+
+                if (i < hintMessages.Count - 1)
+                {
+                    // If has more messages, map back to same node instead of
+                    // continuing to 0xFFFF.
+                    ushort prevCtx = latestContext;
+                    latestContext = GetNewContext();
+
+                    builder.AddNodeRemap(
+                        NodeRemap.Ctx(
+                            prevCtx,
+                            Node.zel00_FFFF,
+                            Node.msg_Z0_0x4d.flwIdx,
+                            latestContext
+                        )
+                    );
+                }
+            }
+
+            // Update menu texts
+            string msgWarp = Res.SimpleMsg("menu.midna-base.option.warp");
+            string msgTransformIntoWolf = Res.SimpleMsg(
+                "menu.midna-base.option.transform-into-wolf"
+            );
+            string msgTransformIntoHuman = Res.SimpleMsg(
+                "menu.midna-base.option.transform-into-human"
+            );
+            string msgSomethingElse = Res.SimpleMsg("menu.midna-base.option.something-else");
+
+            builder.AddStrReplacements(
+                new()
+                {
+                    StrRepl.PublicInf(
+                        Inf.zel00_MidnaOpts_WarpTalk,
+                        $"{CustomMessages.option1of2}{msgWarp}\n{CustomMessages.option2of2}{msgSomethingElse}"
+                    ),
+                    StrRepl.PublicInf(
+                        Inf.zel00_MidnaOpts_TransToWolfTalk,
+                        $"{CustomMessages.option1of2}{msgTransformIntoWolf}\n{CustomMessages.option2of2}{msgSomethingElse}"
+                    ),
+                    StrRepl.PublicInf(
+                        Inf.zel00_MidnaOpts_TransToHumanTalk,
+                        $"{CustomMessages.option1of2}{msgTransformIntoHuman}\n{CustomMessages.option2of2}{msgSomethingElse}"
+                    ),
+                    StrRepl.PublicInf(
+                        Inf.zel00_MidnaOpts_TransToWolfWarpTalk,
+                        $"{CustomMessages.option1of3}{msgTransformIntoWolf}\n{CustomMessages.option2of3}{msgWarp}\n{CustomMessages.option3of3}{msgSomethingElse}"
+                    ),
+                    StrRepl.PublicInf(
+                        Inf.zel00_MidnaOpts_TransToHumanWarpTalk,
+                        $"{CustomMessages.option1of3}{msgTransformIntoHuman}\n{CustomMessages.option2of3}{msgWarp}\n{CustomMessages.option3of3}{msgSomethingElse}"
+                    )
+                }
+            );
         }
 
         private void AddShopConfirmationMsg(
-            MsgEntryId msgEntryId,
+            MsgNodeInst msgNode,
             string checkName,
             Item defaultItem,
             uint price,
@@ -577,13 +1076,13 @@ namespace TPRandomizer
                     { "noun", nounVal },
                 }
             );
-            string normalizedText = Res.LangSpecificNormalize(text) + CustomMessages.shopOption;
+            string normalizedText = Res.LangSpecificNormalize(text) + CustomMessages.endMenuBody;
 
-            results.Add(CustomMsgUtils.GetEntry(msgEntryId, normalizedText));
+            builder.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
         }
 
         private void AddShopCantAffordMsg(
-            MsgEntryId msgEntryId,
+            MsgNodeInst msgNode,
             string checkName,
             Item defaultItem,
             uint price,
@@ -639,7 +1138,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text);
 
-            results.Add(CustomMsgUtils.GetEntry(msgEntryId, normalizedText));
+            builder.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText));
         }
 
         private string GenShopBoughtText(Item item, string context)
@@ -676,7 +1175,7 @@ namespace TPRandomizer
             return Res.LangSpecificNormalize(text);
         }
 
-        private void GenLinkHouseSignText(List<MessageEntry> results)
+        private string GenLinkHouseSignText()
         {
             List<(string, byte, string)> dungeonData =
                 new()
@@ -715,14 +1214,12 @@ namespace TPRandomizer
                 text = Res.SimpleMsg("required-dungeon.none", null);
 
             string normalized = Res.LangSpecificNormalize(text);
-            results.Add(CustomMsgUtils.GetEntry(MsgEntryId.Link_House_Sign, normalized));
+            return normalized;
         }
 
         private void GenSelfHinterEntries()
         {
-            // For Charlo, we still need to use custom text even if disabled in
-            // order to update the "Donate 100", "Donate 50" text.
-            string charloText;
+            // Charlo donation
             if (
                 selfHinterChecks.TryGetValue(
                     "Charlo Donation Blessing",
@@ -746,23 +1243,22 @@ namespace TPRandomizer
                     optionalContextMetaIn: resultSlotMetaItem
                 );
 
-                charloText = Res.LangSpecificNormalize(
+                string charloText = Res.LangSpecificNormalize(
                     result.Substitute(new() { { "item", itemText } })
                 );
-            }
-            else
-            {
-                charloText = Res.LangSpecificNormalize(
-                    Res.SimpleMsg("self-hinter.charlo", new() { { "context", "default" } }),
-                    addLineBreaks: false
+                builder.AddStrReplacement(
+                    StrRepl.Hidden(Node.msg_CharloOptsBody, charloText + CustomMessages.endMenuBody)
                 );
             }
-            // Specifically do not want to normalize this part.
-            charloText += Res.SimpleMsg("self-hinter.charlo-options", null);
-            results.Add(
-                CustomMsgUtils.GetEntry(MsgEntryId.Charlo_Donation_Confirmation, charloText)
+
+            // Note we always need to update the options text to 100 Rupees, 50
+            // Rupees, etc. even if the body text is vanilla based on settings.
+            string charloOptionsText = Res.SimpleMsg("self-hinter.charlo-options", null);
+            builder.AddStrReplacement(
+                StrRepl.Public(Node.msg_CharloOptsOptions, charloOptionsText)
             );
 
+            // Fishing Hole Bottle sign
             if (
                 selfHinterChecks.TryGetValue(
                     "Fishing Hole Bottle",
@@ -777,15 +1273,12 @@ namespace TPRandomizer
                     contextIn: "fishing-bottle"
                 );
                 Res.Result fishingBottleRes = Res.Msg("self-hinter.fishing-bottle", null);
-                string fishingBottleText = fishingBottleRes.Substitute(
-                    new() { { "item", fishingBottleItemText } }
+                string fishingBottleText = Res.LangSpecificNormalize(
+                    fishingBottleRes.Substitute(new() { { "item", fishingBottleItemText } }),
+                    Res.IsCultureJa() ? 25 : 30
                 );
-
-                results.Add(
-                    CustomMsgUtils.GetEntry(
-                        MsgEntryId.Fishing_Hole_Bottle_Sign,
-                        Res.LangSpecificNormalize(fishingBottleText, Res.IsCultureJa() ? 25 : 30)
-                    )
+                builder.AddStrReplacement(
+                    StrRepl.Hidden(Node.msg_FishingHoleBottleSign, fishingBottleText)
                 );
             }
         }
@@ -931,23 +1424,23 @@ namespace TPRandomizer
 
             uint seraSlingshotPrice = 30;
             AddShopSlotMsg(
-                MsgEntryId.Sera_Slingshot_Slot,
+                Node.msg_SeraSlingshotSlot,
                 "Sera Shop Slingshot",
                 Item.Slingshot,
                 seraSlingshotPrice,
                 "sera"
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Sera_Slingshot_Cant_Afford,
+                Node.msg_SeraSlingshotCantAfford,
                 "Sera Shop Slingshot",
                 Item.Slingshot,
                 seraSlingshotPrice
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Sera_Slingshot_Confirmation,
+                Node.msg_SeraSlingshotConfirmation,
                 "Sera Shop Slingshot",
                 Item.Slingshot,
-                30,
+                seraSlingshotPrice,
                 "sera"
             );
 
@@ -958,7 +1451,7 @@ namespace TPRandomizer
             // easier to read since there is the red "refills" in the text also,
             // so leaving it as orange intentionally.
             AddShopConfirmationMsg(
-                MsgEntryId.Coro_Buy_Options_Confirmation,
+                Node.msg_CoroBuyOptionsConfirmation,
                 "Coro Bottle",
                 Item.Coro_Bottle,
                 100,
@@ -969,20 +1462,20 @@ namespace TPRandomizer
 
             uint kakMaloHawkeyePrice = 100;
             AddShopSlotMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Slot,
+                Node.msg_KakMaloMartHawkeyeSlot,
                 "Kakariko Village Malo Mart Hawkeye",
                 Item.Hawkeye,
                 kakMaloHawkeyePrice
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Cant_Afford,
+                Node.msg_KakMaloMartHawkeyeCantAfford,
                 "Kakariko Village Malo Mart Hawkeye",
                 Item.Hawkeye,
                 kakMaloHawkeyePrice,
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hawkeye_Confirmation,
+                Node.msg_KakMaloMartHawkeyeConfirmation,
                 "Kakariko Village Malo Mart Hawkeye",
                 Item.Hawkeye,
                 kakMaloHawkeyePrice,
@@ -991,20 +1484,20 @@ namespace TPRandomizer
 
             uint kakMaloWoodenShieldPrice = 50;
             AddShopSlotMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Slot,
+                Node.msg_KakMaloMartWoodenShieldSlot,
                 "Kakariko Village Malo Mart Wooden Shield",
                 Item.Wooden_Shield,
                 kakMaloWoodenShieldPrice
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Cant_Afford,
+                Node.msg_KakMaloMartWoodenShieldCantAfford,
                 "Kakariko Village Malo Mart Wooden Shield",
                 Item.Wooden_Shield,
                 kakMaloWoodenShieldPrice,
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Wooden_Shield_Confirmation,
+                Node.msg_KakMaloMartWoodenShieldConfirmation,
                 "Kakariko Village Malo Mart Wooden Shield",
                 Item.Wooden_Shield,
                 kakMaloWoodenShieldPrice,
@@ -1013,20 +1506,20 @@ namespace TPRandomizer
 
             uint kakMaloHylianShieldPrice = 200;
             AddShopSlotMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Slot,
+                Node.msg_KakMaloMartHylianShieldSlot,
                 "Kakariko Village Malo Mart Hylian Shield",
                 Item.Hylian_Shield,
                 kakMaloHylianShieldPrice
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Cant_Afford,
+                Node.msg_KakMaloMartHylianShieldCantAfford,
                 "Kakariko Village Malo Mart Hylian Shield",
                 Item.Hylian_Shield,
                 kakMaloHylianShieldPrice,
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Hylian_Shield_Confirmation,
+                Node.msg_KakMaloMartHylianShieldConfirmation,
                 "Kakariko Village Malo Mart Hylian Shield",
                 Item.Hylian_Shield,
                 kakMaloHylianShieldPrice,
@@ -1035,20 +1528,20 @@ namespace TPRandomizer
 
             uint kakMaloRedPotionPrice = 30;
             AddShopSlotMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Slot,
+                Node.msg_KakMaloMartRedPotionSlot,
                 "Kakariko Village Malo Mart Red Potion",
                 Item.Red_Potion_Shop,
                 kakMaloRedPotionPrice
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Cant_Afford,
+                Node.msg_KakMaloMartRedPotionCantAfford,
                 "Kakariko Village Malo Mart Red Potion",
                 Item.Red_Potion_Shop,
                 kakMaloRedPotionPrice,
                 "kak-malo"
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Kakariko_Malo_Mart_Red_Potion_Confirmation,
+                Node.msg_KakMaloMartRedPotionConfirmation,
                 "Kakariko Village Malo Mart Red Potion",
                 Item.Red_Potion_Shop,
                 kakMaloRedPotionPrice,
@@ -1058,7 +1551,7 @@ namespace TPRandomizer
             // ----- Castle Town Malo Mart -----
 
             AddShopSlotMsg(
-                MsgEntryId.Chudleys_Fine_Goods_Magic_Armor_Slot,
+                Node.msg_ChudleysFineGoodsMagicArmorSlot,
                 "Castle Town Malo Mart Magic Armor",
                 Item.Magic_Armor,
                 598,
@@ -1066,15 +1559,15 @@ namespace TPRandomizer
             );
 
             AddShopSlotMsg(
-                MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Slot,
+                Node.msg_CtMaloMartMagicArmorSlot,
                 "Castle Town Malo Mart Magic Armor",
                 Item.Magic_Armor,
                 598,
                 "magic-armor"
             );
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Castle_Town_Malo_Mart_Magic_Armor_Sold_Out,
+            builder.AddStrReplacement(
+                StrRepl.Hidden(
+                    Node.msg_CtMaloMartMagicArmorSoldOut,
                     GenShopSoldOutText(
                         HintUtils.getCheckContents("Castle Town Malo Mart Magic Armor"),
                         "magic-armor"
@@ -1084,12 +1577,12 @@ namespace TPRandomizer
 
             // ----- Castle Town Gorons -----
 
-            // Gorons use "rrubis" istead of "rubis"
+            // Gorons use "rrubis" instead of "rubis" for French
             Dictionary<string, string> goronPriceContextMeta = new() { { "goron", "true" } };
 
             uint ctGoronRedPotionPrice = 40;
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Red_Potion_Confirmation_Initial,
+                Node.msg_CtGoronRedPotionConfirmationInitial,
                 "Castle Town Goron Shop Red Potion",
                 Item.Red_Potion_Shop,
                 ctGoronRedPotionPrice,
@@ -1097,7 +1590,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Red_Potion_Confirmation_Second,
+                Node.msg_CtGoronRedPotionConfirmationSecond,
                 "Castle Town Goron Shop Red Potion",
                 Item.Red_Potion_Shop,
                 ctGoronRedPotionPrice,
@@ -1105,7 +1598,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Castle_Town_Goron_Red_Potion_Cant_Afford,
+                Node.msg_CtGoronRedPotionCantAfford,
                 "Castle Town Goron Shop Red Potion",
                 Item.Red_Potion_Shop,
                 ctGoronRedPotionPrice,
@@ -1114,7 +1607,7 @@ namespace TPRandomizer
 
             uint ctGoronLanternOilPrice = 30;
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Lantern_Oil_Confirmation_Initial,
+                Node.msg_CtGoronLanternOilConfirmationInitial,
                 "Castle Town Goron Shop Lantern Oil",
                 Item.Lantern_Oil_Shop,
                 ctGoronLanternOilPrice,
@@ -1122,7 +1615,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Lantern_Oil_Confirmation_Second,
+                Node.msg_CtGoronLanternOilConfirmationSecond,
                 "Castle Town Goron Shop Lantern Oil",
                 Item.Lantern_Oil_Shop,
                 ctGoronLanternOilPrice,
@@ -1130,7 +1623,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopCantAffordMsg(
-                MsgEntryId.Castle_Town_Goron_Lantern_Oil_Cant_Afford,
+                Node.msg_CtGoronLanternOilCantAfford,
                 "Castle Town Goron Shop Lantern Oil",
                 Item.Lantern_Oil_Shop,
                 ctGoronLanternOilPrice,
@@ -1139,7 +1632,7 @@ namespace TPRandomizer
 
             uint ctGoronArrowsPrice = 40;
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Arrows_Confirmation_Initial,
+                Node.msg_CtGoronArrowsConfirmationInitial,
                 "Castle Town Goron Shop Arrow Refill",
                 Item.Arrows_30,
                 ctGoronArrowsPrice,
@@ -1147,7 +1640,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Arrows_Confirmation_Second,
+                Node.msg_CtGoronArrowsConfirmationSecond,
                 "Castle Town Goron Shop Arrow Refill",
                 Item.Arrows_30,
                 ctGoronArrowsPrice,
@@ -1157,7 +1650,7 @@ namespace TPRandomizer
 
             uint ctGoronShieldPrice = 210;
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Shield_Confirmation_Intitial,
+                Node.msg_CtGoronShieldConfirmationIntitial,
                 "Castle Town Goron Shop Hylian Shield",
                 Item.Hylian_Shield,
                 ctGoronShieldPrice,
@@ -1165,7 +1658,7 @@ namespace TPRandomizer
                 priceContextMeta: goronPriceContextMeta
             );
             AddShopConfirmationMsg(
-                MsgEntryId.Castle_Town_Goron_Shield_Confirmation_Second,
+                Node.msg_CtGoronShieldConfirmationSecond,
                 "Castle Town Goron Shop Hylian Shield",
                 Item.Hylian_Shield,
                 ctGoronShieldPrice,
@@ -1194,65 +1687,120 @@ namespace TPRandomizer
                     optionalContextMetaIn: resultSlotMetaItem
                 );
 
-                string priceText = GenShopPriceText(120);
+                uint barnesBombBagPrice = 120;
+                string priceText = GenShopPriceText(barnesBombBagPrice);
 
                 string text = result.Substitute(
                     new() { { "item", itemText }, { "price", priceText } }
                 );
 
-                results.Add(
-                    CustomMsgUtils.GetEntry(
-                        MsgEntryId.Barnes_Bomb_Bag_Confirmation,
-                        Res.LangSpecificNormalize(text) + CustomMessages.shopOption
+                builder.AddStrReplacement(
+                    StrRepl.Hidden(
+                        Node.msg_BarnesBombBagConfirmation,
+                        Res.LangSpecificNormalize(text) + CustomMessages.endMenuBody
                     )
                 );
+
+                // Shop slot msg
+                UpdateBarnesBombsSlotMsg(barnesData.itemToHint, barnesBombBagPrice);
             }
         }
 
-        private void GenHintSignEntries(List<MessageEntry> results)
+        private void GenHintSignEntries()
         {
             if (!ListUtils.isEmpty(hintSpots))
             {
                 foreach (HintSpot hintSpot in hintSpots)
                 {
-                    List<Hint> hints = hintSpot.hints;
-                    MessageEntry messageEntry = CustomMsgUtils.GetEntryForSpotId(hintSpot.location);
-                    StringBuilder sb = new();
-
-                    for (int i = 0; i < hints.Count; i++)
+                    if (
+                        CustomMsgUtils.TryGetCustomSignFlowId(
+                            hintSpot.location,
+                            out ushort customSignFlowId
+                        )
+                    )
                     {
-                        Hint hint = hints[i];
+                        // Is custom sign
+                        List<string> hintTexts = hintSpot.hints
+                            .Select((hint) => hint.toHintTextList(this)[0].text)
+                            .ToList();
 
-                        string text = hint.toHintTextList(this)[0].text;
-                        if (i < hints.Count - 1)
-                            text = Res.NormalizeForMergingOnSign(text);
+                        List<string> msgNodeTexts = Res.SplitOversizedTexts(hintTexts);
 
-                        sb.Append(text);
+                        AddCustomSignEntityData(hintSpot.location, msgNodeTexts);
                     }
+                    else if (
+                        CustomMsgUtils.TryGetSpotIdVanillaNode(
+                            hintSpot.location,
+                            out MsgNodeInst node
+                        )
+                    )
+                    {
+                        // Is vanilla node (Agitha, Jovani)
+                        List<Hint> hints = hintSpot.hints;
+                        if (hints.Count > 1)
+                            throw new Exception(
+                                $"Expected only a single hint for SpotId '{hintSpot.location}'."
+                            );
 
-                    string textForSign = sb.ToString();
-                    messageEntry.message = textForSign;
-
-                    results.Add(messageEntry);
+                        string text = hints[0].toHintTextList(this)[0].text;
+                        builder.AddStrReplacement(StrRepl.Hidden(node, text));
+                    }
+                    else
+                    {
+                        throw new Exception(
+                            $"Failed to find spot info for SpotId '{hintSpot.location}'."
+                        );
+                    }
                 }
             }
+        }
 
-            // Always add the fallback text
-            results.Add(
-                CustomMsgUtils.GetEntry(
-                    MsgEntryId.Custom_Sign_Fallback,
-                    Res.LangSpecificNormalize(Res.SimpleMsg("hint.none-placed-here"))
-                )
+        private void AddCustomSignEntityData(SpotId spotId, List<string> messages)
+        {
+            if (ListUtils.isEmpty(messages))
+                return;
+
+            ushort flowId = CustomMsgUtils.GetCustomSignFlowId(spotId);
+
+            ushort latestContext = GetNewContext();
+
+            builder.AddNodeRemap(
+                NodeRemap.Fli(flowId, Node.zel00_FFFF, Node.msg_Z0_0x28.flwIdx, latestContext)
             );
+
+            for (int i = 0; i < messages.Count; i++)
+            {
+                string msg = messages[i];
+
+                builder.AddStrReplacement(StrRepl.CustomSignText(latestContext, msg));
+
+                if (i < messages.Count - 1)
+                {
+                    // If has more messages, map back to same node instead of
+                    // continuing to 0xFFFF.
+                    ushort prevCtx = latestContext;
+                    latestContext = GetNewContext();
+
+                    builder.AddNodeRemap(
+                        NodeRemap.Ctx(
+                            prevCtx,
+                            Node.zel00_FFFF,
+                            Node.msg_Z0_0x28.flwIdx,
+                            latestContext
+                        )
+                    );
+                }
+            }
         }
 
         private void AddShopSlotMsg(
-            MsgEntryId msgEntryId,
+            MsgNodeInst msgNode,
             string checkName,
             Item defaultItem,
             uint price,
             string context = null,
-            bool shopSuffixIsColon = false
+            bool shopSuffixIsColon = false,
+            ushort? msgNodeContext = null
         )
         {
             Res.Result res = Res.Msg("shop.slot", new() { { "context", context } });
@@ -1287,7 +1835,7 @@ namespace TPRandomizer
             );
             string normalizedText = Res.LangSpecificNormalize(text);
 
-            results.Add(CustomMsgUtils.GetEntry(msgEntryId, normalizedText));
+            builder.AddStrReplacement(StrRepl.Hidden(msgNode, normalizedText, msgNodeContext));
         }
 
         public static string BuildContextFromMeta(Dictionary<string, string> meta)
@@ -1742,6 +2290,29 @@ namespace TPRandomizer
             }
 
             return keyToHintInfos;
+        }
+
+        private ushort GetNewContext()
+        {
+            return ctxGen.getNewContext();
+        }
+
+        private class CtxGen
+        {
+            public static readonly ushort CONTEXT_CUSTOM_SIGN_NO_HINTS = 1;
+
+            // Starting at 2 since context of 1 is reserved for custom sign
+            // fallback msg.
+            private ushort nextContext = 2;
+
+            public ushort getNewContext()
+            {
+                ushort result = nextContext;
+                nextContext += 1;
+                if (result == 0)
+                    throw new Exception("Was returning an invalid context value of '0'.");
+                return result;
+            }
         }
     }
 }

@@ -31,6 +31,21 @@ namespace TPRandomizer
 
         private static Translations translations;
 
+        private static readonly Dictionary<string, string> jaNumConvertMap =
+            new()
+            {
+                { "0", "０" },
+                { "1", "１" },
+                { "2", "２" },
+                { "3", "３" },
+                { "4", "４" },
+                { "5", "５" },
+                { "6", "６" },
+                { "7", "７" },
+                { "8", "８" },
+                { "9", "９" },
+            };
+
         static Res()
         {
             IServiceProvider provider = Global.GetServiceProvider();
@@ -279,6 +294,8 @@ namespace TPRandomizer
             // List<string> escapedList = new();
             List<TextChunk> chunks = new();
 
+            bool cultureIsJapanese = IsCultureJa();
+
             int index = 0;
             // StringBuilder sb = new();
             TextChunk currentChunk = new TextChunk();
@@ -345,7 +362,17 @@ namespace TPRandomizer
                     if (hasRenderedEsc)
                         currentChunk.AddRenderedEscapeSequence(renderedEsc);
                     else
+                    {
+                        // If JP, convert numbers from 3 to full-width such as ３.
+                        if (
+                            cultureIsJapanese
+                            && jaNumConvertMap.TryGetValue(currentChar, out string newJaNumStr)
+                        )
+                        {
+                            currentChar = newJaNumStr;
+                        }
                         currentChunk.AddChar(currentChar);
+                    }
                 }
 
                 if (!hasRenderedEsc)
@@ -654,6 +681,65 @@ namespace TPRandomizer
             }
 
             return output;
+        }
+
+        public static List<string> SplitOversizedTexts(List<string> hintTexts)
+        {
+            if (ListUtils.isEmpty(hintTexts))
+                return new();
+
+            int linesPerNode = IsCultureJa() ? 12 : 16;
+            List<string> retNodes = new();
+
+            for (int hintIdx = 0; hintIdx < hintTexts.Count; hintIdx++)
+            {
+                string currNodeText = "";
+                int currNodeNumNewLines = 0;
+
+                string currBaseText = hintTexts[hintIdx];
+                if (StringUtils.isEmpty(currBaseText))
+                    continue;
+
+                int currIdx = 0;
+                while (currIdx < currBaseText.Length)
+                {
+                    string input = currBaseText;
+
+                    char c = input[currIdx];
+                    if (c == '\x1A')
+                    {
+                        byte escLength = (byte)input[currIdx + 1];
+                        string escString = input.Substring(currIdx, escLength);
+                        currNodeText += escString;
+                        currIdx += escLength;
+                        continue;
+                    }
+
+                    if (c == '\n')
+                    {
+                        currNodeNumNewLines += 1;
+                        if (currNodeNumNewLines >= linesPerNode)
+                        {
+                            // Break current text into its own node and start over
+                            retNodes.Add(currNodeText);
+                            currNodeText = "";
+                            currNodeNumNewLines = 0;
+                            currIdx += 1;
+                            continue;
+                        }
+                    }
+
+                    currNodeText += c;
+                    currIdx += 1;
+                }
+
+                if (!StringUtils.isEmpty(currNodeText))
+                {
+                    retNodes.Add(currNodeText);
+                }
+            }
+
+            return retNodes;
         }
 
         public static string CreateAndList(string langCode, List<string> strings)

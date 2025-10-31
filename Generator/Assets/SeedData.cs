@@ -91,10 +91,7 @@ namespace TPRandomizer.Assets
             List<byte> currentMessageEntryInfo = new();
             Dictionary<byte, List<CustomMessages.MessageEntry>> seedDictionary = new();
 
-            List<CustomMessages.MessageEntry> seedMessages =
-                seedGenResults.customMsgData.GenMessageEntries();
-
-            seedDictionary.Add((byte)hintLanguage, seedMessages);
+            seedDictionary.Add((byte)hintLanguage, new());
 
             // If generating for all regions, we use the region passed in as an
             // argument rather than reading from fcSettings.
@@ -183,6 +180,14 @@ namespace TPRandomizer.Assets
             if (dataBytes != null)
             {
                 SeedHeaderRaw.clr0Offset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
+
+            Bmg0Builder bmg0Builder = seedGenResults.customMsgData.GenBmg0Builder(seedGenResults);
+            dataBytes = GenerateBmg0SectionData(bmg0Builder);
+            if (dataBytes != null)
+            {
+                SeedHeaderRaw.bmg0Offset = (UInt16)GCIDataRaw.Count();
                 GCIDataRaw.AddRange(dataBytes);
             }
 
@@ -1360,39 +1365,6 @@ namespace TPRandomizer.Assets
                     (int)StageIDs.City_in_the_Sky,
                     6
                 ), // Remove Argorok actor in west city, which breaks the bridge
-                // Castle Town Hylian Shield Goron FLW patches
-                new ARCReplacement(
-                    "50C2",
-                    "0001032F",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Check for custom flag before allowing player to buy hylian shield
-                new ARCReplacement(
-                    "50FA",
-                    "0001032F",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Check to see if the flag for buying the shield has been set before continuing the conversation after buying the shield
-                new ARCReplacement(
-                    "50F0",
-                    "0300089D",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Set the new flag for buying the shield
-                new ARCReplacement(
-                    "50F4",
-                    "032F0000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Set the new flag for buying the shield
                 new ARCReplacement(
                     "418",
                     "C493D583",
@@ -2121,120 +2093,6 @@ namespace TPRandomizer.Assets
                 //.. ModifyChestAppearanceARC(), This is still in development
             ];
 
-            List<ARCReplacement> listOfShopReplacements =
-            [
-                // Castle Town Red Potion Goron FLW patches
-                new ARCReplacement(
-                    "4E0A",
-                    "00010330",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Check for custom flag before allowing player to buy CT red potion
-                new ARCReplacement(
-                    "4D52",
-                    "00060028",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Instead of checking for an empty bottle, only check for rupees
-                new ARCReplacement(
-                    "4DF8",
-                    "03000851",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Set custom event flag before proceeding in conversation
-                new ARCReplacement(
-                    "4DFC",
-                    "03300000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Set custom event flag before proceeding in conversation
-                // Castle Town Goron Shop Lantern Oil FLW patches
-                new ARCReplacement(
-                    "4BF2",
-                    "00010331",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Check for custom flag before allowing player to buy CT lantern oil
-                new ARCReplacement(
-                    "4C0A",
-                    "0006001E",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Instead of checking for an empty bottle, only check for rupees
-                new ARCReplacement(
-                    "4BF8",
-                    "03000826",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Set custom event flag before proceeding in conversation
-                new ARCReplacement(
-                    "4BFC",
-                    "03310000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town_Shops,
-                    4
-                ), // Set custom event flag before proceeding in conversation
-                // Castle Town Goron Shop Arrow Refill FLW patches
-                new ARCReplacement(
-                    "4E1A",
-                    "00010332",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town,
-                    4
-                ), // Check for custom flag before allowing player to buy CT arrows
-                new ARCReplacement(
-                    "4E4A",
-                    "00060028",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town,
-                    4
-                ), // Instead of checking for the bow, only check for rupees
-                new ARCReplacement(
-                    "4E5A",
-                    "00010332",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town,
-                    4
-                ), // Instead of checking for ammo, just re-check the flag
-                new ARCReplacement(
-                    "4FF0",
-                    "03000887",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town,
-                    4
-                ), // Check for custom event flag before proceeding in conversation
-                new ARCReplacement(
-                    "4FF4",
-                    "03320000",
-                    (byte)FileDirectory.Message,
-                    (byte)ReplacementType.Instruction,
-                    (int)StageIDs.Castle_Town,
-                    4
-                ), // Check for custom event flag before proceeding in conversation
-            ];
-            if (Randomizer.SSettings.shuffleShopItems)
-            {
-                listOfStaticReplacements.AddRange(listOfShopReplacements);
-            }
             return listOfStaticReplacements;
         }
 
@@ -2757,6 +2615,56 @@ namespace TPRandomizer.Assets
             return data;
         }
 
+        private List<byte> GenerateBmg0SectionData(Bmg0Builder bmg0Builder)
+        {
+            List<byte> allData = new();
+            List<byte> bodyData = new();
+
+            ushort headerSize = 0x38;
+
+            Bmg0Builder.Header header = bmg0Builder.AddBytesGenHeader(headerSize, bodyData);
+
+            // Build header
+            allData.AddRange(Converter.MessageStringBytes("BMG0")); // 0x00
+            allData.AddRange(Converter.GcBytes(header.entityInfoTableOffset)); // 0x04
+            allData.AddRange(Converter.GcBytes(header.tableSliceInfosOffset)); // 0x06
+            allData.AddRange(Converter.GcBytes(header.wordCompValsOffset)); // 0x08
+            allData.AddRange(Converter.GcBytes(header.shortCompValsOffset)); // 0x0a
+            allData.AddRange(Converter.GcBytes(header.nodeRemapTableOffset)); // 0x0c
+            allData.AddRange(Converter.GcBytes(header.branchPatchTableOffset)); // 0x0e
+            allData.AddRange(Converter.GcBytes(header.branchNextNodeBaseIdxTableOffset)); // 0x10
+            allData.AddRange(Converter.GcBytes(header.branchNextNodeTableOffset)); // 0x12
+            allData.AddRange(Converter.GcBytes(header.eventNextNodeTableOffset)); // 0x14
+            allData.AddRange(Converter.GcBytes(header.eventPatchTableOffset)); // 0x16
+            allData.AddRange(Converter.GcBytes(header.strOffsetTableOffset)); // 0x18
+            allData.AddRange(Converter.GcBytes(header.strTableOffset)); // 0x1a
+            allData.AddRange(Converter.GcBytes(header.strTableEncodedStart)); // 0x1c
+            allData.AddRange(Converter.GcBytes(header.encodedStrTableNumBlocks)); // 0x1e
+            for (int i = 0; i < 4; i++) // 0x20
+            {
+                allData.AddRange(Converter.GcBytes(header.encryptionKey[i]));
+            }
+            allData.Add(0); // 0x30
+
+            while (allData.Count < headerSize)
+                allData.Add(0);
+
+            if (allData.Count != headerSize)
+                throw new Exception($"Invalid headerSize for bmg0 block: '{allData.Count}'");
+
+            // Add bodyData
+            allData.AddRange(bodyData);
+
+            // Align to 8 bytes
+            while (allData.Count % 8 != 0)
+            {
+                allData.Add(0);
+            }
+
+            return allData;
+        }
+
+
         private static string getStartingTime()
         {
             string time = "203F"; // By default, starting time is in the evening
@@ -2840,6 +2748,7 @@ namespace TPRandomizer.Assets
             public UInt16 sfxInfoNumEntries { get; set; }
             public UInt16 sfxInfoDataOffset { get; set; }
             public UInt16 clr0Offset { get; set; }
+            public UInt16 bmg0Offset { get; set; }
             public UInt16 customTextHeaderSize { get; set; }
             public UInt16 customTextHeaderOffset { get; set; }
         }

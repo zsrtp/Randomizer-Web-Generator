@@ -1965,6 +1965,46 @@
     <value>clés de Kikolou</value>
     <comment></comment>
   </data>
+  <data name="menu.midna-base.option.something-else" xml:space="preserve">
+    <value>Je veux autre chose</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-human" xml:space="preserve">
+    <value>Je veux redevenir humain</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-wolf" xml:space="preserve">
+    <value>Je veux redevenir un loup</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.warp" xml:space="preserve">
+    <value>Je veux me téléporter</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.body" xml:space="preserve">
+    <value>Qu&apos;est-ce qu&apos;il y a?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.change-time-of-day" xml:space="preserve">
+    <value>Je veux changer l&apos;heure</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.hints" xml:space="preserve">
+    <value>Indices</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons" xml:space="preserve">
+    <value>Il y a #(red)1#(white) donjon requis :</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#other" xml:space="preserve">
+    <value>Il y a #(red){count}#(white) donjons requis :</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#zero" xml:space="preserve">
+    <value>Il n&apos;y a aucun donjon requis.</value>
+    <comment></comment>
+  </data>
   <data name="noun.a-bug" xml:space="preserve">
     <value>un {cs}insecte{ce}</value>
     <comment></comment>
@@ -2070,11 +2110,7 @@
     <comment></comment>
   </data>
   <data name="self-hinter.charlo-options" xml:space="preserve">
-    <value>#(option1)Voici 100 rubis.#(option2)Voici 50 rubis.#(option3)Je refuse.</value>
-    <comment></comment>
-  </data>
-  <data name="self-hinter.charlo$default" xml:space="preserve">
-    <value>Pour que la paix règne en Hyrule...\npuis-je vous demander l&apos;aumône...?</value>
+    <value>#(option1of3)Voici 100 rubis.#(option2of3)Voici 50 rubis.#(option3of3)Je refuse.</value>
     <comment></comment>
   </data>
   <data name="self-hinter.fishing-bottle" xml:space="preserve">
@@ -2175,6 +2211,10 @@
   </data>
   <data name="shop.slot" xml:space="preserve">
     <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
+    <comment></comment>
+  </data>
+  <data name="shop.slot$barnes" xml:space="preserve">
+    <value>{item(shop:true)} {price}\nDisponible pour un temps limité !\nProfites en !</value>
     <comment></comment>
   </data>
   <data name="shop.slot$chudley" xml:space="preserve">
