@@ -198,21 +198,32 @@ namespace TPRandomizer.Hints
                 && genData.sSettings.shufflePoes != PoeSettings.Overworld
                 && genData.sSettings.barrenDungeons
                 && !genData.sSettings.decoupleEntrances
-                && !genData.sSettings.unpairEntrances
             )
             {
                 if (
                     !genData.dungeonEntrances.TryGetValue(
                         Zone.Snowpeak_Ruins,
-                        out Zone beyondSprDoorsDungeon
+                        out HashSet<Zone> beyondSprDoorsDungeons
                     )
                 )
                     throw new Exception(
-                        $"Failed to find dungeon behind SPR doors for Snowpeak BeyondThisPoint hint."
+                        $"Failed to find dungeon(s) behind SPR doors for Snowpeak BeyondThisPoint hint."
                     );
 
-                // Dungeon behind the SPR doors must be an unrequiredBarren dungeon.
-                return !HintUtils.DungeonIsRequired(ZoneUtils.IdToString(beyondSprDoorsDungeon));
+                // If either SPR door leads to Hyrule Castle or a required
+                // dungeon, then do not create the hint.
+                foreach (Zone dungeonZone in beyondSprDoorsDungeons)
+                {
+                    if (
+                        dungeonZone == Zone.Hyrule_Castle
+                        || HintUtils.DungeonIsRequired(ZoneUtils.IdToString(dungeonZone))
+                    )
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
             }
             return false; // Don't create BeyondThisPoint hint
         };
