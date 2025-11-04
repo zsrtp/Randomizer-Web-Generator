@@ -751,7 +751,199 @@ namespace TPRandomizer.Assets
         {
             List<RELReplacement> listOfStaticReplacements =
             [
-                // Shad rel patches
+                // D_A_DOOR_SHUTTER - Door Lock
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak_Ruins,
+                    (int)GCRelIDs.D_A_DOOR_SHUTTER,
+                    0xD68,
+                    DataFunctions.ASM_LOAD_IMMEDIATE(3, 0x1)
+                ), // Set the call to checkOpenDoor to always return true when in SPR
+
+                // D_A_KYTAG11 - D_Kankyo Tag 11
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    (int)GCRelIDs.D_A_KYTAG11,
+                    0x2CC,
+                    DataFunctions.ASM_NOP()
+                ), // Nop out the instruction that causes the time flow to not consider the mTimeSpeed variable in Field.
+
+                // D_A_E_HP - Generic Poe
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_E_HP,
+                    0x2440,
+                    DataFunctions.ASM_NOP()
+                ),// Force the poe to be despawned immediately without playing the get item animation
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_E_HP,
+                    0x2340,
+                    DataFunctions.ASM_BRANCH(0x18)
+                ), // Disable Poe increment (handled through item_get_func; see game_patches)
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_E_HP,
+                    0x2360,
+                    DataFunctions.ASM_BRANCH(0x28)
+                ), // Skip checking for setting the flag for having obtained 20 poe souls
+
+                // D_A_E_PO - Arbiter's Poe
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_E_PO,
+                    0x3690,
+                    DataFunctions.ASM_BRANCH(0x44)
+                ), // Disable Poe increment (handled through item_get_func; see game_patches) and skip checking for setting the
+                   // flag for having obtained 20 poe souls
+
+                // D_A_E_HZELDA - Puppet Zelda
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_E_HZELDA,
+                    0xA94,
+                    DataFunctions.ASM_NOP()
+                ),// nop out the greater than branch so that Zelda will always throw a Ball if she is able to
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_E_HZELDA,
+                    0x8EC,
+                    DataFunctions.ASM_NOP()
+                ),// nop out the addition of f1 (the random number of frames) to f0 (the base number of frames) so that there is
+                  // always only 100 frames between each of Zelda's attacks.
+
+                // D_A_MG_ROG - Fishing Hole Rod
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_MG_ROD,
+                    0xBFAC,
+                    DataFunctions.ASM_BRANCH(0x18)
+                ),// Branch over rng check instructions from uki_main for 100% bottle guarantee
+
+                // D_A_TAG_STATUE_EVT - Owl Statue Events
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_TAG_STATUE_EVT,
+                    0xB7C,
+                    DataFunctions.ASM_BRANCH(0x20)
+                ), // Replace the Sky Character Item
+
+                // D_A_OBJ_BOSSWARP - Post-Boss Portal
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_OBJ_BOSSWARP,
+                    0x1888,
+                    DataFunctions.ASM_BRANCH(0xA8)
+                ), // Replace dungeon reward given and text
+
+                // D_A_NPC_BOUS - Bo (Sumo)
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_NPC_BOUS,
+                    0x1A44,
+                    DataFunctions.ASM_BRANCH(0x28)
+                ), // Prevent Bo from talking after chest has been opened
+
+                // D_A_NPC_YKM - Yeto
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_NPC_YKM,
+                    0x1524,
+                    DataFunctions.ASM_LOAD_IMMEDIATE(3,0)
+                ), // Prevent Yeto from leaving the dungeon if the player has the boss key.
+
+                // D_A_NPC_YKW - Yeta
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_NPC_YKW,
+                    0x1038,
+                    DataFunctions.ASM_LOAD_IMMEDIATE(3,0)
+                ), // Prevent Yeta from leaving the dungeon if the player has the boss key.
+
+                // D_A_E_MD - SPR Suit of Armor
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak_Ruins,
+                    (int)GCRelIDs.D_A_E_MD,
+                    0x14B8,
+                    DataFunctions.ASM_BRANCH(0x1C)
+                ), // Create Actor, regardless of BossFlag value.
+
+                // D_A_OBJ_SWBALLC - Light Sword Cutscene
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_OBJ_SWBALLC,
+                    0xB50,
+                    DataFunctions.ASM_NOP()
+                ), // Prevent Light Sword Cutscene from giving MS to link
+
+                // D_A_NPC_RAFREL - Auru
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_NPC_RAFREL,
+                    0x6C4,
+                    DataFunctions.ASM_LOAD_IMMEDIATE(3,0x131)
+                ), // Set Auru to check whether he gave the check before spawning.
+
+                // D_A_OBJ_SMALLKEY - Freestanding Small Key
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_OBJ_SMALLKEY,
+                    0xC88,
+                    DataFunctions.ASM_BRANCH(0x58)
+                ), // Prevent Game from Removing Bulblin Camp Key
+
+                // D_A_NPC_KS - Red Bow Monkey
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_NPC_KS,
+                    0x9CE8,
+                    DataFunctions.ASM_COMPARE_WORD_IMMEDIATE(3,1)
+                ), // Prevent 4 monkey cutscene from triggering in FT lobby.
+
+                // D_A_OBJ_MASTER_SWORD - Freestanding MS Actor
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_OBJ_MASTER_SWORD,
+                    0xCA0,
+                    DataFunctions.ASM_BRANCH(0x80)
+                ), // Branch over code that gives Link MS
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_OBJ_MASTER_SWORD,
+                    0x25C,
+                    DataFunctions.ASM_NOP()
+                ), // Nop out call to setCloth that causes a crash if anything other than Hero's Clothes are worn.
+
+                // D_A_TBOX - Treasure Chest
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_TBOX,
+                    0xA58,
+                    DataFunctions.ASM_NOP()
+                ), // Nop out the bne- that causes chests to play the cutscene for big items.
+
+                // D_A_NPC_SHAD - Shad
                 new RELReplacement(
                     (int)ReplacementType.Instruction,
                     (int)0xFF,
@@ -780,6 +972,56 @@ namespace TPRandomizer.Assets
                     0x30B0,
                     0x418000c4
                 ), // Patch item checking so that showing the completed skybook doesn't bork the check
+
+                // D_A_OBJ_DROP - Tear of Light
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_OBJ_DROP,
+                    0x0FCC,
+                    DataFunctions.ASM_LOAD_IMMEDIATE(0,1)
+                ), // Set Tear of Light Wait Timer to 1
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_OBJ_DROP,
+                    0x1038,
+                    DataFunctions.ASM_LOAD_IMMEDIATE(0,1)
+                ), // Set Tear of Light Wait Timer to 1
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_OBJ_DROP,
+                    0x2474,
+                    0x0
+                ), // Set Tear of Light y_pos to be at ground level
+
+                // D_A_NPC_GWOLF - Golden Wolf
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_NPC_GWOLF,
+                    0x5B80,
+                    0x01EB01EC
+                ),
+                // Change the flag that the faron wolf checks for when it spawns. The original value, is structured like this:
+                // XXXXYYYY  where XXXX is the flag for the Ending Blow and YYYY is for having howled at the DMT stone. Since we
+                // don't want the wolf to disappear once we have the ending blow, it was changed to use an unused flag in the
+                // event bit list.
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_NPC_GWOLF,
+                    0x20B0,
+                    DataFunctions.ASM_NOP()
+                ),// Remove the instruction after the asm patch, as it is no longer needed
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_NPC_GWOLF,
+                    0x20B8,
+                    DataFunctions.ASM_BRANCH_EQUAL_MINUS(0x38)
+                ),// Branch to have isDelete return if the return value condition listed in asmReplaceGWolfWithItem is not met
             ];
 
             // Parse Midna hair color replacement

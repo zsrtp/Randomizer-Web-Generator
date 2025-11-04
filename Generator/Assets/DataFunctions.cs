@@ -46,5 +46,18 @@ namespace TPRandomizer
                 0x40000000 + (branchOption * 0x200000) + (conditionBit * 0x10000) + (value & 0xFFFF)
             );
         }
+
+        public static int ASM_BRANCH_EQUAL_MINUS(int value)
+        {
+            int tempValue = value & 0xFFFF;
+            if (tempValue >= 0)
+            {
+                return ASM_BRANCH_CONDITIONAL(12, 2, tempValue);
+            }
+            else
+            {
+                return ASM_BRANCH_CONDITIONAL(13, 2, tempValue);
+            }
+        }
     }
 }
