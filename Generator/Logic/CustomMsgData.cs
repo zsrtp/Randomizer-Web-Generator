@@ -678,6 +678,8 @@ namespace TPRandomizer
             }
 
             AddBarnesShopAdjustments();
+            AddCitsFaqSign();
+            AddSanctuaryBasementFaqSign();
 
             // ----- Custom Sign fallback text -----
 
@@ -685,6 +687,39 @@ namespace TPRandomizer
                 StrRepl.CustomSignText(
                     CtxGen.CONTEXT_CUSTOM_SIGN_NO_HINTS,
                     Res.LangSpecificNormalize(Res.SimpleMsg("hint.none-placed-here"))
+                )
+            );
+        }
+
+        private void AddCitsFaqSign()
+        {
+            // Helper sign at CitS entrance for exiting without Clawshot
+            ushort ctx = GetNewContext();
+            // Flow ID 0x70C1 is stageIdx 0xC (CitS) and 1 since 2nd CitS sign.
+            builder.AddNodeRemap(
+                NodeRemap.Fli(0x70c1, Node.zel00_FFFF, Node.msg_Z0_0x28.flwIdx, ctx)
+            );
+
+            string msg = Res.NormalizeForMergingOnSign(
+                Res.LangSpecificNormalize(Res.SimpleMsg("faq.cits-no-claw-exit-1"))
+            );
+            msg += Res.LangSpecificNormalize(Res.SimpleMsg("faq.cits-no-claw-exit-2"));
+
+            builder.AddStrReplacement(StrRepl.CustomSignText(ctx, msg));
+        }
+
+        private void AddSanctuaryBasementFaqSign()
+        {
+            // Helper sign at Owl statue under Kak sanctuary
+            ushort ctx = GetNewContext();
+            // Flow ID 0x74b0 is stageIdx 0x4b (Kak GY interiors).
+            builder.AddNodeRemap(
+                NodeRemap.Fli(0x74b0, Node.zel00_FFFF, Node.msg_Z0_0x28.flwIdx, ctx)
+            );
+            builder.AddStrReplacement(
+                StrRepl.CustomSignText(
+                    ctx,
+                    Res.LangSpecificNormalize(Res.SimpleMsg("faq.santuary-basement-owl-statue"))
                 )
             );
         }

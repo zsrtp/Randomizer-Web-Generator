@@ -405,6 +405,22 @@
     <value>(not required)</value>
     <comment></comment>
   </data>
+  <data name="faq.cits-no-claw-exit-1" xml:space="preserve">
+    <value>#(red)No Clawshot#(white)? No problem!\nHead back to the water, take a left, then jump off the #(red)west path#(white).</value>
+    <comment></comment>
+  </data>
+  <data name="faq.cits-no-claw-exit-1$wii" xml:space="preserve">
+    <value>#(red)No Clawshot#(white)? No problem!\nHead back to the water, take a right, then jump off the #(red)east path#(white).</value>
+    <comment></comment>
+  </data>
+  <data name="faq.cits-no-claw-exit-2" xml:space="preserve">
+    <value>You&apos;ll be back to the surface in no time!</value>
+    <comment></comment>
+  </data>
+  <data name="faq.santuary-basement-owl-statue" xml:space="preserve">
+    <value>They say that the repaired Sky Cannon will #(red)automatically appear#(white) at Lake Hylia once the Ancient Sky Book has been filled.</value>
+    <comment></comment>
+  </data>
   <data name="goal.argorok" xml:space="preserve">
     <value>Argorok</value>
     <comment></comment>
