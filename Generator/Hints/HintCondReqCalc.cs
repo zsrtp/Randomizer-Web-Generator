@@ -34,6 +34,62 @@ namespace TPRandomizer.Hints
             return false;
         }
 
+        private bool updateSometimesRequiredFromTradeItems()
+        {
+            bool addedCheck = false;
+
+            // Checks rewarding a trade item for a chain ending in a sometimesRequired reward are
+            // themselves sometimes required, as long as they are not already known to be required
+            // or allowBarren. allowBarren example: maleAnt => domRod. 2nd maleAnt behind DDR.
+            foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
+            {
+                Item tradeItem = pair.Key;
+                if (
+                    genData.tradeItemToChainEndCheck.TryGetValue(
+                        tradeItem,
+                        out string chainEndCheckName
+                    )
+                )
+                {
+                    // Need to check against required checks as well since you can have something
+                    // like this: required domRod on Agitha reward with 2 copies of the bug in
+                    // sphere0. Neither bug is required, but either could be your first and you
+                    // definitely need at least one.
+                    if (
+                        genData.requiredChecks.Contains(chainEndCheckName)
+                        || condRequiredChecks.Contains(chainEndCheckName)
+                    )
+                    {
+                        if (
+                            genData.itemToChecksList.TryGetValue(
+                                tradeItem,
+                                out List<string> checksList
+                            )
+                        )
+                        {
+                            foreach (string checkName in checksList)
+                            {
+                                if (
+                                    !condRequiredChecks.Contains(checkName)
+                                    && !genData.requiredChecks.Contains(checkName)
+                                    && !genData.allowBarrenChecks.Contains(checkName)
+                                )
+                                {
+                                    Item contents = HintUtils.getCheckContents(checkName);
+                                    Console.WriteLine(
+                                        $"Sometimes Required (TrdItm): {checkName} ({contents})"
+                                    );
+                                    condRequiredChecks.Add(checkName);
+                                    addedCheck = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return addedCheck;
+        }
+
         private ZigZagState monteCarloZigZagDown(ZigZagState zz)
         {
             HashSet<string> checkNames = new(zz.allowedCheckNames);
@@ -226,16 +282,6 @@ namespace TPRandomizer.Hints
             // soul on the zigZagDown. Then after we are done, we can go ahead
             // and merge those into the known sometimesRequired checks.
 
-            // TODO: "genData.logicalItems" needs to be calculated differently.
-            // It should use all major items as a base, and then it should
-            // remove ones that are only there conditionally. And maybe we could
-            // do the "allowBarrenChecks" stuff up front as well in order to
-            // find the checks which can be filtered out of being included in
-            // `locsSet` since they would be "not required".
-
-            // When getting the status of a check later on, any check which is
-            // not "required" or "sometimesRequired" would be "not required".
-
             // Used with glitchless logic to speed up execution time.
             if (genData.hiddenSkillsAutoSometimesRequired)
             {
@@ -283,6 +329,12 @@ namespace TPRandomizer.Hints
             Stopwatch stopwatch = new();
             stopwatch.Start();
 
+            // Initially handle sometimesRequired tradeItems leading to a required check. We handle
+            // tradeItems how we do since we really want to keep `locsSet` as small as possible for
+            // performance reasons. An increase in locsSet of just 8 checks caused execution to take
+            // nearly 20s more in a tradeItem test I did. -isaac
+            updateSometimesRequiredFromTradeItems();
+
             int consecutiveFailures = 0;
             while (true)
             {
@@ -290,6 +342,11 @@ namespace TPRandomizer.Hints
                     consecutiveFailures = 0;
                 else
                     consecutiveFailures += 1;
+
+                // Run after normal calcs so we can mark tradeItems which lead to newly discovered
+                // sometimesRequired checks. If we add more, then reset failures.
+                if (updateSometimesRequiredFromTradeItems())
+                    consecutiveFailures = 0;
 
                 if (consecutiveFailures >= 3)
                     break;
@@ -307,7 +364,6 @@ namespace TPRandomizer.Hints
             {
                 Check check = checkList.Value;
                 string checkName = check.checkName;
-                Item item = check.itemId;
 
                 // Skip over Poe Souls since they make the calculation an order
                 // of magnitude slower (for example, 13m29s vs 1m6s). They will
@@ -322,6 +378,13 @@ namespace TPRandomizer.Hints
                 )
                     Console.WriteLine($"- {checkName} ({check.itemId})");
             }
+
+            // Note: seed is guaranteed beatable using only required and sometimesRequired checks
+            // since it is a superset of the spheres which are generated by keeping checks for which
+            // removal causes an unbeatable seed. So no need to reconfirm that here.
+
+            // Note: when getting the status of a check later on, any check which is not "required"
+            // or "sometimesRequired" would be "not required".
 
             return this.condRequiredChecks;
 

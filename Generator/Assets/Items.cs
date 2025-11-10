@@ -1135,7 +1135,7 @@ namespace TPRandomizer
 
                     default:
                     {
-                        Console.WriteLine("remove " + item.ToString());
+                        // Console.WriteLine("remove " + item.ToString());
                         RemoveItem(item);
                         break;
                     }
