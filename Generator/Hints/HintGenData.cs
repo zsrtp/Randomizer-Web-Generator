@@ -475,7 +475,7 @@ namespace TPRandomizer.Hints
                     { Item.Arbiters_Grounds_Big_Key, 1 },
                     { Item.Arbiters_Grounds_Small_Key, 5 },
                     { Item.Snowpeak_Ruins_Bedroom_Key, 1 },
-                    { Item.Snowpeak_Ruins_Small_Key, 3 },
+                    { Item.Snowpeak_Ruins_Small_Key, 4 },
                     { Item.Snowpeak_Ruins_Ordon_Goat_Cheese, 1 },
                     { Item.Snowpeak_Ruins_Ordon_Pumpkin, 1 },
                     { Item.Temple_of_Time_Big_Key, 1 },
