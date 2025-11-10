@@ -194,6 +194,9 @@ namespace TPRandomizer.Hints
                     if (!genData.requiredChecks.Contains(checkName))
                     {
                         condRequiredChecks.Add(checkName);
+                        Console.WriteLine(
+                            $"Sometimes Required (spheres): {checkName} ({checkAndItem.Value})"
+                        );
                     }
                 }
             }
@@ -246,7 +249,8 @@ namespace TPRandomizer.Hints
                 if (
                     item == Item.Poe_Soul
                     || genData.requiredChecks.Contains(checkName)
-                    || !genData.logicalItems.Contains(check.itemId)
+                    || !genData.condReqLogicalItems.Contains(check.itemId)
+                    || HintUtils.IsTradeItem(item)
                 )
                     continue;
 
@@ -295,7 +299,6 @@ namespace TPRandomizer.Hints
                     && !genData.requiredChecks.Contains(checkName)
                     && !HintUtils.checkIsPlayerKnownStatus(checkName)
                     && check.itemId != Item.Poe_Soul
-                    && check.itemId != Item.Progressive_Hidden_Skill
                 )
                     Console.WriteLine($"- {checkName} ({check.itemId})");
             }

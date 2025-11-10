@@ -119,8 +119,8 @@ namespace TPRandomizer.Hints
         );
         public static readonly Goal Ganondorf = new Goal(
             GoalEnum.Ganondorf,
-            Goal.Type.Room,
-            "Ganondorf Castle"
+            Goal.Type.Check,
+            "Hyrule Castle Ganondorf"
         );
 
         public static readonly Dictionary<string, Goal> requiredDungeonHintZoneToGoal =
@@ -189,6 +189,7 @@ namespace TPRandomizer.Hints
                 { Item.Male_Snail, "Agitha Male Snail Reward" },
                 { Item.Male_Stag_Beetle, "Agitha Male Stag Beetle Reward" },
                 { Item.Asheis_Sketch, "Gift From Ralis" },
+                { Item.Ilias_Charm, "Ilia Memory Reward" },
             };
 
         public static readonly Dictionary<string, Item> tradeRewardCheckToSourceItem;

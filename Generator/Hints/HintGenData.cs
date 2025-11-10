@@ -3,6 +3,8 @@ namespace TPRandomizer.Hints
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Transactions;
+    using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -25,6 +27,7 @@ namespace TPRandomizer.Hints
         public HashSet<Item> preventBarrenItems { get; private set; }
         public HashSet<string> allowBarrenChecks { get; private set; }
         public HashSet<Item> logicalItems { get; private set; }
+        public HashSet<Item> condReqLogicalItems { get; private set; }
         public Dictionary<Item, List<string>> itemToChecksList { get; set; }
         public Dictionary<string, Item> tradeChainStartToReward = new();
         public Dictionary<Item, string> tradeItemToChainEndCheck = new();
@@ -84,6 +87,8 @@ namespace TPRandomizer.Hints
 
             if (sSettings.logicRules != LogicRules.No_Logic)
             {
+                prepLogicalItemSets2();
+
                 // Calculate conditionallyRequired checks. This depends on
                 // knowing the "logical items", so has to wait until here.
                 HintCondReqCalc condReqCalc = new(this);
@@ -416,6 +421,304 @@ namespace TPRandomizer.Hints
 
             this.preventBarrenItems = itemSet;
             this.logicalItems = logicalItems;
+        }
+
+        private void prepLogicalItemSets2()
+        {
+            HashSet<Item> logicalItems =
+                new()
+                {
+                    // ----- Collection Screen -----
+                    Item.Progressive_Sword,
+                    // Note: wooden/Ordon shields not logical item finds since assumed can burn.
+                    Item.Hylian_Shield,
+                    Item.Zora_Armor,
+                    Item.Magic_Armor,
+                    Item.Progressive_Fused_Shadow,
+                    Item.Progressive_Mirror_Shard,
+                    Item.Progressive_Wallet,
+                    Item.Male_Beetle,
+                    Item.Female_Beetle,
+                    Item.Male_Butterfly,
+                    Item.Female_Butterfly,
+                    Item.Male_Stag_Beetle,
+                    Item.Female_Stag_Beetle,
+                    Item.Male_Grasshopper,
+                    Item.Female_Grasshopper,
+                    Item.Male_Phasmid,
+                    Item.Female_Phasmid,
+                    Item.Male_Pill_Bug,
+                    Item.Female_Pill_Bug,
+                    Item.Male_Mantis,
+                    Item.Female_Mantis,
+                    Item.Male_Ladybug,
+                    Item.Female_Ladybug,
+                    Item.Male_Snail,
+                    Item.Female_Snail,
+                    Item.Male_Dragonfly,
+                    Item.Female_Dragonfly,
+                    Item.Male_Ant,
+                    Item.Female_Ant,
+                    Item.Male_Dayfly,
+                    Item.Female_Dayfly,
+                    Item.Progressive_Hidden_Skill,
+                    Item.Poe_Soul,
+                    Item.Shadow_Crystal,
+                    // ----- Item Wheel -----
+                    Item.Progressive_Clawshot,
+                    Item.Progressive_Dominion_Rod,
+                    Item.Ball_and_Chain,
+                    Item.Spinner,
+                    Item.Progressive_Bow,
+                    Item.Iron_Boots,
+                    Item.Boomerang,
+                    Item.Lantern,
+                    Item.Slingshot,
+                    Item.Progressive_Fishing_Rod,
+                    Item.Filled_Bomb_Bag,
+                    Item.Empty_Bottle,
+                    Item.Sera_Bottle,
+                    Item.Coro_Bottle,
+                    Item.Jovani_Bottle,
+                    Item.Renados_Letter,
+                    Item.Invoice,
+                    Item.Wooden_Statue,
+                    Item.Ilias_Charm,
+                    Item.Aurus_Memo,
+                    Item.Asheis_Sketch,
+                    Item.Progressive_Sky_Book,
+                    // ----- Dungeon items -----
+                    Item.Forest_Temple_Small_Key,
+                    Item.Goron_Mines_Small_Key,
+                    Item.Lakebed_Temple_Small_Key,
+                    Item.Arbiters_Grounds_Small_Key,
+                    Item.Snowpeak_Ruins_Small_Key,
+                    Item.Snowpeak_Ruins_Ordon_Pumpkin,
+                    Item.Snowpeak_Ruins_Ordon_Goat_Cheese,
+                    Item.Temple_of_Time_Small_Key,
+                    Item.City_in_The_Sky_Small_Key,
+                    Item.Palace_of_Twilight_Small_Key,
+                    Item.Hyrule_Castle_Small_Key,
+                    Item.Forest_Temple_Big_Key,
+                    Item.Goron_Mines_Key_Shard,
+                    Item.Lakebed_Temple_Big_Key,
+                    Item.Arbiters_Grounds_Big_Key,
+                    Item.Snowpeak_Ruins_Bedroom_Key,
+                    Item.Temple_of_Time_Big_Key,
+                    Item.City_in_The_Sky_Big_Key,
+                    Item.Palace_of_Twilight_Big_Key,
+                    Item.Hyrule_Castle_Big_Key,
+                    // ----- Overworld items -----
+                    Item.Faron_Woods_Coro_Key,
+                    Item.North_Faron_Woods_Gate_Key,
+                    Item.Gate_Keys,
+                    Item.Gerudo_Desert_Bulblin_Camp_Key,
+                };
+
+            // From logicalItems, filter out any items which could not possibly serve a purpose
+            // based on the settings:
+
+            Dictionary<Item, int> multiToMaxItems =
+                new()
+                {
+                    { Item.Progressive_Sword, 4 },
+                    { Item.Progressive_Fused_Shadow, 3 },
+                    { Item.Progressive_Mirror_Shard, 4 },
+                    { Item.Progressive_Wallet, 2 },
+                    { Item.Progressive_Hidden_Skill, 7 },
+                    { Item.Poe_Soul, 60 },
+                    { Item.Progressive_Clawshot, 2 },
+                    { Item.Progressive_Dominion_Rod, 2 },
+                    { Item.Progressive_Fishing_Rod, 2 },
+                    { Item.Progressive_Sky_Book, 7 },
+                    { Item.Forest_Temple_Small_Key, 4 },
+                    { Item.Goron_Mines_Small_Key, 3 },
+                    { Item.Lakebed_Temple_Small_Key, 3 },
+                    { Item.Arbiters_Grounds_Small_Key, 5 },
+                    { Item.Snowpeak_Ruins_Small_Key, 4 },
+                    { Item.Temple_of_Time_Small_Key, 3 },
+                    { Item.Palace_of_Twilight_Small_Key, 7 },
+                    { Item.Hyrule_Castle_Small_Key, 3 },
+                    { Item.Goron_Mines_Key_Shard, 3 },
+                };
+
+            Dictionary<Item, int> startingItemCounts = new();
+            foreach (Item startingItem in sSettings.startingItems)
+            {
+                int count = 0;
+                if (startingItemCounts.TryGetValue(startingItem, out int currCount))
+                {
+                    count = currCount;
+                }
+                startingItemCounts[startingItem] = count + 1;
+            }
+
+            // Filter out any items where you already start with enough copies to logically max it out.
+            foreach (Item item in new List<Item>(logicalItems))
+            {
+                if (startingItemCounts.TryGetValue(item, out int startingCount))
+                {
+                    int countToMaxOut = 1;
+                    if (multiToMaxItems.TryGetValue(item, out int count))
+                        countToMaxOut = count;
+
+                    if (startingCount >= countToMaxOut)
+                        logicalItems.Remove(item);
+                }
+            }
+
+            if (sSettings.logicRules == LogicRules.Glitchless)
+            {
+                logicalItems.Remove(Item.Magic_Armor);
+
+                if (
+                    !sSettings.bonksDoDamage
+                    || sSettings.damageMagnification != DamageMagnification.OHKO
+                )
+                {
+                    // Note: bottles can be used for step clips for glitched
+                    logicalItems.Remove(Item.Coro_Bottle);
+                    logicalItems.Remove(Item.Empty_Bottle);
+                    logicalItems.Remove(Item.Jovani_Bottle);
+                    logicalItems.Remove(Item.Sera_Bottle);
+                }
+            }
+            // TODO: should make Wooden and Ordon shields prevent barren for NoLogic. Should not be
+            // handled here since they are still not logicalItems. Maybe a "extraPeventBarrenItems"
+            // property or something.
+
+            if (
+                sSettings.palaceRequirements != PalaceRequirements.Fused_Shadows
+                && sSettings.castleRequirements != CastleRequirements.Fused_Shadows
+                && sSettings.castleBKRequirements != CastleBKRequirements.Fused_Shadows
+            )
+            {
+                logicalItems.Remove(Item.Progressive_Fused_Shadow);
+            }
+
+            if (
+                sSettings.palaceRequirements != PalaceRequirements.Mirror_Shards
+                && sSettings.castleRequirements != CastleRequirements.Mirror_Shards
+                && sSettings.castleBKRequirements != CastleBKRequirements.Mirror_Shards
+            )
+            {
+                logicalItems.Remove(Item.Progressive_Mirror_Shard);
+            }
+
+            if (sSettings.smallKeySettings == SmallKeySettings.Keysy)
+            {
+                logicalItems.Remove(Item.Forest_Temple_Small_Key);
+                logicalItems.Remove(Item.Goron_Mines_Small_Key);
+                logicalItems.Remove(Item.Lakebed_Temple_Small_Key);
+                logicalItems.Remove(Item.Arbiters_Grounds_Small_Key);
+                logicalItems.Remove(Item.Snowpeak_Ruins_Small_Key);
+                logicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Pumpkin);
+                logicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
+                logicalItems.Remove(Item.Temple_of_Time_Small_Key);
+                logicalItems.Remove(Item.City_in_The_Sky_Small_Key);
+                logicalItems.Remove(Item.Palace_of_Twilight_Small_Key);
+                logicalItems.Remove(Item.Hyrule_Castle_Small_Key);
+                // Note: after breaking OW keys out from the Dungeon small keysy setting, will need
+                // to make adjustments here.
+                logicalItems.Remove(Item.Faron_Woods_Coro_Key);
+                logicalItems.Remove(Item.North_Faron_Woods_Gate_Key);
+                logicalItems.Remove(Item.Gate_Keys);
+                logicalItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
+            }
+
+            if (sSettings.bigKeySettings == BigKeySettings.Keysy)
+            {
+                logicalItems.Remove(Item.Forest_Temple_Big_Key);
+                logicalItems.Remove(Item.Forest_Temple_Big_Key);
+                logicalItems.Remove(Item.Goron_Mines_Key_Shard);
+                logicalItems.Remove(Item.Goron_Mines_Key_Shard);
+                logicalItems.Remove(Item.Goron_Mines_Key_Shard);
+                logicalItems.Remove(Item.Lakebed_Temple_Big_Key);
+                logicalItems.Remove(Item.Arbiters_Grounds_Big_Key);
+                logicalItems.Remove(Item.Temple_of_Time_Big_Key);
+                logicalItems.Remove(Item.Snowpeak_Ruins_Bedroom_Key);
+                logicalItems.Remove(Item.City_in_The_Sky_Big_Key);
+                logicalItems.Remove(Item.Palace_of_Twilight_Big_Key);
+                logicalItems.Remove(Item.Hyrule_Castle_Big_Key);
+            }
+
+            if (sSettings.barrenDungeons)
+            {
+                if (!HintUtils.DungeonIsRequired("Forest Temple"))
+                {
+                    logicalItems.Remove(Item.Forest_Temple_Small_Key);
+                    logicalItems.Remove(Item.Forest_Temple_Big_Key);
+                }
+                if (!HintUtils.DungeonIsRequired("Goron Mines"))
+                {
+                    logicalItems.Remove(Item.Goron_Mines_Small_Key);
+                    logicalItems.Remove(Item.Goron_Mines_Key_Shard);
+                }
+                if (!HintUtils.DungeonIsRequired("Lakebed Temple"))
+                {
+                    logicalItems.Remove(Item.Lakebed_Temple_Small_Key);
+                    logicalItems.Remove(Item.Lakebed_Temple_Big_Key);
+                }
+                if (!HintUtils.DungeonIsRequired("Arbiter's Grounds"))
+                {
+                    logicalItems.Remove(Item.Arbiters_Grounds_Small_Key);
+                    logicalItems.Remove(Item.Arbiters_Grounds_Big_Key);
+                }
+                if (!HintUtils.DungeonIsRequired("Snowpeak Ruins"))
+                {
+                    logicalItems.Add(Item.Snowpeak_Ruins_Small_Key);
+                    logicalItems.Add(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
+                    logicalItems.Add(Item.Snowpeak_Ruins_Ordon_Pumpkin);
+                    logicalItems.Add(Item.Snowpeak_Ruins_Bedroom_Key);
+                }
+                if (!HintUtils.DungeonIsRequired("Temple of Time"))
+                {
+                    logicalItems.Remove(Item.Temple_of_Time_Small_Key);
+                    logicalItems.Remove(Item.Temple_of_Time_Big_Key);
+                }
+                if (!HintUtils.DungeonIsRequired("City in the Sky"))
+                {
+                    logicalItems.Remove(Item.City_in_The_Sky_Small_Key);
+                    logicalItems.Remove(Item.City_in_The_Sky_Big_Key);
+                }
+                if (!HintUtils.DungeonIsRequired("Palace of Twilight"))
+                {
+                    logicalItems.Remove(Item.Palace_of_Twilight_Small_Key);
+                    logicalItems.Remove(Item.Palace_of_Twilight_Big_Key);
+                }
+            }
+
+            if (sSettings.skipArbitersEntrance)
+                logicalItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
+
+            if (sSettings.skipCityEntrance && HintUtils.checkIsExcluded("Shad Dominion Rod"))
+                logicalItems.Remove(Item.Progressive_Sky_Book);
+
+            if (
+                sSettings.walletSize >= WalletSize.HD
+                || (
+                    sSettings.walletSize == WalletSize.Vanilla
+                    && HintUtils.checkIsExcluded("Castle Town Malo Mart Magic Armor")
+                )
+            )
+                logicalItems.Remove(Item.Progressive_Wallet);
+
+            // For trade items, filter out if reward is excluded.
+            foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
+            {
+                Item tradeItem = pair.Key;
+                string rewardCheckName = pair.Value;
+                if (HintUtils.checkIsExcluded(rewardCheckName))
+                    logicalItems.Remove(tradeItem);
+            }
+
+            // TODO: can handle calculating sometimesRequired for tradeItems at the end of the
+            // condReq. If they lead to a sometimesRequired check, then they by definition would be
+            // sometimesRequired if there is only one copy. If there are multiple copies, then we
+            // need to handle them like Bows and Bombs where any that can't possibly be your first
+            // copy are logically useless. That should be done beforehand like Bombs and Bows.
+
+            this.condReqLogicalItems = logicalItems;
         }
 
         private HashSet<string> prepareAllowBarrenChecks()
