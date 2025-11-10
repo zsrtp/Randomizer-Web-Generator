@@ -34,6 +34,8 @@ namespace TPRandomizer.Hints
         public Dictionary<AreaId, HashSet<Item>> areaIdToAllowBarrenItems { get; private set; }
         public Dictionary<Zone, HashSet<Zone>> dungeonEntrances = new(); // Entering Key sends to Value(s)
 
+        private Dictionary<Item, int> multiToMaxItems = new();
+
         public HintGenData(
             Random rnd,
             SharedSettings sSettings,
@@ -77,8 +79,6 @@ namespace TPRandomizer.Hints
                 goalToRequiredChecks = new();
                 requiredChecks = new();
             }
-
-            allowBarrenChecks = prepareAllowBarrenChecks();
         }
 
         public void updateFromHintSettings(HintSettings hintSettings)
@@ -87,7 +87,11 @@ namespace TPRandomizer.Hints
 
             if (sSettings.logicRules != LogicRules.No_Logic)
             {
-                prepLogicalItemSets2();
+                prepLogicalItemAndMultiMax();
+
+                // TODO: this should probably happen unconditionally (for no-logic also?). Need to
+                // look at order of stuff here
+                allowBarrenChecks = prepareAllowBarrenChecks();
 
                 // Calculate conditionallyRequired checks. This depends on
                 // knowing the "logical items", so has to wait until here.
@@ -423,7 +427,7 @@ namespace TPRandomizer.Hints
             this.logicalItems = logicalItems;
         }
 
-        private void prepLogicalItemSets2()
+        private void prepLogicalItemAndMultiMax()
         {
             HashSet<Item> logicalItems =
                 new()
@@ -518,30 +522,51 @@ namespace TPRandomizer.Hints
             // From logicalItems, filter out any items which could not possibly serve a purpose
             // based on the settings:
 
-            Dictionary<Item, int> multiToMaxItems =
-                new()
-                {
-                    { Item.Progressive_Sword, 4 },
-                    { Item.Progressive_Fused_Shadow, 3 },
-                    { Item.Progressive_Mirror_Shard, 4 },
-                    { Item.Progressive_Wallet, 2 },
-                    { Item.Progressive_Hidden_Skill, 7 },
-                    { Item.Poe_Soul, 60 },
-                    { Item.Progressive_Clawshot, 2 },
-                    { Item.Progressive_Dominion_Rod, 2 },
-                    { Item.Progressive_Fishing_Rod, 2 },
-                    { Item.Progressive_Sky_Book, 7 },
-                    { Item.Forest_Temple_Small_Key, 4 },
-                    { Item.Goron_Mines_Small_Key, 3 },
-                    { Item.Lakebed_Temple_Small_Key, 3 },
-                    { Item.Arbiters_Grounds_Small_Key, 5 },
-                    { Item.Snowpeak_Ruins_Small_Key, 4 },
-                    { Item.Temple_of_Time_Small_Key, 3 },
-                    { Item.Palace_of_Twilight_Small_Key, 7 },
-                    { Item.Hyrule_Castle_Small_Key, 3 },
-                    { Item.Goron_Mines_Key_Shard, 3 },
-                };
+            multiToMaxItems = new()
+            {
+                { Item.Progressive_Sword, 4 },
+                { Item.Progressive_Fused_Shadow, 3 },
+                { Item.Progressive_Mirror_Shard, 4 },
+                { Item.Progressive_Hidden_Skill, 7 },
+                { Item.Poe_Soul, 60 },
+                { Item.Progressive_Clawshot, 2 },
+                { Item.Progressive_Dominion_Rod, 2 },
+                { Item.Progressive_Fishing_Rod, 2 },
+                { Item.Progressive_Sky_Book, 7 },
+                { Item.Forest_Temple_Small_Key, 4 },
+                { Item.Goron_Mines_Small_Key, 3 },
+                { Item.Lakebed_Temple_Small_Key, 3 },
+                { Item.Arbiters_Grounds_Small_Key, 5 },
+                { Item.Snowpeak_Ruins_Small_Key, 4 },
+                { Item.Temple_of_Time_Small_Key, 3 },
+                { Item.Palace_of_Twilight_Small_Key, 7 },
+                { Item.Hyrule_Castle_Small_Key, 3 },
+                { Item.Goron_Mines_Key_Shard, 3 },
+            };
 
+            // The number of wallets to logically max them out varies based on the size setting.
+            switch (sSettings.walletSize)
+            {
+                case WalletSize.Reduced:
+                    multiToMaxItems[Item.Progressive_Wallet] = 2;
+                    break;
+                case WalletSize.Vanilla:
+                case WalletSize.HD:
+                {
+                    if (HintUtils.checkIsExcluded("Castle Town Malo Mart Magic Armor"))
+                    {
+                        multiToMaxItems[Item.Progressive_Wallet] = 0;
+                        logicalItems.Remove(Item.Progressive_Wallet);
+                    }
+                    break;
+                }
+                case WalletSize.Large:
+                    multiToMaxItems[Item.Progressive_Wallet] = 0;
+                    logicalItems.Remove(Item.Progressive_Wallet);
+                    break;
+            }
+
+            // Map item to starting count
             Dictionary<Item, int> startingItemCounts = new();
             foreach (Item startingItem in sSettings.startingItems)
             {
@@ -694,15 +719,6 @@ namespace TPRandomizer.Hints
             if (sSettings.skipCityEntrance && HintUtils.checkIsExcluded("Shad Dominion Rod"))
                 logicalItems.Remove(Item.Progressive_Sky_Book);
 
-            if (
-                sSettings.walletSize >= WalletSize.HD
-                || (
-                    sSettings.walletSize == WalletSize.Vanilla
-                    && HintUtils.checkIsExcluded("Castle Town Malo Mart Magic Armor")
-                )
-            )
-                logicalItems.Remove(Item.Progressive_Wallet);
-
             // For trade items, filter out if reward is excluded.
             foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
             {
@@ -725,102 +741,14 @@ namespace TPRandomizer.Hints
         {
             HashSet<string> allowBarrenCheckSet = new();
 
-            Dictionary<Item, int> itemToProgCount =
-                new()
-                {
-                    // __Item Wheel__
-                    { Item.Progressive_Clawshot, 2 },
-                    { Item.Progressive_Dominion_Rod, 2 },
-                    { Item.Ball_and_Chain, 1 },
-                    { Item.Spinner, 1 },
-                    { Item.Progressive_Bow, 1 },
-                    { Item.Iron_Boots, 1 },
-                    { Item.Boomerang, 1 },
-                    { Item.Lantern, 1 },
-                    { Item.Slingshot, 1 },
-                    { Item.Progressive_Fishing_Rod, 2 },
-                    { Item.Filled_Bomb_Bag, 1 },
-                    // - handle bottles in the future if needed. Will be easier
-                    //   to handle after Coro bottle can always be dumped, so
-                    //   waiting on that rather than adding a temporary complex
-                    //   implementation. Not expecting it to be noticeable
-                    //   either way at the moment.
-                    { Item.Asheis_Sketch, 1 },
-                    { Item.Progressive_Sky_Book, 7 },
-                    { Item.Aurus_Memo, 1 },
-                    // __Collection Screen__
-                    { Item.Progressive_Sword, 4 },
-                    // - shields handled separately
-                    { Item.Zora_Armor, 1 },
-                    { Item.Magic_Armor, 1 },
-                    // __Bugs__
-                    { Item.Female_Ant, 1 },
-                    { Item.Female_Beetle, 1 },
-                    { Item.Female_Butterfly, 1 },
-                    { Item.Female_Dayfly, 1 },
-                    { Item.Female_Dragonfly, 1 },
-                    { Item.Female_Grasshopper, 1 },
-                    { Item.Female_Ladybug, 1 },
-                    { Item.Female_Mantis, 1 },
-                    { Item.Female_Phasmid, 1 },
-                    { Item.Female_Pill_Bug, 1 },
-                    { Item.Female_Snail, 1 },
-                    { Item.Female_Stag_Beetle, 1 },
-                    { Item.Male_Ant, 1 },
-                    { Item.Male_Beetle, 1 },
-                    { Item.Male_Butterfly, 1 },
-                    { Item.Male_Dayfly, 1 },
-                    { Item.Male_Dragonfly, 1 },
-                    { Item.Male_Grasshopper, 1 },
-                    { Item.Male_Ladybug, 1 },
-                    { Item.Male_Mantis, 1 },
-                    { Item.Male_Phasmid, 1 },
-                    { Item.Male_Pill_Bug, 1 },
-                    { Item.Male_Snail, 1 },
-                    { Item.Male_Stag_Beetle, 1 },
-                    // __Dungeon Keys__
-                    { Item.Forest_Temple_Big_Key, 1 },
-                    { Item.Forest_Temple_Small_Key, 4 },
-                    { Item.Goron_Mines_Key_Shard, 3 },
-                    { Item.Goron_Mines_Small_Key, 3 },
-                    { Item.Lakebed_Temple_Big_Key, 1 },
-                    { Item.Lakebed_Temple_Small_Key, 3 },
-                    { Item.Arbiters_Grounds_Big_Key, 1 },
-                    { Item.Arbiters_Grounds_Small_Key, 5 },
-                    { Item.Snowpeak_Ruins_Bedroom_Key, 1 },
-                    { Item.Snowpeak_Ruins_Small_Key, 3 },
-                    { Item.Snowpeak_Ruins_Ordon_Goat_Cheese, 1 },
-                    { Item.Snowpeak_Ruins_Ordon_Pumpkin, 1 },
-                    { Item.Temple_of_Time_Big_Key, 1 },
-                    { Item.Temple_of_Time_Small_Key, 3 },
-                    { Item.City_in_The_Sky_Big_Key, 1 },
-                    { Item.City_in_The_Sky_Small_Key, 1 },
-                    { Item.Palace_of_Twilight_Big_Key, 1 },
-                    { Item.Palace_of_Twilight_Small_Key, 7 },
-                    { Item.Hyrule_Castle_Big_Key, 1 },
-                    { Item.Hyrule_Castle_Small_Key, 3 },
-                    // __Other__
-                    { Item.Shadow_Crystal, 1 },
-                    { Item.Gate_Keys, 1 },
-                    { Item.Faron_Woods_Coro_Key, 1 },
-                    { Item.North_Faron_Woods_Gate_Key, 1 },
-                    { Item.Gerudo_Desert_Bulblin_Camp_Key, 1 },
-                    { Item.Progressive_Fused_Shadow, 3 },
-                    { Item.Progressive_Mirror_Shard, 4 },
-                };
+            Dictionary<Item, int> itemToProgCount = new();
 
-            // Currently, wallets can only matter for the Magic Armor check, and
-            // getting the largest wallet never matters.
-            if (!HintUtils.checkIsPlayerKnownStatus("Castle Town Malo Mart Magic Armor"))
+            foreach (Item item in condReqLogicalItems)
             {
-                if (sSettings.walletSize == WalletSize.Vanilla)
-                {
-                    itemToProgCount[Item.Progressive_Wallet] = 1;
-                }
-                else if (sSettings.walletSize == WalletSize.Reduced)
-                {
-                    itemToProgCount[Item.Progressive_Wallet] = 2;
-                }
+                int countToMaxOut = 1;
+                if (multiToMaxItems.TryGetValue(item, out int count))
+                    countToMaxOut = count;
+                itemToProgCount[item] = countToMaxOut;
             }
 
             Dictionary<Item, int> itemToInflexibleCount = new();
@@ -839,12 +767,11 @@ namespace TPRandomizer.Hints
                 itemToInflexibleCount[item] += 1;
             }
 
-            // TODO: handle items with different IDs which are functionally
-            // equivalent separately such as shields. Waiting on Coro bottle
-            // dumping code before messing with bottles.
+            // TODO: handle items with different IDs which are functionally equivalent (bottles
+            // only?). Only Hylian shield matters logically, so doesn't matter for the wooden/Ordon
+            // shields.
 
-            // Items already handled because they went over the inflexibleCount
-            // threshold.
+            // Items already handled because they went over the inflexibleCount threshold.
             HashSet<Item> fullInflexibleItems = new();
 
             foreach (KeyValuePair<Item, int> pair in itemToProgCount)

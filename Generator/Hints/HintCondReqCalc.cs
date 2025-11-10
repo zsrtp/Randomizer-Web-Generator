@@ -250,6 +250,7 @@ namespace TPRandomizer.Hints
                     item == Item.Poe_Soul
                     || genData.requiredChecks.Contains(checkName)
                     || !genData.condReqLogicalItems.Contains(check.itemId)
+                    || genData.allowBarrenChecks.Contains(checkName)
                     || HintUtils.IsTradeItem(item)
                 )
                     continue;
