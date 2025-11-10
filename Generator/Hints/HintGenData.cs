@@ -81,6 +81,16 @@ namespace TPRandomizer.Hints
         public void updateFromHintSettings(HintSettings hintSettings)
         {
             prepPreventBarrenAndLogicalItemSets(hintSettings);
+
+            if (sSettings.logicRules != LogicRules.No_Logic)
+            {
+                // Calculate conditionallyRequired checks. This depends on
+                // knowing the "logical items", so has to wait until here.
+                HintCondReqCalc condReqCalc = new(this);
+                // TODO: might be better to pass only the required objects
+                // rather than the entire genData?
+                HashSet<string> conditionallyRequiredChecks = condReqCalc.run();
+            }
         }
 
         private void prepPreventBarrenAndLogicalItemSets(HintSettings hintSettings)

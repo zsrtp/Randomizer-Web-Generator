@@ -1188,5 +1188,47 @@ namespace TPRandomizer.Hints
                 calcNumBitsForHintsAtSpot(hintSpots)
             );
         }
+
+        public static bool CalcBeatableWithForbiddenChecks(
+            Room startingRoom,
+            HashSet<string> forbiddenCheckNames
+        )
+        {
+            // I think it is safe to only generate the item pool once up front.
+            Randomizer.Items.GenerateItemPool();
+
+            Dictionary<string, Item> originalContentsMap = new();
+
+            HashSet<Goal> goals = new() { GoalConstants.Ganondorf };
+
+            if (!ListUtils.isEmpty(forbiddenCheckNames))
+            {
+                foreach (string checkName in forbiddenCheckNames)
+                {
+                    // Replace check contents with a green rupee. We are checking if the playthrough
+                    // is still beatable without doing any of the forbidden checks essentially (we
+                    // do them in the playthrough, but they give junk).
+                    Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
+                    Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
+
+                    originalContentsMap[checkName] = originalContents;
+                }
+            }
+
+            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+                startingRoom,
+                goals,
+                false
+            );
+
+            foreach (KeyValuePair<string, Item> pair in originalContentsMap)
+            {
+                // Put the original item back.
+                Randomizer.Checks.CheckDict[pair.Key].itemId = pair.Value;
+            }
+
+            bool couldBeatGanondorf = goalResults[GoalConstants.Ganondorf];
+            return couldBeatGanondorf;
+        }
     }
 }
