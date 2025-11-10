@@ -24,6 +24,7 @@ namespace TPRandomizer.Hints
         public Dictionary<Goal, List<string>> goalToRequiredChecks { get; set; }
         public HashSet<string> requiredChecks { get; set; }
         public bool? agithaRequired { get; set; }
+        public bool hiddenSkillsAutoSometimesRequired { get; private set; }
         public HashSet<Item> preventBarrenItems { get; private set; }
         public HashSet<string> allowBarrenChecks { get; private set; }
         public HashSet<Item> logicalItems { get; private set; }
@@ -71,6 +72,12 @@ namespace TPRandomizer.Hints
                     startingRoom,
                     playthroughSpheres.spheres
                 );
+
+                foreach (string checkName in requiredChecks)
+                {
+                    Item contents = HintUtils.getCheckContents(checkName);
+                    Console.WriteLine($"Required Check: {checkName} ({contents})");
+                }
 
                 agithaRequired = HintUtils.CalcAgithaRequired(startingRoom, sSettings);
             }
@@ -416,9 +423,12 @@ namespace TPRandomizer.Hints
                         requiredChecks.Contains(chainEndCheckName)
                         || (
                             itemSet.Contains(chainEndItem)
-                            && !allowBarrenChecks.Contains(chainEndCheckName)
+                        // && !allowBarrenChecks.Contains(chainEndCheckName)
                         )
                     )
+                        // TODO: temp disabled allowBarrenChecks line above this since order stuff
+                        // is in a weird state right now, and this function will probably go away
+                        // anyway
                         itemSet.Add(tradeItem);
                 }
             }
@@ -821,6 +831,32 @@ namespace TPRandomizer.Hints
                         checksList
                     );
                     allowBarrenCheckSet.UnionWith(blockedChecks);
+                }
+            }
+
+            if (sSettings.logicRules == LogicRules.Glitchless)
+            {
+                // If there is an inflexible Hidden Skill (start with one or a required one), then
+                // automatically consider the rest to be sometimesRequired. Otherwise we will simply
+                // consider them all to be sometimesRequired. This is for performance reasons.
+                if (
+                    itemToInflexibleCount.TryGetValue(
+                        Item.Progressive_Hidden_Skill,
+                        out int numInflexibleHiddenSkills
+                    )
+                    && numInflexibleHiddenSkills > 0
+                )
+                {
+                    List<string> checksForItem = itemToChecksList[Item.Progressive_Hidden_Skill];
+                    foreach (string checkName in checksForItem)
+                    {
+                        if (!requiredChecks.Contains(checkName))
+                            allowBarrenCheckSet.Add(checkName);
+                    }
+                }
+                else
+                {
+                    hiddenSkillsAutoSometimesRequired = true;
                 }
             }
 

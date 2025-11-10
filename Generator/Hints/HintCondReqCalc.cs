@@ -236,6 +236,24 @@ namespace TPRandomizer.Hints
             // When getting the status of a check later on, any check which is
             // not "required" or "sometimesRequired" would be "not required".
 
+            // Used with glitchless logic to speed up execution time.
+            if (genData.hiddenSkillsAutoSometimesRequired)
+            {
+                List<string> checksForItem = genData.itemToChecksList[
+                    Item.Progressive_Hidden_Skill
+                ];
+                foreach (string checkName in checksForItem)
+                {
+                    if (!genData.requiredChecks.Contains(checkName))
+                    {
+                        Console.WriteLine(
+                            $"Sometimes Required (HdnSkl): {checkName} ({Item.Progressive_Hidden_Skill})"
+                        );
+                        condRequiredChecks.Add(checkName);
+                    }
+                }
+            }
+
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
             {
                 Check check = checkList.Value;
@@ -252,6 +270,10 @@ namespace TPRandomizer.Hints
                     || !genData.condReqLogicalItems.Contains(check.itemId)
                     || genData.allowBarrenChecks.Contains(checkName)
                     || HintUtils.IsTradeItem(item)
+                    || (
+                        item == Item.Progressive_Hidden_Skill
+                        && genData.hiddenSkillsAutoSometimesRequired
+                    )
                 )
                     continue;
 
@@ -275,12 +297,9 @@ namespace TPRandomizer.Hints
 
             stopwatch.Stop();
             TimeSpan elapsed = stopwatch.Elapsed;
-            // Console.WriteLine(
-            //     $"ConditionallyRequired Elapsed Time: {elapsed.TotalMilliseconds} ms"
-            // );
-
-            // return results
-
+            Console.WriteLine(
+                $"ConditionallyRequired Elapsed Time: {elapsed.TotalMilliseconds} ms"
+            );
 
             Console.WriteLine("---Logical items which are not useful:");
 
