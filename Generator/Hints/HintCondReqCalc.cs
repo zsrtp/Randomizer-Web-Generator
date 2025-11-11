@@ -15,7 +15,6 @@ namespace TPRandomizer.Hints
     {
         private HintGenData genData;
         private HashSet<string> condRequiredChecks = new();
-        private HashSet<string> pendingCondReqAdditions = new();
         private bool markedCondReqChecks = false;
         private int zigZagCount = 0;
 
@@ -164,11 +163,8 @@ namespace TPRandomizer.Hints
                 }
 
                 // If removing check prevented access to sometimesRequired checks and it has not yet
-                // been marked sometimesRequired, then mark this as a pending change to apply.
-                if (
-                    !condRequiredChecks.Contains(checkName)
-                    && !pendingCondReqAdditions.Contains(checkName)
-                )
+                // been marked sometimesRequired, then mark as sometimesRequired.
+                if (!condRequiredChecks.Contains(checkName))
                 {
                     foreach (string prevReachedCheck in prevReachedChecks)
                     {
@@ -184,7 +180,6 @@ namespace TPRandomizer.Hints
                             Console.WriteLine(
                                 $"Marked pending (zigZagDown): {checkName} ({contents}); lost access to '{prevReachedCheck}' ({HintUtils.getCheckContents(prevReachedCheck)})"
                             );
-                            // pendingCondReqAdditions.Add(checkName);
                             condRequiredChecks.Add(checkName);
                             break;
                         }
@@ -219,6 +214,13 @@ namespace TPRandomizer.Hints
             HashSet<string> allowedCheckNames = new(zz.allowedCheckNames);
             string lastAddedCheckName = null;
 
+            HashSet<string> prevReachedChecks = new();
+            HintUtils.CalcBeatableWithForbiddenChecks(
+                genData.startingRoom,
+                forbiddenCheckNames,
+                prevReachedChecks
+            );
+
             while (true)
             {
                 if (checkNames.Count < 1)
@@ -228,9 +230,11 @@ namespace TPRandomizer.Hints
                 forbiddenCheckNames.Remove(checkName);
                 allowedCheckNames.Add(checkName);
 
+                HashSet<string> nextReachedChecks = new();
                 bool wasSuccess = HintUtils.CalcBeatableWithForbiddenChecks(
                     genData.startingRoom,
-                    forbiddenCheckNames
+                    forbiddenCheckNames,
+                    nextReachedChecks
                 );
                 if (wasSuccess)
                 {
@@ -241,6 +245,32 @@ namespace TPRandomizer.Hints
                     allowedCheckNames.Remove(checkName);
                     forbiddenCheckNames.Add(checkName);
                 }
+
+                // If adding check allowed access to sometimesRequired checks and it has not yet
+                // been marked sometimesRequired, then mark as sometimesRequired. This one adds
+                // checks less frequently than zigZagDown, but I have seen it add one before. -isaac
+                if (!condRequiredChecks.Contains(checkName))
+                {
+                    foreach (string nextReachedCheck in nextReachedChecks)
+                    {
+                        if (
+                            condRequiredChecks.Contains(nextReachedCheck)
+                            && !prevReachedChecks.Contains(nextReachedCheck)
+                        )
+                        {
+                            // Can now access newly accessible sometimesRequired check. Therefore
+                            // the added check must also be sometimesRequired.
+                            markedCondReqChecks = true;
+                            Item contents = HintUtils.getCheckContents(checkName);
+                            Console.WriteLine(
+                                $"Marked pending (zigZagUp): {checkName} ({contents}); gained access to '{nextReachedCheck}' ({HintUtils.getCheckContents(nextReachedCheck)})"
+                            );
+                            condRequiredChecks.Add(checkName);
+                            break;
+                        }
+                    }
+                }
+                prevReachedChecks = nextReachedChecks;
             }
 
             if (lastAddedCheckName == null)
@@ -310,13 +340,12 @@ namespace TPRandomizer.Hints
             // TODO: don't add poeSouls or hearts to condReq from the spheres. They will be handled
             // in their own functions.
 
-            // TODO: can read the OoTR thing again about infinite keys when not ownDungeon. Or maybe
-            // do a test to see if keysanity really makes things take longer? As long as the raw
-            // number of keys doesn't increase, maybe doesn't matter?
-
-            // continued: well we could match their "is the key a major item or not", but that isn't
-            // related to the sometimesRequired calculations really (assuming the performance either
-            // way is about the same: ownDungeon vs keysanity vs anyDungeon).
+            // continued: also don't add small or big keys? They will be added based on key settings
+            // below. And if they aren't added, then they will not be marked condReq (ex:
+            // ownDungeon). However, if one is optional for accessing a sometimesRequired check,
+            // then checks which are sometimesRequired to access it should also be sometimesRequired
+            // for accessing the later check, so it should work out. Basically this means it is
+            // assumed the player does not skip OwnDungeon small keys for no reason?
 
             // Add non-required checks from the playthrough spheres which are guaranteed to be
             // conditionallyRequired (playthrough failed when removing them conditionally).
@@ -437,27 +466,31 @@ namespace TPRandomizer.Hints
             // TODO: need to handle calculating skippable checks as well. Any logical checks which
             // are not required, allowBarren, or sometimesRequired.
 
+            // continued: this can probably be done back in the HintGenData file after (potentially)
+            // running this file based on settings. Any logical checks which are not marked as
+            // "required", "sometimes required", or "not required" are therefore "skippable". What
+            // exactly blocks barren (skippable vs sometimesRequired) is based on the distribution
+            // (or maybe settings based on checkboxes we might give the user)?
+
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
             {
                 Check check = checkList.Value;
                 string checkName = check.checkName;
                 Item item = check.itemId;
 
-                // Skip over Poe Souls since they make the calculation an order
-                // of magnitude slower (for example, 13m29s vs 1m6s). They will
-                // be handled later and only if Jovani is required or
-                // conditionallyRequired.
-
-                // TODO: can filter out all conditionallyRequired checks once we implement code
-                // which marks checks to be added at end of iteration if they changed the
-                // sometimesRequired checks we can access.
+                // Certain items are never added to the `locsSet` for performance reasons. We also
+                // skip over non-logicalItems and checks which are already know to be "required" or
+                // "not required". It is critical we keep locsSet as small as possible. With enough
+                // checks, calculation can take more than 10 minutes, 20 minutes, etc.
                 if (
-                    item == Item.Poe_Soul
+                    !genData.condReqLogicalItems.Contains(item)
+                    || genData.requiredChecks.Contains(checkName)
+                    || genData.allowBarrenChecks.Contains(checkName)
+                    || item == Item.Poe_Soul
+                    || item == Item.Heart_Container
+                    || item == Item.Piece_of_Heart
                     || smallKeyItems.Contains(item)
                     || bigKeyItems.Contains(item)
-                    || genData.requiredChecks.Contains(checkName)
-                    || !genData.condReqLogicalItems.Contains(check.itemId)
-                    || genData.allowBarrenChecks.Contains(checkName)
                     || HintUtils.IsTradeItem(item)
                     || (
                         item == Item.Progressive_Hidden_Skill
