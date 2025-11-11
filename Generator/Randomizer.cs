@@ -51,6 +51,7 @@ namespace TPRandomizer
         /// A reference to the sSettings.
         /// </summary>
         public static SharedSettings SSettings = new();
+        public static List<Item> origSSettingsStartingItems = new();
 
         public static int RequiredDungeons = 0;
         public static int spawnIndex = 0;
@@ -119,6 +120,7 @@ namespace TPRandomizer
             // Read in the settings string and set the settings values accordingly
             // BackendFunctions.InterpretSettingsString(settingsString);
             SSettings = SharedSettings.FromString(settingsString);
+            origSSettingsStartingItems = new(SSettings.startingItems);
             PropertyInfo[] randoSettingProperties = SSettings.GetType().GetProperties();
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.

@@ -8,6 +8,7 @@ namespace TPRandomizer.Hints
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
     using TPRandomizer.Util;
+    using TPRandomizer.SSettings.Enums;
 
     public class HintCondReqCalc
     {
@@ -19,6 +20,36 @@ namespace TPRandomizer.Hints
         {
             this.genData = genData;
         }
+
+        private static readonly HashSet<Item> smallKeyItems =
+            new()
+            {
+                Item.Forest_Temple_Small_Key,
+                Item.Goron_Mines_Small_Key,
+                Item.Lakebed_Temple_Small_Key,
+                Item.Arbiters_Grounds_Small_Key,
+                Item.Snowpeak_Ruins_Small_Key,
+                Item.Temple_of_Time_Small_Key,
+                Item.City_in_The_Sky_Small_Key,
+                Item.Palace_of_Twilight_Small_Key,
+                Item.Hyrule_Castle_Small_Key,
+                Item.Snowpeak_Ruins_Ordon_Pumpkin,
+                Item.Snowpeak_Ruins_Ordon_Goat_Cheese,
+            };
+
+        private static readonly HashSet<Item> bigKeyItems =
+            new()
+            {
+                Item.Forest_Temple_Big_Key,
+                Item.Goron_Mines_Key_Shard,
+                Item.Lakebed_Temple_Big_Key,
+                Item.Arbiters_Grounds_Big_Key,
+                Item.Temple_of_Time_Big_Key,
+                Item.Snowpeak_Ruins_Bedroom_Key,
+                Item.City_in_The_Sky_Big_Key,
+                Item.Palace_of_Twilight_Big_Key,
+                Item.Hyrule_Castle_Big_Key,
+            };
 
         // Returns true if was newly added to set, else false if was already in
         // the set.
@@ -233,10 +264,18 @@ namespace TPRandomizer.Hints
 
         public HashSet<string> run()
         {
-            //
-            //asdhfioasf
-            // genData.lo
             HashSet<string> locsSet = new();
+
+            // TODO: don't add poeSouls or hearts to condReq from the spheres. They will be handled
+            // in their own functions.
+
+            // TODO: can read the OoTR thing again about infinite keys when not ownDungeon. Or maybe
+            // do a test to see if keysanity really makes things take longer? As long as the raw
+            // number of keys doesn't increase, maybe doesn't matter?
+
+            // continued: well we could match their "is the key a major item or not", but that isn't
+            // related to the sometimesRequired calculations really (assuming the performance either
+            // way is about the same: ownDungeon vs keysanity vs anyDungeon).
 
             // Add non-required checks from the playthrough spheres which are guaranteed to be
             // conditionallyRequired (playthrough failed when removing them conditionally).
@@ -246,7 +285,9 @@ namespace TPRandomizer.Hints
             {
                 foreach (KeyValuePair<int, Item> checkAndItem in spherePairs)
                 {
+                    // TODO: don't mark smallKeys and bigKeys automatically? Handle later?
                     string checkName = CheckIdClass.GetCheckName(checkAndItem.Key);
+                    // Item contents = checkAndItem.Value;
                     if (!genData.requiredChecks.Contains(checkName))
                     {
                         condRequiredChecks.Add(checkName);
@@ -290,7 +331,11 @@ namespace TPRandomizer.Hints
                 ];
                 foreach (string checkName in checksForItem)
                 {
-                    if (!genData.requiredChecks.Contains(checkName))
+                    if (
+                        !condRequiredChecks.Contains(checkName)
+                        && !genData.requiredChecks.Contains(checkName)
+                        && !genData.allowBarrenChecks.Contains(checkName)
+                    )
                     {
                         Console.WriteLine(
                             $"Sometimes Required (HdnSkl): {checkName} ({Item.Progressive_Hidden_Skill})"
@@ -299,6 +344,57 @@ namespace TPRandomizer.Hints
                     }
                 }
             }
+
+            if (
+                genData.sSettings.smallKeySettings == SmallKeySettings.Any_Dungeon
+                || genData.sSettings.smallKeySettings == SmallKeySettings.Anywhere
+            )
+            {
+                foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
+                {
+                    Check check = checkList.Value;
+                    string checkName = check.checkName;
+                    Item item = check.itemId;
+
+                    if (
+                        smallKeyItems.Contains(item)
+                        && !condRequiredChecks.Contains(checkName)
+                        && !genData.requiredChecks.Contains(checkName)
+                        && !genData.allowBarrenChecks.Contains(checkName)
+                    )
+                    {
+                        Console.WriteLine($"Sometimes Required (SmKey): {checkName} ({item})");
+                        condRequiredChecks.Add(checkName);
+                    }
+                }
+            }
+
+            if (
+                genData.sSettings.bigKeySettings == BigKeySettings.Any_Dungeon
+                || genData.sSettings.bigKeySettings == BigKeySettings.Anywhere
+            )
+            {
+                foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
+                {
+                    Check check = checkList.Value;
+                    string checkName = check.checkName;
+                    Item item = check.itemId;
+
+                    if (
+                        bigKeyItems.Contains(item)
+                        && !condRequiredChecks.Contains(checkName)
+                        && !genData.requiredChecks.Contains(checkName)
+                        && !genData.allowBarrenChecks.Contains(checkName)
+                    )
+                    {
+                        Console.WriteLine($"Sometimes Required (BigKey): {checkName} ({item})");
+                        condRequiredChecks.Add(checkName);
+                    }
+                }
+            }
+
+            // TODO: need to handle calculating skippable checks as well. Any logical checks which
+            // are not required, allowBarren, or sometimesRequired.
 
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
             {
@@ -310,8 +406,14 @@ namespace TPRandomizer.Hints
                 // of magnitude slower (for example, 13m29s vs 1m6s). They will
                 // be handled later and only if Jovani is required or
                 // conditionallyRequired.
+
+                // TODO: can filter out all conditionallyRequired checks once we implement code
+                // which marks checks to be added at end of iteration if they changed the
+                // sometimesRequired checks we can access.
                 if (
                     item == Item.Poe_Soul
+                    || smallKeyItems.Contains(item)
+                    || bigKeyItems.Contains(item)
                     || genData.requiredChecks.Contains(checkName)
                     || !genData.condReqLogicalItems.Contains(check.itemId)
                     || genData.allowBarrenChecks.Contains(checkName)
@@ -335,9 +437,13 @@ namespace TPRandomizer.Hints
             // nearly 20s more in a tradeItem test I did. -isaac
             updateSometimesRequiredFromTradeItems();
 
+            int zigZagNumber = 0;
             int consecutiveFailures = 0;
+            long prevElapsedMs = 0;
             while (true)
             {
+                zigZagNumber += 1;
+
                 if (monteCarloZigZag(locsSet))
                     consecutiveFailures = 0;
                 else
@@ -347,6 +453,31 @@ namespace TPRandomizer.Hints
                 // sometimesRequired checks. If we add more, then reset failures.
                 if (updateSometimesRequiredFromTradeItems())
                     consecutiveFailures = 0;
+
+                long elapsedMs = stopwatch.ElapsedMilliseconds;
+                Console.WriteLine(
+                    $"--Finished zigZag #{zigZagNumber}; elapsedMs is: {elapsedMs} ms; consecutiveFailures is {consecutiveFailures}"
+                );
+
+                // Break out if taking too long. Should capture either everything or almost
+                // everything the first time usually.
+                if (elapsedMs >= 100_000)
+                {
+                    Console.WriteLine($"--Breaking since next elapsedMs is {elapsedMs}ms");
+                    break;
+                }
+                if (prevElapsedMs > 0)
+                {
+                    long expectedElapsedMs = 2 * elapsedMs - prevElapsedMs;
+                    if (expectedElapsedMs >= 100_000)
+                    {
+                        Console.WriteLine(
+                            $"--Breaking since next expectedElapsedMs is {expectedElapsedMs}ms"
+                        );
+                        break;
+                    }
+                }
+                prevElapsedMs = elapsedMs;
 
                 if (consecutiveFailures >= 3)
                     break;

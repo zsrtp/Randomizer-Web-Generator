@@ -838,6 +838,9 @@ namespace TPRandomizer
         public void GenerateItemPool()
         {
             SharedSettings parseSetting = Randomizer.SSettings;
+            // Reset startingItems to prevent it getting extra copies while emulating playthroughs.
+            parseSetting.startingItems = new(Randomizer.origSSettingsStartingItems);
+
             Randomizer.Items.RandomizedImportantItems.AddRange(this.ImportantItems);
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);
 
