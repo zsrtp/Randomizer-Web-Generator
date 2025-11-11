@@ -25,10 +25,17 @@ namespace TPRandomizer.Hints
             Random rnd,
             SharedSettings sSettings,
             PlaythroughSpheres playthroughSpheres,
-            Room startingRoom
+            Room startingRoom,
+            bool isRaceSeed
         )
         {
-            this.genData = new HintGenData(rnd, sSettings, playthroughSpheres, startingRoom);
+            this.genData = new HintGenData(
+                rnd,
+                sSettings,
+                playthroughSpheres,
+                startingRoom,
+                isRaceSeed
+            );
         }
 
         public CustomMsgData Generate()
@@ -1120,8 +1127,8 @@ namespace TPRandomizer.Hints
                                         false,
                                         true,
                                         areaId.type == AreaId.AreaType.Province
-                                            ? TradeChainHint.AreaType.Province
-                                            : TradeChainHint.AreaType.Zone,
+                                          ? TradeChainHint.AreaType.Province
+                                          : TradeChainHint.AreaType.Zone,
                                         CheckStatus.Good,
                                         CheckStatusDisplay.None
                                     );
@@ -1395,8 +1402,8 @@ namespace TPRandomizer.Hints
         private void UpdateHintedForAlwaysHints(List<string> checksToHint)
         {
             HashSet<string> checksToHintSet = ListUtils.isEmpty(checksToHint)
-                ? new()
-                : new(checksToHint);
+              ? new()
+              : new(checksToHint);
 
             foreach (string checkName in hintSettings.always.checks)
             {

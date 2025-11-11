@@ -9,11 +9,14 @@ namespace TPRandomizer.Hints
     using Microsoft.CodeAnalysis.Diagnostics;
     using TPRandomizer.Util;
     using TPRandomizer.SSettings.Enums;
+    using System.Threading;
 
     public class HintCondReqCalc
     {
         private HintGenData genData;
         private HashSet<string> condRequiredChecks = new();
+        private HashSet<string> pendingCondReqAdditions = new();
+        private bool markedCondReqChecks = false;
         private int zigZagCount = 0;
 
         public HintCondReqCalc(HintGenData genData)
@@ -128,6 +131,13 @@ namespace TPRandomizer.Hints
             HashSet<string> forbiddenCheckNames = new(zz.forbiddenCheckNames);
             string lastBanishedCheckName = null;
 
+            HashSet<string> prevReachedChecks = new();
+            HintUtils.CalcBeatableWithForbiddenChecks(
+                genData.startingRoom,
+                forbiddenCheckNames,
+                prevReachedChecks
+            );
+
             while (true)
             {
                 if (checkNames.Count < 1)
@@ -137,9 +147,11 @@ namespace TPRandomizer.Hints
                 allowedCheckNames.Remove(checkName);
                 forbiddenCheckNames.Add(checkName);
 
+                HashSet<string> nextReachedChecks = new();
                 bool wasSuccess = HintUtils.CalcBeatableWithForbiddenChecks(
                     genData.startingRoom,
-                    forbiddenCheckNames
+                    forbiddenCheckNames,
+                    nextReachedChecks
                 );
                 if (!wasSuccess)
                 {
@@ -150,6 +162,35 @@ namespace TPRandomizer.Hints
                     allowedCheckNames.Add(checkName);
                     forbiddenCheckNames.Remove(checkName);
                 }
+
+                // If removing check prevented access to sometimesRequired checks and it has not yet
+                // been marked sometimesRequired, then mark this as a pending change to apply.
+                if (
+                    !condRequiredChecks.Contains(checkName)
+                    && !pendingCondReqAdditions.Contains(checkName)
+                )
+                {
+                    foreach (string prevReachedCheck in prevReachedChecks)
+                    {
+                        if (
+                            condRequiredChecks.Contains(prevReachedCheck)
+                            && !nextReachedChecks.Contains(prevReachedCheck)
+                        )
+                        {
+                            // Can no longer access previously accessible sometimesRequired check.
+                            // Therefore the removed check must also be sometimesRequired.
+                            markedCondReqChecks = true;
+                            Item contents = HintUtils.getCheckContents(checkName);
+                            Console.WriteLine(
+                                $"Marked pending (zigZagDown): {checkName} ({contents}); lost access to '{prevReachedCheck}' ({HintUtils.getCheckContents(prevReachedCheck)})"
+                            );
+                            // pendingCondReqAdditions.Add(checkName);
+                            condRequiredChecks.Add(checkName);
+                            break;
+                        }
+                    }
+                }
+                prevReachedChecks = nextReachedChecks;
             }
 
             if (lastBanishedCheckName == null)
@@ -449,6 +490,12 @@ namespace TPRandomizer.Hints
                 else
                     consecutiveFailures += 1;
 
+                if (markedCondReqChecks)
+                {
+                    markedCondReqChecks = false;
+                    consecutiveFailures = 0;
+                }
+
                 // Run after normal calcs so we can mark tradeItems which lead to newly discovered
                 // sometimesRequired checks. If we add more, then reset failures.
                 if (updateSometimesRequiredFromTradeItems())
@@ -459,27 +506,62 @@ namespace TPRandomizer.Hints
                     $"--Finished zigZag #{zigZagNumber}; elapsedMs is: {elapsedMs} ms; consecutiveFailures is {consecutiveFailures}"
                 );
 
+                // TODO: maybe the 60s threshold for races should come from the hint distribution
+                // file. If it is more than 100k ms, then it stays at 100k ms. This way we can
+                // adjust based on the relative complexity of the race settings since it isn't
+                // really one size fits all.
+                long breakThreshold = 100_000;
+                if (genData.isRaceSeed && consecutiveFailures >= 3)
+                    breakThreshold = 60_000;
+
                 // Break out if taking too long. Should capture either everything or almost
                 // everything the first time usually.
-                if (elapsedMs >= 100_000)
+                if (elapsedMs >= breakThreshold)
                 {
-                    Console.WriteLine($"--Breaking since next elapsedMs is {elapsedMs}ms");
+                    Console.WriteLine(
+                        $"--Breaking since next elapsedMs is {elapsedMs}ms (threshold {breakThreshold})"
+                    );
                     break;
                 }
                 if (prevElapsedMs > 0)
                 {
                     long expectedElapsedMs = 2 * elapsedMs - prevElapsedMs;
-                    if (expectedElapsedMs >= 100_000)
+                    if (expectedElapsedMs >= breakThreshold)
                     {
                         Console.WriteLine(
-                            $"--Breaking since next expectedElapsedMs is {expectedElapsedMs}ms"
+                            $"--Breaking since next expectedElapsedMs is {expectedElapsedMs}ms (threshold {breakThreshold})"
                         );
                         break;
                     }
                 }
                 prevElapsedMs = elapsedMs;
 
-                if (consecutiveFailures >= 3)
+                // For race seeds, keep going until we break based on time. This is to obfuscate
+                // info about the seed based on generation time, and we also want to be as sure as
+                // possible that we got all of the sometimes required checks.
+                if (genData.isRaceSeed)
+                {
+                    if (consecutiveFailures >= 5 && elapsedMs >= 10_000)
+                    {
+                        Console.WriteLine(
+                            $"Race seed with {consecutiveFailures} consecutive failures and at least 10s. Will break."
+                        );
+                        // Wait then break
+                        if (elapsedMs < 60_000)
+                        {
+                            int sleepDuration = (int)(60_000 - elapsedMs);
+                            Console.WriteLine(
+                                $"Race seed, sleeping for {sleepDuration} ms before breaking to reach 1 min."
+                            );
+                            // TODO: re-enable this
+                            // Thread.Sleep(sleepDuration);
+                            break;
+                        }
+                        else
+                            break;
+                    }
+                }
+                else if (consecutiveFailures >= 3)
                     break;
             }
 

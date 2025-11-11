@@ -224,7 +224,8 @@ namespace TPRandomizer
                         rnd,
                         SSettings,
                         playthroughSpheres,
-                        Randomizer.Rooms.RoomDict["Root"]
+                        Randomizer.Rooms.RoomDict["Root"],
+                        isRaceSeed
                     );
 
                     customMsgData = gen.Generate();

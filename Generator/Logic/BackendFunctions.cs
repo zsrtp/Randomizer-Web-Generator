@@ -827,7 +827,8 @@ namespace TPRandomizer
         public static Dictionary<Hints.Goal, bool> emulatePlaythrough2(
             Room startingRoom,
             HashSet<Hints.Goal> goals,
-            bool startWithBigKeys
+            bool startWithBigKeys,
+            HashSet<string> reachedChecks = null
         )
         {
             Dictionary<Hints.Goal, bool> goalToCompleted = new();
@@ -946,6 +947,9 @@ namespace TPRandomizer
                                 if (currentCheck.CachedRequirements().Evaluate())
                                 {
                                     currentCheck.hasBeenReached = true;
+                                    if (reachedChecks != null)
+                                        reachedChecks.Add(currentCheck.checkName);
+
                                     if (
                                         Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                             currentCheck.itemId
@@ -1017,7 +1021,6 @@ namespace TPRandomizer
                 }
             }
             // return true;
-
 
             // return true;
             return goalToCompleted;

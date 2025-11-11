@@ -1192,7 +1192,8 @@ namespace TPRandomizer.Hints
 
         public static bool CalcBeatableWithForbiddenChecks(
             Room startingRoom,
-            HashSet<string> forbiddenCheckNames
+            HashSet<string> forbiddenCheckNames,
+            HashSet<string> reachedChecks = null
         )
         {
             // I think it is safe to only generate the item pool once up front.
@@ -1219,7 +1220,8 @@ namespace TPRandomizer.Hints
             Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
                 startingRoom,
                 goals,
-                false
+                false,
+                reachedChecks
             );
 
             foreach (KeyValuePair<string, Item> pair in originalContentsMap)

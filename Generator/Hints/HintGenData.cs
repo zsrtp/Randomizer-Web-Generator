@@ -18,6 +18,7 @@ namespace TPRandomizer.Hints
         public SharedSettings sSettings { get; private set; }
         public PlaythroughSpheres playthroughSpheres { get; private set; }
         public Room startingRoom { get; private set; }
+        public bool isRaceSeed { get; private set; }
         public HintedThings3 hinted { get; }
         public HintVars vars { get; }
 
@@ -41,13 +42,15 @@ namespace TPRandomizer.Hints
             Random rnd,
             SharedSettings sSettings,
             PlaythroughSpheres playthroughSpheres,
-            Room startingRoom
+            Room startingRoom,
+            bool isRaceSeed
         )
         {
             this.rnd = rnd;
             this.sSettings = sSettings;
             this.playthroughSpheres = playthroughSpheres;
             this.startingRoom = startingRoom;
+            this.isRaceSeed = isRaceSeed;
             hinted = new HintedThings3();
             vars = new HintVars();
 
