@@ -248,7 +248,8 @@ namespace TPRandomizer.Hints
 
                 // If adding check allowed access to sometimesRequired checks and it has not yet
                 // been marked sometimesRequired, then mark as sometimesRequired. This one adds
-                // checks less frequently than zigZagDown, but I have seen it add one before. -isaac
+                // checks less frequently than zigZagDown, but I have seen it add one on multiple
+                // occasions. -isaac
                 if (!condRequiredChecks.Contains(checkName))
                 {
                     foreach (string nextReachedCheck in nextReachedChecks)
