@@ -98,7 +98,8 @@ namespace TPRandomizer.Hints
             // TODO: Important items must be a subset of major items for the hint, so a skippable
             // poe soul when they aren't all sometimes required would not be counted as important.
             // This is because poeSouls are only major if needed for HC, even if a Jovani reward is
-            // required for example.
+            // required for example (and even if the poe soul is itself "required"; we would prevent
+            // a barren hint from creating, but the IC might still be 0).
 
             majorItems = prepMajorItems();
             prepPreventBarrenAndLogicalItemSets(hintSettings);
@@ -112,30 +113,12 @@ namespace TPRandomizer.Hints
                 allowBarrenChecks = prepareAllowBarrenChecks();
 
                 // Calculate conditionallyRequired checks. This depends on knowing the "logical
-                // items", so has to wait until here.
+                // items" and "allowBarrenChecks", so has to wait until here.
                 HintCondReqCalc condReqCalc = new(this);
                 condReqChecks = condReqCalc.run();
 
-                // How is a check Good? It must be either "skippable" or "sometimesRequired".
-
-                // If we don't do sometimesRequired checks, then all logicalItems are skippable.
-
-                // If we did do sometimesRequired checks, then we should mark all "never required"
-                // potentially "sometimesRequired" checks (locsSet) as "allowBarren". Then, any
-                // logical checks which are still not "allowBarren", "sometimesRequired", or
-                // "required" would be "skippable".
-
-                // Except when checking for poe souls, we need to not count poeSouls on Jovani
-                // (assuming they are non-major)
-
-
-                // Adjust poe souls at this point.
-
-                // continued: when can poe souls be considered non-logical? Firstly, the HC
-                // requirements don't need them. Also, if all of the Jovani rewards are all "not
-                // required" and/or "poe souls", then they can be removed from the list of
-                // logicalItems.
-
+                // Potentially mark checks rewarding poeSouls as allowBarren if poe souls do not
+                // serve any purpose based on settings / Jovani rewards.
                 if (
                     sSettings.castleRequirements != CastleRequirements.Poe_Souls
                     && sSettings.castleBKRequirements != CastleBKRequirements.Poe_Souls
@@ -147,6 +130,9 @@ namespace TPRandomizer.Hints
                     foreach (string checkName in jovaniChecks)
                     {
                         Item contents = HintUtils.getCheckContents(checkName);
+                        // TODO: if "only junk" blocks barren setting is enabled, then we also need
+                        // to make sure the contents is not junk. It would be considered Good in
+                        // that case.
                         if (
                             !HintUtils.checkIsExcluded(checkName)
                             && (
@@ -187,8 +173,10 @@ namespace TPRandomizer.Hints
                     }
                 }
 
-                // Trade items are logical as long as the chain end is not excluded + not
-                // allowBarren + logical. Also include if it is "required" to be safe.
+                // See if should remove any tradeItems from the logical items. Trade items are
+                // logical as long as the chain end is not excluded + not allowBarren + logical.
+                // Also include if it is "required" to be safe. We do this at this point after we
+                // have finished all other additions to `allowBarrenChecks`.
                 foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
                 {
                     Item tradeItem = pair.Key;
