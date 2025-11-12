@@ -24,10 +24,12 @@ namespace TPRandomizer.Hints
 
         public Dictionary<Goal, List<string>> goalToRequiredChecks { get; set; }
         public HashSet<string> requiredChecks { get; set; }
+        public HashSet<string> condReqChecks { get; set; } = new();
         public bool? agithaRequired { get; set; }
         public bool hiddenSkillsAutoSometimesRequired { get; private set; }
         public HashSet<Item> preventBarrenItems { get; private set; }
         public HashSet<string> allowBarrenChecks { get; private set; }
+        public HashSet<Item> majorItems { get; private set; }
         public HashSet<Item> logicalItems { get; private set; }
         public HashSet<Item> condReqLogicalItems { get; private set; }
         public Dictionary<Item, List<string>> itemToChecksList { get; set; }
@@ -93,6 +95,12 @@ namespace TPRandomizer.Hints
 
         public void updateFromHintSettings(HintSettings hintSettings)
         {
+            // TODO: Important items must be a subset of major items for the hint, so a skippable
+            // poe soul when they aren't all sometimes required would not be counted as important.
+            // This is because poeSouls are only major if needed for HC, even if a Jovani reward is
+            // required for example.
+
+            majorItems = prepMajorItems();
             prepPreventBarrenAndLogicalItemSets(hintSettings);
 
             if (sSettings.logicRules != LogicRules.No_Logic)
@@ -103,12 +111,110 @@ namespace TPRandomizer.Hints
                 // look at order of stuff here
                 allowBarrenChecks = prepareAllowBarrenChecks();
 
-                // Calculate conditionallyRequired checks. This depends on
-                // knowing the "logical items", so has to wait until here.
+                // Calculate conditionallyRequired checks. This depends on knowing the "logical
+                // items", so has to wait until here.
                 HintCondReqCalc condReqCalc = new(this);
-                // TODO: might be better to pass only the required objects
-                // rather than the entire genData?
-                HashSet<string> conditionallyRequiredChecks = condReqCalc.run();
+                condReqChecks = condReqCalc.run();
+
+                // How is a check Good? It must be either "skippable" or "sometimesRequired".
+
+                // If we don't do sometimesRequired checks, then all logicalItems are skippable.
+
+                // If we did do sometimesRequired checks, then we should mark all "never required"
+                // potentially "sometimesRequired" checks (locsSet) as "allowBarren". Then, any
+                // logical checks which are still not "allowBarren", "sometimesRequired", or
+                // "required" would be "skippable".
+
+                // Except when checking for poe souls, we need to not count poeSouls on Jovani
+                // (assuming they are non-major)
+
+
+                // Adjust poe souls at this point.
+
+                // continued: when can poe souls be considered non-logical? Firstly, the HC
+                // requirements don't need them. Also, if all of the Jovani rewards are all "not
+                // required" and/or "poe souls", then they can be removed from the list of
+                // logicalItems.
+
+                if (
+                    sSettings.castleRequirements != CastleRequirements.Poe_Souls
+                    && sSettings.castleBKRequirements != CastleBKRequirements.Poe_Souls
+                )
+                {
+                    bool hasGoodJovaniReward = false;
+                    List<string> jovaniChecks =
+                        new() { "Jovani 20 Poe Soul Reward", "Jovani 60 Poe Soul Reward", };
+                    foreach (string checkName in jovaniChecks)
+                    {
+                        Item contents = HintUtils.getCheckContents(checkName);
+                        if (
+                            !HintUtils.checkIsExcluded(checkName)
+                            && (
+                                requiredChecks.Contains(checkName)
+                                || condReqChecks.Contains(checkName)
+                                || (
+                                    contents != Item.Poe_Soul
+                                    && condReqLogicalItems.Contains(contents)
+                                )
+                            )
+                        )
+                        {
+                            hasGoodJovaniReward = true;
+                            break;
+                        }
+                    }
+                    if (!hasGoodJovaniReward)
+                    {
+                        // All skippable poeSoul checks can be marked as allowBarren. They are still
+                        // considered logical so that a Location hint saying the checkStatus would
+                        // indicate "not required". If it was not a logical item (such as an orange
+                        // Rupee), then it would not indicate anything.
+                        if (
+                            itemToChecksList.TryGetValue(Item.Poe_Soul, out List<string> checkNames)
+                        )
+                        {
+                            foreach (string checkName in checkNames)
+                            {
+                                if (
+                                    !requiredChecks.Contains(checkName)
+                                    && !condReqChecks.Contains(checkName)
+                                )
+                                {
+                                    allowBarrenChecks.Add(checkName);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Trade items are logical as long as the chain end is not excluded + not
+                // allowBarren + logical. Also include if it is "required" to be safe.
+                foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
+                {
+                    Item tradeItem = pair.Key;
+                    bool isLogical = false;
+                    if (
+                        tradeItemToChainEndCheck.TryGetValue(
+                            tradeItem,
+                            out string chainEndCheckName
+                        )
+                    )
+                    {
+                        Item chainEndItem = HintUtils.getCheckContents(chainEndCheckName);
+                        if (
+                            requiredChecks.Contains(chainEndCheckName)
+                            || !HintUtils.checkIsExcluded(chainEndCheckName)
+                                && !allowBarrenChecks.Contains(chainEndCheckName)
+                                && condReqLogicalItems.Contains(chainEndItem)
+                        )
+                            isLogical = true;
+                    }
+                    if (!isLogical)
+                    {
+                        // Note: also gets removed if cicular chain leading nowhere.
+                        condReqLogicalItems.Remove(tradeItem);
+                    }
+                }
             }
         }
 
@@ -440,97 +546,75 @@ namespace TPRandomizer.Hints
             this.logicalItems = logicalItems;
         }
 
+        private HashSet<Item> prepMajorItems()
+        {
+            HashSet<Item> majorItems = new(HintConstants.baseMajorItems);
+
+            // Filter out conditional majorItems as appropriate:
+
+            if (!sSettings.shuffleRewards)
+            {
+                majorItems.Remove(Item.Progressive_Fused_Shadow);
+                majorItems.Remove(Item.Progressive_Mirror_Shard);
+            }
+
+            if (
+                sSettings.castleRequirements != CastleRequirements.Poe_Souls
+                && sSettings.castleBKRequirements != CastleBKRequirements.Poe_Souls
+            )
+            {
+                majorItems.Remove(Item.Poe_Soul);
+            }
+
+            if (
+                sSettings.castleRequirements != CastleRequirements.Hearts
+                && sSettings.castleBKRequirements != CastleBKRequirements.Hearts
+            )
+            {
+                majorItems.Remove(Item.Heart_Container);
+                majorItems.Remove(Item.Piece_of_Heart);
+            }
+
+            if (
+                sSettings.smallKeySettings != SmallKeySettings.Any_Dungeon
+                && sSettings.smallKeySettings != SmallKeySettings.Anywhere
+            )
+            {
+                majorItems.Remove(Item.Forest_Temple_Small_Key);
+                majorItems.Remove(Item.Goron_Mines_Small_Key);
+                majorItems.Remove(Item.Lakebed_Temple_Small_Key);
+                majorItems.Remove(Item.Arbiters_Grounds_Small_Key);
+                majorItems.Remove(Item.Snowpeak_Ruins_Small_Key);
+                majorItems.Remove(Item.Snowpeak_Ruins_Ordon_Pumpkin);
+                majorItems.Remove(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
+                majorItems.Remove(Item.Temple_of_Time_Small_Key);
+                majorItems.Remove(Item.City_in_The_Sky_Small_Key);
+                majorItems.Remove(Item.Palace_of_Twilight_Small_Key);
+                majorItems.Remove(Item.Hyrule_Castle_Small_Key);
+            }
+
+            if (
+                sSettings.bigKeySettings != BigKeySettings.Any_Dungeon
+                && sSettings.bigKeySettings != BigKeySettings.Anywhere
+            )
+            {
+                majorItems.Remove(Item.Forest_Temple_Big_Key);
+                majorItems.Remove(Item.Goron_Mines_Key_Shard);
+                majorItems.Remove(Item.Lakebed_Temple_Big_Key);
+                majorItems.Remove(Item.Arbiters_Grounds_Big_Key);
+                majorItems.Remove(Item.Temple_of_Time_Big_Key);
+                majorItems.Remove(Item.Snowpeak_Ruins_Bedroom_Key);
+                majorItems.Remove(Item.City_in_The_Sky_Big_Key);
+                majorItems.Remove(Item.Palace_of_Twilight_Big_Key);
+                majorItems.Remove(Item.Hyrule_Castle_Big_Key);
+            }
+
+            return majorItems;
+        }
+
         private void prepLogicalItemAndMultiMax()
         {
-            HashSet<Item> logicalItems =
-                new()
-                {
-                    // ----- Collection Screen -----
-                    Item.Progressive_Sword,
-                    // Note: wooden/Ordon shields not logical item finds since assumed can burn.
-                    Item.Hylian_Shield,
-                    Item.Zora_Armor,
-                    Item.Magic_Armor,
-                    Item.Progressive_Fused_Shadow,
-                    Item.Progressive_Mirror_Shard,
-                    Item.Progressive_Wallet,
-                    Item.Male_Beetle,
-                    Item.Female_Beetle,
-                    Item.Male_Butterfly,
-                    Item.Female_Butterfly,
-                    Item.Male_Stag_Beetle,
-                    Item.Female_Stag_Beetle,
-                    Item.Male_Grasshopper,
-                    Item.Female_Grasshopper,
-                    Item.Male_Phasmid,
-                    Item.Female_Phasmid,
-                    Item.Male_Pill_Bug,
-                    Item.Female_Pill_Bug,
-                    Item.Male_Mantis,
-                    Item.Female_Mantis,
-                    Item.Male_Ladybug,
-                    Item.Female_Ladybug,
-                    Item.Male_Snail,
-                    Item.Female_Snail,
-                    Item.Male_Dragonfly,
-                    Item.Female_Dragonfly,
-                    Item.Male_Ant,
-                    Item.Female_Ant,
-                    Item.Male_Dayfly,
-                    Item.Female_Dayfly,
-                    Item.Progressive_Hidden_Skill,
-                    Item.Poe_Soul,
-                    Item.Shadow_Crystal,
-                    // ----- Item Wheel -----
-                    Item.Progressive_Clawshot,
-                    Item.Progressive_Dominion_Rod,
-                    Item.Ball_and_Chain,
-                    Item.Spinner,
-                    Item.Progressive_Bow,
-                    Item.Iron_Boots,
-                    Item.Boomerang,
-                    Item.Lantern,
-                    Item.Slingshot,
-                    Item.Progressive_Fishing_Rod,
-                    Item.Filled_Bomb_Bag,
-                    Item.Empty_Bottle,
-                    Item.Sera_Bottle,
-                    Item.Coro_Bottle,
-                    Item.Jovani_Bottle,
-                    Item.Renados_Letter,
-                    Item.Invoice,
-                    Item.Wooden_Statue,
-                    Item.Ilias_Charm,
-                    Item.Aurus_Memo,
-                    Item.Asheis_Sketch,
-                    Item.Progressive_Sky_Book,
-                    // ----- Dungeon items -----
-                    Item.Forest_Temple_Small_Key,
-                    Item.Goron_Mines_Small_Key,
-                    Item.Lakebed_Temple_Small_Key,
-                    Item.Arbiters_Grounds_Small_Key,
-                    Item.Snowpeak_Ruins_Small_Key,
-                    Item.Snowpeak_Ruins_Ordon_Pumpkin,
-                    Item.Snowpeak_Ruins_Ordon_Goat_Cheese,
-                    Item.Temple_of_Time_Small_Key,
-                    Item.City_in_The_Sky_Small_Key,
-                    Item.Palace_of_Twilight_Small_Key,
-                    Item.Hyrule_Castle_Small_Key,
-                    Item.Forest_Temple_Big_Key,
-                    Item.Goron_Mines_Key_Shard,
-                    Item.Lakebed_Temple_Big_Key,
-                    Item.Arbiters_Grounds_Big_Key,
-                    Item.Snowpeak_Ruins_Bedroom_Key,
-                    Item.Temple_of_Time_Big_Key,
-                    Item.City_in_The_Sky_Big_Key,
-                    Item.Palace_of_Twilight_Big_Key,
-                    Item.Hyrule_Castle_Big_Key,
-                    // ----- Overworld items -----
-                    Item.Faron_Woods_Coro_Key,
-                    Item.North_Faron_Woods_Gate_Key,
-                    Item.Gate_Keys,
-                    Item.Gerudo_Desert_Bulblin_Camp_Key,
-                };
+            HashSet<Item> logicalItems = new(HintConstants.baseMajorItems);
 
             // From logicalItems, filter out any items which could not possibly serve a purpose
             // based on the settings:
@@ -579,32 +663,6 @@ namespace TPRandomizer.Hints
                     break;
             }
 
-            // Map item to starting count
-            Dictionary<Item, int> startingItemCounts = new();
-            foreach (Item startingItem in sSettings.startingItems)
-            {
-                int count = 0;
-                if (startingItemCounts.TryGetValue(startingItem, out int currCount))
-                {
-                    count = currCount;
-                }
-                startingItemCounts[startingItem] = count + 1;
-            }
-
-            // Filter out any items where you already start with enough copies to logically max it out.
-            foreach (Item item in new List<Item>(logicalItems))
-            {
-                if (startingItemCounts.TryGetValue(item, out int startingCount))
-                {
-                    int countToMaxOut = 1;
-                    if (multiToMaxItems.TryGetValue(item, out int count))
-                        countToMaxOut = count;
-
-                    if (startingCount >= countToMaxOut)
-                        logicalItems.Remove(item);
-                }
-            }
-
             if (sSettings.logicRules == LogicRules.Glitchless)
             {
                 logicalItems.Remove(Item.Magic_Armor);
@@ -621,9 +679,6 @@ namespace TPRandomizer.Hints
                     logicalItems.Remove(Item.Sera_Bottle);
                 }
             }
-            // TODO: should make Wooden and Ordon shields prevent barren for NoLogic. Should not be
-            // handled here since they are still not logicalItems. Maybe a "extraPeventBarrenItems"
-            // property or something.
 
             if (
                 sSettings.palaceRequirements != PalaceRequirements.Fused_Shadows
@@ -641,6 +696,25 @@ namespace TPRandomizer.Hints
             )
             {
                 logicalItems.Remove(Item.Progressive_Mirror_Shard);
+            }
+
+            if (
+                sSettings.castleRequirements != CastleRequirements.Poe_Souls
+                && sSettings.castleBKRequirements != CastleBKRequirements.Poe_Souls
+                && HintUtils.checkIsExcluded("Jovani 20 Poe Soul Reward")
+                && HintUtils.checkIsExcluded("Jovani 60 Poe Soul Reward")
+            )
+            {
+                logicalItems.Remove(Item.Poe_Soul);
+            }
+
+            if (
+                sSettings.castleRequirements != CastleRequirements.Hearts
+                && sSettings.castleBKRequirements != CastleBKRequirements.Hearts
+            )
+            {
+                logicalItems.Remove(Item.Heart_Container);
+                logicalItems.Remove(Item.Piece_of_Heart);
             }
 
             if (sSettings.smallKeySettings == SmallKeySettings.Keysy)
@@ -667,9 +741,6 @@ namespace TPRandomizer.Hints
             if (sSettings.bigKeySettings == BigKeySettings.Keysy)
             {
                 logicalItems.Remove(Item.Forest_Temple_Big_Key);
-                logicalItems.Remove(Item.Forest_Temple_Big_Key);
-                logicalItems.Remove(Item.Goron_Mines_Key_Shard);
-                logicalItems.Remove(Item.Goron_Mines_Key_Shard);
                 logicalItems.Remove(Item.Goron_Mines_Key_Shard);
                 logicalItems.Remove(Item.Lakebed_Temple_Big_Key);
                 logicalItems.Remove(Item.Arbiters_Grounds_Big_Key);
@@ -741,11 +812,34 @@ namespace TPRandomizer.Hints
                     logicalItems.Remove(tradeItem);
             }
 
-            // TODO: can handle calculating sometimesRequired for tradeItems at the end of the
-            // condReq. If they lead to a sometimesRequired check, then they by definition would be
-            // sometimesRequired if there is only one copy. If there are multiple copies, then we
-            // need to handle them like Bows and Bombs where any that can't possibly be your first
-            // copy are logically useless. That should be done beforehand like Bombs and Bows.
+            // Filter out any items where you already start with enough copies to logically max it
+            // out.
+            Dictionary<Item, int> startingItemCounts = new();
+            foreach (Item startingItem in sSettings.startingItems)
+            {
+                int count = 0;
+                if (startingItemCounts.TryGetValue(startingItem, out int currCount))
+                {
+                    count = currCount;
+                }
+                startingItemCounts[startingItem] = count + 1;
+            }
+            foreach (Item item in new List<Item>(logicalItems))
+            {
+                // Skip these for now. Not relevant since cannot adjust starting hearts yet.
+                if (item == Item.Heart_Container || item == Item.Piece_of_Heart)
+                    continue;
+
+                if (startingItemCounts.TryGetValue(item, out int startingCount))
+                {
+                    int countToMaxOut = 1;
+                    if (multiToMaxItems.TryGetValue(item, out int count))
+                        countToMaxOut = count;
+
+                    if (startingCount >= countToMaxOut)
+                        logicalItems.Remove(item);
+                }
+            }
 
             this.condReqLogicalItems = logicalItems;
         }
@@ -1294,7 +1388,7 @@ namespace TPRandomizer.Hints
             // (path stuff is the real bottleneck). "premature optimization is
             // the root of all evil"
 
-            // Order this is checked is important.
+            // Order of these if-statements is important.
             if (HintUtils.checkIsPlayerKnownStatus(checkName))
             {
                 // For example, don't want to say a vanilla big key is good if
