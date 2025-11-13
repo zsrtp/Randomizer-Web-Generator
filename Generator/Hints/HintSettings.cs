@@ -630,8 +630,16 @@ namespace TPRandomizer.Hints.Settings
             Monopolize = 2,
         }
 
+        public enum BlockerType
+        {
+            NonJunk = 0,
+            Major = 1,
+            Important = 2,
+        }
+
         public OwnZoneBehavior ownZoneBehavior { get; private set; } = OwnZoneBehavior.Off;
         public bool ownZoneShowsAsJunkHint { get; private set; } = false;
+        public BlockerType blockerType { get; private set; } = BlockerType.Major;
 
         private Barren() { }
 
@@ -648,7 +656,6 @@ namespace TPRandomizer.Hints.Settings
                     "ownZoneBehavior",
                     null
                 );
-
                 if (!StringUtils.isEmpty(ownZoneBehaviorStr))
                 {
                     OwnZoneBehavior ownZoneBehavior;
@@ -666,6 +673,21 @@ namespace TPRandomizer.Hints.Settings
                     "ownZoneShowsAsJunkHint",
                     inst.ownZoneShowsAsJunkHint
                 );
+
+                string blockerTypeStr = HintSettingUtils.getOptionalString(
+                    obj,
+                    "blockerType",
+                    null
+                );
+                if (!StringUtils.isEmpty(blockerTypeStr))
+                {
+                    if (Enum.TryParse(blockerTypeStr, true, out BlockerType blockerType))
+                        inst.blockerType = blockerType;
+                    else
+                        throw new Exception(
+                            $"Failed to parse blockerType '{blockerTypeStr}' to BlockerType enum."
+                        );
+                }
             }
 
             return inst;
@@ -1366,6 +1388,8 @@ namespace TPRandomizer.Hints.Settings
                     return Path.Combine(basePath, "balanced.jsonc");
                 case HintDistribution.Season_1:
                     return Path.Combine(basePath, "season-1.jsonc");
+                case HintDistribution.Season_2:
+                    return Path.Combine(basePath, "season-2-placeholder.jsonc");
                 case HintDistribution.Strong:
                     return Path.Combine(basePath, "strong.jsonc");
                 case HintDistribution.Very_Strong:

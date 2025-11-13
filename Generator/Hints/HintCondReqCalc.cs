@@ -72,8 +72,9 @@ namespace TPRandomizer.Hints
             bool addedCheck = false;
 
             // Checks rewarding a trade item for a chain ending in a sometimesRequired reward are
-            // themselves sometimes required, as long as they are not already known to be required
-            // or allowBarren. allowBarren example: maleAnt => domRod. 2nd maleAnt behind DDR.
+            // themselves sometimes required, as long as they are not already known to be required,
+            // allowBarren, or notReq. allowBarren example: maleAnt => domRod. 2nd maleAnt behind
+            // DDR.
             foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
             {
                 Item tradeItem = pair.Key;
@@ -106,6 +107,7 @@ namespace TPRandomizer.Hints
                                     !condRequiredChecks.Contains(checkName)
                                     && !genData.requiredChecks.Contains(checkName)
                                     && !genData.allowBarrenChecks.Contains(checkName)
+                                    && !genData.notReqChecks.Contains(checkName)
                                 )
                                 {
                                     Item contents = HintUtils.getCheckContents(checkName);
@@ -121,6 +123,60 @@ namespace TPRandomizer.Hints
                 }
             }
             return addedCheck;
+        }
+
+        private bool handleHiddenSkills(Dictionary<Item, int> itemToInflexibleCount)
+        {
+            bool specialHiddenSkillHandling = false;
+
+            if (genData.sSettings.logicRules == LogicRules.Glitchless)
+            {
+                specialHiddenSkillHandling = true;
+
+                // If there is an inflexible Hidden Skill (start with one or a required one), then
+                // we automatically consider the rest to be "not required". Otherwise we will simply
+                // consider them all to be sometimesRequired. This is for performance reasons.
+                if (
+                    itemToInflexibleCount.TryGetValue(
+                        Item.Progressive_Hidden_Skill,
+                        out int numInflexibleHiddenSkills
+                    )
+                    && numInflexibleHiddenSkills > 0
+                )
+                {
+                    List<string> checksForItem = genData.itemToChecksList[
+                        Item.Progressive_Hidden_Skill
+                    ];
+                    foreach (string checkName in checksForItem)
+                    {
+                        if (!genData.requiredChecks.Contains(checkName))
+                            genData.notReqChecks.Add(checkName);
+                    }
+                }
+                else
+                {
+                    // No inflexible Hidden Skills, so consider them all "sometimes required".
+                    List<string> checksForItem = genData.itemToChecksList[
+                        Item.Progressive_Hidden_Skill
+                    ];
+                    foreach (string checkName in checksForItem)
+                    {
+                        if (
+                            !condRequiredChecks.Contains(checkName)
+                            && !genData.requiredChecks.Contains(checkName)
+                            && !genData.allowBarrenChecks.Contains(checkName)
+                            && !genData.notReqChecks.Contains(checkName)
+                        )
+                        {
+                            Console.WriteLine(
+                                $"Sometimes Required (HdnSkl): {checkName} ({Item.Progressive_Hidden_Skill})"
+                            );
+                            condRequiredChecks.Add(checkName);
+                        }
+                    }
+                }
+            }
+            return specialHiddenSkillHandling;
         }
 
         private ZigZagState monteCarloZigZagDown(ZigZagState zz)
@@ -334,7 +390,7 @@ namespace TPRandomizer.Hints
             return result;
         }
 
-        public HashSet<string> run()
+        public HashSet<string> run(Dictionary<Item, int> itemToInflexibleCount)
         {
             HashSet<string> locsSet = new();
 
@@ -394,27 +450,7 @@ namespace TPRandomizer.Hints
             // soul on the zigZagDown. Then after we are done, we can go ahead
             // and merge those into the known sometimesRequired checks.
 
-            // Used with glitchless logic to speed up execution time.
-            if (genData.hiddenSkillsAutoSometimesRequired)
-            {
-                List<string> checksForItem = genData.itemToChecksList[
-                    Item.Progressive_Hidden_Skill
-                ];
-                foreach (string checkName in checksForItem)
-                {
-                    if (
-                        !condRequiredChecks.Contains(checkName)
-                        && !genData.requiredChecks.Contains(checkName)
-                        && !genData.allowBarrenChecks.Contains(checkName)
-                    )
-                    {
-                        Console.WriteLine(
-                            $"Sometimes Required (HdnSkl): {checkName} ({Item.Progressive_Hidden_Skill})"
-                        );
-                        condRequiredChecks.Add(checkName);
-                    }
-                }
-            }
+            bool specialHiddenSkillHandling = handleHiddenSkills(itemToInflexibleCount);
 
             if (
                 genData.sSettings.smallKeySettings == SmallKeySettings.Any_Dungeon
@@ -432,6 +468,7 @@ namespace TPRandomizer.Hints
                         && !condRequiredChecks.Contains(checkName)
                         && !genData.requiredChecks.Contains(checkName)
                         && !genData.allowBarrenChecks.Contains(checkName)
+                        && !genData.notReqChecks.Contains(checkName)
                     )
                     {
                         Console.WriteLine($"Sometimes Required (SmKey): {checkName} ({item})");
@@ -456,6 +493,7 @@ namespace TPRandomizer.Hints
                         && !condRequiredChecks.Contains(checkName)
                         && !genData.requiredChecks.Contains(checkName)
                         && !genData.allowBarrenChecks.Contains(checkName)
+                        && !genData.notReqChecks.Contains(checkName)
                     )
                     {
                         Console.WriteLine($"Sometimes Required (BigKey): {checkName} ({item})");
@@ -463,15 +501,6 @@ namespace TPRandomizer.Hints
                     }
                 }
             }
-
-            // TODO: need to handle calculating skippable checks as well. Any logical checks which
-            // are not required, allowBarren, or sometimesRequired.
-
-            // continued: this can probably be done back in the HintGenData file after (potentially)
-            // running this file based on settings. Any logical checks which are not marked as
-            // "required", "sometimes required", or "not required" are therefore "skippable". What
-            // exactly blocks barren (skippable vs sometimesRequired) is based on the distribution
-            // (or maybe settings based on checkboxes we might give the user)?
 
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
             {
@@ -484,19 +513,17 @@ namespace TPRandomizer.Hints
                 // "not required". It is critical we keep locsSet as small as possible. With enough
                 // checks, calculation can take more than 10 minutes, 20 minutes, etc.
                 if (
-                    !genData.condReqLogicalItems.Contains(item)
+                    !genData.logicalItems2.Contains(item)
                     || genData.requiredChecks.Contains(checkName)
                     || genData.allowBarrenChecks.Contains(checkName)
+                    || genData.notReqChecks.Contains(checkName)
                     || item == Item.Poe_Soul
                     || item == Item.Heart_Container
                     || item == Item.Piece_of_Heart
                     || smallKeyItems.Contains(item)
                     || bigKeyItems.Contains(item)
                     || HintUtils.IsTradeItem(item)
-                    || (
-                        item == Item.Progressive_Hidden_Skill
-                        && genData.hiddenSkillsAutoSometimesRequired
-                    )
+                    || (item == Item.Progressive_Hidden_Skill && specialHiddenSkillHandling)
                 )
                     continue;
 
@@ -631,9 +658,9 @@ namespace TPRandomizer.Hints
                 if (!condRequiredChecks.Contains(checkName))
                 {
                     Console.WriteLine(
-                        $"- marked locsSet allowBarren: {checkName} ({HintUtils.getCheckContents(checkName)})"
+                        $"- marked locsSet notReq: {checkName} ({HintUtils.getCheckContents(checkName)})"
                     );
-                    genData.allowBarrenChecks.Add(checkName);
+                    genData.notReqChecks.Add(checkName);
                 }
             }
 

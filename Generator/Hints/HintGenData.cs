@@ -25,19 +25,20 @@ namespace TPRandomizer.Hints
         public Dictionary<Goal, List<string>> goalToRequiredChecks { get; set; }
         public HashSet<string> requiredChecks { get; set; }
         public HashSet<string> condReqChecks { get; set; } = new();
+        public HashSet<string> notReqChecks { get; set; } = new();
         public bool? agithaRequired { get; set; }
-        public bool hiddenSkillsAutoSometimesRequired { get; private set; }
         public HashSet<Item> preventBarrenItems { get; private set; }
         public HashSet<string> allowBarrenChecks { get; private set; }
         public HashSet<Item> majorItems { get; private set; }
         public HashSet<Item> logicalItems { get; private set; }
-        public HashSet<Item> condReqLogicalItems { get; private set; }
+        public HashSet<Item> logicalItems2 { get; private set; }
         public Dictionary<Item, List<string>> itemToChecksList { get; set; }
         public Dictionary<string, Item> tradeChainStartToReward = new();
         public Dictionary<Item, string> tradeItemToChainEndCheck = new();
         public Dictionary<AreaId, HashSet<Item>> areaIdToAllowBarrenItems { get; private set; }
         public Dictionary<Zone, HashSet<Zone>> dungeonEntrances = new(); // Entering Key sends to Value(s)
 
+        private HintSettings hintSettings;
         private Dictionary<Item, int> multiToMaxItems = new();
 
         public HintGenData(
@@ -95,6 +96,7 @@ namespace TPRandomizer.Hints
 
         public void updateFromHintSettings(HintSettings hintSettings)
         {
+            this.hintSettings = hintSettings;
             // TODO: Important items must be a subset of major items for the hint, so a skippable
             // poe soul when they aren't all sometimes required would not be counted as important.
             // This is because poeSouls are only major if needed for HC, even if a Jovani reward is
@@ -104,106 +106,176 @@ namespace TPRandomizer.Hints
             majorItems = prepMajorItems();
             prepPreventBarrenAndLogicalItemSets(hintSettings);
 
+            prepLogicalItemAndMultiMax();
+
+            // TODO: this should probably happen unconditionally (for no-logic also?). Need to
+            // look at order of stuff here
+            Dictionary<Item, int> itemToInflexibleCount = new();
+            allowBarrenChecks = prepareAllowBarrenChecks(itemToInflexibleCount);
+            // allowBarren needs to be renamed since importance and preventing barren are not the
+            // same thing. It should instead be called `notRequiredChecks`. Then again,
+            // `allowBarren` ones DO allow barren in all cases. If the item is still logical and we
+            // didn't calculate if it was sometimesRequired or not, then it would be skippable.
+
+            // So really it is more that we mark certain checks as "not required", and then if
+            // barren is calculated based on majorItems or nonJunk, then we still respect the
+            // allowBarren. But something "not required" would be listed as such, but it could still
+            // prevent barren if majorItems or nonJunk prevent barren. For nonJunk, it could be a
+            // domRod that leads to nothing, but they still want to collect it. But in terms of
+            // importance, it would still be "not important".
+
+            // If a single max item is locked behind itself, then there is no reason to ever list
+            // prevent barren with it either. Even if you wanted to collect every item, you would
+            // always logically find the item before you get there (ex: bomb bag in LBT).
+
+            // So can show up in barren zone no matter what the barrenSetting is if (1) inflexible
+            // count already maxes the item out, or (2) item maxes as a single copy and the copy in
+            // question cannot logically be your first copy.
+
             if (sSettings.logicRules != LogicRules.No_Logic)
             {
-                prepLogicalItemAndMultiMax();
-
-                // TODO: this should probably happen unconditionally (for no-logic also?). Need to
-                // look at order of stuff here
-                allowBarrenChecks = prepareAllowBarrenChecks();
-
                 // Calculate conditionallyRequired checks. This depends on knowing the "logical
                 // items" and "allowBarrenChecks", so has to wait until here.
-                HintCondReqCalc condReqCalc = new(this);
-                condReqChecks = condReqCalc.run();
-
-                // Potentially mark checks rewarding poeSouls as allowBarren if poe souls do not
-                // serve any purpose based on settings / Jovani rewards.
-                if (
-                    sSettings.castleRequirements != CastleRequirements.Poe_Souls
-                    && sSettings.castleBKRequirements != CastleBKRequirements.Poe_Souls
-                )
+                if (hintSettings.barren.blockerType == Barren.BlockerType.Important)
                 {
-                    bool hasGoodJovaniReward = false;
-                    List<string> jovaniChecks =
-                        new() { "Jovani 20 Poe Soul Reward", "Jovani 60 Poe Soul Reward", };
-                    foreach (string checkName in jovaniChecks)
+                    HintCondReqCalc condReqCalc = new(this);
+                    condReqChecks = condReqCalc.run(itemToInflexibleCount);
+                }
+            }
+
+            // As long as the chain end is not "preventBarren" or it is ? AKA the chain end is good?
+
+            // A trade item is logical if the chain item is "preventBarren" or known to
+
+            // Poe souls => still list if considered "skippable". Even if we have done
+            // "sometimesRequired" calcs, unless the poe soul is "not required", then we list it
+            // on Agitha's sign. However, if "Only junk allows barren", then we need to list
+            // anything which is Good.
+
+            // Does Good accurately line up? I think so? Well, Good means preventBarren, and for
+            // race distributions this would not include skippable things. So we need to check
+            // for either "Good" or "skippable (not "required" + logical item)"?
+
+            // But for marking the tradeItem as "sometimesRequired", this would have already
+            // happened if it was supposed to. Or if it led to a skippable thing, then we would
+            // still consider it logical. Therefore worst case scenario is also is "skippable".
+
+            //
+
+            //     // See if should remove any tradeItems from the logical items. Trade items are
+            //     // logical as long as the chain end is not excluded + not allowBarren + logical.
+            //     // Also include if it is "required" to be safe. We do this at this point after we
+            //     // have finished all other additions to `allowBarrenChecks`.
+            //     foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
+            //     {
+            //         Item tradeItem = pair.Key;
+            //         bool isLogical = false;
+            //         if (
+            //             tradeItemToChainEndCheck.TryGetValue(
+            //                 tradeItem,
+            //                 out string chainEndCheckName
+            //             )
+            //         )
+            //         {
+            //             Item chainEndItem = HintUtils.getCheckContents(chainEndCheckName);
+            //             if (
+            //                 requiredChecks.Contains(chainEndCheckName)
+            //                 || !HintUtils.checkIsExcluded(chainEndCheckName)
+            //                     && !allowBarrenChecks.Contains(chainEndCheckName)
+            //                     && !notReqChecks.Contains(chainEndCheckName)
+            //                     && logicalItems2.Contains(chainEndItem)
+            //             )
+            //                 isLogical = true;
+            //         }
+            //         if (!isLogical)
+            //         {
+            //             // Note: also gets removed if cicular chain leading nowhere.
+            //             logicalItems2.Remove(tradeItem);
+            //         }
+            //     }
+            // }
+
+            // Potentially mark checks rewarding poeSouls as allowBarren if poe souls do not
+            // serve any purpose based on settings / Jovani rewards.
+            if (
+                sSettings.castleRequirements != CastleRequirements.Poe_Souls
+                && sSettings.castleBKRequirements != CastleBKRequirements.Poe_Souls
+            )
+            {
+                bool hasGoodJovaniReward = false;
+                List<string> jovaniChecks =
+                    new() { "Jovani 20 Poe Soul Reward", "Jovani 60 Poe Soul Reward", };
+                foreach (string checkName in jovaniChecks)
+                {
+                    if (allowBarrenChecks.Contains(checkName))
+                        continue;
+
+                    Item contents = HintUtils.getCheckContents(checkName);
+
+                    if (
+                        hintSettings.barren.blockerType == Barren.BlockerType.NonJunk
+                        && !HintConstants.junkItems.Contains(contents)
+                    )
                     {
-                        Item contents = HintUtils.getCheckContents(checkName);
-                        // TODO: if "only junk" blocks barren setting is enabled, then we also need
-                        // to make sure the contents is not junk. It would be considered Good in
-                        // that case.
+                        hasGoodJovaniReward = true;
+                        break;
+                    }
+
+                    if (HintUtils.IsTradeItem(contents))
+                    {
+                        // Check against end of chain.
+
+                        // If contents of Jovani reward are a tradeItem, then find the chainEndItem.
+                        // If chain is a loop (no end found), then this Jovani reward does not
+
                         if (
-                            !HintUtils.checkIsExcluded(checkName)
-                            && (
-                                requiredChecks.Contains(checkName)
-                                || condReqChecks.Contains(checkName)
-                                || (
-                                    contents != Item.Poe_Soul
-                                    && condReqLogicalItems.Contains(contents)
-                                )
+                            !tradeItemToChainEndCheck.TryGetValue(
+                                contents,
+                                out string chainEndCheckName
                             )
                         )
+                        {
+                            // Chain is a loop, so not useful.
+                            continue;
+                        }
+
+                        if (CheckSkippableOrGoodContents(chainEndCheckName, Item.Poe_Soul))
                         {
                             hasGoodJovaniReward = true;
                             break;
                         }
                     }
-                    if (!hasGoodJovaniReward)
+                    else if (CheckSkippableOrGoodContents(checkName, Item.Poe_Soul))
                     {
-                        // All skippable poeSoul checks can be marked as allowBarren. They are still
-                        // considered logical so that a Location hint saying the checkStatus would
-                        // indicate "not required". If it was not a logical item (such as an orange
-                        // Rupee), then it would not indicate anything.
-                        if (
-                            itemToChecksList.TryGetValue(Item.Poe_Soul, out List<string> checkNames)
-                        )
+                        hasGoodJovaniReward = true;
+                        break;
+                    }
+                }
+                if (!hasGoodJovaniReward)
+                {
+                    // All skippable poeSoul checks can be marked as allowBarren. They are still
+                    // considered logical so that a Location hint saying the checkStatus would
+                    // indicate "not required". If it was not a logical item (such as an orange
+                    // Rupee), then it would not indicate anything.
+                    if (itemToChecksList.TryGetValue(Item.Poe_Soul, out List<string> checkNames))
+                    {
+                        foreach (string checkName in checkNames)
                         {
-                            foreach (string checkName in checkNames)
+                            if (
+                                !requiredChecks.Contains(checkName)
+                                && !condReqChecks.Contains(checkName)
+                            )
                             {
-                                if (
-                                    !requiredChecks.Contains(checkName)
-                                    && !condReqChecks.Contains(checkName)
-                                )
-                                {
-                                    allowBarrenChecks.Add(checkName);
-                                }
+                                notReqChecks.Add(checkName);
                             }
                         }
                     }
                 }
-
-                // See if should remove any tradeItems from the logical items. Trade items are
-                // logical as long as the chain end is not excluded + not allowBarren + logical.
-                // Also include if it is "required" to be safe. We do this at this point after we
-                // have finished all other additions to `allowBarrenChecks`.
-                foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
-                {
-                    Item tradeItem = pair.Key;
-                    bool isLogical = false;
-                    if (
-                        tradeItemToChainEndCheck.TryGetValue(
-                            tradeItem,
-                            out string chainEndCheckName
-                        )
-                    )
-                    {
-                        Item chainEndItem = HintUtils.getCheckContents(chainEndCheckName);
-                        if (
-                            requiredChecks.Contains(chainEndCheckName)
-                            || !HintUtils.checkIsExcluded(chainEndCheckName)
-                                && !allowBarrenChecks.Contains(chainEndCheckName)
-                                && condReqLogicalItems.Contains(chainEndItem)
-                        )
-                            isLogical = true;
-                    }
-                    if (!isLogical)
-                    {
-                        // Note: also gets removed if cicular chain leading nowhere.
-                        condReqLogicalItems.Remove(tradeItem);
-                    }
-                }
             }
+
+            // TODO: Try to mark checks reward trade items as notReq. Note: we don't change the
+            // items to not be considered logical since being logical is what makes us show the
+            // checkStatus in parentheses in the hint text.
         }
 
         private void prepPreventBarrenAndLogicalItemSets(HintSettings hintSettings)
@@ -829,16 +901,17 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            this.condReqLogicalItems = logicalItems;
+            this.logicalItems2 = logicalItems;
         }
 
-        private HashSet<string> prepareAllowBarrenChecks()
+        private HashSet<string> prepareAllowBarrenChecks(
+            Dictionary<Item, int> itemToInflexibleCount
+        )
         {
             HashSet<string> allowBarrenCheckSet = new();
 
             Dictionary<Item, int> itemToProgCount = new();
-
-            foreach (Item item in condReqLogicalItems)
+            foreach (Item item in logicalItems2)
             {
                 int countToMaxOut = 1;
                 if (multiToMaxItems.TryGetValue(item, out int count))
@@ -846,7 +919,8 @@ namespace TPRandomizer.Hints
                 itemToProgCount[item] = countToMaxOut;
             }
 
-            Dictionary<Item, int> itemToInflexibleCount = new();
+            // Calculate inflexible count. Note for no-logic, requiredChecks is empty since we need
+            // logic for something to be "logically required".
             foreach (string checkName in requiredChecks)
             {
                 Item item = HintUtils.getCheckContents(checkName);
@@ -854,7 +928,6 @@ namespace TPRandomizer.Hints
                     itemToInflexibleCount[item] = 0;
                 itemToInflexibleCount[item] += 1;
             }
-
             foreach (Item item in sSettings.startingItems)
             {
                 if (!itemToInflexibleCount.ContainsKey(item))
@@ -880,7 +953,7 @@ namespace TPRandomizer.Hints
                     if (inflexibleCount >= progCount)
                     {
                         fullInflexibleItems.Add(item);
-                        // Mark any unrequired checks with this item as
+                        // If inflexibly maxed out, mark any unrequired checks with this item as
                         // allowBarren.
                         List<string> checksForItem = itemToChecksList[item];
                         foreach (string checkName in checksForItem)
@@ -892,58 +965,51 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            // For items with multiple findable copies which are logically maxed
-            // at a single copy, mark any checks giving that item which cannot
-            // be the first copy of that item you find as allowBarrenChecks. For
-            // example, if a bomb bag is in LBT then it will not be considered
-            // good for glitchless logic. Skip over ones which already were
-            // handled by the inflexibleCount check. Note that we only do this
-            // for items that are logical at a single copy since that case is
-            // fairly easy to handle.
-            foreach (KeyValuePair<Item, int> pair in itemToProgCount)
+            // For items which max out at a single copy, any copies of this item which cannot
+            // logically be your first copy are not logically useful, so mark allowBarren. This most
+            // often matters for bombs or bows, but you could also see this if there were 2 findable
+            // Auru's Memos and one was in the desert for example.
+            if (sSettings.logicRules != LogicRules.No_Logic)
             {
-                Item item = pair.Key;
-                if (
-                    pair.Value == 1
-                    && !fullInflexibleItems.Contains(item)
-                    && itemToChecksList.TryGetValue(item, out List<string> checksList)
-                    && checksList.Count > 1
-                )
+                foreach (KeyValuePair<Item, int> pair in itemToProgCount)
                 {
-                    HashSet<string> blockedChecks = HintUtils.calcFindingItemBlocksItself(
-                        startingRoom,
-                        sSettings,
-                        checksList
-                    );
-                    allowBarrenCheckSet.UnionWith(blockedChecks);
+                    Item item = pair.Key;
+                    if (
+                        pair.Value == 1
+                        && !fullInflexibleItems.Contains(item)
+                        && itemToChecksList.TryGetValue(item, out List<string> checksList)
+                        && checksList.Count > 1
+                    )
+                    {
+                        HashSet<string> blockedChecks = HintUtils.calcFindingItemBlocksItself(
+                            startingRoom,
+                            sSettings,
+                            checksList
+                        );
+                        allowBarrenCheckSet.UnionWith(blockedChecks);
+                    }
                 }
             }
 
-            if (sSettings.logicRules == LogicRules.Glitchless)
-            {
-                // If there is an inflexible Hidden Skill (start with one or a required one), then
-                // automatically consider the rest to be sometimesRequired. Otherwise we will simply
-                // consider them all to be sometimesRequired. This is for performance reasons.
-                if (
-                    itemToInflexibleCount.TryGetValue(
-                        Item.Progressive_Hidden_Skill,
-                        out int numInflexibleHiddenSkills
-                    )
-                    && numInflexibleHiddenSkills > 0
-                )
-                {
-                    List<string> checksForItem = itemToChecksList[Item.Progressive_Hidden_Skill];
-                    foreach (string checkName in checksForItem)
-                    {
-                        if (!requiredChecks.Contains(checkName))
-                            allowBarrenCheckSet.Add(checkName);
-                    }
-                }
-                else
-                {
-                    hiddenSkillsAutoSometimesRequired = true;
-                }
-            }
+            // "allowBarren" should only be expanded for HiddenSkill like this when "barrenType" is
+            // "important". Otherwise it is true that HiddenSkills have not maxed out at 1 copy, so
+            // they should not be excluded.
+
+            // This should happen even without doing Important checks? Well, the only time it is
+            // relevant is if barren blockers are "important", and this requires that the importance
+            // is calculated. Therefore the code can go in there.
+
+
+            // Setting: - [] Only junk allows barren
+            // - For players who wish to collect every heart, every shield, every bottle, etc.
+            // - This setting causes all non-junk items to be considered barren-blockers by default.
+
+            // Setting: - [] Hint importance
+            // - WARNING: can cause a large increase in generation time depending on settings.
+            // - Does nothing for no-logic or hint distributions which have this enabled by default
+            //   (such as race distributions).
+            // Calculates "sometimes required" checks, includes importance on hints where
+            //   applicable, and prevents barren based on importance.
 
             return allowBarrenCheckSet;
         }
@@ -1391,6 +1457,22 @@ namespace TPRandomizer.Hints
             if (allowBarrenChecks.Contains(checkName))
                 return false;
 
+            // TODO: update implementation. Good means preventsBarren. For "junk only", any check
+            // where the contents are a baseMajorItem (or technically we should check against junk
+            // specifically) is Good. For Major, any check where the contents are in `majorItems`
+            // blocks barren. For advanced stuff, the check must either be "required" or
+            // "conditionallyRequired". Note: "required" checks are always Good, but this is handled
+            // above.
+
+            //      NEXT TODO: !!!!!!!!!!!!!! go ahead and create the HintSettings.Barren.blockerType setting
+            // so that we can use it in the code instead of leaving TODOs all over the place. This
+            // is read from the distribution, then we potentially overwrite it from the main
+            // sSettings if the user were to check a box saying "Non-Junk Items" prevents barren.
+            // For balanced, it would default to Major, etc. For a race distribution, it might be
+            // set to Important Items. Blocks Barren: "No Override", "Non-Junk", "Major Items"
+            // "Important Items". Note: if they select "Important Items", then we will have to do
+            // the condReq calcultions. If they are no-logic, then have to revert to "Major Items".
+
             Item item = HintUtils.getCheckContents(checkName);
             // Note that this handles tradeItems correctly because any
             // tradeItems that lead to a required check or a preventBarren item
@@ -1400,6 +1482,42 @@ namespace TPRandomizer.Hints
             // allow players to manually determine if tradeItems preventBarren
             // or not (they are derived based off of other items).
             return preventBarrenItems.Contains(item);
+        }
+
+        // TODO:
+        // public function CheckPreventsBarren?
+
+        private bool CheckSkippableOrGoodContents(string checkName, Item? ignoreLogicalItem = null)
+        {
+            // Ignoring "isPlayerKnownStatus", returns true if the check would either be considered
+            // a barren-blocker or "skippable" (logical + not "required"/"sometimesRequired"/"not
+            // required").
+
+            // Note: we intentionally don't check against Vanilla (since contents can still be good)
+            // or excluded (since can plando on top of an excluded check).
+
+            if (requiredChecks.Contains(checkName) || condReqChecks.Contains(checkName))
+                return true;
+            if (allowBarrenChecks.Contains(checkName))
+                return false;
+
+            Item contents = HintUtils.getCheckContents(checkName);
+
+            if (hintSettings.barren.blockerType == Barren.BlockerType.NonJunk)
+            {
+                // Anything that could be considered as progress toward 100%-ing a seed is
+                // considered as good in this case (including wooden shield, etc.).
+                if (!HintConstants.junkItems.Contains(contents))
+                    return true;
+            }
+            else if (notReqChecks.Contains(checkName))
+                return false;
+
+            if (ignoreLogicalItem != null && ignoreLogicalItem == contents)
+                return false;
+
+            // If logical, then status would be "skippable" at this point. Else returns false.
+            return logicalItems2.Contains(contents);
         }
 
         public bool CheckIsRequired(string checkName)

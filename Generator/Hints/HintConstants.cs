@@ -374,6 +374,34 @@ namespace TPRandomizer.Hints
                 Item.Gerudo_Desert_Bulblin_Camp_Key,
             };
 
+        public static readonly HashSet<Item> junkItems =
+            new()
+            {
+                Item.Recovery_Heart,
+                Item.Green_Rupee,
+                Item.Blue_Rupee,
+                Item.Yellow_Rupee,
+                Item.Red_Rupee,
+                Item.Purple_Rupee,
+                Item.Orange_Rupee,
+                Item.Silver_Rupee,
+                Item.Bombs_5,
+                Item.Bombs_10,
+                Item.Bombs_20,
+                Item.Bombs_30,
+                Item.Arrows_10,
+                Item.Arrows_20,
+                Item.Arrows_30,
+                Item.Seeds_50,
+                Item.Foolish_Item,
+                Item.Water_Bombs_5,
+                Item.Water_Bombs_10,
+                Item.Water_Bombs_15,
+                Item.Water_Bombs_3,
+                Item.Bomblings_5,
+                Item.Bomblings_10,
+            };
+
         public static readonly HashSet<Item> baseLogicalItems =
             new()
             {
