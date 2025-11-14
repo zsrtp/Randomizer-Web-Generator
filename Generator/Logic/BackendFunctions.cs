@@ -18,7 +18,11 @@ namespace TPRandomizer
         /// <summary>
         /// summary text.
         /// </summary>
-        public static bool ValidatePlaythrough(Room startingRoom, bool printResults = false)
+        public static bool ValidatePlaythrough(
+            Room startingRoom,
+            bool printResults = false,
+            HashSet<string> unreachableChecks = null
+        )
         {
             bool failedToReachDesiredCheck = false;
             bool areAllRoomsReachable = true;
@@ -104,6 +108,10 @@ namespace TPRandomizer
                 Check listedCheck = checkList.Value;
                 if (!listedCheck.hasBeenReached)
                 {
+                    if (unreachableChecks != null)
+                    {
+                        unreachableChecks.Add(listedCheck.checkName);
+                    }
                     if (allowedUnreachableChecks.Contains(listedCheck.checkName))
                     {
                         if (printResults)

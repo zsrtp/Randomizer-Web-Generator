@@ -928,6 +928,11 @@ namespace TPRandomizer.Hints
             return HintConstants.excludedCheckStatuses.Contains(checkStatus);
         }
 
+        public static bool checkIsVanilla(string checkName)
+        {
+            return Randomizer.Checks.CheckDict[checkName].checkStatus == "Vanilla";
+        }
+
         public static bool checksAllPlayerKnownStatus(IEnumerable<string> checkNames)
         {
             foreach (string checkName in checkNames)
