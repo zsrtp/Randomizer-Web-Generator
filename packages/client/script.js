@@ -53,7 +53,7 @@ const presetsMgr = (function () {
     {
       name: 'Season 1',
       origSettingsStr:
-        '5sQ3g2kPC_-CfeJ8HaX7cJny-NoYqQZKQc7IwNIwNIwN0u70u70u70u70u70u70u71_qwFLTZK61gbCq2Z80-pphmuHTHbBB1BaDknYf_AxydhLmPgSZZbUoyNT5KTnKnI8b6WSbx66LYROE-5GjUYcccP9CNGx20M_b6WAXskPHcrbw8PUjs-vEAKmKvfKLWdIa4eJUDhKdJMGx1QMhM69tq6YE6yvHGff3dsMtKCbWX_m',
+        '6sg4M2kPC__6KD2P2001W4-WCa8yoUFdo-KMZKQZKmxdyltIwNIwNIwN0u70u70u70u70u70u70u71_oT3qhcD8C1bIJCWICG0-nvQy715QXb5bGHSWsTXYa_Vfu7vVXAr-9v_NyMfmKr78SMLTayJkHKZd59XI4IHe3YNMC6In6r1puAWjNH9eqnaIONGTGW2p-ACW6BL1sdCKOscNKGPNMTjt4uKemISQKYc2Eaa2K4rncj9DJJ8EmBHQMi64xT0qGuDuvGeVufaXPyopT8ObWG_y',
       description: '',
     },
   ];
