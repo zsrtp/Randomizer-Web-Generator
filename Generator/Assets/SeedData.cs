@@ -1022,6 +1022,15 @@ namespace TPRandomizer.Assets
                     0x20B8,
                     DataFunctions.ASM_BRANCH_EQUAL_MINUS(0x38)
                 ),// Branch to have isDelete return if the return value condition listed in asmReplaceGWolfWithItem is not met
+
+                // D_A_NPC_YELIA - Ilia
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_NPC_YELIA,
+                    0x28EC,
+                    DataFunctions.ASM_LOAD_IMMEDIATE(3, (int)Item.Wooden_Statue)
+                ),// Replace the call to setWarashibeItem with a call to offWarashibeItem
             ];
 
             // Parse Midna hair color replacement
