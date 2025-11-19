@@ -2048,7 +2048,7 @@ namespace TPRandomizer.Hints
             barrenZonePenalties.Add(0);
         }
 
-        public void popStarting()
+        private void popStarting()
         {
             if (totalStarting.Count > 0)
                 totalStarting.RemoveAt(totalStarting.Count - 1);
@@ -2298,10 +2298,15 @@ namespace TPRandomizer.Hints
                 return false;
 
             bool shouldPush = false;
+            // If no active maxPicks, then it is always valid to push one.
             if (picksRemainingList.Count < 1)
                 shouldPush = true;
             else
             {
+                // Only push the new inner maxPicks if it is less than how many picks we currently
+                // have remaining. If we were to have something like 2 picks left and an inner node
+                // had a maxPicks of 4, then we are still only allowed to pick 2 more things since
+                // we are still under the outer maxPicks node whose rules must apply correctly.
                 int currRemainingPicks = picksRemainingList[^1] + picksDiffList[^1];
                 if (currRemainingPicks > newMaxPicks)
                     shouldPush = true;
@@ -2314,8 +2319,8 @@ namespace TPRandomizer.Hints
                 return true;
             }
 
-            // Ignore if new maxPicks is not defined or if it would be less
-            // restrictive than what we are currently on.
+            // Ignore if new maxPicks is not defined or if it would be less restrictive than what we
+            // are currently on.
             return false;
         }
 
@@ -2328,6 +2333,13 @@ namespace TPRandomizer.Hints
             picksRemainingList.RemoveAt(picksRemainingList.Count - 1);
             picksDiffList.RemoveAt(picksDiffList.Count - 1);
 
+            // Note: we store maxPicks as a list and keep track of the diffs because we might have
+            // nested maxPicks. Imagine you have a maxPicks of 3 at a node in the tree, and then
+            // within that you have a node with maxPicks of 1. Later when we create the hint and
+            // stop for the maxPicks of 1, we are still under the maxPicks of 3 and we picked
+            // something, meaning there are only 2 of 3 remaining for the outer maxPicks. So we have
+            // to apply the diff back to the outer maxPicks to indicate we have already used up one
+            // of the picks once we pop the inner maxPicks.
             if (picksDiffList.Count > 0)
             {
                 picksDiffList[^1] += currDiff;
@@ -2340,8 +2352,11 @@ namespace TPRandomizer.Hints
 
         public int? GetCurrPicksLeft()
         {
+            // If we have no maxPicks currently in effect, return null.
             if (picksRemainingList.Count < 1)
                 return null;
+            // If we have at least one maxPicks in effect, look at the current innermost active one
+            // and see how many maxPicks we are allowed vs how many we have used.
             return picksRemainingList[^1] + picksDiffList[^1];
         }
 

@@ -199,6 +199,26 @@ namespace TPRandomizer.Hints.HintCreator
             return hints;
         }
 
+        // TODO: can create dependencies at genData level so only have to do it once (will be more
+        // involved with ER), since we need it for both Barren hints and "(to name) NumMajorItems
+        // hint". And we would have to do it for all zones for ER.
+
+        // continued: for Barren hints, we can only hint a zone as barren if all dependent checks
+        // allow us to hint it as barren. If there are dependent zones, then we need to check those
+        // and gather the relevant data from them (such as the checks which will be marked "known
+        // barren").
+
+        // For NumMajorItems hints, we need to determine the dependent checks (if any), and then we
+        // need to determine if they can be hinted barren. This matches the BarrenHintCreator
+        // exactly, except we don't care about our own zone technically. Note that if we go through
+        // with this hint, it does mark those ones as "known barren" if we say they are barren.
+
+        // For NumMajorItems hints, we only need to include "but it may lead to {something good}" if
+        // we were to include "{zone name itself}" since it has inner zones (LLC, CoO, LS, or
+        // Agitha). We would also say "itself" if it had post-dungeon checks or dependent golden
+        // wolves. Maybe we only include the "but it leads to nothing / may lead to something good"
+        // for when Hint Importance is enabled. The "itself" on its own would indicate stuff.
+
         private List<PotentialBarrenArea> GetPotentialBarrenAreas(
             HintGenData genData,
             HashSet<AreaId> baseAreaIds
