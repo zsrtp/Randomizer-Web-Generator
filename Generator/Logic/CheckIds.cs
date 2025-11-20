@@ -610,6 +610,10 @@ namespace TPRandomizer
                 "Kakariko Village Spring Shortcut Box Rupee 2",
                 "Kakariko Village Ant House Ledge Box Rupee",
                 "Kakariko Village Hot Spring Ledge Box Rupee",
+                "Death Mountain Volcano Ledge Rupee 1",
+                "Death Mountain Volcano Ledge Rupee 2",
+                "Death Mountain Volcano Ledge Rupee 3",
+                "Death Mountain Volcano Pipe Ledge Rock Rupee",
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.

@@ -67,7 +67,11 @@
     ],
     "Checks": 
     [
-      "Death Mountain Portal"
+      "Death Mountain Portal",
+      "Death Mountain Volcano Ledge Rupee 1",
+      "Death Mountain Volcano Ledge Rupee 2",
+      "Death Mountain Volcano Ledge Rupee 3",
+      "Death Mountain Volcano Pipe Ledge Rock Rupee"
     ],
     "Region": "Death Mountain"
   },

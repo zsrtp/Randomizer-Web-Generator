@@ -469,6 +469,22 @@ window.tpr.checkData = {
     category: ['Overworld', 'Poe', 'Death Mountain'],
     itemId: 'Poe_Soul',
   },
+  'Death Mountain Volcano Ledge Rupee 1': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Death Mountain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Death Mountain Volcano Ledge Rupee 2': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Death Mountain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Death Mountain Volcano Ledge Rupee 3': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Death Mountain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Death Mountain Volcano Pipe Ledge Rock Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Death Mountain'],
+    itemId: 'Yellow_Rupee',
+  },
   'Doctors Office Balcony Chest': {
     category: ['Overworld', 'Chest', 'Castle Town', 'ARC'],
     itemId: 'Red_Rupee',
@@ -1280,19 +1296,19 @@ window.tpr.checkData = {
     category: ['Overworld', 'Chest', 'Kakariko Village', 'ARC'],
     itemId: 'Purple_Rupee',
   },
-  'Kakariko Village Spring Shortcut Box Rupee Rupee 1': {
+  'Kakariko Village Spring Shortcut Box Rupee 1': {
     category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
     itemId: 'Blue_Rupee',
   },
-  'Kakariko Village Spring Shortcut Box Rupee Rupee 2': {
+  'Kakariko Village Spring Shortcut Box Rupee 2': {
     category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
     itemId: 'Yellow_Rupee',
   },
-  'Kakariko Village Hot Spring Ledge Box Rupee Rupee': {
+  'Kakariko Village Hot Spring Ledge Box Rupee': {
     category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
     itemId: 'Yellow_Rupee',
   },
-  'Kakariko Village Ant House Ledge Box Rupee Rupee': {
+  'Kakariko Village Ant House Ledge Box Rupee': {
     category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
     itemId: 'Red_Rupee',
   },

@@ -307,6 +307,10 @@ namespace TPRandomizer.Hints
                         "Kakariko Village Spring Shortcut Box Rupee 2",
                         "Kakariko Village Ant House Ledge Box Rupee",
                         "Kakariko Village Hot Spring Ledge Box Rupee",
+                        "Death Mountain Volcano Ledge Rupee 1",
+                        "Death Mountain Volcano Ledge Rupee 2",
+                        "Death Mountain Volcano Ledge Rupee 3",
+                        "Death Mountain Volcano Pipe Ledge Rock Rupee",
                     }
                 },
                 {
