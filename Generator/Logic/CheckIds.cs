@@ -604,6 +604,8 @@ namespace TPRandomizer
                 "Upper Zoras River Central Underwater Boulder Rupee",
                 "Upper Zoras River South Underwater Boulder Rupee",
                 "Upper Zoras River Ledge Boulder Rupee",
+                "Kakariko Graveyard Underwater Boulder Rupee",
+                "Eldin Spring Underwater Boulder Rupee",
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.

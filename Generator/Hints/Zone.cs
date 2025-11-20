@@ -301,7 +301,8 @@ namespace TPRandomizer.Hints
                         "Renados Letter",
                         "Talo Sharpshooting",
                         "Kakariko Village Bell Rupee",
-                        "Shad Dominion Rod"
+                        "Shad Dominion Rod",
+                        "Eldin Spring Underwater Boulder Rupee",
                     }
                 },
                 {
@@ -314,7 +315,8 @@ namespace TPRandomizer.Hints
                         "Kakariko Graveyard Lantern Chest",
                         "Kakariko Graveyard Male Ant",
                         "Kakariko Graveyard Open Poe",
-                        "Rutelas Blessing"
+                        "Rutelas Blessing",
+                        "Kakariko Graveyard Underwater Boulder Rupee",
                     }
                 },
                 {

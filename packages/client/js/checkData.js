@@ -533,6 +533,10 @@ window.tpr.checkData = {
     category: ['Overworld', 'Chest', 'Kakariko Village', 'ARC'],
     itemId: 'Piece_of_Heart',
   },
+  'Eldin Spring Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
+    itemId: 'Purple_Rupee',
+  },
   'Eldin Stockcave Lantern Chest': {
     category: ['Overworld', 'Chest', 'Eldin Stockcave', 'ARC'],
     itemId: 'Orange_Rupee',
@@ -1219,6 +1223,10 @@ window.tpr.checkData = {
   'Kakariko Graveyard Open Poe': {
     category: ['Overworld', 'Poe', 'Kakariko Graveyard'],
     itemId: 'Poe_Soul',
+  },
+  'Kakariko Graveyard Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Graveyard'],
+    itemId: 'Red_Rupee',
   },
   'Kakariko Inn Chest': {
     category: ['Overworld', 'Chest', 'Kakariko Village', 'ARC'],

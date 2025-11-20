@@ -84,7 +84,8 @@
         "Eldin Spring Underwater Chest",
         "Kakariko Village Bomb Rock Spire Heart Piece",
         "Kakariko Village Portal",
-        "Kakariko Village Bell Rupee"
+        "Kakariko Village Bell Rupee",
+        "Eldin Spring Underwater Boulder Rupee"
     ],
     "Region": "Kakariko Village"
   },
@@ -565,7 +566,8 @@
         "Kakariko Graveyard Male Ant",
         "Kakariko Graveyard Grave Poe",
         "Kakariko Graveyard Open Poe",
-        "Kakariko Graveyard Golden Wolf"
+        "Kakariko Graveyard Golden Wolf",
+        "Kakariko Graveyard Underwater Boulder Rupee"
     ],
     "Region": "Kakariko Village"
   }
