@@ -1,0 +1,7 @@
+{
+    "requirements": "Boomerang",
+    // Either use Boomerang or use Epona OoB
+    "glitchedRequirements": "Boomerang or Shadow_Crystal",
+    "checkCategory": [ "Overworld", "Kakariko Village", "Rupee - Hidden" ],
+    "itemId": "Red_Rupee"
+  }

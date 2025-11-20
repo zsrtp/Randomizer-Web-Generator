@@ -303,6 +303,10 @@ namespace TPRandomizer.Hints
                         "Kakariko Village Bell Rupee",
                         "Shad Dominion Rod",
                         "Eldin Spring Underwater Boulder Rupee",
+                        "Kakariko Village Spring Shortcut Box Rupee 1",
+                        "Kakariko Village Spring Shortcut Box Rupee 2",
+                        "Kakariko Village Ant House Ledge Box Rupee",
+                        "Kakariko Village Hot Spring Ledge Box Rupee",
                     }
                 },
                 {

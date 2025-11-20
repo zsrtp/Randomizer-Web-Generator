@@ -1280,6 +1280,22 @@ window.tpr.checkData = {
     category: ['Overworld', 'Chest', 'Kakariko Village', 'ARC'],
     itemId: 'Purple_Rupee',
   },
+  'Kakariko Village Spring Shortcut Box Rupee Rupee 1': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
+    itemId: 'Blue_Rupee',
+  },
+  'Kakariko Village Spring Shortcut Box Rupee Rupee 2': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Kakariko Village Hot Spring Ledge Box Rupee Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Kakariko Village Ant House Ledge Box Rupee Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
+    itemId: 'Red_Rupee',
+  },
   'Lake Hylia Alcove Poe': {
     category: ['Overworld', 'Poe', 'Lake Hylia'],
     itemId: 'Poe_Soul',

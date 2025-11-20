@@ -606,6 +606,10 @@ namespace TPRandomizer
                 "Upper Zoras River Ledge Boulder Rupee",
                 "Kakariko Graveyard Underwater Boulder Rupee",
                 "Eldin Spring Underwater Boulder Rupee",
+                "Kakariko Village Spring Shortcut Box Rupee 1",
+                "Kakariko Village Spring Shortcut Box Rupee 2",
+                "Kakariko Village Ant House Ledge Box Rupee",
+                "Kakariko Village Hot Spring Ledge Box Rupee",
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.

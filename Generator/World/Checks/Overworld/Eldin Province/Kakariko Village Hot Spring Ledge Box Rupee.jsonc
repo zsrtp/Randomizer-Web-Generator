@@ -1,0 +1,6 @@
+{
+    "requirements": "Shadow_Crystal or Boomerang",
+    "glitchedRequirements": "Boomerang or Shadow_Crystal",
+    "checkCategory": [ "Overworld", "Kakariko Village", "Rupee - Hidden" ],
+    "itemId": "Yellow_Rupee"
+  }
