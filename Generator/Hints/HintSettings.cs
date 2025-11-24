@@ -1756,6 +1756,18 @@ namespace TPRandomizer.Hints.Settings
 
         private void validate()
         {
+            // Validate 'starting' config in tree.
+            for (int i = 0; i < hintDefGroupings.Count; i++)
+            {
+                HintDef hintDef = hintDefGroupings[i].hintDef;
+                if (hasInvalidStartingConfig(hintDef, false))
+                {
+                    throw new Exception(
+                        "Cannot have nested 'starting' hintDefs, and cannot define 'minCopies' at or within a 'starting' section of the node tree."
+                    );
+                }
+            }
+
             if (barren.ownZoneShowsAsJunkHint && !ListUtils.isEmpty(hintDefGroupings))
             {
                 // No JunkHintCreators can be specified in hintDefGroupings when
@@ -1889,6 +1901,33 @@ namespace TPRandomizer.Hints.Settings
                 for (int i = 0; i < hintDefs.Count; i++)
                 {
                     if (hasJunkHintCreators(hintDefs[i]))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool hasInvalidStartingConfig(HintDef hintDef, bool withinParentStarting)
+        {
+            bool currentNodeHasStarting = hintDef.starting > 0;
+
+            // Nested 'starting'.
+            if (currentNodeHasStarting && withinParentStarting)
+                return true;
+
+            // minCopies defined at 'starting' or within it.
+            if (hintDef.minCopies > 0 && (currentNodeHasStarting || withinParentStarting))
+                return true;
+
+            if (hintDef.hintCreator == null)
+            {
+                bool childrenWithinStarting = withinParentStarting || currentNodeHasStarting;
+
+                List<HintDef> hintDefs = hintDef.hintDefs;
+                for (int i = 0; i < hintDefs.Count; i++)
+                {
+                    if (hasInvalidStartingConfig(hintDefs[i], childrenWithinStarting))
                         return true;
                 }
             }
