@@ -483,22 +483,6 @@ namespace TPRandomizer.Hints
 
             if (currHintDef.hintCreator != null)
             {
-                // Calc how much space left, then figure out how many hints to ask for.
-
-                // Max is remaining / copies per. Ex: 19 / 4 copies => 4 rem 3.
-                // Remainder divided by minCopies. Ex: min 2; 3 / 2 => 1 extra.
-                // Total is 4 at 4 copies and 1 at 2 copies.
-
-                // These are the results of the function (List<Pairs>) with the
-                // number of copies set correctly.
-
-                // Then we calc how many spots are used by iterating over the
-                // list of what was passed back from the tryCreateHint (which
-                // might be less than we asked for, or null).
-
-                // This is also where we would handle the special junk hints for
-                // barren zones stuff (can worry about later).
-
                 bool doBarrenZoneHandling = false;
                 if (
                     currHintDef.hintCreator.type == HintCreatorType.Barren
@@ -510,10 +494,11 @@ namespace TPRandomizer.Hints
                         doBarrenZoneHandling = bhCreator.HintsZone();
                 }
 
+                // If we would be creating "barren zone" hints when barren ownZoneBehavior is set to
+                // "monopolize", then we need to do special handling where we create hints 1 at a
+                // time. Else we do more basic handling below.
                 if (doBarrenZoneHandling)
                 {
-                    // How do we know that we have space to generate the barrenZone hint?
-
                     for (int i = 0; i < currDefProps.iterations; i++)
                     {
                         // If no picks left, then we cannot keep creating hints.
@@ -524,75 +509,6 @@ namespace TPRandomizer.Hints
                             if (currPicksLeftInt < 1)
                                 break;
                         }
-
-                        // if (layerData.remainingSpots < 1)
-                        // {
-                        //     // Need at least 1 spot even with unusedStarting so we
-                        //     // can pay any potential -1 penalties.
-                        //     break;
-                        // }
-
-                        // int numUnusedStaring = layerData.getCummUnusedStarting();
-
-                        // if (
-                        //     numUnusedStaring < 1
-                        //     && layerData.remainingSpots < currDefProps.copies
-                        //     && (
-                        //         currDefProps.minCopies < 1
-                        //         || layerData.remainingSpots < currDefProps.minCopies
-                        //     )
-                        // )
-                        // {
-                        //     // Break if no unused starting and not enough spots
-                        //     // left in the layer for either copies or minCopies
-                        //     // (if minCopies is defined)
-                        //     break;
-                        // }
-
-                        // if (currDefProps.minCopies > 0)
-                        //     layerData.barrenZoneHandlingMinReqSpots = currDefProps.minCopies;
-                        // else
-                        //     layerData.barrenZoneHandlingMinReqSpots = currDefProps.copies;
-
-                        // TODO: need this check below unless rewrite calc
-
-                        // // If no unused starting and not enough space, continue.
-                        // if (
-                        //     layerData.currUnusedStarting < 1
-                        //     && layerData.remainingSpots < layerData.barrenZoneHandlingMinReqSpots
-                        // )
-                        //     continue;
-
-                        // if (
-                        //     layerData.currUnusedStarting < 1
-                        //     && layerData.remainingSpots < currDefProps.copies
-                        //     && (
-                        //         currDefProps.minCopies < 1
-                        //         || layerData.remainingSpots < currDefProps.minCopies
-                        //     )
-                        // )
-                        // {
-                        //     // Break if no unused starting and not enough spots left in the layer
-                        //     // for either copies or minCopies (if minCopies is defined).
-                        //     break;
-                        // }
-
-                        // Need to make sure don't generate the hint if we are
-                        // not sure we can handle it.
-
-                        // If there are not any unusedStaring left, then we
-                        // simply need to check that copies fits in the
-                        // remainingSpots of layerData (can worry about
-                        // minCopies in a minute).
-
-                        // If there are unusedStarting left and none are
-                        // guaranteed, we still must generate with the
-                        // assumption that none of the generated hints are
-                        // selected as starting.
-
-                        // However, if one was theoretically to be selected as a
-                        // starting hint, we would potentially need to pay its
-                        // penalty.
 
                         List<SpotPenalty> successfulNewList = null;
                         Zone successfulZone = Zone.Invalid;
@@ -720,8 +636,6 @@ namespace TPRandomizer.Hints
 
                                 layerData.handleCreatedHint(hintDefResult, null);
                             }
-
-                            // layerData.updateSpotsLeft(results.HintDefResults);
                         }
                     }
                 }
@@ -764,8 +678,6 @@ namespace TPRandomizer.Hints
                         deadNodeIds.Add(childNodeId);
                     }
                 }
-
-                int abc = 7;
 
                 // For maxPicks, there is an array of active ones. We need to
                 // take them into account when calculating how many hints we can
