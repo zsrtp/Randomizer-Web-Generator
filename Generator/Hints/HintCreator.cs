@@ -37,7 +37,8 @@ namespace TPRandomizer.Hints.Settings
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenaltyHandler
         );
 
         private static HintCreatorType typeFromStr(string strType)

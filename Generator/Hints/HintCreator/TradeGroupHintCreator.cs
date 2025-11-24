@@ -133,7 +133,8 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         )
         {
             if (numHints < 1 || validGroups.Count < 1 || validStatuses.Count < 1)

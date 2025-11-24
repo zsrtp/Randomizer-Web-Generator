@@ -29,14 +29,15 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         )
         {
             // Need to update validChecks at this point since it is the first
             // time we get access to hintSettings.
             this.validChecks = new(hintSettings.sometimesChecks);
 
-            return base.tryCreateHint(genData, hintSettings, numHints, cache);
+            return base.tryCreateHint(genData, hintSettings, numHints, cache, barrenPenalizer);
         }
     }
 }

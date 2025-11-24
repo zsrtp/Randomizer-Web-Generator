@@ -68,6 +68,15 @@ namespace TPRandomizer.Hints.HintCreator
                 "Palace of Twilight Boss Room",
             };
 
+        private static readonly Dictionary<Zone, HashSet<Zone>> zoneDeps =
+            new()
+            {
+                {
+                    Zone.Lake_Hylia,
+                    new() { Zone.Lanayru_Spring, Zone.Lake_Lantern_Cave, }
+                }
+            };
+
         private static readonly HashSet<AreaId.AreaType> validAreaTypes =
             new() { AreaId.AreaType.Zone, AreaId.AreaType.Province, AreaId.AreaType.Category, };
 
@@ -121,7 +130,8 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         )
         {
             if (numHints < 1)
@@ -174,6 +184,19 @@ namespace TPRandomizer.Hints.HintCreator
                         // we have already used up our max barrenDungeons hints.
                         continue;
                     }
+                }
+
+                // Confirm can afford barren penalties. If unable to, then skips over.
+                if (barrenPenalizer != null && areaId.type == AreaId.AreaType.Zone)
+                {
+                    Zone zone = ZoneUtils.StringToIdThrows(areaId.stringId);
+                    HashSet<Zone> childZones = new();
+                    if (zoneDeps.TryGetValue(zone, out HashSet<Zone> deps))
+                    {
+                        childZones.UnionWith(deps);
+                    }
+                    if (!barrenPenalizer(zone, childZones))
+                        continue;
                 }
 
                 hints.Add(new BarrenHint(areaId));
