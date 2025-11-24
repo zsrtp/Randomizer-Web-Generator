@@ -498,7 +498,11 @@ namespace TPRandomizer.Hints
                         "Lake Hylia Water Toadpoli Grotto Chest",
                         "Outside Lanayru Spring Left Statue Chest",
                         "Outside Lanayru Spring Right Statue Chest",
-                        "Plumm Fruit Balloon Minigame"
+                        "Plumm Fruit Balloon Minigame",
+                        "Lake Hylia Left Underwater Pillar Rupee",
+                        "Lake Hylia Right Underwater Pillar Rupee",
+                        "Lake Hylia Right Underwater Boulder Rupee",
+                        "Lake Hylia Left Underwater Boulder Rupee"
                     }
                 },
                 {
@@ -535,7 +539,9 @@ namespace TPRandomizer.Hints
                         "Lanayru Spring East Double Clawshot Chest",
                         "Lanayru Spring Underwater Left Chest",
                         "Lanayru Spring Underwater Right Chest",
-                        "Lanayru Spring West Double Clawshot Chest"
+                        "Lanayru Spring West Double Clawshot Chest",
+                        "Lanayru Spring Upper Underwater Boulder Rupee",
+                        "Lanayru Spring Lower Underwater Boulder Rupee"
                     }
                 },
                 {

@@ -2278,6 +2278,181 @@ namespace TPRandomizer.Assets
                     0
                 ),
 
+                // Lake Hylia Underwater Right Boulder Rupees
+                new ARCReplacement(
+                    "8FC8",
+                    "1358FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "8FE8",
+                    "1358FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "9008",
+                    "1358FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "A768",
+                    "1358FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "A788",
+                    "1358FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "A7A8",
+                    "1358FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+
+                // Lake Hylia Underwater Left Boulder Rupee
+                new ARCReplacement(
+                    "9048",
+                    "1359FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "9068",
+                    "1359FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "9088",
+                    "1359FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "90A8",
+                    "1359FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "A7E8",
+                    "1359FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "A808",
+                    "1359FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "A828",
+                    "1359FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+                new ARCReplacement(
+                    "A848",
+                    "1359FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    0
+                ),
+
+                // Lanayru Spring Lower Underwater Boulder Rupees
+                new ARCReplacement(
+                    "2028",
+                    "131DFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    1
+                ),
+                new ARCReplacement(
+                    "2048",
+                    "131DFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    1
+                ),
+                new ARCReplacement(
+                    "2068",
+                    "131DFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    1
+                ),
+                new ARCReplacement(
+                    "2088",
+                    "131DFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    1
+                ),
+
+                // Lanayru Spring Upper Underwater Boulder Rupees
+                new ARCReplacement(
+                    "20A8",
+                    "1339FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    1
+                ),
+                new ARCReplacement(
+                    "20C8",
+                    "1339FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    1
+                ),
+                new ARCReplacement(
+                    "20E8",
+                    "1339FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Lake_Hylia,
+                    1
+                ),
 
                 /*
             // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here.

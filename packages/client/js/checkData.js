@@ -1372,6 +1372,22 @@ window.tpr.checkData = {
     category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Orange_Rupee',
   },
+  'Lake Hylia Left Underwater Pillar Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Lake Hylia'],
+    itemId: 'Blue_Rupee',
+  },
+  'Lake Hylia Right Underwater Pillar Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Lake Hylia'],
+    itemId: 'Blue_Rupee',
+  },
+  'Lake Hylia Left Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Lake Hylia'],
+    itemId: 'Blue_Rupee',
+  },
+  'Lake Hylia Right Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Lake Hylia'],
+    itemId: 'Blue_Rupee',
+  },
   'Lake Lantern Cave Eighth Chest': {
     category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
     itemId: 'Bomblings_5',
@@ -1637,6 +1653,14 @@ window.tpr.checkData = {
   'Lanayru Spring West Double Clawshot Chest': {
     category: ['Overworld', 'Chest', 'Lake Hylia', 'ARC'],
     itemId: 'Orange_Rupee',
+  },
+  'Lanayru Spring Upper Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Lake Hylia'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lanayru Spring Lower Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Lake Hylia'],
+    itemId: 'Yellow_Rupee',
   },
   'Links Basement Chest': {
     category: ['Overworld', 'Chest', 'Ordona Province', 'ARC'],

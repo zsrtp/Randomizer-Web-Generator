@@ -614,6 +614,12 @@ namespace TPRandomizer
                 "Death Mountain Volcano Ledge Rupee 2",
                 "Death Mountain Volcano Ledge Rupee 3",
                 "Death Mountain Volcano Pipe Ledge Rock Rupee",
+                "Lake Hylia Left Underwater Pillar Rupee",
+                "Lake Hylia Right Underwater Pillar Rupee",
+                "Lake Hylia Right Underwater Boulder Rupee",
+                "Lake Hylia Left Underwater Boulder Rupee",
+                "Lanayru Spring Upper Underwater Boulder Rupee",
+                "Lanayru Spring Lower Underwater Boulder Rupee"
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.

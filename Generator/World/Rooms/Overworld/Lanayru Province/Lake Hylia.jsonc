@@ -52,7 +52,11 @@
         "Lake Hylia Dock Poe",
         "Lake Hylia Tower Poe",
         "Plumm Fruit Balloon Minigame",
-        "Lake Hylia Portal"
+        "Lake Hylia Portal",
+        "Lake Hylia Left Underwater Pillar Rupee",
+        "Lake Hylia Right Underwater Pillar Rupee",
+        "Lake Hylia Right Underwater Boulder Rupee",
+        "Lake Hylia Left Underwater Boulder Rupee"
     ],
     "Region": "Lake Hylia"
   },
@@ -144,7 +148,9 @@
         "Lanayru Spring Back Room Right Chest",
         "Lanayru Spring Back Room Lantern Chest",
         "Lanayru Spring East Double Clawshot Chest",
-        "Lanayru Spring West Double Clawshot Chest"
+        "Lanayru Spring West Double Clawshot Chest",
+        "Lanayru Spring Upper Underwater Boulder Rupee",
+        "Lanayru Spring Lower Underwater Boulder Rupee"
     ],
     "Region": "Lake Hylia"
   },
