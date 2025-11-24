@@ -2115,30 +2115,11 @@ namespace TPRandomizer.Hints
         }
     }
 
-    // public interface BarrenPenalizer
-    // {
-    //     bool CanAffordBarrenPenalties(Zone zone, HashSet<Zone> childZones);
-    // }
-
-
-    // public class DefaultBarrenPenalizer : BarrenPenalizer
-    // {
-    //     public bool CanAffordBarrenPenalties(Zone zone, HashSet<Zone> childZones)
-    //     {
-    //         return true;
-    //     }
-    // }
-
-    // public class HintLayerData : BarrenPenalizer
     public class HintLayerData
     {
         public bool killSwitched { get; private set; }
         public int layerLength { get; private set; }
         public int remainingSpots { get; private set; }
-
-        // public List<int> totalStarting { get; private set; } = new();
-        // public List<int> unusedStarting { get; private set; } = new();
-        // public List<int> barrenZonePenalties { get; private set; } = new();
 
         // Note: cannot combine both picks lists because we need to know the
         // diff to apply to the previous index when we pop back to it.
@@ -2149,12 +2130,10 @@ namespace TPRandomizer.Hints
         private HintSettings hintSettings;
         private HintGroup group;
 
-        // New starting and barren hint penalty stuff:
+        // Starting and Barren zone penalty stuff:
         public int currMaxStartingAllowed { get; private set; } = 0;
         private List<int> pendingCopiesAsc = new();
         private List<SpotPenalty> pendingSpotPenalties = new();
-
-        // public int barrenZoneHandlingMinReqSpots = 0;
 
         public HintLayerData(
             HintGenData genData,
@@ -2186,8 +2165,8 @@ namespace TPRandomizer.Hints
             // hints were generated", so we decrement by that many.
             TryApplyPicksDiff(1);
 
-            // If we need to adjust spotPenalties for a new BarrenHint, the new list is provided as
-            // input.
+            // If we need to update spotPenalties for a new BarrenHint, the new list is provided as
+            // input since all of the calculations are handled externally to this function.
             if (newSpotPenalties != null)
             {
                 pendingSpotPenalties = newSpotPenalties;
@@ -2243,7 +2222,7 @@ namespace TPRandomizer.Hints
             if (isStartingHint)
                 return;
 
-            // Then reduce spots remaining based on copies or minCopies.
+            // Otherwise reduce spotsRemaining based on copies or minCopies.
             int fullCopiesSize = hintDefResult.copies;
             if (remainingSpots >= fullCopiesSize)
             {
@@ -2261,16 +2240,13 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            throw new Exception("Failed to reduce layer spots.");
+            throw new Exception(
+                $"Failed to reduce layer spots. remainingSpots is currently '{remainingSpots}'."
+            );
         }
 
         public void pushStarting(int starting)
         {
-            // totalStarting.Add(starting);
-            // unusedStarting.Add(starting);
-            // barrenZonePenalties.Add(0);
-
-            // New starting and barren stuff:
             if (currMaxStartingAllowed > 0)
                 throw new Exception($"Nested 'starting' in hintDefs in invalid.");
             if (pendingCopiesAsc.Count != 0)
@@ -2284,19 +2260,6 @@ namespace TPRandomizer.Hints
 
             currMaxStartingAllowed = starting;
         }
-
-        // private void popStarting()
-        // {
-        //     // if (totalStarting.Count > 0)
-        //     //     totalStarting.RemoveAt(totalStarting.Count - 1);
-        //     // if (unusedStarting.Count > 0)
-        //     //     unusedStarting.RemoveAt(unusedStarting.Count - 1);
-        //     // if (barrenZonePenalties.Count > 0)
-        //     //     barrenZonePenalties.RemoveAt(barrenZonePenalties.Count - 1);
-
-        //     // New starting and barren stuff:
-        //     currMaxStartingAllowed = 0;
-        // }
 
         public void popAndUpdateStarting(HintDefProps currDefProps, RecHintResults results)
         {
@@ -2317,33 +2280,9 @@ namespace TPRandomizer.Hints
                     // internally.
                     resolveRemainingFromNewHint(result, true);
                 }
-
-                // TODO: remove from list and do penalty stuff
-
-                //
-
-                // BEGIN old penalty stuff
-
-                // int numPenaltiesShouldHavePaid = 0;
-
-                // // Scan through ones that were picked for starting. For each one
-                // // that should have paid a penalty, keep its penalty.
-                // foreach (HintDefResult hintDefResult in pickedForStarting)
-                // {
-                //     if (hintShouldPayBarrenPenalty(hintDefResult.hint))
-                //         numPenaltiesShouldHavePaid += 1;
-                // }
-
-                // int numPenaltiesDidPay = barrenZonePenalties[barrenZonePenalties.Count - 1];
-
-                // int numSpotsToRefund = numPenaltiesDidPay - numPenaltiesShouldHavePaid;
-                // if (numSpotsToRefund > 0)
-                //     remainingSpots += numSpotsToRefund;
-
-                // END old penalty stuff
             }
 
-            // Then for any still in results, resolve as non-starting
+            // Then for any still in results, resolve as non-starting.
             foreach (HintDefResult result in results.HintDefResults)
             {
                 // Adjust remainingSpots for the remaining hints not selected as starting.
@@ -2360,11 +2299,7 @@ namespace TPRandomizer.Hints
                 );
         }
 
-        private List<HintDefResult> RemoveRandomStartingHints(
-            // List<HintDefResult> results,
-            RecHintResults results,
-            int numToPick
-        )
+        private List<HintDefResult> RemoveRandomStartingHints(RecHintResults results, int numToPick)
         {
             List<HintDefResult> selected = new();
 
@@ -2420,142 +2355,6 @@ namespace TPRandomizer.Hints
 
             return selected;
         }
-
-        // public int getCummTotalStarting()
-        // {
-        //     int total = 0;
-        //     foreach (int val in totalStarting)
-        //     {
-        //         total += val;
-        //     }
-        //     return total;
-        // }
-
-        // public int getCummUnusedStarting()
-        // {
-        //     int total = 0;
-        //     foreach (int val in unusedStarting)
-        //     {
-        //         total += val;
-        //     }
-        //     return total;
-        // }
-
-        // private bool tryRemoveUnusedStarting()
-        // {
-        //     for (int i = unusedStarting.Count - 1; i >= 0; i--)
-        //     {
-        //         int val = unusedStarting[i];
-        //         if (val > 0)
-        //         {
-        //             unusedStarting[i] = val - 1;
-        //             return true;
-        //         }
-        //     }
-        //     return false;
-        // }
-
-        // public bool hasSpotInGroup(SpotId spotId)
-        // {
-        //     return spotId != SpotId.Invalid && group.spots.Contains(spotId);
-        // }
-
-        public void updateSpotsLeft(ReadOnlyCollection<HintDefResult> hintDefResults)
-        {
-            if (ListUtils.isEmpty(hintDefResults))
-                return;
-
-            // Note for maxPicks: we do not care about copies, starting, etc. We
-            // just see "this many hints were generated", so we decrement by
-            // that many.
-            TryApplyPicksDiff(hintDefResults.Count);
-
-            foreach (HintDefResult hintDefResult in hintDefResults)
-            {
-                updateSpotsLeftPair(hintDefResult);
-            }
-
-            if (remainingSpots < 0)
-                throw new Exception("Reduced layer spots to a negative value.");
-            else if (remainingSpots == 0)
-                killSwitched = true;
-        }
-
-        // private void updateSpotsLeftSingle(HintDefResult hintDefResult)
-        // {
-        //     updateSpotsLeftPair(hintDefResult);
-
-        //     if (remainingSpots < 0)
-        //         throw new Exception("Reduced layer spots to a negative value.");
-        //     else if (remainingSpots == 0)
-        //         killSwitched = true;
-        // }
-
-        private void updateSpotsLeftPair(HintDefResult hintDefResult)
-        {
-            // if (tryRemoveUnusedStarting())
-            //     return;
-
-            // If can remove full copies, do that.
-            int fullCopiesSize = hintDefResult.copies;
-            if (remainingSpots >= fullCopiesSize)
-            {
-                remainingSpots -= fullCopiesSize;
-                return;
-            }
-
-            int minCopies = hintDefResult.minCopies;
-            if (minCopies > 0)
-            {
-                if (remainingSpots >= minCopies)
-                {
-                    remainingSpots = 0;
-                    return;
-                }
-            }
-
-            throw new Exception("Failed to reduce layer spots.");
-        }
-
-        // public void updateUsingStartingBarrenHint(HintDefResult hintDefResult, SpotId spotId)
-        // {
-        //     if (hintDefResult == null)
-        //         throw new Exception("Expected non-null hintDefResult.");
-
-        //     // if (hasSpotInGroup(spotId))
-        //     //     tryPayBarrenZonePenalty();
-
-        //     TryApplyPicksDiff(1);
-
-        //     updateSpotsLeftSingle(hintDefResult);
-        // }
-
-        // private void tryPayBarrenZonePenalty()
-        // {
-        //     // Start at the latest one, iterate through until find one where
-        //     // penalty value is less than its max. This reduces the number of
-        //     // spots in the layer by 1 also.
-        //     for (int i = barrenZonePenalties.Count - 1; i >= 0; i--)
-        //     {
-        //         int currentPaid = barrenZonePenalties[i];
-        //         int maxForIndex = totalStarting[i];
-        //         if (currentPaid >= maxForIndex)
-        //             continue;
-
-        //         barrenZonePenalties[i] = currentPaid + 1;
-        //         remainingSpots -= 1;
-        //         break;
-        //     }
-        // }
-
-        // private bool hintShouldPayBarrenPenalty(Hint hint)
-        // {
-        //     SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(hint);
-        //     if (spotId == SpotId.Invalid || !group.spots.Contains(spotId))
-        //         return false;
-
-        //     return true;
-        // }
 
         public bool CheckPushMaxPicks(HintDefProps hintDefProps)
         {
@@ -2737,100 +2536,6 @@ namespace TPRandomizer.Hints
             return tempPenaltiesList;
         }
 
-        // public bool CanAffordBarrenPenalties(Zone zone, HashSet<Zone> childZones)
-        // {
-        //     List<SpotPenalty> tempPenaltiesList = new(pendingSpotPenalties);
-
-        //     int numMatchingZonesInGroup = 0;
-        //     bool isSelfInGroup = false;
-
-        //     SpotId spotIdForZone = ZoneUtils.IdToSpotIdThrows(zone);
-        //     if (group.spots.Contains(spotIdForZone))
-        //     {
-        //         numMatchingZonesInGroup += 1;
-        //         isSelfInGroup = true;
-        //     }
-
-        //     if (childZones != null && childZones.Count > 0)
-        //     {
-        //         // Don't double-count main zone. If also listed in childZones, throw since this is
-        //         // not expected.
-        //         if (childZones.Contains(zone))
-        //             throw new Exception(
-        //                 $"Did not expect to find zone '{zone}' defined as its own child zone."
-        //             );
-
-        //         foreach (Zone childZone in childZones)
-        //         {
-        //             SpotId spotId = ZoneUtils.IdToSpotIdThrows(zone);
-        //             if (group.spots.Contains(spotId))
-        //                 numMatchingZonesInGroup += 1;
-        //         }
-        //     }
-
-        //     SpotPenalty spotPenalty = new(numMatchingZonesInGroup, isSelfInGroup, 0);
-        //     // SpotPenalty spotPenalty2 = new(numMatchingZonesInGroup + 3, isSelfInGroup, 0);
-        //     // SpotPenalty spotPenalty3 = new(numMatchingZonesInGroup, false, 0);
-        //     tempPenaltiesList.Add(spotPenalty);
-        //     // tempPenaltiesList.Add(spotPenalty2);
-        //     // tempPenaltiesList.Add(spotPenalty3);
-        //     // Sort desc
-        //     tempPenaltiesList.Sort();
-        //     tempPenaltiesList.Reverse();
-
-        //     int penalties = calcPenalties(tempPenaltiesList);
-
-        //     if ((remainingSpots - penalties - barrenZoneHandlingMinReqSpots) < 0)
-        //         return false;
-
-        //     // Now we can calculate how many penalties we would be paying and add this on top of
-        //     // remaining spots. Then we need to
-
-        //     //
-
-        //     // TODO: since we could have something all under a starting umbrella like this (10
-        //     // copies of Hint A and 2 copies of Hint B), then whichever one gets picked for starting
-        //     // would have a huge impact on our remaining spots. One would allow us to have an
-        //     // additional 9 spots compared to the other one.
-
-        //     // So we can still calculate penalties like we are doing, but there could also be
-        //     // variance in how many spots gets used up depending on which ones get picked for
-        //     // starting.
-
-        //     // So what we should do is assume the worst case for both:
-        //     // - meaning the most copy hints do NOT get picked for starting hints.
-        //     // - and meaning barren penalties should be MAXIMIZED even if this is a different order
-        //     //   from the above list.
-
-        //     // So basically if we are under "starting", we should not be reducing remainingSpots at
-        //     // all. We should be working on theoretical values.
-
-        //     // Basically would have 2 lists: barrenPenalties and ascending spotsNeeded. We don't
-        //     // actually use up any spots until we have used up starting hints. Under starting hints,
-        //     // we should only create hints if we can fit the full copies (no minCopies stuff). Note
-        //     // if we are allowed 3 starting hints, then even if something is 100 copies we can still
-        //     // fit it as a starting hint. Let's say we have 2 starting hints. If we create a
-        //     // 100-copy hint, then it fits in starting. If we create a 1-copy hint, it is sorted to
-        //     // the front and our 2 hints still fit. If we wanted to create yet another 1-copy hint,
-        //     // then placing it ordered into the list would give [1,1,100], meaning we would suddenly
-        //     // be using up 100 spots instead of the naive 1 spot (since starting hints aren't
-        //     // resolved/picked yet, we might pick both 1-copy hints to be our starting hints).
-
-        //     // So what we can do to see how many full-copy hints we could create is create a temp
-        //     // list, then insert them one-by-one and see if the count is still under the
-        //     // remainingSpots threshold. Note we have to take the current penalties into account for
-        //     // this as well (determining how many full copies could fit).
-
-        //     // If there is no pending starting, then we can do the simple calculation which also
-        //     // takes minCopies into account.
-
-        //     // That is quite involved, so will leave it there for today.
-
-        //     // We need to handle the case of paying penalties when there is no pending starting.
-
-        //     return true;
-        // }
-
         public int getNumCreatableHints(
             int iterations,
             int copies,
@@ -2864,7 +2569,9 @@ namespace TPRandomizer.Hints
                 // If has pending starting:
 
                 // We also need to take off spots for any that are guaranteed already pushed out
-                // from the starting range.
+                // from the starting range. Ex: 3 starting, and we have already generated hints with
+                // copies [2,3,3],3,4 such that we are guaranteed to already be losing 7 spots (3+4
+                // which don't fit in starting list).
                 for (int i = currMaxStartingAllowed; i < pendingCopiesAsc.Count; i++)
                 {
                     baseSpotsAvailable -= pendingCopiesAsc[i];
