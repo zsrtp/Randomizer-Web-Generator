@@ -1313,6 +1313,69 @@ namespace TPRandomizer.Hints
                 HintCategoryUtils.categoryToChecksMap,
                 AreaId.Category
             );
+
+            // Add dependencies:
+            AreaCheckInfo dmInfo = areaToCheckInfo[AreaId.Zone(Zone.Death_Mountain)];
+            dmInfo.dependentCheckNames.Add("Ordon Spring Golden Wolf");
+
+            AreaCheckInfo uzrInfo = areaToCheckInfo[AreaId.Zone(Zone.Upper_Zoras_River)];
+            uzrInfo.dependentCheckNames.Add("West Hyrule Field Golden Wolf");
+
+            AreaCheckInfo lhInfo = areaToCheckInfo[AreaId.Zone(Zone.Lake_Hylia)];
+            lhInfo.dependentAreaIds.Add(AreaId.Zone(Zone.Lanayru_Spring));
+            lhInfo.dependentAreaIds.Add(AreaId.Zone(Zone.Lake_Lantern_Cave));
+            lhInfo.dependentCheckNames.Add("Gerudo Desert Golden Wolf");
+
+            AreaCheckInfo fwInfo = areaToCheckInfo[AreaId.Zone(Zone.Faron_Woods)];
+            fwInfo.dependentCheckNames.Add("Outside South Castle Town Golden Wolf");
+
+            AreaCheckInfo spmInfo = areaToCheckInfo[AreaId.Zone(Zone.Snowpeak_Mountain)];
+            spmInfo.dependentCheckNames.Add("Kakariko Graveyard Golden Wolf");
+
+            AreaCheckInfo hvInfo = areaToCheckInfo[AreaId.Zone(Zone.Hidden_Village)];
+            hvInfo.dependentCheckNames.Add("North Castle Town Golden Wolf");
+
+            AreaCheckInfo gdInfo = areaToCheckInfo[AreaId.Zone(Zone.Gerudo_Desert)];
+            gdInfo.dependentAreaIds.Add(AreaId.Category(HintCategory.Northern_Desert));
+            gdInfo.dependentAreaIds.Add(AreaId.Category(HintCategory.Southern_Desert));
+
+            AreaCheckInfo northernDesertInfo = areaToCheckInfo[
+                AreaId.Category(HintCategory.Northern_Desert)
+            ];
+            gdInfo.dependentAreaIds.Add(AreaId.Zone(Zone.Cave_of_Ordeals));
+
+            AreaCheckInfo ctInfo = areaToCheckInfo[AreaId.Zone(Zone.Castle_Town)];
+            ctInfo.dependentAreaIds.Add(AreaId.Zone(Zone.Agithas_Castle));
+
+            // Post-dungeon check dependencies. For now we don't account for randomized bosses. We
+            // will need to do a bunch of zone-building based on the room graph for future ER work,
+            // so no reason to do a halfway version that isn't currently needed and would be
+            // scrapped anyway.
+            AreaCheckInfo gmInfo = areaToCheckInfo[AreaId.Zone(Zone.Goron_Mines)];
+            gmInfo.dependentCheckNames.UnionWith(CheckFunctions.postFyrusChecks);
+
+            AreaCheckInfo sprInfo = areaToCheckInfo[AreaId.Zone(Zone.Snowpeak_Ruins)];
+            sprInfo.dependentCheckNames.UnionWith(CheckFunctions.postBlizettaChecks);
+
+            if (sSettings.iliaQuest != IliaQuest.Vanilla)
+            {
+                AreaCheckInfo totInfo = areaToCheckInfo[AreaId.Zone(Zone.Temple_of_Time)];
+                totInfo.dependentCheckNames.UnionWith(CheckFunctions.postArmogohmaChecks);
+            }
+
+            // TODO: GD => NorthernDesert => CoO. This needs to be handled correctly. Even though
+            // the same checks show up in GD and Northern Desert, this just means there should be no
+            // problem in that if ND cannot be barren then GD also cannot be barren. If ND can be
+            // barren, then GD still needs to check SD stuff.
+
+            // continued: if non-race distribution where ND and SD are not valid, then CoO would go
+            // to ND which would go to GD. We would start at the top and see if possible to generate
+            // that hint instead (which might be possible). If not possible, then we would go back
+            // to next thing in list which is ND. ND is not valid to create simply because it is not
+            // listed as a valid Area for the non-race distribution hint. Note: it's possible CoO is
+            // not valid to create in general if CoO hints are on. In this case, we would not even
+            // pick it as a thing which requires these calcs when we randomly pick it since we would
+            // not be randomly picking it as a potential thing.
         }
 
         public AreaCheckInfo GetAreaCheckInfoThrows(AreaId areaId)
@@ -2070,5 +2133,6 @@ namespace TPRandomizer.Hints
         public HashSet<string> fullCheckNames { get; } = new();
         public HashSet<string> nonVanillaExcludedCheckNames { get; } = new();
         public HashSet<AreaId> dependentAreaIds { get; } = new();
+        public HashSet<string> dependentCheckNames { get; } = new();
     }
 }
