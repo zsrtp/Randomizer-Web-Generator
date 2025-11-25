@@ -1,6 +1,6 @@
 {
-    "requirements": "Shadow_Crystal or Boomerang",
-    "glitchedRequirements": "Boomerang or Shadow_Crystal",
+    "requirements": "(Shadow_Crystal or Boomerang) and CanCompleteEldinTwilight",
+    "glitchedRequirements": "(Boomerang or Shadow_Crystal) and CanCompleteEldinTwilight",
     "checkCategory": [ "Overworld", "Kakariko Village", "Rupee - Hidden" ],
     "itemId": "Yellow_Rupee"
   }

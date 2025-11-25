@@ -1,6 +1,6 @@
 {
-    "requirements": "CanDefeatGoron or CanCompleteGoronMines",
-    "glitchedRequirements": "CanDefeatGoron or CanCompleteGoronMines",
+    "requirements": "(CanDefeatGoron or CanCompleteGoronMines) and CanCompleteEldinTwilight",
+    "glitchedRequirements": "(CanDefeatGoron or CanCompleteGoronMines) and CanCompleteEldinTwilight",
     "checkCategory": [ "Overworld", "Death Mountain", "Rupee - Freestanding" ],
     "itemId": "Yellow_Rupee"
   }

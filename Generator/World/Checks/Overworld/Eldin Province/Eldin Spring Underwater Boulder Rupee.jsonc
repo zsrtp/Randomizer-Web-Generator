@@ -1,6 +1,6 @@
 {
-    "requirements": "(Iron_Boots or Zora_Armor) and CanUseWaterBombs",
-    "glitchedRequirements": "(Iron_Boots or Magic_Armor or Zora_Armor) and CanUseWaterBombs",
+    "requirements": "(Iron_Boots or Zora_Armor) and CanUseWaterBombs and CanCompleteEldinTwilight",
+    "glitchedRequirements": "(Iron_Boots or Magic_Armor or Zora_Armor) and CanUseWaterBombs and CanCompleteEldinTwilight",
     "checkCategory": [ "Overworld", "Kakariko Village", "Rupee - Hidden" ],
     "itemId": "Orange_Rupee"
   }

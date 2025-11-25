@@ -36,7 +36,9 @@
       "Kakariko Gorge Male Pill Bug",
       "Kakariko Gorge Female Pill Bug",
       "Kakariko Gorge Poe",
-      "Kakariko Gorge Portal"
+      "Kakariko Gorge Portal",
+      "Kakariko Gorge Owl Statue Boulder Rupee",
+      "Kakariko Gorge Spire Boulder Rupee"
     ],
     "Region": "Hyrule Field - Eldin Province"
   },
@@ -157,7 +159,8 @@
       "Eldin Field Female Grasshopper",
       "Bridge of Eldin Male Phasmid",
       "Bridge of Eldin Female Phasmid",
-      "Bridge of Eldin Portal"
+      "Bridge of Eldin Portal",
+      "Eldin Field Bridge Boulder Rupee"
     ],
     "Region": "Hyrule Field - Eldin Province"
   },

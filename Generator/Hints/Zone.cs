@@ -277,7 +277,9 @@ namespace TPRandomizer.Hints
                         "Kakariko Gorge Owl Statue Chest",
                         "Kakariko Gorge Owl Statue Sky Character",
                         "Kakariko Gorge Poe",
-                        "Kakariko Gorge Spire Heart Piece"
+                        "Kakariko Gorge Spire Heart Piece",
+                        "Kakariko Gorge Owl Statue Boulder Rupee",
+                        "Kakariko Gorge Spire Boulder Rupee",
                     }
                 },
                 {
@@ -353,7 +355,8 @@ namespace TPRandomizer.Hints
                         "Eldin Field Stalfos Grotto Stalfos Chest",
                         "Eldin Stockcave Lantern Chest",
                         "Eldin Stockcave Lowest Chest",
-                        "Eldin Stockcave Upper Chest"
+                        "Eldin Stockcave Upper Chest",
+                        "Eldin Field Bridge Boulder Rupee"
                     }
                 },
                 {
@@ -382,7 +385,12 @@ namespace TPRandomizer.Hints
                         "Lanayru Field Poe Grotto Right Poe",
                         "Lanayru Field Skulltula Grotto Chest",
                         "Lanayru Field Spinner Track Chest",
-                        "Lanayru Ice Block Puzzle Cave Chest"
+                        "Lanayru Ice Block Puzzle Cave Chest",
+                        "Lanayru Field North Spinner Track Boulder Rupee",
+                        "Lanayru Field South Spinner Track Boulder Rupee",
+                        "Lanayru Field North Underwater Boulder Rupee",
+                        "Lanayru Field South Underwater Boulder Rupee",
+                        "Lanayru Field Tree Boulder Rupee"
                     }
                 },
                 {
@@ -395,7 +403,9 @@ namespace TPRandomizer.Hints
                         "West Hyrule Field Female Butterfly",
                         "West Hyrule Field Golden Wolf",
                         "West Hyrule Field Helmasaur Grotto Chest",
-                        "West Hyrule Field Male Butterfly"
+                        "West Hyrule Field Male Butterfly",
+                        "West Hyrule Field Northern Boulder Rupee",
+                        "West Hyrule Field Southern Boulder Rupee"
                     }
                 },
                 {
@@ -410,7 +420,8 @@ namespace TPRandomizer.Hints
                         "Outside South Castle Town Poe",
                         "Outside South Castle Town Tektite Grotto Chest",
                         "Outside South Castle Town Tightrope Chest",
-                        "Wooden Statue"
+                        "Wooden Statue",
+                        "Outside South Castle Town Boulder Rupee",
                     }
                 },
                 {
@@ -475,7 +486,9 @@ namespace TPRandomizer.Hints
                         "Lake Hylia Bridge Male Mantis",
                         "Lake Hylia Bridge Owl Statue Chest",
                         "Lake Hylia Bridge Owl Statue Sky Character",
-                        "Lake Hylia Bridge Vines Chest"
+                        "Lake Hylia Bridge Vines Chest",
+                        "Lake Hylia Bridge Faron Boulder Rupee",
+                        "Lake Hylia Bridge Owl Statue Boulder Rupee",
                     }
                 },
                 {

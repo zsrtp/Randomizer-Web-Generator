@@ -2454,6 +2454,351 @@ namespace TPRandomizer.Assets
                     1
                 ),
 
+
+                // BoE Boulder Rupee
+                new ARCReplacement(
+                    "1840",
+                    "F377FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    0
+                ),
+                new ARCReplacement(
+                    "1860",
+                    "F377FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    0
+                ),
+
+                // Kak gorge spire boulder rupees
+                new ARCReplacement(
+                    "1488",
+                    "F37AFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    3
+                ),
+                new ARCReplacement(
+                    "14A8",
+                    "F37AFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    3
+                ),
+                new ARCReplacement(
+                    "14C8",
+                    "F37AFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    3
+                ),
+
+                // Kak Gorge Owl Statue Boulder Rupees
+                new ARCReplacement(
+                    "1508",
+                    "F378FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    3
+                ),
+                new ARCReplacement(
+                    "1528",
+                    "F378FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    3
+                ),
+                new ARCReplacement(
+                    "1548",
+                    "F378FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    3
+                ),
+                new ARCReplacement(
+                    "1568",
+                    "F378FF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    3
+                ),
+
+                // Lanayru Field South Underwater Boulder Rupee
+                new ARCReplacement(
+                    "19F0",
+                    "137FFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    10
+                ),
+                new ARCReplacement(
+                    "1A10",
+                    "137FFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    10
+                ),
+                new ARCReplacement(
+                    "1A30",
+                    "137FFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    10
+                ),
+                new ARCReplacement(
+                    "1A50",
+                    "137FFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    10
+                ),
+
+                // Lanayru Field North Underwater Boulder Rupees
+                new ARCReplacement(
+                    "1A90",
+                    "137EFF04",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    10
+                ),
+                new ARCReplacement(
+                    "1AB0",
+                    "137EFF04",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    10
+                ),
+
+                // Lanayru Field North Spinner Track Boulder Rupees
+                new ARCReplacement(
+                    "1B30",
+                    "F30FFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    10
+                ),
+                new ARCReplacement(
+                    "1B50",
+                    "F30FFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    10
+                ),
+
+                // Lanayru Field South Spinner Track Boulder Rupees
+                new ARCReplacement(
+                    "3EC",
+                    "F30EFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    12
+                ),
+                new ARCReplacement(
+                    "40C",
+                    "F30EFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    12
+                ),
+                new ARCReplacement(
+                    "42C",
+                    "F30EFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    12
+                ),
+
+                // Lake Hylia Bridge Owl Statue Boulder Rupees
+                new ARCReplacement(
+                    "C78",
+                    "F37CFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    13
+                ),
+                new ARCReplacement(
+                    "C98",
+                    "F37CFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    13
+                ),
+                new ARCReplacement(
+                    "CB8",
+                    "F37CFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    13
+                ),
+
+                // Lake Hylia Bridge Faron Boulder Rupee
+                new ARCReplacement(
+                    "CF8",
+                    "F37BFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    13
+                ),
+
+                // West Hyrule Field Northern Boulder Rupees
+                new ARCReplacement(
+                    "1824",
+                    "F34BFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    8
+                ),
+                new ARCReplacement(
+                    "1844",
+                    "F34BFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    8
+                ),
+                new ARCReplacement(
+                    "1864",
+                    "F34BFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    8
+                ),
+                new ARCReplacement(
+                    "1884",
+                    "F34BFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    8
+                ),
+                new ARCReplacement(
+                    "18A4",
+                    "F34BFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    8
+                ),
+
+                // West Hyrule Field Southern Boulder Rupees
+                new ARCReplacement(
+                    "18E4",
+                    "F34CFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    8
+                ),
+                new ARCReplacement(
+                    "1904",
+                    "F34CFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    8
+                ),
+                new ARCReplacement(
+                    "1924",
+                    "F34CFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    8
+                ),
+                new ARCReplacement(
+                    "1944",
+                    "F34CFF03",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    8
+                ),
+
+                // Outside South Castle Town Boulder Rupees
+                new ARCReplacement(
+                    "16D4",
+                    "F34AFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    16
+                ),
+                new ARCReplacement(
+                    "16F4",
+                    "F34AFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    16
+                ),
+                new ARCReplacement(
+                    "1714",
+                    "F34AFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    16
+                ),
+                new ARCReplacement(
+                    "1734",
+                    "F34AFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    16
+                ),
+                new ARCReplacement(
+                    "1754",
+                    "F34AFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    16
+                ),
+                new ARCReplacement(
+                    "1774",
+                    "F34AFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    16
+                ),
+                new ARCReplacement(
+                    "1794",
+                    "F34AFF02",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    16
+                ),
+
                 /*
             // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here.
             new ARCReplacement(

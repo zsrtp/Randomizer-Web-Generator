@@ -619,7 +619,20 @@ namespace TPRandomizer
                 "Lake Hylia Right Underwater Boulder Rupee",
                 "Lake Hylia Left Underwater Boulder Rupee",
                 "Lanayru Spring Upper Underwater Boulder Rupee",
-                "Lanayru Spring Lower Underwater Boulder Rupee"
+                "Lanayru Spring Lower Underwater Boulder Rupee",
+                "Eldin Field Bridge Boulder Rupee",
+                "Kakariko Gorge Owl Statue Boulder Rupee",
+                "Kakariko Gorge Spire Boulder Rupee",
+                "Lake Hylia Bridge Faron Boulder Rupee",
+                "Lake Hylia Bridge Owl Statue Boulder Rupee",
+                "Lanayru Field North Spinner Track Boulder Rupee",
+                "Lanayru Field South Spinner Track Boulder Rupee",
+                "Lanayru Field North Underwater Boulder Rupee",
+                "Lanayru Field South Underwater Boulder Rupee",
+                "Outside South Castle Town Boulder Rupee",
+                "West Hyrule Field Northern Boulder Rupee",
+                "West Hyrule Field Southern Boulder Rupee",
+                "Lanayru Field Tree Boulder Rupee"
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.

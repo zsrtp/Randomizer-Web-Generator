@@ -493,6 +493,10 @@ window.tpr.checkData = {
     category: ['Overworld', 'Poe', 'Hyrule Field - Lanayru Province'],
     itemId: 'Poe_Soul',
   },
+  'Eldin Field Bridge Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Eldin Province'],
+    itemId: 'Yellow_Rupee',
+  },
   'Eldin Field Bomb Rock Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'ARC'],
     itemId: 'Piece_of_Heart',
@@ -1188,6 +1192,14 @@ window.tpr.checkData = {
     category: ['Overworld', 'Castle Town', 'Poe'],
     itemId: 'Poe_Soul',
   },
+  'Kakariko Gorge Owl Statue Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Eldin Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Kakariko Gorge Spire Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Eldin Province'],
+    itemId: 'Yellow_Rupee',
+  },
   'Kakariko Gorge Double Clawshot Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'ARC'],
     itemId: 'Piece_of_Heart',
@@ -1315,6 +1327,14 @@ window.tpr.checkData = {
   'Lake Hylia Alcove Poe': {
     category: ['Overworld', 'Poe', 'Lake Hylia'],
     itemId: 'Poe_Soul',
+  },
+  'Lake Hylia Bridge Faron Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lake Hylia Bridge Owl Statue Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
   },
   'Lake Hylia Bridge Bubble Grotto Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
@@ -1590,6 +1610,26 @@ window.tpr.checkData = {
     category: ['Chest', 'Dungeon', 'Lakebed Temple', 'ARC'],
     itemId: 'Water_Bombs_10',
   },
+  'Lanayru Field North Spinner Track Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lanayru Field South Spinner Track Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lanayru Field North Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lanayru Field South Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lanayru Field Tree Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
   'Lanayru Field Behind Gate Underwater Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Orange_Rupee',
@@ -1801,6 +1841,10 @@ window.tpr.checkData = {
   'Outside Lanayru Spring Right Statue Chest': {
     category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Orange_Rupee',
+  },
+  'Outside South Castle Town Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
   },
   'Outside South Castle Town Double Clawshot Chasm Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
@@ -2293,6 +2337,14 @@ window.tpr.checkData = {
   'Upper Zoras River Portal': {
     category: ['Overworld', 'Upper Zoras River'],
     itemId: 'Upper_Zoras_River_Portal',
+  },
+  'West Hyrule Field Northern Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'West Hyrule Field Southern Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
   },
   'West Hyrule Field Female Butterfly': {
     category: ['Overworld', 'Golden Bug', 'Hyrule Field - Lanayru Province', 'DZX'],
