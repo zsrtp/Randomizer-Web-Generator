@@ -2050,6 +2050,82 @@ window.tpr.checkData = {
     category: ['Overworld', 'Npc', 'Hidden Village', 'ARC'],
     itemId: 'Progressive_Sky_Book',
   },
+  'Snowboarding Bridge Ledge Bottom Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Bridge Ledge Middle Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Bridge Ledge Upper Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 1': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 2': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 3': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 4': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 5': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Red_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 6': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 7': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 8': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 9': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 10': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 11': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Snowy Tree Top Rupee 1': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Blue_Rupee',
+  },
+  'Snowboarding Snowy Tree Top Rupee 2': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Red_Rupee',
+  },
+  'Snowboarding Snowy Tree Top Rupee 3': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Purple_Rupee',
+  },
+  'Snowboarding Top Left Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Top Right Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
   'Snowboard Racing Prize': {
     category: ['Overworld', 'Npc', 'Snowpeak Province', 'ARC'],
     itemId: 'Piece_of_Heart',

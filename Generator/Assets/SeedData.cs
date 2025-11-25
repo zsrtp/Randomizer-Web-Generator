@@ -2799,6 +2799,160 @@ namespace TPRandomizer.Assets
                     16
                 ),
 
+                // Snowboarding Rupees
+                new ARCReplacement(
+                    "3313",
+                    "00F3FF80",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "3333",
+                    "00F3FF81",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "3133",
+                    "00F3FF82",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "30F3",
+                    "00F3FF83",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "3113",
+                    "00F3FF84",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "32F3",
+                    "00F3FF85",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "32D3",
+                    "00F3FF86",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "2ED3",
+                    "00F3FF87",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "3353",
+                    "00F3FF88",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "33B3",
+                    "00F3FF89",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "3393",
+                    "00F3FF8A",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "3373",
+                    "00F3FF8B",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "32B3",
+                    "00F3FF8C",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "3293",
+                    "00F3FF8D",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "3273",
+                    "00F3FF8E",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "3213",
+                    "00F3FF8F",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "3233",
+                    "00F3FF90",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "3253",
+                    "00F3FF91",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+                new ARCReplacement(
+                    "33D3",
+                    "00F3FF92",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    1
+                ),
+
                 /*
             // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here.
             new ARCReplacement(

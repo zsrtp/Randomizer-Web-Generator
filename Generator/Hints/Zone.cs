@@ -657,7 +657,26 @@ namespace TPRandomizer.Hints
                         "Snowpeak Cave Ice Poe",
                         "Snowpeak Freezard Grotto Chest",
                         "Snowpeak Icy Summit Poe",
-                        "Snowpeak Poe Among Trees"
+                        "Snowpeak Poe Among Trees",
+                        "Snowboarding Bridge Ledge Bottom Rupee",
+                        "Snowboarding Bridge Ledge Middle Rupee",
+                        "Snowboarding Bridge Ledge Upper Rupee",
+                        "Snowboarding Shortcut Rupee 1",
+                        "Snowboarding Shortcut Rupee 2",
+                        "Snowboarding Shortcut Rupee 3",
+                        "Snowboarding Shortcut Rupee 4",
+                        "Snowboarding Shortcut Rupee 5",
+                        "Snowboarding Shortcut Rupee 6",
+                        "Snowboarding Shortcut Rupee 7",
+                        "Snowboarding Shortcut Rupee 8",
+                        "Snowboarding Shortcut Rupee 9",
+                        "Snowboarding Shortcut Rupee 10",
+                        "Snowboarding Shortcut Rupee 11",
+                        "Snowboarding Snowy Tree Top Rupee 1",
+                        "Snowboarding Snowy Tree Top Rupee 2",
+                        "Snowboarding Snowy Tree Top Rupee 3",
+                        "Snowboarding Top Left Rupee",
+                        "Snowboarding Top Right Rupee"
                     }
                 },
                 {

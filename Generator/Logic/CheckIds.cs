@@ -632,7 +632,26 @@ namespace TPRandomizer
                 "Outside South Castle Town Boulder Rupee",
                 "West Hyrule Field Northern Boulder Rupee",
                 "West Hyrule Field Southern Boulder Rupee",
-                "Lanayru Field Tree Boulder Rupee"
+                "Lanayru Field Tree Boulder Rupee",
+                "Snowboarding Bridge Ledge Bottom Rupee",
+                "Snowboarding Bridge Ledge Middle Rupee",
+                "Snowboarding Bridge Ledge Upper Rupee",
+                "Snowboarding Shortcut Rupee 1",
+                "Snowboarding Shortcut Rupee 2",
+                "Snowboarding Shortcut Rupee 3",
+                "Snowboarding Shortcut Rupee 4",
+                "Snowboarding Shortcut Rupee 5",
+                "Snowboarding Shortcut Rupee 6",
+                "Snowboarding Shortcut Rupee 7",
+                "Snowboarding Shortcut Rupee 8",
+                "Snowboarding Shortcut Rupee 9",
+                "Snowboarding Shortcut Rupee 10",
+                "Snowboarding Shortcut Rupee 11",
+                "Snowboarding Snowy Tree Top Rupee 1",
+                "Snowboarding Snowy Tree Top Rupee 2",
+                "Snowboarding Snowy Tree Top Rupee 3",
+                "Snowboarding Top Left Rupee",
+                "Snowboarding Top Right Rupee"
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.
