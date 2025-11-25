@@ -356,7 +356,7 @@ namespace TPRandomizer.Hints
                         "Eldin Stockcave Lantern Chest",
                         "Eldin Stockcave Lowest Chest",
                         "Eldin Stockcave Upper Chest",
-                        "Eldin Field Bridge Boulder Rupee"
+                        "Bridge of Eldin Boulder Rupee"
                     }
                 },
                 {

@@ -493,7 +493,7 @@ window.tpr.checkData = {
     category: ['Overworld', 'Poe', 'Hyrule Field - Lanayru Province'],
     itemId: 'Poe_Soul',
   },
-  'Eldin Field Bridge Boulder Rupee': {
+  'Bridge of Eldin Boulder Rupee': {
     category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Eldin Province'],
     itemId: 'Yellow_Rupee',
   },

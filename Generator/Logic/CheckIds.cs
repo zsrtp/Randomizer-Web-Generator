@@ -620,7 +620,7 @@ namespace TPRandomizer
                 "Lake Hylia Left Underwater Boulder Rupee",
                 "Lanayru Spring Upper Underwater Boulder Rupee",
                 "Lanayru Spring Lower Underwater Boulder Rupee",
-                "Eldin Field Bridge Boulder Rupee",
+                "Bridge of Eldin Boulder Rupee",
                 "Kakariko Gorge Owl Statue Boulder Rupee",
                 "Kakariko Gorge Spire Boulder Rupee",
                 "Lake Hylia Bridge Faron Boulder Rupee",
