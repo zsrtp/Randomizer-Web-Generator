@@ -994,37 +994,6 @@ namespace TPRandomizer.Hints
             return (Item)itemPlacements[srcCheckId];
         }
 
-        public static HashSet<string> GetChecksForProvince(Province province)
-        {
-            HashSet<string> checkNames = new();
-            Dictionary<string, string[]> zoneToChecks = getHintZoneToChecksMap();
-
-            foreach (Zone zone in ProvinceUtils.ProvinceToZones(province))
-            {
-                string zoneName = ZoneUtils.IdToString(zone);
-                string[] checks = zoneToChecks[zoneName];
-                foreach (string check in checks)
-                {
-                    checkNames.Add(check);
-                }
-            }
-            return checkNames;
-        }
-
-        public static HashSet<string> GetChecksForZone(Zone zone)
-        {
-            HashSet<string> checkNames = new();
-            Dictionary<string, string[]> zoneToChecks = getHintZoneToChecksMap();
-
-            string zoneName = ZoneUtils.IdToString(zone);
-            string[] checks = zoneToChecks[zoneName];
-            foreach (string check in checks)
-            {
-                checkNames.Add(check);
-            }
-            return checkNames;
-        }
-
         public static SpotId TryGetSpotIdForBarrenZoneHint(Hint hint)
         {
             if (hint == null)

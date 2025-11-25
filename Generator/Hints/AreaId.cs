@@ -230,19 +230,19 @@ namespace TPRandomizer.Hints
             return type.ToString() + stringId;
         }
 
-        public HashSet<string> ResolveToChecks()
+        public HashSet<string> ResolveToChecks(HintGenData genData)
         {
             switch (type)
             {
                 case AreaType.Province:
                 {
                     Province province = ProvinceUtils.StringToId(stringId);
-                    return HintUtils.GetChecksForProvince(province);
+                    return genData.GetChecksForProvince(province);
                 }
                 case AreaType.Zone:
                 {
                     Zone zone = ZoneUtils.StringToId(stringId);
-                    return HintUtils.GetChecksForZone(zone);
+                    return genData.GetChecksForZone(zone);
                 }
                 case AreaType.Check:
                 {
@@ -250,11 +250,16 @@ namespace TPRandomizer.Hints
                 }
                 case AreaType.Category:
                 {
-                    return new(
-                        HintCategoryUtils.categoryToChecksMap[
-                            HintCategoryUtils.StringToId(stringId)
-                        ]
+                    HintCategory category = HintCategoryUtils.StringToId(stringId);
+                    AreaCheckInfo areaCheckInfo = genData.GetAreaCheckInfoThrows(
+                        Category(category)
                     );
+                    return new(areaCheckInfo.fullCheckNames);
+                    // return new(
+                    //     HintCategoryUtils.categoryToChecksMap[
+                    //         HintCategoryUtils.StringToId(stringId)
+                    //     ]
+                    // );
                 }
                 default:
                     throw new Exception($"Failed to resolve checks for '{stringId}'.");

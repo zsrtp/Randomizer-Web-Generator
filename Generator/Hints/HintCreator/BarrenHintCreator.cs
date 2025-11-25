@@ -303,7 +303,7 @@ namespace TPRandomizer.Hints.HintCreator
 
             foreach (AreaId areaId in baseAreaIds)
             {
-                HashSet<string> checkNames = ResolveAreaIdToChecks(areaId);
+                HashSet<string> checkNames = ResolveAreaIdToChecks(genData, areaId);
 
                 List<string> barrenableChecks = new();
                 bool areaCanBeHintedBarren = true;
@@ -391,7 +391,7 @@ namespace TPRandomizer.Hints.HintCreator
             return potentialBarrenAreas;
         }
 
-        private HashSet<string> ResolveAreaIdToChecks(AreaId areaId)
+        private HashSet<string> ResolveAreaIdToChecks(HintGenData genData, AreaId areaId)
         {
             if (areaId.type == AreaId.AreaType.Zone)
             {
@@ -404,7 +404,7 @@ namespace TPRandomizer.Hints.HintCreator
                 }
             }
 
-            return areaId.ResolveToChecks();
+            return areaId.ResolveToChecks(genData);
         }
 
         private List<string> ResolveBossAndPostDungeonChecks(Zone zone)

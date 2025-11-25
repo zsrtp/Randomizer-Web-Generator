@@ -899,7 +899,7 @@ namespace TPRandomizer.Hints
                 SpotId spotId = beyondPointObj.spotId;
                 HashSet<string> checkNames = AreaId
                     .Category(beyondPointObj.category)
-                    .ResolveToChecks();
+                    .ResolveToChecks(genData);
 
                 AreaId areaId = AreaId.Zone(zone);
                 List<string> checksToHint = new();
@@ -1603,7 +1603,7 @@ namespace TPRandomizer.Hints
 
                     // For other zones, we only want to fill in signs for zones
                     // which are not all excluded.
-                    foreach (string checkName in HintUtils.GetChecksForZone(zoneForSpot))
+                    foreach (string checkName in genData.GetChecksForZone(zoneForSpot))
                     {
                         if (!HintUtils.checkIsPlayerKnownStatus(checkName))
                         {

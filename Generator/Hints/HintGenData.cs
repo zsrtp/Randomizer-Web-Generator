@@ -258,7 +258,9 @@ namespace TPRandomizer.Hints
 
                     // TODO: test code here. See if can calculate useful count for a basic S1 seed (for lake hylia).
                     // HashSet<string> lhChecks = AreaId.Zone(Zone.Lake_Hylia).ResolveToChecks();
-                    HashSet<string> lhChecks = AreaId.Zone(Zone.Gerudo_Desert).ResolveToChecks();
+                    HashSet<string> lhChecks = AreaId
+                        .Zone(Zone.Gerudo_Desert)
+                        .ResolveToChecks(this);
                     foreach (string lhCheckName in lhChecks)
                     {
                         bool added = false;
@@ -1323,6 +1325,41 @@ namespace TPRandomizer.Hints
             return areaCheckInfo;
         }
 
+        public HashSet<string> GetChecksForZone(Zone zone)
+        {
+            // HashSet<string> checkNames = new();
+            // Dictionary<string, string[]> zoneToChecks = getHintZoneToChecksMap();
+            AreaCheckInfo areaCheckInfo = GetAreaCheckInfoThrows(AreaId.Zone(zone));
+            return new(areaCheckInfo.fullCheckNames);
+
+            // string zoneName = ZoneUtils.IdToString(zone);
+            // string[] checks = zoneToChecks[zoneName];
+            // foreach (string check in checks)
+            // foreach (string check in areaCheckInfo.fullCheckNames)
+            // {
+            //     checkNames.Add(check);
+            // }
+            // return checkNames;
+        }
+
+        public HashSet<string> GetChecksForProvince(Province province)
+        {
+            HashSet<string> checkNames = new();
+            // Dictionary<string, string[]> zoneToChecks = getHintZoneToChecksMap();
+
+            foreach (Zone zone in ProvinceUtils.ProvinceToZones(province))
+            {
+                // string zoneName = ZoneUtils.IdToString(zone);
+                // string[] checks = zoneToChecks[zoneName];
+                HashSet<string> checksForZone = GetChecksForZone(zone);
+                foreach (string check in checksForZone)
+                {
+                    checkNames.Add(check);
+                }
+            }
+            return checkNames;
+        }
+
         private Dictionary<AreaId, HashSet<Item>> prepareAreaIdToAllowBarrenItems()
         {
             Dictionary<AreaId, HashSet<Item>> ret = new();
@@ -1517,13 +1554,13 @@ namespace TPRandomizer.Hints
             if (HintSettingUtils.IsVarDefinition(name))
             {
                 // Resolve as var.
-                return vars.ResolveDefToChecks(name);
+                return vars.ResolveDefToChecks(this, name);
             }
             else if (HintSettingUtils.IsAreaDefinition(name))
             {
                 // Resolve as an area.
                 AreaId areaId = AreaId.ParseString(name);
-                return areaId.ResolveToChecks();
+                return areaId.ResolveToChecks(this);
             }
 
             // Resolve as checkName.
@@ -1724,7 +1761,7 @@ namespace TPRandomizer.Hints
             int numSphere0Checks = 0;
             bool hasSphereLater = false;
 
-            HashSet<string> checkNames = areaId.ResolveToChecks();
+            HashSet<string> checkNames = areaId.ResolveToChecks(this);
             foreach (string checkName in checkNames)
             {
                 if (
@@ -1964,7 +2001,7 @@ namespace TPRandomizer.Hints
             return results;
         }
 
-        public HashSet<string> ResolveDefToChecks(string varDef)
+        public HashSet<string> ResolveDefToChecks(HintGenData genData, string varDef)
         {
             KeyValuePair<string, string> varParts = HintSettingUtils.ParseVarDefinition(varDef);
             string varName = varParts.Key;
@@ -1982,7 +2019,7 @@ namespace TPRandomizer.Hints
                     List<AreaId> areaIds = HintsToAreaIds(hints);
                     foreach (AreaId areaId in areaIds)
                     {
-                        HashSet<string> partial = areaId.ResolveToChecks();
+                        HashSet<string> partial = areaId.ResolveToChecks(genData);
                         checkNames.UnionWith(partial);
                     }
                     return checkNames;
@@ -1991,7 +2028,7 @@ namespace TPRandomizer.Hints
                 {
                     List<AreaId> areaIds = HintsToAreaIds(hints, 1);
                     if (!ListUtils.isEmpty(areaIds))
-                        return areaIds[0].ResolveToChecks();
+                        return areaIds[0].ResolveToChecks(genData);
                     return new();
                 }
                 default:
