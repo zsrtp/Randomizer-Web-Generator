@@ -3,6 +3,7 @@ namespace TPRandomizer.Hints
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Security.Cryptography;
     using System.Transactions;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -37,6 +38,7 @@ namespace TPRandomizer.Hints
         public Dictionary<Item, string> tradeItemToChainEndCheck = new();
         public Dictionary<AreaId, HashSet<Item>> areaIdToAllowBarrenItems { get; private set; }
         public HashSet<string> unreachableChecks = new();
+        public Dictionary<AreaId, AreaCheckInfo> areaToCheckInfo = new();
         public Dictionary<Zone, HashSet<Zone>> dungeonEntrances = new(); // Entering Key sends to Value(s)
 
         private HintSettings hintSettings;
@@ -59,6 +61,7 @@ namespace TPRandomizer.Hints
             vars = new HintVars();
 
             unreachableChecks = calcUnreachableChecks();
+            areaToCheckInfo = calcAreaToCheckInfo();
             dungeonEntrances = calcDungeonEntrances();
             areaIdToAllowBarrenItems = prepareAreaIdToAllowBarrenItems();
             itemToChecksList = calcItemToChecksList();
@@ -1226,6 +1229,100 @@ namespace TPRandomizer.Hints
             return unreachableChecks;
         }
 
+        private void calcAreaToCheckInfoInner<T>(
+            Dictionary<AreaId, AreaCheckInfo> result,
+            Dictionary<string, Zone> checkNameToZone,
+            Dictionary<T, string[]> dict,
+            Func<T, AreaId> func
+        )
+        {
+            foreach (KeyValuePair<T, string[]> entry in dict)
+            {
+                AreaId areaId = func(entry.Key);
+                AreaCheckInfo areaCheckInfo = new();
+                result[areaId] = areaCheckInfo;
+
+                Zone zone = Zone.Invalid;
+                string keyAsStr = entry.Key as string;
+                if (keyAsStr != null && areaId.type == AreaId.AreaType.Zone)
+                {
+                    zone = ZoneUtils.StringToIdThrows(keyAsStr);
+                }
+
+                // Filter out any unreachable checks. Vanilla/excluded is fine. But we can go ahead
+                // and keep track of if it can be barren hinted or not.
+
+                string[] baseCheckNames = entry.Value;
+                foreach (string checkName in baseCheckNames)
+                {
+                    // Skip over hidden checks such as "Arbiters Grounds Stallord" and portals.
+                    if (CheckIdClass.GetIsHideFromUiCheckName(checkName))
+                        continue;
+
+                    if (zone != Zone.Invalid)
+                        checkNameToZone[checkName] = zone;
+
+                    areaCheckInfo.fullCheckNames.Add(checkName);
+
+                    if (!HintUtils.checkIsPlayerKnownStatus(checkName))
+                        areaCheckInfo.nonVanillaExcludedCheckNames.Add(checkName);
+                }
+            }
+        }
+
+        private Dictionary<AreaId, AreaCheckInfo> calcAreaToCheckInfo()
+        {
+            // After more ER work is done, this function will calculate based on the room graph, but
+            // this is not necessary for now. Ex: if grottos are shuffled, then a grotto could be
+            // part of a different zone that normal.
+
+            Dictionary<AreaId, AreaCheckInfo> result = new();
+            Dictionary<string, Zone> checkNameToZone = new();
+
+            // Zones
+            calcAreaToCheckInfoInner(
+                result,
+                checkNameToZone,
+                ZoneUtils.zoneNameToChecks,
+                (string zoneName) =>
+                {
+                    Zone zone = ZoneUtils.StringToIdThrows(zoneName);
+                    AreaId areaId = AreaId.Zone(zone);
+                    return areaId;
+                }
+            );
+
+            // Verify all non-hidden checkNames can be mapped to a Zone. Since they can map to a
+            // Zone, they can also map to a Province.
+            foreach (KeyValuePair<string, Check> pair in Randomizer.Checks.CheckDict)
+            {
+                // Note: we skip over hidden checks such as "Arbiters Grounds Stallord" and portals.
+                string checkName = pair.Value.checkName;
+                if (
+                    !CheckIdClass.GetIsHideFromUiCheckName(checkName)
+                    && !checkNameToZone.ContainsKey(checkName)
+                )
+                    throw new Exception($"Did not find Zone for checkname '{checkName}'.");
+            }
+
+            // Hint categories
+            calcAreaToCheckInfoInner(
+                result,
+                checkNameToZone,
+                HintCategoryUtils.categoryToChecksMap,
+                AreaId.Category
+            );
+
+            return result;
+        }
+
+        public AreaCheckInfo GetAreaCheckInfoThrows(AreaId areaId)
+        {
+            if (!areaToCheckInfo.TryGetValue(areaId, out AreaCheckInfo areaCheckInfo))
+                throw new Exception($"Failed to get checks for areaId '{areaId.stringId}'.");
+            return areaCheckInfo;
+        }
+
         private Dictionary<AreaId, HashSet<Item>> prepareAreaIdToAllowBarrenItems()
         {
             Dictionary<AreaId, HashSet<Item>> ret = new();
@@ -1915,5 +2012,12 @@ namespace TPRandomizer.Hints
         //   would give us).
 
         // - Cached result: is the zone blocked from being hinted barren period.
+    }
+
+    public class AreaCheckInfo
+    {
+        public HashSet<string> fullCheckNames { get; } = new();
+        public HashSet<string> nonVanillaExcludedCheckNames { get; } = new();
+        public HashSet<AreaId> dependentAreaIds { get; } = new();
     }
 }

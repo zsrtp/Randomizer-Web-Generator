@@ -1135,7 +1135,7 @@ namespace TPRandomizer.Hints.Settings
             return ret;
         }
 
-        public static HintGroup fromJObject(string id, JToken arrToken)
+        public static HintGroup fromJObject(string id, JToken arrToken, HintGenData genData)
         {
             HintGroup ret = new HintGroup();
             ret.id = id;
@@ -1183,25 +1183,29 @@ namespace TPRandomizer.Hints.Settings
             foreach (SpotId spot in ret.spots)
             {
                 string zoneName = spotToZone[spot];
-                string[] checkNames = zoneToChecks[zoneName];
+
                 // Do not filter out Hyrule Castle even if all HC checks are a
                 // known status since it is expected that players will always
                 // have to pass that hint sign.
                 if (zoneName == "Hyrule Castle")
-                    filteredSpots.Add(spot);
-                else
                 {
-                    foreach (string checkName in checkNames)
-                    {
-                        if (!HintUtils.checkIsPlayerKnownStatus(checkName))
-                        {
-                            // Spot passes filter if contains check with a
-                            // non-playerKnown status.
-                            filteredSpots.Add(spot);
-                            break;
-                        }
-                    }
+                    filteredSpots.Add(spot);
+                    continue;
                 }
+
+                AreaCheckInfo areaCheckInfo = genData.GetAreaCheckInfoThrows(
+                    AreaId.ZoneStr(zoneName)
+                );
+                // if (
+                //     !genData.areaToCheckInfo.TryGetValue(
+                //         zoneAreaId,
+                //         out AreaCheckInfo areaCheckInfo
+                //     )
+                // )
+                //     throw new Exception($"Failed to get checks for zoneName '{zoneName}'.");
+
+                if (areaCheckInfo.nonVanillaExcludedCheckNames.Count > 0)
+                    filteredSpots.Add(spot);
             }
 
             ret.spots = filteredSpots;
@@ -1354,7 +1358,7 @@ namespace TPRandomizer.Hints.Settings
             ret.removeChecks = loadRemoveChecks(root);
             ret.addItems = loadAddItems(root);
             ret.removeItems = loadRemoveItems(root);
-            ret.groups = loadGroups(root["groups"]);
+            ret.groups = loadGroups(root["groups"], genData);
 
             ret.starting = Starting.fromJToken(root["starting"]);
 
@@ -1682,7 +1686,7 @@ namespace TPRandomizer.Hints.Settings
             return filtered;
         }
 
-        private static Dictionary<string, HintGroup> loadGroups(JToken token)
+        private static Dictionary<string, HintGroup> loadGroups(JToken token, HintGenData genData)
         {
             if (token == null)
                 throw new Exception(
@@ -1699,7 +1703,7 @@ namespace TPRandomizer.Hints.Settings
                 if (StringUtils.isEmpty(id))
                     throw new Exception("Group id must be a non-empty string.");
 
-                ret[id] = HintGroup.fromJObject(id, pair.Value);
+                ret[id] = HintGroup.fromJObject(id, pair.Value, genData);
             }
 
             return ret;

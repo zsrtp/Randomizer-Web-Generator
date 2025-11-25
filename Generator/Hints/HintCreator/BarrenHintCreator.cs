@@ -68,6 +68,58 @@ namespace TPRandomizer.Hints.HintCreator
                 "Palace of Twilight Boss Room",
             };
 
+        // TODO: this should be calculated at the start of the genData. If an area is completely
+        // excluded, then it does not matter as a dependency? Dependencies are all based on
+        // interiors/caves, so nested stuff is not needed? Also all howling stones are found in
+        // exteriors. Post-dungeon stuff is easily calculated as well. For now, don't worry about
+        // more than one level deep since that is all that matters.
+
+        // continued: if an interior is fully excluded, then no reason to hint anything about it.
+        // Ex: if CoO is excluded, then no reason to say "0 items in {GD itself}" since there are no
+        // internal zones which matter. But if was included, then would be important to indicate we
+        // are not necessarily saying you can skip going to the GD interiors/caves.
+
+        // Dependencies assuming no ER stuff:
+        // DM => Ordon gold wolf (note: only 6 gold wolf howling stones)
+        // UZR => BCT gold wolf
+        // LH => LLC, LS, GD gold wolf
+        // FW => SoCT gold wolf
+        // SP => KGY gold wolf
+        // HV => CT gold wolf
+        // GD => CoO
+        // CT => Agitha's Castle
+        // dungeons:
+        // GM => post-Fyrus
+        // ToT => post-Armogohma, but only if vanilla Ilia quest setting.
+        // SPR => post-SPR
+        // Note: no post-LBT for Midna stuff or anything.
+
+        // Also, northern desert needs to be updated to say 'itself' as well for CoO? Anything else?
+
+        // Maybe make AreaDepHelper class in HintGenData.
+        // It calcs an Area's dependent Areas. Will be more involved once more ER.
+        // API:
+        // public bool AreaHasDependentAreas(AreaId areaId)
+        // ^ used for NumMajorItems hint to know if should say "itself".
+
+        // For Barren Hints, need to know any dependent Zones (which are not entirely Vanilla or
+        // Excluded or Excluded-Unrequired) which would be known barren if we hint the parent
+        // barren.
+
+        // Also need to be able to map an area back to its parent. This way if we are trying to hint
+        // the child barren, we first must check if the parent can be Barren-hinted. This is not
+        // related to northern/southern desert since those are not dependent offshoots of GD but GD
+        // itself. We would have special handling in the BarrenHintCreator to handle those so that
+        // we don't generate one unless the other side has something such that GD could not be
+        // hinted barren.
+
+        // We only need to jump up to the parent if it is allowed in the valid areas. For
+        // northern/southern desert, those should have a built-in handling that they are impossible
+        // to generate unless the other one is either not barren or completely
+        // Vanilla/Excluded(Unreq). I think we would just have to confirm that a "barren southern
+        // desert" hint is not possible to create (ignoring valid/invalid stuff) for example. But
+        // this is not related to high-level dependency stuff.
+
         private static readonly Dictionary<Zone, HashSet<Zone>> zoneDeps =
             new()
             {
