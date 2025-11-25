@@ -115,7 +115,7 @@ namespace TPRandomizer.Hints.HintCreator
                 case AreaId.AreaType.Province:
                 {
                     checkToAreaId = (checkName) =>
-                        ProvinceUtils.IdToString(HintUtils.checkNameToHintProvince(checkName));
+                        ProvinceUtils.IdToString(genData.checkNameToHintProvince(checkName));
                     getAllNamesInArea = (str) => ProvinceUtils.GetProvinceNames();
                     areaIdStrToAreaId = (str) => AreaId.Province(ProvinceUtils.StringToId(str));
                     break;

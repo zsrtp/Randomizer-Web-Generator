@@ -194,8 +194,6 @@ namespace TPRandomizer.Hints
 
         public static readonly Dictionary<string, Item> tradeRewardCheckToSourceItem;
 
-        private static readonly Dictionary<string, string> cachedCheckToHintZoneMap = new();
-
         static HintUtils()
         {
             tradeRewardCheckToSourceItem = new();
@@ -229,86 +227,6 @@ namespace TPRandomizer.Hints
             //         { Item.Male_Snail, "Agitha Male Snail Reward" },
             //         { Item.Male_Stag_Beetle, "Agitha Male Stag Beetle Reward" },
             //         { Item.Asheis_Sketch, "Gift From Ralis" },
-        }
-
-        public static string getDependentDungeonForCheckName(string checkName)
-        {
-            if (checkName == null || checkName == "")
-            {
-                return null;
-            }
-
-            Check check = Randomizer.Checks.CheckDict[checkName];
-            if (check == null)
-            {
-                return null;
-            }
-
-            for (int i = 0; i < check.checkCategory.Count; i++)
-            {
-                string categoryName = check.checkCategory[i];
-                if (HintConstants.jsonCategoryToDungeonZoneName.ContainsKey(categoryName))
-                {
-                    string dungeonZoneName = HintConstants.jsonCategoryToDungeonZoneName[
-                        categoryName
-                    ];
-                    if (HintConstants.dungeonZonesToRequiredMaskMap.ContainsKey(dungeonZoneName))
-                    {
-                        return dungeonZoneName;
-                    }
-                }
-            }
-
-            // If no dungeonZone name, check if check is hardcoded post-dungeon check.
-            if (HintConstants.postDungeonChecksToDungeonZone.ContainsKey(checkName))
-            {
-                return HintConstants.postDungeonChecksToDungeonZone[checkName];
-            }
-
-            return null;
-        }
-
-        public static Dictionary<string, string[]> getHintZoneToChecksMap()
-        {
-            return ZoneUtils.zoneNameToChecks;
-        }
-
-        public static Dictionary<string, string> getCheckToHintZoneMap()
-        {
-            if (cachedCheckToHintZoneMap.Count > 0)
-                return cachedCheckToHintZoneMap;
-
-            Dictionary<string, string[]> hintZoneToChecksMap = getHintZoneToChecksMap();
-            Dictionary<string, string> checkToHintZoneMap = convertToCheckToHintZoneMap(
-                hintZoneToChecksMap
-            );
-
-            foreach (KeyValuePair<string, string> pair in checkToHintZoneMap)
-            {
-                cachedCheckToHintZoneMap.Add(pair.Key, pair.Value);
-            }
-
-            return checkToHintZoneMap;
-        }
-
-        private static Dictionary<string, string> convertToCheckToHintZoneMap(
-            Dictionary<string, string[]> hintZoneToChecksMap
-        )
-        {
-            Dictionary<string, string> checkToHintZoneMap = new();
-
-            foreach (KeyValuePair<string, string[]> kv in hintZoneToChecksMap)
-            {
-                string zoneName = kv.Key;
-                string[] checksForZone = kv.Value;
-
-                for (int i = 0; i < checksForZone.Length; i++)
-                {
-                    checkToHintZoneMap.Add(checksForZone[i], zoneName);
-                }
-            }
-
-            return checkToHintZoneMap;
         }
 
         public static bool DungeonIsRequired(string dungeonHintZoneName)
@@ -921,21 +839,6 @@ namespace TPRandomizer.Hints
         public static bool hintZoneIsDungeon(string hintZone)
         {
             return HintConstants.dungeonZones.Contains(hintZone);
-        }
-
-        public static string checkNameToHintZone(string checkName)
-        {
-            return getCheckToHintZoneMap()[checkName];
-        }
-
-        public static Province checkNameToHintProvince(string checkName)
-        {
-            string hintZone = checkNameToHintZone(checkName);
-
-            if (HintConstants.zoneToProvince.ContainsKey(hintZone))
-                return HintConstants.zoneToProvince[hintZone];
-
-            return Province.Invalid;
         }
 
         public static Item getCheckContents(string checkName)

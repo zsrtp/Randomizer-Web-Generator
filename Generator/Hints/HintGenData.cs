@@ -1346,6 +1346,16 @@ namespace TPRandomizer.Hints
             return ZoneUtils.IdToString(zone);
         }
 
+        public Province checkNameToHintProvince(string checkName)
+        {
+            string hintZone = GetZoneNameForCheck(checkName);
+
+            if (HintConstants.zoneToProvince.ContainsKey(hintZone))
+                return HintConstants.zoneToProvince[hintZone];
+
+            return Province.Invalid;
+        }
+
         public HashSet<string> GetChecksForProvince(Province province)
         {
             HashSet<string> checkNames = new();
@@ -1715,14 +1725,14 @@ namespace TPRandomizer.Hints
 
         public AreaId GetProvinceAreaId(string checkName)
         {
-            Province province = HintUtils.checkNameToHintProvince(checkName);
+            Province province = checkNameToHintProvince(checkName);
             return AreaId.Province(province);
         }
 
         public AreaId GetRecommendedAreaId(string checkName)
         {
             Item item = HintUtils.getCheckContents(checkName);
-            Province province = HintUtils.checkNameToHintProvince(checkName);
+            Province province = checkNameToHintProvince(checkName);
             string zoneName = GetZoneNameForCheck(checkName);
             if (
                 zoneName == "Agitha's Castle"
@@ -1736,7 +1746,7 @@ namespace TPRandomizer.Hints
 
         public AreaId.AreaType GetRecommendedAreaIdType(string startCheckName, Item item)
         {
-            Province province = HintUtils.checkNameToHintProvince(startCheckName);
+            Province province = checkNameToHintProvince(startCheckName);
             string zoneName = GetZoneNameForCheck(startCheckName);
             if (
                 zoneName == "Agitha's Castle"

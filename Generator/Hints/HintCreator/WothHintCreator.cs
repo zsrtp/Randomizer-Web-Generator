@@ -332,7 +332,7 @@ namespace TPRandomizer.Hints.HintCreator
                 }
                 case AreaId.AreaType.Province:
                 {
-                    Province province = HintUtils.checkNameToHintProvince(checkName);
+                    Province province = genData.checkNameToHintProvince(checkName);
                     return new() { AreaId.Province(province) };
                 }
                 case AreaId.AreaType.Category:
