@@ -122,11 +122,11 @@ namespace TPRandomizer.Hints.HintCreator
                 }
                 case AreaId.AreaType.Category:
                 {
-                    checkToAreaId = (checkName) => HintUtils.checkNameToHintZone(checkName);
+                    checkToAreaId = genData.GetZoneNameForCheck;
                     getAllNamesInArea = (str) =>
                     {
                         HashSet<string> result = new();
-                        Dictionary<string, string[]> dict = HintUtils.getHintZoneToChecksMap();
+                        Dictionary<string, string[]> dict = ZoneUtils.zoneNameToChecks;
                         foreach (KeyValuePair<string, string[]> pair in dict)
                         {
                             result.Add(pair.Key);

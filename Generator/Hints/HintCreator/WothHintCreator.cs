@@ -315,7 +315,7 @@ namespace TPRandomizer.Hints.HintCreator
             {
                 case AreaId.AreaType.Zone:
                 {
-                    string zoneName = HintUtils.checkNameToHintZone(checkName);
+                    string zoneName = genData.GetZoneNameForCheck(checkName);
                     if (
                         AreaIdFailsDungeonMaxWothCheck(
                             genData,

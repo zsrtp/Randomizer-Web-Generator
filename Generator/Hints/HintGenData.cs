@@ -1709,7 +1709,7 @@ namespace TPRandomizer.Hints
 
         public AreaId GetZoneAreaId(string checkName)
         {
-            string zoneName = HintUtils.checkNameToHintZone(checkName);
+            string zoneName = GetZoneNameForCheck(checkName);
             return AreaId.ZoneStr(zoneName);
         }
 
@@ -1723,7 +1723,7 @@ namespace TPRandomizer.Hints
         {
             Item item = HintUtils.getCheckContents(checkName);
             Province province = HintUtils.checkNameToHintProvince(checkName);
-            string zoneName = HintUtils.checkNameToHintZone(checkName);
+            string zoneName = GetZoneNameForCheck(checkName);
             if (
                 zoneName == "Agitha's Castle"
                 || province == Province.Dungeon
@@ -1737,7 +1737,7 @@ namespace TPRandomizer.Hints
         public AreaId.AreaType GetRecommendedAreaIdType(string startCheckName, Item item)
         {
             Province province = HintUtils.checkNameToHintProvince(startCheckName);
-            string zoneName = HintUtils.checkNameToHintZone(startCheckName);
+            string zoneName = GetZoneNameForCheck(startCheckName);
             if (
                 zoneName == "Agitha's Castle"
                 || province == Province.Dungeon

@@ -1178,15 +1178,12 @@ namespace TPRandomizer.Hints.Settings
             // happen (Sign says specific check of own dungeon which has BK).
             HashSet<SpotId> filteredSpots = new();
 
-            Dictionary<string, string[]> zoneToChecks = HintUtils.getHintZoneToChecksMap();
-
             foreach (SpotId spot in ret.spots)
             {
                 string zoneName = spotToZone[spot];
 
-                // Do not filter out Hyrule Castle even if all HC checks are a
-                // known status since it is expected that players will always
-                // have to pass that hint sign.
+                // Do not filter out Hyrule Castle even if all HC checks are a known status since it
+                // is expected that players will always have to pass that hint sign.
                 if (zoneName == "Hyrule Castle")
                 {
                     filteredSpots.Add(spot);
@@ -1196,13 +1193,6 @@ namespace TPRandomizer.Hints.Settings
                 AreaCheckInfo areaCheckInfo = genData.GetAreaCheckInfoThrows(
                     AreaId.ZoneStr(zoneName)
                 );
-                // if (
-                //     !genData.areaToCheckInfo.TryGetValue(
-                //         zoneAreaId,
-                //         out AreaCheckInfo areaCheckInfo
-                //     )
-                // )
-                //     throw new Exception($"Failed to get checks for zoneName '{zoneName}'.");
 
                 if (areaCheckInfo.nonVanillaExcludedCheckNames.Count > 0)
                     filteredSpots.Add(spot);

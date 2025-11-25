@@ -876,46 +876,6 @@ namespace TPRandomizer.Hints
             return list[randomIndex];
         }
 
-        public static string PickRandomCheckByGroup(
-            Random rnd,
-            IEnumerable<string> checksEnumerable,
-            bool byProvince = false
-        )
-        {
-            Dictionary<string, List<string>> checksByGroup = new();
-
-            foreach (string checkName in checksEnumerable)
-            {
-                if (byProvince)
-                {
-                    Province province = checkNameToHintProvince(checkName);
-                    string provinceName = ProvinceUtils.IdToString(province);
-                    if (!checksByGroup.ContainsKey(provinceName))
-                        checksByGroup[provinceName] = new();
-                    checksByGroup[provinceName].Add(checkName);
-                }
-                else
-                {
-                    string zoneName = checkNameToHintZone(checkName);
-                    if (!checksByGroup.ContainsKey(zoneName))
-                        checksByGroup[zoneName] = new();
-                    checksByGroup[zoneName].Add(checkName);
-                }
-            }
-
-            if (checksByGroup.Count < 1)
-                throw new Exception("checkByGroup is empty.");
-
-            KeyValuePair<string, List<string>> groupAndChecks = PickRandomDictionaryPair(
-                rnd,
-                checksByGroup
-            );
-
-            List<string> checksOfGroup = groupAndChecks.Value;
-            string selectedCheckName = RemoveRandomListItem(rnd, checksOfGroup);
-            return selectedCheckName;
-        }
-
         public static bool checkIsPlayerKnownStatus(string checkName)
         {
             string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;

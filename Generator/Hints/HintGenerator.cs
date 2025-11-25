@@ -1084,6 +1084,7 @@ namespace TPRandomizer.Hints
                                 {
                                     string srcCheckName = chainStartAndReward.Key;
                                     AreaId areaId = GetAreaIdForBigKeyHint(
+                                        genData,
                                         zone,
                                         srcCheckName,
                                         totalNeeded
@@ -1109,7 +1110,12 @@ namespace TPRandomizer.Hints
                         }
                         else
                         {
-                            AreaId areaId = GetAreaIdForBigKeyHint(zone, checkName, totalNeeded);
+                            AreaId areaId = GetAreaIdForBigKeyHint(
+                                genData,
+                                zone,
+                                checkName,
+                                totalNeeded
+                            );
                             ItemHint hint = ItemHint.Create(genData, areaId, checkName);
                             potentialHints.Add(hint);
 
@@ -1131,13 +1137,14 @@ namespace TPRandomizer.Hints
         }
 
         private AreaId GetAreaIdForBigKeyHint(
+            HintGenData genData,
             Zone dungeonZoneInQuestion,
             string checkForBigKey,
             int numToFind
         )
         {
             // TODO: testing with it always showing the zone
-            string checkZoneName = HintUtils.checkNameToHintZone(checkForBigKey);
+            string checkZoneName = genData.GetZoneNameForCheck(checkForBigKey);
             return AreaId.ZoneStr(checkZoneName);
 
             // string checkZoneName = HintUtils.checkNameToHintZone(checkForBigKey);
