@@ -968,11 +968,6 @@ namespace TPRandomizer.Hints
             return getCheckToHintZoneMap()[checkName];
         }
 
-        public static bool checkNameHasHintZone(string checkName)
-        {
-            return getCheckToHintZoneMap().ContainsKey(checkName);
-        }
-
         public static Province checkNameToHintProvince(string checkName)
         {
             string hintZone = checkNameToHintZone(checkName);

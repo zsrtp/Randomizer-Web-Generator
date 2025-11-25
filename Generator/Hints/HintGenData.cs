@@ -38,7 +38,8 @@ namespace TPRandomizer.Hints
         public Dictionary<Item, string> tradeItemToChainEndCheck = new();
         public Dictionary<AreaId, HashSet<Item>> areaIdToAllowBarrenItems { get; private set; }
         public HashSet<string> unreachableChecks = new();
-        public Dictionary<AreaId, AreaCheckInfo> areaToCheckInfo = new();
+        private Dictionary<AreaId, AreaCheckInfo> areaToCheckInfo = new();
+        private Dictionary<string, Zone> checkNameToZone = new();
         public Dictionary<Zone, HashSet<Zone>> dungeonEntrances = new(); // Entering Key sends to Value(s)
 
         private HintSettings hintSettings;
@@ -61,7 +62,7 @@ namespace TPRandomizer.Hints
             vars = new HintVars();
 
             unreachableChecks = calcUnreachableChecks();
-            areaToCheckInfo = calcAreaToCheckInfo();
+            calcAreaToCheckInfo();
             dungeonEntrances = calcDungeonEntrances();
             areaIdToAllowBarrenItems = prepareAreaIdToAllowBarrenItems();
             itemToChecksList = calcItemToChecksList();
@@ -1272,18 +1273,16 @@ namespace TPRandomizer.Hints
             }
         }
 
-        private Dictionary<AreaId, AreaCheckInfo> calcAreaToCheckInfo()
+        private void calcAreaToCheckInfo()
         {
             // After more ER work is done, this function will calculate based on the room graph, but
             // this is not necessary for now. Ex: if grottos are shuffled, then a grotto could be
             // part of a different zone that normal.
 
-            Dictionary<AreaId, AreaCheckInfo> result = new();
-            Dictionary<string, Zone> checkNameToZone = new();
 
             // Zones
             calcAreaToCheckInfoInner(
-                result,
+                areaToCheckInfo,
                 checkNameToZone,
                 ZoneUtils.zoneNameToChecks,
                 (string zoneName) =>
@@ -1309,13 +1308,11 @@ namespace TPRandomizer.Hints
 
             // Hint categories
             calcAreaToCheckInfoInner(
-                result,
+                areaToCheckInfo,
                 checkNameToZone,
                 HintCategoryUtils.categoryToChecksMap,
                 AreaId.Category
             );
-
-            return result;
         }
 
         public AreaCheckInfo GetAreaCheckInfoThrows(AreaId areaId)
@@ -1340,6 +1337,13 @@ namespace TPRandomizer.Hints
             //     checkNames.Add(check);
             // }
             // return checkNames;
+        }
+
+        public string GetZoneNameForCheck(string checkName)
+        {
+            if (!checkNameToZone.TryGetValue(checkName, out Zone zone))
+                throw new Exception($"Failed to find zone for checkName '{checkName}'.");
+            return ZoneUtils.IdToString(zone);
         }
 
         public HashSet<string> GetChecksForProvince(Province province)

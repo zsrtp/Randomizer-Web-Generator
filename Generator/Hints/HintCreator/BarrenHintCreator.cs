@@ -462,9 +462,7 @@ namespace TPRandomizer.Hints.HintCreator
                     case AreaId.AreaType.Zone:
                     {
                         // Pick all valid zones
-                        Dictionary<string, string[]> zoneToChecks =
-                            HintUtils.getHintZoneToChecksMap();
-                        foreach (KeyValuePair<string, string[]> pair in zoneToChecks)
+                        foreach (KeyValuePair<string, string[]> pair in ZoneUtils.zoneNameToChecks)
                         {
                             result.Add(AreaId.ZoneStr(pair.Key));
                         }

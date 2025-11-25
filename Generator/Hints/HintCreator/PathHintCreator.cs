@@ -38,8 +38,6 @@ namespace TPRandomizer.Hints.HintCreator
 
         private List<PathHint> genPathHints(HintGenData genData, int numHintsDesired)
         {
-            Dictionary<string, string> checkToHintZoneMap = HintUtils.getCheckToHintZoneMap();
-
             List<List<KeyValuePair<Goal, List<string>>>> lists = splitPathGoalsToLists(genData);
             List<KeyValuePair<Goal, List<string>>> primaryList = lists[0];
             List<KeyValuePair<Goal, List<string>>> secondaryList = lists[1];
@@ -69,7 +67,7 @@ namespace TPRandomizer.Hints.HintCreator
             foreach (PathHint hint in pathHints)
             {
                 hintedChecks.Add(hint.checkName);
-                string zoneName = checkToHintZoneMap[hint.checkName];
+                string zoneName = genData.GetZoneNameForCheck(hint.checkName);
                 Goal goal = goalEnumToGoal[hint.goalEnum];
                 goalToHintedZones[goal].Add(zoneName);
             }
@@ -115,7 +113,7 @@ namespace TPRandomizer.Hints.HintCreator
                 HashSet<string> secondaryZones = new();
                 foreach (string checkName in pair.Value)
                 {
-                    string hintZone = checkToHintZoneMap[checkName];
+                    string hintZone = genData.GetZoneNameForCheck(checkName);
                     if (goalToHintedZones[pair.Key].Contains(hintZone))
                         secondaryZones.Add(hintZone);
                     else
@@ -130,7 +128,7 @@ namespace TPRandomizer.Hints.HintCreator
 
                 // Pick random check for that zone
                 List<string> checksForZone = pair.Value.FindAll(
-                    checkName => checkToHintZoneMap[checkName] == selectedZone
+                    checkName => genData.GetZoneNameForCheck(checkName) == selectedZone
                 );
                 string selectedCheckName = HintUtils.RemoveRandomListItem(
                     genData.rnd,
@@ -533,8 +531,6 @@ namespace TPRandomizer.Hints.HintCreator
             List<List<int>> combinations
         )
         {
-            Dictionary<string, string> checkToHintZoneMap = HintUtils.getCheckToHintZoneMap();
-
             List<KeyValuePair<Goal, List<string>>> goalAndZonesList = new();
 
             foreach (KeyValuePair<Goal, List<string>> pair in primaryList)
@@ -547,7 +543,7 @@ namespace TPRandomizer.Hints.HintCreator
 
                 foreach (string checkName in checkNames)
                 {
-                    string zoneName = checkToHintZoneMap[checkName];
+                    string zoneName = genData.GetZoneNameForCheck(checkName);
                     zonesForGoal.Add(zoneName);
                 }
 
@@ -659,7 +655,7 @@ namespace TPRandomizer.Hints.HintCreator
             if (results.Count < 1)
                 return new();
 
-            Dictionary<string, string> checkToHintZoneMap = HintUtils.getCheckToHintZoneMap();
+            // Dictionary<string, string> checkToHintZoneMap = HintUtils.getCheckToHintZoneMap();
             Dictionary<string, double> zoneWeightings = getZoneWeightings(
                 genData,
                 goalAndZonesList
@@ -724,7 +720,7 @@ namespace TPRandomizer.Hints.HintCreator
                 {
                     if (
                         !justPickedCheckNames.Contains(checkName)
-                        && checkToHintZoneMap[checkName] == desiredZoneName
+                        && genData.GetZoneNameForCheck(checkName) == desiredZoneName
                     )
                     {
                         possibleChecksInZone.Add(checkName);
