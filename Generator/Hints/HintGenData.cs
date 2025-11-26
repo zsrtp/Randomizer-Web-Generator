@@ -1258,8 +1258,13 @@ namespace TPRandomizer.Hints
                 string[] baseCheckNames = entry.Value;
                 foreach (string checkName in baseCheckNames)
                 {
-                    // Skip over hidden checks such as "Arbiters Grounds Stallord" and portals.
-                    if (CheckIdClass.GetIsHideFromUiCheckName(checkName))
+                    // Skip over hidden checks such as "Arbiters Grounds Stallord" and portals, and
+                    // also skip over unreachable checks such as pre-completed Ilia quest checks and
+                    // excluded Agitha rewards.
+                    if (
+                        CheckIdClass.GetIsHideFromUiCheckName(checkName)
+                        || unreachableChecks.Contains(checkName)
+                    )
                         continue;
 
                     if (zone != Zone.Invalid)
@@ -1268,7 +1273,7 @@ namespace TPRandomizer.Hints
                     areaCheckInfo.fullCheckNames.Add(checkName);
 
                     if (!HintUtils.checkIsPlayerKnownStatus(checkName))
-                        areaCheckInfo.nonVanillaExcludedCheckNames.Add(checkName);
+                        areaCheckInfo.relevantChecks.Add(checkName);
                 }
             }
         }
@@ -1293,14 +1298,14 @@ namespace TPRandomizer.Hints
                 }
             );
 
-            // Verify all non-hidden checkNames can be mapped to a Zone. Since they can map to a
-            // Zone, they can also map to a Province.
+            // Verify all non-hidden and reachable checkNames can be mapped to a Zone. Since they
+            // can map to a Zone, they can also map to a Province.
             foreach (KeyValuePair<string, Check> pair in Randomizer.Checks.CheckDict)
             {
-                // Note: we skip over hidden checks such as "Arbiters Grounds Stallord" and portals.
                 string checkName = pair.Value.checkName;
                 if (
                     !CheckIdClass.GetIsHideFromUiCheckName(checkName)
+                    && !unreachableChecks.Contains(checkName)
                     && !checkNameToZone.ContainsKey(checkName)
                 )
                     throw new Exception($"Did not find Zone for checkname '{checkName}'.");
@@ -1376,6 +1381,21 @@ namespace TPRandomizer.Hints
             // not valid to create in general if CoO hints are on. In this case, we would not even
             // pick it as a thing which requires these calcs when we randomly pick it since we would
             // not be randomly picking it as a potential thing.
+
+            // continued: need to make sure we don't say "GD itself" when CoO is excluded. We would
+            // think GD has external deps for ND/SD which is incorrect. Saying GD => ND is
+            // incorrect. We should say GD => CoO and ND => CoO. Then how do we know which to map
+            // back to from CoO? We want to start from the outermost, so GD would have priority over
+            // ND. So we would have something like CoO => [GD, ND], and CoO would try to generate a
+            // GD hint first. If that was not possible, it would try to generate a ND hint. Remember
+            // to generate a hint, it needs to be valid for the creator based on options and it also
+            // needs to be possible to hint barren in the first place. When sorting the list for
+            // CoO, can throw if any AreaIds that need to be sorted are not defined in a priority
+            // Dictionary.
+
+            // What allows an area to be considered barren? We are concerned with checks other than
+            // Vanilla, Excluded(+Unrequired), or Unreachable. Also for dungeons, non-major items
+            // cannot block barren? (so ownDungeon keys or unshuffled rewards do not count).
         }
 
         public AreaCheckInfo GetAreaCheckInfoThrows(AreaId areaId)
@@ -2130,8 +2150,16 @@ namespace TPRandomizer.Hints
 
     public class AreaCheckInfo
     {
+        // All checkNames belonging to the Area except for (1) unreachable checks (such as
+        // pre-completed Ilia quest checks or excluded Agitha rewards which consequently have their
+        // respective golden bug removed from the item pool) and (2) hidden under-the-hood checks
+        // (such as "Arbiters Grounds Stallord") are not considered to belong to an Area and are
+        // entirely ignored for hints.
         public HashSet<string> fullCheckNames { get; } = new();
-        public HashSet<string> nonVanillaExcludedCheckNames { get; } = new();
+
+        // Subset of fullCheckNames for checks that are not Vanilla, Excluded, Excluded-Unrequired,
+        // or unreachable.
+        public HashSet<string> relevantChecks { get; } = new();
         public HashSet<AreaId> dependentAreaIds { get; } = new();
         public HashSet<string> dependentCheckNames { get; } = new();
     }

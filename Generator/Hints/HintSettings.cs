@@ -1194,7 +1194,7 @@ namespace TPRandomizer.Hints.Settings
                     AreaId.ZoneStr(zoneName)
                 );
 
-                if (areaCheckInfo.nonVanillaExcludedCheckNames.Count > 0)
+                if (areaCheckInfo.relevantChecks.Count > 0)
                     filteredSpots.Add(spot);
             }
 

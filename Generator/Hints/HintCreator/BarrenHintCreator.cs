@@ -468,6 +468,8 @@ namespace TPRandomizer.Hints.HintCreator
                         }
                         break;
                     }
+                    // TODO: probably best to not allow barren hints for provinces due to the whole
+                    // dependency thing. Also don't expect this to ever be used anyway.
                     case AreaId.AreaType.Province:
                     {
                         // Pick all valid provinces
