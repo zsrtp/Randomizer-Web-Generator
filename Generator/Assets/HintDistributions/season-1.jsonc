@@ -119,38 +119,42 @@
             "starting": 1,
             "copies": 3,
             "hintDef": [
-              // {
-              //   "hintType": "barren",
-              //   "iterations": 1,
-              //   "options": {
-              //     "validAreas": [
-              //       "Forest Temple",
-              //       "Goron Mines",
-              //       "Lakebed Temple",
-              //       "Arbiter's Grounds",
-              //       "Snowpeak Ruins",
-              //       "Temple of Time",
-              //       "City in the Sky",
-              //       "Palace of Twilight"
-              //     ]
-              //   }
-              // },
+              {
+                "hintType": "itemToItemPath",
+                "saveToVar": "pathHints"
+              },
               {
                 "hintType": "barren",
-                "iterations": 3,
+                "iterations": 1,
                 "options": {
                   "validAreas": [
-                    // "alias:overworldZones",
-                    // "category.Northern_Desert",
-                    // "Gerudo Desert",
-                    // "category.Southern_Desert",
-                    // "Cave of Ordeals"
-                    "Lake Hylia"
-                    // "Agitha's Castle",
-                    // "Castle Town"
+                    "Forest Temple",
+                    "Goron Mines",
+                    "Lakebed Temple",
+                    "Arbiter's Grounds",
+                    "Snowpeak Ruins",
+                    "Temple of Time",
+                    "City in the Sky",
+                    "Palace of Twilight"
                   ]
                 }
               }
+              // {
+              //   "hintType": "barren",
+              //   "iterations": 3,
+              //   "options": {
+              //     "validAreas": [
+              //       // "alias:overworldZones",
+              //       // "category.Northern_Desert",
+              //       // "Gerudo Desert",
+              //       // "category.Southern_Desert",
+              //       // "Cave of Ordeals"
+              //       "Lake Hylia"
+              //       // "Agitha's Castle",
+              //       // "Castle Town"
+              //     ]
+              //   }
+              // }
               // {
               //   "hintType": "barren",
               //   "iterations": 3,
@@ -164,10 +168,10 @@
               // }
             ]
           },
-          {
-            "hintType": "itemToItemPath",
-            "saveToVar": "pathHints"
-          },
+          // {
+          //   "hintType": "itemToItemPath",
+          //   "saveToVar": "pathHints"
+          // },
           {
             "hintType": "path",
             "saveToVar": "pathHints",

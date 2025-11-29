@@ -428,23 +428,31 @@ namespace TPRandomizer.Hints
         {
             HashSet<uint> placedNormalHintUids = new();
 
-            // TODO: handle child zone deps. Should try this where we create a barren LH hint which
-            // impacts LS and LLC, but have LH not be in the group.
-
             foreach (Hint hintOuter in hints)
             {
                 Dictionary<Zone, Hint> zoneToBaseHint = new();
+                AreaId areaId = null;
 
-                Zone parentZone = HintUtils.TryGetZoneForBarrenZoneHint(hintOuter);
-                if (parentZone != Zone.Invalid)
+                BarrenHint barrenHint = hintOuter as BarrenHint;
+                if (barrenHint != null)
+                    areaId = barrenHint.areaId;
+                else
                 {
-                    zoneToBaseHint[parentZone] = hintOuter;
+                    // Not a Barren hint
+                    continue;
+                }
 
-                    HashSet<Zone> childZones = genData.GetZoneDeps(AreaId.Zone(parentZone));
-                    foreach (Zone childZone in childZones)
-                    {
-                        zoneToBaseHint[childZone] = null;
-                    }
+                if (areaId.type == AreaId.AreaType.Zone)
+                {
+                    Zone parentZone = ZoneUtils.StringToIdThrows(areaId.stringId);
+                    zoneToBaseHint[parentZone] = hintOuter;
+                }
+                // Note: areaId for a barren hint can still cause us to create/place hints here. For
+                // example, a Southern Desert hint causing us to create a CoO hint.
+                HashSet<Zone> childZones = genData.GetZoneDeps(areaId);
+                foreach (Zone childZone in childZones)
+                {
+                    zoneToBaseHint[childZone] = null;
                 }
 
                 foreach (KeyValuePair<Zone, Hint> pair in zoneToBaseHint)
@@ -2157,7 +2165,7 @@ namespace TPRandomizer.Hints
             this.spotsToTake = spotsToTake;
             this.isSelfInGroup = isSelfInGroup;
             this.uniqueHintId = uniqueHintId;
-            this.childZones = childZones;
+            this.childZones = childZones ?? new();
         }
 
         public override bool Equals(object obj)
@@ -2264,6 +2272,24 @@ namespace TPRandomizer.Hints
                 // Add copies for hint to pendingCopiesAsc.
                 pendingCopiesAsc.Add(hintDefResult.copies);
                 pendingCopiesAsc.Sort();
+
+                if (newSpotPenalties == null)
+                {
+                    // If `newSpotPenalties` not provided, then we are adding a non-barren hint, so
+                    // add an empty spotPenalty. We add empty ones since worst-case scenario for
+                    // reducing as many spots as possible is to pick non-Barren hints as starting,
+                    // so the fact that these have empty penalties is relevant and needs to be
+                    // accounted for.
+                    SpotPenalty spotPenalty = new(0, false, hintDefResult.hint.uniqueHintId, null);
+                    pendingSpotPenalties.Add(spotPenalty);
+                    pendingSpotPenalties.Sort();
+                    pendingSpotPenalties.Reverse();
+                }
+
+                if (pendingCopiesAsc.Count != pendingSpotPenalties.Count)
+                    throw new Exception(
+                        $"Expected pendingCopiesAsc (Count {pendingCopiesAsc.Count}) and pendingSpotPenalties (Count {pendingSpotPenalties.Count}) to have equal Counts."
+                    );
             }
             else
             {
@@ -2290,9 +2316,12 @@ namespace TPRandomizer.Hints
                     {
                         pendingSpotPenalties.RemoveAt(i);
 
-                        remainingSpots -= spotPenalty.spotsToTake;
+                        int spotsToTake = spotPenalty.spotsToTake;
                         if (!isStartingHint && spotPenalty.isSelfInGroup)
-                            remainingSpots += 1;
+                            spotsToTake -= 1;
+
+                        if (spotsToTake > 0)
+                            remainingSpots -= spotsToTake;
                         break;
                     }
                 }
@@ -2611,11 +2640,11 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            if (numMatchingZonesInGroup < 1)
-            {
-                createdSpotPenalty = null;
-                return pendingSpotPenalties;
-            }
+            // if (numMatchingZonesInGroup < 1)
+            // {
+            //     createdSpotPenalty = null;
+            //     return pendingSpotPenalties;
+            // }
 
             SpotPenalty spotPenalty = new(numMatchingZonesInGroup, isSelfInGroup, 0, childZones);
             createdSpotPenalty = spotPenalty;

@@ -36,7 +36,7 @@ namespace TPRandomizer.Hints
         public uint uniqueHintId { get; private set; }
         public abstract HintType type { get; }
 
-        private static uint nextHintId = 0;
+        private static uint nextHintId = 1;
 
         protected Hint()
         {

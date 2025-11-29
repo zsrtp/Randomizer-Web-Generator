@@ -852,28 +852,6 @@ namespace TPRandomizer.Hints
             return (Item)itemPlacements[srcCheckId];
         }
 
-        public static Zone TryGetZoneForBarrenZoneHint(Hint hint)
-        {
-            if (hint == null)
-                throw new Exception("Called TryGetSpotIdForBarrenZoneHint with a null hint.");
-
-            BarrenHint barrenHint = hint as BarrenHint;
-            if (barrenHint != null)
-            {
-                AreaId areaId = barrenHint.areaId;
-                if (areaId.type == AreaId.AreaType.Zone)
-                {
-                    Zone zone = ZoneUtils.StringToId(areaId.stringId);
-                    if (zone == Zone.Invalid)
-                        throw new Exception(
-                            $"Expected to be able to parse stringId '{areaId.stringId}' to a valid zone."
-                        );
-                    return zone;
-                }
-            }
-            return Zone.Invalid;
-        }
-
         public static SpotId TryGetSpotIdForBarrenZoneHint(Hint hint)
         {
             if (hint == null)
