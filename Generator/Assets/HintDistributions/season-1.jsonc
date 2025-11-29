@@ -39,7 +39,7 @@
   },
   //
   "groups": {
-    "overworld": ["alias:overworldZones"],
+    "overworld": ["alias:overworldZones", "-lakehylia"],
     "requiredDungeons": ["alias:requiredDungeons"]
   },
   // Special hints generated right after Always hints are generated. These are
@@ -145,8 +145,9 @@
                     // "Gerudo Desert",
                     // "category.Southern_Desert",
                     // "Cave of Ordeals"
-                    "Agitha's Castle",
-                    "Castle Town"
+                    "Lake Hylia"
+                    // "Agitha's Castle",
+                    // "Castle Town"
                   ]
                 }
               }

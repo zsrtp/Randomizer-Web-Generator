@@ -1146,8 +1146,24 @@ namespace TPRandomizer.Hints.Settings
                 if (token.Type != JTokenType.String)
                     throw new Exception("All values in 'groups' lists must be strings.");
 
-                HashSet<SpotId> spots = resolveGroupEntry(token.ToString());
-                ret.spots.UnionWith(spots);
+                string tokenString = token.ToString();
+                bool isNegative = false;
+                if (tokenString.StartsWith('-'))
+                {
+                    isNegative = true;
+                    tokenString = tokenString.Substring(1);
+                }
+
+                HashSet<SpotId> spots = resolveGroupEntry(tokenString);
+                if (isNegative)
+                {
+                    foreach (SpotId spot in spots)
+                    {
+                        ret.spots.Remove(spot);
+                    }
+                }
+                else
+                    ret.spots.UnionWith(spots);
             }
 
             // Remove spots which are completely player-known if hints are set

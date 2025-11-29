@@ -172,84 +172,114 @@ namespace TPRandomizer.Hints
                 if (hintSettings.barren.ownZoneBehavior != Barren.OwnZoneBehavior.Off)
                 {
                     // Handle starting hints.
-                    foreach (Hint hint in layerData.startingHints)
+                    // foreach (Hint hint in layerData.startingHints)
+                    // {
+                    //     SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(hint);
+                    //     if (spotId != SpotId.Invalid)
+                    //     {
+                    //         if (spots.Contains(spotId))
+                    //         {
+                    //             // Need to place a copy of the hint at this
+                    //             // spot and remove the spot from this group
+                    //             // for the layer.
+                    //             if (
+                    //                 hintSettings.barren.isMonopolize()
+                    //                 && normalSpotToHints.spotHasHints(spotId)
+                    //             )
+                    //             {
+                    //                 throw new Exception(
+                    //                     $"Expected spot '{spotId}' to have no normal hints with barren.ownZoneBehavior set to 'monopolize', but it was not empty."
+                    //                 );
+                    //             }
+
+                    //             spots.Remove(spotId);
+                    //             normalSpotToHints.addHintToSpot(spotId, hint);
+                    //         }
+                    //         else
+                    //         {
+                    //             specialSpotToHints.addHintToSpot(spotId, hint);
+                    //         }
+
+                    //         // Additionally, if monopolize and not just
+                    //         // prioritize, need to remove the spot from
+                    //         // ALL groups.
+                    //         if (hintSettings.barren.isMonopolize())
+                    //             removeSpotFromMutableGroups(spotId);
+                    //     }
+                    // }
+
+                    handleMonopolizeBarrenHints(
+                        spots,
+                        specialSpotToHints,
+                        normalSpotToHints,
+                        layerData.startingHints,
+                        true
+                    );
+
+                    HashSet<uint> placedNormalHintUids = handleMonopolizeBarrenHints(
+                        spots,
+                        specialSpotToHints,
+                        normalSpotToHints,
+                        recHintResults.HintDefResults.Select((def) => def.hint).ToList(),
+                        false
+                    );
+                    if (placedNormalHintUids.Count > 0)
                     {
-                        SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(hint);
-                        if (spotId != SpotId.Invalid)
+                        for (int i = recHintResults.HintDefResults.Count - 1; i >= 0; i--)
                         {
-                            if (spots.Contains(spotId))
+                            HintDefResult hintDefResult = recHintResults.HintDefResults[i];
+
+                            if (placedNormalHintUids.Contains(hintDefResult.hint.uniqueHintId))
                             {
-                                // Need to place a copy of the hint at this
-                                // spot and remove the spot from this group
-                                // for the layer.
-                                if (
-                                    hintSettings.barren.isMonopolize()
-                                    && normalSpotToHints.spotHasHints(spotId)
-                                )
-                                {
-                                    throw new Exception(
-                                        $"Expected spot '{spotId}' to have no normal hints with barren.ownZoneBehavior set to 'monopolize', but it was not empty."
-                                    );
-                                }
-
-                                spots.Remove(spotId);
-                                normalSpotToHints.addHintToSpot(spotId, hint);
-                            }
-                            else
-                            {
-                                specialSpotToHints.addHintToSpot(spotId, hint);
-                            }
-
-                            // Additionally, if monopolize and not just
-                            // prioritize, need to remove the spot from
-                            // ALL groups.
-                            if (hintSettings.barren.isMonopolize())
-                                removeSpotFromMutableGroups(spotId);
-                        }
-                    }
-
-                    // Handle normal hints.
-                    for (int i = recHintResults.HintDefResults.Count - 1; i >= 0; i--)
-                    {
-                        HintDefResult hintDefResult = recHintResults.HintDefResults[i];
-                        Hint hint = hintDefResult.hint;
-                        SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(hint);
-                        if (spotId != SpotId.Invalid)
-                        {
-                            if (spots.Contains(spotId))
-                            {
-                                // Need to place a copy of the hint at this
-                                // spot and remove the spot from this group
-                                // for the layer.
-                                if (
-                                    hintSettings.barren.isMonopolize()
-                                    && normalSpotToHints.spotHasHints(spotId)
-                                )
-                                {
-                                    throw new Exception(
-                                        $"Expected spot '{spotId}' to have no normal hints with barren.ownZoneBehavior set to 'monopolize', but it was not empty."
-                                    );
-                                }
-
-                                spots.Remove(spotId);
-                                normalSpotToHints.addHintToSpot(spotId, hint);
-
                                 hintDefResult.OnPlacedCopy();
                                 if (!hintDefResult.CanPlaceMoreCopies())
                                     recHintResults.RemoveHintDefResultAt(i);
                             }
-                            else
-                            {
-                                specialSpotToHints.addHintToSpot(spotId, hint);
-                            }
-
-                            // Additionally, if monopolize and not just
-                            // prioritize, need to remove the spot from
-                            // ALL groups.
-                            if (hintSettings.barren.isMonopolize())
-                                removeSpotFromMutableGroups(spotId);
                         }
                     }
+
+                    // Handle normal hints.
+                    // for (int i = recHintResults.HintDefResults.Count - 1; i >= 0; i--)
+                    // {
+                    //     HintDefResult hintDefResult = recHintResults.HintDefResults[i];
+                    //     Hint hint = hintDefResult.hint;
+                    //     SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(hint);
+                    //     if (spotId != SpotId.Invalid)
+                    //     {
+                    //         if (spots.Contains(spotId))
+                    //         {
+                    //             // Need to place a copy of the hint at this
+                    //             // spot and remove the spot from this group
+                    //             // for the layer.
+                    //             if (
+                    //                 hintSettings.barren.isMonopolize()
+                    //                 && normalSpotToHints.spotHasHints(spotId)
+                    //             )
+                    //             {
+                    //                 throw new Exception(
+                    //                     $"Expected spot '{spotId}' to have no normal hints with barren.ownZoneBehavior set to 'monopolize', but it was not empty."
+                    //                 );
+                    //             }
+
+                    //             spots.Remove(spotId);
+                    //             normalSpotToHints.addHintToSpot(spotId, hint);
+
+                    //             hintDefResult.OnPlacedCopy();
+                    //             if (!hintDefResult.CanPlaceMoreCopies())
+                    //                 recHintResults.RemoveHintDefResultAt(i);
+                    //         }
+                    //         else
+                    //         {
+                    //             specialSpotToHints.addHintToSpot(spotId, hint);
+                    //         }
+
+                    //         // Additionally, if monopolize and not just
+                    //         // prioritize, need to remove the spot from
+                    //         // ALL groups.
+                    //         if (hintSettings.barren.isMonopolize())
+                    //             removeSpotFromMutableGroups(spotId);
+                    //     }
+                    // }
                 }
 
                 // Iterate through all generated hints (including starting
@@ -386,6 +416,127 @@ namespace TPRandomizer.Hints
             List<HintSpot> ret = CreateHintSpotList(specialSpotToHints, normalSpotToHints);
             customMsgDataBuilder.SetHintSpots(ret);
             return customMsgDataBuilder.Build(genData.sSettings);
+        }
+
+        private HashSet<uint> handleMonopolizeBarrenHints(
+            HashSet<SpotId> groupSpots,
+            SpotToHints specialSpotToHints,
+            SpotToHints normalSpotToHints,
+            List<Hint> hints,
+            bool areStartingHints
+        )
+        {
+            HashSet<uint> placedNormalHintUids = new();
+
+            // TODO: handle child zone deps. Should try this where we create a barren LH hint which
+            // impacts LS and LLC, but have LH not be in the group.
+
+            foreach (Hint hintOuter in hints)
+            {
+                Dictionary<Zone, Hint> zoneToBaseHint = new();
+
+                Zone parentZone = HintUtils.TryGetZoneForBarrenZoneHint(hintOuter);
+                if (parentZone != Zone.Invalid)
+                {
+                    zoneToBaseHint[parentZone] = hintOuter;
+
+                    HashSet<Zone> childZones = genData.GetZoneDeps(AreaId.Zone(parentZone));
+                    foreach (Zone childZone in childZones)
+                    {
+                        zoneToBaseHint[childZone] = null;
+                    }
+                }
+
+                foreach (KeyValuePair<Zone, Hint> pair in zoneToBaseHint)
+                {
+                    Zone zone = pair.Key;
+                    Hint hint = pair.Value;
+                    bool createdNewSpecialHint = false;
+
+                    SpotId spotId = ZoneUtils.IdToSpotId(zone);
+                    if (spotId != SpotId.Invalid)
+                    {
+                        // Need to place a copy of the hint at this spot and remove the spot from
+                        // this group for the layer.
+                        if (
+                            hintSettings.barren.isMonopolize()
+                            && normalSpotToHints.spotHasHints(spotId)
+                        )
+                        {
+                            throw new Exception(
+                                $"Expected spot '{spotId}' to have no normal hints with barren.ownZoneBehavior set to 'monopolize', but it was not empty."
+                            );
+                        }
+
+                        if (hint == null)
+                        {
+                            createdNewSpecialHint = true;
+                            hint = new BarrenHint(AreaId.Zone(zone));
+                        }
+
+                        bool wasInGroup = groupSpots.Remove(spotId);
+                        if (wasInGroup && !areStartingHints && !createdNewSpecialHint)
+                        {
+                            normalSpotToHints.addHintToSpot(spotId, hint);
+
+                            placedNormalHintUids.Add(hint.uniqueHintId);
+
+                            // hintDefResult.OnPlacedCopy();
+                            // if (!hintDefResult.CanPlaceMoreCopies())
+                            //     recHintResults.RemoveHintDefResultAt(i);
+                        }
+                        else
+                        {
+                            specialSpotToHints.addHintToSpot(spotId, hint);
+                        }
+
+                        // Additionally, if monopolize and not just prioritize, need to remove the
+                        // spot from ALL groups.
+                        if (hintSettings.barren.isMonopolize())
+                            removeSpotFromMutableGroups(spotId);
+                    }
+                }
+
+                // SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(hint);
+                // if (spotId != SpotId.Invalid)
+                // {
+                //     if (groupSpots.Contains(spotId))
+                //     {
+                //         // Need to place a copy of the hint at this spot and remove the spot from
+                //         // this group for the layer.
+                //         if (
+                //             hintSettings.barren.isMonopolize()
+                //             && normalSpotToHints.spotHasHints(spotId)
+                //         )
+                //         {
+                //             throw new Exception(
+                //                 $"Expected spot '{spotId}' to have no normal hints with barren.ownZoneBehavior set to 'monopolize', but it was not empty."
+                //             );
+                //         }
+
+                //         groupSpots.Remove(spotId);
+                //         normalSpotToHints.addHintToSpot(spotId, hint);
+
+                //         if (!areStartingHints)
+                //             placedNormalHintUids.Add(hint.uniqueHintId);
+
+                //         // hintDefResult.OnPlacedCopy();
+                //         // if (!hintDefResult.CanPlaceMoreCopies())
+                //         //     recHintResults.RemoveHintDefResultAt(i);
+                //     }
+                //     else
+                //     {
+                //         specialSpotToHints.addHintToSpot(spotId, hint);
+                //     }
+
+                //     // Additionally, if monopolize and not just prioritize, need to remove the spot
+                //     // from ALL groups.
+                //     if (hintSettings.barren.isMonopolize())
+                //         removeSpotFromMutableGroups(spotId);
+                // }
+            }
+
+            return placedNormalHintUids;
         }
 
         private List<Hint> getAgithaHint()
@@ -1990,15 +2141,23 @@ namespace TPRandomizer.Hints
 
     public class SpotPenalty : IEquatable<SpotPenalty>, IComparable<SpotPenalty>
     {
+        // TODO: override GetHashCode
         public int spotsToTake { get; private set; }
         public bool isSelfInGroup { get; private set; }
         public uint uniqueHintId { get; set; }
+        public HashSet<Zone> childZones { get; private set; }
 
-        public SpotPenalty(int spotsToTake, bool isSelfInGroup, uint uniqueHintId)
+        public SpotPenalty(
+            int spotsToTake,
+            bool isSelfInGroup,
+            uint uniqueHintId,
+            HashSet<Zone> childZones
+        )
         {
             this.spotsToTake = spotsToTake;
             this.isSelfInGroup = isSelfInGroup;
             this.uniqueHintId = uniqueHintId;
+            this.childZones = childZones;
         }
 
         public override bool Equals(object obj)
@@ -2421,8 +2580,10 @@ namespace TPRandomizer.Hints
             if (zone != null)
             {
                 Zone actualZone = (Zone)zone;
-                SpotId spotIdForZone = ZoneUtils.IdToSpotIdThrows(actualZone);
-                if (group.spots.Contains(spotIdForZone))
+                SpotId spotIdForZone = ZoneUtils.IdToSpotId(actualZone);
+                // Note: it is possible to have a valid zone which does not have a valid spotId it
+                // can map to (ex: Agitha's Castle), so we do not throw for invalid here or below.
+                if (spotIdForZone != SpotId.Invalid && group.spots.Contains(spotIdForZone))
                 {
                     numMatchingZonesInGroup += 1;
                     isSelfInGroup = true;
@@ -2444,8 +2605,8 @@ namespace TPRandomizer.Hints
 
                 foreach (Zone childZone in childZones)
                 {
-                    SpotId spotId = ZoneUtils.IdToSpotIdThrows(childZone);
-                    if (group.spots.Contains(spotId))
+                    SpotId spotId = ZoneUtils.IdToSpotId(childZone);
+                    if (spotId != SpotId.Invalid && group.spots.Contains(spotId))
                         numMatchingZonesInGroup += 1;
                 }
             }
@@ -2456,7 +2617,7 @@ namespace TPRandomizer.Hints
                 return pendingSpotPenalties;
             }
 
-            SpotPenalty spotPenalty = new(numMatchingZonesInGroup, isSelfInGroup, 0);
+            SpotPenalty spotPenalty = new(numMatchingZonesInGroup, isSelfInGroup, 0, childZones);
             createdSpotPenalty = spotPenalty;
 
             tempPenaltiesList.Add(spotPenalty);
