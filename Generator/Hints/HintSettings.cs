@@ -1789,10 +1789,10 @@ namespace TPRandomizer.Hints.Settings
                 for (int i = 1; i < hintDefGroupings.Count; i++)
                 {
                     HintDef hintDef = hintDefGroupings[i].hintDef;
-                    if (hasBarrenZoneHintCreators(hintDef))
+                    if (hasBarrenHintCreators(hintDef))
                     {
                         throw new Exception(
-                            "When barren ownZoneBehavior is 'monopolize', only the first hintDefGrouping can define BarrenHintCreators which hint zones."
+                            "When barren ownZoneBehavior is 'monopolize', only the first hintDefGrouping can define BarrenHintCreators."
                         );
                     }
                 }
@@ -1858,7 +1858,7 @@ namespace TPRandomizer.Hints.Settings
             }
         }
 
-        private bool hasBarrenZoneHintCreators(HintDef hintDef)
+        private bool hasBarrenHintCreators(HintDef hintDef)
         {
             if (hintDef.hintCreator != null)
             {
@@ -1866,7 +1866,7 @@ namespace TPRandomizer.Hints.Settings
                 {
                     BarrenHintCreator bhCreator = hintDef.hintCreator as BarrenHintCreator;
                     if (bhCreator != null)
-                        return bhCreator.HintsZone();
+                        return true;
                 }
             }
             else
@@ -1874,7 +1874,7 @@ namespace TPRandomizer.Hints.Settings
                 List<HintDef> hintDefs = hintDef.hintDefs;
                 for (int i = 0; i < hintDefs.Count; i++)
                 {
-                    if (hasBarrenZoneHintCreators(hintDefs[i]))
+                    if (hasBarrenHintCreators(hintDefs[i]))
                         return true;
                 }
             }

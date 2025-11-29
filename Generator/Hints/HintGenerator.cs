@@ -14,7 +14,7 @@ namespace TPRandomizer.Hints
     using System.Threading;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-    public delegate bool BarrenPenalizer(Zone zone, HashSet<Zone> childZones);
+    public delegate bool BarrenPenalizer(AreaId areaId, HashSet<Zone> childZones);
 
     class HintGenerator
     {
@@ -483,7 +483,7 @@ namespace TPRandomizer.Hints
 
             if (currHintDef.hintCreator != null)
             {
-                bool doBarrenZoneHandling = false;
+                bool doBarrenHandling = false;
                 if (
                     currHintDef.hintCreator.type == HintCreatorType.Barren
                     && hintSettings.barren.ownZoneBehavior != Barren.OwnZoneBehavior.Off
@@ -491,13 +491,15 @@ namespace TPRandomizer.Hints
                 {
                     BarrenHintCreator bhCreator = currHintDef.hintCreator as BarrenHintCreator;
                     if (bhCreator != null)
-                        doBarrenZoneHandling = bhCreator.HintsZone();
+                        doBarrenHandling = true;
                 }
 
-                // If we would be creating "barren zone" hints when barren ownZoneBehavior is set to
+                // If we would be creating Barren hints when barren ownZoneBehavior is set to
                 // "monopolize", then we need to do special handling where we create hints 1 at a
-                // time. Else we do more basic handling below.
-                if (doBarrenZoneHandling)
+                // time. Else we do more basic handling below. Note: we need to do this even for
+                // categories since they can have dependent zones (ex: NorthernDesert => CoO, or ND
+                // => LS under ER).
+                if (doBarrenHandling)
                 {
                     for (int i = 0; i < currDefProps.iterations; i++)
                     {
@@ -511,14 +513,18 @@ namespace TPRandomizer.Hints
                         }
 
                         List<SpotPenalty> successfulNewList = null;
-                        Zone successfulZone = Zone.Invalid;
+                        AreaId successfulAreaId = null;
                         // Note: `successfulSpotPenalty` can still be null if there was no penalty.
                         // Ex: the zone is not in the group. Imagine group is OW zones and we create
                         // a barren hint for a dungeon.
                         SpotPenalty successfulSpotPenalty = null;
 
-                        BarrenPenalizer lambda = (Zone zone, HashSet<Zone> childZones) =>
+                        BarrenPenalizer lambda = (AreaId areaId, HashSet<Zone> childZones) =>
                         {
+                            Zone? zone = null;
+                            if (areaId.type == AreaId.AreaType.Zone)
+                                zone = ZoneUtils.StringToIdThrows(areaId.stringId);
+
                             List<SpotPenalty> newList = layerData.CreateNewPenaltiesList(
                                 zone,
                                 childZones,
@@ -533,7 +539,7 @@ namespace TPRandomizer.Hints
                             );
                             if (numHints > 0)
                             {
-                                successfulZone = zone;
+                                successfulAreaId = areaId;
                                 successfulNewList = newList;
                                 successfulSpotPenalty = createdSpotPenalty;
                                 return true;
@@ -578,15 +584,12 @@ namespace TPRandomizer.Hints
                         if (hint == null)
                             throw new Exception("Unable to cast hint to BarrenHint.");
 
-                        Zone zone = ZoneUtils.StringToId(hint.areaId.stringId);
+                        if (successfulAreaId == null)
+                            throw new Exception("Expected successfulAreaId to be non-null.");
 
-                        if (zone == Zone.Invalid)
+                        if (hint.areaId != successfulAreaId)
                             throw new Exception(
-                                $"Failed to parse '{hint.areaId.stringId}' to valid HintZoneId."
-                            );
-                        else if (zone != successfulZone)
-                            throw new Exception(
-                                $"Created BarrenHint for zone '{zone}' did not match expected zone it said it would create ({successfulZone})."
+                                $"Created BarrenHint for areaId '{hint.areaId.stringId}' did not match expected zone it said it would create ({successfulAreaId.stringId})."
                             );
 
                         if (successfulSpotPenalty != null)
@@ -2405,7 +2408,7 @@ namespace TPRandomizer.Hints
         }
 
         public List<SpotPenalty> CreateNewPenaltiesList(
-            Zone zone,
+            Zone? zone,
             HashSet<Zone> childZones,
             out SpotPenalty createdSpotPenalty
         )
@@ -2415,25 +2418,33 @@ namespace TPRandomizer.Hints
             int numMatchingZonesInGroup = 0;
             bool isSelfInGroup = false;
 
-            SpotId spotIdForZone = ZoneUtils.IdToSpotIdThrows(zone);
-            if (group.spots.Contains(spotIdForZone))
+            if (zone != null)
             {
-                numMatchingZonesInGroup += 1;
-                isSelfInGroup = true;
+                Zone actualZone = (Zone)zone;
+                SpotId spotIdForZone = ZoneUtils.IdToSpotIdThrows(actualZone);
+                if (group.spots.Contains(spotIdForZone))
+                {
+                    numMatchingZonesInGroup += 1;
+                    isSelfInGroup = true;
+                }
             }
 
             if (childZones != null && childZones.Count > 0)
             {
-                // Don't double-count main zone. If also listed in childZones, throw since this is
-                // not expected.
-                if (childZones.Contains(zone))
-                    throw new Exception(
-                        $"Did not expect to find zone '{zone}' defined as its own child zone."
-                    );
+                if (zone != null)
+                {
+                    Zone actualZone = (Zone)zone;
+                    // Don't double-count main zone. If also listed in childZones, throw since this is
+                    // not expected.
+                    if (childZones.Contains(actualZone))
+                        throw new Exception(
+                            $"Did not expect to find zone '{actualZone}' defined as its own child zone."
+                        );
+                }
 
                 foreach (Zone childZone in childZones)
                 {
-                    SpotId spotId = ZoneUtils.IdToSpotIdThrows(zone);
+                    SpotId spotId = ZoneUtils.IdToSpotIdThrows(childZone);
                     if (group.spots.Contains(spotId))
                         numMatchingZonesInGroup += 1;
                 }

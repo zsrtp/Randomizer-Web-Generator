@@ -15,7 +15,8 @@
   "beyondPointZones": ["alias:all"],
   "barren": {
     "ownZoneBehavior": "monopolize",
-    "ownZoneShowsAsJunkHint": true
+    "ownZoneShowsAsJunkHint": true,
+    "blockerType": "important"
   },
   "always": {
     "monopolizeSpots": true,
@@ -138,9 +139,24 @@
                 "hintType": "barren",
                 "iterations": 3,
                 "options": {
-                  "validAreas": ["Lake Hylia"]
+                  "validAreas": [
+                    // "alias:overworldZones",
+                    // "category.Northern_Desert",
+                    // "Gerudo Desert",
+                    // "category.Southern_Desert",
+                    // "Cave of Ordeals"
+                    "Agitha's Castle",
+                    "Castle Town"
+                  ]
                 }
               }
+              // {
+              //   "hintType": "barren",
+              //   "iterations": 3,
+              //   "options": {
+              //     "validAreas": ["Lake Hylia"]
+              //   }
+              // }
               // {
               //   "hintType": "barren",
               //   "iterations": 3

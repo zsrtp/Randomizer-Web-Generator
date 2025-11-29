@@ -38,7 +38,7 @@ namespace TPRandomizer.Hints
         public Dictionary<Item, string> tradeItemToChainEndCheck = new();
         public Dictionary<AreaId, HashSet<Item>> areaIdToAllowBarrenItems { get; private set; }
         public HashSet<string> unreachableChecks = new();
-        private Dictionary<AreaId, AreaCheckInfo> areaToCheckInfo = new();
+        public Dictionary<AreaId, AreaCheckInfo> areaToCheckInfo = new();
         private Dictionary<string, Zone> checkNameToZone = new();
         public Dictionary<Zone, HashSet<Zone>> dungeonEntrances = new(); // Entering Key sends to Value(s)
 
@@ -1340,14 +1340,13 @@ namespace TPRandomizer.Hints
             AreaCheckInfo hvInfo = areaToCheckInfo[AreaId.Zone(Zone.Hidden_Village)];
             hvInfo.dependentCheckNames.Add("North Castle Town Golden Wolf");
 
-            AreaCheckInfo gdInfo = areaToCheckInfo[AreaId.Zone(Zone.Gerudo_Desert)];
-            gdInfo.dependentAreaIds.Add(AreaId.Category(HintCategory.Northern_Desert));
-            gdInfo.dependentAreaIds.Add(AreaId.Category(HintCategory.Southern_Desert));
-
-            AreaCheckInfo northernDesertInfo = areaToCheckInfo[
-                AreaId.Category(HintCategory.Northern_Desert)
+            AreaCheckInfo southernDesertInfo = areaToCheckInfo[
+                AreaId.Category(HintCategory.Southern_Desert)
             ];
-            gdInfo.dependentAreaIds.Add(AreaId.Zone(Zone.Cave_of_Ordeals));
+            southernDesertInfo.dependentAreaIds.Add(AreaId.Zone(Zone.Cave_of_Ordeals));
+            // GD automatically has the same dependencies as the northern and southern deserts.
+            AreaCheckInfo gdInfo = areaToCheckInfo[AreaId.Zone(Zone.Gerudo_Desert)];
+            gdInfo.dependentAreaIds.UnionWith(southernDesertInfo.dependentAreaIds);
 
             AreaCheckInfo ctInfo = areaToCheckInfo[AreaId.Zone(Zone.Castle_Town)];
             ctInfo.dependentAreaIds.Add(AreaId.Zone(Zone.Agithas_Castle));
@@ -1396,6 +1395,22 @@ namespace TPRandomizer.Hints
             // What allows an area to be considered barren? We are concerned with checks other than
             // Vanilla, Excluded(+Unrequired), or Unreachable. Also for dungeons, non-major items
             // cannot block barren? (so ownDungeon keys or unshuffled rewards do not count).
+
+            // // Init childDepAreaToParent
+            // foreach (KeyValuePair<AreaId, AreaCheckInfo> pair in areaToCheckInfo)
+            // {
+            //     AreaId parentAreaId = pair.Key;
+            //     AreaCheckInfo areaCheckInfo = pair.Value;
+            //     foreach (AreaId childAreaId in areaCheckInfo.dependentAreaIds)
+            //     {
+            //         if (childDepAreaToParent.ContainsKey(childAreaId))
+            //             throw new Exception(
+            //                 $"Unexpected childArea '{childAreaId.stringId}' belonging multiple parents."
+            //             );
+
+            //         childDepAreaToParent[childAreaId] = parentAreaId;
+            //     }
+            // }
         }
 
         public AreaCheckInfo GetAreaCheckInfoThrows(AreaId areaId)
@@ -1403,6 +1418,26 @@ namespace TPRandomizer.Hints
             if (!areaToCheckInfo.TryGetValue(areaId, out AreaCheckInfo areaCheckInfo))
                 throw new Exception($"Failed to get checks for areaId '{areaId.stringId}'.");
             return areaCheckInfo;
+        }
+
+        public HashSet<Zone> GetZoneDeps(AreaId areaId)
+        {
+            HashSet<Zone> result = new();
+
+            if (areaToCheckInfo.TryGetValue(areaId, out AreaCheckInfo areaCheckInfo))
+            {
+                foreach (AreaId childAreaId in areaCheckInfo.dependentAreaIds)
+                {
+                    if (childAreaId.type == AreaId.AreaType.Zone)
+                    {
+                        Zone zone = ZoneUtils.StringToIdThrows(childAreaId.stringId);
+                        result.Add(zone);
+                    }
+                    HashSet<Zone> childDeps = GetZoneDeps(childAreaId);
+                    result.UnionWith(childDeps);
+                }
+            }
+            return result;
         }
 
         public HashSet<string> GetChecksForZone(Zone zone)
@@ -1772,6 +1807,43 @@ namespace TPRandomizer.Hints
                 return false;
 
             if (ignoreItemForSkippable != null && ignoreItemForSkippable == contents)
+                return false;
+
+            // If logical, then status would be "skippable" at this point. Else returns false.
+            return logicalItems2.Contains(contents);
+        }
+
+        public bool CheckWouldPreventBarren(string checkName)
+        {
+            // Not expected for things to check against unreachable checks normally, but just in
+            // case these should not be considered to logically have value.
+            if (unreachableChecks.Contains(checkName))
+                return false;
+
+            // allowBarren applies even for BlockerType.NonJunk
+            if (allowBarrenChecks.Contains(checkName))
+                return false;
+
+            Item contents = HintUtils.getCheckContents(checkName);
+
+            if (hintSettings.barren.blockerType == Barren.BlockerType.NonJunk)
+            {
+                // Anything that could be considered as progress toward 100%-ing a seed is
+                // considered as good in this case (including wooden shield, etc.). Otherwise it
+                return !HintConstants.junkItems.Contains(contents);
+            }
+
+            // Otherwise at a minimum, a check's contents must be a majorItem to block barren.
+            if (!majorItems.Contains(contents))
+                return false;
+
+            // For important vs major preventnig barren, the difference is that "skippable" checks
+            // for the most part are split into "sometimes required" and "not required". This
+            // further calculation is what leads to more checks being in "not required" and thus
+            // more potential barren areas.
+            if (requiredChecks.Contains(checkName) || condReqChecks.Contains(checkName))
+                return true;
+            if (notReqChecks.Contains(checkName))
                 return false;
 
             // If logical, then status would be "skippable" at this point. Else returns false.

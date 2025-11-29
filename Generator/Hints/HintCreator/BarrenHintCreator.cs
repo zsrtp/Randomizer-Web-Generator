@@ -28,20 +28,6 @@ namespace TPRandomizer.Hints.HintCreator
                 HintCategory.Golden_Wolf,
             };
 
-        // Includes post-dungeon checks, etc.
-        private static readonly Dictionary<Zone, List<string>> dungeonZoneToReqChecks =
-            new()
-            {
-                { Zone.Forest_Temple, CheckFunctions.forestRequirementChecks },
-                { Zone.Goron_Mines, CheckFunctions.minesRequirementChecks },
-                { Zone.Lakebed_Temple, CheckFunctions.lakebedRequirementChecks },
-                { Zone.Arbiters_Grounds, CheckFunctions.arbitersRequirementChecks },
-                { Zone.Snowpeak_Ruins, CheckFunctions.snowpeakRequirementChecks },
-                { Zone.Temple_of_Time, CheckFunctions.totRequirementChecks },
-                { Zone.City_in_the_Sky, CheckFunctions.cityRequirementChecks },
-                { Zone.Palace_of_Twilight, CheckFunctions.palaceRequirementChecks },
-            };
-
         private static readonly Dictionary<Zone, string> dungeonZoneToRegionName =
             new()
             {
@@ -120,17 +106,8 @@ namespace TPRandomizer.Hints.HintCreator
         // desert" hint is not possible to create (ignoring valid/invalid stuff) for example. But
         // this is not related to high-level dependency stuff.
 
-        private static readonly Dictionary<Zone, HashSet<Zone>> zoneDeps =
-            new()
-            {
-                {
-                    Zone.Lake_Hylia,
-                    new() { Zone.Lanayru_Spring, Zone.Lake_Lantern_Cave, }
-                }
-            };
-
         private static readonly HashSet<AreaId.AreaType> validAreaTypes =
-            new() { AreaId.AreaType.Zone, AreaId.AreaType.Province, AreaId.AreaType.Category, };
+            new() { AreaId.AreaType.Zone, AreaId.AreaType.Category, };
 
         // Needs to know areaType (defaults to zone)
         // Needs to know validAreas (defaults to all)
@@ -169,8 +146,27 @@ namespace TPRandomizer.Hints.HintCreator
                     inst.validAreas = new();
                     foreach (string validAreaStr in validAreaStrList)
                     {
-                        AreaId areaId = AreaId.ParseString(inst.areaType, validAreaStr);
-                        inst.validAreas.Add(areaId);
+                        if (validAreaStr.StartsWith("alias:"))
+                        {
+                            string alias = validAreaStr.Substring(6);
+                            HashSet<AreaId> resolved = resolveAreaAlias(alias);
+                            inst.validAreas.UnionWith(resolved);
+                        }
+                        else
+                        {
+                            if (validAreaStr.Contains('.'))
+                            {
+                                // Handle string specifying AreaType explicity.
+                                AreaId areaId = AreaId.ParseString(validAreaStr);
+                                inst.validAreas.Add(areaId);
+                            }
+                            else
+                            {
+                                // Use default areaType for string which is not explicit.
+                                AreaId areaId = AreaId.ParseString(inst.areaType, validAreaStr);
+                                inst.validAreas.Add(areaId);
+                            }
+                        }
                     }
                 }
             }
@@ -189,6 +185,31 @@ namespace TPRandomizer.Hints.HintCreator
             if (numHints < 1)
                 return null;
 
+            // So now it should be safe to map a child dep to a single parent.
+
+            // Or maybe we just create the entire tree here? For barren hints, we don't need to care
+            // about saying "itself" or not. And for NumMajor hints, we only need to care about
+            // literal child dependencies. Don't need to worry about parent-child stuff really.
+
+            // We can build every dependency tree up front, even if we might not need them. Then
+            // when we need to check if an AreaId is possible, we check it and keep track of the
+            // result in a dictionary. Then we go up the tree and calculate until we reach one
+            // which is not possible.
+
+            // We should also have a dictionary of AreaId to TreeNode.
+
+            // We should also keep track on the TreeNode if it is even a validArea. We do not need
+            // to keep going up the tree if the next parent node is not a validArea. Well, that's
+            // not true since the top parent might be valid. Really once we have the trees defined,
+            // we need to simply do a full recursive calc from the root node. Then on each tree
+            // node, we can keep track of "is it possible to hint barren" and "is it in validAreas".
+            // It's only possible if all of its own deps are satisfied. It isn't exactly related to
+            // the tree since from a dep perspective GD => CoO even though this isn't on the tree.
+            // However, it is true that CoO => SD => GD from a tree perspective for Barren hint
+            // priority.
+
+            // Note: we cannot build the tree until we have genData.
+
             VoseInstance<PotentialBarrenArea> inst = cache.GetFromLatestNodeCache<
                 VoseInstance<PotentialBarrenArea>
             >();
@@ -196,24 +217,35 @@ namespace TPRandomizer.Hints.HintCreator
             if (inst == null)
             {
                 HashSet<AreaId> baseAreaIds = GetBaseAreaIds(genData, hintSettings);
+                Dictionary<AreaId, TreeNode> areaToNode = buildTree(genData, baseAreaIds);
                 List<PotentialBarrenArea> potentialBarrenAreas = GetPotentialBarrenAreas(
                     genData,
-                    baseAreaIds
+                    baseAreaIds,
+                    areaToNode
                 );
 
                 if (potentialBarrenAreas.Count > 0)
                 {
+                    bool useCategoryWeighting = true;
+                    foreach (PotentialBarrenArea pba in potentialBarrenAreas)
+                    {
+                        if (pba.areaId.type != AreaId.AreaType.Category)
+                        {
+                            useCategoryWeighting = false;
+                            break;
+                        }
+                    }
+
                     List<KeyValuePair<double, PotentialBarrenArea>> weightedList = new();
                     foreach (PotentialBarrenArea pba in potentialBarrenAreas)
                     {
-                        weightedList.Add(new(pba.GetWeight(), pba));
+                        weightedList.Add(new(pba.GetWeight(useCategoryWeighting), pba));
                     }
 
                     inst = VoseAlgorithm.createInstance(weightedList);
                 }
             }
 
-            // List<PotentialBarrenArea> selectedAreas = new();
             List<Hint> hints = new();
 
             while (inst != null && inst.HasMore() && hints.Count < numHints)
@@ -238,16 +270,12 @@ namespace TPRandomizer.Hints.HintCreator
                     }
                 }
 
-                // Confirm can afford barren penalties. If unable to, then skips over.
-                if (barrenPenalizer != null && areaId.type == AreaId.AreaType.Zone)
+                // Confirm can afford barren penalties. If unable to, then skips over. Note: root
+                // area does not have to be a zone to have zone deps (ex: SouthernDesert => CoO)
+                if (barrenPenalizer != null)
                 {
-                    Zone zone = ZoneUtils.StringToIdThrows(areaId.stringId);
-                    HashSet<Zone> childZones = new();
-                    if (zoneDeps.TryGetValue(zone, out HashSet<Zone> deps))
-                    {
-                        childZones.UnionWith(deps);
-                    }
-                    if (!barrenPenalizer(zone, childZones))
+                    HashSet<Zone> childZones = genData.GetZoneDeps(areaId);
+                    if (!barrenPenalizer(areaId, childZones))
                         continue;
                 }
 
@@ -296,115 +324,127 @@ namespace TPRandomizer.Hints.HintCreator
 
         private List<PotentialBarrenArea> GetPotentialBarrenAreas(
             HintGenData genData,
-            HashSet<AreaId> baseAreaIds
+            HashSet<AreaId> baseAreaIds,
+            Dictionary<AreaId, TreeNode> areaToNode
         )
         {
-            List<PotentialBarrenArea> potentialBarrenAreas = new();
+            Dictionary<AreaId, PotentialBarrenArea> pbaDict = new();
+
+            // For each baseAreaId, if already in the tree, then go up tree until find result and
+            // add its pba to the resultDict (ignoring if already there; ex: checks for ND and SD
+            // will both say "no, do GD instead" which is fine). If result is null for a node, then
+            // it is not valid. We should keep the highest up one which has a non-null pba.
+
+            // If not in the tree, then simply do the calc. If non-null result, then can add pba.
 
             foreach (AreaId areaId in baseAreaIds)
             {
-                HashSet<string> checkNames = ResolveAreaIdToChecks(genData, areaId);
+                // Skip since already present. Can happen when a lower tree node (such as CoO)
+                // resolves to a higher node (such as GD), and then we later check for GD.
+                if (pbaDict.ContainsKey(areaId))
+                    continue;
 
-                List<string> barrenableChecks = new();
-                bool areaCanBeHintedBarren = true;
-                int numUnknownChecks = 0;
-                int numUnknownAllowBarrenChecks = 0;
-                int extraWeighting = 0;
-
-                foreach (string checkName in checkNames)
+                // If in tree, resolve that way.
+                if (areaToNode.TryGetValue(areaId, out TreeNode currNode))
                 {
-                    if (IsSkipOverCheck(genData, checkName))
-                        continue;
-
-                    Item contents = HintUtils.getCheckContents(checkName);
-                    bool itemAllowsBarrenForArea = genData.ItemAllowsBarrenForArea(
-                        contents,
-                        areaId
-                    );
-
-                    // Important: if an already hinted check (such as
-                    // self-hinted Charlo) is GOOD, then we cannot hint the area
-                    // as barren, even if that check is not an unknown check.
-                    // Therefore we need to do this check before worrying about
-                    // unknown vs not checks.
-                    if (genData.CheckIsGood(checkName) && !itemAllowsBarrenForArea)
+                    TreeNode resultNode = null;
+                    while (currNode != null)
                     {
-                        // Area can still be hinted barren for certain checks
-                        // which are technically important/good but which should
-                        // not actually prevent barren. For example, LBT small
-                        // keys when the area is LBT and small keys are set to
-                        // ownDungeon or when FusedShadows do not appear
-                        // anywhere.
-                        areaCanBeHintedBarren = false;
-                        break;
+                        if (currNode.pba != null)
+                            resultNode = currNode;
+
+                        currNode = currNode.parent;
                     }
 
-                    // If the area is hinted barren, non-skipped checks should
-                    // still be added to `alreadyCheckKnownBarren` even if they
-                    // are not considered 'unknown' for determining if it is
-                    // useful to hint the area as barren.
-                    barrenableChecks.Add(checkName);
-
-                    if (CheckIsUnknownStatus(genData, checkName))
-                    {
-                        numUnknownChecks += 1;
-                        if (itemAllowsBarrenForArea)
-                        {
-                            // We want to count these up front since they might
-                            // not be hard-required (therefore not
-                            // important/good), but we still want them to factor
-                            // in to whether or not an area can be hinted
-                            // barren. (HC with 4 keys where some of the key
-                            // checks are either-or, meaning not all technically
-                            // required). Also used for area weighting.
-                            numUnknownAllowBarrenChecks += 1;
-                        }
-                    }
-                    else if (genData.hinted.IsIgnoreCheckForBarrenWeighting(checkName))
-                    {
-                        // Even though NothingBeyond hints are calculated ahead
-                        // of time, we still include checks which were hinted
-                        // barren this way into consideration when handling
-                        // weighting. This is so we do not significantly reduce
-                        // the effective size of LLC and some dungeons for
-                        // barren hint calculation.
-                        extraWeighting += 1;
-                    }
+                    if (resultNode != null)
+                        pbaDict[resultNode.areaId] = resultNode.pba;
+                    continue;
                 }
 
-                // `numUnknownAllowBarrenChecks` is to avoid things like hinting
-                // Hyrule Castle barren when you have HC with only 4 checks not
-                // excluded which are always small keys and the big key. For
-                // most cases, `numUnknownAllowBarrenChecks` will be 0 meaning
-                // we want to make sure there is at least 1 unknown check.
-                if (areaCanBeHintedBarren && numUnknownChecks > numUnknownAllowBarrenChecks)
-                {
-                    int effectiveUnknownChecksCount =
-                        numUnknownChecks - numUnknownAllowBarrenChecks + extraWeighting;
-
-                    potentialBarrenAreas.Add(
-                        new(areaId, barrenableChecks, effectiveUnknownChecksCount)
-                    );
-                }
+                // For not in tree:
+                PotentialBarrenArea pba = tryGenPba(genData, areaId);
+                if (pba != null)
+                    pbaDict[areaId] = pba;
             }
 
-            return potentialBarrenAreas;
+            int matches = 7;
+
+            return new(pbaDict.Values);
         }
 
-        private HashSet<string> ResolveAreaIdToChecks(HintGenData genData, AreaId areaId)
+        private PotentialBarrenArea tryGenPba(HintGenData genData, AreaId areaId)
         {
-            if (areaId.type == AreaId.AreaType.Zone)
-            {
-                Zone zone = ZoneUtils.StringToId(areaId.stringId);
-                if (dungeonZoneToReqChecks.TryGetValue(zone, out List<string> baseDungeonChecks))
-                {
-                    List<string> bossAndPostDungeonChecks = ResolveBossAndPostDungeonChecks(zone);
+            HashSet<string> checkNames = recursiveGetAreaAndDepsChecks(genData, areaId);
 
-                    return new(baseDungeonChecks.Concat(bossAndPostDungeonChecks));
+            List<string> barrenableChecks = new();
+            bool areaCanBeHintedBarren = true;
+            int numUnknownChecks = 0;
+            int numUnknownAllowBarrenChecks = 0;
+            int extraWeighting = 0;
+
+            foreach (string checkName in checkNames)
+            {
+                // Skip over Vanilla, Excluded, and Excluded-Unrequired. Unreachable and hidden are
+                // already skipped over by the AreaCheckInfos at a high level.
+                if (HintUtils.checkIsPlayerKnownStatus(checkName))
+                    continue;
+
+                Item contents = HintUtils.getCheckContents(checkName);
+                bool itemAllowsBarrenForArea = genData.ItemAllowsBarrenForArea(contents, areaId);
+
+                // Important: if an already hinted check (such as self-hinted Charlo) is GOOD, then
+                // we cannot hint the area as barren, even if that check is not an unknown check.
+                // Therefore we need to do this check before worrying about unknown vs not checks.
+                if (!itemAllowsBarrenForArea && genData.CheckWouldPreventBarren(checkName))
+                {
+                    // Area can still be hinted barren for certain checks which are technically
+                    // important/good but which should not actually prevent barren. For example, LBT
+                    // small keys when the area is LBT and small keys are set to ownDungeon or when
+                    // FusedShadows do not appear anywhere.
+                    areaCanBeHintedBarren = false;
+                    break;
+                }
+
+                // If the area is hinted barren, non-skipped checks should still be added to
+                // `alreadyCheckKnownBarren` even if they are not considered 'unknown' for
+                // determining if it is useful to hint the area as barren.
+                barrenableChecks.Add(checkName);
+
+                if (CheckIsUnknownStatus(genData, checkName))
+                {
+                    numUnknownChecks += 1;
+                    if (itemAllowsBarrenForArea)
+                    {
+                        // We want to count these up front since they might not be hard-required
+                        // (therefore not important/good), but we still want them to factor in to
+                        // whether or not an area can be hinted barren. (HC with 4 keys where some
+                        // of the key checks are either-or, meaning not all technically required).
+                        // Also used for area weighting.
+                        numUnknownAllowBarrenChecks += 1;
+                    }
+                }
+                else if (genData.hinted.IsIgnoreCheckForBarrenWeighting(checkName))
+                {
+                    // Even though NothingBeyond hints are calculated ahead of time, we still
+                    // include checks which were hinted barren this way into consideration when
+                    // handling weighting. This is so we do not significantly reduce the effective
+                    // size of LLC and some dungeons for barren hint calculation.
+                    extraWeighting += 1;
                 }
             }
 
-            return areaId.ResolveToChecks(genData);
+            // `numUnknownAllowBarrenChecks` is to avoid things like hinting Hyrule Castle barren
+            // when you have HC with only 4 checks not excluded which are always small keys and the
+            // big key. For most cases, `numUnknownAllowBarrenChecks` will be 0 meaning we want to
+            // make sure there is at least 1 unknown check.
+            if (areaCanBeHintedBarren && numUnknownChecks > numUnknownAllowBarrenChecks)
+            {
+                int effectiveUnknownChecksCount =
+                    numUnknownChecks - numUnknownAllowBarrenChecks + extraWeighting;
+
+                return new(areaId, barrenableChecks, effectiveUnknownChecksCount);
+            }
+            return null;
         }
 
         private List<string> ResolveBossAndPostDungeonChecks(Zone zone)
@@ -468,18 +508,6 @@ namespace TPRandomizer.Hints.HintCreator
                         }
                         break;
                     }
-                    // TODO: probably best to not allow barren hints for provinces due to the whole
-                    // dependency thing. Also don't expect this to ever be used anyway.
-                    case AreaId.AreaType.Province:
-                    {
-                        // Pick all valid provinces
-                        HashSet<string> provinces = ProvinceUtils.GetProvinceNames();
-                        foreach (string provinceStr in provinces)
-                        {
-                            result.Add(AreaId.ProvinceStr(provinceStr));
-                        }
-                        break;
-                    }
                     case AreaId.AreaType.Category:
                     {
                         foreach (HintCategory category in defaultHintCategories)
@@ -495,7 +523,7 @@ namespace TPRandomizer.Hints.HintCreator
                 }
             }
 
-            if (areaType == AreaId.AreaType.Zone && result.Count > 0)
+            if (result.Count > 0)
             {
                 // Always remove Agitha if Agitha hints are on.
                 if (hintSettings.agitha)
@@ -519,21 +547,7 @@ namespace TPRandomizer.Hints.HintCreator
                 }
             }
 
-            // Validate all of the areaIds line up with the areaType.
-            foreach (AreaId areaId in result)
-            {
-                if (areaId.type != areaType)
-                    throw new Exception(
-                        $"When getting baseAreaIds, at least one areaId had areaType '{areaId.type}', but expected '{areaType}'."
-                    );
-            }
-
             return result;
-        }
-
-        public bool HintsZone()
-        {
-            return areaType == AreaId.AreaType.Zone;
         }
 
         private static bool CheckIsUnknownStatus(HintGenData genData, string checkName)
@@ -545,23 +559,6 @@ namespace TPRandomizer.Hints.HintCreator
                 && !genData.hinted.alreadyCheckKnownBarren.Contains(checkName)
                 && !genData.hinted.alreadyCheckContentsHinted.Contains(checkName)
                 && !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
-            );
-        }
-
-        private static bool IsSkipOverCheck(HintGenData genData, string checkName)
-        {
-            // We intentionally do NOT skip over Always checks. Consider this
-            // case: your average joe finds a hint that Eldin Field is Barren,
-            // so they mark off 100% of the Eldin Field checks. Now assume that
-            // the Always-hinted Goron Springwater Rush check rewards a required
-            // Clawshot. If this player does not find the Always hint for this
-            // check, then they may run out of checks to do and get confused.
-            // The trade-off is that finding a hint about Goron Springwater Rush
-            // when you already know it is unimportant is kind of a waste, but
-            // it is better than people getting confused.
-            return (
-                HintUtils.checkIsPlayerKnownStatus(checkName)
-                || genData.hinted.hintsShouldIgnoreChecks.Contains(checkName)
             );
         }
 
@@ -588,14 +585,172 @@ namespace TPRandomizer.Hints.HintCreator
                 this.effectiveUnknownChecksCount = effectiveUnknownChecksCount;
             }
 
-            public double GetWeight()
+            public double GetWeight(bool useCategoryWeighting)
             {
-                // Use Sqrt for Category since we only have a slight preference
-                // for larger categories. For zones, we have a huge preference
-                // for larger zones, so we use the raw value in that case.
-                if (areaId.type == AreaId.AreaType.Category)
+                // Use Sqrt for Category since we only have a slight preference for larger
+                // categories. If zones are involved, we have a huge preference for larger zones, so
+                // we use the raw value in that case.
+                if (useCategoryWeighting)
                     return Math.Sqrt(effectiveUnknownChecksCount);
                 return effectiveUnknownChecksCount;
+            }
+        }
+
+        private static HashSet<AreaId> resolveAreaAlias(string alias)
+        {
+            HashSet<AreaId> result = new();
+
+            switch (alias.ToLowerInvariant())
+            {
+                case "overworldzones":
+                {
+                    HashSet<Zone> overworldZones =
+                        new()
+                        {
+                            Zone.Ordon,
+                            Zone.Sacred_Grove,
+                            Zone.Faron_Field,
+                            Zone.Faron_Woods,
+                            Zone.Kakariko_Gorge,
+                            Zone.Kakariko_Village,
+                            Zone.Kakariko_Graveyard,
+                            Zone.Eldin_Field,
+                            Zone.North_Eldin,
+                            Zone.Death_Mountain,
+                            Zone.Hidden_Village,
+                            Zone.Lanayru_Field,
+                            Zone.Beside_Castle_Town,
+                            Zone.South_of_Castle_Town,
+                            Zone.Castle_Town,
+                            Zone.Agithas_Castle,
+                            Zone.Great_Bridge_of_Hylia,
+                            Zone.Lake_Hylia,
+                            Zone.Lake_Lantern_Cave,
+                            Zone.Lanayru_Spring,
+                            Zone.Zoras_Domain,
+                            Zone.Upper_Zoras_River,
+                            Zone.Gerudo_Desert,
+                            Zone.Bulblin_Camp,
+                            Zone.Snowpeak_Mountain,
+                            Zone.Cave_of_Ordeals,
+                        };
+
+                    foreach (Zone zone in overworldZones)
+                    {
+                        result.Add(AreaId.Zone(zone));
+                    }
+                    break;
+                }
+                default:
+                    throw new Exception($"Failed to resolve alias '{alias}'.");
+            }
+            return result;
+        }
+
+        private Dictionary<AreaId, TreeNode> buildTree(
+            HintGenData genData,
+            HashSet<AreaId> baseAreaIds
+        )
+        {
+            Dictionary<AreaId, TreeNode> areaToNode = new();
+
+            List<(AreaId, AreaId)> list = new();
+
+            AreaId gdAreaId = AreaId.Zone(Zone.Gerudo_Desert);
+            list.Add((gdAreaId, AreaId.Category(HintCategory.Northern_Desert)));
+            list.Add((gdAreaId, AreaId.Category(HintCategory.Southern_Desert)));
+
+            foreach (KeyValuePair<AreaId, AreaCheckInfo> pair in genData.areaToCheckInfo)
+            {
+                AreaId areaId = pair.Key;
+                AreaCheckInfo areaCheckInfo = pair.Value;
+
+                // Skip over GD since we handle manually above
+                if (areaId.Equals(gdAreaId))
+                    continue;
+
+                foreach (AreaId depAreaId in areaCheckInfo.dependentAreaIds)
+                {
+                    list.Add((areaId, depAreaId));
+                }
+            }
+
+            foreach ((AreaId, AreaId) pair in list)
+            {
+                AreaId parent = pair.Item1;
+                AreaId child = pair.Item2;
+
+                if (!areaToNode.TryGetValue(parent, out TreeNode parentNode))
+                {
+                    parentNode = new TreeNode(parent);
+                    areaToNode[parent] = parentNode;
+                }
+                if (!areaToNode.TryGetValue(child, out TreeNode childNode))
+                {
+                    childNode = new TreeNode(child);
+                    areaToNode[child] = childNode;
+                }
+
+                if (childNode.parent != null)
+                    throw new Exception($"Expected null parentNode.");
+
+                childNode.parent = parentNode;
+                parentNode.children.Add(childNode);
+            }
+
+            // Once the tree is built, any nodes which do not have a parent are root nodes. Does
+            // this matter though?
+
+            // Next what we need to do is start at the root node and drill down and d
+
+            // We can iterate through the baseAreaIds. For each one, if we don't already have a PBA
+            // for it (or null if not possible), then we calculate for it and store the result. If
+            // one has a TreeNode, then we iterate up the tree and create a PBA for each node which
+            // shows up in the baseAreaIds (until we run into no more praent nodes)?
+
+            // Actually, let's just make it simple. We can gather the full checks for the AreaId as
+            // a HashSet. It does not matter if the check is in the area or not? Well it does for
+            // dungeon items. But dungeons are never children, so we can ignore that.
+
+            // Get checks for zone, then get checks for any checkDeps and add.
+            // Then iterate to recursively get checks for areaDeps and add.
+
+            foreach (TreeNode node in areaToNode.Values)
+            {
+                if (baseAreaIds.Contains(node.areaId))
+                {
+                    PotentialBarrenArea pba = tryGenPba(genData, node.areaId);
+                    node.pba = pba;
+                }
+            }
+            return areaToNode;
+        }
+
+        private HashSet<string> recursiveGetAreaAndDepsChecks(HintGenData genData, AreaId areaId)
+        {
+            HashSet<string> result = new();
+
+            AreaCheckInfo areaCheckInfo = genData.GetAreaCheckInfoThrows(areaId);
+
+            result.UnionWith(areaCheckInfo.fullCheckNames);
+            result.UnionWith(areaCheckInfo.dependentCheckNames);
+            foreach (AreaId depAreaId in areaCheckInfo.dependentAreaIds)
+            {
+                result.UnionWith(recursiveGetAreaAndDepsChecks(genData, depAreaId));
+            }
+            return result;
+        }
+
+        private class TreeNode
+        {
+            public AreaId areaId;
+            public TreeNode parent;
+            public List<TreeNode> children = new();
+            public PotentialBarrenArea pba;
+
+            public TreeNode(AreaId areaId)
+            {
+                this.areaId = areaId;
             }
         }
     }
