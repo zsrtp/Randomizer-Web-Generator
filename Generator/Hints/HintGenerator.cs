@@ -2549,12 +2549,8 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            // if (numMatchingZonesInGroup < 1)
-            // {
-            //     createdSpotPenalty = null;
-            //     return pendingSpotPenalties;
-            // }
-
+            // Note: we go ahead and create even if 0 numMatching. Doesn't impact anything, but we
+            // will expect the penalties and pendingCopiesAsc list counts to match.
             SpotPenalty spotPenalty = new(numMatchingZonesInGroup, isSelfInGroup, 0, childZones);
             createdSpotPenalty = spotPenalty;
 
