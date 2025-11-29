@@ -1154,12 +1154,7 @@ namespace TPRandomizer.Hints
                                 if (chainStartAndReward.Value == bigKeyItem)
                                 {
                                     string srcCheckName = chainStartAndReward.Key;
-                                    AreaId areaId = GetAreaIdForBigKeyHint(
-                                        genData,
-                                        zone,
-                                        srcCheckName,
-                                        totalNeeded
-                                    );
+                                    AreaId areaId = GetAreaIdForBigKeyHint(genData, srcCheckName);
                                     TradeChainHint hint = TradeChainHint.Create(
                                         genData,
                                         srcCheckName,
@@ -1181,12 +1176,7 @@ namespace TPRandomizer.Hints
                         }
                         else
                         {
-                            AreaId areaId = GetAreaIdForBigKeyHint(
-                                genData,
-                                zone,
-                                checkName,
-                                totalNeeded
-                            );
+                            AreaId areaId = GetAreaIdForBigKeyHint(genData, checkName);
                             ItemHint hint = ItemHint.Create(genData, areaId, checkName);
                             potentialHints.Add(hint);
 
@@ -1207,26 +1197,10 @@ namespace TPRandomizer.Hints
             }
         }
 
-        private AreaId GetAreaIdForBigKeyHint(
-            HintGenData genData,
-            Zone dungeonZoneInQuestion,
-            string checkForBigKey,
-            int numToFind
-        )
+        private AreaId GetAreaIdForBigKeyHint(HintGenData genData, string checkForBigKey)
         {
-            // TODO: testing with it always showing the zone
             string checkZoneName = genData.GetZoneNameForCheck(checkForBigKey);
             return AreaId.ZoneStr(checkZoneName);
-
-            // string checkZoneName = HintUtils.checkNameToHintZone(checkForBigKey);
-            // Province checkProvince = HintUtils.checkNameToHintProvince(checkForBigKey);
-
-            // return
-            //     dungeonZoneInQuestion == Zone.Hyrule_Castle
-            //     || numToFind > 1
-            //     || checkProvince == Province.Dungeon
-            //   ? AreaId.ZoneStr(checkZoneName)
-            //   : AreaId.Province(checkProvince);
         }
 
         private List<List<Hint>> PrepareAlwaysHints(SpotToHints spotToHints)
