@@ -19,6 +19,18 @@ namespace TPRandomizer.Hints
         Required = 3,
     }
 
+    public enum DetailedCheckStatus
+    {
+        // `Unknown` is mainly for no-logic where we have a hard time saying if
+        // a check is good or not, and we really cannot say if it is required or
+        // not.
+        Unknown = 0,
+        NotRequired = 1,
+        Skippable = 2,
+        SometimesRequired = 3,
+        Required = 4,
+    }
+
     public enum CheckStatusDisplay
     {
         Automatic = 0,

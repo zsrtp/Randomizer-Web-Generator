@@ -228,15 +228,9 @@ namespace TPRandomizer.Hints.HintCreator
             foreach (KeyValuePair<string, Check> pair in Randomizer.Checks.CheckDict)
             {
                 string checkName = pair.Value.checkName;
-                CheckStatus checkStatus = genData.CalcCheckStatus(checkName);
-                Item item = HintUtils.getCheckContents(checkName);
-                if (
-                    !invalidCheckNames.Contains(checkName)
-                    && validItemsSet.Contains(item)
-                    && validStatuses.Contains(checkStatus)
-                    && CheckIsItemHintable(genData, checkName)
-                )
+                if (CheckIsPossibleToHint(genData, invalidCheckNames, validItemsSet, checkName))
                 {
+                    Item item = HintUtils.getCheckContents(checkName);
                     if (!itemToHintableChecks.ContainsKey(item))
                         itemToHintableChecks[item] = new();
                     itemToHintableChecks[item].Add(checkName);
@@ -329,16 +323,6 @@ namespace TPRandomizer.Hints.HintCreator
             return results;
         }
 
-        private bool CheckIsItemHintable(HintGenData genData, string checkName)
-        {
-            HintedThings3 hinted = genData.hinted;
-
-            return !genData.CheckShouldBeIgnored(checkName)
-                && !hinted.alreadyCheckContentsHinted.Contains(checkName)
-                && !hinted.alreadyCheckDirectedToward.Contains(checkName)
-                && !hinted.alreadyCheckKnownBarren.Contains(checkName);
-        }
-
         private static HashSet<Item> resolveItemsAlias(string alias)
         {
             switch (alias)
@@ -389,6 +373,24 @@ namespace TPRandomizer.Hints.HintCreator
                 default:
                     throw new Exception($"Failed to resolve alias '{alias}'.");
             }
+        }
+
+        private bool CheckIsPossibleToHint(
+            HintGenData genData,
+            HashSet<string> invalidCheckNames,
+            HashSet<Item> validItemsSet,
+            string checkName
+        )
+        {
+            Item item = HintUtils.getCheckContents(checkName);
+            CheckStatus status = genData.CalcCheckStatus(checkName);
+
+            return (
+                genData.CheckCanBeClaimHinted(checkName)
+                && !invalidCheckNames.Contains(checkName)
+                && validItemsSet.Contains(item)
+                && validStatuses.Contains(status)
+            );
         }
     }
 }

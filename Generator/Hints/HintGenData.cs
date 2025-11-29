@@ -1714,30 +1714,41 @@ namespace TPRandomizer.Hints
             return status;
         }
 
-        public bool CheckIsGood(string checkName)
+        public DetailedCheckStatus CalcDetailedCheckStatus(string checkName)
         {
             // Not expected for things to check against unreachable checks normally, but just in
             // case these should not be considered to logically have value.
             if (unreachableChecks.Contains(checkName))
-                return false;
+                return DetailedCheckStatus.NotRequired;
 
             // allowBarren applies even for BlockerType.NonJunk
             if (allowBarrenChecks.Contains(checkName))
-                return false;
-
-            Item contents = HintUtils.getCheckContents(checkName);
+                return DetailedCheckStatus.NotRequired;
 
             // For important vs major preventing barren, the difference is that "skippable" checks
             // for the most part are split into "sometimes required" and "not required". This
             // further calculation is what leads to more checks being in "not required" and thus
             // more potential barren areas.
-            if (requiredChecks.Contains(checkName) || condReqChecks.Contains(checkName))
-                return true;
+            if (requiredChecks.Contains(checkName))
+                return DetailedCheckStatus.Required;
+            if (condReqChecks.Contains(checkName))
+                return DetailedCheckStatus.SometimesRequired;
             if (notReqChecks.Contains(checkName))
-                return false;
+                return DetailedCheckStatus.NotRequired;
 
-            // If logical, then status would be "skippable" at this point. Else returns false.
-            return logicalItems2.Contains(contents);
+            // If logical, then status would be "skippable" at this point. Else not required.
+            Item contents = HintUtils.getCheckContents(checkName);
+            if (logicalItems2.Contains(contents))
+                return DetailedCheckStatus.Skippable;
+            return DetailedCheckStatus.NotRequired;
+        }
+
+        public bool CheckIsGood(string checkName)
+        {
+            DetailedCheckStatus status = CalcDetailedCheckStatus(checkName);
+            return status == DetailedCheckStatus.Required
+                || status == DetailedCheckStatus.SometimesRequired
+                || status == DetailedCheckStatus.Skippable;
         }
 
         private bool CheckIsGoodOrSkippable(
