@@ -860,8 +860,8 @@ namespace TPRandomizer.Hints
                 int soulsForCheck = pair.Item1;
                 string checkName = pair.Item2;
 
-                // Skip over excluded ones entirely
-                if (HintUtils.checkIsPlayerKnownStatus(checkName))
+                // Skip over excluded ones entirely. Vanilla can still be listed.
+                if (HintUtils.checkIsExcluded(checkName))
                     continue;
 
                 bool failedMinSouls =
