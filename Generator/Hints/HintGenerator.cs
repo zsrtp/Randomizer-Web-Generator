@@ -465,7 +465,7 @@ namespace TPRandomizer.Hints
             foreach (KeyValuePair<Item, string> pair in HintConstants.bugsToRewardChecksMap)
             {
                 string agithaRewardCheckName = pair.Value;
-                genData.hinted.hintsShouldIgnoreChecks.Add(agithaRewardCheckName);
+                genData.hinted.alreadyCheckAgithaHintClaimed.Add(agithaRewardCheckName);
 
                 // If not included, skip over it
                 if (HintUtils.checkIsPlayerKnownStatus(agithaRewardCheckName))
@@ -979,7 +979,7 @@ namespace TPRandomizer.Hints
                 {
                     if (
                         !HintUtils.checkIsPlayerKnownStatus(checkName)
-                        && !genData.hinted.hintsShouldIgnoreChecks.Contains(checkName)
+                        && !genData.hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                     )
                     {
                         checksToHint.Add(checkName);
@@ -1070,7 +1070,7 @@ namespace TPRandomizer.Hints
             {
                 if (
                     !HintUtils.checkIsPlayerKnownStatus(checkName)
-                    && !genData.hinted.hintsShouldIgnoreChecks.Contains(checkName)
+                    && !genData.hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                 )
                 {
                     Item contents = HintUtils.getCheckContents(checkName);
@@ -1432,7 +1432,11 @@ namespace TPRandomizer.Hints
                     genData.hinted.alwaysHintedChecks.Add(checkName);
                 }
                 else
-                    genData.hinted.hintsShouldIgnoreChecks.Add(checkName);
+                {
+                    // For unhinted Always checks (ex: 9 in pool but we only hint 5), these are
+                    // considered to be known to be dead (or else we would have to hint them).
+                    genData.hinted.AddHintedBarrenCheck(checkName);
+                }
             }
         }
 

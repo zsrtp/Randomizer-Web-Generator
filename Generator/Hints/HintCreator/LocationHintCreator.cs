@@ -298,8 +298,11 @@ namespace TPRandomizer.Hints.HintCreator
             Item item = HintUtils.getCheckContents(checkName);
             CheckStatus status = genData.CalcCheckStatus(checkName);
 
+            // TODO: rename "canHintHintedBarrenChecks" to "forceHintable" or something similar.
+            // Should this also ignore the status restrictions below, etc.? Where do we use this in
+            // the distributions? Only for "special always"-kind of things for race dist?
             return (
-                genData.checkCanBeLocationHinted(checkName, canHintHintedBarrenChecks)
+                (canHintHintedBarrenChecks || genData.CheckCanBeClaimHinted(checkName))
                 && (validCheckNames.Count == 0 || validCheckNames.Contains(checkName))
                 && !invalidCheckNames.Contains(checkName)
                 && (validItems.Count == 0 || validItems.Contains(item))

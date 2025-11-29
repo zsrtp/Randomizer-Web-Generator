@@ -1631,7 +1631,7 @@ namespace TPRandomizer.Hints
             )
                 return false;
 
-            if (hinted.hintsShouldIgnoreChecks.Contains(checkName))
+            if (hinted.alreadyCheckAgithaHintClaimed.Contains(checkName))
             {
                 if (!bypassIgnoredChecks)
                     return false;
@@ -1645,23 +1645,18 @@ namespace TPRandomizer.Hints
             return true;
         }
 
-        public bool checkCanBeLocationHinted(
-            string checkName,
-            bool canHintHintedBarrenChecks = false
-        )
+        public bool CheckCanBeClaimHinted(string checkName)
         {
-            // We should ignore checks which are directed toward. We may want to
-            // not hint toward any checks in a zone which is SpoL? This was the
-            // previous behavior. Probably fine to list them in a SpoL zone.
-            // This way you can know that specific check wasn't the SpoL one.
-            // Can adjust later if doesn't make sense.
-            return (
-                    canHintHintedBarrenChecks || !hinted.alreadyCheckKnownBarren.Contains(checkName)
-                )
+            // Verifies if a check can be "claim-hinted". This means the check is not already
+            // claimed with regards to overlaps. For example: Location, Item, WotH, Path, etc.,
+            // hints all must "claim" a check to hint it, and they cannot hint checks which are
+            // already claimed.
+            return !unreachableChecks.Contains(checkName)
+                && !HintUtils.checkIsPlayerKnownStatus(checkName)
                 && !hinted.alreadyCheckContentsHinted.Contains(checkName)
                 && !hinted.alreadyCheckDirectedToward.Contains(checkName)
-                && !hinted.hintsShouldIgnoreChecks.Contains(checkName)
-                && !HintUtils.checkIsPlayerKnownStatus(checkName);
+                && !hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
+                && !hinted.alreadyCheckKnownBarren.Contains(checkName);
         }
 
         public List<AreaId> ResolveToAreaIds(string name, HashSet<AreaId.AreaType> validAreaTypes)
@@ -1704,7 +1699,7 @@ namespace TPRandomizer.Hints
         public bool CheckShouldBeIgnored(string checkName)
         {
             return (
-                hinted.hintsShouldIgnoreChecks.Contains(checkName)
+                hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                 || HintUtils.checkIsPlayerKnownStatus(checkName)
             );
         }
@@ -1896,7 +1891,7 @@ namespace TPRandomizer.Hints
             {
                 if (
                     HintUtils.checkIsPlayerKnownStatus(checkName)
-                    || hinted.hintsShouldIgnoreChecks.Contains(checkName)
+                    || hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                     || hinted.alreadyCheckContentsHinted.Contains(checkName)
                     || hinted.alreadyCheckDirectedToward.Contains(checkName)
                 )
@@ -1931,7 +1926,7 @@ namespace TPRandomizer.Hints
     {
         public readonly HashSet<string> alreadyCheckContentsHinted = new();
         public readonly HashSet<string> alreadyCheckDirectedToward = new();
-        public readonly HashSet<string> hintsShouldIgnoreChecks = new();
+        public readonly HashSet<string> alreadyCheckAgithaHintClaimed = new();
         public readonly HashSet<string> alreadyCheckKnownBarren = new();
         public readonly HashSet<TradeGroup> hintedTradeGroups = new();
         public readonly HashSet<string> alwaysHintedChecks = new();

@@ -555,7 +555,7 @@ namespace TPRandomizer.Hints.HintCreator
             return (
                 !HintUtils.checkIsPlayerKnownStatus(checkName)
                 && !genData.hinted.alwaysHintedChecks.Contains(checkName)
-                && !genData.hinted.hintsShouldIgnoreChecks.Contains(checkName)
+                && !genData.hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                 && !genData.hinted.alreadyCheckKnownBarren.Contains(checkName)
                 && !genData.hinted.alreadyCheckContentsHinted.Contains(checkName)
                 && !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
