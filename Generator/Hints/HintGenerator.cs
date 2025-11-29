@@ -171,43 +171,12 @@ namespace TPRandomizer.Hints
 
                 if (hintSettings.barren.ownZoneBehavior != Barren.OwnZoneBehavior.Off)
                 {
+                    // For any of these which point to a zone/spot belonging to the group, reduce
+                    // the copies by 1, remove that spot from the mutable group for this layer, and
+                    // place the hint at that spot for this layer. If the spot does not exist at the
+                    // layer, it should get a special copy of the hint assigned to it.
+
                     // Handle starting hints.
-                    // foreach (Hint hint in layerData.startingHints)
-                    // {
-                    //     SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(hint);
-                    //     if (spotId != SpotId.Invalid)
-                    //     {
-                    //         if (spots.Contains(spotId))
-                    //         {
-                    //             // Need to place a copy of the hint at this
-                    //             // spot and remove the spot from this group
-                    //             // for the layer.
-                    //             if (
-                    //                 hintSettings.barren.isMonopolize()
-                    //                 && normalSpotToHints.spotHasHints(spotId)
-                    //             )
-                    //             {
-                    //                 throw new Exception(
-                    //                     $"Expected spot '{spotId}' to have no normal hints with barren.ownZoneBehavior set to 'monopolize', but it was not empty."
-                    //                 );
-                    //             }
-
-                    //             spots.Remove(spotId);
-                    //             normalSpotToHints.addHintToSpot(spotId, hint);
-                    //         }
-                    //         else
-                    //         {
-                    //             specialSpotToHints.addHintToSpot(spotId, hint);
-                    //         }
-
-                    //         // Additionally, if monopolize and not just
-                    //         // prioritize, need to remove the spot from
-                    //         // ALL groups.
-                    //         if (hintSettings.barren.isMonopolize())
-                    //             removeSpotFromMutableGroups(spotId);
-                    //     }
-                    // }
-
                     handleMonopolizeBarrenHints(
                         spots,
                         specialSpotToHints,
@@ -216,6 +185,7 @@ namespace TPRandomizer.Hints
                         true
                     );
 
+                    // Handle normal hints.
                     HashSet<uint> placedNormalHintUids = handleMonopolizeBarrenHints(
                         spots,
                         specialSpotToHints,
@@ -237,70 +207,9 @@ namespace TPRandomizer.Hints
                             }
                         }
                     }
-
-                    // Handle normal hints.
-                    // for (int i = recHintResults.HintDefResults.Count - 1; i >= 0; i--)
-                    // {
-                    //     HintDefResult hintDefResult = recHintResults.HintDefResults[i];
-                    //     Hint hint = hintDefResult.hint;
-                    //     SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(hint);
-                    //     if (spotId != SpotId.Invalid)
-                    //     {
-                    //         if (spots.Contains(spotId))
-                    //         {
-                    //             // Need to place a copy of the hint at this
-                    //             // spot and remove the spot from this group
-                    //             // for the layer.
-                    //             if (
-                    //                 hintSettings.barren.isMonopolize()
-                    //                 && normalSpotToHints.spotHasHints(spotId)
-                    //             )
-                    //             {
-                    //                 throw new Exception(
-                    //                     $"Expected spot '{spotId}' to have no normal hints with barren.ownZoneBehavior set to 'monopolize', but it was not empty."
-                    //                 );
-                    //             }
-
-                    //             spots.Remove(spotId);
-                    //             normalSpotToHints.addHintToSpot(spotId, hint);
-
-                    //             hintDefResult.OnPlacedCopy();
-                    //             if (!hintDefResult.CanPlaceMoreCopies())
-                    //                 recHintResults.RemoveHintDefResultAt(i);
-                    //         }
-                    //         else
-                    //         {
-                    //             specialSpotToHints.addHintToSpot(spotId, hint);
-                    //         }
-
-                    //         // Additionally, if monopolize and not just
-                    //         // prioritize, need to remove the spot from
-                    //         // ALL groups.
-                    //         if (hintSettings.barren.isMonopolize())
-                    //             removeSpotFromMutableGroups(spotId);
-                    //     }
-                    // }
                 }
 
-                // Iterate through all generated hints (including starting
-                // hints). The starting hint one takes care of all copies. The
-                // placement of a barren hint for that zone is done as a special
-                // hint, so this is handled separately from the normal stuff for
-                // the recursive return for this layer.
-
-                // For the return from the recursive work, iterate through and
-                // find any BarrenZone hints.
-
-                // For any of these which point to a zone/spot belonging to the
-                // group, reduce the copies by 1, remove that spot from the
-                // mutable group for this layer, and place the hint at that spot
-                // for this layer.
-
-                // If the spot does not exist at the layer, it should get a
-                // special copy of the hint assigned to it.
-
-                // We should probably group the spotToHints by iteration.
-
+                // Always hints
                 if (matchesAlwaysGroupId && alwaysSpotCount > 0)
                 {
                     alwaysSpotCount = 0;
