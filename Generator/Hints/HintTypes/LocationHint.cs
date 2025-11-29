@@ -30,7 +30,7 @@ namespace TPRandomizer.Hints
             bool markAsSometimes = false
         )
         {
-            CheckStatus status = CalcStatus(genData, checkName);
+            CheckStatus status = genData.CalcCheckStatus(checkName);
 
             LocationHint hint = new(genData, checkName, vague, status, display, markAsSometimes);
             return hint;
@@ -89,16 +89,6 @@ namespace TPRandomizer.Hints
                     useDefiniteArticle = checksGivingItem.Count == 1;
                 }
             }
-        }
-
-        public static CheckStatus CalcStatus(HintGenData genData, string checkName)
-        {
-            CheckStatus status = CheckStatus.Bad;
-            if (genData.requiredChecks.Contains(checkName))
-                status = CheckStatus.Required;
-            else if (genData.CheckIsGood(checkName))
-                status = CheckStatus.Good;
-            return status;
         }
 
         // Only need to encode the checkName since we can grab the contents when

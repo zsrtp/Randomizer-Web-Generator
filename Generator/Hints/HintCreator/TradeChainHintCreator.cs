@@ -357,11 +357,11 @@ namespace TPRandomizer.Hints.HintCreator
                 {
                     possibleChainStarters.Add(new(startCheckName, CheckStatus.Required));
                 }
-                else if (IsGoodValidStatus() && genData.CheckIsGood(endCheckName, true))
+                else if (IsGoodValidStatus() && genData.CheckIsGood(endCheckName))
                 {
                     possibleChainStarters.Add(new(startCheckName, CheckStatus.Good));
                 }
-                else if (IsBadValidStatus() && !genData.CheckIsGood(endCheckName, true))
+                else if (IsBadValidStatus() && !genData.CheckIsGood(endCheckName))
                 {
                     possibleChainStarters.Add(new(startCheckName, CheckStatus.Bad));
                 }

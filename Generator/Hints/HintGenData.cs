@@ -1719,59 +1719,30 @@ namespace TPRandomizer.Hints
             return status;
         }
 
-        // For almost all cases, you should not bypassIgnoredChecks. The purpose
-        // of this is for checking if the final bug reward in a tradeChain would
-        // be considered good (ignoring the fact that it should be ignored by
-        // basically every hintType when Agitha rewards are hinted).
-        public bool CheckIsGood(string checkName, bool bypassIgnoredChecks = false)
+        public bool CheckIsGood(string checkName)
         {
-            // Could potentially determine all "good" checks at one time, but we
-            // would have to do it after we generate Agitha hints since this
-            // modifies hintsShouldIgnoreChecks, but it would be more fragile.
-            // Can worry about slight performance improvements in the future
-            // (path stuff is the real bottleneck). "premature optimization is
-            // the root of all evil"
+            // Not expected for things to check against unreachable checks normally, but just in
+            // case these should not be considered to logically have value.
+            if (unreachableChecks.Contains(checkName))
+                return false;
 
-            // Order of these if-statements is important.
-            if (HintUtils.checkIsPlayerKnownStatus(checkName))
-            {
-                // For example, don't want to say a vanilla big key is good if
-                // the check is required. Hinting it when the player knows it is
-                // vanilla is not helpful (such as BeyondThisPoint hint).
-                return false;
-            }
-            if (!bypassIgnoredChecks && hinted.hintsShouldIgnoreChecks.Contains(checkName))
-                return false;
-            if (requiredChecks.Contains(checkName))
-                return true;
+            // allowBarren applies even for BlockerType.NonJunk
             if (allowBarrenChecks.Contains(checkName))
                 return false;
 
-            // TODO: update implementation. Good means preventsBarren. For "junk only", any check
-            // where the contents are a baseMajorItem (or technically we should check against junk
-            // specifically) is Good. For Major, any check where the contents are in `majorItems`
-            // blocks barren. For advanced stuff, the check must either be "required" or
-            // "conditionallyRequired". Note: "required" checks are always Good, but this is handled
-            // above.
+            Item contents = HintUtils.getCheckContents(checkName);
 
-            //      NEXT TODO: !!!!!!!!!!!!!! go ahead and create the HintSettings.Barren.blockerType setting
-            // so that we can use it in the code instead of leaving TODOs all over the place. This
-            // is read from the distribution, then we potentially overwrite it from the main
-            // sSettings if the user were to check a box saying "Non-Junk Items" prevents barren.
-            // For balanced, it would default to Major, etc. For a race distribution, it might be
-            // set to Important Items. Blocks Barren: "No Override", "Non-Junk", "Major Items"
-            // "Important Items". Note: if they select "Important Items", then we will have to do
-            // the condReq calcultions. If they are no-logic, then have to revert to "Major Items".
+            // For important vs major preventing barren, the difference is that "skippable" checks
+            // for the most part are split into "sometimes required" and "not required". This
+            // further calculation is what leads to more checks being in "not required" and thus
+            // more potential barren areas.
+            if (requiredChecks.Contains(checkName) || condReqChecks.Contains(checkName))
+                return true;
+            if (notReqChecks.Contains(checkName))
+                return false;
 
-            Item item = HintUtils.getCheckContents(checkName);
-            // Note that this handles tradeItems correctly because any
-            // tradeItems that lead to a required check or a preventBarren item
-            // which is not an an allowBarren check are said to preventBarren.
-            // Therefore when you ask it a check which reward Male_Ant for
-            // example is good, you will receive an accurate response. We do not
-            // allow players to manually determine if tradeItems preventBarren
-            // or not (they are derived based off of other items).
-            return preventBarrenItems.Contains(item);
+            // If logical, then status would be "skippable" at this point. Else returns false.
+            return logicalItems2.Contains(contents);
         }
 
         private bool CheckIsGoodOrSkippable(
@@ -1853,16 +1824,6 @@ namespace TPRandomizer.Hints
         public bool CheckIsRequired(string checkName)
         {
             return requiredChecks.Contains(checkName);
-        }
-
-        public CheckStatus CalcCheckStatus(string checkName, bool bypassIgnoredChecks = false)
-        {
-            if (CheckIsRequired(checkName))
-                return CheckStatus.Required;
-            else if (CheckIsGood(checkName, bypassIgnoredChecks))
-                return CheckStatus.Good;
-            else
-                return CheckStatus.Bad;
         }
 
         public bool ItemUsesDefArticle(Item item)

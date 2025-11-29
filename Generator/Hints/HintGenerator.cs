@@ -482,7 +482,7 @@ namespace TPRandomizer.Hints
 
                 Item contents = HintUtils.getCheckContents(agithaRewardCheckName);
                 if (
-                    genData.CheckIsGood(agithaRewardCheckName, true)
+                    genData.CheckIsGood(agithaRewardCheckName)
                     && !HintConstants.bugsToRewardChecksMap.ContainsKey(contents)
                 )
                 {

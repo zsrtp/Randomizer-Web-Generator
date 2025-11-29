@@ -296,7 +296,7 @@ namespace TPRandomizer.Hints.HintCreator
         )
         {
             Item item = HintUtils.getCheckContents(checkName);
-            CheckStatus status = LocationHint.CalcStatus(genData, checkName);
+            CheckStatus status = genData.CalcCheckStatus(checkName);
 
             return (
                 genData.checkCanBeLocationHinted(checkName, canHintHintedBarrenChecks)

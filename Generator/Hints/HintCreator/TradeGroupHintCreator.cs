@@ -231,7 +231,7 @@ namespace TPRandomizer.Hints.HintCreator
                     // If end check is good, then groups with this item cannot
                     // be hintedBarren regardless of anything else.
                     string endCheck = genData.tradeItemToChainEndCheck[item];
-                    if (genData.CheckIsGood(endCheck, true))
+                    if (genData.CheckIsGood(endCheck))
                     {
                         groupCanBeHintedBarren = false;
                         groupNotBarrenIfHasItems.Add(item);
@@ -263,7 +263,7 @@ namespace TPRandomizer.Hints.HintCreator
 
                         // Bypass since endCheck is mostly agithaReward
                         // checks.
-                        if (genData.CheckIsGood(endCheck, true))
+                        if (genData.CheckIsGood(endCheck))
                         {
                             SrcAndTgtChecks sAndTChecks = new(hintableSrcChecks, endCheck);
 
