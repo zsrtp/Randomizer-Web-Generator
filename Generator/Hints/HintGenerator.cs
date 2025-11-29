@@ -169,7 +169,7 @@ namespace TPRandomizer.Hints
                     layerData.startingHints
                 );
 
-                if (hintSettings.barren.ownZoneBehavior != Barren.OwnZoneBehavior.Off)
+                if (hintSettings.barren.monopolizeSpots)
                 {
                     // For any of these which point to a zone/spot belonging to the group, reduce
                     // the copies by 1, remove that spot from the mutable group for this layer, and
@@ -377,7 +377,7 @@ namespace TPRandomizer.Hints
                         // Need to place a copy of the hint at this spot and remove the spot from
                         // this group for the layer.
                         if (
-                            hintSettings.barren.isMonopolize()
+                            hintSettings.barren.monopolizeSpots
                             && normalSpotToHints.spotHasHints(spotId)
                         )
                         {
@@ -409,7 +409,7 @@ namespace TPRandomizer.Hints
 
                         // Additionally, if monopolize and not just prioritize, need to remove the
                         // spot from ALL groups.
-                        if (hintSettings.barren.isMonopolize())
+                        if (hintSettings.barren.monopolizeSpots)
                             removeSpotFromMutableGroups(spotId);
                     }
                 }
@@ -554,7 +554,7 @@ namespace TPRandomizer.Hints
                 bool doBarrenHandling = false;
                 if (
                     currHintDef.hintCreator.type == HintCreatorType.Barren
-                    && hintSettings.barren.ownZoneBehavior != Barren.OwnZoneBehavior.Off
+                    && hintSettings.barren.monopolizeSpots
                 )
                 {
                     BarrenHintCreator bhCreator = currHintDef.hintCreator as BarrenHintCreator;
@@ -2330,7 +2330,7 @@ namespace TPRandomizer.Hints
 
             for (int i = 0; i < results.HintDefResults.Count; i++)
             {
-                if (hintSettings.barren.ownZoneBehavior != Barren.OwnZoneBehavior.Off)
+                if (hintSettings.barren.monopolizeSpots)
                 {
                     HintDefResult result = results.HintDefResults[i];
                     SpotId spot = HintUtils.TryGetSpotIdForBarrenZoneHint(result.hint);

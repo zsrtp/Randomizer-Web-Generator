@@ -623,13 +623,6 @@ namespace TPRandomizer.Hints.Settings
 
     public class Barren
     {
-        public enum OwnZoneBehavior
-        {
-            Off = 0,
-            Prioritize = 1,
-            Monopolize = 2,
-        }
-
         public enum BlockerType
         {
             NonJunk = 0,
@@ -637,7 +630,7 @@ namespace TPRandomizer.Hints.Settings
             Important = 2,
         }
 
-        public OwnZoneBehavior ownZoneBehavior { get; private set; } = OwnZoneBehavior.Off;
+        public bool monopolizeSpots { get; private set; } = false;
         public bool ownZoneShowsAsJunkHint { get; private set; } = false;
         public BlockerType blockerType { get; private set; } = BlockerType.Major;
 
@@ -651,22 +644,11 @@ namespace TPRandomizer.Hints.Settings
             {
                 JObject obj = (JObject)token;
 
-                string ownZoneBehaviorStr = HintSettingUtils.getOptionalString(
+                inst.monopolizeSpots = HintSettingUtils.getOptionalBool(
                     obj,
-                    "ownZoneBehavior",
-                    null
+                    "monopolizeSpots",
+                    inst.monopolizeSpots
                 );
-                if (!StringUtils.isEmpty(ownZoneBehaviorStr))
-                {
-                    OwnZoneBehavior ownZoneBehavior;
-                    bool success = Enum.TryParse(ownZoneBehaviorStr, true, out ownZoneBehavior);
-                    if (success)
-                        inst.ownZoneBehavior = ownZoneBehavior;
-                    else
-                        throw new Exception(
-                            $"Failed to parse ownZoneBehavior '{ownZoneBehaviorStr}' to OwnZoneBehavior enum."
-                        );
-                }
 
                 inst.ownZoneShowsAsJunkHint = HintSettingUtils.getOptionalBool(
                     obj,
@@ -691,11 +673,6 @@ namespace TPRandomizer.Hints.Settings
             }
 
             return inst;
-        }
-
-        public bool isMonopolize()
-        {
-            return ownZoneBehavior == OwnZoneBehavior.Monopolize;
         }
     }
 
@@ -1798,7 +1775,7 @@ namespace TPRandomizer.Hints.Settings
             // layer defines Barren Zone hints. This is because a later layer's
             // barren hint can need to claim a spot which already has hints on
             // it.
-            if (barren.isMonopolize() && !ListUtils.isEmpty(hintDefGroupings))
+            if (barren.monopolizeSpots && !ListUtils.isEmpty(hintDefGroupings))
             {
                 // Iterate through all but the first hintDefGrouping and make
                 // sure that they do not have any 'zone' BarrenHintCreators.
@@ -1827,7 +1804,7 @@ namespace TPRandomizer.Hints.Settings
                 // not overlap. This means that when barrenZones are
                 // 'monopolize', we must define the Always hints as part of the
                 // first layer even if always.monopolizeSpots is false.
-                if (always.monopolizeSpots || barren.isMonopolize())
+                if (always.monopolizeSpots || barren.monopolizeSpots)
                 {
                     // When Always is set to monopolize, it means that spots
                     // which contain Always hints cannot contain any other
