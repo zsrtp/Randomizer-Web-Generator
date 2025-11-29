@@ -76,7 +76,7 @@ namespace TPRandomizer.Hints.HintCreator
             // check which can be hinted SpoL which is not in sphere 0.
             foreach (string checkName in genData.requiredChecks)
             {
-                if (!genData.checkCanBeHintedSpol(checkName))
+                if (!genData.CheckCanBeWothPathHinted(checkName))
                     continue;
 
                 HashSet<AreaId> newAreaIds = CheckToAreaIds(genData, hintSettings, checkName);

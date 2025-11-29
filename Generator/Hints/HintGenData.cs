@@ -1613,36 +1613,14 @@ namespace TPRandomizer.Hints
             return playthroughSpheres.sphere0Checks.Contains(checkName);
         }
 
-        // For almost all cases, you should not bypassIgnoredChecks. Currently the only reason to bypassIgnoredChecks is when
-
-        // The purpose
-        // of this is for checking if the final bug reward in a tradeChain would
-        // be considered good (ignoring the fact that it should be ignored by
-        // basically every hintType when Agitha rewards are hinted).
-        public bool checkCanBeHintedSpol(string checkName, bool bypassIgnoredChecks = false)
+        public bool CheckCanBeWothPathHinted(string checkName)
         {
             Item contents = HintUtils.getCheckContents(checkName);
-            if (
-                HintUtils.checkIsPlayerKnownStatus(checkName)
-                || !requiredChecks.Contains(checkName)
-                || HintConstants.invalidSpolItems.Contains(contents)
-                || hinted.alreadyCheckContentsHinted.Contains(checkName)
-                || hinted.alreadyCheckDirectedToward.Contains(checkName)
-            )
-                return false;
-
-            if (hinted.alreadyCheckAgithaHintClaimed.Contains(checkName))
-            {
-                if (!bypassIgnoredChecks)
-                    return false;
-
-                // If ignored Agitha check, only valid during bypass if the
-                // checkContents are not a different tradeItem (which would
-                // indicate we are in the middle of a chain).
-                return !HintUtils.IsTradeItem(contents);
-            }
-
-            return true;
+            return (
+                !HintConstants.invalidSpolItems.Contains(contents)
+                && CheckCanBeClaimHinted(checkName)
+                && CalcDetailedCheckStatus(checkName) == DetailedCheckStatus.Required
+            );
         }
 
         public bool CheckCanBeClaimHinted(string checkName)
@@ -1911,7 +1889,7 @@ namespace TPRandomizer.Hints
                 numChecks += 1;
                 if (isCheckSphere0(checkName))
                     numSphere0Checks += 1;
-                else if (checkCanBeHintedSpol(checkName))
+                else if (CheckCanBeWothPathHinted(checkName))
                     hasSphereLater = true;
             }
 

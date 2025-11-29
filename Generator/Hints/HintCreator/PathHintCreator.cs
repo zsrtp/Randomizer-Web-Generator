@@ -348,7 +348,7 @@ namespace TPRandomizer.Hints.HintCreator
 
                 foreach (string checkName in checkNames)
                 {
-                    if (!genData.checkCanBeHintedSpol(checkName))
+                    if (!genData.CheckCanBeWothPathHinted(checkName))
                         continue;
 
                     canBeHintedCheckNames.Add(checkName);
