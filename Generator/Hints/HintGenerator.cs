@@ -455,11 +455,12 @@ namespace TPRandomizer.Hints
                     zoneToBaseHint[childZone] = null;
                 }
 
+                // For any relevant parentZone + childZones, either place a copy of a self-hinting
+                // BarrenHint there (creating a new hint if necessary).
                 foreach (KeyValuePair<Zone, Hint> pair in zoneToBaseHint)
                 {
                     Zone zone = pair.Key;
                     Hint hint = pair.Value;
-                    bool createdNewSpecialHint = false;
 
                     SpotId spotId = ZoneUtils.IdToSpotId(zone);
                     if (spotId != SpotId.Invalid)
@@ -476,26 +477,25 @@ namespace TPRandomizer.Hints
                             );
                         }
 
-                        if (hint == null)
-                        {
-                            createdNewSpecialHint = true;
-                            hint = new BarrenHint(AreaId.Zone(zone));
-                        }
-
                         bool wasInGroup = groupSpots.Remove(spotId);
-                        if (wasInGroup && !areStartingHints && !createdNewSpecialHint)
+                        if (wasInGroup && !areStartingHints && hint != null)
                         {
                             normalSpotToHints.addHintToSpot(spotId, hint);
-
                             placedNormalHintUids.Add(hint.uniqueHintId);
-
-                            // hintDefResult.OnPlacedCopy();
-                            // if (!hintDefResult.CanPlaceMoreCopies())
-                            //     recHintResults.RemoveHintDefResultAt(i);
                         }
                         else
                         {
-                            specialSpotToHints.addHintToSpot(spotId, hint);
+                            // If we are handling a starting hint and the zone that it hints barren
+                            // matches the startingHintsZone, then skip placing a duplicate copy at
+                            // this same spot. Otherwise we can place.
+                            if (!(areStartingHints && hintSettings.starting.spot == spotId))
+                            {
+                                // For childZones, we need to create a new hint for its own zone.
+                                if (hint == null)
+                                    hint = new BarrenHint(AreaId.Zone(zone));
+
+                                specialSpotToHints.addHintToSpot(spotId, hint);
+                            }
                         }
 
                         // Additionally, if monopolize and not just prioritize, need to remove the
