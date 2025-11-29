@@ -460,53 +460,29 @@ namespace TPRandomizer.Hints
         {
             int numBugsInPool = 0;
             List<string> interestingAgithaChecks = new();
-            // List<Item> items = new();
 
             foreach (KeyValuePair<Item, string> pair in HintConstants.bugsToRewardChecksMap)
             {
                 string agithaRewardCheckName = pair.Value;
                 genData.hinted.alreadyCheckAgithaHintClaimed.Add(agithaRewardCheckName);
 
-                // If not included, skip over it
-                if (HintUtils.checkIsPlayerKnownStatus(agithaRewardCheckName))
+                // If unreachable or excluded, then skip. Vanilla still should be included.
+                if (
+                    genData.unreachableChecks.Contains(agithaRewardCheckName)
+                    || HintUtils.checkIsExcluded(agithaRewardCheckName)
+                )
                     continue;
 
                 numBugsInPool += 1;
 
-                // Item contents = HintUtils.getCheckContents(agithaRewardCheckName);
-                // if (
-                //     genData.preventBarrenItems.Contains(contents)
-                //     && !HintConstants.bugsToRewardChecksMap.ContainsKey(contents)
-                // )
-                // {
-
                 Item contents = HintUtils.getCheckContents(agithaRewardCheckName);
                 if (
-                    genData.CheckIsGood(agithaRewardCheckName)
-                    && !HintConstants.bugsToRewardChecksMap.ContainsKey(contents)
+                    !HintConstants.bugsToRewardChecksMap.ContainsKey(contents)
+                    && genData.CheckIsGood(agithaRewardCheckName)
                 )
                 {
                     // Interesting contents which are not a bug.
                     interestingAgithaChecks.Add(agithaRewardCheckName);
-                    // items.Add(HintUtils.getCheckContents(agithaRewardCheckName));
-                }
-
-                // if item is preventBarren and not a bug, then add to the list
-
-                // Determine if there is anything interesting on Agitha. If
-                // there isn't, then she is considered dead and bugs should not
-                // prevent barren.
-
-                // IMPORTANT: if Agitha has nothing, then bugs should not
-                // prevent barren.
-            }
-
-            if (interestingAgithaChecks.Count < 1)
-            {
-                // Bugs should no longer prevent barren.
-                foreach (KeyValuePair<Item, string> pair in HintConstants.bugsToRewardChecksMap)
-                {
-                    genData.preventBarrenItems.Remove(pair.Key);
                 }
             }
 
