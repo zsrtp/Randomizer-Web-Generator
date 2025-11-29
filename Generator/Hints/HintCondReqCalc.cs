@@ -644,7 +644,7 @@ namespace TPRandomizer.Hints
                 // be handled later and only if Jovani is required or
                 // conditionallyRequired.
                 if (
-                    genData.logicalItems.Contains(check.itemId)
+                    genData.logicalItems2.Contains(check.itemId)
                     && !condRequiredChecks.Contains(checkName)
                     && !genData.requiredChecks.Contains(checkName)
                     && !HintUtils.checkIsPlayerKnownStatus(checkName)

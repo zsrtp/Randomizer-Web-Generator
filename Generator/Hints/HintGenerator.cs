@@ -1340,16 +1340,14 @@ namespace TPRandomizer.Hints
                 List<string> badAlways = new();
                 foreach (string checkName in always.checks)
                 {
-                    if (genData.requiredChecks.Contains(checkName))
+                    CheckStatus status = genData.CalcCheckStatus(checkName);
+
+                    if (status == CheckStatus.Required)
                         requiredAlways.Add(checkName);
+                    else if (status == CheckStatus.Good)
+                        goodAlways.Add(checkName);
                     else
-                    {
-                        Item item = HintUtils.getCheckContents(checkName);
-                        if (genData.preventBarrenItems.Contains(item))
-                            goodAlways.Add(checkName);
-                        else
-                            badAlways.Add(checkName);
-                    }
+                        badAlways.Add(checkName);
                 }
                 HintUtils.ShuffleListInPlace(genData.rnd, requiredAlways);
                 HintUtils.ShuffleListInPlace(genData.rnd, goodAlways);

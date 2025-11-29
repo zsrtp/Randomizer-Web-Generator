@@ -76,7 +76,7 @@ namespace TPRandomizer.Hints
             // than use input value.
             if (genData != null)
             {
-                if (genData.logicalItems.Contains(contents))
+                if (genData.logicalItems2.Contains(contents))
                     isLogicalItem = true;
 
                 if (

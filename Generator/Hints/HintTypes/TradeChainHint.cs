@@ -116,7 +116,7 @@ namespace TPRandomizer.Hints
                     srcAreaId = AreaId.Province(srcProvince);
                 }
 
-                if (genData.logicalItems.Contains(tgtItem))
+                if (genData.logicalItems2.Contains(tgtItem))
                     tgtIsLogicalItem = true;
 
                 if (
