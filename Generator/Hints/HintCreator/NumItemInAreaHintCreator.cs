@@ -159,6 +159,10 @@ namespace TPRandomizer.Hints.HintCreator
 
             foreach (string checkName in genData.itemToChecksList[item])
             {
+                // Skip counting unreachable checks.
+                if (genData.unreachableChecks.Contains(checkName))
+                    continue;
+
                 string areaId = checkToAreaId(checkName);
                 if (validAreaIds.Contains(areaId))
                     areaToCheckNames[areaId].Add(checkName);
