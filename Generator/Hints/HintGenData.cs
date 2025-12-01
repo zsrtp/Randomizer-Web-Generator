@@ -692,6 +692,7 @@ namespace TPRandomizer.Hints
 
             // From logicalItems, filter out any items which could not possibly serve a purpose
             // based on the settings:
+            logicalItems.Remove(Item.Hawkeye);
 
             multiToMaxItems = new()
             {
@@ -1630,6 +1631,7 @@ namespace TPRandomizer.Hints
             // hints all must "claim" a check to hint it, and they cannot hint checks which are
             // already claimed.
             return !unreachableChecks.Contains(checkName)
+                && !CheckIdClass.GetIsHideFromUiCheckName(checkName)
                 && !HintUtils.checkIsPlayerKnownStatus(checkName)
                 && !hinted.alreadyCheckContentsHinted.Contains(checkName)
                 && !hinted.alreadyCheckDirectedToward.Contains(checkName)

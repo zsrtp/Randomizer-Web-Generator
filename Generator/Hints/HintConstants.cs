@@ -346,6 +346,7 @@ namespace TPRandomizer.Hints
                 Item.Lantern,
                 Item.Slingshot,
                 Item.Progressive_Fishing_Rod,
+                Item.Hawkeye,
                 Item.Filled_Bomb_Bag,
                 Item.Empty_Bottle,
                 Item.Sera_Bottle,
