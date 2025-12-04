@@ -189,6 +189,7 @@ namespace TPRandomizer.Hints
                 { Item.Male_Snail, "Agitha Male Snail Reward" },
                 { Item.Male_Stag_Beetle, "Agitha Male Stag Beetle Reward" },
                 { Item.Asheis_Sketch, "Gift From Ralis" },
+                { Item.Renados_Letter, "Telma Invoice" },
                 { Item.Ilias_Charm, "Ilia Memory Reward" },
             };
 

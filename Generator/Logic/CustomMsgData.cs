@@ -2269,13 +2269,14 @@ namespace TPRandomizer
                 }
                 else
                 {
+                    // Note: status of "Unknown" is still green, but does not receive postItemText.
                     startColor = CustomMessages.messageColorGreen;
                     if (isLogicalItem)
                     {
                         if (checkStatus == DetailedCheckStatus.SometimesRequired)
                             postItemText =
                                 " " + Res.SimpleMsg("description.sometimes-required-check", null);
-                        else
+                        else if (checkStatus == DetailedCheckStatus.Skippable)
                             postItemText = " " + Res.SimpleMsg("description.skippable-check", null);
                     }
                 }
@@ -2284,10 +2285,13 @@ namespace TPRandomizer
             {
                 if (HintUtils.IsTradeItem(item))
                 {
-                    if (checkStatus == DetailedCheckStatus.NotRequired)
-                        postItemText = " " + Res.SimpleMsg("description.bad-check", null);
-                    else
-                        postItemText = " " + Res.SimpleMsg("description.good-check", null);
+                    if (checkStatus != DetailedCheckStatus.Unknown)
+                    {
+                        if (checkStatus == DetailedCheckStatus.NotRequired)
+                            postItemText = " " + Res.SimpleMsg("description.bad-check", null);
+                        else
+                            postItemText = " " + Res.SimpleMsg("description.good-check", null);
+                    }
                 }
                 else if (isLogicalItem && checkStatus == DetailedCheckStatus.NotRequired)
                 {

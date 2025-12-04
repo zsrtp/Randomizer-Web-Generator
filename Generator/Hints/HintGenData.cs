@@ -41,7 +41,7 @@ namespace TPRandomizer.Hints
         public Dictionary<AreaId, AreaCheckInfo> areaToCheckInfo = new();
         private Dictionary<string, Zone> checkNameToZone = new();
         public Dictionary<Zone, HashSet<Zone>> dungeonEntrances = new(); // Entering Key sends to Value(s)
-
+        private HashSet<Item> defaultHintworthyItems = new();
         private HintSettings hintSettings;
         private Dictionary<Item, int> multiToMaxItems = new();
 
@@ -113,6 +113,7 @@ namespace TPRandomizer.Hints
             // prepPreventBarrenAndLogicalItemSets(hintSettings);
 
             prepLogicalItemAndMultiMax();
+            prepDefaultHintworthyItems();
 
             Dictionary<Item, int> itemToInflexibleCount = new();
             allowBarrenChecks = prepareAllowBarrenChecks(itemToInflexibleCount);
@@ -290,6 +291,37 @@ namespace TPRandomizer.Hints
                     int i = 0;
                 }
             }
+        }
+
+        private void prepDefaultHintworthyItems()
+        {
+            defaultHintworthyItems = new();
+
+            // Use major+logical items as a base (which is valid even for no-logic). Don't hint an
+            // item where you can find 4 or more copies since it probably would not be very
+            // interesting. Also do not hint invalidSpolItems since these are things we don't really
+            // want to hint like keys, hidden skills, etc. Also do not hint tradeItems since they do
+            // not inherently have value.
+            foreach (Item item in majorItems)
+            {
+                if (
+                    logicalItems2.Contains(item)
+                    && !HintConstants.invalidSpolItems.Contains(item)
+                    && !HintUtils.IsTradeItem(item)
+                    && itemToChecksList.TryGetValue(item, out List<string> checkNames)
+                )
+                {
+                    int findableCopies = checkNames.Count;
+                    if (findableCopies > 0 && findableCopies < 4)
+                        defaultHintworthyItems.Add(item);
+                }
+            }
+        }
+
+        public HashSet<Item> getDefaultHintworthyItems()
+        {
+            // Return copy to avoid accidental mutations.
+            return new(defaultHintworthyItems);
         }
 
         // private void prepPreventBarrenAndLogicalItemSets(HintSettings hintSettings)

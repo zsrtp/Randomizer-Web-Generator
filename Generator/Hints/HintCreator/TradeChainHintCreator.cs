@@ -190,27 +190,16 @@ namespace TPRandomizer.Hints.HintCreator
             if (numHints < 1 || (mustBeInChainItems != null && mustBeInChainItems.Count < 1))
                 return null;
 
+            // TODO: update default hintable items in ItemHintCreator, and update its status stuff
+            // as well. Then continue to update status stuff. Should have all
+            // CustomMsgData.GenItemText3 replaced with GenItemText4.
+
             // Some things can only be given their default values once we get genData.
-            if (validChainEndItems == null && !validCheckStatuses.Contains(CheckStatus.Bad))
+            if (validChainEndItems == null)
             {
-                // If no validChainEndItems were specified and the user did not specifically say
-                // "Bad is allowed", then narrow hintable chainEndItems to only include
-                // major+logical items. Also don't hint a chain end for an item where you can find 4
-                // or more copies since it probably would not be very interesting (such as Hidden
-                // Skills) and allowing 3 means we can still hint bombBags and bows by default.
-                validChainEndItems = new();
-                foreach (Item item in genData.majorItems)
-                {
-                    if (
-                        genData.logicalItems2.Contains(item)
-                        && genData.itemToChecksList.TryGetValue(item, out List<string> checkNames)
-                    )
-                    {
-                        int findableCopies = checkNames.Count;
-                        if (findableCopies > 0 && findableCopies < 4)
-                            validChainEndItems.Add(item);
-                    }
-                }
+                // If no validChainEndItems were specified, then narrow hintable chainEndItems to
+                // recommended default set.
+                validChainEndItems = genData.getDefaultHintworthyItems();
             }
 
             // Iterate over all validItems (defaults to all; need to add to options)
