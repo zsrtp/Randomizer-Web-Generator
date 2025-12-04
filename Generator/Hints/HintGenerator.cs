@@ -1139,7 +1139,7 @@ namespace TPRandomizer.Hints
                                         areaId.type == AreaId.AreaType.Province
                                           ? TradeChainHint.AreaType.Province
                                           : TradeChainHint.AreaType.Zone,
-                                        CheckStatus.Good,
+                                        DetailedCheckStatus.Unknown,
                                         CheckStatusDisplay.None
                                     );
                                     potentialHints.Add(hint);
@@ -2631,6 +2631,9 @@ namespace TPRandomizer.Hints
 
                 result = numHints;
             }
+
+            if (result > iterations)
+                result = iterations;
 
             if (result > currPicksLeftInt)
                 result = currPicksLeftInt;

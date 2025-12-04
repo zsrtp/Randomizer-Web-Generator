@@ -333,7 +333,7 @@ namespace TPRandomizer.Hints.HintCreator
             // Iterate over all tradeChain starts which are not tradeItemReward checks
 
             List<
-                KeyValuePair<string, CheckStatus>
+                KeyValuePair<string, DetailedCheckStatus>
             > possibleChainStarters = new();
             Dictionary<string, HashSet<string>> endCheckToStartChecks = new();
 
@@ -374,18 +374,22 @@ namespace TPRandomizer.Hints.HintCreator
                 if (validChainEndItems != null && !validChainEndItems.Contains(chainEndItem))
                     continue;
 
-                if (IsRequiredValidStatus() && genData.CheckIsRequired(endCheckName))
-                {
-                    possibleChainStarters.Add(new(startCheckName, CheckStatus.Required));
-                }
-                else if (IsGoodValidStatus() && genData.CheckIsGood(endCheckName))
-                {
-                    possibleChainStarters.Add(new(startCheckName, CheckStatus.Good));
-                }
-                else if (IsBadValidStatus() && !genData.CheckIsGood(endCheckName))
-                {
-                    possibleChainStarters.Add(new(startCheckName, CheckStatus.Bad));
-                }
+                // Note: check against Required for "IsGoodValidStatus" as well since a required
+                // check is still valid to hint when Good are allowed. To hint good but not required
+                // checks, we would need to add an `invalidCheckStatuses` option, but this is not
+                // needed at the moment.
+                DetailedCheckStatus status = genData.CalcDetailedCheckStatus(endCheckName);
+                if (
+                    (IsRequiredValidStatus() && status == DetailedCheckStatus.Required)
+                    || IsGoodValidStatus()
+                        && (
+                            status == DetailedCheckStatus.Required
+                            || status == DetailedCheckStatus.SometimesRequired
+                            || status == DetailedCheckStatus.Skippable
+                        )
+                    || IsBadValidStatus() && status == DetailedCheckStatus.NotRequired
+                )
+                    possibleChainStarters.Add(new(startCheckName, status));
                 else
                 {
                     // Continue if did not find validChainStarter
@@ -405,10 +409,12 @@ namespace TPRandomizer.Hints.HintCreator
                     break;
 
                 int randomIndex = genData.rnd.Next(possibleChainStarters.Count);
-                KeyValuePair<string, CheckStatus> selected = possibleChainStarters[randomIndex];
+                KeyValuePair<string, DetailedCheckStatus> selected = possibleChainStarters[
+                    randomIndex
+                ];
 
                 string startCheckName = selected.Key;
-                CheckStatus checkStatus = selected.Value;
+                DetailedCheckStatus checkStatus = selected.Value;
 
                 Item starterItem = HintUtils.getCheckContents(startCheckName);
                 string endCheckName = genData.tradeItemToChainEndCheck[starterItem];

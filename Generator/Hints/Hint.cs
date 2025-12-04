@@ -110,6 +110,7 @@ namespace TPRandomizer.Hints
         public byte hintSpotLocation = HintSpotLocationUtils.NumBitsToEncode;
         public byte goalEnum = GoalConstants.NumBitsToEncode;
         public byte tradeGroupId = TradeGroupUtils.NumBitsToEncode;
+        public byte checkStatus = 3;
         public byte hintsPerSpot;
 
         public HintEncodingBitLengths(

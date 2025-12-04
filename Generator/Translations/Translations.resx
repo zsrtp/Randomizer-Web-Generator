@@ -401,6 +401,10 @@
     <value>(skippable)</value>
     <comment></comment>
   </data>
+  <data name="description.sometimes-required-check" xml:space="preserve">
+    <value>(sometimes required)</value>
+    <comment></comment>
+  </data>
   <data name="description.unrequired-check" xml:space="preserve">
     <value>(not required)</value>
     <comment></comment>

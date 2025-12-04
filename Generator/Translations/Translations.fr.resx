@@ -397,6 +397,10 @@
     <value>(optionnel)</value>
     <comment></comment>
   </data>
+  <data name="description.sometimes-required-check" xml:space="preserve">
+    <value>(TODO fr sometimes required)</value>
+    <comment></comment>
+  </data>
   <data name="description.unrequired-check" xml:space="preserve">
     <value>(non obligatoire)</value>
     <comment></comment>

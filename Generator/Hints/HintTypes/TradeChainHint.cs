@@ -21,7 +21,7 @@ namespace TPRandomizer.Hints
         public string srcCheckName { get; }
         public bool vaugeSourceItem { get; }
         public bool includeArea { get; }
-        public CheckStatus checkStatus { get; }
+        public DetailedCheckStatus checkStatus { get; }
         public CheckStatusDisplay checkStatusDisplay { get; }
 
         // derived but encoded
@@ -41,7 +41,7 @@ namespace TPRandomizer.Hints
             bool vagueSourceItem,
             bool includeArea,
             AreaType areaType,
-            CheckStatus checkStatus,
+            DetailedCheckStatus checkStatus,
             CheckStatusDisplay checkStatusDisplay
         )
         {
@@ -62,7 +62,7 @@ namespace TPRandomizer.Hints
             bool vagueSourceItem,
             bool includeArea,
             AreaType areaType,
-            CheckStatus checkStatus,
+            DetailedCheckStatus checkStatus,
             CheckStatusDisplay checkStatusDisplay,
             AreaId srcAreaId = null,
             bool srcUseDefiniteArticle = false,
@@ -171,10 +171,10 @@ namespace TPRandomizer.Hints
             }
             else
             {
-                srcText = customMsgData.GenItemText3(
+                srcText = customMsgData.GenItemText4(
                     out srcItemMeta,
                     srcItem,
-                    CheckStatus.Unknown,
+                    DetailedCheckStatus.Unknown,
                     srcUseDefiniteArticle ? "def" : "indef",
                     checkStatusDisplay: CheckStatusDisplay.None,
                     prefStartColor: CustomMessages.messageColorYellow
@@ -225,7 +225,7 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            string tgtText = customMsgData.GenItemText3(
+            string tgtText = customMsgData.GenItemText4(
                 out Dictionary<string, string> tgtItemMeta,
                 tgtItem,
                 checkStatus,
@@ -258,7 +258,7 @@ namespace TPRandomizer.Hints
             );
             result += vaugeSourceItem ? "1" : "0";
             result += includeArea ? "1" : "0";
-            result += SettingsEncoder.EncodeNumAsBits((int)checkStatus, 2);
+            result += SettingsEncoder.EncodeNumAsBits((int)checkStatus, bitLengths.checkStatus);
             result += SettingsEncoder.EncodeNumAsBits((int)checkStatusDisplay, 2);
             result += srcAreaId.encodeAsBits(bitLengths);
             result += srcUseDefiniteArticle ? "1" : "0";
@@ -278,7 +278,9 @@ namespace TPRandomizer.Hints
 
             bool vagueSource = processor.NextBool();
             bool includeArea = processor.NextBool();
-            CheckStatus checkStatus = (CheckStatus)processor.NextInt(2);
+            DetailedCheckStatus checkStatus = (DetailedCheckStatus)processor.NextInt(
+                bitLengths.checkStatus
+            );
             CheckStatusDisplay checkStatusDisplay = (CheckStatusDisplay)processor.NextInt(2);
             AreaId srcAreaId = AreaId.decode(bitLengths, processor);
             bool srcUseDefiniteArticle = processor.NextBool();
