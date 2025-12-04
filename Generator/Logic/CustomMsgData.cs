@@ -436,10 +436,10 @@ namespace TPRandomizer
                 : Item.Hawkeye;
             if (HintUtils.IsTrapItem(hawkeyeItem))
                 hawkeyeItem = Item.Hawkeye;
-            string hawkeyeItemText = GenItemText3(
+            string hawkeyeItemText = GenItemText4(
                 out _,
                 hawkeyeItem,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 prefStartColor: "",
                 prefEndColor: "",
                 capitalize: true
@@ -1088,10 +1088,10 @@ namespace TPRandomizer
             // Try to get "item" slotMeta. Results in null if not there.
             result.slotMeta.TryGetValue("item", out Dictionary<string, string> resultSlotMetaItem);
 
-            string itemText = GenItemText3(
+            string itemText = GenItemText4(
                 out Dictionary<string, string> itemMeta,
                 item,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 contextIn: useDefArticle ? "def" : "indef",
                 prefStartColor: CustomMessages.messageColorOrange,
                 optionalContextMetaIn: resultSlotMetaItem
@@ -1146,10 +1146,10 @@ namespace TPRandomizer
             // Try to get "item" slotMeta. Results in null if not there.
             result.slotMeta.TryGetValue("item", out Dictionary<string, string> resultSlotMetaItem);
 
-            string itemText = GenItemText3(
+            string itemText = GenItemText4(
                 out Dictionary<string, string> itemMeta,
                 item,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 contextIn: useDefArticle ? "def" : "indef",
                 prefStartColor: CustomMessages.messageColorOrange,
                 optionalContextMetaIn: resultSlotMetaItem
@@ -1180,10 +1180,10 @@ namespace TPRandomizer
         {
             Res.Result result = Res.Msg("shop.bought", new() { { "context", context } });
 
-            string itemText = GenItemText3(
+            string itemText = GenItemText4(
                 out Dictionary<string, string> itemMeta,
                 item,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 contextIn: "def"
             );
 
@@ -1198,10 +1198,10 @@ namespace TPRandomizer
         {
             Res.Result result = Res.Msg("shop.sold-out", new() { { "context", context } });
 
-            string itemText = GenItemText3(
+            string itemText = GenItemText4(
                 out Dictionary<string, string> meta,
                 item,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 isShop: true,
                 includeShopSuffix: false
             );
@@ -1270,10 +1270,10 @@ namespace TPRandomizer
                     out Dictionary<string, string> resultSlotMetaItem
                 );
 
-                string itemText = GenItemText3(
+                string itemText = GenItemText4(
                     out _,
                     charloData.itemToHint,
-                    CheckStatus.Unknown,
+                    DetailedCheckStatus.Unknown,
                     contextIn: charloData.useDefArticle ? "def" : "indef",
                     optionalContextMetaIn: resultSlotMetaItem
                 );
@@ -1301,10 +1301,10 @@ namespace TPRandomizer
                 )
             )
             {
-                string fishingBottleItemText = GenItemText3(
+                string fishingBottleItemText = GenItemText4(
                     out _,
                     fishingBottleData.itemToHint,
-                    CheckStatus.Unknown,
+                    DetailedCheckStatus.Unknown,
                     contextIn: "fishing-bottle"
                 );
                 Res.Result fishingBottleRes = Res.Msg("self-hinter.fishing-bottle", null);
@@ -1713,10 +1713,10 @@ namespace TPRandomizer
                     out Dictionary<string, string> resultSlotMetaItem
                 );
 
-                string itemText = GenItemText3(
+                string itemText = GenItemText4(
                     out _,
                     barnesData.itemToHint,
-                    CheckStatus.Unknown,
+                    DetailedCheckStatus.Unknown,
                     barnesData.useDefArticle ? "def" : "indef",
                     prefStartColor: CustomMessages.messageColorOrange,
                     optionalContextMetaIn: resultSlotMetaItem
@@ -1844,10 +1844,10 @@ namespace TPRandomizer
             if (HintUtils.IsTrapItem(item))
                 item = defaultItem;
 
-            string itemText = GenItemText3(
+            string itemText = GenItemText4(
                 out Dictionary<string, string> itemMeta,
                 item,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 isShop: true,
                 includeShopSuffix: true,
                 shopSuffixIsColon: shopSuffixIsColon
@@ -1998,181 +1998,6 @@ namespace TPRandomizer
             else
             {
                 coloredItem = startColor + abc.Substitute(interpolation) + itemSuffix;
-            }
-
-            return coloredItem;
-        }
-
-        public string GenItemText3(
-            out Dictionary<string, string> meta,
-            Item item,
-            CheckStatus checkStatus,
-            string contextIn = null,
-            int? count = null,
-            bool isShop = false,
-            bool shopSuffixIsColon = false,
-            bool includeShopSuffix = false,
-            string prefStartColor = null,
-            string prefEndColor = null,
-            bool? capitalize = null,
-            CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.None,
-            bool isLogicalItem = true,
-            Dictionary<string, string> optionalContextMetaIn = null
-        )
-        {
-            string context = isShop ? "" : contextIn;
-            string countStr = count?.ToString();
-
-            // For no-logic, any that say requiredOrNot are downgraded to
-            // Automatic (not sure if goodOrNot CheckStatusDisplay is even
-            // necessary). Otherwise 100% of them will say "unrequired" since
-            // there is no concept of "logically required" when there is no
-            // logic.
-            if (
-                sSettings.logicRules == LogicRules.No_Logic
-                && checkStatusDisplay == CheckStatusDisplay.Required_Info
-            )
-            {
-                checkStatusDisplay = CheckStatusDisplay.Automatic;
-            }
-
-            Dictionary<string, string> optionalContextMetaA;
-            if (!ListUtils.isEmpty(optionalContextMetaIn))
-                optionalContextMetaA = new(optionalContextMetaIn);
-            else
-                optionalContextMetaA = new();
-
-            if (!StringUtils.isEmpty(context))
-            {
-                HashSet<string> contextParts = new(context.Split(","));
-                foreach (string contextPart in contextParts)
-                {
-                    optionalContextMetaA[contextPart] = "true";
-                }
-            }
-
-            // Swap to making all context optional so we only use def/indef if
-            // they are defined on the item. Otherwise we have to define
-            // "def,shop-group-of" and "indef,shop-group-of" instead of just
-            // "shop-group-of" for an item which does not use "def" or "indef"
-            // at all. If needed, we can probably make a paramter to this
-            // function be "requiredContext".
-            Res.Result abc = Res.Msg(
-                GetItemResKey(item),
-                new() { { "count", countStr } },
-                optionalContextMetaA
-            );
-            meta = abc.meta;
-
-            if (isShop || capitalize == true)
-                abc.CapitalizeFirstValidChar();
-
-            // Pick the color
-            string startColor;
-            string postItemText = "";
-            if (isShop)
-                startColor = CustomMessages.messageColorOrange;
-            else if (prefStartColor != null)
-            {
-                // Allow passing an empty string in.
-                startColor = prefStartColor;
-            }
-            else
-            {
-                // Pick the default color here based on checkStatus and display.
-                if (checkStatus == CheckStatus.Unknown)
-                {
-                    // If we do not know the status of the check, then display
-                    // the default green.
-                    startColor = CustomMessages.messageColorGreen;
-                }
-                else if (checkStatusDisplay == CheckStatusDisplay.Required_Info)
-                {
-                    if (checkStatus == CheckStatus.Required)
-                    {
-                        startColor = CustomMessages.messageColorBlue;
-                        if (isLogicalItem)
-                            postItemText = " " + Res.SimpleMsg("description.required-check", null);
-                    }
-                    else if (checkStatus == CheckStatus.Bad)
-                    {
-                        startColor = CustomMessages.messageColorPurple;
-                        if (isLogicalItem)
-                            postItemText =
-                                " " + Res.SimpleMsg("description.unrequired-check", null);
-                    }
-                    else
-                    {
-                        startColor = CustomMessages.messageColorGreen;
-                        if (isLogicalItem)
-                            postItemText = " " + Res.SimpleMsg("description.skippable-check", null);
-                    }
-                }
-                else if (checkStatusDisplay == CheckStatusDisplay.Automatic)
-                {
-                    if (HintUtils.IsTradeItem(item))
-                    {
-                        if (checkStatus == CheckStatus.Bad)
-                            postItemText = " " + Res.SimpleMsg("description.bad-check", null);
-                        else
-                            postItemText = " " + Res.SimpleMsg("description.good-check", null);
-                    }
-                    else if (isLogicalItem && checkStatus == CheckStatus.Bad)
-                    {
-                        // If item is a logicalItem which is bad for some
-                        // reason, then explicitly call it out. For example, if
-                        // a bomb bag is considered bad because a different bomb
-                        // bag is on a logically required check.
-                        postItemText = " " + Res.SimpleMsg("description.bad-check", null);
-                    }
-
-                    if (checkStatus == CheckStatus.Bad)
-                        startColor = CustomMessages.messageColorPurple;
-                    else
-                        startColor = CustomMessages.messageColorGreen;
-                }
-                else
-                {
-                    // Display the default green.
-                    startColor = CustomMessages.messageColorGreen;
-                }
-            }
-
-            string itemSuffix = "";
-            if (includeShopSuffix && isShop)
-            {
-                if (shopSuffixIsColon)
-                    itemSuffix = ":";
-                else
-                    itemSuffix = " ";
-            }
-            if (prefEndColor != null)
-                itemSuffix += prefEndColor;
-            else
-                itemSuffix += CustomMessages.messageColorWhite;
-            if (!StringUtils.isEmpty(postItemText))
-                itemSuffix += postItemText;
-
-            string coloredItem;
-            Dictionary<string, string> optionalContextMeta = new();
-            if (count != null)
-                optionalContextMeta.Add("count", countStr);
-
-            if (isShop)
-            {
-                optionalContextMeta["cs"] = "";
-                optionalContextMeta["ce"] = "";
-                coloredItem = startColor + abc.Substitute(optionalContextMeta) + itemSuffix;
-            }
-            else if (abc.value.Contains("{cs}"))
-            {
-                optionalContextMeta["cs"] = startColor;
-                optionalContextMeta["ce"] = itemSuffix;
-                coloredItem = abc.Substitute(optionalContextMeta);
-            }
-            else
-            {
-                coloredItem = startColor + abc.Substitute(optionalContextMeta) + itemSuffix;
             }
 
             return coloredItem;
