@@ -1369,9 +1369,17 @@ namespace TPRandomizer.Hints
 
             AreaCheckInfo spmInfo = areaToCheckInfo[AreaId.Zone(Zone.Snowpeak_Mountain)];
             spmInfo.dependentCheckNames.Add("Kakariko Graveyard Golden Wolf");
+            // Note: this KGY golden wolf is also manually included in the Snowpeak BeyondThisPoint
+            // checksList.
 
             AreaCheckInfo hvInfo = areaToCheckInfo[AreaId.Zone(Zone.Hidden_Village)];
             hvInfo.dependentCheckNames.Add("North Castle Town Golden Wolf");
+
+            // Since Goron Springwater Rush works the same way as Golden Wolves (do thing at place A
+            // to spawn item at place B), have it block barren for Kak Village. It's also a common
+            // point of confusion.
+            AreaCheckInfo kvInfo = areaToCheckInfo[AreaId.Zone(Zone.Kakariko_Village)];
+            kvInfo.dependentCheckNames.Add("Goron Springwater Rush");
 
             AreaCheckInfo southernDesertInfo = areaToCheckInfo[
                 AreaId.Category(HintCategory.Southern_Desert)

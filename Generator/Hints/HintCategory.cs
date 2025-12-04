@@ -246,10 +246,9 @@ namespace TPRandomizer.Hints
                     HintCategory.Snowpeak_Beyond_This_Point,
                     new[]
                     {
-                        // All but "Ashei Sketch" are technically beyond the
-                        // sign. However, we only end up creating this hint when
-                        // it would hint about "Snowpeak Cave Ice Lantern Chest"
-                        // and "Snowpeak Freezard Grotto Chest" and SPR is not
+                        // All but "Ashei Sketch" are technically beyond the sign. However, we only
+                        // end up creating this hint when it would hint about "Snowpeak Cave Ice
+                        // Lantern Chest" and "Snowpeak Freezard Grotto Chest" and SPR is not
                         // required.
                         "Snowboard Racing Prize",
                         "Snowpeak Above Freezard Grotto Poe",
@@ -258,7 +257,9 @@ namespace TPRandomizer.Hints
                         "Snowpeak Cave Ice Poe",
                         "Snowpeak Freezard Grotto Chest",
                         "Snowpeak Icy Summit Poe",
-                        "Snowpeak Poe Among Trees"
+                        "Snowpeak Poe Among Trees",
+                        // Include the golden wolf which depends on the howling stone.
+                        "Kakariko Graveyard Golden Wolf"
                     }
                 },
                 {
