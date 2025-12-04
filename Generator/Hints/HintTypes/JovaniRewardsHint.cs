@@ -100,7 +100,7 @@ namespace TPRandomizer.Hints
                         // Leaving def/indef out for now. Might need it or
                         // 'capitalize' to be based on meta from the
                         // 'hint-type.jovani-rewards.reward' line.
-                        itemText = customMsgData.GenItemText3(
+                        itemText = customMsgData.GenItemText4(
                             out _,
                             checkInfo.item,
                             checkInfo.checkStatus,
@@ -151,7 +151,7 @@ namespace TPRandomizer.Hints
             public string checkName { get; }
             public byte soulsThreshold { get; } // Planning ahead for configurable thresholds
             public bool unhinted { get; }
-            public CheckStatus checkStatus { get; }
+            public DetailedCheckStatus checkStatus { get; }
             public CheckStatusDisplay checkStatusDisplay { get; }
 
             // derived and encoded
@@ -166,7 +166,7 @@ namespace TPRandomizer.Hints
                 string checkName,
                 byte soulsThreshold,
                 bool unhinted,
-                CheckStatus checkStatus,
+                DetailedCheckStatus checkStatus,
                 CheckStatusDisplay checkStatusDisplay,
                 bool useDefArticle = false,
                 bool isLogicalItem = false,
@@ -216,7 +216,10 @@ namespace TPRandomizer.Hints
                 );
                 result += SettingsEncoder.EncodeNumAsBits(soulsThreshold, 8);
                 result += unhinted ? "1" : "0";
-                result += SettingsEncoder.EncodeNumAsBits((byte)checkStatus, 2);
+                result += SettingsEncoder.EncodeNumAsBits(
+                    (byte)checkStatus,
+                    bitLengths.checkStatus
+                );
                 result += SettingsEncoder.EncodeNumAsBits((byte)checkStatusDisplay, 2);
                 result += useDefArticle ? "1" : "0";
                 result += isLogicalItem ? "1" : "0";
@@ -234,7 +237,9 @@ namespace TPRandomizer.Hints
 
                 byte soulsThreshold = processor.NextByte();
                 bool unhinted = processor.NextBool();
-                CheckStatus status = (CheckStatus)processor.NextInt(2);
+                DetailedCheckStatus status = (DetailedCheckStatus)processor.NextInt(
+                    bitLengths.checkStatus
+                );
                 CheckStatusDisplay display = (CheckStatusDisplay)processor.NextInt(2);
                 bool useDefArticle = processor.NextBool();
                 bool isLogicalItem = processor.NextBool();

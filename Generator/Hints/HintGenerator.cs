@@ -873,7 +873,7 @@ namespace TPRandomizer.Hints
 
                 bool unhinted = failedMinSouls || failedMinFoundSouls;
 
-                CheckStatus checkStatus = genData.CalcCheckStatus(checkName);
+                DetailedCheckStatus checkStatus = genData.CalcDetailedCheckStatus(checkName);
                 // Use this CheckStatusDisplay for everything for now.
                 CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Required_Info;
 
