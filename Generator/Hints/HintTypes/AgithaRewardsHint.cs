@@ -101,10 +101,10 @@ namespace TPRandomizer.Hints
                         contextForItem = useDefArticleList[i] ? "def" : "indef";
 
                     itemTexts.Add(
-                        customMsgData.GenItemText3(
+                        customMsgData.GenItemText4(
                             out _,
                             items[i],
-                            CheckStatus.Good,
+                            DetailedCheckStatus.Unknown,
                             contextIn: contextForItem,
                             prefStartColor: "",
                             prefEndColor: "",

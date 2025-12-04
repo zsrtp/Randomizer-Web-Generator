@@ -481,7 +481,8 @@ namespace TPRandomizer.Hints
                     && genData.CheckIsGood(agithaRewardCheckName)
                 )
                 {
-                    // Interesting contents which are not a bug.
+                    // Interesting contents which are not a bug. Note that we include purely based
+                    // on status, so we list poeSouls even if they are not majorItems for example.
                     interestingAgithaChecks.Add(agithaRewardCheckName);
                 }
             }
