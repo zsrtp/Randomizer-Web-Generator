@@ -15,7 +15,7 @@ namespace TPRandomizer.Hints
         bool markAsSometimes;
 
         // derived and stored
-        CheckStatus status;
+        DetailedCheckStatus status;
         bool useDefiniteArticle;
         bool isLogicalItem;
 
@@ -30,7 +30,7 @@ namespace TPRandomizer.Hints
             bool markAsSometimes = false
         )
         {
-            CheckStatus status = genData.CalcCheckStatus(checkName);
+            DetailedCheckStatus status = genData.CalcDetailedCheckStatus(checkName);
 
             LocationHint hint = new(genData, checkName, vague, status, display, markAsSometimes);
             return hint;
@@ -40,7 +40,7 @@ namespace TPRandomizer.Hints
             HintGenData genData,
             string checkName,
             bool vague,
-            CheckStatus status,
+            DetailedCheckStatus status,
             CheckStatusDisplay display = CheckStatusDisplay.None,
             bool markAsSometimes = false,
             bool useDefiniteArticle = false,
@@ -101,7 +101,7 @@ namespace TPRandomizer.Hints
                 bitLengths.checkId
             );
             result += vague ? "1" : "0";
-            result += SettingsEncoder.EncodeNumAsBits((byte)status, 2);
+            result += SettingsEncoder.EncodeNumAsBits((byte)status, bitLengths.checkStatus);
             result += SettingsEncoder.EncodeNumAsBits((byte)display, 2);
             result += useDefiniteArticle ? "1" : "0";
             result += isLogicalItem ? "1" : "0";
@@ -117,7 +117,9 @@ namespace TPRandomizer.Hints
         {
             int checkId = processor.NextInt(bitLengths.checkId);
             bool vague = processor.NextBool();
-            CheckStatus status = (CheckStatus)processor.NextInt(2);
+            DetailedCheckStatus status = (DetailedCheckStatus)processor.NextInt(
+                bitLengths.checkStatus
+            );
             CheckStatusDisplay display = (CheckStatusDisplay)processor.NextInt(2);
             bool useDefiniteArticle = processor.NextBool();
             bool isLogicalItem = processor.NextBool();
@@ -144,14 +146,14 @@ namespace TPRandomizer.Hints
             // string statusText = "";
             string text = "";
 
-            if (vague)
+            if (vague && status != DetailedCheckStatus.Unknown)
             {
                 bool showVagueGoodText = false;
                 bool showVagueBadText = false;
 
                 if (display == CheckStatusDisplay.Required_Info)
                 {
-                    if (status == CheckStatus.Required)
+                    if (status == DetailedCheckStatus.Required)
                     {
                         Res.Result hintTypeRes = Res.Msg("hint-type.location.vague-required", null);
 
@@ -162,16 +164,16 @@ namespace TPRandomizer.Hints
 
                         text = hintTypeRes.Substitute(new() { { "check-name", checkNameStr } });
                     }
-                    else if (status == CheckStatus.Good)
+                    else if (status == DetailedCheckStatus.NotRequired)
                     {
-                        showVagueGoodText = true;
+                        showVagueBadText = true;
                     }
                     else
-                        showVagueBadText = true;
+                        showVagueGoodText = true;
                 }
                 else
                 {
-                    if (status == CheckStatus.Bad)
+                    if (status == DetailedCheckStatus.NotRequired)
                         showVagueBadText = true;
                     else
                         showVagueGoodText = true;
@@ -227,7 +229,7 @@ namespace TPRandomizer.Hints
 
                 string verb = CustomMsgData.GenVerb(hintTypeRes, null);
 
-                string itemText = customMsgData.GenItemText3(
+                string itemText = customMsgData.GenItemText4(
                     out _,
                     contents,
                     status,
