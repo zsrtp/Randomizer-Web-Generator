@@ -200,20 +200,7 @@ namespace TPRandomizer.Hints.HintCreator
             }
             else
             {
-                validItemsSet = new()
-                {
-                    Item.Progressive_Clawshot,
-                    Item.Progressive_Dominion_Rod,
-                    Item.Ball_and_Chain,
-                    Item.Spinner,
-                    Item.Progressive_Bow,
-                    Item.Iron_Boots,
-                    Item.Boomerang,
-                    Item.Lantern,
-                    Item.Progressive_Fishing_Rod,
-                    Item.Filled_Bomb_Bag,
-                    Item.Aurus_Memo,
-                };
+                validItemsSet = genData.getDefaultHintworthyItems();
             }
 
             HashSet<string> invalidCheckNames = new();

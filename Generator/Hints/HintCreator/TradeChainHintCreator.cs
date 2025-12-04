@@ -190,9 +190,8 @@ namespace TPRandomizer.Hints.HintCreator
             if (numHints < 1 || (mustBeInChainItems != null && mustBeInChainItems.Count < 1))
                 return null;
 
-            // TODO: update default hintable items in ItemHintCreator, and update its status stuff
-            // as well. Then continue to update status stuff. Should have all
-            // CustomMsgData.GenItemText3 replaced with GenItemText4.
+            // TODO: update ItemHintCreator's status stuff. Then continue to update status stuff.
+            // Should have all CustomMsgData.GenItemText3 replaced with GenItemText4.
 
             // Some things can only be given their default values once we get genData.
             if (validChainEndItems == null)
