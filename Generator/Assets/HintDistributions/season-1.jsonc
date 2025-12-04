@@ -120,6 +120,14 @@
             "copies": 3,
             "hintDef": [
               {
+                "hintType": "tradeChain"
+                // "options": {
+                //   "validGroups": ["male_bugs", "female_bugs"],
+                //   "validStatuses": ["bad"],
+                //   "smartHinting": false
+                // }
+              },
+              {
                 "hintType": "itemToItemPath",
                 "saveToVar": "pathHints"
               },

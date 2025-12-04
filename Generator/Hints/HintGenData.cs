@@ -1624,18 +1624,23 @@ namespace TPRandomizer.Hints
             );
         }
 
-        public bool CheckCanBeClaimHinted(string checkName)
+        public bool CheckCanBeClaimHinted(string checkName, bool allowAgithaHintClaimed = false)
         {
             // Verifies if a check can be "claim-hinted". This means the check is not already
             // claimed with regards to overlaps. For example: Location, Item, WotH, Path, etc.,
             // hints all must "claim" a check to hint it, and they cannot hint checks which are
-            // already claimed.
+            // already claimed. Certain hints such as TradeChain can still create a hint when the
+            // chainEnd is an agithaHinted check, but the allowAgithaHintClaimed param is not used
+            // for most hint types.
             return !unreachableChecks.Contains(checkName)
                 && !CheckIdClass.GetIsHideFromUiCheckName(checkName)
                 && !HintUtils.checkIsPlayerKnownStatus(checkName)
                 && !hinted.alreadyCheckContentsHinted.Contains(checkName)
                 && !hinted.alreadyCheckDirectedToward.Contains(checkName)
-                && !hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
+                && (
+                    allowAgithaHintClaimed
+                    || !hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
+                )
                 && !hinted.alreadyCheckKnownBarren.Contains(checkName);
         }
 

@@ -80,7 +80,9 @@ namespace TPRandomizer.Hints.HintCreator
                     // Check that none of the checkNames are already hinted. Perhaps oversimplified
                     // to skip over any with an unreachable copy, but using the shared function for
                     // the sake of simplicity.
-                    bool srcItemNotHinted = srcCheckNames.All(genData.CheckCanBeClaimHinted);
+                    bool srcItemNotHinted = srcCheckNames.All(
+                        (checkName) => genData.CheckCanBeClaimHinted(checkName)
+                    );
                     if (!srcItemNotHinted)
                         baseSrcItems.RemoveAt(i);
                 }
@@ -112,7 +114,9 @@ namespace TPRandomizer.Hints.HintCreator
                     // Check that none of the checkNames are already hinted. Perhaps oversimplified
                     // to skip over any with an unreachable copy, but using the shared function for
                     // the sake of simplicity.
-                    bool srcItemNotHinted = checks.All(genData.CheckCanBeClaimHinted);
+                    bool srcItemNotHinted = checks.All(
+                        (checkName) => genData.CheckCanBeClaimHinted(checkName)
+                    );
 
                     if (srcItemNotHinted)
                         baseSrcItems.Add(startItem);
