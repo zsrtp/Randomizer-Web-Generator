@@ -977,21 +977,34 @@ namespace TPRandomizer
                 // Include as few items as possible.
                 case ItemScarcity.Minimal:
                 {
-                    // Note we leave in the empty bottle since it shows up in
-                    // the `Faron Field.jsonc` file. It might be required in
-                    // Entrance Rando at some point, so leaving it in for now.
+                    // Note we leave in the empty bottle since it shows up in the `Faron
+                    // Field.jsonc` file. It might be required in Entrance Rando at some point, so
+                    // leaving it in for now.
+
+                    // Remove extra bottles
+                    updateItemToCount(RandomizedImportantItems, Item.Coro_Bottle, 0);
+                    updateItemToCount(RandomizedImportantItems, Item.Jovani_Bottle, 0);
+                    if (
+                        !parseSetting.bonksDoDamage
+                        || parseSetting.damageMagnification != DamageMagnification.OHKO
+                    )
+                    {
+                        // Only remove this bottle if OHKO bonks not turned on. Otherwise we need 2
+                        // bottles to be available for fairies for the Ordon Shield check.
+                        updateItemToCount(RandomizedImportantItems, Item.Sera_Bottle, 0);
+                    }
 
                     // Update alwaysItems
                     HashSet<Item> alwaysItemsToRemove =
                         new()
                         {
-                            Item.Heart_Container,
-                            Item.Piece_of_Heart,
-                            Item.Sera_Bottle,
-                            Item.Coro_Bottle,
-                            Item.Jovani_Bottle,
                             Item.Hawkeye,
                             Item.Giant_Bomb_Bag,
+                            // Note: the hearts are only filtered out when not required by HC
+                            // settings. If required, they are in RandomizedImportantItems and not
+                            // alwaysItems.
+                            Item.Heart_Container,
+                            Item.Piece_of_Heart,
                         };
 
                     // Filter out certain items

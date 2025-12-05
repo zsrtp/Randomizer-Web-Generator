@@ -469,6 +469,22 @@ window.tpr.checkData = {
     category: ['Overworld', 'Poe', 'Death Mountain'],
     itemId: 'Poe_Soul',
   },
+  'Death Mountain Volcano Ledge Rupee 1': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Death Mountain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Death Mountain Volcano Ledge Rupee 2': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Death Mountain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Death Mountain Volcano Ledge Rupee 3': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Death Mountain'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Death Mountain Volcano Pipe Ledge Rock Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Death Mountain'],
+    itemId: 'Yellow_Rupee',
+  },
   'Doctors Office Balcony Chest': {
     category: ['Overworld', 'Chest', 'Castle Town', 'ARC'],
     itemId: 'Red_Rupee',
@@ -476,6 +492,10 @@ window.tpr.checkData = {
   'East Castle Town Bridge Poe': {
     category: ['Overworld', 'Poe', 'Hyrule Field - Lanayru Province'],
     itemId: 'Poe_Soul',
+  },
+  'Bridge of Eldin Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Eldin Province'],
+    itemId: 'Yellow_Rupee',
   },
   'Eldin Field Bomb Rock Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'ARC'],
@@ -532,6 +552,10 @@ window.tpr.checkData = {
   'Eldin Spring Underwater Chest': {
     category: ['Overworld', 'Chest', 'Kakariko Village', 'ARC'],
     itemId: 'Piece_of_Heart',
+  },
+  'Eldin Spring Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
+    itemId: 'Purple_Rupee',
   },
   'Eldin Stockcave Lantern Chest': {
     category: ['Overworld', 'Chest', 'Eldin Stockcave', 'ARC'],
@@ -1168,6 +1192,14 @@ window.tpr.checkData = {
     category: ['Overworld', 'Castle Town', 'Poe'],
     itemId: 'Poe_Soul',
   },
+  'Kakariko Gorge Owl Statue Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Eldin Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Kakariko Gorge Spire Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Eldin Province'],
+    itemId: 'Yellow_Rupee',
+  },
   'Kakariko Gorge Double Clawshot Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Eldin Province', 'ARC'],
     itemId: 'Piece_of_Heart',
@@ -1219,6 +1251,10 @@ window.tpr.checkData = {
   'Kakariko Graveyard Open Poe': {
     category: ['Overworld', 'Poe', 'Kakariko Graveyard'],
     itemId: 'Poe_Soul',
+  },
+  'Kakariko Graveyard Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Graveyard'],
+    itemId: 'Red_Rupee',
   },
   'Kakariko Inn Chest': {
     category: ['Overworld', 'Chest', 'Kakariko Village', 'ARC'],
@@ -1272,9 +1308,33 @@ window.tpr.checkData = {
     category: ['Overworld', 'Chest', 'Kakariko Village', 'ARC'],
     itemId: 'Purple_Rupee',
   },
+  'Kakariko Village Spring Shortcut Box Rupee 1': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
+    itemId: 'Blue_Rupee',
+  },
+  'Kakariko Village Spring Shortcut Box Rupee 2': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Kakariko Village Hot Spring Ledge Box Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Kakariko Village Ant House Ledge Box Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Kakariko Village'],
+    itemId: 'Red_Rupee',
+  },
   'Lake Hylia Alcove Poe': {
     category: ['Overworld', 'Poe', 'Lake Hylia'],
     itemId: 'Poe_Soul',
+  },
+  'Lake Hylia Bridge Faron Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lake Hylia Bridge Owl Statue Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
   },
   'Lake Hylia Bridge Bubble Grotto Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'DZX'],
@@ -1331,6 +1391,22 @@ window.tpr.checkData = {
   'Lake Hylia Water Toadpoli Grotto Chest': {
     category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Orange_Rupee',
+  },
+  'Lake Hylia Left Underwater Pillar Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Lake Hylia'],
+    itemId: 'Blue_Rupee',
+  },
+  'Lake Hylia Right Underwater Pillar Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Lake Hylia'],
+    itemId: 'Blue_Rupee',
+  },
+  'Lake Hylia Left Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Lake Hylia'],
+    itemId: 'Blue_Rupee',
+  },
+  'Lake Hylia Right Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Lake Hylia'],
+    itemId: 'Blue_Rupee',
   },
   'Lake Lantern Cave Eighth Chest': {
     category: ['Overworld', 'Chest', 'Lake Lantern Cave', 'ARC'],
@@ -1534,6 +1610,26 @@ window.tpr.checkData = {
     category: ['Chest', 'Dungeon', 'Lakebed Temple', 'ARC'],
     itemId: 'Water_Bombs_10',
   },
+  'Lanayru Field North Spinner Track Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lanayru Field South Spinner Track Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lanayru Field North Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lanayru Field South Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lanayru Field Tree Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
   'Lanayru Field Behind Gate Underwater Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
     itemId: 'Orange_Rupee',
@@ -1597,6 +1693,14 @@ window.tpr.checkData = {
   'Lanayru Spring West Double Clawshot Chest': {
     category: ['Overworld', 'Chest', 'Lake Hylia', 'ARC'],
     itemId: 'Orange_Rupee',
+  },
+  'Lanayru Spring Upper Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Lake Hylia'],
+    itemId: 'Yellow_Rupee',
+  },
+  'Lanayru Spring Lower Underwater Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Lake Hylia'],
+    itemId: 'Yellow_Rupee',
   },
   'Links Basement Chest': {
     category: ['Overworld', 'Chest', 'Ordona Province', 'ARC'],
@@ -1737,6 +1841,10 @@ window.tpr.checkData = {
   'Outside Lanayru Spring Right Statue Chest': {
     category: ['Overworld', 'Chest', 'Lake Hylia', 'DZX'],
     itemId: 'Orange_Rupee',
+  },
+  'Outside South Castle Town Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
   },
   'Outside South Castle Town Double Clawshot Chasm Chest': {
     category: ['Overworld', 'Chest', 'Hyrule Field - Lanayru Province', 'ARC'],
@@ -1941,6 +2049,82 @@ window.tpr.checkData = {
   'Skybook From Impaz': {
     category: ['Overworld', 'Npc', 'Hidden Village', 'ARC'],
     itemId: 'Progressive_Sky_Book',
+  },
+  'Snowboarding Bridge Ledge Bottom Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Bridge Ledge Middle Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Bridge Ledge Upper Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 1': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 2': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 3': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 4': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 5': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Red_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 6': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 7': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 8': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 9': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 10': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Shortcut Rupee 11': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Snowy Tree Top Rupee 1': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Blue_Rupee',
+  },
+  'Snowboarding Snowy Tree Top Rupee 2': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Red_Rupee',
+  },
+  'Snowboarding Snowy Tree Top Rupee 3': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Purple_Rupee',
+  },
+  'Snowboarding Top Left Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
+  },
+  'Snowboarding Top Right Rupee': {
+    category: ['Overworld', 'Rupee - Freestanding', 'Snowpeak Province'],
+    itemId: 'Green_Rupee',
   },
   'Snowboard Racing Prize': {
     category: ['Overworld', 'Npc', 'Snowpeak Province', 'ARC'],
@@ -2229,6 +2413,14 @@ window.tpr.checkData = {
   'Upper Zoras River Portal': {
     category: ['Overworld', 'Upper Zoras River'],
     itemId: 'Upper_Zoras_River_Portal',
+  },
+  'West Hyrule Field Northern Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
+  },
+  'West Hyrule Field Southern Boulder Rupee': {
+    category: ['Overworld', 'Rupee - Hidden', 'Hyrule Field - Lanayru Province'],
+    itemId: 'Yellow_Rupee',
   },
   'West Hyrule Field Female Butterfly': {
     category: ['Overworld', 'Golden Bug', 'Hyrule Field - Lanayru Province', 'DZX'],

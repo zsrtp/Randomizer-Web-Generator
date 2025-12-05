@@ -277,7 +277,9 @@ namespace TPRandomizer.Hints
                         "Kakariko Gorge Owl Statue Chest",
                         "Kakariko Gorge Owl Statue Sky Character",
                         "Kakariko Gorge Poe",
-                        "Kakariko Gorge Spire Heart Piece"
+                        "Kakariko Gorge Spire Heart Piece",
+                        "Kakariko Gorge Owl Statue Boulder Rupee",
+                        "Kakariko Gorge Spire Boulder Rupee",
                     }
                 },
                 {
@@ -301,7 +303,16 @@ namespace TPRandomizer.Hints
                         "Renados Letter",
                         "Talo Sharpshooting",
                         "Kakariko Village Bell Rupee",
-                        "Shad Dominion Rod"
+                        "Shad Dominion Rod",
+                        "Eldin Spring Underwater Boulder Rupee",
+                        "Kakariko Village Spring Shortcut Box Rupee 1",
+                        "Kakariko Village Spring Shortcut Box Rupee 2",
+                        "Kakariko Village Ant House Ledge Box Rupee",
+                        "Kakariko Village Hot Spring Ledge Box Rupee",
+                        "Death Mountain Volcano Ledge Rupee 1",
+                        "Death Mountain Volcano Ledge Rupee 2",
+                        "Death Mountain Volcano Ledge Rupee 3",
+                        "Death Mountain Volcano Pipe Ledge Rock Rupee",
                     }
                 },
                 {
@@ -314,7 +325,8 @@ namespace TPRandomizer.Hints
                         "Kakariko Graveyard Lantern Chest",
                         "Kakariko Graveyard Male Ant",
                         "Kakariko Graveyard Open Poe",
-                        "Rutelas Blessing"
+                        "Rutelas Blessing",
+                        "Kakariko Graveyard Underwater Boulder Rupee",
                     }
                 },
                 {
@@ -343,7 +355,8 @@ namespace TPRandomizer.Hints
                         "Eldin Field Stalfos Grotto Stalfos Chest",
                         "Eldin Stockcave Lantern Chest",
                         "Eldin Stockcave Lowest Chest",
-                        "Eldin Stockcave Upper Chest"
+                        "Eldin Stockcave Upper Chest",
+                        "Bridge of Eldin Boulder Rupee"
                     }
                 },
                 {
@@ -372,7 +385,12 @@ namespace TPRandomizer.Hints
                         "Lanayru Field Poe Grotto Right Poe",
                         "Lanayru Field Skulltula Grotto Chest",
                         "Lanayru Field Spinner Track Chest",
-                        "Lanayru Ice Block Puzzle Cave Chest"
+                        "Lanayru Ice Block Puzzle Cave Chest",
+                        "Lanayru Field North Spinner Track Boulder Rupee",
+                        "Lanayru Field South Spinner Track Boulder Rupee",
+                        "Lanayru Field North Underwater Boulder Rupee",
+                        "Lanayru Field South Underwater Boulder Rupee",
+                        "Lanayru Field Tree Boulder Rupee"
                     }
                 },
                 {
@@ -385,7 +403,9 @@ namespace TPRandomizer.Hints
                         "West Hyrule Field Female Butterfly",
                         "West Hyrule Field Golden Wolf",
                         "West Hyrule Field Helmasaur Grotto Chest",
-                        "West Hyrule Field Male Butterfly"
+                        "West Hyrule Field Male Butterfly",
+                        "West Hyrule Field Northern Boulder Rupee",
+                        "West Hyrule Field Southern Boulder Rupee"
                     }
                 },
                 {
@@ -400,7 +420,8 @@ namespace TPRandomizer.Hints
                         "Outside South Castle Town Poe",
                         "Outside South Castle Town Tektite Grotto Chest",
                         "Outside South Castle Town Tightrope Chest",
-                        "Wooden Statue"
+                        "Wooden Statue",
+                        "Outside South Castle Town Boulder Rupee",
                     }
                 },
                 {
@@ -465,7 +486,9 @@ namespace TPRandomizer.Hints
                         "Lake Hylia Bridge Male Mantis",
                         "Lake Hylia Bridge Owl Statue Chest",
                         "Lake Hylia Bridge Owl Statue Sky Character",
-                        "Lake Hylia Bridge Vines Chest"
+                        "Lake Hylia Bridge Vines Chest",
+                        "Lake Hylia Bridge Faron Boulder Rupee",
+                        "Lake Hylia Bridge Owl Statue Boulder Rupee",
                     }
                 },
                 {
@@ -488,7 +511,11 @@ namespace TPRandomizer.Hints
                         "Lake Hylia Water Toadpoli Grotto Chest",
                         "Outside Lanayru Spring Left Statue Chest",
                         "Outside Lanayru Spring Right Statue Chest",
-                        "Plumm Fruit Balloon Minigame"
+                        "Plumm Fruit Balloon Minigame",
+                        "Lake Hylia Left Underwater Pillar Rupee",
+                        "Lake Hylia Right Underwater Pillar Rupee",
+                        "Lake Hylia Right Underwater Boulder Rupee",
+                        "Lake Hylia Left Underwater Boulder Rupee"
                     }
                 },
                 {
@@ -525,7 +552,9 @@ namespace TPRandomizer.Hints
                         "Lanayru Spring East Double Clawshot Chest",
                         "Lanayru Spring Underwater Left Chest",
                         "Lanayru Spring Underwater Right Chest",
-                        "Lanayru Spring West Double Clawshot Chest"
+                        "Lanayru Spring West Double Clawshot Chest",
+                        "Lanayru Spring Upper Underwater Boulder Rupee",
+                        "Lanayru Spring Lower Underwater Boulder Rupee"
                     }
                 },
                 {
@@ -628,7 +657,26 @@ namespace TPRandomizer.Hints
                         "Snowpeak Cave Ice Poe",
                         "Snowpeak Freezard Grotto Chest",
                         "Snowpeak Icy Summit Poe",
-                        "Snowpeak Poe Among Trees"
+                        "Snowpeak Poe Among Trees",
+                        "Snowboarding Bridge Ledge Bottom Rupee",
+                        "Snowboarding Bridge Ledge Middle Rupee",
+                        "Snowboarding Bridge Ledge Upper Rupee",
+                        "Snowboarding Shortcut Rupee 1",
+                        "Snowboarding Shortcut Rupee 2",
+                        "Snowboarding Shortcut Rupee 3",
+                        "Snowboarding Shortcut Rupee 4",
+                        "Snowboarding Shortcut Rupee 5",
+                        "Snowboarding Shortcut Rupee 6",
+                        "Snowboarding Shortcut Rupee 7",
+                        "Snowboarding Shortcut Rupee 8",
+                        "Snowboarding Shortcut Rupee 9",
+                        "Snowboarding Shortcut Rupee 10",
+                        "Snowboarding Shortcut Rupee 11",
+                        "Snowboarding Snowy Tree Top Rupee 1",
+                        "Snowboarding Snowy Tree Top Rupee 2",
+                        "Snowboarding Snowy Tree Top Rupee 3",
+                        "Snowboarding Top Left Rupee",
+                        "Snowboarding Top Right Rupee"
                     }
                 },
                 {

@@ -1,0 +1,6 @@
+{
+    "requirements": "CanCompleteLanayruTwilight and Zora_Armor",
+    "glitchedRequirements": "CanCompleteLanayruTwilight and Zora_Armor or CanDoAirRefill",
+    "checkCategory": [ "Overworld", "Lake Hylia", "Rupee - Freestanding" ],
+    "itemId": "Yellow_Rupee"
+  }

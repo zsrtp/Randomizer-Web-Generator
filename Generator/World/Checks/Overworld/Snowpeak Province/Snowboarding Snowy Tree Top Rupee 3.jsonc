@@ -1,0 +1,6 @@
+{
+    "requirements": "CanDefeatShadowBeast and (((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy))) or CanCompleteSnowpeakRuins)",
+    "glitchedRequirements": "CanDefeatShadowBeast and (((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy))) or CanCompleteSnowpeakRuins)",
+    "checkCategory": [ "Overworld", "Snowpeak", "Rupee - Freestanding" ],
+    "itemId": "Purple_Rupee"
+  }

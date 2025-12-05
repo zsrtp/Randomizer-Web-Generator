@@ -88,8 +88,8 @@
     [
       {
         "ConnectedArea": "Snowpeak Summit Lower",
-        "Requirements": "CanDefeatShadowBeast and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy)))",
-        "GlitchedRequirements": "CanDefeatShadowBeast and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy)))"
+        "Requirements": "CanDefeatShadowBeast and (((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy))) or CanCompleteSnowpeakRuins)",
+        "GlitchedRequirements": "CanDefeatShadowBeast and (((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy))) or CanCompleteSnowpeakRuins)"
       },
       {
         "ConnectedArea": "Snowpeak Climb Upper",
@@ -102,7 +102,26 @@
         "Snowpeak Cave Ice Lantern Chest",
         "Snowboard Racing Prize",
         "Snowpeak Cave Ice Poe",
-        "Snowpeak Portal"
+        "Snowpeak Portal",
+        "Snowboarding Bridge Ledge Bottom Rupee",
+        "Snowboarding Bridge Ledge Middle Rupee",
+        "Snowboarding Bridge Ledge Upper Rupee",
+        "Snowboarding Shortcut Rupee 1",
+        "Snowboarding Shortcut Rupee 2",
+        "Snowboarding Shortcut Rupee 3",
+        "Snowboarding Shortcut Rupee 4",
+        "Snowboarding Shortcut Rupee 5",
+        "Snowboarding Shortcut Rupee 6",
+        "Snowboarding Shortcut Rupee 7",
+        "Snowboarding Shortcut Rupee 8",
+        "Snowboarding Shortcut Rupee 9",
+        "Snowboarding Shortcut Rupee 10",
+        "Snowboarding Shortcut Rupee 11",
+        "Snowboarding Snowy Tree Top Rupee 1",
+        "Snowboarding Snowy Tree Top Rupee 2",
+        "Snowboarding Snowy Tree Top Rupee 3",
+        "Snowboarding Top Left Rupee",
+        "Snowboarding Top Right Rupee"
     ],
     "Region": "Snowpeak Province"
   },
@@ -135,7 +154,7 @@
         "ConnectedArea": "Snowpeak Ruins Left Door",
         "Requirements": "true",
         "GlitchedRequirements": "true"
-      },
+      }
     ],
     "Checks":
     [],

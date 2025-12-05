@@ -1,6 +1,6 @@
 {
-    "requirements": "CanLaunchBombs and (Shadow_Crystal or Boomerang)",
-    "glitchedRequirements": "CanLaunchBombs and (Shadow_Crystal or Boomerang)",
+    "requirements": "CanLaunchBombs and (Shadow_Crystal or Boomerang) and CanCompleteEldinTwilight",
+    "glitchedRequirements": "CanLaunchBombs and (Shadow_Crystal or Boomerang) and CanCompleteEldinTwilight",
     "checkCategory": ["Overworld", "Kakariko Village", "Rupee - Hidden"],
     "itemId": "Silver_Rupee"
 }

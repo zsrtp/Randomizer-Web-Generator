@@ -1,0 +1,6 @@
+{
+    "requirements": "CanCompleteLanayruTwilight and Zora_Armor and Iron_Boots and CanUseWaterBombs",
+    "glitchedRequirements": "CanCompleteLanayruTwilight and CanDoAirRefill",
+    "checkCategory": [ "Overworld", "Lake Hylia", "Rupee - Hidden" ],
+    "itemId": "Green_Rupee"
+  }
