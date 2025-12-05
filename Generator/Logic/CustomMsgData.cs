@@ -375,8 +375,6 @@ namespace TPRandomizer
             // do not depend on the item.
             GenStaticEntries(seedGenResults);
 
-            AddMidnaAdjustments();
-
             // handle shop text first
             if (updateShopText)
             {
@@ -386,7 +384,9 @@ namespace TPRandomizer
             GenSelfHinterEntries();
 
             // Handle custom hint signs, Agitha and Jovani signs
-            GenHintSignEntries();
+            List<string> midnaStartingHints = GenHintSignEntries();
+
+            AddMidnaAdjustments(midnaStartingHints);
 
             Bmg0Builder ret = builder;
             builder = null;
@@ -880,7 +880,7 @@ namespace TPRandomizer
             );
         }
 
-        private void AddMidnaAdjustments()
+        private void AddMidnaAdjustments(List<string> midnaStartingHints)
         {
             // Note: Midna voice is only guaranteed to work normally when the
             // instantText option is not enabled. Even in the vanilla game, if
@@ -911,7 +911,8 @@ namespace TPRandomizer
                 hintMessages.Add(GenLinkHouseSignText());
             }
 
-            // TODO: add Midna spot hints here once feature is developed.
+            if (!ListUtils.isEmpty(midnaStartingHints))
+                hintMessages.AddRange(midnaStartingHints);
 
             builder.AddStrReplacements(
                 new()
@@ -1741,8 +1742,9 @@ namespace TPRandomizer
             }
         }
 
-        private void GenHintSignEntries()
+        private List<string> GenHintSignEntries()
         {
+            List<string> midnaHintTexts = new();
             if (!ListUtils.isEmpty(hintSpots))
             {
                 foreach (HintSpot hintSpot in hintSpots)
@@ -1780,6 +1782,14 @@ namespace TPRandomizer
                         string text = hints[0].toHintTextList(this)[0].text;
                         builder.AddStrReplacement(StrRepl.Hidden(node, text));
                     }
+                    else if (hintSpot.location == SpotId.Midna)
+                    {
+                        List<Hint> hints = hintSpot.hints;
+                        foreach (Hint hint in hints)
+                        {
+                            midnaHintTexts.Add(hint.toHintTextList(this)[0].text);
+                        }
+                    }
                     else
                     {
                         throw new Exception(
@@ -1788,6 +1798,7 @@ namespace TPRandomizer
                     }
                 }
             }
+            return midnaHintTexts;
         }
 
         private void AddCustomSignEntityData(SpotId spotId, List<string> messages)

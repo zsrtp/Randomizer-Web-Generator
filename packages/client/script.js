@@ -56,6 +56,12 @@ const presetsMgr = (function () {
         '5sQ3g2kPC_-CfeJ8HaX7cJny-NoYqQZKQc7IwNIwNIwN0u70u70u70u70u70u70u71_qwFLTZK61gbCq2Z80-pphmuHTHbBB1BaDknYf_AxydhLmPgSZZbUoyNT5KTnKnI8b6WSbx66LYROE-5GjUYcccP9CNGx20M_b6WAXskPHcrbw8PUjs-vEAKmKvfKLWdIa4eJUDhKdJMGx1QMhM69tq6YE6yvHGff3dsMtKCbWX_m',
       description: '',
     },
+    {
+      name: 'Season 1.5',
+      origSettingsStr:
+        '6sQ4d2kPC_v6L92P3Q01W4-WCa8yoUFdo-KMZKQZKmxdywNIwNIwNIuN0u70u70u70u70u70u70u71_oT3qhcD8C1bIJCWICG0-nvQy715QXb44N8DdOOfFtwVb-5-9v_NyMfmKr78SMLTbWohHGwsmF4xaL8vnIOKX4aQ0ubrZ1aiHjGS-2eBLqIQDCP4c5q7K80i_YZ81YrGTfp56Dfbr46LstSJXIZ19nfIAO8wIG9GJN6QqarDCWx0j5fQmOJjq3H3WtZbVufaXPyopT8ObWG_-s0EYWCTOCLOAmOB_u',
+      description: '',
+    },
   ];
 
   let inited = false;

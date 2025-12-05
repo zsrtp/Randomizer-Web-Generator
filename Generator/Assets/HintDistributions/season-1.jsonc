@@ -1,7 +1,7 @@
 {
   // Season 1 distribution
   "starting": {
-    "spot": "ordon_sign",
+    "spot": "midna",
     "excludeFromGroups": true
   },
   "agitha": true,
@@ -39,7 +39,11 @@
   },
   //
   "groups": {
-    "overworld": ["alias:overworldZones", "-lakehylia"],
+    "overworld": [
+      "alias:overworldZones",
+      "-hiddenvillage",
+      "-snowpeakmountain"
+    ],
     "requiredDungeons": ["alias:requiredDungeons"]
   },
   // Special hints generated right after Always hints are generated. These are
@@ -116,86 +120,64 @@
         "hintDef": [
           {
             "maxPicks": 3,
-            "starting": 1,
-            "copies": 3,
+            "starting": 3,
             "hintDef": [
               {
-                "hintType": "importanceCount",
+                "hintType": "barren",
+                "iterations": 2,
+                "options": {
+                  "validAreas": [
+                    "Ordon",
+                    "Sacred Grove",
+                    "Faron Field",
+                    "Faron Woods",
+                    "Kakariko Village",
+                    "Kakariko Graveyard",
+                    "Eldin Field",
+                    "Castle Town",
+                    "Lake Hylia",
+                    "Zora's Domain",
+                    "Upper Zora's River",
+                    "Gerudo Desert",
+                    "category.Northern_Desert",
+                    "category.Southern_Desert",
+                    "Bulblin Camp"
+                  ]
+                }
+              },
+              {
+                "hintType": "barren",
                 "iterations": 3,
                 "options": {
                   "validAreas": [
-                    "Forest Temple",
-                    "Goron Mines",
-                    "Lakebed Temple",
-                    "Arbiter's Grounds",
-                    "Snowpeak Ruins",
-                    "Temple of Time",
-                    "City in the Sky",
-                    "Palace of Twilight"
+                    "alias:overworldZones",
+                    "category.Northern_Desert",
+                    "category.Southern_Desert"
                   ]
                 }
               }
-              // {
-              //   "hintType": "tradeChain"
-              //   // "options": {
-              //   //   "validGroups": ["male_bugs", "female_bugs"],
-              //   //   "validStatuses": ["bad"],
-              //   //   "smartHinting": false
-              //   // }
-              // },
-              // {
-              //   "hintType": "itemToItemPath",
-              //   "saveToVar": "pathHints"
-              // },
-              // {
-              //   "hintType": "barren",
-              //   "iterations": 1,
-              //   "options": {
-              //     "validAreas": [
-              //       "Forest Temple",
-              //       "Goron Mines",
-              //       "Lakebed Temple",
-              //       "Arbiter's Grounds",
-              //       "Snowpeak Ruins",
-              //       "Temple of Time",
-              //       "City in the Sky",
-              //       "Palace of Twilight"
-              //     ]
-              //   }
-              // },
-              // {
-              //   "hintType": "barren",
-              //   "iterations": 3,
-              //   "options": {
-              //     "validAreas": [
-              //       // "alias:overworldZones",
-              //       // "category.Northern_Desert",
-              //       // "Gerudo Desert",
-              //       // "category.Southern_Desert",
-              //       // "Cave of Ordeals"
-              //       "Lake Hylia"
-              //       // "Agitha's Castle",
-              //       // "Castle Town"
-              //     ]
-              //   }
-              // }
-              // {
-              //   "hintType": "barren",
-              //   "iterations": 3,
-              //   "options": {
-              //     "validAreas": ["Lake Hylia"]
-              //   }
-              // }
-              // {
-              //   "hintType": "barren",
-              //   "iterations": 3
-              // }
             ]
           },
-          // {
-          //   "hintType": "itemToItemPath",
-          //   "saveToVar": "pathHints"
-          // },
+          {
+            "hintType": "importanceCount",
+            "copies": 3,
+            "options": {
+              "validAreas": [
+                "Forest Temple",
+                "Goron Mines",
+                "Lakebed Temple",
+                "Arbiter's Grounds",
+                "Snowpeak Ruins",
+                "Temple of Time",
+                "City in the Sky",
+                "Palace of Twilight"
+              ]
+            }
+          },
+          {
+            "hintType": "itemToItemPath",
+            "saveToVar": "pathHints"
+          },
           {
             "hintType": "path",
             "saveToVar": "pathHints",
@@ -215,13 +197,13 @@
                   "smartHinting": false
                 }
               },
-              {
-                "hintType": "barren",
-                "options": {
-                  "areaType": "category",
-                  "validAreas": ["Mist", "Northern_Desert", "Southern_Desert"]
-                }
-              },
+              // {
+              //   "hintType": "barren",
+              //   "options": {
+              //     "areaType": "category",
+              //     "validAreas": ["Mist", "Northern_Desert", "Southern_Desert"]
+              //   }
+              // },
               {
                 "selectionType": "randomOrder",
                 "hintDef": [
@@ -269,20 +251,21 @@
           // Num swords in province with most swords (or tied for most).
           "hintType": "numItemInArea",
           "saveToVar": "mostSwordsProvince",
+          "iterations": 3,
           "options": {
             "item": "Progressive_Sword",
             "areaType": "province",
             "order": "desc"
           }
         },
-        {
-          // Aux sword hint
-          "hintType": "item",
-          "options": {
-            "validItems": ["Progressive_Sword"],
-            "invalidChecks": ["var:mostSwordsProvince.areaId"]
-          }
-        },
+        // {
+        //   // Aux sword hint
+        //   "hintType": "item",
+        //   "options": {
+        //     "validItems": ["Progressive_Sword"],
+        //     "invalidChecks": ["var:mostSwordsProvince.areaId"]
+        //   }
+        // },
         // Fill the rest in with more copies of the MostSwordsProvince hint
         {
           "hintType": "var",

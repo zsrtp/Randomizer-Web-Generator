@@ -756,6 +756,7 @@ namespace TPRandomizer.Hints.Settings
                     SpotId.City_in_the_Sky_Sign,
                     SpotId.Palace_of_Twilight_Sign,
                     SpotId.Hyrule_Castle_Sign,
+                    SpotId.Midna,
                 };
 
             if (!validStartingSpots.Contains(spotId))

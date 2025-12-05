@@ -47,6 +47,7 @@ namespace TPRandomizer.Hints
         Hyrule_Castle_Sign = 35,
         Temple_of_Time_Beyond_Point_Sign = 36,
         Jovani_House_Sign = 37,
+        Midna = 38,
     }
 
     public class HintSpot
