@@ -1,10 +1,10 @@
 namespace TPRandomizer.Hints
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using TPRandomizer.Assets;
-    using TPRandomizer.Hints.HintCreator;
     using TPRandomizer.Util;
 
     public class ImportanceCountHint : Hint
@@ -17,21 +17,17 @@ namespace TPRandomizer.Hints
         public HashSet<string> importantChecks { get; private set; }
         public HashSet<string> majorChecks { get; private set; }
 
-        public ImportanceCountHint(PotentialIcArea pia)
-        {
-            this.areaId = pia.areaId;
-            this.hasRelevantDependentChecks = pia.hasRelevantDependentChecks;
-            this.indicatesImportant = pia.indicatesImportant;
-            this.importantChecks = pia.importantChecks;
-            this.majorChecks = pia.majorChecks;
-        }
+        // derived and not encoded
+        private List<string> combinedChecksList;
+        public List<Item> items { get; private set; }
 
-        private ImportanceCountHint(
+        public ImportanceCountHint(
             AreaId areaId,
             bool hasRelevantDependentChecks,
             bool indicatesImportant,
             HashSet<string> importantChecks,
-            HashSet<string> majorChecks
+            HashSet<string> majorChecks,
+            Dictionary<int, int> itemPlacements = null
         )
         {
             this.areaId = areaId;
@@ -39,6 +35,30 @@ namespace TPRandomizer.Hints
             this.indicatesImportant = indicatesImportant;
             this.importantChecks = importantChecks;
             this.majorChecks = majorChecks;
+
+            CalcDerived(itemPlacements);
+        }
+
+        private void CalcDerived(Dictionary<int, int> itemPlacements)
+        {
+            items = new();
+            combinedChecksList = importantChecks.Concat(majorChecks).ToList();
+
+            foreach (string checkName in combinedChecksList)
+            {
+                Item item;
+                if (itemPlacements != null)
+                {
+                    // When decoding hint from string
+                    item = HintUtils.getCheckContents(checkName, itemPlacements);
+                }
+                else
+                {
+                    // When creating hint during generation
+                    item = HintUtils.getCheckContents(checkName);
+                }
+                items.Add(item);
+            }
         }
 
         public override string encodeAsBits(HintEncodingBitLengths bitLengths)
@@ -93,7 +113,8 @@ namespace TPRandomizer.Hints
                 hasRelevantDependentChecks,
                 indicatesImportant,
                 importantChecks,
-                majorChecks
+                majorChecks,
+                itemPlacements
             );
         }
 
@@ -190,6 +211,13 @@ namespace TPRandomizer.Hints
             string hintText = toHintTextList(customMsgData)[0].text;
 
             HintInfo hintInfo = new(hintText);
+
+            for (int i = 0; i < combinedChecksList.Count; i++)
+            {
+                hintInfo.hintedChecks.Add(combinedChecksList[i]);
+                hintInfo.hintedItems.Add(items[i]);
+            }
+
             return hintInfo;
         }
     }

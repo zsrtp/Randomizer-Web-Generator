@@ -89,7 +89,15 @@ namespace TPRandomizer.Hints.HintCreator
             {
                 PotentialIcArea pia = voseInst.NextAndRemove(genData.rnd);
 
-                hints.Add(new ImportanceCountHint(pia));
+                hints.Add(
+                    new ImportanceCountHint(
+                        pia.areaId,
+                        pia.hasRelevantDependentChecks,
+                        pia.indicatesImportant,
+                        pia.importantChecks,
+                        pia.majorChecks
+                    )
+                );
 
                 genData.hinted.hintedImportanceCountAreas.Add(pia.areaId);
             }
@@ -307,21 +315,21 @@ namespace TPRandomizer.Hints.HintCreator
                 && !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
             );
         }
-    }
 
-    public class PotentialIcArea
-    {
-        public AreaId areaId { get; private set; }
-        public bool hasRelevantDependentChecks;
-        public HashSet<string> importantChecks = new();
-        public HashSet<string> majorChecks = new();
-        public bool indicatesImportant { get; private set; }
-        public int effectiveUnknownChecksCount;
-
-        public PotentialIcArea(AreaId areaId, bool indicatesImportant)
+        private class PotentialIcArea
         {
-            this.areaId = areaId;
-            this.indicatesImportant = indicatesImportant;
+            public AreaId areaId { get; private set; }
+            public bool hasRelevantDependentChecks;
+            public HashSet<string> importantChecks = new();
+            public HashSet<string> majorChecks = new();
+            public bool indicatesImportant { get; private set; }
+            public int effectiveUnknownChecksCount;
+
+            public PotentialIcArea(AreaId areaId, bool indicatesImportant)
+            {
+                this.areaId = areaId;
+                this.indicatesImportant = indicatesImportant;
+            }
         }
     }
 }
