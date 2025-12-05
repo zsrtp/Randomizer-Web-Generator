@@ -25,6 +25,7 @@ namespace TPRandomizer.Hints
 
         public Dictionary<Goal, List<string>> goalToRequiredChecks { get; set; }
         public HashSet<string> requiredChecks { get; set; }
+        public bool didCondReqCalc { get; private set; } = false;
         public HashSet<string> condReqChecks { get; set; } = new();
         public HashSet<string> notReqChecks { get; set; } = new();
         public bool? agithaRequired { get; set; }
@@ -126,6 +127,7 @@ namespace TPRandomizer.Hints
                 {
                     HintCondReqCalc condReqCalc = new(this);
                     condReqChecks = condReqCalc.run(itemToInflexibleCount);
+                    didCondReqCalc = true;
                 }
             }
 
@@ -1968,6 +1970,7 @@ namespace TPRandomizer.Hints
         public readonly HashSet<string> alwaysHintedChecks = new();
         public readonly HashSet<Zone> hintedBarrenZones = new();
         public readonly HashSet<AreaId> hintedWothAreas = new();
+        public readonly HashSet<AreaId> hintedImportanceCountAreas = new();
         public bool agithaHintedDead = false;
 
         // private

@@ -239,7 +239,14 @@ namespace TPRandomizer.Hints.HintCreator
                     List<KeyValuePair<double, PotentialBarrenArea>> weightedList = new();
                     foreach (PotentialBarrenArea pba in potentialBarrenAreas)
                     {
-                        weightedList.Add(new(pba.GetWeight(useCategoryWeighting), pba));
+                        double weight = pba.GetWeight(useCategoryWeighting);
+                        // When hinting zones, if an area has only a single check then significantly
+                        // reduce the likelihood that it gets hinted (ex: Snowpeak Mountain with a
+                        // BeyondThisPoint hint or Death Mountain).
+                        if (!useCategoryWeighting && pba.effectiveUnknownChecksCount < 2)
+                            weight *= 0.2;
+
+                        weightedList.Add(new(weight, pba));
                     }
 
                     inst = VoseAlgorithm.createInstance(weightedList);
@@ -376,6 +383,13 @@ namespace TPRandomizer.Hints.HintCreator
         {
             HashSet<string> checkNames = recursiveGetAreaAndDepsChecks(genData, areaId);
 
+            // TODO: Other info to get:
+
+            // - does it have any relevant (not vanilla or excluded) dependent checks. For example,
+            //   we do not want to say "{Goron Mines itself}" if post-dungeon checks are excluded.
+
+            // - also we want to know the majorItems and importantItems (if possible) counts.
+
             List<string> barrenableChecks = new();
             bool areaCanBeHintedBarren = true;
             int numUnknownChecks = 0;
@@ -429,7 +443,14 @@ namespace TPRandomizer.Hints.HintCreator
                     // include checks which were hinted barren this way into consideration when
                     // handling weighting. This is so we do not significantly reduce the effective
                     // size of LLC and some dungeons for barren hint calculation.
-                    extraWeighting += 1;
+                    // extraWeighting += 1;
+
+                    // TODO: temp setting this to do nothing since we really don't want this for
+                    // Snowpeak Mountain when all it does it tell us Ashei is dead. Arguably the
+                    // weight changes to the other BTP zones is how it should work anyway. Haven't
+                    // removed the code yet so don't have to rewrite it in case we want to enable
+                    // again.
+                    extraWeighting += 0;
                 }
             }
 
@@ -543,6 +564,23 @@ namespace TPRandomizer.Hints.HintCreator
                         string zoneName = kv.Key;
                         if (!HintUtils.DungeonIsRequired(zoneName))
                             result.Remove(AreaId.ZoneStr(zoneName));
+                    }
+                }
+
+                // Filter out any areas which have either been IC-hinted or zones which have been
+                // hinted barren.
+                List<AreaId> areaIdsList = result.ToList();
+                foreach (AreaId areaId in areaIdsList)
+                {
+                    if (genData.hinted.hintedImportanceCountAreas.Contains(areaId))
+                    {
+                        result.Remove(areaId);
+                    }
+                    else if (areaId.type == AreaId.AreaType.Zone)
+                    {
+                        Zone zone = ZoneUtils.StringToIdThrows(areaId.stringId);
+                        if (genData.hinted.hintedBarrenZones.Contains(zone))
+                            result.Remove(areaId);
                     }
                 }
             }

@@ -1,0 +1,196 @@
+namespace TPRandomizer.Hints
+{
+    using System.Collections.Generic;
+    using System.Threading;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using TPRandomizer.Assets;
+    using TPRandomizer.Hints.HintCreator;
+    using TPRandomizer.Util;
+
+    public class ImportanceCountHint : Hint
+    {
+        public override HintType type { get; } = HintType.ImportanceCount;
+
+        public AreaId areaId { get; private set; }
+        public bool hasRelevantDependentChecks { get; private set; }
+        public bool indicatesImportant { get; private set; }
+        public HashSet<string> importantChecks { get; private set; }
+        public HashSet<string> majorChecks { get; private set; }
+
+        public ImportanceCountHint(PotentialIcArea pia)
+        {
+            this.areaId = pia.areaId;
+            this.hasRelevantDependentChecks = pia.hasRelevantDependentChecks;
+            this.indicatesImportant = pia.indicatesImportant;
+            this.importantChecks = pia.importantChecks;
+            this.majorChecks = pia.majorChecks;
+        }
+
+        private ImportanceCountHint(
+            AreaId areaId,
+            bool hasRelevantDependentChecks,
+            bool indicatesImportant,
+            HashSet<string> importantChecks,
+            HashSet<string> majorChecks
+        )
+        {
+            this.areaId = areaId;
+            this.hasRelevantDependentChecks = hasRelevantDependentChecks;
+            this.indicatesImportant = indicatesImportant;
+            this.importantChecks = importantChecks;
+            this.majorChecks = majorChecks;
+        }
+
+        public override string encodeAsBits(HintEncodingBitLengths bitLengths)
+        {
+            string result = base.encodeAsBits(bitLengths);
+            result += areaId.encodeAsBits(bitLengths);
+            result += hasRelevantDependentChecks ? "1" : "0";
+            result += indicatesImportant ? "1" : "0";
+            result += SettingsEncoder.EncodeAsVlq16((ushort)importantChecks.Count);
+            foreach (string checkName in importantChecks)
+            {
+                int checkId = CheckIdClass.GetCheckIdNum(checkName);
+                result += SettingsEncoder.EncodeNumAsBits(checkId, bitLengths.checkId);
+            }
+            result += SettingsEncoder.EncodeAsVlq16((ushort)majorChecks.Count);
+            foreach (string checkName in majorChecks)
+            {
+                int checkId = CheckIdClass.GetCheckIdNum(checkName);
+                result += SettingsEncoder.EncodeNumAsBits(checkId, bitLengths.checkId);
+            }
+
+            return result;
+        }
+
+        public static ImportanceCountHint decode(
+            HintEncodingBitLengths bitLengths,
+            BitsProcessor processor,
+            Dictionary<int, int> itemPlacements
+        )
+        {
+            HashSet<string> importantChecks = new();
+            HashSet<string> majorChecks = new();
+
+            AreaId areaId = AreaId.decode(bitLengths, processor);
+            bool hasRelevantDependentChecks = processor.NextBool();
+            bool indicatesImportant = processor.NextBool();
+            int numImportantChecks = processor.NextVlq16();
+            for (int i = 0; i < numImportantChecks; i++)
+            {
+                int checkId = processor.NextInt(bitLengths.checkId);
+                importantChecks.Add(CheckIdClass.GetCheckName(checkId));
+            }
+            int numMajorChecks = processor.NextVlq16();
+            for (int i = 0; i < numMajorChecks; i++)
+            {
+                int checkId = processor.NextInt(bitLengths.checkId);
+                majorChecks.Add(CheckIdClass.GetCheckName(checkId));
+            }
+
+            return new ImportanceCountHint(
+                areaId,
+                hasRelevantDependentChecks,
+                indicatesImportant,
+                importantChecks,
+                majorChecks
+            );
+        }
+
+        public override List<HintText> toHintTextList(CustomMsgData customMsgData)
+        {
+            Res.Result hintParsedRes = Res.Msg("hint-type.importance-count");
+
+            string subject;
+            Dictionary<string, string> subjectMeta = new();
+
+            if (indicatesImportant)
+            {
+                string color =
+                    importantChecks.Count > 0
+                        ? CustomMessages.messageColorGreen
+                        : CustomMessages.messageColorPurple;
+
+                subject = Res.SimpleMsg(
+                    "hint-type.importance-count.important-item",
+                    new() { { "count", importantChecks.Count.ToString() }, },
+                    subjectMeta
+                );
+                subject = color + subject + CustomMessages.messageColorWhite;
+
+                if (majorChecks.Count > 0)
+                {
+                    int total = importantChecks.Count + majorChecks.Count;
+                    string majorCountStr = Res.SimpleMsg(
+                        "hint-type.importance-count.num-major",
+                        new() { { "count", total.ToString() } }
+                    );
+                    subject += " " + majorCountStr;
+                }
+            }
+            else
+            {
+                string color =
+                    majorChecks.Count > 0
+                        ? CustomMessages.messageColorGreen
+                        : CustomMessages.messageColorPurple;
+
+                subject = Res.Msg(
+                        "hint-type.importance-count.important-item",
+                        new() { { "count", majorChecks.Count.ToString() }, },
+                        subjectMeta
+                    )
+                    .ResolveWithColor(color);
+            }
+
+            string areaPhrase = CustomGenAreaPhrase(
+                areaId,
+                hasRelevantDependentChecks,
+                subjectMeta,
+                CustomMessages.messageColorRed
+            );
+
+            string verb = CustomMsgData.GenVerb(hintParsedRes, subjectMeta);
+
+            string text = hintParsedRes.Substitute(
+                new() { { "subject", subject }, { "verb", verb }, { "area-phrase", areaPhrase }, }
+            );
+
+            string normalizedText = Res.LangSpecificNormalize(text);
+
+            HintText hintText = new HintText();
+            hintText.text = normalizedText;
+            return new List<HintText> { hintText };
+        }
+
+        private static string CustomGenAreaPhrase(
+            AreaId areaId,
+            bool includeItself,
+            Dictionary<string, string> subjectMeta = null,
+            string color = null
+        )
+        {
+            Res.Result areaRes = Res.Msg(areaId.GenResKey(), null, subjectMeta);
+            string areaString = areaRes.ResolveWithColor(color);
+            // TODO: don't hardcode this
+            if (includeItself)
+                areaString += " itself";
+
+            if (!areaRes.meta.TryGetValue("ap", out string areaPhraseKey))
+                areaPhraseKey = "default";
+
+            Res.Result areaPhraseRes = Res.Msg($"area-phrase.{areaPhraseKey}");
+            string areaPhrase = areaPhraseRes.Substitute(new() { { "area", areaString } });
+
+            return areaPhrase;
+        }
+
+        public override HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            string hintText = toHintTextList(customMsgData)[0].text;
+
+            HintInfo hintInfo = new(hintText);
+            return hintInfo;
+        }
+    }
+}

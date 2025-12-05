@@ -509,6 +509,30 @@
     <value>Only {big-key} beyond this point!</value>
     <comment></comment>
   </data>
+  <data name="hint-type.importance-count" xml:space="preserve">
+    <value>They say that {subject} can be found {area-phrase}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.important-item" xml:space="preserve">
+    <value>{count} important item</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.important-item#other" xml:space="preserve">
+    <value>$(plural){count} important items</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.major-item" xml:space="preserve">
+    <value>{count} major item</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.major-item#other" xml:space="preserve">
+    <value>$(plural){count} major items</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.num-major" xml:space="preserve">
+    <value>({count} major)</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.item" xml:space="preserve">
     <value>They say that {subject} can be found {area-phrase}.</value>
     <comment></comment>

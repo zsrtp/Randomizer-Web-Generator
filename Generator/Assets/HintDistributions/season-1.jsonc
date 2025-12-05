@@ -120,33 +120,36 @@
             "copies": 3,
             "hintDef": [
               {
-                "hintType": "tradeChain"
-                // "options": {
-                //   "validGroups": ["male_bugs", "female_bugs"],
-                //   "validStatuses": ["bad"],
-                //   "smartHinting": false
-                // }
-              },
-              {
-                "hintType": "itemToItemPath",
-                "saveToVar": "pathHints"
-              },
-              {
-                "hintType": "barren",
-                "iterations": 1,
-                "options": {
-                  "validAreas": [
-                    "Forest Temple",
-                    "Goron Mines",
-                    "Lakebed Temple",
-                    "Arbiter's Grounds",
-                    "Snowpeak Ruins",
-                    "Temple of Time",
-                    "City in the Sky",
-                    "Palace of Twilight"
-                  ]
-                }
+                "hintType": "importanceCount"
               }
+              // {
+              //   "hintType": "tradeChain"
+              //   // "options": {
+              //   //   "validGroups": ["male_bugs", "female_bugs"],
+              //   //   "validStatuses": ["bad"],
+              //   //   "smartHinting": false
+              //   // }
+              // },
+              // {
+              //   "hintType": "itemToItemPath",
+              //   "saveToVar": "pathHints"
+              // },
+              // {
+              //   "hintType": "barren",
+              //   "iterations": 1,
+              //   "options": {
+              //     "validAreas": [
+              //       "Forest Temple",
+              //       "Goron Mines",
+              //       "Lakebed Temple",
+              //       "Arbiter's Grounds",
+              //       "Snowpeak Ruins",
+              //       "Temple of Time",
+              //       "City in the Sky",
+              //       "Palace of Twilight"
+              //     ]
+              //   }
+              // },
               // {
               //   "hintType": "barren",
               //   "iterations": 3,
