@@ -55,6 +55,41 @@ namespace TPRandomizer.Hints.HintCreator
 
                     inst.areaType = areaType;
                 }
+
+                // If defines validAreas, parse according to the inst.areaType.
+                List<string> validAreaStrList = HintSettingUtils.getOptionalStringList(
+                    options,
+                    "validAreas",
+                    null
+                );
+                if (validAreaStrList != null)
+                {
+                    inst.validAreas = new();
+                    foreach (string validAreaStr in validAreaStrList)
+                    {
+                        if (validAreaStr.StartsWith("alias:"))
+                        {
+                            string alias = validAreaStr.Substring(6);
+                            HashSet<AreaId> resolved = resolveAreaAlias(alias);
+                            inst.validAreas.UnionWith(resolved);
+                        }
+                        else
+                        {
+                            if (validAreaStr.Contains('.'))
+                            {
+                                // Handle string specifying AreaType explicity.
+                                AreaId areaId = AreaId.ParseString(validAreaStr);
+                                inst.validAreas.Add(areaId);
+                            }
+                            else
+                            {
+                                // Use default areaType for string which is not explicit.
+                                AreaId areaId = AreaId.ParseString(inst.areaType, validAreaStr);
+                                inst.validAreas.Add(areaId);
+                            }
+                        }
+                    }
+                }
             }
 
             return inst;
@@ -314,6 +349,57 @@ namespace TPRandomizer.Hints.HintCreator
                 && !genData.hinted.alreadyCheckContentsHinted.Contains(checkName)
                 && !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
             );
+        }
+
+        private static HashSet<AreaId> resolveAreaAlias(string alias)
+        {
+            HashSet<AreaId> result = new();
+
+            switch (alias.ToLowerInvariant())
+            {
+                case "overworldzones":
+                {
+                    HashSet<Zone> overworldZones =
+                        new()
+                        {
+                            Zone.Ordon,
+                            Zone.Sacred_Grove,
+                            Zone.Faron_Field,
+                            Zone.Faron_Woods,
+                            Zone.Kakariko_Gorge,
+                            Zone.Kakariko_Village,
+                            Zone.Kakariko_Graveyard,
+                            Zone.Eldin_Field,
+                            Zone.North_Eldin,
+                            Zone.Death_Mountain,
+                            Zone.Hidden_Village,
+                            Zone.Lanayru_Field,
+                            Zone.Beside_Castle_Town,
+                            Zone.South_of_Castle_Town,
+                            Zone.Castle_Town,
+                            Zone.Agithas_Castle,
+                            Zone.Great_Bridge_of_Hylia,
+                            Zone.Lake_Hylia,
+                            Zone.Lake_Lantern_Cave,
+                            Zone.Lanayru_Spring,
+                            Zone.Zoras_Domain,
+                            Zone.Upper_Zoras_River,
+                            Zone.Gerudo_Desert,
+                            Zone.Bulblin_Camp,
+                            Zone.Snowpeak_Mountain,
+                            Zone.Cave_of_Ordeals,
+                        };
+
+                    foreach (Zone zone in overworldZones)
+                    {
+                        result.Add(AreaId.Zone(zone));
+                    }
+                    break;
+                }
+                default:
+                    throw new Exception($"Failed to resolve alias '{alias}'.");
+            }
+            return result;
         }
 
         private class PotentialIcArea

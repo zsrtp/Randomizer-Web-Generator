@@ -120,7 +120,20 @@
             "copies": 3,
             "hintDef": [
               {
-                "hintType": "importanceCount"
+                "hintType": "importanceCount",
+                "iterations": 3,
+                "options": {
+                  "validAreas": [
+                    "Forest Temple",
+                    "Goron Mines",
+                    "Lakebed Temple",
+                    "Arbiter's Grounds",
+                    "Snowpeak Ruins",
+                    "Temple of Time",
+                    "City in the Sky",
+                    "Palace of Twilight"
+                  ]
+                }
               }
               // {
               //   "hintType": "tradeChain"
