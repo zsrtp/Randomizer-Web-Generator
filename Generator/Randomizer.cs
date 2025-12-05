@@ -531,6 +531,7 @@ namespace TPRandomizer
             SeedGenResults seedGenResults = new SeedGenResults(id, json);
 
             SSettings = SharedSettings.FromString(seedGenResults.settingsString);
+            origSSettingsStartingItems = new(SSettings.startingItems);
 
             foreach (KeyValuePair<int, int> kvp in seedGenResults.itemPlacements.ToList())
             {
