@@ -10,6 +10,7 @@ namespace TPRandomizer.Assets
     using TPRandomizer.Assets.CLR0;
     using TPRandomizer.FcSettings.Enums;
     using TPRandomizer.SSettings.Enums;
+    using TPRandomizer.Util;
 
     /// <summary>
     /// summary text.
@@ -218,7 +219,7 @@ namespace TPRandomizer.Assets
 
             if (isGci)
             {
-                return patchGCIWithSeed(region, currentSeedData);
+                return patchGCIWithSeed(region, currentSeedData, seedGenResults);
             }
             else
             {
@@ -3155,7 +3156,7 @@ namespace TPRandomizer.Assets
             return listOfArcReplacements;
         }
 
-        private static byte[] patchGCIWithSeed(char region, List<byte> seed)
+        public static byte[] patchGCIWithSeed(char region, List<byte> seed, SeedGenResults seedGenResults)
         {
             List<byte> outputFile = new();
             string gciRegion = "";
@@ -3278,6 +3279,21 @@ namespace TPRandomizer.Assets
                     gciBytes[0x29] = totalSeconds[1];
                     gciBytes[0x2A] = totalSeconds[2];
                     gciBytes[0x2B] = totalSeconds[3];
+
+                    byte[] stringBytes = Converter.StringBytes($"TPR SeedData v{VersionString}", 0x20, region);
+
+                    for(int j = 0x2040, k= 0x0; j < 0x2060; j++, k++)
+                    {
+                        Console.WriteLine(j + " " + k);
+                        gciBytes[j] = stringBytes[k];
+                    }
+
+                    stringBytes = Converter.StringBytes(seedGenResults.playthroughName, 0x20, region);
+
+                    for(int j = 0x2060, k= 0x0; j < 0x2080; j++, k++)
+                    {
+                        gciBytes[j] = stringBytes[k];
+                    }
 
                     outputFile.AddRange(gciBytes);
 
