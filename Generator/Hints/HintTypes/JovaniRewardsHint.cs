@@ -102,12 +102,16 @@ namespace TPRandomizer.Hints
                         // 'hint-type.jovani-rewards.reward' line.
                         itemText = customMsgData.GenItemText4(
                             out _,
-                            checkInfo.item,
+                            // TODO: undo temp change below
+                            // checkInfo.item,
+                            Item.Green_Rupee,
                             checkInfo.checkStatus,
                             // contextIn: checkInfo.useDefArticle ? "def" : "indef",
                             checkStatusDisplay: checkInfo.checkStatusDisplay,
                             capitalize: true,
-                            isLogicalItem: checkInfo.isLogicalItem
+                            // TODO: undo temp change below
+                            // isLogicalItem: checkInfo.isLogicalItem
+                            isLogicalItem: true
                         );
                     }
 

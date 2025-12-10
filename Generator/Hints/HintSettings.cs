@@ -1821,12 +1821,16 @@ namespace TPRandomizer.Hints.Settings
                     // meaning it is not possible to know the size of a group.
                     // It is mandatory that we know the size so we know how many
                     // hints to generate, so this is a hard requirement.
-                    if (hintDefGroupings[0].groupId != always.groupId)
-                    {
-                        throw new Exception(
-                            "When barren.ownZoneBehavior is 'monopolize' or always.monopolizeSpots is true, the first hintDefGrouping must have the same groupId as 'always'."
-                        );
-                    }
+                    // if (hintDefGroupings[0].groupId != always.groupId)
+                    // {
+                    //     throw new Exception(
+                    //         "When barren.ownZoneBehavior is 'monopolize' or always.monopolizeSpots is true, the first hintDefGrouping must have the same groupId as 'always'."
+                    //     );
+                    // }
+
+                    // TODO: can make this work, but the exact spots which the Always hints use up
+                    // will have to dynamically adjust based on the room available. Can work this
+                    // when doing the access logic work.
                 }
                 else
                 {

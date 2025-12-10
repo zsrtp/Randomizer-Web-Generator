@@ -1666,7 +1666,11 @@ namespace TPRandomizer.Hints
             );
         }
 
-        public bool CheckCanBeClaimHinted(string checkName, bool allowAgithaHintClaimed = false)
+        public bool CheckCanBeClaimHinted(
+            string checkName,
+            bool allowAgithaHintClaimed = false,
+            bool allowKnownBarren = false
+        )
         {
             // Verifies if a check can be "claim-hinted". This means the check is not already
             // claimed with regards to overlaps. For example: Location, Item, WotH, Path, etc.,
@@ -1683,7 +1687,7 @@ namespace TPRandomizer.Hints
                     allowAgithaHintClaimed
                     || !hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                 )
-                && !hinted.alreadyCheckKnownBarren.Contains(checkName);
+                && (allowKnownBarren || !hinted.alreadyCheckKnownBarren.Contains(checkName));
         }
 
         public List<AreaId> ResolveToAreaIds(string name, HashSet<AreaId.AreaType> validAreaTypes)

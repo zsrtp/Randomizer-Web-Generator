@@ -21,11 +21,13 @@ namespace TPRandomizer.Hints.HintCreator
         }
 
         private List<Item> validItems = null;
+        private HashSet<string> validChecks = null;
         protected HashSet<string> invalidChecks = new();
         private HashSet<CheckStatus> validStatuses = new() { CheckStatus.Good };
         private CheckStatusDisplay statusDisplay = CheckStatusDisplay.Automatic;
         private bool itemsOrdered = false;
         private bool vague = false;
+        private bool allowKnownBarren = false;
         private AreaType areaType = AreaType.Default;
 
         // Creates item hints with the following properties:
@@ -140,6 +142,23 @@ namespace TPRandomizer.Hints.HintCreator
                         inst.validStatuses.Add(CheckStatus.Bad);
                 }
 
+                List<string> validChecks = HintSettingUtils.getOptionalStringList(
+                    options,
+                    "validChecks",
+                    null
+                );
+                if (validChecks != null)
+                {
+                    foreach (string name in validChecks)
+                    {
+                        if (!HintSettingUtils.IsValidCheckResolutionFormat(name))
+                            throw new Exception(
+                                $"'{name}' is not a valid format to resolve to checks."
+                            );
+                    }
+                    inst.validChecks = new(validChecks);
+                }
+
                 List<string> invalidChecks = HintSettingUtils.getOptionalStringList(
                     options,
                     "invalidChecks",
@@ -161,6 +180,11 @@ namespace TPRandomizer.Hints.HintCreator
                 );
 
                 inst.vague = HintSettingUtils.getOptionalBool(options, "vague", inst.vague);
+                inst.allowKnownBarren = HintSettingUtils.getOptionalBool(
+                    options,
+                    "allowKnownBarren",
+                    inst.allowKnownBarren
+                );
 
                 string areaTypeStr = HintSettingUtils.getOptionalString(options, "areaType", null);
                 if (!StringUtils.isEmpty(areaTypeStr))
@@ -203,6 +227,17 @@ namespace TPRandomizer.Hints.HintCreator
                 validItemsSet = genData.getDefaultHintworthyItems();
             }
 
+            HashSet<string> validCheckNames = null;
+            if (validChecks != null)
+            {
+                validCheckNames = new();
+                foreach (string name in validChecks)
+                {
+                    HashSet<string> res = genData.ResolveToChecks(name);
+                    validCheckNames.UnionWith(res);
+                }
+            }
+
             HashSet<string> invalidCheckNames = new();
             foreach (string name in invalidChecks)
             {
@@ -215,7 +250,15 @@ namespace TPRandomizer.Hints.HintCreator
             foreach (KeyValuePair<string, Check> pair in Randomizer.Checks.CheckDict)
             {
                 string checkName = pair.Value.checkName;
-                if (CheckIsPossibleToHint(genData, invalidCheckNames, validItemsSet, checkName))
+                if (
+                    CheckIsPossibleToHint(
+                        genData,
+                        validCheckNames,
+                        invalidCheckNames,
+                        validItemsSet,
+                        checkName
+                    )
+                )
                 {
                     Item item = HintUtils.getCheckContents(checkName);
                     if (!itemToHintableChecks.ContainsKey(item))
@@ -364,6 +407,7 @@ namespace TPRandomizer.Hints.HintCreator
 
         private bool CheckIsPossibleToHint(
             HintGenData genData,
+            HashSet<string> validCheckNames,
             HashSet<string> invalidCheckNames,
             HashSet<Item> validItemsSet,
             string checkName
@@ -373,7 +417,8 @@ namespace TPRandomizer.Hints.HintCreator
             CheckStatus status = genData.CalcCheckStatus(checkName);
 
             return (
-                genData.CheckCanBeClaimHinted(checkName)
+                genData.CheckCanBeClaimHinted(checkName, allowKnownBarren: allowKnownBarren)
+                && (validCheckNames == null || validCheckNames.Contains(checkName))
                 && !invalidCheckNames.Contains(checkName)
                 && validItemsSet.Contains(item)
                 && validStatuses.Contains(status)
