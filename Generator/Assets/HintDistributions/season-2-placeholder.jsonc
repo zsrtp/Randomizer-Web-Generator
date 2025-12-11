@@ -239,6 +239,7 @@
             "hintType": "importanceCount",
             "copies": 3,
             "options": {
+              "indicateImportant": true,
               "validAreas": [
                 "Forest Temple",
                 "Goron Mines",

@@ -156,12 +156,12 @@ namespace TPRandomizer.Hints
                         ? CustomMessages.messageColorGreen
                         : CustomMessages.messageColorPurple;
 
-                subject = Res.Msg(
-                        "hint-type.importance-count.important-item",
-                        new() { { "count", majorChecks.Count.ToString() }, },
-                        subjectMeta
-                    )
-                    .ResolveWithColor(color);
+                subject = Res.SimpleMsg(
+                    "hint-type.importance-count.major-item",
+                    new() { { "count", majorChecks.Count.ToString() }, },
+                    subjectMeta
+                );
+                subject = color + subject + CustomMessages.messageColorWhite;
             }
 
             string areaPhrase = CustomGenAreaPhrase(

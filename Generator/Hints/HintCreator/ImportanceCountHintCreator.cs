@@ -33,6 +33,7 @@ namespace TPRandomizer.Hints.HintCreator
         private static readonly HashSet<AreaId.AreaType> validAreaTypes =
             new() { AreaId.AreaType.Zone, AreaId.AreaType.Category, };
 
+        private bool indicateImportant = false;
         private AreaId.AreaType areaType = AreaId.AreaType.Zone;
         private HashSet<AreaId> validAreas = null;
 
@@ -45,6 +46,12 @@ namespace TPRandomizer.Hints.HintCreator
             if (obj.ContainsKey("options"))
             {
                 JObject options = (JObject)obj["options"];
+
+                inst.indicateImportant = HintSettingUtils.getOptionalBool(
+                    options,
+                    "indicateImportant",
+                    inst.indicateImportant
+                );
 
                 string areaTypeStr = HintSettingUtils.getOptionalString(options, "areaType", null);
                 if (areaTypeStr != null)
@@ -104,11 +111,7 @@ namespace TPRandomizer.Hints.HintCreator
         )
         {
             HashSet<AreaId> baseAreaIds = GetBaseAreaIds(genData, hintSettings);
-            List<PotentialIcArea> potentialIcAreas = GetPotentialIcAreas(
-                genData,
-                hintSettings,
-                baseAreaIds
-            );
+            List<PotentialIcArea> potentialIcAreas = GetPotentialIcAreas(genData, baseAreaIds);
 
             if (potentialIcAreas.Count < 1)
                 return null;
@@ -230,7 +233,6 @@ namespace TPRandomizer.Hints.HintCreator
 
         private List<PotentialIcArea> GetPotentialIcAreas(
             HintGenData genData,
-            HintSettings hintSettings,
             HashSet<AreaId> baseAreaIds
         )
         {
@@ -246,34 +248,34 @@ namespace TPRandomizer.Hints.HintCreator
                         continue;
                 }
 
-                PotentialIcArea pia = tryGenPia(genData, hintSettings, areaId);
+                PotentialIcArea pia = tryGenPia(genData, areaId);
                 if (pia != null)
                     ret.Add(pia);
             }
             return ret;
         }
 
-        private PotentialIcArea tryGenPia(
-            HintGenData genData,
-            HintSettings hintSettings,
-            AreaId areaId
-        )
+        private PotentialIcArea tryGenPia(HintGenData genData, AreaId areaId)
         {
             HashSet<string> checkNames = recursiveGetAreaAndDepsChecks(genData, areaId);
 
             AreaCheckInfo areaCheckInfo = genData.GetAreaCheckInfoThrows(areaId);
             HashSet<string> ownAreaCheckNames = areaCheckInfo.fullCheckNames;
 
-            bool indicatesImportant =
+            // Can indicate numImportantChecks when we successfully did the conditionallyRequired
+            // calculations and either the hintCreator is set up to want to hint the numImportant or
+            // the player asked to upgrade hints in their sSettings.
+            bool shouldIndicateImportant =
                 genData.didCondReqCalc
                 && (
-                    hintSettings.calculateImportance
-                    || genData.sSettings.hintImportance != SSettings.Enums.HintImportance.Default
+                    indicateImportant
+                    || genData.sSettings.hintImportance
+                        == SSettings.Enums.HintImportance.Upgrade_Hints
                 );
 
             int numUnknownChecks = 0;
             int numUnknownAllowBarrenChecks = 0;
-            PotentialIcArea pia = new(areaId, indicatesImportant);
+            PotentialIcArea pia = new(areaId, shouldIndicateImportant);
 
             foreach (string checkName in checkNames)
             {
@@ -294,7 +296,7 @@ namespace TPRandomizer.Hints.HintCreator
 
                 if (genData.majorItems.Contains(contents))
                 {
-                    if (indicatesImportant)
+                    if (shouldIndicateImportant)
                     {
                         DetailedCheckStatus status = genData.CalcDetailedCheckStatus(checkName);
                         if (status != DetailedCheckStatus.NotRequired)
