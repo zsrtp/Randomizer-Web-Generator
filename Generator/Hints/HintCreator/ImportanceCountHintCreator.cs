@@ -104,7 +104,11 @@ namespace TPRandomizer.Hints.HintCreator
         )
         {
             HashSet<AreaId> baseAreaIds = GetBaseAreaIds(genData, hintSettings);
-            List<PotentialIcArea> potentialIcAreas = GetPotentialIcAreas(genData, baseAreaIds);
+            List<PotentialIcArea> potentialIcAreas = GetPotentialIcAreas(
+                genData,
+                hintSettings,
+                baseAreaIds
+            );
 
             if (potentialIcAreas.Count < 1)
                 return null;
@@ -226,6 +230,7 @@ namespace TPRandomizer.Hints.HintCreator
 
         private List<PotentialIcArea> GetPotentialIcAreas(
             HintGenData genData,
+            HintSettings hintSettings,
             HashSet<AreaId> baseAreaIds
         )
         {
@@ -241,23 +246,34 @@ namespace TPRandomizer.Hints.HintCreator
                         continue;
                 }
 
-                PotentialIcArea pia = tryGenPia(genData, areaId);
+                PotentialIcArea pia = tryGenPia(genData, hintSettings, areaId);
                 if (pia != null)
                     ret.Add(pia);
             }
             return ret;
         }
 
-        private PotentialIcArea tryGenPia(HintGenData genData, AreaId areaId)
+        private PotentialIcArea tryGenPia(
+            HintGenData genData,
+            HintSettings hintSettings,
+            AreaId areaId
+        )
         {
             HashSet<string> checkNames = recursiveGetAreaAndDepsChecks(genData, areaId);
 
             AreaCheckInfo areaCheckInfo = genData.GetAreaCheckInfoThrows(areaId);
             HashSet<string> ownAreaCheckNames = areaCheckInfo.fullCheckNames;
 
+            bool indicatesImportant =
+                genData.didCondReqCalc
+                && (
+                    hintSettings.calculateImportance
+                    || genData.sSettings.hintImportance != SSettings.Enums.HintImportance.Default
+                );
+
             int numUnknownChecks = 0;
             int numUnknownAllowBarrenChecks = 0;
-            PotentialIcArea pia = new(areaId, genData.didCondReqCalc);
+            PotentialIcArea pia = new(areaId, indicatesImportant);
 
             foreach (string checkName in checkNames)
             {
@@ -278,7 +294,7 @@ namespace TPRandomizer.Hints.HintCreator
 
                 if (genData.majorItems.Contains(contents))
                 {
-                    if (genData.didCondReqCalc)
+                    if (indicatesImportant)
                     {
                         DetailedCheckStatus status = genData.CalcDetailedCheckStatus(checkName);
                         if (status != DetailedCheckStatus.NotRequired)

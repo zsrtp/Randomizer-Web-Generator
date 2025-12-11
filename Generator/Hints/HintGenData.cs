@@ -123,7 +123,10 @@ namespace TPRandomizer.Hints
             {
                 // Calculate conditionallyRequired checks. This depends on knowing the "logical
                 // items" and "allowBarrenChecks", so has to wait until here.
-                if (hintSettings.barren.blockerType == Barren.BlockerType.Important)
+                if (
+                    hintSettings.calculateImportance
+                    || sSettings.hintImportance != HintImportance.Default
+                )
                 {
                     HintCondReqCalc condReqCalc = new(this);
                     condReqChecks = condReqCalc.run(itemToInflexibleCount);
@@ -149,7 +152,7 @@ namespace TPRandomizer.Hints
                     Item contents = HintUtils.getCheckContents(checkName);
 
                     if (
-                        hintSettings.barren.blockerType == Barren.BlockerType.NonJunk
+                        sSettings.onlyJunkAllowsBarren
                         && !HintConstants.junkItems.Contains(contents)
                     )
                     {
@@ -249,48 +252,6 @@ namespace TPRandomizer.Hints
                             }
                         }
                     }
-                }
-            }
-
-            if (sSettings.logicRules != LogicRules.No_Logic)
-            {
-                if (hintSettings.barren.blockerType == Barren.BlockerType.Important)
-                {
-                    Dictionary<string, Item> importantChecks = new();
-                    Dictionary<string, Item> majorItemChecks = new();
-                    Dictionary<string, Item> noneOfAboveChecks = new();
-
-                    // TODO: test code here. See if can calculate useful count for a basic S1 seed (for lake hylia).
-                    // HashSet<string> lhChecks = AreaId.Zone(Zone.Lake_Hylia).ResolveToChecks();
-                    HashSet<string> lhChecks = AreaId
-                        .Zone(Zone.Gerudo_Desert)
-                        .ResolveToChecks(this);
-                    foreach (string lhCheckName in lhChecks)
-                    {
-                        bool added = false;
-                        Item contents = HintUtils.getCheckContents(lhCheckName);
-                        if (!unreachableChecks.Contains(lhCheckName))
-                        {
-                            if (majorItems.Contains(contents))
-                            {
-                                added = true;
-                                majorItemChecks[lhCheckName] = contents;
-                                if (
-                                    requiredChecks.Contains(lhCheckName)
-                                    || condReqChecks.Contains(lhCheckName)
-                                )
-                                {
-                                    importantChecks[lhCheckName] = contents;
-                                }
-                            }
-                        }
-                        if (!added)
-                        {
-                            noneOfAboveChecks[lhCheckName] = contents;
-                        }
-                    }
-
-                    int i = 0;
                 }
             }
         }
@@ -1404,7 +1365,8 @@ namespace TPRandomizer.Hints
             AreaCheckInfo sprInfo = areaToCheckInfo[AreaId.Zone(Zone.Snowpeak_Ruins)];
             sprInfo.dependentCheckNames.UnionWith(CheckFunctions.postBlizettaChecks);
 
-            if (sSettings.iliaQuest != IliaQuest.Vanilla)
+            // PostArmogohma checks are only post-ToT when IliaQuest is vanilla.
+            if (sSettings.iliaQuest == IliaQuest.Vanilla)
             {
                 AreaCheckInfo totInfo = areaToCheckInfo[AreaId.Zone(Zone.Temple_of_Time)];
                 totInfo.dependentCheckNames.UnionWith(CheckFunctions.postArmogohmaChecks);
@@ -1752,7 +1714,6 @@ namespace TPRandomizer.Hints
             if (unreachableChecks.Contains(checkName))
                 return DetailedCheckStatus.NotRequired;
 
-            // allowBarren applies even for BlockerType.NonJunk
             if (allowBarrenChecks.Contains(checkName))
                 return DetailedCheckStatus.NotRequired;
 
@@ -1804,7 +1765,7 @@ namespace TPRandomizer.Hints
 
             Item contents = HintUtils.getCheckContents(checkName);
 
-            if (hintSettings.barren.blockerType == Barren.BlockerType.NonJunk)
+            if (sSettings.onlyJunkAllowsBarren)
             {
                 // Anything that could be considered as progress toward 100%-ing a seed is
                 // considered as good in this case (including wooden shield, etc.).
@@ -1828,13 +1789,13 @@ namespace TPRandomizer.Hints
             if (unreachableChecks.Contains(checkName))
                 return false;
 
-            // allowBarren applies even for BlockerType.NonJunk
+            // allowBarren applies even for `onlyJunkAllowsBarren`
             if (allowBarrenChecks.Contains(checkName))
                 return false;
 
             Item contents = HintUtils.getCheckContents(checkName);
 
-            if (hintSettings.barren.blockerType == Barren.BlockerType.NonJunk)
+            if (sSettings.onlyJunkAllowsBarren)
             {
                 // Anything that could be considered as progress toward 100%-ing a seed is
                 // considered as good in this case (including wooden shield, etc.). Otherwise it
@@ -2203,20 +2164,6 @@ namespace TPRandomizer.Hints
                     throw new Exception($"Failed to reesolve property of '{varDef}'.");
             }
         }
-    }
-
-    public class BarrenHelper
-    {
-        // Results of calculating info about the zones / dependent checks:
-
-        // (This would be done recursively, though the recursion can break out early once we know
-        // the thing we are checking is blocked from being hinted barren period).
-
-        // - How many checks are there that the player does not already know are barren for the area
-        //   or checkList? (this cannot be cached since it depends on how much new info the hint
-        //   would give us).
-
-        // - Cached result: is the zone blocked from being hinted barren period.
     }
 
     public class AreaCheckInfo

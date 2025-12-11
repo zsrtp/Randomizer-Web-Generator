@@ -1,13 +1,12 @@
 {
   // Season 1 distribution
   "starting": {
-    "spot": "midna",
+    "spot": "ordon_sign",
     "excludeFromGroups": true
   },
   "agitha": true,
   "jovani": {
-    // "minFoundSoulsForHint": 10
-    "minFoundSoulsForHint": 0
+    "minFoundSoulsForHint": 10
   },
   "caveOfOrdeals": true,
   "dungeons": {
@@ -15,20 +14,18 @@
   },
   "beyondPointZones": ["alias:all"],
   "barren": {
-    "monopolizeSpots": true,
-    "ownZoneShowsAsJunkHint": true,
-    "blockerType": "important"
+    "ownZoneBehavior": "monopolize",
+    "ownZoneShowsAsJunkHint": true
   },
   "always": {
-    "monopolizeSpots": false,
-    "idealNumSpots": 12,
+    "monopolizeSpots": true,
+    "idealNumSpots": 5,
     "copies": 2,
-    "groupId": "overworld2nd"
+    "groupId": "overworld"
   },
   //
   "addChecks": {
-    "Lake Hylia Shell Blade Grotto Chest": ["always"],
-    "Skybook From Impaz": ["always"]
+    "Lake Hylia Shell Blade Grotto Chest": ["always"]
   },
   "removeChecks": {
     "Herding Goats Reward": ["sometimes"],
@@ -41,33 +38,13 @@
   },
   //
   "groups": {
-    "overworld": [
-      "alias:overworldZones",
-      "-hiddenvillage",
-      "-snowpeakmountain"
-    ],
-    "overworld2nd": [
-      "alias:overworldZones",
-      "-hiddenvillage",
-      "-snowpeakmountain",
-      "-ordon"
-    ],
+    "overworld": ["alias:overworldZones"],
     "requiredDungeons": ["alias:requiredDungeons"]
   },
   // Special hints generated right after Always hints are generated. These are
   // created even if the dungeon is hinted barren or the check is already hinted
   // barren by a BeyondThisPoint hint.
   "specialHintDefs": [
-    {
-      "spot": "ordon_sign",
-      "hintDef": {
-        "hintType": "location",
-        "options": {
-          "canHintHintedBarrenChecks": true,
-          "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
-        }
-      }
-    },
     {
       "spot": "forest_temple_sign",
       "hintDef": {
@@ -120,16 +97,6 @@
       }
     },
     {
-      "spot": "temple_of_time_beyond_point_sign",
-      "hintDef": {
-        "hintType": "location",
-        "options": {
-          "canHintHintedBarrenChecks": true,
-          "validChecks": ["Temple of Time Lobby Lantern Chest"]
-        }
-      }
-    },
-    {
       "spot": "hyrule_castle_sign",
       "hintDef": {
         "hintType": "item",
@@ -148,108 +115,30 @@
         "hintDef": [
           {
             "maxPicks": 3,
+            "starting": 1,
+            "copies": 3,
             "hintDef": [
               {
-                "starting": 1,
-                "hintDef": [
-                  {
-                    "hintType": "barren",
-                    "saveToVar": "barrenHints",
-                    "options": {
-                      "validAreas": ["Ordon", "Kakariko Village", "Castle Town"]
-                    }
-                  }
-                ]
+                "hintType": "barren",
+                "iterations": 1,
+                "options": {
+                  "validAreas": [
+                    "Forest Temple",
+                    "Goron Mines",
+                    "Lakebed Temple",
+                    "Arbiter's Grounds",
+                    "Snowpeak Ruins",
+                    "Temple of Time",
+                    "City in the Sky",
+                    "Palace of Twilight"
+                  ]
+                }
               },
               {
-                "starting": 3,
-                "hintDef": [
-                  // {
-                  //   "hintType": "barren",
-                  //   "iterations": 2,
-                  //   "options": {
-                  //     "validAreas": [
-                  //       "Ordon",
-                  //       "Sacred Grove",
-                  //       "Faron Field",
-                  //       "Faron Woods",
-                  //       "Kakariko Village",
-                  //       "Kakariko Graveyard",
-                  //       "Eldin Field",
-                  //       "Castle Town",
-                  //       "Lake Hylia",
-                  //       "Zora's Domain",
-                  //       "Upper Zora's River",
-                  //       "Gerudo Desert",
-                  //       "category.Northern_Desert",
-                  //       "category.Southern_Desert",
-                  //       "Bulblin Camp"
-                  //     ]
-                  //   }
-                  // },
-                  {
-                    "hintType": "barren",
-                    "saveToVar": "barrenHints",
-                    "iterations": 3,
-                    "options": {
-                      "validAreas": [
-                        "alias:overworldZones",
-                        "category.Northern_Desert",
-                        "category.Southern_Desert"
-                      ]
-                    }
-                  }
-                ]
+                "hintType": "barren",
+                "iterations": 3
               }
             ]
-          },
-          {
-            "hintType": "barren",
-            "saveToVar": "barrenHints",
-            "starting": 1,
-            "options": {
-              "validAreas": [
-                "Forest Temple",
-                "Goron Mines",
-                "Lakebed Temple",
-                "Arbiter's Grounds",
-                "Snowpeak Ruins",
-                "Temple of Time",
-                "City in the Sky",
-                "Palace of Twilight"
-              ]
-            }
-          },
-          {
-            "hintType": "item",
-            "options": {
-              "validItems": ["Boomerang"],
-              "areaType": "zone",
-              // Allowing bad in general and not just in hinted-barren zone as
-              // seen belo since that never lined up even after a large number
-              // of seed attempts by testing with breakpoints. This hint can
-              // help with rang in an IC-hinted dungeon as well which I did see
-              // in a breakpoint.
-              // "validChecks": ["var:barrenHints.areaIds"],
-              "validStatuses": ["bad"],
-              "allowKnownBarren": true
-            }
-          },
-          {
-            "hintType": "importanceCount",
-            "copies": 3,
-            "options": {
-              "validAreas": [
-                "Forest Temple",
-                "Goron Mines",
-                "Lakebed Temple",
-                "Arbiter's Grounds",
-                "Snowpeak Ruins",
-                "Temple of Time",
-                "City in the Sky",
-                "Palace of Twilight"
-              ]
-            }
           },
           {
             "hintType": "itemToItemPath",
@@ -260,75 +149,59 @@
             "saveToVar": "pathHints",
             "iterations": 2
           },
-          // {
-          //   "starting": 1,
-          //   "maxPicks": 1,
-          //   "selectionType": "randomOrder",
-          //   "hintDef": [
-          //     {
-          //       // Ex: male bugs lead to nothing
-          //       "hintType": "tradeGroup",
-          //       "options": {
-          //         "validGroups": ["male_bugs", "female_bugs"],
-          //         "validStatuses": ["bad"],
-          //         "smartHinting": false
-          //       }
-          //     },
-          //     // {
-          //     //   "hintType": "barren",
-          //     //   "options": {
-          //     //     "areaType": "category",
-          //     //     "validAreas": ["Mist", "Northern_Desert", "Southern_Desert"]
-          //     //   }
-          //     // },
-          //     {
-          //       "selectionType": "randomOrder",
-          //       "hintDef": [
-          //         {
-          //           "hintType": "numItemInArea",
-          //           "weight": 0.55,
-          //           "options": {
-          //             "item": "Boomerang",
-          //             "areaType": "province",
-          //             "validAreas": ["Dungeon"]
-          //           }
-          //         },
-          //         {
-          //           "hintType": "numItemInArea",
-          //           "weight": 0.45,
-          //           "options": {
-          //             "item": "Progressive_Clawshot",
-          //             "areaType": "province",
-          //             "validAreas": ["Dungeon"]
-          //           }
-          //         }
-          //       ]
-          //     }
-          //   ]
-          // },
-          // Fill in layer with extra copies of path hints.
-          // {
-          //   "hintType": "var",
-          //   "copies": 1,
-          //   "iterations": 99,
-          //   "options": {
-          //     "varName": "pathHints",
-          //     "randomOrder": true
-          //   }
-          // }
           {
-            "hintType": "sometimes",
-            "saveToVar": "1stLayerSometimes",
-            "maxPicks": 5,
-            "iterations": 99
+            "starting": 1,
+            "maxPicks": 1,
+            "selectionType": "randomOrder",
+            "hintDef": [
+              {
+                // Ex: male bugs lead to nothing
+                "hintType": "tradeGroup",
+                "options": {
+                  "validGroups": ["male_bugs", "female_bugs"],
+                  "validStatuses": ["bad"],
+                  "smartHinting": false
+                }
+              },
+              {
+                "hintType": "barren",
+                "options": {
+                  "areaType": "category",
+                  "validAreas": ["Mist", "Northern_Desert", "Southern_Desert"]
+                }
+              },
+              {
+                "selectionType": "randomOrder",
+                "hintDef": [
+                  {
+                    "hintType": "numItemInArea",
+                    "weight": 0.55,
+                    "options": {
+                      "item": "Boomerang",
+                      "areaType": "province",
+                      "validAreas": ["Dungeon"]
+                    }
+                  },
+                  {
+                    "hintType": "numItemInArea",
+                    "weight": 0.45,
+                    "options": {
+                      "item": "Progressive_Clawshot",
+                      "areaType": "province",
+                      "validAreas": ["Dungeon"]
+                    }
+                  }
+                ]
+              }
+            ]
           },
-          // Fill in layer with extra copies of the sometimes hints.
+          // Fill in layer with extra copies of path hints.
           {
             "hintType": "var",
             "copies": 1,
             "iterations": 99,
             "options": {
-              "varName": "1stLayerSometimes",
+              "varName": "pathHints",
               "randomOrder": true
             }
           }
@@ -344,21 +217,20 @@
           // Num swords in province with most swords (or tied for most).
           "hintType": "numItemInArea",
           "saveToVar": "mostSwordsProvince",
-          "iterations": 3,
           "options": {
             "item": "Progressive_Sword",
             "areaType": "province",
             "order": "desc"
           }
         },
-        // {
-        //   // Aux sword hint
-        //   "hintType": "item",
-        //   "options": {
-        //     "validItems": ["Progressive_Sword"],
-        //     "invalidChecks": ["var:mostSwordsProvince.areaId"]
-        //   }
-        // },
+        {
+          // Aux sword hint
+          "hintType": "item",
+          "options": {
+            "validItems": ["Progressive_Sword"],
+            "invalidChecks": ["var:mostSwordsProvince.areaId"]
+          }
+        },
         // Fill the rest in with more copies of the MostSwordsProvince hint
         {
           "hintType": "var",
@@ -372,7 +244,7 @@
     },
     {
       // 2nd layer is "sometimes" hints
-      "groupId": "overworld2nd",
+      "groupId": "overworld",
       "hintDef": {
         "copies": 2,
         "hintDef": [
@@ -380,13 +252,13 @@
             "maxPicks": 5,
             "saveToVar": "2ndLayerSometimes",
             "hintDef": [
-              // {
-              //   "hintType": "location",
-              //   "options": {
-              //     "markAsSometimes": true,
-              //     "validChecks": ["Wrestling With Bo", "Herding Goats Reward"]
-              //   }
-              // },
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "validChecks": ["Wrestling With Bo", "Herding Goats Reward"]
+                }
+              },
               {
                 "hintType": "location",
                 "options": {
