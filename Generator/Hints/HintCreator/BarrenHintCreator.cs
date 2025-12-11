@@ -404,22 +404,23 @@ namespace TPRandomizer.Hints.HintCreator
 
             foreach (string checkName in checkNames)
             {
-                // Skip over Vanilla, Excluded, and Excluded-Unrequired. Unreachable and hidden are
-                // already skipped over by the AreaCheckInfos at a high level.
-                if (HintUtils.checkIsPlayerKnownStatus(checkName))
+                if (HintUtils.checkIsExcluded(checkName))
                     continue;
 
-                // TODO: go ahead and add "plando checks known to player" setting.
+                // Note: we intentionally do not skip over Vanilla checks since it led to confusion,
+                // especially for the Ilia memory quest. Since Ilia's Charm is perfectly a tradeItem
+                // (purely a proxy like Ashei's sketch / golden bugs), then it would not prevent
+                // barren when the "Ilia Memory Reward" is not major which is a nice bonus (even
+                // without importance calcs since tradeItems which end in nothing are marked
+                // notRequired). Even if it always prevented HV from being hinted barren (without
+                // importance calcs), we would still want to do this to avoid "lying" to the player.
 
-                // cont: a known plando check should not count toward meaning a barren hint for a
-                // zone is useful. If the player were to have a zone which is entirely excluded,
-                // vanilla, and knownPlando, then saying it is barren (even if theoretically
-                // possible to hint), would not be useful, and so we should not generate it. If the
-                // non-excluded/Vanilla checks were not knownPlandoed though, then it could be
-                // useful to hint.
-
-                // cont: for things like Location hints or Item hints, it would also not be useful
-                // to hint knownPlandoed checks. May need to move "playerKnownStatus" fn to genData?
+                // Note: Unreachable and hidden are already skipped over by the AreaCheckInfos at a
+                // high level, but we are no longer skipping over Vanilla checks for the reasons
+                // above. Since these checks are considered "checkIsPlayerKnownStatus" though, they
+                // do not count toward the barren weighting of an area, and if the entire area was
+                // only vanilla/excluded/knownPlando, it would not be a candidate for a barren hint
+                // since the numUnknownChecks would be 0.
 
                 Item contents = HintUtils.getCheckContents(checkName);
                 bool itemAllowsBarrenForArea = genData.ItemAllowsBarrenForArea(contents, areaId);
@@ -609,7 +610,7 @@ namespace TPRandomizer.Hints.HintCreator
         private static bool CheckIsUnknownStatus(HintGenData genData, string checkName)
         {
             return (
-                !HintUtils.checkIsPlayerKnownStatus(checkName)
+                !genData.checkIsPlayerKnownStatus(checkName)
                 && !genData.hinted.alwaysHintedChecks.Contains(checkName)
                 && !genData.hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                 && !genData.hinted.alreadyCheckKnownBarren.Contains(checkName)

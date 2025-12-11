@@ -845,10 +845,10 @@ namespace TPRandomizer.Hints
                 }
                 if (!HintUtils.DungeonIsRequired("Snowpeak Ruins"))
                 {
-                    logicalItems.Add(Item.Snowpeak_Ruins_Small_Key);
-                    logicalItems.Add(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
-                    logicalItems.Add(Item.Snowpeak_Ruins_Ordon_Pumpkin);
-                    logicalItems.Add(Item.Snowpeak_Ruins_Bedroom_Key);
+                    logicalItems.Remove(Item.Snowpeak_Ruins_Small_Key);
+                    logicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
+                    logicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Pumpkin);
+                    logicalItems.Remove(Item.Snowpeak_Ruins_Bedroom_Key);
                 }
                 if (!HintUtils.DungeonIsRequired("Temple of Time"))
                 {
@@ -1822,6 +1822,13 @@ namespace TPRandomizer.Hints
         public bool CheckIsRequired(string checkName)
         {
             return requiredChecks.Contains(checkName);
+        }
+
+        public bool checkIsPlayerKnownStatus(string checkName)
+        {
+            string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;
+            return HintConstants.preventBarrenHintIfAllCheckStatusesAre.Contains(checkStatus)
+                || (sSettings.noPlandoHints && checkStatus == "Plando");
         }
 
         public bool ItemUsesDefArticle(Item item)
