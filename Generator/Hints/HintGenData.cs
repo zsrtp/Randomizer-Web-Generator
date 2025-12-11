@@ -152,7 +152,7 @@ namespace TPRandomizer.Hints
                     Item contents = HintUtils.getCheckContents(checkName);
 
                     if (
-                        sSettings.onlyJunkAllowsBarren
+                        sSettings.adjustHintsForCompletionists
                         && !HintConstants.junkItems.Contains(contents)
                     )
                     {
@@ -181,7 +181,6 @@ namespace TPRandomizer.Hints
                         if (
                             CheckIsGoodOrSkippable(
                                 chainEndCheckName,
-                                allowVanillaChecks: true,
                                 ignoreItemForSkippable: Item.Poe_Soul
                             )
                         )
@@ -192,11 +191,7 @@ namespace TPRandomizer.Hints
                     }
                     else if (
                         // Basic handling for non-tradeItems.
-                        CheckIsGoodOrSkippable(
-                            checkName,
-                            allowVanillaChecks: true,
-                            ignoreItemForSkippable: Item.Poe_Soul
-                        )
+                        CheckIsGoodOrSkippable(checkName, ignoreItemForSkippable: Item.Poe_Soul)
                     )
                     {
                         hasGoodJovaniReward = true;
@@ -233,7 +228,7 @@ namespace TPRandomizer.Hints
                 Item tradeItem = pair.Key;
                 if (tradeItemToChainEndCheck.TryGetValue(tradeItem, out string chainEndCheckName))
                 {
-                    if (!CheckIsGoodOrSkippable(chainEndCheckName, allowVanillaChecks: true))
+                    if (!CheckIsGoodOrSkippable(chainEndCheckName))
                     {
                         // Mark all checks rewarding the tradeItem as "not required" if not already
                         // marked as "required", "sometimesRequired", or "allowBarren" (not expected
@@ -1743,29 +1738,24 @@ namespace TPRandomizer.Hints
                 || status == DetailedCheckStatus.Skippable;
         }
 
-        private bool CheckIsGoodOrSkippable(
-            string checkName,
-            bool allowVanillaChecks = false,
-            Item? ignoreItemForSkippable = null
-        )
+        private bool CheckIsGoodOrSkippable(string checkName, Item? ignoreItemForSkippable = null)
         {
             if (unreachableChecks.Contains(checkName))
-                return false;
-            if (!allowVanillaChecks && HintUtils.checkIsVanilla(checkName))
                 return false;
 
             // Ignoring "isPlayerKnownStatus", returns true if the check would either be considered
             // a barren-blocker or "skippable" (logical + not "required"/"sometimesRequired"/"not
             // required").
 
-            if (requiredChecks.Contains(checkName) || condReqChecks.Contains(checkName))
-                return true;
             if (allowBarrenChecks.Contains(checkName))
                 return false;
 
+            if (requiredChecks.Contains(checkName) || condReqChecks.Contains(checkName))
+                return true;
+
             Item contents = HintUtils.getCheckContents(checkName);
 
-            if (sSettings.onlyJunkAllowsBarren)
+            if (sSettings.adjustHintsForCompletionists)
             {
                 // Anything that could be considered as progress toward 100%-ing a seed is
                 // considered as good in this case (including wooden shield, etc.).
@@ -1784,22 +1774,48 @@ namespace TPRandomizer.Hints
 
         public bool CheckWouldPreventBarren(string checkName)
         {
-            // Not expected for things to check against unreachable checks normally, but just in
-            // case these should not be considered to logically have value.
             if (unreachableChecks.Contains(checkName))
                 return false;
 
-            // allowBarren applies even for `onlyJunkAllowsBarren`
+            // allowBarren applies even for `adjustHintsForCompletionists`
             if (allowBarrenChecks.Contains(checkName))
                 return false;
 
+            // For notRequired, do additional checks:
+
+            // Even if the status is good, if the item is not considered major then it should not
+            // prevent barren.
+
+            // Non-major items (such as PoH and poe souls) can still allow barren under
+            // adjustHintsForCompletionists as long as they are unshuffled.
+
             Item contents = HintUtils.getCheckContents(checkName);
 
-            if (sSettings.onlyJunkAllowsBarren)
+            // TODO: this thing below here seems okay? Need to rename and investigate the
+            // GoodOrSkippable function used here. Is it correct to ever mark anything as "notReq"
+            // under `adjustHintsForCompletionists`?
+
+            // cont: yes it is correct to mark things notReq, because status has a specific meaning,
+            // so we should be consistent about that. If anything, adjustHintsForCompletionists should not
+            // be impacting status. It should only impact our ability to create barren hints. We
+            // should manually update Agitha to list everything which is not junk.
+
+            // cont: what we have immediately below this where we say "any shuffled non-junk items
+            // prevent barren regardless of their detailedStatus" is already good I think. Do need
+            // to rename the property to something like "completionistBarrenHints" or something.
+
+            // cont: and the great news is that we can get rid of the weird checks in
+            // GoodOrSkippable as it relates to notReq calculations for nonJunk stuff. That code is
+            // confusing. Remember we still need to update Agitha hints to list absolutely
+            // everything regardless of state.
+
+            // TODO: ^ above Agitha change.
+
+            if (sSettings.adjustHintsForCompletionists)
             {
-                // Anything that could be considered as progress toward 100%-ing a seed is
-                // considered as good in this case (including wooden shield, etc.). Otherwise it
-                return !HintConstants.junkItems.Contains(contents);
+                // Shuffled non-junk items prevent barren.
+                if (!HintConstants.junkItems.Contains(contents) && !CheckIsVanilla(checkName))
+                    return true;
             }
 
             // Otherwise at a minimum, a check's contents must be a majorItem to block barren.
@@ -1822,6 +1838,12 @@ namespace TPRandomizer.Hints
         public bool CheckIsRequired(string checkName)
         {
             return requiredChecks.Contains(checkName);
+        }
+
+        public bool CheckIsVanilla(string checkName)
+        {
+            string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;
+            return checkStatus == "Vanilla";
         }
 
         public bool checkIsPlayerKnownStatus(string checkName)

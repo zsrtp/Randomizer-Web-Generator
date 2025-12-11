@@ -476,15 +476,25 @@ namespace TPRandomizer.Hints
                 numBugsInPool += 1;
 
                 Item contents = HintUtils.getCheckContents(agithaRewardCheckName);
-                if (
-                    !HintConstants.bugsToRewardChecksMap.ContainsKey(contents)
-                    && genData.CheckIsGood(agithaRewardCheckName)
-                )
+
+                bool shouldHint;
+                if (genData.sSettings.adjustHintsForCompletionists)
                 {
-                    // Interesting contents which are not a bug. Note that we include purely based
-                    // on status, so we list poeSouls even if they are not majorItems for example.
-                    interestingAgithaChecks.Add(agithaRewardCheckName);
+                    // Note that the sign will indicate golden bugs on Agitha as well since they are
+                    // needed for completion.
+                    shouldHint = !HintConstants.junkItems.Contains(contents);
                 }
+                else
+                {
+                    // Normally we hint non-bugs which are Good. Note that we include purely based
+                    // on status, so we list poeSouls even if they are not majorItems for example.
+                    shouldHint =
+                        !HintConstants.bugsToRewardChecksMap.ContainsKey(contents)
+                        && genData.CheckIsGood(agithaRewardCheckName);
+                }
+
+                if (shouldHint)
+                    interestingAgithaChecks.Add(agithaRewardCheckName);
             }
 
             if (numBugsInPool < 1)

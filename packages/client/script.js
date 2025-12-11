@@ -736,7 +736,7 @@ document
   .getElementById('noPlandoHintsCheckbox')
   .addEventListener('click', setSettingsString);
 document
-  .getElementById('onlyJunkAllowsBarrenCheckbox')
+  .getElementById('adjustHintsForCompletionistsCheckbox')
   .addEventListener('click', setSettingsString);
 
 function importSettingsString() {
@@ -2370,7 +2370,10 @@ function populateSSettings(s) {
   $('#maloShopDonationSlider').val(s.maloShopDonation);
   $('#hintImportanceFieldset').val(s.hintImportance);
   $('#noPlandoHintsCheckbox').prop('checked', s.noPlandoHints);
-  $('#onlyJunkAllowsBarrenCheckbox').prop('checked', s.onlyJunkAllowsBarren);
+  $('#adjustHintsForCompletionistsCheckbox').prop(
+    'checked',
+    s.adjustHintsForCompletionists
+  );
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {

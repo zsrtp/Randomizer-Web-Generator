@@ -2047,6 +2047,13 @@ namespace TPRandomizer
                 checkStatusDisplay = CheckStatusDisplay.Automatic;
             }
 
+            // If adjustHintsForCompletionists is enabled, then do not indicate status. This is to avoid
+            // situations where we say "Dominion Rod (not required)", but really the domRod was
+            // needed to access an emptyBottle needed to 100% the seed. Statuses are still defined
+            // in relation to beating the game.
+            if (sSettings.adjustHintsForCompletionists)
+                checkStatusDisplay = CheckStatusDisplay.None;
+
             Dictionary<string, string> optionalContextMetaA;
             if (!ListUtils.isEmpty(optionalContextMetaIn))
                 optionalContextMetaA = new(optionalContextMetaIn);

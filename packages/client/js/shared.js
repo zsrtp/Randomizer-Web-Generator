@@ -459,7 +459,7 @@
       { id: 'maloShopDonationSlider', bitLength: 11 },
       { id: 'hintImportanceFieldset', bitLength: 2 },
       { id: 'noPlandoHintsCheckbox' },
-      { id: 'onlyJunkAllowsBarrenCheckbox' },
+      { id: 'adjustHintsForCompletionistsCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -971,7 +971,7 @@
       processBasic({ id: 'maloShopDonation', bitLength: 11 });
       processBasic({ id: 'hintImportance', bitLength: 2 });
       processBasic({ id: 'noPlandoHints' });
-      processBasic({ id: 'onlyJunkAllowsBarren' });
+      processBasic({ id: 'adjustHintsForCompletionists' });
     } else {
       res.randomizeStartingPoint = false; // Vanilla
       res.hiddenRupees = false; // Vanilla
@@ -1008,7 +1008,7 @@
       res.maloShopDonation = 2000;
       res.hintImportance = 0;
       res.noPlandoHints = false;
-      res.onlyJunkAllowsBarren = false;
+      res.adjustHintsForCompletionists = false;
     }
 
     res.startingItems = processor.nextEolList(9);
