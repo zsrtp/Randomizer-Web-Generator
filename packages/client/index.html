@@ -887,6 +887,44 @@
                   <option value="2">Weak</option>
                 </select>
               </div>
+              <div class="selectGroup" style="margin-top: 8px">
+                <label for="hintDistributionFieldset">Hint Importance</label
+                ><br />
+                <select
+                  name="Hint Importance"
+                  id="hintImportanceFieldset"
+                  data-tooltip-text='WARNING: calculating hint importance can cause seed generation to take meaningfully longer.&#0010;&#0010;&apos;Default&apos;: Leaves things up to the hint distribution.&#0010;&#0010;&apos;Calculate&apos;: Does more calculations to know when major items are not useful. Most "skippable" checks will become either "sometimes required" (useful) or "not required" (not useful). More areas can be hinted barren since a check which is known to be "not required" would not block barren (Ex: a useless Dominion Rod).&#0010;&#0010;&apos;Upgrade Hints&apos;: Includes the changes from "Calculate". Addtionally, most hints will be upgraded to indicate importance. For example, Always hints indicate importance by default, but this setting would make Sometimes hints indicate importance as well.&#0010;'
+                >
+                  <option value="0" selected="selected">Default</option>
+                  <option value="1">Calculate</option>
+                  <option value="2">Upgrade Hints</option>
+                </select>
+              </div>
+              <div
+                data-tooltip-text="Plandoed checks will not be randomly selected for a hint. These checks are considered to already be known by the player.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="noPlandoHintsCheckbox"
+                  name="No Plando Hints Checkbox"
+                  value=""
+                  checked
+                />
+                <label for="noPlandoHintsCheckbox">No Plando Hints</label>
+              </div>
+              <div
+                data-tooltip-text='For players who wish to "100%" a seed. Non-junk items which might not normally be considered barren blockers will now prevent an area from being hinted barren (Ex: pieces of heart, poe souls, magic armor, etc.).&#0010;'
+              >
+                <input
+                  type="checkbox"
+                  id="onlyJunkAllowsBarrenCheckbox"
+                  name="Only Junk Allows Barren Checkbox"
+                  value=""
+                />
+                <label for="onlyJunkAllowsBarrenCheckbox"
+                  >Only Junk Allows Barren</label
+                >
+              </div>
             </fieldset>
           </div>
           <div class="tabColumn">

@@ -390,6 +390,12 @@ namespace TPRandomizer.Hints.HintCreator
 
             // - also we want to know the majorItems and importantItems (if possible) counts.
 
+            // TODO: since we want Vanilla checks to preventBarren now, we should include "itself"
+            // if there are Vanilla checks in dependent areas as well (however, we can ignore ones
+            // which are vanilla and not Major such as post-GM Poes). But if post-ToT ones are all
+            // excluded or Vanilla, we still need to say "itself" if the vanilla ones include major
+            // items such as Ilia quest items in HV. This "itself" stuff is for the IC hint.
+
             List<string> barrenableChecks = new();
             bool areaCanBeHintedBarren = true;
             int numUnknownChecks = 0;
@@ -402,6 +408,18 @@ namespace TPRandomizer.Hints.HintCreator
                 // already skipped over by the AreaCheckInfos at a high level.
                 if (HintUtils.checkIsPlayerKnownStatus(checkName))
                     continue;
+
+                // TODO: go ahead and add "plando checks known to player" setting.
+
+                // cont: a known plando check should not count toward meaning a barren hint for a
+                // zone is useful. If the player were to have a zone which is entirely excluded,
+                // vanilla, and knownPlando, then saying it is barren (even if theoretically
+                // possible to hint), would not be useful, and so we should not generate it. If the
+                // non-excluded/Vanilla checks were not knownPlandoed though, then it could be
+                // useful to hint.
+
+                // cont: for things like Location hints or Item hints, it would also not be useful
+                // to hint knownPlandoed checks. May need to move "playerKnownStatus" fn to genData?
 
                 Item contents = HintUtils.getCheckContents(checkName);
                 bool itemAllowsBarrenForArea = genData.ItemAllowsBarrenForArea(contents, areaId);

@@ -58,11 +58,8 @@ const presetsMgr = (function () {
     },
     {
       name: 'Season 1.5',
-      // origSettingsStr:
-      //   '6sI5q2kPC_v6L92P3Q01W46GCa8yoUFdo-KMZKQZKmxdyw7IwNIwNIwN2u70u70u70u70u70u70u70uF-JeUbSAZ6a60of9cG9S4OW1zZoruE2Ar3A88kGREmnIVlq_ByByJp-lujIQZaEBAkomPLeeTRO7YToAaSufCAGYID0SIwnWoM8seEV1K5gw9D6cCYJ2w3g40MVnHa0nQeEqvYZ6qowY3AxRk9mfHWauqf5C4T984e9hZDQIQccGTWMYqjOC9sw1eXmRnokyxx_92pvbcwGnB0X_y40KbWKtGOomKvGOtWOE0Lq0KMWOBGPIWPE0PH0LbmLHWLp0L5GKyGLbGKSGOSWLDGLSWP10Pi0T50OwmOgmLWmN_m',
-      // Change to keysy
       origSettingsStr:
-        '6sI5q2kSC_v6L92P3Q01W46GCa8yoUFdo-KMZKQZKmxdyw7IwNIwNIwN2u70u70u70u70u70u70u70uF-JeUbSAZ6a60of9cG9S4OW1zZoruE2Ar3A88kGREmnIVlq_ByByJp-lujIQZaEBAkomPLeeTRO7YToAaSufCAGYID0SIwnWoM8seEV1K5gw9D6cCYJ2w3g40MVnHa0nQeEqvYZ6qowY3AxRk9mfHWauqf5C4T984e9hZDQIQccGTWMYqjOC9sw1eXmRnokyxx_92pvbcwGnB0X_y40KbWKtGOomKvGOtWOE0Lq0KMWOBGPIWPE0PH0LbmLHWLp0L5GKyGLbGKSGOSWLDGLSWP10Pi0T50OwmOgmLWmN_m',
+        '6s25q2kSC_v6L92P3Q01W46GGoGZp9u-VBvHQDHgDJ3kVpeTBfTBfTBfSBWS3WS3WS3WS3WS3WS3WS3W_vEXwLmgCQGO3AacP0bmHY07sFBNWu8hKCeWYv1ix359-_JylmlnFFw_Yr9gEGuigxB1bMYXrjWU9t8gHpYamf298q1nBh639OZQWvy5GMheaqQOo9CBeEeG1P_56G35gWxJcACRJBg8Chjkud2b62JZIaKmHqaWIWckCrf9gQP1s1QBIrWmdRe6Y71l7AxpllyaBFcMRf34i27_mG1IM1JT1ZB1Jb1ZU1Wu1NG1HQ1Wj1bA1au1b41MN1L61NC1KL1Jn1ML1Hn1Xo1Kr1Lo1a41cm1qK1Zh1Yh1M31V_',
       description: '',
     },
   ];
@@ -733,6 +730,14 @@ document
 
 document.getElementById('maloShopDonationSlider').oninput =
   setMaloShopDonationValue;
+
+document.getElementById('hintImportanceFieldset').onchange = setSettingsString;
+document
+  .getElementById('noPlandoHintsCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('onlyJunkAllowsBarrenCheckbox')
+  .addEventListener('click', setSettingsString);
 
 function importSettingsString() {
   parseSettingsString(document.getElementById('settingsStringTextbox').value);
@@ -2363,6 +2368,9 @@ function populateSSettings(s) {
   $('#autoFillWalletCheckbox').prop('checked', s.autoFillWallet);
   $('#skipBridgeDonationCheckbox').prop('checked', s.skipBridgeDonation);
   $('#maloShopDonationSlider').val(s.maloShopDonation);
+  $('#hintImportanceFieldset').val(s.hintImportance);
+  $('#noPlandoHintsCheckbox').prop('checked', s.noPlandoHints);
+  $('#onlyJunkAllowsBarrenCheckbox').prop('checked', s.onlyJunkAllowsBarren);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {
