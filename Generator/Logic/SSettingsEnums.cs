@@ -171,4 +171,11 @@ namespace TPRandomizer.SSettings.Enums
         Dungeon = 1,
         Dungeon_Hyrule = 2,
     }
+
+    public enum HintImportance
+    {
+        Default = 0,
+        Calculate = 1,
+        Upgrade_Hints = 2,
+    }
 }
