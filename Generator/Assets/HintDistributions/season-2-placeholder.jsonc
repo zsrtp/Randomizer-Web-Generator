@@ -147,50 +147,38 @@
         "copies": 2,
         "hintDef": [
           {
-            "maxPicks": 3,
             "hintDef": [
               {
-                "starting": 1,
-                "hintDef": [
-                  {
-                    "hintType": "barren",
-                    "saveToVar": "barrenHints",
-                    "options": {
-                      "validAreas": ["Ordon", "Kakariko Village", "Castle Town"]
-                    }
-                  }
-                ]
-              },
-              {
+                "maxPicks": 3,
                 "starting": 3,
                 "hintDef": [
-                  // {
-                  //   "hintType": "barren",
-                  //   "iterations": 2,
-                  //   "options": {
-                  //     "validAreas": [
-                  //       "Ordon",
-                  //       "Sacred Grove",
-                  //       "Faron Field",
-                  //       "Faron Woods",
-                  //       "Kakariko Village",
-                  //       "Kakariko Graveyard",
-                  //       "Eldin Field",
-                  //       "Castle Town",
-                  //       "Lake Hylia",
-                  //       "Zora's Domain",
-                  //       "Upper Zora's River",
-                  //       "Gerudo Desert",
-                  //       "category.Northern_Desert",
-                  //       "category.Southern_Desert",
-                  //       "Bulblin Camp"
-                  //     ]
-                  //   }
-                  // },
                   {
                     "hintType": "barren",
-                    "saveToVar": "barrenHints",
+                    "options": {
+                      "validAreas": [
+                        "Ordon",
+                        // "Sacred Grove",
+                        "Faron Field",
+                        "Faron Woods",
+                        "Kakariko Village",
+                        "Kakariko Graveyard",
+                        "Eldin Field",
+                        "Castle Town",
+                        "South of Castle Town",
+                        "Lake Hylia",
+                        "Zora's Domain",
+                        "Upper Zora's River",
+                        "Gerudo Desert",
+                        "category.Northern_Desert",
+                        "category.Southern_Desert",
+                        "Bulblin Camp"
+                      ]
+                    }
+                  },
+                  {
+                    "hintType": "barren",
                     "iterations": 3,
+                    "saveToVar": "barrenHints",
                     "options": {
                       "validAreas": [
                         "alias:overworldZones",
@@ -226,7 +214,7 @@
               "validItems": ["Boomerang"],
               "areaType": "zone",
               // Allowing bad in general and not just in hinted-barren zone as
-              // seen belo since that never lined up even after a large number
+              // seen below since that never lined up even after a large number
               // of seed attempts by testing with breakpoints. This hint can
               // help with rang in an IC-hinted dungeon as well which I did see
               // in a breakpoint.
