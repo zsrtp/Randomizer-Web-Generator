@@ -246,11 +246,10 @@ namespace TPRandomizer.Hints
                     HintCategory.Snowpeak_Beyond_This_Point,
                     new[]
                     {
-                        // All but "Ashei Sketch" are technically beyond the
-                        // sign. However, we only end up creating this hint when
-                        // it would hint about "Snowpeak Cave Ice Lantern Chest"
-                        // and "Snowpeak Freezard Grotto Chest" and SPR is not
-                        // required.
+                        // All but "Ashei Sketch" are technically beyond the sign. However, we only
+                        // end up creating this hint when it would hint about "Snowpeak Cave Ice
+                        // Lantern Chest" and "Snowpeak Freezard Grotto Chest" and the dungeons
+                        // behind SPR are not required.
                         "Snowboard Racing Prize",
                         "Snowpeak Above Freezard Grotto Poe",
                         "Snowpeak Blizzard Poe",
@@ -258,7 +257,26 @@ namespace TPRandomizer.Hints
                         "Snowpeak Cave Ice Poe",
                         "Snowpeak Freezard Grotto Chest",
                         "Snowpeak Icy Summit Poe",
-                        "Snowpeak Poe Among Trees"
+                        "Snowpeak Poe Among Trees",
+                        "Snowboarding Bridge Ledge Bottom Rupee",
+                        "Snowboarding Bridge Ledge Middle Rupee",
+                        "Snowboarding Bridge Ledge Upper Rupee",
+                        "Snowboarding Shortcut Rupee 1",
+                        "Snowboarding Shortcut Rupee 2",
+                        "Snowboarding Shortcut Rupee 3",
+                        "Snowboarding Shortcut Rupee 4",
+                        "Snowboarding Shortcut Rupee 5",
+                        "Snowboarding Shortcut Rupee 6",
+                        "Snowboarding Shortcut Rupee 7",
+                        "Snowboarding Shortcut Rupee 8",
+                        "Snowboarding Shortcut Rupee 9",
+                        "Snowboarding Shortcut Rupee 10",
+                        "Snowboarding Shortcut Rupee 11",
+                        "Snowboarding Snowy Tree Top Rupee 1",
+                        "Snowboarding Snowy Tree Top Rupee 2",
+                        "Snowboarding Snowy Tree Top Rupee 3",
+                        "Snowboarding Top Left Rupee",
+                        "Snowboarding Top Right Rupee"
                     }
                 },
                 {
