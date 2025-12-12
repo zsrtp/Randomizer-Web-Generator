@@ -249,7 +249,7 @@ namespace TPRandomizer.Hints
                         // All but "Ashei Sketch" are technically beyond the sign. However, we only
                         // end up creating this hint when it would hint about "Snowpeak Cave Ice
                         // Lantern Chest" and "Snowpeak Freezard Grotto Chest" and the dungeons
-                        // behind SPR are not required.
+                        // behind SPR are unrequiredBarren.
                         "Snowboard Racing Prize",
                         "Snowpeak Above Freezard Grotto Poe",
                         "Snowpeak Blizzard Poe",
