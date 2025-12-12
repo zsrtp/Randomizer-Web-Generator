@@ -1846,6 +1846,12 @@ namespace TPRandomizer.Hints
             return checkStatus == "Vanilla";
         }
 
+        public bool CheckIsPlando(string checkName)
+        {
+            string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;
+            return checkStatus == "Plando";
+        }
+
         public bool checkIsPlayerKnownStatus(string checkName)
         {
             string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;

@@ -279,16 +279,34 @@ namespace TPRandomizer.Hints.HintCreator
 
             foreach (string checkName in checkNames)
             {
-                // Skip over Vanilla, Excluded, and Excluded-Unrequired. Unreachable and hidden are
-                // already skipped over by the AreaCheckInfos at a high level.
-                if (HintUtils.checkIsPlayerKnownStatus(checkName))
+                // Skip Excluded, and Excluded-Unrequired. Unreachable and hidden are already
+                // skipped over by the AreaCheckInfos at a high level.
+                if (HintUtils.checkIsExcluded(checkName))
                     continue;
 
                 if (!ownAreaCheckNames.Contains(checkName))
                 {
-                    // We know we have dependent checks now, but these do not actually get included
-                    // in any counts.
-                    pia.hasRelevantDependentChecks = true;
+                    // This is a dependent check, but these do not actually get included in any
+                    // counts. Check to see if hint should say "{areaName} itself" before
+                    // continuing.
+                    if (genData.checkIsPlayerKnownStatus(checkName))
+                    {
+                        // Known status needs to have a major item. Since we skip over excluded
+                        // checks above, this refers to Vanilla or known Plando checks
+                        // (Plando checks when noPlandoHints is enabled).
+                        Item depContents = HintUtils.getCheckContents(checkName);
+                        if (genData.majorItems.Contains(depContents))
+                            pia.hasRelevantDependentChecks = true;
+                    }
+                    else
+                    {
+                        // Check is not a known status to the player, so may or may not be major
+                        // from their perspective.
+                        pia.hasRelevantDependentChecks = true;
+                    }
+
+                    // Skip doing anything else with this check since is part of a dependency and
+                    // not part of the exact area we would be hinting.
                     continue;
                 }
 
