@@ -345,21 +345,20 @@
           // Num swords in province with most swords (or tied for most).
           "hintType": "numItemInArea",
           "saveToVar": "mostSwordsProvince",
-          "iterations": 3,
           "options": {
             "item": "Progressive_Sword",
             "areaType": "province",
             "order": "desc"
           }
         },
-        // {
-        //   // Aux sword hint
-        //   "hintType": "item",
-        //   "options": {
-        //     "validItems": ["Progressive_Sword"],
-        //     "invalidChecks": ["var:mostSwordsProvince.areaId"]
-        //   }
-        // },
+        {
+          // Aux sword hint
+          "hintType": "item",
+          "options": {
+            "validItems": ["Progressive_Sword"],
+            "invalidChecks": ["var:mostSwordsProvince.areaId"]
+          }
+        },
         // Fill the rest in with more copies of the MostSwordsProvince hint
         {
           "hintType": "var",
