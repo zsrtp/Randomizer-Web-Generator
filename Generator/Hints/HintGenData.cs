@@ -1596,6 +1596,15 @@ namespace TPRandomizer.Hints
             foreach (KeyValuePair<string, Check> pair in Randomizer.Checks.CheckDict)
             {
                 Check check = pair.Value;
+                string checkName = check.checkName;
+                // Do not count unreachable (such as impossible to reach Agitha reward) or hidden
+                // checks (such as defeated boss event checks).
+                if (
+                    CheckIdClass.GetIsHideFromUiCheckName(checkName)
+                    || unreachableChecks.Contains(checkName)
+                )
+                    continue;
+
                 Item contents = check.itemId;
                 if (!itemToChecks.ContainsKey(contents))
                 {
