@@ -384,7 +384,7 @@ namespace TPRandomizer
             GenSelfHinterEntries();
 
             // Handle custom hint signs, Agitha and Jovani signs
-            List<string> midnaStartingHints = GenHintSignEntries();
+            List<Hint> midnaStartingHints = GenHintSignEntries();
 
             AddMidnaAdjustments(midnaStartingHints);
 
@@ -880,7 +880,7 @@ namespace TPRandomizer
             );
         }
 
-        private void AddMidnaAdjustments(List<string> midnaStartingHints)
+        private void AddMidnaAdjustments(List<Hint> midnaStartingHints)
         {
             // Note: Midna voice is only guaranteed to work normally when the
             // instantText option is not enabled. Even in the vanilla game, if
@@ -912,7 +912,67 @@ namespace TPRandomizer
             }
 
             if (!ListUtils.isEmpty(midnaStartingHints))
-                hintMessages.AddRange(midnaStartingHints);
+            {
+                List<AreaId> barrenAreaIds = new();
+                foreach (Hint hint in midnaStartingHints)
+                {
+                    BarrenHint barrenHint = hint as BarrenHint;
+                    if (barrenHint != null)
+                    {
+                        barrenAreaIds.Add(barrenHint.GetAreaId());
+                    }
+                }
+
+                List<string> midnaHintTexts = new();
+
+                bool handledBarrenHints = false;
+                foreach (Hint hint in midnaStartingHints)
+                {
+                    BarrenHint barrenHint = hint as BarrenHint;
+                    if (barrenHint != null)
+                    {
+                        if (handledBarrenHints)
+                            continue;
+                        else if (barrenAreaIds.Count > 1)
+                        {
+                            handledBarrenHints = true;
+
+                            // Add texts for merged barren hints.
+                            midnaHintTexts.Add(
+                                Res.LangSpecificNormalize(
+                                    Res.SimpleMsg("midna.grouped-barren-hints")
+                                )
+                            );
+
+                            string areaText = CustomMessages.messageColorPurple;
+                            for (int i = 0; i < barrenAreaIds.Count; i++)
+                            {
+                                AreaId areaId = barrenAreaIds[i];
+
+                                string baseAreaText = Res.Msg(
+                                        areaId.GenResKey(),
+                                        new() { { "context", "default" } }
+                                    )
+                                    .ResolveWithColor("", "");
+
+                                string finalAreaText = Res.SimpleMsg(
+                                    "midna.grouped-barren-hints.area",
+                                    new() { { "area", baseAreaText } }
+                                );
+
+                                if (i > 0)
+                                    areaText += '\n';
+                                areaText += finalAreaText;
+                            }
+                            midnaHintTexts.Add(areaText);
+                            continue;
+                        }
+                    }
+                    midnaHintTexts.Add(hint.toHintTextList(this)[0].text);
+                }
+
+                hintMessages.AddRange(midnaHintTexts);
+            }
 
             builder.AddStrReplacements(
                 new()
@@ -1742,9 +1802,9 @@ namespace TPRandomizer
             }
         }
 
-        private List<string> GenHintSignEntries()
+        private List<Hint> GenHintSignEntries()
         {
-            List<string> midnaHintTexts = new();
+            List<Hint> midnaHints = new();
             if (!ListUtils.isEmpty(hintSpots))
             {
                 foreach (HintSpot hintSpot in hintSpots)
@@ -1784,11 +1844,7 @@ namespace TPRandomizer
                     }
                     else if (hintSpot.location == SpotId.Midna)
                     {
-                        List<Hint> hints = hintSpot.hints;
-                        foreach (Hint hint in hints)
-                        {
-                            midnaHintTexts.Add(hint.toHintTextList(this)[0].text);
-                        }
+                        midnaHints = hintSpot.hints;
                     }
                     else
                     {
@@ -1798,7 +1854,7 @@ namespace TPRandomizer
                     }
                 }
             }
-            return midnaHintTexts;
+            return midnaHints;
         }
 
         private void AddCustomSignEntityData(SpotId spotId, List<string> messages)

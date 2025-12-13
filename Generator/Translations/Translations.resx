@@ -1805,6 +1805,14 @@
     <value>Hints</value>
     <comment></comment>
   </data>
+  <data name="midna.grouped-barren-hints" xml:space="preserve">
+    <value>They say that there is #(purple)nothing#(white) to be found in the following areas:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.grouped-barren-hints.area" xml:space="preserve">
+    <value>{area(capitalize)}</value>
+    <comment></comment>
+  </data>
   <data name="midna.required-dungeons" xml:space="preserve">
     <value>There is #(red)1#(white) required dungeon:</value>
     <comment></comment>
