@@ -8,7 +8,8 @@
   "agitha": true,
   "jovani": {
     // "minFoundSoulsForHint": 10
-    "minFoundSoulsForHint": 0
+    "minFoundSoulsForHint": 0,
+    "maxFoundSoulsForVagueItem": 20
   },
   "caveOfOrdeals": true,
   "dungeons": {

@@ -1829,6 +1829,10 @@
     <value>Unhinted</value>
     <comment></comment>
   </data>
+  <data name="noun.mystery-item@ac(t,a,b,s)" xml:space="preserve">
+    <value>mystery item</value>
+    <comment></comment>
+  </data>
   <data name="noun.nothing-of-value" xml:space="preserve">
     <value>nothing of value</value>
     <comment></comment>

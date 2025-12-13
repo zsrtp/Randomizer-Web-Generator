@@ -747,6 +747,7 @@ namespace TPRandomizer.Hints.Settings
     {
         public int? minSoulsForHint { get; private set; } = null;
         public int? minFoundSoulsForHint { get; private set; } = null;
+        public int? maxFoundSoulsForVagueItem { get; private set; } = null;
 
         private Jovani() { }
 
@@ -781,6 +782,16 @@ namespace TPRandomizer.Hints.Settings
                 if (inst.minFoundSoulsForHint < 0)
                     throw new Exception(
                         $"jovani.minFoundSoulsForHint must be null or non-negative, but received '{inst.minFoundSoulsForHint}'."
+                    );
+
+                inst.maxFoundSoulsForVagueItem = HintSettingUtils.getOptionalNullableInt(
+                    obj,
+                    "maxFoundSoulsForVagueItem",
+                    inst.maxFoundSoulsForVagueItem
+                );
+                if (inst.maxFoundSoulsForVagueItem < 0)
+                    throw new Exception(
+                        $"jovani.maxFoundSoulsForVagueItem must be null or non-negative, but received '{inst.maxFoundSoulsForVagueItem}'."
                     );
             }
 

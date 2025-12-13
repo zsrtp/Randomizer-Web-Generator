@@ -97,21 +97,19 @@ namespace TPRandomizer.Hints
                     }
                     else
                     {
-                        // Leaving def/indef out for now. Might need it or
-                        // 'capitalize' to be based on meta from the
-                        // 'hint-type.jovani-rewards.reward' line.
+                        // Leaving def/indef out for now. Might need it or 'capitalize' to be based
+                        // on meta from the 'hint-type.jovani-rewards.reward' line.
                         itemText = customMsgData.GenItemText4(
                             out _,
-                            // TODO: undo temp change below
-                            // checkInfo.item,
-                            Item.Green_Rupee,
+                            checkInfo.item,
                             checkInfo.checkStatus,
                             // contextIn: checkInfo.useDefArticle ? "def" : "indef",
                             checkStatusDisplay: checkInfo.checkStatusDisplay,
                             capitalize: true,
-                            // TODO: undo temp change below
-                            // isLogicalItem: checkInfo.isLogicalItem
-                            isLogicalItem: true
+                            // Want to always include (not required, etc.) for "Mystery item", so
+                            // check for vague as well.
+                            isLogicalItem: checkInfo.isLogicalItem || checkInfo.vague,
+                            customResKey: checkInfo.vague ? "noun.mystery-item" : null
                         );
                     }
 
@@ -155,6 +153,7 @@ namespace TPRandomizer.Hints
             public string checkName { get; }
             public byte soulsThreshold { get; } // Planning ahead for configurable thresholds
             public bool unhinted { get; }
+            public bool vague { get; }
             public DetailedCheckStatus checkStatus { get; }
             public CheckStatusDisplay checkStatusDisplay { get; }
 
@@ -170,6 +169,7 @@ namespace TPRandomizer.Hints
                 string checkName,
                 byte soulsThreshold,
                 bool unhinted,
+                bool vague,
                 DetailedCheckStatus checkStatus,
                 CheckStatusDisplay checkStatusDisplay,
                 bool useDefArticle = false,
@@ -180,6 +180,7 @@ namespace TPRandomizer.Hints
                 this.checkName = checkName;
                 this.soulsThreshold = soulsThreshold;
                 this.unhinted = unhinted;
+                this.vague = vague;
                 this.checkStatus = checkStatus;
                 this.checkStatusDisplay = checkStatusDisplay;
                 this.useDefArticle = useDefArticle;
@@ -220,6 +221,7 @@ namespace TPRandomizer.Hints
                 );
                 result += SettingsEncoder.EncodeNumAsBits(soulsThreshold, 8);
                 result += unhinted ? "1" : "0";
+                result += vague ? "1" : "0";
                 result += SettingsEncoder.EncodeNumAsBits(
                     (byte)checkStatus,
                     bitLengths.checkStatus
@@ -241,6 +243,7 @@ namespace TPRandomizer.Hints
 
                 byte soulsThreshold = processor.NextByte();
                 bool unhinted = processor.NextBool();
+                bool vague = processor.NextBool();
                 DetailedCheckStatus status = (DetailedCheckStatus)processor.NextInt(
                     bitLengths.checkStatus
                 );
@@ -253,6 +256,7 @@ namespace TPRandomizer.Hints
                     checkName,
                     soulsThreshold,
                     unhinted,
+                    vague,
                     status,
                     display,
                     useDefArticle,

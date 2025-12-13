@@ -2028,7 +2028,8 @@ namespace TPRandomizer
             bool? capitalize = null,
             CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.None,
             bool isLogicalItem = true,
-            Dictionary<string, string> optionalContextMetaIn = null
+            Dictionary<string, string> optionalContextMetaIn = null,
+            string customResKey = null
         )
         {
             string context = isShop ? "" : contextIn;
@@ -2069,17 +2070,13 @@ namespace TPRandomizer
                 }
             }
 
-            // Swap to making all context optional so we only use def/indef if
-            // they are defined on the item. Otherwise we have to define
-            // "def,shop-group-of" and "indef,shop-group-of" instead of just
-            // "shop-group-of" for an item which does not use "def" or "indef"
-            // at all. If needed, we can probably make a paramter to this
-            // function be "requiredContext".
-            Res.Result abc = Res.Msg(
-                GetItemResKey(item),
-                new() { { "count", countStr } },
-                optionalContextMetaA
-            );
+            // Swap to making all context optional so we only use def/indef if they are defined on
+            // the item. Otherwise we have to define "def,shop-group-of" and "indef,shop-group-of"
+            // instead of just "shop-group-of" for an item which does not use "def" or "indef" at
+            // all. If needed, we can probably make a paramter to this function be
+            // "requiredContext".
+            string resKey = customResKey ?? GetItemResKey(item);
+            Res.Result abc = Res.Msg(resKey, new() { { "count", countStr } }, optionalContextMetaA);
             meta = abc.meta;
 
             if (isShop || capitalize == true)

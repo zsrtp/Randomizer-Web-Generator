@@ -899,14 +899,25 @@ namespace TPRandomizer.Hints
                 if (HintUtils.checkIsExcluded(checkName))
                     continue;
 
+                int reqFoundSoulsToDoCheck = soulsForCheck - startingSouls;
+                if (reqFoundSoulsToDoCheck < 0)
+                    reqFoundSoulsToDoCheck = 0;
+
                 bool failedMinSouls =
                     jovani.minSoulsForHint != null && jovani.minSoulsForHint > soulsForCheck;
 
                 bool failedMinFoundSouls =
                     jovani.minFoundSoulsForHint != null
-                    && soulsForCheck - startingSouls < jovani.minFoundSoulsForHint;
+                    && reqFoundSoulsToDoCheck < jovani.minFoundSoulsForHint;
 
                 bool unhinted = failedMinSouls || failedMinFoundSouls;
+
+                bool vague = false;
+                if (jovani.maxFoundSoulsForVagueItem != null)
+                {
+                    if (reqFoundSoulsToDoCheck <= jovani.maxFoundSoulsForVagueItem)
+                        vague = true;
+                }
 
                 DetailedCheckStatus checkStatus = genData.CalcDetailedCheckStatus(checkName);
                 // Use this CheckStatusDisplay for everything for now.
@@ -918,6 +929,7 @@ namespace TPRandomizer.Hints
                         checkName,
                         (byte)soulsForCheck,
                         unhinted,
+                        vague,
                         checkStatus,
                         checkStatusDisplay
                     );
