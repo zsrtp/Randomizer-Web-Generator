@@ -1,6 +1,6 @@
 {
-    "requirements": "HasBombs",
-    "glitchedRequirements": "HasBombs",
+    "requirements": "CanSmash",
+    "glitchedRequirements": "CanSmash",
     "checkCategory": [ "Overworld", "Upper Zoras River", "Rupee - Hidden" ],
     "itemId": "Blue_Rupee"
   }
