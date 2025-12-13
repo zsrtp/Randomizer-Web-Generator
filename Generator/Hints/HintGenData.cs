@@ -31,6 +31,8 @@ namespace TPRandomizer.Hints
         public bool? agithaRequired { get; set; }
 
         // public HashSet<Item> preventBarrenItems { get; private set; }
+
+        private Dictionary<Item, int> itemToInflexibleCount = new();
         public HashSet<string> allowBarrenChecks { get; private set; }
         public HashSet<Item> majorItems { get; private set; }
         public HashSet<Item> logicalItems2 { get; private set; }
@@ -116,7 +118,7 @@ namespace TPRandomizer.Hints
             prepLogicalItemAndMultiMax();
             prepDefaultHintworthyItems();
 
-            Dictionary<Item, int> itemToInflexibleCount = new();
+            itemToInflexibleCount = new();
             allowBarrenChecks = prepareAllowBarrenChecks(itemToInflexibleCount);
 
             if (sSettings.logicRules != LogicRules.No_Logic)
@@ -134,120 +136,130 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            // Potentially mark checks rewarding poeSouls as "not required" if poe souls do not
-            // serve any purpose based on settings / Jovani rewards.
-            if (
-                sSettings.castleRequirements != CastleRequirements.Poe_Souls
-                && sSettings.castleBKRequirements != CastleBKRequirements.Poe_Souls
-            )
+            checkMarkPoeSoulsNotRequired();
+
+            // We mark tradeItems as "not required" if they either have no chain end, the chain end
+            // is unreachable, or the chain end is known bad, etc. We do this at this point after we
+            // have finished all other additions to `notReqChecks` (including knowing if a chain
+            // ending in a poeSoul is useful).
+            foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
             {
-                bool hasGoodJovaniReward = false;
-                List<string> jovaniChecks =
-                    new() { "Jovani 20 Poe Soul Reward", "Jovani 60 Poe Soul Reward", };
-                foreach (string checkName in jovaniChecks)
+                bool hasGoodChainReward = false;
+                Item tradeItem = pair.Key;
+                if (tradeItemToChainEndCheck.TryGetValue(tradeItem, out string chainEndCheckName))
                 {
-                    if (allowBarrenChecks.Contains(checkName))
-                        continue;
-
-                    Item contents = HintUtils.getCheckContents(checkName);
-
-                    if (
-                        sSettings.adjustHintsForCompletionists
-                        && !HintConstants.junkItems.Contains(contents)
-                    )
-                    {
-                        hasGoodJovaniReward = true;
-                        break;
-                    }
-
-                    // If Jovani reward is a tradeItem
-                    if (HintUtils.IsTradeItem(contents))
-                    {
-                        if (
-                            !tradeItemToChainEndCheck.TryGetValue(
-                                contents,
-                                out string chainEndCheckName
-                            )
-                        )
-                        {
-                            // Chain is a loop, so not useful.
-                            continue;
-                        }
-
-                        // We ignore PoeSouls here and below since Jovani giving you a chain ending
-                        // in a poeSoul or a poeSoul directly is an unhelpful loop. For it to
-                        // possibly be useful, a different Jovani check must be something useful
-                        // other than a poe soul.
-                        if (
-                            CheckIsGoodOrSkippable(
-                                chainEndCheckName,
-                                ignoreItemForSkippable: Item.Poe_Soul
-                            )
-                        )
-                        {
-                            hasGoodJovaniReward = true;
-                            break;
-                        }
-                    }
-                    else if (
-                        // Basic handling for non-tradeItems.
-                        CheckIsGoodOrSkippable(checkName, ignoreItemForSkippable: Item.Poe_Soul)
-                    )
-                    {
-                        hasGoodJovaniReward = true;
-                        break;
-                    }
+                    if (CheckIsGood(chainEndCheckName))
+                        hasGoodChainReward = true;
                 }
-                if (!hasGoodJovaniReward)
+
+                if (!hasGoodChainReward)
                 {
-                    // All skippable poeSoul checks can be marked as allowBarren. They are still
-                    // considered logical so that a Location hint saying the checkStatus would
-                    // indicate "not required". If it was not a logical item (such as an orange
-                    // Rupee), then it would not indicate anything.
-                    if (itemToChecksList.TryGetValue(Item.Poe_Soul, out List<string> checkNames))
+                    // Mark all checks rewarding the tradeItem as "not required".
+                    if (itemToChecksList.TryGetValue(tradeItem, out List<string> checksForItem))
                     {
-                        foreach (string checkName in checkNames)
+                        foreach (string checkName in checksForItem)
                         {
-                            if (
-                                !requiredChecks.Contains(checkName)
-                                && !condReqChecks.Contains(checkName)
-                            )
-                            {
-                                notReqChecks.Add(checkName);
-                            }
+                            Console.WriteLine(
+                                $"- marked tradeItem notReq: {checkName} ({tradeItem})"
+                            );
+                            notReqChecks.Add(checkName);
                         }
                     }
                 }
             }
+        }
 
-            // We mark tradeItems as "not required" if they either have no chain end, the chain end
-            // is unreachable, or the chain end is known bad, etc. We do this at this point after we
-            // have finished all other additions to `notReqChecks`.
-            foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
+        private void checkMarkPoeSoulsNotRequired()
+        {
+            // Potentially mark checks rewarding poeSouls as "not required" if poe souls do not
+            // serve any purpose based on settings / Jovani rewards.
+            List<int> usefulPoeThresholds = new();
+
+            List<(string, int)> jovaniChecks =
+                new() { ("Jovani 60 Poe Soul Reward", 60), ("Jovani 20 Poe Soul Reward", 20) };
+            foreach ((string, int) pair in jovaniChecks)
             {
-                Item tradeItem = pair.Key;
-                if (tradeItemToChainEndCheck.TryGetValue(tradeItem, out string chainEndCheckName))
+                string checkName = pair.Item1;
+                if (unreachableChecks.Contains(checkName) || allowBarrenChecks.Contains(checkName))
+                    continue;
+
+                Item contents = HintUtils.getCheckContents(checkName);
+
+                // If Jovani reward is a tradeItem
+                if (HintUtils.IsTradeItem(contents))
                 {
-                    if (!CheckIsGoodOrSkippable(chainEndCheckName))
+                    if (
+                        !tradeItemToChainEndCheck.TryGetValue(
+                            contents,
+                            out string chainEndCheckName
+                        )
+                    )
                     {
-                        // Mark all checks rewarding the tradeItem as "not required" if not already
-                        // marked as "required", "sometimesRequired", or "allowBarren" (not expected
-                        // to be in any of these, but just in case so we don't put it in multiple
-                        // lists).
-                        if (itemToChecksList.TryGetValue(tradeItem, out List<string> checksForItem))
-                        {
-                            foreach (string checkName in checksForItem)
-                            {
-                                if (
-                                    !requiredChecks.Contains(checkName)
-                                    && !condReqChecks.Contains(checkName)
-                                    && !allowBarrenChecks.Contains(checkName)
-                                )
-                                    notReqChecks.Add(checkName);
-                            }
-                        }
+                        // Chain is a loop, so not useful.
+                        continue;
+                    }
+
+                    // We ignore PoeSouls here and below since Jovani giving you a chain ending
+                    // in a poeSoul or a poeSoul directly is an unhelpful loop. For it to
+                    // possibly be useful, a different Jovani check must be something useful
+                    // other than a poe soul.
+                    if (checkGoodNotSkippablePoeSoul(chainEndCheckName))
+                    {
+                        usefulPoeThresholds.Add(pair.Item2);
+                        break;
                     }
                 }
+                // Basic handling for non-tradeItems.
+                else if (checkGoodNotSkippablePoeSoul(checkName))
+                {
+                    usefulPoeThresholds.Add(pair.Item2);
+                    break;
+                }
+            }
+
+            if (sSettings.castleRequirements == CastleRequirements.Poe_Souls)
+            {
+                usefulPoeThresholds.Add(sSettings.castleRequirementCount);
+            }
+            if (sSettings.castleBKRequirements == CastleBKRequirements.Poe_Souls)
+            {
+                usefulPoeThresholds.Add(sSettings.castleBKRequirementCount);
+            }
+
+            int largestUsefulThreshold = 0;
+            foreach (int threshold in usefulPoeThresholds)
+            {
+                if (threshold > largestUsefulThreshold)
+                    largestUsefulThreshold = threshold;
+            }
+
+            if (largestUsefulThreshold > 0)
+            {
+                if (!itemToInflexibleCount.TryGetValue(Item.Poe_Soul, out int numInflexible))
+                    numInflexible = 0;
+                if (numInflexible < largestUsefulThreshold)
+                {
+                    // Finding Poe souls is useful for meeting a threshold.
+                    return;
+                }
+            }
+
+            // Finding poe souls is not useful. All skippable poeSoul checks can be marked as
+            // allowBarren. They are still considered logical so that a Location hint saying the
+            // checkStatus would indicate "not required". If it was not a logical item (such as an
+            // orange Rupee), then it would not indicate anything.
+            if (itemToChecksList.TryGetValue(Item.Poe_Soul, out List<string> checkNames))
+            {
+                int numPoeSoulsMarked = 0;
+                foreach (string checkName in checkNames)
+                {
+                    if (!requiredChecks.Contains(checkName) && !condReqChecks.Contains(checkName))
+                    {
+                        numPoeSoulsMarked += 1;
+                        notReqChecks.Add(checkName);
+                    }
+                }
+                Console.WriteLine($"- marked {numPoeSoulsMarked} poeSoul(s) notReq.");
             }
         }
 
@@ -1747,38 +1759,19 @@ namespace TPRandomizer.Hints
                 || status == DetailedCheckStatus.Skippable;
         }
 
-        private bool CheckIsGoodOrSkippable(string checkName, Item? ignoreItemForSkippable = null)
+        private bool checkGoodNotSkippablePoeSoul(string checkName)
         {
-            if (unreachableChecks.Contains(checkName))
+            // This function is used for calculating if poeSouls are useful. Should not be used for
+            // anything else.
+            DetailedCheckStatus status = CalcDetailedCheckStatus(checkName);
+            if (status == DetailedCheckStatus.NotRequired)
                 return false;
-
-            // Ignoring "isPlayerKnownStatus", returns true if the check would either be considered
-            // a barren-blocker or "skippable" (logical + not "required"/"sometimesRequired"/"not
-            // required").
-
-            if (allowBarrenChecks.Contains(checkName))
-                return false;
-
-            if (requiredChecks.Contains(checkName) || condReqChecks.Contains(checkName))
-                return true;
-
-            Item contents = HintUtils.getCheckContents(checkName);
-
-            if (sSettings.adjustHintsForCompletionists)
+            else if (status == DetailedCheckStatus.Skippable)
             {
-                // Anything that could be considered as progress toward 100%-ing a seed is
-                // considered as good in this case (including wooden shield, etc.).
-                if (!HintConstants.junkItems.Contains(contents))
-                    return true;
+                Item contents = HintUtils.getCheckContents(checkName);
+                return contents != Item.Poe_Soul;
             }
-            else if (notReqChecks.Contains(checkName))
-                return false;
-
-            if (ignoreItemForSkippable != null && ignoreItemForSkippable == contents)
-                return false;
-
-            // If logical, then status would be "skippable" at this point. Else returns false.
-            return logicalItems2.Contains(contents);
+            return true;
         }
 
         public bool CheckWouldPreventBarren(string checkName)
