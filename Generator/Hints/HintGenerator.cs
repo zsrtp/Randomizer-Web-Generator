@@ -459,7 +459,7 @@ namespace TPRandomizer.Hints
         private List<Hint> getAgithaHint()
         {
             int numBugsInPool = 0;
-            List<string> interestingAgithaChecks = new();
+            Dictionary<Item, List<string>> interestingItemToCheckNames = new();
 
             foreach (KeyValuePair<Item, string> pair in HintConstants.bugsToRewardChecksMap)
             {
@@ -494,15 +494,39 @@ namespace TPRandomizer.Hints
                 }
 
                 if (shouldHint)
-                    interestingAgithaChecks.Add(agithaRewardCheckName);
+                {
+                    if (
+                        !interestingItemToCheckNames.TryGetValue(
+                            contents,
+                            out List<string> checkNamesForItem
+                        )
+                    )
+                    {
+                        checkNamesForItem = new();
+                        interestingItemToCheckNames[contents] = checkNamesForItem;
+                    }
+                    checkNamesForItem.Add(agithaRewardCheckName);
+                }
             }
 
             if (numBugsInPool < 1)
                 return null;
 
-            // Shuffle list so no info is given away by the order the items are
-            // listed on the sign.
-            HintUtils.ShuffleListInPlace(genData.rnd, interestingAgithaChecks);
+            List<string> interestingAgithaChecks;
+            if (interestingItemToCheckNames.Count > 0)
+            {
+                List<KeyValuePair<Item, List<string>>> abc = interestingItemToCheckNames.ToList();
+                // Shuffle list before sorting so no info is given away by the order the items are
+                // listed on the sign. Otherwise if both items had 1 copy for example, you could
+                // narrow down which bugs led to Item2 after you trade a bug in for Item1.
+                HintUtils.ShuffleListInPlace(genData.rnd, abc);
+
+                interestingAgithaChecks = abc.OrderByDescending((kvp) => kvp.Value.Count)
+                    .SelectMany((kvp) => kvp.Value)
+                    .ToList();
+            }
+            else
+                interestingAgithaChecks = new();
 
             AgithaRewardsHint hint = new AgithaRewardsHint(
                 genData,
