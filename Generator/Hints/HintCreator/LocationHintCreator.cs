@@ -25,7 +25,7 @@ namespace TPRandomizer.Hints.HintCreator
         protected HashSet<CheckStatus> validStatuses;
         protected bool vague = false;
         protected bool markAsSometimes = false;
-        protected bool canHintHintedBarrenChecks = false;
+        protected bool canBeClaimHinted = false;
         public CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Automatic;
         protected List<string> namedChecks = null;
         protected NamedOrder namedOrder = NamedOrder.Basic;
@@ -109,10 +109,10 @@ namespace TPRandomizer.Hints.HintCreator
                     inst.markAsSometimes
                 );
 
-                inst.canHintHintedBarrenChecks = HintSettingUtils.getOptionalBool(
+                inst.canBeClaimHinted = HintSettingUtils.getOptionalBool(
                     options,
-                    "canHintHintedBarrenChecks",
-                    inst.canHintHintedBarrenChecks
+                    "canBeClaimHinted",
+                    inst.canBeClaimHinted
                 );
 
                 inst.checkStatusDisplay = HintSettingUtils.getOptionalCheckStatusDisplay(
@@ -298,11 +298,8 @@ namespace TPRandomizer.Hints.HintCreator
             Item item = HintUtils.getCheckContents(checkName);
             CheckStatus status = genData.CalcCheckStatus(checkName);
 
-            // TODO: rename "canHintHintedBarrenChecks" to "forceHintable" or something similar.
-            // Should this also ignore the status restrictions below, etc.? Where do we use this in
-            // the distributions? Only for "special always"-kind of things for race dist?
             return (
-                (canHintHintedBarrenChecks || genData.CheckCanBeClaimHinted(checkName))
+                (canBeClaimHinted || genData.CheckCanBeClaimHinted(checkName))
                 && (validCheckNames.Count == 0 || validCheckNames.Contains(checkName))
                 && !invalidCheckNames.Contains(checkName)
                 && (validItems.Count == 0 || validItems.Contains(item))
