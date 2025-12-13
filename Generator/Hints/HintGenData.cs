@@ -1527,7 +1527,10 @@ namespace TPRandomizer.Hints
             ret[AreaId.Zone(Zone.Hyrule_Castle)] = new(baseAllowedForDungeons);
             ret[AreaId.Province(Province.Dungeon)] = new(baseAllowedForDungeons);
 
-            if (sSettings.smallKeySettings == SmallKeySettings.Own_Dungeon)
+            if (
+                sSettings.smallKeySettings != SmallKeySettings.Any_Dungeon
+                && sSettings.smallKeySettings != SmallKeySettings.Anywhere
+            )
             {
                 ret[AreaId.Zone(Zone.Forest_Temple)].Add(Item.Forest_Temple_Small_Key);
                 ret[AreaId.Zone(Zone.Goron_Mines)].Add(Item.Goron_Mines_Small_Key);
@@ -1564,7 +1567,10 @@ namespace TPRandomizer.Hints
                 );
             }
 
-            if (sSettings.bigKeySettings == BigKeySettings.Own_Dungeon)
+            if (
+                sSettings.bigKeySettings != BigKeySettings.Any_Dungeon
+                && sSettings.bigKeySettings != BigKeySettings.Anywhere
+            )
             {
                 ret[AreaId.Zone(Zone.Forest_Temple)].Add(Item.Forest_Temple_Big_Key);
                 ret[AreaId.Zone(Zone.Goron_Mines)].Add(Item.Goron_Mines_Key_Shard);

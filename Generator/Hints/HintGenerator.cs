@@ -961,13 +961,12 @@ namespace TPRandomizer.Hints
 
                 AreaId areaId = AreaId.Zone(zone);
                 List<string> checksToHint = new();
-                List<string> importantChecks = new();
+                List<string> barrenBlockerChecks = new();
                 foreach (string checkName in checkNames)
                 {
-                    if (
-                        !HintUtils.checkIsPlayerKnownStatus(checkName)
-                        && !genData.hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
-                    )
+                    // Note: we include Vanilla, and we hint any checks which would prevent barren.
+                    // For completionist, this would include things like heart containers, etc.
+                    if (!HintUtils.checkIsExcluded(checkName))
                     {
                         checksToHint.Add(checkName);
 
@@ -977,9 +976,9 @@ namespace TPRandomizer.Hints
                             areaId
                         );
 
-                        if (!itemAllowsBarrenForArea && genData.CheckIsGood(checkName))
+                        if (!itemAllowsBarrenForArea && genData.CheckWouldPreventBarren(checkName))
                         {
-                            importantChecks.Add(checkName);
+                            barrenBlockerChecks.Add(checkName);
                         }
                     }
                 }
@@ -1008,14 +1007,14 @@ namespace TPRandomizer.Hints
                             BeyondPointHint.Create(
                                 genData,
                                 includeBigKeyInfo,
-                                importantChecks,
+                                barrenBlockerChecks,
                                 bigKeyChecks
                             ),
                             true
                         );
                     }
 
-                    if (ListUtils.isEmpty(importantChecks))
+                    if (ListUtils.isEmpty(barrenBlockerChecks))
                     {
                         foreach (string checkName in checksToHint)
                         {
