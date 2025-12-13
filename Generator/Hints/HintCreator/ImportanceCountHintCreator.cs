@@ -240,8 +240,10 @@ namespace TPRandomizer.Hints.HintCreator
 
             foreach (AreaId areaId in baseAreaIds)
             {
-                // Skip over if zone already hinted barren.
-                if (areaId.type == AreaId.AreaType.Zone)
+                // Skip over already IC-hinted areas or barren-hinted zones.
+                if (genData.hinted.hintedImportanceCountAreas.Contains(areaId))
+                    continue;
+                else if (areaId.type == AreaId.AreaType.Zone)
                 {
                     Zone zone = ZoneUtils.StringToIdThrows(areaId.stringId);
                     if (genData.hinted.hintedBarrenZones.Contains(zone))
@@ -354,8 +356,6 @@ namespace TPRandomizer.Hints.HintCreator
             {
                 pia.effectiveUnknownChecksCount = effectiveUnknownChecksCount;
                 return pia;
-
-                // return new(areaId, barrenableChecks, effectiveUnknownChecksCount);
             }
             return null;
         }
