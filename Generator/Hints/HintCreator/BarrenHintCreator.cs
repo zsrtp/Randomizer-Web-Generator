@@ -54,58 +54,6 @@ namespace TPRandomizer.Hints.HintCreator
                 "Palace of Twilight Boss Room",
             };
 
-        // TODO: this should be calculated at the start of the genData. If an area is completely
-        // excluded, then it does not matter as a dependency? Dependencies are all based on
-        // interiors/caves, so nested stuff is not needed? Also all howling stones are found in
-        // exteriors. Post-dungeon stuff is easily calculated as well. For now, don't worry about
-        // more than one level deep since that is all that matters.
-
-        // continued: if an interior is fully excluded, then no reason to hint anything about it.
-        // Ex: if CoO is excluded, then no reason to say "0 items in {GD itself}" since there are no
-        // internal zones which matter. But if was included, then would be important to indicate we
-        // are not necessarily saying you can skip going to the GD interiors/caves.
-
-        // Dependencies assuming no ER stuff:
-        // DM => Ordon gold wolf (note: only 6 gold wolf howling stones)
-        // UZR => BCT gold wolf
-        // LH => LLC, LS, GD gold wolf
-        // FW => SoCT gold wolf
-        // SP => KGY gold wolf
-        // HV => CT gold wolf
-        // GD => CoO
-        // CT => Agitha's Castle
-        // dungeons:
-        // GM => post-Fyrus
-        // ToT => post-Armogohma, but only if vanilla Ilia quest setting.
-        // SPR => post-SPR
-        // Note: no post-LBT for Midna stuff or anything.
-
-        // Also, northern desert needs to be updated to say 'itself' as well for CoO? Anything else?
-
-        // Maybe make AreaDepHelper class in HintGenData.
-        // It calcs an Area's dependent Areas. Will be more involved once more ER.
-        // API:
-        // public bool AreaHasDependentAreas(AreaId areaId)
-        // ^ used for NumMajorItems hint to know if should say "itself".
-
-        // For Barren Hints, need to know any dependent Zones (which are not entirely Vanilla or
-        // Excluded or Excluded-Unrequired) which would be known barren if we hint the parent
-        // barren.
-
-        // Also need to be able to map an area back to its parent. This way if we are trying to hint
-        // the child barren, we first must check if the parent can be Barren-hinted. This is not
-        // related to northern/southern desert since those are not dependent offshoots of GD but GD
-        // itself. We would have special handling in the BarrenHintCreator to handle those so that
-        // we don't generate one unless the other side has something such that GD could not be
-        // hinted barren.
-
-        // We only need to jump up to the parent if it is allowed in the valid areas. For
-        // northern/southern desert, those should have a built-in handling that they are impossible
-        // to generate unless the other one is either not barren or completely
-        // Vanilla/Excluded(Unreq). I think we would just have to confirm that a "barren southern
-        // desert" hint is not possible to create (ignoring valid/invalid stuff) for example. But
-        // this is not related to high-level dependency stuff.
-
         private static readonly HashSet<AreaId.AreaType> validAreaTypes =
             new() { AreaId.AreaType.Zone, AreaId.AreaType.Category, };
 
@@ -184,31 +132,6 @@ namespace TPRandomizer.Hints.HintCreator
         {
             if (numHints < 1)
                 return null;
-
-            // So now it should be safe to map a child dep to a single parent.
-
-            // Or maybe we just create the entire tree here? For barren hints, we don't need to care
-            // about saying "itself" or not. And for NumMajor hints, we only need to care about
-            // literal child dependencies. Don't need to worry about parent-child stuff really.
-
-            // We can build every dependency tree up front, even if we might not need them. Then
-            // when we need to check if an AreaId is possible, we check it and keep track of the
-            // result in a dictionary. Then we go up the tree and calculate until we reach one
-            // which is not possible.
-
-            // We should also have a dictionary of AreaId to TreeNode.
-
-            // We should also keep track on the TreeNode if it is even a validArea. We do not need
-            // to keep going up the tree if the next parent node is not a validArea. Well, that's
-            // not true since the top parent might be valid. Really once we have the trees defined,
-            // we need to simply do a full recursive calc from the root node. Then on each tree
-            // node, we can keep track of "is it possible to hint barren" and "is it in validAreas".
-            // It's only possible if all of its own deps are satisfied. It isn't exactly related to
-            // the tree since from a dep perspective GD => CoO even though this isn't on the tree.
-            // However, it is true that CoO => SD => GD from a tree perspective for Barren hint
-            // priority.
-
-            // Note: we cannot build the tree until we have genData.
 
             VoseInstance<PotentialBarrenArea> inst = cache.GetFromLatestNodeCache<
                 VoseInstance<PotentialBarrenArea>
@@ -309,26 +232,6 @@ namespace TPRandomizer.Hints.HintCreator
             return hints;
         }
 
-        // TODO: can create dependencies at genData level so only have to do it once (will be more
-        // involved with ER), since we need it for both Barren hints and "(to name) NumMajorItems
-        // hint". And we would have to do it for all zones for ER.
-
-        // continued: for Barren hints, we can only hint a zone as barren if all dependent checks
-        // allow us to hint it as barren. If there are dependent zones, then we need to check those
-        // and gather the relevant data from them (such as the checks which will be marked "known
-        // barren").
-
-        // For NumMajorItems hints, we need to determine the dependent checks (if any), and then we
-        // need to determine if they can be hinted barren. This matches the BarrenHintCreator
-        // exactly, except we don't care about our own zone technically. Note that if we go through
-        // with this hint, it does mark those ones as "known barren" if we say they are barren.
-
-        // For NumMajorItems hints, we only need to include "but it may lead to {something good}" if
-        // we were to include "{zone name itself}" since it has inner zones (LLC, CoO, LS, or
-        // Agitha). We would also say "itself" if it had post-dungeon checks or dependent golden
-        // wolves. Maybe we only include the "but it leads to nothing / may lead to something good"
-        // for when Hint Importance is enabled. The "itself" on its own would indicate stuff.
-
         private List<PotentialBarrenArea> GetPotentialBarrenAreas(
             HintGenData genData,
             HashSet<AreaId> baseAreaIds,
@@ -374,27 +277,12 @@ namespace TPRandomizer.Hints.HintCreator
                     pbaDict[areaId] = pba;
             }
 
-            int matches = 7;
-
             return new(pbaDict.Values);
         }
 
         private PotentialBarrenArea tryGenPba(HintGenData genData, AreaId areaId)
         {
             HashSet<string> checkNames = recursiveGetAreaAndDepsChecks(genData, areaId);
-
-            // TODO: Other info to get:
-
-            // - does it have any relevant (not vanilla or excluded) dependent checks. For example,
-            //   we do not want to say "{Goron Mines itself}" if post-dungeon checks are excluded.
-
-            // - also we want to know the majorItems and importantItems (if possible) counts.
-
-            // TODO: since we want Vanilla checks to preventBarren now, we should include "itself"
-            // if there are Vanilla checks in dependent areas as well (however, we can ignore ones
-            // which are vanilla and not Major such as post-GM Poes). But if post-ToT ones are all
-            // excluded or Vanilla, we still need to say "itself" if the vanilla ones include major
-            // items such as Ilia quest items in HV. This "itself" stuff is for the IC hint.
 
             List<string> barrenableChecks = new();
             bool areaCanBeHintedBarren = true;
@@ -754,23 +642,6 @@ namespace TPRandomizer.Hints.HintCreator
                 childNode.parent = parentNode;
                 parentNode.children.Add(childNode);
             }
-
-            // Once the tree is built, any nodes which do not have a parent are root nodes. Does
-            // this matter though?
-
-            // Next what we need to do is start at the root node and drill down and d
-
-            // We can iterate through the baseAreaIds. For each one, if we don't already have a PBA
-            // for it (or null if not possible), then we calculate for it and store the result. If
-            // one has a TreeNode, then we iterate up the tree and create a PBA for each node which
-            // shows up in the baseAreaIds (until we run into no more praent nodes)?
-
-            // Actually, let's just make it simple. We can gather the full checks for the AreaId as
-            // a HashSet. It does not matter if the check is in the area or not? Well it does for
-            // dungeon items. But dungeons are never children, so we can ignore that.
-
-            // Get checks for zone, then get checks for any checkDeps and add.
-            // Then iterate to recursively get checks for areaDeps and add.
 
             foreach (TreeNode node in areaToNode.Values)
             {
