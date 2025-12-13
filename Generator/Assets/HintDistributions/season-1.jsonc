@@ -14,7 +14,7 @@
   },
   "beyondPointZones": ["alias:all"],
   "barren": {
-    "ownZoneBehavior": "monopolize",
+    "monopolizeSpots": true,
     "ownZoneShowsAsJunkHint": true
   },
   "always": {
