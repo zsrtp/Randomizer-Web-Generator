@@ -655,7 +655,6 @@ namespace TPRandomizer.Hints.HintCreator
             if (results.Count < 1)
                 return new();
 
-            // Dictionary<string, string> checkToHintZoneMap = HintUtils.getCheckToHintZoneMap();
             Dictionary<string, double> zoneWeightings = getZoneWeightings(
                 genData,
                 goalAndZonesList

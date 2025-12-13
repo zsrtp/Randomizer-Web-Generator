@@ -190,14 +190,11 @@ namespace TPRandomizer.Hints.HintCreator
             if (numHints < 1 || (mustBeInChainItems != null && mustBeInChainItems.Count < 1))
                 return null;
 
-            // TODO: update ItemHintCreator's status stuff. Then continue to update status stuff.
-            // Should have all CustomMsgData.GenItemText3 replaced with GenItemText4.
-
-            // Some things can only be given their default values once we get genData.
             if (validChainEndItems == null)
             {
                 // If no validChainEndItems were specified, then narrow hintable chainEndItems to
-                // recommended default set.
+                // recommended default set. Note that we needed to wait until here so that we have
+                // genData.
                 validChainEndItems = genData.getDefaultHintworthyItems();
             }
 
@@ -480,13 +477,6 @@ namespace TPRandomizer.Hints.HintCreator
         private bool IsChainEndCheckHintable(HintGenData genData, string checkName)
         {
             return genData.CheckCanBeClaimHinted(checkName, allowAgithaHintClaimed: true);
-            // HintedThings3 hinted = genData.hinted;
-
-            // // Skip over ignored since the endCheck might be an Agitha reward
-            // // which would be ignored normally.
-            // return !hinted.alreadyCheckContentsHinted.Contains(checkName)
-            //     && !hinted.alreadyCheckDirectedToward.Contains(checkName)
-            //     && !hinted.alreadyCheckKnownBarren.Contains(checkName);
         }
 
         private static HashSet<Item> ResolveItemsAlias(string alias)
