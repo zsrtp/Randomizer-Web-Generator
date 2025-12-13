@@ -2,8 +2,6 @@ namespace TPRandomizer.Hints
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
