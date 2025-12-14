@@ -1,6 +1,6 @@
 {
-    "requirements": "CanCompleteLanayruTwilight and (Iron_Boots or Zora_Armor)",
-    "glitchedRequirements": "CanCompleteLanayruTwilight and (Iron_Boots or Magic_Armor or Zora_Armor)",
+    "requirements": "CanCompleteLanayruTwilight and Iron_Boots",
+    "glitchedRequirements": "CanCompleteLanayruTwilight and (Iron_Boots or Magic_Armor)",
     "checkCategory": [ "Overworld", "Zoras Domain", "Rupee - Freestanding" ],
     "itemId": "Blue_Rupee"
   }
