@@ -1262,7 +1262,6 @@ namespace TPRandomizer
                                         {
                                             if (
                                                 (restriction == "Region")
-                                                && (currentCheck.checkStatus != "Excluded")
                                                 && (currentCheck.checkStatus != "Plando")
                                             )
                                             {
