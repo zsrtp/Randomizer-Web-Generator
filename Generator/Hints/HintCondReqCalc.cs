@@ -7,10 +7,10 @@ namespace TPRandomizer.Hints
 
     public class HintCondReqCalc
     {
+        // Note: the main algorithm in this file is based on OoTMM analysis-foolish.ts
         private HintGenData genData;
         private HashSet<string> condRequiredChecks = new();
         private bool markedCondReqChecks = false;
-        private int zigZagCount = 0;
 
         public HintCondReqCalc(HintGenData genData)
         {
@@ -241,16 +241,14 @@ namespace TPRandomizer.Hints
             if (lastBanishedCheckName == null)
                 return null;
 
-            // Re-forbid the last banished checkName. In the code above, we
-            // always revert the allowed/forbidden changes if the seed becomes
-            // unbeatable (meaning it is always beatable at the start of the
-            // while loop). Here we reverse this for the last check we found
-            // which had an outcome on the beatability of the seed when we
-            // forbid it. Even if we added forbidden checks after this one
-            // (meaning they did not prevent us from beating the seed), it is
-            // still guaranteed that re-forbidding the lastBanishedCheck will
-            // make the seed unbeatable which is what we want when the result is
-            // next processed by the zigZagUp.
+            // Re-forbid the last banished checkName. In the code above, we always revert the
+            // allowed/forbidden changes if the seed becomes unbeatable (meaning it is always
+            // beatable at the start of the while loop). Here we reverse this for the last check we
+            // found which had an outcome on the beatability of the seed when we forbid it. Even if
+            // we added forbidden checks after this one (meaning they did not prevent us from
+            // beating the seed), it is still guaranteed that re-forbidding the lastBanishedCheck
+            // will make the seed unbeatable which is what we want when the result is next processed
+            // by the zigZagUp.
             forbiddenCheckNames.Add(lastBanishedCheckName);
             allowedCheckNames.Remove(lastBanishedCheckName);
 
@@ -432,17 +430,16 @@ namespace TPRandomizer.Hints
             //   this would make generation take a crazy amount of time (13
             //   minutes plus).
 
-            // TODO: same applies for heart containers and heart pieces. Though
-            // the threshold checks are a little different. Lots of notes in
-            // text file about this. Read through those (txt 152, line ~850ish).
+            // TODO: same applies for heart containers and heart pieces. Though the threshold checks
+            // are a little different. Lots of notes in text file about this. Read through those
+            // (txt 152, line ~850ish).
 
-            // TODO: can mark the Sometimes Required poe souls up front.
-            // However, the zigZag still relies on the seed becoming unbeatable.
-            // But we would like for a domRod that leads to a sometimesRequired
-            // poe soul to be considered sometimesRequired. So what we should do
-            // is keep track of the ones that remove access to at least one poe
-            // soul on the zigZagDown. Then after we are done, we can go ahead
-            // and merge those into the known sometimesRequired checks.
+            // TODO: can mark the Sometimes Required poe souls up front. However, the zigZag still
+            // relies on the seed becoming unbeatable. But we would like for a domRod that leads to
+            // a sometimesRequired poe soul to be considered sometimesRequired. So what we should do
+            // is keep track of the ones that remove access to at least one poe soul on the
+            // zigZagDown. Then after we are done, we can go ahead and merge those into the known
+            // sometimesRequired checks.
 
             bool specialHiddenSkillHandling = handleHiddenSkills(itemToInflexibleCount);
 
@@ -633,10 +630,9 @@ namespace TPRandomizer.Hints
                 Check check = checkList.Value;
                 string checkName = check.checkName;
 
-                // Skip over Poe Souls since they make the calculation an order
-                // of magnitude slower (for example, 13m29s vs 1m6s). They will
-                // be handled later and only if Jovani is required or
-                // conditionallyRequired.
+                // Skip over Poe Souls since they make the calculation an order of magnitude slower
+                // (for example, 13m29s vs 1m6s). They will be handled later and only if Jovani is
+                // required or conditionallyRequired.
                 if (
                     genData.logicalItems2.Contains(check.itemId)
                     && !condRequiredChecks.Contains(checkName)
@@ -661,9 +657,6 @@ namespace TPRandomizer.Hints
             // Note: seed is guaranteed beatable using only required and sometimesRequired checks
             // since it is a superset of the spheres which are generated by keeping checks for which
             // removal causes an unbeatable seed. So no need to reconfirm that here.
-
-            // Note: when getting the status of a check later on, any check which is not "required"
-            // or "sometimesRequired" would be "not required".
 
             return condRequiredChecks;
 
