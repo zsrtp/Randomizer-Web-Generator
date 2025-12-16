@@ -35,7 +35,9 @@
     "Herding Goats Reward": ["sometimes"],
     "Wrestling With Bo": ["sometimes"],
     "Zoras Domain Extinguish All Torches Chest": ["sometimes"],
-    "Zoras Domain Light All Torches Chest": ["sometimes"]
+    "Zoras Domain Light All Torches Chest": ["sometimes"],
+    "Eldin Spring Underwater Chest": ["sometimes"],
+    "Lake Hylia Underwater Chest": ["sometimes"]
   },
   "removeItems": {
     "Progressive_Sword": ["sometimes"]

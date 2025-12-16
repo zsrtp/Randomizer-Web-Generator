@@ -23,7 +23,7 @@ namespace TPRandomizer.Hints
     {
         // `Unknown` is mainly for no-logic where we have a hard time saying if
         // a check is good or not, and we really cannot say if it is required or
-        // not.
+        // not. Used for other things as well.
         Unknown = 0,
         NotRequired = 1,
         Skippable = 2,
@@ -358,7 +358,7 @@ namespace TPRandomizer.Hints
                 Item.Aurus_Memo,
                 Item.Asheis_Sketch,
                 Item.Progressive_Sky_Book,
-                // ----- Dungeon items -----
+                // ----- Dungeon Items -----
                 Item.Forest_Temple_Small_Key,
                 Item.Goron_Mines_Small_Key,
                 Item.Lakebed_Temple_Small_Key,
@@ -379,7 +379,7 @@ namespace TPRandomizer.Hints
                 Item.City_in_The_Sky_Big_Key,
                 Item.Palace_of_Twilight_Big_Key,
                 Item.Hyrule_Castle_Big_Key,
-                // ----- Overworld items -----
+                // ----- Overworld Items -----
                 Item.Faron_Woods_Coro_Key,
                 Item.North_Faron_Woods_Gate_Key,
                 Item.Gate_Keys,

@@ -255,11 +255,6 @@ namespace TPRandomizer.Hints
                         Category(category)
                     );
                     return new(areaCheckInfo.fullCheckNames);
-                    // return new(
-                    //     HintCategoryUtils.categoryToChecksMap[
-                    //         HintCategoryUtils.StringToId(stringId)
-                    //     ]
-                    // );
                 }
                 default:
                     throw new Exception($"Failed to resolve checks for '{stringId}'.");

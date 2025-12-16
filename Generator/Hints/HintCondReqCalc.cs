@@ -3,13 +3,7 @@ namespace TPRandomizer.Hints
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Linq;
-    using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
-    using Microsoft.CodeAnalysis.Diagnostics;
-    using TPRandomizer.Util;
     using TPRandomizer.SSettings.Enums;
-    using System.Threading;
 
     public class HintCondReqCalc
     {

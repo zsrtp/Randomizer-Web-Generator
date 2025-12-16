@@ -2,13 +2,6 @@ namespace TPRandomizer.Hints
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Security.Cryptography;
-    using System.Transactions;
-    using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
     using SSettings.Enums;
     using TPRandomizer.Hints.Settings;
     using TPRandomizer.Util;

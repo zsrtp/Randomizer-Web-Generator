@@ -4,15 +4,11 @@ namespace TPRandomizer.Hints
     using System.Collections.ObjectModel;
     using System.Collections.Generic;
     using System.Linq;
-    using System.IO;
-    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using SSettings.Enums;
     using TPRandomizer.Util;
     using TPRandomizer.Hints.Settings;
     using TPRandomizer.Hints.HintCreator;
-    using System.Threading;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     public delegate bool BarrenPenalizer(AreaId areaId, HashSet<Zone> childZones);
 
@@ -413,44 +409,6 @@ namespace TPRandomizer.Hints
                             removeSpotFromMutableGroups(spotId);
                     }
                 }
-
-                // SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(hint);
-                // if (spotId != SpotId.Invalid)
-                // {
-                //     if (groupSpots.Contains(spotId))
-                //     {
-                //         // Need to place a copy of the hint at this spot and remove the spot from
-                //         // this group for the layer.
-                //         if (
-                //             hintSettings.barren.isMonopolize()
-                //             && normalSpotToHints.spotHasHints(spotId)
-                //         )
-                //         {
-                //             throw new Exception(
-                //                 $"Expected spot '{spotId}' to have no normal hints with barren.ownZoneBehavior set to 'monopolize', but it was not empty."
-                //             );
-                //         }
-
-                //         groupSpots.Remove(spotId);
-                //         normalSpotToHints.addHintToSpot(spotId, hint);
-
-                //         if (!areStartingHints)
-                //             placedNormalHintUids.Add(hint.uniqueHintId);
-
-                //         // hintDefResult.OnPlacedCopy();
-                //         // if (!hintDefResult.CanPlaceMoreCopies())
-                //         //     recHintResults.RemoveHintDefResultAt(i);
-                //     }
-                //     else
-                //     {
-                //         specialSpotToHints.addHintToSpot(spotId, hint);
-                //     }
-
-                //     // Additionally, if monopolize and not just prioritize, need to remove the spot
-                //     // from ALL groups.
-                //     if (hintSettings.barren.isMonopolize())
-                //         removeSpotFromMutableGroups(spotId);
-                // }
             }
 
             return placedNormalHintUids;
@@ -515,13 +473,15 @@ namespace TPRandomizer.Hints
             List<string> interestingAgithaChecks;
             if (interestingItemToCheckNames.Count > 0)
             {
-                List<KeyValuePair<Item, List<string>>> abc = interestingItemToCheckNames.ToList();
+                List<KeyValuePair<Item, List<string>>> asList =
+                    interestingItemToCheckNames.ToList();
                 // Shuffle list before sorting so no info is given away by the order the items are
                 // listed on the sign. Otherwise if both items had 1 copy for example, you could
                 // narrow down which bugs led to Item2 after you trade a bug in for Item1.
-                HintUtils.ShuffleListInPlace(genData.rnd, abc);
+                HintUtils.ShuffleListInPlace(genData.rnd, asList);
 
-                interestingAgithaChecks = abc.OrderByDescending((kvp) => kvp.Value.Count)
+                interestingAgithaChecks = asList
+                    .OrderByDescending((kvp) => kvp.Value.Count)
                     .SelectMany((kvp) => kvp.Value)
                     .ToList();
             }
@@ -576,7 +536,7 @@ namespace TPRandomizer.Hints
                 // If we would be creating Barren hints when barren ownZoneBehavior is set to
                 // "monopolize", then we need to do special handling where we create hints 1 at a
                 // time. Else we do more basic handling below. Note: we need to do this even for
-                // categories since they can have dependent zones (ex: NorthernDesert => CoO, or ND
+                // categories since they can have dependent zones (ex: SouthernDesert => CoO, or LH
                 // => LS under ER).
                 if (doBarrenHandling)
                 {
@@ -2400,12 +2360,6 @@ namespace TPRandomizer.Hints
                 picksDiffList.Add(0);
                 return true;
             }
-
-            // TODO: understand how barren, barren penalties, and starting work. Are barren
-            // penalties only relevant when there are pending starting selections? Needs to be able
-            // to support creating barren hints that monopolize multiple signs. Also needs to be
-            // able to support the dungeons group saying "no, even if you want to monopolize, my
-            // group is not getting spots removed because of that".
 
             // Ignore if new maxPicks is not defined or if it would be less restrictive than what we
             // are currently on.
