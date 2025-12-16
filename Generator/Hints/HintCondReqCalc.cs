@@ -121,12 +121,9 @@ namespace TPRandomizer.Hints
 
         private bool handleHiddenSkills(Dictionary<Item, int> itemToInflexibleCount)
         {
-            bool specialHiddenSkillHandling = false;
-
+            // Returns true if did specialHiddenSkillHandling, else false.
             if (genData.sSettings.logicRules == LogicRules.Glitchless)
             {
-                specialHiddenSkillHandling = true;
-
                 // If there is an inflexible Hidden Skill (start with one or a required one), then
                 // we automatically consider the rest to be "not required". Otherwise we will simply
                 // consider them all to be sometimesRequired. This is for performance reasons.
@@ -169,8 +166,166 @@ namespace TPRandomizer.Hints
                         }
                     }
                 }
+                // Return true since did special hidden skill handling.
+                return true;
             }
-            return specialHiddenSkillHandling;
+            return false;
+        }
+
+        private void handlePoeSouls(Dictionary<Item, int> itemToInflexibleCount)
+        {
+            // If poe souls are needed for HC or HC BK thresholds and the inflexible count does not
+            // already take care of the threshold, then mark all unknownStatus ones as
+            // sometimesRequired. We do not ever mark them as "not required" here since even if they
+            // aren't used for these thresholds, it's possible a Jovani reward is sometimesRequired,
+            // etc. However, we do not know the full condReq status of the Jovani rewards until
+            // after condReq calculations in the file finish, so leave any notRequired marking up to
+            // hintGenData which handles poeSouls and tradeItems following the calcs in this file.
+            List<int> thresholds = new();
+
+            if (genData.sSettings.castleRequirements == CastleRequirements.Poe_Souls)
+                thresholds.Add(genData.sSettings.castleRequirementCount);
+
+            if (genData.sSettings.castleBKRequirements == CastleBKRequirements.Poe_Souls)
+                thresholds.Add(genData.sSettings.castleBKRequirementCount);
+
+            int largestThreshold = 0;
+            foreach (int threshold in thresholds)
+            {
+                if (threshold > largestThreshold)
+                    largestThreshold = threshold;
+            }
+
+            if (largestThreshold < 0)
+                return;
+
+            if (largestThreshold > 0)
+            {
+                if (!itemToInflexibleCount.TryGetValue(Item.Poe_Soul, out int numInflexible))
+                    numInflexible = 0;
+                if (numInflexible < largestThreshold)
+                {
+                    // Finding Poe souls is useful for meeting a threshold, so mark as
+                    // sometimesRequired.
+                    if (
+                        genData.itemToChecksList.TryGetValue(
+                            Item.Poe_Soul,
+                            out List<string> checksForItem
+                        )
+                    )
+                    {
+                        foreach (string checkName in checksForItem)
+                        {
+                            if (
+                                !genData.requiredChecks.Contains(checkName)
+                                && !genData.allowBarrenChecks.Contains(checkName)
+                                && !genData.notReqChecks.Contains(checkName)
+                            )
+                            {
+                                Console.WriteLine(
+                                    $"Sometimes Required (poeSoul): {checkName} ({Item.Poe_Soul})"
+                                );
+                                condRequiredChecks.Add(checkName);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void handleHearts()
+        {
+            // If Hearts useful for HC access, mark all with an unknown status as sometimesRequired.
+            // Basic implementation for now since not able to change starting hearts or set
+            // requirement to be less than 4.
+            if (
+                genData.sSettings.castleRequirements == CastleRequirements.Hearts
+                || genData.sSettings.castleBKRequirements == CastleBKRequirements.Hearts
+            )
+            {
+                List<Item> items = new() { Item.Heart_Container, Item.Piece_of_Heart, };
+
+                foreach (Item item in items)
+                {
+                    if (genData.itemToChecksList.TryGetValue(item, out List<string> checksForItem))
+                    {
+                        foreach (string checkName in checksForItem)
+                        {
+                            if (
+                                !genData.requiredChecks.Contains(checkName)
+                                && !genData.allowBarrenChecks.Contains(checkName)
+                                && !genData.notReqChecks.Contains(checkName)
+                            )
+                            {
+                                Console.WriteLine(
+                                    $"Sometimes Required (heart): {checkName} ({item})"
+                                );
+                                condRequiredChecks.Add(checkName);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void handleSmallKeys()
+        {
+            // If small keys are anywhere or anyDungeon, then mark any key with an unknown status as
+            // sometimesRequired.
+            if (
+                genData.sSettings.smallKeySettings == SmallKeySettings.Any_Dungeon
+                || genData.sSettings.smallKeySettings == SmallKeySettings.Anywhere
+            )
+            {
+                foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
+                {
+                    Check check = checkList.Value;
+                    string checkName = check.checkName;
+                    Item item = check.itemId;
+
+                    if (
+                        smallKeyItems.Contains(item)
+                        && !condRequiredChecks.Contains(checkName)
+                        && !genData.requiredChecks.Contains(checkName)
+                        && !genData.allowBarrenChecks.Contains(checkName)
+                        && !genData.notReqChecks.Contains(checkName)
+                    )
+                    {
+                        Console.WriteLine($"Sometimes Required (SmKey): {checkName} ({item})");
+                        condRequiredChecks.Add(checkName);
+                    }
+                }
+            }
+        }
+
+        private void handleBigKeys()
+        {
+            // If big keys are anywhere or anyDungeon, then mark any key with an unknown status as
+            // sometimesRequired.
+            if (
+                genData.sSettings.bigKeySettings == BigKeySettings.Any_Dungeon
+                || genData.sSettings.bigKeySettings == BigKeySettings.Anywhere
+            )
+            {
+                foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
+                {
+                    Check check = checkList.Value;
+                    string checkName = check.checkName;
+                    Item item = check.itemId;
+
+                    if (
+                        bigKeyItems.Contains(item)
+                        && !condRequiredChecks.Contains(checkName)
+                        && !genData.requiredChecks.Contains(checkName)
+                        && !genData.allowBarrenChecks.Contains(checkName)
+                        && !genData.notReqChecks.Contains(checkName)
+                    )
+                    {
+                        Console.WriteLine($"Sometimes Required (BigKey): {checkName} ({item})");
+                        condRequiredChecks.Add(checkName);
+                    }
+                }
+            }
         }
 
         private ZigZagState monteCarloZigZagDown(ZigZagState zz)
@@ -346,7 +501,6 @@ namespace TPRandomizer.Hints
                     while (true)
                     {
                         ZigZagState step = monteCarloZigZagDown(downState);
-                        // this.progress();
                         if (step != null)
                         {
                             result = true;
@@ -367,7 +521,6 @@ namespace TPRandomizer.Hints
                     while (true)
                     {
                         ZigZagState step = monteCarloZigZagUp(upState);
-                        // this.progress();
                         if (step != null)
                             zzStack.Add(step);
                         else
@@ -386,16 +539,6 @@ namespace TPRandomizer.Hints
         {
             HashSet<string> locsSet = new();
 
-            // TODO: don't add poeSouls or hearts to condReq from the spheres. They will be handled
-            // in their own functions.
-
-            // continued: also don't add small or big keys? They will be added based on key settings
-            // below. And if they aren't added, then they will not be marked condReq (ex:
-            // ownDungeon). However, if one is optional for accessing a sometimesRequired check,
-            // then checks which are sometimesRequired to access it should also be sometimesRequired
-            // for accessing the later check, so it should work out. Basically this means it is
-            // assumed the player does not skip OwnDungeon small keys for no reason?
-
             // Add non-required checks from the playthrough spheres which are guaranteed to be
             // conditionallyRequired (playthrough failed when removing them conditionally).
             foreach (
@@ -404,10 +547,19 @@ namespace TPRandomizer.Hints
             {
                 foreach (KeyValuePair<int, Item> checkAndItem in spherePairs)
                 {
-                    // TODO: don't mark smallKeys and bigKeys automatically? Handle later?
                     string checkName = CheckIdClass.GetCheckName(checkAndItem.Key);
-                    // Item contents = checkAndItem.Value;
-                    if (!genData.requiredChecks.Contains(checkName))
+                    Item contents = checkAndItem.Value;
+
+                    // Skip over certain items which have special handling for the sake of
+                    // consistency. We do not skip over tradeItems however.
+                    if (
+                        !genData.requiredChecks.Contains(checkName)
+                        && contents != Item.Poe_Soul
+                        && contents != Item.Heart_Container
+                        && contents != Item.Piece_of_Heart
+                        && !smallKeyItems.Contains(contents)
+                        && !bigKeyItems.Contains(contents)
+                    )
                     {
                         condRequiredChecks.Add(checkName);
                         Console.WriteLine(
@@ -417,82 +569,14 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            // TODO: run a function which sees if it should mark poeSouls as
-            // sometimesRequired. Only marked if:
-            // - find larger threshold of "HC requirement is poe souls" or "HC
-            //   BK requirement is poe souls". Then the starting amount must not
-            //   be greater than this. If those are true, then all Poe Souls are
-            //   automatically marked as Sometimes Required.
-            // - If neither of those settings are poe souls, then poe souls are
-            //   not even considered major items, so they just show as purple
-            //   text with no modifier in hints.
-            // - REGARDLESS: poe souls are NEVER included in the locsSet since
-            //   this would make generation take a crazy amount of time (13
-            //   minutes plus).
-
-            // TODO: same applies for heart containers and heart pieces. Though the threshold checks
-            // are a little different. Lots of notes in text file about this. Read through those
-            // (txt 152, line ~850ish).
-
-            // TODO: can mark the Sometimes Required poe souls up front. However, the zigZag still
-            // relies on the seed becoming unbeatable. But we would like for a domRod that leads to
-            // a sometimesRequired poe soul to be considered sometimesRequired. So what we should do
-            // is keep track of the ones that remove access to at least one poe soul on the
-            // zigZagDown. Then after we are done, we can go ahead and merge those into the known
-            // sometimesRequired checks.
-
             bool specialHiddenSkillHandling = handleHiddenSkills(itemToInflexibleCount);
 
-            if (
-                genData.sSettings.smallKeySettings == SmallKeySettings.Any_Dungeon
-                || genData.sSettings.smallKeySettings == SmallKeySettings.Anywhere
-            )
-            {
-                foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
-                {
-                    Check check = checkList.Value;
-                    string checkName = check.checkName;
-                    Item item = check.itemId;
+            handlePoeSouls(itemToInflexibleCount);
+            handleHearts();
+            handleSmallKeys();
+            handleBigKeys();
 
-                    if (
-                        smallKeyItems.Contains(item)
-                        && !condRequiredChecks.Contains(checkName)
-                        && !genData.requiredChecks.Contains(checkName)
-                        && !genData.allowBarrenChecks.Contains(checkName)
-                        && !genData.notReqChecks.Contains(checkName)
-                    )
-                    {
-                        Console.WriteLine($"Sometimes Required (SmKey): {checkName} ({item})");
-                        condRequiredChecks.Add(checkName);
-                    }
-                }
-            }
-
-            if (
-                genData.sSettings.bigKeySettings == BigKeySettings.Any_Dungeon
-                || genData.sSettings.bigKeySettings == BigKeySettings.Anywhere
-            )
-            {
-                foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
-                {
-                    Check check = checkList.Value;
-                    string checkName = check.checkName;
-                    Item item = check.itemId;
-
-                    if (
-                        bigKeyItems.Contains(item)
-                        && !condRequiredChecks.Contains(checkName)
-                        && !genData.requiredChecks.Contains(checkName)
-                        && !genData.allowBarrenChecks.Contains(checkName)
-                        && !genData.notReqChecks.Contains(checkName)
-                    )
-                    {
-                        Console.WriteLine($"Sometimes Required (BigKey): {checkName} ({item})");
-                        condRequiredChecks.Add(checkName);
-                    }
-                }
-            }
-
+            // Build `locsSet`
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
             {
                 Check check = checkList.Value;
@@ -502,7 +586,9 @@ namespace TPRandomizer.Hints
                 // Certain items are never added to the `locsSet` for performance reasons. We also
                 // skip over non-logicalItems and checks which are already know to be "required" or
                 // "not required". It is critical we keep locsSet as small as possible. With enough
-                // checks, calculation can take more than 10 minutes, 20 minutes, etc.
+                // checks, calculation can take more than 10 minutes, 20 minutes, etc. We only
+                // include checks which can immediately be marked as notRequired if they are not
+                // caculated to be sometimesRequired.
                 if (
                     !genData.logicalItems2.Contains(item)
                     || genData.requiredChecks.Contains(checkName)
@@ -514,7 +600,7 @@ namespace TPRandomizer.Hints
                     || smallKeyItems.Contains(item)
                     || bigKeyItems.Contains(item)
                     || HintUtils.IsTradeItem(item)
-                    || (item == Item.Progressive_Hidden_Skill && specialHiddenSkillHandling)
+                    || (specialHiddenSkillHandling && item == Item.Progressive_Hidden_Skill)
                 )
                     continue;
 
@@ -623,26 +709,6 @@ namespace TPRandomizer.Hints
                 $"ConditionallyRequired Elapsed Time: {elapsed.TotalMilliseconds} ms"
             );
 
-            Console.WriteLine("---Logical items which are not useful:");
-
-            foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
-            {
-                Check check = checkList.Value;
-                string checkName = check.checkName;
-
-                // Skip over Poe Souls since they make the calculation an order of magnitude slower
-                // (for example, 13m29s vs 1m6s). They will be handled later and only if Jovani is
-                // required or conditionallyRequired.
-                if (
-                    genData.logicalItems2.Contains(check.itemId)
-                    && !condRequiredChecks.Contains(checkName)
-                    && !genData.requiredChecks.Contains(checkName)
-                    && !HintUtils.checkIsPlayerKnownStatus(checkName)
-                    && check.itemId != Item.Poe_Soul
-                )
-                    Console.WriteLine($"- {checkName} ({check.itemId})");
-            }
-
             foreach (string checkName in locsSet)
             {
                 if (!condRequiredChecks.Contains(checkName))
@@ -654,55 +720,7 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            // Note: seed is guaranteed beatable using only required and sometimesRequired checks
-            // since it is a superset of the spheres which are generated by keeping checks for which
-            // removal causes an unbeatable seed. So no need to reconfirm that here.
-
             return condRequiredChecks;
-
-            // We can't ignore vanilla checks since they might impact whether or
-            // not randomized checks are conditionally required?
-
-            // For example, imagine the following:
-            // - vanilla sky characters
-            // - 6 plandoed sky characters in sphere0
-            // - start with 2 dominion rods
-            // - only 1 bomb bag and it is in CitS
-            // - only 1 B&C and it is sphere0
-            // - only 1 rang and it is the first chest in KG cave
-
-            // Actually it might be good in this case for the sphere0 sky
-            // characters to not be barren blockers.
-
-            // Maybe we should say "we assume that a player will always do
-            // vanilla checks which reward logical items, so we do not consider
-            // paths in which a player skips these".
-
-            // We still would want to know if a vanilla check is useful for CAMC
-            // though. Maybe we just always make them large if they are a
-            // vanilla check which rewards a logical item.
-
-            // We probably don't need to worry about "excluded" checks either,
-            // since the contents of these should correctly filter them out, and
-            // it might be possible to plando an item on an excluded check? Idk
-            // what the status would be in that case.
-
-            // If the Jovani rewards are all non-logical though, we can
-            // definitely skip over poe souls though.
-
-            // We can probably do this for AgithaRewards and Sketch as well. Any
-            // ones where the item only trades for a check and it does not on
-            // its own open up any paths, etc.
-
-            // What if "if it is not possible to skip ALL checks rewarding poe
-            // souls, then we will consider them all conditionally required.
-            // However, checks rewarding poe souls can still show up in barren
-            // areas."
-
-            // EXCEPT: we should at least not consider a check rewarding a poe
-            // soul conditionally required if it is logically locked behind
-            // already doing the highest Jovani reward which gives a logical
-            // item.
         }
 
         private class ZigZagState

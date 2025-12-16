@@ -293,7 +293,7 @@ namespace TPRandomizer.Hints
 
     public class HintConstants
     {
-        public static readonly HashSet<Item> baseMajorItems =
+        public static readonly HashSet<Item> baseMightBeMajorItems =
             new()
             {
                 // ----- Collection Screen -----

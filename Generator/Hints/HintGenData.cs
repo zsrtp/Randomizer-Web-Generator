@@ -277,7 +277,7 @@ namespace TPRandomizer.Hints
 
         private HashSet<Item> prepMajorItems()
         {
-            HashSet<Item> majorItems = new(HintConstants.baseMajorItems);
+            HashSet<Item> majorItems = new(HintConstants.baseMightBeMajorItems);
 
             // Filter out conditional majorItems as appropriate:
 
@@ -343,7 +343,7 @@ namespace TPRandomizer.Hints
 
         private void prepLogicalItemAndMultiMax()
         {
-            HashSet<Item> logicalItems = new(HintConstants.baseMajorItems);
+            HashSet<Item> logicalItems = new(HintConstants.baseMightBeMajorItems);
 
             // From logicalItems, filter out any items which could not possibly serve a purpose
             // based on the settings:
