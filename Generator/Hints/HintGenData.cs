@@ -1497,7 +1497,6 @@ namespace TPRandomizer.Hints
         // private
         private readonly Dictionary<int, int> hintedBarrenDungeonCache = new();
         private readonly Dictionary<int, int> hintedWothDungeonCache = new();
-        private readonly HashSet<string> ignoreForBarrenWeighting = new();
 
         public int GetNumHintedBarrenDungeons()
         {
@@ -1548,40 +1547,18 @@ namespace TPRandomizer.Hints
             return count;
         }
 
-        public void AddNonWeightedBarrenCheck(string checkName)
-        {
-            if (StringUtils.isEmpty(checkName))
-                return;
-
-            if (!alreadyCheckKnownBarren.Contains(checkName))
-                ignoreForBarrenWeighting.Add(checkName);
-            alreadyCheckKnownBarren.Add(checkName);
-        }
-
         public void AddHintedBarrenCheck(string checkName)
         {
             if (StringUtils.isEmpty(checkName))
                 return;
             alreadyCheckKnownBarren.Add(checkName);
-            ignoreForBarrenWeighting.Remove(checkName);
         }
 
         public void AddHintedBarrenChecks(ICollection<string> checkNames)
         {
             if (ListUtils.isEmpty(checkNames))
                 return;
-
             alreadyCheckKnownBarren.UnionWith(checkNames);
-            ignoreForBarrenWeighting.RemoveWhere(
-                (checkName) => checkName != null && checkNames.Contains(checkName)
-            );
-        }
-
-        public bool IsIgnoreCheckForBarrenWeighting(string checkName)
-        {
-            if (StringUtils.isEmpty(checkName))
-                return false;
-            return ignoreForBarrenWeighting.Contains(checkName);
         }
     }
 

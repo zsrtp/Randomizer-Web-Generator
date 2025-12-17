@@ -1014,7 +1014,7 @@ namespace TPRandomizer.Hints
                     {
                         foreach (string checkName in checksToHint)
                         {
-                            genData.hinted.AddNonWeightedBarrenCheck(checkName);
+                            genData.hinted.AddHintedBarrenCheck(checkName);
                         }
                     }
                 }

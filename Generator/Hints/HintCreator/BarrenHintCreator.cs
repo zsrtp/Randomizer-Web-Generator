@@ -344,21 +344,6 @@ namespace TPRandomizer.Hints.HintCreator
                         numUnknownAllowBarrenChecks += 1;
                     }
                 }
-                else if (genData.hinted.IsIgnoreCheckForBarrenWeighting(checkName))
-                {
-                    // Even though NothingBeyond hints are calculated ahead of time, we still
-                    // include checks which were hinted barren this way into consideration when
-                    // handling weighting. This is so we do not significantly reduce the effective
-                    // size of LLC and some dungeons for barren hint calculation.
-                    // extraWeighting += 1;
-
-                    // TODO: temp setting this to do nothing since we really don't want this for
-                    // Snowpeak Mountain when all it does it tell us Ashei is dead. Arguably the
-                    // weight changes to the other BTP zones is how it should work anyway. Haven't
-                    // removed the code yet so don't have to rewrite it in case we want to enable
-                    // again.
-                    extraWeighting += 0;
-                }
             }
 
             // `numUnknownAllowBarrenChecks` is to avoid things like hinting Hyrule Castle barren
