@@ -2016,7 +2016,6 @@ namespace TPRandomizer.Hints
 
     public class SpotPenalty : IEquatable<SpotPenalty>, IComparable<SpotPenalty>
     {
-        // TODO: override GetHashCode
         public int spotsToTake { get; private set; }
         public bool isSelfInGroup { get; private set; }
         public uint uniqueHintId { get; set; }
@@ -2048,6 +2047,13 @@ namespace TPRandomizer.Hints
         public bool Equals(SpotPenalty other)
         {
             return CompareTo(other) == 0;
+        }
+
+        public override int GetHashCode()
+        {
+            // Note: not actually used, but complains if we do not override this while overriding
+            // Equals. We override Equals to make sorting easy.
+            return HashCode.Combine(spotsToTake, isSelfInGroup, uniqueHintId, childZones);
         }
 
         public int CompareTo(SpotPenalty other)
