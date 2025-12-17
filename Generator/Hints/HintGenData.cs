@@ -25,7 +25,7 @@ namespace TPRandomizer.Hints
         private Dictionary<Item, int> itemToInflexibleCount = new();
         public HashSet<string> allowBarrenChecks { get; private set; }
         public HashSet<Item> majorItems { get; private set; }
-        public HashSet<Item> logicalItems2 { get; private set; }
+        public HashSet<Item> logicalItems { get; private set; }
         public Dictionary<Item, List<string>> itemToChecksList { get; set; }
         public Dictionary<string, Item> tradeChainStartToReward = new();
         public Dictionary<Item, string> tradeItemToChainEndCheck = new();
@@ -256,7 +256,7 @@ namespace TPRandomizer.Hints
             foreach (Item item in majorItems)
             {
                 if (
-                    logicalItems2.Contains(item)
+                    logicalItems.Contains(item)
                     && !HintConstants.invalidSpolItems.Contains(item)
                     && !HintUtils.IsTradeItem(item)
                     && itemToChecksList.TryGetValue(item, out List<string> checkNames)
@@ -343,11 +343,11 @@ namespace TPRandomizer.Hints
 
         private void prepLogicalItemAndMultiMax()
         {
-            HashSet<Item> logicalItems = new(HintConstants.baseMightBeMajorItems);
+            HashSet<Item> newLogicalItems = new(HintConstants.baseMightBeMajorItems);
 
             // From logicalItems, filter out any items which could not possibly serve a purpose
             // based on the settings:
-            logicalItems.Remove(Item.Hawkeye);
+            newLogicalItems.Remove(Item.Hawkeye);
 
             multiToMaxItems = new()
             {
@@ -383,19 +383,19 @@ namespace TPRandomizer.Hints
                     if (HintUtils.checkIsExcluded("Castle Town Malo Mart Magic Armor"))
                     {
                         multiToMaxItems[Item.Progressive_Wallet] = 0;
-                        logicalItems.Remove(Item.Progressive_Wallet);
+                        newLogicalItems.Remove(Item.Progressive_Wallet);
                     }
                     break;
                 }
                 case WalletSize.Large:
                     multiToMaxItems[Item.Progressive_Wallet] = 0;
-                    logicalItems.Remove(Item.Progressive_Wallet);
+                    newLogicalItems.Remove(Item.Progressive_Wallet);
                     break;
             }
 
             if (sSettings.logicRules == LogicRules.Glitchless)
             {
-                logicalItems.Remove(Item.Magic_Armor);
+                newLogicalItems.Remove(Item.Magic_Armor);
 
                 if (
                     !sSettings.bonksDoDamage
@@ -403,10 +403,10 @@ namespace TPRandomizer.Hints
                 )
                 {
                     // Note: bottles can be used for step clips for glitched
-                    logicalItems.Remove(Item.Coro_Bottle);
-                    logicalItems.Remove(Item.Empty_Bottle);
-                    logicalItems.Remove(Item.Jovani_Bottle);
-                    logicalItems.Remove(Item.Sera_Bottle);
+                    newLogicalItems.Remove(Item.Coro_Bottle);
+                    newLogicalItems.Remove(Item.Empty_Bottle);
+                    newLogicalItems.Remove(Item.Jovani_Bottle);
+                    newLogicalItems.Remove(Item.Sera_Bottle);
                 }
             }
 
@@ -416,7 +416,7 @@ namespace TPRandomizer.Hints
                 && sSettings.castleBKRequirements != CastleBKRequirements.Fused_Shadows
             )
             {
-                logicalItems.Remove(Item.Progressive_Fused_Shadow);
+                newLogicalItems.Remove(Item.Progressive_Fused_Shadow);
             }
 
             if (
@@ -425,7 +425,7 @@ namespace TPRandomizer.Hints
                 && sSettings.castleBKRequirements != CastleBKRequirements.Mirror_Shards
             )
             {
-                logicalItems.Remove(Item.Progressive_Mirror_Shard);
+                newLogicalItems.Remove(Item.Progressive_Mirror_Shard);
             }
 
             if (
@@ -435,7 +435,7 @@ namespace TPRandomizer.Hints
                 && HintUtils.checkIsExcluded("Jovani 60 Poe Soul Reward")
             )
             {
-                logicalItems.Remove(Item.Poe_Soul);
+                newLogicalItems.Remove(Item.Poe_Soul);
             }
 
             if (
@@ -443,95 +443,95 @@ namespace TPRandomizer.Hints
                 && sSettings.castleBKRequirements != CastleBKRequirements.Hearts
             )
             {
-                logicalItems.Remove(Item.Heart_Container);
-                logicalItems.Remove(Item.Piece_of_Heart);
+                newLogicalItems.Remove(Item.Heart_Container);
+                newLogicalItems.Remove(Item.Piece_of_Heart);
             }
 
             if (sSettings.smallKeySettings == SmallKeySettings.Keysy)
             {
-                logicalItems.Remove(Item.Forest_Temple_Small_Key);
-                logicalItems.Remove(Item.Goron_Mines_Small_Key);
-                logicalItems.Remove(Item.Lakebed_Temple_Small_Key);
-                logicalItems.Remove(Item.Arbiters_Grounds_Small_Key);
-                logicalItems.Remove(Item.Snowpeak_Ruins_Small_Key);
-                logicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Pumpkin);
-                logicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
-                logicalItems.Remove(Item.Temple_of_Time_Small_Key);
-                logicalItems.Remove(Item.City_in_The_Sky_Small_Key);
-                logicalItems.Remove(Item.Palace_of_Twilight_Small_Key);
-                logicalItems.Remove(Item.Hyrule_Castle_Small_Key);
+                newLogicalItems.Remove(Item.Forest_Temple_Small_Key);
+                newLogicalItems.Remove(Item.Goron_Mines_Small_Key);
+                newLogicalItems.Remove(Item.Lakebed_Temple_Small_Key);
+                newLogicalItems.Remove(Item.Arbiters_Grounds_Small_Key);
+                newLogicalItems.Remove(Item.Snowpeak_Ruins_Small_Key);
+                newLogicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Pumpkin);
+                newLogicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
+                newLogicalItems.Remove(Item.Temple_of_Time_Small_Key);
+                newLogicalItems.Remove(Item.City_in_The_Sky_Small_Key);
+                newLogicalItems.Remove(Item.Palace_of_Twilight_Small_Key);
+                newLogicalItems.Remove(Item.Hyrule_Castle_Small_Key);
                 // Note: after breaking OW keys out from the Dungeon small keysy setting, will need
                 // to make adjustments here.
-                logicalItems.Remove(Item.Faron_Woods_Coro_Key);
-                logicalItems.Remove(Item.North_Faron_Woods_Gate_Key);
-                logicalItems.Remove(Item.Gate_Keys);
-                logicalItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
+                newLogicalItems.Remove(Item.Faron_Woods_Coro_Key);
+                newLogicalItems.Remove(Item.North_Faron_Woods_Gate_Key);
+                newLogicalItems.Remove(Item.Gate_Keys);
+                newLogicalItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
             }
 
             if (sSettings.bigKeySettings == BigKeySettings.Keysy)
             {
-                logicalItems.Remove(Item.Forest_Temple_Big_Key);
-                logicalItems.Remove(Item.Goron_Mines_Key_Shard);
-                logicalItems.Remove(Item.Lakebed_Temple_Big_Key);
-                logicalItems.Remove(Item.Arbiters_Grounds_Big_Key);
-                logicalItems.Remove(Item.Temple_of_Time_Big_Key);
-                logicalItems.Remove(Item.Snowpeak_Ruins_Bedroom_Key);
-                logicalItems.Remove(Item.City_in_The_Sky_Big_Key);
-                logicalItems.Remove(Item.Palace_of_Twilight_Big_Key);
-                logicalItems.Remove(Item.Hyrule_Castle_Big_Key);
+                newLogicalItems.Remove(Item.Forest_Temple_Big_Key);
+                newLogicalItems.Remove(Item.Goron_Mines_Key_Shard);
+                newLogicalItems.Remove(Item.Lakebed_Temple_Big_Key);
+                newLogicalItems.Remove(Item.Arbiters_Grounds_Big_Key);
+                newLogicalItems.Remove(Item.Temple_of_Time_Big_Key);
+                newLogicalItems.Remove(Item.Snowpeak_Ruins_Bedroom_Key);
+                newLogicalItems.Remove(Item.City_in_The_Sky_Big_Key);
+                newLogicalItems.Remove(Item.Palace_of_Twilight_Big_Key);
+                newLogicalItems.Remove(Item.Hyrule_Castle_Big_Key);
             }
 
             if (sSettings.barrenDungeons)
             {
                 if (!HintUtils.DungeonIsRequired("Forest Temple"))
                 {
-                    logicalItems.Remove(Item.Forest_Temple_Small_Key);
-                    logicalItems.Remove(Item.Forest_Temple_Big_Key);
+                    newLogicalItems.Remove(Item.Forest_Temple_Small_Key);
+                    newLogicalItems.Remove(Item.Forest_Temple_Big_Key);
                 }
                 if (!HintUtils.DungeonIsRequired("Goron Mines"))
                 {
-                    logicalItems.Remove(Item.Goron_Mines_Small_Key);
-                    logicalItems.Remove(Item.Goron_Mines_Key_Shard);
+                    newLogicalItems.Remove(Item.Goron_Mines_Small_Key);
+                    newLogicalItems.Remove(Item.Goron_Mines_Key_Shard);
                 }
                 if (!HintUtils.DungeonIsRequired("Lakebed Temple"))
                 {
-                    logicalItems.Remove(Item.Lakebed_Temple_Small_Key);
-                    logicalItems.Remove(Item.Lakebed_Temple_Big_Key);
+                    newLogicalItems.Remove(Item.Lakebed_Temple_Small_Key);
+                    newLogicalItems.Remove(Item.Lakebed_Temple_Big_Key);
                 }
                 if (!HintUtils.DungeonIsRequired("Arbiter's Grounds"))
                 {
-                    logicalItems.Remove(Item.Arbiters_Grounds_Small_Key);
-                    logicalItems.Remove(Item.Arbiters_Grounds_Big_Key);
+                    newLogicalItems.Remove(Item.Arbiters_Grounds_Small_Key);
+                    newLogicalItems.Remove(Item.Arbiters_Grounds_Big_Key);
                 }
                 if (!HintUtils.DungeonIsRequired("Snowpeak Ruins"))
                 {
-                    logicalItems.Remove(Item.Snowpeak_Ruins_Small_Key);
-                    logicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
-                    logicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Pumpkin);
-                    logicalItems.Remove(Item.Snowpeak_Ruins_Bedroom_Key);
+                    newLogicalItems.Remove(Item.Snowpeak_Ruins_Small_Key);
+                    newLogicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Goat_Cheese);
+                    newLogicalItems.Remove(Item.Snowpeak_Ruins_Ordon_Pumpkin);
+                    newLogicalItems.Remove(Item.Snowpeak_Ruins_Bedroom_Key);
                 }
                 if (!HintUtils.DungeonIsRequired("Temple of Time"))
                 {
-                    logicalItems.Remove(Item.Temple_of_Time_Small_Key);
-                    logicalItems.Remove(Item.Temple_of_Time_Big_Key);
+                    newLogicalItems.Remove(Item.Temple_of_Time_Small_Key);
+                    newLogicalItems.Remove(Item.Temple_of_Time_Big_Key);
                 }
                 if (!HintUtils.DungeonIsRequired("City in the Sky"))
                 {
-                    logicalItems.Remove(Item.City_in_The_Sky_Small_Key);
-                    logicalItems.Remove(Item.City_in_The_Sky_Big_Key);
+                    newLogicalItems.Remove(Item.City_in_The_Sky_Small_Key);
+                    newLogicalItems.Remove(Item.City_in_The_Sky_Big_Key);
                 }
                 if (!HintUtils.DungeonIsRequired("Palace of Twilight"))
                 {
-                    logicalItems.Remove(Item.Palace_of_Twilight_Small_Key);
-                    logicalItems.Remove(Item.Palace_of_Twilight_Big_Key);
+                    newLogicalItems.Remove(Item.Palace_of_Twilight_Small_Key);
+                    newLogicalItems.Remove(Item.Palace_of_Twilight_Big_Key);
                 }
             }
 
             if (sSettings.skipArbitersEntrance)
-                logicalItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
+                newLogicalItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
 
             if (sSettings.skipCityEntrance && HintUtils.checkIsExcluded("Shad Dominion Rod"))
-                logicalItems.Remove(Item.Progressive_Sky_Book);
+                newLogicalItems.Remove(Item.Progressive_Sky_Book);
 
             // For trade items, filter out if reward is excluded.
             foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
@@ -539,7 +539,7 @@ namespace TPRandomizer.Hints
                 Item tradeItem = pair.Key;
                 string rewardCheckName = pair.Value;
                 if (HintUtils.checkIsExcluded(rewardCheckName))
-                    logicalItems.Remove(tradeItem);
+                    newLogicalItems.Remove(tradeItem);
             }
 
             // Filter out any items where you already start with enough copies to logically max it
@@ -554,7 +554,7 @@ namespace TPRandomizer.Hints
                 }
                 startingItemCounts[startingItem] = count + 1;
             }
-            foreach (Item item in new List<Item>(logicalItems))
+            foreach (Item item in new List<Item>(newLogicalItems))
             {
                 // Skip these for now. Not relevant since cannot adjust starting hearts yet.
                 if (item == Item.Heart_Container || item == Item.Piece_of_Heart)
@@ -567,11 +567,11 @@ namespace TPRandomizer.Hints
                         countToMaxOut = count;
 
                     if (startingCount >= countToMaxOut)
-                        logicalItems.Remove(item);
+                        newLogicalItems.Remove(item);
                 }
             }
 
-            this.logicalItems2 = logicalItems;
+            this.logicalItems = newLogicalItems;
         }
 
         private HashSet<string> prepareAllowBarrenChecks(
@@ -581,7 +581,7 @@ namespace TPRandomizer.Hints
             HashSet<string> allowBarrenCheckSet = new();
 
             Dictionary<Item, int> itemToProgCount = new();
-            foreach (Item item in logicalItems2)
+            foreach (Item item in logicalItems)
             {
                 int countToMaxOut = 1;
                 if (multiToMaxItems.TryGetValue(item, out int count))
@@ -1290,7 +1290,7 @@ namespace TPRandomizer.Hints
 
             // If logical, then status would be "skippable" at this point. Else not required.
             Item contents = HintUtils.getCheckContents(checkName);
-            if (logicalItems2.Contains(contents))
+            if (logicalItems.Contains(contents))
                 return DetailedCheckStatus.Skippable;
             return DetailedCheckStatus.NotRequired;
         }
@@ -1353,7 +1353,7 @@ namespace TPRandomizer.Hints
                 return false;
 
             // If logical, then status would be "skippable" at this point. Else returns false.
-            return logicalItems2.Contains(contents);
+            return logicalItems.Contains(contents);
         }
 
         public bool CheckIsRequired(string checkName)

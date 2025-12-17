@@ -590,7 +590,7 @@ namespace TPRandomizer.Hints
                 // include checks which can immediately be marked as notRequired if they are not
                 // caculated to be sometimesRequired.
                 if (
-                    !genData.logicalItems2.Contains(item)
+                    !genData.logicalItems.Contains(item)
                     || genData.requiredChecks.Contains(checkName)
                     || genData.allowBarrenChecks.Contains(checkName)
                     || genData.notReqChecks.Contains(checkName)
