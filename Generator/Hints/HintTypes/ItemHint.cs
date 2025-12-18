@@ -31,6 +31,9 @@ namespace TPRandomizer.Hints
         {
             DetailedCheckStatus status = genData.CalcDetailedCheckStatus(checkName);
 
+            if (genData.sSettings.hintImportance == SSettings.Enums.HintImportance.Upgrade_Hints)
+                checkStatusDisplay = CheckStatusDisplay.Required_Info;
+
             ItemHint hint =
                 new(areaId, checkName, status, checkStatusDisplay, vague, genData: genData);
             return hint;
