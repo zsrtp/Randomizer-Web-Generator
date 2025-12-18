@@ -12,11 +12,25 @@ namespace TPRandomizer.Hints.HintCreator
     {
         public override HintCreatorType type { get; } = HintCreatorType.Path;
 
+        private HashSet<Item> invalidItems = new();
+
         private PathHintCreator() { }
 
         new public static PathHintCreator fromJObject(JObject obj)
         {
-            return new PathHintCreator();
+            PathHintCreator inst = new();
+            if (obj.ContainsKey("options"))
+            {
+                JObject options = (JObject)obj["options"];
+
+                inst.invalidItems = HintSettingUtils.getOptionalItemSet(
+                    options,
+                    "invalidItems",
+                    inst.invalidItems
+                );
+            }
+
+            return inst;
         }
 
         public override List<Hint> tryCreateHint(
@@ -348,7 +362,7 @@ namespace TPRandomizer.Hints.HintCreator
 
                 foreach (string checkName in checkNames)
                 {
-                    if (!genData.CheckCanBeWothPathHinted(checkName))
+                    if (!CheckIsPossibleToHint(genData, checkName))
                         continue;
 
                     canBeHintedCheckNames.Add(checkName);
@@ -825,6 +839,16 @@ namespace TPRandomizer.Hints.HintCreator
             }
 
             return filteredSecondaryList;
+        }
+
+        private bool CheckIsPossibleToHint(HintGenData genData, string checkName)
+        {
+            Item item = HintUtils.getCheckContents(checkName);
+
+            return (
+                genData.CheckCanBeWothPathHinted(checkName)
+                && (invalidItems == null || !invalidItems.Contains(item))
+            );
         }
     }
 }
