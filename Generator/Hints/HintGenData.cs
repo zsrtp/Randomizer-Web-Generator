@@ -873,8 +873,8 @@ namespace TPRandomizer.Hints
 
                     areaCheckInfo.fullCheckNames.Add(checkName);
 
-                    if (!HintUtils.checkIsPlayerKnownStatus(checkName))
-                        areaCheckInfo.relevantChecks.Add(checkName);
+                    if (!checkIsPlayerKnownStatus(checkName))
+                        areaCheckInfo.hasUnknownChecks = true;
                 }
             }
         }
@@ -1708,9 +1708,9 @@ namespace TPRandomizer.Hints
         // entirely ignored for hints.
         public HashSet<string> fullCheckNames { get; } = new();
 
-        // Subset of fullCheckNames for checks that are not Vanilla, Excluded, Excluded-Unrequired,
-        // or unreachable.
-        public HashSet<string> relevantChecks { get; } = new();
+        // Indicates if the area has any non-checkIsPlayerKnownStatus checks within fullCheckNames.
+        // So any non Vanilla, Excluded(-Unrequired), or known Plando checks.
+        public bool hasUnknownChecks;
         public HashSet<AreaId> dependentAreaIds { get; } = new();
         public HashSet<string> dependentCheckNames { get; } = new();
     }

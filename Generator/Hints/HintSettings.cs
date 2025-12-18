@@ -1176,7 +1176,7 @@ namespace TPRandomizer.Hints.Settings
                     AreaId.ZoneStr(zoneName)
                 );
 
-                if (areaCheckInfo.relevantChecks.Count > 0)
+                if (areaCheckInfo.hasUnknownChecks)
                     filteredSpots.Add(spot);
             }
 
