@@ -32,6 +32,7 @@
     "Skybook From Impaz": ["always"]
   },
   "removeChecks": {
+    "Palace of Twilight Collect Both Sols": ["always"],
     "Herding Goats Reward": ["sometimes"],
     "Wrestling With Bo": ["sometimes"],
     "Zoras Domain Extinguish All Torches Chest": ["sometimes"],
@@ -129,6 +130,16 @@
         "options": {
           "canBeClaimHinted": true,
           "validChecks": ["Temple of Time Lobby Lantern Chest"]
+        }
+      }
+    },
+    {
+      "spot": "palace_of_twilight_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "canBeClaimHinted": true,
+          "validChecks": ["Palace of Twilight Collect Both Sols"]
         }
       }
     },
