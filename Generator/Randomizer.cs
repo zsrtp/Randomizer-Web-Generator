@@ -1521,9 +1521,12 @@ namespace TPRandomizer
                             }
                             case "Temple of Time Boss Room":
                             {
-                                listOfAffectedChecks[i].AddRange(
-                                    CheckFunctions.postArmogohmaChecks
-                                );
+                                if (Randomizer.SSettings.iliaQuest == IliaQuest.Vanilla)
+                                {
+                                    listOfAffectedChecks[i].AddRange(
+                                        CheckFunctions.postArmogohmaChecks
+                                    );
+                                }
                                 break;
                             }
                             default:

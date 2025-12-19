@@ -1,6 +1,6 @@
 {
-    "requirements": "CanCompleteGoronMines and Room.Kakariko_Top_of_Watchtower and (Progressive_Bow, 1) and CanChangeTime and CanCompleteEldinTwilight and ((Setting.walletSize not_equal Reduced) or Progressive_Wallet)",
-    "glitchedRequirements": "CanCompleteGoronMines and Room.Kakariko_Top_of_Watchtower and (Progressive_Bow, 1) and CanChangeTime and CanCompleteEldinTwilight and ((Setting.walletSize not_equal Reduced) or Progressive_Wallet)",
+    "requirements": "CanCompleteGoronMines and Room.Kakariko_Top_of_Watchtower and (Progressive_Bow, 1) and CanCompleteEldinTwilight and ((Setting.walletSize not_equal Reduced) or Progressive_Wallet)",
+    "glitchedRequirements": "CanCompleteGoronMines and Room.Kakariko_Top_of_Watchtower and (Progressive_Bow, 1) and CanCompleteEldinTwilight and ((Setting.walletSize not_equal Reduced) or Progressive_Wallet)",
     "checkCategory": ["Overworld", "Kakariko Village", "ARC", "Shop"],
     "itemId": "Hawkeye"
 }

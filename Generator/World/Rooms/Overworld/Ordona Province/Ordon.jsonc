@@ -48,28 +48,28 @@
       },
       {
         "ConnectedArea": "Ordon Seras Shop",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Shield House Lower",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Sword House",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Bos House Left Door",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Bos House Right Door",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [
@@ -207,8 +207,8 @@
     "Exits": [
       {
         "ConnectedArea": "Ordon Ranch",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Village",
@@ -224,13 +224,13 @@
     "Exits": [
       {
         "ConnectedArea": "Ordon Ranch Entrance",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Ranch Stable",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": ["Herding Goats Reward"],
@@ -241,8 +241,8 @@
     "Exits": [
       {
         "ConnectedArea": "Ordon Ranch",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Ranch Grotto",
