@@ -2954,6 +2954,25 @@ namespace TPRandomizer.Assets
                     1
                 ),
 
+                // Remove Lost woods walls from lower arena so the player can travel through lost woods backwards. 
+
+                new ARCReplacement(
+                    "3B9C",
+                    "00000000",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Sacred_Grove,
+                    3
+                ),
+                new ARCReplacement(
+                    "43DC",
+                    "00000000",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Sacred_Grove,
+                    3
+                ),
+
                 /*
             // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here.
             new ARCReplacement(
