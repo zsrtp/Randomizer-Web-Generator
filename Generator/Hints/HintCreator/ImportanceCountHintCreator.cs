@@ -3,8 +3,6 @@ namespace TPRandomizer.Hints.HintCreator
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks.Dataflow;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Newtonsoft.Json.Linq;
     using TPRandomizer.Hints;
     using TPRandomizer.Hints.Settings;
@@ -36,6 +34,7 @@ namespace TPRandomizer.Hints.HintCreator
         private bool indicateImportant = false;
         private AreaId.AreaType areaType = AreaId.AreaType.Zone;
         private HashSet<AreaId> validAreas = null;
+        private string order;
 
         private ImportanceCountHintCreator() { }
 
@@ -97,6 +96,15 @@ namespace TPRandomizer.Hints.HintCreator
                         }
                     }
                 }
+
+                string orderStr = HintSettingUtils.getOptionalString(options, "order", null);
+                if (orderStr != null)
+                {
+                    orderStr = orderStr.ToLower();
+                    if (orderStr != "asc" && orderStr != "desc")
+                        throw new Exception("Option 'order' must be either 'asc' or 'desc'.");
+                }
+                inst.order = orderStr;
             }
 
             return inst;
@@ -110,26 +118,85 @@ namespace TPRandomizer.Hints.HintCreator
             BarrenPenalizer barrenPenalizer
         )
         {
+            // Can indicate numImportantChecks when we successfully did the conditionallyRequired
+            // calculations and either the hintCreator is set up to want to hint the numImportant or
+            // the player asked to upgrade hints in their sSettings.
+            bool shouldIndicateImportant =
+                genData.didCondReqCalc
+                && (
+                    indicateImportant
+                    || genData.sSettings.hintImportance
+                        == SSettings.Enums.HintImportance.Upgrade_Hints
+                );
+
             HashSet<AreaId> baseAreaIds = GetBaseAreaIds(genData, hintSettings);
-            List<PotentialIcArea> potentialIcAreas = GetPotentialIcAreas(genData, baseAreaIds);
+            List<PotentialIcArea> potentialIcAreas = GetPotentialIcAreas(
+                genData,
+                shouldIndicateImportant,
+                baseAreaIds
+            );
 
             if (potentialIcAreas.Count < 1)
                 return null;
 
-            List<KeyValuePair<double, PotentialIcArea>> weightedList = new();
-            foreach (PotentialIcArea pba in potentialIcAreas)
-            {
-                double weight = Math.Log(pba.effectiveUnknownChecksCount);
-                weightedList.Add(new(weight, pba));
-            }
+            MultiVoseLists<PotentialIcArea> voseLists;
 
-            VoseInstance<PotentialIcArea> voseInst = VoseAlgorithm.createInstance(weightedList);
+            if (StringUtils.isEmpty(order))
+            {
+                // If "order" not defined:
+                List<KeyValuePair<double, PotentialIcArea>> weightedList = new();
+                foreach (PotentialIcArea pba in potentialIcAreas)
+                {
+                    double weight = Math.Log(pba.effectiveUnknownChecksCount);
+                    weightedList.Add(new(weight, pba));
+                }
+
+                List<List<KeyValuePair<double, PotentialIcArea>>> lists = new() { weightedList };
+                voseLists = new(lists);
+            }
+            else
+            {
+                // If "order" is defined:
+                Dictionary<int, List<PotentialIcArea>> countToPiaList = new();
+                foreach (PotentialIcArea pia in potentialIcAreas)
+                {
+                    int count = shouldIndicateImportant
+                        ? pia.importantChecks.Count
+                        : pia.majorChecks.Count;
+                    if (!countToPiaList.ContainsKey(count))
+                        countToPiaList[count] = new();
+                    List<PotentialIcArea> piaList = countToPiaList[count];
+                    piaList.Add(pia);
+                }
+
+                List<int> counts = countToPiaList.Keys.ToList();
+                if (order == "asc")
+                    counts.Sort((a, b) => a.CompareTo(b));
+                else if (order == "desc")
+                    counts.Sort((a, b) => b.CompareTo(a));
+
+                List<List<KeyValuePair<double, PotentialIcArea>>> lists = new();
+
+                foreach (int count in counts)
+                {
+                    List<PotentialIcArea> piaList = countToPiaList[count];
+
+                    List<KeyValuePair<double, PotentialIcArea>> weightedList = new();
+                    foreach (PotentialIcArea pba in piaList)
+                    {
+                        double weight = Math.Log(pba.effectiveUnknownChecksCount);
+                        weightedList.Add(new(weight, pba));
+                    }
+                    lists.Add(weightedList);
+                }
+                voseLists = new(lists);
+            }
 
             List<Hint> hints = new();
 
-            while (voseInst.HasMore() && hints.Count < numHints)
+            while (voseLists.HasMore() && hints.Count < numHints)
             {
-                PotentialIcArea pia = voseInst.NextAndRemove(genData.rnd);
+                PotentialIcArea pia = voseLists.NextAndRemove(genData.rnd);
 
                 hints.Add(
                     new ImportanceCountHint(
@@ -233,6 +300,7 @@ namespace TPRandomizer.Hints.HintCreator
 
         private List<PotentialIcArea> GetPotentialIcAreas(
             HintGenData genData,
+            bool shouldIndicateImportant,
             HashSet<AreaId> baseAreaIds
         )
         {
@@ -250,30 +318,23 @@ namespace TPRandomizer.Hints.HintCreator
                         continue;
                 }
 
-                PotentialIcArea pia = tryGenPia(genData, areaId);
+                PotentialIcArea pia = tryGenPia(genData, shouldIndicateImportant, areaId);
                 if (pia != null)
                     ret.Add(pia);
             }
             return ret;
         }
 
-        private PotentialIcArea tryGenPia(HintGenData genData, AreaId areaId)
+        private PotentialIcArea tryGenPia(
+            HintGenData genData,
+            bool shouldIndicateImportant,
+            AreaId areaId
+        )
         {
             HashSet<string> checkNames = recursiveGetAreaAndDepsChecks(genData, areaId);
 
             AreaCheckInfo areaCheckInfo = genData.GetAreaCheckInfoThrows(areaId);
             HashSet<string> ownAreaCheckNames = areaCheckInfo.fullCheckNames;
-
-            // Can indicate numImportantChecks when we successfully did the conditionallyRequired
-            // calculations and either the hintCreator is set up to want to hint the numImportant or
-            // the player asked to upgrade hints in their sSettings.
-            bool shouldIndicateImportant =
-                genData.didCondReqCalc
-                && (
-                    indicateImportant
-                    || genData.sSettings.hintImportance
-                        == SSettings.Enums.HintImportance.Upgrade_Hints
-                );
 
             int numUnknownChecks = 0;
             int numUnknownAllowBarrenChecks = 0;
@@ -451,6 +512,56 @@ namespace TPRandomizer.Hints.HintCreator
             {
                 this.areaId = areaId;
                 this.indicatesImportant = indicatesImportant;
+            }
+        }
+    }
+
+    public class MultiVoseLists<T>
+    {
+        List<List<KeyValuePair<double, T>>> weightedLists;
+        VoseInstance<T> voseInst;
+
+        public MultiVoseLists(List<List<KeyValuePair<double, T>>> weightedLists)
+        {
+            this.weightedLists = weightedLists;
+        }
+
+        public T NextAndRemove(Random rnd)
+        {
+            if (!HasMore())
+                throw new Exception("NextAndRemove was called, but HasMore returned false.");
+
+            T result = voseInst.NextAndRemove(rnd);
+
+            checkSetupNewVose();
+
+            return result;
+        }
+
+        public bool HasMore()
+        {
+            return checkSetupNewVose();
+        }
+
+        private bool checkSetupNewVose()
+        {
+            // Loop so we skip over any lists with 0 elements.
+            while (true)
+            {
+                if (voseInst != null && voseInst.HasMore())
+                    return true;
+
+                if (weightedLists.Count > 0)
+                {
+                    List<KeyValuePair<double, T>> list = weightedLists[0];
+                    weightedLists.RemoveAt(0);
+                    voseInst = VoseAlgorithm.createInstance(list);
+                }
+                else
+                {
+                    voseInst = null;
+                    return false;
+                }
             }
         }
     }
