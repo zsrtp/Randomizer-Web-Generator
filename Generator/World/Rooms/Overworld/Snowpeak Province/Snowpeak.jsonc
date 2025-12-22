@@ -26,8 +26,8 @@
     [
       {
         "ConnectedArea": "Snowpeak Climb Lower",
-        "Requirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) and Shadow_Crystal",
-        "GlitchedRequirements": "((Setting.skipSnowpeakEntrance equals True) or (Room.Zoras_Domain and (Progressive_Fishing_Rod, 2))) or Shadow_Crystal"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Snowpeak Summit Upper",

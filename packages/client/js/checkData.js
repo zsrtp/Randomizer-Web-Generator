@@ -2550,7 +2550,7 @@ window.tpr.checkData = {
     category: ['Overworld', 'Rupee - Freestanding', 'Upper Zoras River'],
     itemId: 'Yellow_Rupee',
   },
-  'Upper Zoras River South Underwater Boulder Rupee': {
+  'Upper Zoras River West Underwater Boulder Rupee': {
     category: ['Overworld', 'Rupee - Freestanding', 'Upper Zoras River'],
     itemId: 'Yellow_Rupee',
   },

@@ -598,7 +598,7 @@ namespace TPRandomizer.Hints
                         "Upper Zoras River Poe",
                         "Upper Zoras River East Underwater Boulder Rupee",
                         "Upper Zoras River Central Underwater Boulder Rupee",
-                        "Upper Zoras River South Underwater Boulder Rupee",
+                        "Upper Zoras River West Underwater Boulder Rupee",
                         "Upper Zoras River Ledge Boulder Rupee",
                     }
                 },
