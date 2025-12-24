@@ -345,9 +345,10 @@ namespace TPRandomizer.Hints
         {
             HashSet<Item> newLogicalItems = new(HintConstants.baseMightBeMajorItems);
 
-            // From logicalItems, filter out any items which could not possibly serve a purpose
-            // based on the settings:
+            // From logicalItems, filter out any items which could not possibly serve a logical
+            // purpose based on the settings:
             newLogicalItems.Remove(Item.Hawkeye);
+            newLogicalItems.Remove(Item.Horse_Call);
 
             multiToMaxItems = new()
             {
@@ -1320,7 +1321,10 @@ namespace TPRandomizer.Hints
 
         public bool CheckWouldPreventBarren(string checkName)
         {
-            if (unreachableChecks.Contains(checkName))
+            if (
+                CheckIdClass.GetIsHideFromUiCheckName(checkName)
+                || unreachableChecks.Contains(checkName)
+            )
                 return false;
 
             // allowBarren applies even for `adjustHintsForCompletionists`

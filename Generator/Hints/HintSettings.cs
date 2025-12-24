@@ -288,6 +288,38 @@ namespace TPRandomizer.Hints.Settings
             return ret;
         }
 
+        public static List<int> getOptionalIntList(
+            JObject obj,
+            string propertyName,
+            List<int> defaultVal
+        )
+        {
+            if (!obj.ContainsKey(propertyName))
+                return defaultVal;
+            return getIntList(obj, propertyName);
+        }
+
+        public static List<int> getIntList(JObject obj, string propertyName)
+        {
+            JToken token = obj[propertyName];
+            if (token.Type != JTokenType.Array)
+                throw new Exception($"Property '{propertyName}' on JObject was not an array.");
+
+            JArray arr = (JArray)token;
+            List<int> ret = new();
+
+            foreach (JToken entry in arr)
+            {
+                if (entry.Type != JTokenType.Integer)
+                    throw new Exception(
+                        $"Entry in array was expected to be an integer, but was '{entry.Type}'."
+                    );
+
+                ret.Add((int)entry);
+            }
+            return ret;
+        }
+
         public static Item parseItem(string itemName)
         {
             if (Enum.TryParse(itemName, true, out Item item))

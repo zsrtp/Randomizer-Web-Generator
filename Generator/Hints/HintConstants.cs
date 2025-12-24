@@ -355,6 +355,7 @@ namespace TPRandomizer.Hints
                 Item.Invoice,
                 Item.Wooden_Statue,
                 Item.Ilias_Charm,
+                Item.Horse_Call,
                 Item.Aurus_Memo,
                 Item.Asheis_Sketch,
                 Item.Progressive_Sky_Book,

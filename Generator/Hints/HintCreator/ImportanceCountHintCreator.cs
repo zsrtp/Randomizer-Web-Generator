@@ -35,6 +35,7 @@ namespace TPRandomizer.Hints.HintCreator
         private AreaId.AreaType areaType = AreaId.AreaType.Zone;
         private HashSet<AreaId> validAreas = null;
         private string order;
+        private HashSet<int> allowedCounts;
 
         private ImportanceCountHintCreator() { }
 
@@ -105,6 +106,16 @@ namespace TPRandomizer.Hints.HintCreator
                         throw new Exception("Option 'order' must be either 'asc' or 'desc'.");
                 }
                 inst.order = orderStr;
+
+                List<int> allowedCountList = HintSettingUtils.getOptionalIntList(
+                    options,
+                    "allowedCounts",
+                    null
+                );
+                if (allowedCountList != null)
+                {
+                    inst.allowedCounts = new(allowedCountList);
+                }
             }
 
             return inst;
@@ -145,10 +156,16 @@ namespace TPRandomizer.Hints.HintCreator
             {
                 // If "order" not defined:
                 List<KeyValuePair<double, PotentialIcArea>> weightedList = new();
-                foreach (PotentialIcArea pba in potentialIcAreas)
+                foreach (PotentialIcArea pia in potentialIcAreas)
                 {
-                    double weight = Math.Log(pba.effectiveUnknownChecksCount);
-                    weightedList.Add(new(weight, pba));
+                    int count = shouldIndicateImportant
+                        ? pia.importantChecks.Count
+                        : pia.majorChecks.Count;
+                    if (allowedCounts != null && !allowedCounts.Contains(count))
+                        continue;
+
+                    double weight = Math.Log(pia.effectiveUnknownChecksCount);
+                    weightedList.Add(new(weight, pia));
                 }
 
                 List<List<KeyValuePair<double, PotentialIcArea>>> lists = new() { weightedList };
@@ -163,6 +180,9 @@ namespace TPRandomizer.Hints.HintCreator
                     int count = shouldIndicateImportant
                         ? pia.importantChecks.Count
                         : pia.majorChecks.Count;
+                    if (allowedCounts != null && !allowedCounts.Contains(count))
+                        continue;
+
                     if (!countToPiaList.ContainsKey(count))
                         countToPiaList[count] = new();
                     List<PotentialIcArea> piaList = countToPiaList[count];

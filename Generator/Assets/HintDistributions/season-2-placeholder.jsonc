@@ -64,13 +64,23 @@
   "specialHintDefs": [
     {
       "spot": "ordon_sign",
-      "hintDef": {
-        "hintType": "location",
-        "options": {
-          "canBeClaimHinted": true,
-          "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
+      "hintDef": [
+        {
+          "hintType": "location",
+          "options": {
+            "canBeClaimHinted": true,
+            "validStatuses": ["bad"],
+            "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
+          }
+        },
+        {
+          "hintType": "location",
+          "options": {
+            "canBeClaimHinted": true,
+            "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
+          }
         }
-      }
+      ]
     },
     {
       "spot": "forest_temple_sign",
@@ -238,22 +248,43 @@
             }
           },
           {
-            "hintType": "importanceCount",
+            "maxPicks": 1,
             "copies": 3,
-            "options": {
-              "indicateImportant": true,
-              "order": "asc",
-              "validAreas": [
-                "Forest Temple",
-                "Goron Mines",
-                "Lakebed Temple",
-                "Arbiter's Grounds",
-                "Snowpeak Ruins",
-                "Temple of Time",
-                "City in the Sky",
-                "Palace of Twilight"
-              ]
-            }
+            "hintDef": [
+              // {
+              //   "hintType": "importanceCount",
+              //   "options": {
+              //     "indicateImportant": true,
+              //     "allowedCounts": [0],
+              //     "validAreas": [
+              //       "Forest Temple",
+              //       "Goron Mines",
+              //       "Lakebed Temple",
+              //       "Arbiter's Grounds",
+              //       "Snowpeak Ruins",
+              //       "Temple of Time",
+              //       "City in the Sky",
+              //       "Palace of Twilight"
+              //     ]
+              //   }
+              // },
+              {
+                "hintType": "importanceCount",
+                "options": {
+                  "indicateImportant": true,
+                  "validAreas": [
+                    "Forest Temple",
+                    "Goron Mines",
+                    "Lakebed Temple",
+                    "Arbiter's Grounds",
+                    "Snowpeak Ruins",
+                    "Temple of Time",
+                    "City in the Sky",
+                    "Palace of Twilight"
+                  ]
+                }
+              }
+            ]
           },
           {
             "hintType": "itemToItemPath",
