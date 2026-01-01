@@ -581,6 +581,9 @@ namespace TPRandomizer.Hints
         {
             HashSet<string> allowBarrenCheckSet = new();
 
+            Dictionary<Item, int> completionistItemThresholds =
+                new() { { Item.Progressive_Bow, 3 }, { Item.Filled_Bomb_Bag, 3 }, };
+
             Dictionary<Item, int> itemToProgCount = new();
             foreach (Item item in logicalItems)
             {
@@ -611,26 +614,39 @@ namespace TPRandomizer.Hints
             // shields.
 
             // Items already handled because they went over the inflexibleCount threshold.
-            HashSet<Item> fullInflexibleItems = new();
+            HashSet<Item> alreadyHandledItems = new();
 
             foreach (KeyValuePair<Item, int> pair in itemToProgCount)
             {
                 Item item = pair.Key;
                 int progCount = pair.Value;
+                HashSet<string> setToAddTo = allowBarrenCheckSet;
 
                 if (itemToInflexibleCount.ContainsKey(item) && itemToChecksList.ContainsKey(item))
                 {
                     int inflexibleCount = itemToInflexibleCount[item];
                     if (inflexibleCount >= progCount)
                     {
-                        fullInflexibleItems.Add(item);
+                        if (
+                            sSettings.adjustHintsForCompletionists
+                            && completionistItemThresholds.TryGetValue(
+                                item,
+                                out int completionistThreshold
+                            )
+                        )
+                        {
+                            if (inflexibleCount < completionistThreshold)
+                                setToAddTo = notReqChecks;
+                        }
+
+                        alreadyHandledItems.Add(item);
                         // If inflexibly maxed out, mark any unrequired checks with this item as
                         // allowBarren.
                         List<string> checksForItem = itemToChecksList[item];
                         foreach (string checkName in checksForItem)
                         {
                             if (!requiredChecks.Contains(checkName))
-                                allowBarrenCheckSet.Add(checkName);
+                                setToAddTo.Add(checkName);
                         }
                     }
                 }
@@ -639,15 +655,29 @@ namespace TPRandomizer.Hints
             // For items which max out at a single copy, any copies of this item which cannot
             // logically be your first copy are not logically useful, so mark allowBarren. This most
             // often matters for bombs or bows, but you could also see this if there were 2 findable
-            // Auru's Memos and one was in the desert for example.
+            // Auru's Memos and one was in the desert for example. If adjustHintsForCompletionists
+            // is enabled, then we skip over items which have a difference completionist max and
+            // logical max (bomb bags and bows).
             if (sSettings.logicRules != LogicRules.No_Logic)
             {
                 foreach (KeyValuePair<Item, int> pair in itemToProgCount)
                 {
                     Item item = pair.Key;
                     if (
+                        sSettings.adjustHintsForCompletionists
+                        && completionistItemThresholds.TryGetValue(
+                            item,
+                            out int completionistThreshold
+                        )
+                        && completionistThreshold > 1
+                    )
+                    {
+                        continue;
+                    }
+
+                    if (
                         pair.Value == 1
-                        && !fullInflexibleItems.Contains(item)
+                        && !alreadyHandledItems.Contains(item)
                         && itemToChecksList.TryGetValue(item, out List<string> checksList)
                         && checksList.Count > 1
                     )
