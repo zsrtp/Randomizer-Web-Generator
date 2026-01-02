@@ -1,5 +1,5 @@
 {
-  // Season 1 distribution
+  // Season 2 placeholder distribution
   "starting": {
     "spot": "midna",
     "excludeFromGroups": true
@@ -7,7 +7,6 @@
   "calculateImportance": true,
   "agitha": true,
   "jovani": {
-    // "minFoundSoulsForHint": 10
     "minFoundSoulsForHint": 0,
     "maxFoundSoulsForVagueItem": 20
   },

@@ -8,6 +8,13 @@ namespace TPRandomizer.Hints
     public class HintCondReqCalc
     {
         // Note: the main algorithm in this file is based on OoTMM analysis-foolish.ts
+
+        // If a single zigZag takes more time than this, something is probably wrong. The only way
+        // this should be possible is with a really extreme plando which adds a massive number of
+        // items to the locsSet. We have this here so the generator does not get stuck on a request
+        // like this, but hopefully it is never relevant.
+        private const int MaxSingleZigZagDurationMs = 90_000;
+
         private HintGenData genData;
         private HashSet<string> condRequiredChecks = new();
         private bool markedCondReqChecks = false;
@@ -328,7 +335,19 @@ namespace TPRandomizer.Hints
             }
         }
 
-        private ZigZagState monteCarloZigZagDown(ZigZagState zz)
+        private void checkZigZagDurationCausesError(Stopwatch stopwatch)
+        {
+            long elapsedMs = stopwatch.ElapsedMilliseconds;
+            if (elapsedMs > MaxSingleZigZagDurationMs)
+            {
+                Console.WriteLine(
+                    $"ZigZag iteration taking more than allowed time '{MaxSingleZigZagDurationMs} ms', so exiting program with error code 1."
+                );
+                Environment.Exit(1);
+            }
+        }
+
+        private ZigZagState monteCarloZigZagDown(ZigZagState zz, Stopwatch stopwatch)
         {
             HashSet<string> checkNames = new(zz.allowedCheckNames);
             HashSet<string> allowedCheckNames = new(zz.allowedCheckNames);
@@ -346,6 +365,8 @@ namespace TPRandomizer.Hints
             {
                 if (checkNames.Count < 1)
                     break;
+
+                checkZigZagDurationCausesError(stopwatch);
 
                 string checkName = HintUtils.RemoveRandomHashSetItem(genData.rnd, checkNames);
                 allowedCheckNames.Remove(checkName);
@@ -410,7 +431,7 @@ namespace TPRandomizer.Hints
             return new(allowedCheckNames, forbiddenCheckNames);
         }
 
-        private ZigZagState monteCarloZigZagUp(ZigZagState zz)
+        private ZigZagState monteCarloZigZagUp(ZigZagState zz, Stopwatch stopwatch)
         {
             HashSet<string> checkNames = new(zz.forbiddenCheckNames);
             HashSet<string> forbiddenCheckNames = new(zz.forbiddenCheckNames);
@@ -428,6 +449,8 @@ namespace TPRandomizer.Hints
             {
                 if (checkNames.Count < 1)
                     break;
+
+                checkZigZagDurationCausesError(stopwatch);
 
                 string checkName = HintUtils.RemoveRandomHashSetItem(genData.rnd, checkNames);
                 forbiddenCheckNames.Remove(checkName);
@@ -489,6 +512,9 @@ namespace TPRandomizer.Hints
 
         private bool monteCarloZigZag(HashSet<string> checkNames)
         {
+            Stopwatch stopwatch = new();
+            stopwatch.Start();
+
             bool result = false;
             List<ZigZagState> zzStack = new() { new(new(checkNames), new()) };
 
@@ -500,7 +526,11 @@ namespace TPRandomizer.Hints
                 {
                     while (true)
                     {
-                        ZigZagState step = monteCarloZigZagDown(downState);
+                        long elapsedMs = stopwatch.ElapsedMilliseconds;
+                        Console.WriteLine(
+                            $"--Starting zigZagDown; elapsedMs for this zigZag is: {elapsedMs} ms."
+                        );
+                        ZigZagState step = monteCarloZigZagDown(downState, stopwatch);
                         if (step != null)
                         {
                             result = true;
@@ -520,7 +550,11 @@ namespace TPRandomizer.Hints
                 {
                     while (true)
                     {
-                        ZigZagState step = monteCarloZigZagUp(upState);
+                        long elapsedMs = stopwatch.ElapsedMilliseconds;
+                        Console.WriteLine(
+                            $"--Starting zigZagUp; elapsedMs for this zigZag is: {elapsedMs} ms."
+                        );
+                        ZigZagState step = monteCarloZigZagUp(upState, stopwatch);
                         if (step != null)
                             zzStack.Add(step);
                         else
