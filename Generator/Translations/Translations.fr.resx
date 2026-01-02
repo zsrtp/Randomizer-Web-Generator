@@ -2205,6 +2205,14 @@
     <value>Pas d&apos;indice</value>
     <comment></comment>
   </data>
+  <data name="noun.mystery-item@ac(m,true)" xml:space="preserve">
+    <value>objet mystère</value>
+    <comment></comment>
+  </data>
+  <data name="noun.mystery-item#other@ac(m)" xml:space="preserve">
+    <value>objets mystères</value>
+    <comment></comment>
+  </data>
   <data name="noun.objpro" xml:space="preserve">
     <value>le</value>
     <comment></comment>
