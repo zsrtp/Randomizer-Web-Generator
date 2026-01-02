@@ -141,12 +141,20 @@
     <value>le {cs}Loup Doré{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.golden_wolf$plain" xml:space="preserve">
+    <value>Loup Doré</value>
+    <comment></comment>
+  </data>
   <data name="area.category.grotto" xml:space="preserve">
     <value>$(ap:dans)une {cs}Grotte secrète{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$default" xml:space="preserve">
     <value>$(ap:dans,plural)les {cs}Grottes secrètes{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto$plain" xml:space="preserve">
+    <value>Grottes Secrètes</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$plural" xml:space="preserve">
@@ -161,6 +169,10 @@
     <value>$(ap:dans,plural)les {cs}Coffres Lanternes de la Grotte Lanterne du Lac{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.llc_lantern_chests$plain" xml:space="preserve">
+    <value>Coffres Lanternes de la Grotte Lanterne du Lac</value>
+    <comment></comment>
+  </data>
   <data name="area.category.llc_lantern_chests$plural" xml:space="preserve">
     <value>$(ap:dans,plural)les {cs}Coffres Lanternes de la Grotte Lanterne du Lac{ce}</value>
     <comment></comment>
@@ -169,8 +181,16 @@
     <value>$(ap:derriere)le {cs}Brouillard Mauve{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.mist$plain" xml:space="preserve">
+    <value>Brouillard Mauve</value>
+    <comment></comment>
+  </data>
   <data name="area.category.northern_desert" xml:space="preserve">
     <value>$(ap:dans)la {cs}partie nord du désert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.northern_desert$plain" xml:space="preserve">
+    <value>Partie Nord du Désert</value>
     <comment></comment>
   </data>
   <data name="area.category.owl_statue" xml:space="preserve">
@@ -181,12 +201,20 @@
     <value>$(ap:pres-de,plural)les {cs}Statues de Hibou{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.owl_statue$plain" xml:space="preserve">
+    <value>Statues de Hibou</value>
+    <comment></comment>
+  </data>
   <data name="area.category.owl_statue$plural" xml:space="preserve">
     <value>$(ap:pres-de,plural)les {cs}Statues de Hibou{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.southern_desert" xml:space="preserve">
     <value>$(ap:dans)la {cs}partie sud du désert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.southern_desert$plain" xml:space="preserve">
+    <value>Partie Sud du Désert</value>
     <comment></comment>
   </data>
   <data name="area.category.underwater" xml:space="preserve">
@@ -199,6 +227,10 @@
   </data>
   <data name="area.category.underwater$default" xml:space="preserve">
     <value>$(ap:none)plonger {cs}sous l&apos;eau{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater$plain" xml:space="preserve">
+    <value>$(ap:none)Sous l&apos;eau</value>
     <comment></comment>
   </data>
   <data name="area.province.desert" xml:space="preserve">
@@ -241,24 +273,48 @@
     <value>le {cs}Château de Machaon{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.agithas_castle$plain" xml:space="preserve">
+    <value>Château de Machaon</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.arbiters_grounds" xml:space="preserve">
     <value>la {cs}Tour du Jugement{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.arbiters_grounds$plain" xml:space="preserve">
+    <value>Tour du Jugement</value>
     <comment></comment>
   </data>
   <data name="area.zone.beside_castle_town" xml:space="preserve">
     <value>$(plural)les {cs}Abords de la Citadelle{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.beside_castle_town$plain" xml:space="preserve">
+    <value>Abords de la Citadelle</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.bulblin_camp" xml:space="preserve">
     <value>le {cs}Camp des Bulblins{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.bulblin_camp$plain" xml:space="preserve">
+    <value>Camp des Bulblins</value>
     <comment></comment>
   </data>
   <data name="area.zone.castle_town" xml:space="preserve">
     <value>la {cs}Citadelle{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.castle_town$plain" xml:space="preserve">
+    <value>Citadelle</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.cave_of_ordeals" xml:space="preserve">
     <value>la {cs}Caverne de l&apos;Ordalie{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.cave_of_ordeals$plain" xml:space="preserve">
+    <value>Caverne de l&apos;Ordalie</value>
     <comment></comment>
   </data>
   <data name="area.zone.city_in_the_sky" xml:space="preserve">
@@ -269,76 +325,152 @@
     <value>la {cs}Montagne de la Mort{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.death_mountain$plain" xml:space="preserve">
+    <value>Montagne de la Mort</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.eldin_field" xml:space="preserve">
     <value>la {cs}Plaine de Ordinn{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.eldin_field$plain" xml:space="preserve">
+    <value>Plaine de Ordinn</value>
     <comment></comment>
   </data>
   <data name="area.zone.faron_field" xml:space="preserve">
     <value>la {cs}Plaine de Firone{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.faron_field$plain" xml:space="preserve">
+    <value>Plaine de Firone</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.faron_woods" xml:space="preserve">
     <value>la {cs}Forêt de Firone{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.faron_woods$plain" xml:space="preserve">
+    <value>Forêt de Firone</value>
     <comment></comment>
   </data>
   <data name="area.zone.forest_temple" xml:space="preserve">
     <value>le {cs}Temple Sylvestre{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.forest_temple$plain" xml:space="preserve">
+    <value>Temple Sylvestre</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.gerudo_desert" xml:space="preserve">
     <value>le {cs}Désert Gerudo{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.gerudo_desert$plain" xml:space="preserve">
+    <value>Désert Gerudo</value>
     <comment></comment>
   </data>
   <data name="area.zone.goron_mines" xml:space="preserve">
     <value>$(plural)les {cs}Mines Gorons{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.goron_mines$plain" xml:space="preserve">
+    <value>Mines Gorons</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.great_bridge_of_hylia" xml:space="preserve">
     <value>le {cs}Viaduc d&apos;Hylia{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.great_bridge_of_hylia$plain" xml:space="preserve">
+    <value>Viaduc d&apos;Hylia</value>
     <comment></comment>
   </data>
   <data name="area.zone.hidden_village" xml:space="preserve">
     <value>le {cs}Village oublié{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.hidden_village$plain" xml:space="preserve">
+    <value>Village Oublié</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.hyrule_castle" xml:space="preserve">
     <value>le {cs}Château d&apos;Hyrule{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.hyrule_castle$plain" xml:space="preserve">
+    <value>Château d&apos;Hyrule</value>
     <comment></comment>
   </data>
   <data name="area.zone.kakariko_gorge" xml:space="preserve">
     <value>$(plural)les {cs}Gorges de Cocorico{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.kakariko_gorge$plain" xml:space="preserve">
+    <value>Gorges de Cocorico</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.kakariko_graveyard" xml:space="preserve">
     <value>le {cs}Cimetière de Cocorico{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.kakariko_graveyard$plain" xml:space="preserve">
+    <value>Cimetière de Cocorico</value>
     <comment></comment>
   </data>
   <data name="area.zone.kakariko_village" xml:space="preserve">
     <value>le {cs}Village Cocorico{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.kakariko_village$plain" xml:space="preserve">
+    <value>Village Cocorico</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.lake_hylia" xml:space="preserve">
     <value>le {cs}Lac Hylia{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lake_hylia$plain" xml:space="preserve">
+    <value>Lac Hylia</value>
     <comment></comment>
   </data>
   <data name="area.zone.lake_lantern_cave" xml:space="preserve">
     <value>la {cs}Grotte Lanterne du Lac{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.lake_lantern_cave$plain" xml:space="preserve">
+    <value>Grotte Lanterne du Lac</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.lakebed_temple" xml:space="preserve">
     <value>le {cs}Temple Abyssal{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lakebed_temple$plain" xml:space="preserve">
+    <value>Temple Abyssal</value>
     <comment></comment>
   </data>
   <data name="area.zone.lanayru_field" xml:space="preserve">
     <value>la {cs}Plaine de Lanelle{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.lanayru_field$plain" xml:space="preserve">
+    <value>Plaine de Lanelle</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.lanayru_spring" xml:space="preserve">
     <value>la {cs}Source de Lanelle{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.lanayru_spring$plain" xml:space="preserve">
+    <value>Source de Lanelle</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.north_eldin" xml:space="preserve">
     <value>{que-transform}Ordinn Nord</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.north_eldin$plain" xml:space="preserve">
+    <value>Ordinn Nord</value>
     <comment></comment>
   </data>
   <data name="area.zone.ordon" xml:space="preserve">
@@ -349,28 +481,56 @@
     <value>le {cs}Palais du Crépuscule{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.palace_of_twilight$plain" xml:space="preserve">
+    <value>Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.sacred_grove" xml:space="preserve">
     <value>le {cs}Sanctuaire de la Forêt{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.sacred_grove$plain" xml:space="preserve">
+    <value>Sanctuaire de la Forêt</value>
     <comment></comment>
   </data>
   <data name="area.zone.snowpeak_mountain" xml:space="preserve">
     <value>$(plural)les {cs}Pics Blancs{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.snowpeak_mountain$plain" xml:space="preserve">
+    <value>Pics Blancs</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.snowpeak_ruins" xml:space="preserve">
     <value>$(plural)les {cs}Ruines des Pics Blancs{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.snowpeak_ruins$plain" xml:space="preserve">
+    <value>Ruines des Pics Blancs</value>
     <comment></comment>
   </data>
   <data name="area.zone.south_of_castle_town" xml:space="preserve">
     <value>le {cs}Sud de la Citadelle{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.south_of_castle_town$plain" xml:space="preserve">
+    <value>Sud de la Citadelle</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.temple_of_time" xml:space="preserve">
     <value>le {cs}Temple du Temps{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.temple_of_time$plain" xml:space="preserve">
+    <value>Temple du Temps</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.upper_zoras_river" xml:space="preserve">
     <value>l&apos;{cs}Amont de la Rivière Zora{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.upper_zoras_river$plain" xml:space="preserve">
+    <value>Amont de la Rivière Zora</value>
     <comment></comment>
   </data>
   <data name="area.zone.upper_zoras_river$trade-chain" xml:space="preserve">
@@ -379,6 +539,10 @@
   </data>
   <data name="area.zone.zoras_domain" xml:space="preserve">
     <value>le {cs}Domaine Zora{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.zoras_domain$plain" xml:space="preserve">
+    <value>Domaine Zora</value>
     <comment></comment>
   </data>
   <data name="description.bad-check" xml:space="preserve">
@@ -1995,6 +2159,10 @@
   </data>
   <data name="menu.midna-other.option.hints" xml:space="preserve">
     <value>Indices</value>
+    <comment></comment>
+  </data>
+  <data name="midna.grouped-barren-hints" xml:space="preserve">
+    <value>Il est dit qu&apos;il n&apos;y a #(purple)rien#(white) à trouver dans les zones suivantes :</value>
     <comment></comment>
   </data>
   <data name="midna.required-dungeons" xml:space="preserve">
