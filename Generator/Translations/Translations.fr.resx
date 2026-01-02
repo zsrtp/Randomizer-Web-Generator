@@ -554,7 +554,7 @@
     <comment></comment>
   </data>
   <data name="description.required-check" xml:space="preserve">
-    <value>(obligatoire)</value>
+    <value>(requis)</value>
     <comment></comment>
   </data>
   <data name="description.skippable-check" xml:space="preserve">
@@ -562,11 +562,11 @@
     <comment></comment>
   </data>
   <data name="description.sometimes-required-check" xml:space="preserve">
-    <value>(TODO fr sometimes required)</value>
+    <value>(parfois requis)</value>
     <comment></comment>
   </data>
   <data name="description.unrequired-check" xml:space="preserve">
-    <value>(non obligatoire)</value>
+    <value>(non requis)</value>
     <comment></comment>
   </data>
   <data name="goal.argorok" xml:space="preserve">
