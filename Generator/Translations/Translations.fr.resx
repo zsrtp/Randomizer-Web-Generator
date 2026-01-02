@@ -653,6 +653,34 @@
     <value>Seulement {big-key} à partir de ce point !</value>
     <comment></comment>
   </data>
+  <data name="hint-type.importance-count" xml:space="preserve">
+    <value>Il est dit que {subject} {verb(name:can-be-found)} {area-phrase}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.important-item" xml:space="preserve">
+    <value>$(gender:m){count} objet important</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.important-item#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} objets importants</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.major-item" xml:space="preserve">
+    <value>$(gender:m){count} objet majeur</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.major-item#other" xml:space="preserve">
+    <value>$(gender:m,plural){count} objets majeurs</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.num-major" xml:space="preserve">
+    <value>({count} majeur)</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.num-major#other" xml:space="preserve">
+    <value>({count} majeurs)</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.item" xml:space="preserve">
     <value>Il est dit que {subject} {verb(name:can-be-found)} {area-phrase}.</value>
     <comment></comment>

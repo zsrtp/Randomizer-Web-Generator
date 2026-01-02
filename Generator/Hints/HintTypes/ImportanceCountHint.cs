@@ -123,18 +123,23 @@ namespace TPRandomizer.Hints
             string subject;
             Dictionary<string, string> subjectMeta = new();
 
-            if (indicatesImportant)
+            if (false && indicatesImportant)
             {
                 string color =
                     importantChecks.Count > 0
                         ? CustomMessages.messageColorGreen
                         : CustomMessages.messageColorPurple;
 
-                subject = Res.SimpleMsg(
+                Dictionary<string, string> countDict =
+                    new() { { "count", importantChecks.Count.ToString() }, };
+
+                Res.Result subjRes = Res.Msg(
                     "hint-type.importance-count.important-item",
-                    new() { { "count", importantChecks.Count.ToString() }, },
-                    subjectMeta
+                    countDict
                 );
+                subjectMeta = subjRes.meta;
+
+                subject = subjRes.Substitute(countDict);
                 subject = color + subject + CustomMessages.messageColorWhite;
 
                 if (majorChecks.Count > 0)
@@ -154,11 +159,13 @@ namespace TPRandomizer.Hints
                         ? CustomMessages.messageColorGreen
                         : CustomMessages.messageColorPurple;
 
-                subject = Res.SimpleMsg(
-                    "hint-type.importance-count.major-item",
-                    new() { { "count", majorChecks.Count.ToString() }, },
-                    subjectMeta
-                );
+                Dictionary<string, string> countDict =
+                    new() { { "count", majorChecks.Count.ToString() }, };
+
+                Res.Result subjRes = Res.Msg("hint-type.importance-count.major-item", countDict);
+                subjectMeta = subjRes.meta;
+
+                subject = subjRes.Substitute(countDict);
                 subject = color + subject + CustomMessages.messageColorWhite;
             }
 
