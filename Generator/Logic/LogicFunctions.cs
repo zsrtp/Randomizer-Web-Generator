@@ -60,29 +60,6 @@ namespace TPRandomizer
             return CanUse(Enum.Parse<Item>(item));
         }
 
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        public static bool CanChangeTime()
-        {
-            if (CanUse(Item.Shadow_Crystal))
-            {
-                // Can change time on any stage with shadow crystal
-                return true;
-            }
-            else
-            {
-                foreach (string timeStage in RoomFunctions.timeFlowStages)
-                {
-                    if (Randomizer.Rooms.RoomDict[timeStage].ReachedByPlaythrough)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
         public static bool CanWarp()
         {
             if (CanUse(Item.Shadow_Crystal))
@@ -1697,7 +1674,6 @@ namespace TPRandomizer
                 || (
                     CanCompleteGoronMines()
                     && Randomizer.Rooms.RoomDict["Lower Kakariko Village"].ReachedByPlaythrough
-                    && CanChangeTime()
                 )
                 || (
                     Randomizer.Rooms.RoomDict["Castle Town Goron House"].ReachedByPlaythrough

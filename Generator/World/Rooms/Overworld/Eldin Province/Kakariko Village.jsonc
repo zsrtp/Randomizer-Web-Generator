@@ -5,8 +5,8 @@
     [
       {
         "ConnectedArea": "Upper Kakariko Village",
-        "Requirements": "((CanCompleteGoronMines and CanChangeTime) or CanSmash) and CanCompleteEldinTwilight",
-        "GlitchedRequirements": "((CanCompleteGoronMines and CanChangeTime) or CanSmash) and CanCompleteEldinTwilight"
+        "Requirements": "((CanCompleteGoronMines) or CanSmash) and CanCompleteEldinTwilight",
+        "GlitchedRequirements": "((CanCompleteGoronMines) or CanSmash) and CanCompleteEldinTwilight"
       },
       {
         "ConnectedArea": "Kakariko Village Behind Gate",
@@ -50,18 +50,18 @@
       },
       {
         "ConnectedArea": "Kakariko Malo Mart",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Kakariko Elde Inn Left Door",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Kakariko Elde Inn Right Door",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Kakariko Bug House Door",
@@ -104,8 +104,8 @@
       },
       {
         "ConnectedArea": "Kakariko Top of Watchtower",
-        "Requirements": "CanCompleteGoronMines and CanChangeTime and CanCompleteEldinTwilight",
-        "GlitchedRequirements": "CanCompleteGoronMines and CanChangeTime and CanCompleteEldinTwilight"
+        "Requirements": "CanCompleteGoronMines and CanCompleteEldinTwilight",
+        "GlitchedRequirements": "CanCompleteGoronMines and CanCompleteEldinTwilight"
       },
       {
         "ConnectedArea": "Kakariko Barnes Bomb Shop Upper",

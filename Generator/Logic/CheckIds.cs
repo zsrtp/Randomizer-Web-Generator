@@ -602,7 +602,7 @@ namespace TPRandomizer
                 "Zoras Domain Waterfall Ledge Rupee",
                 "Upper Zoras River East Underwater Boulder Rupee",
                 "Upper Zoras River Central Underwater Boulder Rupee",
-                "Upper Zoras River South Underwater Boulder Rupee",
+                "Upper Zoras River West Underwater Boulder Rupee",
                 "Upper Zoras River Ledge Boulder Rupee",
                 "Kakariko Graveyard Underwater Boulder Rupee",
                 "Eldin Spring Underwater Boulder Rupee",

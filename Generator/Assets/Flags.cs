@@ -608,6 +608,7 @@ namespace TPRandomizer.Assets
             { 0xB, 0x20 }, // Talked to Yeta in Snowpeak for the first time
             { 0x43, 0x8 }, // Senses unlocked
             { 0x46, 0x10 }, // Rode Epona back to Link's House
+            { 0xC, 0x10 }, // Midna accompanies Wolf
         };
 
         /// <summary>
@@ -617,7 +618,7 @@ namespace TPRandomizer.Assets
         {
             { 0x5, 0x7F }, // Midna Charge Unlocked, Finished Sewers, Met Zelda in swers, Midna cut prison chain, watched sewers intro CS, Escaped Cell in Sewers.
             { 0x6, 0x10 }, // Cleared Faron Twilight
-            { 0xC, 0x18 }, // Midna Accompanies Wolf, Sword and shield removed from wolf's back.
+            { 0xC, 0x8 }, // Sword and shield removed from wolf's back.
         };
 
         /// <summary>
@@ -733,7 +734,6 @@ namespace TPRandomizer.Assets
         public static readonly byte[,] OverworldEREventFlags = new byte[,]
         {
             { 0x5, 0x7A }, // Finished Sewers, Midna text after entering Faron Twilight, Met Zelda in sewers, Midna cut prison chain, Watched Sewers intro CS, Escaped cell in sewers.
-            { 0xC, 0x10 }, // Midna accompanies Wolf
         };
 
         public static readonly byte[,] RenadoLetterEventFlags = new byte[,]

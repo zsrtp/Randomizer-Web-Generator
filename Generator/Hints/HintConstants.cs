@@ -207,6 +207,7 @@ namespace TPRandomizer.Hints
                 !genData.sSettings.skipSnowpeakEntrance
                 && genData.sSettings.shufflePoes != PoeSettings.All
                 && genData.sSettings.shufflePoes != PoeSettings.Overworld
+                && !genData.sSettings.shuffleFreestandingRupees
                 && genData.sSettings.barrenDungeons
                 && !genData.sSettings.decoupleEntrances
             )

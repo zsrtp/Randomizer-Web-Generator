@@ -1,6 +1,6 @@
 {
-    "requirements": "Shadow_Crystal and CanChangeTime and CanCompleteEldinTwilight",
-    "glitchedRequirements": "Shadow_Crystal and CanChangeTime and CanCompleteEldinTwilight",
+    "requirements": "Shadow_Crystal and CanCompleteEldinTwilight",
+    "glitchedRequirements": "Shadow_Crystal and CanCompleteEldinTwilight",
     "checkCategory": ["Overworld", "Poe", "Kakariko Village"],
     "itemId": "Poe_Soul"
 }

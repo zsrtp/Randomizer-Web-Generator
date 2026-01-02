@@ -410,18 +410,28 @@ namespace TPRandomizer
                     Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
                     foreach (Entrance exit in currentRoom.Exits)
                     {
+                        Entrance shuffledExit = new();
+                        if (exit.GetReplacedEntrance() != null)
+                        {
+                            shuffledExit = exit.GetReplacedEntrance();
+                        }
+                        else
+                        {
+                            shuffledExit = exit;
+                        }
                         // We don't want to start the player in Hyrule Castle and we don't want to start them in a boss room.
                         if (
                             currentRoom.RoomName != "Hyrule Castle Entrance"
-                            && (exit.State != null)
+                            && !shuffledExit.GetCurrentName().Contains("Hyrule Castle Entrance")
+                            && (shuffledExit.State != null)
                             && (
-                                (exit.GetEntranceType() != EntranceType.Boss)
-                                && (exit.GetEntranceType() != EntranceType.Boss_Reverse)
-                                && (exit.GetEntranceType() != EntranceType.Boss_Exit)
+                                (shuffledExit.GetEntranceType() != EntranceType.Boss)
+                                && (shuffledExit.GetEntranceType() != EntranceType.Boss_Reverse)
+                                && (shuffledExit.GetEntranceType() != EntranceType.Boss_Exit)
                             )
                         )
                         {
-                            this.spawnList.Add(exit);
+                            this.spawnList.Add(shuffledExit);
                         }
                     }
                 }

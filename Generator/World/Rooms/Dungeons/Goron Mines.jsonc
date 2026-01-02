@@ -92,15 +92,16 @@
             {
                 "ConnectedArea": "Goron Mines Lower West Wing",
                 "Requirements": "(Goron_Mines_Small_Key, 1) or ((Setting.gmShortcut equals True) and Iron_Boots)",
-                "GlitchedRequirements": "(Goron_Mines_Small_Key, 1) or ((Setting.gmShortcut equals True) and Iron_Boots)"
+                "GlitchedRequirements": "(Goron_Mines_Small_Key, 1) or (((Setting.gmShortcut equals True) or HasSword) and Iron_Boots)"
             },
             // Note the difference in the parentheses between this and the
             // previous exit. The previous exit only requires IB when using the
             // shortcut magnet, but the below exit always required IB.
+            // Kitty climb is also considered in logic
             {
                 "ConnectedArea": "Goron Mines Crystal Switch Room",
                 "Requirements": "((Goron_Mines_Small_Key, 1) or (Setting.gmShortcut equals True)) and Iron_Boots",
-                "GlitchedRequirements": "((Goron_Mines_Small_Key, 1) or (Setting.gmShortcut equals True)) and Iron_Boots"
+                "GlitchedRequirements": "((Goron_Mines_Small_Key, 1) or (Setting.gmShortcut equals True) or HasSword) and Iron_Boots"
             }
         ],
         "Checks": 

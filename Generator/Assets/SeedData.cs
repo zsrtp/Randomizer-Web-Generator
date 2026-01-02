@@ -2954,6 +2954,25 @@ namespace TPRandomizer.Assets
                     1
                 ),
 
+                // Tie Lost woods walls from lower arena to skull kid instead of the SG portal. 
+
+                new ARCReplacement(
+                    "3BA4",
+                    "00006901",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Sacred_Grove,
+                    3
+                ),
+                new ARCReplacement(
+                    "43DC",
+                    "00000000",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Sacred_Grove,
+                    3
+                ),
+
                 /*
             // Note: I don't know how to modify the event system to get these items to work properly, but I already did the work on finding the replacement values, so just keeping them here.
             new ARCReplacement(
