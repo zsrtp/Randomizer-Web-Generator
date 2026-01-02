@@ -3,6 +3,7 @@ namespace TPRandomizer.Hints
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Threading;
     using TPRandomizer.SSettings.Enums;
 
     public class HintCondReqCalc
@@ -14,6 +15,7 @@ namespace TPRandomizer.Hints
         // items to the locsSet. We have this here so the generator does not get stuck on a request
         // like this, but hopefully it is never relevant.
         private const int MaxSingleZigZagDurationMs = 90_000;
+        private const int RaceSeedMinCalcDurationMs = 30_000;
 
         private HintGenData genData;
         private HashSet<string> condRequiredChecks = new();
@@ -678,10 +680,6 @@ namespace TPRandomizer.Hints
                     $"--Finished zigZag #{zigZagNumber}; elapsedMs is: {elapsedMs} ms; consecutiveFailures is {consecutiveFailures}"
                 );
 
-                // TODO: maybe the 60s threshold for races should come from the hint distribution
-                // file. If it is more than 100k ms, then it stays at 100k ms. This way we can
-                // adjust based on the relative complexity of the race settings since it isn't
-                // really one size fits all.
                 long breakThreshold = 100_000;
                 if (genData.isRaceSeed && consecutiveFailures >= 3)
                     breakThreshold = 60_000;
@@ -710,7 +708,9 @@ namespace TPRandomizer.Hints
 
                 // For race seeds, keep going until we break based on time. This is to obfuscate
                 // info about the seed based on generation time, and we also want to be as sure as
-                // possible that we got all of the sometimes required checks.
+                // possible that we got all of the sometimes required checks. It will either break
+                // on time (handled above), or if it would quickly finish, we randomly wait between
+                // 30 and 40 seconds.
                 if (genData.isRaceSeed)
                 {
                     if (consecutiveFailures >= 5 && elapsedMs >= 10_000)
@@ -718,19 +718,24 @@ namespace TPRandomizer.Hints
                         Console.WriteLine(
                             $"Race seed with {consecutiveFailures} consecutive failures and at least 10s. Will break."
                         );
-                        // Wait then break
-                        if (elapsedMs < 60_000)
+
+                        int sleepDuration = (int)(RaceSeedMinCalcDurationMs - elapsedMs);
+                        sleepDuration += (int)new Random().NextInt64(10_000);
+                        if (sleepDuration > 0)
                         {
-                            int sleepDuration = (int)(60_000 - elapsedMs);
                             Console.WriteLine(
-                                $"Race seed, sleeping for {sleepDuration} ms before breaking to reach 1 min."
+                                $"Race seed, sleeping for {sleepDuration} ms with expected time {elapsedMs + sleepDuration} ms."
                             );
-                            // TODO: re-enable this
-                            // Thread.Sleep(sleepDuration);
+                            Thread.Sleep(sleepDuration);
                             break;
                         }
                         else
+                        {
+                            Console.WriteLine(
+                                $"Race seed, breaking immediately since elapsedMs is {elapsedMs} ms."
+                            );
                             break;
+                        }
                     }
                 }
                 else if (consecutiveFailures >= 3)
