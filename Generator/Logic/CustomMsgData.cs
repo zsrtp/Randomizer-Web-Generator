@@ -951,7 +951,7 @@ namespace TPRandomizer
 
                                 string baseAreaText = Res.Msg(
                                         areaId.GenResKey(),
-                                        new() { { "context", "default" } }
+                                        new() { { "context", "plain" } }
                                     )
                                     .ResolveWithColor("", "");
 

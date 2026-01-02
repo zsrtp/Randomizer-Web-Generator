@@ -149,12 +149,20 @@
     <value>$(ap:with)the {cs}Golden Wolf{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.golden_wolf$plain" xml:space="preserve">
+    <value>Golden Wolf</value>
+    <comment></comment>
+  </data>
   <data name="area.category.grotto" xml:space="preserve">
     <value>a {cs}Grotto{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$default" xml:space="preserve">
     <value>$(plural)Grottos</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto$plain" xml:space="preserve">
+    <value>Grottos</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$plural" xml:space="preserve">
@@ -169,6 +177,10 @@
     <value>$(plural)the {cs}2 lantern chests in Lake Lantern Cave{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.llc_lantern_chests$plain" xml:space="preserve">
+    <value>Lake Lantern Cave Lantern Chests</value>
+    <comment></comment>
+  </data>
   <data name="area.category.llc_lantern_chests$plural" xml:space="preserve">
     <value>$(plural)the {cs}2 lantern chests in Lake Lantern Cave{ce}</value>
     <comment></comment>
@@ -177,8 +189,16 @@
     <value>$(ap:behind)purple mist</value>
     <comment></comment>
   </data>
+  <data name="area.category.mist$plain" xml:space="preserve">
+    <value>Purple Mist</value>
+    <comment></comment>
+  </data>
   <data name="area.category.northern_desert" xml:space="preserve">
     <value>the {cs}northern desert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.northern_desert$plain" xml:space="preserve">
+    <value>Northern Desert</value>
     <comment></comment>
   </data>
   <data name="area.category.owl_statue" xml:space="preserve">
@@ -189,6 +209,10 @@
     <value>$(ap:behind,plural)Owl Statues</value>
     <comment></comment>
   </data>
+  <data name="area.category.owl_statue$plain" xml:space="preserve">
+    <value>Owl Statues</value>
+    <comment></comment>
+  </data>
   <data name="area.category.owl_statue$plural" xml:space="preserve">
     <value>$(ap:behind,plural)Owl Statues</value>
     <comment></comment>
@@ -197,8 +221,16 @@
     <value>the {cs}southern desert{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.southern_desert$plain" xml:space="preserve">
+    <value>Southern Desert</value>
+    <comment></comment>
+  </data>
   <data name="area.category.underwater" xml:space="preserve">
     <value>$(ap:none)underwater</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater$plain" xml:space="preserve">
+    <value>Underwater</value>
     <comment></comment>
   </data>
   <data name="area.category.underwater$subject" xml:space="preserve">
@@ -261,6 +293,10 @@
     <value>the {cs}Bulblin Camp{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.bulblin_camp$plain" xml:space="preserve">
+    <value>Bulblin Camp</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.castle_town" xml:space="preserve">
     <value>Castle Town</value>
     <comment></comment>
@@ -269,7 +305,15 @@
     <value>the {cs}Cave of Ordeals{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.cave_of_ordeals$plain" xml:space="preserve">
+    <value>Cave of Ordeals</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.city_in_the_sky" xml:space="preserve">
+    <value>the {cs}City in the Sky{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.city_in_the_sky$plain" xml:space="preserve">
     <value>City in the Sky</value>
     <comment></comment>
   </data>
@@ -293,8 +337,16 @@
     <value>the {cs}Forest Temple{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.forest_temple$plain" xml:space="preserve">
+    <value>Forest Temple</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.gerudo_desert" xml:space="preserve">
     <value>the {cs}Gerudo Desert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.gerudo_desert$plain" xml:space="preserve">
+    <value>Gerudo Desert</value>
     <comment></comment>
   </data>
   <data name="area.zone.goron_mines" xml:space="preserve">
@@ -305,8 +357,16 @@
     <value>$(ap:at)the {cs}Great Bridge of Hylia{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.great_bridge_of_hylia$plain" xml:space="preserve">
+    <value>Great Bridge of Hylia</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.hidden_village" xml:space="preserve">
     <value>the {cs}Hidden Village{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.hidden_village$plain" xml:space="preserve">
+    <value>Hidden Village</value>
     <comment></comment>
   </data>
   <data name="area.zone.hyrule_castle" xml:space="preserve">
@@ -357,8 +417,16 @@
     <value>the {cs}Palace of Twilight{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.palace_of_twilight$plain" xml:space="preserve">
+    <value>Palace of Twilight</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.sacred_grove" xml:space="preserve">
     <value>the {cs}Sacred Grove{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.sacred_grove$plain" xml:space="preserve">
+    <value>Sacred Grove</value>
     <comment></comment>
   </data>
   <data name="area.zone.snowpeak_mountain" xml:space="preserve">
@@ -375,6 +443,10 @@
   </data>
   <data name="area.zone.temple_of_time" xml:space="preserve">
     <value>the {cs}Temple of Time{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.temple_of_time$plain" xml:space="preserve">
+    <value>Temple of Time</value>
     <comment></comment>
   </data>
   <data name="area.zone.upper_zoras_river" xml:space="preserve">
