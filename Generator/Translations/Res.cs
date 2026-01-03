@@ -205,6 +205,8 @@ namespace TPRandomizer
                     return "B";
                 case CustomMessages.heart:
                     return "\u2665";
+                case CustomMessages.customNbsp:
+                    return " ";
                 default:
                     return null;
             }
@@ -635,7 +637,11 @@ namespace TPRandomizer
                                 throw new Exception(
                                     $"Failed to get rendered escSeq for '{chunk.val}' at index {i}."
                                 );
-                            result += escSeq;
+
+                            if (escSeq == CustomMessages.customNbsp)
+                                result += " ";
+                            else
+                                result += escSeq;
                         }
                         else
                             result += chunk.val[i];

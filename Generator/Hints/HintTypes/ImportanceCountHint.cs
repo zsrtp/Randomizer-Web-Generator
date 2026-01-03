@@ -121,26 +121,42 @@ namespace TPRandomizer.Hints
             Res.Result hintParsedRes = Res.Msg("hint-type.importance-count");
 
             string subject;
-            Dictionary<string, string> subjectMeta = new();
+            Dictionary<string, string> subjectMeta;
 
-            if (false && indicatesImportant)
+            if (indicatesImportant)
             {
                 string color =
                     importantChecks.Count > 0
                         ? CustomMessages.messageColorGreen
                         : CustomMessages.messageColorPurple;
 
-                Dictionary<string, string> countDict =
-                    new() { { "count", importantChecks.Count.ToString() }, };
+                Dictionary<string, string> interpolation =
+                    new()
+                    {
+                        { "context", "count" },
+                        { "count", importantChecks.Count.ToString() },
+                    };
 
                 Res.Result subjRes = Res.Msg(
                     "hint-type.importance-count.important-item",
-                    countDict
+                    interpolation,
+                    interpolation
                 );
                 subjectMeta = subjRes.meta;
 
-                subject = subjRes.Substitute(countDict);
-                subject = color + subject + CustomMessages.messageColorWhite;
+                if (subjRes.value.Contains("{cs}"))
+                {
+                    interpolation["cs"] = color;
+                    interpolation["ce"] = CustomMessages.messageColorWhite;
+                    subject = subjRes.Substitute(interpolation);
+                }
+                else
+                {
+                    subject =
+                        color
+                        + subjRes.Substitute(interpolation)
+                        + CustomMessages.messageColorWhite;
+                }
 
                 if (majorChecks.Count > 0)
                 {
@@ -162,11 +178,29 @@ namespace TPRandomizer.Hints
                 Dictionary<string, string> countDict =
                     new() { { "count", majorChecks.Count.ToString() }, };
 
-                Res.Result subjRes = Res.Msg("hint-type.importance-count.major-item", countDict);
+                Dictionary<string, string> interpolation =
+                    new() { { "context", "count" }, { "count", majorChecks.Count.ToString() }, };
+
+                Res.Result subjRes = Res.Msg(
+                    "hint-type.importance-count.major-item",
+                    interpolation,
+                    interpolation
+                );
                 subjectMeta = subjRes.meta;
 
-                subject = subjRes.Substitute(countDict);
-                subject = color + subject + CustomMessages.messageColorWhite;
+                if (subjRes.value.Contains("{cs}"))
+                {
+                    interpolation["cs"] = color;
+                    interpolation["ce"] = CustomMessages.messageColorWhite;
+                    subject = subjRes.Substitute(interpolation);
+                }
+                else
+                {
+                    subject =
+                        color
+                        + subjRes.Substitute(interpolation)
+                        + CustomMessages.messageColorWhite;
+                }
             }
 
             string areaPhrase = CustomGenAreaPhrase(
@@ -184,8 +218,13 @@ namespace TPRandomizer.Hints
 
             string normalizedText = Res.LangSpecificNormalize(text);
 
+            string footnoteText = Res.LangSpecificNormalize(
+                Res.SimpleMsg("hint-type.importance-count.footnote")
+            );
+
             HintText hintText = new HintText();
-            hintText.text = normalizedText;
+            hintText.text =
+                normalizedText + '\n' + CustomMessages.messageColorOrange + footnoteText;
             return new List<HintText> { hintText };
         }
 

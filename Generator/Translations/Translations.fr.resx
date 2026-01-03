@@ -657,28 +657,32 @@
     <value>Il est dit que {subject} {verb(name:can-be-found)} {area-phrase}.</value>
     <comment></comment>
   </data>
-  <data name="hint-type.importance-count.important-item" xml:space="preserve">
-    <value>$(gender:m){count} objet important</value>
+  <data name="hint-type.importance-count.footnote" xml:space="preserve">
+    <value>#(reference-mark)Checks dépendants non inclus</value>
     <comment></comment>
   </data>
-  <data name="hint-type.importance-count.important-item#other" xml:space="preserve">
-    <value>$(gender:m,plural){count} objets importants</value>
+  <data name="hint-type.importance-count.important-item@ac(m,true)" xml:space="preserve">
+    <value>objet important</value>
     <comment></comment>
   </data>
-  <data name="hint-type.importance-count.major-item" xml:space="preserve">
-    <value>$(gender:m){count} objet majeur</value>
+  <data name="hint-type.importance-count.important-item#other@ac(m)" xml:space="preserve">
+    <value>objets importants</value>
     <comment></comment>
   </data>
-  <data name="hint-type.importance-count.major-item#other" xml:space="preserve">
-    <value>$(gender:m,plural){count} objets majeurs</value>
+  <data name="hint-type.importance-count.major-item@ac(m,true)" xml:space="preserve">
+    <value>objet majeur</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.major-item#other@ac(m)" xml:space="preserve">
+    <value>objets majeurs</value>
     <comment></comment>
   </data>
   <data name="hint-type.importance-count.num-major" xml:space="preserve">
-    <value>({count} majeur)</value>
+    <value>({count}#(nbsp)majeur)</value>
     <comment></comment>
   </data>
   <data name="hint-type.importance-count.num-major#other" xml:space="preserve">
-    <value>({count} majeurs)</value>
+    <value>({count}#(nbsp)majeurs)</value>
     <comment></comment>
   </data>
   <data name="hint-type.item" xml:space="preserve">

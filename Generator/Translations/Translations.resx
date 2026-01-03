@@ -585,6 +585,10 @@
     <value>They say that {subject} can be found {area-phrase}.</value>
     <comment></comment>
   </data>
+  <data name="hint-type.importance-count.footnote" xml:space="preserve">
+    <value>#(reference-mark)Dependent checks not included.</value>
+    <comment></comment>
+  </data>
   <data name="hint-type.importance-count.important-item" xml:space="preserve">
     <value>{count} important item</value>
     <comment></comment>
@@ -602,7 +606,7 @@
     <comment></comment>
   </data>
   <data name="hint-type.importance-count.num-major" xml:space="preserve">
-    <value>({count} major)</value>
+    <value>({count}#(nbsp)major)</value>
     <comment></comment>
   </data>
   <data name="hint-type.item" xml:space="preserve">
