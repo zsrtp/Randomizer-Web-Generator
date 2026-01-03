@@ -38,7 +38,7 @@ namespace TPRandomizer.Hints.Settings
             HintSettings hintSettings,
             int numHints,
             HintGenCache cache,
-            BarrenPenalizer barrenPenaltyHandler
+            BarrenPenalizer barrenPenalizer
         );
 
         private static HintCreatorType typeFromStr(string strType)
