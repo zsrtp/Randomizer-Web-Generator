@@ -370,8 +370,8 @@ namespace TPRandomizer.Hints.HintCreator
                 if (!ownAreaCheckNames.Contains(checkName))
                 {
                     // This is a dependent check, but these do not actually get included in any
-                    // counts. Check to see if hint should say "{areaName} itself" before
-                    // continuing.
+                    // counts. Check to see if hint should indicate that there are dependent checks
+                    // before continuing.
                     if (genData.checkIsPlayerKnownStatus(checkName))
                     {
                         // Known status needs to have a major item. Since we skip over excluded
