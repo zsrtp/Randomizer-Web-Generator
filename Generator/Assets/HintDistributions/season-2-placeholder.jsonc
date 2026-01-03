@@ -214,23 +214,6 @@
               }
             ]
           },
-          // {
-          //   "hintType": "barren",
-          //   "saveToVar": "barrenHints",
-          //   "starting": 1,
-          //   "options": {
-          //     "validAreas": [
-          //       "Forest Temple",
-          //       "Goron Mines",
-          //       "Lakebed Temple",
-          //       "Arbiter's Grounds",
-          //       "Snowpeak Ruins",
-          //       "Temple of Time",
-          //       "City in the Sky",
-          //       "Palace of Twilight"
-          //     ]
-          //   }
-          // },
           {
             "hintType": "item",
             "options": {
@@ -250,23 +233,6 @@
             "maxPicks": 1,
             "copies": 3,
             "hintDef": [
-              // {
-              //   "hintType": "importanceCount",
-              //   "options": {
-              //     "indicateImportant": true,
-              //     "allowedCounts": [0],
-              //     "validAreas": [
-              //       "Forest Temple",
-              //       "Goron Mines",
-              //       "Lakebed Temple",
-              //       "Arbiter's Grounds",
-              //       "Snowpeak Ruins",
-              //       "Temple of Time",
-              //       "City in the Sky",
-              //       "Palace of Twilight"
-              //     ]
-              //   }
-              // },
               {
                 "hintType": "importanceCount",
                 "options": {
@@ -297,62 +263,6 @@
               "invalidItems": ["Progressive_Sword"]
             }
           },
-          // {
-          //   "starting": 1,
-          //   "maxPicks": 1,
-          //   "selectionType": "randomOrder",
-          //   "hintDef": [
-          //     {
-          //       // Ex: male bugs lead to nothing
-          //       "hintType": "tradeGroup",
-          //       "options": {
-          //         "validGroups": ["male_bugs", "female_bugs"],
-          //         "validStatuses": ["bad"],
-          //         "smartHinting": false
-          //       }
-          //     },
-          //     // {
-          //     //   "hintType": "barren",
-          //     //   "options": {
-          //     //     "areaType": "category",
-          //     //     "validAreas": ["Mist", "Northern_Desert", "Southern_Desert"]
-          //     //   }
-          //     // },
-          //     {
-          //       "selectionType": "randomOrder",
-          //       "hintDef": [
-          //         {
-          //           "hintType": "numItemInArea",
-          //           "weight": 0.55,
-          //           "options": {
-          //             "item": "Boomerang",
-          //             "areaType": "province",
-          //             "validAreas": ["Dungeon"]
-          //           }
-          //         },
-          //         {
-          //           "hintType": "numItemInArea",
-          //           "weight": 0.45,
-          //           "options": {
-          //             "item": "Progressive_Clawshot",
-          //             "areaType": "province",
-          //             "validAreas": ["Dungeon"]
-          //           }
-          //         }
-          //       ]
-          //     }
-          //   ]
-          // },
-          // Fill in layer with extra copies of path hints.
-          // {
-          //   "hintType": "var",
-          //   "copies": 1,
-          //   "iterations": 99,
-          //   "options": {
-          //     "varName": "pathHints",
-          //     "randomOrder": true
-          //   }
-          // }
           {
             "hintType": "sometimes",
             "saveToVar": "1stLayerSometimes",
@@ -416,13 +326,6 @@
             "maxPicks": 5,
             "saveToVar": "2ndLayerSometimes",
             "hintDef": [
-              // {
-              //   "hintType": "location",
-              //   "options": {
-              //     "markAsSometimes": true,
-              //     "validChecks": ["Wrestling With Bo", "Herding Goats Reward"]
-              //   }
-              // },
               {
                 "hintType": "location",
                 "options": {
