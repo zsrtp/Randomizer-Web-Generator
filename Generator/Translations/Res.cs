@@ -652,6 +652,33 @@ namespace TPRandomizer
             return result;
         }
 
+        public static bool IsLinesFillBasicSign(string input)
+        {
+            int numLines = 1;
+            int index = 0;
+            while (index < input.Length)
+            {
+                string currentChar = input.Substring(index, 1);
+                byte byteVal = (byte)currentChar[0];
+
+                if (byteVal == 0x1A)
+                {
+                    byte escLength = (byte)input[index + 1];
+                    index += escLength;
+                }
+                else
+                {
+                    if (byteVal == 0xA)
+                        numLines += 1;
+                    index += 1;
+                }
+            }
+
+            int linesPerTextbox = IsCultureJa() ? 3 : 4;
+
+            return (numLines % linesPerTextbox) == 0;
+        }
+
         public static string NormalizeForMergingOnSign(string input)
         {
             if (StringUtils.isEmpty(input))

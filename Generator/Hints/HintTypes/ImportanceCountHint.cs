@@ -175,9 +175,6 @@ namespace TPRandomizer.Hints
                         ? CustomMessages.messageColorGreen
                         : CustomMessages.messageColorPurple;
 
-                Dictionary<string, string> countDict =
-                    new() { { "count", majorChecks.Count.ToString() }, };
-
                 Dictionary<string, string> interpolation =
                     new() { { "context", "count" }, { "count", majorChecks.Count.ToString() }, };
 
@@ -205,7 +202,6 @@ namespace TPRandomizer.Hints
 
             string areaPhrase = CustomGenAreaPhrase(
                 areaId,
-                hasRelevantDependentChecks,
                 subjectMeta,
                 CustomMessages.messageColorRed
             );
@@ -218,28 +214,31 @@ namespace TPRandomizer.Hints
 
             string normalizedText = Res.LangSpecificNormalize(text);
 
-            string footnoteText = Res.LangSpecificNormalize(
-                Res.SimpleMsg("hint-type.importance-count.footnote")
-            );
+            if (hasRelevantDependentChecks)
+            {
+                // If footnote would be in next textbox, put '*' at end of main hint text.
+                if (Res.IsLinesFillBasicSign(normalizedText))
+                    normalizedText += "*";
+
+                string footnoteText = Res.LangSpecificNormalize(
+                    Res.SimpleMsg("hint-type.importance-count.footnote")
+                );
+                normalizedText += '\n' + CustomMessages.messageColorOrange + footnoteText;
+            }
 
             HintText hintText = new HintText();
-            hintText.text =
-                normalizedText + '\n' + CustomMessages.messageColorOrange + footnoteText;
+            hintText.text = normalizedText;
             return new List<HintText> { hintText };
         }
 
         private static string CustomGenAreaPhrase(
             AreaId areaId,
-            bool includeItself,
             Dictionary<string, string> subjectMeta = null,
             string color = null
         )
         {
             Res.Result areaRes = Res.Msg(areaId.GenResKey(), null, subjectMeta);
             string areaString = areaRes.ResolveWithColor(color);
-            // TODO: don't hardcode this
-            if (includeItself)
-                areaString += " itself";
 
             if (!areaRes.meta.TryGetValue("ap", out string areaPhraseKey))
                 areaPhraseKey = "default";
