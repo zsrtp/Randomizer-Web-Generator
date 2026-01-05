@@ -24,7 +24,8 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         )
         {
             // Hard-required unique items which can be hinted.
@@ -76,11 +77,11 @@ namespace TPRandomizer.Hints.HintCreator
                 }
                 else
                 {
-                    // Check that none of the checkNames are already hinted.
+                    // Check that none of the checkNames are already hinted. Perhaps oversimplified
+                    // to skip over any with an unreachable copy, but using the shared function for
+                    // the sake of simplicity.
                     bool srcItemNotHinted = srcCheckNames.All(
-                        (checkName) =>
-                            !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
-                            && !genData.hinted.alreadyCheckContentsHinted.Contains(checkName)
+                        (checkName) => genData.CheckCanBeClaimHinted(checkName)
                     );
                     if (!srcItemNotHinted)
                         baseSrcItems.RemoveAt(i);
@@ -110,11 +111,11 @@ namespace TPRandomizer.Hints.HintCreator
 
                     List<string> checks = genData.itemToChecksList[startItem];
 
-                    // Check that none of the checkNames are already hinted.
+                    // Check that none of the checkNames are already hinted. Perhaps oversimplified
+                    // to skip over any with an unreachable copy, but using the shared function for
+                    // the sake of simplicity.
                     bool srcItemNotHinted = checks.All(
-                        (checkName) =>
-                            !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
-                            && !genData.hinted.alreadyCheckContentsHinted.Contains(checkName)
+                        (checkName) => genData.CheckCanBeClaimHinted(checkName)
                     );
 
                     if (srcItemNotHinted)
@@ -238,11 +239,14 @@ namespace TPRandomizer.Hints.HintCreator
                 Item contents = HintUtils.getCheckContents(checkName);
                 if (genData.itemToChecksList.ContainsKey(contents))
                 {
+                    // Note: previously it was possible for items on Agitha to be hinted as a
+                    // target. To simplify the shared function, this is not allowed. Theoretically
+                    // it might be more interesting to not hint targets on Agitha as well.
                     List<string> checksList = genData.itemToChecksList[contents];
                     if (
                         checksList != null
                         && checksList.Count == 1
-                        && genData.checkCanBeHintedSpol(checkName, true)
+                        && genData.CheckCanBeWothPathHinted(checkName)
                     )
                     {
                         uniqueItemsToCheckName[contents] = checkName;

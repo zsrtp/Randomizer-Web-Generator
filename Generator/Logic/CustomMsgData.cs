@@ -375,8 +375,6 @@ namespace TPRandomizer
             // do not depend on the item.
             GenStaticEntries(seedGenResults);
 
-            AddMidnaAdjustments();
-
             // handle shop text first
             if (updateShopText)
             {
@@ -386,7 +384,9 @@ namespace TPRandomizer
             GenSelfHinterEntries();
 
             // Handle custom hint signs, Agitha and Jovani signs
-            GenHintSignEntries();
+            List<Hint> midnaStartingHints = GenHintSignEntries();
+
+            AddMidnaAdjustments(midnaStartingHints);
 
             Bmg0Builder ret = builder;
             builder = null;
@@ -436,10 +436,10 @@ namespace TPRandomizer
                 : Item.Hawkeye;
             if (HintUtils.IsTrapItem(hawkeyeItem))
                 hawkeyeItem = Item.Hawkeye;
-            string hawkeyeItemText = GenItemText3(
+            string hawkeyeItemText = GenItemText4(
                 out _,
                 hawkeyeItem,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 prefStartColor: "",
                 prefEndColor: "",
                 capitalize: true
@@ -880,7 +880,7 @@ namespace TPRandomizer
             );
         }
 
-        private void AddMidnaAdjustments()
+        private void AddMidnaAdjustments(List<Hint> midnaStartingHints)
         {
             // Note: Midna voice is only guaranteed to work normally when the
             // instantText option is not enabled. Even in the vanilla game, if
@@ -911,7 +911,68 @@ namespace TPRandomizer
                 hintMessages.Add(GenLinkHouseSignText());
             }
 
-            // TODO: add Midna spot hints here once feature is developed.
+            if (!ListUtils.isEmpty(midnaStartingHints))
+            {
+                List<AreaId> barrenAreaIds = new();
+                foreach (Hint hint in midnaStartingHints)
+                {
+                    BarrenHint barrenHint = hint as BarrenHint;
+                    if (barrenHint != null)
+                    {
+                        barrenAreaIds.Add(barrenHint.GetAreaId());
+                    }
+                }
+
+                List<string> midnaHintTexts = new();
+
+                bool handledBarrenHints = false;
+                foreach (Hint hint in midnaStartingHints)
+                {
+                    BarrenHint barrenHint = hint as BarrenHint;
+                    if (barrenHint != null)
+                    {
+                        if (handledBarrenHints)
+                            continue;
+                        else if (barrenAreaIds.Count > 1)
+                        {
+                            handledBarrenHints = true;
+
+                            // Add texts for merged barren hints.
+                            midnaHintTexts.Add(
+                                Res.LangSpecificNormalize(
+                                    Res.SimpleMsg("midna.grouped-barren-hints")
+                                )
+                            );
+
+                            string areaText = CustomMessages.messageColorPurple;
+                            for (int i = 0; i < barrenAreaIds.Count; i++)
+                            {
+                                AreaId areaId = barrenAreaIds[i];
+
+                                string baseAreaText = Res.Msg(
+                                        areaId.GenResKey(),
+                                        new() { { "context", "plain" } }
+                                    )
+                                    .ResolveWithColor("", "");
+
+                                string finalAreaText = Res.SimpleMsg(
+                                    "midna.grouped-barren-hints.area",
+                                    new() { { "area", baseAreaText } }
+                                );
+
+                                if (i > 0)
+                                    areaText += '\n';
+                                areaText += finalAreaText;
+                            }
+                            midnaHintTexts.Add(areaText);
+                            continue;
+                        }
+                    }
+                    midnaHintTexts.Add(hint.toHintTextList(this)[0].text);
+                }
+
+                hintMessages.AddRange(midnaHintTexts);
+            }
 
             builder.AddStrReplacements(
                 new()
@@ -1088,10 +1149,10 @@ namespace TPRandomizer
             // Try to get "item" slotMeta. Results in null if not there.
             result.slotMeta.TryGetValue("item", out Dictionary<string, string> resultSlotMetaItem);
 
-            string itemText = GenItemText3(
+            string itemText = GenItemText4(
                 out Dictionary<string, string> itemMeta,
                 item,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 contextIn: useDefArticle ? "def" : "indef",
                 prefStartColor: CustomMessages.messageColorOrange,
                 optionalContextMetaIn: resultSlotMetaItem
@@ -1146,10 +1207,10 @@ namespace TPRandomizer
             // Try to get "item" slotMeta. Results in null if not there.
             result.slotMeta.TryGetValue("item", out Dictionary<string, string> resultSlotMetaItem);
 
-            string itemText = GenItemText3(
+            string itemText = GenItemText4(
                 out Dictionary<string, string> itemMeta,
                 item,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 contextIn: useDefArticle ? "def" : "indef",
                 prefStartColor: CustomMessages.messageColorOrange,
                 optionalContextMetaIn: resultSlotMetaItem
@@ -1180,10 +1241,10 @@ namespace TPRandomizer
         {
             Res.Result result = Res.Msg("shop.bought", new() { { "context", context } });
 
-            string itemText = GenItemText3(
+            string itemText = GenItemText4(
                 out Dictionary<string, string> itemMeta,
                 item,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 contextIn: "def"
             );
 
@@ -1198,10 +1259,10 @@ namespace TPRandomizer
         {
             Res.Result result = Res.Msg("shop.sold-out", new() { { "context", context } });
 
-            string itemText = GenItemText3(
+            string itemText = GenItemText4(
                 out Dictionary<string, string> meta,
                 item,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 isShop: true,
                 includeShopSuffix: false
             );
@@ -1270,10 +1331,10 @@ namespace TPRandomizer
                     out Dictionary<string, string> resultSlotMetaItem
                 );
 
-                string itemText = GenItemText3(
+                string itemText = GenItemText4(
                     out _,
                     charloData.itemToHint,
-                    CheckStatus.Unknown,
+                    DetailedCheckStatus.Unknown,
                     contextIn: charloData.useDefArticle ? "def" : "indef",
                     optionalContextMetaIn: resultSlotMetaItem
                 );
@@ -1301,10 +1362,10 @@ namespace TPRandomizer
                 )
             )
             {
-                string fishingBottleItemText = GenItemText3(
+                string fishingBottleItemText = GenItemText4(
                     out _,
                     fishingBottleData.itemToHint,
-                    CheckStatus.Unknown,
+                    DetailedCheckStatus.Unknown,
                     contextIn: "fishing-bottle"
                 );
                 Res.Result fishingBottleRes = Res.Msg("self-hinter.fishing-bottle", null);
@@ -1713,10 +1774,10 @@ namespace TPRandomizer
                     out Dictionary<string, string> resultSlotMetaItem
                 );
 
-                string itemText = GenItemText3(
+                string itemText = GenItemText4(
                     out _,
                     barnesData.itemToHint,
-                    CheckStatus.Unknown,
+                    DetailedCheckStatus.Unknown,
                     barnesData.useDefArticle ? "def" : "indef",
                     prefStartColor: CustomMessages.messageColorOrange,
                     optionalContextMetaIn: resultSlotMetaItem
@@ -1741,8 +1802,9 @@ namespace TPRandomizer
             }
         }
 
-        private void GenHintSignEntries()
+        private List<Hint> GenHintSignEntries()
         {
+            List<Hint> midnaHints = new();
             if (!ListUtils.isEmpty(hintSpots))
             {
                 foreach (HintSpot hintSpot in hintSpots)
@@ -1780,6 +1842,10 @@ namespace TPRandomizer
                         string text = hints[0].toHintTextList(this)[0].text;
                         builder.AddStrReplacement(StrRepl.Hidden(node, text));
                     }
+                    else if (hintSpot.location == SpotId.Midna)
+                    {
+                        midnaHints = hintSpot.hints;
+                    }
                     else
                     {
                         throw new Exception(
@@ -1788,6 +1854,7 @@ namespace TPRandomizer
                     }
                 }
             }
+            return midnaHints;
         }
 
         private void AddCustomSignEntityData(SpotId spotId, List<string> messages)
@@ -1844,10 +1911,10 @@ namespace TPRandomizer
             if (HintUtils.IsTrapItem(item))
                 item = defaultItem;
 
-            string itemText = GenItemText3(
+            string itemText = GenItemText4(
                 out Dictionary<string, string> itemMeta,
                 item,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 isShop: true,
                 includeShopSuffix: true,
                 shopSuffixIsColon: shopSuffixIsColon
@@ -2003,10 +2070,10 @@ namespace TPRandomizer
             return coloredItem;
         }
 
-        public string GenItemText3(
+        public string GenItemText4(
             out Dictionary<string, string> meta,
             Item item,
-            CheckStatus checkStatus,
+            DetailedCheckStatus checkStatus,
             string contextIn = null,
             int? count = null,
             bool isShop = false,
@@ -2017,7 +2084,8 @@ namespace TPRandomizer
             bool? capitalize = null,
             CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.None,
             bool isLogicalItem = true,
-            Dictionary<string, string> optionalContextMetaIn = null
+            Dictionary<string, string> optionalContextMetaIn = null,
+            string customResKey = null
         )
         {
             string context = isShop ? "" : contextIn;
@@ -2036,6 +2104,13 @@ namespace TPRandomizer
                 checkStatusDisplay = CheckStatusDisplay.Automatic;
             }
 
+            // If adjustHintsForCompletionists is enabled, then do not indicate status. This is to avoid
+            // situations where we say "Dominion Rod (not required)", but really the domRod was
+            // needed to access an emptyBottle needed to 100% the seed. Statuses are still defined
+            // in relation to beating the game.
+            if (sSettings.adjustHintsForCompletionists)
+                checkStatusDisplay = CheckStatusDisplay.None;
+
             Dictionary<string, string> optionalContextMetaA;
             if (!ListUtils.isEmpty(optionalContextMetaIn))
                 optionalContextMetaA = new(optionalContextMetaIn);
@@ -2051,17 +2126,13 @@ namespace TPRandomizer
                 }
             }
 
-            // Swap to making all context optional so we only use def/indef if
-            // they are defined on the item. Otherwise we have to define
-            // "def,shop-group-of" and "indef,shop-group-of" instead of just
-            // "shop-group-of" for an item which does not use "def" or "indef"
-            // at all. If needed, we can probably make a paramter to this
-            // function be "requiredContext".
-            Res.Result abc = Res.Msg(
-                GetItemResKey(item),
-                new() { { "count", countStr } },
-                optionalContextMetaA
-            );
+            // Swap to making all context optional so we only use def/indef if they are defined on
+            // the item. Otherwise we have to define "def,shop-group-of" and "indef,shop-group-of"
+            // instead of just "shop-group-of" for an item which does not use "def" or "indef" at
+            // all. If needed, we can probably make a paramter to this function be
+            // "requiredContext".
+            string resKey = customResKey ?? GetItemResKey(item);
+            Res.Result abc = Res.Msg(resKey, new() { { "count", countStr } }, optionalContextMetaA);
             meta = abc.meta;
 
             if (isShop || capitalize == true)
@@ -2070,79 +2141,83 @@ namespace TPRandomizer
             // Pick the color
             string startColor;
             string postItemText = "";
-            if (isShop)
-                startColor = CustomMessages.messageColorOrange;
-            else if (prefStartColor != null)
+
+            // Pick the default color here based on checkStatus and display.
+            if (checkStatus == DetailedCheckStatus.Unknown)
             {
-                // Allow passing an empty string in.
-                startColor = prefStartColor;
+                // If we do not know the status of the check, then display
+                // the default green.
+                startColor = CustomMessages.messageColorGreen;
             }
-            else
+            else if (checkStatusDisplay == CheckStatusDisplay.Required_Info)
             {
-                // Pick the default color here based on checkStatus and display.
-                if (checkStatus == CheckStatus.Unknown)
+                if (checkStatus == DetailedCheckStatus.Required)
                 {
-                    // If we do not know the status of the check, then display
-                    // the default green.
-                    startColor = CustomMessages.messageColorGreen;
+                    startColor = CustomMessages.messageColorBlue;
+                    if (isLogicalItem)
+                        postItemText = " " + Res.SimpleMsg("description.required-check", null);
                 }
-                else if (checkStatusDisplay == CheckStatusDisplay.Required_Info)
+                else if (checkStatus == DetailedCheckStatus.NotRequired)
                 {
-                    if (checkStatus == CheckStatus.Required)
+                    startColor = CustomMessages.messageColorPurple;
+                    if (isLogicalItem)
+                        postItemText = " " + Res.SimpleMsg("description.unrequired-check", null);
+                }
+                else
+                {
+                    // Note: status of "Unknown" is still green, but does not receive postItemText.
+                    startColor = CustomMessages.messageColorGreen;
+                    if (isLogicalItem)
                     {
-                        startColor = CustomMessages.messageColorBlue;
-                        if (isLogicalItem)
-                            postItemText = " " + Res.SimpleMsg("description.required-check", null);
-                    }
-                    else if (checkStatus == CheckStatus.Bad)
-                    {
-                        startColor = CustomMessages.messageColorPurple;
-                        if (isLogicalItem)
+                        if (checkStatus == DetailedCheckStatus.SometimesRequired)
                             postItemText =
-                                " " + Res.SimpleMsg("description.unrequired-check", null);
-                    }
-                    else
-                    {
-                        startColor = CustomMessages.messageColorGreen;
-                        if (isLogicalItem)
+                                " " + Res.SimpleMsg("description.sometimes-required-check", null);
+                        else if (checkStatus == DetailedCheckStatus.Skippable)
                             postItemText = " " + Res.SimpleMsg("description.skippable-check", null);
                     }
                 }
-                else if (checkStatusDisplay == CheckStatusDisplay.Good_Or_Not)
+            }
+            else if (checkStatusDisplay == CheckStatusDisplay.Automatic)
+            {
+                if (HintUtils.IsTradeItem(item))
                 {
-                    if (checkStatus == CheckStatus.Bad)
-                        startColor = CustomMessages.messageColorPurple;
-                    else
-                        startColor = CustomMessages.messageColorGreen;
-                }
-                else if (checkStatusDisplay == CheckStatusDisplay.Automatic)
-                {
-                    if (HintUtils.IsTradeItem(item))
+                    if (checkStatus != DetailedCheckStatus.Unknown)
                     {
-                        if (checkStatus == CheckStatus.Bad)
+                        if (checkStatus == DetailedCheckStatus.NotRequired)
                             postItemText = " " + Res.SimpleMsg("description.bad-check", null);
                         else
                             postItemText = " " + Res.SimpleMsg("description.good-check", null);
                     }
-                    else if (isLogicalItem && checkStatus == CheckStatus.Bad)
-                    {
-                        // If item is a logicalItem which is bad for some
-                        // reason, then explicitly call it out. For example, if
-                        // a bomb bag is considered bad because a different bomb
-                        // bag is on a logically required check.
-                        postItemText = " " + Res.SimpleMsg("description.bad-check", null);
-                    }
-
-                    if (checkStatus == CheckStatus.Bad)
-                        startColor = CustomMessages.messageColorPurple;
-                    else
-                        startColor = CustomMessages.messageColorGreen;
                 }
-                else
+                else if (isLogicalItem && checkStatus == DetailedCheckStatus.NotRequired)
                 {
-                    // Display the default green.
-                    startColor = CustomMessages.messageColorGreen;
+                    // If item is a logicalItem which is bad for some reason, then explicitly
+                    // call it out. For example, if a bomb bag is considered bad because a
+                    // different bomb bag is on a logically required check.
+                    postItemText = " " + Res.SimpleMsg("description.bad-check", null);
                 }
+
+                if (checkStatus == DetailedCheckStatus.NotRequired)
+                    startColor = CustomMessages.messageColorPurple;
+                else
+                    startColor = CustomMessages.messageColorGreen;
+            }
+            else
+            {
+                // Display the default green.
+                startColor = CustomMessages.messageColorGreen;
+            }
+
+            // Potentially override the calculated `startColor` and `postItemText`.
+            if (isShop)
+            {
+                startColor = CustomMessages.messageColorOrange;
+                postItemText = "";
+            }
+            else if (prefStartColor != null)
+            {
+                // Check against `null` to allow passing in an empty string.
+                startColor = prefStartColor;
             }
 
             string itemSuffix = "";

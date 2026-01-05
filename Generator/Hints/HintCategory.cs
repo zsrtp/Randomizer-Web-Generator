@@ -276,7 +276,9 @@ namespace TPRandomizer.Hints
                         "Snowboarding Snowy Tree Top Rupee 2",
                         "Snowboarding Snowy Tree Top Rupee 3",
                         "Snowboarding Top Left Rupee",
-                        "Snowboarding Top Right Rupee"
+                        "Snowboarding Top Right Rupee",
+                        // Include the golden wolf which depends on the howling stone.
+                        "Kakariko Graveyard Golden Wolf",
                     }
                 },
                 {

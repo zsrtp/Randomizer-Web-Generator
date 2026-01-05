@@ -146,6 +146,7 @@ namespace TPRandomizer.SSettings.Enums
         Balanced = 3,
         Strong = 4,
         Very_Strong = 5,
+        Season_2 = 6,
     }
 
     public enum IliaQuest
@@ -169,5 +170,12 @@ namespace TPRandomizer.SSettings.Enums
         Off = 0,
         Dungeon = 1,
         Dungeon_Hyrule = 2,
+    }
+
+    public enum HintImportance
+    {
+        Default = 0,
+        Calculate = 1,
+        Upgrade_Hints = 2,
     }
 }

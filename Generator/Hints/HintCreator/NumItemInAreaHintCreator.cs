@@ -99,7 +99,8 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         )
         {
             if (!genData.itemToChecksList.ContainsKey(item))
@@ -114,18 +115,18 @@ namespace TPRandomizer.Hints.HintCreator
                 case AreaId.AreaType.Province:
                 {
                     checkToAreaId = (checkName) =>
-                        ProvinceUtils.IdToString(HintUtils.checkNameToHintProvince(checkName));
+                        ProvinceUtils.IdToString(genData.checkNameToHintProvince(checkName));
                     getAllNamesInArea = (str) => ProvinceUtils.GetProvinceNames();
                     areaIdStrToAreaId = (str) => AreaId.Province(ProvinceUtils.StringToId(str));
                     break;
                 }
                 case AreaId.AreaType.Category:
                 {
-                    checkToAreaId = (checkName) => HintUtils.checkNameToHintZone(checkName);
+                    checkToAreaId = genData.GetZoneNameForCheck;
                     getAllNamesInArea = (str) =>
                     {
                         HashSet<string> result = new();
-                        Dictionary<string, string[]> dict = HintUtils.getHintZoneToChecksMap();
+                        Dictionary<string, string[]> dict = ZoneUtils.zoneNameToChecks;
                         foreach (KeyValuePair<string, string[]> pair in dict)
                         {
                             result.Add(pair.Key);
@@ -158,6 +159,10 @@ namespace TPRandomizer.Hints.HintCreator
 
             foreach (string checkName in genData.itemToChecksList[item])
             {
+                // Skip counting unreachable checks.
+                if (genData.unreachableChecks.Contains(checkName))
+                    continue;
+
                 string areaId = checkToAreaId(checkName);
                 if (validAreaIds.Contains(areaId))
                     areaToCheckNames[areaId].Add(checkName);

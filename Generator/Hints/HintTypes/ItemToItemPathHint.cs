@@ -72,10 +72,10 @@ namespace TPRandomizer.Hints
         {
             Res.Result hintParsedRes = Res.Msg("hint-type.item-to-item-path");
 
-            string srcText = customMsgData.GenItemText3(
+            string srcText = customMsgData.GenItemText4(
                 out Dictionary<string, string> srcItemMeta,
                 srcItem,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 srcUseDefiniteArticle ? "def" : "indef",
                 checkStatusDisplay: CheckStatusDisplay.None,
                 prefStartColor: CustomMessages.messageColorGreen
@@ -83,10 +83,10 @@ namespace TPRandomizer.Hints
 
             string verb = CustomMsgData.GenVerb(hintParsedRes, srcItemMeta);
 
-            string tgtText = customMsgData.GenItemText3(
+            string tgtText = customMsgData.GenItemText4(
                 out Dictionary<string, string> tgtItemMeta,
                 tgtItem,
-                CheckStatus.Required,
+                DetailedCheckStatus.Required,
                 "def",
                 checkStatusDisplay: CheckStatusDisplay.None,
                 prefStartColor: CustomMessages.messageColorBlue

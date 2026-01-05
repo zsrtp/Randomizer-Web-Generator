@@ -119,8 +119,8 @@ namespace TPRandomizer.Hints
         );
         public static readonly Goal Ganondorf = new Goal(
             GoalEnum.Ganondorf,
-            Goal.Type.Room,
-            "Ganondorf Castle"
+            Goal.Type.Check,
+            "Hyrule Castle Ganondorf"
         );
 
         public static readonly Dictionary<string, Goal> requiredDungeonHintZoneToGoal =
@@ -189,11 +189,11 @@ namespace TPRandomizer.Hints
                 { Item.Male_Snail, "Agitha Male Snail Reward" },
                 { Item.Male_Stag_Beetle, "Agitha Male Stag Beetle Reward" },
                 { Item.Asheis_Sketch, "Gift From Ralis" },
+                { Item.Renados_Letter, "Telma Invoice" },
+                { Item.Ilias_Charm, "Ilia Memory Reward" },
             };
 
         public static readonly Dictionary<string, Item> tradeRewardCheckToSourceItem;
-
-        private static readonly Dictionary<string, string> cachedCheckToHintZoneMap = new();
 
         static HintUtils()
         {
@@ -228,86 +228,6 @@ namespace TPRandomizer.Hints
             //         { Item.Male_Snail, "Agitha Male Snail Reward" },
             //         { Item.Male_Stag_Beetle, "Agitha Male Stag Beetle Reward" },
             //         { Item.Asheis_Sketch, "Gift From Ralis" },
-        }
-
-        public static string getDependentDungeonForCheckName(string checkName)
-        {
-            if (checkName == null || checkName == "")
-            {
-                return null;
-            }
-
-            Check check = Randomizer.Checks.CheckDict[checkName];
-            if (check == null)
-            {
-                return null;
-            }
-
-            for (int i = 0; i < check.checkCategory.Count; i++)
-            {
-                string categoryName = check.checkCategory[i];
-                if (HintConstants.jsonCategoryToDungeonZoneName.ContainsKey(categoryName))
-                {
-                    string dungeonZoneName = HintConstants.jsonCategoryToDungeonZoneName[
-                        categoryName
-                    ];
-                    if (HintConstants.dungeonZonesToRequiredMaskMap.ContainsKey(dungeonZoneName))
-                    {
-                        return dungeonZoneName;
-                    }
-                }
-            }
-
-            // If no dungeonZone name, check if check is hardcoded post-dungeon check.
-            if (HintConstants.postDungeonChecksToDungeonZone.ContainsKey(checkName))
-            {
-                return HintConstants.postDungeonChecksToDungeonZone[checkName];
-            }
-
-            return null;
-        }
-
-        public static Dictionary<string, string[]> getHintZoneToChecksMap()
-        {
-            return ZoneUtils.zoneNameToChecks;
-        }
-
-        public static Dictionary<string, string> getCheckToHintZoneMap()
-        {
-            if (cachedCheckToHintZoneMap.Count > 0)
-                return cachedCheckToHintZoneMap;
-
-            Dictionary<string, string[]> hintZoneToChecksMap = getHintZoneToChecksMap();
-            Dictionary<string, string> checkToHintZoneMap = convertToCheckToHintZoneMap(
-                hintZoneToChecksMap
-            );
-
-            foreach (KeyValuePair<string, string> pair in checkToHintZoneMap)
-            {
-                cachedCheckToHintZoneMap.Add(pair.Key, pair.Value);
-            }
-
-            return checkToHintZoneMap;
-        }
-
-        private static Dictionary<string, string> convertToCheckToHintZoneMap(
-            Dictionary<string, string[]> hintZoneToChecksMap
-        )
-        {
-            Dictionary<string, string> checkToHintZoneMap = new();
-
-            foreach (KeyValuePair<string, string[]> kv in hintZoneToChecksMap)
-            {
-                string zoneName = kv.Key;
-                string[] checksForZone = kv.Value;
-
-                for (int i = 0; i < checksForZone.Length; i++)
-                {
-                    checkToHintZoneMap.Add(checksForZone[i], zoneName);
-                }
-            }
-
-            return checkToHintZoneMap;
         }
 
         public static bool DungeonIsRequired(string dungeonHintZoneName)
@@ -875,46 +795,6 @@ namespace TPRandomizer.Hints
             return list[randomIndex];
         }
 
-        public static string PickRandomCheckByGroup(
-            Random rnd,
-            IEnumerable<string> checksEnumerable,
-            bool byProvince = false
-        )
-        {
-            Dictionary<string, List<string>> checksByGroup = new();
-
-            foreach (string checkName in checksEnumerable)
-            {
-                if (byProvince)
-                {
-                    Province province = checkNameToHintProvince(checkName);
-                    string provinceName = ProvinceUtils.IdToString(province);
-                    if (!checksByGroup.ContainsKey(provinceName))
-                        checksByGroup[provinceName] = new();
-                    checksByGroup[provinceName].Add(checkName);
-                }
-                else
-                {
-                    string zoneName = checkNameToHintZone(checkName);
-                    if (!checksByGroup.ContainsKey(zoneName))
-                        checksByGroup[zoneName] = new();
-                    checksByGroup[zoneName].Add(checkName);
-                }
-            }
-
-            if (checksByGroup.Count < 1)
-                throw new Exception("checkByGroup is empty.");
-
-            KeyValuePair<string, List<string>> groupAndChecks = PickRandomDictionaryPair(
-                rnd,
-                checksByGroup
-            );
-
-            List<string> checksOfGroup = groupAndChecks.Value;
-            string selectedCheckName = RemoveRandomListItem(rnd, checksOfGroup);
-            return selectedCheckName;
-        }
-
         public static bool checkIsPlayerKnownStatus(string checkName)
         {
             string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;
@@ -925,6 +805,11 @@ namespace TPRandomizer.Hints
         {
             string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;
             return HintConstants.excludedCheckStatuses.Contains(checkStatus);
+        }
+
+        public static bool checkIsVanilla(string checkName)
+        {
+            return Randomizer.Checks.CheckDict[checkName].checkStatus == "Vanilla";
         }
 
         public static bool checksAllPlayerKnownStatus(IEnumerable<string> checkNames)
@@ -957,26 +842,6 @@ namespace TPRandomizer.Hints
             return HintConstants.dungeonZones.Contains(hintZone);
         }
 
-        public static string checkNameToHintZone(string checkName)
-        {
-            return getCheckToHintZoneMap()[checkName];
-        }
-
-        public static bool checkNameHasHintZone(string checkName)
-        {
-            return getCheckToHintZoneMap().ContainsKey(checkName);
-        }
-
-        public static Province checkNameToHintProvince(string checkName)
-        {
-            string hintZone = checkNameToHintZone(checkName);
-
-            if (HintConstants.zoneToProvince.ContainsKey(hintZone))
-                return HintConstants.zoneToProvince[hintZone];
-
-            return Province.Invalid;
-        }
-
         public static Item getCheckContents(string checkName)
         {
             return Randomizer.Checks.CheckDict[checkName].itemId;
@@ -986,37 +851,6 @@ namespace TPRandomizer.Hints
         {
             int srcCheckId = CheckIdClass.GetCheckIdNum(checkName);
             return (Item)itemPlacements[srcCheckId];
-        }
-
-        public static HashSet<string> GetChecksForProvince(Province province)
-        {
-            HashSet<string> checkNames = new();
-            Dictionary<string, string[]> zoneToChecks = getHintZoneToChecksMap();
-
-            foreach (Zone zone in ProvinceUtils.ProvinceToZones(province))
-            {
-                string zoneName = ZoneUtils.IdToString(zone);
-                string[] checks = zoneToChecks[zoneName];
-                foreach (string check in checks)
-                {
-                    checkNames.Add(check);
-                }
-            }
-            return checkNames;
-        }
-
-        public static HashSet<string> GetChecksForZone(Zone zone)
-        {
-            HashSet<string> checkNames = new();
-            Dictionary<string, string[]> zoneToChecks = getHintZoneToChecksMap();
-
-            string zoneName = ZoneUtils.IdToString(zone);
-            string[] checks = zoneToChecks[zoneName];
-            foreach (string check in checks)
-            {
-                checkNames.Add(check);
-            }
-            return checkNames;
         }
 
         public static SpotId TryGetSpotIdForBarrenZoneHint(Hint hint)
@@ -1187,6 +1021,50 @@ namespace TPRandomizer.Hints
                 TradeGroupUtils.NumBitsToEncode,
                 calcNumBitsForHintsAtSpot(hintSpots)
             );
+        }
+
+        public static bool CalcBeatableWithForbiddenChecks(
+            Room startingRoom,
+            HashSet<string> forbiddenCheckNames,
+            HashSet<string> reachedChecks = null
+        )
+        {
+            // I think it is safe to only generate the item pool once up front.
+            Randomizer.Items.GenerateItemPool();
+
+            Dictionary<string, Item> originalContentsMap = new();
+
+            HashSet<Goal> goals = new() { GoalConstants.Ganondorf };
+
+            if (!ListUtils.isEmpty(forbiddenCheckNames))
+            {
+                foreach (string checkName in forbiddenCheckNames)
+                {
+                    // Replace check contents with a green rupee. We are checking if the playthrough
+                    // is still beatable without doing any of the forbidden checks essentially (we
+                    // do them in the playthrough, but they give junk).
+                    Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
+                    Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
+
+                    originalContentsMap[checkName] = originalContents;
+                }
+            }
+
+            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+                startingRoom,
+                goals,
+                false,
+                reachedChecks
+            );
+
+            foreach (KeyValuePair<string, Item> pair in originalContentsMap)
+            {
+                // Put the original item back.
+                Randomizer.Checks.CheckDict[pair.Key].itemId = pair.Value;
+            }
+
+            bool couldBeatGanondorf = goalResults[GoalConstants.Ganondorf];
+            return couldBeatGanondorf;
         }
     }
 }

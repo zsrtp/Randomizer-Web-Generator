@@ -133,7 +133,8 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         )
         {
             if (numHints < 1 || validGroups.Count < 1 || validStatuses.Count < 1)
@@ -230,7 +231,7 @@ namespace TPRandomizer.Hints.HintCreator
                     // If end check is good, then groups with this item cannot
                     // be hintedBarren regardless of anything else.
                     string endCheck = genData.tradeItemToChainEndCheck[item];
-                    if (genData.CheckIsGood(endCheck, true))
+                    if (genData.CheckIsGood(endCheck))
                     {
                         groupCanBeHintedBarren = false;
                         groupNotBarrenIfHasItems.Add(item);
@@ -262,7 +263,7 @@ namespace TPRandomizer.Hints.HintCreator
 
                         // Bypass since endCheck is mostly agithaReward
                         // checks.
-                        if (genData.CheckIsGood(endCheck, true))
+                        if (genData.CheckIsGood(endCheck))
                         {
                             SrcAndTgtChecks sAndTChecks = new(hintableSrcChecks, endCheck);
 
@@ -455,7 +456,7 @@ namespace TPRandomizer.Hints.HintCreator
             return (
                 !HintUtils.checkIsPlayerKnownStatus(checkName)
                 && !HintUtils.CheckIsTradeItemReward(checkName)
-                && !genData.hinted.hintsShouldIgnoreChecks.Contains(checkName)
+                && !genData.hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                 && !genData.hinted.alreadyCheckKnownBarren.Contains(checkName)
                 && !genData.hinted.alreadyCheckContentsHinted.Contains(checkName)
                 && !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)

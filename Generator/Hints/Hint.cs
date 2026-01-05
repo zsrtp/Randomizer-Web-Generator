@@ -19,6 +19,7 @@ namespace TPRandomizer.Hints
         TradeChain = 10,
         TradeGroup = 11,
         JovaniRewards = 12,
+        ImportanceCount = 13,
     }
 
     public class HintTypeUtils
@@ -36,7 +37,7 @@ namespace TPRandomizer.Hints
         public uint uniqueHintId { get; private set; }
         public abstract HintType type { get; }
 
-        private static uint nextHintId = 0;
+        private static uint nextHintId = 1;
 
         protected Hint()
         {
@@ -91,6 +92,8 @@ namespace TPRandomizer.Hints
                     return TradeGroupHint.decode(bitLengths, processor, itemPlacements);
                 case HintType.JovaniRewards:
                     return JovaniRewardsHint.decode(bitLengths, processor, itemPlacements);
+                case HintType.ImportanceCount:
+                    return ImportanceCountHint.decode(bitLengths, processor, itemPlacements);
                 default:
                     throw new Exception(
                         $"Tried to decode hintType, but found unexpected type `{type}`."
@@ -110,6 +113,7 @@ namespace TPRandomizer.Hints
         public byte hintSpotLocation = HintSpotLocationUtils.NumBitsToEncode;
         public byte goalEnum = GoalConstants.NumBitsToEncode;
         public byte tradeGroupId = TradeGroupUtils.NumBitsToEncode;
+        public byte checkStatus = 3;
         public byte hintsPerSpot;
 
         public HintEncodingBitLengths(

@@ -24,7 +24,8 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         )
         {
             List<Hint> results = new();

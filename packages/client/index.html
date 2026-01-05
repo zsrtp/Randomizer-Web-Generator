@@ -468,6 +468,7 @@
                 <select
                   name="Castle BK Requirements"
                   data-tooltip-text="When enabled, the HC Big Key will be placed in its vanilla location with the gate in front of it locked. Only when the specified criteria have been met will the gate unlock.&#0010;&#0010;'None': The gate is opened and the key is randomized according to the respective Big Key settings.&#0010;&#0010;'Fused Shadows': The gate will open once the required number of Fused Shadows have been collected.&#0010;&#0010;'Mirror Shards': The gate will open once the required number of Mirror Shards have been collected.&#0010;&#0010;'Dungeons': The gate will open once the required number of Dungeons have been cleared.&#0010;&#0010;'Poe Souls': The gate will open once the required number of Poe Souls have been collected.&#0010;&#0010;'Hearts': The gate will open once the required number of Hearts have been reached."
+                  data-tooltip-position="left"
                   id="castleBKRequirementsFieldset"
                 >
                   <option value="0" selected>None</option>
@@ -876,15 +877,54 @@
                 <select
                   name="Hint Distribution"
                   id="hintDistributionFieldset"
-                  data-tooltip-text="'None': Disables hints.&#0010;&#0010;'Balanced': Default hint distribution.&#0010;&#0010;'Season 1': Distribution for the S1 tournament. 3 Barren, 1 Misc, 3 Path (1 Item, 2 Boss), 5 Always, 5 Sometimes, Sword hints in dungeons.&#0010;&#0010;'Strong': Hints are more useful than Balanced on average.&#0010;&#0010;'Very Strong': Hints are more useful than Strong on average.&#0010;&#0010;'Weak': Designed to enhance the experience without speeding things up that much.&#0010;"
+                  data-tooltip-text="'None': Disables hints.&#0010;&#0010;'Balanced': Default hint distribution.&#0010;&#0010;'Season 1': Distribution for the S1 tournament. 3 Barren, 1 Misc, 3 Path (1 Item, 2 Boss), 5 Always, 5 Sometimes, Sword hints in dungeons.&#0010;&#0010;'S2 Placeholder': Similar to Season 1. Will be replaced with the Season 2 distribution once it is ready.&#0010;&#0010;'Strong': Hints are more useful than Balanced on average.&#0010;&#0010;'Very Strong': Hints are more useful than Strong on average.&#0010;&#0010;'Weak': Designed to enhance the experience without speeding things up that much.&#0010;"
                 >
                   <option value="0">None</option>
                   <option value="3" selected="selected">Balanced</option>
                   <option value="1">Season 1</option>
+                  <option value="6">S2 Placeholder</option>
                   <option value="4">Strong</option>
                   <option value="5">Very Strong</option>
                   <option value="2">Weak</option>
                 </select>
+              </div>
+              <div class="selectGroup" style="margin-top: 8px">
+                <label for="hintDistributionFieldset">Hint Importance</label
+                ><br />
+                <select
+                  name="Hint Importance"
+                  id="hintImportanceFieldset"
+                  data-tooltip-text='WARNING: calculating hint importance can cause seed generation to take meaningfully longer. This does nothing when Logic Rules are "No Logic".&#0010;&#0010;&apos;Default&apos;: Leaves things up to the hint distribution.&#0010;&#0010;&apos;Calculate&apos;: Does more calculations to know when major items are not useful. Most "skippable" checks will become either "sometimes required" (useful) or "not required" (not useful). More areas can be hinted barren since a check which is known to be "not required" would not block barren (Ex: a useless Dominion Rod).&#0010;&#0010;&apos;Upgrade Hints&apos;: Includes the changes from "Calculate". Addtionally, most hints will be upgraded to indicate importance. For example, Always hints indicate importance by default, but this setting would make Sometimes hints indicate importance as well.&#0010;'
+                >
+                  <option value="0" selected="selected">Default</option>
+                  <option value="1">Calculate</option>
+                  <option value="2">Upgrade Hints</option>
+                </select>
+              </div>
+              <div
+                data-tooltip-text="Plandoed checks will not be randomly selected for a hint. These checks are considered to already be known by the player.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="noPlandoHintsCheckbox"
+                  name="No Plando Hints Checkbox"
+                  value=""
+                  checked
+                />
+                <label for="noPlandoHintsCheckbox">No Plando Hints</label>
+              </div>
+              <div
+                data-tooltip-text='For players who wish to "100%" a seed. Makes a few adjustments to hints to make them more helpful.&#0010;&#0010;&#149; For Barren and BeyondThisPoint hints, all shuffled non-junk items will now block barren and show up as "something good beyond this point".&#0010;&#149; Agitha&apos;s hint indicates all non-junk items, including golden bugs.&#0010;&#149; To avoid confusion, hints no longer indicate importance (such as "not required") since these are calculated relative to beating the game rather than 100%-ing it.&#0010;'
+              >
+                <input
+                  type="checkbox"
+                  id="adjustHintsForCompletionistsCheckbox"
+                  name="Adjust Hints For Completionists"
+                  value=""
+                />
+                <label for="adjustHintsForCompletionistsCheckbox"
+                  >Adjust Hints For Completionists</label
+                >
               </div>
             </fieldset>
           </div>

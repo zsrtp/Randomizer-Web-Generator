@@ -1043,6 +1043,14 @@ namespace TPRandomizer.Hints
             return SpotId.Invalid;
         }
 
+        public static SpotId IdToSpotIdThrows(Zone zoneId)
+        {
+            SpotId result = IdToSpotId(zoneId);
+            if (result == SpotId.Invalid)
+                throw new Exception($"Failed to convert Zone {zoneId} to valid spotId.");
+            return result;
+        }
+
         public static Zone SpotIdToZone(SpotId spotId)
         {
             if (spotIdToId.ContainsKey(spotId))

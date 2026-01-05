@@ -53,7 +53,13 @@ const presetsMgr = (function () {
     {
       name: 'Season 1',
       origSettingsStr:
-        '6sg4M2kPC__6KD2P2001W4-WCa8yoUFdo-KMZKQZKmxdyltIwNIwNIwN0u70u70u70u70u70u70u71_oT3qhcD8C1bIJCWICG0-nvQy715QXb5bGHSWsTXYa_Vfu7vVXAr-9v_NyMfmKr78SMLTayJkHKZd59XI4IHe3YNMC6In6r1puAWjNH9eqnaIONGTGW2p-ACW6BL1sdCKOscNKGPNMTjt4uKemISQKYc2Eaa2K4rncj9DJJ8EmBHQMi64xT0qGuDuvGeVufaXPyopT8ObWG_y',
+        '6sQ4N2kPC__6KD2P2001W4-WGoGZp9u-VBvHQDHgDJ3kVo_TBfTBfTBfS3WS3WS3WS3WS3WS3WS3WS7_9qFIkOqWm6L9Co18n03x7bhmS4Lg6KML15o3Ps6AJz-dWVb-4hNuddzVnQd1JKSXnPLsJnEv5IESKc58H96WE9TOmPB4RK7FWg2rT4cZJ6H9XT1r20BFueo0OjK7QSnHZQPTH1bTPstSJXIZ19nfIAO8wIG9GJN6QqarDCWx0j5fQmOJjq3H3WtZb2X_YcI5dpBDqXYM13_m',
+      description: '',
+    },
+    {
+      name: 'Season 1.5',
+      origSettingsStr:
+        '6sg5v2kSC_v6L92PDQ01W46GGoGZp9u-VBvHQDHgDJ3kVmxT3fTBfTBfTBXS3WS3WS3WS3WS3WS3WS3WS7_9qFIk5HZI30PKap84k2CG0-nvQy715QXb44N9-dvVXVYUVr_5gJKSXnPLsM3Aj53hR0ZLXEyyJkHLeWQHO4YESKc58H96WE9TOmPB4RK7FWg2rT4cZJ6H9XT1r20BFueo0OjK7QSnHZQPTH1bTjt4uKemISQKYc2Eaa2K4rncj9DJJ8EmBHQMi67GD4E3UELtdVVv8MVCitI69O4F_WW2ai2cw36M2dA36y31m2kW2Yq31Q3AK39m3A82ik2gC2kO2eg2dY2ig2ZY33a2fg2ha3883DW3ee37M35M2i62_-',
       description: '',
     },
   ];
@@ -724,6 +730,14 @@ document
 
 document.getElementById('maloShopDonationSlider').oninput =
   setMaloShopDonationValue;
+
+document.getElementById('hintImportanceFieldset').onchange = setSettingsString;
+document
+  .getElementById('noPlandoHintsCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('adjustHintsForCompletionistsCheckbox')
+  .addEventListener('click', setSettingsString);
 
 function importSettingsString() {
   parseSettingsString(document.getElementById('settingsStringTextbox').value);
@@ -2354,6 +2368,12 @@ function populateSSettings(s) {
   $('#autoFillWalletCheckbox').prop('checked', s.autoFillWallet);
   $('#skipBridgeDonationCheckbox').prop('checked', s.skipBridgeDonation);
   $('#maloShopDonationSlider').val(s.maloShopDonation);
+  $('#hintImportanceFieldset').val(s.hintImportance);
+  $('#noPlandoHintsCheckbox').prop('checked', s.noPlandoHints);
+  $('#adjustHintsForCompletionistsCheckbox').prop(
+    'checked',
+    s.adjustHintsForCompletionists
+  );
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {

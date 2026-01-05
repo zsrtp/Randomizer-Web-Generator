@@ -149,12 +149,20 @@
     <value>$(ap:with)the {cs}Golden Wolf{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.golden_wolf$plain" xml:space="preserve">
+    <value>Golden Wolf</value>
+    <comment></comment>
+  </data>
   <data name="area.category.grotto" xml:space="preserve">
     <value>a {cs}Grotto{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$default" xml:space="preserve">
     <value>$(plural)Grottos</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto$plain" xml:space="preserve">
+    <value>Grottos</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$plural" xml:space="preserve">
@@ -169,6 +177,10 @@
     <value>$(plural)the {cs}2 lantern chests in Lake Lantern Cave{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.llc_lantern_chests$plain" xml:space="preserve">
+    <value>Lake Lantern Cave Lantern Chests</value>
+    <comment></comment>
+  </data>
   <data name="area.category.llc_lantern_chests$plural" xml:space="preserve">
     <value>$(plural)the {cs}2 lantern chests in Lake Lantern Cave{ce}</value>
     <comment></comment>
@@ -177,8 +189,16 @@
     <value>$(ap:behind)purple mist</value>
     <comment></comment>
   </data>
+  <data name="area.category.mist$plain" xml:space="preserve">
+    <value>Purple Mist</value>
+    <comment></comment>
+  </data>
   <data name="area.category.northern_desert" xml:space="preserve">
     <value>the {cs}northern desert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.northern_desert$plain" xml:space="preserve">
+    <value>Northern Desert</value>
     <comment></comment>
   </data>
   <data name="area.category.owl_statue" xml:space="preserve">
@@ -189,6 +209,10 @@
     <value>$(ap:behind,plural)Owl Statues</value>
     <comment></comment>
   </data>
+  <data name="area.category.owl_statue$plain" xml:space="preserve">
+    <value>Owl Statues</value>
+    <comment></comment>
+  </data>
   <data name="area.category.owl_statue$plural" xml:space="preserve">
     <value>$(ap:behind,plural)Owl Statues</value>
     <comment></comment>
@@ -197,8 +221,16 @@
     <value>the {cs}southern desert{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.southern_desert$plain" xml:space="preserve">
+    <value>Southern Desert</value>
+    <comment></comment>
+  </data>
   <data name="area.category.underwater" xml:space="preserve">
     <value>$(ap:none)underwater</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater$plain" xml:space="preserve">
+    <value>Underwater</value>
     <comment></comment>
   </data>
   <data name="area.category.underwater$subject" xml:space="preserve">
@@ -261,6 +293,10 @@
     <value>the {cs}Bulblin Camp{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.bulblin_camp$plain" xml:space="preserve">
+    <value>Bulblin Camp</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.castle_town" xml:space="preserve">
     <value>Castle Town</value>
     <comment></comment>
@@ -269,7 +305,15 @@
     <value>the {cs}Cave of Ordeals{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.cave_of_ordeals$plain" xml:space="preserve">
+    <value>Cave of Ordeals</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.city_in_the_sky" xml:space="preserve">
+    <value>the {cs}City in the Sky{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.city_in_the_sky$plain" xml:space="preserve">
     <value>City in the Sky</value>
     <comment></comment>
   </data>
@@ -293,8 +337,16 @@
     <value>the {cs}Forest Temple{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.forest_temple$plain" xml:space="preserve">
+    <value>Forest Temple</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.gerudo_desert" xml:space="preserve">
     <value>the {cs}Gerudo Desert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.gerudo_desert$plain" xml:space="preserve">
+    <value>Gerudo Desert</value>
     <comment></comment>
   </data>
   <data name="area.zone.goron_mines" xml:space="preserve">
@@ -305,8 +357,16 @@
     <value>$(ap:at)the {cs}Great Bridge of Hylia{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.great_bridge_of_hylia$plain" xml:space="preserve">
+    <value>Great Bridge of Hylia</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.hidden_village" xml:space="preserve">
     <value>the {cs}Hidden Village{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.hidden_village$plain" xml:space="preserve">
+    <value>Hidden Village</value>
     <comment></comment>
   </data>
   <data name="area.zone.hyrule_castle" xml:space="preserve">
@@ -357,8 +417,16 @@
     <value>the {cs}Palace of Twilight{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.palace_of_twilight$plain" xml:space="preserve">
+    <value>Palace of Twilight</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.sacred_grove" xml:space="preserve">
     <value>the {cs}Sacred Grove{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.sacred_grove$plain" xml:space="preserve">
+    <value>Sacred Grove</value>
     <comment></comment>
   </data>
   <data name="area.zone.snowpeak_mountain" xml:space="preserve">
@@ -375,6 +443,10 @@
   </data>
   <data name="area.zone.temple_of_time" xml:space="preserve">
     <value>the {cs}Temple of Time{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.temple_of_time$plain" xml:space="preserve">
+    <value>Temple of Time</value>
     <comment></comment>
   </data>
   <data name="area.zone.upper_zoras_river" xml:space="preserve">
@@ -399,6 +471,10 @@
   </data>
   <data name="description.skippable-check" xml:space="preserve">
     <value>(skippable)</value>
+    <comment></comment>
+  </data>
+  <data name="description.sometimes-required-check" xml:space="preserve">
+    <value>(sometimes required)</value>
     <comment></comment>
   </data>
   <data name="description.unrequired-check" xml:space="preserve">
@@ -503,6 +579,34 @@
   </data>
   <data name="hint-type.beyond-point$only-big-keys" xml:space="preserve">
     <value>Only {big-key} beyond this point!</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count" xml:space="preserve">
+    <value>They say that {subject} can be found {area-phrase}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.footnote" xml:space="preserve">
+    <value>#(reference-mark)Dependent checks not included.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.important-item" xml:space="preserve">
+    <value>{count} important item</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.important-item#other" xml:space="preserve">
+    <value>$(plural){count} important items</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.major-item" xml:space="preserve">
+    <value>{count} major item</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.major-item#other" xml:space="preserve">
+    <value>$(plural){count} major items</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.num-major" xml:space="preserve">
+    <value>({count}#(nbsp)major)</value>
     <comment></comment>
   </data>
   <data name="hint-type.item" xml:space="preserve">
@@ -841,7 +945,7 @@
     <value>Forest Temple small key</value>
     <comment></comment>
   </data>
-  <data name="item.85-forest_temple_small_key$short" xml:space="preserve">
+  <data name="item.85-forest_temple_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>FT small key</value>
     <comment></comment>
   </data>
@@ -849,7 +953,7 @@
     <value>Goron Mines small key</value>
     <comment></comment>
   </data>
-  <data name="item.86-goron_mines_small_key$short" xml:space="preserve">
+  <data name="item.86-goron_mines_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>GM small key</value>
     <comment></comment>
   </data>
@@ -857,7 +961,7 @@
     <value>Lakebed Temple small key</value>
     <comment></comment>
   </data>
-  <data name="item.87-lakebed_temple_small_key$short" xml:space="preserve">
+  <data name="item.87-lakebed_temple_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>LBT small key</value>
     <comment></comment>
   </data>
@@ -865,7 +969,7 @@
     <value>Arbiter&apos;s Grounds small key</value>
     <comment></comment>
   </data>
-  <data name="item.88-arbiters_grounds_small_key$short" xml:space="preserve">
+  <data name="item.88-arbiters_grounds_small_key$short@ac(t,an,b,s)" xml:space="preserve">
     <value>AG small key</value>
     <comment></comment>
   </data>
@@ -873,7 +977,7 @@
     <value>Snowpeak Ruins small key</value>
     <comment></comment>
   </data>
-  <data name="item.89-snowpeak_ruins_small_key$short" xml:space="preserve">
+  <data name="item.89-snowpeak_ruins_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>SPR small key</value>
     <comment></comment>
   </data>
@@ -881,7 +985,7 @@
     <value>Temple of Time small key</value>
     <comment></comment>
   </data>
-  <data name="item.8a-temple_of_time_small_key$short" xml:space="preserve">
+  <data name="item.8a-temple_of_time_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>ToT small key</value>
     <comment></comment>
   </data>
@@ -889,7 +993,7 @@
     <value>City in the Sky small key</value>
     <comment></comment>
   </data>
-  <data name="item.8b-city_in_the_sky_small_key$short" xml:space="preserve">
+  <data name="item.8b-city_in_the_sky_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>CitS small key</value>
     <comment></comment>
   </data>
@@ -897,7 +1001,7 @@
     <value>Palace of Twilight small key</value>
     <comment></comment>
   </data>
-  <data name="item.8c-palace_of_twilight_small_key$short" xml:space="preserve">
+  <data name="item.8c-palace_of_twilight_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>PoT small key</value>
     <comment></comment>
   </data>
@@ -905,7 +1009,7 @@
     <value>Hyrule Castle small key</value>
     <comment></comment>
   </data>
-  <data name="item.8d-hyrule_castle_small_key$short" xml:space="preserve">
+  <data name="item.8d-hyrule_castle_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>HC small key</value>
     <comment></comment>
   </data>
@@ -925,7 +1029,7 @@
     <value>Forest Temple big key</value>
     <comment></comment>
   </data>
-  <data name="item.92-forest_temple_big_key$short" xml:space="preserve">
+  <data name="item.92-forest_temple_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>FT big key</value>
     <comment></comment>
   </data>
@@ -933,7 +1037,7 @@
     <value>Lakebed Temple big key</value>
     <comment></comment>
   </data>
-  <data name="item.93-lakebed_temple_big_key$short" xml:space="preserve">
+  <data name="item.93-lakebed_temple_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>LBT big key</value>
     <comment></comment>
   </data>
@@ -941,7 +1045,7 @@
     <value>Arbiter&apos;s Grounds big key</value>
     <comment></comment>
   </data>
-  <data name="item.94-arbiters_grounds_big_key$short" xml:space="preserve">
+  <data name="item.94-arbiters_grounds_big_key$short@ac(t,an,b,s)" xml:space="preserve">
     <value>AG big key</value>
     <comment></comment>
   </data>
@@ -949,7 +1053,7 @@
     <value>Temple of Time big key</value>
     <comment></comment>
   </data>
-  <data name="item.95-temple_of_time_big_key$short" xml:space="preserve">
+  <data name="item.95-temple_of_time_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>ToT big key</value>
     <comment></comment>
   </data>
@@ -957,7 +1061,7 @@
     <value>City in the Sky big key</value>
     <comment></comment>
   </data>
-  <data name="item.96-city_in_the_sky_big_key$short" xml:space="preserve">
+  <data name="item.96-city_in_the_sky_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>CitS big key</value>
     <comment></comment>
   </data>
@@ -965,7 +1069,7 @@
     <value>Palace of Twilight big key</value>
     <comment></comment>
   </data>
-  <data name="item.97-palace_of_twilight_big_key$short" xml:space="preserve">
+  <data name="item.97-palace_of_twilight_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>PoT big key</value>
     <comment></comment>
   </data>
@@ -973,7 +1077,7 @@
     <value>Hyrule Castle big key</value>
     <comment></comment>
   </data>
-  <data name="item.98-hyrule_castle_big_key$short" xml:space="preserve">
+  <data name="item.98-hyrule_castle_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>HC big key</value>
     <comment></comment>
   </data>
@@ -981,7 +1085,7 @@
     <value>Forest Temple compass</value>
     <comment></comment>
   </data>
-  <data name="item.99-forest_temple_compass$short" xml:space="preserve">
+  <data name="item.99-forest_temple_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>FT compass</value>
     <comment></comment>
   </data>
@@ -989,7 +1093,7 @@
     <value>Goron Mines compass</value>
     <comment></comment>
   </data>
-  <data name="item.9a-goron_mines_compass$short" xml:space="preserve">
+  <data name="item.9a-goron_mines_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>GM compass</value>
     <comment></comment>
   </data>
@@ -997,7 +1101,7 @@
     <value>Lakebed Temple compass</value>
     <comment></comment>
   </data>
-  <data name="item.9b-lakebed_temple_compass$short" xml:space="preserve">
+  <data name="item.9b-lakebed_temple_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>LBT compass</value>
     <comment></comment>
   </data>
@@ -1017,7 +1121,7 @@
     <value>Arbiter&apos;s Grounds compass</value>
     <comment></comment>
   </data>
-  <data name="item.a8-arbiters_grounds_compass$short" xml:space="preserve">
+  <data name="item.a8-arbiters_grounds_compass$short@ac(t,an,b,es)" xml:space="preserve">
     <value>AG compass</value>
     <comment></comment>
   </data>
@@ -1025,7 +1129,7 @@
     <value>Snowpeak Ruins compass</value>
     <comment></comment>
   </data>
-  <data name="item.a9-snowpeak_ruins_compass$short" xml:space="preserve">
+  <data name="item.a9-snowpeak_ruins_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>SPR compass</value>
     <comment></comment>
   </data>
@@ -1033,7 +1137,7 @@
     <value>Temple of Time compass</value>
     <comment></comment>
   </data>
-  <data name="item.aa-temple_of_time_compass$short" xml:space="preserve">
+  <data name="item.aa-temple_of_time_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>ToT compass</value>
     <comment></comment>
   </data>
@@ -1041,7 +1145,7 @@
     <value>City in the Sky compass</value>
     <comment></comment>
   </data>
-  <data name="item.ab-city_in_the_sky_compass$short" xml:space="preserve">
+  <data name="item.ab-city_in_the_sky_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>CitS compass</value>
     <comment></comment>
   </data>
@@ -1049,7 +1153,7 @@
     <value>Palace of Twilight compass</value>
     <comment></comment>
   </data>
-  <data name="item.ac-palace_of_twilight_compass$short" xml:space="preserve">
+  <data name="item.ac-palace_of_twilight_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>PoT compass</value>
     <comment></comment>
   </data>
@@ -1057,7 +1161,7 @@
     <value>Hyrule Castle compass</value>
     <comment></comment>
   </data>
-  <data name="item.ad-hyrule_castle_compass$short" xml:space="preserve">
+  <data name="item.ad-hyrule_castle_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>HC compass</value>
     <comment></comment>
   </data>
@@ -1065,7 +1169,7 @@
     <value>Forest Temple dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.b6-forest_temple_dungeon_map$short" xml:space="preserve">
+  <data name="item.b6-forest_temple_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>FT dungeon map</value>
     <comment></comment>
   </data>
@@ -1073,7 +1177,7 @@
     <value>Goron Mines dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.b7-goron_mines_dungeon_map$short" xml:space="preserve">
+  <data name="item.b7-goron_mines_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>GM dungeon map</value>
     <comment></comment>
   </data>
@@ -1081,7 +1185,7 @@
     <value>Lakebed Temple dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.b8-lakebed_temple_dungeon_map$short" xml:space="preserve">
+  <data name="item.b8-lakebed_temple_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>LBT dungeon map</value>
     <comment></comment>
   </data>
@@ -1089,7 +1193,7 @@
     <value>Arbiter&apos;s Grounds dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.b9-arbiters_grounds_dungeon_map$short" xml:space="preserve">
+  <data name="item.b9-arbiters_grounds_dungeon_map$short@ac(t,an,b,s)" xml:space="preserve">
     <value>AG dungeon map</value>
     <comment></comment>
   </data>
@@ -1097,7 +1201,7 @@
     <value>Snowpeak Ruins dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.ba-snowpeak_ruins_dungeon_map$short" xml:space="preserve">
+  <data name="item.ba-snowpeak_ruins_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>SPR dungeon map</value>
     <comment></comment>
   </data>
@@ -1105,7 +1209,7 @@
     <value>Temple of Time dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.bb-temple_of_time_dungeon_map$short" xml:space="preserve">
+  <data name="item.bb-temple_of_time_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>ToT dungeon map</value>
     <comment></comment>
   </data>
@@ -1113,7 +1217,7 @@
     <value>City in the Sky dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.bc-city_in_the_sky_dungeon_map$short" xml:space="preserve">
+  <data name="item.bc-city_in_the_sky_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>CitS dungeon map</value>
     <comment></comment>
   </data>
@@ -1121,7 +1225,7 @@
     <value>Palace of Twilight dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.bd-palace_of_twilight_dungeon_map$short" xml:space="preserve">
+  <data name="item.bd-palace_of_twilight_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>PoT dungeon map</value>
     <comment></comment>
   </data>
@@ -1129,7 +1233,7 @@
     <value>Hyrule Castle dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.be-hyrule_castle_dungeon_map$short" xml:space="preserve">
+  <data name="item.be-hyrule_castle_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>HC dungeon map</value>
     <comment></comment>
   </data>
@@ -1777,6 +1881,14 @@
     <value>Hints</value>
     <comment></comment>
   </data>
+  <data name="midna.grouped-barren-hints" xml:space="preserve">
+    <value>They say that there is #(purple)nothing#(white) to be found in the following areas:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.grouped-barren-hints.area" xml:space="preserve">
+    <value>{area(capitalize)}</value>
+    <comment></comment>
+  </data>
   <data name="midna.required-dungeons" xml:space="preserve">
     <value>There is #(red)1#(white) required dungeon:</value>
     <comment></comment>
@@ -1799,6 +1911,10 @@
   </data>
   <data name="noun.jovani-unhinted" xml:space="preserve">
     <value>Unhinted</value>
+    <comment></comment>
+  </data>
+  <data name="noun.mystery-item@ac(t,a,b,s)" xml:space="preserve">
+    <value>mystery item</value>
     <comment></comment>
   </data>
   <data name="noun.nothing-of-value" xml:space="preserve">

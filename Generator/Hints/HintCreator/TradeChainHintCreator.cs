@@ -32,9 +32,9 @@ namespace TPRandomizer.Hints.HintCreator
         // want to only hint chains ending in specific items.
         private HashSet<Item> validChainEndItems = null;
 
-        // When `requiredChainItems` is not null, can only hint chains which
+        // When `mustBeInChainItems` is not null, can only hint chains which
         // contain at least one item in this set (including final reward).
-        private HashSet<Item> requiredChainItems = null;
+        private HashSet<Item> mustBeInChainItems = null;
 
         private TradeChainHintCreator() { }
 
@@ -145,28 +145,27 @@ namespace TPRandomizer.Hints.HintCreator
                     }
                 }
 
-                List<string> requiredChainItemsStrList = HintSettingUtils.getOptionalStringList(
+                List<string> mustBeInChainItemsStrList = HintSettingUtils.getOptionalStringList(
                     options,
-                    "requiredChainItems",
+                    "mustBeInChainItems",
                     null
                 );
-                if (requiredChainItemsStrList != null)
+                if (mustBeInChainItemsStrList != null)
                 {
-                    // Allow for resolving to an empty Set to mean unhintable
-                    // rather than ignoring it.
-                    inst.requiredChainItems = new();
-                    foreach (string itemStr in requiredChainItemsStrList)
+                    // Allow an empty Set to mean unhintable rather than ignoring it.
+                    inst.mustBeInChainItems = new();
+                    foreach (string itemStr in mustBeInChainItemsStrList)
                     {
                         if (itemStr.StartsWith("alias:"))
                         {
                             string alias = itemStr.Substring(6);
                             HashSet<Item> resolved = ResolveItemsAlias(alias);
-                            inst.requiredChainItems.UnionWith(resolved);
+                            inst.mustBeInChainItems.UnionWith(resolved);
                         }
                         else
                         {
                             Item item = HintSettingUtils.parseItem(itemStr);
-                            inst.requiredChainItems.Add(item);
+                            inst.mustBeInChainItems.Add(item);
                         }
                     }
                 }
@@ -184,11 +183,20 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         )
         {
-            if (numHints < 1 || (requiredChainItems != null && requiredChainItems.Count < 1))
+            if (numHints < 1 || (mustBeInChainItems != null && mustBeInChainItems.Count < 1))
                 return null;
+
+            if (validChainEndItems == null)
+            {
+                // If no validChainEndItems were specified, then narrow hintable chainEndItems to
+                // recommended default set. Note that we needed to wait until here so that we have
+                // genData.
+                validChainEndItems = genData.getDefaultHintworthyItems();
+            }
 
             // Iterate over all validItems (defaults to all; need to add to options)
             // Also need to add validStatuses (bad,good,required). Default to any
@@ -310,7 +318,7 @@ namespace TPRandomizer.Hints.HintCreator
             // Iterate over all tradeChain starts which are not tradeItemReward checks
 
             List<
-                KeyValuePair<string, CheckStatus>
+                KeyValuePair<string, DetailedCheckStatus>
             > possibleChainStarters = new();
             Dictionary<string, HashSet<string>> endCheckToStartChecks = new();
 
@@ -332,12 +340,11 @@ namespace TPRandomizer.Hints.HintCreator
                 if (validChainStartItems != null && !validChainStartItems.Contains(startItem))
                     continue;
 
-                if (!ListUtils.isEmpty(requiredChainItems))
+                if (!ListUtils.isEmpty(mustBeInChainItems))
                 {
-                    if (!HintUtils.TradeChainContainsItem(startCheckName, requiredChainItems))
+                    if (!HintUtils.TradeChainContainsItem(startCheckName, mustBeInChainItems))
                     {
-                        // Make sure chain contains at least one item in
-                        // requiredChainItems.
+                        // Make sure chain contains at least one item in mustBeInChainItems.
                         continue;
                     }
                 }
@@ -346,24 +353,28 @@ namespace TPRandomizer.Hints.HintCreator
                 if (!IsChainEndCheckHintable(genData, endCheckName))
                     continue;
 
-                // Skip if the user specified a list of valid chainEnd items,
-                // and the item is not part of that list.
+                // Skip if there is a list of valid chainEnd items, and the item is not part of that
+                // list.
                 Item chainEndItem = HintUtils.getCheckContents(endCheckName);
                 if (validChainEndItems != null && !validChainEndItems.Contains(chainEndItem))
                     continue;
 
-                if (IsRequiredValidStatus() && genData.CheckIsRequired(endCheckName))
-                {
-                    possibleChainStarters.Add(new(startCheckName, CheckStatus.Required));
-                }
-                else if (IsGoodValidStatus() && genData.CheckIsGood(endCheckName, true))
-                {
-                    possibleChainStarters.Add(new(startCheckName, CheckStatus.Good));
-                }
-                else if (IsBadValidStatus() && !genData.CheckIsGood(endCheckName, true))
-                {
-                    possibleChainStarters.Add(new(startCheckName, CheckStatus.Bad));
-                }
+                // Note: check against Required for "IsGoodValidStatus" as well since a required
+                // check is still valid to hint when Good are allowed. To hint good but not required
+                // checks, we would need to add an `invalidCheckStatuses` option, but this is not
+                // needed at the moment.
+                DetailedCheckStatus status = genData.CalcDetailedCheckStatus(endCheckName);
+                if (
+                    (IsRequiredValidStatus() && status == DetailedCheckStatus.Required)
+                    || IsGoodValidStatus()
+                        && (
+                            status == DetailedCheckStatus.Required
+                            || status == DetailedCheckStatus.SometimesRequired
+                            || status == DetailedCheckStatus.Skippable
+                        )
+                    || IsBadValidStatus() && status == DetailedCheckStatus.NotRequired
+                )
+                    possibleChainStarters.Add(new(startCheckName, status));
                 else
                 {
                     // Continue if did not find validChainStarter
@@ -383,10 +394,12 @@ namespace TPRandomizer.Hints.HintCreator
                     break;
 
                 int randomIndex = genData.rnd.Next(possibleChainStarters.Count);
-                KeyValuePair<string, CheckStatus> selected = possibleChainStarters[randomIndex];
+                KeyValuePair<string, DetailedCheckStatus> selected = possibleChainStarters[
+                    randomIndex
+                ];
 
                 string startCheckName = selected.Key;
-                CheckStatus checkStatus = selected.Value;
+                DetailedCheckStatus checkStatus = selected.Value;
 
                 Item starterItem = HintUtils.getCheckContents(startCheckName);
                 string endCheckName = genData.tradeItemToChainEndCheck[starterItem];
@@ -456,23 +469,14 @@ namespace TPRandomizer.Hints.HintCreator
 
         private bool IsChainStarterCheckHintable(HintGenData genData, string checkName)
         {
-            HintedThings3 hinted = genData.hinted;
-
-            return !genData.CheckShouldBeIgnored(checkName)
-                && !hinted.alreadyCheckContentsHinted.Contains(checkName)
-                && !hinted.alreadyCheckDirectedToward.Contains(checkName)
-                && !hinted.alreadyCheckKnownBarren.Contains(checkName);
+            // Agitha not allowed here, though I think it would not matter either way since an
+            // Agitha reward by definition could never be the start of a trade chain. -isaac
+            return genData.CheckCanBeClaimHinted(checkName);
         }
 
         private bool IsChainEndCheckHintable(HintGenData genData, string checkName)
         {
-            HintedThings3 hinted = genData.hinted;
-
-            // Skip over ignored since the endCheck might be an Agitha reward
-            // which would be ignored normally.
-            return !hinted.alreadyCheckContentsHinted.Contains(checkName)
-                && !hinted.alreadyCheckDirectedToward.Contains(checkName)
-                && !hinted.alreadyCheckKnownBarren.Contains(checkName);
+            return genData.CheckCanBeClaimHinted(checkName, allowAgithaHintClaimed: true);
         }
 
         private static HashSet<Item> ResolveItemsAlias(string alias)

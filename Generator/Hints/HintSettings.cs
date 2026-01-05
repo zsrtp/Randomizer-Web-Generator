@@ -288,6 +288,38 @@ namespace TPRandomizer.Hints.Settings
             return ret;
         }
 
+        public static List<int> getOptionalIntList(
+            JObject obj,
+            string propertyName,
+            List<int> defaultVal
+        )
+        {
+            if (!obj.ContainsKey(propertyName))
+                return defaultVal;
+            return getIntList(obj, propertyName);
+        }
+
+        public static List<int> getIntList(JObject obj, string propertyName)
+        {
+            JToken token = obj[propertyName];
+            if (token.Type != JTokenType.Array)
+                throw new Exception($"Property '{propertyName}' on JObject was not an array.");
+
+            JArray arr = (JArray)token;
+            List<int> ret = new();
+
+            foreach (JToken entry in arr)
+            {
+                if (entry.Type != JTokenType.Integer)
+                    throw new Exception(
+                        $"Entry in array was expected to be an integer, but was '{entry.Type}'."
+                    );
+
+                ret.Add((int)entry);
+            }
+            return ret;
+        }
+
         public static Item parseItem(string itemName)
         {
             if (Enum.TryParse(itemName, true, out Item item))
@@ -623,14 +655,7 @@ namespace TPRandomizer.Hints.Settings
 
     public class Barren
     {
-        public enum OwnZoneBehavior
-        {
-            Off = 0,
-            Prioritize = 1,
-            Monopolize = 2,
-        }
-
-        public OwnZoneBehavior ownZoneBehavior { get; private set; } = OwnZoneBehavior.Off;
+        public bool monopolizeSpots { get; private set; } = false;
         public bool ownZoneShowsAsJunkHint { get; private set; } = false;
 
         private Barren() { }
@@ -643,23 +668,11 @@ namespace TPRandomizer.Hints.Settings
             {
                 JObject obj = (JObject)token;
 
-                string ownZoneBehaviorStr = HintSettingUtils.getOptionalString(
+                inst.monopolizeSpots = HintSettingUtils.getOptionalBool(
                     obj,
-                    "ownZoneBehavior",
-                    null
+                    "monopolizeSpots",
+                    inst.monopolizeSpots
                 );
-
-                if (!StringUtils.isEmpty(ownZoneBehaviorStr))
-                {
-                    OwnZoneBehavior ownZoneBehavior;
-                    bool success = Enum.TryParse(ownZoneBehaviorStr, true, out ownZoneBehavior);
-                    if (success)
-                        inst.ownZoneBehavior = ownZoneBehavior;
-                    else
-                        throw new Exception(
-                            $"Failed to parse ownZoneBehavior '{ownZoneBehaviorStr}' to OwnZoneBehavior enum."
-                        );
-                }
 
                 inst.ownZoneShowsAsJunkHint = HintSettingUtils.getOptionalBool(
                     obj,
@@ -669,11 +682,6 @@ namespace TPRandomizer.Hints.Settings
             }
 
             return inst;
-        }
-
-        public bool isMonopolize()
-        {
-            return ownZoneBehavior == OwnZoneBehavior.Monopolize;
         }
     }
 
@@ -757,6 +765,7 @@ namespace TPRandomizer.Hints.Settings
                     SpotId.City_in_the_Sky_Sign,
                     SpotId.Palace_of_Twilight_Sign,
                     SpotId.Hyrule_Castle_Sign,
+                    SpotId.Midna,
                 };
 
             if (!validStartingSpots.Contains(spotId))
@@ -770,6 +779,7 @@ namespace TPRandomizer.Hints.Settings
     {
         public int? minSoulsForHint { get; private set; } = null;
         public int? minFoundSoulsForHint { get; private set; } = null;
+        public int? maxFoundSoulsForVagueItem { get; private set; } = null;
 
         private Jovani() { }
 
@@ -804,6 +814,16 @@ namespace TPRandomizer.Hints.Settings
                 if (inst.minFoundSoulsForHint < 0)
                     throw new Exception(
                         $"jovani.minFoundSoulsForHint must be null or non-negative, but received '{inst.minFoundSoulsForHint}'."
+                    );
+
+                inst.maxFoundSoulsForVagueItem = HintSettingUtils.getOptionalNullableInt(
+                    obj,
+                    "maxFoundSoulsForVagueItem",
+                    inst.maxFoundSoulsForVagueItem
+                );
+                if (inst.maxFoundSoulsForVagueItem < 0)
+                    throw new Exception(
+                        $"jovani.maxFoundSoulsForVagueItem must be null or non-negative, but received '{inst.maxFoundSoulsForVagueItem}'."
                     );
             }
 
@@ -1113,7 +1133,7 @@ namespace TPRandomizer.Hints.Settings
             return ret;
         }
 
-        public static HintGroup fromJObject(string id, JToken arrToken)
+        public static HintGroup fromJObject(string id, JToken arrToken, HintGenData genData)
         {
             HintGroup ret = new HintGroup();
             ret.id = id;
@@ -1124,8 +1144,24 @@ namespace TPRandomizer.Hints.Settings
                 if (token.Type != JTokenType.String)
                     throw new Exception("All values in 'groups' lists must be strings.");
 
-                HashSet<SpotId> spots = resolveGroupEntry(token.ToString());
-                ret.spots.UnionWith(spots);
+                string tokenString = token.ToString();
+                bool isNegative = false;
+                if (tokenString.StartsWith('-'))
+                {
+                    isNegative = true;
+                    tokenString = tokenString.Substring(1);
+                }
+
+                HashSet<SpotId> spots = resolveGroupEntry(tokenString);
+                if (isNegative)
+                {
+                    foreach (SpotId spot in spots)
+                    {
+                        ret.spots.Remove(spot);
+                    }
+                }
+                else
+                    ret.spots.UnionWith(spots);
             }
 
             // Remove spots which are completely player-known if hints are set
@@ -1156,30 +1192,24 @@ namespace TPRandomizer.Hints.Settings
             // happen (Sign says specific check of own dungeon which has BK).
             HashSet<SpotId> filteredSpots = new();
 
-            Dictionary<string, string[]> zoneToChecks = HintUtils.getHintZoneToChecksMap();
-
             foreach (SpotId spot in ret.spots)
             {
                 string zoneName = spotToZone[spot];
-                string[] checkNames = zoneToChecks[zoneName];
-                // Do not filter out Hyrule Castle even if all HC checks are a
-                // known status since it is expected that players will always
-                // have to pass that hint sign.
+
+                // Do not filter out Hyrule Castle even if all HC checks are a known status since it
+                // is expected that players will always have to pass that hint sign.
                 if (zoneName == "Hyrule Castle")
-                    filteredSpots.Add(spot);
-                else
                 {
-                    foreach (string checkName in checkNames)
-                    {
-                        if (!HintUtils.checkIsPlayerKnownStatus(checkName))
-                        {
-                            // Spot passes filter if contains check with a
-                            // non-playerKnown status.
-                            filteredSpots.Add(spot);
-                            break;
-                        }
-                    }
+                    filteredSpots.Add(spot);
+                    continue;
                 }
+
+                AreaCheckInfo areaCheckInfo = genData.GetAreaCheckInfoThrows(
+                    AreaId.ZoneStr(zoneName)
+                );
+
+                if (areaCheckInfo.hasUnknownChecks)
+                    filteredSpots.Add(spot);
             }
 
             ret.spots = filteredSpots;
@@ -1300,6 +1330,7 @@ namespace TPRandomizer.Hints.Settings
     public class HintSettings
     {
         public Starting starting { get; private set; }
+        public bool calculateImportance { get; private set; }
         public bool agitha { get; private set; }
         public Jovani jovani { get; private set; }
         public bool caveOfOrdeals { get; private set; }
@@ -1332,10 +1363,15 @@ namespace TPRandomizer.Hints.Settings
             ret.removeChecks = loadRemoveChecks(root);
             ret.addItems = loadAddItems(root);
             ret.removeItems = loadRemoveItems(root);
-            ret.groups = loadGroups(root["groups"]);
+            ret.groups = loadGroups(root["groups"], genData);
 
             ret.starting = Starting.fromJToken(root["starting"]);
 
+            ret.calculateImportance = HintSettingUtils.getOptionalBool(
+                root,
+                "calculateImportance",
+                false
+            );
             ret.agitha = HintSettingUtils.getOptionalBool(root, "agitha", true);
             ret.jovani = Jovani.fromJToken(root["jovani"]);
             ret.caveOfOrdeals = HintSettingUtils.getOptionalBool(root, "caveOfOrdeals", true);
@@ -1366,6 +1402,8 @@ namespace TPRandomizer.Hints.Settings
                     return Path.Combine(basePath, "balanced.jsonc");
                 case HintDistribution.Season_1:
                     return Path.Combine(basePath, "season-1.jsonc");
+                case HintDistribution.Season_2:
+                    return Path.Combine(basePath, "season-2-placeholder.jsonc");
                 case HintDistribution.Strong:
                     return Path.Combine(basePath, "strong.jsonc");
                 case HintDistribution.Very_Strong:
@@ -1658,7 +1696,7 @@ namespace TPRandomizer.Hints.Settings
             return filtered;
         }
 
-        private static Dictionary<string, HintGroup> loadGroups(JToken token)
+        private static Dictionary<string, HintGroup> loadGroups(JToken token, HintGenData genData)
         {
             if (token == null)
                 throw new Exception(
@@ -1675,7 +1713,7 @@ namespace TPRandomizer.Hints.Settings
                 if (StringUtils.isEmpty(id))
                     throw new Exception("Group id must be a non-empty string.");
 
-                ret[id] = HintGroup.fromJObject(id, pair.Value);
+                ret[id] = HintGroup.fromJObject(id, pair.Value, genData);
             }
 
             return ret;
@@ -1732,6 +1770,18 @@ namespace TPRandomizer.Hints.Settings
 
         private void validate()
         {
+            // Validate 'starting' config in tree.
+            for (int i = 0; i < hintDefGroupings.Count; i++)
+            {
+                HintDef hintDef = hintDefGroupings[i].hintDef;
+                if (hasInvalidStartingConfig(hintDef, false))
+                {
+                    throw new Exception(
+                        "Cannot have nested 'starting' hintDefs, and cannot define 'minCopies' at or within a 'starting' section of the node tree."
+                    );
+                }
+            }
+
             if (barren.ownZoneShowsAsJunkHint && !ListUtils.isEmpty(hintDefGroupings))
             {
                 // No JunkHintCreators can be specified in hintDefGroupings when
@@ -1752,17 +1802,17 @@ namespace TPRandomizer.Hints.Settings
             // layer defines Barren Zone hints. This is because a later layer's
             // barren hint can need to claim a spot which already has hints on
             // it.
-            if (barren.isMonopolize() && !ListUtils.isEmpty(hintDefGroupings))
+            if (barren.monopolizeSpots && !ListUtils.isEmpty(hintDefGroupings))
             {
                 // Iterate through all but the first hintDefGrouping and make
                 // sure that they do not have any 'zone' BarrenHintCreators.
                 for (int i = 1; i < hintDefGroupings.Count; i++)
                 {
                     HintDef hintDef = hintDefGroupings[i].hintDef;
-                    if (hasBarrenZoneHintCreators(hintDef))
+                    if (hasBarrenHintCreators(hintDef))
                     {
                         throw new Exception(
-                            "When barren ownZoneBehavior is 'monopolize', only the first hintDefGrouping can define BarrenHintCreators which hint zones."
+                            "When barren ownZoneBehavior is 'monopolize', only the first hintDefGrouping can define BarrenHintCreators."
                         );
                     }
                 }
@@ -1781,7 +1831,7 @@ namespace TPRandomizer.Hints.Settings
                 // not overlap. This means that when barrenZones are
                 // 'monopolize', we must define the Always hints as part of the
                 // first layer even if always.monopolizeSpots is false.
-                if (always.monopolizeSpots || barren.isMonopolize())
+                if (always.monopolizeSpots || barren.monopolizeSpots)
                 {
                     // When Always is set to monopolize, it means that spots
                     // which contain Always hints cannot contain any other
@@ -1797,12 +1847,16 @@ namespace TPRandomizer.Hints.Settings
                     // meaning it is not possible to know the size of a group.
                     // It is mandatory that we know the size so we know how many
                     // hints to generate, so this is a hard requirement.
-                    if (hintDefGroupings[0].groupId != always.groupId)
-                    {
-                        throw new Exception(
-                            "When barren.ownZoneBehavior is 'monopolize' or always.monopolizeSpots is true, the first hintDefGrouping must have the same groupId as 'always'."
-                        );
-                    }
+                    // if (hintDefGroupings[0].groupId != always.groupId)
+                    // {
+                    //     throw new Exception(
+                    //         "When barren.ownZoneBehavior is 'monopolize' or always.monopolizeSpots is true, the first hintDefGrouping must have the same groupId as 'always'."
+                    //     );
+                    // }
+
+                    // TODO: can make this work, but the exact spots which the Always hints use up
+                    // will have to dynamically adjust based on the room available. Can work this
+                    // when doing the access logic work.
                 }
                 else
                 {
@@ -1828,7 +1882,7 @@ namespace TPRandomizer.Hints.Settings
             }
         }
 
-        private bool hasBarrenZoneHintCreators(HintDef hintDef)
+        private bool hasBarrenHintCreators(HintDef hintDef)
         {
             if (hintDef.hintCreator != null)
             {
@@ -1836,7 +1890,7 @@ namespace TPRandomizer.Hints.Settings
                 {
                     BarrenHintCreator bhCreator = hintDef.hintCreator as BarrenHintCreator;
                     if (bhCreator != null)
-                        return bhCreator.HintsZone();
+                        return true;
                 }
             }
             else
@@ -1844,7 +1898,7 @@ namespace TPRandomizer.Hints.Settings
                 List<HintDef> hintDefs = hintDef.hintDefs;
                 for (int i = 0; i < hintDefs.Count; i++)
                 {
-                    if (hasBarrenZoneHintCreators(hintDefs[i]))
+                    if (hasBarrenHintCreators(hintDefs[i]))
                         return true;
                 }
             }
@@ -1865,6 +1919,33 @@ namespace TPRandomizer.Hints.Settings
                 for (int i = 0; i < hintDefs.Count; i++)
                 {
                     if (hasJunkHintCreators(hintDefs[i]))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool hasInvalidStartingConfig(HintDef hintDef, bool withinParentStarting)
+        {
+            bool currentNodeHasStarting = hintDef.starting > 0;
+
+            // Nested 'starting'.
+            if (currentNodeHasStarting && withinParentStarting)
+                return true;
+
+            // minCopies defined at 'starting' or within it.
+            if (hintDef.minCopies > 0 && (currentNodeHasStarting || withinParentStarting))
+                return true;
+
+            if (hintDef.hintCreator == null)
+            {
+                bool childrenWithinStarting = withinParentStarting || currentNodeHasStarting;
+
+                List<HintDef> hintDefs = hintDef.hintDefs;
+                for (int i = 0; i < hintDefs.Count; i++)
+                {
+                    if (hasInvalidStartingConfig(hintDefs[i], childrenWithinStarting))
                         return true;
                 }
             }

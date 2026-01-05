@@ -18,7 +18,11 @@ namespace TPRandomizer
         /// <summary>
         /// summary text.
         /// </summary>
-        public static bool ValidatePlaythrough(Room startingRoom, bool printResults = false)
+        public static bool ValidatePlaythrough(
+            Room startingRoom,
+            bool printResults = false,
+            HashSet<string> unreachableChecks = null
+        )
         {
             bool failedToReachDesiredCheck = false;
             bool areAllRoomsReachable = true;
@@ -104,6 +108,10 @@ namespace TPRandomizer
                 Check listedCheck = checkList.Value;
                 if (!listedCheck.hasBeenReached)
                 {
+                    if (unreachableChecks != null)
+                    {
+                        unreachableChecks.Add(listedCheck.checkName);
+                    }
                     if (allowedUnreachableChecks.Contains(listedCheck.checkName))
                     {
                         if (printResults)
@@ -827,7 +835,8 @@ namespace TPRandomizer
         public static Dictionary<Hints.Goal, bool> emulatePlaythrough2(
             Room startingRoom,
             HashSet<Hints.Goal> goals,
-            bool startWithBigKeys
+            bool startWithBigKeys,
+            HashSet<string> reachedChecks = null
         )
         {
             Dictionary<Hints.Goal, bool> goalToCompleted = new();
@@ -946,6 +955,9 @@ namespace TPRandomizer
                                 if (currentCheck.CachedRequirements().Evaluate())
                                 {
                                     currentCheck.hasBeenReached = true;
+                                    if (reachedChecks != null)
+                                        reachedChecks.Add(currentCheck.checkName);
+
                                     if (
                                         Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                             currentCheck.itemId
@@ -1017,7 +1029,6 @@ namespace TPRandomizer
                 }
             }
             // return true;
-
 
             // return true;
             return goalToCompleted;

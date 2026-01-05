@@ -51,6 +51,7 @@ namespace TPRandomizer
         /// A reference to the sSettings.
         /// </summary>
         public static SharedSettings SSettings = new();
+        public static List<Item> origSSettingsStartingItems = new();
 
         public static int RequiredDungeons = 0;
         public static int spawnIndex = 0;
@@ -119,6 +120,7 @@ namespace TPRandomizer
             // Read in the settings string and set the settings values accordingly
             // BackendFunctions.InterpretSettingsString(settingsString);
             SSettings = SharedSettings.FromString(settingsString);
+            origSSettingsStartingItems = new(SSettings.startingItems);
             PropertyInfo[] randoSettingProperties = SSettings.GetType().GetProperties();
 
             // Generate the dictionary values that are needed and initialize the data for the selected logic type.
@@ -222,7 +224,8 @@ namespace TPRandomizer
                         rnd,
                         SSettings,
                         playthroughSpheres,
-                        Randomizer.Rooms.RoomDict["Root"]
+                        Randomizer.Rooms.RoomDict["Root"],
+                        isRaceSeed
                     );
 
                     customMsgData = gen.Generate();
@@ -528,6 +531,7 @@ namespace TPRandomizer
             SeedGenResults seedGenResults = new SeedGenResults(id, json);
 
             SSettings = SharedSettings.FromString(seedGenResults.settingsString);
+            origSSettingsStartingItems = new(SSettings.startingItems);
 
             foreach (KeyValuePair<int, int> kvp in seedGenResults.itemPlacements.ToList())
             {
@@ -1709,19 +1713,6 @@ namespace TPRandomizer
                     Checks.CheckDict[fileName].itemWasPlaced = false;
                     Checks.CheckDict[fileName].isRequired = false;
                     Checks.CheckDict[fileName].itemId = currentCheck.itemId;
-                }
-            }
-
-            // Validate that all non-hidden checks belong to a hint zone
-            foreach (KeyValuePair<string, Check> pair in Randomizer.Checks.CheckDict)
-            {
-                string checkName = pair.Value.checkName;
-                if (
-                    !CheckIdClass.GetIsHideFromUiCheckName(checkName)
-                    && !HintUtils.checkNameHasHintZone(checkName)
-                )
-                {
-                    throw new Exception($"Hint zone not defined for checkName '{checkName}'.");
                 }
             }
         }

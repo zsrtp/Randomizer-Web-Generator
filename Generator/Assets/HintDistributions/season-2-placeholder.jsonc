@@ -1,12 +1,14 @@
 {
-  // Season 1 distribution
+  // Season 2 placeholder distribution
   "starting": {
-    "spot": "ordon_sign",
+    "spot": "midna",
     "excludeFromGroups": true
   },
+  "calculateImportance": true,
   "agitha": true,
   "jovani": {
-    "minFoundSoulsForHint": 10
+    "minFoundSoulsForHint": 0,
+    "maxFoundSoulsForVagueItem": 20
   },
   "caveOfOrdeals": true,
   "dungeons": {
@@ -18,33 +20,67 @@
     "ownZoneShowsAsJunkHint": true
   },
   "always": {
-    "monopolizeSpots": true,
-    "idealNumSpots": 5,
+    "monopolizeSpots": false,
+    "idealNumSpots": 12,
     "copies": 2,
-    "groupId": "overworld"
+    "groupId": "overworld2nd"
   },
   //
   "addChecks": {
-    "Lake Hylia Shell Blade Grotto Chest": ["always"]
+    "Lake Hylia Shell Blade Grotto Chest": ["always"],
+    "Skybook From Impaz": ["always"]
   },
   "removeChecks": {
+    "Palace of Twilight Collect Both Sols": ["always"],
     "Herding Goats Reward": ["sometimes"],
     "Wrestling With Bo": ["sometimes"],
     "Zoras Domain Extinguish All Torches Chest": ["sometimes"],
-    "Zoras Domain Light All Torches Chest": ["sometimes"]
+    "Zoras Domain Light All Torches Chest": ["sometimes"],
+    "Eldin Spring Underwater Chest": ["sometimes"],
+    "Lake Hylia Underwater Chest": ["sometimes"]
   },
   "removeItems": {
     "Progressive_Sword": ["sometimes"]
   },
   //
   "groups": {
-    "overworld": ["alias:overworldZones"],
+    "overworld": [
+      "alias:overworldZones",
+      "-hiddenvillage",
+      "-snowpeakmountain"
+    ],
+    "overworld2nd": [
+      "alias:overworldZones",
+      "-hiddenvillage",
+      "-snowpeakmountain",
+      "-ordon"
+    ],
     "requiredDungeons": ["alias:requiredDungeons"]
   },
   // Special hints generated right after Always hints are generated. These are
   // created even if the dungeon is hinted barren or the check is already hinted
   // barren by a BeyondThisPoint hint.
   "specialHintDefs": [
+    {
+      "spot": "ordon_sign",
+      "hintDef": [
+        {
+          "hintType": "location",
+          "options": {
+            "canBeClaimHinted": true,
+            "validStatuses": ["bad"],
+            "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
+          }
+        },
+        {
+          "hintType": "location",
+          "options": {
+            "canBeClaimHinted": true,
+            "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
+          }
+        }
+      ]
+    },
     {
       "spot": "forest_temple_sign",
       "hintDef": {
@@ -97,6 +133,26 @@
       }
     },
     {
+      "spot": "temple_of_time_beyond_point_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "canBeClaimHinted": true,
+          "validChecks": ["Temple of Time Lobby Lantern Chest"]
+        }
+      }
+    },
+    {
+      "spot": "palace_of_twilight_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "canBeClaimHinted": true,
+          "validChecks": ["Palace of Twilight Collect Both Sols"]
+        }
+      }
+    },
+    {
       "spot": "hyrule_castle_sign",
       "hintDef": {
         "hintType": "item",
@@ -114,14 +170,73 @@
         "copies": 2,
         "hintDef": [
           {
-            "maxPicks": 3,
-            "starting": 1,
+            "hintDef": [
+              {
+                "maxPicks": 3,
+                "starting": 3,
+                "hintDef": [
+                  {
+                    "hintType": "barren",
+                    "options": {
+                      "validAreas": [
+                        "Ordon",
+                        // "Sacred Grove",
+                        "Faron Field",
+                        "Faron Woods",
+                        "Kakariko Village",
+                        "Kakariko Graveyard",
+                        "Eldin Field",
+                        "Castle Town",
+                        "South of Castle Town",
+                        "Lake Hylia",
+                        "Zora's Domain",
+                        "Upper Zora's River",
+                        "Gerudo Desert",
+                        "category.Northern_Desert",
+                        "category.Southern_Desert",
+                        "Bulblin Camp"
+                      ]
+                    }
+                  },
+                  {
+                    "hintType": "barren",
+                    "iterations": 3,
+                    "saveToVar": "barrenHints",
+                    "options": {
+                      "validAreas": [
+                        "alias:overworldZones",
+                        "category.Northern_Desert",
+                        "category.Southern_Desert"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "hintType": "item",
+            "options": {
+              "validItems": ["Boomerang"],
+              "areaType": "zone",
+              // Allowing bad in general and not just in hinted-barren zone as
+              // seen below since that never lined up even after a large number
+              // of seed attempts by testing with breakpoints. This hint can
+              // help with rang in an IC-hinted dungeon as well which I did see
+              // in a breakpoint.
+              // "validChecks": ["var:barrenHints.areaIds"],
+              "validStatuses": ["bad"],
+              "allowKnownBarren": true
+            }
+          },
+          {
+            "maxPicks": 1,
             "copies": 3,
             "hintDef": [
               {
-                "hintType": "barren",
-                "iterations": 1,
+                "hintType": "importanceCount",
                 "options": {
+                  "indicateImportant": true,
                   "validAreas": [
                     "Forest Temple",
                     "Goron Mines",
@@ -133,10 +248,6 @@
                     "Palace of Twilight"
                   ]
                 }
-              },
-              {
-                "hintType": "barren",
-                "iterations": 3
               }
             ]
           },
@@ -147,61 +258,24 @@
           {
             "hintType": "path",
             "saveToVar": "pathHints",
-            "iterations": 2
+            "iterations": 2,
+            "options": {
+              "invalidItems": ["Progressive_Sword"]
+            }
           },
           {
-            "starting": 1,
-            "maxPicks": 1,
-            "selectionType": "randomOrder",
-            "hintDef": [
-              {
-                // Ex: male bugs lead to nothing
-                "hintType": "tradeGroup",
-                "options": {
-                  "validGroups": ["male_bugs", "female_bugs"],
-                  "validStatuses": ["bad"],
-                  "smartHinting": false
-                }
-              },
-              {
-                "hintType": "barren",
-                "options": {
-                  "areaType": "category",
-                  "validAreas": ["Mist", "Northern_Desert", "Southern_Desert"]
-                }
-              },
-              {
-                "selectionType": "randomOrder",
-                "hintDef": [
-                  {
-                    "hintType": "numItemInArea",
-                    "weight": 0.55,
-                    "options": {
-                      "item": "Boomerang",
-                      "areaType": "province",
-                      "validAreas": ["Dungeon"]
-                    }
-                  },
-                  {
-                    "hintType": "numItemInArea",
-                    "weight": 0.45,
-                    "options": {
-                      "item": "Progressive_Clawshot",
-                      "areaType": "province",
-                      "validAreas": ["Dungeon"]
-                    }
-                  }
-                ]
-              }
-            ]
+            "hintType": "sometimes",
+            "saveToVar": "1stLayerSometimes",
+            "maxPicks": 5,
+            "iterations": 99
           },
-          // Fill in layer with extra copies of path hints.
+          // Fill in layer with extra copies of the sometimes hints.
           {
             "hintType": "var",
             "copies": 1,
             "iterations": 99,
             "options": {
-              "varName": "pathHints",
+              "varName": "1stLayerSometimes",
               "randomOrder": true
             }
           }
@@ -244,7 +318,7 @@
     },
     {
       // 2nd layer is "sometimes" hints
-      "groupId": "overworld",
+      "groupId": "overworld2nd",
       "hintDef": {
         "copies": 2,
         "hintDef": [
@@ -252,13 +326,6 @@
             "maxPicks": 5,
             "saveToVar": "2ndLayerSometimes",
             "hintDef": [
-              {
-                "hintType": "location",
-                "options": {
-                  "markAsSometimes": true,
-                  "validChecks": ["Wrestling With Bo", "Herding Goats Reward"]
-                }
-              },
               {
                 "hintType": "location",
                 "options": {

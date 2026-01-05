@@ -720,6 +720,9 @@ namespace TPRandomizer
             result.Add("castleBKRequirementCount", sSettings.castleBKRequirementCount);
             result.Add("skipBridgeDonation", sSettings.skipBridgeDonation);
             result.Add("maloShopDonation", sSettings.maloShopDonation);
+            result.Add("hintImportance", sSettings.hintImportance.ToString());
+            result.Add("noPlandoHints", sSettings.noPlandoHints);
+            result.Add("adjustHintsForCompletionists", sSettings.adjustHintsForCompletionists);
 
             result.Add("startingItems", sSettings.startingItems);
             result.Add("excludedChecks", sSettings.excludedChecks);

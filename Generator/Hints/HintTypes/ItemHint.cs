@@ -14,7 +14,7 @@ namespace TPRandomizer.Hints
         public bool vague { get; }
 
         // derived but encoded
-        public CheckStatus status { get; }
+        public DetailedCheckStatus status { get; }
         public bool useDefiniteArticle { get; private set; }
         public bool isLogicalItem { get; private set; }
 
@@ -29,7 +29,10 @@ namespace TPRandomizer.Hints
             bool vague = false
         )
         {
-            CheckStatus status = genData.CalcCheckStatus(checkName);
+            DetailedCheckStatus status = genData.CalcDetailedCheckStatus(checkName);
+
+            if (genData.sSettings.hintImportance == SSettings.Enums.HintImportance.Upgrade_Hints)
+                checkStatusDisplay = CheckStatusDisplay.Required_Info;
 
             ItemHint hint =
                 new(areaId, checkName, status, checkStatusDisplay, vague, genData: genData);
@@ -39,7 +42,7 @@ namespace TPRandomizer.Hints
         private ItemHint(
             AreaId areaId,
             string checkName,
-            CheckStatus status,
+            DetailedCheckStatus status,
             CheckStatusDisplay statusDisplay,
             bool vague,
             bool useDefiniteArticle = false,
@@ -95,7 +98,7 @@ namespace TPRandomizer.Hints
                 CheckIdClass.GetCheckIdNum(checkName),
                 bitLengths.checkId
             );
-            result += SettingsEncoder.EncodeNumAsBits((byte)status, 2);
+            result += SettingsEncoder.EncodeNumAsBits((byte)status, bitLengths.checkStatus);
             result += SettingsEncoder.EncodeNumAsBits((byte)statusDisplay, 2);
             result += vague ? "1" : "0";
             result += useDefiniteArticle ? "1" : "0";
@@ -111,7 +114,9 @@ namespace TPRandomizer.Hints
         {
             AreaId areaId = AreaId.decode(bitLengths, processor);
             int checkId = processor.NextInt(bitLengths.checkId);
-            CheckStatus status = (CheckStatus)processor.NextInt(2);
+            DetailedCheckStatus status = (DetailedCheckStatus)processor.NextInt(
+                bitLengths.checkStatus
+            );
             CheckStatusDisplay statusDisplay = (CheckStatusDisplay)processor.NextInt(2);
             bool vague = processor.NextBool();
             bool useDefiniteArticle = processor.NextBool();
@@ -131,7 +136,13 @@ namespace TPRandomizer.Hints
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
-            bool useVague = vague && (status == CheckStatus.Good || status == CheckStatus.Required);
+            bool useVague =
+                vague
+                && (
+                    status == DetailedCheckStatus.Required
+                    || status == DetailedCheckStatus.SometimesRequired
+                    || status == DetailedCheckStatus.Skippable
+                );
 
             Res.Result hintParsedRes = Res.Msg(
                 "hint-type.item",
@@ -149,7 +160,7 @@ namespace TPRandomizer.Hints
             }
             else
             {
-                subject = customMsgData.GenItemText3(
+                subject = customMsgData.GenItemText4(
                     out subjectMeta,
                     item,
                     status,
@@ -162,14 +173,12 @@ namespace TPRandomizer.Hints
             Dictionary<string, string> metaForArea = new();
             foreach (KeyValuePair<string, string> pair in subjectMeta)
             {
-                // We are only ever hinting one instance of an item for this
-                // hint, so the area should not be forced to plural. For
-                // example, if we are hinting the French "5 bombes" (bombs (5))
-                // item is in a Grotto, then we do not want the fact that "5
-                // bombes" is plural (which is used to pick the correct verb) to
-                // have an impact on if we say "in a grotto" or "in grottos".
-                // For this type of hint, we are always talking about a single
-                // check which would be in a single grotto/dungeon/etc.
+                // We are only ever hinting one instance of an item for this hint, so the area
+                // should not be forced to plural. For example, if we are hinting the French "5
+                // bombes" (bombs (5)) item is in a Grotto, then we do not want the fact that "5
+                // bombes" is plural (which is used to pick the correct verb) to have an impact on
+                // if we say "in a grotto" or "in grottos". For this type of hint, we are always
+                // talking about a single check which would be in a single grotto/dungeon/etc.
                 if (pair.Key != "plural")
                     metaForArea[pair.Key] = pair.Value;
             }

@@ -19,12 +19,23 @@ namespace TPRandomizer.Hints
         Required = 3,
     }
 
+    public enum DetailedCheckStatus
+    {
+        // `Unknown` is mainly for no-logic where we have a hard time saying if
+        // a check is good or not, and we really cannot say if it is required or
+        // not. Used for other things as well.
+        Unknown = 0,
+        NotRequired = 1,
+        Skippable = 2,
+        SometimesRequired = 3,
+        Required = 4,
+    }
+
     public enum CheckStatusDisplay
     {
         Automatic = 0,
         None = 1,
-        Good_Or_Not = 2,
-        Required_Info = 3,
+        Required_Info = 2,
     }
 
     public enum TradeGroup
@@ -283,6 +294,128 @@ namespace TPRandomizer.Hints
 
     public class HintConstants
     {
+        public static readonly HashSet<Item> baseMightBeMajorItems =
+            new()
+            {
+                // ----- Collection Screen -----
+                Item.Progressive_Sword,
+                // Note: wooden/Ordon shields not major item finds since can always be lost to burning.
+                Item.Hylian_Shield,
+                Item.Zora_Armor,
+                Item.Magic_Armor,
+                Item.Heart_Container,
+                Item.Piece_of_Heart,
+                Item.Progressive_Fused_Shadow,
+                Item.Progressive_Mirror_Shard,
+                Item.Progressive_Wallet,
+                Item.Male_Beetle,
+                Item.Female_Beetle,
+                Item.Male_Butterfly,
+                Item.Female_Butterfly,
+                Item.Male_Stag_Beetle,
+                Item.Female_Stag_Beetle,
+                Item.Male_Grasshopper,
+                Item.Female_Grasshopper,
+                Item.Male_Phasmid,
+                Item.Female_Phasmid,
+                Item.Male_Pill_Bug,
+                Item.Female_Pill_Bug,
+                Item.Male_Mantis,
+                Item.Female_Mantis,
+                Item.Male_Ladybug,
+                Item.Female_Ladybug,
+                Item.Male_Snail,
+                Item.Female_Snail,
+                Item.Male_Dragonfly,
+                Item.Female_Dragonfly,
+                Item.Male_Ant,
+                Item.Female_Ant,
+                Item.Male_Dayfly,
+                Item.Female_Dayfly,
+                Item.Progressive_Hidden_Skill,
+                Item.Poe_Soul,
+                Item.Shadow_Crystal,
+                // ----- Item Wheel -----
+                Item.Progressive_Clawshot,
+                Item.Progressive_Dominion_Rod,
+                Item.Ball_and_Chain,
+                Item.Spinner,
+                Item.Progressive_Bow,
+                Item.Iron_Boots,
+                Item.Boomerang,
+                Item.Lantern,
+                Item.Slingshot,
+                Item.Progressive_Fishing_Rod,
+                Item.Hawkeye,
+                Item.Filled_Bomb_Bag,
+                Item.Empty_Bottle,
+                Item.Sera_Bottle,
+                Item.Coro_Bottle,
+                Item.Jovani_Bottle,
+                Item.Renados_Letter,
+                Item.Invoice,
+                Item.Wooden_Statue,
+                Item.Ilias_Charm,
+                Item.Horse_Call,
+                Item.Aurus_Memo,
+                Item.Asheis_Sketch,
+                Item.Progressive_Sky_Book,
+                // ----- Dungeon Items -----
+                Item.Forest_Temple_Small_Key,
+                Item.Goron_Mines_Small_Key,
+                Item.Lakebed_Temple_Small_Key,
+                Item.Arbiters_Grounds_Small_Key,
+                Item.Snowpeak_Ruins_Small_Key,
+                Item.Snowpeak_Ruins_Ordon_Pumpkin,
+                Item.Snowpeak_Ruins_Ordon_Goat_Cheese,
+                Item.Temple_of_Time_Small_Key,
+                Item.City_in_The_Sky_Small_Key,
+                Item.Palace_of_Twilight_Small_Key,
+                Item.Hyrule_Castle_Small_Key,
+                Item.Forest_Temple_Big_Key,
+                Item.Goron_Mines_Key_Shard,
+                Item.Lakebed_Temple_Big_Key,
+                Item.Arbiters_Grounds_Big_Key,
+                Item.Snowpeak_Ruins_Bedroom_Key,
+                Item.Temple_of_Time_Big_Key,
+                Item.City_in_The_Sky_Big_Key,
+                Item.Palace_of_Twilight_Big_Key,
+                Item.Hyrule_Castle_Big_Key,
+                // ----- Overworld Items -----
+                Item.Faron_Woods_Coro_Key,
+                Item.North_Faron_Woods_Gate_Key,
+                Item.Gate_Keys,
+                Item.Gerudo_Desert_Bulblin_Camp_Key,
+            };
+
+        public static readonly HashSet<Item> junkItems =
+            new()
+            {
+                Item.Recovery_Heart,
+                Item.Green_Rupee,
+                Item.Blue_Rupee,
+                Item.Yellow_Rupee,
+                Item.Red_Rupee,
+                Item.Purple_Rupee,
+                Item.Orange_Rupee,
+                Item.Silver_Rupee,
+                Item.Bombs_5,
+                Item.Bombs_10,
+                Item.Bombs_20,
+                Item.Bombs_30,
+                Item.Arrows_10,
+                Item.Arrows_20,
+                Item.Arrows_30,
+                Item.Seeds_50,
+                Item.Foolish_Item,
+                Item.Water_Bombs_5,
+                Item.Water_Bombs_10,
+                Item.Water_Bombs_15,
+                Item.Water_Bombs_3,
+                Item.Bomblings_5,
+                Item.Bomblings_10,
+            };
+
         public static readonly HashSet<Item> baseLogicalItems =
             new()
             {
