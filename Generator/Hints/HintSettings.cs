@@ -1330,7 +1330,6 @@ namespace TPRandomizer.Hints.Settings
     public class HintSettings
     {
         public Starting starting { get; private set; }
-        public bool calculateImportance { get; private set; }
         public bool agitha { get; private set; }
         public Jovani jovani { get; private set; }
         public bool caveOfOrdeals { get; private set; }
@@ -1367,11 +1366,6 @@ namespace TPRandomizer.Hints.Settings
 
             ret.starting = Starting.fromJToken(root["starting"]);
 
-            ret.calculateImportance = HintSettingUtils.getOptionalBool(
-                root,
-                "calculateImportance",
-                false
-            );
             ret.agitha = HintSettingUtils.getOptionalBool(root, "agitha", true);
             ret.jovani = Jovani.fromJToken(root["jovani"]);
             ret.caveOfOrdeals = HintSettingUtils.getOptionalBool(root, "caveOfOrdeals", true);

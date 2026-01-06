@@ -106,10 +106,7 @@ namespace TPRandomizer.Hints
             {
                 // Calculate conditionallyRequired checks. This depends on knowing the "logical
                 // items" and "allowBarrenChecks", so has to wait until here.
-                if (
-                    hintSettings.calculateImportance
-                    || sSettings.hintImportance != HintImportance.Default
-                )
+                if (sSettings.hintImportance != HintImportance.Default)
                 {
                     HintCondReqCalc condReqCalc = new(this);
                     condReqChecks = condReqCalc.run(itemToInflexibleCount);
