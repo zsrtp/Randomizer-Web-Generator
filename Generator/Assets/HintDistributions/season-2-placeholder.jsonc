@@ -132,16 +132,6 @@
       }
     },
     {
-      "spot": "temple_of_time_beyond_point_sign",
-      "hintDef": {
-        "hintType": "location",
-        "options": {
-          "canBeClaimHinted": true,
-          "validChecks": ["Temple of Time Lobby Lantern Chest"]
-        }
-      }
-    },
-    {
       "spot": "palace_of_twilight_sign",
       "hintDef": {
         "hintType": "location",
