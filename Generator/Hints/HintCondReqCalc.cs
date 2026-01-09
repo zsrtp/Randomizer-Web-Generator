@@ -376,11 +376,9 @@ namespace TPRandomizer.Hints
                 allowedCheckNames.Remove(checkName);
                 forbiddenCheckNames.Add(checkName);
 
-                HashSet<string> nextReachedChecks = new();
                 bool wasSuccess = HintUtils.CalcBeatableWithForbiddenChecks(
                     genData.startingRoom,
-                    forbiddenCheckNames,
-                    nextReachedChecks
+                    forbiddenCheckNames
                 );
                 if (!wasSuccess)
                 {
@@ -428,11 +426,9 @@ namespace TPRandomizer.Hints
                 forbiddenCheckNames.Remove(checkName);
                 allowedCheckNames.Add(checkName);
 
-                HashSet<string> nextReachedChecks = new();
                 bool wasSuccess = HintUtils.CalcBeatableWithForbiddenChecks(
                     genData.startingRoom,
-                    forbiddenCheckNames,
-                    nextReachedChecks
+                    forbiddenCheckNames
                 );
                 if (wasSuccess)
                 {
