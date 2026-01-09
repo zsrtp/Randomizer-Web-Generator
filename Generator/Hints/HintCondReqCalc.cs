@@ -10,6 +10,15 @@ namespace TPRandomizer.Hints
     {
         // Note: the main algorithm in this file is based on OoTMM analysis-foolish.ts
 
+        // Note: checks can only be done against gaining/losing access to beating the game. Losing
+        // access to a condReq check can be inaccurate. Example we ran into: fishRod on Barnes was
+        // condReq. By losing access to both wallets (2nd one in CitS), we lost access to this
+        // condReq fishRod, so we marked that wallet in CitS as important. However, wallet's only
+        // purpose was wallet => fishRod => BB/B&C, but the skybook was behind BB/B&C, so the only
+        // way to access the CitS wallet was to already have items which make the wallet have no use
+        // (the BB/B&C distinction was not relevant for this seed), meaning finding the CitS wallet
+        // could never make a difference, so it should not have been condReq.
+
         // If a single zigZag takes more time than this, something is probably wrong. The only way
         // this should be possible is with a really extreme plando which adds a massive number of
         // items to the locsSet. We have this here so the generator does not get stuck on a request
@@ -356,13 +365,6 @@ namespace TPRandomizer.Hints
             HashSet<string> forbiddenCheckNames = new(zz.forbiddenCheckNames);
             string lastBanishedCheckName = null;
 
-            HashSet<string> prevReachedChecks = new();
-            HintUtils.CalcBeatableWithForbiddenChecks(
-                genData.startingRoom,
-                forbiddenCheckNames,
-                prevReachedChecks
-            );
-
             while (true)
             {
                 if (checkNames.Count < 1)
@@ -374,11 +376,9 @@ namespace TPRandomizer.Hints
                 allowedCheckNames.Remove(checkName);
                 forbiddenCheckNames.Add(checkName);
 
-                HashSet<string> nextReachedChecks = new();
                 bool wasSuccess = HintUtils.CalcBeatableWithForbiddenChecks(
                     genData.startingRoom,
-                    forbiddenCheckNames,
-                    nextReachedChecks
+                    forbiddenCheckNames
                 );
                 if (!wasSuccess)
                 {
@@ -389,31 +389,6 @@ namespace TPRandomizer.Hints
                     allowedCheckNames.Add(checkName);
                     forbiddenCheckNames.Remove(checkName);
                 }
-
-                // If removing check prevented access to sometimesRequired checks and it has not yet
-                // been marked sometimesRequired, then mark as sometimesRequired.
-                if (!condRequiredChecks.Contains(checkName))
-                {
-                    foreach (string prevReachedCheck in prevReachedChecks)
-                    {
-                        if (
-                            condRequiredChecks.Contains(prevReachedCheck)
-                            && !nextReachedChecks.Contains(prevReachedCheck)
-                        )
-                        {
-                            // Can no longer access previously accessible sometimesRequired check.
-                            // Therefore the removed check must also be sometimesRequired.
-                            markedCondReqChecks = true;
-                            Item contents = HintUtils.getCheckContents(checkName);
-                            Console.WriteLine(
-                                $"Marked pending (zigZagDown): {checkName} ({contents}); lost access to '{prevReachedCheck}' ({HintUtils.getCheckContents(prevReachedCheck)})"
-                            );
-                            condRequiredChecks.Add(checkName);
-                            break;
-                        }
-                    }
-                }
-                prevReachedChecks = nextReachedChecks;
             }
 
             if (lastBanishedCheckName == null)
@@ -440,13 +415,6 @@ namespace TPRandomizer.Hints
             HashSet<string> allowedCheckNames = new(zz.allowedCheckNames);
             string lastAddedCheckName = null;
 
-            HashSet<string> prevReachedChecks = new();
-            HintUtils.CalcBeatableWithForbiddenChecks(
-                genData.startingRoom,
-                forbiddenCheckNames,
-                prevReachedChecks
-            );
-
             while (true)
             {
                 if (checkNames.Count < 1)
@@ -458,11 +426,9 @@ namespace TPRandomizer.Hints
                 forbiddenCheckNames.Remove(checkName);
                 allowedCheckNames.Add(checkName);
 
-                HashSet<string> nextReachedChecks = new();
                 bool wasSuccess = HintUtils.CalcBeatableWithForbiddenChecks(
                     genData.startingRoom,
-                    forbiddenCheckNames,
-                    nextReachedChecks
+                    forbiddenCheckNames
                 );
                 if (wasSuccess)
                 {
@@ -473,33 +439,6 @@ namespace TPRandomizer.Hints
                     allowedCheckNames.Remove(checkName);
                     forbiddenCheckNames.Add(checkName);
                 }
-
-                // If adding check allowed access to sometimesRequired checks and it has not yet
-                // been marked sometimesRequired, then mark as sometimesRequired. This one adds
-                // checks less frequently than zigZagDown, but I have seen it add one on multiple
-                // occasions. -isaac
-                if (!condRequiredChecks.Contains(checkName))
-                {
-                    foreach (string nextReachedCheck in nextReachedChecks)
-                    {
-                        if (
-                            condRequiredChecks.Contains(nextReachedCheck)
-                            && !prevReachedChecks.Contains(nextReachedCheck)
-                        )
-                        {
-                            // Can now access newly accessible sometimesRequired check. Therefore
-                            // the added check must also be sometimesRequired.
-                            markedCondReqChecks = true;
-                            Item contents = HintUtils.getCheckContents(checkName);
-                            Console.WriteLine(
-                                $"Marked pending (zigZagUp): {checkName} ({contents}); gained access to '{nextReachedCheck}' ({HintUtils.getCheckContents(nextReachedCheck)})"
-                            );
-                            condRequiredChecks.Add(checkName);
-                            break;
-                        }
-                    }
-                }
-                prevReachedChecks = nextReachedChecks;
             }
 
             if (lastAddedCheckName == null)
