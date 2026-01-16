@@ -51,7 +51,7 @@
       {
         "ConnectedArea": "Death Mountain Outside Sumo Hall",
         "Requirements": "Iron_Boots and (CanDefeatGoron or CanCompleteGoronMines) and CanCompleteEldinTwilight",
-        "GlitchedRequirements": "Iron_Boots and (CanDefeatGoron or CanCompleteGoronMines) and CanCompleteEldinTwilight"
+        "GlitchedRequirements": "(Iron_Boots or HasShield) and (CanDefeatGoron or CanCompleteGoronMines) and CanCompleteEldinTwilight"
       },
       {
         "ConnectedArea": "Death Mountain Elevator Lower",
