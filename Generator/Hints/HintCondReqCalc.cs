@@ -81,6 +81,9 @@ namespace TPRandomizer.Hints
 
         private bool updateSometimesRequiredFromTradeItems()
         {
+            if (true)
+                return false;
+
             bool addedCheck = false;
 
             // Checks rewarding a trade item for a chain ending in a sometimesRequired reward are
@@ -140,7 +143,7 @@ namespace TPRandomizer.Hints
         private bool handleHiddenSkills(Dictionary<Item, int> itemToInflexibleCount)
         {
             // Returns true if did specialHiddenSkillHandling, else false.
-            if (genData.sSettings.logicRules == LogicRules.Glitchless)
+            if (false && genData.sSettings.logicRules == LogicRules.Glitchless)
             {
                 // If there is an inflexible Hidden Skill (start with one or a required one), then
                 // we automatically consider the rest to be "not required". Otherwise we will simply
@@ -376,10 +379,21 @@ namespace TPRandomizer.Hints
                 allowedCheckNames.Remove(checkName);
                 forbiddenCheckNames.Add(checkName);
 
+                long before = stopwatch.ElapsedMilliseconds;
                 bool wasSuccess = HintUtils.CalcBeatableWithForbiddenChecks(
                     genData.startingRoom,
                     forbiddenCheckNames
                 );
+                long after = stopwatch.ElapsedMilliseconds;
+                long diff = after - before;
+                // Console.WriteLine($"zzd diff: {diff}ms");
+                if (diff > 500)
+                {
+                    Console.WriteLine($"Duration was {diff}ms, so doing garbage collection.");
+                    GC.Collect(); // Forces garbage collection of all generations
+                    GC.WaitForPendingFinalizers(); // Blocks until all finalizers have run (optional)
+                }
+
                 if (!wasSuccess)
                 {
                     if (markAsSometimesRequired(checkName))
@@ -529,11 +543,12 @@ namespace TPRandomizer.Hints
                     // consistency. We do not skip over tradeItems however.
                     if (
                         !genData.requiredChecks.Contains(checkName)
+                        // && genData.majorItems.Contains(contents)
                         && contents != Item.Poe_Soul
                         && contents != Item.Heart_Container
                         && contents != Item.Piece_of_Heart
-                        && !smallKeyItems.Contains(contents)
-                        && !bigKeyItems.Contains(contents)
+                    // && !smallKeyItems.Contains(contents)
+                    // && !bigKeyItems.Contains(contents)
                     )
                     {
                         condRequiredChecks.Add(checkName);
@@ -548,8 +563,8 @@ namespace TPRandomizer.Hints
 
             handlePoeSouls(itemToInflexibleCount);
             handleHearts();
-            handleSmallKeys();
-            handleBigKeys();
+            // handleSmallKeys();
+            // handleBigKeys();
 
             // Build `locsSet`
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
@@ -572,9 +587,6 @@ namespace TPRandomizer.Hints
                     || item == Item.Poe_Soul
                     || item == Item.Heart_Container
                     || item == Item.Piece_of_Heart
-                    || smallKeyItems.Contains(item)
-                    || bigKeyItems.Contains(item)
-                    || HintUtils.IsTradeItem(item)
                     || (specialHiddenSkillHandling && item == Item.Progressive_Hidden_Skill)
                 )
                     continue;
