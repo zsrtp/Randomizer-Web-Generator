@@ -24,7 +24,7 @@ namespace TPRandomizer.Hints
         // items to the locsSet. We have this here so the generator does not get stuck on a request
         // like this, but hopefully it is never relevant.
         private const int MaxSingleZigZagDurationMs = 90_000;
-        private const int RaceSeedMinCalcDurationMs = 30_000;
+        private const int RaceSeedMinCalcDurationMs = 25_000;
 
         private HintGenData genData;
         private HashSet<string> condRequiredChecks = new();
@@ -370,8 +370,6 @@ namespace TPRandomizer.Hints
                 );
 
                 long breakThreshold = 100_000;
-                if (genData.isRaceSeed && consecutiveFailures >= 3)
-                    breakThreshold = 60_000;
 
                 // Break out if taking too long. Should capture either everything or almost
                 // everything the first time usually.
@@ -399,13 +397,13 @@ namespace TPRandomizer.Hints
                 // info about the seed based on generation time, and we also want to be as sure as
                 // possible that we got all of the sometimes required checks. It will either break
                 // on time (handled above), or if it would quickly finish, we randomly wait between
-                // 30 and 40 seconds.
+                // 25 and 35 seconds.
                 if (genData.isRaceSeed)
                 {
-                    if (consecutiveFailures >= 5 && elapsedMs >= 10_000)
+                    if (consecutiveFailures >= 5 && elapsedMs >= 15_000)
                     {
                         Console.WriteLine(
-                            $"Race seed with {consecutiveFailures} consecutive failures and at least 10s. Will break."
+                            $"Race seed with at least 5 consecutive failures (at {consecutiveFailures}) and at least 15s. Will break."
                         );
 
                         int sleepDuration = (int)(RaceSeedMinCalcDurationMs - elapsedMs);
