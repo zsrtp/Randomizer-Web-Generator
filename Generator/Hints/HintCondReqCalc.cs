@@ -156,7 +156,6 @@ namespace TPRandomizer.Hints
                     genData.startingRoom,
                     forbiddenCheckNames
                 );
-
                 if (!wasSuccess)
                 {
                     if (markAsSometimesRequired(checkName))
