@@ -152,20 +152,10 @@ namespace TPRandomizer.Hints
                 allowedCheckNames.Remove(checkName);
                 forbiddenCheckNames.Add(checkName);
 
-                long before = stopwatch.ElapsedMilliseconds;
                 bool wasSuccess = HintUtils.CalcBeatableWithForbiddenChecks(
                     genData.startingRoom,
                     forbiddenCheckNames
                 );
-                long after = stopwatch.ElapsedMilliseconds;
-                long diff = after - before;
-                // Console.WriteLine($"zzd diff: {diff}ms");
-                // if (diff > 500)
-                // {
-                //     Console.WriteLine($"Duration was {diff}ms, so doing garbage collection.");
-                //     GC.Collect(); // Forces garbage collection of all generations
-                //     GC.WaitForPendingFinalizers(); // Blocks until all finalizers have run (optional)
-                // }
 
                 if (!wasSuccess)
                 {

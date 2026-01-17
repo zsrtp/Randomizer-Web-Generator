@@ -839,7 +839,8 @@ namespace TPRandomizer
         {
             SharedSettings parseSetting = Randomizer.SSettings;
             // Reset startingItems and other lists to prevent them from getting extra copies while
-            // emulating playthroughs
+            // emulating playthroughs. This is critical to avoid a memory leak when doing many
+            // playthroughs during conditionallyRequired calculations.
             parseSetting.startingItems = new(Randomizer.origSSettingsStartingItems);
 
             Randomizer.Items.RandomizedImportantItems = new();
