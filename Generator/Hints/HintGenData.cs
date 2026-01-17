@@ -109,7 +109,7 @@ namespace TPRandomizer.Hints
                 if (sSettings.hintImportance != HintImportance.Default)
                 {
                     HintCondReqCalc condReqCalc = new(this);
-                    condReqChecks = condReqCalc.run(itemToInflexibleCount);
+                    condReqChecks = condReqCalc.run();
                     didCondReqCalc = true;
                 }
             }
@@ -231,7 +231,12 @@ namespace TPRandomizer.Hints
                 int numPoeSoulsMarked = 0;
                 foreach (string checkName in checkNames)
                 {
-                    if (!requiredChecks.Contains(checkName) && !condReqChecks.Contains(checkName))
+                    if (
+                        !requiredChecks.Contains(checkName)
+                        && !condReqChecks.Contains(checkName)
+                        && !allowBarrenChecks.Contains(checkName)
+                        && !notReqChecks.Contains(checkName)
+                    )
                     {
                         numPoeSoulsMarked += 1;
                         notReqChecks.Add(checkName);

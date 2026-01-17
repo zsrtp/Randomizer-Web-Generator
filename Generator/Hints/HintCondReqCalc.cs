@@ -79,17 +79,8 @@ namespace TPRandomizer.Hints
             return false;
         }
 
-        private bool updateSometimesRequiredFromTradeItems()
+        private void markClearlyDeadChecksGivingTradeItems()
         {
-            if (true)
-                return false;
-
-            bool addedCheck = false;
-
-            // Checks rewarding a trade item for a chain ending in a sometimesRequired reward are
-            // themselves sometimes required, as long as they are not already known to be required,
-            // allowBarren, or notReq. allowBarren example: maleAnt => domRod. 2nd maleAnt behind
-            // DDR.
             foreach (KeyValuePair<Item, string> pair in HintUtils.tradeItemToRewardCheck)
             {
                 Item tradeItem = pair.Key;
@@ -100,250 +91,32 @@ namespace TPRandomizer.Hints
                     )
                 )
                 {
-                    // Need to check against required checks as well since you can have something
-                    // like this: required domRod on Agitha reward with 2 copies of the bug in
-                    // sphere0. Neither bug is required, but either could be your first and you
-                    // definitely need at least one.
+                    Item chainEndItem = HintUtils.getCheckContents(chainEndCheckName);
                     if (
-                        genData.requiredChecks.Contains(chainEndCheckName)
-                        || condRequiredChecks.Contains(chainEndCheckName)
+                        !genData.logicalItems.Contains(chainEndItem)
+                        || genData.allowBarrenChecks.Contains(chainEndCheckName)
+                        || genData.notReqChecks.Contains(chainEndCheckName)
                     )
                     {
+                        // Mark all checks rewarding the tradeItem as "not required".
                         if (
                             genData.itemToChecksList.TryGetValue(
                                 tradeItem,
-                                out List<string> checksList
+                                out List<string> checksForItem
                             )
                         )
                         {
-                            foreach (string checkName in checksList)
+                            foreach (string checkName in checksForItem)
                             {
-                                if (
-                                    !condRequiredChecks.Contains(checkName)
-                                    && !genData.requiredChecks.Contains(checkName)
-                                    && !genData.allowBarrenChecks.Contains(checkName)
-                                    && !genData.notReqChecks.Contains(checkName)
-                                )
-                                {
-                                    Item contents = HintUtils.getCheckContents(checkName);
-                                    Console.WriteLine(
-                                        $"Sometimes Required (TrdItm): {checkName} ({contents})"
-                                    );
-                                    condRequiredChecks.Add(checkName);
-                                    addedCheck = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return addedCheck;
-        }
-
-        private bool handleHiddenSkills(Dictionary<Item, int> itemToInflexibleCount)
-        {
-            // Returns true if did specialHiddenSkillHandling, else false.
-            if (false && genData.sSettings.logicRules == LogicRules.Glitchless)
-            {
-                // If there is an inflexible Hidden Skill (start with one or a required one), then
-                // we automatically consider the rest to be "not required". Otherwise we will simply
-                // consider them all to be sometimesRequired. This is for performance reasons.
-                if (
-                    itemToInflexibleCount.TryGetValue(
-                        Item.Progressive_Hidden_Skill,
-                        out int numInflexibleHiddenSkills
-                    )
-                    && numInflexibleHiddenSkills > 0
-                )
-                {
-                    List<string> checksForItem = genData.itemToChecksList[
-                        Item.Progressive_Hidden_Skill
-                    ];
-                    foreach (string checkName in checksForItem)
-                    {
-                        if (!genData.requiredChecks.Contains(checkName))
-                            genData.notReqChecks.Add(checkName);
-                    }
-                }
-                else
-                {
-                    // No inflexible Hidden Skills, so consider them all "sometimes required".
-                    List<string> checksForItem = genData.itemToChecksList[
-                        Item.Progressive_Hidden_Skill
-                    ];
-                    foreach (string checkName in checksForItem)
-                    {
-                        if (
-                            !condRequiredChecks.Contains(checkName)
-                            && !genData.requiredChecks.Contains(checkName)
-                            && !genData.allowBarrenChecks.Contains(checkName)
-                            && !genData.notReqChecks.Contains(checkName)
-                        )
-                        {
-                            Console.WriteLine(
-                                $"Sometimes Required (HdnSkl): {checkName} ({Item.Progressive_Hidden_Skill})"
-                            );
-                            condRequiredChecks.Add(checkName);
-                        }
-                    }
-                }
-                // Return true since did special hidden skill handling.
-                return true;
-            }
-            return false;
-        }
-
-        private void handlePoeSouls(Dictionary<Item, int> itemToInflexibleCount)
-        {
-            // If poe souls are needed for HC or HC BK thresholds and the inflexible count does not
-            // already take care of the threshold, then mark all unknownStatus ones as
-            // sometimesRequired. We do not ever mark them as "not required" here since even if they
-            // aren't used for these thresholds, it's possible a Jovani reward is sometimesRequired,
-            // etc. However, we do not know the full condReq status of the Jovani rewards until
-            // after condReq calculations in the file finish, so leave any notRequired marking up to
-            // hintGenData which handles poeSouls and tradeItems following the calcs in this file.
-            List<int> thresholds = new();
-
-            if (genData.sSettings.castleRequirements == CastleRequirements.Poe_Souls)
-                thresholds.Add(genData.sSettings.castleRequirementCount);
-
-            if (genData.sSettings.castleBKRequirements == CastleBKRequirements.Poe_Souls)
-                thresholds.Add(genData.sSettings.castleBKRequirementCount);
-
-            int largestThreshold = 0;
-            foreach (int threshold in thresholds)
-            {
-                if (threshold > largestThreshold)
-                    largestThreshold = threshold;
-            }
-
-            if (largestThreshold < 0)
-                return;
-
-            if (largestThreshold > 0)
-            {
-                if (!itemToInflexibleCount.TryGetValue(Item.Poe_Soul, out int numInflexible))
-                    numInflexible = 0;
-                if (numInflexible < largestThreshold)
-                {
-                    // Finding Poe souls is useful for meeting a threshold, so mark as
-                    // sometimesRequired.
-                    if (
-                        genData.itemToChecksList.TryGetValue(
-                            Item.Poe_Soul,
-                            out List<string> checksForItem
-                        )
-                    )
-                    {
-                        foreach (string checkName in checksForItem)
-                        {
-                            if (
-                                !genData.requiredChecks.Contains(checkName)
-                                && !genData.allowBarrenChecks.Contains(checkName)
-                                && !genData.notReqChecks.Contains(checkName)
-                            )
-                            {
+                                string reason = !genData.logicalItems.Contains(chainEndItem)
+                                    ? "non-logical"
+                                    : "known bad";
                                 Console.WriteLine(
-                                    $"Sometimes Required (poeSoul): {checkName} ({Item.Poe_Soul})"
+                                    $"- marked tradeItem notReq: {checkName} ({tradeItem}); chain end {reason}: {chainEndCheckName} ({chainEndItem})"
                                 );
-                                condRequiredChecks.Add(checkName);
+                                genData.notReqChecks.Add(checkName);
                             }
                         }
-                    }
-                }
-            }
-        }
-
-        private void handleHearts()
-        {
-            // If Hearts useful for HC access, mark all with an unknown status as sometimesRequired.
-            // Basic implementation for now since not able to change starting hearts or set
-            // requirement to be less than 4.
-            if (
-                genData.sSettings.castleRequirements == CastleRequirements.Hearts
-                || genData.sSettings.castleBKRequirements == CastleBKRequirements.Hearts
-            )
-            {
-                List<Item> items = new() { Item.Heart_Container, Item.Piece_of_Heart, };
-
-                foreach (Item item in items)
-                {
-                    if (genData.itemToChecksList.TryGetValue(item, out List<string> checksForItem))
-                    {
-                        foreach (string checkName in checksForItem)
-                        {
-                            if (
-                                !genData.requiredChecks.Contains(checkName)
-                                && !genData.allowBarrenChecks.Contains(checkName)
-                                && !genData.notReqChecks.Contains(checkName)
-                            )
-                            {
-                                Console.WriteLine(
-                                    $"Sometimes Required (heart): {checkName} ({item})"
-                                );
-                                condRequiredChecks.Add(checkName);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void handleSmallKeys()
-        {
-            // If small keys are anywhere or anyDungeon, then mark any key with an unknown status as
-            // sometimesRequired.
-            if (
-                genData.sSettings.smallKeySettings == SmallKeySettings.Any_Dungeon
-                || genData.sSettings.smallKeySettings == SmallKeySettings.Anywhere
-            )
-            {
-                foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
-                {
-                    Check check = checkList.Value;
-                    string checkName = check.checkName;
-                    Item item = check.itemId;
-
-                    if (
-                        smallKeyItems.Contains(item)
-                        && !condRequiredChecks.Contains(checkName)
-                        && !genData.requiredChecks.Contains(checkName)
-                        && !genData.allowBarrenChecks.Contains(checkName)
-                        && !genData.notReqChecks.Contains(checkName)
-                    )
-                    {
-                        Console.WriteLine($"Sometimes Required (SmKey): {checkName} ({item})");
-                        condRequiredChecks.Add(checkName);
-                    }
-                }
-            }
-        }
-
-        private void handleBigKeys()
-        {
-            // If big keys are anywhere or anyDungeon, then mark any key with an unknown status as
-            // sometimesRequired.
-            if (
-                genData.sSettings.bigKeySettings == BigKeySettings.Any_Dungeon
-                || genData.sSettings.bigKeySettings == BigKeySettings.Anywhere
-            )
-            {
-                foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
-                {
-                    Check check = checkList.Value;
-                    string checkName = check.checkName;
-                    Item item = check.itemId;
-
-                    if (
-                        bigKeyItems.Contains(item)
-                        && !condRequiredChecks.Contains(checkName)
-                        && !genData.requiredChecks.Contains(checkName)
-                        && !genData.allowBarrenChecks.Contains(checkName)
-                        && !genData.notReqChecks.Contains(checkName)
-                    )
-                    {
-                        Console.WriteLine($"Sometimes Required (BigKey): {checkName} ({item})");
-                        condRequiredChecks.Add(checkName);
                     }
                 }
             }
@@ -387,12 +160,12 @@ namespace TPRandomizer.Hints
                 long after = stopwatch.ElapsedMilliseconds;
                 long diff = after - before;
                 // Console.WriteLine($"zzd diff: {diff}ms");
-                if (diff > 500)
-                {
-                    Console.WriteLine($"Duration was {diff}ms, so doing garbage collection.");
-                    GC.Collect(); // Forces garbage collection of all generations
-                    GC.WaitForPendingFinalizers(); // Blocks until all finalizers have run (optional)
-                }
+                // if (diff > 500)
+                // {
+                //     Console.WriteLine($"Duration was {diff}ms, so doing garbage collection.");
+                //     GC.Collect(); // Forces garbage collection of all generations
+                //     GC.WaitForPendingFinalizers(); // Blocks until all finalizers have run (optional)
+                // }
 
                 if (!wasSuccess)
                 {
@@ -524,11 +297,11 @@ namespace TPRandomizer.Hints
             return result;
         }
 
-        public HashSet<string> run(Dictionary<Item, int> itemToInflexibleCount)
+        public HashSet<string> run()
         {
             HashSet<string> locsSet = new();
 
-            // Add non-required checks from the playthrough spheres which are guaranteed to be
+            // Add non-Required checks from the playthrough spheres which are guaranteed to be
             // conditionallyRequired (playthrough failed when removing them conditionally).
             foreach (
                 List<KeyValuePair<int, Item>> spherePairs in genData.playthroughSpheres.spheres
@@ -537,19 +310,7 @@ namespace TPRandomizer.Hints
                 foreach (KeyValuePair<int, Item> checkAndItem in spherePairs)
                 {
                     string checkName = CheckIdClass.GetCheckName(checkAndItem.Key);
-                    Item contents = checkAndItem.Value;
-
-                    // Skip over certain items which have special handling for the sake of
-                    // consistency. We do not skip over tradeItems however.
-                    if (
-                        !genData.requiredChecks.Contains(checkName)
-                        // && genData.majorItems.Contains(contents)
-                        && contents != Item.Poe_Soul
-                        && contents != Item.Heart_Container
-                        && contents != Item.Piece_of_Heart
-                    // && !smallKeyItems.Contains(contents)
-                    // && !bigKeyItems.Contains(contents)
-                    )
+                    if (!genData.requiredChecks.Contains(checkName))
                     {
                         condRequiredChecks.Add(checkName);
                         Console.WriteLine(
@@ -559,12 +320,7 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            bool specialHiddenSkillHandling = handleHiddenSkills(itemToInflexibleCount);
-
-            handlePoeSouls(itemToInflexibleCount);
-            handleHearts();
-            // handleSmallKeys();
-            // handleBigKeys();
+            markClearlyDeadChecksGivingTradeItems();
 
             // Build `locsSet`
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
@@ -573,21 +329,14 @@ namespace TPRandomizer.Hints
                 string checkName = check.checkName;
                 Item item = check.itemId;
 
-                // Certain items are never added to the `locsSet` for performance reasons. We also
-                // skip over non-logicalItems and checks which are already know to be "required" or
-                // "not required". It is critical we keep locsSet as small as possible. With enough
-                // checks, calculation can take more than 10 minutes, 20 minutes, etc. We only
-                // include checks which can immediately be marked as notRequired if they are not
-                // caculated to be sometimesRequired.
+                // We skip over non-logicalItems and checks which are already know to be "required"
+                // or "not required". Already known sometimesRequired checks are still added since
+                // they take part in the algorithm for finding other sometimesRequired checks.
                 if (
                     !genData.logicalItems.Contains(item)
                     || genData.requiredChecks.Contains(checkName)
                     || genData.allowBarrenChecks.Contains(checkName)
                     || genData.notReqChecks.Contains(checkName)
-                    || item == Item.Poe_Soul
-                    || item == Item.Heart_Container
-                    || item == Item.Piece_of_Heart
-                    || (specialHiddenSkillHandling && item == Item.Progressive_Hidden_Skill)
                 )
                     continue;
 
@@ -596,12 +345,6 @@ namespace TPRandomizer.Hints
 
             Stopwatch stopwatch = new();
             stopwatch.Start();
-
-            // Initially handle sometimesRequired tradeItems leading to a required check. We handle
-            // tradeItems how we do since we really want to keep `locsSet` as small as possible for
-            // performance reasons. An increase in locsSet of just 8 checks caused execution to take
-            // nearly 20s more in a tradeItem test I did. -isaac
-            updateSometimesRequiredFromTradeItems();
 
             int zigZagNumber = 0;
             int consecutiveFailures = 0;
@@ -620,11 +363,6 @@ namespace TPRandomizer.Hints
                     markedCondReqChecks = false;
                     consecutiveFailures = 0;
                 }
-
-                // Run after normal calcs so we can mark tradeItems which lead to newly discovered
-                // sometimesRequired checks. If we add more, then reset failures.
-                if (updateSometimesRequiredFromTradeItems())
-                    consecutiveFailures = 0;
 
                 long elapsedMs = stopwatch.ElapsedMilliseconds;
                 Console.WriteLine(
@@ -699,16 +437,24 @@ namespace TPRandomizer.Hints
                 $"ConditionallyRequired Elapsed Time: {elapsed.TotalMilliseconds} ms"
             );
 
+            int numPoeSoulMarkedNotReq = 0;
             foreach (string checkName in locsSet)
             {
                 if (!condRequiredChecks.Contains(checkName))
                 {
-                    Console.WriteLine(
-                        $"- marked locsSet notReq: {checkName} ({HintUtils.getCheckContents(checkName)})"
-                    );
+                    Item contents = HintUtils.getCheckContents(checkName);
+                    if (contents == Item.Poe_Soul)
+                        numPoeSoulMarkedNotReq += 1;
+                    else
+                        Console.WriteLine($"- marked locsSet notReq: {checkName} ({contents})");
                     genData.notReqChecks.Add(checkName);
                 }
             }
+
+            if (numPoeSoulMarkedNotReq > 0)
+                Console.WriteLine(
+                    $"- condReq also marked {numPoeSoulMarkedNotReq} Poe Soul checks as notReq."
+                );
 
             return condRequiredChecks;
         }
