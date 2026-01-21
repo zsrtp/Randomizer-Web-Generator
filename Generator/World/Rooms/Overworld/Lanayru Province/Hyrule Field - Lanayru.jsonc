@@ -281,7 +281,7 @@
         "GlitchedRequirements": "true"
       },
       {
-        "ConnectedArea": "Faron Field Behind Boulder",
+        "ConnectedArea": "Faron Field",
         "Requirements": "CanGetHotSpringWater",
         "GlitchedRequirements": "CanGetHotSpringWater"
       },
@@ -308,20 +308,6 @@
         "Outside South Castle Town Golden Wolf",
         "Outside South Castle Town Boulder Rupee"
     ],
-    "Region": "Hyrule Field - Lanayru Province"
-  },
-  {
-     // If you enter Outside Castle Town South from there while the boulder is still there, you get stuck and are forced to save-warp or portal-warp
-    "RoomName": "Outside Castle Town South Inside Boulder",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Outside Castle Town South",
-        "Requirements": "CanGetHotSpringWater and Room.Outside_Castle_Town_South",
-        "GlitchedRequirements": "CanGetHotSpringWater and Room.Outside_Castle_Town_South"
-      }
-    ],
-    "Checks": [""],
     "Region": "Hyrule Field - Lanayru Province"
   },
   {

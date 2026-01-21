@@ -279,8 +279,8 @@
         "Type": "Exterior",
         "SourceRoomSpawn":
         {
-            "SourceRoom": "Faron Field Behind Boulder",
-            "TargetRoom": "Outside Castle Town South Inside Boulder",
+            "SourceRoom": "Faron Field",
+            "TargetRoom": "Outside Castle Town South",
             "Stage": 57,
             "Room": 16,
             "Spawn": "00",
@@ -291,7 +291,7 @@
         "TargetRoomSpawn":
         {
             "SourceRoom": "Outside Castle Town South",
-            "TargetRoom": "Faron Field Behind Boulder",
+            "TargetRoom": "Faron Field",
             "Stage": 56,
             "Room": 6,
             "Spawn": "01",
