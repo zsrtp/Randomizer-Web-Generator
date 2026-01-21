@@ -1873,6 +1873,69 @@ namespace TPRandomizer.Assets
                     6
                 ),
 
+                new ARCReplacement(
+                    "BDC",
+                    "C73CA878",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    6
+                ), // Move Faron <- OCT Spawn away from rocks
+
+                new ARCReplacement(
+                    "BE0",
+                    "C6135253",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    6
+                ), // Move Faron <- OCT Spawn away from rocks
+
+                new ARCReplacement(
+                    "BE4",
+                    "474F2652",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Hyrule_Field,
+                    6
+                ), // Move Faron <- OCT Spawn away from rocks
+
+                new ARCReplacement(
+                    "C20",
+                    "C748A95F",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    16
+                ), // Move Faron -> OCT Spawn away from rocks
+
+                new ARCReplacement(
+                    "C24",
+                    "C5D156A4",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    16
+                ), // Move Faron -> OCT Spawn away from rocks
+
+                new ARCReplacement(
+                    "C28",
+                    "4710AE31",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Outside_Castle_Town,
+                    16
+                ), // Move Faron -> OCT Spawn away from rocks
+
+                new ARCReplacement(
+                    "3B64",
+                    "FFFF9556",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Castle_Town,
+                    0
+                ), // Set CT Malo Mart door to always be openable
+
                 // Freestanding Rupee Archive patches
 
                 // Rupees in rock near Coro
