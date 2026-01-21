@@ -1472,6 +1472,14 @@ namespace TPRandomizer.Assets
                     0
                 ), // Set Charlo Donation to remove 100 rupees from Link's wallet.
                 new ARCReplacement(
+                    "463C",
+                    "0434F000",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Castle_Town,
+                    0
+                ), // Make Castle Town Shoe Shiner always available
+                new ARCReplacement(
                     "1324",
                     "00000181",
                     (byte)FileDirectory.Room,
@@ -2953,6 +2961,14 @@ namespace TPRandomizer.Assets
                     (int)StageIDs.Snowpeak,
                     1
                 ),
+                new ARCReplacement(
+                    "1FEC",
+                    "0000FFFF",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Snowpeak,
+                    0
+                ), // Make Snowpeak Poe Among Trees spawn 24/7 (clear mNight flag in rot_z)
 
                 // Tie Lost woods walls from lower arena to skull kid instead of the SG portal. 
 
