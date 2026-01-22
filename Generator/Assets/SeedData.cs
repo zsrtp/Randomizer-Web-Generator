@@ -1928,13 +1928,13 @@ namespace TPRandomizer.Assets
                 ), // Move Faron -> OCT Spawn away from rocks
 
                 new ARCReplacement(
-                    "3B64",
-                    "FFFF9556",
-                    (byte)FileDirectory.Room,
+                    "54CE",
+                    "01A301A4",
+                    (byte)FileDirectory.Message,
                     (byte)ReplacementType.Instruction,
                     (int)StageIDs.Castle_Town,
                     0
-                ), // Set CT Malo Mart door to always be openable
+                ), // Skip DoorBoy time checks for entering CT Malo Mart
 
                 // Freestanding Rupee Archive patches
 
