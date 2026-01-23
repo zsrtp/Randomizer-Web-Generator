@@ -589,6 +589,7 @@
       'eponaColorFieldsetColorPicker',
       'wolfColorFieldsetColorPicker',
       { id: 'lanternColorFieldsetColorPicker', useSoftColors: false },
+      { id: 'lightSwordColorFieldsetColorPicker', useSoftColors: false },
       'heartColorFieldset',
       'aButtonColorFieldset',
       'bButtonColorFieldset',
@@ -1769,6 +1770,7 @@
       'eponaColorFieldset',
       'wolfColorFieldset',
       'lanternColorFieldset',
+      'lightSwordColorFieldset',
       'midnaHairBaseColorFieldset',
       'midnaHairTipColorFieldset',
     ].forEach((selectId) => {

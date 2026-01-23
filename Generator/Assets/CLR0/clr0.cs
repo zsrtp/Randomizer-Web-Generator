@@ -308,6 +308,7 @@ namespace TPRandomizer.Assets.CLR0
             entries.Add(fcSettings.eponaColor);
             entries.Add(fcSettings.wolfColor);
             entries.Add(fcSettings.lanternGlowColor);
+            entries.Add(fcSettings.lightSwordGlowColor);
             entries.Add(fcSettings.heartColor);
             entries.Add(fcSettings.aBtnColor);
             entries.Add(fcSettings.bBtnColor);

@@ -363,6 +363,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.instantText,
                 randomizerSettings.skipMajorCutscenes,
                 fcSettings.invertCameraAxis,
+                fcSettings.lightSwordAlwaysGlows
             };
             bool[] flagsBitfieldArray =
             {
@@ -374,6 +375,7 @@ namespace TPRandomizer.Assets
                 randomizerSettings.modifyShopModels,
                 fcSettings.lanternGlowColor.getResult().basicDataEntry == 0xFFFFFE, // Rainbow Lantern
                 fcSettings.midnaHairBaseLightWorldInactive == 0xFFFFFE, // Rainbow Midna Hair
+                fcSettings.lightSwordGlowColor.getResult().basicDataEntry == 0xFFFFFE, // Rainbow Glow
             };
 
             List<bool[]> flagArrayList = new()

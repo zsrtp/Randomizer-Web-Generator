@@ -399,9 +399,23 @@
           id="invertCameraCheckbox"
           name="Invert Camera Checkbox"
           value=""
-        />
+          />
           <label for="invertCameraCheckbox">
               Invert Camera X Axis
+            </label>
+          </div>
+          <div
+              style="width: 30%"
+              data-tooltip-text="Causes the Light Sword to glow, even outside of twilights.&#0010;"
+            >
+          <input
+          type="checkbox"
+          id="lightSwordGlowCheckbox"
+          name="Light Sword Glow Checkbox"
+          value=""
+          />
+          <label for="lightSwordGlowCheckbox">
+              Light Sword glows all the time
             </label>
           </div>
         </fieldset>
@@ -872,6 +886,44 @@
                         <input
                           type="color"
                           id="msHandleColorFieldsetColorPicker"
+                          value="#0000ff"
+                          style="display: none"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label for="lightSwordColorFieldset"
+                          >Light Sword Glow Color:</label
+                        >
+                      </td>
+                      <td>
+                        <select
+                          name="Light Sword Color Fieldset"
+                          id="lightSwordColorFieldset"
+                          data-tooltip-text="Sets the color of the glow and particles emitted by the Light Sword.&#0010;"
+                        >
+                          <option value="0" data-rgb="00F0C818">Default</option>
+                          <option value="1" data-rgb="00ff0000">Red</option>
+                          <option value="2" data-rgb="00f68821">Orange</option>
+                          <option value="3" data-rgb="00f6f321">Yellow</option>
+                          <option value="4" data-rgb="0000ff00">Green</option>
+                          <option value="5" data-rgb="000000ff">Blue</option>
+                          <option value="6" data-rgb="008000ff">Purple</option>
+                          <option value="7" data-rgb="00a0a0a0">White</option>
+                          <option value="8" data-rgb="fffffffe">Rainbow</option>
+                          <option
+                            value="9"
+                            data-rgb="00000000"
+                            data-custom-color="true"
+                          >
+                            Custom
+                          </option>
+                        </select>
+                        <br />
+                        <input
+                          type="color"
+                          id="lightSwordColorFieldsetColorPicker"
                           value="#0000ff"
                           style="display: none"
                         />
