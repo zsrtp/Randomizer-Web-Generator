@@ -123,20 +123,27 @@ const presetsMgr = (function () {
     return '';
   }
 
-  function savePreset({
-    name,
-    description,
-    origSettingsStr,
-    origCommit,
-    latestSettingsStr,
-  }) {
-    customByName[name] = {
-      name,
-      description,
-      origSettingsStr,
-      origCommit,
-      latestSettingsStr,
-    };
+  function savePreset(diff) {
+    if (!diff.name) {
+      throw new Error(`Expected diff.name, but was ${diff.name}.`);
+    }
+    const prevObj = customByName[diff.name] || {};
+
+    const allowedProperties = [
+      'name',
+      'description',
+      'origSettingsStr',
+      'origCommit',
+      'latestSettingsStr',
+    ];
+    const newDiff = {};
+    allowedProperties.forEach((prop) => {
+      if (diff[prop] !== undefined) {
+        newDiff[prop] = diff[prop];
+      }
+    });
+
+    customByName[diff.name] = Object.assign({}, prevObj, newDiff);
 
     // Try to write to localStorage
     try {
@@ -1841,6 +1848,7 @@ function initSavePresetModal() {
   const descInput = document.getElementById('savePresetModal-descInput');
   const $presetSelect = $('#savePresetModal-selectPreset');
   const $nameInputBlock = $('#savePresetModal-nameInputBlock');
+  const $descInputBlock = $('#savePresetModal-descInputBlock');
   const $warning = $('#savePresetModal-warning');
 
   let newPresetValue = null;
@@ -1848,6 +1856,7 @@ function initSavePresetModal() {
   function handlePresetChange(optionValue) {
     const newPresetSelected = optionValue === newPresetValue;
     $nameInputBlock.toggle(newPresetSelected);
+    $descInputBlock.toggle(newPresetSelected);
     $warning.toggle(!newPresetSelected);
     hideErrors();
 
@@ -1955,9 +1964,11 @@ function initSavePresetModal() {
       hideErrors();
 
       let name = $presetSelect.val();
+      let desc = undefined;
       if (name === newPresetValue) {
         // Saving new preset. Otherwise we're updating an existing one.
         name = input.value.trim();
+        desc = descInput.value.trim();
 
         const nameError = validatePresetName(name);
         if (nameError) {
@@ -1966,12 +1977,16 @@ function initSavePresetModal() {
         }
       }
 
-      const success = presetsMgr.savePreset({
+      const presetDiff = {
         name,
-        description: descInput.value.trim(),
         origCommit: $('#envGitCommit').val(),
         origSettingsStr: $('#combinedSettingsString').text().trim(),
-      });
+      };
+      if (desc != null) {
+        presetDiff.description = desc;
+      }
+
+      const success = presetsMgr.savePreset(presetDiff);
       if (success) {
         updatePresetsSelect(name);
         $modal.hide();
