@@ -294,6 +294,9 @@ const presetsMgr = (function () {
   }
 
   return {
+    state: {
+      cleanupFn: null,
+    },
     init,
     getPresetsByType,
     isNameTaken,
@@ -402,6 +405,55 @@ function initTabButtons() {
   });
 }
 
+function initSelect2(id, select2Options) {
+  const sel2Options = Object.assign(
+    {
+      // width: 'style',
+      minimumResultsForSearch: -1,
+      templateResult(data, container) {
+        // Try to init tooltip on rendered option
+        if (data.element) {
+          const tooltipText = data.element.getAttribute('data-tooltip-text');
+          if (tooltipText) {
+            container.setAttribute('data-tooltip-text', tooltipText);
+            window.initTooltipsInTree(container, {
+              fadeInDelay: 0,
+              extraPadding: 20,
+            });
+          }
+        }
+
+        return data.text;
+      },
+    },
+    select2Options
+  );
+
+  const $el = $(`#${id}`);
+
+  function handleClosing() {
+    window.removeTooltips();
+  }
+
+  $el.select2(sel2Options).on('select2:closing', handleClosing);
+
+  var select2Container = $el.data('select2').$container[0];
+  if (select2Container) {
+    const tooltipText = $el[0].getAttribute('data-tooltip-text');
+    if (tooltipText) {
+      select2Container.setAttribute('data-tooltip-text', tooltipText);
+      window.initTooltipsInTree(select2Container, {
+        // fadeInDelay: 0,
+        extraPadding: 20,
+      });
+    }
+  }
+
+  return function cleanup() {
+    $el.select2(sel2Options).off('select2:closing', handleClosing);
+  };
+}
+
 let showGeneratingModal; // fn
 let hideGeneratingModal; // fn
 let showGeneratingModalError; // fn
@@ -424,8 +476,6 @@ function onDomContentLoaded() {
   initTabButtons();
   presetsMgr.init();
 
-  // Set default settings string in UI.
-  const defaultSettingsString = setSettingsString();
   setDungeonERSettings();
   setOverworldERSettings();
   // If returning back from the seed page, the browser will fill in the state.
@@ -483,6 +533,7 @@ function onDomContentLoaded() {
   $('#plandoItemSelect').select2();
 
   updatePresetsSelect();
+  window.initTooltipsInTree(document);
 }
 
 function buildPlandoListItemElStr(checkId, checkName, itemId, itemName) {
@@ -2525,6 +2576,10 @@ function updatePresetsSelect(defaultToValue) {
 
   if ($select.data('select2')) {
     $select.select2('destroy').off('change', handleChange);
+    if (presetsMgr.state.cleanupFn) {
+      presetsMgr.state.cleanupFn();
+      presetsMgr.state.cleanupFn = null;
+    }
   }
 
   const presetsByType = presetsMgr.getPresetsByType();
@@ -2549,6 +2604,9 @@ function updatePresetsSelect(defaultToValue) {
       const preset = presets[i];
       const option = document.createElement('option');
       option.setAttribute('value', preset.name);
+      if (preset.description) {
+        option.setAttribute('data-tooltip-text', preset.description);
+      }
       option.textContent = preset.name;
       optGroup.append(option);
     }
@@ -2581,13 +2639,13 @@ function updatePresetsSelect(defaultToValue) {
     }
   }
 
-  $select
-    .select2({
-      allowClear: true,
-      default: null,
-      placeholder: 'Select preset',
-    })
-    .on('change', handleChange);
+  presetsMgr.state.cleanupFn = initSelect2('presetsSelect', {
+    allowClear: true,
+    default: null,
+    placeholder: 'Select preset',
+  });
+
+  $select.on('change', handleChange);
 
   // For showing newly created custom option as the current selection.
   if (defaultToValue) {
