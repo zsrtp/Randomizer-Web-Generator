@@ -2546,8 +2546,6 @@ function updatePresetsSelect(defaultToValue) {
 
   // For showing newly created custom option as the current selection.
   if (defaultToValue) {
-    skipListener = true;
     $select.val(defaultToValue).trigger('change');
-    skipListener = false;
   }
 }

@@ -29,9 +29,6 @@
     tooltipElements.forEach((tooltipElement) => {
       const $tooltipElement = $(tooltipElement);
       if ($tooltipElement.attr('data-has-tooltip') === 'true') {
-        console.log('');
-        console.log(tooltipElement);
-        console.log('returning for ^ this el since data-has-tooltip is true');
         return;
       }
 
