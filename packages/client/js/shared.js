@@ -1225,6 +1225,22 @@
     });
   }
 
+  function setSlidersToMin(parentIds) {
+    parentIds.forEach(function (parentId) {
+      const parentEl = document.getElementById(parentId);
+      if (parentEl) {
+        const inputs = parentEl.getElementsByTagName('input');
+        for (let i = 0; i < inputs.length; i++) {
+          const input = inputs[i];
+          if (input.type.toLowerCase() === 'range') {
+            input.value = input.min;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        }
+      }
+    });
+  }
+
   function encodeBitStringTo6BitsString(bitString) {
     const remainder = bitString.length % 6;
     if (remainder > 0) {
@@ -1553,6 +1569,7 @@
     populateUiFromPSettings,
     fetch: fetchWrapper,
     uncheckCheckboxes,
+    setSlidersToMin,
     hexStrToBits,
     genFcSettingsString,
     callCreateGci,
