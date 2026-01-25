@@ -2345,6 +2345,7 @@ function populateSSettings(s) {
     'excludedChecksTab',
     'startingInventoryTab',
   ]);
+  window.tpr.shared.setSlidersToMin(['startingInventoryTab']);
 
   $('#logicRulesFieldset').val(s.logicRules);
   $('#castleRequirementsFieldset').val(s.castleRequirements);
