@@ -276,6 +276,23 @@ const presetsMgr = (function () {
     });
   }
 
+  function getNameForSettingsString(settingsString) {
+    const keys = Object.keys(customByName);
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      if (customByName[key].origSettingsStr === settingsString) {
+        return key;
+      }
+    }
+
+    for (let i = 0; i < SYSTEM_PRESETS.length; i++) {
+      const systemPreset = SYSTEM_PRESETS[i];
+      if (systemPreset.origSettingsStr === settingsString) {
+        return systemPreset.name;
+      }
+    }
+  }
+
   return {
     init,
     getPresetsByType,
@@ -285,6 +302,7 @@ const presetsMgr = (function () {
     deletePreset,
     loadSettings,
     getDebugStr,
+    getNameForSettingsString,
   };
 })();
 
@@ -413,12 +431,38 @@ function onDomContentLoaded() {
   // If returning back from the seed page, the browser will fill in the state.
   // This updates the string after the browser updates all of the fields to
   // their previous values.
-  window.addEventListener('load', setSettingsString, { once: true });
-
-  // Hide the load string button if no strings are saved in local storage.
-  if (!localStorage.getItem('settingsString')) {
-    $('#loadString').hide();
-  }
+  window.addEventListener(
+    'load',
+    function () {
+      try {
+        const prevSettingsString = localStorage.getItem(
+          'lastGeneratedSettingsString'
+        );
+        if (prevSettingsString) {
+          // Check if in presets and load that preset if was present.
+          const name = presetsMgr.getNameForSettingsString(prevSettingsString);
+          if (name) {
+            updatePresetsSelect(name);
+            showPresetToast('Loaded previous settings');
+          } else {
+            // Else load settings string.
+            const error = populateFromSettingsString(prevSettingsString);
+            if (error) {
+              showPresetToast('Failed to load previous settings', true);
+            } else {
+              showPresetToast('Loaded previous settings');
+            }
+          }
+        }
+      } catch (e) {
+        console.error(
+          'Failed to retrieve "lastGeneratedSettingsString" from localStorage.',
+          e
+        );
+      }
+    },
+    { once: true }
+  );
 
   initSettingsModal();
   initManagePresetsModal();
@@ -1491,10 +1535,11 @@ function doGenerateCall(isRaceSeed) {
       } else if (data && data.seedId && data.requesterHash) {
         try {
           localStorage.setItem('lastGeneratedSeedId', data.seedId);
+          localStorage.setItem('lastGeneratedSettingsString', settingsString);
           localStorage.setItem('requesterHash', data.requesterHash);
         } catch (e) {
           console.error(
-            `Failed to set lastGeneratedSeedId in localStorage to ${data.data}`
+            `Failed to set localStorage values on /api/seed/generate call success.`
           );
           console.error(e);
         }
