@@ -39,6 +39,8 @@
         .attr('data-has-tooltip', 'true')
         .on('mouseout', removeTooltips)
         .on('mouseover', (e) => {
+          removeTooltips();
+
           const { currentTarget: target } = e;
 
           const newEl = document.createElement('div');
