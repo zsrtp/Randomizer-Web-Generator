@@ -219,6 +219,8 @@
         }
       }
     }
+
+    window.initTooltipsInTree(document);
   }
 
   function handleGenerationCompletedPage(inputJsonDataEl) {
