@@ -65,6 +65,7 @@ const presetsMgr = (function () {
   ];
 
   let inited = false;
+  let loadSettingsInProgress = false;
   let customByName = {};
 
   function init() {
@@ -231,6 +232,7 @@ const presetsMgr = (function () {
   }
 
   function loadSettings(name) {
+    loadSettingsInProgress = true;
     let settingsStr = '';
 
     if (customByName[name]) {
@@ -251,6 +253,7 @@ const presetsMgr = (function () {
     }
 
     const error = populateFromSettingsString(settingsStr);
+    loadSettingsInProgress = false;
     return error;
   }
 
@@ -293,8 +296,19 @@ const presetsMgr = (function () {
     }
   }
 
+  function checkClearSelect(settingsString) {
+    if (loadSettingsInProgress) {
+      return;
+    }
+    const name = getNameForSettingsString(settingsString);
+    if (!name) {
+      $('#presetsSelect').val(null).trigger('change.select2');
+    }
+  }
+
   return {
     state: {
+      prevValue: undefined,
       cleanupFn: null,
     },
     init,
@@ -306,6 +320,7 @@ const presetsMgr = (function () {
     loadSettings,
     getDebugStr,
     getNameForSettingsString,
+    checkClearSelect,
   };
 })();
 
@@ -1023,129 +1038,11 @@ function setDungeonERSettings() {
 }
 
 function setSettingsString() {
-  var settingsStringRaw = [];
-  settingsStringRaw[0] =
-    document.getElementById('logicRulesFieldset').selectedIndex;
-  settingsStringRaw[1] = document.getElementById(
-    'castleRequirementsFieldset'
-  ).selectedIndex;
-  settingsStringRaw[2] = document.getElementById(
-    'palaceRequirementsFieldset'
-  ).selectedIndex;
-  settingsStringRaw[3] =
-    document.getElementById('faronLogicFieldset').selectedIndex;
-  settingsStringRaw[4] = document.getElementById('mdhCheckbox').checked;
-  settingsStringRaw[5] = document.getElementById('introCheckbox').checked;
-  settingsStringRaw[6] =
-    document.getElementById('smallKeyFieldset').selectedIndex;
-  settingsStringRaw[7] =
-    document.getElementById('bigKeyFieldset').selectedIndex;
-  settingsStringRaw[8] = document.getElementById(
-    'mapAndCompassFieldset'
-  ).selectedIndex;
-  settingsStringRaw[9] = document.getElementById('goldenBugsCheckbox').checked;
-  settingsStringRaw[10] = document.getElementById(
-    'poeSettingsFieldset'
-  ).selectedIndex;
-  settingsStringRaw[11] = document.getElementById(
-    'giftsFromNPCsCheckbox'
-  ).checked;
-  settingsStringRaw[12] = document.getElementById('shopItemsCheckbox').checked;
-  settingsStringRaw[13] = document.getElementById(
-    'faronTwilightCheckbox'
-  ).checked;
-  settingsStringRaw[14] = document.getElementById(
-    'eldinTwilightCheckbox'
-  ).checked;
-  settingsStringRaw[15] = document.getElementById(
-    'lanayruTwilightCheckbox'
-  ).checked;
-  settingsStringRaw[16] = document.getElementById(
-    'skipMinorCutscenesCheckbox'
-  ).checked;
-  settingsStringRaw[17] = document.getElementById('fastIBCheckbox').checked;
-  settingsStringRaw[18] = document.getElementById(
-    'quickTransformCheckbox'
-  ).checked;
-  settingsStringRaw[19] = document.getElementById(
-    'transformAnywhereCheckbox'
-  ).checked;
-  settingsStringRaw[20] =
-    document.getElementById('trapItemFieldset').selectedIndex;
-  var listItem = document
-    .getElementById('baseImportantItemsListbox')
-    .getElementsByTagName('input');
-  var options = [];
-  for (var i = 0; i < listItem.length; i++) {
-    if (listItem[i].checked)
-      options.push(listItem[i].getAttribute('data-itemId'));
-  }
-  settingsStringRaw[21] = options;
-  listItem = document
-    .getElementById('baseExcludedChecksListbox')
-    .getElementsByTagName('input');
-  options = [];
-  for (var i = 0; i < listItem.length; i++) {
-    if (listItem[i].checked)
-      options.push(listItem[i].getAttribute('data-checkId'));
-  }
-  settingsStringRaw[22] = options;
-  // settingsStringRaw[23] =
-  //   document.getElementById('tunicColorFieldset').selectedIndex;
-  // settingsStringRaw[24] = document.getElementById(
-  //   'midnaHairColorFieldset'
-  // ).selectedIndex;
-
-  settingsStringRaw[25] = document.getElementById(
-    'hiddenSkillsCheckbox'
-  ).checked;
-  settingsStringRaw[26] = document.getElementById(
-    'skyCharacterCheckbox'
-  ).checked;
-  settingsStringRaw[27] =
-    document.getElementById('seedNumberFieldset').selectedIndex;
-  settingsStringRaw[28] =
-    document.getElementById('walletSizeFieldset').selectedIndex;
-  settingsStringRaw[29] = document.getElementById(
-    'modifyShopModelsCheckbox'
-  ).checked;
-  settingsStringRaw[30] = document.getElementById('barrenCheckbox').checked;
-
-  settingsStringRaw[31] = document.getElementById(
-    'goronMinesEntranceFieldset'
-  ).selectedIndex;
-  settingsStringRaw[32] = document.getElementById(
-    'lakebedEntranceCheckbox'
-  ).checked;
-  settingsStringRaw[33] = document.getElementById(
-    'arbitersEntranceCheckbox'
-  ).checked;
-  settingsStringRaw[34] = document.getElementById(
-    'snowpeakEntranceCheckbox'
-  ).checked;
-  settingsStringRaw[35] = document.getElementById(
-    'totEntranceFieldset'
-  ).selectedIndex;
-  settingsStringRaw[36] = document.getElementById(
-    'cityEntranceCheckbox'
-  ).checked;
-  settingsStringRaw[37] = document.getElementById(
-    'instantTextCheckbox'
-  ).checked;
-  settingsStringRaw[38] = document.getElementById('openMapCheckbox').checked;
-  settingsStringRaw[39] = document.getElementById(
-    'spinnerSpeedCheckbox'
-  ).checked;
-  settingsStringRaw[40] = document.getElementById('openDotCheckbox').checked;
-  // document.getElementById('settingsStringTextbox').value =
-  document.getElementById('settingsStringTextbox').textContent =
-    getSettingsString(settingsStringRaw);
-
   const combinedSettingsString = window.tpr.shared.genSSettingsFromUi();
   document.getElementById('combinedSettingsString').textContent =
     combinedSettingsString;
 
-  $('#presetsSelect').val('').trigger('change');
+  presetsMgr.checkClearSelect(combinedSettingsString);
 
   return combinedSettingsString;
 }
@@ -1941,6 +1838,7 @@ function initSavePresetModal() {
   const $fieldErrorText = $('#savePresetModal-nameError');
   const $error = $('#savePresetModal-error');
   const input = document.getElementById('savePresetModal-nameInput');
+  const descInput = document.getElementById('savePresetModal-descInput');
   const $presetSelect = $('#savePresetModal-selectPreset');
   const $nameInputBlock = $('#savePresetModal-nameInputBlock');
   const $warning = $('#savePresetModal-warning');
@@ -2025,10 +1923,14 @@ function initSavePresetModal() {
   input.addEventListener('input', () => {
     hideErrors();
   });
+  descInput.addEventListener('input', () => {
+    hideErrors();
+  });
 
   // When the user clicks the button, open the modal
   btn.addEventListener('click', () => {
     input.value = '';
+    descInput.value = '';
     handlePresetChange($presetSelect.val());
 
     $modal.show();
@@ -2066,7 +1968,7 @@ function initSavePresetModal() {
 
       const success = presetsMgr.savePreset({
         name,
-        description: '',
+        description: descInput.value.trim(),
         origCommit: $('#envGitCommit').val(),
         origSettingsStr: $('#combinedSettingsString').text().trim(),
       });
@@ -2616,26 +2518,21 @@ function updatePresetsSelect(defaultToValue) {
     }
   }
 
-  let skipListener = false;
-
   function handleChange(e) {
-    if (skipListener) {
+    const val = e.target.value;
+    const matchedPrevValue =
+      presetsMgr.state.prevValue !== undefined &&
+      presetsMgr.state.prevValue === val;
+    presetsMgr.state.prevValue = val;
+    if (matchedPrevValue) {
       return;
     }
 
-    const val = e.target.value;
     if (val) {
       const error = presetsMgr.loadSettings(val);
       if (error) {
         showPresetToast('Failed to load preset', true);
       }
-
-      // Changing settings in the UI will always reset the presets select, so
-      // change its value back to the selection without triggering another
-      // load.
-      skipListener = true;
-      $select.val(val).trigger('change');
-      skipListener = false;
     }
   }
 
