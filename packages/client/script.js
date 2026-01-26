@@ -1780,7 +1780,13 @@ function initManagePresetsModal() {
     } else {
       $modal.hide();
       showPresetToast('Successfully updated preset');
-      updatePresetsSelect();
+
+      const currVal = $('#presetsSelect').val();
+      if (currVal && currVal === selectedPresetName) {
+        updatePresetsSelect(name);
+      } else {
+        updatePresetsSelect();
+      }
     }
   });
 
