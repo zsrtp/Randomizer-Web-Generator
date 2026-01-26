@@ -10,7 +10,9 @@ html {
 }
 
 body {
-  font-family: Segoe UI, Arial;
+  font-family:
+    Segoe UI,
+    Arial;
   color: white;
   /* color: rgba(255, 255, 255, 0.9); */
 
@@ -490,14 +492,17 @@ ul {
   min-width: 64px;
   padding: 6px 16px;
   border-radius: 4px;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+  transition:
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   color: rgba(0, 0, 0, 0.87);
   background-color: rgb(144, 202, 249);
-  box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
-    rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+  box-shadow:
+    rgb(0 0 0 / 20%) 0px 3px 1px -2px,
+    rgb(0 0 0 / 14%) 0px 2px 2px 0px,
+    rgb(0 0 0 / 12%) 0px 1px 5px 0px;
 
   border-radius: 9999px;
   /* background-color: #311b92; */
@@ -521,8 +526,10 @@ ul {
 }
 
 .primaryButton.primaryButtonNoShadow:hover {
-  box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
-    rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+  box-shadow:
+    rgb(0 0 0 / 20%) 0px 3px 1px -2px,
+    rgb(0 0 0 / 14%) 0px 2px 2px 0px,
+    rgb(0 0 0 / 12%) 0px 1px 5px 0px;
 }
 
 .secondaryButton {
@@ -551,7 +558,8 @@ ul {
   min-width: 64px;
   padding: 5px 15px;
   border-radius: 4px;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+  transition:
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -1007,9 +1015,13 @@ table.getSeedTable td {
   background-color: #fff;
   background-color: var(--mdc-theme-surface, #fff);
   position: relative;
-  -webkit-box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%),
-    0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
-  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+  -webkit-box-shadow:
+    0 2px 1px -1px rgb(0 0 0 / 20%),
+    0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 1px 3px 0 rgb(0 0 0 / 12%);
+  box-shadow:
+    0 2px 1px -1px rgb(0 0 0 / 20%),
+    0 1px 1px 0 rgb(0 0 0 / 14%),
     0 1px 3px 0 rgb(0 0 0 / 12%);
   display: -webkit-box;
   display: -webkit-flex;
@@ -1025,9 +1037,11 @@ table.getSeedTable td {
   border-radius: 8px;
   background-color: #fff;
   border-width: 0;
-  -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
+  -webkit-box-shadow:
+    0 1px 2px 0 rgb(60 64 67 / 30%),
     0 1px 3px 1px rgb(60 64 67 / 15%);
-  box-shadow: 0 1px 2px 0rgba (60, 64, 67, 0.3),
+  box-shadow:
+    0 1px 2px 0rgba (60, 64, 67, 0.3),
     0 1px 3px 1pxrgba (60, 64, 67, 0.15);
 }
 
@@ -1270,10 +1284,14 @@ table.picrossTable {
 
   /* box-shadow: 0px 0px 5px 3px red inset; */
 
-  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+  box-shadow:
+    0 5px 5px -3px rgb(0 0 0 / 20%),
+    0 8px 10px 1px rgb(0 0 0 / 14%),
     0 3px 14px 2px rgb(0 0 0 / 12%);
 
-  box-shadow: 0 5px 5px 3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+  box-shadow:
+    0 5px 5px 3px rgb(0 0 0 / 20%),
+    0 8px 10px 1px rgb(0 0 0 / 14%),
     0 3px 14px 2px rgb(0 0 0 / 12%) inset;
 
   box-shadow: 0 0 5px 3px rgb(0 0 0 / 20%) inset;
@@ -1717,6 +1735,7 @@ table.settingsTable > tbody > tr:nth-child(even) {
   white-space: pre-wrap;
   max-width: 30%;
   overflow-y: auto;
+  overflow-wrap: break-word;
 }
 
 .col-l40 {
@@ -1775,7 +1794,9 @@ header {
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
-  font-family: Segoe UI, Arial;
+  font-family:
+    Segoe UI,
+    Arial;
 }
 
 header .logo {

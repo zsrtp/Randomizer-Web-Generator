@@ -54,17 +54,20 @@ const presetsMgr = (function () {
       name: 'Season 1',
       origSettingsStr:
         '6sQ4N2kPC__6KD2P2001W4-WGoGZp9u-VBvHQDHgDJ3kVo_TBfTBfTBfS3WS3WS3WS3WS3WS3WS3WS7_9qFIkOqWm6L9Co18n03x7bhmS4Lg6KML15o3Ps6AJz-dWVb-4hNuddzVnQd1JKSXnPLsJnEv5IESKc58H96WE9TOmPB4RK7FWg2rT4cZJ6H9XT1r20BFueo0OjK7QSnHZQPTH1bTPstSJXIZ19nfIAO8wIG9GJN6QqarDCWx0j5fQmOJjq3H3WtZb2X_YcI5dpBDqXYM13_m',
-      description: '',
+      description:
+        'Season 1 tournament settings. Good for a quick seed or to learn racing basics.',
     },
     {
       name: 'Season 1.5',
       origSettingsStr:
-        '6sg5v2kPC_v6L92PDQG1W46GmoGZp9u-VBvHQDHgDJ3kVmxT3fTBfTBfTBXS3WS3WS3WS3WS3WS3WS3WS7_9qFIk5HZI30PKap84k2CG0-nvQy715QXb44N9-dvVXVYUVr_5gJKSXnPLsM3Aj53hR0ZLXEyyJkHLeWQHO4YESKc58H96WE9TOmPB4RK7FWg2rT4cZJ6H9XT1r20BFueo0OjK7QSnHZQPTH1bTjt4uKemISQKYc2Eaa2K4rncj9DJJ8EmBHQMi67GD4E3UELtdVVv8MVCitI69O4F_WW2ai2cw36M2dA36y31m2kW2Yq31Q3AK39m3A82ik2gC2kO2eg2dY2ig2ZY33a2fg2ha3883DW3ee37M35M2i62_-',
-      description: '',
+        '6sI5x2kPC_v6L92PDQG1W46GmoGZp9u-VBvHQDHgDJ3kVmxNxeTBfTBfTBfSBWS3WS3WS3WS3WS3WS3WS3W_vEXwLmgCQGO3AacP0bmHY07sFBNWu8hKCeWYvFq_ByByJp-lujIQZaEBAkomPLeeTRO4Qi9tdYToAj43IB0aHpYamf298q1nBh639OZQWvy5GMheaqQOo9CBeEeG1P_56G35gWxJcACRJBg8Chjkud2b62JZIaKmHqaWIWckCrf9gQP1s1QBIrWmw1eXmRnokyxx_92pvbcwGnB0X_y40KbWKtGOomKvGOtWOE0Lq0KMWOBGPIWPE0PH0LbmLHWLp0L5GKyGLbGKSGOSWLDGLSWP10Pi0T50OwmOgmLWmN_m',
+      description:
+        'Temporary test settings. Will be replaced with Season 2 once it is ready.',
     },
   ];
 
   let inited = false;
+  let loadSettingsInProgress = false;
   let customByName = {};
 
   function init() {
@@ -109,6 +112,20 @@ const presetsMgr = (function () {
     };
   }
 
+  function getPresetByName(name) {
+    if (customByName[name]) {
+      return Object.assign({}, customByName[name]);
+    } else {
+      for (let i = 0; i < SYSTEM_PRESETS.length; i++) {
+        const systemPreset = SYSTEM_PRESETS[i];
+        if (systemPreset.name === name) {
+          return Object.assign({}, systemPreset);
+        }
+      }
+    }
+    return null;
+  }
+
   function isNameTaken(name) {
     if (customByName[name]) {
       return 'custom';
@@ -122,20 +139,27 @@ const presetsMgr = (function () {
     return '';
   }
 
-  function savePreset({
-    name,
-    description,
-    origSettingsStr,
-    origCommit,
-    latestSettingsStr,
-  }) {
-    customByName[name] = {
-      name,
-      description,
-      origSettingsStr,
-      origCommit,
-      latestSettingsStr,
-    };
+  function savePreset(diff) {
+    if (!diff.name) {
+      throw new Error(`Expected diff.name, but was ${diff.name}.`);
+    }
+    const prevObj = customByName[diff.name] || {};
+
+    const allowedProperties = [
+      'name',
+      'description',
+      'origSettingsStr',
+      'origCommit',
+      'latestSettingsStr',
+    ];
+    const newDiff = {};
+    allowedProperties.forEach((prop) => {
+      if (diff[prop] !== undefined) {
+        newDiff[prop] = diff[prop];
+      }
+    });
+
+    customByName[diff.name] = Object.assign({}, prevObj, newDiff);
 
     // Try to write to localStorage
     try {
@@ -231,6 +255,7 @@ const presetsMgr = (function () {
   }
 
   function loadSettings(name) {
+    loadSettingsInProgress = true;
     let settingsStr = '';
 
     if (customByName[name]) {
@@ -251,6 +276,7 @@ const presetsMgr = (function () {
     }
 
     const error = populateFromSettingsString(settingsStr);
+    loadSettingsInProgress = false;
     return error;
   }
 
@@ -293,9 +319,24 @@ const presetsMgr = (function () {
     }
   }
 
+  function checkClearSelect(settingsString) {
+    if (loadSettingsInProgress) {
+      return;
+    }
+    const name = getNameForSettingsString(settingsString);
+    if (!name) {
+      $('#presetsSelect').val(null).trigger('change.select2');
+    }
+  }
+
   return {
+    state: {
+      prevValue: undefined,
+      cleanupFn: null,
+    },
     init,
     getPresetsByType,
+    getPresetByName,
     isNameTaken,
     savePreset,
     renamePreset,
@@ -303,6 +344,7 @@ const presetsMgr = (function () {
     loadSettings,
     getDebugStr,
     getNameForSettingsString,
+    checkClearSelect,
   };
 })();
 
@@ -402,6 +444,55 @@ function initTabButtons() {
   });
 }
 
+function initSelect2(id, select2Options) {
+  const sel2Options = Object.assign(
+    {
+      // width: 'style',
+      minimumResultsForSearch: -1,
+      templateResult(data, container) {
+        // Try to init tooltip on rendered option
+        if (data.element) {
+          const tooltipText = data.element.getAttribute('data-tooltip-text');
+          if (tooltipText) {
+            container.setAttribute('data-tooltip-text', tooltipText);
+            window.initTooltipsInTree(container, {
+              fadeInDelay: 0,
+              extraPadding: 20,
+            });
+          }
+        }
+
+        return data.text;
+      },
+    },
+    select2Options
+  );
+
+  const $el = $(`#${id}`);
+
+  function handleClosing() {
+    window.removeTooltips();
+  }
+
+  $el.select2(sel2Options).on('select2:closing', handleClosing);
+
+  var select2Container = $el.data('select2').$container[0];
+  if (select2Container) {
+    const tooltipText = $el[0].getAttribute('data-tooltip-text');
+    if (tooltipText) {
+      select2Container.setAttribute('data-tooltip-text', tooltipText);
+      window.initTooltipsInTree(select2Container, {
+        // fadeInDelay: 0,
+        extraPadding: 20,
+      });
+    }
+  }
+
+  return function cleanup() {
+    $el.select2(sel2Options).off('select2:closing', handleClosing);
+  };
+}
+
 let showGeneratingModal; // fn
 let hideGeneratingModal; // fn
 let showGeneratingModalError; // fn
@@ -424,8 +515,6 @@ function onDomContentLoaded() {
   initTabButtons();
   presetsMgr.init();
 
-  // Set default settings string in UI.
-  const defaultSettingsString = setSettingsString();
   setDungeonERSettings();
   setOverworldERSettings();
   // If returning back from the seed page, the browser will fill in the state.
@@ -483,6 +572,7 @@ function onDomContentLoaded() {
   $('#plandoItemSelect').select2();
 
   updatePresetsSelect();
+  window.initTooltipsInTree(document);
 }
 
 function buildPlandoListItemElStr(checkId, checkName, itemId, itemName) {
@@ -972,129 +1062,11 @@ function setDungeonERSettings() {
 }
 
 function setSettingsString() {
-  var settingsStringRaw = [];
-  settingsStringRaw[0] =
-    document.getElementById('logicRulesFieldset').selectedIndex;
-  settingsStringRaw[1] = document.getElementById(
-    'castleRequirementsFieldset'
-  ).selectedIndex;
-  settingsStringRaw[2] = document.getElementById(
-    'palaceRequirementsFieldset'
-  ).selectedIndex;
-  settingsStringRaw[3] =
-    document.getElementById('faronLogicFieldset').selectedIndex;
-  settingsStringRaw[4] = document.getElementById('mdhCheckbox').checked;
-  settingsStringRaw[5] = document.getElementById('introCheckbox').checked;
-  settingsStringRaw[6] =
-    document.getElementById('smallKeyFieldset').selectedIndex;
-  settingsStringRaw[7] =
-    document.getElementById('bigKeyFieldset').selectedIndex;
-  settingsStringRaw[8] = document.getElementById(
-    'mapAndCompassFieldset'
-  ).selectedIndex;
-  settingsStringRaw[9] = document.getElementById('goldenBugsCheckbox').checked;
-  settingsStringRaw[10] = document.getElementById(
-    'poeSettingsFieldset'
-  ).selectedIndex;
-  settingsStringRaw[11] = document.getElementById(
-    'giftsFromNPCsCheckbox'
-  ).checked;
-  settingsStringRaw[12] = document.getElementById('shopItemsCheckbox').checked;
-  settingsStringRaw[13] = document.getElementById(
-    'faronTwilightCheckbox'
-  ).checked;
-  settingsStringRaw[14] = document.getElementById(
-    'eldinTwilightCheckbox'
-  ).checked;
-  settingsStringRaw[15] = document.getElementById(
-    'lanayruTwilightCheckbox'
-  ).checked;
-  settingsStringRaw[16] = document.getElementById(
-    'skipMinorCutscenesCheckbox'
-  ).checked;
-  settingsStringRaw[17] = document.getElementById('fastIBCheckbox').checked;
-  settingsStringRaw[18] = document.getElementById(
-    'quickTransformCheckbox'
-  ).checked;
-  settingsStringRaw[19] = document.getElementById(
-    'transformAnywhereCheckbox'
-  ).checked;
-  settingsStringRaw[20] =
-    document.getElementById('trapItemFieldset').selectedIndex;
-  var listItem = document
-    .getElementById('baseImportantItemsListbox')
-    .getElementsByTagName('input');
-  var options = [];
-  for (var i = 0; i < listItem.length; i++) {
-    if (listItem[i].checked)
-      options.push(listItem[i].getAttribute('data-itemId'));
-  }
-  settingsStringRaw[21] = options;
-  listItem = document
-    .getElementById('baseExcludedChecksListbox')
-    .getElementsByTagName('input');
-  options = [];
-  for (var i = 0; i < listItem.length; i++) {
-    if (listItem[i].checked)
-      options.push(listItem[i].getAttribute('data-checkId'));
-  }
-  settingsStringRaw[22] = options;
-  // settingsStringRaw[23] =
-  //   document.getElementById('tunicColorFieldset').selectedIndex;
-  // settingsStringRaw[24] = document.getElementById(
-  //   'midnaHairColorFieldset'
-  // ).selectedIndex;
-
-  settingsStringRaw[25] = document.getElementById(
-    'hiddenSkillsCheckbox'
-  ).checked;
-  settingsStringRaw[26] = document.getElementById(
-    'skyCharacterCheckbox'
-  ).checked;
-  settingsStringRaw[27] =
-    document.getElementById('seedNumberFieldset').selectedIndex;
-  settingsStringRaw[28] =
-    document.getElementById('walletSizeFieldset').selectedIndex;
-  settingsStringRaw[29] = document.getElementById(
-    'modifyShopModelsCheckbox'
-  ).checked;
-  settingsStringRaw[30] = document.getElementById('barrenCheckbox').checked;
-
-  settingsStringRaw[31] = document.getElementById(
-    'goronMinesEntranceFieldset'
-  ).selectedIndex;
-  settingsStringRaw[32] = document.getElementById(
-    'lakebedEntranceCheckbox'
-  ).checked;
-  settingsStringRaw[33] = document.getElementById(
-    'arbitersEntranceCheckbox'
-  ).checked;
-  settingsStringRaw[34] = document.getElementById(
-    'snowpeakEntranceCheckbox'
-  ).checked;
-  settingsStringRaw[35] = document.getElementById(
-    'totEntranceFieldset'
-  ).selectedIndex;
-  settingsStringRaw[36] = document.getElementById(
-    'cityEntranceCheckbox'
-  ).checked;
-  settingsStringRaw[37] = document.getElementById(
-    'instantTextCheckbox'
-  ).checked;
-  settingsStringRaw[38] = document.getElementById('openMapCheckbox').checked;
-  settingsStringRaw[39] = document.getElementById(
-    'spinnerSpeedCheckbox'
-  ).checked;
-  settingsStringRaw[40] = document.getElementById('openDotCheckbox').checked;
-  // document.getElementById('settingsStringTextbox').value =
-  document.getElementById('settingsStringTextbox').textContent =
-    getSettingsString(settingsStringRaw);
-
   const combinedSettingsString = window.tpr.shared.genSSettingsFromUi();
   document.getElementById('combinedSettingsString').textContent =
     combinedSettingsString;
 
-  $('#presetsSelect').val('').trigger('change');
+  presetsMgr.checkClearSelect(combinedSettingsString);
 
   return combinedSettingsString;
 }
@@ -1742,8 +1714,7 @@ function initManagePresetsModal() {
     }
 
     setPage('edit');
-    $('#managePresetsModal-editInfo').text(`Editing "${selectedPresetName}"`);
-    console.log(`selectedPresetName: "${selectedPresetName}"`);
+    $('#managePresetsModal-editInfo').text(`Renaming "${selectedPresetName}"`);
     nameInput.value = selectedPresetName;
     nameInput.focus();
     $nameInputError.hide();
@@ -1809,7 +1780,13 @@ function initManagePresetsModal() {
     } else {
       $modal.hide();
       showPresetToast('Successfully updated preset');
-      updatePresetsSelect();
+
+      const currVal = $('#presetsSelect').val();
+      if (currVal && currVal === selectedPresetName) {
+        updatePresetsSelect(name);
+      } else {
+        updatePresetsSelect();
+      }
     }
   });
 
@@ -1890,6 +1867,7 @@ function initSavePresetModal() {
   const $fieldErrorText = $('#savePresetModal-nameError');
   const $error = $('#savePresetModal-error');
   const input = document.getElementById('savePresetModal-nameInput');
+  const descInput = document.getElementById('savePresetModal-descInput');
   const $presetSelect = $('#savePresetModal-selectPreset');
   const $nameInputBlock = $('#savePresetModal-nameInputBlock');
   const $warning = $('#savePresetModal-warning');
@@ -1910,7 +1888,15 @@ function initSavePresetModal() {
         $warning.text(
           `This will overwrite your custom preset "${optionText}"!`
         );
+        const preset = presetsMgr.getPresetByName(optionText);
+        if (preset) {
+          descInput.value = preset.description || '';
+        } else {
+          descInput.value = '';
+        }
       }
+    } else {
+      descInput.value = '';
     }
   }
 
@@ -1974,10 +1960,14 @@ function initSavePresetModal() {
   input.addEventListener('input', () => {
     hideErrors();
   });
+  descInput.addEventListener('input', () => {
+    hideErrors();
+  });
 
   // When the user clicks the button, open the modal
   btn.addEventListener('click', () => {
     input.value = '';
+    descInput.value = '';
     handlePresetChange($presetSelect.val());
 
     $modal.show();
@@ -2013,12 +2003,14 @@ function initSavePresetModal() {
         }
       }
 
-      const success = presetsMgr.savePreset({
+      const presetDiff = {
         name,
-        description: '',
+        description: descInput.value.trim(),
         origCommit: $('#envGitCommit').val(),
         origSettingsStr: $('#combinedSettingsString').text().trim(),
-      });
+      };
+
+      const success = presetsMgr.savePreset(presetDiff);
       if (success) {
         updatePresetsSelect(name);
         $modal.hide();
@@ -2524,7 +2516,16 @@ function updatePresetsSelect(defaultToValue) {
   const $select = $('#presetsSelect');
 
   if ($select.data('select2')) {
-    $select.select2('destroy').off('change', handleChange);
+    $select
+      .select2('destroy')
+      .off('change', handleChange)
+      .off('select2:unselecting', handleUnselecting)
+      .off('select2:opening', handleOpening);
+
+    if (presetsMgr.state.cleanupFn) {
+      presetsMgr.state.cleanupFn();
+      presetsMgr.state.cleanupFn = null;
+    }
   }
 
   const presetsByType = presetsMgr.getPresetsByType();
@@ -2549,6 +2550,9 @@ function updatePresetsSelect(defaultToValue) {
       const preset = presets[i];
       const option = document.createElement('option');
       option.setAttribute('value', preset.name);
+      if (preset.description) {
+        option.setAttribute('data-tooltip-text', preset.description);
+      }
       option.textContent = preset.name;
       optGroup.append(option);
     }
@@ -2558,41 +2562,49 @@ function updatePresetsSelect(defaultToValue) {
     }
   }
 
-  let skipListener = false;
-
   function handleChange(e) {
-    if (skipListener) {
+    const val = e.target.value;
+    const matchedPrevValue =
+      presetsMgr.state.prevValue !== undefined &&
+      presetsMgr.state.prevValue === val;
+    presetsMgr.state.prevValue = val;
+    if (matchedPrevValue) {
       return;
     }
 
-    const val = e.target.value;
     if (val) {
       const error = presetsMgr.loadSettings(val);
       if (error) {
         showPresetToast('Failed to load preset', true);
       }
-
-      // Changing settings in the UI will always reset the presets select, so
-      // change its value back to the selection without triggering another
-      // load.
-      skipListener = true;
-      $select.val(val).trigger('change');
-      skipListener = false;
     }
   }
 
+  function handleUnselecting() {
+    $(this).data('unselecting', true);
+  }
+
+  function handleOpening(e) {
+    const $this = $(this);
+    if ($this.data('unselecting')) {
+      $this.removeData('unselecting');
+      e.preventDefault();
+    }
+  }
+
+  presetsMgr.state.cleanupFn = initSelect2('presetsSelect', {
+    allowClear: true,
+    default: null,
+    placeholder: 'Select preset',
+  });
+
   $select
-    .select2({
-      allowClear: true,
-      default: null,
-      placeholder: 'Select preset',
-    })
-    .on('change', handleChange);
+    .on('change', handleChange)
+    .on('select2:unselecting', handleUnselecting)
+    .on('select2:opening', handleOpening);
 
   // For showing newly created custom option as the current selection.
   if (defaultToValue) {
-    skipListener = true;
     $select.val(defaultToValue).trigger('change');
-    skipListener = false;
   }
 }

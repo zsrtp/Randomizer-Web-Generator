@@ -1437,14 +1437,24 @@
         </div>
 
         <div id="savePresetModal-nameInputBlock">
-          <div class="settingsStringLabel settingsStringLabelLight">
-            Preset name
-          </div>
+          <div class="settingsStringLabel settingsStringLabelLight">Name</div>
           <input
             id="savePresetModal-nameInput"
             type="text"
             class="modalSettingsStringInput"
             maxlength="50"
+          />
+        </div>
+
+        <div id="savePresetModal-descInputBlock">
+          <div class="settingsStringLabel settingsStringLabelLight">
+            Description
+          </div>
+          <input
+            id="savePresetModal-descInput"
+            type="text"
+            class="modalSettingsStringInput"
+            maxlength="200"
           />
         </div>
 
@@ -1504,7 +1514,7 @@
           ></div>
 
           <div class="modalButtonsWrapper">
-            <button id="managePresetsModal-edit" type="button">Edit</button>
+            <button id="managePresetsModal-edit" type="button">Rename</button>
             <button
               id="managePresetsModal-delete"
               type="button"
@@ -1530,7 +1540,7 @@
 
         <div id="managePresetsModal-pageEdit" style="display: none">
           <div id="managePresetsModal-editInfo" style="margin-bottom: 24px">
-            Editing "name"
+            Renaming "name"
           </div>
 
           <div>
