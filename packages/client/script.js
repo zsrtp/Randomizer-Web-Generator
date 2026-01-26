@@ -52,6 +52,13 @@ const presetsMgr = (function () {
       description: 'This preset is just commonly used settings when running/racing a no logic seed.',
     },
     {
+      name: 'Season 1',
+      origSettingsStr:
+        '6sQ4N2kPC__6KD2P2001W4-WGoGZp9u-VBvHQDHgDJ3kVo_TBfTBfTBfS3WS3WS3WS3WS3WS3WS3WS7_9qFIkOqWm6L9Co18n03x7bhmS4Lg6KML15o3Ps6AJz-dWVb-4hNuddzVnQd1JKSXnPLsJnEv5IESKc58H96WE9TOmPB4RK7FWg2rT4cZJ6H9XT1r20BFueo0OjK7QSnHZQPTH1bTPstSJXIZ19nfIAO8wIG9GJN6QqarDCWx0j5fQmOJjq3H3WtZb2X_YcI5dpBDqXYM13_m',
+      description:
+        'Season 1 tournament settings. Good for a quick seed or to learn racing basics.',
+    },
+    {
       name: 'Season 1.5',
       origSettingsStr:
         '6sI5x2kPC_v6L92PDQG1W46GmoGZp9u-VBvHQDHgDJ3kVmxNxeTBfTBfTBfSBWS3WS3WS3WS3WS3WS3WS3W_vEXwLmgCQGO3AacP0bmHY07sFBNWu8hKCeWYvFq_ByByJp-lujIQZaEBAkomPLeeTRO4Qi9tdYToAj43IB0aHpYamf298q1nBh639OZQWvy5GMheaqQOo9CBeEeG1P_56G35gWxJcACRJBg8Chjkud2b62JZIaKmHqaWIWckCrf9gQP1s1QBIrWmw1eXmRnokyxx_92pvbcwGnB0X_y40KbWKtGOomKvGOtWOE0Lq0KMWOBGPIWPE0PH0LbmLHWLp0L5GKyGLbGKSGOSWLDGLSWP10Pi0T50OwmOgmLWmN_m',
