@@ -7,55 +7,49 @@ const presetsMgr = (function () {
   const SYSTEM_PRESETS = [
     {
       name: 'Default',
-      origSettingsStr: '6s1M9m000201W21600109z3__-',
+      origSettingsStr: '6sfN9m000201W216000W4-WN__y',
       description:
         'Aimed towards players who may have played the vanilla game but are not as familiar with the world. No timesavers are enabled and only the absolute minimum amount of checks are randomized.',
     },
     {
       name: 'Easy',
-      origSettingsStr: '6s1M9m80W201W21701109z3__-',
+      origSettingsStr: '6s9g9gn9_V01W218000W4-WN_NvUpwJ0dd1OTYrGTeol_0',
       description:
         'Aimed towards players who are familiar with randomizers and want a little more randomness. Many of the story timesavers are skipped and the world is much more random. A number of time-intensive checks are excluded.',
     },
     {
       name: 'Experienced',
-      origSettingsStr: '6s1M3m80W201W21701109z3__-',
+      origSettingsStr: '6sfQ9lxS_R9nq216000W4-WGoUV__y',
       description:
         'These settings are aimed towards players who have a lot of seeds under their belt and are looking for a new challenge. A majority of timesavers are enabled, all check types are randomized, and no checks are excluded.',
     },
     {
+      name: 'Full Randomness',
+      origSettingsStr: '6sfN4lxR_V81i2X9W7Y04-WN__y',
+      description:
+        'These settings are for those who want the full randomizer experience: all possible checks randomized, entrance rando, and a majority of timesavers enabled. No fluff, just rando.',
+    },
+    {
+      name: 'Quick and Easy',
+      origSettingsStr: '6sfv029C_V6yT2fAO00W502GoGZp7u_8188YG5WxLolNxeU__NudbG3bsYc_y',
+      description:
+        'These settings are for those who want a quick seed that requires less searching and more playing.',
+    },
+    {
       name: 'Nightmare',
-      origSettingsStr: '6s1M9m000201W21600109z3__-',
+      origSettingsStr: '6sHP6lxS_PW0iB81WNaJm-WGo___W',
       description:
         'These settings are designed to cause pain. Everything is randomized and settings such as One-Hit-KO, Bonks Do Damage, and Nightmare trap items are enabled. These seeds rely on glitchless logic to be beatable. Good luck.',
     },
     {
-      name: 'Nightmare²',
-      origSettingsStr: '6s1M9m000201W21600109z3__-',
-      description:
-        'Was the previous Nightmare setting too easy for you? These settings take things to the next level by setting the logical requirements to Glitched.',
-    },
-    {
-      name: 'Bingo',
-      origSettingsStr: '6s1M9m000201W21600109z3__-',
-      description: '',
-    },
-    {
       name: 'Glitched',
-      origSettingsStr: '6s1M9m000201W21600109z3__-',
-      description: '',
+      origSettingsStr: '6sHPKlxS_R11i298002Ku-WGo___W',
+      description: 'This preset is just commonly used settings when running/racing a glitched seed.',
     },
     {
       name: 'No Logic',
-      origSettingsStr: '',
-      description: '',
-    },
-    {
-      name: 'Season 1',
-      origSettingsStr:
-        '6sQ4N2kPC__6KD2P2001W4-WGoGZp9u-VBvHQDHgDJ3kVo_TBfTBfTBfS3WS3WS3WS3WS3WS3WS3WS7_9qFIkOqWm6L9Co18n03x7bhmS4Lg6KML15o3Ps6AJz-dWVb-4hNuddzVnQd1JKSXnPLsJnEv5IESKc58H96WE9TOmPB4RK7FWg2rT4cZJ6H9XT1r20BFueo0OjK7QSnHZQPTH1bTPstSJXIZ19nfIAO8wIG9GJN6QqarDCWx0j5fQmOJjq3H3WtZb2X_YcI5dpBDqXYM13_m',
-      description:
-        'Season 1 tournament settings. Good for a quick seed or to learn racing basics.',
+      origSettingsStr: '6sfWbFxS_VM4O21AW0204-WGoUQG7QkN___y',
+      description: 'This preset is just commonly used settings when running/racing a no logic seed.',
     },
     {
       name: 'Season 1.5',
