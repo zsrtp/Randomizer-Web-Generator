@@ -1712,8 +1712,7 @@ function initManagePresetsModal() {
     }
 
     setPage('edit');
-    $('#managePresetsModal-editInfo').text(`Editing "${selectedPresetName}"`);
-    console.log(`selectedPresetName: "${selectedPresetName}"`);
+    $('#managePresetsModal-editInfo').text(`Renaming "${selectedPresetName}"`);
     nameInput.value = selectedPresetName;
     nameInput.focus();
     $nameInputError.hide();
