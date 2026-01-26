@@ -110,6 +110,20 @@ const presetsMgr = (function () {
     };
   }
 
+  function getPresetByName(name) {
+    if (customByName[name]) {
+      return Object.assign({}, customByName[name]);
+    } else {
+      for (let i = 0; i < SYSTEM_PRESETS.length; i++) {
+        const systemPreset = SYSTEM_PRESETS[i];
+        if (systemPreset.name === name) {
+          return Object.assign({}, systemPreset);
+        }
+      }
+    }
+    return null;
+  }
+
   function isNameTaken(name) {
     if (customByName[name]) {
       return 'custom';
@@ -320,6 +334,7 @@ const presetsMgr = (function () {
     },
     init,
     getPresetsByType,
+    getPresetByName,
     isNameTaken,
     savePreset,
     renamePreset,
@@ -1848,7 +1863,6 @@ function initSavePresetModal() {
   const descInput = document.getElementById('savePresetModal-descInput');
   const $presetSelect = $('#savePresetModal-selectPreset');
   const $nameInputBlock = $('#savePresetModal-nameInputBlock');
-  const $descInputBlock = $('#savePresetModal-descInputBlock');
   const $warning = $('#savePresetModal-warning');
 
   let newPresetValue = null;
@@ -1856,7 +1870,6 @@ function initSavePresetModal() {
   function handlePresetChange(optionValue) {
     const newPresetSelected = optionValue === newPresetValue;
     $nameInputBlock.toggle(newPresetSelected);
-    $descInputBlock.toggle(newPresetSelected);
     $warning.toggle(!newPresetSelected);
     hideErrors();
 
@@ -1868,7 +1881,15 @@ function initSavePresetModal() {
         $warning.text(
           `This will overwrite your custom preset "${optionText}"!`
         );
+        const preset = presetsMgr.getPresetByName(optionText);
+        if (preset) {
+          descInput.value = preset.description || '';
+        } else {
+          descInput.value = '';
+        }
       }
+    } else {
+      descInput.value = '';
     }
   }
 
@@ -1964,11 +1985,9 @@ function initSavePresetModal() {
       hideErrors();
 
       let name = $presetSelect.val();
-      let desc = undefined;
       if (name === newPresetValue) {
         // Saving new preset. Otherwise we're updating an existing one.
         name = input.value.trim();
-        desc = descInput.value.trim();
 
         const nameError = validatePresetName(name);
         if (nameError) {
@@ -1979,12 +1998,10 @@ function initSavePresetModal() {
 
       const presetDiff = {
         name,
+        description: descInput.value.trim(),
         origCommit: $('#envGitCommit').val(),
         origSettingsStr: $('#combinedSettingsString').text().trim(),
       };
-      if (desc != null) {
-        presetDiff.description = desc;
-      }
 
       const success = presetsMgr.savePreset(presetDiff);
       if (success) {
@@ -2492,7 +2509,12 @@ function updatePresetsSelect(defaultToValue) {
   const $select = $('#presetsSelect');
 
   if ($select.data('select2')) {
-    $select.select2('destroy').off('change', handleChange);
+    $select
+      .select2('destroy')
+      .off('change', handleChange)
+      .off('select2:unselecting', handleUnselecting)
+      .off('select2:opening', handleOpening);
+
     if (presetsMgr.state.cleanupFn) {
       presetsMgr.state.cleanupFn();
       presetsMgr.state.cleanupFn = null;
@@ -2551,13 +2573,28 @@ function updatePresetsSelect(defaultToValue) {
     }
   }
 
+  function handleUnselecting() {
+    $(this).data('unselecting', true);
+  }
+
+  function handleOpening(e) {
+    const $this = $(this);
+    if ($this.data('unselecting')) {
+      $this.removeData('unselecting');
+      e.preventDefault();
+    }
+  }
+
   presetsMgr.state.cleanupFn = initSelect2('presetsSelect', {
     allowClear: true,
     default: null,
     placeholder: 'Select preset',
   });
 
-  $select.on('change', handleChange);
+  $select
+    .on('change', handleChange)
+    .on('select2:unselecting', handleUnselecting)
+    .on('select2:opening', handleOpening);
 
   // For showing newly created custom option as the current selection.
   if (defaultToValue) {
