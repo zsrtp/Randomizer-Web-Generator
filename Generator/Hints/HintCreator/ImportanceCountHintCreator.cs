@@ -459,7 +459,7 @@ namespace TPRandomizer.Hints.HintCreator
         private static bool CheckIsUnknownStatus(HintGenData genData, string checkName)
         {
             return (
-                !HintUtils.checkIsPlayerKnownStatus(checkName)
+                !genData.checkIsPlayerKnownStatus(checkName)
                 && !genData.hinted.alwaysHintedChecks.Contains(checkName)
                 && !genData.hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                 && !genData.hinted.alreadyCheckKnownBarren.Contains(checkName)

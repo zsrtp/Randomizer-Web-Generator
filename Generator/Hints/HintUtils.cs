@@ -795,10 +795,10 @@ namespace TPRandomizer.Hints
             return list[randomIndex];
         }
 
-        public static bool checkIsPlayerKnownStatus(string checkName)
+        public static bool checkIsExcludedOrVanilla(string checkName)
         {
             string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;
-            return HintConstants.preventBarrenHintIfAllCheckStatusesAre.Contains(checkStatus);
+            return HintConstants.excludedOrVanillaCheckStatuses.Contains(checkStatus);
         }
 
         public static bool checkIsExcluded(string checkName)
@@ -810,16 +810,6 @@ namespace TPRandomizer.Hints
         public static bool checkIsVanilla(string checkName)
         {
             return Randomizer.Checks.CheckDict[checkName].checkStatus == "Vanilla";
-        }
-
-        public static bool checksAllPlayerKnownStatus(IEnumerable<string> checkNames)
-        {
-            foreach (string checkName in checkNames)
-            {
-                if (!checkIsPlayerKnownStatus(checkName))
-                    return false;
-            }
-            return true;
         }
 
         public static bool isItemGoldenBug(Item item)

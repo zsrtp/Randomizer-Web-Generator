@@ -1235,7 +1235,7 @@ namespace TPRandomizer.Hints
             // for most hint types.
             return !unreachableChecks.Contains(checkName)
                 && !CheckIdClass.GetIsHideFromUiCheckName(checkName)
-                && !HintUtils.checkIsPlayerKnownStatus(checkName)
+                && !checkIsPlayerKnownStatus(checkName)
                 && !hinted.alreadyCheckContentsHinted.Contains(checkName)
                 && !hinted.alreadyCheckDirectedToward.Contains(checkName)
                 && (
@@ -1280,14 +1280,6 @@ namespace TPRandomizer.Hints
             if (!CheckIdClass.IsValidCheckName(name))
                 throw new Exception($"Failed to resolve '{name}' as a checkName.");
             return new() { name };
-        }
-
-        public bool CheckShouldBeIgnored(string checkName)
-        {
-            return (
-                hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
-                || HintUtils.checkIsPlayerKnownStatus(checkName)
-            );
         }
 
         public CheckStatus CalcCheckStatus(string checkName)
@@ -1412,7 +1404,7 @@ namespace TPRandomizer.Hints
         public bool checkIsPlayerKnownStatus(string checkName)
         {
             string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;
-            return HintConstants.preventBarrenHintIfAllCheckStatusesAre.Contains(checkStatus)
+            return HintConstants.excludedOrVanillaCheckStatuses.Contains(checkStatus)
                 || (sSettings.noPlandoHints && checkStatus == "Plando");
         }
 
@@ -1485,7 +1477,7 @@ namespace TPRandomizer.Hints
             foreach (string checkName in checkNames)
             {
                 if (
-                    HintUtils.checkIsPlayerKnownStatus(checkName)
+                    checkIsPlayerKnownStatus(checkName)
                     || hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                     || hinted.alreadyCheckContentsHinted.Contains(checkName)
                     || hinted.alreadyCheckDirectedToward.Contains(checkName)

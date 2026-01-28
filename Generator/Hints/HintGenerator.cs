@@ -922,7 +922,7 @@ namespace TPRandomizer.Hints
 
             foreach (string checkName in checkNames)
             {
-                if (HintUtils.checkIsPlayerKnownStatus(checkName))
+                if (HintUtils.checkIsExcludedOrVanilla(checkName))
                     continue;
 
                 // Can add user configuration later. For now, indicate
@@ -1030,7 +1030,7 @@ namespace TPRandomizer.Hints
             if (ListUtils.isEmpty(categoryCheckNames))
                 throw new Exception("Expected 'categoryCheckNames' to not be empty.");
 
-            // Init 'out'
+            // Init 'out' param
             checksWithBigKey = new();
 
             Dictionary<Zone, Item> zoneToBigKey =
@@ -1050,16 +1050,10 @@ namespace TPRandomizer.Hints
 
             foreach (string checkName in categoryCheckNames)
             {
-                if (
-                    !HintUtils.checkIsPlayerKnownStatus(checkName)
-                    && !genData.hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
-                )
+                Item contents = HintUtils.getCheckContents(checkName);
+                if (contents == bigKeyItem)
                 {
-                    Item contents = HintUtils.getCheckContents(checkName);
-                    if (contents == bigKeyItem)
-                    {
-                        checksWithBigKey.Add(checkName);
-                    }
+                    checksWithBigKey.Add(checkName);
                 }
             }
 
@@ -1638,10 +1632,10 @@ namespace TPRandomizer.Hints
                     }
 
                     // For other zones, we only want to fill in signs for zones
-                    // which are not all excluded.
+                    // which are not all vanilla/excluded.
                     foreach (string checkName in genData.GetChecksForZone(zoneForSpot))
                     {
-                        if (!HintUtils.checkIsPlayerKnownStatus(checkName))
+                        if (!HintUtils.checkIsExcludedOrVanilla(checkName))
                         {
                             spotsToFill.Add(spotId);
                             break;

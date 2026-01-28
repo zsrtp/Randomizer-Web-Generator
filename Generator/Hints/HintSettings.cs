@@ -43,7 +43,7 @@ namespace TPRandomizer.Hints.Settings
                         // doors).
                         (genData) =>
                         {
-                            return !HintUtils.checkIsPlayerKnownStatus("Snowpeak Icy Summit Poe")
+                            return !HintUtils.checkIsExcludedOrVanilla("Snowpeak Icy Summit Poe")
                                 && genData.sSettings.barrenDungeons
                                 && genData.sSettings.shuffleDungeonEntrances == DungeonER.Off
                                 && !HintUtils.getRequiredDungeonZones().Contains("Snowpeak Ruins");
@@ -488,7 +488,7 @@ namespace TPRandomizer.Hints.Settings
             foreach (string checkName in currentSet)
             {
                 if (
-                    !HintUtils.checkIsPlayerKnownStatus(checkName)
+                    !HintUtils.checkIsExcludedOrVanilla(checkName)
                     && (
                         !checkToConditions.ContainsKey(checkName)
                         || checkToConditions[checkName](genData)
