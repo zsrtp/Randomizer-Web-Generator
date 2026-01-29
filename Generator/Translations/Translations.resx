@@ -1446,7 +1446,7 @@
     <comment></comment>
   </data>
   <data name="junk-hint.010" xml:space="preserve">
-    <value>That say that the fire breath of Dodongos can light torches.</value>
+    <value>They say that mounting #(horse-name) from behind gives an instant burst of speed.</value>
     <comment></comment>
   </data>
   <data name="junk-hint.011" xml:space="preserve">
@@ -1466,7 +1466,7 @@
     <comment></comment>
   </data>
   <data name="junk-hint.015" xml:space="preserve">
-    <value>They say that rupees may actually grow on certain trees!</value>
+    <value>They say that Rupees may actually grow on certain trees!</value>
     <comment></comment>
   </data>
   <data name="junk-hint.016" xml:space="preserve">
@@ -1702,7 +1702,7 @@
     <comment></comment>
   </data>
   <data name="junk-hint.074" xml:space="preserve">
-    <value>......Sorry, I forgot.</value>
+    <value>They say that it is possible to backflip off of #(horse-name).</value>
     <comment></comment>
   </data>
   <data name="junk-hint.075" xml:space="preserve">
