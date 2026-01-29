@@ -361,6 +361,9 @@ namespace TPRandomizer.Hints
                 { Item.Poe_Soul, 60 },
                 { Item.Progressive_Clawshot, 2 },
                 { Item.Progressive_Dominion_Rod, 2 },
+                // Note: logically you can need 3 bows for HC King Bulblin (even in glitchless)
+                // since it takes 90 arrows.
+                { Item.Progressive_Bow, 3 },
                 { Item.Progressive_Fishing_Rod, 2 },
                 { Item.Progressive_Sky_Book, 7 },
                 { Item.Forest_Temple_Small_Key, 4 },
@@ -584,7 +587,7 @@ namespace TPRandomizer.Hints
             HashSet<string> allowBarrenCheckSet = new();
 
             Dictionary<Item, int> completionistItemThresholds =
-                new() { { Item.Progressive_Bow, 3 }, { Item.Filled_Bomb_Bag, 3 }, };
+                new() { { Item.Filled_Bomb_Bag, 3 }, };
 
             Dictionary<Item, int> itemToProgCount = new();
             foreach (Item item in logicalItems)
