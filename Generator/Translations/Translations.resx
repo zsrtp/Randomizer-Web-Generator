@@ -2097,6 +2097,10 @@
     <value>{item(shop:true)}\nAn item for the richest and most precious customers.</value>
     <comment></comment>
   </data>
+  <data name="shop.slot$kak-malo-right" xml:space="preserve">
+    <value>{item(shop:true)} {price}\n        LIMITED SUPPLY!\nBuy to see the item behind {noun2(name:objpro)}!</value>
+    <comment></comment>
+  </data>
   <data name="shop.slot$magic-armor" xml:space="preserve">
     <value>{item(shop:true)} {price}\nThis is quite a bargain when you think of how valuable your life is.</value>
     <comment></comment>
