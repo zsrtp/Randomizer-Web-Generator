@@ -147,7 +147,12 @@ namespace TPRandomizer.Hints
             }
         }
 
-        private void checkMarkPoeSoulsNotRequired()
+        public int checkMaybeRelevantFlexiblePoeSoulsToFind()
+        {
+            return checkMarkPoeSoulsNotRequired(true);
+        }
+
+        private int checkMarkPoeSoulsNotRequired(bool skipMarking = false)
         {
             // Potentially mark checks rewarding poeSouls as "not required" if poe souls do not
             // serve any purpose based on settings / Jovani rewards.
@@ -217,16 +222,20 @@ namespace TPRandomizer.Hints
                     numInflexible = 0;
                 if (numInflexible < largestUsefulThreshold)
                 {
-                    // Finding Poe souls is useful for meeting a threshold.
-                    return;
+                    // Finding Poe souls is useful for meeting a threshold, so skip marking any as
+                    // notReq and return the relevant flexible threshold.
+                    return largestUsefulThreshold - numInflexible;
                 }
             }
 
             // Finding poe souls is not useful. All skippable poeSoul checks can be marked as
-            // allowBarren. They are still considered logical so that a Location hint saying the
+            // notReq. They are still considered logical so that a Location hint saying the
             // checkStatus would indicate "not required". If it was not a logical item (such as an
             // orange Rupee), then it would not indicate anything.
-            if (itemToChecksList.TryGetValue(Item.Poe_Soul, out List<string> checkNames))
+            if (
+                !skipMarking
+                && itemToChecksList.TryGetValue(Item.Poe_Soul, out List<string> checkNames)
+            )
             {
                 int numPoeSoulsMarked = 0;
                 foreach (string checkName in checkNames)
@@ -244,6 +253,10 @@ namespace TPRandomizer.Hints
                 }
                 Console.WriteLine($"- marked {numPoeSoulsMarked} poeSoul(s) notReq.");
             }
+
+            // If we could theoretically mark as notRequired since the largest relevant threshold
+            // either did not exist or was met by the inflexibleCount, return 0.
+            return 0;
         }
 
         private void prepDefaultHintworthyItems()

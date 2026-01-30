@@ -4,7 +4,7 @@ namespace TPRandomizer.Hints
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Threading;
-    using TPRandomizer.SSettings.Enums;
+    using TPRandomizer.Util;
 
     public class HintCondReqCalc
     {
@@ -27,6 +27,7 @@ namespace TPRandomizer.Hints
         private const int RaceSeedMinCalcDurationMs = 25_000;
 
         private HintGenData genData;
+        private HashSet<string> baseForbiddenChecks = new();
         private HashSet<string> condRequiredChecks = new();
         private bool markedCondReqChecks = false;
 
@@ -34,36 +35,6 @@ namespace TPRandomizer.Hints
         {
             this.genData = genData;
         }
-
-        private static readonly HashSet<Item> smallKeyItems =
-            new()
-            {
-                Item.Forest_Temple_Small_Key,
-                Item.Goron_Mines_Small_Key,
-                Item.Lakebed_Temple_Small_Key,
-                Item.Arbiters_Grounds_Small_Key,
-                Item.Snowpeak_Ruins_Small_Key,
-                Item.Temple_of_Time_Small_Key,
-                Item.City_in_The_Sky_Small_Key,
-                Item.Palace_of_Twilight_Small_Key,
-                Item.Hyrule_Castle_Small_Key,
-                Item.Snowpeak_Ruins_Ordon_Pumpkin,
-                Item.Snowpeak_Ruins_Ordon_Goat_Cheese,
-            };
-
-        private static readonly HashSet<Item> bigKeyItems =
-            new()
-            {
-                Item.Forest_Temple_Big_Key,
-                Item.Goron_Mines_Key_Shard,
-                Item.Lakebed_Temple_Big_Key,
-                Item.Arbiters_Grounds_Big_Key,
-                Item.Temple_of_Time_Big_Key,
-                Item.Snowpeak_Ruins_Bedroom_Key,
-                Item.City_in_The_Sky_Big_Key,
-                Item.Palace_of_Twilight_Big_Key,
-                Item.Hyrule_Castle_Big_Key,
-            };
 
         // Returns true if was newly added to set, else false if was already in
         // the set.
@@ -134,6 +105,96 @@ namespace TPRandomizer.Hints
             }
         }
 
+        private void calcBaseForbiddenChecks()
+        {
+            if (
+                genData.majorItems.Contains(Item.Poe_Soul)
+                || ListUtils.isEmpty(genData.playthroughSpheres.spheresVerbose)
+            )
+                return;
+
+            int numFlexibleThatCouldMatter = genData.checkMaybeRelevantFlexiblePoeSoulsToFind();
+            if (numFlexibleThatCouldMatter < 1)
+                return;
+
+            HashSet<string> unreqBarrenDungeonNames = new();
+            if (genData.sSettings.barrenDungeons)
+            {
+                foreach (
+                    KeyValuePair<string, Goal> pair in GoalConstants.requiredDungeonHintZoneToGoal
+                )
+                {
+                    string dungeonName = pair.Key;
+                    if (!HintUtils.DungeonIsRequired(dungeonName))
+                    {
+                        unreqBarrenDungeonNames.Add(dungeonName);
+                    }
+                }
+            }
+
+            bool hasUnreqBarrenDungeons = unreqBarrenDungeonNames.Count > 0;
+            HashSet<string> relevantFlexibleCheckNames = new();
+            bool brokeMeetingThreshold = false;
+
+            for (int i = 0; i < genData.playthroughSpheres.spheresVerbose.Count; i++)
+            {
+                List<KeyValuePair<int, Item>> spherePairs = genData
+                    .playthroughSpheres
+                    .spheresVerbose[i];
+                foreach (KeyValuePair<int, Item> checkAndItem in spherePairs)
+                {
+                    string checkName = CheckIdClass.GetCheckName(checkAndItem.Key);
+                    Item contents = HintUtils.getCheckContents(checkName);
+                    if (contents == Item.Poe_Soul && !genData.requiredChecks.Contains(checkName))
+                    {
+                        // Check that poe soul is not in an unreq barren dungeon.
+                        if (hasUnreqBarrenDungeons)
+                        {
+                            string zoneName = genData.GetZoneNameForCheck(checkName);
+                            if (!unreqBarrenDungeonNames.Contains(zoneName))
+                                relevantFlexibleCheckNames.Add(checkName);
+                        }
+                        else
+                            relevantFlexibleCheckNames.Add(checkName);
+                    }
+                }
+
+                if (relevantFlexibleCheckNames.Count >= numFlexibleThatCouldMatter)
+                {
+                    brokeMeetingThreshold = true;
+                    break;
+                }
+            }
+
+            if (!brokeMeetingThreshold)
+                return;
+
+            // Include any checks rewarding poeSouls which are (1) not Required, and (2) not found
+            // in a sphere early enough to be considered a reasonable check to do to get a poe soul,
+            // to the baseForbiddenChecks which will be skipped over during condReq calcs. Note that
+            // all checks rewarding poeSouls will stay as "skippable". This is to avoid saying a
+            // fishingRod or skyBook is important for example when its only purpose is to go get a
+            // poeSoul which would be super unreasonable to get compared to easier to get ones.
+            int numAddedToBaseForbiddenChecks = 0;
+            if (genData.itemToChecksList.TryGetValue(Item.Poe_Soul, out List<string> checksList))
+            {
+                foreach (string checkName in checksList)
+                {
+                    if (
+                        !genData.requiredChecks.Contains(checkName)
+                        && !relevantFlexibleCheckNames.Contains(checkName)
+                    )
+                    {
+                        baseForbiddenChecks.Add(checkName);
+                        numAddedToBaseForbiddenChecks += 1;
+                    }
+                }
+            }
+            Console.WriteLine(
+                $"Added {numAddedToBaseForbiddenChecks} checks rewarding poeSouls to baseForbiddenChecks."
+            );
+        }
+
         private ZigZagState monteCarloZigZagDown(ZigZagState zz, Stopwatch stopwatch)
         {
             HashSet<string> checkNames = new(zz.allowedCheckNames);
@@ -152,9 +213,12 @@ namespace TPRandomizer.Hints
                 allowedCheckNames.Remove(checkName);
                 forbiddenCheckNames.Add(checkName);
 
+                HashSet<string> combinedForbiddenChecks = new(baseForbiddenChecks);
+                combinedForbiddenChecks.UnionWith(forbiddenCheckNames);
+
                 bool wasSuccess = HintUtils.CalcBeatableWithForbiddenChecks(
                     genData.startingRoom,
-                    forbiddenCheckNames
+                    combinedForbiddenChecks
                 );
                 if (!wasSuccess)
                 {
@@ -202,9 +266,12 @@ namespace TPRandomizer.Hints
                 forbiddenCheckNames.Remove(checkName);
                 allowedCheckNames.Add(checkName);
 
+                HashSet<string> combinedForbiddenChecks = new(baseForbiddenChecks);
+                combinedForbiddenChecks.UnionWith(forbiddenCheckNames);
+
                 bool wasSuccess = HintUtils.CalcBeatableWithForbiddenChecks(
                     genData.startingRoom,
-                    forbiddenCheckNames
+                    combinedForbiddenChecks
                 );
                 if (wasSuccess)
                 {
@@ -290,6 +357,11 @@ namespace TPRandomizer.Hints
         {
             HashSet<string> locsSet = new();
 
+            bool isPoeSoulMajor = genData.majorItems.Contains(Item.Poe_Soul);
+
+            markClearlyDeadChecksGivingTradeItems();
+            calcBaseForbiddenChecks();
+
             // Add non-Required checks from the playthrough spheres which are guaranteed to be
             // conditionallyRequired (playthrough failed when removing them conditionally).
             foreach (
@@ -299,7 +371,13 @@ namespace TPRandomizer.Hints
                 foreach (KeyValuePair<int, Item> checkAndItem in spherePairs)
                 {
                     string checkName = CheckIdClass.GetCheckName(checkAndItem.Key);
-                    if (!genData.requiredChecks.Contains(checkName))
+                    Item contents = HintUtils.getCheckContents(checkName);
+
+                    // Note: skip over non-major Poe Souls to match general behavior.
+                    if (
+                        !genData.requiredChecks.Contains(checkName)
+                        && (contents != Item.Poe_Soul || isPoeSoulMajor)
+                    )
                     {
                         condRequiredChecks.Add(checkName);
                         Console.WriteLine(
@@ -308,8 +386,6 @@ namespace TPRandomizer.Hints
                     }
                 }
             }
-
-            markClearlyDeadChecksGivingTradeItems();
 
             // Build `locsSet`
             foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict)
@@ -320,15 +396,16 @@ namespace TPRandomizer.Hints
 
                 // We skip over non-logicalItems and checks which are already know to be "required"
                 // or "not required". Already known sometimesRequired checks are still added since
-                // they take part in the algorithm for finding other sometimesRequired checks.
+                // they take part in the algorithm for finding other sometimesRequired checks. Also
+                // note that we skip over non-major Poe Souls since those get special handling.
                 if (
-                    !genData.logicalItems.Contains(item)
+                    (item == Item.Poe_Soul && !isPoeSoulMajor)
+                    || !genData.logicalItems.Contains(item)
                     || genData.requiredChecks.Contains(checkName)
                     || genData.allowBarrenChecks.Contains(checkName)
                     || genData.notReqChecks.Contains(checkName)
                 )
                     continue;
-
                 locsSet.Add(checkName);
             }
 
