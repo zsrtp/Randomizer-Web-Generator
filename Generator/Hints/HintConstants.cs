@@ -643,7 +643,7 @@ namespace TPRandomizer.Hints
                 { "Ilia Memory Reward", "Temple of Time" },
             };
 
-        public static readonly HashSet<string> preventBarrenHintIfAllCheckStatusesAre =
+        public static readonly HashSet<string> excludedOrVanillaCheckStatuses =
             new() { "Excluded", "Excluded-Unrequired", "Vanilla" };
 
         public static readonly HashSet<string> excludedCheckStatuses =

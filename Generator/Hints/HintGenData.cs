@@ -147,7 +147,12 @@ namespace TPRandomizer.Hints
             }
         }
 
-        private void checkMarkPoeSoulsNotRequired()
+        public int checkMaybeRelevantFlexiblePoeSoulsToFind()
+        {
+            return checkMarkPoeSoulsNotRequired(true);
+        }
+
+        private int checkMarkPoeSoulsNotRequired(bool skipMarking = false)
         {
             // Potentially mark checks rewarding poeSouls as "not required" if poe souls do not
             // serve any purpose based on settings / Jovani rewards.
@@ -217,16 +222,20 @@ namespace TPRandomizer.Hints
                     numInflexible = 0;
                 if (numInflexible < largestUsefulThreshold)
                 {
-                    // Finding Poe souls is useful for meeting a threshold.
-                    return;
+                    // Finding Poe souls is useful for meeting a threshold, so skip marking any as
+                    // notReq and return the relevant flexible threshold.
+                    return largestUsefulThreshold - numInflexible;
                 }
             }
 
             // Finding poe souls is not useful. All skippable poeSoul checks can be marked as
-            // allowBarren. They are still considered logical so that a Location hint saying the
+            // notReq. They are still considered logical so that a Location hint saying the
             // checkStatus would indicate "not required". If it was not a logical item (such as an
             // orange Rupee), then it would not indicate anything.
-            if (itemToChecksList.TryGetValue(Item.Poe_Soul, out List<string> checkNames))
+            if (
+                !skipMarking
+                && itemToChecksList.TryGetValue(Item.Poe_Soul, out List<string> checkNames)
+            )
             {
                 int numPoeSoulsMarked = 0;
                 foreach (string checkName in checkNames)
@@ -244,6 +253,10 @@ namespace TPRandomizer.Hints
                 }
                 Console.WriteLine($"- marked {numPoeSoulsMarked} poeSoul(s) notReq.");
             }
+
+            // If we could theoretically mark as notRequired since the largest relevant threshold
+            // either did not exist or was met by the inflexibleCount, return 0.
+            return 0;
         }
 
         private void prepDefaultHintworthyItems()
@@ -361,6 +374,9 @@ namespace TPRandomizer.Hints
                 { Item.Poe_Soul, 60 },
                 { Item.Progressive_Clawshot, 2 },
                 { Item.Progressive_Dominion_Rod, 2 },
+                // Note: logically you can need 3 bows for HC King Bulblin (even in glitchless)
+                // since it takes 90 arrows.
+                { Item.Progressive_Bow, 3 },
                 { Item.Progressive_Fishing_Rod, 2 },
                 { Item.Progressive_Sky_Book, 7 },
                 { Item.Forest_Temple_Small_Key, 4 },
@@ -584,7 +600,7 @@ namespace TPRandomizer.Hints
             HashSet<string> allowBarrenCheckSet = new();
 
             Dictionary<Item, int> completionistItemThresholds =
-                new() { { Item.Progressive_Bow, 3 }, { Item.Filled_Bomb_Bag, 3 }, };
+                new() { { Item.Filled_Bomb_Bag, 3 }, };
 
             Dictionary<Item, int> itemToProgCount = new();
             foreach (Item item in logicalItems)
@@ -1235,7 +1251,7 @@ namespace TPRandomizer.Hints
             // for most hint types.
             return !unreachableChecks.Contains(checkName)
                 && !CheckIdClass.GetIsHideFromUiCheckName(checkName)
-                && !HintUtils.checkIsPlayerKnownStatus(checkName)
+                && !checkIsPlayerKnownStatus(checkName)
                 && !hinted.alreadyCheckContentsHinted.Contains(checkName)
                 && !hinted.alreadyCheckDirectedToward.Contains(checkName)
                 && (
@@ -1280,14 +1296,6 @@ namespace TPRandomizer.Hints
             if (!CheckIdClass.IsValidCheckName(name))
                 throw new Exception($"Failed to resolve '{name}' as a checkName.");
             return new() { name };
-        }
-
-        public bool CheckShouldBeIgnored(string checkName)
-        {
-            return (
-                hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
-                || HintUtils.checkIsPlayerKnownStatus(checkName)
-            );
         }
 
         public CheckStatus CalcCheckStatus(string checkName)
@@ -1412,7 +1420,7 @@ namespace TPRandomizer.Hints
         public bool checkIsPlayerKnownStatus(string checkName)
         {
             string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;
-            return HintConstants.preventBarrenHintIfAllCheckStatusesAre.Contains(checkStatus)
+            return HintConstants.excludedOrVanillaCheckStatuses.Contains(checkStatus)
                 || (sSettings.noPlandoHints && checkStatus == "Plando");
         }
 
@@ -1485,7 +1493,7 @@ namespace TPRandomizer.Hints
             foreach (string checkName in checkNames)
             {
                 if (
-                    HintUtils.checkIsPlayerKnownStatus(checkName)
+                    checkIsPlayerKnownStatus(checkName)
                     || hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                     || hinted.alreadyCheckContentsHinted.Contains(checkName)
                     || hinted.alreadyCheckDirectedToward.Contains(checkName)

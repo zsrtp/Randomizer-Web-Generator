@@ -1605,7 +1605,8 @@ namespace TPRandomizer
                 Node.msg_KakMaloMartHylianShieldSlot,
                 "Kakariko Village Malo Mart Hylian Shield",
                 Item.Hylian_Shield,
-                kakMaloHylianShieldPrice
+                kakMaloHylianShieldPrice,
+                "kak-malo-right"
             );
             AddShopCantAffordMsg(
                 Node.msg_KakMaloMartHylianShieldCantAfford,

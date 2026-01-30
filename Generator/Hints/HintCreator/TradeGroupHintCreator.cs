@@ -454,7 +454,7 @@ namespace TPRandomizer.Hints.HintCreator
         private static bool SrcCheckIsHintable(HintGenData genData, string checkName)
         {
             return (
-                !HintUtils.checkIsPlayerKnownStatus(checkName)
+                !genData.checkIsPlayerKnownStatus(checkName)
                 && !HintUtils.CheckIsTradeItemReward(checkName)
                 && !genData.hinted.alreadyCheckAgithaHintClaimed.Contains(checkName)
                 && !genData.hinted.alreadyCheckKnownBarren.Contains(checkName)
@@ -466,7 +466,7 @@ namespace TPRandomizer.Hints.HintCreator
         private static bool EndCheckIsHintable(HintGenData genData, string checkName)
         {
             return (
-                !HintUtils.checkIsPlayerKnownStatus(checkName)
+                !genData.checkIsPlayerKnownStatus(checkName)
                 && !genData.hinted.alreadyCheckKnownBarren.Contains(checkName)
                 && !genData.hinted.alreadyCheckContentsHinted.Contains(checkName)
                 && !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
