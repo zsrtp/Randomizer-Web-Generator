@@ -13,11 +13,11 @@
         "Requirements": "Spinner and CanDefeatBokoblin and CanDefeatKeese and CanDefeatRat and CanDefeatHangingBabaSerpent and CanDefeatSkulltula and CanDefeatBulblin and CanDefeatTorchSlug and CanDefeatFireKeese and CanDefeatDodongo and CanDefeatTektite and CanDefeatLizalfos",
         "GlitchedRequirements": "(Spinner or CanDoLJA) and CanDefeatBokoblin and CanDefeatKeese and CanDefeatRat and CanDefeatHangingBabaSerpent and CanDefeatSkulltula and CanDefeatBulblin and CanDefeatTorchSlug and CanDefeatFireKeese and CanDefeatDodongo and CanDefeatTektite and CanDefeatLizalfos"
       },
-      {
+      /*{
         "ConnectedArea": "Ordon Spring",
         "Requirements": "CanDefeatBokoblin and CanDefeatKeese and CanDefeatRat and CanDefeatHangingBabaSerpent and CanDefeatSkulltula and CanDefeatBulblin and CanDefeatTorchSlug and CanDefeatFireKeese and CanDefeatDodongo and CanDefeatTektite and CanDefeatLizalfos",
         "GlitchedRequirements": "CanDefeatBokoblin and CanDefeatKeese and CanDefeatRat and CanDefeatHangingBabaSerpent and CanDefeatSkulltula and CanDefeatBulblin and CanDefeatTorchSlug and CanDefeatFireKeese and CanDefeatDodongo and CanDefeatTektite and CanDefeatLizalfos"
-      }
+      }*/
     ],
     "Checks": [""],
     "Region": "Gerudo Desert"
@@ -31,11 +31,11 @@
         "Requirements": "CanDefeatHelmasaur and CanDefeatRat and Ball_and_Chain and CanDefeatChu and CanDefeatChuWorm and CanDefeatBubble and CanDefeatBulblin and CanDefeatKeese and CanDefeatRat and CanDefeatStalhound and CanDefeatPoe and CanDefeatLeever",
         "GlitchedRequirements": "CanDefeatHelmasaur and CanDefeatRat and Ball_and_Chain and CanDefeatChu and CanDefeatChuWorm and CanDefeatBubble and CanDefeatBulblin and CanDefeatKeese and CanDefeatRat and CanDefeatStalhound and CanDefeatPoe and CanDefeatLeever"
       },
-      {
+      /*{
         "ConnectedArea": "South Faron Woods",
         "Requirements": "CanDefeatHelmasaur and CanDefeatRat and CanDefeatChu and CanDefeatChuWorm and CanDefeatBubble and CanDefeatBulblin and CanDefeatKeese and CanDefeatRat and CanDefeatStalhound and CanDefeatPoe and CanDefeatLeever",
         "GlitchedRequirements": "CanDefeatHelmasaur and CanDefeatRat and CanDefeatChu and CanDefeatChuWorm and CanDefeatBubble and CanDefeatBulblin and CanDefeatKeese and CanDefeatRat and CanDefeatStalhound and CanDefeatPoe and CanDefeatLeever"
-      }
+      }*/
     ],
     "Checks":
     [
@@ -52,11 +52,11 @@
         "Requirements": "CanDefeatBokoblin and CanDefeatIceKeese and (Progressive_Dominion_Rod, 2) and CanDefeatKeese and CanDefeatRat and CanDefeatGhoulRat and CanDefeatStalchild and CanDefeatRedeadKnight and CanDefeatBulblin and CanDefeatStalfos and CanDefeatSkulltula and CanDefeatBubble and CanDefeatLizalfos and CanDefeatFireBubble",
         "GlitchedRequirements": "CanDefeatBokoblin and CanDefeatIceKeese and (Progressive_Dominion_Rod, 2) and CanDefeatKeese and CanDefeatRat and CanDefeatGhoulRat and CanDefeatStalchild and CanDefeatRedeadKnight and CanDefeatBulblin and CanDefeatStalfos and CanDefeatSkulltula and CanDefeatBubble and CanDefeatLizalfos and CanDefeatFireBubble"
       },
-      {
+      /*{
         "ConnectedArea": "Lower Kakariko Village",
         "Requirements": "CanDefeatBokoblin and CanDefeatIceKeese and CanDefeatKeese and CanDefeatRat and CanDefeatGhoulRat and CanDefeatStalchild and CanDefeatRedeadKnight and CanDefeatBulblin and CanDefeatStalfos and CanDefeatSkulltula and CanDefeatBubble and CanDefeatLizalfos and CanDefeatFireBubble",
         "GlitchedRequirements": "CanDefeatBokoblin and CanDefeatIceKeese and CanDefeatKeese and CanDefeatRat and CanDefeatGhoulRat and CanDefeatStalchild and CanDefeatRedeadKnight and CanDefeatBulblin and CanDefeatStalfos and CanDefeatSkulltula and CanDefeatBubble and CanDefeatLizalfos and CanDefeatFireBubble"
-      }
+      }*/
     ],
     "Checks": [""],
     "Region": "Gerudo Desert"
@@ -70,11 +70,11 @@
         "Requirements": "CanDefeatBeamos and CanDefeatKeese and (Progressive_Clawshot, 2) and CanDefeatTorchSlug and CanDefeatFireKeese and CanDefeatDodongo and CanDefeatFireBubble and CanDefeatRedeadKnight and CanDefeatPoe and CanDefeatGhoulRat and CanDefeatChu and CanDefeatIceKeese and CanDefeatFreezard and CanDefeatChilfos and CanDefeatIceBubble and CanDefeatLeever and CanDefeatDarknut",
         "GlitchedRequirements": "CanDefeatBeamos and CanDefeatKeese and ((Progressive_Clawshot, 2) or CanDoLJA) and CanDefeatTorchSlug and CanDefeatFireKeese and CanDefeatDodongo and CanDefeatFireBubble and CanDefeatRedeadKnight and CanDefeatPoe and CanDefeatGhoulRat and CanDefeatChu and CanDefeatIceKeese and CanDefeatFreezard and CanDefeatChilfos and CanDefeatIceBubble and CanDefeatLeever and CanDefeatDarknut"
       },
-      {
+      /*{
         "ConnectedArea": "Lake Hylia Lanayru Spring",
         "Requirements": "CanDefeatBeamos and CanDefeatKeese and CanDefeatTorchSlug and CanDefeatFireKeese and CanDefeatDodongo and CanDefeatFireBubble and CanDefeatRedeadKnight and CanDefeatPoe and CanDefeatGhoulRat and CanDefeatChu and CanDefeatIceKeese and CanDefeatFreezard and CanDefeatChilfos and CanDefeatIceBubble and CanDefeatLeever and CanDefeatDarknut",
         "GlitchedRequirements": "CanDefeatBeamos and CanDefeatKeese and CanDefeatTorchSlug and CanDefeatFireKeese and CanDefeatDodongo and CanDefeatFireBubble and CanDefeatRedeadKnight and CanDefeatPoe and CanDefeatGhoulRat and CanDefeatChu and CanDefeatIceKeese and CanDefeatFreezard and CanDefeatChilfos and CanDefeatIceBubble and CanDefeatLeever and CanDefeatDarknut"
-      }
+      }*/
     ],
     "Checks":
     [
@@ -86,11 +86,11 @@
     "RoomName": "Gerudo Desert Cave of Ordeals Floors 42-50",
     "Exits":
     [
-      {
+      /*{
         "ConnectedArea": "Lake Hylia Lanayru Spring",
         "Requirements": "CanDefeatArmos and CanDefeatBokoblin and CanDefeatBabaSerpent and CanDefeatLizalfos and CanDefeatBulblin and CanDefeatDinalfos and CanDefeatPoe and CanDefeatRedeadKnight and CanDefeatChu and CanDefeatFreezard and CanDefeatChilfos and CanDefeatGhoulRat and CanDefeatRat and CanDefeatStalchild and CanDefeatAeralfos and CanDefeatDarknut",
         "GlitchedRequirements": "CanDefeatArmos and CanDefeatBokoblin and CanDefeatBabaSerpent and CanDefeatLizalfos and CanDefeatBulblin and CanDefeatDinalfos and CanDefeatPoe and CanDefeatRedeadKnight and CanDefeatChu and CanDefeatFreezard and CanDefeatChilfos and CanDefeatGhoulRat and CanDefeatRat and CanDefeatStalchild and CanDefeatAeralfos and CanDefeatDarknut"
-      }
+      }*/
     ],
     "Checks":
     [
