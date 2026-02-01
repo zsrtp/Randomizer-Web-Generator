@@ -1976,7 +1976,7 @@ namespace TPRandomizer
 
         public static bool CanUnlockOrdonaMap()
         {
-            if (Randomizer.SSettings.openMap)
+            if (Randomizer.SSettings.openMap && Randomizer.SSettings.skipPrologue)
             {
                 return true;
             }
@@ -1992,7 +1992,7 @@ namespace TPRandomizer
 
         public static bool CanUnlockFaronMap()
         {
-            if (Randomizer.SSettings.openMap)
+            if (Randomizer.SSettings.openMap && Randomizer.SSettings.faronTwilightCleared)
             {
                 return true;
             }
@@ -2008,7 +2008,7 @@ namespace TPRandomizer
 
         public static bool CanUnlockEldinMap()
         {
-            if (Randomizer.SSettings.openMap)
+            if (Randomizer.SSettings.openMap && Randomizer.SSettings.eldinTwilightCleared)
             {
                 return true;
             }
@@ -2024,7 +2024,7 @@ namespace TPRandomizer
 
         public static bool CanUnlockLanayruMap()
         {
-            if (Randomizer.SSettings.openMap)
+            if (Randomizer.SSettings.openMap && Randomizer.SSettings.lanayruTwilightCleared)
             {
                 return true;
             }
@@ -2040,7 +2040,7 @@ namespace TPRandomizer
 
         public static bool CanUnlockSnowpeakMap()
         {
-            if (Randomizer.SSettings.openMap || Randomizer.SSettings.skipSnowpeakEntrance)
+            if (Randomizer.SSettings.openMap && Randomizer.SSettings.skipSnowpeakEntrance)
             {
                 return true;
             }
