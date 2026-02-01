@@ -6,6 +6,7 @@ namespace TPRandomizer
     using System.Linq;
     using Newtonsoft.Json;
     using TPRandomizer.FcSettings.Enums;
+    using TPRandomizer.Hints.Settings;
 
     public enum EntranceType : int
     {
@@ -437,7 +438,16 @@ namespace TPRandomizer
                 }
                 Randomizer.Rooms.RoomDict["Root"].Exits.Clear();
                 Randomizer.spawnIndex = rnd.Next(this.spawnList.Count());
-                startingRoom = this.spawnList[Randomizer.spawnIndex].GetConnectedArea();
+                Entrance startingEntrance = this.spawnList[Randomizer.spawnIndex];
+                if (startingEntrance.GetReplacedEntrance() != null)
+                {
+                    startingRoom = startingEntrance.GetReplacedEntrance().GetConnectedArea();
+                }
+                else
+                {
+                    startingRoom = startingEntrance.GetConnectedArea();
+                }
+                //startingRoom = this.spawnList[Randomizer.spawnIndex].GetConnectedArea();
                 rootExit = new();
                 rootExit.ConnectedArea = startingRoom;
                 rootExit.Requirements = "(true)";
