@@ -3,7 +3,6 @@ namespace TPRandomizer.Hints
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Threading;
     using TPRandomizer.Util;
 
     public class HintCondReqCalc
@@ -24,7 +23,6 @@ namespace TPRandomizer.Hints
         // items to the locsSet. We have this here so the generator does not get stuck on a request
         // like this, but hopefully it is never relevant.
         private const int MaxSingleZigZagDurationMs = 90_000;
-        private const int RaceSeedMinCalcDurationMs = 25_000;
 
         private HintGenData genData;
         private HashSet<Item> startingItemsSet = new();
@@ -567,40 +565,16 @@ namespace TPRandomizer.Hints
                 }
                 prevElapsedMs = elapsedMs;
 
-                // For race seeds, keep going until we break based on time. This is to obfuscate
-                // info about the seed based on generation time, and we also want to be as sure as
-                // possible that we got all of the sometimes required checks. It will either break
-                // on time (handled above), or if it would quickly finish, we randomly wait between
-                // 25 and 35 seconds.
-                if (genData.isRaceSeed)
+                // Keep going for at least 20s to reduce chances we miss anything. For race seeds,
+                // run until 5 consecutive failures instead of the normal 3.
+                int consecutiveFailureThreshold = genData.isRaceSeed ? 5 : 3;
+                if (consecutiveFailures >= consecutiveFailureThreshold && elapsedMs >= 20_000)
                 {
-                    if (consecutiveFailures >= 5 && elapsedMs >= 20_000)
-                    {
-                        Console.WriteLine(
-                            $"Race seed with at least 5 consecutive failures (at {consecutiveFailures}) and at least 20s. Will break."
-                        );
-
-                        int sleepDuration = (int)(RaceSeedMinCalcDurationMs - elapsedMs);
-                        sleepDuration += (int)new Random().NextInt64(10_000);
-                        if (sleepDuration > 0)
-                        {
-                            Console.WriteLine(
-                                $"Race seed, sleeping for {sleepDuration} ms with expected time {elapsedMs + sleepDuration} ms."
-                            );
-                            Thread.Sleep(sleepDuration);
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine(
-                                $"Race seed, breaking immediately since elapsedMs is {elapsedMs} ms."
-                            );
-                            break;
-                        }
-                    }
-                }
-                else if (consecutiveFailures >= 3)
+                    Console.WriteLine(
+                        $"Has at least {consecutiveFailureThreshold} consecutive failures (at {consecutiveFailures}) and at least 20s. Will break."
+                    );
                     break;
+                }
             }
 
             stopwatch.Stop();
