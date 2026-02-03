@@ -27,13 +27,32 @@ namespace TPRandomizer.Hints
         private const int RaceSeedMinCalcDurationMs = 25_000;
 
         private HintGenData genData;
+        private HashSet<Item> startingItemsSet = new();
+        private Dictionary<Item, List<string>> itemToSphere0Checks;
         private HashSet<string> baseForbiddenChecks = new();
         private HashSet<string> condRequiredChecks = new();
-        private bool markedCondReqChecks = false;
+        private HashSet<string> prevCondRequiredChecks = new();
 
         public HintCondReqCalc(HintGenData genData)
         {
             this.genData = genData;
+
+            startingItemsSet = new(genData.sSettings.startingItems);
+
+            itemToSphere0Checks = new();
+            if (!ListUtils.isEmpty(genData.playthroughSpheres.sphere0Checks))
+            {
+                foreach (string checkName in genData.playthroughSpheres.sphere0Checks)
+                {
+                    Item item = HintUtils.getCheckContents(checkName);
+                    if (!itemToSphere0Checks.TryGetValue(item, out List<string> checksList))
+                    {
+                        checksList = new();
+                        itemToSphere0Checks[item] = checksList;
+                    }
+                    checksList.Add(checkName);
+                }
+            }
         }
 
         // Returns true if was newly added to set, else false if was already in
@@ -91,6 +110,90 @@ namespace TPRandomizer.Hints
                     }
                 }
             }
+        }
+
+        private bool checkMarkSphere0Checks()
+        {
+            HashSet<Item> itemsToCheck = new();
+            foreach (string checkName in condRequiredChecks)
+            {
+                if (!prevCondRequiredChecks.Contains(checkName))
+                    itemsToCheck.Add(HintUtils.getCheckContents(checkName));
+            }
+
+            bool didMarkSome = false;
+            foreach (Item item in itemsToCheck)
+            {
+                if (itemToSphere0Checks.TryGetValue(item, out List<string> checksList))
+                {
+                    foreach (string checkName in checksList)
+                    {
+                        if (
+                            !genData.requiredChecks.Contains(checkName)
+                            && !condRequiredChecks.Contains(checkName)
+                        )
+                        {
+                            Console.WriteLine(
+                                $"Sometimes Required implied for sphere0 check: {checkName} ({item})"
+                            );
+                            condRequiredChecks.Add(checkName);
+                            didMarkSome = true;
+                        }
+                    }
+                }
+            }
+            return didMarkSome;
+        }
+
+        private bool checkMarkTradeItemSources()
+        {
+            // First, get a HashSet of all new condReq checks which are tradeItem rewards.
+            HashSet<string> newRewardCheckNames = new();
+            foreach (string checkName in condRequiredChecks)
+            {
+                if (!prevCondRequiredChecks.Contains(checkName))
+                {
+                    if (HintUtils.tradeRewardCheckToSourceItem.ContainsKey(checkName))
+                    {
+                        newRewardCheckNames.Add(checkName);
+                    }
+                }
+            }
+
+            // Then we iterate over all tradeItemToChainEndChecks. If a tradeItem ends in a newly
+            // marked check, then we make sure it was not a startingItem and we also make sure there
+            // is only 1 findable copy before marking it as condReq.
+            bool didMarkSome = false;
+            foreach (KeyValuePair<Item, string> pair in genData.tradeItemToChainEndCheck)
+            {
+                Item item = pair.Key;
+                string chainEndCheckName = pair.Value;
+                if (!newRewardCheckNames.Contains(chainEndCheckName))
+                    continue;
+
+                if (
+                    !startingItemsSet.Contains(item)
+                    && genData.itemToChecksList.TryGetValue(item, out List<string> checksGivingItem)
+                )
+                {
+                    if (checksGivingItem != null && checksGivingItem.Count == 1)
+                    {
+                        string checkName = checksGivingItem[0];
+                        if (
+                            !genData.requiredChecks.Contains(checkName)
+                            && !condRequiredChecks.Contains(checkName)
+                        )
+                        {
+                            Console.WriteLine(
+                                $"Sometimes Required implied for tradeChain check: {checkName} ({item})"
+                            );
+                            condRequiredChecks.Add(checkName);
+                            didMarkSome = true;
+                        }
+                    }
+                }
+            }
+            return didMarkSome;
         }
 
         private void checkZigZagDurationCausesError(Stopwatch stopwatch)
@@ -409,6 +512,8 @@ namespace TPRandomizer.Hints
                 locsSet.Add(checkName);
             }
 
+            prevCondRequiredChecks = new(condRequiredChecks);
+
             Stopwatch stopwatch = new();
             stopwatch.Start();
 
@@ -424,11 +529,14 @@ namespace TPRandomizer.Hints
                 else
                     consecutiveFailures += 1;
 
-                if (markedCondReqChecks)
+                if (prevCondRequiredChecks.Count != condRequiredChecks.Count)
                 {
-                    markedCondReqChecks = false;
-                    consecutiveFailures = 0;
+                    if (checkMarkSphere0Checks())
+                        consecutiveFailures = 0;
+                    if (checkMarkTradeItemSources())
+                        consecutiveFailures = 0;
                 }
+                prevCondRequiredChecks = new(condRequiredChecks);
 
                 long elapsedMs = stopwatch.ElapsedMilliseconds;
                 Console.WriteLine(
@@ -466,10 +574,10 @@ namespace TPRandomizer.Hints
                 // 25 and 35 seconds.
                 if (genData.isRaceSeed)
                 {
-                    if (consecutiveFailures >= 5 && elapsedMs >= 15_000)
+                    if (consecutiveFailures >= 5 && elapsedMs >= 20_000)
                     {
                         Console.WriteLine(
-                            $"Race seed with at least 5 consecutive failures (at {consecutiveFailures}) and at least 15s. Will break."
+                            $"Race seed with at least 5 consecutive failures (at {consecutiveFailures}) and at least 20s. Will break."
                         );
 
                         int sleepDuration = (int)(RaceSeedMinCalcDurationMs - elapsedMs);
