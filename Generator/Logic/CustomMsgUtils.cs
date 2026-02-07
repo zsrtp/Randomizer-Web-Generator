@@ -44,11 +44,27 @@ namespace TPRandomizer
         /* zel_00 (global) */
         public static NodeInst br_TalkToMidnaRootNode = new(StgBmg.zel_00, 0x8f);
         public static NodeInst br_Z0GeneriCtxBranch = new(StgBmg.zel_00, 0x199);
+        public static NodeInst br_Z0GeneriCtxBranch2 = new(StgBmg.zel_00, 0x198);
         public static NodeInst ev_Z0GenericCtxEvent = new(StgBmg.zel_00, 0x1a4);
+        public static NodeInst ev_Z0GenericCtxEvent2 = new(StgBmg.zel_00, 0x1a6);
         public static NodeInst ev_MidnaTwoOptsInitEv = new(StgBmg.zel_00, 0x1a0);
         public static MsgNodeInst msg_MidnaTwoOptsBody = new(StgBmg.zel_00, 0x19f, 0x5de);
         public static MsgNodeInst msg_MidnaTwoOptsOptions = new(StgBmg.zel_00, 0x1a1, 0x5df);
         public static NodeInst br_MidnaTwoOptsResultBranch = new(StgBmg.zel_00, 0x1a3);
+
+        public static NodeInst br_temp = new(StgBmg.zel_00, 0x1b);
+
+        // public static NodeInst ev_MidnaThreeOptsInitEv = new(StgBmg.zel_00, 0x194);
+        // public static MsgNodeInst msg_MidnaThreeOptsBody = new(StgBmg.zel_00, 0x18d, 0xbbb);
+        // public static MsgNodeInst msg_MidnaThreeOptsOptions = new(StgBmg.zel_00, 0x1aa, 0xa2e);
+        // public static NodeInst br_MidnaThreeOptsResultBranch = new(StgBmg.zel_00, 0x193);
+
+        public static NodeInst ev_MidnaThreeOptsInitEv = new(StgBmg.zel_00, 0x191);
+        public static MsgNodeInst msg_MidnaThreeOptsBody = new(StgBmg.zel_00, 0x18c, 0xbbb);
+        public static MsgNodeInst msg_MidnaThreeOptsOptions = new(StgBmg.zel_00, 0x1ab, 0xbba);
+        public static NodeInst br_MidnaThreeOptsResultBranch = new(StgBmg.zel_00, 0x190);
+
+        //
         public static MsgNodeInst msg_Z0_0x28 = new(StgBmg.zel_00, 0x28, 0xa11);
         public static MsgNodeInst msg_Z0_0x4d = new(StgBmg.zel_00, 0x4d, 0xa29);
         public static NodeInst zel00_FFFF = new(StgBmg.zel_00, 0xffff);
@@ -353,6 +369,7 @@ namespace TPRandomizer
         query053 = 52,
         customQuery053_returnParams = 53,
         customQuery054_canChangeTod = 54,
+        customQuery055_canReturnToDungeonEntrance = 55,
     }
 
     public enum EventIdx : byte
@@ -402,5 +419,6 @@ namespace TPRandomizer
         event042 = 42,
         customEvent043_nop = 43,
         customEvent044_changeTimeOfDay = 44,
+        customEvent045_warp = 45,
     }
 }
