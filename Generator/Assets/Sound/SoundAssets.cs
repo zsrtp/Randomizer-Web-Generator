@@ -4274,8 +4274,8 @@ namespace TPRandomizer.Assets
                 JAISoundID.Z2SE_FN_JUMP_DUMMY, // Small Leap
                 //JAISoundID.Z2SE_FN_BOUND_DUMMY, // Dirt walking - Shoes
                 //JAISoundID.Z2SE_FN_HAND_DUMMY, // Dirt walking - barefoot
-                JAISoundID.Z2SE_FN_WALK_HEAVY, // Iron Boots Normal Walking Sound
-                JAISoundID.Z2SE_FN_JUMP_HEAVY, // Iron Boots equip sound
+                // JAISoundID.Z2SE_FN_WALK_HEAVY, // Iron Boots Normal Walking Sound (crashes when shuffled in GM)
+                // JAISoundID.Z2SE_FN_JUMP_HEAVY, // Iron Boots equip sound (crashes when shuffled in GM)
                 JAISoundID.Z2SE_FN_LADDER_CLIMB, // Ladder Ascend
                 JAISoundID.Z2SE_FN_LADDER_DOWN, // Ladder Decend
                 //JAISoundID.Z2SE_WL_WALK_L_DUMMY, // Wolf Link Left Leg Walk
