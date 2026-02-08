@@ -192,6 +192,14 @@ namespace TPRandomizer.Assets
                 GCIDataRaw.AddRange(dataBytes);
             }
 
+            dataBytes = GenerateReturnPlaceSection();
+            if (dataBytes != null)
+            {
+                SeedHeaderRaw.returnPlaceSectionOffset = (UInt16)GCIDataRaw.Count();
+                GCIDataRaw.AddRange(dataBytes);
+            }
+
+
             // Custom Message Info
             currentMessageData.AddRange(
                 ParseCustomMessageData((int)hintLanguage, currentMessageData, seedDictionary)
@@ -1417,6 +1425,147 @@ namespace TPRandomizer.Assets
                 SeedHeaderRaw.shuffledEntranceInfoNumEntries++;
             }
             return entranceTable;
+        }
+
+        private List<byte> GenerateReturnPlaceSection()
+        {
+            int headerSize = 0xA;
+            List<byte> finalResult = new();
+            List<byte> data = new();
+            List<byte> compTable = new();
+            List<uint> returnPlaceTable = new();
+            Dictionary<uint, int> returnPlaceValToResultIndex = new();
+
+            ReturnPlace ftRetPl = new(StageIDs.Forest_Temple, 0x16, 0, -1);
+            ReturnPlace gmRetPl = new(StageIDs.Goron_Mines, 0x1, 0, -1);
+            ReturnPlace lbtRetPl = new(StageIDs.Lakebed_Temple, 0, 0, -1);
+            ReturnPlace agRetPl = new(StageIDs.Arbiters_Grounds, 0, 0, -1);
+            ReturnPlace sprRetPl = new(StageIDs.Snowpeak_Ruins, 0, 0, -1);
+            ReturnPlace totRetPl = new(StageIDs.Temple_of_Time, 0, 0, -1);
+            ReturnPlace citsRetPl = new(StageIDs.City_in_the_Sky, 0, 3, -1);
+            ReturnPlace potRetPl = new(StageIDs.Palace_of_Twilight, 0, 0, -1);
+            ReturnPlace hcRetPl = new(StageIDs.Hyrule_Castle, 0xB, 0, -1);
+
+            // Note: need to include the connected dungeon (if it exists) for (mini)bosses so that
+            // Midna can check that mapping to see if canReturnToDungeonEntrance. This is preferable
+            // to the somewhat hacky/fragile version where we always map bosses to null rather than
+            // only when they are not connected to dungeons. That does not save any space either.
+
+            List<(ReturnPlaceComparison, ReturnPlace)> list = new() {
+                // --- Crashes/softlocks/jank ---
+                // Check not starting goats minigame to avoid softlock.
+                (new(StageIDs.Ordon_Ranch, -1, 3, 4), null),
+                // Check not starting Plumm minigame to avoid loading in on the OoB ledge.
+                (new(StageIDs.Zoras_River, -1, 0, 4), null),
+                // Check not entering on canoe to avoid jank when S+Q and retry back to top. Instead
+                // you can S+Q back to top with in a more convenient and less jank way.
+                (new(StageIDs.Lake_Hylia, -1, 2, -1), null),
+
+                // --- Adjustments for Entrance Rando ---
+                // Check not canoe fishing to avoid unearned Fishing Hole access for interiors ER.
+                (new(StageIDs.Fishing_Pond, -1, 4, -1), null),
+                // For CoO, always send back to the top on the inside.
+                (new(StageIDs.Cave_of_Ordeals, -1, -1, -1), new(StageIDs.Cave_of_Ordeals, 0, 0, -1)),
+
+                // --- Portal handling ---
+                // Change back to vanilla values since point -4 is not valid for loading a save.
+                (new(StageIDs.Death_Mountain, 3, -4, -1), new(StageIDs.Death_Mountain, 3, 5, -1)),
+                (new(StageIDs.Faron_Woods, 0, -4, -1), new(StageIDs.Faron_Woods, 0, 0, -1)), // S FW
+                (new(StageIDs.Faron_Woods, 6, -4, -1), new(StageIDs.Faron_Woods, 6, 0xFE, -1)), // N FW
+                (new(StageIDs.Gerudo_Desert, 0, -4, -1), new(StageIDs.Gerudo_Desert, 0, 0xB, -1)),
+                (new(StageIDs.Hyrule_Field, 0, -4, -1), new(StageIDs.Hyrule_Field, 0, 0xF, -1)), // Bridge of Eldin
+                (new(StageIDs.Hyrule_Field, 3, -4, -1), new(StageIDs.Hyrule_Field, 3, 6, -1)), // KG
+                (new(StageIDs.Kakariko_Village, 0, -4, -1), new(StageIDs.Kakariko_Village, 0, 5, -1)),
+                (new(StageIDs.Lake_Hylia, 0, -4, -1), new(StageIDs.Lake_Hylia, 0, 0x85, -1)),
+                // Reposition Mirror Chamber point to one without save prompt to avoid jank / ER impacts.
+                (new(StageIDs.Mirror_Chamber, 4, -4, -1), new(StageIDs.Mirror_Chamber, 4, 2, -1)),
+                (new(StageIDs.Ordon_Spring, 1, -4, -1), new(StageIDs.Ordon_Spring, 1, 0x1E, -1)),
+                (new(StageIDs.Outside_Castle_Town, 8, -4, -1), new(StageIDs.Outside_Castle_Town, 8, 7, -1)),
+                (new(StageIDs.Sacred_Grove, 1, -4, -1), new(StageIDs.Sacred_Grove, 1, 0xFE, -1)),
+                (new(StageIDs.Snowpeak, 1, -4, -1), new(StageIDs.Snowpeak, 1, 5, -1)),
+                (new(StageIDs.Upper_Zoras_River, 0, -4, -1), new(StageIDs.Upper_Zoras_River, 0, 0x63, -1)),
+                (new(StageIDs.Zoras_Domain, 0, -4, -1), new(StageIDs.Zoras_Domain, 0, 0, -1)),
+
+                // --- Dungeons ---
+                // Note: should update (mini)bosses to dynamically reference the dungeon which leads
+                // to them. If they are not connected to a dungeon, then should use null for the
+                // ReturnPlace instead.
+                (new(StageIDs.Forest_Temple, -1, -1, -1), ftRetPl),
+                (new(StageIDs.Ook, -1, -1, -1), ftRetPl),
+                (new(StageIDs.Diababa, -1, -1, -1), ftRetPl),
+                (new(StageIDs.Goron_Mines, -1, -1, -1), gmRetPl),
+                (new(StageIDs.Dangoro, -1, -1, -1), gmRetPl),
+                (new(StageIDs.Fyrus, -1, -1, -1), gmRetPl),
+                (new(StageIDs.Lakebed_Temple, -1, -1, -1), lbtRetPl),
+                (new(StageIDs.Deku_Toad, -1, -1, -1), lbtRetPl),
+                (new(StageIDs.Morpheel, -1, -1, -1), lbtRetPl),
+                (new(StageIDs.Arbiters_Grounds, -1, -1, -1), agRetPl),
+                (new(StageIDs.Death_Sword, -1, -1, -1), agRetPl),
+                (new(StageIDs.Stallord, -1, -1, -1), agRetPl),
+                (new(StageIDs.Snowpeak_Ruins, -1, -1, -1), sprRetPl),
+                (new(StageIDs.Darkhammer, -1, -1, -1), sprRetPl),
+                (new(StageIDs.Blizzeta, -1, -1, -1), sprRetPl),
+                (new(StageIDs.Temple_of_Time, -1, -1, -1), totRetPl),
+                (new(StageIDs.Darknut, -1, -1, -1), totRetPl),
+                (new(StageIDs.Armogohma, -1, -1, -1), totRetPl),
+                (new(StageIDs.City_in_the_Sky, -1, -1, -1), citsRetPl),
+                (new(StageIDs.Aeralfos, -1, -1, -1), citsRetPl),
+                (new(StageIDs.Argorok, -1, -1, -1), citsRetPl),
+                (new(StageIDs.Palace_of_Twilight, -1, -1, -1), potRetPl),
+                (new(StageIDs.Phantom_Zant_1, -1, -1, -1), potRetPl),
+                (new(StageIDs.Phantom_Zant_2, -1, -1, -1), potRetPl),
+                (new(StageIDs.Zant_Main_Room, -1, -1, -1), potRetPl),
+                (new(StageIDs.Zant_Fight, -1, -1, -1), potRetPl),
+                (new(StageIDs.Hyrule_Castle, -1, -1, -1), hcRetPl),
+                (new(StageIDs.Ganondorf_Castle, -1, -1, -1), hcRetPl),
+                (new(StageIDs.Ganondorf_Field, -1, -1, -1), hcRetPl),
+            };
+
+            foreach ((ReturnPlaceComparison, ReturnPlace) pair in list)
+            {
+                ReturnPlaceComparison comp = pair.Item1;
+                ReturnPlace returnPlace = pair.Item2;
+                int matchIndex = 0xFF;
+
+                if (returnPlace != null)
+                {
+                    uint returnPlaceU32 = returnPlace.asU32();
+                    if (!returnPlaceValToResultIndex.TryGetValue(returnPlaceU32, out matchIndex))
+                    {
+                        matchIndex = returnPlaceTable.Count;
+                        returnPlaceTable.Add(returnPlaceU32);
+                        returnPlaceValToResultIndex[returnPlaceU32] = matchIndex;
+                    }
+                }
+
+                compTable.Add(Converter.GcByte((int)comp.stageIDX));
+                compTable.Add(Converter.GcByte(comp.roomNo));
+                compTable.Add(Converter.GcByte(comp.point));
+                compTable.Add(Converter.GcByte(comp.layer));
+
+                data.Add(Converter.GcByte(matchIndex));
+            }
+
+            while ((headerSize + data.Count) % 4 != 0)
+                data.Add(0);
+
+            // Build header
+            finalResult.AddRange(Converter.GcBytes((ushort)list.Count)); // numComparisons
+            finalResult.AddRange(Converter.GcBytes((ushort)headerSize)); // matchIndexTable offset
+            finalResult.AddRange(Converter.GcBytes((ushort)(headerSize + data.Count))); // compTable offset
+
+            data.AddRange(compTable);
+
+            finalResult.AddRange(Converter.GcBytes((ushort)returnPlaceTable.Count));
+            finalResult.AddRange(Converter.GcBytes((ushort)(headerSize + data.Count)));
+            foreach (uint returnPlaceU32 in returnPlaceTable)
+            {
+                data.AddRange(Converter.GcBytes(returnPlaceU32));
+            }
+
+            finalResult.AddRange(data);
+
+            return finalResult;
         }
 
         private List<ARCReplacement> generateStaticArcReplacements()
@@ -3790,6 +3939,7 @@ namespace TPRandomizer.Assets
             public UInt16 sfxInfoDataOffset { get; set; }
             public UInt16 clr0Offset { get; set; }
             public UInt16 bmg0Offset { get; set; }
+            public UInt16 returnPlaceSectionOffset { get; set; }
             public UInt16 customTextHeaderSize { get; set; }
             public UInt16 customTextHeaderOffset { get; set; }
         }
@@ -3912,6 +4062,57 @@ namespace TPRandomizer.Assets
         } // Used to be item, but can be more now.
         
         
+    }
+
+    public class ReturnPlaceComparison
+    {
+        public StageIDs stageIDX { get; }
+        public sbyte roomNo  { get; }
+        public sbyte point  { get; }
+        public sbyte layer  { get; }
+
+        public ReturnPlaceComparison(
+            StageIDs stageIDX,
+            sbyte roomNo,
+            sbyte point,
+            sbyte layer
+        )
+        {
+            this.stageIDX = stageIDX;
+            this.roomNo = roomNo;
+            this.point = point;
+            this.layer = layer;
+        }
+    }
+
+    public class ReturnPlace
+    {
+        public StageIDs returnStageIDX { get; }
+        public byte returnPoint { get; }
+        public byte returnRoomNo { get; }
+        public sbyte returnLayer { get; }
+
+        public ReturnPlace(
+            StageIDs returnStageIDX,
+            byte returnPoint,
+            byte returnRoomNo,
+            sbyte returnLayer
+        )
+        {
+            this.returnStageIDX = returnStageIDX;
+            this.returnPoint = returnPoint;
+            this.returnRoomNo = returnRoomNo;
+            this.returnLayer = returnLayer;
+        }
+
+        public uint asU32()
+        {
+            uint result = (uint)(((int)returnStageIDX) << 24);
+            result |= (uint)(Converter.GcByte(returnPoint) << 16);
+            result |= (uint)(Converter.GcByte(returnRoomNo) << 8);
+            result |= (uint)(Converter.GcByte(returnLayer));
+            return result;
+        }
     }
 
     enum FileDirectory : byte
