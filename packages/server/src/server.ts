@@ -388,7 +388,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [0xaf, 'Snowpeak Portal'],
         [0xbf, 'Sacred Grove Portal'],
         [0xe8, 'Bridge of Eldin Portal'],
-        [0xf7, 'Upper Zoras River Portal'],
+        [0x39, 'Upper Zoras River Portal'],
       ];
 
       const startingItemsEls = startingItems.map((item) => {
