@@ -1447,9 +1447,7 @@ namespace TPRandomizer.Assets
             ReturnPlace hcRetPl = new(StageIDs.Hyrule_Castle, 0xB, 0, -1);
 
             // Note: need to include the connected dungeon (if it exists) for (mini)bosses so that
-            // Midna can check that mapping to see if canReturnToDungeonEntrance. This is preferable
-            // to the somewhat hacky/fragile version where we always map bosses to null rather than
-            // only when they are not connected to dungeons. That does not save any space either.
+            // Midna can check that mapping to see if canReturnToDungeonEntrance.
 
             List<(ReturnPlaceComparison, ReturnPlace)> list = new() {
                 // --- Crashes/softlocks/jank ---
@@ -1488,8 +1486,8 @@ namespace TPRandomizer.Assets
 
                 // --- Dungeons --- Note: should update (mini)bosses to dynamically reference the
                 // dungeon which leads to them. If they are not connected to a dungeon, then should
-                // use null for the ReturnPlace instead. Also if multiple places would lead into the
-                // Darkhammer room, then must also set it to null.
+                // use null for the ReturnPlace instead. Also if two unrelated places would lead
+                // into the Darkhammer room, then must also set it to null.
                 (new(StageIDs.Forest_Temple, -1, -1, -1), ftRetPl),
                 (new(StageIDs.Ook, -1, -1, -1), ftRetPl),
                 (new(StageIDs.Diababa, -1, -1, -1), ftRetPl),
