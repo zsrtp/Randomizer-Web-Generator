@@ -72,8 +72,8 @@ namespace TPRandomizer
 
         /*Piece_of_Heart_2?	=	0x37,*/
         /*Piece_of_Heart_3?	=	0x38,*/
-        /*Piece_of_Heart_4?	=	0x39,*/
-        /*Piece_of_Heart_5?	=	0x3A,*/
+        Upper_Zoras_River_Portal = 0x39,
+        Castle_Town_Portal = 0x3A,
         Gerudo_Desert_Portal = 0x3B,
         North_Faron_Portal = 0x3C,
         Coral_Earring = 0x3D,
@@ -100,7 +100,7 @@ namespace TPRandomizer
         Filled_Bomb_Bag = 0x51,
         Death_Mountain_Portal = 0x52,
 
-        /*Mirror Shard 1 = 0x53,*/
+        /*Light Arrow = 0x53,*/
 
         /*unused*/
         Small_Quiver = 0x54,
@@ -203,7 +203,8 @@ namespace TPRandomizer
         Mirror_Chamber_Portal = 0xAE,
         Snowpeak_Portal = 0xAF,
         Ilias_Scent = 0xB0,
-        Castle_Town_Portal = 0xB1,
+
+        /*Pumpkin_Scent UNUSED = 0xB1,*/
         Poe_Scent = 0xB2,
         Reekfish_Scent = 0xB3,
         Youths_Scent = 0xB4,
@@ -246,8 +247,8 @@ namespace TPRandomizer
         Progressive_Fused_Shadow = 0xD8,
         Fused_Shadow_2 = 0xD9,
         Fused_Shadow_3 = 0xDA,
+        Mirror_Shard_1 = 0xDB,
 
-        /*unused = 0xDB, custom*/
         /*unused = 0xDC, custom*/
         /*unused = 0xDD, custom*/
         /*unused = 0xDE, custom*/
@@ -277,7 +278,8 @@ namespace TPRandomizer
         Snowpeak_Ruins_Ordon_Pumpkin = 0xF4,
         Snowpeak_Ruins_Ordon_Goat_Cheese = 0xF5,
         Snowpeak_Ruins_Bedroom_Key = 0xF6,
-        Upper_Zoras_River_Portal = 0xF7,
+
+        /*Surfboard UNUSED = 0xF7,*/
         Got_Lantern_Back = 0xF8,
         Goron_Mines_Key_Shard = 0xF9,
         Goron_Mines_Key_Shard_Second = 0xFA,

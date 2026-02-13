@@ -1770,6 +1770,22 @@ namespace TPRandomizer.Assets
                     1
                 ), // Remove Malo double actor from outside link's house. It just looks weird
                 new ARCReplacement(
+                    "A4C",
+                    "00000000",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    2
+                ), // Remove Luda double actor from outside Elde Inn. It just looks weird
+                new ARCReplacement(
+                    "A8C",
+                    "00000000",
+                    (byte)FileDirectory.Room,
+                    (byte)ReplacementType.Instruction,
+                    (int)StageIDs.Kakariko_Village_Interiors,
+                    2
+                ), // Remove Colin double actor from outside Elde Inn. It just looks weird
+                new ARCReplacement(
                     "5AC",
                     "00000000",
                     (byte)FileDirectory.Room,

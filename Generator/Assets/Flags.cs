@@ -51,6 +51,7 @@ namespace TPRandomizer.Assets
             { 0x2, 0x48 }, // Talked to Coro after bugs
             { 0x3, 0xB9 }, // Barnes sells water bombs.
             { 0x3, 0xB3 }, // Colin Rescued CS (Malo Mart is Open).
+            { 0x3, 0x97 }, // Watched Elde-inn cs (removes invisible walls during twilight)
             { 0x2, 0x60 }, // Got Lantern Back from Monkey
             { 0x2, 0x61 }, // Saw bugs move in Coro's house
             { 0x2, 0x7D }, // Talked to Midna about Coro spirit
