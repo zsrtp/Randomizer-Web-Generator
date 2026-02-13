@@ -1486,10 +1486,10 @@ namespace TPRandomizer.Assets
                 (new(StageIDs.Upper_Zoras_River, 0, -4, -1), new(StageIDs.Upper_Zoras_River, 0, 0x63, -1)),
                 (new(StageIDs.Zoras_Domain, 0, -4, -1), new(StageIDs.Zoras_Domain, 0, 0, -1)),
 
-                // --- Dungeons ---
-                // Note: should update (mini)bosses to dynamically reference the dungeon which leads
-                // to them. If they are not connected to a dungeon, then should use null for the
-                // ReturnPlace instead.
+                // --- Dungeons --- Note: should update (mini)bosses to dynamically reference the
+                // dungeon which leads to them. If they are not connected to a dungeon, then should
+                // use null for the ReturnPlace instead. Also if multiple places would lead into the
+                // Darkhammer room, then must also set it to null.
                 (new(StageIDs.Forest_Temple, -1, -1, -1), ftRetPl),
                 (new(StageIDs.Ook, -1, -1, -1), ftRetPl),
                 (new(StageIDs.Diababa, -1, -1, -1), ftRetPl),
@@ -1525,17 +1525,18 @@ namespace TPRandomizer.Assets
             {
                 ReturnPlaceComparison comp = pair.Item1;
                 ReturnPlace returnPlace = pair.Item2;
-                int matchIndex = 0xFF;
 
+                uint returnPlaceU32;
                 if (returnPlace != null)
+                    returnPlaceU32 = returnPlace.asU32();
+                else
+                    returnPlaceU32 = 0xFFFFFFFF;
+
+                if (!returnPlaceValToResultIndex.TryGetValue(returnPlaceU32, out int matchIndex))
                 {
-                    uint returnPlaceU32 = returnPlace.asU32();
-                    if (!returnPlaceValToResultIndex.TryGetValue(returnPlaceU32, out matchIndex))
-                    {
-                        matchIndex = returnPlaceTable.Count;
-                        returnPlaceTable.Add(returnPlaceU32);
-                        returnPlaceValToResultIndex[returnPlaceU32] = matchIndex;
-                    }
+                    matchIndex = returnPlaceTable.Count;
+                    returnPlaceTable.Add(returnPlaceU32);
+                    returnPlaceValToResultIndex[returnPlaceU32] = matchIndex;
                 }
 
                 compTable.Add(Converter.GcByte((int)comp.stageIDX));
