@@ -1881,6 +1881,38 @@
     <value>Hints</value>
     <comment></comment>
   </data>
+  <data name="menu.midna-other.option.return-to-spawn" xml:space="preserve">
+    <value>Return to spawn</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.body" xml:space="preserve">
+    <value>I&apos;ll get you out of here. Are you ready to go?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.not-yet" xml:space="preserve">
+    <value>Not yet</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.ready" xml:space="preserve">
+    <value>I&apos;m ready</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.body" xml:space="preserve">
+    <value>I&apos;ll get you out of here. Where do you want to go?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.cancel" xml:space="preserve">
+    <value>Nevermind</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.dungeon" xml:space="preserve">
+    <value>Dungeon entrance</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.spawn" xml:space="preserve">
+    <value>Spawn</value>
+    <comment></comment>
+  </data>
   <data name="midna.grouped-barren-hints" xml:space="preserve">
     <value>They say that there is #(purple)nothing#(white) to be found in the following areas:</value>
     <comment></comment>

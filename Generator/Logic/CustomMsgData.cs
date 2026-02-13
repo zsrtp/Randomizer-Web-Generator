@@ -980,47 +980,46 @@ namespace TPRandomizer
                 {
                     StrRepl.Public(
                         Node.msg_MidnaTwoOptsBody,
-                        Res.SimpleMsg("menu.midna-other.body") + CustomMessages.endMenuBody,
+                        Res.LangSpecificNormalize(Res.SimpleMsg("menu.midna-other.body"))
+                            + CustomMessages.endMenuBody,
                         baseMidnaCtx
                     ),
                     StrRepl.Public(
                         Node.msg_MidnaTwoOptsOptions,
-                        $"{CustomMessages.option1of2}{Res.SimpleMsg("menu.midna-other.option.hints")}\n{CustomMessages.option2of2}Return to Spawn",
+                        $"{CustomMessages.option1of2}{Res.SimpleMsg("menu.midna-other.option.hints")}\n{CustomMessages.option2of2}{Res.SimpleMsg("menu.midna-other.option.return-to-spawn")}",
                         baseMidnaCtx
                     ),
-                    // TODO: temp test
                     StrRepl.Public(
                         Node.msg_MidnaThreeOptsBody,
-                        Res.SimpleMsg("menu.midna-other.body") + CustomMessages.endMenuBody,
+                        Res.LangSpecificNormalize(Res.SimpleMsg("menu.midna-other.body"))
+                            + CustomMessages.endMenuBody,
                         baseMidnaCtx
                     ),
                     StrRepl.Public(
                         Node.msg_MidnaThreeOptsOptions,
-                        $"{CustomMessages.option2of3}{Res.SimpleMsg("menu.midna-other.option.hints")}\n{CustomMessages.option1of3}{Res.SimpleMsg("menu.midna-other.option.change-time-of-day")}\n{CustomMessages.option3of3}Return To Spawn",
+                        $"{CustomMessages.option2of3}{Res.SimpleMsg("menu.midna-other.option.hints")}\n{CustomMessages.option1of3}{Res.SimpleMsg("menu.midna-other.option.change-time-of-day")}\n{CustomMessages.option3of3}{Res.SimpleMsg("menu.midna-other.option.return-to-spawn")}",
                         baseMidnaCtx
                     ),
-                    // TODO: retToSpawn menus below
                     StrRepl.Public(
                         Node.msg_MidnaTwoOptsBody,
-                        Res.LangSpecificNormalize("I'll get you out of here. Ready to go?")
+                        Res.LangSpecificNormalize(Res.SimpleMsg("menu.midna-rts-confirm.body"))
                             + CustomMessages.endMenuBody,
                         returnToSpawnCtx
                     ),
                     StrRepl.Public(
                         Node.msg_MidnaTwoOptsOptions,
-                        $"{CustomMessages.option1of2}No\n{CustomMessages.option2of2}Yes",
+                        $"{CustomMessages.option1of2}{Res.SimpleMsg("menu.midna-rts-confirm.option.not-yet")}\n{CustomMessages.option2of2}{Res.SimpleMsg("menu.midna-rts-confirm.option.ready")}",
                         returnToSpawnCtx
                     ),
                     StrRepl.Public(
                         Node.msg_MidnaThreeOptsBody,
-                        Res.LangSpecificNormalize(
-                            "I'll get you out of here. Where do you want to go?"
-                        ) + CustomMessages.endMenuBody,
+                        Res.LangSpecificNormalize(Res.SimpleMsg("menu.midna-rts-dungeon.body"))
+                            + CustomMessages.endMenuBody,
                         returnToSpawnCtx
                     ),
                     StrRepl.Public(
                         Node.msg_MidnaThreeOptsOptions,
-                        $"{CustomMessages.option1of3}Nevermind\n{CustomMessages.option2of3}Spawn\n{CustomMessages.option3of3}Dungeon Entrance",
+                        $"{CustomMessages.option1of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.cancel")}\n{CustomMessages.option2of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.spawn")}\n{CustomMessages.option3of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.dungeon")}",
                         returnToSpawnCtx
                     ),
                 }
