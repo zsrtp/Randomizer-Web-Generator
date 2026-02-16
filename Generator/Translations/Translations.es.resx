@@ -145,6 +145,38 @@
     <value>Consejos</value>
     <comment></comment>
   </data>
+  <data name="menu.midna-other.option.return-to-spawn" xml:space="preserve">
+    <value>Volver al spawn</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.body" xml:space="preserve">
+    <value>¿Estas listo para ir?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.not-yet" xml:space="preserve">
+    <value>Todavía no</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.ready" xml:space="preserve">
+    <value>Estoy listo</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.body" xml:space="preserve">
+    <value>¿A dónde quieres ir?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.cancel" xml:space="preserve">
+    <value>Espera</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.dungeon" xml:space="preserve">
+    <value>Entrada a la mazmorra</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.spawn" xml:space="preserve">
+    <value>Spawn</value>
+    <comment>Intentionally leaving as Spawn</comment>
+  </data>
   <data name="midna.required-dungeons" xml:space="preserve">
     <value>Hay #(red)1#(white) mazmorra requerida:</value>
     <comment></comment>

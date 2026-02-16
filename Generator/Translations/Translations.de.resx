@@ -145,6 +145,38 @@
     <value>Hinweise</value>
     <comment></comment>
   </data>
+  <data name="menu.midna-other.option.return-to-spawn" xml:space="preserve">
+    <value>Zum Spawn zurückkehren</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.body" xml:space="preserve">
+    <value>Ich kann dich von hier wegbringen. Aber bist du auch sicher, dass du nichts vergessen hast?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.not-yet" xml:space="preserve">
+    <value>Noch nicht</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.ready" xml:space="preserve">
+    <value>Wir können gehen</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.body" xml:space="preserve">
+    <value>Ich kann dich von hier wegbringen. Wo willst du hin?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.cancel" xml:space="preserve">
+    <value>Doch nichts</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.dungeon" xml:space="preserve">
+    <value>Dungeon-Eingang</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.spawn" xml:space="preserve">
+    <value>Spawn</value>
+    <comment>Intentionally still Spawn</comment>
+  </data>
   <data name="midna.required-dungeons" xml:space="preserve">
     <value>Es ist #(red)1#(white) Dungeon erforderlich:</value>
     <comment></comment>

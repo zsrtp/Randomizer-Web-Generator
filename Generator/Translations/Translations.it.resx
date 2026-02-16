@@ -145,6 +145,38 @@
     <value>Indizi</value>
     <comment></comment>
   </data>
+  <data name="menu.midna-other.option.return-to-spawn" xml:space="preserve">
+    <value>Ritorna al spawn</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.body" xml:space="preserve">
+    <value>Siete pronti a partire?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.not-yet" xml:space="preserve">
+    <value>Non ancora</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.ready" xml:space="preserve">
+    <value>Sono pronto</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.body" xml:space="preserve">
+    <value>Dove vuoi andare?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.cancel" xml:space="preserve">
+    <value>Aspetta</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.dungeon" xml:space="preserve">
+    <value>Ingresso del dungeon</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.spawn" xml:space="preserve">
+    <value>Spawn</value>
+    <comment>Intentionally leaving as Spawn</comment>
+  </data>
   <data name="midna.required-dungeons" xml:space="preserve">
     <value>C&apos;è #(red)1#(white) dungeon richiesto:</value>
     <comment></comment>
@@ -178,7 +210,7 @@
     <comment></comment>
   </data>
   <data name="required-dungeon.none" xml:space="preserve">
-    <value>Nessun santuario richiesto</value>
+    <value>Nessun dungeon richiesto</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.palace-of-twilight" xml:space="preserve">

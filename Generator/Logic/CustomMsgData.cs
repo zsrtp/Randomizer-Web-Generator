@@ -889,7 +889,8 @@ namespace TPRandomizer
             // right when you press A.
 
             ushort baseMidnaCtx = ctxGen.getNewContext();
-            ushort returnToSpawnCtx = ctxGen.getNewContext();
+            ushort rtsBaseCtx = ctxGen.getNewContext();
+            ushort rtsConfirmationCtx = ctxGen.getNewContext();
             ushort hintsBaseCtx = ctxGen.getNewContext();
 
             int numReqDungeons = 0;
@@ -1004,23 +1005,23 @@ namespace TPRandomizer
                         Node.msg_MidnaTwoOptsBody,
                         Res.LangSpecificNormalize(Res.SimpleMsg("menu.midna-rts-confirm.body"))
                             + CustomMessages.endMenuBody,
-                        returnToSpawnCtx
+                        rtsConfirmationCtx
                     ),
                     StrRepl.Public(
                         Node.msg_MidnaTwoOptsOptions,
                         $"{CustomMessages.option1of2}{Res.SimpleMsg("menu.midna-rts-confirm.option.not-yet")}\n{CustomMessages.option2of2}{Res.SimpleMsg("menu.midna-rts-confirm.option.ready")}",
-                        returnToSpawnCtx
+                        rtsConfirmationCtx
                     ),
                     StrRepl.Public(
                         Node.msg_MidnaThreeOptsBody,
                         Res.LangSpecificNormalize(Res.SimpleMsg("menu.midna-rts-dungeon.body"))
                             + CustomMessages.endMenuBody,
-                        returnToSpawnCtx
+                        rtsConfirmationCtx
                     ),
                     StrRepl.Public(
                         Node.msg_MidnaThreeOptsOptions,
                         $"{CustomMessages.option1of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.cancel")}\n{CustomMessages.option2of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.spawn")}\n{CustomMessages.option3of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.dungeon")}",
-                        returnToSpawnCtx
+                        rtsConfirmationCtx
                     ),
                 }
             );
@@ -1035,10 +1036,9 @@ namespace TPRandomizer
                         Node.br_Z0GeneriCtxBranch.flwIdx,
                         baseMidnaCtx
                     ),
-                    // When we first enter the Hints text, update to a new
-                    // context. The base Midna context needs 0xFFFF to not be
-                    // remapped (so backing out of the menu works), so we need a
-                    // 2nd context.
+                    // When we first enter the Hints text, update to a new context. The base Midna
+                    // context needs 0xFFFF to not be remapped (so backing out of the menu works),
+                    // so we need a 2nd context.
                     NodeRemap.Ctx(
                         baseMidnaCtx,
                         Node.msg_Z0_0x4d,
@@ -1051,7 +1051,20 @@ namespace TPRandomizer
                         baseMidnaCtx,
                         Node.br_Z0GeneriCtxBranch,
                         Node.br_Z0GeneriCtxBranch.flwIdx,
-                        returnToSpawnCtx
+                        rtsBaseCtx
+                    ),
+                    // Update context when changing to the returnToSpawn confirmation menus.
+                    NodeRemap.Ctx(
+                        rtsBaseCtx,
+                        Node.ev_MidnaThreeOptsInitEv,
+                        Node.ev_MidnaThreeOptsInitEv.flwIdx,
+                        rtsConfirmationCtx
+                    ),
+                    NodeRemap.Ctx(
+                        rtsBaseCtx,
+                        Node.ev_MidnaTwoOptsInitEv,
+                        Node.ev_MidnaTwoOptsInitEv.flwIdx,
+                        rtsConfirmationCtx
                     ),
                 }
             );
@@ -1068,7 +1081,6 @@ namespace TPRandomizer
                         {
                             Node.ev_MidnaThreeOptsInitEv.flwIdx,
                             Node.ev_MidnaTwoOptsInitEv.flwIdx,
-                            // Node.msg_Z0_0x4d.flwIdx
                         }
                     ),
                     // Handle choice of "Hints / ReturnToSpawn" menu
@@ -1078,9 +1090,6 @@ namespace TPRandomizer
                         nextNodeIndexes: new()
                         {
                             Node.msg_Z0_0x4d.flwIdx,
-                            // Node.ev_Z0GenericCtxEvent.flwIdx,
-                            // Node.ev_MidnaThreeOptsInitEv.flwIdx,
-                            // Node.ev_Z0GenericCtxEvent2.flwIdx,
                             Node.br_Z0GeneriCtxBranch.flwIdx,
                             0xFFFF
                         }
@@ -1093,86 +1102,78 @@ namespace TPRandomizer
                         {
                             Node.msg_Z0_0x4d.flwIdx,
                             Node.ev_Z0GenericCtxEvent.flwIdx,
-                            // Node.ev_Z0GenericCtxEvent2.flwIdx,
                             Node.br_Z0GeneriCtxBranch.flwIdx,
                             0xFFFF
                         }
                     ),
-                    // Check if can returnToDungeonSpawn
+                    // Check how to handle ReturnToSpawn selection
                     new(
                         Node.br_Z0GeneriCtxBranch,
-                        returnToSpawnCtx,
+                        rtsBaseCtx,
                         queryIndex: QueryIdx.customQuery055_canReturnToDungeonEntrance,
                         nextNodeIndexes: new()
                         {
-                            Node.ev_MidnaThreeOptsInitEv.flwIdx,
-                            Node.ev_MidnaTwoOptsInitEv.flwIdx,
+                            Node.ev_MidnaThreeOptsInitEv.flwIdx, // Dungeon entrance menu
+                            Node.ev_MidnaTwoOptsInitEv.flwIdx, // Dungeon but only returnToSpawn menu
+                            Node.ev_Z0GenericCtxEvent.flwIdx, // Immediately return to spawn
                         }
                     ),
                     // Handle choice of "No / ReturnToSpawn" menu
                     new(
                         Node.br_MidnaTwoOptsResultBranch,
-                        returnToSpawnCtx,
-                        nextNodeIndexes: new()
-                        {
-                            0xFFFF,
-                            Node.ev_Z0GenericCtxEvent.flwIdx,
-                            0xFFFF,
-                            // Node.msg_Z0_0x4d.flwIdx,
-                            // // Node.ev_Z0GenericCtxEvent.flwIdx,
-                            // // Node.ev_MidnaThreeOptsInitEv.flwIdx,
-                            // Node.ev_Z0GenericCtxEvent2.flwIdx,
-                            // 0xFFFF
-                        }
+                        rtsConfirmationCtx,
+                        nextNodeIndexes: new() { 0xFFFF, Node.ev_Z0GenericCtxEvent.flwIdx, 0xFFFF, }
                     ),
-                    // Handle choice of "No / ReturnToSpawn / ReturnToDungeonEntrance" menu
+                    // Handle choice of "Nevermind / Spawn / DungeonEntrance" menu
                     new(
                         Node.br_MidnaThreeOptsResultBranch,
-                        returnToSpawnCtx,
+                        rtsConfirmationCtx,
                         nextNodeIndexes: new()
                         {
                             0xFFFF,
                             Node.ev_Z0GenericCtxEvent.flwIdx,
                             Node.ev_Z0GenericCtxEvent2.flwIdx,
                             0xFFFF,
-                            // Node.msg_Z0_0x4d.flwIdx,
-                            // // Node.ev_Z0GenericCtxEvent.flwIdx,
-                            // // Node.ev_MidnaThreeOptsInitEv.flwIdx,
-                            // Node.ev_Z0GenericCtxEvent2.flwIdx,
-                            // 0xFFFF
                         }
                     ),
                 }
             );
 
-            // Make event change ToD
-            builder.AddEventEntity(
-                new(
-                    Node.ev_Z0GenericCtxEvent,
-                    baseMidnaCtx,
-                    eventIndex: EventIdx.customEvent044_changeTimeOfDay,
-                    // eventIndex: EventIdx.customEvent045_warp,
-                    nextNodeIdx: 0xFFFF
-                )
-            );
-
-            builder.AddEventEntity(
-                new(
-                    Node.ev_Z0GenericCtxEvent,
-                    returnToSpawnCtx,
-                    eventIndex: EventIdx.customEvent045_warp,
-                    intParam: 0,
-                    nextNodeIdx: 0xFFFF
-                )
-            );
-            builder.AddEventEntity(
-                new(
-                    Node.ev_Z0GenericCtxEvent2,
-                    returnToSpawnCtx,
-                    eventIndex: EventIdx.customEvent045_warp,
-                    intParam: 1,
-                    nextNodeIdx: 0xFFFF
-                )
+            builder.AddEventEntities(
+                new()
+                {
+                    // Change ToD
+                    new(
+                        Node.ev_Z0GenericCtxEvent,
+                        baseMidnaCtx,
+                        eventIndex: EventIdx.customEvent044_changeTimeOfDay,
+                        nextNodeIdx: 0xFFFF
+                    ),
+                    // Return to spawn for no confirmation
+                    new(
+                        Node.ev_Z0GenericCtxEvent,
+                        rtsBaseCtx,
+                        eventIndex: EventIdx.customEvent045_warp,
+                        intParam: 0,
+                        nextNodeIdx: 0xFFFF
+                    ),
+                    // Return to spawn from confirmation
+                    new(
+                        Node.ev_Z0GenericCtxEvent,
+                        rtsConfirmationCtx,
+                        eventIndex: EventIdx.customEvent045_warp,
+                        intParam: 0,
+                        nextNodeIdx: 0xFFFF
+                    ),
+                    // Return to dungeon entrance
+                    new(
+                        Node.ev_Z0GenericCtxEvent2,
+                        rtsConfirmationCtx,
+                        eventIndex: EventIdx.customEvent045_warp,
+                        intParam: 1,
+                        nextNodeIdx: 0xFFFF
+                    ),
+                }
             );
 
             // Should always have at least one message (required dungeon info).

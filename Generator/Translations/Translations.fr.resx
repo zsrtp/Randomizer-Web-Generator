@@ -2186,11 +2186,43 @@
     <comment></comment>
   </data>
   <data name="menu.midna-other.option.change-time-of-day" xml:space="preserve">
-    <value>Je veux changer l&apos;heure</value>
+    <value>Changer l&apos;heure</value>
     <comment></comment>
   </data>
   <data name="menu.midna-other.option.hints" xml:space="preserve">
     <value>Indices</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.return-to-spawn" xml:space="preserve">
+    <value>Revenir au spawn</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.body" xml:space="preserve">
+    <value>Tu es sûr que tu veux sortir tout de suite? Tu as fait tout ce que tu voulais faire?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.not-yet" xml:space="preserve">
+    <value>Pas encore</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.ready" xml:space="preserve">
+    <value>Je suis prêt</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.body" xml:space="preserve">
+    <value>Tu es sûr que tu veux sortir tout de suite? Tu as fait tout ce que tu voulais faire?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.cancel" xml:space="preserve">
+    <value>Non rien</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.dungeon" xml:space="preserve">
+    <value>Au début du donjon</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.spawn" xml:space="preserve">
+    <value>Au spawn</value>
     <comment></comment>
   </data>
   <data name="midna.grouped-barren-hints" xml:space="preserve">
