@@ -1455,6 +1455,8 @@ namespace TPRandomizer.Assets
                 (new(StageIDs.Ordon_Ranch, -1, 3, 4), null),
                 // Check not starting Plumm minigame to avoid loading in on the OoB ledge.
                 (new(StageIDs.Zoras_River, -1, 0, 4), null),
+                // Check not loading into Iza room after defeating shadow beasts to avoid some jank.
+                (new(StageIDs.Zoras_River, 1, 2, 0), null),
                 // Check not entering on canoe to avoid jank when S+Q and retry back to top. Instead
                 // you can S+Q back to top with in a more convenient and less jank way.
                 (new(StageIDs.Lake_Hylia, -1, 2, -1), null),

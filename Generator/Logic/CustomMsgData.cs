@@ -1020,7 +1020,7 @@ namespace TPRandomizer
                     ),
                     StrRepl.Public(
                         Node.msg_MidnaThreeOptsOptions,
-                        $"{CustomMessages.option1of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.cancel")}\n{CustomMessages.option2of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.spawn")}\n{CustomMessages.option3of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.dungeon")}",
+                        $"{CustomMessages.option2of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.dungeon")}\n{CustomMessages.option1of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.cancel")}\n{CustomMessages.option3of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.spawn")}",
                         rtsConfirmationCtx
                     ),
                 }
@@ -1124,15 +1124,15 @@ namespace TPRandomizer
                         rtsConfirmationCtx,
                         nextNodeIndexes: new() { 0xFFFF, Node.ev_Z0GenericCtxEvent.flwIdx, 0xFFFF, }
                     ),
-                    // Handle choice of "Nevermind / Spawn / DungeonEntrance" menu
+                    // Handle choice of "Spawn / Nevermind / DungeonEntrance" menu
                     new(
                         Node.br_MidnaThreeOptsResultBranch,
                         rtsConfirmationCtx,
                         nextNodeIndexes: new()
                         {
+                            Node.ev_Z0GenericCtxEvent2.flwIdx,
                             0xFFFF,
                             Node.ev_Z0GenericCtxEvent.flwIdx,
-                            Node.ev_Z0GenericCtxEvent2.flwIdx,
                             0xFFFF,
                         }
                     ),
