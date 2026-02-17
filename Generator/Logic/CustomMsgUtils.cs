@@ -408,6 +408,6 @@ namespace TPRandomizer
         event042 = 42,
         customEvent043_nop = 43,
         customEvent044_changeTimeOfDay = 44,
-        customEvent045_warp = 45,
+        customEvent045_returnToLocation = 45,
     }
 }

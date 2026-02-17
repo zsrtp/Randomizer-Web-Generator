@@ -1153,7 +1153,7 @@ namespace TPRandomizer
                     new(
                         Node.ev_Z0GenericCtxEvent,
                         rtsBaseCtx,
-                        eventIndex: EventIdx.customEvent045_warp,
+                        eventIndex: EventIdx.customEvent045_returnToLocation,
                         intParam: 0,
                         nextNodeIdx: 0xFFFF
                     ),
@@ -1161,7 +1161,7 @@ namespace TPRandomizer
                     new(
                         Node.ev_Z0GenericCtxEvent,
                         rtsConfirmationCtx,
-                        eventIndex: EventIdx.customEvent045_warp,
+                        eventIndex: EventIdx.customEvent045_returnToLocation,
                         intParam: 0,
                         nextNodeIdx: 0xFFFF
                     ),
@@ -1169,7 +1169,7 @@ namespace TPRandomizer
                     new(
                         Node.ev_Z0GenericCtxEvent2,
                         rtsConfirmationCtx,
-                        eventIndex: EventIdx.customEvent045_warp,
+                        eventIndex: EventIdx.customEvent045_returnToLocation,
                         intParam: 1,
                         nextNodeIdx: 0xFFFF
                     ),
