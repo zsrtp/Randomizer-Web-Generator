@@ -889,6 +889,8 @@ namespace TPRandomizer
             // right when you press A.
 
             ushort baseMidnaCtx = ctxGen.getNewContext();
+            ushort rtsBaseCtx = ctxGen.getNewContext();
+            ushort rtsConfirmationCtx = ctxGen.getNewContext();
             ushort hintsBaseCtx = ctxGen.getNewContext();
 
             int numReqDungeons = 0;
@@ -979,13 +981,47 @@ namespace TPRandomizer
                 {
                     StrRepl.Public(
                         Node.msg_MidnaTwoOptsBody,
-                        Res.SimpleMsg("menu.midna-other.body") + CustomMessages.endMenuBody,
+                        Res.LangSpecificNormalize(Res.SimpleMsg("menu.midna-other.body"))
+                            + CustomMessages.endMenuBody,
                         baseMidnaCtx
                     ),
                     StrRepl.Public(
                         Node.msg_MidnaTwoOptsOptions,
-                        $"{CustomMessages.option1of2}{Res.SimpleMsg("menu.midna-other.option.change-time-of-day")}\n{CustomMessages.option2of2}{Res.SimpleMsg("menu.midna-other.option.hints")}",
+                        $"{CustomMessages.option1of2}{Res.SimpleMsg("menu.midna-other.option.hints")}\n{CustomMessages.option2of2}{Res.SimpleMsg("menu.midna-other.option.return-to-spawn")}",
                         baseMidnaCtx
+                    ),
+                    StrRepl.Public(
+                        Node.msg_MidnaThreeOptsBody,
+                        Res.LangSpecificNormalize(Res.SimpleMsg("menu.midna-other.body"))
+                            + CustomMessages.endMenuBody,
+                        baseMidnaCtx
+                    ),
+                    StrRepl.Public(
+                        Node.msg_MidnaThreeOptsOptions,
+                        $"{CustomMessages.option2of3}{Res.SimpleMsg("menu.midna-other.option.hints")}\n{CustomMessages.option1of3}{Res.SimpleMsg("menu.midna-other.option.change-time-of-day")}\n{CustomMessages.option3of3}{Res.SimpleMsg("menu.midna-other.option.return-to-spawn")}",
+                        baseMidnaCtx
+                    ),
+                    StrRepl.Public(
+                        Node.msg_MidnaTwoOptsBody,
+                        Res.LangSpecificNormalize(Res.SimpleMsg("menu.midna-rts-confirm.body"))
+                            + CustomMessages.endMenuBody,
+                        rtsConfirmationCtx
+                    ),
+                    StrRepl.Public(
+                        Node.msg_MidnaTwoOptsOptions,
+                        $"{CustomMessages.option1of2}{Res.SimpleMsg("menu.midna-rts-confirm.option.not-yet")}\n{CustomMessages.option2of2}{Res.SimpleMsg("menu.midna-rts-confirm.option.ready")}",
+                        rtsConfirmationCtx
+                    ),
+                    StrRepl.Public(
+                        Node.msg_MidnaThreeOptsBody,
+                        Res.LangSpecificNormalize(Res.SimpleMsg("menu.midna-rts-dungeon.body"))
+                            + CustomMessages.endMenuBody,
+                        rtsConfirmationCtx
+                    ),
+                    StrRepl.Public(
+                        Node.msg_MidnaThreeOptsOptions,
+                        $"{CustomMessages.option2of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.dungeon")}\n{CustomMessages.option1of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.cancel")}\n{CustomMessages.option3of3}{Res.SimpleMsg("menu.midna-rts-dungeon.option.spawn")}",
+                        rtsConfirmationCtx
                     ),
                 }
             );
@@ -1000,16 +1036,36 @@ namespace TPRandomizer
                         Node.br_Z0GeneriCtxBranch.flwIdx,
                         baseMidnaCtx
                     ),
-                    // When we first enter the Hints text, update to a new
-                    // context. The base Midna context needs 0xFFFF to not be
-                    // remapped (so backing out of the menu works), so we need a
-                    // 2nd context.
+                    // When we first enter the Hints text, update to a new context. The base Midna
+                    // context needs 0xFFFF to not be remapped (so backing out of the menu works),
+                    // so we need a 2nd context.
                     NodeRemap.Ctx(
                         baseMidnaCtx,
                         Node.msg_Z0_0x4d,
                         Node.msg_Z0_0x4d.flwIdx,
                         hintsBaseCtx
-                    )
+                    ),
+                    // When entering the initial branch to see if can also returnToDungeonSpawn,
+                    // change the context.
+                    NodeRemap.Ctx(
+                        baseMidnaCtx,
+                        Node.br_Z0GeneriCtxBranch,
+                        Node.br_Z0GeneriCtxBranch.flwIdx,
+                        rtsBaseCtx
+                    ),
+                    // Update context when changing to the returnToSpawn confirmation menus.
+                    NodeRemap.Ctx(
+                        rtsBaseCtx,
+                        Node.ev_MidnaThreeOptsInitEv,
+                        Node.ev_MidnaThreeOptsInitEv.flwIdx,
+                        rtsConfirmationCtx
+                    ),
+                    NodeRemap.Ctx(
+                        rtsBaseCtx,
+                        Node.ev_MidnaTwoOptsInitEv,
+                        Node.ev_MidnaTwoOptsInitEv.flwIdx,
+                        rtsConfirmationCtx
+                    ),
                 }
             );
 
@@ -1023,32 +1079,101 @@ namespace TPRandomizer
                         queryIndex: QueryIdx.customQuery054_canChangeTod,
                         nextNodeIndexes: new()
                         {
+                            Node.ev_MidnaThreeOptsInitEv.flwIdx,
                             Node.ev_MidnaTwoOptsInitEv.flwIdx,
-                            Node.msg_Z0_0x4d.flwIdx
                         }
                     ),
-                    // Handle choice of "Change ToD / Hints" menu
+                    // Handle choice of "Hints / ReturnToSpawn" menu
                     new(
                         Node.br_MidnaTwoOptsResultBranch,
                         baseMidnaCtx,
                         nextNodeIndexes: new()
                         {
-                            Node.ev_Z0GenericCtxEvent.flwIdx,
                             Node.msg_Z0_0x4d.flwIdx,
+                            Node.br_Z0GeneriCtxBranch.flwIdx,
                             0xFFFF
+                        }
+                    ),
+                    // Handle choice of "Hints / Change ToD / ReturnToSpawn" menu
+                    new(
+                        Node.br_MidnaThreeOptsResultBranch,
+                        baseMidnaCtx,
+                        nextNodeIndexes: new()
+                        {
+                            Node.msg_Z0_0x4d.flwIdx,
+                            Node.ev_Z0GenericCtxEvent.flwIdx,
+                            Node.br_Z0GeneriCtxBranch.flwIdx,
+                            0xFFFF
+                        }
+                    ),
+                    // Check how to handle ReturnToSpawn selection
+                    new(
+                        Node.br_Z0GeneriCtxBranch,
+                        rtsBaseCtx,
+                        queryIndex: QueryIdx.customQuery055_canReturnToDungeonEntrance,
+                        nextNodeIndexes: new()
+                        {
+                            Node.ev_MidnaThreeOptsInitEv.flwIdx, // Dungeon entrance menu
+                            Node.ev_MidnaTwoOptsInitEv.flwIdx, // Dungeon but only returnToSpawn menu
+                            Node.ev_Z0GenericCtxEvent.flwIdx, // Immediately return to spawn
+                        }
+                    ),
+                    // Handle choice of "No / ReturnToSpawn" menu
+                    new(
+                        Node.br_MidnaTwoOptsResultBranch,
+                        rtsConfirmationCtx,
+                        nextNodeIndexes: new() { 0xFFFF, Node.ev_Z0GenericCtxEvent.flwIdx, 0xFFFF, }
+                    ),
+                    // Handle choice of "Spawn / Nevermind / DungeonEntrance" menu
+                    new(
+                        Node.br_MidnaThreeOptsResultBranch,
+                        rtsConfirmationCtx,
+                        nextNodeIndexes: new()
+                        {
+                            Node.ev_Z0GenericCtxEvent2.flwIdx,
+                            0xFFFF,
+                            Node.ev_Z0GenericCtxEvent.flwIdx,
+                            0xFFFF,
                         }
                     ),
                 }
             );
 
-            // Make event change ToD
-            builder.AddEventEntity(
-                new(
-                    Node.ev_Z0GenericCtxEvent,
-                    baseMidnaCtx,
-                    eventIndex: EventIdx.customEvent044_changeTimeOfDay,
-                    nextNodeIdx: 0xFFFF
-                )
+            builder.AddEventEntities(
+                new()
+                {
+                    // Change ToD
+                    new(
+                        Node.ev_Z0GenericCtxEvent,
+                        baseMidnaCtx,
+                        eventIndex: EventIdx.customEvent044_changeTimeOfDay,
+                        nextNodeIdx: 0xFFFF
+                    ),
+                    // Return to spawn for no confirmation
+                    new(
+                        Node.ev_Z0GenericCtxEvent,
+                        rtsBaseCtx,
+                        eventIndex: EventIdx.customEvent045_returnToLocation,
+                        intParam: 0,
+                        nextNodeIdx: 0xFFFF
+                    ),
+                    // Return to spawn from confirmation
+                    new(
+                        Node.ev_Z0GenericCtxEvent,
+                        rtsConfirmationCtx,
+                        eventIndex: EventIdx.customEvent045_returnToLocation,
+                        intParam: 0,
+                        nextNodeIdx: 0xFFFF
+                    ),
+                    // Return to dungeon entrance
+                    new(
+                        Node.ev_Z0GenericCtxEvent2,
+                        rtsConfirmationCtx,
+                        eventIndex: EventIdx.customEvent045_returnToLocation,
+                        intParam: 1,
+                        nextNodeIdx: 0xFFFF
+                    ),
+                }
             );
 
             // Should always have at least one message (required dungeon info).
@@ -1081,7 +1206,7 @@ namespace TPRandomizer
                 }
             }
 
-            // Update menu texts
+            // Update vanilla menu texts
             string msgWarp = Res.SimpleMsg("menu.midna-base.option.warp");
             string msgTransformIntoWolf = Res.SimpleMsg(
                 "menu.midna-base.option.transform-into-wolf"

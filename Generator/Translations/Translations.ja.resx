@@ -145,6 +145,38 @@
     <value>ヒント</value>
     <comment></comment>
   </data>
+  <data name="menu.midna-other.option.return-to-spawn" xml:space="preserve">
+    <value>スポーン地点に戻る</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.body" xml:space="preserve">
+    <value>このまま、戻ってもいいか？\nやり残したことは　ないよな？</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.not-yet" xml:space="preserve">
+    <value>まだ</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.ready" xml:space="preserve">
+    <value>戻る</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.body" xml:space="preserve">
+    <value>どこに行きたい？</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.cancel" xml:space="preserve">
+    <value>ちょっと待って</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.dungeon" xml:space="preserve">
+    <value>ダンジョンの入口</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.spawn" xml:space="preserve">
+    <value>スポーン地点</value>
+    <comment></comment>
+  </data>
   <data name="midna.required-dungeons" xml:space="preserve">
     <value>必須ダンジョンが　#(red){count}つ#(white)ある・・・</value>
     <comment></comment>
