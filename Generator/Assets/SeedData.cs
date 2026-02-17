@@ -928,6 +928,13 @@ namespace TPRandomizer.Assets
                     0x9CE8,
                     DataFunctions.ASM_COMPARE_WORD_IMMEDIATE(3,1)
                 ), // Prevent 4 monkey cutscene from triggering in FT lobby.
+                new RELReplacement(
+                    (int)ReplacementType.Instruction,
+                    (int)0xFF,
+                    (int)GCRelIDs.D_A_NPC_KS,
+                    0x9CC8,
+                    DataFunctions.ASM_NOP()
+                ), // Prevent setting 4 monkey cs flag in FT
 
                 // D_A_OBJ_MASTER_SWORD - Freestanding MS Actor
                 new RELReplacement(
