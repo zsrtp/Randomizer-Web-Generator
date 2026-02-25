@@ -9,6 +9,7 @@ namespace TPRandomizer
     using System.Text;
     using Assets;
     using Newtonsoft.Json;
+    using TPRandomizer.Util;
 
     /// <summary>
     /// summary text.
@@ -1032,6 +1033,235 @@ namespace TPRandomizer
 
             // return true;
             return goalToCompleted;
+        }
+
+        public static Dictionary<T, bool> emulatePlaythrough3<T>(
+            Room startingRoom,
+            Dictionary<T, List<Hints.Goal>> goals2,
+            bool startWithBigKeys,
+            HashSet<string> reachedChecks = null
+        )
+        {
+            if (ListUtils.isEmpty(goals2))
+                goals2 = new();
+
+            Dictionary<Hints.Goal, bool> goalToCompleted = new();
+
+            foreach (KeyValuePair<T, List<Hints.Goal>> pair in goals2)
+            {
+                if (!ListUtils.isEmpty(pair.Value))
+                {
+                    foreach (Hints.Goal goal in pair.Value)
+                    {
+                        goalToCompleted[goal] = false;
+                    }
+                }
+            }
+
+            bool hasCompletedSphere;
+            List<Room> currentPlaythroughGraph;
+            List<Item> sphereItems = new();
+            SharedSettings parseSetting = Randomizer.SSettings;
+
+            foreach (KeyValuePair<string, Check> checkList in Randomizer.Checks.CheckDict.ToList())
+            {
+                Check listedCheck = checkList.Value;
+                listedCheck.hasBeenReached = false;
+                Randomizer.Checks.CheckDict[listedCheck.checkName] = listedCheck;
+            }
+
+            // markExcludedBugRewardsVisited(parseSetting);
+
+            foreach (KeyValuePair<string, Room> roomList in Randomizer.Rooms.RoomDict.ToList())
+            {
+                Room currentRoom = roomList.Value;
+                currentRoom.Visited = false;
+                Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
+            }
+
+            Randomizer.Items.heldItems.Clear();
+            foreach (Item startingItem in parseSetting.startingItems)
+            {
+                Randomizer.Items.heldItems.Add(startingItem);
+            }
+
+            if (startWithBigKeys)
+            {
+                List<Item> bigKeys =
+                    new()
+                    {
+                        Item.Forest_Temple_Big_Key,
+                        Item.Goron_Mines_Key_Shard,
+                        Item.Goron_Mines_Key_Shard,
+                        Item.Goron_Mines_Key_Shard,
+                        Item.Lakebed_Temple_Big_Key,
+                        Item.Arbiters_Grounds_Big_Key,
+                        Item.Temple_of_Time_Big_Key,
+                        Item.Snowpeak_Ruins_Bedroom_Key,
+                        Item.City_in_The_Sky_Big_Key,
+                        Item.Palace_of_Twilight_Big_Key,
+                        Item.Hyrule_Castle_Big_Key,
+                    };
+
+                foreach (Item bk in bigKeys)
+                {
+                    Randomizer.Items.heldItems.Add(bk);
+                }
+            }
+
+            // We want to keep going until we have exhausted spheres regardless
+            // of whether or not we visit Ganondorf Castle.
+
+            // path goal maps to [conditions and type (room or check), bool for if completed or not]
+
+            // Diababa => diababa dungeon reward check, want to know if can get.
+            // Hyrule Castle => Hyrule Castle entrance, want to know if reached.
+            // ganondorf => Ganondorf castle room, want to know if reached.
+
+            // If the condition is not met after the check is changed (done
+            // outside this function), then we know that check is required for
+            // that goal, therefore that check is "on the path to that goal".
+
+            // We will return the statuses of all of the goals instead of true/false.
+
+            // while (!Randomizer.Rooms.RoomDict["Ganondorf Castle"].Visited)
+            while (true)
+            {
+                hasCompletedSphere = false;
+                currentPlaythroughGraph = Randomizer.GeneratePlaythroughGraph(startingRoom);
+
+                // Walk through the current graph and get a list of rooms that we can currently access
+                // If we collect any items during the playthrough, we add them to the player's inventory
+                // and try walking through the graph again until we have collected every item that we can.
+                do
+                {
+                    sphereItems.Clear();
+                    foreach (Room graphRoom in currentPlaythroughGraph)
+                    {
+                        // Console.WriteLine("Currently Exploring: " + graphRoom.name);
+                        // if (graphRoom.RoomName == "Ganondorf Castle")
+                        // {
+                        //     graphRoom.Visited = true;
+                        //     hasConcludedPlaythrough = true;
+                        //     return true;
+                        // }
+
+                        for (int i = 0; i < graphRoom.Checks.Count; i++)
+                        {
+                            // Create reference to the dictionary entry of the check whose logic we are evaluating
+                            if (
+                                !Randomizer.Checks.CheckDict.TryGetValue(
+                                    graphRoom.Checks[i],
+                                    out Check currentCheck
+                                )
+                            )
+                            {
+                                if (graphRoom.Checks[i].ToString() == string.Empty)
+                                {
+                                    // Console.WriteLine("Room has no checks, continuing on....");
+                                    break;
+                                }
+                            }
+
+                            if (!currentCheck.hasBeenReached && currentCheck.itemWasPlaced)
+                            {
+                                if (currentCheck.CachedRequirements().Evaluate())
+                                {
+                                    currentCheck.hasBeenReached = true;
+                                    if (reachedChecks != null)
+                                        reachedChecks.Add(currentCheck.checkName);
+
+                                    if (
+                                        Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                            currentCheck.itemId
+                                        )
+                                        || Randomizer.Items.RegionSmallKeys.Contains(
+                                            currentCheck.itemId
+                                        )
+                                        || Randomizer.Items.DungeonBigKeys.Contains(
+                                            currentCheck.itemId
+                                        )
+                                        || Randomizer.Items.VanillaDungeonRewards.Contains(
+                                            currentCheck.itemId
+                                        )
+                                        || Randomizer.Items.goldenBugs.Contains(currentCheck.itemId)
+                                        || Randomizer.Items.PortalItems.Contains(
+                                            currentCheck.itemId
+                                        )
+                                        || Randomizer.Items.BossItems.Contains(currentCheck.itemId)
+                                        || (currentCheck.itemId == Item.Poe_Soul)
+                                    )
+                                    {
+                                        sphereItems.Add(currentCheck.itemId);
+                                        hasCompletedSphere = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Randomizer.Items.heldItems.AddRange(sphereItems);
+                } while (sphereItems.Count > 0);
+
+                // Check each goal to see if met
+                bool hasUnmetGoal = false;
+
+                foreach (KeyValuePair<Hints.Goal, bool> pair in goalToCompleted)
+                {
+                    // Skip if already completed.
+                    if (pair.Value)
+                        continue;
+
+                    // Check if completed
+                    Hints.Goal goal = pair.Key;
+                    if (goal.type == Hints.Goal.Type.Check)
+                    {
+                        if (Randomizer.Checks.CheckDict[goal.id].hasBeenReached)
+                            goalToCompleted[pair.Key] = true;
+                        else
+                            hasUnmetGoal = true;
+                    }
+                    else if (goal.type == Hints.Goal.Type.Room)
+                    {
+                        if (Randomizer.Rooms.RoomDict[goal.id].Visited)
+                            goalToCompleted[pair.Key] = true;
+                        else
+                            hasUnmetGoal = true;
+                    }
+                }
+
+                // If caller does not care about reachedChecks and we met all goals already, we can
+                // break and return.
+                if ((reachedChecks == null && !hasUnmetGoal) || !hasCompletedSphere)
+                {
+                    break;
+                }
+            }
+
+            Dictionary<T, bool> goalResults = new();
+            foreach (KeyValuePair<T, List<Hints.Goal>> pair in goals2)
+            {
+                if (ListUtils.isEmpty(pair.Value))
+                    goalResults[pair.Key] = true;
+                else
+                {
+                    bool hadFailure = false;
+                    if (!ListUtils.isEmpty(pair.Value))
+                    {
+                        foreach (Hints.Goal goal in pair.Value)
+                        {
+                            if (!goalToCompleted[goal])
+                            {
+                                hadFailure = true;
+                                break;
+                            }
+                        }
+                    }
+                    goalResults[pair.Key] = !hadFailure;
+                }
+            }
+
+            return goalResults;
         }
 
         static bool emulatePlaythroughSpheres(Room startingRoom)

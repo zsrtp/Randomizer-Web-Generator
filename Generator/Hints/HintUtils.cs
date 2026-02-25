@@ -320,12 +320,13 @@ namespace TPRandomizer.Hints
                 checkAndOriginalContents.Add(new(agithaRewardCheck, originalContents));
             }
 
-            HashSet<Goal> goals = new() { GoalConstants.Ganondorf };
+            Dictionary<Goal, List<Goal>> goals2 = new();
+            goals2.Add(GoalConstants.Ganondorf, new() { GoalConstants.Ganondorf });
 
             // Result is true if beatable without Agitha
-            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough3(
                 startingRoom,
-                goals,
+                goals2,
                 false
             );
 
