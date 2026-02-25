@@ -26,17 +26,47 @@ namespace TPRandomizer.Hints
         {
             Room,
             Check,
+            Logic,
         }
 
         public GoalEnum goalEnum { get; }
         public Type type { get; }
         public string id { get; }
+        private LogicAST reqsCache;
 
         public Goal(GoalEnum goalEnum, Type type, string id)
         {
             this.goalEnum = goalEnum;
             this.type = type;
             this.id = id;
+        }
+
+        public static Goal Check(string checkName)
+        {
+            return new Goal(GoalEnum.Invalid, Type.Check, checkName);
+        }
+
+        public static Goal Room(string roomName)
+        {
+            return new Goal(GoalEnum.Invalid, Type.Room, roomName);
+        }
+
+        public static Goal Logic(string logic)
+        {
+            return new Goal(GoalEnum.Invalid, Type.Logic, logic);
+        }
+
+        public LogicAST CachedRequirements()
+        {
+            if (type != Type.Logic)
+                throw new Exception(
+                    $"Tried to call CachedRequirements on a Goal with type '{type}'."
+                );
+
+            if (reqsCache != null)
+                return reqsCache;
+
+            return reqsCache = Parser.Parse(id);
         }
 
         // override object.Equals
@@ -135,6 +165,239 @@ namespace TPRandomizer.Hints
                 { "City in the Sky", Argorok },
                 { "Palace of Twilight", Zant },
             };
+
+        private static readonly Dictionary<SpotId, List<Goal>> glitchlessSpotToGoals =
+            new()
+            {
+                {
+                    SpotId.Agithas_Castle_Sign,
+                    new() { Goal.Room("Castle Town South") }
+                },
+                {
+                    SpotId.Ordon_Sign,
+                    new() { Goal.Room("Outside Links House") }
+                },
+                {
+                    SpotId.Sacred_Grove_Sign,
+                    new() { Goal.Room("Sacred Grove Upper") }
+                },
+                {
+                    SpotId.Faron_Field_Sign,
+                    new() { Goal.Room("Faron Field") }
+                },
+                {
+                    SpotId.Faron_Woods_Sign,
+                    new() { Goal.Room("South Faron Woods") }
+                },
+                {
+                    SpotId.Kakariko_Gorge_Sign,
+                    new() { Goal.Room("Kakariko Gorge") }
+                },
+                {
+                    SpotId.Kakariko_Village_Sign,
+                    new() { Goal.Room("Lower Kakariko Village") }
+                },
+                {
+                    SpotId.Kakariko_Graveyard_Sign,
+                    new()
+                    {
+                        Goal.Room("Kakariko Graveyard"),
+                        Goal.Logic("Gate_Keys and CanCompleteEldinTwilight")
+                    }
+                },
+                {
+                    SpotId.Eldin_Field_Sign,
+                    new() { Goal.Room("Eldin Field") }
+                },
+                {
+                    SpotId.North_Eldin_Sign,
+                    new() { Goal.Room("North Eldin Field") }
+                },
+                {
+                    SpotId.Death_Mountain_Sign,
+                    new() { Goal.Room("Death Mountain Volcano") }
+                },
+                {
+                    SpotId.Hidden_Village_Sign,
+                    new() { Goal.Room("Hidden Village") }
+                },
+                {
+                    SpotId.Lanayru_Field_Sign,
+                    new() { Goal.Room("Lanayru Field") }
+                },
+                {
+                    SpotId.Beside_Castle_Town_Sign,
+                    new() { Goal.Room("Outside Castle Town West Grotto Ledge") }
+                },
+                {
+                    SpotId.South_of_Castle_Town_Sign,
+                    new() { Goal.Room("Outside Castle Town South") }
+                },
+                {
+                    SpotId.Castle_Town_Sign,
+                    new() { Goal.Room("Castle Town Center") }
+                },
+                {
+                    SpotId.Great_Bridge_of_Hylia_Sign,
+                    new()
+                    {
+                        Goal.Room("Lake Hylia Bridge"),
+                        Goal.Logic("(Progressive_Clawshot, 1)")
+                    }
+                },
+                {
+                    SpotId.Lake_Hylia_Sign,
+                    new() { Goal.Room("Lake Hylia Flight By Fowl"), }
+                },
+                {
+                    SpotId.Lake_Lantern_Cave_Sign,
+                    new() { Goal.Room("Lake Hylia Long Cave"), Goal.Logic("CanSmash and Lantern") }
+                },
+                {
+                    SpotId.Lanayru_Spring_Sign,
+                    new()
+                    {
+                        Goal.Room("Lake Hylia Lanayru Spring"),
+                        Goal.Logic("Zora_Armor or Iron_Boots")
+                    }
+                },
+                {
+                    SpotId.Zoras_Domain_Sign,
+                    new() { Goal.Room("Zoras Domain West Ledge"), }
+                },
+                {
+                    SpotId.Upper_Zoras_River_Sign,
+                    new() { Goal.Room("Fishing Hole"), }
+                },
+                {
+                    SpotId.Gerudo_Desert_Sign,
+                    new() { Goal.Room("Gerudo Desert"), }
+                },
+                {
+                    SpotId.Bulblin_Camp_Sign,
+                    new() { Goal.Room("Bulblin Camp"), }
+                },
+                {
+                    SpotId.Snowpeak_Mountain_Sign,
+                    new() { Goal.Room("Snowpeak Climb Lower"), }
+                },
+                {
+                    SpotId.Cave_of_Ordeals_Sign,
+                    new() { Goal.Room("Gerudo Desert Cave of Ordeals Floors 01-11"), }
+                },
+                {
+                    SpotId.Forest_Temple_Sign,
+                    new()
+                    {
+                        Goal.Room("Forest Temple Lobby"),
+                        // Lobby to west wing logic, minus needing to destroy the web.
+                        Goal.Logic(
+                            "((Forest_Temple_Small_Key, 2) and CanDefeatBokoblin) or (Progressive_Clawshot, 1)"
+                        )
+                    }
+                },
+                {
+                    SpotId.Goron_Mines_Sign,
+                    new() { Goal.Room("Goron Mines Upper East Wing"), }
+                },
+                {
+                    SpotId.Lakebed_Temple_Sign,
+                    // Note: can pull the immediate switch and easily walk to sign
+                    new() { Goal.Room("Lakebed Temple Central Room"), }
+                },
+                {
+                    SpotId.Arbiters_Grounds_Sign,
+                    new() { Goal.Room("Arbiters Grounds Lobby"), }
+                },
+                {
+                    SpotId.Snowpeak_Ruins_Sign,
+                    new() { Goal.Room("Snowpeak Ruins Yeto and Yeta"), }
+                },
+                {
+                    SpotId.Temple_of_Time_Sign,
+                    new() { Goal.Room("Temple of Time Entrance"), }
+                },
+                {
+                    SpotId.City_in_the_Sky_Sign,
+                    new() { Goal.Room("City in The Sky Lobby"), }
+                },
+                {
+                    SpotId.Palace_of_Twilight_Sign,
+                    new() { Goal.Room("Palace of Twilight Entrance"), }
+                },
+                {
+                    SpotId.Hyrule_Castle_Sign,
+                    new() { Goal.Room("Hyrule Castle Entrance"), }
+                },
+                {
+                    SpotId.Temple_of_Time_Beyond_Point_Sign,
+                    // Note: matching main logic which expects Bow specifically even for glitched.
+                    new()
+                    {
+                        Goal.Room("Temple of Time Moving Wall Hallways"),
+                        Goal.Logic("(Progressive_Bow, 1)")
+                    }
+                },
+                {
+                    SpotId.Jovani_House_Sign,
+                    new() { Goal.Room("Castle Town South") }
+                },
+                // Null meaning no requirements / always available
+                { SpotId.Midna, null },
+            };
+
+        // If non-glitchless logic and an entry is present here, it takes priority over the
+        // glitchless one. Otherwise we fall back to the glitchless one.
+        private static readonly Dictionary<SpotId, List<Goal>> glitchedSpotToGoals =
+            new()
+            {
+                {
+                    SpotId.Kakariko_Graveyard_Sign,
+                    new()
+                    {
+                        Goal.Room("Kakariko Graveyard"),
+                        // Note: based on logic for connection to Lake Hylia.
+                        Goal.Logic(
+                            "(HasBombs and (HasSword or Spinner)) or CanDoLJA or CanDoMoonBoots"
+                        )
+                    }
+                },
+                {
+                    SpotId.Lake_Lantern_Cave_Sign,
+                    new() { Goal.Room("Lake Hylia Long Cave"), Goal.Logic("CanSmash") }
+                },
+                {
+                    SpotId.Lanayru_Spring_Sign,
+                    new()
+                    {
+                        Goal.Room("Lake Hylia Lanayru Spring"),
+                        Goal.Logic("Zora_Armor or HasHeavyMod")
+                    }
+                },
+                {
+                    SpotId.Forest_Temple_Sign,
+                    new()
+                    {
+                        Goal.Room("Forest Temple Lobby"),
+                        Goal.Logic(
+                            "((Forest_Temple_Small_Key, 2) and CanDefeatBokoblin) or (Progressive_Clawshot, 1) or CanDoLJA"
+                        )
+                    }
+                },
+            };
+
+        public static List<Goal> getGoalsForSpot(SpotId spotId, LogicRules logicRules)
+        {
+            List<Goal> list;
+            if (logicRules != LogicRules.Glitchless)
+            {
+                if (glitchedSpotToGoals.TryGetValue(spotId, out list))
+                    return list;
+            }
+            if (!glitchlessSpotToGoals.TryGetValue(spotId, out list))
+                throw new Exception($"Could not find goals for spotId '{spotId}'.");
+            return list;
+        }
 
         public static bool IsDungeonGoal(Goal goal)
         {
