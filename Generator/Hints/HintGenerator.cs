@@ -934,20 +934,17 @@ namespace TPRandomizer.Hints
                 HintGenData genData,
                 SpotToHints spotToHints,
                 HashSet<SpotId> mutableSpots,
-                // List<List<Hint>> alwaysHintsForSpots
                 List<List<Hint>> allHintLists
             )
             {
                 this.genData = genData;
                 this.spotToHints = spotToHints;
                 this.mutableSpots = mutableSpots;
-                // this.alwaysHintsForSpots = alwaysHintsForSpots;
                 this.allHintLists = new(allHintLists);
 
                 for (int i = 0; i < allHintLists.Count; i++)
                 {
                     remainingIndexes.Add(i);
-                    // indexToHintList[i] = allHintLists[i];
 
                     List<Hint> hints = allHintLists[i];
                     foreach (Hint hint in hints)
@@ -968,22 +965,13 @@ namespace TPRandomizer.Hints
                 return mutableSpots.Count > 0 && remainingIndexes.Count > 0;
             }
 
-            // API:
-
-            // creation should provide a Dictionary of arbitrary int IDs to a List<Hint>.
-
-            // Then outside thing can say "this int ID is done. Remove it from your concerns."
-
-            // Right before we make a recommendation, we go ahead and remove the spot where the hint
-            // would be placed from the spots.
-
             public void notifyIndexDone(int index)
             {
                 if (!remainingIndexes.Remove(index))
                     throw new Exception($"Tried to remove index '{index}', but was not in list");
             }
 
-            // Returns index of placed List<Hint>
+            // Returns index of the placed List<Hint>
             public int placeNextHintList(Action<SpotId> onDecidedSpotId = null)
             {
                 if (remainingIndexes.Count < 1)
@@ -1040,7 +1028,7 @@ namespace TPRandomizer.Hints
                 // Note: possible to have the same exact Hint in multiple single-item lists if we
                 // used a VarHintCreator to fill in remaining spaces with extra copies of hints for
                 // example. In this case, the extra var copies of the hint won't be selected until
-                // everything before it has already been placed.
+                // everything before it has already been fully placed.
                 bool hasChosenIndex = false;
                 int chosenHintListIndex = 0;
                 List<int> currentPreferredSpotCounts = new();
@@ -1061,8 +1049,8 @@ namespace TPRandomizer.Hints
                             continue;
                         seenHintIds.Add(hint.uniqueHintId);
 
-                        // If hintId is for hint which has already been placed, then this hint does
-                        // not factor into picking a priority.
+                        // For first round, if the hintId is for hint which has already been placed,
+                        // then this hint does not factor into picking a priority.
                         PlacedHintInfo info = hintIdToInfo[hint.uniqueHintId];
                         if (skipOnAlreadyPlaced && info.hasPlacedCopy)
                             continue;
@@ -1078,7 +1066,6 @@ namespace TPRandomizer.Hints
                         shouldReplace = true;
                     else
                     {
-                        // Do comparison
                         bool haveMatchedSoFar = true;
                         for (
                             int i = 0;
@@ -1122,24 +1109,22 @@ namespace TPRandomizer.Hints
 
             private HashSet<SpotId> calcPreferredSpotsForHint(Hint hint)
             {
-                // In the one case, we have a list of List<Hint>. We need to try to place at least
-                // one copy of each hint where it can be accessed based on its preferences of
-                // forbidden stuff.
+                // Calculate which of the provided hintSpots are reachable according to the Hint's
+                // preferences. For example, a LocationHint for Check A should be reachable before
+                // doing Check A, so we do a playthrough where Check A is forbidden and see which
+                // hintSpots we can reach before doing Check A.
 
-                // In the other case, we have RecHintResults. We need to try to place at least one
-                // copy of each hint where it matches its preferences.
+                hint.GetPreferHintBefore(
+                    out HashSet<string> forbiddenCheckNames,
+                    out HashSet<string> forbiddenRoomNames
+                );
 
-                // So, we are given a Hint. The Hint can specify its preferences, and we can also
-                // internally figure out which spots meet those preferences. Then we can recommend
-                // "Hey, this spot is where you should place either the hint or List<Hint> for
-                // Always hints".
+                // If both null, then no preferences.
+                if (forbiddenCheckNames == null && forbiddenRoomNames == null)
+                    return new(mutableSpots);
 
-                // We are stateful in that we keep track of the Hint preferences, and we also keep
-                // track of which ones have had those preferences met. We can also keep track of
-
-                // If a hint has no preferences, then we can just immediately mark it as having its
-                // preferences met.
-
+                // From our given set of spots, get which of them are completable given the
+                // forbiddens. So we need Goals for each.
                 Dictionary<SpotId, List<Goal>> spotToSpotGoals = new();
                 foreach (SpotId spotId in mutableSpots)
                 {
@@ -1150,35 +1135,20 @@ namespace TPRandomizer.Hints
                     spotToSpotGoals[spotId] = goalsForSpot;
                 }
 
-                HashSet<string> forbiddenCheckNames;
-                HashSet<string> forbiddenRoomNames;
+                Dictionary<SpotId, bool> goalResults = BackendFunctions.emulatePlaythrough3(
+                    genData.startingRoom,
+                    spotToSpotGoals,
+                    false,
+                    forbiddenCheckNames: forbiddenCheckNames,
+                    forbiddenRoomNames: forbiddenRoomNames
+                );
 
-                hint.GetPreferHintBefore(out forbiddenCheckNames, out forbiddenRoomNames);
-
-                HashSet<SpotId> preferredSpotsForHint = null;
-
-                // Check if both null. If both null, then no preferences.
-                if (forbiddenCheckNames != null || forbiddenRoomNames != null)
+                HashSet<SpotId> preferredSpotsForHint = new();
+                foreach (KeyValuePair<SpotId, bool> pair in goalResults)
                 {
-                    // From our passed-in set of spots, get which of them are completable given the
-                    // forbiddens. So we need Goals for each.
-
-                    Dictionary<SpotId, bool> goalResults = BackendFunctions.emulatePlaythrough3(
-                        genData.startingRoom,
-                        spotToSpotGoals,
-                        false,
-                        forbiddenCheckNames: forbiddenCheckNames,
-                        forbiddenRoomNames: forbiddenRoomNames
-                    );
-
-                    preferredSpotsForHint = new();
-                    foreach (KeyValuePair<SpotId, bool> pair in goalResults)
-                    {
-                        if (pair.Value)
-                            preferredSpotsForHint.Add(pair.Key);
-                    }
+                    if (pair.Value)
+                        preferredSpotsForHint.Add(pair.Key);
                 }
-
                 return preferredSpotsForHint;
             }
 

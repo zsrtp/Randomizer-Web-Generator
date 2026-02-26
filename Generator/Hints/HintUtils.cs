@@ -247,7 +247,7 @@ namespace TPRandomizer.Hints
                 },
                 {
                     SpotId.Lake_Hylia_Sign,
-                    new() { Goal.Room("Lake Hylia Flight By Fowl"), }
+                    new() { Goal.Room("Lake Hylia Flight By Fowl") }
                 },
                 {
                     SpotId.Lake_Lantern_Cave_Sign,
@@ -342,8 +342,11 @@ namespace TPRandomizer.Hints
                     SpotId.Jovani_House_Sign,
                     new() { Goal.Room("Castle Town South") }
                 },
-                // Null meaning no requirements / always available
-                { SpotId.Midna, null },
+                {
+                    SpotId.Midna,
+                    // Always available
+                    new() { Goal.Logic("true") }
+                },
             };
 
         // If non-glitchless logic and an entry is present here, it takes priority over the
