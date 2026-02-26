@@ -45,6 +45,15 @@ namespace TPRandomizer.Hints
             nextHintId += 1;
         }
 
+        public virtual void GetPreferHintBefore(
+            out HashSet<string> checkNames,
+            out HashSet<string> roomNames
+        )
+        {
+            checkNames = null;
+            roomNames = null;
+        }
+
         public abstract List<HintText> toHintTextList(CustomMsgData customMsgData);
 
         public virtual HintInfo GetHintInfo(CustomMsgData customMsgData)

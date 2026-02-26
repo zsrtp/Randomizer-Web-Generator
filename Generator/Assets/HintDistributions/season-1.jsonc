@@ -25,7 +25,8 @@
   },
   //
   "addChecks": {
-    "Lake Hylia Shell Blade Grotto Chest": ["always"]
+    // "Lake Hylia Shell Blade Grotto Chest": ["always"]
+    "Wooden Sword Chest": ["always"]
   },
   "removeChecks": {
     "Herding Goats Reward": ["sometimes"],
@@ -257,6 +258,13 @@
                 "options": {
                   "markAsSometimes": true,
                   "validChecks": ["Wrestling With Bo", "Herding Goats Reward"]
+                }
+              },
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "validChecks": ["Lost Woods Lantern Chest"]
                 }
               },
               {

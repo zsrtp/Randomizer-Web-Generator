@@ -1059,6 +1059,14 @@ namespace TPRandomizer.Hints
             return list[randomIndex];
         }
 
+        public static T PickRandomHashSetItem<T>(Random rnd, HashSet<T> hashSet)
+        {
+            List<T> list = new(hashSet);
+            int index = rnd.Next(list.Count);
+            T item = list[index];
+            return item;
+        }
+
         public static bool checkIsExcludedOrVanilla(string checkName)
         {
             string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;

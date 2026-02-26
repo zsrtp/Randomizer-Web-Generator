@@ -430,7 +430,8 @@ namespace TPRandomizer
                                 sphereItems.Add(currentCheck.itemId);
                                 currentCheck.hasBeenReached = true;
                                 if (
-                                    Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                    currentCheck.checkStatus == "Plando"
+                                    || Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                         currentCheck.itemId
                                     )
                                     || Randomizer.Items.RegionSmallKeys.Contains(
@@ -601,7 +602,8 @@ namespace TPRandomizer
                                 sphereItems.Add(currentCheck.itemId);
                                 currentCheck.hasBeenReached = true;
                                 if (
-                                    Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                    currentCheck.checkStatus == "Plando"
+                                    || Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                         currentCheck.itemId
                                     )
                                     || Randomizer.Items.RegionSmallKeys.Contains(
@@ -794,7 +796,8 @@ namespace TPRandomizer
                                 {
                                     currentCheck.hasBeenReached = true;
                                     if (
-                                        Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                        currentCheck.checkStatus == "Plando"
+                                        || Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                             currentCheck.itemId
                                         )
                                         || Randomizer.Items.RegionSmallKeys.Contains(
@@ -960,7 +963,8 @@ namespace TPRandomizer
                                         reachedChecks.Add(currentCheck.checkName);
 
                                     if (
-                                        Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                        currentCheck.checkStatus == "Plando"
+                                        || Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                             currentCheck.itemId
                                         )
                                         || Randomizer.Items.RegionSmallKeys.Contains(
@@ -1039,9 +1043,14 @@ namespace TPRandomizer
             Room startingRoom,
             Dictionary<T, List<Hints.Goal>> goals2,
             bool startWithBigKeys,
+            HashSet<string> forbiddenCheckNames = null,
+            HashSet<string> forbiddenRoomNames = null,
             HashSet<string> reachedChecks = null
         )
         {
+            // I think it is safe to only generate the item pool once up front.
+            Randomizer.Items.GenerateItemPool();
+
             if (ListUtils.isEmpty(goals2))
                 goals2 = new();
 
@@ -1055,6 +1064,22 @@ namespace TPRandomizer
                     {
                         goalToCompleted[goal] = false;
                     }
+                }
+            }
+
+            Dictionary<string, Item> originalContentsMap = new();
+
+            if (!ListUtils.isEmpty(forbiddenCheckNames))
+            {
+                foreach (string checkName in forbiddenCheckNames)
+                {
+                    // Replace check contents with a green rupee. We are checking if the playthrough
+                    // is still beatable without doing any of the forbidden checks essentially (we
+                    // do them in the playthrough, but they give junk).
+                    Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
+                    Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
+
+                    originalContentsMap[checkName] = originalContents;
                 }
             }
 
@@ -1128,7 +1153,10 @@ namespace TPRandomizer
             while (true)
             {
                 hasCompletedSphere = false;
-                currentPlaythroughGraph = Randomizer.GeneratePlaythroughGraph(startingRoom);
+                currentPlaythroughGraph = Randomizer.GeneratePlaythroughGraph(
+                    startingRoom,
+                    forbiddenRoomNames
+                );
 
                 // Walk through the current graph and get a list of rooms that we can currently access
                 // If we collect any items during the playthrough, we add them to the player's inventory
@@ -1172,7 +1200,8 @@ namespace TPRandomizer
                                         reachedChecks.Add(currentCheck.checkName);
 
                                     if (
-                                        Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                        currentCheck.checkStatus == "Plando"
+                                        || Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                             currentCheck.itemId
                                         )
                                         || Randomizer.Items.RegionSmallKeys.Contains(
@@ -1228,6 +1257,13 @@ namespace TPRandomizer
                         else
                             hasUnmetGoal = true;
                     }
+                    else if (goal.type == Hints.Goal.Type.Logic)
+                    {
+                        if (goal.CachedRequirements().Evaluate())
+                            goalToCompleted[pair.Key] = true;
+                        else
+                            hasUnmetGoal = true;
+                    }
                 }
 
                 // If caller does not care about reachedChecks and we met all goals already, we can
@@ -1236,6 +1272,13 @@ namespace TPRandomizer
                 {
                     break;
                 }
+            }
+
+            // Put original contents back in any forbiddenChecks.
+            foreach (KeyValuePair<string, Item> pair in originalContentsMap)
+            {
+                // Put the original item back.
+                Randomizer.Checks.CheckDict[pair.Key].itemId = pair.Value;
             }
 
             Dictionary<T, bool> goalResults = new();
