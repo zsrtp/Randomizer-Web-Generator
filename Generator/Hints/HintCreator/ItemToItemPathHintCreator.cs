@@ -34,10 +34,11 @@ namespace TPRandomizer.Hints.HintCreator
             if (uniqReqItemToCheck.Count < 1)
                 return null;
 
-            HashSet<Goal> goals = new();
+            Dictionary<Goal, List<Goal>> goals = new();
             foreach (KeyValuePair<Item, string> pair in uniqReqItemToCheck)
             {
-                goals.Add(new Goal(GoalEnum.Invalid, Goal.Type.Check, pair.Value));
+                Goal goal = Goal.Check(pair.Value);
+                goals[goal] = new() { goal };
             }
 
             List<Item> baseSrcItems =

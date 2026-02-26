@@ -894,7 +894,7 @@ namespace TPRandomizer.Hints
         public static Dictionary<Item, Dictionary<Goal, bool>> checkGoalsWithoutItems(
             Room startingRoom,
             List<Item> items,
-            HashSet<Goal> goals
+            Dictionary<Goal, List<Goal>> goals
         )
         {
             Dictionary<Item, List<string>> itemToChecks = calcItemToChecksList();
@@ -916,32 +916,15 @@ namespace TPRandomizer.Hints
                     results[item] = new();
                     checkNames = new();
                 }
-                List<Item> originalContentsList = new();
 
-                foreach (string checkName in checkNames)
-                {
-                    // Replace check contents with a green rupee and see which
-                    // goals are completable.
-                    Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
-                    originalContentsList.Add(originalContents);
-                    Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
-                }
-
-                Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+                Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough3(
                     startingRoom,
                     goals,
-                    true
+                    true,
+                    forbiddenCheckNames: new(checkNames)
                 );
 
                 results[item] = goalResults;
-
-                // Put the original items back.
-                for (int i = 0; i < checkNames.Count; i++)
-                {
-                    string checkName = checkNames[i];
-                    Item originalContents = originalContentsList[i];
-                    Randomizer.Checks.CheckDict[checkName].itemId = originalContents;
-                }
             }
 
             return results;
