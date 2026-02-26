@@ -847,44 +847,28 @@ namespace TPRandomizer.Hints
                     $"Expected itemsForChecks to be Count 1, but was '{itemsForChecks.Count}'."
                 );
 
-            List<(string, Item)> checkAndOriginalContents = new();
-            HashSet<Goal> goals = new();
-
+            Dictionary<string, List<Goal>> goalsForChecks = new();
             foreach (string checkName in checkNames)
             {
-                // Replace check contents with a green rupee. If the playthrough
-                // is still beatable, then that item cannot be considered for
-                // SpoL hints.
-                Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
-                Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
-
-                checkAndOriginalContents.Add(new(checkName, originalContents));
-
-                goals.Add(new Goal(GoalEnum.Invalid, Goal.Type.Check, checkName));
+                goalsForChecks[checkName] = new() { Goal.Check(checkName) };
             }
 
-            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+            Dictionary<string, bool> goalResults = BackendFunctions.emulatePlaythrough3(
                 startingRoom,
-                goals,
-                false
+                goalsForChecks,
+                false,
+                forbiddenCheckNames: new(checkNames)
             );
 
-            foreach (KeyValuePair<Goal, bool> pair in goalResults)
+            foreach (KeyValuePair<string, bool> pair in goalResults)
             {
                 if (!pair.Value)
                 {
-                    // This check which gives the item is locked behind first
-                    // doing a different check which already gives the item.
-                    results.Add(pair.Key.id);
+                    // This check which gives the item is locked behind first doing a different
+                    // check which already gives the item.
+                    results.Add(pair.Key);
                 }
             }
-
-            // Put the original items back.
-            foreach ((string, Item) pair in checkAndOriginalContents)
-            {
-                Randomizer.Checks.CheckDict[pair.Item1].itemId = pair.Item2;
-            }
-
             return results;
         }
 
