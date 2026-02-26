@@ -917,17 +917,12 @@ namespace TPRandomizer.Hints
         private class HintPlacer
         {
             private HintGenData genData;
-            private HashSet<SpotId> mutableSpots;
-
-            // private List<List<Hint>> alwaysHintsForSpots;
             private SpotToHints spotToHints;
-
-            // private Dictionary<int, List<Hint>> mutableIdToHints;
+            private HashSet<SpotId> mutableSpots;
             private List<List<Hint>> allHintLists;
+
             private List<int> remainingIndexes = new();
             private int numUniqueHintIdsPlaced = 0;
-
-            // private Dictionary<int, List<Hint>> indexToHintList = new();
             private Dictionary<uint, PlacedHintInfo> hintIdToInfo = new();
 
             public HintPlacer(
