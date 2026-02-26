@@ -1283,8 +1283,6 @@ namespace TPRandomizer.Hints
 
             Dictionary<string, Item> originalContentsMap = new();
 
-            HashSet<Goal> goals = new() { GoalConstants.Ganondorf };
-
             if (!ListUtils.isEmpty(forbiddenCheckNames))
             {
                 foreach (string checkName in forbiddenCheckNames)
@@ -1299,11 +1297,20 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+            Dictionary<Goal, List<Goal>> goals =
+                new()
+                {
+                    {
+                        GoalConstants.Ganondorf,
+                        new() { GoalConstants.Ganondorf }
+                    }
+                };
+
+            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough3(
                 startingRoom,
                 goals,
                 false,
-                reachedChecks
+                reachedChecks: reachedChecks
             );
 
             foreach (KeyValuePair<string, Item> pair in originalContentsMap)
