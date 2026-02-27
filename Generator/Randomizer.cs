@@ -970,14 +970,12 @@ namespace TPRandomizer
                     {
                         // If you can access the neighbour and it hasnt been visited yet.
                         //Console.WriteLine("Exit: " + roomsToExplore[0].Exits[i].GetOriginalName());
-                        string roomName = roomsToExplore[0].Exits[i].ConnectedArea;
-                        if (forbiddenRoomNames.Contains(roomName))
-                        {
-                            Console.WriteLine(
-                                "About to skip room since forbidden: " + roomsToExplore[0].RoomName
-                            );
-                        }
-                        if (roomName != "" && !forbiddenRoomNames.Contains(roomName))
+                        if (
+                            roomsToExplore[0].Exits[i].ConnectedArea != ""
+                            && !forbiddenRoomNames.Contains(
+                                roomsToExplore[0].Exits[i].ConnectedArea
+                            )
+                        )
                         {
                             if (
                                 Randomizer.Rooms.RoomDict[
