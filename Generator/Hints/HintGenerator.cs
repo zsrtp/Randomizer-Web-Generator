@@ -272,11 +272,15 @@ namespace TPRandomizer.Hints
                         HintDefResult result = recHintResults.HintDefResults[indexOfPlaced];
                         result.OnPlacedCopy();
                         if (!result.CanPlaceMoreCopies())
+                        {
+                            // Note: important that we do not call `RemoveHintDefResultAt` so the
+                            // indexes still line up. Everything gets cleaned up in the loop below.
                             normalHintPlacer.notifyIndexDone(indexOfPlaced);
+                        }
                     }
 
-                    // Remove any items from recHintResults which met its
-                    // requirements (such as minCopies) but is still in the list.
+                    // Remove any items from recHintResults which met its requirements (such as
+                    // minCopies) but is still in the list.
                     for (int i = recHintResults.HintDefResults.Count - 1; i >= 0; i--)
                     {
                         HintDefResult result = recHintResults.HintDefResults[i];
@@ -918,7 +922,10 @@ namespace TPRandomizer.Hints
                 foreach (Hint hint in hintsToPlace)
                 {
                     PlacedHintInfo info = hintIdToInfo[hint.uniqueHintId];
-                    if (info.preferredSpotIds.Count < preferredSpotIds.Count)
+                    if (
+                        info.preferredSpotIds.Count > 0
+                        && info.preferredSpotIds.Count < preferredSpotIds.Count
+                    )
                         preferredSpotIds = info.preferredSpotIds;
                 }
 
