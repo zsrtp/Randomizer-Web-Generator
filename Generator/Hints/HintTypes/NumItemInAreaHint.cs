@@ -67,6 +67,15 @@ namespace TPRandomizer.Hints
             return areaId;
         }
 
+        public override void GetPreferHintBefore(
+            out HashSet<string> checkNames,
+            out HashSet<string> roomNames
+        )
+        {
+            checkNames = new(this.checkNames);
+            roomNames = null;
+        }
+
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             string itemText = CustomMsgData.GenItemText(

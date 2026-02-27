@@ -61,6 +61,15 @@ namespace TPRandomizer.Hints
             }
         }
 
+        public override void GetPreferHintBefore(
+            out HashSet<string> checkNames,
+            out HashSet<string> roomNames
+        )
+        {
+            checkNames = new() { checkName };
+            roomNames = null;
+        }
+
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             Res.Result hintParsedRes = Res.Msg("hint-type.path");

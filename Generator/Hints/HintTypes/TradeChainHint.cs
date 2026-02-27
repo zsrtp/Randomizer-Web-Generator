@@ -141,6 +141,15 @@ namespace TPRandomizer.Hints
             }
         }
 
+        public override void GetPreferHintBefore(
+            out HashSet<string> checkNames,
+            out HashSet<string> roomNames
+        )
+        {
+            checkNames = new() { srcCheckName, tgtCheckName };
+            roomNames = null;
+        }
+
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             // leads to "item name", "something good", "nothing", "is on the WotH"
