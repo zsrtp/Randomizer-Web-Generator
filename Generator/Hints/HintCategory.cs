@@ -28,6 +28,7 @@ namespace TPRandomizer.Hints
         Snowpeak_Ruins_2nd_Floor = 17,
         Snowpeak_Beyond_This_Point = 18,
         Golden_Wolf = 19,
+        Palace_of_Twilight_Center_Wing = 20,
     }
 
     public class HintCategoryUtils
@@ -366,6 +367,17 @@ namespace TPRandomizer.Hints
                         "Outside South Castle Town Golden Wolf",
                         "West Hyrule Field Golden Wolf"
                     }
+                },
+                {
+                    HintCategory.Palace_of_Twilight_Center_Wing,
+                    new[]
+                    {
+                        "Palace of Twilight Big Key Chest",
+                        "Palace of Twilight Central First Room Chest",
+                        "Palace of Twilight Central Outdoor Chest",
+                        "Palace of Twilight Central Tower Chest",
+                        "Palace of Twilight Zant Heart Container",
+                    }
                 }
             };
 
@@ -391,6 +403,7 @@ namespace TPRandomizer.Hints
                 { HintCategory.Snowpeak_Ruins_2nd_Floor, "Snowpeak_Ruins_2nd_Floor" },
                 { HintCategory.Snowpeak_Beyond_This_Point, "Snowpeak_Beyond_This_Point" },
                 { HintCategory.Golden_Wolf, "Golden_Wolf" },
+                { HintCategory.Palace_of_Twilight_Center_Wing, "Palace_of_Twilight_Center_Wing" },
             };
 
             strToEnum = new();

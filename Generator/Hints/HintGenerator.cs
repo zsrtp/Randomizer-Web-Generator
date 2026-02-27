@@ -1310,6 +1310,7 @@ namespace TPRandomizer.Hints
                     { Zone.Arbiters_Grounds, Item.Arbiters_Grounds_Big_Key },
                     { Zone.Temple_of_Time, Item.Temple_of_Time_Big_Key },
                     { Zone.City_in_the_Sky, Item.City_in_The_Sky_Big_Key },
+                    { Zone.Palace_of_Twilight, Item.Palace_of_Twilight_Big_Key },
                 };
 
             if (!zoneToBigKey.TryGetValue(zone, out Item bigKeyItem))

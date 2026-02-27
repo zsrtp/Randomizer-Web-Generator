@@ -1599,7 +1599,8 @@ namespace TPRandomizer.Hints.Settings
                                         Zone.Lakebed_Temple,
                                         Zone.Arbiters_Grounds,
                                         Zone.Temple_of_Time,
-                                        Zone.City_in_the_Sky
+                                        Zone.City_in_the_Sky,
+                                        Zone.Palace_of_Twilight,
                                     }
                                 );
                                 break;
@@ -1620,7 +1621,8 @@ namespace TPRandomizer.Hints.Settings
                                         Zone.Lakebed_Temple,
                                         Zone.Arbiters_Grounds,
                                         Zone.Temple_of_Time,
-                                        Zone.City_in_the_Sky
+                                        Zone.City_in_the_Sky,
+                                        Zone.Palace_of_Twilight,
                                     }
                                 );
                                 break;

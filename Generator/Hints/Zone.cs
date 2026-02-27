@@ -155,6 +155,15 @@ namespace TPRandomizer.Hints
                         BeyondPointObj.Validity.Dungeon
                     )
                 },
+                {
+                    Zone.Palace_of_Twilight,
+                    new BeyondPointObj(
+                        Zone.Palace_of_Twilight,
+                        SpotId.Palace_of_Twilight_Sign,
+                        HintCategory.Palace_of_Twilight_Center_Wing,
+                        BeyondPointObj.Validity.Dungeon
+                    )
+                },
             };
 
         private static readonly HashSet<Zone> dungeonZones =
