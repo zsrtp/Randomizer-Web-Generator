@@ -217,7 +217,6 @@ namespace TPRandomizer.Hints
 
                         while (alwaysHintPlacer.HasMoreWork())
                         {
-                            // Tell it to place a hint and get the arbitrary ID back.
                             SpotId placedSpotId = SpotId.Invalid;
 
                             int indexOfPlaced = alwaysHintPlacer.placeNextHintList(
@@ -239,36 +238,9 @@ namespace TPRandomizer.Hints
                             if (hintSettings.always.monopolizeSpots)
                                 removeSpotFromMutableGroups(placedSpotId);
 
-                            // For Always hints, an index is always done the first time.
+                            // For Always hints, an index is completed after the first placement.
                             alwaysHintPlacer.notifyIndexDone(indexOfPlaced);
                         }
-
-                        // List<SpotId> spotList = new(spots);
-
-                        // foreach (List<Hint> alwaysHintsForSpot in alwaysHintsForSpots)
-                        // {
-                        //     // In the future, we would have special logic to try
-                        //     // to place the Always hints so that you can access
-                        //     // them before doing the checks that they hint. For
-                        //     // now, we just pick a spot randomly.
-                        //     SpotId spotId = HintUtils.RemoveRandomListItem(genData.rnd, spotList);
-
-                        //     if (
-                        //         hintSettings.always.monopolizeSpots
-                        //         && normalSpotToHints.spotHasHints(spotId)
-                        //     )
-                        //     {
-                        //         throw new Exception(
-                        //             $"Expected spot '{spotId}' to have no normal hints with always.monopolizeSpots set to true, but it was not empty."
-                        //         );
-                        //     }
-
-                        //     spots.Remove(spotId);
-                        //     normalSpotToHints.addHintsToSpot(spotId, alwaysHintsForSpot);
-
-                        //     if (hintSettings.always.monopolizeSpots)
-                        //         removeSpotFromMutableGroups(spotId);
-                        // }
                     }
                 }
 
@@ -303,11 +275,6 @@ namespace TPRandomizer.Hints
                             normalHintPlacer.notifyIndexDone(indexOfPlaced);
                     }
 
-                    // for (int i = recHintResults.HintDefResults.Count - 1; i >= 0; i--)
-                    // {
-                    //     //
-                    // }
-
                     // Remove any items from recHintResults which met its
                     // requirements (such as minCopies) but is still in the list.
                     for (int i = recHintResults.HintDefResults.Count - 1; i >= 0; i--)
@@ -317,38 +284,6 @@ namespace TPRandomizer.Hints
                             recHintResults.RemoveHintDefResultAt(i);
                     }
                 }
-
-                // // Place the generated normal hints in the remaining spots.
-                // List<SpotId> spotsToFill = new(spots);
-                // while (recHintResults.HintDefResults.Count > 0 && spotsToFill.Count > 0)
-                // {
-                //     HintDefResult result = recHintResults.HintDefResults[0];
-                //     if (!result.CanPlaceMoreCopies())
-                //     {
-                //         recHintResults.RemoveHintDefResultAt(0);
-                //         continue;
-                //     }
-
-                //     Hint hintToPlace = result.hint;
-
-                //     // hintPlacer.bbb(hintToPlace);
-
-                //     SpotId spotId = HintUtils.RemoveRandomListItem(genData.rnd, spotsToFill);
-                //     normalSpotToHints.addHintToSpot(spotId, hintToPlace);
-
-                //     result.OnPlacedCopy();
-                //     if (!result.CanPlaceMoreCopies())
-                //         recHintResults.RemoveHintDefResultAt(0);
-                // }
-
-                // // Remove any items from recHintResults which met its
-                // // requirements (such as minCopies) but is still in the list.
-                // for (int i = recHintResults.HintDefResults.Count - 1; i >= 0; i--)
-                // {
-                //     HintDefResult result = recHintResults.HintDefResults[i];
-                //     if (result.PlacedEnoughCopies())
-                //         recHintResults.RemoveHintDefResultAt(i);
-                // }
 
                 // If we used up our hints, fill in the remaining spots.
                 List<SpotId> spotsToFill = new(spots);
