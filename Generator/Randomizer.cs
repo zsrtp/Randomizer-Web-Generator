@@ -916,8 +916,17 @@ namespace TPRandomizer
         /// </summary>
         /// <param name="startingRoom"> The room that the player will start the game from. </param>
         /// <returns> A complete playthrough graph for the player to traverse. </returns>
-        public static List<Room> GeneratePlaythroughGraph(Room startingRoom)
+        public static List<Room> GeneratePlaythroughGraph(
+            Room startingRoom,
+            HashSet<string> forbiddenRoomNames = null
+        )
         {
+            if (forbiddenRoomNames == null)
+                forbiddenRoomNames = new();
+
+            if (forbiddenRoomNames.Contains(startingRoom.RoomName))
+                return new();
+
             List<Room> playthroughGraph = new();
             List<Room> availableBaseRooms = new();
             Room availableRoom;
@@ -961,7 +970,12 @@ namespace TPRandomizer
                     {
                         // If you can access the neighbour and it hasnt been visited yet.
                         //Console.WriteLine("Exit: " + roomsToExplore[0].Exits[i].GetOriginalName());
-                        if (roomsToExplore[0].Exits[i].ConnectedArea != "")
+                        if (
+                            roomsToExplore[0].Exits[i].ConnectedArea != ""
+                            && !forbiddenRoomNames.Contains(
+                                roomsToExplore[0].Exits[i].ConnectedArea
+                            )
+                        )
                         {
                             if (
                                 Randomizer.Rooms.RoomDict[

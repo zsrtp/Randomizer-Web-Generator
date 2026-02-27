@@ -16,6 +16,7 @@ namespace TPRandomizer.Hints
 
         // always derived
         public Item tgtItem { get; private set; }
+        private HashSet<string> checksGivingSrcItem;
 
         public static ItemToItemPathHint Create(
             HintGenData genData,
@@ -64,8 +65,26 @@ namespace TPRandomizer.Hints
                 )
                 {
                     srcUseDefiniteArticle = checksGivingItem.Count == 1;
+                    // Note: checksGivingSrcItem will be null when decoding, but it is not used a
+                    // that point so it is okay.
+                    checksGivingSrcItem = new(checksGivingItem);
                 }
             }
+        }
+
+        public override void GetPreferHintBefore(
+            out HashSet<string> checkNames,
+            out HashSet<string> roomNames
+        )
+        {
+            HashSet<string> checkNamesToAvoid = new() { tgtCheckName };
+            if (!ListUtils.isEmpty(checksGivingSrcItem))
+            {
+                checkNamesToAvoid.UnionWith(checksGivingSrcItem);
+            }
+
+            checkNames = checkNamesToAvoid;
+            roomNames = null;
         }
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)

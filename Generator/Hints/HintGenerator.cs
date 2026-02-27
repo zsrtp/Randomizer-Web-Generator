@@ -212,66 +212,85 @@ namespace TPRandomizer.Hints
 
                     if (!ListUtils.isEmpty(alwaysHintsForSpots))
                     {
-                        List<SpotId> spotList = new(spots);
+                        HintPlacer alwaysHintPlacer =
+                            new(genData, normalSpotToHints, spots, alwaysHintsForSpots);
 
-                        foreach (List<Hint> alwaysHintsForSpot in alwaysHintsForSpots)
+                        while (alwaysHintPlacer.HasMoreWork())
                         {
-                            // In the future, we would have special logic to try
-                            // to place the Always hints so that you can access
-                            // them before doing the checks that they hint. For
-                            // now, we just pick a spot randomly.
-                            SpotId spotId = HintUtils.RemoveRandomListItem(genData.rnd, spotList);
+                            SpotId placedSpotId = SpotId.Invalid;
 
-                            if (
-                                hintSettings.always.monopolizeSpots
-                                && normalSpotToHints.spotHasHints(spotId)
-                            )
-                            {
-                                throw new Exception(
-                                    $"Expected spot '{spotId}' to have no normal hints with always.monopolizeSpots set to true, but it was not empty."
-                                );
-                            }
-
-                            spots.Remove(spotId);
-                            normalSpotToHints.addHintsToSpot(spotId, alwaysHintsForSpot);
+                            int indexOfPlaced = alwaysHintPlacer.placeNextHintList(
+                                (spotId) =>
+                                {
+                                    placedSpotId = spotId;
+                                    if (
+                                        hintSettings.always.monopolizeSpots
+                                        && normalSpotToHints.spotHasHints(spotId)
+                                    )
+                                    {
+                                        throw new Exception(
+                                            $"Expected spot '{spotId}' to have no normal hints with always.monopolizeSpots set to true, but it was not empty."
+                                        );
+                                    }
+                                }
+                            );
 
                             if (hintSettings.always.monopolizeSpots)
-                                removeSpotFromMutableGroups(spotId);
+                                removeSpotFromMutableGroups(placedSpotId);
+
+                            // For Always hints, an index is completed after the first placement.
+                            alwaysHintPlacer.notifyIndexDone(indexOfPlaced);
                         }
                     }
                 }
 
-                // Place the generated normal hints in the remaining spots.
-                List<SpotId> spotsToFill = new(spots);
-                while (recHintResults.HintDefResults.Count > 0 && spotsToFill.Count > 0)
+                if (spots.Count > 0)
                 {
-                    HintDefResult result = recHintResults.HintDefResults[0];
-                    if (!result.CanPlaceMoreCopies())
+                    List<List<Hint>> normalHintLists = new();
+
+                    for (int i = 0; i < recHintResults.HintDefResults.Count; i++)
                     {
-                        recHintResults.RemoveHintDefResultAt(0);
-                        continue;
+                        HintDefResult result = recHintResults.HintDefResults[i];
+                        if (!result.CanPlaceMoreCopies())
+                        {
+                            recHintResults.RemoveHintDefResultAt(i);
+                            i--;
+                            continue;
+                        }
+
+                        List<Hint> hintList = new(1);
+                        hintList.Add(result.hint);
+                        normalHintLists.Add(hintList);
                     }
 
-                    Hint hintToPlace = result.hint;
+                    HintPlacer normalHintPlacer =
+                        new(genData, normalSpotToHints, spots, normalHintLists);
+                    while (normalHintPlacer.HasMoreWork())
+                    {
+                        int indexOfPlaced = normalHintPlacer.placeNextHintList();
 
-                    SpotId spotId = HintUtils.RemoveRandomListItem(genData.rnd, spotsToFill);
-                    normalSpotToHints.addHintToSpot(spotId, hintToPlace);
+                        HintDefResult result = recHintResults.HintDefResults[indexOfPlaced];
+                        result.OnPlacedCopy();
+                        if (!result.CanPlaceMoreCopies())
+                        {
+                            // Note: important that we do not call `RemoveHintDefResultAt` so the
+                            // indexes still line up. Everything gets cleaned up in the loop below.
+                            normalHintPlacer.notifyIndexDone(indexOfPlaced);
+                        }
+                    }
 
-                    result.OnPlacedCopy();
-                    if (!result.CanPlaceMoreCopies())
-                        recHintResults.RemoveHintDefResultAt(0);
-                }
-
-                // Remove any items from recHintResults which met its
-                // requirements (such as minCopies) but is still in the list.
-                for (int i = recHintResults.HintDefResults.Count - 1; i >= 0; i--)
-                {
-                    HintDefResult result = recHintResults.HintDefResults[i];
-                    if (result.PlacedEnoughCopies())
-                        recHintResults.RemoveHintDefResultAt(i);
+                    // Remove any items from recHintResults which met its requirements (such as
+                    // minCopies) but is still in the list.
+                    for (int i = recHintResults.HintDefResults.Count - 1; i >= 0; i--)
+                    {
+                        HintDefResult result = recHintResults.HintDefResults[i];
+                        if (result.PlacedEnoughCopies())
+                            recHintResults.RemoveHintDefResultAt(i);
+                    }
                 }
 
                 // If we used up our hints, fill in the remaining spots.
+                List<SpotId> spotsToFill = new(spots);
                 if (
                     grouping.useFillerHints
                     && recHintResults.HintDefResults.Count < 1
@@ -831,6 +850,256 @@ namespace TPRandomizer.Hints
             public Dictionary<SpotId, List<Hint>> GetFinalResult()
             {
                 return spotToHints;
+            }
+        }
+
+        private class HintPlacer
+        {
+            private HintGenData genData;
+            private SpotToHints spotToHints;
+            private HashSet<SpotId> mutableSpots;
+            private List<List<Hint>> allHintLists;
+
+            private List<int> remainingIndexes = new();
+            private int numUniqueHintIdsPlaced = 0;
+            private Dictionary<uint, PlacedHintInfo> hintIdToInfo = new();
+
+            public HintPlacer(
+                HintGenData genData,
+                SpotToHints spotToHints,
+                HashSet<SpotId> mutableSpots,
+                List<List<Hint>> allHintLists
+            )
+            {
+                this.genData = genData;
+                this.spotToHints = spotToHints;
+                this.mutableSpots = mutableSpots;
+                this.allHintLists = new(allHintLists);
+
+                for (int i = 0; i < allHintLists.Count; i++)
+                {
+                    remainingIndexes.Add(i);
+
+                    List<Hint> hints = allHintLists[i];
+                    foreach (Hint hint in hints)
+                    {
+                        if (!hintIdToInfo.ContainsKey(hint.uniqueHintId))
+                        {
+                            HashSet<SpotId> spotSet = calcPreferredSpotsForHint(hint);
+                            if (spotSet == null)
+                                spotSet = new(mutableSpots);
+                            hintIdToInfo[hint.uniqueHintId] = new(hint, spotSet);
+                        }
+                    }
+                }
+            }
+
+            public bool HasMoreWork()
+            {
+                return mutableSpots.Count > 0 && remainingIndexes.Count > 0;
+            }
+
+            public void notifyIndexDone(int index)
+            {
+                if (!remainingIndexes.Remove(index))
+                    throw new Exception($"Tried to remove index '{index}', but was not in list");
+            }
+
+            // Returns index of the placed List<Hint>
+            public int placeNextHintList(Action<SpotId> onDecidedSpotId = null)
+            {
+                if (remainingIndexes.Count < 1)
+                    throw new Exception("No hint lists remaining to place.");
+
+                if (!calcPreferredIdxToPlace(out int hintListIndex))
+                    throw new Exception("Failed to pick a hintListIndex.");
+
+                List<Hint> hintsToPlace = allHintLists[hintListIndex];
+
+                // If multiple hints are being placed (ex: multiple Always hints together), then we
+                // adhere to the preferences of whichever one has the fewest preferred spots.
+                HashSet<SpotId> preferredSpotIds = mutableSpots;
+                foreach (Hint hint in hintsToPlace)
+                {
+                    PlacedHintInfo info = hintIdToInfo[hint.uniqueHintId];
+                    if (
+                        info.preferredSpotIds.Count > 0
+                        && info.preferredSpotIds.Count < preferredSpotIds.Count
+                    )
+                        preferredSpotIds = info.preferredSpotIds;
+                }
+
+                SpotId chosenSpotId = HintUtils.PickRandomHashSetItem(
+                    genData.rnd,
+                    preferredSpotIds
+                );
+
+                if (onDecidedSpotId != null)
+                    onDecidedSpotId(chosenSpotId);
+
+                // Update remaining spots at top level and for each hint.
+                mutableSpots.Remove(chosenSpotId);
+                foreach (KeyValuePair<uint, PlacedHintInfo> pair in hintIdToInfo)
+                {
+                    pair.Value.preferredSpotIds.Remove(chosenSpotId);
+                }
+
+                spotToHints.addHintsToSpot(chosenSpotId, hintsToPlace);
+
+                // Update which hints have been placed.
+                foreach (Hint hint in hintsToPlace)
+                {
+                    PlacedHintInfo info = hintIdToInfo[hint.uniqueHintId];
+                    if (!info.hasPlacedCopy)
+                    {
+                        info.hasPlacedCopy = true;
+                        numUniqueHintIdsPlaced += 1;
+                    }
+                }
+
+                return hintListIndex;
+            }
+
+            private bool calcPreferredIdxToPlace(out int outHintListIndex)
+            {
+                // Note: possible to have the same exact Hint in multiple single-item lists if we
+                // used a VarHintCreator to fill in remaining spaces with extra copies of hints for
+                // example. In this case, the extra var copies of the hint won't be selected until
+                // everything before it has already been fully placed.
+                bool hasChosenIndex = false;
+                int chosenHintListIndex = 0;
+                List<int> currentPreferredSpotCounts = new();
+
+                // We want to first place each hint at least once while prioritizing preferences.
+                // After that we resume giving priority to ones which have spot preferences
+                // regardless of how many copies of it have been placed.
+                bool skipOnAlreadyPlaced = numUniqueHintIdsPlaced != hintIdToInfo.Count;
+
+                foreach (int hintListIndex in remainingIndexes)
+                {
+                    List<Hint> hints = allHintLists[hintListIndex];
+                    List<int> preferredSpotCounts = new();
+                    HashSet<uint> seenHintIds = new();
+                    foreach (Hint hint in hints)
+                    {
+                        if (seenHintIds.Contains(hint.uniqueHintId))
+                            continue;
+                        seenHintIds.Add(hint.uniqueHintId);
+
+                        // For first round, if the hintId is for hint which has already been placed,
+                        // then this hint does not factor into picking a priority.
+                        PlacedHintInfo info = hintIdToInfo[hint.uniqueHintId];
+                        if (skipOnAlreadyPlaced && info.hasPlacedCopy)
+                            continue;
+
+                        int numAvailablePreferredSpots = info.preferredSpotIds.Count;
+                        if (numAvailablePreferredSpots > 0)
+                            preferredSpotCounts.Add(numAvailablePreferredSpots);
+                    }
+                    preferredSpotCounts.Sort();
+
+                    bool shouldReplace = false;
+                    if (!hasChosenIndex)
+                        shouldReplace = true;
+                    else
+                    {
+                        bool haveMatchedSoFar = true;
+                        for (
+                            int i = 0;
+                            i < currentPreferredSpotCounts.Count && i < preferredSpotCounts.Count;
+                            i++
+                        )
+                        {
+                            int oldVal = currentPreferredSpotCounts[i];
+                            int newVal = preferredSpotCounts[i];
+                            if (oldVal != newVal)
+                            {
+                                haveMatchedSoFar = false;
+                                if (newVal < oldVal)
+                                    shouldReplace = true;
+                                break;
+                            }
+                        }
+
+                        if (
+                            haveMatchedSoFar
+                            && preferredSpotCounts.Count > currentPreferredSpotCounts.Count
+                        )
+                            shouldReplace = true;
+                    }
+
+                    if (shouldReplace)
+                    {
+                        hasChosenIndex = true;
+                        chosenHintListIndex = hintListIndex;
+                        currentPreferredSpotCounts = preferredSpotCounts;
+                    }
+                }
+
+                if (hasChosenIndex)
+                    outHintListIndex = chosenHintListIndex;
+                else
+                    outHintListIndex = -1;
+
+                return hasChosenIndex;
+            }
+
+            private HashSet<SpotId> calcPreferredSpotsForHint(Hint hint)
+            {
+                // Calculate which of the provided hintSpots are reachable according to the Hint's
+                // preferences. For example, a LocationHint for Check A should be reachable before
+                // doing Check A, so we do a playthrough where Check A is forbidden and see which
+                // hintSpots we can reach before doing Check A.
+
+                hint.GetPreferHintBefore(
+                    out HashSet<string> forbiddenCheckNames,
+                    out HashSet<string> forbiddenRoomNames
+                );
+
+                // If both null, then no preferences.
+                if (forbiddenCheckNames == null && forbiddenRoomNames == null)
+                    return new(mutableSpots);
+
+                // From our given set of spots, get which of them are completable given the
+                // forbiddens. So we need Goals for each.
+                Dictionary<SpotId, List<Goal>> spotToSpotGoals = new();
+                foreach (SpotId spotId in mutableSpots)
+                {
+                    List<Goal> goalsForSpot = GoalConstants.getGoalsForSpot(
+                        spotId,
+                        genData.sSettings.logicRules
+                    );
+                    spotToSpotGoals[spotId] = goalsForSpot;
+                }
+
+                Dictionary<SpotId, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+                    genData.startingRoom,
+                    spotToSpotGoals,
+                    false,
+                    forbiddenCheckNames: forbiddenCheckNames,
+                    forbiddenRoomNames: forbiddenRoomNames
+                );
+
+                HashSet<SpotId> preferredSpotsForHint = new();
+                foreach (KeyValuePair<SpotId, bool> pair in goalResults)
+                {
+                    if (pair.Value)
+                        preferredSpotsForHint.Add(pair.Key);
+                }
+                return preferredSpotsForHint;
+            }
+
+            private class PlacedHintInfo
+            {
+                public Hint hint { get; }
+                public HashSet<SpotId> preferredSpotIds { get; }
+                public bool hasPlacedCopy { get; set; }
+
+                public PlacedHintInfo(Hint hint, HashSet<SpotId> preferredSpotIds)
+                {
+                    this.hint = hint;
+                    this.preferredSpotIds = preferredSpotIds;
+                }
             }
         }
 

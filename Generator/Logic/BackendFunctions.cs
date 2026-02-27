@@ -9,6 +9,7 @@ namespace TPRandomizer
     using System.Text;
     using Assets;
     using Newtonsoft.Json;
+    using TPRandomizer.Util;
 
     /// <summary>
     /// summary text.
@@ -429,7 +430,8 @@ namespace TPRandomizer
                                 sphereItems.Add(currentCheck.itemId);
                                 currentCheck.hasBeenReached = true;
                                 if (
-                                    Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                    currentCheck.checkStatus == "Plando"
+                                    || Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                         currentCheck.itemId
                                     )
                                     || Randomizer.Items.RegionSmallKeys.Contains(
@@ -600,7 +602,8 @@ namespace TPRandomizer
                                 sphereItems.Add(currentCheck.itemId);
                                 currentCheck.hasBeenReached = true;
                                 if (
-                                    Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                    currentCheck.checkStatus == "Plando"
+                                    || Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                         currentCheck.itemId
                                     )
                                     || Randomizer.Items.RegionSmallKeys.Contains(
@@ -793,7 +796,8 @@ namespace TPRandomizer
                                 {
                                     currentCheck.hasBeenReached = true;
                                     if (
-                                        Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                        currentCheck.checkStatus == "Plando"
+                                        || Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                             currentCheck.itemId
                                         )
                                         || Randomizer.Items.RegionSmallKeys.Contains(
@@ -832,17 +836,48 @@ namespace TPRandomizer
             return true;
         }
 
-        public static Dictionary<Hints.Goal, bool> emulatePlaythrough2(
+        public static Dictionary<T, bool> emulatePlaythrough2<T>(
             Room startingRoom,
-            HashSet<Hints.Goal> goals,
+            Dictionary<T, List<Hints.Goal>> goals,
             bool startWithBigKeys,
+            HashSet<string> forbiddenCheckNames = null,
+            HashSet<string> forbiddenRoomNames = null,
             HashSet<string> reachedChecks = null
         )
         {
+            // I think it is safe to only generate the item pool once up front.
+            Randomizer.Items.GenerateItemPool();
+
+            if (ListUtils.isEmpty(goals))
+                goals = new();
+
             Dictionary<Hints.Goal, bool> goalToCompleted = new();
-            foreach (Hints.Goal goal in goals)
+
+            foreach (KeyValuePair<T, List<Hints.Goal>> pair in goals)
             {
-                goalToCompleted[goal] = false;
+                if (!ListUtils.isEmpty(pair.Value))
+                {
+                    foreach (Hints.Goal goal in pair.Value)
+                    {
+                        goalToCompleted[goal] = false;
+                    }
+                }
+            }
+
+            Dictionary<string, Item> originalContentsMap = new();
+
+            if (!ListUtils.isEmpty(forbiddenCheckNames))
+            {
+                foreach (string checkName in forbiddenCheckNames)
+                {
+                    // Replace check contents with a green rupee. We are checking if the playthrough
+                    // is still beatable without doing any of the forbidden checks essentially (we
+                    // do them in the playthrough, but they give junk).
+                    Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
+                    Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
+
+                    originalContentsMap[checkName] = originalContents;
+                }
             }
 
             bool hasCompletedSphere;
@@ -915,7 +950,10 @@ namespace TPRandomizer
             while (true)
             {
                 hasCompletedSphere = false;
-                currentPlaythroughGraph = Randomizer.GeneratePlaythroughGraph(startingRoom);
+                currentPlaythroughGraph = Randomizer.GeneratePlaythroughGraph(
+                    startingRoom,
+                    forbiddenRoomNames
+                );
 
                 // Walk through the current graph and get a list of rooms that we can currently access
                 // If we collect any items during the playthrough, we add them to the player's inventory
@@ -959,7 +997,8 @@ namespace TPRandomizer
                                         reachedChecks.Add(currentCheck.checkName);
 
                                     if (
-                                        Randomizer.Items.RandomizedImportantItemsStatic.Contains(
+                                        currentCheck.checkStatus == "Plando"
+                                        || Randomizer.Items.RandomizedImportantItemsStatic.Contains(
                                             currentCheck.itemId
                                         )
                                         || Randomizer.Items.RegionSmallKeys.Contains(
@@ -991,47 +1030,78 @@ namespace TPRandomizer
                 } while (sphereItems.Count > 0);
 
                 // Check each goal to see if met
+                bool hasUnmetGoal = false;
+
                 foreach (KeyValuePair<Hints.Goal, bool> pair in goalToCompleted)
                 {
                     // Skip if already completed.
                     if (pair.Value)
                         continue;
 
-                    // check if completed
+                    // Check if completed
                     Hints.Goal goal = pair.Key;
                     if (goal.type == Hints.Goal.Type.Check)
                     {
                         if (Randomizer.Checks.CheckDict[goal.id].hasBeenReached)
                             goalToCompleted[pair.Key] = true;
+                        else
+                            hasUnmetGoal = true;
                     }
                     else if (goal.type == Hints.Goal.Type.Room)
                     {
                         if (Randomizer.Rooms.RoomDict[goal.id].Visited)
                             goalToCompleted[pair.Key] = true;
+                        else
+                            hasUnmetGoal = true;
                     }
-                }
-
-                bool allGoalsMet = false;
-                foreach (KeyValuePair<Hints.Goal, bool> pair in goalToCompleted)
-                {
-                    if (!pair.Value)
+                    else if (goal.type == Hints.Goal.Type.Logic)
                     {
-                        allGoalsMet = false;
-                        break;
+                        if (goal.CachedRequirements().Evaluate())
+                            goalToCompleted[pair.Key] = true;
+                        else
+                            hasUnmetGoal = true;
                     }
                 }
 
-                // if ((!hasCompletedSphere) && !hasConcludedPlaythrough)
-                if (allGoalsMet || !hasCompletedSphere)
+                // If caller does not care about reachedChecks and we met all goals already, we can
+                // break and return.
+                if ((reachedChecks == null && !hasUnmetGoal) || !hasCompletedSphere)
                 {
                     break;
-                    // return false;
                 }
             }
-            // return true;
 
-            // return true;
-            return goalToCompleted;
+            // Put original contents back in any forbiddenChecks.
+            foreach (KeyValuePair<string, Item> pair in originalContentsMap)
+            {
+                // Put the original item back.
+                Randomizer.Checks.CheckDict[pair.Key].itemId = pair.Value;
+            }
+
+            Dictionary<T, bool> goalResults = new();
+            foreach (KeyValuePair<T, List<Hints.Goal>> pair in goals)
+            {
+                if (ListUtils.isEmpty(pair.Value))
+                    goalResults[pair.Key] = true;
+                else
+                {
+                    bool hadFailure = false;
+                    if (!ListUtils.isEmpty(pair.Value))
+                    {
+                        foreach (Hints.Goal goal in pair.Value)
+                        {
+                            if (!goalToCompleted[goal])
+                            {
+                                hadFailure = true;
+                                break;
+                            }
+                        }
+                    }
+                    goalResults[pair.Key] = !hadFailure;
+                }
+            }
+
+            return goalResults;
         }
 
         static bool emulatePlaythroughSpheres(Room startingRoom)
