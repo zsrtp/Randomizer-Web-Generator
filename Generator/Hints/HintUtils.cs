@@ -763,66 +763,33 @@ namespace TPRandomizer.Hints
                 goalsToRequiredChecks[goal] = new();
             }
 
-            // HashSet<string> filteredCheckNames = new();
+            Dictionary<Goal, List<Goal>> goalDict = new();
+            foreach (Goal goal in goals)
+            {
+                goalDict[goal] = new() { goal };
+            }
 
             // I think it is safe to only generate the item pool once up front.
             Randomizer.Items.GenerateItemPool();
 
-            // After we get potential checks, filter out any which can be
-            // removed in isolation and the playthrough is still valid.
+            // After we get potential checks, filter out any which can be removed in isolation and
+            // the playthrough is still valid.
             foreach (string checkName in maybeRequiredCheckNames)
             {
-                // Replace check contents with a green rupee. If the playthrough
-                // is still beatable, then that item cannot be considered for
-                // SpoL hints.
-                Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
-                Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
-
-                // bool successWithoutCheck = BackendFunctions.emulatePlaythrough(startingRoom);
-                Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+                Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough3(
                     startingRoom,
-                    goals,
-                    startWithBigKeys
+                    goalDict,
+                    startWithBigKeys,
+                    forbiddenCheckNames: new() { checkName }
                 );
 
                 foreach (KeyValuePair<Goal, bool> pair in goalResults)
                 {
-                    if (pair.Value)
-                    {
-                        // Was able to complete goal after replacing check contents.
-                        /*Console.WriteLine(
-                            $"NOT needed for Goal {pair.Key.id}: {originalContents} in {checkName}"
-                        );*/
-                    }
-                    else
-                    {
-                        // Was unable to complete goal after replacing check contents.
+                    if (!pair.Value)
                         goalsToRequiredChecks[pair.Key].Add(checkName);
-                        /*Console.WriteLine(
-                            $"Needed for Goal {pair.Key.id}: {originalContents} in {checkName}"
-                        );*/
-                    }
                 }
-
-                // bool successWithoutCheck = true;
-
-                // if (!successWithoutCheck)
-                // {
-                //     Console.WriteLine($"Needed for SpoL: {originalContents}: {checkName}");
-                //     // Check required to beat the seed, so add it for
-                //     // consideration for SpoL hints.
-                //     filteredCheckNames.Add(checkName);
-                // }
-                // else
-                // {
-                //     Console.WriteLine($"Not needed for SpoL: {originalContents}: {checkName}");
-                // }
-
-                // Put the original item back.
-                Randomizer.Checks.CheckDict[checkName].itemId = originalContents;
             }
 
-            // return filteredCheckNames;
             return goalsToRequiredChecks;
         }
 
