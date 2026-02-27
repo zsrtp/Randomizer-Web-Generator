@@ -1130,7 +1130,7 @@ namespace TPRandomizer.Hints
                     spotToSpotGoals[spotId] = goalsForSpot;
                 }
 
-                Dictionary<SpotId, bool> goalResults = BackendFunctions.emulatePlaythrough3(
+                Dictionary<SpotId, bool> goalResults = BackendFunctions.emulatePlaythrough2(
                     genData.startingRoom,
                     spotToSpotGoals,
                     false,

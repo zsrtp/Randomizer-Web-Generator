@@ -590,7 +590,7 @@ namespace TPRandomizer.Hints
             goals2.Add(GoalConstants.Ganondorf, new() { GoalConstants.Ganondorf });
 
             // Result is true if beatable without Agitha
-            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough3(
+            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
                 startingRoom,
                 goals2,
                 false
@@ -776,7 +776,7 @@ namespace TPRandomizer.Hints
             // the playthrough is still valid.
             foreach (string checkName in maybeRequiredCheckNames)
             {
-                Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough3(
+                Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
                     startingRoom,
                     goalDict,
                     startWithBigKeys,
@@ -820,7 +820,7 @@ namespace TPRandomizer.Hints
                 goalsForChecks[checkName] = new() { Goal.Check(checkName) };
             }
 
-            Dictionary<string, bool> goalResults = BackendFunctions.emulatePlaythrough3(
+            Dictionary<string, bool> goalResults = BackendFunctions.emulatePlaythrough2(
                 startingRoom,
                 goalsForChecks,
                 false,
@@ -884,7 +884,7 @@ namespace TPRandomizer.Hints
                     checkNames = new();
                 }
 
-                Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough3(
+                Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
                     startingRoom,
                     goals,
                     true,
@@ -1256,7 +1256,7 @@ namespace TPRandomizer.Hints
                     }
                 };
 
-            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough3(
+            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
                 startingRoom,
                 goals,
                 false,
