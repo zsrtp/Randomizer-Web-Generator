@@ -838,7 +838,7 @@ namespace TPRandomizer
 
         public static Dictionary<T, bool> emulatePlaythrough2<T>(
             Room startingRoom,
-            Dictionary<T, List<Hints.Goal>> goals2,
+            Dictionary<T, List<Hints.Goal>> goals,
             bool startWithBigKeys,
             HashSet<string> forbiddenCheckNames = null,
             HashSet<string> forbiddenRoomNames = null,
@@ -848,12 +848,12 @@ namespace TPRandomizer
             // I think it is safe to only generate the item pool once up front.
             Randomizer.Items.GenerateItemPool();
 
-            if (ListUtils.isEmpty(goals2))
-                goals2 = new();
+            if (ListUtils.isEmpty(goals))
+                goals = new();
 
             Dictionary<Hints.Goal, bool> goalToCompleted = new();
 
-            foreach (KeyValuePair<T, List<Hints.Goal>> pair in goals2)
+            foreach (KeyValuePair<T, List<Hints.Goal>> pair in goals)
             {
                 if (!ListUtils.isEmpty(pair.Value))
                 {
@@ -1079,7 +1079,7 @@ namespace TPRandomizer
             }
 
             Dictionary<T, bool> goalResults = new();
-            foreach (KeyValuePair<T, List<Hints.Goal>> pair in goals2)
+            foreach (KeyValuePair<T, List<Hints.Goal>> pair in goals)
             {
                 if (ListUtils.isEmpty(pair.Value))
                     goalResults[pair.Key] = true;
