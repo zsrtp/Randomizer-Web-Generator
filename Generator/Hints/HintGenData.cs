@@ -62,6 +62,9 @@ namespace TPRandomizer.Hints
 
             if (sSettings.logicRules != LogicRules.No_Logic)
             {
+                GoalManager goalManager = new(this);
+                goalManager.CalculateGoals();
+
                 goalToRequiredChecks = HintUtils.calculateGoalsRequiredChecks(
                     startingRoom,
                     playthroughSpheres.spheres,
@@ -1757,5 +1760,330 @@ namespace TPRandomizer.Hints
         public bool hasUnknownChecks;
         public HashSet<AreaId> dependentAreaIds { get; } = new();
         public HashSet<string> dependentCheckNames { get; } = new();
+    }
+
+    public class GoalManager
+    {
+        private static readonly List<HashSet<Goal>> leafGoalPriorities =
+            new()
+            {
+                new()
+                {
+                    GoalConstants.Diababa,
+                    GoalConstants.Fyrus,
+                    GoalConstants.Morpheel,
+                    GoalConstants.Stallord,
+                    GoalConstants.Blizzeta,
+                    GoalConstants.Armogohma,
+                    GoalConstants.Argorok,
+                },
+                new() { GoalConstants.Zant },
+                new() { GoalConstants.Hyrule_Castle },
+                new() { GoalConstants.Ganondorf },
+            };
+
+        private static readonly Dictionary<Goal, List<Goal>> goalToForbidden =
+            new()
+            {
+                {
+                    GoalConstants.Diababa,
+                    new()
+                    {
+                        Goal.Check("Forest Temple Diababa"),
+                        Goal.Check("Forest Temple Diababa Heart Container"),
+                        Goal.Check("Forest Temple Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Fyrus,
+                    new()
+                    {
+                        Goal.Check("Goron Mines Fyrus"),
+                        Goal.Check("Goron Mines Fyrus Heart Container"),
+                        Goal.Check("Goron Mines Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Morpheel,
+                    new()
+                    {
+                        Goal.Check("Lakebed Temple Morpheel"),
+                        Goal.Check("Lakebed Temple Morpheel Heart Container"),
+                        Goal.Check("Lakebed Temple Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Stallord,
+                    new()
+                    {
+                        Goal.Check("Arbiters Grounds Stallord"),
+                        Goal.Check("Arbiters Grounds Stallord Heart Container"),
+                        Goal.Check("Arbiters Grounds Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Blizzeta,
+                    new()
+                    {
+                        Goal.Check("Snowpeak Ruins Blizzeta"),
+                        Goal.Check("Snowpeak Ruins Blizzeta Heart Container"),
+                        Goal.Check("Snowpeak Ruins Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Armogohma,
+                    new()
+                    {
+                        Goal.Check("Temple of Time Armogohma"),
+                        Goal.Check("Temple of Time Armogohma Heart Container"),
+                        Goal.Check("Temple of Time Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Argorok,
+                    new()
+                    {
+                        Goal.Check("City in The Sky Argorok"),
+                        Goal.Check("City in The Sky Argorok Heart Container"),
+                        Goal.Check("City in The Sky Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Zant,
+                    new()
+                    {
+                        Goal.Check("Palace of Twilight Zant"),
+                        Goal.Check("Palace of Twilight Zant Heart Container"),
+                    }
+                },
+                {
+                    GoalConstants.Hyrule_Castle,
+                    new() { Goal.Room("Hyrule Castle Entrance"), }
+                },
+                {
+                    GoalConstants.Ganondorf,
+                    new() { Goal.Check("Hyrule Castle Ganondorf"), }
+                },
+            };
+
+        private HintGenData genData;
+
+        public GoalManager(HintGenData genData)
+        {
+            this.genData = genData;
+        }
+
+        public void CalculateGoals()
+        {
+            // Get relevant goals and each sphere check which is path to the goal.
+            Dictionary<Goal, List<string>> goalToCheckNames =
+                HintUtils.calculateGoalsRequiredChecks(
+                    genData.startingRoom,
+                    genData.playthroughSpheres.spheres,
+                    genData.sSettings
+                );
+
+            HashSet<Goal> goals = new(goalToCheckNames.Keys);
+
+            // Calculate if any of the goals are path to other goals (ex: cannot defeat Ganondorf
+            // until after defeating Stallord, etc.).
+            Dictionary<Goal, HashSet<Goal>> goalToParentGoals = CalcGoalRelations(goals);
+
+            // Based on the goal relationships and priorities, filter down to the ones we would
+            // actually be allowed to hint (ex: not hinting path to Ganondorf if could simply hint
+            // it path to Fyrus instead, etc.). Note that we just go by what is in the spheres at
+            // this point, so this includes smallKeys, dungeonRewards, etc. The PathHintCreator
+            // decides which ones it wants to hint.
+            CalcGoalToHintableChecks(goalToParentGoals, goalToCheckNames);
+        }
+
+        private Dictionary<Goal, HashSet<Goal>> CalcGoalRelations(HashSet<Goal> goals)
+        {
+            Dictionary<Goal, HashSet<Goal>> goalToParentGoals = new();
+
+            // For each relevant goal, see if it is path to any of the other relevant goals.
+            foreach (Goal currGoal in goals)
+            {
+                HashSet<string> forbiddenCheckNames = new();
+                HashSet<string> forbiddenRoomNames = new();
+
+                List<Goal> goalsOfCurrGoal = goalToForbidden[currGoal];
+                foreach (Goal goalForGoal in goalsOfCurrGoal)
+                {
+                    if (goalForGoal.type == Goal.Type.Check)
+                        forbiddenCheckNames.Add(goalForGoal.id);
+                    else if (goalForGoal.type == Goal.Type.Room)
+                        forbiddenRoomNames.Add(goalForGoal.id);
+                }
+
+                Dictionary<Goal, List<Goal>> goalsToTest = new();
+                foreach (Goal relevantGoal in goals)
+                {
+                    if (relevantGoal == currGoal)
+                        continue;
+                    goalsToTest[relevantGoal] = goalToForbidden[relevantGoal];
+                }
+
+                Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+                    genData.startingRoom,
+                    goalsToTest,
+                    false,
+                    forbiddenCheckNames: forbiddenCheckNames,
+                    forbiddenRoomNames: forbiddenRoomNames
+                );
+
+                // The current goal is then "path to" any of the goals that failed when we forbid
+                // completing the current goal.
+                HashSet<Goal> failedGoals = new();
+                foreach (KeyValuePair<Goal, bool> pair in goalResults)
+                {
+                    if (!pair.Value)
+                        failedGoals.Add(pair.Key);
+                }
+                goalToParentGoals[currGoal] = failedGoals;
+            }
+
+            return goalToParentGoals;
+        }
+
+        private Dictionary<Goal, List<string>> CalcGoalToHintableChecks(
+            Dictionary<Goal, HashSet<Goal>> goalToParentGoals,
+            Dictionary<Goal, List<string>> goalToCheckNames
+        )
+        {
+            // Reorganize so we have each relevant check pointing to the goals it is path to.
+            Dictionary<string, HashSet<Goal>> checkToGoals = new();
+            foreach (KeyValuePair<Goal, List<string>> pair in goalToCheckNames)
+            {
+                foreach (string checkName in pair.Value)
+                {
+                    if (!checkToGoals.TryGetValue(checkName, out HashSet<Goal> goalsForCheck))
+                    {
+                        goalsForCheck = new();
+                        checkToGoals[checkName] = goalsForCheck;
+                    }
+                    goalsForCheck.Add(pair.Key);
+                }
+            }
+
+            Dictionary<string, HashSet<Goal>> checkToHintableGoals = new();
+
+            List<string> requiredChecks = goalToCheckNames[GoalConstants.Ganondorf];
+            foreach (string checkName in requiredChecks)
+            {
+                HashSet<Goal> validGoals = new();
+                HashSet<Goal> invalidGoals = new();
+
+                HashSet<Goal> goalsForCheck = checkToGoals[checkName];
+                foreach (Goal goal in goalsForCheck)
+                {
+                    if (invalidGoals.Contains(goal))
+                        continue;
+
+                    HashSet<Goal> parentGoals = goalToParentGoals[goal];
+                    invalidGoals.UnionWith(parentGoals);
+                    foreach (Goal parentGoal in parentGoals)
+                    {
+                        validGoals.Remove(parentGoal);
+                    }
+
+                    validGoals.Add(goal);
+                }
+
+                // If we have multiple leaf node goals, then filter down based on priority. For
+                // example, if something is path to both Fyrus and Zant, we would prefer to hint it
+                // for Fyrus so we can improve the quality of our Zant hints.
+                bool alreadyMatchedTier = false;
+                for (int i = 0; i < leafGoalPriorities.Count; i++)
+                {
+                    HashSet<Goal> goalsForTier = leafGoalPriorities[i];
+                    if (alreadyMatchedTier)
+                    {
+                        foreach (Goal goalForTier in goalsForTier)
+                        {
+                            validGoals.Remove(goalForTier);
+                        }
+                    }
+                    else
+                    {
+                        foreach (Goal goal in validGoals)
+                        {
+                            if (goalsForTier.Contains(goal))
+                            {
+                                alreadyMatchedTier = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                checkToHintableGoals[checkName] = validGoals;
+            }
+
+            // Reorganize from "checks to hintable goals" to "goals to hintable checks".
+            Dictionary<Goal, HashSet<string>> goalToHintableChecks = new();
+            foreach (Goal goal in goalToParentGoals.Keys)
+            {
+                goalToHintableChecks[goal] = new();
+            }
+
+            foreach (KeyValuePair<string, HashSet<Goal>> pair in checkToHintableGoals)
+            {
+                foreach (Goal goal in pair.Value)
+                {
+                    goalToHintableChecks[goal].Add(pair.Key);
+                }
+            }
+
+            Dictionary<Goal, List<string>> goalToHintableChecksList = new();
+            foreach (KeyValuePair<Goal, HashSet<string>> pair in goalToHintableChecks)
+            {
+                goalToHintableChecksList[pair.Key] = new(pair.Value);
+
+                // TODO: temp logging
+                string goalName = pair.Key.goalEnum.ToString();
+                foreach (string checkName in pair.Value)
+                {
+                    Item contents = HintUtils.getCheckContents(checkName);
+                    if (!HintConstants.invalidSpolItems.Contains(contents))
+                    {
+                        Console.WriteLine($"Can be Path to {goalName}: {checkName} ({contents})");
+                    }
+                }
+            }
+
+            // TODO: below other than the return is also temp logging.
+            HashSet<string> requiredDungeonZones = HintUtils.getRequiredDungeonZones();
+            HashSet<Zone> interestedZones = new() { Zone.Hyrule_Castle };
+            foreach (string zoneName in requiredDungeonZones)
+            {
+                interestedZones.Add(ZoneUtils.StringToIdThrows(zoneName));
+            }
+
+            foreach (KeyValuePair<Zone, HashSet<Zone>> pair in genData.dungeonEntrances)
+            {
+                bool isInterested = false;
+                foreach (Zone zone in interestedZones)
+                {
+                    if (pair.Value.Contains(zone))
+                    {
+                        isInterested = true;
+                        break;
+                    }
+                }
+
+                if (isInterested)
+                {
+                    string toZones = "";
+                    foreach (Zone toZone in pair.Value)
+                    {
+                        toZones += toZone.ToString();
+                    }
+                    Console.WriteLine($"Dungeon entrance {pair.Key} => {toZones}");
+                }
+            }
+
+            return goalToHintableChecksList;
+        }
     }
 }
