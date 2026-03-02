@@ -1539,6 +1539,7 @@ namespace TPRandomizer.Hints
         public readonly HashSet<Zone> hintedBarrenZones = new();
         public readonly HashSet<AreaId> hintedWothAreas = new();
         public readonly HashSet<AreaId> hintedImportanceCountAreas = new();
+        public readonly HashSet<Zone> hintedDungeonEntranceSources = new();
         public bool agithaHintedDead = false;
 
         // private
@@ -2104,6 +2105,24 @@ namespace TPRandomizer.Hints
                 interestedZones.Add(ZoneUtils.StringToIdThrows(zoneName));
             }
 
+            Dictionary<Zone, Province> dungeonToEntranceProvince =
+                new()
+                {
+                    { Zone.Forest_Temple, Province.Faron },
+                    { Zone.Goron_Mines, Province.Eldin },
+                    { Zone.Lakebed_Temple, Province.Lanayru },
+                    { Zone.Arbiters_Grounds, Province.Desert },
+                    { Zone.Snowpeak_Ruins, Province.Peak },
+                    { Zone.Temple_of_Time, Province.Faron },
+                    { Zone.City_in_the_Sky, Province.Lanayru },
+                    { Zone.Palace_of_Twilight, Province.Desert },
+                    { Zone.Hyrule_Castle, Province.Lanayru },
+                };
+
+            HashSet<Province> reqDanjEntrProvinces = new();
+            Zone hcEntrance = Zone.Invalid;
+            List<Zone> reqDungeonEntrances = new();
+
             foreach (KeyValuePair<Zone, HashSet<Zone>> pair in genData.dungeonEntrances)
             {
                 bool isInterested = false;
@@ -2118,14 +2137,61 @@ namespace TPRandomizer.Hints
 
                 if (isInterested)
                 {
+                    Province province = dungeonToEntranceProvince[pair.Key];
+                    if (!pair.Value.Contains(Zone.Hyrule_Castle))
+                    {
+                        reqDungeonEntrances.Add(pair.Key);
+                        reqDanjEntrProvinces.Add(dungeonToEntranceProvince[pair.Key]);
+                    }
+                    else
+                        hcEntrance = pair.Key;
+
                     string toZones = "";
                     foreach (Zone toZone in pair.Value)
                     {
                         toZones += toZone.ToString();
                     }
-                    Console.WriteLine($"Dungeon entrance {pair.Key} => {toZones}");
+                    Console.WriteLine(
+                        $"Dungeon entrance {pair.Key} => {toZones} found in {province}"
+                    );
                 }
             }
+
+            // string dungeonEntranceProvincesStr = "";
+            // foreach (Province province in reqDanjEntrProvinces)
+            // {
+            //     if (dungeonEntranceProvincesStr.Length > 0)
+            //         dungeonEntranceProvincesStr += ", ";
+            //     dungeonEntranceProvincesStr += province.ToString();
+            // }
+            // Console.WriteLine($"Dungeon entrance provinces: {dungeonEntranceProvincesStr}");
+
+            List<Zone> requiredDungeons = new();
+            foreach (string zoneName in requiredDungeonZones)
+            {
+                requiredDungeons.Add(ZoneUtils.StringToIdThrows(zoneName));
+            }
+            requiredDungeons.Sort();
+            logList("Required dungeons", requiredDungeons);
+
+            reqDungeonEntrances.Sort();
+            logList("Dungeon entrances for reqDungeons", reqDungeonEntrances);
+            // string str = "";
+            // // foreach (Province province in reqDanjEntrProvinces)
+            // foreach (Zone element in reqDungeonEntrances)
+            // {
+            //     if (str.Length > 0)
+            //         str += ", ";
+            //     str += element.ToString();
+            // }
+            // // Console.WriteLine($"Dungeon entrance provinces: {str}");
+            // Console.WriteLine($"Dungeon entrances for reqDungeons: {str}");
+
+            List<Province> reqDanjEntrProvincesList = new(reqDanjEntrProvinces);
+            reqDanjEntrProvincesList.Sort();
+            logList("Dungeon entrance provinces", reqDanjEntrProvincesList);
+
+            Console.WriteLine($"HC found behind entrance: {hcEntrance}");
 
             if (
                 goalToHintableChecksList.TryGetValue(
@@ -2163,9 +2229,46 @@ namespace TPRandomizer.Hints
             }
 
             return goalToHintableChecksList;
+        }
 
-            // Bulblin Camp First Chest Under Tower At Entrance (Filled_Bomb_Bag)
-            // Lanayru Field Skulltula Grotto Chest (Boomerang)
+        private void logList<T>(string startStr, List<T> list)
+        {
+            string str = "";
+            // foreach (Province province in reqDanjEntrProvinces)
+            foreach (T element in list)
+            {
+                if (str.Length > 0)
+                    str += ", ";
+                str += element.ToString();
+            }
+            // Console.WriteLine($"Dungeon entrance provinces: {str}");
+            Console.WriteLine($"{startStr}: {str}");
         }
     }
+
+    // Dungeon entrance knowledge tracker
+
+    // If you know dungeons A and B are in Faron Province and you know which is behind FT, then it
+    // is pointless to hint the other one.
+
+    // However, if you only know that dungeons may be in Faron Province but not how many, then you
+    // don't know what might be behind the ToT entrance. It might not even be a required dungeon.
+
+    // So in terms of knowledge, we can say we know these things:
+    // Dungeon => where it could be.
+    // We also know "where it could not be" to be all dungeon entrances which are already known.
+
+    // So we get the list of "where it could be" and take away all "where it could not be", and then
+    // we would get a list of "where it could be". If there is only one place "where it could be",
+    // then we can mark it as known. So we would need to keep iterating until we add 0 new known
+    // dungeon entrances based on the info (since a newly found one would change the "where it could
+    // not be" for the other ones, they would need to be attempted again).
+
+    // In the case of only hinting general provinces, each required dungeon would have potential
+    // entrances be any entrances in those provinces. Ex: if Peak, Eldin, and Faron, then possible
+    // entrances are SPR, GM, FT, and ToT.
+
+    // When we know there are 3 required dungeons and 3 provinces, we must know they are in
+    // different provinces. So if we were to know that FT had a required dungeon for example, then
+    // we would know that ToT is nothing.
 }

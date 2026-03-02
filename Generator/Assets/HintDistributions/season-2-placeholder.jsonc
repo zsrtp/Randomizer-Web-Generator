@@ -19,15 +19,16 @@
     "ownZoneShowsAsJunkHint": true
   },
   "always": {
-    "monopolizeSpots": false,
-    "idealNumSpots": 12,
+    "monopolizeSpots": true,
+    "idealNumSpots": 5,
     "copies": 2,
-    "groupId": "overworld2nd"
+    "groupId": "overworld"
   },
   //
   "addChecks": {
-    "Lake Hylia Shell Blade Grotto Chest": ["always"],
-    "Skybook From Impaz": ["always"]
+    // "Lake Hylia Shell Blade Grotto Chest": ["always"],
+    "Skybook From Impaz": ["always"],
+    "Hyrule Castle Graveyard Owl Statue Chest": ["always"]
   },
   "removeChecks": {
     "Palace of Twilight Collect Both Sols": ["always"],
@@ -169,7 +170,7 @@
                     "options": {
                       "validAreas": [
                         "Ordon",
-                        // "Sacred Grove",
+                        "Sacred Grove",
                         "Faron Field",
                         "Faron Woods",
                         "Kakariko Village",
@@ -203,22 +204,29 @@
               }
             ]
           },
+          // {
+          //   "hintType": "item",
+          //   "options": {
+          //     "validItems": ["Boomerang"],
+          //     "areaType": "zone",
+          //     // Allowing bad in general and not just in hinted-barren zone as
+          //     // seen below since that never lined up even after a large number
+          //     // of seed attempts by testing with breakpoints. This hint can
+          //     // help with rang in an IC-hinted dungeon as well which I did see
+          //     // in a breakpoint.
+          //     // "validChecks": ["var:barrenHints.areaIds"],
+          //     "validStatuses": ["bad"],
+          //     "allowKnownBarren": true
+          //   }
+          // },
           {
-            "hintType": "item",
+            "hintType": "entrance",
             "options": {
-              "validItems": ["Boomerang"],
-              "areaType": "zone",
-              // Allowing bad in general and not just in hinted-barren zone as
-              // seen below since that never lined up even after a large number
-              // of seed attempts by testing with breakpoints. This hint can
-              // help with rang in an IC-hinted dungeon as well which I did see
-              // in a breakpoint.
-              // "validChecks": ["var:barrenHints.areaIds"],
-              "validStatuses": ["bad"],
-              "allowKnownBarren": true
+              "validDestinationZones": ["Hyrule Castle"]
             }
           },
           {
+            // TODO: prefer importance counts 0,1,2
             "maxPicks": 1,
             "copies": 3,
             "hintDef": [
