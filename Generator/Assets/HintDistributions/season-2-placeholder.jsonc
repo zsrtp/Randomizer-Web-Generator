@@ -240,14 +240,14 @@
               }
             ]
           },
-          {
-            "hintType": "itemToItemPath",
-            "saveToVar": "pathHints"
-          },
+          // {
+          //   "hintType": "itemToItemPath",
+          //   "saveToVar": "pathHints"
+          // },
           {
             "hintType": "path",
             "saveToVar": "pathHints",
-            "iterations": 2,
+            "iterations": 4,
             "options": {
               "invalidItems": ["Progressive_Sword"]
             }

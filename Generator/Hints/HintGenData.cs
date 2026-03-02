@@ -17,6 +17,7 @@ namespace TPRandomizer.Hints
         public HintVars vars { get; }
 
         public Dictionary<Goal, List<string>> goalToRequiredChecks { get; set; }
+        public GoalManager goalManager { get; }
         public HashSet<string> requiredChecks { get; set; }
         public bool didCondReqCalc { get; private set; } = false;
         public HashSet<string> condReqChecks { get; set; } = new();
@@ -62,8 +63,7 @@ namespace TPRandomizer.Hints
 
             if (sSettings.logicRules != LogicRules.No_Logic)
             {
-                GoalManager goalManager = new(this);
-                goalManager.CalculateGoals();
+                goalManager = new(this);
 
                 goalToRequiredChecks = HintUtils.calculateGoalsRequiredChecks(
                     startingRoom,
@@ -1764,6 +1764,8 @@ namespace TPRandomizer.Hints
 
     public class GoalManager
     {
+        private static readonly Goal zantBossRoomGoal = Goal.Room("Palace of Twilight Boss Room");
+
         private static readonly List<HashSet<Goal>> leafGoalPriorities =
             new()
             {
@@ -1777,6 +1779,7 @@ namespace TPRandomizer.Hints
                     GoalConstants.Armogohma,
                     GoalConstants.Argorok,
                 },
+                new() { zantBossRoomGoal },
                 new() { GoalConstants.Zant },
                 new() { GoalConstants.Hyrule_Castle },
                 new() { GoalConstants.Ganondorf },
@@ -1849,6 +1852,10 @@ namespace TPRandomizer.Hints
                     }
                 },
                 {
+                    zantBossRoomGoal,
+                    new() { zantBossRoomGoal }
+                },
+                {
                     GoalConstants.Zant,
                     new()
                     {
@@ -1867,20 +1874,36 @@ namespace TPRandomizer.Hints
             };
 
         private HintGenData genData;
+        public Dictionary<Goal, List<List<string>>> goalToCheckLists = new();
+        public bool attemptedPriorityPicks { get; private set; }
+        public HashSet<Goal> hintedGoals { get; } = new();
+        public HashSet<string> hintedZoneNames { get; } = new();
 
         public GoalManager(HintGenData genData)
         {
             this.genData = genData;
+
+            CalculateGoals();
         }
 
-        public void CalculateGoals()
+        public void notifyAttemptedPriorityPicks()
+        {
+            attemptedPriorityPicks = true;
+        }
+
+        private void CalculateGoals()
         {
             // Get relevant goals and each sphere check which is path to the goal.
+            HashSet<Goal> goalsFromDungeons = HintUtils.getGoalsBasedOnDungeons(genData.sSettings);
+            if (goalsFromDungeons.Contains(GoalConstants.Zant))
+                goalsFromDungeons.Add(zantBossRoomGoal);
+
             Dictionary<Goal, List<string>> goalToCheckNames =
                 HintUtils.calculateGoalsRequiredChecks(
                     genData.startingRoom,
                     genData.playthroughSpheres.spheres,
-                    genData.sSettings
+                    genData.sSettings,
+                    goalsFromDungeons: goalsFromDungeons
                 );
 
             HashSet<Goal> goals = new(goalToCheckNames.Keys);
@@ -1894,7 +1917,7 @@ namespace TPRandomizer.Hints
             // it path to Fyrus instead, etc.). Note that we just go by what is in the spheres at
             // this point, so this includes smallKeys, dungeonRewards, etc. The PathHintCreator
             // decides which ones it wants to hint.
-            CalcGoalToHintableChecks(goalToParentGoals, goalToCheckNames);
+            goalToCheckLists = CalcGoalToHintableChecks(goalToParentGoals, goalToCheckNames);
         }
 
         private Dictionary<Goal, HashSet<Goal>> CalcGoalRelations(HashSet<Goal> goals)
@@ -1946,7 +1969,7 @@ namespace TPRandomizer.Hints
             return goalToParentGoals;
         }
 
-        private Dictionary<Goal, List<string>> CalcGoalToHintableChecks(
+        private Dictionary<Goal, List<List<string>>> CalcGoalToHintableChecks(
             Dictionary<Goal, HashSet<Goal>> goalToParentGoals,
             Dictionary<Goal, List<string>> goalToCheckNames
         )
@@ -1967,6 +1990,8 @@ namespace TPRandomizer.Hints
             }
 
             Dictionary<string, HashSet<Goal>> checkToHintableGoals = new();
+
+            HashSet<string> zantDeprioritizedChecks = new();
 
             List<string> requiredChecks = goalToCheckNames[GoalConstants.Ganondorf];
             foreach (string checkName in requiredChecks)
@@ -1989,6 +2014,9 @@ namespace TPRandomizer.Hints
 
                     validGoals.Add(goal);
                 }
+
+                bool shouldDeprioritizeForZant =
+                    validGoals.Count > 1 && validGoals.Contains(GoalConstants.Zant);
 
                 // If we have multiple leaf node goals, then filter down based on priority. For
                 // example, if something is path to both Fyrus and Zant, we would prefer to hint it
@@ -2017,6 +2045,12 @@ namespace TPRandomizer.Hints
                     }
                 }
 
+                if (shouldDeprioritizeForZant && validGoals.Contains(GoalConstants.Zant))
+                {
+                    // Mark for deprioritize
+                    zantDeprioritizedChecks.Add(checkName);
+                }
+
                 checkToHintableGoals[checkName] = validGoals;
             }
 
@@ -2035,10 +2069,10 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            Dictionary<Goal, List<string>> goalToHintableChecksList = new();
+            Dictionary<Goal, List<List<string>>> goalToHintableChecksList = new();
             foreach (KeyValuePair<Goal, HashSet<string>> pair in goalToHintableChecks)
             {
-                goalToHintableChecksList[pair.Key] = new(pair.Value);
+                goalToHintableChecksList[pair.Key] = new() { new(pair.Value) };
 
                 // TODO: temp logging
                 string goalName = pair.Key.goalEnum.ToString();
@@ -2047,7 +2081,17 @@ namespace TPRandomizer.Hints
                     Item contents = HintUtils.getCheckContents(checkName);
                     if (!HintConstants.invalidSpolItems.Contains(contents))
                     {
-                        Console.WriteLine($"Can be Path to {goalName}: {checkName} ({contents})");
+                        if (
+                            pair.Key.goalEnum == GoalEnum.Zant
+                            && zantDeprioritizedChecks.Contains(checkName)
+                        )
+                            Console.WriteLine(
+                                $"Can be Path to {goalName} (deprioritized): {checkName} ({contents})"
+                            );
+                        else
+                            Console.WriteLine(
+                                $"Can be Path to {goalName}: {checkName} ({contents})"
+                            );
                     }
                 }
             }
@@ -2083,7 +2127,45 @@ namespace TPRandomizer.Hints
                 }
             }
 
+            if (
+                goalToHintableChecksList.TryGetValue(
+                    GoalConstants.Zant,
+                    out List<List<string>> zantList
+                )
+            )
+            {
+                // Deprioritize any which were path to Zant and not Zant's bossroom, but which had
+                // other valid leaf goals before adjusting for tier priority (ex: path to Zant and
+                // HC when HC is path to Stallord and Armogohma => only path to Zant is valid since
+                // it has priority over HC, but the hint is of a lower quality and can be confusing
+                // compared to purely path to the Zant boss fight).
+                List<string> deprioritizedChecks = new();
+                foreach (string checkName in zantDeprioritizedChecks)
+                {
+                    if (zantList[0].Remove(checkName))
+                        deprioritizedChecks.Add(checkName);
+                }
+                if (deprioritizedChecks.Count > 0)
+                    zantList.Add(deprioritizedChecks);
+
+                // Then add any which are path to both Zant and Zant's boss room.
+                if (
+                    goalToHintableChecksList.TryGetValue(
+                        zantBossRoomGoal,
+                        out List<List<string>> zantBossRoomList
+                    )
+                )
+                {
+                    goalToHintableChecksList.Remove(zantBossRoomGoal);
+                    if (!ListUtils.isEmpty(zantBossRoomList))
+                        zantList.Add(zantBossRoomList[0]);
+                }
+            }
+
             return goalToHintableChecksList;
+
+            // Bulblin Camp First Chest Under Tower At Entrance (Filled_Bomb_Bag)
+            // Lanayru Field Skulltula Grotto Chest (Boomerang)
         }
     }
 }

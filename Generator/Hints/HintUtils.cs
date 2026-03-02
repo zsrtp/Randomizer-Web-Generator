@@ -610,7 +610,8 @@ namespace TPRandomizer.Hints
         public static Dictionary<Goal, List<string>> calculateGoalsRequiredChecks(
             Room startingRoom,
             List<List<KeyValuePair<int, Item>>> spheres,
-            SharedSettings sSettings
+            SharedSettings sSettings,
+            HashSet<Goal> goalsFromDungeons = null
         )
         {
             HashSet<string> maybeRequiredCheckNames = new();
@@ -624,7 +625,8 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            HashSet<Goal> goalsFromDungeons = getGoalsBasedOnDungeons(sSettings);
+            if (goalsFromDungeons == null)
+                goalsFromDungeons = getGoalsBasedOnDungeons(sSettings);
 
             bool startWithBigKeys =
                 sSettings.bigKeySettings == BigKeySettings.Anywhere
@@ -638,7 +640,7 @@ namespace TPRandomizer.Hints
             );
         }
 
-        private static HashSet<Goal> getGoalsBasedOnDungeons(SharedSettings sSettings)
+        public static HashSet<Goal> getGoalsBasedOnDungeons(SharedSettings sSettings)
         {
             HashSet<Goal> result = new();
 

@@ -41,13 +41,421 @@ namespace TPRandomizer.Hints.HintCreator
             BarrenPenalizer barrenPenalizer
         )
         {
-            List<PathHint> pathHints = genPathHints(genData, numHints);
+            // List<PathHint> pathHints = genPathHints(genData, numHints);
+            List<PathHint> pathHints = genPathHints2(genData, numHints);
             if (pathHints != null)
             {
                 List<Hint> a = pathHints.ConvertAll(x => (Hint)x);
                 return a;
             }
             return null;
+        }
+
+        private List<PathHint> genPathHints2(HintGenData genData, int numHintsDesired)
+        {
+            Dictionary<Goal, int> goalTiers =
+                new()
+                {
+                    { GoalConstants.Diababa, 0 },
+                    { GoalConstants.Fyrus, 0 },
+                    { GoalConstants.Morpheel, 0 },
+                    { GoalConstants.Stallord, 0 },
+                    { GoalConstants.Blizzeta, 0 },
+                    { GoalConstants.Armogohma, 0 },
+                    { GoalConstants.Argorok, 0 },
+                    { GoalConstants.Zant, 0 },
+                    { GoalConstants.Hyrule_Castle, 1 },
+                    { GoalConstants.Ganondorf, 2 },
+                };
+
+            HashSet<Goal> allowedGoals = null;
+
+            // From the list of allowed goals (or everything if no goals specified), order the goals
+            // into a list.
+            Dictionary<int, List<Goal>> allowedGoalsByTier = new();
+            foreach (
+                KeyValuePair<Goal, List<List<string>>> pair in genData.goalManager.goalToCheckLists
+            )
+            {
+                Goal goal = pair.Key;
+                if (allowedGoals == null || allowedGoals.Contains(goal))
+                {
+                    int tier = goalTiers[goal];
+                    if (!allowedGoalsByTier.TryGetValue(tier, out List<Goal> goalsForTier))
+                    {
+                        goalsForTier = new();
+                        allowedGoalsByTier[tier] = goalsForTier;
+                    }
+                    goalsForTier.Add(goal);
+                }
+            }
+
+            // The list will be ordered by tier and then each randomized internally before grouping.
+            // Ex: [LBT, AG, PoT],[HC],[Ganondorf] => [LBT, PoT, AG],[HC],[Ganondorf] =>
+            // [LBT, PoT, AG, HC, Ganondorf]
+            List<int> tierValues = new();
+            foreach (KeyValuePair<int, List<Goal>> pair in allowedGoalsByTier)
+            {
+                tierValues.Add(pair.Key);
+                List<Goal> goalsForTier = pair.Value;
+                if (goalsForTier.Count > 1)
+                    HintUtils.ShuffleListInPlace(genData.rnd, goalsForTier);
+            }
+            tierValues.Sort();
+
+            List<Goal> finalGoals = new();
+            foreach (int tier in tierValues)
+            {
+                finalGoals.AddRange(allowedGoalsByTier[tier]);
+            }
+
+            // Priorities [reqDungeon, Zant, HC, Ganondorf]
+
+            // We only attempt to do the priorities once! If we fail to generate any from a unique
+            // combination, then we just try to generate normally from these.
+
+            // In any case, once we finish messing we those, we permanently don't try again. After
+            // that point, we just do them like this: [...reqDungeons, Zant, HC, Ganondorf], trying
+            // to make sure each one is hinted a single time.
+
+            // Then after each has been hinted at least once, we just randomly pick them to hint.
+
+            //
+
+            // If we have not generated any path hints which count toward one per goal yet, then we
+            // should try to do the fancy picking to get different zones.
+
+            // We want to avoid adding goals such that the number of goals is greater than the
+            // number we are trying to pick. For example, if we are only picking 2 and adding the
+            // first tier (req dungeons) gives us 3 goals, then we should not continue to add HC to
+            // the list. Otherwise we get something like [FT, GM, LBT, HC] for example, where if we
+            // are hinting 2, it could pick something like [GM, HC] and give us an HC hint even
+            // though we have not already attempted to generate at least one hint per dungeon.
+
+            // So we should first add required dungeons. That's always good. Then if the numDesired
+            // is greater than what we have, we can try to add additional goals. However, if adding
+            // the additional goal would cause the combined list to go higher than numDesired, we
+            // don't add it and we instead proceed with what we have.
+
+            // In the case that we have already done the fancy thing, or attempted it and it did or
+            // did not work, we mark it as never doing that again. Then from that point forward, we
+            // handle it like this:
+
+            List<PathHint> createdHints = new();
+
+            if (!genData.goalManager.attemptedPriorityPicks)
+            {
+                genData.goalManager.notifyAttemptedPriorityPicks();
+                List<PathHint> priorityHints = doPrimaryAttemptStuff(genData, numHintsDesired);
+                if (!ListUtils.isEmpty(priorityHints))
+                    createdHints.AddRange(priorityHints);
+            }
+
+            // If still need more hints, gather any valid goals (ordered by tier; randomized
+            // internally) which have not already been hinted. Try to create hints one at a time for
+            // each of those, prioritizing zones which have not yet been hinted if possible.
+            createPathHintsSimple(genData, numHintsDesired, createdHints, true);
+
+            // If still need more hints, then do the same as above but can create hints for already
+            // hinted goals.
+            createPathHintsSimple(genData, numHintsDesired, createdHints, false);
+
+            return createdHints;
+        }
+
+        private List<PathHint> doPrimaryAttemptStuff(HintGenData genData, int numHintsDesired)
+        {
+            List<KeyValuePair<Goal, List<string>>> priorityGoals = getPriorityGoals(
+                genData,
+                numHintsDesired
+            );
+
+            List<PathHint> createdHints = pickPrimaryPathHints(
+                genData,
+                priorityGoals,
+                numHintsDesired
+            );
+
+            if (createdHints.Count < numHintsDesired)
+            {
+                for (int i = createdHints.Count; i < priorityGoals.Count; i++)
+                {
+                    Goal goal = priorityGoals[i].Key;
+                    List<KeyValuePair<Goal, List<string>>> yetHintedGoalsToChecks =
+                        getGoalsToHintableChecks(genData, new() { goal });
+                    if (yetHintedGoalsToChecks.Count > 0)
+                    {
+                        KeyValuePair<Goal, List<string>> goalAndChecks = yetHintedGoalsToChecks[0];
+                        PathHint hint = createHintForGoalAndChecks(genData, goalAndChecks);
+                        if (hint != null)
+                            createdHints.Add(hint);
+                    }
+                }
+            }
+
+            return createdHints;
+        }
+
+        private void createPathHintsSimple(
+            HintGenData genData,
+            int numHintsDesired,
+            List<PathHint> createdHints,
+            bool unhintedGoalsOnly
+        )
+        {
+            List<Goal> availableGoals = getRandomWithinTierGoals(genData);
+
+            int i = 0;
+            while (createdHints.Count < numHintsDesired && availableGoals.Count > 0)
+            {
+                if (i >= availableGoals.Count)
+                    i = 0;
+
+                Goal goal = availableGoals[i];
+                if (unhintedGoalsOnly && genData.goalManager.hintedGoals.Contains(goal))
+                {
+                    availableGoals.RemoveAt(i);
+                    continue;
+                }
+
+                List<KeyValuePair<Goal, List<string>>> goalAndChecks = getGoalsToHintableChecks(
+                    genData,
+                    new() { goal }
+                );
+                if (ListUtils.isEmpty(goalAndChecks))
+                {
+                    availableGoals.RemoveAt(i);
+                    continue;
+                }
+
+                PathHint hint = createHintForGoalAndChecks(genData, goalAndChecks[0]);
+                if (hint != null)
+                    createdHints.Add(hint);
+                else
+                {
+                    availableGoals.RemoveAt(i);
+                    continue;
+                }
+
+                i += 1;
+            }
+        }
+
+        private List<Goal> getRandomWithinTierGoals(HintGenData genData)
+        {
+            Dictionary<Goal, int> goalTiers =
+                new()
+                {
+                    { GoalConstants.Diababa, 0 },
+                    { GoalConstants.Fyrus, 0 },
+                    { GoalConstants.Morpheel, 0 },
+                    { GoalConstants.Stallord, 0 },
+                    { GoalConstants.Blizzeta, 0 },
+                    { GoalConstants.Armogohma, 0 },
+                    { GoalConstants.Argorok, 0 },
+                    { GoalConstants.Zant, 0 },
+                    { GoalConstants.Hyrule_Castle, 1 },
+                    { GoalConstants.Ganondorf, 2 },
+                };
+
+            HashSet<Goal> allowedGoals = null;
+
+            // From the list of allowed goals (or everything if no goals specified), order the goals
+            // into a list.
+            Dictionary<int, List<Goal>> allowedGoalsByTier = new();
+            foreach (
+                KeyValuePair<Goal, List<List<string>>> pair in genData.goalManager.goalToCheckLists
+            )
+            {
+                Goal goal = pair.Key;
+                if (allowedGoals == null || allowedGoals.Contains(goal))
+                {
+                    int tier = goalTiers[goal];
+                    if (!allowedGoalsByTier.TryGetValue(tier, out List<Goal> goalsForTier))
+                    {
+                        goalsForTier = new();
+                        allowedGoalsByTier[tier] = goalsForTier;
+                    }
+                    goalsForTier.Add(goal);
+                }
+            }
+
+            // The list will be ordered by tier and then each randomized internally before grouping.
+            // Ex: [LBT, AG, PoT],[HC],[Ganondorf] => [LBT, PoT, AG],[HC],[Ganondorf] =>
+            // [LBT, PoT, AG, HC, Ganondorf]
+            List<int> tierValues = new();
+            foreach (KeyValuePair<int, List<Goal>> pair in allowedGoalsByTier)
+            {
+                tierValues.Add(pair.Key);
+                List<Goal> goalsForTier = pair.Value;
+                if (goalsForTier.Count > 1)
+                    HintUtils.ShuffleListInPlace(genData.rnd, goalsForTier);
+            }
+            tierValues.Sort();
+
+            List<Goal> finalGoals = new();
+            foreach (int tier in tierValues)
+            {
+                finalGoals.AddRange(allowedGoalsByTier[tier]);
+            }
+
+            return finalGoals;
+        }
+
+        private PathHint createHintForGoalAndChecks(
+            HintGenData genData,
+            KeyValuePair<Goal, List<string>> goalAndChecks
+        )
+        {
+            Goal goal = goalAndChecks.Key;
+            List<string> checkNames = goalAndChecks.Value;
+
+            if (ListUtils.isEmpty(checkNames))
+                return null;
+
+            HashSet<string> priorityZones = new();
+            HashSet<string> secondaryZones = new();
+            foreach (string checkName in checkNames)
+            {
+                string zoneName = genData.GetZoneNameForCheck(checkName);
+                if (genData.goalManager.hintedZoneNames.Contains(zoneName))
+                    secondaryZones.Add(zoneName);
+                else
+                    priorityZones.Add(zoneName);
+            }
+
+            string selectedZone;
+            if (priorityZones.Count > 0)
+                selectedZone = HintUtils.RemoveRandomHashSetItem(genData.rnd, priorityZones);
+            else
+                selectedZone = HintUtils.RemoveRandomHashSetItem(genData.rnd, secondaryZones);
+
+            // Pick random check for that zone
+            List<string> checksForZone = checkNames.FindAll(
+                checkName => genData.GetZoneNameForCheck(checkName) == selectedZone
+            );
+            string selectedCheckName = HintUtils.PickRandomListItem(genData.rnd, checksForZone);
+            Item contents = HintUtils.getCheckContents(selectedCheckName);
+            // Mark checkName as directed toward
+            genData.hinted.alreadyCheckDirectedToward.Add(selectedCheckName);
+            // Mark goal and zoneName as hinted before
+            genData.goalManager.hintedGoals.Add(goal);
+            genData.goalManager.hintedZoneNames.Add(selectedZone);
+
+            PathHint hint = new PathHint(
+                AreaId.ZoneStr(selectedZone),
+                selectedCheckName,
+                goal.goalEnum
+            );
+            return hint;
+
+            // // Mark zone as hinted for that goal
+            // goalToHintedZones[pair.Key].Add(selectedZone);
+
+            // // Create path hint for this goal and check
+            // Item contents = HintUtils.getCheckContents(selectedCheckName);
+            // // Mark checkName as directed toward
+            // genData.hinted.alreadyCheckDirectedToward.Add(selectedCheckName);
+            // hintedChecks.Add(selectedCheckName);
+
+            // PathHint hint = new PathHint(
+            //     AreaId.ZoneStr(selectedZone),
+            //     selectedCheckName,
+            //     pair.Key.goalEnum
+            // );
+            // pathHints.Add(hint);
+
+        }
+
+        private List<KeyValuePair<Goal, List<string>>> getPriorityGoals(
+            HintGenData genData,
+            int numHintsDesired
+        )
+        {
+            if (numHintsDesired < 1)
+                return new();
+
+            List<List<Goal>> goalTiers =
+                new()
+                {
+                    new()
+                    {
+                        GoalConstants.Diababa,
+                        GoalConstants.Fyrus,
+                        GoalConstants.Morpheel,
+                        GoalConstants.Stallord,
+                        GoalConstants.Blizzeta,
+                        GoalConstants.Armogohma,
+                        GoalConstants.Argorok,
+                    },
+                    new() { GoalConstants.Zant },
+                    new() { GoalConstants.Hyrule_Castle },
+                    new() { GoalConstants.Ganondorf },
+                };
+
+            List<KeyValuePair<Goal, List<string>>> gatheredLists = new();
+
+            for (int i = 0; i < goalTiers.Count; i++)
+            {
+                List<KeyValuePair<Goal, List<string>>> hintableGoalsForTier =
+                    getGoalsToHintableChecks(genData, goalTiers[i]);
+                if (!ListUtils.isEmpty(hintableGoalsForTier))
+                {
+                    KeyValuePair<Goal, List<string>> goal = HintUtils.PickRandomListItem(
+                        genData.rnd,
+                        hintableGoalsForTier
+                    );
+                    gatheredLists.Add(goal);
+                }
+                if (gatheredLists.Count >= numHintsDesired)
+                    break;
+            }
+
+            return gatheredLists;
+        }
+
+        private List<KeyValuePair<Goal, List<string>>> getGoalsToHintableChecks(
+            HintGenData genData,
+            List<Goal> goals
+        )
+        {
+            List<KeyValuePair<Goal, List<string>>> result = new();
+
+            Dictionary<Goal, List<List<string>>> goalToCheckLists = genData
+                .goalManager
+                .goalToCheckLists;
+
+            if (goals.Count < 1)
+                return new();
+
+            foreach (Goal goal in goals)
+            {
+                if (goalToCheckLists.TryGetValue(goal, out List<List<string>> listOfLists))
+                {
+                    foreach (List<string> list in listOfLists)
+                    {
+                        List<string> possibleCheckNamesForGoal = new();
+
+                        // Calculate if we have anything valid in the list.
+                        if (!ListUtils.isEmpty(list))
+                        {
+                            foreach (string checkName in list)
+                            {
+                                if (CheckIsPossibleToHint(genData, checkName))
+                                    possibleCheckNamesForGoal.Add(checkName);
+                            }
+                        }
+
+                        if (possibleCheckNamesForGoal.Count > 0)
+                        {
+                            result.Add(new(goal, possibleCheckNamesForGoal));
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         private List<PathHint> genPathHints(HintGenData genData, int numHintsDesired)
@@ -349,8 +757,6 @@ namespace TPRandomizer.Hints.HintCreator
 
             HashSet<string> checkNamesForPrimaryGoals = new();
 
-            Dictionary<Goal, List<string>> goalToZones = new();
-
             foreach (KeyValuePair<Goal, List<string>> pair in genData.goalToRequiredChecks)
             {
                 List<string> checkNames = pair.Value;
@@ -428,7 +834,8 @@ namespace TPRandomizer.Hints.HintCreator
 
             List<List<int>> combinations = getCombinationIndexes(primaryList.Count, numHintsToPick);
 
-            reorderPathPrimaryList(genData, primaryList);
+            // TODO: temp disabling this part
+            // reorderPathPrimaryList(genData, primaryList);
 
             return pickPrimaryPathHintsFromCombinations(
                 genData,
@@ -545,8 +952,8 @@ namespace TPRandomizer.Hints.HintCreator
             List<List<int>> combinations
         )
         {
+            // Group by zone for each goal, only including ones where there are actually checks.
             List<KeyValuePair<Goal, List<string>>> goalAndZonesList = new();
-
             foreach (KeyValuePair<Goal, List<string>> pair in primaryList)
             {
                 HashSet<string> zonesForGoal = new();
@@ -746,6 +1153,9 @@ namespace TPRandomizer.Hints.HintCreator
                 Item contents = HintUtils.getCheckContents(selectedCheckName);
                 // Mark checkName as directed toward
                 genData.hinted.alreadyCheckDirectedToward.Add(selectedCheckName);
+                // Mark goal and zoneName as hinted before
+                genData.goalManager.hintedGoals.Add(goal);
+                genData.goalManager.hintedZoneNames.Add(desiredZoneName);
 
                 PathHint hint = new PathHint(
                     AreaId.ZoneStr(desiredZoneName),
