@@ -125,6 +125,10 @@ namespace TPRandomizer.Hints
                 HintText reqDungeonsHintText = new();
                 reqDungeonsHintText.text = GenLinkHouseSignText();
                 hintTexts.Add(reqDungeonsHintText);
+
+                HintText dungeonErHintText = new();
+                dungeonErHintText.text = testGetReqDungeonProvincesMsg();
+                hintTexts.Add(dungeonErHintText);
             }
 
             // string normalizedText = Res.LangSpecificNormalize(text);
@@ -219,6 +223,75 @@ namespace TPRandomizer.Hints
                 text = sb.ToString();
             else
                 text = Res.SimpleMsg("required-dungeon.none", null);
+
+            string normalized = Res.LangSpecificNormalize(text);
+            return normalized;
+        }
+
+        private string testGetReqDungeonProvincesMsg()
+        {
+            Dictionary<Zone, Province> entranceToProvince =
+                new()
+                {
+                    { Zone.Forest_Temple, Province.Faron },
+                    { Zone.Goron_Mines, Province.Eldin },
+                    { Zone.Lakebed_Temple, Province.Lanayru },
+                    { Zone.Arbiters_Grounds, Province.Desert },
+                    { Zone.Snowpeak_Ruins, Province.Peak },
+                    { Zone.Temple_of_Time, Province.Faron },
+                    { Zone.City_in_the_Sky, Province.Lanayru },
+                    { Zone.Palace_of_Twilight, Province.Desert },
+                    { Zone.Hyrule_Castle, Province.Lanayru },
+                };
+
+            Dictionary<Province, string> provinceToColorList =
+                new()
+                {
+                    { Province.Ordona, CustomMessages.messageColorYellow },
+                    { Province.Faron, CustomMessages.messageColorGreen },
+                    { Province.Eldin, CustomMessages.messageColorRed },
+                    { Province.Lanayru, CustomMessages.messageColorBlue },
+                    { Province.Desert, CustomMessages.messageColorOrange },
+                    { Province.Peak, CustomMessages.messageColorLightBlue },
+                };
+
+            HashSet<Zone> requiredDungeonsSet = new(requiredDungeonZones);
+
+            HashSet<Province> provinces = new();
+            foreach (KeyValuePair<Zone, HashSet<Zone>> pair in dungeonEntrances)
+            {
+                foreach (Zone pointedToZone in pair.Value)
+                {
+                    if (requiredDungeonsSet.Contains(pointedToZone))
+                    {
+                        provinces.Add(entranceToProvince[pair.Key]);
+                        break;
+                    }
+                }
+            }
+
+            if (provinces.Count < 1)
+                return null;
+
+            List<Province> provinceList = new(provinces);
+            provinceList.Sort();
+
+            StringBuilder sb =
+                new("The required dungeons are found randomly in these provinces:\n");
+            int index = 0;
+            foreach (Province province in provinceList)
+            {
+                AreaId areaId = AreaId.Province(province);
+                string color = provinceToColorList[province];
+                string areaRes = Res.Msg(areaId.GenResKey(), null, null).ResolveWithColor(color);
+
+                if (index > 0)
+                    sb.Append(", ");
+                sb.Append(areaRes);
+                index += 1;
+            }
+
+            string text = sb.ToString();
 
             string normalized = Res.LangSpecificNormalize(text);
             return normalized;

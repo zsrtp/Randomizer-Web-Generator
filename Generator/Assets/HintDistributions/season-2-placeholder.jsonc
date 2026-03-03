@@ -19,16 +19,17 @@
     "ownZoneShowsAsJunkHint": true
   },
   "always": {
-    "monopolizeSpots": true,
-    "idealNumSpots": 5,
+    "monopolizeSpots": false,
+    "idealNumSpots": 10,
     "copies": 2,
-    "groupId": "overworld"
+    "groupId": "overworld2nd"
   },
   //
   "addChecks": {
     // "Lake Hylia Shell Blade Grotto Chest": ["always"],
     "Skybook From Impaz": ["always"],
-    "Hyrule Castle Graveyard Owl Statue Chest": ["always"]
+    "Hyrule Castle Graveyard Owl Statue Chest": ["always"],
+    "Doctors Office Balcony Chest": ["sometimes"]
   },
   "removeChecks": {
     "Palace of Twilight Collect Both Sols": ["always"],
@@ -37,7 +38,9 @@
     "Zoras Domain Extinguish All Torches Chest": ["sometimes"],
     "Zoras Domain Light All Torches Chest": ["sometimes"],
     "Eldin Spring Underwater Chest": ["sometimes"],
-    "Lake Hylia Underwater Chest": ["sometimes"]
+    "Lake Hylia Underwater Chest": ["sometimes"],
+    "Outside South Castle Town Tightrope Chest": ["sometimes"],
+    "Gift From Ralis": ["sometimes"]
   },
   "removeItems": {
     "Progressive_Sword": ["sometimes"]
@@ -55,7 +58,8 @@
       "-snowpeakmountain",
       "-ordon"
     ],
-    "requiredDungeons": ["alias:requiredDungeons"]
+    "requiredDungeons": ["alias:requiredDungeons"],
+    "hyruleCastle": ["hyrulecastle"]
   },
   // Special hints generated right after Always hints are generated. These are
   // created even if the dungeon is hinted barren or the check is already hinted
@@ -154,10 +158,10 @@
     {
       "spot": "hyrule_castle_sign",
       "hintDef": {
-        "hintType": "item",
+        "hintType": "location",
         "options": {
-          "validItems": ["Purple_Rupee_Links_House"],
-          "areaType": "zone"
+          "canBeClaimHinted": true,
+          "validChecks": ["Hyrule Castle King Bulblin Key"]
         }
       }
     }
@@ -230,6 +234,8 @@
           // },
           {
             "hintType": "entrance",
+            "saveToVar": "hcEntranceHint",
+            "copies": 3,
             "options": {
               "ignoreAlreadyHinted": true,
               "validDestinationZones": ["Hyrule Castle"]
@@ -238,7 +244,6 @@
           {
             // TODO: prefer importance counts 0,1,2
             "maxPicks": 1,
-            "copies": 3,
             "hintDef": [
               {
                 "hintType": "importanceCount",
@@ -259,13 +264,8 @@
               }
             ]
           },
-          // {
-          //   "hintType": "itemToItemPath",
-          //   "saveToVar": "pathHints"
-          // },
           {
             "hintType": "path",
-            "saveToVar": "pathHints",
             "iterations": 4,
             "options": {
               "invalidItems": ["Progressive_Sword"]
@@ -273,23 +273,39 @@
           },
           {
             "hintType": "sometimes",
-            "saveToVar": "1stLayerSometimes",
-            "maxPicks": 5,
-            "iterations": 99
+            "maxPicks": 2
+            // "iterations": 99
           },
-          // Fill in layer with extra copies of the sometimes hints.
+          // Fill in layer with extra copies of the HC entrance hint.
           {
             "hintType": "var",
             "copies": 1,
             "iterations": 99,
             "options": {
-              "varName": "1stLayerSometimes",
+              "varName": "hcEntranceHint",
               "randomOrder": true
             }
           }
+          // TODO: need to fall back to sometimes when hcEntranceHint not
+          // generated due to no dungeon ER. Also EntranceHint should check if
+          // any/which dungeon ER is enabled when determining what is possible
+          // to hint if anything.
         ]
       }
     },
+
+    // TODO: extra Zant path hint on HC sign
+
+    // {
+    //   "groupId": "hyruleCastle",
+    //   "hintDef": {
+    //     "hintType": "path",
+    //     "options": {
+    //       "validGoals": ["Zant"],
+    //       "invalidItems": ["Progressive_Sword"]
+    //     }
+    //   }
+    // },
     {
       // Fill in requiredDungeon signs. Add a sword hint for a sword not in the
       // MostSwordsProvince if possible.
@@ -331,6 +347,7 @@
         "copies": 2,
         "hintDef": [
           {
+            // TODO: change this to do the dungeon sometimes hint.
             "maxPicks": 5,
             "saveToVar": "2ndLayerSometimes",
             "hintDef": [
