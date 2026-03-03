@@ -11,7 +11,7 @@ namespace TPRandomizer.Hints.HintCreator
     {
         public override HintCreatorType type { get; } = HintCreatorType.Entrance;
 
-        private static readonly HashSet<Zone> defaultValidZones =
+        private static readonly HashSet<Zone> dungeonZones =
             new()
             {
                 Zone.Forest_Temple,
@@ -25,6 +25,8 @@ namespace TPRandomizer.Hints.HintCreator
                 Zone.Hyrule_Castle,
             };
 
+        private bool ignoreAlreadyHinted = false;
+        private HashSet<Zone> validSourceZones = null;
         private HashSet<Zone> validDestinationZones = null;
 
         private EntranceHintCreator() { }
@@ -36,6 +38,28 @@ namespace TPRandomizer.Hints.HintCreator
             if (obj.ContainsKey("options"))
             {
                 JObject options = (JObject)obj["options"];
+
+                inst.ignoreAlreadyHinted = HintSettingUtils.getOptionalBool(
+                    options,
+                    "ignoreAlreadyHinted",
+                    inst.ignoreAlreadyHinted
+                );
+
+                List<string> validSrcZonesStrList = HintSettingUtils.getOptionalStringList(
+                    options,
+                    "validSourceZones",
+                    null
+                );
+                if (!ListUtils.isEmpty(validSrcZonesStrList))
+                {
+                    inst.validSourceZones = new();
+
+                    foreach (string zoneStr in validSrcZonesStrList)
+                    {
+                        Zone zone = ZoneUtils.StringToIdThrows(zoneStr);
+                        inst.validSourceZones.Add(zone);
+                    }
+                }
 
                 List<string> validDestZonesStrList = HintSettingUtils.getOptionalStringList(
                     options,
@@ -54,9 +78,6 @@ namespace TPRandomizer.Hints.HintCreator
                 }
             }
 
-            if (inst.validDestinationZones == null)
-                inst.validDestinationZones = defaultValidZones;
-
             return inst;
         }
 
@@ -70,11 +91,14 @@ namespace TPRandomizer.Hints.HintCreator
         {
             HashSet<Zone> potentialZonesToHint = new();
 
+            HashSet<Zone> allowedSourceZones = getAllowedSourceZones();
             HashSet<Zone> destZonesOfInterest = getDestZonesOfInterest(genData);
             foreach (KeyValuePair<Zone, HashSet<Zone>> pair in genData.dungeonEntrances)
             {
                 Zone sourceZone = pair.Key;
                 HashSet<Zone> destZones = pair.Value;
+                if (!allowedSourceZones.Contains(sourceZone))
+                    continue;
 
                 bool hasDestOfInterest = false;
                 foreach (Zone destZoneOfInterest in destZonesOfInterest)
@@ -114,37 +138,64 @@ namespace TPRandomizer.Hints.HintCreator
             return results;
         }
 
+        private HashSet<Zone> getAllowedSourceZones()
+        {
+            if (validSourceZones != null)
+                return new(validSourceZones);
+            return dungeonZones;
+        }
+
         private HashSet<Zone> getDestZonesOfInterest(HintGenData genData)
         {
-            HashSet<Zone> result = new();
+            // HashSet<Zone> result = new();
 
-            HashSet<Zone> interestedZones = new() { Zone.Hyrule_Castle };
+            HashSet<Zone> interestedZones;
 
-            if (genData.sSettings.barrenDungeons)
+            if (validDestinationZones != null)
             {
-                HashSet<string> requiredDungeonZones = HintUtils.getRequiredDungeonZones();
-                foreach (string zoneName in requiredDungeonZones)
-                {
-                    interestedZones.Add(ZoneUtils.StringToIdThrows(zoneName));
-                }
+                interestedZones = new(validDestinationZones);
             }
             else
             {
-                interestedZones.UnionWith(defaultValidZones);
+                // If specified source zones and not destination zones, then allow all dungeon
+                // zones as destinations.
+                if (validSourceZones != null && validDestinationZones == null)
+                    return dungeonZones;
+
+                interestedZones = new() { Zone.Hyrule_Castle };
+
+                if (genData.sSettings.barrenDungeons)
+                {
+                    HashSet<string> requiredDungeonZones = HintUtils.getRequiredDungeonZones();
+                    foreach (string zoneName in requiredDungeonZones)
+                    {
+                        interestedZones.Add(ZoneUtils.StringToIdThrows(zoneName));
+                    }
+                }
+                else
+                {
+                    interestedZones.UnionWith(dungeonZones);
+                }
             }
 
-            foreach (Zone destZone in validDestinationZones)
-            {
-                if (interestedZones.Contains(destZone))
-                    result.Add(destZone);
-            }
+            // TODO: maybe should split up options so can provide list of ones interested in, but it
+            // still pays attention to required dungeons. We also need to support where we specify a
+            // destination, but we don't care if it is required or not.
 
-            return result;
+            // foreach (Zone destZone in validDestinationZones)
+            // {
+            //     if (interestedZones.Contains(destZone))
+            //         result.Add(destZone);
+            // }
+            // return result;
+
+            return interestedZones;
         }
 
         private bool EntranceZoneIsPossibleToHint(HintGenData genData, Zone entranceZone)
         {
-            return !genData.hinted.hintedDungeonEntranceSources.Contains(entranceZone);
+            return ignoreAlreadyHinted
+                || !genData.hinted.hintedDungeonEntranceSources.Contains(entranceZone);
         }
     }
 }

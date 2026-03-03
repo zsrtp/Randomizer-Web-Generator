@@ -82,6 +82,15 @@
       ]
     },
     {
+      "spot": "snowpeak_mountain_sign",
+      "hintDef": {
+        "hintType": "entrance",
+        "options": {
+          "validSourceZones": ["Snowpeak Ruins"]
+        }
+      }
+    },
+    {
       "spot": "forest_temple_sign",
       "hintDef": {
         "hintType": "location",
@@ -222,6 +231,7 @@
           {
             "hintType": "entrance",
             "options": {
+              "ignoreAlreadyHinted": true,
               "validDestinationZones": ["Hyrule Castle"]
             }
           },
@@ -242,7 +252,8 @@
                     "Snowpeak Ruins",
                     "Temple of Time",
                     "City in the Sky",
-                    "Palace of Twilight"
+                    "Palace of Twilight",
+                    "Hyrule Castle"
                   ]
                 }
               }

@@ -913,6 +913,11 @@ namespace TPRandomizer
                 hintMessages.Add(GenLinkHouseSignText());
             }
 
+            // TODO: test list requiredDungeon provinces
+            string testReqDungeonMsg = testGetReqDungeonProvincesMsg();
+            if (!StringUtils.isEmpty(testReqDungeonMsg))
+                hintMessages.Add(testReqDungeonMsg);
+
             if (!ListUtils.isEmpty(midnaStartingHints))
             {
                 List<AreaId> barrenAreaIds = new();
@@ -1241,6 +1246,68 @@ namespace TPRandomizer
                     )
                 }
             );
+        }
+
+        private string testGetReqDungeonProvincesMsg()
+        {
+            List<(byte, Province)> dungeonData =
+                new()
+                {
+                    (0x01, Province.Faron),
+                    (0x02, Province.Eldin),
+                    (0x04, Province.Lanayru),
+                    (0x08, Province.Desert),
+                    (0x10, Province.Peak),
+                    (0x20, Province.Faron),
+                    (0x40, Province.Lanayru),
+                    (0x80, Province.Desert),
+                };
+
+            Dictionary<Province, string> provinceToColorList =
+                new()
+                {
+                    { Province.Ordona, CustomMessages.messageColorYellow },
+                    { Province.Faron, CustomMessages.messageColorGreen },
+                    { Province.Eldin, CustomMessages.messageColorRed },
+                    { Province.Lanayru, CustomMessages.messageColorBlue },
+                    { Province.Desert, CustomMessages.messageColorOrange },
+                    { Province.Peak, CustomMessages.messageColorLightBlue },
+                };
+
+            HashSet<Province> provinces = new();
+            foreach (var tuple in dungeonData)
+            {
+                if ((requiredDungeons & tuple.Item1) != 0)
+                {
+                    provinces.Add(tuple.Item2);
+                }
+            }
+
+            if (provinces.Count < 1)
+                return null;
+
+            List<Province> provinceList = new(provinces);
+            provinceList.Sort();
+
+            StringBuilder sb =
+                new("The required dungeons are found randomly in these provinces:\n");
+            int index = 0;
+            foreach (Province province in provinceList)
+            {
+                AreaId areaId = AreaId.Province(province);
+                string color = provinceToColorList[province];
+                string areaRes = Res.Msg(areaId.GenResKey(), null, null).ResolveWithColor(color);
+
+                if (index > 0)
+                    sb.Append(", ");
+                sb.Append(areaRes);
+                index += 1;
+            }
+
+            string text = sb.ToString();
+
+            string normalized = Res.LangSpecificNormalize(text);
+            return normalized;
         }
 
         private void AddShopConfirmationMsg(
