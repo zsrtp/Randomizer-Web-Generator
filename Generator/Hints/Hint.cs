@@ -21,6 +21,7 @@ namespace TPRandomizer.Hints
         JovaniRewards = 12,
         ImportanceCount = 13,
         Entrance = 14,
+        RequiredDungeons = 15,
     }
 
     public class HintTypeUtils
@@ -58,6 +59,11 @@ namespace TPRandomizer.Hints
         public abstract List<HintText> toHintTextList(CustomMsgData customMsgData);
 
         public virtual HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            return null;
+        }
+
+        public virtual List<HintInfo> GetHintInfos(CustomMsgData customMsgData)
         {
             return null;
         }
@@ -106,6 +112,8 @@ namespace TPRandomizer.Hints
                     return ImportanceCountHint.decode(bitLengths, processor, itemPlacements);
                 case HintType.Entrance:
                     return EntranceHint.decode(bitLengths, processor, itemPlacements);
+                case HintType.RequiredDungeons:
+                    return RequiredDungeonsHint.decode(bitLengths, processor, itemPlacements);
                 default:
                     throw new Exception(
                         $"Tried to decode hintType, but found unexpected type `{type}`."

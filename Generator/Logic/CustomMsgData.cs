@@ -893,30 +893,30 @@ namespace TPRandomizer
             ushort rtsConfirmationCtx = ctxGen.getNewContext();
             ushort hintsBaseCtx = ctxGen.getNewContext();
 
-            int numReqDungeons = 0;
-            for (int i = 0; i < 8; i++)
-            {
-                if ((requiredDungeons & (1 << i)) != 0)
-                    numReqDungeons += 1;
-            }
+            // int numReqDungeons = 0;
+            // for (int i = 0; i < 8; i++)
+            // {
+            //     if ((requiredDungeons & (1 << i)) != 0)
+            //         numReqDungeons += 1;
+            // }
 
-            string midnaDungeonMsg = Res.SimpleMsg(
-                "midna.required-dungeons",
-                new Dictionary<string, string>() { { "count", numReqDungeons.ToString() } }
-            );
+            // string midnaDungeonMsg = Res.SimpleMsg(
+            //     "midna.required-dungeons",
+            //     new Dictionary<string, string>() { { "count", numReqDungeons.ToString() } }
+            // );
 
             List<string> hintMessages = new();
-            // Note: need to normalize so JP number converts to wide version.
-            hintMessages.Add(Res.LangSpecificNormalize(midnaDungeonMsg));
-            if (numReqDungeons > 0)
-            {
-                hintMessages.Add(GenLinkHouseSignText());
-            }
+            // // Note: need to normalize so JP number converts to wide version.
+            // hintMessages.Add(Res.LangSpecificNormalize(midnaDungeonMsg));
+            // if (numReqDungeons > 0)
+            // {
+            //     hintMessages.Add(GenLinkHouseSignText());
+            // }
 
-            // TODO: test list requiredDungeon provinces
-            string testReqDungeonMsg = testGetReqDungeonProvincesMsg();
-            if (!StringUtils.isEmpty(testReqDungeonMsg))
-                hintMessages.Add(testReqDungeonMsg);
+            // // TODO: test list requiredDungeon provinces
+            // string testReqDungeonMsg = testGetReqDungeonProvincesMsg();
+            // if (!StringUtils.isEmpty(testReqDungeonMsg))
+            //     hintMessages.Add(testReqDungeonMsg);
 
             if (!ListUtils.isEmpty(midnaStartingHints))
             {
@@ -975,7 +975,9 @@ namespace TPRandomizer
                             continue;
                         }
                     }
-                    midnaHintTexts.Add(hint.toHintTextList(this)[0].text);
+                    var texts = hint.toHintTextList(this).Select((hintText) => hintText.text);
+                    midnaHintTexts.AddRange(texts);
+                    // midnaHintTexts.Add(hint.toHintTextList(this)[0].text);
                 }
 
                 hintMessages.AddRange(midnaHintTexts);
@@ -2583,11 +2585,22 @@ namespace TPRandomizer
                 List<Dictionary<string, object>> hintInfos = new();
                 foreach (Hint hint in hintSpot.hints)
                 {
-                    HintInfo hintInfo = hint.GetHintInfo(this);
-                    if (hintInfo != null)
-                        hintInfos.Add(hint.GetHintInfo(this).GetSpoilerDict());
+                    List<HintInfo> hintInfosOfHint = hint.GetHintInfos(this);
+                    if (hintInfosOfHint != null)
+                    {
+                        foreach (HintInfo hintInfo in hintInfosOfHint)
+                        {
+                            hintInfos.Add(hintInfo.GetSpoilerDict());
+                        }
+                    }
                     else
-                        hintInfos.Add(null);
+                    {
+                        HintInfo hintInfo = hint.GetHintInfo(this);
+                        if (hintInfo != null)
+                            hintInfos.Add(hint.GetHintInfo(this).GetSpoilerDict());
+                        else
+                            hintInfos.Add(null);
+                    }
                 }
                 keyToHintInfos[key] = hintInfos;
             }

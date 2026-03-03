@@ -42,10 +42,23 @@ namespace TPRandomizer.Hints
             CustomMsgData.Builder customMsgDataBuilder =
                 new(genData, (byte)Randomizer.RequiredDungeons);
 
+            SpotToHints specialSpotToHints = new SpotToHints();
+            SpotToHints normalSpotToHints = new SpotToHints();
+
+            // We put the requiredDungeons hint on Midna, even if hints were set to none.
+            specialSpotToHints.addHintToSpot(SpotId.Midna, RequiredDungeonsHint.Create(genData));
+
             // If user specified that there are no hintSettings, then we should
             // return the default customMsgData settings.
             if (genData.sSettings.hintDistribution == HintDistribution.None)
+            {
+                List<HintSpot> noHintsSpotList = CreateHintSpotList(
+                    specialSpotToHints,
+                    normalSpotToHints
+                );
+                customMsgDataBuilder.SetHintSpots(noHintsSpotList);
                 return customMsgDataBuilder.Build(genData.sSettings);
+            }
 
             hintSettings = HintSettings.fromPath(genData);
 
@@ -59,9 +72,6 @@ namespace TPRandomizer.Hints
 
             if (hintSettings.starting.excludeFromGroups)
                 removeSpotFromMutableGroups(hintSettings.starting.spot);
-
-            SpotToHints specialSpotToHints = new SpotToHints();
-            SpotToHints normalSpotToHints = new SpotToHints();
 
             // Agitha
             if (hintSettings.agitha)
