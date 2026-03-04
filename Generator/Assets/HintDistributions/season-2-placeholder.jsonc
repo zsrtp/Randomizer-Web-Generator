@@ -86,6 +86,15 @@
       ]
     },
     {
+      "spot": "death_mountain_sign",
+      "hintDef": {
+        "hintType": "entrance",
+        "options": {
+          "validSourceZones": ["Goron Mines"]
+        }
+      }
+    },
+    {
       "spot": "snowpeak_mountain_sign",
       "hintDef": {
         "hintType": "entrance",
@@ -307,38 +316,18 @@
     //   }
     // },
     {
-      // Fill in requiredDungeon signs. Add a sword hint for a sword not in the
-      // MostSwordsProvince if possible.
+      // On required dungeon signs, hint the number of swords in dungeons.
       "groupId": "requiredDungeons",
-      "hintDef": [
-        {
-          // Num swords in province with most swords (or tied for most).
-          "hintType": "numItemInArea",
-          "saveToVar": "mostSwordsProvince",
-          "options": {
-            "item": "Progressive_Sword",
-            "areaType": "province",
-            "order": "desc"
-          }
-        },
-        {
-          // Aux sword hint
-          "hintType": "item",
-          "options": {
-            "validItems": ["Progressive_Sword"],
-            "invalidChecks": ["var:mostSwordsProvince.areaId"]
-          }
-        },
-        // Fill the rest in with more copies of the MostSwordsProvince hint
-        {
-          "hintType": "var",
-          "copies": 99,
-          "minCopies": 1,
-          "options": {
-            "varName": "mostSwordsProvince"
-          }
+      "hintDef": {
+        "hintType": "numItemInArea",
+        "copies": 99,
+        "minCopies": 1,
+        "options": {
+          "item": "Progressive_Sword",
+          "areaType": "province",
+          "validAreas": ["Dungeon"]
         }
-      ]
+      }
     },
     {
       // 2nd layer is "sometimes" hints
