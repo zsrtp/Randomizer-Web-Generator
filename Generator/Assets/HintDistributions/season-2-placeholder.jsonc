@@ -40,7 +40,9 @@
     "Eldin Spring Underwater Chest": ["sometimes"],
     "Lake Hylia Underwater Chest": ["sometimes"],
     "Outside South Castle Town Tightrope Chest": ["sometimes"],
-    "Gift From Ralis": ["sometimes"]
+    "Gift From Ralis": ["sometimes"],
+    "Arbiters Grounds Death Sword Chest": ["sometimes"],
+    "City in The Sky Aeralfos Chest": ["sometimes"]
   },
   "removeItems": {
     "Progressive_Sword": ["sometimes"]
@@ -371,12 +373,28 @@
             "saveToVar": "2ndLayerSometimes",
             "hintDef": [
               {
-                "hintType": "location",
-                "options": {
-                  "markAsSometimes": true,
-                  "namedChecks": ["City in The Sky West Wing First Chest"],
-                  "namedProbability": 0.5
-                }
+                "maxPicks": 1,
+                // Prioritize 1 dungeon sometimes. Hard-prioritizes PoT BK chest
+                // if not known barren from BeyondThisPoint hint.
+                "hintDef": [
+                  {
+                    "hintType": "location",
+                    "options": {
+                      "markAsSometimes": true,
+                      "validChecks": ["Palace of Twilight Big Key Chest"]
+                    }
+                  },
+                  {
+                    "hintType": "location",
+                    "options": {
+                      "markAsSometimes": true,
+                      "validChecks": [
+                        "Arbiters Grounds Death Sword Chest",
+                        "City in The Sky Aeralfos Chest"
+                      ]
+                    }
+                  }
+                ]
               },
               {
                 "hintType": "sometimes",
