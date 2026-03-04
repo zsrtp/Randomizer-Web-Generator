@@ -127,7 +127,8 @@ namespace TPRandomizer.Hints
                 hintTexts.Add(reqDungeonsHintText);
 
                 HintText dungeonErHintText = new();
-                dungeonErHintText.text = testGetReqDungeonProvincesMsg();
+                // dungeonErHintText.text = testGetReqDungeonProvincesMsg();
+                dungeonErHintText.text = testGetDungeonEntranceHint();
                 hintTexts.Add(dungeonErHintText);
             }
 
@@ -226,6 +227,111 @@ namespace TPRandomizer.Hints
 
             string normalized = Res.LangSpecificNormalize(text);
             return normalized;
+        }
+
+        private string testGetDungeonEntranceHint()
+        {
+            // Leaving out SPR and HC for now. These should really be built according to the
+            // settings, then the order is encoded with each tier already randomized. In fact, we
+            // only need to store any entrance which should actually be hinted.
+            List<List<Zone>> hintTiers =
+                new()
+                {
+                    new() { Zone.Lakebed_Temple, Zone.Arbiters_Grounds },
+                    new() { Zone.Goron_Mines, Zone.Temple_of_Time },
+                    new() { Zone.City_in_the_Sky, Zone.Palace_of_Twilight },
+                    new() { Zone.Forest_Temple },
+                    // Hardest: SPR, HC
+                    // Hard: LBT, AG
+                    // Medium: ToT, GM
+                    // Easy: CitS, PoT
+                    // Trivial: FT
+                };
+
+            // TODO: randomization within tiers must be done using genData.rnd. For now just doing
+            // here for testing.
+
+            Random replaceMeRandom = new Random();
+            foreach (List<Zone> list in hintTiers)
+            {
+                HintUtils.ShuffleListInPlace(replaceMeRandom, list);
+            }
+
+            // But for this, we want to ignore SPR & HC
+
+            List<KeyValuePair<Zone, HashSet<Zone>>> filteredList = new();
+            HashSet<Zone> entranceZones = new();
+
+            HashSet<Zone> interestedDungeonsSet = new(requiredDungeonZones);
+            interestedDungeonsSet.Add(Zone.Hyrule_Castle);
+            foreach (KeyValuePair<Zone, HashSet<Zone>> pair in dungeonEntrances)
+            {
+                foreach (Zone pointedToZone in pair.Value)
+                {
+                    if (interestedDungeonsSet.Contains(pointedToZone))
+                    {
+                        entranceZones.Add(pair.Key);
+                        filteredList.Add(pair);
+                        break;
+                    }
+                }
+            }
+
+            Zone zoneToHint = Zone.Invalid;
+
+            foreach (List<Zone> list in hintTiers)
+            {
+                foreach (Zone zone in list)
+                {
+                    if (entranceZones.Contains(zone))
+                    {
+                        zoneToHint = zone;
+                        break;
+                    }
+                }
+                if (zoneToHint != Zone.Invalid)
+                    break;
+            }
+
+            List<KeyValuePair<Zone, HashSet<Zone>>> sorted = filteredList
+                .OrderBy((el) => el.Key)
+                .ToList();
+
+            Dictionary<Zone, string> zoneToAbbrev =
+                new()
+                {
+                    { Zone.Forest_Temple, "FT" },
+                    { Zone.Goron_Mines, "GM" },
+                    { Zone.Lakebed_Temple, "LBT" },
+                    { Zone.Arbiters_Grounds, "AG" },
+                    { Zone.Snowpeak_Ruins, "SPR" },
+                    { Zone.Temple_of_Time, "ToT" },
+                    { Zone.City_in_the_Sky, "CitS" },
+                    { Zone.Palace_of_Twilight, "PoT" },
+                    { Zone.Hyrule_Castle, "HC" },
+                };
+
+            string result = "";
+            foreach (KeyValuePair<Zone, HashSet<Zone>> pair in sorted)
+            {
+                if (result.Length > 0)
+                    result += "\n";
+                if (pair.Key == zoneToHint)
+                {
+                    string val = "";
+                    foreach (Zone zone in pair.Value)
+                    {
+                        if (val.Length > 0)
+                            val += ",";
+                        val += zoneToAbbrev[zone];
+                    }
+
+                    result += $"{zoneToAbbrev[pair.Key]} => {val}";
+                }
+                else
+                    result += $"{zoneToAbbrev[pair.Key]} => ??";
+            }
+            return result;
         }
 
         private string testGetReqDungeonProvincesMsg()

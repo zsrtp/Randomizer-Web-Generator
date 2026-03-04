@@ -87,15 +87,15 @@
         }
       ]
     },
-    {
-      "spot": "death_mountain_sign",
-      "hintDef": {
-        "hintType": "entrance",
-        "options": {
-          "validSourceZones": ["Goron Mines"]
-        }
-      }
-    },
+    // {
+    //   "spot": "death_mountain_sign",
+    //   "hintDef": {
+    //     "hintType": "entrance",
+    //     "options": {
+    //       "validSourceZones": ["Goron Mines"]
+    //     }
+    //   }
+    // },
     {
       "spot": "snowpeak_mountain_sign",
       "hintDef": {
@@ -243,15 +243,15 @@
           //     "allowKnownBarren": true
           //   }
           // },
-          {
-            "hintType": "entrance",
-            "saveToVar": "hcEntranceHint",
-            "copies": 3,
-            "options": {
-              "ignoreAlreadyHinted": true,
-              "validDestinationZones": ["Hyrule Castle"]
-            }
-          },
+          // {
+          //   "hintType": "entrance",
+          //   "saveToVar": "hcEntranceHint",
+          //   "copies": 3,
+          //   "options": {
+          //     "ignoreAlreadyHinted": true,
+          //     "validDestinationZones": ["Hyrule Castle"]
+          //   }
+          // },
           {
             // Prioritizes hinting importance counts 0,1,2. Falls back to any
             // count, but for S2 this is basically guaranteed not to happen.
@@ -303,19 +303,19 @@
           },
           {
             "hintType": "sometimes",
-            "maxPicks": 2
-            // "iterations": 99
-          },
-          // Fill in layer with extra copies of the HC entrance hint.
-          {
-            "hintType": "var",
-            "copies": 1,
-            "iterations": 99,
-            "options": {
-              "varName": "hcEntranceHint",
-              "randomOrder": true
-            }
+            // "maxPicks": 2
+            "iterations": 99
           }
+          // Fill in layer with extra copies of the HC entrance hint.
+          // {
+          //   "hintType": "var",
+          //   "copies": 1,
+          //   "iterations": 99,
+          //   "options": {
+          //     "varName": "hcEntranceHint",
+          //     "randomOrder": true
+          //   }
+          // }
           // TODO: need to fall back to sometimes when hcEntranceHint not
           // generated due to no dungeon ER. Also EntranceHint should check if
           // any/which dungeon ER is enabled when determining what is possible
