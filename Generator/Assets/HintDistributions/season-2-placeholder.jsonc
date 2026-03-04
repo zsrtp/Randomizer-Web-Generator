@@ -251,9 +251,28 @@
             }
           },
           {
-            // TODO: prefer importance counts 0,1,2
+            // Prioritizes hinting importance counts 0,1,2. Falls back to any
+            // count, but for S2 this is basically guaranteed not to happen.
             "maxPicks": 1,
             "hintDef": [
+              {
+                "hintType": "importanceCount",
+                "options": {
+                  "indicateImportant": true,
+                  "allowedCounts": [0, 1, 2],
+                  "validAreas": [
+                    "Forest Temple",
+                    "Goron Mines",
+                    "Lakebed Temple",
+                    "Arbiter's Grounds",
+                    "Snowpeak Ruins",
+                    "Temple of Time",
+                    "City in the Sky",
+                    "Palace of Twilight",
+                    "Hyrule Castle"
+                  ]
+                }
+              },
               {
                 "hintType": "importanceCount",
                 "options": {
