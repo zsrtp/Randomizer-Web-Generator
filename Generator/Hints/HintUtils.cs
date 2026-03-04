@@ -153,6 +153,21 @@ namespace TPRandomizer.Hints
             "Hyrule Castle Ganondorf"
         );
 
+        private static readonly Dictionary<GoalEnum, Goal> goalEnumToGoal =
+            new()
+            {
+                { GoalEnum.Diababa, Diababa },
+                { GoalEnum.Fyrus, Fyrus },
+                { GoalEnum.Morpheel, Morpheel },
+                { GoalEnum.Stallord, Stallord },
+                { GoalEnum.Blizzeta, Blizzeta },
+                { GoalEnum.Armogohma, Armogohma },
+                { GoalEnum.Argorok, Argorok },
+                { GoalEnum.Zant, Zant },
+                { GoalEnum.Hyrule_Castle, Hyrule_Castle },
+                { GoalEnum.Ganondorf, Ganondorf },
+            };
+
         public static readonly Dictionary<string, Goal> requiredDungeonHintZoneToGoal =
             new()
             {
@@ -408,6 +423,13 @@ namespace TPRandomizer.Hints
                 return false;
 
             return requiredDungeonHintZoneToGoal.ContainsValue(goal);
+        }
+
+        public static Goal getGoalFromEnumThrows(GoalEnum goalEnum)
+        {
+            if (!goalEnumToGoal.TryGetValue(goalEnum, out Goal goal))
+                throw new Exception($"Failed to find Goal for GoalEnum '{goalEnum}'.");
+            return goal;
         }
     }
 

@@ -302,19 +302,30 @@
         ]
       }
     },
-
-    // TODO: extra Zant path hint on HC sign
-
-    // {
-    //   "groupId": "hyruleCastle",
-    //   "hintDef": {
-    //     "hintType": "path",
-    //     "options": {
-    //       "validGoals": ["Zant"],
-    //       "invalidItems": ["Progressive_Sword"]
-    //     }
-    //   }
-    // },
+    {
+      "groupId": "hyruleCastle",
+      // For the HC sign, if possible place a Zant path hint. Otherwise simply
+      // hint numClawshots in one of Faron, Eldin, and Lanayru (0 is valid).
+      "hintDef": {
+        "maxPicks": 1,
+        "hintDef": [
+          {
+            "hintType": "path",
+            "options": {
+              "validGoals": ["Zant"]
+            }
+          },
+          {
+            "hintType": "numItemInArea",
+            "options": {
+              "item": "Progressive_Clawshot",
+              "areaType": "province",
+              "validAreas": ["Faron", "Eldin", "Lanayru"]
+            }
+          }
+        ]
+      }
+    },
     {
       // On required dungeon signs, hint the number of swords in dungeons.
       "groupId": "requiredDungeons",

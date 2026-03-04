@@ -13,6 +13,7 @@ namespace TPRandomizer.Hints.HintCreator
         public override HintCreatorType type { get; } = HintCreatorType.Path;
 
         private HashSet<Item> invalidItems = new();
+        private HashSet<Goal> validGoals = null;
 
         private PathHintCreator() { }
 
@@ -28,6 +29,23 @@ namespace TPRandomizer.Hints.HintCreator
                     "invalidItems",
                     inst.invalidItems
                 );
+
+                List<string> validGoalsStrList = HintSettingUtils.getOptionalStringList(
+                    options,
+                    "validGoals",
+                    null
+                );
+                if (validGoalsStrList != null)
+                {
+                    inst.validGoals = new();
+                    foreach (string goalEnumStr in validGoalsStrList)
+                    {
+                        if (!Enum.TryParse(goalEnumStr, true, out GoalEnum goalEnum))
+                            throw new Exception($"Failed to parse '{goalEnum}' to GoalEnum.");
+                        Goal goal = GoalConstants.getGoalFromEnumThrows(goalEnum);
+                        inst.validGoals.Add(goal);
+                    }
+                }
             }
 
             return inst;
@@ -53,62 +71,6 @@ namespace TPRandomizer.Hints.HintCreator
 
         private List<PathHint> genPathHints2(HintGenData genData, int numHintsDesired)
         {
-            Dictionary<Goal, int> goalTiers =
-                new()
-                {
-                    { GoalConstants.Diababa, 0 },
-                    { GoalConstants.Fyrus, 0 },
-                    { GoalConstants.Morpheel, 0 },
-                    { GoalConstants.Stallord, 0 },
-                    { GoalConstants.Blizzeta, 0 },
-                    { GoalConstants.Armogohma, 0 },
-                    { GoalConstants.Argorok, 0 },
-                    { GoalConstants.Zant, 0 },
-                    { GoalConstants.Hyrule_Castle, 1 },
-                    { GoalConstants.Ganondorf, 2 },
-                };
-
-            HashSet<Goal> allowedGoals = null;
-
-            // From the list of allowed goals (or everything if no goals specified), order the goals
-            // into a list.
-            Dictionary<int, List<Goal>> allowedGoalsByTier = new();
-            foreach (
-                KeyValuePair<Goal, List<List<string>>> pair in genData.goalManager.goalToCheckLists
-            )
-            {
-                Goal goal = pair.Key;
-                if (allowedGoals == null || allowedGoals.Contains(goal))
-                {
-                    int tier = goalTiers[goal];
-                    if (!allowedGoalsByTier.TryGetValue(tier, out List<Goal> goalsForTier))
-                    {
-                        goalsForTier = new();
-                        allowedGoalsByTier[tier] = goalsForTier;
-                    }
-                    goalsForTier.Add(goal);
-                }
-            }
-
-            // The list will be ordered by tier and then each randomized internally before grouping.
-            // Ex: [LBT, AG, PoT],[HC],[Ganondorf] => [LBT, PoT, AG],[HC],[Ganondorf] =>
-            // [LBT, PoT, AG, HC, Ganondorf]
-            List<int> tierValues = new();
-            foreach (KeyValuePair<int, List<Goal>> pair in allowedGoalsByTier)
-            {
-                tierValues.Add(pair.Key);
-                List<Goal> goalsForTier = pair.Value;
-                if (goalsForTier.Count > 1)
-                    HintUtils.ShuffleListInPlace(genData.rnd, goalsForTier);
-            }
-            tierValues.Sort();
-
-            List<Goal> finalGoals = new();
-            foreach (int tier in tierValues)
-            {
-                finalGoals.AddRange(allowedGoalsByTier[tier]);
-            }
-
             // Priorities [reqDungeon, Zant, HC, Ganondorf]
 
             // We only attempt to do the priorities once! If we fail to generate any from a unique
@@ -268,6 +230,9 @@ namespace TPRandomizer.Hints.HintCreator
             )
             {
                 Goal goal = pair.Key;
+                if (validGoals != null && !validGoals.Contains(goal))
+                    continue;
+
                 if (allowedGoals == null || allowedGoals.Contains(goal))
                 {
                     int tier = goalTiers[goal];
@@ -397,8 +362,10 @@ namespace TPRandomizer.Hints.HintCreator
 
             for (int i = 0; i < goalTiers.Count; i++)
             {
+                List<Goal> filteredGoals = filterToValidGoals(goalTiers[i]);
+
                 List<KeyValuePair<Goal, List<string>>> hintableGoalsForTier =
-                    getGoalsToHintableChecks(genData, goalTiers[i]);
+                    getGoalsToHintableChecks(genData, filteredGoals);
                 if (!ListUtils.isEmpty(hintableGoalsForTier))
                 {
                     KeyValuePair<Goal, List<string>> goal = HintUtils.PickRandomListItem(
@@ -412,6 +379,20 @@ namespace TPRandomizer.Hints.HintCreator
             }
 
             return gatheredLists;
+        }
+
+        private List<Goal> filterToValidGoals(List<Goal> goalsIn)
+        {
+            if (validGoals == null)
+                return goalsIn;
+
+            List<Goal> result = new();
+            foreach (Goal goal in goalsIn)
+            {
+                if (validGoals.Contains(goal))
+                    result.Add(goal);
+            }
+            return result;
         }
 
         private List<KeyValuePair<Goal, List<string>>> getGoalsToHintableChecks(
