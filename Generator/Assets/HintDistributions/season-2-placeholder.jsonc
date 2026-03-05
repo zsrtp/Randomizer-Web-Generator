@@ -418,23 +418,27 @@
                         "Forest Temple Central North Chest",
                         "Goron Mines Main Magnet Room Top Chest",
                         "City in The Sky West Wing First Chest",
-                        "City in The Sky Chest Behind North Fan"
+                        "City in The Sky Chest Behind North Fan",
+                        // Include miniboss hints here for now. The guaranteed
+                        // one seems too strong alongside the BTP hints maybe.
+                        "Arbiters Grounds Death Sword Chest",
+                        "City in The Sky Aeralfos Chest"
                       ]
                     }
                   }
                 ]
               },
-              {
-                // Hint 1 dungeon miniboss
-                "hintType": "location",
-                "options": {
-                  "markAsSometimes": true,
-                  "validChecks": [
-                    "Arbiters Grounds Death Sword Chest",
-                    "City in The Sky Aeralfos Chest"
-                  ]
-                }
-              },
+              // {
+              //   // Hint 1 dungeon miniboss
+              //   "hintType": "location",
+              //   "options": {
+              //     "markAsSometimes": true,
+              //     "validChecks": [
+              //       "Arbiters Grounds Death Sword Chest",
+              //       "City in The Sky Aeralfos Chest"
+              //     ]
+              //   }
+              // },
               {
                 "hintType": "sometimes",
                 "iterations": 99,
