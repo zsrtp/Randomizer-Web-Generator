@@ -1540,6 +1540,7 @@ namespace TPRandomizer.Hints
         public readonly HashSet<AreaId> hintedWothAreas = new();
         public readonly HashSet<AreaId> hintedImportanceCountAreas = new();
         public readonly HashSet<Zone> hintedDungeonEntranceSources = new();
+        public readonly HashSet<Zone> hintedSometimesHintZones = new();
         public bool agithaHintedDead = false;
 
         // private

@@ -26,10 +26,10 @@
   },
   //
   "addChecks": {
-    // "Lake Hylia Shell Blade Grotto Chest": ["always"],
+    "Lake Hylia Shell Blade Grotto Chest": ["always"],
     "Skybook From Impaz": ["always"],
-    "Hyrule Castle Graveyard Owl Statue Chest": ["always"],
-    "Doctors Office Balcony Chest": ["sometimes"]
+    "Doctors Office Balcony Chest": ["sometimes"],
+    "Sacred Grove Past Owl Statue Chest": ["sometimes"]
   },
   "removeChecks": {
     "Palace of Twilight Collect Both Sols": ["always"],
@@ -172,7 +172,8 @@
         "hintType": "location",
         "options": {
           "canBeClaimHinted": true,
-          "validChecks": ["Hyrule Castle King Bulblin Key"]
+          // "validChecks": ["Hyrule Castle King Bulblin Key"]
+          "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
         }
       }
     }
@@ -229,21 +230,6 @@
             ]
           },
           // {
-          //   "hintType": "item",
-          //   "options": {
-          //     "validItems": ["Boomerang"],
-          //     "areaType": "zone",
-          //     // Allowing bad in general and not just in hinted-barren zone as
-          //     // seen below since that never lined up even after a large number
-          //     // of seed attempts by testing with breakpoints. This hint can
-          //     // help with rang in an IC-hinted dungeon as well which I did see
-          //     // in a breakpoint.
-          //     // "validChecks": ["var:barrenHints.areaIds"],
-          //     "validStatuses": ["bad"],
-          //     "allowKnownBarren": true
-          //   }
-          // },
-          // {
           //   "hintType": "entrance",
           //   "saveToVar": "hcEntranceHint",
           //   "copies": 3,
@@ -259,6 +245,7 @@
             "hintDef": [
               {
                 "hintType": "importanceCount",
+                "saveToVar": "icHint",
                 "options": {
                   "indicateImportant": true,
                   "allowedCounts": [0, 1, 2],
@@ -304,7 +291,20 @@
           {
             "hintType": "sometimes",
             // "maxPicks": 2
-            "iterations": 99
+            "iterations": 99,
+            "options": {
+              "prioritizeNewZones": true
+            }
+          },
+          // Fill in layer with extra copies of the IC hint.
+          {
+            "hintType": "var",
+            "copies": 1,
+            "iterations": 99,
+            "options": {
+              "varName": "icHint",
+              "randomOrder": true
+            }
           }
           // Fill in layer with extra copies of the HC entrance hint.
           // {
@@ -325,15 +325,32 @@
     },
     {
       "groupId": "hyruleCastle",
-      // For the HC sign, if possible place a Zant path hint. Otherwise simply
-      // hint numClawshots in one of Faron, Eldin, and Lanayru (0 is valid).
+      // For the HC sign, if possible place a Zant path hint. Otherwise try to
+      // place a bad rang hint. Otherwise simply hint numClawshots in one of
+      // Faron, Eldin, and Lanayru (0 is valid).
       "hintDef": {
         "maxPicks": 1,
         "hintDef": [
           {
             "hintType": "path",
             "options": {
+              "invalidItems": ["Progressive_Sword"],
               "validGoals": ["Zant"]
+            }
+          },
+          {
+            "hintType": "item",
+            "options": {
+              "validItems": ["Boomerang"],
+              "areaType": "zone",
+              // Allowing bad in general and not just in hinted-barren zone as
+              // seen below since that never lined up even after a large number
+              // of seed attempts by testing with breakpoints. This hint can
+              // help with rang in an IC-hinted dungeon as well which I did see
+              // in a breakpoint.
+              // "validChecks": ["var:barrenHints.areaIds"],
+              "validStatuses": ["bad"],
+              "allowKnownBarren": true
             }
           },
           {
@@ -374,9 +391,18 @@
             "hintDef": [
               {
                 "maxPicks": 1,
-                // Prioritize 1 dungeon sometimes. Hard-prioritizes PoT BK chest
-                // if not known barren from BeyondThisPoint hint.
+                // Hint 1 dungeon sometimes. Hard-prioritizes PoT BK chest if
+                // either PoT BK or not known barren from BeyondThisPoint hint.
                 "hintDef": [
+                  {
+                    "hintType": "location",
+                    "options": {
+                      "markAsSometimes": true,
+                      "validChecks": ["Palace of Twilight Big Key Chest"],
+                      "validItems": ["Palace_of_Twilight_Big_Key"],
+                      "allowKnownBarren": true
+                    }
+                  },
                   {
                     "hintType": "location",
                     "options": {
@@ -389,16 +415,32 @@
                     "options": {
                       "markAsSometimes": true,
                       "validChecks": [
-                        "Arbiters Grounds Death Sword Chest",
-                        "City in The Sky Aeralfos Chest"
+                        "Forest Temple Central North Chest",
+                        "Goron Mines Main Magnet Room Top Chest",
+                        "City in The Sky West Wing First Chest",
+                        "City in The Sky Chest Behind North Fan"
                       ]
                     }
                   }
                 ]
               },
               {
+                // Hint 1 dungeon miniboss
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "validChecks": [
+                    "Arbiters Grounds Death Sword Chest",
+                    "City in The Sky Aeralfos Chest"
+                  ]
+                }
+              },
+              {
                 "hintType": "sometimes",
-                "iterations": 99
+                "iterations": 99,
+                "options": {
+                  "prioritizeNewZones": true
+                }
               }
             ]
           },
