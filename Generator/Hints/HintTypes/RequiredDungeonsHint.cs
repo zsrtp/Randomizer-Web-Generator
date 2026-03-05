@@ -4,7 +4,6 @@ namespace TPRandomizer.Hints
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
@@ -234,28 +233,47 @@ namespace TPRandomizer.Hints
             // Leaving out SPR and HC for now. These should really be built according to the
             // settings, then the order is encoded with each tier already randomized. In fact, we
             // only need to store any entrance which should actually be hinted.
-            List<List<Zone>> hintTiers =
-                new()
-                {
-                    new() { Zone.Lakebed_Temple, Zone.Arbiters_Grounds },
-                    new() { Zone.Goron_Mines, Zone.Temple_of_Time },
-                    new() { Zone.City_in_the_Sky, Zone.Palace_of_Twilight },
-                    new() { Zone.Forest_Temple },
-                    // Hardest: SPR, HC
-                    // Hard: LBT, AG
-                    // Medium: ToT, GM
-                    // Easy: CitS, PoT
-                    // Trivial: FT
-                };
 
             // TODO: randomization within tiers must be done using genData.rnd. For now just doing
             // here for testing.
-
             Random replaceMeRandom = new Random();
-            foreach (List<Zone> list in hintTiers)
-            {
-                HintUtils.ShuffleListInPlace(replaceMeRandom, list);
-            }
+
+            List<KeyValuePair<double, Zone>> weightedList =
+                new()
+                {
+                    new(3, Zone.Lakebed_Temple),
+                    new(3, Zone.Arbiters_Grounds),
+                    new(2, Zone.Hyrule_Castle),
+                    new(2, Zone.Goron_Mines),
+                    new(2, Zone.Temple_of_Time),
+                    new(1, Zone.City_in_the_Sky),
+                    new(1, Zone.Palace_of_Twilight),
+                    // , Zone.Arbiters_Grounds
+                    // new() { Zone.Goron_Mines, Zone.Temple_of_Time },
+                    // new() { Zone.City_in_the_Sky, Zone.Palace_of_Twilight },
+                    // new() { Zone.Forest_Temple },
+                };
+
+            VoseInstance<Zone> voseInst = VoseAlgorithm.createInstance(weightedList);
+
+            // List<List<Zone>> hintTiers =
+            //     new()
+            //     {
+            //         new() { Zone.Lakebed_Temple, Zone.Arbiters_Grounds },
+            //         new() { Zone.Goron_Mines, Zone.Temple_of_Time },
+            //         new() { Zone.City_in_the_Sky, Zone.Palace_of_Twilight },
+            //         new() { Zone.Forest_Temple },
+            //         // Hardest: SPR, HC
+            //         // Hard: LBT, AG
+            //         // Medium: ToT, GM
+            //         // Easy: CitS, PoT
+            //         // Trivial: FT
+            //     };
+
+            // foreach (List<Zone> list in hintTiers)
+            // {
+            //     HintUtils.ShuffleListInPlace(replaceMeRandom, list);
+            // }
 
             // But for this, we want to ignore SPR & HC
 
@@ -279,19 +297,29 @@ namespace TPRandomizer.Hints
 
             Zone zoneToHint = Zone.Invalid;
 
-            foreach (List<Zone> list in hintTiers)
+            while (voseInst.HasMore())
             {
-                foreach (Zone zone in list)
+                Zone zone = voseInst.NextAndRemove(replaceMeRandom);
+                if (entranceZones.Contains(zone))
                 {
-                    if (entranceZones.Contains(zone))
-                    {
-                        zoneToHint = zone;
-                        break;
-                    }
-                }
-                if (zoneToHint != Zone.Invalid)
+                    zoneToHint = zone;
                     break;
+                }
             }
+
+            // foreach (List<Zone> list in hintTiers)
+            // {
+            //     foreach (Zone zone in list)
+            //     {
+            //         if (entranceZones.Contains(zone))
+            //         {
+            //             zoneToHint = zone;
+            //             break;
+            //         }
+            //     }
+            //     if (zoneToHint != Zone.Invalid)
+            //         break;
+            // }
 
             List<KeyValuePair<Zone, HashSet<Zone>>> sorted = filteredList
                 .OrderBy((el) => el.Key)

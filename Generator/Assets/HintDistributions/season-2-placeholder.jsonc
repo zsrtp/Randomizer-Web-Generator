@@ -44,9 +44,9 @@
     "Arbiters Grounds Death Sword Chest": ["sometimes"],
     "City in The Sky Aeralfos Chest": ["sometimes"]
   },
-  "removeItems": {
-    "Progressive_Sword": ["sometimes"]
-  },
+  // "removeItems": {
+  //   "Progressive_Sword": ["sometimes"]
+  // },
   //
   "groups": {
     "overworld": [
