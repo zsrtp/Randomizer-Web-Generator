@@ -228,7 +228,31 @@ namespace TPRandomizer.Hints.HintCreator
                     )
                 );
 
+                // Mark hinted.
                 genData.hinted.hintedImportanceCountAreas.Add(pia.areaId);
+                if (pia.getLeadingCountIsZero())
+                {
+                    // If we hint an area as having 0 important/major checks, then mark the
+                    // barrenableChecks as known dead so we do not create location hints for them
+                    // for example.
+                    foreach (string checkName in pia.barrenableChecks)
+                    {
+                        genData.hinted.AddHintedBarrenCheck(checkName);
+                    }
+
+                    // TODO: could potentially do the below code as well. HintedBarrenZones does
+                    // matter for the dungeon "maxBarrenZones" hint setting and it could be
+                    // confusing for monopolizeBarren as well (though not used there?). Better to
+                    // give the property on `hinted` an accurate name and use it. This would not be
+                    // used for now, so can worry about it later
+
+                    // // If no relevant dependent checks, then 0 count should be the same as barren.
+                    // if (!pia.hasRelevantDependentChecks && pia.areaId.type == AreaId.AreaType.Zone)
+                    // {
+                    //     Zone zone = ZoneUtils.StringToIdThrows(pia.areaId.stringId);
+                    //     genData.hinted.hintedBarrenZones.Add(zone);
+                    // }
+                }
             }
 
             return hints;
@@ -409,6 +433,11 @@ namespace TPRandomizer.Hints.HintCreator
                         pia.majorChecks.Add(checkName);
                 }
 
+                // If the area is hinted as 0 important or 0 major, non-skipped checks should still
+                // be added to `alreadyCheckKnownBarren` even if they are not considered 'unknown'
+                // for determining if it is useful to hint the area as barren.
+                pia.barrenableChecks.Add(checkName);
+
                 if (CheckIsUnknownStatus(genData, checkName))
                 {
                     numUnknownChecks += 1;
@@ -523,6 +552,7 @@ namespace TPRandomizer.Hints.HintCreator
         {
             public AreaId areaId { get; private set; }
             public bool hasRelevantDependentChecks;
+            public HashSet<string> barrenableChecks = new();
             public HashSet<string> importantChecks = new();
             public HashSet<string> majorChecks = new();
             public bool indicatesImportant { get; private set; }
@@ -532,6 +562,13 @@ namespace TPRandomizer.Hints.HintCreator
             {
                 this.areaId = areaId;
                 this.indicatesImportant = indicatesImportant;
+            }
+
+            public bool getLeadingCountIsZero()
+            {
+                if (indicatesImportant)
+                    return importantChecks.Count == 0;
+                return majorChecks.Count == 0;
             }
         }
     }
