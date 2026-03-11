@@ -6,7 +6,8 @@
   },
   "agitha": true,
   "jovani": {
-    "minFoundSoulsForHint": 0,
+    // "minFoundSoulsForHint": 0,
+    "minFoundSoulsForHint": 10,
     "maxFoundSoulsForVagueItem": 20
   },
   "caveOfOrdeals": true,
@@ -20,6 +21,7 @@
   },
   "always": {
     "monopolizeSpots": false,
+    "idealNumExplicitlyHinted": 5,
     "idealNumSpots": 10,
     "copies": 2,
     "groupId": "overworld2nd"
@@ -28,11 +30,12 @@
   "addChecks": {
     "Lake Hylia Shell Blade Grotto Chest": ["always"],
     "Skybook From Impaz": ["always"],
+    "Hyrule Castle Graveyard Owl Statue Chest": ["always"],
     "Doctors Office Balcony Chest": ["sometimes"],
     "Sacred Grove Past Owl Statue Chest": ["sometimes"]
   },
   "removeChecks": {
-    "Palace of Twilight Collect Both Sols": ["always"],
+    // "Palace of Twilight Collect Both Sols": ["always"],
     "Herding Goats Reward": ["sometimes"],
     "Wrestling With Bo": ["sometimes"],
     "Zoras Domain Extinguish All Torches Chest": ["sometimes"],
@@ -60,7 +63,8 @@
       "-snowpeakmountain",
       "-ordon"
     ],
-    "requiredDungeons": ["alias:requiredDungeons"],
+    "requiredDungeons": ["alias:requiredDungeons", "-palaceoftwilight"],
+    "palaceOfTwilight": ["palaceoftwilight"],
     "hyruleCastle": ["hyrulecastle"]
   },
   // Special hints generated right after Always hints are generated. These are
@@ -96,15 +100,15 @@
     //     }
     //   }
     // },
-    {
-      "spot": "snowpeak_mountain_sign",
-      "hintDef": {
-        "hintType": "entrance",
-        "options": {
-          "validSourceZones": ["Snowpeak Ruins"]
-        }
-      }
-    },
+    // {
+    //   "spot": "snowpeak_mountain_sign",
+    //   "hintDef": {
+    //     "hintType": "entrance",
+    //     "options": {
+    //       "validSourceZones": ["Snowpeak Ruins"]
+    //     }
+    //   }
+    // },
     {
       "spot": "forest_temple_sign",
       "hintDef": {
@@ -156,29 +160,133 @@
         }
       }
     },
+    // {
+    //   "spot": "palace_of_twilight_sign",
+    //   "hintDef": {
+    //     "hintType": "location",
+    //     "options": {
+    //       "canBeClaimHinted": true,
+    //       "validChecks": ["Palace of Twilight Collect Both Sols"]
+    //     }
+    //   }
+    // },
+    // {
+    //   "spot": "hyrule_castle_sign",
+    //   "hintDef": {
+    //     "hintType": "location",
+    //     "options": {
+    //       "canBeClaimHinted": true,
+    //       // "validChecks": ["Hyrule Castle King Bulblin Key"]
+    //       "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
+    //     }
+    //   }
+    // }
     {
-      "spot": "palace_of_twilight_sign",
+      "spot": "hyrule_castle_sign",
       "hintDef": {
-        "hintType": "location",
+        "hintType": "importanceCount",
         "options": {
-          "canBeClaimHinted": true,
-          "validChecks": ["Palace of Twilight Collect Both Sols"]
+          "indicateImportant": true,
+          "validAreas": ["Hyrule Castle"]
         }
       }
     },
     {
       "spot": "hyrule_castle_sign",
-      "hintDef": {
-        "hintType": "location",
-        "options": {
-          "canBeClaimHinted": true,
-          // "validChecks": ["Hyrule Castle King Bulblin Key"]
-          "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
+      "hintDef": [
+        // {
+        //   "hintType": "path",
+        //   "options": {
+        //     "invalidItems": ["Progressive_Sword"],
+        //     "validGoals": ["Zant"]
+        //   }
+        // },
+        {
+          "hintType": "item",
+          "options": {
+            "validItems": ["Boomerang"],
+            "areaType": "zone",
+            // Allowing bad in general and not just in hinted-barren zone as
+            // seen below since that never lined up even after a large number
+            // of seed attempts by testing with breakpoints. This hint can
+            // help with rang in an IC-hinted dungeon as well which I did see
+            // in a breakpoint.
+            // "validChecks": ["var:barrenHints.areaIds"],
+            "validStatuses": ["bad"],
+            "allowKnownBarren": true
+          }
+        },
+        {
+          "hintType": "item",
+          "options": {
+            "validItems": ["Boomerang"],
+            "areaType": "province",
+            // "validStatuses": ["bad"],
+            "allowKnownBarren": true
+          }
+        },
+        {
+          "hintType": "numItemInArea",
+          "options": {
+            "item": "Progressive_Clawshot",
+            "areaType": "province",
+            "validAreas": ["Faron", "Eldin", "Lanayru"]
+          }
         }
-      }
+      ]
     }
   ],
   "hints": [
+    // {
+    //   "groupId": "hyruleCastle",
+    //   // For the HC sign, if possible place a Zant path hint. Otherwise try to
+    //   // place a bad rang hint. Otherwise simply hint numClawshots in one of
+    //   // Faron, Eldin, and Lanayru (0 is valid).
+    //   "hintDef": {
+    //     "maxPicks": 1,
+    //     "hintDef": [
+    //       // {
+    //       //   "hintType": "path",
+    //       //   "options": {
+    //       //     "invalidItems": ["Progressive_Sword"],
+    //       //     "validGoals": ["Zant"]
+    //       //   }
+    //       // },
+    //       {
+    //         "hintType": "item",
+    //         "options": {
+    //           "validItems": ["Boomerang"],
+    //           "areaType": "province",
+    //           // "validStatuses": ["bad"],
+    //           "allowKnownBarren": true
+    //         }
+    //       },
+    //       // {
+    //       //   "hintType": "item",
+    //       //   "options": {
+    //       //     "validItems": ["Boomerang"],
+    //       //     "areaType": "zone",
+    //       //     // Allowing bad in general and not just in hinted-barren zone as
+    //       //     // seen below since that never lined up even after a large number
+    //       //     // of seed attempts by testing with breakpoints. This hint can
+    //       //     // help with rang in an IC-hinted dungeon as well which I did see
+    //       //     // in a breakpoint.
+    //       //     // "validChecks": ["var:barrenHints.areaIds"],
+    //       //     "validStatuses": ["bad"],
+    //       //     "allowKnownBarren": true
+    //       //   }
+    //       // },
+    //       {
+    //         "hintType": "numItemInArea",
+    //         "options": {
+    //           "item": "Progressive_Clawshot",
+    //           "areaType": "province",
+    //           "validAreas": ["Faron", "Eldin", "Lanayru"]
+    //         }
+    //       }
+    //     ]
+    //   }
+    // },
     {
       "groupId": "overworld",
       "hintDef": {
@@ -191,11 +299,12 @@
                 "starting": 3,
                 "hintDef": [
                   {
+                    // One barren for early game or desert area
                     "hintType": "barren",
                     "options": {
                       "validAreas": [
                         "Ordon",
-                        "Sacred Grove",
+                        // "Sacred Grove",
                         "Faron Field",
                         "Faron Woods",
                         "Kakariko Village",
@@ -239,28 +348,69 @@
           //   }
           // },
           {
-            // Prioritizes hinting importance counts 0,1,2. Falls back to any
-            // count, but for S2 this is basically guaranteed not to happen.
+            // Prioritizes hinting importance counts 0,1,2 (weighted equally)
+            // for non-HC dungeon since already hinted on HC sign. Falls back to
+            // any count, but for S2 this is basically guaranteed not to happen.
             "maxPicks": 1,
             "hintDef": [
               {
-                "hintType": "importanceCount",
-                "saveToVar": "icHint",
-                "options": {
-                  "indicateImportant": true,
-                  "allowedCounts": [0, 1, 2],
-                  "validAreas": [
-                    "Forest Temple",
-                    "Goron Mines",
-                    "Lakebed Temple",
-                    "Arbiter's Grounds",
-                    "Snowpeak Ruins",
-                    "Temple of Time",
-                    "City in the Sky",
-                    "Palace of Twilight",
-                    "Hyrule Castle"
-                  ]
-                }
+                "selectionType": "randomOrder",
+                "hintDef": [
+                  {
+                    "hintType": "importanceCount",
+                    "saveToVar": "icHint",
+                    "options": {
+                      "indicateImportant": true,
+                      "allowedCounts": [0],
+                      "validAreas": [
+                        "Forest Temple",
+                        "Goron Mines",
+                        "Lakebed Temple",
+                        "Arbiter's Grounds",
+                        "Snowpeak Ruins",
+                        "Temple of Time",
+                        "City in the Sky",
+                        "Palace of Twilight"
+                      ]
+                    }
+                  },
+                  {
+                    "hintType": "importanceCount",
+                    "saveToVar": "icHint",
+                    "options": {
+                      "indicateImportant": true,
+                      "allowedCounts": [1],
+                      "validAreas": [
+                        "Forest Temple",
+                        "Goron Mines",
+                        "Lakebed Temple",
+                        "Arbiter's Grounds",
+                        "Snowpeak Ruins",
+                        "Temple of Time",
+                        "City in the Sky",
+                        "Palace of Twilight"
+                      ]
+                    }
+                  },
+                  {
+                    "hintType": "importanceCount",
+                    "saveToVar": "icHint",
+                    "options": {
+                      "indicateImportant": true,
+                      "allowedCounts": [2],
+                      "validAreas": [
+                        "Forest Temple",
+                        "Goron Mines",
+                        "Lakebed Temple",
+                        "Arbiter's Grounds",
+                        "Snowpeak Ruins",
+                        "Temple of Time",
+                        "City in the Sky",
+                        "Palace of Twilight"
+                      ]
+                    }
+                  }
+                ]
               },
               {
                 "hintType": "importanceCount",
@@ -324,57 +474,59 @@
       }
     },
     {
-      "groupId": "hyruleCastle",
-      // For the HC sign, if possible place a Zant path hint. Otherwise try to
-      // place a bad rang hint. Otherwise simply hint numClawshots in one of
-      // Faron, Eldin, and Lanayru (0 is valid).
+      "groupId": "palaceOfTwilight",
       "hintDef": {
-        "maxPicks": 1,
-        "hintDef": [
-          {
-            "hintType": "path",
-            "options": {
-              "invalidItems": ["Progressive_Sword"],
-              "validGoals": ["Zant"]
-            }
-          },
-          {
-            "hintType": "item",
-            "options": {
-              "validItems": ["Boomerang"],
-              "areaType": "zone",
-              // Allowing bad in general and not just in hinted-barren zone as
-              // seen below since that never lined up even after a large number
-              // of seed attempts by testing with breakpoints. This hint can
-              // help with rang in an IC-hinted dungeon as well which I did see
-              // in a breakpoint.
-              // "validChecks": ["var:barrenHints.areaIds"],
-              "validStatuses": ["bad"],
-              "allowKnownBarren": true
-            }
-          },
-          {
-            "hintType": "numItemInArea",
-            "options": {
-              "item": "Progressive_Clawshot",
-              "areaType": "province",
-              "validAreas": ["Faron", "Eldin", "Lanayru"]
-            }
-          }
-        ]
+        "hintType": "path",
+        "options": {
+          "invalidItems": ["Progressive_Sword"],
+          "validGoals": ["Zant"]
+        }
       }
     },
+    // {
+    //   "groupId": "palaceOfTwilight",
+    //   "hintDef": {
+    //     // Num swords in province with most swords (or tied for most), excluding
+    //     // Dungeons.
+    //     "hintType": "numItemInArea",
+    //     // "saveToVar": "mostSwordsProvince",
+    //     "options": {
+    //       "item": "Progressive_Sword",
+    //       "areaType": "province",
+    //       "order": "desc",
+    //       "validAreas": [
+    //         "Ordona",
+    //         "Faron",
+    //         "Eldin",
+    //         "Lanayru",
+    //         "Desert",
+    //         "Peak"
+    //       ]
+    //     }
+    //   }
+    // },
     {
       // On required dungeon signs, hint the number of swords in dungeons.
       "groupId": "requiredDungeons",
+      // "hintDef": {
+      //   "hintType": "numItemInArea",
+      //   "copies": 99,
+      //   "minCopies": 1,
+      //   "options": {
+      //     "item": "Progressive_Sword",
+      //     "areaType": "province",
+      //     "validAreas": ["Dungeon"]
+      //   }
+      // }
       "hintDef": {
         "hintType": "numItemInArea",
+        // "saveToVar": "mostSwordsProvince",
         "copies": 99,
         "minCopies": 1,
         "options": {
           "item": "Progressive_Sword",
           "areaType": "province",
-          "validAreas": ["Dungeon"]
+          "order": "desc"
         }
       }
     },
@@ -422,7 +574,8 @@
                         // Include miniboss hints here for now. The guaranteed
                         // one seems too strong alongside the BTP hints maybe.
                         "Arbiters Grounds Death Sword Chest",
-                        "City in The Sky Aeralfos Chest"
+                        "City in The Sky Aeralfos Chest",
+                        "Hyrule Castle King Bulblin Key"
                       ]
                     }
                   }

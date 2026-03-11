@@ -1174,8 +1174,9 @@ namespace TPRandomizer.Hints
                     );
                 checkInfoList.Add(checkInfo);
 
-                // Mark check as hinted
-                genData.hinted.alreadyCheckContentsHinted.Add(checkName);
+                // Update hinted. If it says "unhinted" on the sign, can still be Path hinted, etc.
+                if (!unhinted)
+                    genData.hinted.alreadyCheckContentsHinted.Add(checkName);
             }
 
             if (!ListUtils.isEmpty(checkInfoList))

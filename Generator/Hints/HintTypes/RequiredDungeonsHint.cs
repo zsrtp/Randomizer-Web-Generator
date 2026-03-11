@@ -344,7 +344,7 @@ namespace TPRandomizer.Hints
             {
                 if (result.Length > 0)
                     result += "\n";
-                if (pair.Key == zoneToHint)
+                if (true || pair.Key == zoneToHint)
                 {
                     string val = "";
                     foreach (Zone zone in pair.Value)
