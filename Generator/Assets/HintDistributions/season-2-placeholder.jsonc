@@ -35,7 +35,7 @@
     "Sacred Grove Past Owl Statue Chest": ["sometimes"]
   },
   "removeChecks": {
-    // "Palace of Twilight Collect Both Sols": ["always"],
+    "Palace of Twilight Collect Both Sols": ["always"],
     "Herding Goats Reward": ["sometimes"],
     "Wrestling With Bo": ["sometimes"],
     "Zoras Domain Extinguish All Torches Chest": ["sometimes"],
@@ -47,9 +47,9 @@
     "Arbiters Grounds Death Sword Chest": ["sometimes"],
     "City in The Sky Aeralfos Chest": ["sometimes"]
   },
-  // "removeItems": {
-  //   "Progressive_Sword": ["sometimes"]
-  // },
+  "removeItems": {
+    "Progressive_Sword": ["sometimes"]
+  },
   //
   "groups": {
     "overworld": [
@@ -63,8 +63,7 @@
       "-snowpeakmountain",
       "-ordon"
     ],
-    "requiredDungeons": ["alias:requiredDungeons", "-palaceoftwilight"],
-    "palaceOfTwilight": ["palaceoftwilight"],
+    "requiredDungeons": ["alias:requiredDungeons"],
     "hyruleCastle": ["hyrulecastle"]
   },
   // Special hints generated right after Always hints are generated. These are
@@ -160,16 +159,16 @@
         }
       }
     },
-    // {
-    //   "spot": "palace_of_twilight_sign",
-    //   "hintDef": {
-    //     "hintType": "location",
-    //     "options": {
-    //       "canBeClaimHinted": true,
-    //       "validChecks": ["Palace of Twilight Collect Both Sols"]
-    //     }
-    //   }
-    // },
+    {
+      "spot": "palace_of_twilight_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "canBeClaimHinted": true,
+          "validChecks": ["Palace of Twilight Collect Both Sols"]
+        }
+      }
+    },
     // {
     //   "spot": "hyrule_castle_sign",
     //   "hintDef": {
@@ -194,24 +193,11 @@
     {
       "spot": "hyrule_castle_sign",
       "hintDef": [
-        // {
-        //   "hintType": "path",
-        //   "options": {
-        //     "invalidItems": ["Progressive_Sword"],
-        //     "validGoals": ["Zant"]
-        //   }
-        // },
         {
           "hintType": "item",
           "options": {
             "validItems": ["Boomerang"],
             "areaType": "zone",
-            // Allowing bad in general and not just in hinted-barren zone as
-            // seen below since that never lined up even after a large number
-            // of seed attempts by testing with breakpoints. This hint can
-            // help with rang in an IC-hinted dungeon as well which I did see
-            // in a breakpoint.
-            // "validChecks": ["var:barrenHints.areaIds"],
             "validStatuses": ["bad"],
             "allowKnownBarren": true
           }
@@ -220,9 +206,7 @@
           "hintType": "item",
           "options": {
             "validItems": ["Boomerang"],
-            "areaType": "province",
-            // "validStatuses": ["bad"],
-            "allowKnownBarren": true
+            "areaType": "province"
           }
         },
         {
@@ -237,56 +221,6 @@
     }
   ],
   "hints": [
-    // {
-    //   "groupId": "hyruleCastle",
-    //   // For the HC sign, if possible place a Zant path hint. Otherwise try to
-    //   // place a bad rang hint. Otherwise simply hint numClawshots in one of
-    //   // Faron, Eldin, and Lanayru (0 is valid).
-    //   "hintDef": {
-    //     "maxPicks": 1,
-    //     "hintDef": [
-    //       // {
-    //       //   "hintType": "path",
-    //       //   "options": {
-    //       //     "invalidItems": ["Progressive_Sword"],
-    //       //     "validGoals": ["Zant"]
-    //       //   }
-    //       // },
-    //       {
-    //         "hintType": "item",
-    //         "options": {
-    //           "validItems": ["Boomerang"],
-    //           "areaType": "province",
-    //           // "validStatuses": ["bad"],
-    //           "allowKnownBarren": true
-    //         }
-    //       },
-    //       // {
-    //       //   "hintType": "item",
-    //       //   "options": {
-    //       //     "validItems": ["Boomerang"],
-    //       //     "areaType": "zone",
-    //       //     // Allowing bad in general and not just in hinted-barren zone as
-    //       //     // seen below since that never lined up even after a large number
-    //       //     // of seed attempts by testing with breakpoints. This hint can
-    //       //     // help with rang in an IC-hinted dungeon as well which I did see
-    //       //     // in a breakpoint.
-    //       //     // "validChecks": ["var:barrenHints.areaIds"],
-    //       //     "validStatuses": ["bad"],
-    //       //     "allowKnownBarren": true
-    //       //   }
-    //       // },
-    //       {
-    //         "hintType": "numItemInArea",
-    //         "options": {
-    //           "item": "Progressive_Clawshot",
-    //           "areaType": "province",
-    //           "validAreas": ["Faron", "Eldin", "Lanayru"]
-    //         }
-    //       }
-    //     ]
-    //   }
-    // },
     {
       "groupId": "overworld",
       "hintDef": {
@@ -338,15 +272,6 @@
               }
             ]
           },
-          // {
-          //   "hintType": "entrance",
-          //   "saveToVar": "hcEntranceHint",
-          //   "copies": 3,
-          //   "options": {
-          //     "ignoreAlreadyHinted": true,
-          //     "validDestinationZones": ["Hyrule Castle"]
-          //   }
-          // },
           {
             // Prioritizes hinting importance counts 0,1,2 (weighted equally)
             // for non-HC dungeon since already hinted on HC sign. Falls back to
@@ -414,6 +339,7 @@
               },
               {
                 "hintType": "importanceCount",
+                "saveToVar": "icHint",
                 "options": {
                   "indicateImportant": true,
                   "validAreas": [
@@ -433,7 +359,7 @@
           },
           {
             "hintType": "path",
-            "iterations": 4,
+            "iterations": 3,
             "options": {
               "invalidItems": ["Progressive_Sword"]
             }
@@ -456,71 +382,14 @@
               "randomOrder": true
             }
           }
-          // Fill in layer with extra copies of the HC entrance hint.
-          // {
-          //   "hintType": "var",
-          //   "copies": 1,
-          //   "iterations": 99,
-          //   "options": {
-          //     "varName": "hcEntranceHint",
-          //     "randomOrder": true
-          //   }
-          // }
-          // TODO: need to fall back to sometimes when hcEntranceHint not
-          // generated due to no dungeon ER. Also EntranceHint should check if
-          // any/which dungeon ER is enabled when determining what is possible
-          // to hint if anything.
         ]
       }
     },
     {
-      "groupId": "palaceOfTwilight",
-      "hintDef": {
-        "hintType": "path",
-        "options": {
-          "invalidItems": ["Progressive_Sword"],
-          "validGoals": ["Zant"]
-        }
-      }
-    },
-    // {
-    //   "groupId": "palaceOfTwilight",
-    //   "hintDef": {
-    //     // Num swords in province with most swords (or tied for most), excluding
-    //     // Dungeons.
-    //     "hintType": "numItemInArea",
-    //     // "saveToVar": "mostSwordsProvince",
-    //     "options": {
-    //       "item": "Progressive_Sword",
-    //       "areaType": "province",
-    //       "order": "desc",
-    //       "validAreas": [
-    //         "Ordona",
-    //         "Faron",
-    //         "Eldin",
-    //         "Lanayru",
-    //         "Desert",
-    //         "Peak"
-    //       ]
-    //     }
-    //   }
-    // },
-    {
       // On required dungeon signs, hint the number of swords in dungeons.
       "groupId": "requiredDungeons",
-      // "hintDef": {
-      //   "hintType": "numItemInArea",
-      //   "copies": 99,
-      //   "minCopies": 1,
-      //   "options": {
-      //     "item": "Progressive_Sword",
-      //     "areaType": "province",
-      //     "validAreas": ["Dungeon"]
-      //   }
-      // }
       "hintDef": {
         "hintType": "numItemInArea",
-        // "saveToVar": "mostSwordsProvince",
         "copies": 99,
         "minCopies": 1,
         "options": {
@@ -537,9 +406,7 @@
         "copies": 2,
         "hintDef": [
           {
-            // TODO: change this to do the dungeon sometimes hint.
             "maxPicks": 5,
-            "saveToVar": "2ndLayerSometimes",
             "hintDef": [
               {
                 "maxPicks": 1,
@@ -581,19 +448,9 @@
                   }
                 ]
               },
-              // {
-              //   // Hint 1 dungeon miniboss
-              //   "hintType": "location",
-              //   "options": {
-              //     "markAsSometimes": true,
-              //     "validChecks": [
-              //       "Arbiters Grounds Death Sword Chest",
-              //       "City in The Sky Aeralfos Chest"
-              //     ]
-              //   }
-              // },
               {
                 "hintType": "sometimes",
+                "saveToVar": "2ndLayerSometimes",
                 "iterations": 99,
                 "options": {
                   "prioritizeNewZones": true

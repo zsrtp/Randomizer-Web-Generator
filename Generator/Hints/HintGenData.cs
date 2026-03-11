@@ -1991,6 +1991,13 @@ namespace TPRandomizer.Hints
                 }
             }
 
+            HashSet<string> checksPathToAllGoals = new();
+            foreach (KeyValuePair<string, HashSet<Goal>> pair in checkToGoals)
+            {
+                if (pair.Value.Count == goalToParentGoals.Count)
+                    checksPathToAllGoals.Add(pair.Key);
+            }
+
             Dictionary<string, HashSet<Goal>> checkToHintableGoals = new();
 
             HashSet<string> zantDeprioritizedChecks = new();
@@ -2227,6 +2234,41 @@ namespace TPRandomizer.Hints
                     if (!ListUtils.isEmpty(zantBossRoomList))
                         zantList.Add(zantBossRoomList[0]);
                 }
+            }
+
+            // Deprioritize any checks which are path to all goals for each goal.
+            if (checksPathToAllGoals.Count > 0)
+            {
+                Dictionary<Goal, List<List<string>>> newRet = new();
+
+                foreach (KeyValuePair<Goal, List<List<string>>> pair in goalToHintableChecksList)
+                {
+                    HashSet<string> filteredCheckNames = new();
+                    List<List<string>> newLists = new();
+                    foreach (List<string> list in pair.Value)
+                    {
+                        List<string> filteredList = new();
+                        foreach (string checkName in list)
+                        {
+                            if (checksPathToAllGoals.Contains(checkName))
+                                filteredCheckNames.Add(checkName);
+                            else
+                                filteredList.Add(checkName);
+                        }
+                        if (filteredList.Count > 0)
+                            newLists.Add(filteredList);
+                    }
+
+                    if (filteredCheckNames.Count > 0)
+                    {
+                        List<string> asList = new(filteredCheckNames);
+                        HintUtils.ShuffleListInPlace(genData.rnd, asList);
+                        newLists.Add(asList);
+                    }
+                    newRet[pair.Key] = newLists;
+                }
+
+                goalToHintableChecksList = newRet;
             }
 
             return goalToHintableChecksList;
