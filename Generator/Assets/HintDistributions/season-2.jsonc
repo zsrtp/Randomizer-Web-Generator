@@ -366,6 +366,7 @@
 
               {
                 "hintType": "location",
+                "weight": 0.55,
                 "options": {
                   "markAsSometimes": true,
                   "validChecks": [
@@ -384,6 +385,7 @@
               },
               {
                 "hintType": "sometimes",
+                "weight": 0.45,
                 "options": {
                   "prioritizeNewZones": true
                 }
