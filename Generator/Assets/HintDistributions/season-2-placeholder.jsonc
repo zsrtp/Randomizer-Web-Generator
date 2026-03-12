@@ -20,11 +20,16 @@
     "ownZoneShowsAsJunkHint": true
   },
   "always": {
-    "monopolizeSpots": false,
+    // "monopolizeSpots": false,
+    // "idealNumExplicitlyHinted": 5,
+    // "idealNumSpots": 10,
+    // "copies": 2,
+    // "groupId": "overworld2nd"
+    "monopolizeSpots": true,
     "idealNumExplicitlyHinted": 5,
-    "idealNumSpots": 10,
+    "idealNumSpots": 5,
     "copies": 2,
-    "groupId": "overworld2nd"
+    "groupId": "overworld"
   },
   //
   "addChecks": {
@@ -55,13 +60,13 @@
     "overworld": [
       "alias:overworldZones",
       "-hiddenvillage",
-      "-snowpeakmountain"
+      "-snowpeakmountain",
+      "-ordon"
     ],
     "overworld2nd": [
       "alias:overworldZones",
       "-hiddenvillage",
-      "-snowpeakmountain",
-      "-ordon"
+      "-snowpeakmountain"
     ],
     "requiredDungeons": ["alias:requiredDungeons"],
     "hyruleCastle": ["hyrulecastle"]
@@ -283,7 +288,7 @@
                 "hintDef": [
                   {
                     "hintType": "importanceCount",
-                    "saveToVar": "icHint",
+                    "saveToVar": "firstLayerSpotFiller",
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [0],
@@ -301,7 +306,7 @@
                   },
                   {
                     "hintType": "importanceCount",
-                    "saveToVar": "icHint",
+                    "saveToVar": "firstLayerSpotFiller",
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [1],
@@ -319,7 +324,7 @@
                   },
                   {
                     "hintType": "importanceCount",
-                    "saveToVar": "icHint",
+                    "saveToVar": "firstLayerSpotFiller",
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [2],
@@ -339,7 +344,7 @@
               },
               {
                 "hintType": "importanceCount",
-                "saveToVar": "icHint",
+                "saveToVar": "firstLayerSpotFiller",
                 "options": {
                   "indicateImportant": true,
                   "validAreas": [
@@ -365,21 +370,66 @@
             }
           },
           {
-            "hintType": "sometimes",
-            // "maxPicks": 2
-            "iterations": 99,
-            "options": {
-              "prioritizeNewZones": true
-            }
+            // Hint 1 dungeon sometimes. Hard-prioritizes PoT BK chest if
+            // either PoT BK or not known barren from BeyondThisPoint hint.
+            "maxPicks": 1,
+            "saveToVar": "firstLayerSpotFiller",
+            "hintDef": [
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "validChecks": ["Palace of Twilight Big Key Chest"],
+                  "validItems": ["Palace_of_Twilight_Big_Key"],
+                  "allowKnownBarren": true
+                }
+              },
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "validChecks": ["Palace of Twilight Big Key Chest"]
+                }
+              },
+              {
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "validChecks": [
+                    "Forest Temple Central North Chest",
+                    "Goron Mines Main Magnet Room Top Chest",
+                    "City in The Sky West Wing First Chest",
+                    "City in The Sky Chest Behind North Fan",
+                    // Include miniboss hints here for now. The guaranteed
+                    // one seems too strong alongside the BTP hints maybe.
+                    "Arbiters Grounds Death Sword Chest",
+                    "City in The Sky Aeralfos Chest",
+                    "Hyrule Castle King Bulblin Key"
+                  ]
+                }
+              },
+              {
+                // Fall back to always hintable KB. Otherwise you get some
+                // weirdness where if you see a non-dungeon sometimes hint on
+                // the first layer, you know HC is barren. A little too much
+                // info.
+                "hintType": "location",
+                "options": {
+                  "markAsSometimes": true,
+                  "validChecks": ["Hyrule Castle King Bulblin Key"],
+                  "canBeClaimHinted": true
+                }
+              }
+            ]
           },
-          // Fill in layer with extra copies of the IC hint.
+          // Fill layer with extra copies of the IC hint and dungeonSometimes.
           {
             "hintType": "var",
             "copies": 1,
             "iterations": 99,
             "options": {
-              "varName": "icHint",
-              "randomOrder": true
+              "varName": "firstLayerSpotFiller"
+              // "randomOrder": true
             }
           }
         ]
@@ -408,46 +458,6 @@
           {
             "maxPicks": 5,
             "hintDef": [
-              {
-                "maxPicks": 1,
-                // Hint 1 dungeon sometimes. Hard-prioritizes PoT BK chest if
-                // either PoT BK or not known barren from BeyondThisPoint hint.
-                "hintDef": [
-                  {
-                    "hintType": "location",
-                    "options": {
-                      "markAsSometimes": true,
-                      "validChecks": ["Palace of Twilight Big Key Chest"],
-                      "validItems": ["Palace_of_Twilight_Big_Key"],
-                      "allowKnownBarren": true
-                    }
-                  },
-                  {
-                    "hintType": "location",
-                    "options": {
-                      "markAsSometimes": true,
-                      "validChecks": ["Palace of Twilight Big Key Chest"]
-                    }
-                  },
-                  {
-                    "hintType": "location",
-                    "options": {
-                      "markAsSometimes": true,
-                      "validChecks": [
-                        "Forest Temple Central North Chest",
-                        "Goron Mines Main Magnet Room Top Chest",
-                        "City in The Sky West Wing First Chest",
-                        "City in The Sky Chest Behind North Fan",
-                        // Include miniboss hints here for now. The guaranteed
-                        // one seems too strong alongside the BTP hints maybe.
-                        "Arbiters Grounds Death Sword Chest",
-                        "City in The Sky Aeralfos Chest",
-                        "Hyrule Castle King Bulblin Key"
-                      ]
-                    }
-                  }
-                ]
-              },
               {
                 "hintType": "sometimes",
                 "saveToVar": "2ndLayerSometimes",
