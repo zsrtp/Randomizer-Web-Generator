@@ -26,7 +26,6 @@
     // "copies": 2,
     // "groupId": "overworld2nd"
     "monopolizeSpots": true,
-    "idealNumExplicitlyHinted": 5,
     "idealNumSpots": 5,
     "copies": 2,
     "groupId": "overworld"
@@ -35,7 +34,7 @@
   "addChecks": {
     "Lake Hylia Shell Blade Grotto Chest": ["always"],
     "Skybook From Impaz": ["always"],
-    "Hyrule Castle Graveyard Owl Statue Chest": ["always"],
+    // "Hyrule Castle Graveyard Owl Statue Chest": ["always"],
     "Doctors Office Balcony Chest": ["sometimes"],
     "Sacred Grove Past Owl Statue Chest": ["sometimes"]
   },
@@ -156,13 +155,23 @@
         }
       }
     },
+    // {
+    //   "spot": "hyrule_castle_sign",
+    //   "hintDef": {
+    //     "hintType": "importanceCount",
+    //     "options": {
+    //       "indicateImportant": true,
+    //       "validAreas": ["Hyrule Castle"]
+    //     }
+    //   }
+    // },
     {
       "spot": "hyrule_castle_sign",
       "hintDef": {
-        "hintType": "importanceCount",
+        "hintType": "location",
         "options": {
-          "indicateImportant": true,
-          "validAreas": ["Hyrule Castle"]
+          "canBeClaimHinted": true,
+          "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
         }
       }
     },
@@ -263,7 +272,8 @@
                         "Snowpeak Ruins",
                         "Temple of Time",
                         "City in the Sky",
-                        "Palace of Twilight"
+                        "Palace of Twilight",
+                        "Hyrule Castle"
                       ]
                     }
                   },
@@ -281,7 +291,8 @@
                         "Snowpeak Ruins",
                         "Temple of Time",
                         "City in the Sky",
-                        "Palace of Twilight"
+                        "Palace of Twilight",
+                        "Hyrule Castle"
                       ]
                     }
                   },
@@ -299,7 +310,8 @@
                         "Snowpeak Ruins",
                         "Temple of Time",
                         "City in the Sky",
-                        "Palace of Twilight"
+                        "Palace of Twilight",
+                        "Hyrule Castle"
                       ]
                     }
                   }
@@ -333,23 +345,25 @@
             // target for the sometimes.
             "maxPicks": 1,
             "saveToVar": "firstLayerSpotFiller",
+            "selectionType": "randomOrder",
             "hintDef": [
-              {
-                "hintType": "location",
-                "options": {
-                  "markAsSometimes": true,
-                  "validChecks": ["Palace of Twilight Big Key Chest"],
-                  "validItems": ["Palace_of_Twilight_Big_Key"],
-                  "allowKnownBarren": true
-                }
-              },
-              {
-                "hintType": "location",
-                "options": {
-                  "markAsSometimes": true,
-                  "validChecks": ["Palace of Twilight Big Key Chest"]
-                }
-              },
+              // {
+              //   "hintType": "location",
+              //   "options": {
+              //     "markAsSometimes": true,
+              //     "validChecks": ["Palace of Twilight Big Key Chest"],
+              //     "validItems": ["Palace_of_Twilight_Big_Key"],
+              //     "allowKnownBarren": true
+              //   }
+              // },
+              // {
+              //   "hintType": "location",
+              //   "options": {
+              //     "markAsSometimes": true,
+              //     "validChecks": ["Palace of Twilight Big Key Chest"]
+              //   }
+              // },
+
               {
                 "hintType": "location",
                 "options": {
@@ -363,21 +377,28 @@
                     // one seems too strong alongside the BTP hints maybe.
                     "Arbiters Grounds Death Sword Chest",
                     "City in The Sky Aeralfos Chest",
-                    "Hyrule Castle King Bulblin Key"
+                    "Palace of Twilight Big Key Chest"
+                    // "Hyrule Castle King Bulblin Key"
                   ]
                 }
               },
               {
-                // Fall back to always hintable KB. Want to avoid any weirdness
-                // where if you see a non-dungeon sometimes hint on the first
-                // layer, you know HC is barren. A little too much info.
-                "hintType": "location",
+                "hintType": "sometimes",
                 "options": {
-                  "markAsSometimes": true,
-                  "validChecks": ["Hyrule Castle King Bulblin Key"],
-                  "allowKnownBarren": true
+                  "prioritizeNewZones": true
                 }
               }
+              // {
+              //   // Fall back to always hintable KB. Want to avoid any weirdness
+              //   // where if you see a non-dungeon sometimes hint on the first
+              //   // layer, you know HC is barren. A little too much info.
+              //   "hintType": "location",
+              //   "options": {
+              //     "markAsSometimes": true,
+              //     "validChecks": ["Hyrule Castle King Bulblin Key"],
+              //     "allowKnownBarren": true
+              //   }
+              // }
             ]
           },
           {
