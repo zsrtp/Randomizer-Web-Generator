@@ -1397,7 +1397,7 @@ namespace TPRandomizer.Hints.Settings
                 case HintDistribution.Season_1:
                     return Path.Combine(basePath, "season-1.jsonc");
                 case HintDistribution.Season_2:
-                    return Path.Combine(basePath, "season-2-placeholder.jsonc");
+                    return Path.Combine(basePath, "season-2.jsonc");
                 case HintDistribution.Strong:
                     return Path.Combine(basePath, "strong.jsonc");
                 case HintDistribution.Very_Strong:

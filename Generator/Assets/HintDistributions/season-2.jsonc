@@ -1,5 +1,5 @@
 {
-  // Season 2 placeholder distribution
+  // Season 2 distribution
   "starting": {
     "spot": "midna",
     "excludeFromGroups": true
@@ -95,24 +95,6 @@
         }
       ]
     },
-    // {
-    //   "spot": "death_mountain_sign",
-    //   "hintDef": {
-    //     "hintType": "entrance",
-    //     "options": {
-    //       "validSourceZones": ["Goron Mines"]
-    //     }
-    //   }
-    // },
-    // {
-    //   "spot": "snowpeak_mountain_sign",
-    //   "hintDef": {
-    //     "hintType": "entrance",
-    //     "options": {
-    //       "validSourceZones": ["Snowpeak Ruins"]
-    //     }
-    //   }
-    // },
     {
       "spot": "forest_temple_sign",
       "hintDef": {
@@ -174,17 +156,6 @@
         }
       }
     },
-    // {
-    //   "spot": "hyrule_castle_sign",
-    //   "hintDef": {
-    //     "hintType": "location",
-    //     "options": {
-    //       "canBeClaimHinted": true,
-    //       // "validChecks": ["Hyrule Castle King Bulblin Key"]
-    //       "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
-    //     }
-    //   }
-    // }
     {
       "spot": "hyrule_castle_sign",
       "hintDef": {
@@ -212,14 +183,6 @@
           "options": {
             "validItems": ["Boomerang"],
             "areaType": "province"
-          }
-        },
-        {
-          "hintType": "numItemInArea",
-          "options": {
-            "item": "Progressive_Clawshot",
-            "areaType": "province",
-            "validAreas": ["Faron", "Eldin", "Lanayru"]
           }
         }
       ]
@@ -363,15 +326,11 @@
             ]
           },
           {
-            "hintType": "path",
-            "iterations": 3,
-            "options": {
-              "invalidItems": ["Progressive_Sword"]
-            }
-          },
-          {
-            // Hint 1 dungeon sometimes. Hard-prioritizes PoT BK chest if
-            // either PoT BK or not known barren from BeyondThisPoint hint.
+            // Hint 1 dungeon sometimes. Hard-prioritizes PoT BK chest if either
+            // PoT BK or not known barren from BeyondThisPoint hint. Note: we
+            // hint this before the Path hints so that HC King Bulblin does not
+            // get claimed by a Path hint, meaning we should always have a valid
+            // target for the sometimes.
             "maxPicks": 1,
             "saveToVar": "firstLayerSpotFiller",
             "hintDef": [
@@ -409,27 +368,33 @@
                 }
               },
               {
-                // Fall back to always hintable KB. Otherwise you get some
-                // weirdness where if you see a non-dungeon sometimes hint on
-                // the first layer, you know HC is barren. A little too much
-                // info.
+                // Fall back to always hintable KB. Want to avoid any weirdness
+                // where if you see a non-dungeon sometimes hint on the first
+                // layer, you know HC is barren. A little too much info.
                 "hintType": "location",
                 "options": {
                   "markAsSometimes": true,
                   "validChecks": ["Hyrule Castle King Bulblin Key"],
-                  "canBeClaimHinted": true
+                  "allowKnownBarren": true
                 }
               }
             ]
           },
+          {
+            "hintType": "path",
+            "iterations": 3,
+            "options": {
+              "invalidItems": ["Progressive_Sword"]
+            }
+          },
           // Fill layer with extra copies of the IC hint and dungeonSometimes.
+          // Order not random so we do an extra IC hint before the sometimes.
           {
             "hintType": "var",
             "copies": 1,
             "iterations": 99,
             "options": {
               "varName": "firstLayerSpotFiller"
-              // "randomOrder": true
             }
           }
         ]
