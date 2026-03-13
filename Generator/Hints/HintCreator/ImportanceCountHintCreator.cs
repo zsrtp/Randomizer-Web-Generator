@@ -240,11 +240,11 @@ namespace TPRandomizer.Hints.HintCreator
                         genData.hinted.AddHintedBarrenCheck(checkName);
                     }
 
-                    // TODO: could potentially do the below code as well. HintedBarrenZones does
-                    // matter for the dungeon "maxBarrenZones" hint setting and it could be
-                    // confusing for monopolizeBarren as well (though not used there?). Better to
-                    // give the property on `hinted` an accurate name and use it. This would not be
-                    // used for now, so can worry about it later
+                    // TODO: (this would not be used for now, so can worry about it later) Could
+                    // potentially do the below code as well. HintedBarrenZones does matter for the
+                    // dungeon "maxBarrenZones" hint setting and it could be confusing for
+                    // monopolizeBarren as well (though not used there?). Better to give the
+                    // property on `hinted` an accurate name and use it.
 
                     // // If no relevant dependent checks, then 0 count should be the same as barren.
                     // if (!pia.hasRelevantDependentChecks && pia.areaId.type == AreaId.AreaType.Zone)

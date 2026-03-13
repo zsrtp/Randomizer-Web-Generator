@@ -569,8 +569,6 @@ namespace TPRandomizer.Hints
                 // run until 5 consecutive failures instead of the normal 3.
                 int consecutiveFailureThreshold = genData.isRaceSeed ? 5 : 3;
                 if (consecutiveFailures >= consecutiveFailureThreshold && elapsedMs >= 20_000)
-                // TODO: revert temp duration reduction for testing
-                // if (consecutiveFailures >= consecutiveFailureThreshold && elapsedMs >= 2_000)
                 {
                     Console.WriteLine(
                         $"Has at least {consecutiveFailureThreshold} consecutive failures (at {consecutiveFailures}) and at least 20s. Will break."
