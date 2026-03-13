@@ -1426,11 +1426,25 @@ namespace TPRandomizer
             // If we are restarting we want to empty the player's inventory since we don't know what items we have and it won't matter if we are restarting.
             Randomizer.Items.heldItems.Clear();
 
+            Dictionary<string, Item> plandoedChecksDict = new();
+            foreach ((string checkName, Item item) in SSettings.plandoChecks)
+            {
+                plandoedChecksDict[checkName] = item;
+            }
+
             // Next we want to change any checks that were marked as unrequired since the generator could select different dungeons next time. We also want to make all checks available to be placed again.
             foreach (KeyValuePair<string, Check> checkList in Checks.CheckDict.ToList())
             {
                 Check currentCheck = checkList.Value;
-                if (currentCheck.checkStatus == "Excluded-Unrequired")
+                if (plandoedChecksDict.TryGetValue(currentCheck.checkName, out Item plandoedItem))
+                {
+                    // Make sure all plandoed checks are reverted even if changed to
+                    // Excluded-Unrequired. Ex: Zant Heart Container plandoed to exclude PoT needs
+                    // to revert its plando if generation fails.
+                    currentCheck.checkStatus = "Plando";
+                    currentCheck.itemId = plandoedItem;
+                }
+                else if (currentCheck.checkStatus == "Excluded-Unrequired")
                 {
                     currentCheck.checkStatus = "Ready";
                 }
