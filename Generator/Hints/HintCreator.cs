@@ -27,7 +27,6 @@ namespace TPRandomizer.Hints.Settings
         Sometimes,
         Var,
         ImportanceCount,
-        Entrance,
     }
 
     public abstract class HintCreator
@@ -82,8 +81,6 @@ namespace TPRandomizer.Hints.Settings
                     return VarHintCreator.fromJObject(obj);
                 case HintCreatorType.ImportanceCount:
                     return ImportanceCountHintCreator.fromJObject(obj);
-                case HintCreatorType.Entrance:
-                    return EntranceHintCreator.fromJObject(obj);
                 default:
                     throw new Exception(
                         $"Tried to create HintCreator, but found unexpected HintCreatorType '{type}'."
