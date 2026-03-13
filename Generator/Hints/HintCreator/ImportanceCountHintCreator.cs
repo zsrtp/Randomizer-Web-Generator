@@ -542,6 +542,27 @@ namespace TPRandomizer.Hints.HintCreator
                     }
                     break;
                 }
+                case "dungeonzones":
+                {
+                    HashSet<Zone> dungeonZones =
+                        new()
+                        {
+                            Zone.Forest_Temple,
+                            Zone.Goron_Mines,
+                            Zone.Lakebed_Temple,
+                            Zone.Arbiters_Grounds,
+                            Zone.Snowpeak_Ruins,
+                            Zone.Temple_of_Time,
+                            Zone.City_in_the_Sky,
+                            Zone.Palace_of_Twilight,
+                            Zone.Hyrule_Castle,
+                        };
+                    foreach (Zone zone in dungeonZones)
+                    {
+                        result.Add(AreaId.Zone(zone));
+                    }
+                    break;
+                }
                 default:
                     throw new Exception($"Failed to resolve alias '{alias}'.");
             }

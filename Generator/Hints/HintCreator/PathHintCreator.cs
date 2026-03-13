@@ -14,6 +14,7 @@ namespace TPRandomizer.Hints.HintCreator
 
         private HashSet<Item> invalidItems = new();
         private HashSet<Goal> validGoals = null;
+        private bool unhintedGoalsOnly = false;
 
         private PathHintCreator() { }
 
@@ -46,6 +47,12 @@ namespace TPRandomizer.Hints.HintCreator
                         inst.validGoals.Add(goal);
                     }
                 }
+
+                inst.unhintedGoalsOnly = HintSettingUtils.getOptionalBool(
+                    options,
+                    "unhintedGoalsOnly",
+                    inst.unhintedGoalsOnly
+                );
             }
 
             return inst;
@@ -118,9 +125,12 @@ namespace TPRandomizer.Hints.HintCreator
             // each of those, prioritizing zones which have not yet been hinted if possible.
             createPathHintsSimple(genData, numHintsDesired, createdHints, true);
 
-            // If still need more hints, then do the same as above but can create hints for already
-            // hinted goals.
-            createPathHintsSimple(genData, numHintsDesired, createdHints, false);
+            if (!unhintedGoalsOnly)
+            {
+                // If still need more hints, then do the same as above but can create hints for already
+                // hinted goals.
+                createPathHintsSimple(genData, numHintsDesired, createdHints, false);
+            }
 
             return createdHints;
         }
@@ -162,7 +172,7 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             int numHintsDesired,
             List<PathHint> createdHints,
-            bool unhintedGoalsOnly
+            bool includeUnhintedGoalsOnly
         )
         {
             List<Goal> availableGoals = getRandomWithinTierGoals(genData);
@@ -174,7 +184,7 @@ namespace TPRandomizer.Hints.HintCreator
                     i = 0;
 
                 Goal goal = availableGoals[i];
-                if (unhintedGoalsOnly && genData.goalManager.hintedGoals.Contains(goal))
+                if (includeUnhintedGoalsOnly && genData.goalManager.hintedGoals.Contains(goal))
                 {
                     availableGoals.RemoveAt(i);
                     continue;
@@ -411,6 +421,9 @@ namespace TPRandomizer.Hints.HintCreator
 
             foreach (Goal goal in goals)
             {
+                if (unhintedGoalsOnly && genData.goalManager.hintedGoals.Contains(goal))
+                    continue;
+
                 if (goalToCheckLists.TryGetValue(goal, out List<List<string>> listOfLists))
                 {
                     foreach (List<string> list in listOfLists)

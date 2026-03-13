@@ -20,11 +20,6 @@
     "ownZoneShowsAsJunkHint": true
   },
   "always": {
-    // "monopolizeSpots": false,
-    // "idealNumExplicitlyHinted": 5,
-    // "idealNumSpots": 10,
-    // "copies": 2,
-    // "groupId": "overworld2nd"
     "monopolizeSpots": true,
     "idealNumSpots": 5,
     "copies": 2,
@@ -34,9 +29,9 @@
   "addChecks": {
     "Lake Hylia Shell Blade Grotto Chest": ["always"],
     "Skybook From Impaz": ["always"],
-    // "Hyrule Castle Graveyard Owl Statue Chest": ["always"],
     "Doctors Office Balcony Chest": ["sometimes"],
-    "Sacred Grove Past Owl Statue Chest": ["sometimes"]
+    "Sacred Grove Past Owl Statue Chest": ["sometimes"],
+    "Sacred Grove Baba Serpent Grotto Chest": ["sometimes"]
   },
   "removeChecks": {
     "Palace of Twilight Collect Both Sols": ["always"],
@@ -67,8 +62,7 @@
       "-hiddenvillage",
       "-snowpeakmountain"
     ],
-    "requiredDungeons": ["alias:requiredDungeons"],
-    "hyruleCastle": ["hyrulecastle"]
+    "requiredDungeons": ["alias:requiredDungeons"]
   },
   // Special hints generated right after Always hints are generated. These are
   // created even if the dungeon is hinted barren or the check is already hinted
@@ -155,6 +149,16 @@
         }
       }
     },
+    {
+      "spot": "hyrule_castle_sign",
+      "hintDef": {
+        "hintType": "item",
+        "options": {
+          "validItems": ["Purple_Rupee_Links_House"],
+          "areaType": "zone"
+        }
+      }
+    }
     // {
     //   "spot": "hyrule_castle_sign",
     //   "hintDef": {
@@ -165,37 +169,37 @@
     //     }
     //   }
     // },
-    {
-      "spot": "hyrule_castle_sign",
-      "hintDef": {
-        "hintType": "location",
-        "options": {
-          "canBeClaimHinted": true,
-          "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
-        }
-      }
-    },
-    {
-      "spot": "hyrule_castle_sign",
-      "hintDef": [
-        {
-          "hintType": "item",
-          "options": {
-            "validItems": ["Boomerang"],
-            "areaType": "zone",
-            "validStatuses": ["bad"],
-            "allowKnownBarren": true
-          }
-        },
-        {
-          "hintType": "item",
-          "options": {
-            "validItems": ["Boomerang"],
-            "areaType": "province"
-          }
-        }
-      ]
-    }
+    // {
+    //   "spot": "hyrule_castle_sign",
+    //   "hintDef": {
+    //     "hintType": "location",
+    //     "options": {
+    //       "canBeClaimHinted": true,
+    //       "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
+    //     }
+    //   }
+    // },
+    // {
+    //   "spot": "hyrule_castle_sign",
+    //   "hintDef": [
+    //     {
+    //       "hintType": "item",
+    //       "options": {
+    //         "validItems": ["Boomerang"],
+    //         "areaType": "zone",
+    //         "validStatuses": ["bad"],
+    //         "allowKnownBarren": true
+    //       }
+    //     },
+    //     {
+    //       "hintType": "item",
+    //       "options": {
+    //         "validItems": ["Boomerang"],
+    //         "areaType": "province"
+    //       }
+    //     }
+    //   ]
+    // }
   ],
   "hints": [
     {
@@ -250,9 +254,9 @@
             ]
           },
           {
-            // Prioritizes hinting importance counts 0,1,2 (weighted equally)
-            // for non-HC dungeon since already hinted on HC sign. Falls back to
-            // any count, but for S2 this is basically guaranteed not to happen.
+            // Prioritizes hinting importance counts 0,1,2 (weighted equally).
+            // Falls back to any count, but for S2 this is basically guaranteed
+            // not to happen.
             "maxPicks": 1,
             "hintDef": [
               {
@@ -264,17 +268,7 @@
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [0],
-                      "validAreas": [
-                        "Forest Temple",
-                        "Goron Mines",
-                        "Lakebed Temple",
-                        "Arbiter's Grounds",
-                        "Snowpeak Ruins",
-                        "Temple of Time",
-                        "City in the Sky",
-                        "Palace of Twilight",
-                        "Hyrule Castle"
-                      ]
+                      "validAreas": ["alias:dungeonZones"]
                     }
                   },
                   {
@@ -283,17 +277,7 @@
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [1],
-                      "validAreas": [
-                        "Forest Temple",
-                        "Goron Mines",
-                        "Lakebed Temple",
-                        "Arbiter's Grounds",
-                        "Snowpeak Ruins",
-                        "Temple of Time",
-                        "City in the Sky",
-                        "Palace of Twilight",
-                        "Hyrule Castle"
-                      ]
+                      "validAreas": ["alias:dungeonZones"]
                     }
                   },
                   {
@@ -302,17 +286,7 @@
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [2],
-                      "validAreas": [
-                        "Forest Temple",
-                        "Goron Mines",
-                        "Lakebed Temple",
-                        "Arbiter's Grounds",
-                        "Snowpeak Ruins",
-                        "Temple of Time",
-                        "City in the Sky",
-                        "Palace of Twilight",
-                        "Hyrule Castle"
-                      ]
+                      "validAreas": ["alias:dungeonZones"]
                     }
                   }
                 ]
@@ -322,96 +296,38 @@
                 "saveToVar": "firstLayerSpotFiller",
                 "options": {
                   "indicateImportant": true,
-                  "validAreas": [
-                    "Forest Temple",
-                    "Goron Mines",
-                    "Lakebed Temple",
-                    "Arbiter's Grounds",
-                    "Snowpeak Ruins",
-                    "Temple of Time",
-                    "City in the Sky",
-                    "Palace of Twilight",
-                    "Hyrule Castle"
-                  ]
+                  "validAreas": ["alias:dungeonZones"]
                 }
               }
             ]
           },
           {
-            // Hint 1 dungeon sometimes. Hard-prioritizes PoT BK chest if either
-            // PoT BK or not known barren from BeyondThisPoint hint. Note: we
-            // hint this before the Path hints so that HC King Bulblin does not
-            // get claimed by a Path hint, meaning we should always have a valid
-            // target for the sometimes.
-            "maxPicks": 1,
-            "saveToVar": "firstLayerSpotFiller",
-            "selectionType": "randomOrder",
+            "maxPicks": 4,
             "hintDef": [
-              // {
-              //   "hintType": "location",
-              //   "options": {
-              //     "markAsSometimes": true,
-              //     "validChecks": ["Palace of Twilight Big Key Chest"],
-              //     "validItems": ["Palace_of_Twilight_Big_Key"],
-              //     "allowKnownBarren": true
-              //   }
-              // },
-              // {
-              //   "hintType": "location",
-              //   "options": {
-              //     "markAsSometimes": true,
-              //     "validChecks": ["Palace of Twilight Big Key Chest"]
-              //   }
-              // },
-
               {
-                "hintType": "location",
-                "weight": 0.55,
+                "hintType": "path",
+                "iterations": 4,
                 "options": {
-                  "markAsSometimes": true,
-                  "validChecks": [
-                    "Forest Temple Central North Chest",
-                    "Goron Mines Main Magnet Room Top Chest",
-                    "City in The Sky West Wing First Chest",
-                    "City in The Sky Chest Behind North Fan",
-                    // Include miniboss hints here for now. The guaranteed
-                    // one seems too strong alongside the BTP hints maybe.
-                    "Arbiters Grounds Death Sword Chest",
-                    "City in The Sky Aeralfos Chest",
-                    "Palace of Twilight Big Key Chest"
-                    // "Hyrule Castle King Bulblin Key"
-                  ]
+                  "invalidItems": ["Progressive_Sword"],
+                  // Each goal hinted at most once.
+                  "unhintedGoalsOnly": true
                 }
               },
               {
+                // If fewer than 4 path hints were generated, create an extra
+                // sometimes which also gets used to fill extra spots. Helps
+                // identify when to expect less than 4 path hints.
                 "hintType": "sometimes",
-                "weight": 0.45,
+                "saveToVar": "firstLayerSpotFiller",
                 "options": {
                   "prioritizeNewZones": true
                 }
               }
-              // {
-              //   // Fall back to always hintable KB. Want to avoid any weirdness
-              //   // where if you see a non-dungeon sometimes hint on the first
-              //   // layer, you know HC is barren. A little too much info.
-              //   "hintType": "location",
-              //   "options": {
-              //     "markAsSometimes": true,
-              //     "validChecks": ["Hyrule Castle King Bulblin Key"],
-              //     "allowKnownBarren": true
-              //   }
-              // }
             ]
           },
-          {
-            "hintType": "path",
-            "iterations": 3,
-            "options": {
-              "invalidItems": ["Progressive_Sword"]
-            }
-          },
-          // Fill layer with extra copies of the IC hint and dungeonSometimes.
-          // Order not random so we do an extra IC hint before the sometimes.
+          // Fill layer with extra copies of the IC hint and sometimes (if
+          // created). Order not random so we do an extra IC hint before the
+          // sometimes.
           {
             "hintType": "var",
             "copies": 1,
@@ -424,7 +340,7 @@
       }
     },
     {
-      // On required dungeon signs, hint the number of swords in dungeons.
+      // On required dungeon signs, hint the MostSwordsProvince.
       "groupId": "requiredDungeons",
       "hintDef": {
         "hintType": "numItemInArea",
@@ -445,10 +361,33 @@
         "hintDef": [
           {
             "maxPicks": 5,
+            "saveToVar": "2ndLayerSometimes",
             "hintDef": [
               {
+                // Hint 1 dungeon sometimes. Hard-prioritizes PoT BK chest if either
+                // PoT BK or not known barren from BeyondThisPoint hint. Note: we
+                // hint this before the Path hints so that HC King Bulblin does not
+                // get claimed by a Path hint, meaning we should always have a valid
+                // target for the sometimes.
+                "hintDef": {
+                  "hintType": "location",
+                  "options": {
+                    "markAsSometimes": true,
+                    "validChecks": [
+                      "Forest Temple Central North Chest",
+                      "Goron Mines Outside Clawshot Chest",
+                      // "Goron Mines Main Magnet Room Top Chest",
+                      "City in The Sky West Wing First Chest",
+                      // "City in The Sky Chest Behind North Fan",
+                      "Arbiters Grounds Death Sword Chest",
+                      "City in The Sky Aeralfos Chest",
+                      "Palace of Twilight Big Key Chest"
+                    ]
+                  }
+                }
+              },
+              {
                 "hintType": "sometimes",
-                "saveToVar": "2ndLayerSometimes",
                 "iterations": 99,
                 "options": {
                   "prioritizeNewZones": true
