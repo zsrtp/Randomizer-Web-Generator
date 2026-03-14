@@ -14,7 +14,7 @@
   "dungeons": {
     "bigKeyHints": true
   },
-  "beyondPointZones": ["alias:all"],
+  "beyondPointZones": ["alias:dungeons", "Snowpeak_Mountain"],
   "barren": {
     "monopolizeSpots": true,
     "ownZoneShowsAsJunkHint": true
@@ -55,13 +55,16 @@
       "alias:overworldZones",
       "-hiddenvillage",
       "-snowpeakmountain",
+      "-lakelanterncave",
       "-ordon"
     ],
     "overworld2nd": [
       "alias:overworldZones",
       "-hiddenvillage",
-      "-snowpeakmountain"
+      "-snowpeakmountain",
+      "-lakelanterncave"
     ],
+    "lakeLanternCave": ["lakelanterncave"],
     "requiredDungeons": ["alias:requiredDungeons"]
   },
   // Special hints generated right after Always hints are generated. These are
@@ -149,16 +152,16 @@
         }
       }
     },
-    {
-      "spot": "hyrule_castle_sign",
-      "hintDef": {
-        "hintType": "item",
-        "options": {
-          "validItems": ["Purple_Rupee_Links_House"],
-          "areaType": "zone"
-        }
-      }
-    }
+    // {
+    //   "spot": "hyrule_castle_sign",
+    //   "hintDef": {
+    //     "hintType": "item",
+    //     "options": {
+    //       "validItems": ["Purple_Rupee_Links_House"],
+    //       "areaType": "zone"
+    //     }
+    //   }
+    // }
     // {
     //   "spot": "hyrule_castle_sign",
     //   "hintDef": {
@@ -169,16 +172,26 @@
     //     }
     //   }
     // },
-    // {
-    //   "spot": "hyrule_castle_sign",
-    //   "hintDef": {
-    //     "hintType": "location",
-    //     "options": {
-    //       "canBeClaimHinted": true,
-    //       "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
-    //     }
-    //   }
-    // },
+    {
+      "spot": "hyrule_castle_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "canBeClaimHinted": true,
+          "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
+        }
+      }
+    },
+    {
+      "spot": "hyrule_castle_sign",
+      "hintDef": {
+        "hintType": "path",
+        "options": {
+          "invalidItems": ["Progressive_Sword"],
+          "validGoals": ["Ganondorf"]
+        }
+      }
+    }
     // {
     //   "spot": "hyrule_castle_sign",
     //   "hintDef": [
@@ -268,7 +281,7 @@
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [0],
-                      "validAreas": ["alias:dungeonZones"]
+                      "validAreas": ["alias:dungeonZonesNoHc"]
                     }
                   },
                   {
@@ -277,7 +290,7 @@
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [1],
-                      "validAreas": ["alias:dungeonZones"]
+                      "validAreas": ["alias:dungeonZonesNoHc"]
                     }
                   },
                   {
@@ -286,7 +299,7 @@
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [2],
-                      "validAreas": ["alias:dungeonZones"]
+                      "validAreas": ["alias:dungeonZonesNoHc"]
                     }
                   }
                 ]
@@ -296,7 +309,7 @@
                 "saveToVar": "firstLayerSpotFiller",
                 "options": {
                   "indicateImportant": true,
-                  "validAreas": ["alias:dungeonZones"]
+                  "validAreas": ["alias:dungeonZonesNoHc"]
                 }
               }
             ]
@@ -310,7 +323,18 @@
                 "options": {
                   "invalidItems": ["Progressive_Sword"],
                   // Each goal hinted at most once.
-                  "unhintedGoalsOnly": true
+                  "unhintedGoalsOnly": true,
+                  "validGoals": [
+                    "Diababa",
+                    "Fyrus",
+                    "Morpheel",
+                    "Stallord",
+                    "Blizzeta",
+                    "Armogohma",
+                    "Argorok",
+                    "Zant",
+                    "Hyrule_Castle"
+                  ]
                 }
               },
               {
@@ -340,18 +364,64 @@
       }
     },
     {
-      // On required dungeon signs, hint the MostSwordsProvince.
-      "groupId": "requiredDungeons",
+      // "spot": "lake_lantern_cave_sign",
+      "groupId": "lakeLanternCave",
       "hintDef": {
-        "hintType": "numItemInArea",
-        "copies": 99,
-        "minCopies": 1,
+        // Wait until here so still possible for barren LLC hint.
+        "hintType": "importanceCount",
         "options": {
-          "item": "Progressive_Sword",
-          "areaType": "province",
-          "order": "desc"
+          "indicateImportant": false,
+          "validAreas": ["Lake Lantern Cave"]
         }
       }
+    },
+    {
+      // On required dungeon signs, hint the MostSwordsProvince.
+      "groupId": "requiredDungeons",
+      "hintDef": [
+        {
+          "hintType": "numItemInArea",
+          "saveToVar": "reqDunSwordHint",
+          // "copies": 99,
+          // "minCopies": 1,
+          "options": {
+            "item": "Progressive_Sword",
+            "areaType": "province",
+            "order": "desc"
+          }
+        },
+        {
+          "hintType": "importanceCount",
+          "saveToVar": "reqDunHcHint",
+          "options": {
+            "indicateImportant": true,
+            // "allowedCounts": [0],
+            "validAreas": ["Hyrule Castle"]
+          }
+        },
+        {
+          "iterations": 99,
+          // "selectionType": "randomOrder",
+          "hintDef": [
+            {
+              "hintType": "var",
+              // "copies": 1,
+              "options": {
+                "varName": "reqDunHcHint"
+                // "randomOrder": true
+              }
+            },
+            {
+              "hintType": "var",
+              // "copies": 1,
+              "options": {
+                "varName": "reqDunSwordHint"
+                // "randomOrder": true
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       // 2nd layer is "sometimes" hints
@@ -374,7 +444,8 @@
                   "options": {
                     "markAsSometimes": true,
                     "validChecks": [
-                      "Forest Temple Central North Chest",
+                      // "Forest Temple Central North Chest",
+                      "Forest Temple West Tile Worm Chest Behind Stairs",
                       "Goron Mines Outside Clawshot Chest",
                       // "Goron Mines Main Magnet Room Top Chest",
                       "City in The Sky West Wing First Chest",
