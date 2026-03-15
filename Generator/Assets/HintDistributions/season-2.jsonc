@@ -55,8 +55,8 @@
       "alias:overworldZones",
       "-hiddenvillage",
       "-snowpeakmountain",
-      "-lakelanterncave",
-      "-ordon"
+      "-lakelanterncave"
+      // "-ordon"
     ],
     "overworld2nd": [
       "alias:overworldZones",
@@ -71,26 +71,26 @@
   // created even if the dungeon is hinted barren or the check is already hinted
   // barren by a BeyondThisPoint hint.
   "specialHintDefs": [
-    {
-      "spot": "ordon_sign",
-      "hintDef": [
-        {
-          "hintType": "location",
-          "options": {
-            "canBeClaimHinted": true,
-            "validStatuses": ["bad"],
-            "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
-          }
-        },
-        {
-          "hintType": "location",
-          "options": {
-            "canBeClaimHinted": true,
-            "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
-          }
-        }
-      ]
-    },
+    // {
+    //   "spot": "ordon_sign",
+    //   "hintDef": [
+    //     {
+    //       "hintType": "location",
+    //       "options": {
+    //         "canBeClaimHinted": true,
+    //         "validStatuses": ["bad"],
+    //         "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
+    //       }
+    //     },
+    //     {
+    //       "hintType": "location",
+    //       "options": {
+    //         "canBeClaimHinted": true,
+    //         "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
+    //       }
+    //     }
+    //   ]
+    // },
     {
       "spot": "forest_temple_sign",
       "hintDef": {
@@ -223,8 +223,8 @@
           {
             "hintDef": [
               {
-                "maxPicks": 3,
-                "starting": 3,
+                "maxPicks": 4,
+                "starting": 4,
                 "hintDef": [
                   {
                     // One barren for early game or desert area
@@ -252,7 +252,7 @@
                   },
                   {
                     "hintType": "barren",
-                    "iterations": 3,
+                    "iterations": 4,
                     "saveToVar": "barrenHints",
                     "options": {
                       "validAreas": [
@@ -278,6 +278,7 @@
                   {
                     "hintType": "importanceCount",
                     "saveToVar": "firstLayerSpotFiller",
+                    "weight": 0.3,
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [0],
@@ -287,6 +288,7 @@
                   {
                     "hintType": "importanceCount",
                     "saveToVar": "firstLayerSpotFiller",
+                    "weight": 0.35,
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [1],
@@ -296,6 +298,7 @@
                   {
                     "hintType": "importanceCount",
                     "saveToVar": "firstLayerSpotFiller",
+                    "weight": 0.35,
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [2],
@@ -315,10 +318,12 @@
             ]
           },
           {
-            "maxPicks": 4,
+            "maxPicks": 8,
             "hintDef": [
               {
                 "hintType": "path",
+                "saveToVar": "firstLayerPathHints",
+                "copies": 1,
                 "iterations": 4,
                 "options": {
                   "invalidItems": ["Progressive_Sword"],
@@ -338,15 +343,24 @@
                 }
               },
               {
-                // If fewer than 4 path hints were generated, create an extra
-                // sometimes which also gets used to fill extra spots. Helps
-                // identify when to expect less than 4 path hints.
-                "hintType": "sometimes",
-                "saveToVar": "firstLayerSpotFiller",
+                "hintType": "var",
+                "copies": 1,
+                "iterations": 99,
                 "options": {
-                  "prioritizeNewZones": true
+                  "varName": "firstLayerPathHints",
+                  "randomOrder": true
                 }
               }
+              // {
+              //   // If fewer than 4 path hints were generated, create an extra
+              //   // sometimes which also gets used to fill extra spots. Helps
+              //   // identify when to expect less than 4 path hints.
+              //   "hintType": "sometimes",
+              //   "saveToVar": "firstLayerSpotFiller",
+              //   "options": {
+              //     "prioritizeNewZones": true
+              //   }
+              // }
             ]
           },
           // Fill layer with extra copies of the IC hint and sometimes (if
@@ -431,7 +445,6 @@
         "hintDef": [
           {
             "maxPicks": 5,
-            "saveToVar": "2ndLayerSometimes",
             "hintDef": [
               {
                 // Hint 1 dungeon sometimes. Hard-prioritizes PoT BK chest if either
@@ -441,6 +454,7 @@
                 // target for the sometimes.
                 "hintDef": {
                   "hintType": "location",
+                  "saveToVar": "2ndLayerSometimes",
                   "options": {
                     "markAsSometimes": true,
                     "validChecks": [
@@ -458,7 +472,35 @@
                 }
               },
               {
+                "hintDef": [
+                  // {
+                  //   "hintType": "location",
+                  //   "options": {
+                  //     // "canBeClaimHinted": true,
+                  //     // "validStatuses": ["bad"],
+                  //     "validStatuses": ["good", "required"],
+                  //     "validChecks": [
+                  //       "Herding Goats Reward",
+                  //       "Wrestling With Bo"
+                  //     ]
+                  //   }
+                  // },
+                  {
+                    "hintType": "location",
+                    "saveToVar": "2ndLayerBoGoats",
+                    "options": {
+                      // "canBeClaimHinted": true,
+                      "validChecks": [
+                        "Herding Goats Reward",
+                        "Wrestling With Bo"
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
                 "hintType": "sometimes",
+                "saveToVar": "2ndLayerSometimes",
                 "iterations": 99,
                 "options": {
                   "prioritizeNewZones": true
@@ -466,15 +508,27 @@
               }
             ]
           },
-          // Fill in layer with extra copies of the sometimes hints.
+          // Fill in layer with extra copies of the sometimes hints
+          // (prioritizing Bo/Goats).
           {
-            "hintType": "var",
-            "copies": 1,
-            "iterations": 99,
-            "options": {
-              "varName": "2ndLayerSometimes",
-              "randomOrder": true
-            }
+            "hintDef": [
+              {
+                "hintType": "var",
+                "copies": 1,
+                "options": {
+                  "varName": "2ndLayerBoGoats"
+                }
+              },
+              {
+                "hintType": "var",
+                "copies": 1,
+                "iterations": 99,
+                "options": {
+                  "varName": "2ndLayerSometimes",
+                  "randomOrder": true
+                }
+              }
+            ]
           }
         ]
       }
