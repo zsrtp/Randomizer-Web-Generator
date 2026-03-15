@@ -148,6 +148,7 @@
         "hintType": "location",
         "options": {
           "canBeClaimHinted": true,
+          "checkStatusDisplay": "required_info",
           "validChecks": ["Palace of Twilight Collect Both Sols"]
         }
       }
@@ -178,6 +179,7 @@
         "hintType": "location",
         "options": {
           "canBeClaimHinted": true,
+          "checkStatusDisplay": "required_info",
           "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
         }
       }
@@ -236,59 +238,77 @@
             "hintDef": [
               {
                 "maxPicks": 4,
-                "starting": 4,
                 "hintDef": [
                   {
-                    "maxPicks": 1,
-                    "selectionType": "randomOrder",
-                    "hintDef": [
-                      {
-                        "hintType": "barren",
-                        "options": {
-                          "validAreas": [
-                            // "Ordon",
-                            // "Sacred Grove",
-                            // "Faron Field",
-                            // "Faron Woods",
-                            // "Kakariko Village",
-                            // "Kakariko Graveyard",
-                            // "Eldin Field",
-                            // "Castle Town",
-                            // "South of Castle Town",
-                            // "Lake Hylia",
-                            // "Zora's Domain",
-                            // "Upper Zora's River",
-                            // "Gerudo Desert",
-                            // "category.Northern_Desert",
-                            // "category.Southern_Desert",
-                            // "Bulblin Camp"
-                            //
-                            "Sacred Grove",
-                            "Lanayru Field",
-                            "Great Bridge of Hylia",
-                            "Gerudo Desert",
-                            "category.Northern_Desert",
-                            "category.Southern_Desert",
-                            "Bulblin Camp"
-                          ]
-                        }
-                      },
-                      {
-                        "hintType": "barren",
-                        "saveToVar": "barrenHints",
-                        "options": {
-                          "validAreas": [
-                            "alias:overworldZones",
-                            "category.Northern_Desert",
-                            "category.Southern_Desert"
-                          ]
-                        }
-                      }
-                    ]
+                    "hintType": "barren",
+                    "iterations": 1,
+                    "starting": 1,
+                    "options": {
+                      "validAreas": [
+                        "Forest Temple",
+                        "Goron Mines",
+                        "Lakebed Temple",
+                        "Arbiter's Grounds",
+                        "Snowpeak Ruins",
+                        "Temple of Time",
+                        "City in the Sky",
+                        "Palace of Twilight",
+                        "Hyrule Castle"
+                      ]
+                    }
                   },
+                  // {
+                  //   "maxPicks": 1,
+                  //   "selectionType": "randomOrder",
+                  //   "hintDef": [
+                  //     {
+                  //       "hintType": "barren",
+                  //       "options": {
+                  //         "validAreas": [
+                  //           // "Ordon",
+                  //           // "Sacred Grove",
+                  //           // "Faron Field",
+                  //           // "Faron Woods",
+                  //           // "Kakariko Village",
+                  //           // "Kakariko Graveyard",
+                  //           // "Eldin Field",
+                  //           // "Castle Town",
+                  //           // "South of Castle Town",
+                  //           // "Lake Hylia",
+                  //           // "Zora's Domain",
+                  //           // "Upper Zora's River",
+                  //           // "Gerudo Desert",
+                  //           // "category.Northern_Desert",
+                  //           // "category.Southern_Desert",
+                  //           // "Bulblin Camp"
+                  //           //
+                  //           "Sacred Grove",
+                  //           "Lanayru Field",
+                  //           "Great Bridge of Hylia",
+                  //           "Gerudo Desert",
+                  //           "category.Northern_Desert",
+                  //           "category.Southern_Desert",
+                  //           "Bulblin Camp"
+                  //         ]
+                  //       }
+                  //     },
+                  //     {
+                  //       "hintType": "barren",
+                  //       "saveToVar": "barrenHints",
+                  //       "options": {
+                  //         "validAreas": [
+                  //           "alias:overworldZones",
+                  //           "category.Northern_Desert",
+                  //           "category.Southern_Desert"
+                  //         ]
+                  //       }
+                  //     }
+                  //   ]
+                  // },
                   {
                     "hintType": "barren",
                     "iterations": 4,
+                    "starting": 4,
                     "saveToVar": "barrenHints",
                     "options": {
                       "validAreas": [
@@ -311,48 +331,94 @@
               {
                 "selectionType": "randomOrder",
                 "hintDef": [
-                  {
-                    "hintType": "importanceCount",
-                    "saveToVar": "firstLayerSpotFiller",
-                    // "weight": 0.3,
-                    "options": {
-                      "indicateImportant": true,
-                      "allowedCounts": [0],
-                      // "validAreas": ["alias:dungeonZonesNoHc"]
-                      "validAreas": ["alias:dungeonZones"]
-                    }
-                  },
-                  {
-                    "hintType": "importanceCount",
-                    "saveToVar": "firstLayerSpotFiller",
-                    // "weight": 0.35,
-                    "options": {
-                      "indicateImportant": true,
-                      "allowedCounts": [1],
-                      // "validAreas": ["alias:dungeonZonesNoHc"]
-                      "validAreas": ["alias:dungeonZones"]
-                    }
-                  },
+                  // {
+                  //   "hintType": "importanceCount",
+                  //   "saveToVar": "firstLayerSpotFiller",
+                  //   // "weight": 0.3,
+                  //   "options": {
+                  //     "indicateImportant": false,
+                  //     "allowedCounts": [0],
+                  //     // "validAreas": ["alias:dungeonZonesNoHc"]
+                  //     "validAreas": ["alias:dungeonZones"]
+                  //   }
+                  // },
                   {
                     "hintType": "importanceCount",
                     "saveToVar": "firstLayerSpotFiller",
                     // "weight": 0.35,
                     "options": {
-                      "indicateImportant": true,
-                      "allowedCounts": [2],
+                      "indicateImportant": false,
+                      "allowedCounts": [1, 2, 3],
                       // "validAreas": ["alias:dungeonZonesNoHc"]
-                      "validAreas": ["alias:dungeonZones"]
+                      // "validAreas": ["alias:dungeonZones"]
+                      "validAreas": [
+                        // "Ordon",
+                        "Sacred Grove",
+                        // "Faron Field",
+                        // "Faron Woods",
+                        "Kakariko Gorge",
+                        // "Kakariko Village",
+                        "Kakariko Graveyard",
+                        // "Eldin Field",
+                        // "North Eldin",
+                        // "Death Mountain",
+                        // "Hidden Village",
+                        "Lanayru Field",
+                        "Beside Castle Town",
+                        // "South of Castle Town",
+                        // "Castle Town",
+                        "Great Bridge of Hylia",
+                        // "Lake Hylia",
+                        // "Lake Lantern Cave",
+                        "Lanayru Spring",
+                        "Zora's Domain",
+                        // "Upper Zora's River",
+                        // "Gerudo Desert",
+                        // "Bulblin Camp",
+                        // "Snowpeak Mountain",
+                        // "Forest Temple",
+                        // "Goron Mines",
+                        // "Lakebed Temple",
+                        // "Arbiter's Grounds",
+                        // "Snowpeak Ruins",
+                        // "Temple of Time",
+                        // "City in the Sky",
+                        // "Palace of Twilight",
+                        "Hyrule Castle"
+                      ]
                     }
                   }
+                  // {
+                  //   "hintType": "importanceCount",
+                  //   "saveToVar": "firstLayerSpotFiller",
+                  //   // "weight": 0.35,
+                  //   "options": {
+                  //     "indicateImportant": false,
+                  //     "allowedCounts": [2],
+                  //     // "validAreas": ["alias:dungeonZonesNoHc"]
+                  //     "validAreas": ["alias:dungeonZones"]
+                  //   }
+                  // }
                 ]
               },
               {
                 "hintType": "importanceCount",
                 "saveToVar": "firstLayerSpotFiller",
                 "options": {
-                  "indicateImportant": true,
+                  "indicateImportant": false,
                   // "validAreas": ["alias:dungeonZonesNoHc"]
-                  "validAreas": ["alias:dungeonZones"]
+                  // "validAreas": ["alias:dungeonZones"]
+                  "validAreas": [
+                    "Sacred Grove",
+                    "Kakariko Gorge",
+                    "Kakariko Graveyard",
+                    "Lanayru Field",
+                    "Beside Castle Town",
+                    "Great Bridge of Hylia",
+                    "Lanayru Spring",
+                    "Zora's Domain",
+                    "Hyrule Castle"
+                  ]
                 }
               }
             ]
@@ -498,8 +564,8 @@
                   "options": {
                     "markAsSometimes": true,
                     "validChecks": [
-                      // "Forest Temple Central North Chest",
-                      "Forest Temple West Tile Worm Chest Behind Stairs",
+                      "Forest Temple Central North Chest",
+                      // "Forest Temple West Tile Worm Chest Behind Stairs",
                       "Goron Mines Outside Clawshot Chest",
                       "Lakebed Temple Deku Toad Chest",
                       // "Goron Mines Main Magnet Room Top Chest",
