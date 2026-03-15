@@ -185,13 +185,25 @@
     {
       "spot": "hyrule_castle_sign",
       "hintDef": {
-        "hintType": "path",
+        "hintType": "numItemInArea",
         "options": {
-          "invalidItems": ["Progressive_Sword"],
-          "validGoals": ["Ganondorf"]
+          "item": "Progressive_Clawshot",
+          "areaType": "province",
+          "validAreas": ["Dungeon"]
+          // "order": "desc"
         }
       }
     }
+    // {
+    //   "spot": "hyrule_castle_sign",
+    //   "hintDef": {
+    //     "hintType": "path",
+    //     "options": {
+    //       "invalidItems": ["Progressive_Sword"],
+    //       "validGoals": ["Ganondorf"]
+    //     }
+    //   }
+    // }
     // {
     //   "spot": "hyrule_castle_sign",
     //   "hintDef": [
@@ -227,28 +239,52 @@
                 "starting": 4,
                 "hintDef": [
                   {
-                    // One barren for early game or desert area
-                    "hintType": "barren",
-                    "options": {
-                      "validAreas": [
-                        "Ordon",
-                        // "Sacred Grove",
-                        "Faron Field",
-                        "Faron Woods",
-                        "Kakariko Village",
-                        "Kakariko Graveyard",
-                        "Eldin Field",
-                        "Castle Town",
-                        "South of Castle Town",
-                        "Lake Hylia",
-                        "Zora's Domain",
-                        "Upper Zora's River",
-                        "Gerudo Desert",
-                        "category.Northern_Desert",
-                        "category.Southern_Desert",
-                        "Bulblin Camp"
-                      ]
-                    }
+                    "maxPicks": 1,
+                    "selectionType": "randomOrder",
+                    "hintDef": [
+                      {
+                        "hintType": "barren",
+                        "options": {
+                          "validAreas": [
+                            // "Ordon",
+                            // "Sacred Grove",
+                            // "Faron Field",
+                            // "Faron Woods",
+                            // "Kakariko Village",
+                            // "Kakariko Graveyard",
+                            // "Eldin Field",
+                            // "Castle Town",
+                            // "South of Castle Town",
+                            // "Lake Hylia",
+                            // "Zora's Domain",
+                            // "Upper Zora's River",
+                            // "Gerudo Desert",
+                            // "category.Northern_Desert",
+                            // "category.Southern_Desert",
+                            // "Bulblin Camp"
+                            //
+                            "Sacred Grove",
+                            "Lanayru Field",
+                            "Great Bridge of Hylia",
+                            "Gerudo Desert",
+                            "category.Northern_Desert",
+                            "category.Southern_Desert",
+                            "Bulblin Camp"
+                          ]
+                        }
+                      },
+                      {
+                        "hintType": "barren",
+                        "saveToVar": "barrenHints",
+                        "options": {
+                          "validAreas": [
+                            "alias:overworldZones",
+                            "category.Northern_Desert",
+                            "category.Southern_Desert"
+                          ]
+                        }
+                      }
+                    ]
                   },
                   {
                     "hintType": "barren",
@@ -278,31 +314,34 @@
                   {
                     "hintType": "importanceCount",
                     "saveToVar": "firstLayerSpotFiller",
-                    "weight": 0.3,
+                    // "weight": 0.3,
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [0],
-                      "validAreas": ["alias:dungeonZonesNoHc"]
+                      // "validAreas": ["alias:dungeonZonesNoHc"]
+                      "validAreas": ["alias:dungeonZones"]
                     }
                   },
                   {
                     "hintType": "importanceCount",
                     "saveToVar": "firstLayerSpotFiller",
-                    "weight": 0.35,
+                    // "weight": 0.35,
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [1],
-                      "validAreas": ["alias:dungeonZonesNoHc"]
+                      // "validAreas": ["alias:dungeonZonesNoHc"]
+                      "validAreas": ["alias:dungeonZones"]
                     }
                   },
                   {
                     "hintType": "importanceCount",
                     "saveToVar": "firstLayerSpotFiller",
-                    "weight": 0.35,
+                    // "weight": 0.35,
                     "options": {
                       "indicateImportant": true,
                       "allowedCounts": [2],
-                      "validAreas": ["alias:dungeonZonesNoHc"]
+                      // "validAreas": ["alias:dungeonZonesNoHc"]
+                      "validAreas": ["alias:dungeonZones"]
                     }
                   }
                 ]
@@ -312,7 +351,8 @@
                 "saveToVar": "firstLayerSpotFiller",
                 "options": {
                   "indicateImportant": true,
-                  "validAreas": ["alias:dungeonZonesNoHc"]
+                  // "validAreas": ["alias:dungeonZonesNoHc"]
+                  "validAreas": ["alias:dungeonZones"]
                 }
               }
             ]
@@ -377,18 +417,18 @@
         ]
       }
     },
-    {
-      // "spot": "lake_lantern_cave_sign",
-      "groupId": "lakeLanternCave",
-      "hintDef": {
-        // Wait until here so still possible for barren LLC hint.
-        "hintType": "importanceCount",
-        "options": {
-          "indicateImportant": false,
-          "validAreas": ["Lake Lantern Cave"]
-        }
-      }
-    },
+    // {
+    //   // "spot": "lake_lantern_cave_sign",
+    //   "groupId": "lakeLanternCave",
+    //   "hintDef": {
+    //     // Wait until here so still possible for barren LLC hint.
+    //     "hintType": "importanceCount",
+    //     "options": {
+    //       "indicateImportant": false,
+    //       "validAreas": ["Lake Lantern Cave"]
+    //     }
+    //   }
+    // },
     {
       // On required dungeon signs, hint the MostSwordsProvince.
       "groupId": "requiredDungeons",
@@ -404,27 +444,27 @@
             "order": "desc"
           }
         },
-        {
-          "hintType": "importanceCount",
-          "saveToVar": "reqDunHcHint",
-          "options": {
-            "indicateImportant": true,
-            // "allowedCounts": [0],
-            "validAreas": ["Hyrule Castle"]
-          }
-        },
+        // {
+        //   "hintType": "importanceCount",
+        //   "saveToVar": "reqDunHcHint",
+        //   "options": {
+        //     "indicateImportant": true,
+        //     // "allowedCounts": [0],
+        //     "validAreas": ["Hyrule Castle"]
+        //   }
+        // },
         {
           "iterations": 99,
           // "selectionType": "randomOrder",
           "hintDef": [
-            {
-              "hintType": "var",
-              // "copies": 1,
-              "options": {
-                "varName": "reqDunHcHint"
-                // "randomOrder": true
-              }
-            },
+            // {
+            //   "hintType": "var",
+            //   // "copies": 1,
+            //   "options": {
+            //     "varName": "reqDunHcHint"
+            //     // "randomOrder": true
+            //   }
+            // },
             {
               "hintType": "var",
               // "copies": 1,
@@ -461,6 +501,7 @@
                       // "Forest Temple Central North Chest",
                       "Forest Temple West Tile Worm Chest Behind Stairs",
                       "Goron Mines Outside Clawshot Chest",
+                      "Lakebed Temple Deku Toad Chest",
                       // "Goron Mines Main Magnet Room Top Chest",
                       "City in The Sky West Wing First Chest",
                       // "City in The Sky Chest Behind North Fan",
@@ -472,29 +513,51 @@
                 }
               },
               {
+                "maxPicks": 1,
                 "hintDef": [
-                  // {
-                  //   "hintType": "location",
-                  //   "options": {
-                  //     // "canBeClaimHinted": true,
-                  //     // "validStatuses": ["bad"],
-                  //     "validStatuses": ["good", "required"],
-                  //     "validChecks": [
-                  //       "Herding Goats Reward",
-                  //       "Wrestling With Bo"
-                  //     ]
-                  //   }
-                  // },
                   {
-                    "hintType": "location",
-                    "saveToVar": "2ndLayerBoGoats",
-                    "options": {
-                      // "canBeClaimHinted": true,
-                      "validChecks": [
-                        "Herding Goats Reward",
-                        "Wrestling With Bo"
-                      ]
-                    }
+                    "selectionType": "randomOrder",
+                    "hintDef": [
+                      {
+                        "hintType": "location",
+                        "saveToVar": "2ndLayerBoGoats",
+                        "weight": 0.55,
+                        "options": {
+                          "validChecks": ["Wrestling With Bo"],
+                          "validStatuses": ["bad"]
+                        }
+                      },
+                      {
+                        "hintType": "location",
+                        "saveToVar": "2ndLayerBoGoats",
+                        "weight": 0.45,
+                        "options": {
+                          "validChecks": ["Herding Goats Reward"],
+                          "validStatuses": ["bad"]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "selectionType": "randomOrder",
+                    "hintDef": [
+                      {
+                        "hintType": "location",
+                        "saveToVar": "2ndLayerBoGoats",
+                        "weight": 0.55,
+                        "options": {
+                          "validChecks": ["Wrestling With Bo"]
+                        }
+                      },
+                      {
+                        "hintType": "location",
+                        "saveToVar": "2ndLayerBoGoats",
+                        "weight": 0.45,
+                        "options": {
+                          "validChecks": ["Herding Goats Reward"]
+                        }
+                      }
+                    ]
                   }
                 ]
               },

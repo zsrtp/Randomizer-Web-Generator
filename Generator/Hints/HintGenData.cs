@@ -1991,11 +1991,25 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            HashSet<string> checksPathToAllGoals = new();
-            foreach (KeyValuePair<string, HashSet<Goal>> pair in checkToGoals)
+            HashSet<string> lowPriorityChecks = new();
+            if (!ListUtils.isEmpty(genData.playthroughSpheres.sphere0Checks))
             {
-                if (pair.Value.Count == goalToParentGoals.Count)
-                    checksPathToAllGoals.Add(pair.Key);
+                HashSet<string> validSphere0Checks = new();
+                foreach (string checkName in genData.playthroughSpheres.sphere0Checks)
+                {
+                    if (
+                        !CheckIdClass.GetIsHideFromUiCheckName(checkName)
+                        && !genData.unreachableChecks.Contains(checkName)
+                        && !genData.checkIsPlayerKnownStatus(checkName)
+                    )
+                        validSphere0Checks.Add(checkName);
+                }
+
+                // If sphere0 is small, then deprioritize hinting these checks. Mainly meant to
+                // handle cases where your random spawn starts you in a small room where you must
+                // get the item to escape (such as Stalfos grotto and Spinner).
+                if (validSphere0Checks.Count <= 10)
+                    lowPriorityChecks = validSphere0Checks;
             }
 
             Dictionary<string, HashSet<Goal>> checkToHintableGoals = new();
@@ -2236,8 +2250,8 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            // Deprioritize any checks which are path to all goals for each goal.
-            if (checksPathToAllGoals.Count > 0)
+            // Deprioritize any low priority checks.
+            if (lowPriorityChecks.Count > 0)
             {
                 Dictionary<Goal, List<List<string>>> newRet = new();
 
@@ -2250,7 +2264,7 @@ namespace TPRandomizer.Hints
                         List<string> filteredList = new();
                         foreach (string checkName in list)
                         {
-                            if (checksPathToAllGoals.Contains(checkName))
+                            if (lowPriorityChecks.Contains(checkName))
                                 filteredCheckNames.Add(checkName);
                             else
                                 filteredList.Add(checkName);
