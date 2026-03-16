@@ -367,7 +367,7 @@
                         "Beside Castle Town",
                         // "South of Castle Town",
                         // "Castle Town",
-                        "Great Bridge of Hylia",
+                        // "Great Bridge of Hylia", // Disabling GBoH in primary for now since selected 40% of the time
                         // "Lake Hylia",
                         // "Lake Lantern Cave",
                         "Lanayru Spring",
@@ -414,7 +414,7 @@
                     "Kakariko Graveyard",
                     "Lanayru Field",
                     "Beside Castle Town",
-                    "Great Bridge of Hylia",
+                    // "Great Bridge of Hylia",
                     "Lanayru Spring",
                     "Zora's Domain",
                     "Hyrule Castle"
