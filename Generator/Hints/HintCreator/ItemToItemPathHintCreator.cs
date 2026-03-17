@@ -50,7 +50,7 @@ namespace TPRandomizer.Hints.HintCreator
                     Item.Iron_Boots,
                     Item.Progressive_Bow,
                     Item.Filled_Bomb_Bag,
-                    Item.Aurus_Memo,
+                    // Item.Aurus_Memo,
                     Item.Spinner,
                     Item.Ball_and_Chain,
                     Item.Progressive_Dominion_Rod,

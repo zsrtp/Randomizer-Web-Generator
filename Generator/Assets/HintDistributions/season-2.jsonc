@@ -65,7 +65,8 @@
       "-lakelanterncave"
     ],
     "lakeLanternCave": ["lakelanterncave"],
-    "requiredDungeons": ["alias:requiredDungeons"]
+    "requiredDungeons": ["alias:requiredDungeons"],
+    "hyruleCastle": ["hyrulecastle"]
   },
   // Special hints generated right after Always hints are generated. These are
   // created even if the dungeon is hinted barren or the check is already hinted
@@ -183,19 +184,19 @@
           "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
         }
       }
-    },
-    {
-      "spot": "hyrule_castle_sign",
-      "hintDef": {
-        "hintType": "numItemInArea",
-        "options": {
-          "item": "Progressive_Clawshot",
-          "areaType": "province",
-          "validAreas": ["Dungeon"]
-          // "order": "desc"
-        }
-      }
     }
+    // {
+    //   "spot": "hyrule_castle_sign",
+    //   "hintDef": {
+    //     "hintType": "numItemInArea",
+    //     "options": {
+    //       "item": "Progressive_Clawshot",
+    //       "areaType": "province",
+    //       "validAreas": ["Dungeon"]
+    //       // "order": "desc"
+    //     }
+    //   }
+    // }
     // {
     //   "spot": "hyrule_castle_sign",
     //   "hintDef": {
@@ -424,29 +425,39 @@
             ]
           },
           {
-            "maxPicks": 8,
+            "maxPicks": 6,
             "hintDef": [
               {
-                "hintType": "path",
-                "saveToVar": "firstLayerPathHints",
-                "copies": 1,
-                "iterations": 4,
-                "options": {
-                  "invalidItems": ["Progressive_Sword"],
-                  // Each goal hinted at most once.
-                  "unhintedGoalsOnly": true,
-                  "validGoals": [
-                    "Diababa",
-                    "Fyrus",
-                    "Morpheel",
-                    "Stallord",
-                    "Blizzeta",
-                    "Armogohma",
-                    "Argorok",
-                    "Zant",
-                    "Hyrule_Castle"
-                  ]
-                }
+                "maxPicks": 3,
+                "hintDef": [
+                  {
+                    "hintType": "itemToItemPath",
+                    "saveToVar": "firstLayerPathHints",
+                    "copies": 1
+                  },
+                  {
+                    "hintType": "path",
+                    "saveToVar": "firstLayerPathHints",
+                    "copies": 1,
+                    "iterations": 3,
+                    "options": {
+                      "invalidItems": ["Progressive_Sword"],
+                      // Each goal hinted at most once.
+                      "unhintedGoalsOnly": true,
+                      "validGoals": [
+                        "Diababa",
+                        "Fyrus",
+                        "Morpheel",
+                        "Stallord",
+                        "Blizzeta",
+                        "Armogohma",
+                        "Argorok",
+                        "Zant"
+                        // "Hyrule_Castle"
+                      ]
+                    }
+                  }
+                ]
               },
               {
                 "hintType": "var",
@@ -469,16 +480,49 @@
               // }
             ]
           },
+          {
+            // Hint 1 dungeon sometimes
+            "hintDef": {
+              "hintType": "location",
+              // "saveToVar": "2ndLayerSometimes",
+              "options": {
+                "markAsSometimes": true,
+                "validChecks": [
+                  // "Forest Temple Central North Chest",
+                  // "Forest Temple West Tile Worm Chest Behind Stairs",
+                  "Goron Mines Outside Clawshot Chest",
+                  "Lakebed Temple Deku Toad Chest",
+                  // "Goron Mines Main Magnet Room Top Chest",
+                  "City in The Sky West Wing First Chest",
+                  // "City in The Sky Chest Behind North Fan",
+                  "Arbiters Grounds Death Sword Chest",
+                  "City in The Sky Aeralfos Chest",
+                  "Palace of Twilight Big Key Chest"
+                ]
+              }
+            }
+          },
           // Fill layer with extra copies of the IC hint and sometimes (if
           // created). Order not random so we do an extra IC hint before the
           // sometimes.
           {
-            "hintType": "var",
             "copies": 1,
             "iterations": 99,
-            "options": {
-              "varName": "firstLayerSpotFiller"
-            }
+            "hintDef": [
+              {
+                "hintType": "var",
+                "options": {
+                  "varName": "firstLayerSpotFiller"
+                }
+              },
+              {
+                "hintType": "var",
+                "options": {
+                  "varName": "firstLayerPathHints",
+                  "randomOrder": true
+                }
+              }
+            ]
           }
         ]
       }
@@ -496,9 +540,47 @@
     //   }
     // },
     {
+      "groupId": "hyruleCastle",
+      "useFillerHints": false,
+      "hintDef": [
+        {
+          "hintType": "item",
+          "options": {
+            "validItems": ["Boomerang"],
+            "areaType": "zone",
+            "validStatuses": ["bad"],
+            "allowKnownBarren": true
+          }
+        },
+        {
+          "hintType": "item",
+          "options": {
+            "validItems": ["Boomerang"],
+            "areaType": "default"
+          }
+        }
+      ]
+      //   "hintDef": {
+      //     // Wait until here so still possible for barren LLC hint.
+      //     "hintType": "importanceCount",
+      //     "options": {
+      //       "indicateImportant": false,
+      //       "validAreas": ["Lake Lantern Cave"]
+      //     }
+      //   }
+    },
+    {
       // On required dungeon signs, hint the MostSwordsProvince.
       "groupId": "requiredDungeons",
       "hintDef": [
+        {
+          "hintType": "path",
+          "saveToVar": "reqDunHcPath",
+          "options": {
+            "invalidItems": ["Progressive_Sword"],
+            "validGoals": ["Hyrule_Castle"]
+          }
+        },
         {
           "hintType": "numItemInArea",
           "saveToVar": "reqDunSwordHint",
@@ -521,7 +603,7 @@
         // },
         {
           "iterations": 99,
-          // "selectionType": "randomOrder",
+          "selectionType": "randomOrder",
           "hintDef": [
             // {
             //   "hintType": "var",
@@ -531,6 +613,14 @@
             //     // "randomOrder": true
             //   }
             // },
+            {
+              "hintType": "var",
+              // "copies": 1,
+              "options": {
+                "varName": "reqDunHcPath"
+                // "randomOrder": true
+              }
+            },
             {
               "hintType": "var",
               // "copies": 1,
@@ -552,32 +642,6 @@
           {
             "maxPicks": 5,
             "hintDef": [
-              {
-                // Hint 1 dungeon sometimes. Hard-prioritizes PoT BK chest if either
-                // PoT BK or not known barren from BeyondThisPoint hint. Note: we
-                // hint this before the Path hints so that HC King Bulblin does not
-                // get claimed by a Path hint, meaning we should always have a valid
-                // target for the sometimes.
-                "hintDef": {
-                  "hintType": "location",
-                  "saveToVar": "2ndLayerSometimes",
-                  "options": {
-                    "markAsSometimes": true,
-                    "validChecks": [
-                      "Forest Temple Central North Chest",
-                      // "Forest Temple West Tile Worm Chest Behind Stairs",
-                      "Goron Mines Outside Clawshot Chest",
-                      "Lakebed Temple Deku Toad Chest",
-                      // "Goron Mines Main Magnet Room Top Chest",
-                      "City in The Sky West Wing First Chest",
-                      // "City in The Sky Chest Behind North Fan",
-                      "Arbiters Grounds Death Sword Chest",
-                      "City in The Sky Aeralfos Chest",
-                      "Palace of Twilight Big Key Chest"
-                    ]
-                  }
-                }
-              },
               {
                 "maxPicks": 1,
                 "hintDef": [
