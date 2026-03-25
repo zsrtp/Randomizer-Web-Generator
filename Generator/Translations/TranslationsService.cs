@@ -246,6 +246,8 @@ namespace TPRandomizer
                                             return CustomMessages.heart;
                                         case "reference-mark":
                                             return CustomMessages.referenceMark;
+                                        case "thin-right-arrow":
+                                            return CustomMessages.thinRightArrow;
                                         case "nbsp":
                                             return CustomMessages.customNbsp;
                                         case "white":

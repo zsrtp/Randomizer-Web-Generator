@@ -88,7 +88,6 @@ namespace TPRandomizer.Hints
             if (shuffleDungeonEntrances != DungeonER.Off)
             {
                 HintText dungeonErHintText = new();
-                // dungeonErHintText.text = testGetReqDungeonProvincesMsg();
                 dungeonErHintText.text = testGetDungeonEntranceHint();
                 hintTexts.Add(dungeonErHintText);
             }
@@ -99,53 +98,6 @@ namespace TPRandomizer.Hints
             // hintText.text = normalizedText;
             // return new List<HintText> { hintText };
             return hintTexts;
-
-            // string context;
-            // if (!ListUtils.isEmpty(goodChecks))
-            // {
-            //     if (!includeBigKeyInfo)
-            //         context = "good";
-            //     else if (!ListUtils.isEmpty(bigKeyChecks))
-            //         context = "good-and-big-keys";
-            //     else
-            //         context = "good-no-big-keys";
-            // }
-            // else
-            // {
-            //     if (includeBigKeyInfo && !ListUtils.isEmpty(bigKeyChecks))
-            //         context = "only-big-keys";
-            //     else
-            //         context = "";
-            // }
-
-            // string bigKeysText = "";
-
-            // if (includeBigKeyInfo)
-            // {
-            //     // In the future, we may need to check this differently
-            //     // depending on how plurals work in different languages. We want
-            //     // to prioritize the "count" one, but if we pass both "count"
-            //     // and "context", then it will resolve to the "context" one
-            //     // without the "count" first. For now, just comparing if there
-            //     // are 2 or more since it works for both English and French.
-            //     Dictionary<string, string> interpolation = new();
-            //     if (bigKeyChecks.Count >= 2)
-            //         interpolation["count"] = bigKeyChecks.Count.ToString();
-            //     else
-            //         interpolation["context"] = bigKeyUseDefiniteArticle ? "def" : "indef";
-
-            //     bigKeysText = Res.Msg("hint-type.beyond-point.big-key", interpolation)
-            //         .ResolveWithColor(CustomMessages.messageColorOrange);
-            // }
-
-            // string text = Res.LangSpecificNormalize(
-            //     Res.Msg("hint-type.beyond-point", new() { { "context", context } })
-            //         .Substitute(new() { { "big-key", bigKeysText } })
-            // );
-
-            // HintText hintText = new HintText();
-            // hintText.text = text;
-            // return new List<HintText> { hintText };
         }
 
         private string GenLinkHouseSignText()
@@ -209,6 +161,7 @@ namespace TPRandomizer.Hints
                     { Zone.Hyrule_Castle, "HC" },
                 };
 
+            string rightArrow = CustomMessages.thinRightArrow;
             string divider = Res.IsCultureJa() ? "、" : ", ";
             string space = Res.IsCultureJa() ? "　" : " ";
 
@@ -226,7 +179,7 @@ namespace TPRandomizer.Hints
                     val += zoneToAbbrev[zone];
                 }
 
-                result += $"{zoneToAbbrev[pair.Key]}{space}=>{space}{val}";
+                result += $"{zoneToAbbrev[pair.Key]}{space}{rightArrow}{space}{val}";
             }
             return result;
         }
@@ -282,75 +235,6 @@ namespace TPRandomizer.Hints
 
             // Should be sorted, but go ahead and sort since we want to guarantee order.
             return filteredList.OrderBy((el) => el.Key).ToList();
-        }
-
-        private string testGetReqDungeonProvincesMsg()
-        {
-            Dictionary<Zone, Province> entranceToProvince =
-                new()
-                {
-                    { Zone.Forest_Temple, Province.Faron },
-                    { Zone.Goron_Mines, Province.Eldin },
-                    { Zone.Lakebed_Temple, Province.Lanayru },
-                    { Zone.Arbiters_Grounds, Province.Desert },
-                    { Zone.Snowpeak_Ruins, Province.Peak },
-                    { Zone.Temple_of_Time, Province.Faron },
-                    { Zone.City_in_the_Sky, Province.Lanayru },
-                    { Zone.Palace_of_Twilight, Province.Desert },
-                    { Zone.Hyrule_Castle, Province.Lanayru },
-                };
-
-            Dictionary<Province, string> provinceToColorList =
-                new()
-                {
-                    { Province.Ordona, CustomMessages.messageColorYellow },
-                    { Province.Faron, CustomMessages.messageColorGreen },
-                    { Province.Eldin, CustomMessages.messageColorRed },
-                    { Province.Lanayru, CustomMessages.messageColorBlue },
-                    { Province.Desert, CustomMessages.messageColorOrange },
-                    { Province.Peak, CustomMessages.messageColorLightBlue },
-                };
-
-            HashSet<Zone> requiredDungeonsSet = new(requiredDungeonZones);
-
-            HashSet<Province> provinces = new();
-            foreach (KeyValuePair<Zone, List<Zone>> pair in dungeonEntrances)
-            {
-                foreach (Zone pointedToZone in pair.Value)
-                {
-                    if (requiredDungeonsSet.Contains(pointedToZone))
-                    {
-                        provinces.Add(entranceToProvince[pair.Key]);
-                        break;
-                    }
-                }
-            }
-
-            if (provinces.Count < 1)
-                return null;
-
-            List<Province> provinceList = new(provinces);
-            provinceList.Sort();
-
-            StringBuilder sb =
-                new("The required dungeons are found randomly in these provinces:\n");
-            int index = 0;
-            foreach (Province province in provinceList)
-            {
-                AreaId areaId = AreaId.Province(province);
-                string color = provinceToColorList[province];
-                string areaRes = Res.Msg(areaId.GenResKey(), null, null).ResolveWithColor(color);
-
-                if (index > 0)
-                    sb.Append(", ");
-                sb.Append(areaRes);
-                index += 1;
-            }
-
-            string text = sb.ToString();
-
-            string normalized = Res.LangSpecificNormalize(text);
-            return normalized;
         }
 
         public override string encodeAsBits(HintEncodingBitLengths bitLengths)
@@ -428,30 +312,6 @@ namespace TPRandomizer.Hints
                 );
             List<HintInfo> result = new(hintInfos);
             return result;
-
-            // string hintText = toHintTextList(customMsgData)[0].text;
-
-            // HintInfo hintInfo = new(hintText);
-
-            // // if (!ListUtils.isEmpty(goodChecks))
-            // // {
-            // //     foreach (string checkName in goodChecks)
-            // //     {
-            // //         hintInfo.referencedChecks.Add(checkName);
-            // //         hintInfo.referencedItems.Add(checkNameToContents[checkName]);
-            // //     }
-            // // }
-
-            // // if (!ListUtils.isEmpty(bigKeyChecks))
-            // // {
-            // //     foreach (string checkName in bigKeyChecks)
-            // //     {
-            // //         hintInfo.referencedChecks.Add(checkName);
-            // //         hintInfo.referencedItems.Add(checkNameToContents[checkName]);
-            // //     }
-            // // }
-
-            // return hintInfo;
         }
     }
 }
