@@ -34,7 +34,7 @@ namespace TPRandomizer.Hints
         public HashSet<string> unreachableChecks = new();
         public Dictionary<AreaId, AreaCheckInfo> areaToCheckInfo = new();
         private Dictionary<string, Zone> checkNameToZone = new();
-        public Dictionary<Zone, HashSet<Zone>> dungeonEntrances = new(); // Entering Key sends to Value(s)
+        public Dictionary<Zone, List<Zone>> dungeonEntrances = new(); // Entering Key sends to Value(s)
         private HashSet<Item> defaultHintworthyItems = new();
         private Dictionary<Item, int> multiToMaxItems = new();
 
@@ -750,9 +750,9 @@ namespace TPRandomizer.Hints
             }
         }
 
-        private Dictionary<Zone, HashSet<Zone>> calcDungeonEntrances()
+        private Dictionary<Zone, List<Zone>> calcDungeonEntrances()
         {
-            Dictionary<Zone, HashSet<Zone>> result = new();
+            Dictionary<Zone, List<Zone>> result = new();
 
             List<(string, string, Zone)> exitToDungeonList =
                 new()
@@ -812,14 +812,18 @@ namespace TPRandomizer.Hints
             {
                 string srcRoom = tuple.Item1;
                 string vanillaTargetRoom = tuple.Item2;
-                Zone entranceZone = tuple.Item3;
+                Zone vanillaTargetZone = tuple.Item3;
 
                 bool exitIsNotRandomized = false;
                 Entrance exitToMatch = null;
 
-                Room dungeonEntranceRoom = Randomizer.Rooms.RoomDict[srcRoom];
-                foreach (Entrance exit in dungeonEntranceRoom.Exits)
+                Room outsideDungeonRoom = Randomizer.Rooms.RoomDict[srcRoom];
+                foreach (Entrance exit in outsideDungeonRoom.Exits)
                 {
+                    // Scan through the srcRoom's exits until we find the "srcRoom =>
+                    // vanillaTargetRoom" exit. Check if it leads to a replaced entrance. If it
+                    // does, then we calc the new zone that taking the "src => target" exit leads
+                    // to. Otherwise it leads to the vanilla zone.
                     if (exit.OriginalConnectedArea == vanillaTargetRoom)
                     {
                         exitToMatch = exit.GetReplacedEntrance();
@@ -838,7 +842,7 @@ namespace TPRandomizer.Hints
 
                 if (exitIsNotRandomized)
                 {
-                    dungeonUponEntering = entranceZone;
+                    dungeonUponEntering = vanillaTargetZone;
                 }
                 else
                 {
@@ -858,12 +862,12 @@ namespace TPRandomizer.Hints
                     dungeonUponEntering = targetDungeon;
                 }
 
-                if (!result.TryGetValue(entranceZone, out HashSet<Zone> set))
+                if (!result.TryGetValue(vanillaTargetZone, out List<Zone> destZones))
                 {
-                    set = new();
-                    result[entranceZone] = set;
+                    destZones = new();
+                    result[vanillaTargetZone] = destZones;
                 }
-                set.Add(dungeonUponEntering);
+                destZones.Add(dungeonUponEntering);
             }
 
             return result;
@@ -2145,7 +2149,7 @@ namespace TPRandomizer.Hints
             Zone hcEntrance = Zone.Invalid;
             List<Zone> reqDungeonEntrances = new();
 
-            foreach (KeyValuePair<Zone, HashSet<Zone>> pair in genData.dungeonEntrances)
+            foreach (KeyValuePair<Zone, List<Zone>> pair in genData.dungeonEntrances)
             {
                 bool isInterested = false;
                 foreach (Zone zone in interestedZones)

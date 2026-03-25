@@ -215,7 +215,7 @@ namespace TPRandomizer.Hints
                 if (
                     !genData.dungeonEntrances.TryGetValue(
                         Zone.Snowpeak_Ruins,
-                        out HashSet<Zone> beyondSprDoorsDungeons
+                        out List<Zone> beyondSprDoorsDungeons
                     )
                 )
                     throw new Exception(

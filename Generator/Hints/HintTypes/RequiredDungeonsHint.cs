@@ -1,10 +1,10 @@
 namespace TPRandomizer.Hints
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using TPRandomizer.Assets;
+    using TPRandomizer.SSettings.Enums;
     using TPRandomizer.Util;
 
     public class RequiredDungeonsHint : Hint
@@ -12,7 +12,9 @@ namespace TPRandomizer.Hints
         public override HintType type { get; } = HintType.RequiredDungeons;
 
         private byte requiredDungeons;
-        private Dictionary<Zone, HashSet<Zone>> dungeonEntrances;
+        private DungeonER shuffleDungeonEntrances;
+        private bool barrenDungeons;
+        private Dictionary<Zone, List<Zone>> dungeonEntrances;
 
         // always derived
         private List<Zone> requiredDungeonZones;
@@ -25,16 +27,22 @@ namespace TPRandomizer.Hints
         {
             return new RequiredDungeonsHint(
                 (byte)Randomizer.RequiredDungeons,
+                genData.sSettings.shuffleDungeonEntrances,
+                genData.sSettings.barrenDungeons,
                 genData.dungeonEntrances
             );
         }
 
         private RequiredDungeonsHint(
             byte requiredDungeons,
-            Dictionary<Zone, HashSet<Zone>> dungeonEntrances
+            DungeonER shuffleDungeonEntrances,
+            bool barrenDungeons,
+            Dictionary<Zone, List<Zone>> dungeonEntrances
         )
         {
             this.requiredDungeons = requiredDungeons;
+            this.shuffleDungeonEntrances = shuffleDungeonEntrances;
+            this.barrenDungeons = barrenDungeons;
             this.dungeonEntrances = dungeonEntrances;
 
             CalcDerived();
@@ -49,58 +57,6 @@ namespace TPRandomizer.Hints
                     requiredDungeonZones.Add(ZoneUtils.StringToIdThrows(pair.Key));
             }
         }
-
-        // private void CalcDerived(HintGenData genData, Dictionary<int, int> itemPlacements)
-        // {
-        //     buildCheckToItemMappings(goodChecks, itemPlacements);
-        //     buildCheckToItemMappings(bigKeyChecks, itemPlacements);
-
-        //     // When creating the hint during generation, we calculate rather
-        //     // than use input value.
-        //     if (genData != null)
-        //     {
-        //         // If we have bigKeyChecks, then do the calc.
-        //         if (!ListUtils.isEmpty(bigKeyChecks))
-        //         {
-        //             Item bigKeyItem = checkNameToContents[bigKeyChecks[0]];
-
-        //             if (
-        //                 genData.itemToChecksList.TryGetValue(
-        //                     bigKeyItem,
-        //                     out List<string> checksGivingItem
-        //                 )
-        //             )
-        //             {
-        //                 bigKeyUseDefiniteArticle = checksGivingItem.Count == 1;
-        //             }
-        //         }
-        //     }
-        // }
-
-        // private void buildCheckToItemMappings(
-        //     List<string> checkNames,
-        //     Dictionary<int, int> itemPlacements
-        // )
-        // {
-        //     if (!ListUtils.isEmpty(checkNames))
-        //     {
-        //         foreach (string checkName in checkNames)
-        //         {
-        //             Item contents;
-        //             if (itemPlacements != null)
-        //             {
-        //                 // When decoding hint from string
-        //                 contents = HintUtils.getCheckContents(checkName, itemPlacements);
-        //             }
-        //             else
-        //             {
-        //                 // When creating hint during generation
-        //                 contents = HintUtils.getCheckContents(checkName);
-        //             }
-        //             checkNameToContents[checkName] = contents;
-        //         }
-        //     }
-        // }
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
@@ -119,12 +75,18 @@ namespace TPRandomizer.Hints
             firstHintText.text = Res.LangSpecificNormalize(midnaDungeonMsg);
             hintTexts.Add(firstHintText);
 
+            // Midna's first text already indicates if there are no required dungeons, so only
+            // include more text here if there are dungeons to list.
             if (requiredDungeonZones.Count > 0)
             {
                 HintText reqDungeonsHintText = new();
                 reqDungeonsHintText.text = GenLinkHouseSignText();
                 hintTexts.Add(reqDungeonsHintText);
+            }
 
+            // Only hint dungeon entrances if dungeon ER is enabled.
+            if (shuffleDungeonEntrances != DungeonER.Off)
+            {
                 HintText dungeonErHintText = new();
                 // dungeonErHintText.text = testGetReqDungeonProvincesMsg();
                 dungeonErHintText.text = testGetDungeonEntranceHint();
@@ -230,101 +192,9 @@ namespace TPRandomizer.Hints
 
         private string testGetDungeonEntranceHint()
         {
-            // Leaving out SPR and HC for now. These should really be built according to the
-            // settings, then the order is encoded with each tier already randomized. In fact, we
-            // only need to store any entrance which should actually be hinted.
+            List<KeyValuePair<Zone, List<Zone>>> filteredList = getDungeonEntrancesToHint();
 
-            // TODO: randomization within tiers must be done using genData.rnd. For now just doing
-            // here for testing.
-            Random replaceMeRandom = new Random();
-
-            List<KeyValuePair<double, Zone>> weightedList =
-                new()
-                {
-                    new(3, Zone.Lakebed_Temple),
-                    new(3, Zone.Arbiters_Grounds),
-                    new(2, Zone.Hyrule_Castle),
-                    new(2, Zone.Goron_Mines),
-                    new(2, Zone.Temple_of_Time),
-                    new(1, Zone.City_in_the_Sky),
-                    new(1, Zone.Palace_of_Twilight),
-                    // , Zone.Arbiters_Grounds
-                    // new() { Zone.Goron_Mines, Zone.Temple_of_Time },
-                    // new() { Zone.City_in_the_Sky, Zone.Palace_of_Twilight },
-                    // new() { Zone.Forest_Temple },
-                };
-
-            VoseInstance<Zone> voseInst = VoseAlgorithm.createInstance(weightedList);
-
-            // List<List<Zone>> hintTiers =
-            //     new()
-            //     {
-            //         new() { Zone.Lakebed_Temple, Zone.Arbiters_Grounds },
-            //         new() { Zone.Goron_Mines, Zone.Temple_of_Time },
-            //         new() { Zone.City_in_the_Sky, Zone.Palace_of_Twilight },
-            //         new() { Zone.Forest_Temple },
-            //         // Hardest: SPR, HC
-            //         // Hard: LBT, AG
-            //         // Medium: ToT, GM
-            //         // Easy: CitS, PoT
-            //         // Trivial: FT
-            //     };
-
-            // foreach (List<Zone> list in hintTiers)
-            // {
-            //     HintUtils.ShuffleListInPlace(replaceMeRandom, list);
-            // }
-
-            // But for this, we want to ignore SPR & HC
-
-            List<KeyValuePair<Zone, HashSet<Zone>>> filteredList = new();
-            HashSet<Zone> entranceZones = new();
-
-            HashSet<Zone> interestedDungeonsSet = new(requiredDungeonZones);
-            interestedDungeonsSet.Add(Zone.Hyrule_Castle);
-            foreach (KeyValuePair<Zone, HashSet<Zone>> pair in dungeonEntrances)
-            {
-                foreach (Zone pointedToZone in pair.Value)
-                {
-                    if (interestedDungeonsSet.Contains(pointedToZone))
-                    {
-                        entranceZones.Add(pair.Key);
-                        filteredList.Add(pair);
-                        break;
-                    }
-                }
-            }
-
-            Zone zoneToHint = Zone.Invalid;
-
-            while (voseInst.HasMore())
-            {
-                Zone zone = voseInst.NextAndRemove(replaceMeRandom);
-                if (entranceZones.Contains(zone))
-                {
-                    zoneToHint = zone;
-                    break;
-                }
-            }
-
-            // foreach (List<Zone> list in hintTiers)
-            // {
-            //     foreach (Zone zone in list)
-            //     {
-            //         if (entranceZones.Contains(zone))
-            //         {
-            //             zoneToHint = zone;
-            //             break;
-            //         }
-            //     }
-            //     if (zoneToHint != Zone.Invalid)
-            //         break;
-            // }
-
-            List<KeyValuePair<Zone, HashSet<Zone>>> sorted = filteredList
-                .OrderBy((el) => el.Key)
-                .ToList();
-
+            // TODO: abbrev should come from translation files.
             Dictionary<Zone, string> zoneToAbbrev =
                 new()
                 {
@@ -339,27 +209,79 @@ namespace TPRandomizer.Hints
                     { Zone.Hyrule_Castle, "HC" },
                 };
 
+            string divider = Res.IsCultureJa() ? "、" : ", ";
+            string space = Res.IsCultureJa() ? "　" : " ";
+
             string result = "";
-            foreach (KeyValuePair<Zone, HashSet<Zone>> pair in sorted)
+            foreach (KeyValuePair<Zone, List<Zone>> pair in filteredList)
             {
                 if (result.Length > 0)
                     result += "\n";
-                if (true || pair.Key == zoneToHint)
-                {
-                    string val = "";
-                    foreach (Zone zone in pair.Value)
-                    {
-                        if (val.Length > 0)
-                            val += ",";
-                        val += zoneToAbbrev[zone];
-                    }
 
-                    result += $"{zoneToAbbrev[pair.Key]} => {val}";
+                string val = "";
+                foreach (Zone zone in pair.Value)
+                {
+                    if (val.Length > 0)
+                        val += divider;
+                    val += zoneToAbbrev[zone];
                 }
-                else
-                    result += $"{zoneToAbbrev[pair.Key]} => ??";
+
+                result += $"{zoneToAbbrev[pair.Key]}{space}=>{space}{val}";
             }
             return result;
+        }
+
+        private List<KeyValuePair<Zone, List<Zone>>> getDungeonEntrancesToHint()
+        {
+            // Determine which dungeons we care about.
+            HashSet<Zone> interestedDungeonsSet;
+            if (barrenDungeons)
+                interestedDungeonsSet = new(requiredDungeonZones);
+            else
+                interestedDungeonsSet = new()
+                {
+                    Zone.Forest_Temple,
+                    Zone.Goron_Mines,
+                    Zone.Lakebed_Temple,
+                    Zone.Arbiters_Grounds,
+                    Zone.Snowpeak_Ruins,
+                    Zone.Temple_of_Time,
+                    Zone.City_in_the_Sky,
+                    Zone.Palace_of_Twilight,
+                };
+
+            if (shuffleDungeonEntrances == DungeonER.Dungeon_Hyrule)
+                interestedDungeonsSet.Add(Zone.Hyrule_Castle);
+
+            // Filter to all entrances which lead to a dungeon we care about.
+            List<KeyValuePair<Zone, List<Zone>>> filteredList = new();
+            foreach (KeyValuePair<Zone, List<Zone>> pair in dungeonEntrances)
+            {
+                foreach (Zone pointedToZone in pair.Value)
+                {
+                    if (interestedDungeonsSet.Contains(pointedToZone))
+                    {
+                        // If entrance leads to List of size "> 1" (i.e., SPR doors), then merge
+                        // down to a single target zone to list if all zones in the list are the
+                        // same zone (i.e., both doors lead to the same zone). This is so we don't
+                        // get something like "SPR => GM, GM" and instead simply get "SPR => GM".
+                        if (pair.Value.Count > 1)
+                        {
+                            HashSet<Zone> uniqueTargetZones = new(pair.Value);
+                            if (uniqueTargetZones.Count == 1)
+                                filteredList.Add(new(pair.Key, new(uniqueTargetZones)));
+                            else
+                                filteredList.Add(pair);
+                        }
+                        else
+                            filteredList.Add(pair);
+                        break;
+                    }
+                }
+            }
+
+            // Should be sorted, but go ahead and sort since we want to guarantee order.
+            return filteredList.OrderBy((el) => el.Key).ToList();
         }
 
         private string testGetReqDungeonProvincesMsg()
@@ -392,7 +314,7 @@ namespace TPRandomizer.Hints
             HashSet<Zone> requiredDungeonsSet = new(requiredDungeonZones);
 
             HashSet<Province> provinces = new();
-            foreach (KeyValuePair<Zone, HashSet<Zone>> pair in dungeonEntrances)
+            foreach (KeyValuePair<Zone, List<Zone>> pair in dungeonEntrances)
             {
                 foreach (Zone pointedToZone in pair.Value)
                 {
@@ -436,13 +358,15 @@ namespace TPRandomizer.Hints
             string result = base.encodeAsBits(bitLengths);
 
             result += SettingsEncoder.EncodeNumAsBits(requiredDungeons, 8);
+            result += SettingsEncoder.EncodeNumAsBits((byte)shuffleDungeonEntrances, 2);
+            result += barrenDungeons ? "1" : "0";
 
             // Encode dungeonEntrances Dictionary
             result += SettingsEncoder.EncodeAsVlq16((ushort)dungeonEntrances.Count);
-            foreach (KeyValuePair<Zone, HashSet<Zone>> pair in dungeonEntrances)
+            foreach (KeyValuePair<Zone, List<Zone>> pair in dungeonEntrances)
             {
                 Zone zoneKey = pair.Key;
-                HashSet<Zone> destinationZones = pair.Value;
+                List<Zone> destinationZones = pair.Value;
 
                 result += SettingsEncoder.EncodeNumAsBits((byte)zoneKey, bitLengths.zoneId);
                 result += SettingsEncoder.EncodeAsVlq16((ushort)destinationZones.Count);
@@ -462,16 +386,18 @@ namespace TPRandomizer.Hints
             Dictionary<int, int> itemPlacements
         )
         {
-            Dictionary<Zone, HashSet<Zone>> dungeonEntrances = new();
+            Dictionary<Zone, List<Zone>> dungeonEntrances = new();
 
             byte requiredDungeons = processor.NextByte();
+            DungeonER shuffleDungeonEntrances = (DungeonER)processor.NextInt(2);
+            bool barrenDungeons = processor.NextBool();
 
             int numDictEntries = processor.NextVlq16();
             for (int i = 0; i < numDictEntries; i++)
             {
                 Zone zoneKey = (Zone)processor.NextInt(bitLengths.zoneId);
 
-                HashSet<Zone> value = new();
+                List<Zone> value = new();
                 dungeonEntrances[zoneKey] = value;
 
                 int numValueEntries = processor.NextVlq16();
@@ -482,7 +408,12 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            return new RequiredDungeonsHint(requiredDungeons, dungeonEntrances);
+            return new RequiredDungeonsHint(
+                requiredDungeons,
+                shuffleDungeonEntrances,
+                barrenDungeons,
+                dungeonEntrances
+            );
         }
 
         public override List<HintInfo> GetHintInfos(CustomMsgData customMsgData)
