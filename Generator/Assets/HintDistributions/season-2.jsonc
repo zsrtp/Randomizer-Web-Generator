@@ -324,82 +324,80 @@
             ]
           },
           {
-            // Prioritizes hinting importance counts 0,1,2 (weighted equally).
-            // Falls back to any count, but for S2 this is basically guaranteed
-            // not to happen.
+            // Prioritizes hinting importance counts 1,2,3 with slight
+            // preference for 1. Falls back to any count, but for S2 this is
+            // basically guaranteed not to happen.
             "maxPicks": 1,
             "hintDef": [
               {
                 "selectionType": "randomOrder",
                 "hintDef": [
-                  // {
-                  //   "hintType": "importanceCount",
-                  //   "saveToVar": "firstLayerSpotFiller",
-                  //   // "weight": 0.3,
-                  //   "options": {
-                  //     "indicateImportant": false,
-                  //     "allowedCounts": [0],
-                  //     // "validAreas": ["alias:dungeonZonesNoHc"]
-                  //     "validAreas": ["alias:dungeonZones"]
-                  //   }
-                  // },
                   {
                     "hintType": "importanceCount",
                     "saveToVar": "firstLayerSpotFiller",
-                    // "weight": 0.35,
+                    "weight": 0.4,
                     "options": {
                       "indicateImportant": false,
-                      "allowedCounts": [1, 2, 3],
-                      // "validAreas": ["alias:dungeonZonesNoHc"]
-                      // "validAreas": ["alias:dungeonZones"]
+                      "allowedCounts": [1],
                       "validAreas": [
-                        // "Ordon",
                         "Sacred Grove",
-                        // "Faron Field",
-                        // "Faron Woods",
                         "Kakariko Gorge",
-                        // "Kakariko Village",
+                        "Kakariko Village",
                         "Kakariko Graveyard",
-                        // "Eldin Field",
-                        // "North Eldin",
-                        // "Death Mountain",
-                        // "Hidden Village",
                         "Lanayru Field",
                         "Beside Castle Town",
-                        // "South of Castle Town",
-                        // "Castle Town",
-                        // "Great Bridge of Hylia", // Disabling GBoH in primary for now since selected 40% of the time
-                        // "Lake Hylia",
-                        // "Lake Lantern Cave",
+                        "Great Bridge of Hylia",
                         "Lanayru Spring",
                         "Zora's Domain",
-                        // "Upper Zora's River",
-                        // "Gerudo Desert",
-                        // "Bulblin Camp",
-                        // "Snowpeak Mountain",
-                        // "Forest Temple",
-                        // "Goron Mines",
-                        // "Lakebed Temple",
-                        // "Arbiter's Grounds",
-                        // "Snowpeak Ruins",
-                        // "Temple of Time",
-                        // "City in the Sky",
-                        // "Palace of Twilight",
+                        "Gerudo Desert",
+                        "Hyrule Castle"
+                      ]
+                    }
+                  },
+                  {
+                    "hintType": "importanceCount",
+                    "saveToVar": "firstLayerSpotFiller",
+                    "weight": 0.3,
+                    "options": {
+                      "indicateImportant": false,
+                      "allowedCounts": [2],
+                      "validAreas": [
+                        "Sacred Grove",
+                        "Kakariko Gorge",
+                        "Kakariko Village",
+                        "Kakariko Graveyard",
+                        "Lanayru Field",
+                        "Beside Castle Town",
+                        "Great Bridge of Hylia",
+                        "Lanayru Spring",
+                        "Zora's Domain",
+                        "Gerudo Desert",
+                        "Hyrule Castle"
+                      ]
+                    }
+                  },
+                  {
+                    "hintType": "importanceCount",
+                    "saveToVar": "firstLayerSpotFiller",
+                    "weight": 0.3,
+                    "options": {
+                      "indicateImportant": false,
+                      "allowedCounts": [3],
+                      "validAreas": [
+                        "Sacred Grove",
+                        "Kakariko Gorge",
+                        "Kakariko Village",
+                        "Kakariko Graveyard",
+                        "Lanayru Field",
+                        "Beside Castle Town",
+                        "Great Bridge of Hylia",
+                        "Lanayru Spring",
+                        "Zora's Domain",
+                        "Gerudo Desert",
                         "Hyrule Castle"
                       ]
                     }
                   }
-                  // {
-                  //   "hintType": "importanceCount",
-                  //   "saveToVar": "firstLayerSpotFiller",
-                  //   // "weight": 0.35,
-                  //   "options": {
-                  //     "indicateImportant": false,
-                  //     "allowedCounts": [2],
-                  //     // "validAreas": ["alias:dungeonZonesNoHc"]
-                  //     "validAreas": ["alias:dungeonZones"]
-                  //   }
-                  // }
                 ]
               },
               {
@@ -407,17 +405,17 @@
                 "saveToVar": "firstLayerSpotFiller",
                 "options": {
                   "indicateImportant": false,
-                  // "validAreas": ["alias:dungeonZonesNoHc"]
-                  // "validAreas": ["alias:dungeonZones"]
                   "validAreas": [
                     "Sacred Grove",
                     "Kakariko Gorge",
+                    "Kakariko Village",
                     "Kakariko Graveyard",
                     "Lanayru Field",
                     "Beside Castle Town",
-                    // "Great Bridge of Hylia",
+                    "Great Bridge of Hylia",
                     "Lanayru Spring",
                     "Zora's Domain",
+                    "Gerudo Desert",
                     "Hyrule Castle"
                   ]
                 }

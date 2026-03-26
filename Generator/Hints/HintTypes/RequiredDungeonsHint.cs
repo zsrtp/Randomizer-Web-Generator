@@ -144,6 +144,8 @@ namespace TPRandomizer.Hints
 
         private string testGetDungeonEntranceHint()
         {
+            // TODO: leading Midna text "Here's what we know about dungeon entrances:\n(Entrance => Dungeon)
+
             List<KeyValuePair<Zone, List<Zone>>> filteredList = getDungeonEntrancesToHint();
 
             // TODO: abbrev should come from translation files.
