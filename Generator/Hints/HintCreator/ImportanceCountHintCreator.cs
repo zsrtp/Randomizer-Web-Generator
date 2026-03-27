@@ -386,16 +386,19 @@ namespace TPRandomizer.Hints.HintCreator
 
             foreach (string checkName in checkNames)
             {
-                // Skip Excluded, and Excluded-Unrequired. Unreachable and hidden are already
-                // skipped over by the AreaCheckInfos at a high level.
-                if (HintUtils.checkIsExcluded(checkName))
+                // Skip over Vanilla, Excluded, Excluded-Unrequired, and known Plando checks.
+                // Unreachable and hidden are already skipped over by the AreaCheckInfos at a high
+                // level.
+                if (genData.checkIsPlayerKnownStatus(checkName))
                     continue;
 
                 if (!ownAreaCheckNames.Contains(checkName))
                 {
                     // This is a dependent check, but these do not actually get included in any
                     // counts. Check to see if hint should indicate that there are dependent checks
-                    // before continuing.
+                    // before continuing. Note: this if-statement should always be false, but it
+                    // remains here in case we ever change the above knownStatus check back to
+                    // purely checking for excluded.
                     if (genData.checkIsPlayerKnownStatus(checkName))
                     {
                         // Known status needs to have a major item. Since we skip over excluded

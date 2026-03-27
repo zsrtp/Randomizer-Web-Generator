@@ -23,6 +23,7 @@ namespace TPRandomizer.Hints
         // items to the locsSet. We have this here so the generator does not get stuck on a request
         // like this, but hopefully it is never relevant.
         private const int MaxSingleZigZagDurationMs = 90_000;
+        private const bool DEBUG = false;
 
         private HintGenData genData;
         private HashSet<Item> startingItemsSet = new();
@@ -53,6 +54,12 @@ namespace TPRandomizer.Hints
             }
         }
 
+        private void debugLog(string msg)
+        {
+            if (DEBUG)
+                Console.WriteLine(msg);
+        }
+
         // Returns true if was newly added to set, else false if was already in
         // the set.
         private bool markAsSometimesRequired(string checkName)
@@ -60,7 +67,7 @@ namespace TPRandomizer.Hints
             if (!condRequiredChecks.Contains(checkName))
             {
                 Item contents = HintUtils.getCheckContents(checkName);
-                Console.WriteLine($"Sometimes Required: {checkName} ({contents})");
+                debugLog($"Sometimes Required: {checkName} ({contents})");
                 condRequiredChecks.Add(checkName);
                 return true;
             }
@@ -412,7 +419,7 @@ namespace TPRandomizer.Hints
                     while (true)
                     {
                         long elapsedMs = stopwatch.ElapsedMilliseconds;
-                        Console.WriteLine(
+                        debugLog(
                             $"--Starting zigZagDown; elapsedMs for this zigZag is: {elapsedMs} ms."
                         );
                         ZigZagState step = monteCarloZigZagDown(downState, stopwatch);
@@ -436,7 +443,7 @@ namespace TPRandomizer.Hints
                     while (true)
                     {
                         long elapsedMs = stopwatch.ElapsedMilliseconds;
-                        Console.WriteLine(
+                        debugLog(
                             $"--Starting zigZagUp; elapsedMs for this zigZag is: {elapsedMs} ms."
                         );
                         ZigZagState step = monteCarloZigZagUp(upState, stopwatch);
@@ -537,7 +544,7 @@ namespace TPRandomizer.Hints
                 prevCondRequiredChecks = new(condRequiredChecks);
 
                 long elapsedMs = stopwatch.ElapsedMilliseconds;
-                Console.WriteLine(
+                debugLog(
                     $"--Finished zigZag #{zigZagNumber}; elapsedMs is: {elapsedMs} ms; consecutiveFailures is {consecutiveFailures}"
                 );
 
@@ -569,8 +576,6 @@ namespace TPRandomizer.Hints
                 // run until 5 consecutive failures instead of the normal 3.
                 int consecutiveFailureThreshold = genData.isRaceSeed ? 5 : 3;
                 if (consecutiveFailures >= consecutiveFailureThreshold && elapsedMs >= 20_000)
-                // TODO: revert temp test code change
-                // if (consecutiveFailures >= consecutiveFailureThreshold && elapsedMs >= 2_000)
                 {
                     Console.WriteLine(
                         $"Has at least {consecutiveFailureThreshold} consecutive failures (at {consecutiveFailures}) and at least 20s. Will break."

@@ -292,23 +292,19 @@ namespace TPRandomizer.Hints.HintCreator
 
             foreach (string checkName in checkNames)
             {
-                if (HintUtils.checkIsExcluded(checkName))
+                // Skip over Vanilla, Excluded, Excluded-Unrequired, and known Plando checks.
+                // Unreachable and hidden are already skipped over by the AreaCheckInfos at a high
+                // level.
+                if (genData.checkIsPlayerKnownStatus(checkName))
                     continue;
 
-                // Note: we intentionally do not skip over Vanilla checks since it led to confusion,
-                // especially for the Ilia memory quest. Since Ilia's Charm is perfectly a tradeItem
-                // (purely a proxy like Ashei's sketch / golden bugs), then it would not prevent
-                // barren when the "Ilia Memory Reward" is not major which is a nice bonus (even
-                // without importance calcs since tradeItems which end in nothing are marked
-                // notRequired). Even if it always prevented HV from being hinted barren (without
-                // importance calcs), we would still want to do this to avoid "lying" to the player.
-
-                // Note: Unreachable and hidden are already skipped over by the AreaCheckInfos at a
-                // high level, but we are no longer skipping over Vanilla checks for the reasons
-                // above. Since these checks are considered "checkIsPlayerKnownStatus" though, they
-                // do not count toward the barren weighting of an area, and if the entire area was
-                // only vanilla/excluded/knownPlando, it would not be a candidate for a barren hint
-                // since the numUnknownChecks would be 0.
+                // Note: after going back and forth, currently we skip over Vanilla checks. This
+                // avoids something like "poe souls are needed to open HC, therefore any zone with
+                // vanilla poes can never be hinted barren". The main trade-off is that Hidden
+                // Village could be hinted barren even if the final reward in Kakariko Village is
+                // useful. To counter this without doing something extreme, the Ilia Memory Reward
+                // check has been set up to be a dependent check of HV just like the North CT golden
+                // wolf.
 
                 Item contents = HintUtils.getCheckContents(checkName);
                 bool itemAllowsBarrenForArea = genData.ItemAllowsBarrenForArea(contents, areaId);

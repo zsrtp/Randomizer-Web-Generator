@@ -997,6 +997,12 @@ namespace TPRandomizer.Hints
 
             AreaCheckInfo hvInfo = areaToCheckInfo[AreaId.Zone(Zone.Hidden_Village)];
             hvInfo.dependentCheckNames.Add("North Castle Town Golden Wolf");
+            // We want to prevent HV from being hinted barren if the player needs to visit it for
+            // the trade item. It has led to confusion in the past, but we do not want to do
+            // something extreme like allowing Vanilla checks to block barren for this one case. Can
+            // revisit this more when more ER is developed or more Ilia quest work is done.
+            // Pre-completed steps should not block barren for example.
+            hvInfo.dependentCheckNames.Add("Ilia Memory Reward");
 
             // Since Goron Springwater Rush works the same way as Golden Wolves (do thing at place A
             // to spawn item at place B), have it block barren for Kak Village. It's also a common
