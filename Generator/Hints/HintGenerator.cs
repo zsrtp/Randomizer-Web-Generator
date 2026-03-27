@@ -1797,16 +1797,19 @@ namespace TPRandomizer.Hints
                     }
                 }
 
-                // Try swap single barrenZone hint which points to itself for a
-                // junk hint if enabled in settings.
-                if (hintSettings.barren.ownZoneShowsAsJunkHint && newList.Count == 1)
+                if (genData.sSettings.hintDistribution != HintDistribution.None)
                 {
-                    SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(newList[0]);
-                    if (spot.location == spotId && spotId != SpotId.Invalid)
+                    // Try swap single barrenZone hint which points to itself for a
+                    // junk hint if enabled in settings.
+                    if (hintSettings.barren.ownZoneShowsAsJunkHint && newList.Count == 1)
                     {
-                        Hint barrenAsJunkHint = new JunkHint(genData.rnd, true);
-                        newList.Clear();
-                        newList.Add(barrenAsJunkHint);
+                        SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(newList[0]);
+                        if (spot.location == spotId && spotId != SpotId.Invalid)
+                        {
+                            Hint barrenAsJunkHint = new JunkHint(genData.rnd, true);
+                            newList.Clear();
+                            newList.Add(barrenAsJunkHint);
+                        }
                     }
                 }
 
@@ -1821,6 +1824,9 @@ namespace TPRandomizer.Hints
 
         private void FillUnfilledCustomSigns(List<HintSpot> hintSpots)
         {
+            if (genData.sSettings.hintDistribution == HintDistribution.None)
+                return;
+
             HashSet<SpotId> possibleSpotsToFill =
                 new()
                 {

@@ -6,7 +6,6 @@
   },
   "agitha": true,
   "jovani": {
-    // "minFoundSoulsForHint": 0,
     "minFoundSoulsForHint": 10,
     "maxFoundSoulsForVagueItem": 20
   },
@@ -14,7 +13,7 @@
   "dungeons": {
     "bigKeyHints": true
   },
-  "beyondPointZones": ["alias:dungeons", "Snowpeak_Mountain"],
+  "beyondPointZones": ["alias:all"],
   "barren": {
     "monopolizeSpots": true,
     "ownZoneShowsAsJunkHint": true
@@ -54,17 +53,8 @@
     "overworld": [
       "alias:overworldZones",
       "-hiddenvillage",
-      "-snowpeakmountain",
-      "-lakelanterncave"
-      // "-ordon"
+      "-snowpeakmountain"
     ],
-    "overworld2nd": [
-      "alias:overworldZones",
-      "-hiddenvillage",
-      "-snowpeakmountain",
-      "-lakelanterncave"
-    ],
-    "lakeLanternCave": ["lakelanterncave"],
     "requiredDungeons": ["alias:requiredDungeons"],
     "hyruleCastle": ["hyrulecastle"]
   },
@@ -179,54 +169,6 @@
                       ]
                     }
                   },
-                  // {
-                  //   "maxPicks": 1,
-                  //   "selectionType": "randomOrder",
-                  //   "hintDef": [
-                  //     {
-                  //       "hintType": "barren",
-                  //       "options": {
-                  //         "validAreas": [
-                  //           // "Ordon",
-                  //           // "Sacred Grove",
-                  //           // "Faron Field",
-                  //           // "Faron Woods",
-                  //           // "Kakariko Village",
-                  //           // "Kakariko Graveyard",
-                  //           // "Eldin Field",
-                  //           // "Castle Town",
-                  //           // "South of Castle Town",
-                  //           // "Lake Hylia",
-                  //           // "Zora's Domain",
-                  //           // "Upper Zora's River",
-                  //           // "Gerudo Desert",
-                  //           // "category.Northern_Desert",
-                  //           // "category.Southern_Desert",
-                  //           // "Bulblin Camp"
-                  //           //
-                  //           "Sacred Grove",
-                  //           "Lanayru Field",
-                  //           "Great Bridge of Hylia",
-                  //           "Gerudo Desert",
-                  //           "category.Northern_Desert",
-                  //           "category.Southern_Desert",
-                  //           "Bulblin Camp"
-                  //         ]
-                  //       }
-                  //     },
-                  //     {
-                  //       "hintType": "barren",
-                  //       "saveToVar": "barrenHints",
-                  //       "options": {
-                  //         "validAreas": [
-                  //           "alias:overworldZones",
-                  //           "category.Northern_Desert",
-                  //           "category.Southern_Desert"
-                  //         ]
-                  //       }
-                  //     }
-                  //   ]
-                  // },
                   {
                     "hintType": "barren",
                     "iterations": 4,
@@ -255,7 +197,7 @@
                 "hintDef": [
                   {
                     "hintType": "importanceCount",
-                    "saveToVar": "firstLayerSpotFiller",
+                    "saveToVar": "firstLayerIcHint",
                     "weight": 0.4,
                     "options": {
                       "indicateImportant": false,
@@ -277,7 +219,7 @@
                   },
                   {
                     "hintType": "importanceCount",
-                    "saveToVar": "firstLayerSpotFiller",
+                    "saveToVar": "firstLayerIcHint",
                     "weight": 0.3,
                     "options": {
                       "indicateImportant": false,
@@ -299,7 +241,7 @@
                   },
                   {
                     "hintType": "importanceCount",
-                    "saveToVar": "firstLayerSpotFiller",
+                    "saveToVar": "firstLayerIcHint",
                     "weight": 0.3,
                     "options": {
                       "indicateImportant": false,
@@ -323,7 +265,7 @@
               },
               {
                 "hintType": "importanceCount",
-                "saveToVar": "firstLayerSpotFiller",
+                "saveToVar": "firstLayerIcHint",
                 "options": {
                   "indicateImportant": false,
                   "validAreas": [
@@ -344,6 +286,8 @@
             ]
           },
           {
+            // Generates at most 3 hints at 1 copy each, then fills using var
+            // until 6 hint copies total.
             "maxPicks": 6,
             "hintDef": [
               {
@@ -372,7 +316,6 @@
                         "Armogohma",
                         "Argorok",
                         "Zant"
-                        // "Hyrule_Castle"
                       ]
                     }
                   }
@@ -387,23 +330,12 @@
                   "randomOrder": true
                 }
               }
-              // {
-              //   // If fewer than 4 path hints were generated, create an extra
-              //   // sometimes which also gets used to fill extra spots. Helps
-              //   // identify when to expect less than 4 path hints.
-              //   "hintType": "sometimes",
-              //   "saveToVar": "firstLayerSpotFiller",
-              //   "options": {
-              //     "prioritizeNewZones": true
-              //   }
-              // }
             ]
           },
           {
             // Hint 1 dungeon sometimes
             "hintDef": {
               "hintType": "location",
-              // "saveToVar": "2ndLayerSometimes",
               "options": {
                 "markAsSometimes": true,
                 "validChecks": [
@@ -417,9 +349,8 @@
               }
             }
           },
-          // Fill layer with extra copies of the IC hint and sometimes (if
-          // created). Order not random so we do an extra IC hint before the
-          // sometimes.
+          // Fill layer with extra copies of the IC hint and path hints. Order
+          // not random so we do an extra IC hint before the sometimes.
           {
             "copies": 1,
             "iterations": 99,
@@ -427,7 +358,7 @@
               {
                 "hintType": "var",
                 "options": {
-                  "varName": "firstLayerSpotFiller"
+                  "varName": "firstLayerIcHint"
                 }
               },
               {
@@ -442,18 +373,6 @@
         ]
       }
     },
-    // {
-    //   // "spot": "lake_lantern_cave_sign",
-    //   "groupId": "lakeLanternCave",
-    //   "hintDef": {
-    //     // Wait until here so still possible for barren LLC hint.
-    //     "hintType": "importanceCount",
-    //     "options": {
-    //       "indicateImportant": false,
-    //       "validAreas": ["Lake Lantern Cave"]
-    //     }
-    //   }
-    // },
     {
       "groupId": "hyruleCastle",
       "useFillerHints": false,
@@ -475,17 +394,10 @@
           }
         }
       ]
-      //   "hintDef": {
-      //     // Wait until here so still possible for barren LLC hint.
-      //     "hintType": "importanceCount",
-      //     "options": {
-      //       "indicateImportant": false,
-      //       "validAreas": ["Lake Lantern Cave"]
-      //     }
-      //   }
     },
     {
-      // On required dungeon signs, hint the MostSwordsProvince.
+      // On required dungeon signs, hint an HC path hint if possible and the
+      // MostSwordsProvince.
       "groupId": "requiredDungeons",
       "hintDef": [
         {
@@ -499,49 +411,26 @@
         {
           "hintType": "numItemInArea",
           "saveToVar": "reqDunSwordHint",
-          // "copies": 99,
-          // "minCopies": 1,
           "options": {
             "item": "Progressive_Sword",
             "areaType": "province",
             "order": "desc"
           }
         },
-        // {
-        //   "hintType": "importanceCount",
-        //   "saveToVar": "reqDunHcHint",
-        //   "options": {
-        //     "indicateImportant": true,
-        //     // "allowedCounts": [0],
-        //     "validAreas": ["Hyrule Castle"]
-        //   }
-        // },
         {
           "iterations": 99,
           "selectionType": "randomOrder",
           "hintDef": [
-            // {
-            //   "hintType": "var",
-            //   // "copies": 1,
-            //   "options": {
-            //     "varName": "reqDunHcHint"
-            //     // "randomOrder": true
-            //   }
-            // },
             {
               "hintType": "var",
-              // "copies": 1,
               "options": {
                 "varName": "reqDunHcPath"
-                // "randomOrder": true
               }
             },
             {
               "hintType": "var",
-              // "copies": 1,
               "options": {
                 "varName": "reqDunSwordHint"
-                // "randomOrder": true
               }
             }
           ]
@@ -550,7 +439,7 @@
     },
     {
       // 2nd layer is "sometimes" hints
-      "groupId": "overworld2nd",
+      "groupId": "overworld",
       "hintDef": {
         "copies": 2,
         "hintDef": [
