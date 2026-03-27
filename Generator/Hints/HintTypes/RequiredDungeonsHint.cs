@@ -21,10 +21,6 @@ namespace TPRandomizer.Hints
         // always derived
         private List<Zone> requiredDungeonZones;
 
-        // TODO: since we create this hint even when HintDist is set to None, need to make sure we
-        // fully respect that regardless of what the Dungeon ER hint setting might happen to be set
-        // to.
-
         public static RequiredDungeonsHint Create(HintGenData genData)
         {
             return new RequiredDungeonsHint(
@@ -161,47 +157,21 @@ namespace TPRandomizer.Hints
             // Create leader text
             texts.Add(Res.LangSpecificNormalize(Res.SimpleMsg("midna.dungeon-entrances")));
 
-            // Dictionary<string, string> shortContext = new() { { "context", "short" } };
-            Dictionary<string, string> shortContext = new();
             Dictionary<Zone, string> zoneToAbbrev =
                 new()
                 {
-                    {
-                        Zone.Forest_Temple,
-                        Res.SimpleMsg("required-dungeon.forest-temple", shortContext)
-                    },
-                    {
-                        Zone.Goron_Mines,
-                        Res.SimpleMsg("required-dungeon.goron-mines", shortContext)
-                    },
-                    {
-                        Zone.Lakebed_Temple,
-                        Res.SimpleMsg("required-dungeon.lakebed-temple", shortContext)
-                    },
-                    {
-                        Zone.Arbiters_Grounds,
-                        Res.SimpleMsg("required-dungeon.arbiters-grounds", shortContext)
-                    },
-                    {
-                        Zone.Snowpeak_Ruins,
-                        Res.SimpleMsg("required-dungeon.snowpeak-ruins", shortContext)
-                    },
-                    {
-                        Zone.Temple_of_Time,
-                        Res.SimpleMsg("required-dungeon.temple-of-time", shortContext)
-                    },
-                    {
-                        Zone.City_in_the_Sky,
-                        Res.SimpleMsg("required-dungeon.city-in-the-sky", shortContext)
-                    },
+                    { Zone.Forest_Temple, Res.SimpleMsg("required-dungeon.forest-temple") },
+                    { Zone.Goron_Mines, Res.SimpleMsg("required-dungeon.goron-mines") },
+                    { Zone.Lakebed_Temple, Res.SimpleMsg("required-dungeon.lakebed-temple") },
+                    { Zone.Arbiters_Grounds, Res.SimpleMsg("required-dungeon.arbiters-grounds") },
+                    { Zone.Snowpeak_Ruins, Res.SimpleMsg("required-dungeon.snowpeak-ruins") },
+                    { Zone.Temple_of_Time, Res.SimpleMsg("required-dungeon.temple-of-time") },
+                    { Zone.City_in_the_Sky, Res.SimpleMsg("required-dungeon.city-in-the-sky") },
                     {
                         Zone.Palace_of_Twilight,
-                        Res.SimpleMsg("required-dungeon.palace-of-twilight", shortContext)
+                        Res.SimpleMsg("required-dungeon.palace-of-twilight")
                     },
-                    {
-                        Zone.Hyrule_Castle,
-                        Res.SimpleMsg("required-dungeon.hyrule-castle", shortContext)
-                    },
+                    { Zone.Hyrule_Castle, Res.SimpleMsg("required-dungeon.hyrule-castle") },
                 };
 
             string rightArrow = CustomMessages.thinRightArrow;
