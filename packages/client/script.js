@@ -62,11 +62,11 @@ const presetsMgr = (function () {
         'Season 1 tournament settings. Good for a quick seed or to learn racing basics.',
     },
     {
-      name: 'Season 1.5',
+      name: 'Season 2',
       origSettingsStr:
-        '6sQ5x2kPC_v6L92PDQG1WG6GmP8HvayVFbyej6er6fXtFuThzqEbqkbqkbqk5mE1mE1mE1mE1mE1mE1mE1mVydGzAuL6D8C1bIJCWIu8n03x7bhmS4Lg6KGHSdwVb-5-9v_NyMfDHo75bNPOCgqKEji2DM4xpnEv5MY1f5WI8vnIOKX4aQ0ubrZ1aiHjGS-2eBLqIQDCP4c5q7K80i_YZ81YrGTfp56Dfbr46LstSJXIZ19nfIAO8wIG9GJN6QqarDCWx0j5fQmOT0qGuDuvNUTz_aXPyopT8ObWG_-20AImAReCPOASeCRmC70Aw0ABGC5eCfGCd0CeWAouAemAvWAYeAU8AoeAE8CEGAceAkGCWWCs0EYWCTOCLOAmOB_u',
+        '6s28A0EPC_v6592PDQe0aD36qP8HvayV8PylbwFL5ertFuTgvVkXqkbqkbqkbmk1mE1mE1mE1mE1mE1mE1mE3_aw7fN2enf1WCgIPa2N1680VOyjU3WYjGoY2Ba_JylmlnFBKcev3Yohii6LQA7Ms16h2TvudSYhH0qYm95OHnBh639OZQWvy5GMheaqQOo9CBeEeG1P_56G35gWxJcACRJBg8Chjkud2b62JZIaK8x136T984e9fqECrf9gQP1s1QBIrWmdRe6Y71l7A40KFyaBFcMRf34i27_q7ZLZZKg0WG1IM1JT1JB1Jb1JU1Gu1NG1HQ1Gj1LA1Ku1L41MN1L61NC1KL1Jn1ML1Hn1Ho1Kr1Lo1K41OX1OW1OV1OU1OT1OS1OR1OQ1OP1OM1OJ1PL1PK1PJ1PI1PH1PE1PD1PC1PB1PA1P91P81P71PG1PF1P61OI1OH1OF1OE1OD1OC1OB1OA1O91O81O61O51O41O31On1Om1Ok1Oj1Oi1Mm1qK1Zh1Yh1M31V_',
       description:
-        'Temporary test settings. Will be replaced with Season 2 once it is ready.',
+        'Season 2 tournament settings. These are the latest tournament settings.',
     },
   ];
 
