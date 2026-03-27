@@ -460,6 +460,7 @@
       { id: 'hintImportanceFieldset', bitLength: 2 },
       { id: 'noPlandoHintsCheckbox' },
       { id: 'adjustHintsForCompletionistsCheckbox' },
+      { id: 'hintDungeonEntrancesCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -972,6 +973,7 @@
       processBasic({ id: 'hintImportance', bitLength: 2 });
       processBasic({ id: 'noPlandoHints' });
       processBasic({ id: 'adjustHintsForCompletionists' });
+      processBasic({ id: 'hintDungeonEntrances' });
     } else {
       res.randomizeStartingPoint = false; // Vanilla
       res.hiddenRupees = false; // Vanilla
@@ -1009,6 +1011,7 @@
       res.hintImportance = 0;
       res.noPlandoHints = false;
       res.adjustHintsForCompletionists = false;
+      res.hintDungeonEntrances = false;
     }
 
     res.startingItems = processor.nextEolList(9);

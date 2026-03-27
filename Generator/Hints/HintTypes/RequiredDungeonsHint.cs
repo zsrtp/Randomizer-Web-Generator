@@ -13,6 +13,7 @@ namespace TPRandomizer.Hints
         public override HintType type { get; } = HintType.RequiredDungeons;
 
         private byte requiredDungeons;
+        private bool hintDungeonEntrances;
         private DungeonER shuffleDungeonEntrances;
         private bool barrenDungeons;
         private Dictionary<Zone, List<Zone>> dungeonEntrances;
@@ -28,6 +29,7 @@ namespace TPRandomizer.Hints
         {
             return new RequiredDungeonsHint(
                 (byte)Randomizer.RequiredDungeons,
+                genData.sSettings.hintDungeonEntrances,
                 genData.sSettings.shuffleDungeonEntrances,
                 genData.sSettings.barrenDungeons,
                 genData.dungeonEntrances
@@ -36,12 +38,14 @@ namespace TPRandomizer.Hints
 
         private RequiredDungeonsHint(
             byte requiredDungeons,
+            bool hintDungeonEntrances,
             DungeonER shuffleDungeonEntrances,
             bool barrenDungeons,
             Dictionary<Zone, List<Zone>> dungeonEntrances
         )
         {
             this.requiredDungeons = requiredDungeons;
+            this.hintDungeonEntrances = hintDungeonEntrances;
             this.shuffleDungeonEntrances = shuffleDungeonEntrances;
             this.barrenDungeons = barrenDungeons;
             this.dungeonEntrances = dungeonEntrances;
@@ -145,8 +149,8 @@ namespace TPRandomizer.Hints
         {
             List<string> texts = new();
 
-            // // Only hint dungeon entrances if dungeon ER is enabled.
-            if (shuffleDungeonEntrances == DungeonER.Off)
+            // Only hint dungeon entrances if hint was requested and dungeon ER is enabled.
+            if (!hintDungeonEntrances || shuffleDungeonEntrances == DungeonER.Off)
                 return texts;
 
             List<KeyValuePair<Zone, List<Zone>>> filteredList = getDungeonEntrancesToHint();
@@ -289,6 +293,7 @@ namespace TPRandomizer.Hints
         {
             string result = base.encodeAsBits(bitLengths);
 
+            result += hintDungeonEntrances ? "1" : "0";
             result += SettingsEncoder.EncodeNumAsBits(requiredDungeons, 8);
             result += SettingsEncoder.EncodeNumAsBits((byte)shuffleDungeonEntrances, 2);
             result += barrenDungeons ? "1" : "0";
@@ -320,6 +325,7 @@ namespace TPRandomizer.Hints
         {
             Dictionary<Zone, List<Zone>> dungeonEntrances = new();
 
+            bool hintDungeonEntrances = processor.NextBool();
             byte requiredDungeons = processor.NextByte();
             DungeonER shuffleDungeonEntrances = (DungeonER)processor.NextInt(2);
             bool barrenDungeons = processor.NextBool();
@@ -342,6 +348,7 @@ namespace TPRandomizer.Hints
 
             return new RequiredDungeonsHint(
                 requiredDungeons,
+                hintDungeonEntrances,
                 shuffleDungeonEntrances,
                 barrenDungeons,
                 dungeonEntrances

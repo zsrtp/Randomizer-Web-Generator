@@ -79,6 +79,7 @@ namespace TPRandomizer
         public HintImportance hintImportance { get; set; }
         public bool noPlandoHints { get; set; }
         public bool adjustHintsForCompletionists { get; set; }
+        public bool hintDungeonEntrances { get; set; }
         public List<Item> startingItems { get; set; }
         public List<string> excludedChecks { get; set; }
         public List<(string, Item)> plandoChecks { get; set; }
@@ -153,6 +154,7 @@ namespace TPRandomizer
             hintImportance = (HintImportance)processor.NextInt(2);
             noPlandoHints = processor.NextBool();
             adjustHintsForCompletionists = processor.NextBool();
+            hintDungeonEntrances = processor.NextBool();
             // We sort these lists so that the order which the UI happens to
             // pass the data up does not affect anything.
             startingItems = processor.NextItemList();
