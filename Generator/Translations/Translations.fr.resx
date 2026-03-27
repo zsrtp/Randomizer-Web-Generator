@@ -2225,6 +2225,10 @@
     <value>Au spawn</value>
     <comment></comment>
   </data>
+  <data name="midna.dungeon-entrances" xml:space="preserve">
+    <value>Voici ce que nous savons à propos des entrées des donjons :\n#(red)(Entrée #(thin-right-arrow) Donjon)</value>
+    <comment></comment>
+  </data>
   <data name="midna.grouped-barren-hints" xml:space="preserve">
     <value>Il est dit qu&apos;il n&apos;y a #(purple)rien#(white) à trouver dans les zones suivantes :</value>
     <comment></comment>

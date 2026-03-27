@@ -175,13 +175,17 @@ namespace TPRandomizer.Hints
                 };
 
             string rightArrow = CustomMessages.thinRightArrow;
-            string divider = Res.IsCultureJa() ? "、" : ", ";
-            string space = Res.IsCultureJa() ? "　" : " ";
+            bool isJapanese = Res.IsCultureJa();
 
-            string result = "";
+            string divider = isJapanese ? "、" : ", ";
+            string space = isJapanese ? "　" : " ";
+
+            // For non-JP, reduce font size to 0x54 (default appears to be 0x60?)
+            string result = isJapanese ? "" : "\x1A\x07\xFF\x00\x01\x00\x54";
+            int index = 0;
             foreach (KeyValuePair<Zone, List<Zone>> pair in filteredList)
             {
-                if (result.Length > 0)
+                if (index > 0)
                     result += "\n";
 
                 string val = "";
@@ -189,17 +193,22 @@ namespace TPRandomizer.Hints
                 {
                     if (val.Length > 0)
                         val += divider;
+
                     val += zoneToAbbrev[zone];
                 }
 
                 string normalizedRow = Res.LangSpecificNormalize(
-                    $"{zoneToAbbrev[pair.Key]}{space}{rightArrow}{space}{val}"
+                    $"{zoneToAbbrev[pair.Key]}{space}{rightArrow}{space}{val}",
+                    maxLength: 45
                 );
 
+                // Indent if on multiple lines
                 if (normalizedRow.Contains('\n'))
                     result += Regex.Replace(normalizedRow, "\n", "\n    ");
                 else
                     result += normalizedRow;
+
+                index += 1;
             }
             texts.Add(result);
 
