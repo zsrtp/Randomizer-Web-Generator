@@ -329,7 +329,7 @@ const presetsMgr = (function () {
     }
     const name = getNameForSettingsString(settingsString);
     if (!name) {
-      $('#presetsSelect').val(null).trigger('change.select2');
+      $('#presetsSelect').val(null).trigger('change');
     }
   }
 
