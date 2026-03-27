@@ -2325,6 +2325,10 @@
     <value>Mine Goron</value>
     <comment></comment>
   </data>
+  <data name="required-dungeon.hyrule-castle" xml:space="preserve">
+    <value>Château d&apos;Hyrule</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.lakebed-temple" xml:space="preserve">
     <value>Temple Abyssal</value>
     <comment></comment>

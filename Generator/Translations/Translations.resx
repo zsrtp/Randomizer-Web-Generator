@@ -1913,6 +1913,10 @@
     <value>Spawn</value>
     <comment></comment>
   </data>
+  <data name="midna.dungeon-entrances" xml:space="preserve">
+    <value>Here&apos;s what we know about dungeon entrances:\n#(red)(Entrance #(thin-right-arrow) Dungeon)</value>
+    <comment></comment>
+  </data>
   <data name="midna.grouped-barren-hints" xml:space="preserve">
     <value>They say that there is #(purple)nothing#(white) to be found in the following areas:</value>
     <comment></comment>
@@ -1981,20 +1985,48 @@
     <value>Arbiter&apos;s Grounds</value>
     <comment></comment>
   </data>
+  <data name="required-dungeon.arbiters-grounds$short" xml:space="preserve">
+    <value>AG</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.city-in-the-sky" xml:space="preserve">
     <value>City in the Sky</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.city-in-the-sky$short" xml:space="preserve">
+    <value>CitS</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.forest-temple" xml:space="preserve">
     <value>Forest Temple</value>
     <comment></comment>
   </data>
+  <data name="required-dungeon.forest-temple$short" xml:space="preserve">
+    <value>FT</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.goron-mines" xml:space="preserve">
     <value>Goron Mines</value>
     <comment></comment>
   </data>
+  <data name="required-dungeon.goron-mines$short" xml:space="preserve">
+    <value>GM</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.hyrule-castle" xml:space="preserve">
+    <value>Hyrule Castle</value>
+    <comment>Used by RequiredDungeonsHint for dungeon entrances</comment>
+  </data>
+  <data name="required-dungeon.hyrule-castle$short" xml:space="preserve">
+    <value>HC</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.lakebed-temple" xml:space="preserve">
     <value>Lakebed Temple</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.lakebed-temple$short" xml:space="preserve">
+    <value>LBT</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.none" xml:space="preserve">
@@ -2005,12 +2037,24 @@
     <value>Palace of Twilight</value>
     <comment></comment>
   </data>
+  <data name="required-dungeon.palace-of-twilight$short" xml:space="preserve">
+    <value>PoT</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.snowpeak-ruins" xml:space="preserve">
     <value>Snowpeak Ruins</value>
     <comment></comment>
   </data>
+  <data name="required-dungeon.snowpeak-ruins$short" xml:space="preserve">
+    <value>SPR</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.temple-of-time" xml:space="preserve">
     <value>Temple of Time</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.temple-of-time$short" xml:space="preserve">
+    <value>ToT</value>
     <comment></comment>
   </data>
   <data name="self-hinter.barnes-bomb-bag" xml:space="preserve">

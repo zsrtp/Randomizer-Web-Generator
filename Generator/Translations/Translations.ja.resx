@@ -177,6 +177,10 @@
     <value>スポーン地点</value>
     <comment></comment>
   </data>
+  <data name="midna.dungeon-entrances" xml:space="preserve">
+    <value>ダンジョンの入口について\nわかっていることは　これ\n#(red)（入口　#(thin-right-arrow)　ダンジョン）</value>
+    <comment></comment>
+  </data>
   <data name="midna.required-dungeons" xml:space="preserve">
     <value>必須ダンジョンが　#(red){count}つ#(white)ある・・・</value>
     <comment></comment>

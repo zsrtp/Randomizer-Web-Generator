@@ -205,6 +205,10 @@
     <value>Mine der Goronen</value>
     <comment></comment>
   </data>
+  <data name="required-dungeon.hyrule-castle" xml:space="preserve">
+    <value>Schloss Hyrule</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.lakebed-temple" xml:space="preserve">
     <value>Seeschrein</value>
     <comment></comment>

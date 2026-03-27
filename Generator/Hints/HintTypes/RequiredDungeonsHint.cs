@@ -3,6 +3,7 @@ namespace TPRandomizer.Hints
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
     using TPRandomizer.Assets;
     using TPRandomizer.SSettings.Enums;
     using TPRandomizer.Util;
@@ -84,19 +85,17 @@ namespace TPRandomizer.Hints
                 hintTexts.Add(reqDungeonsHintText);
             }
 
-            // Only hint dungeon entrances if dungeon ER is enabled.
-            if (shuffleDungeonEntrances != DungeonER.Off)
+            List<string> dungeonEntranceHintTexts = testGetDungeonEntranceHint();
+            if (!ListUtils.isEmpty(dungeonEntranceHintTexts))
             {
-                HintText dungeonErHintText = new();
-                dungeonErHintText.text = testGetDungeonEntranceHint();
-                hintTexts.Add(dungeonErHintText);
+                foreach (string text in dungeonEntranceHintTexts)
+                {
+                    HintText dungeonErHintText = new();
+                    dungeonErHintText.text = text;
+                    hintTexts.Add(dungeonErHintText);
+                }
             }
 
-            // string normalizedText = Res.LangSpecificNormalize(text);
-
-            // HintText hintText = new HintText();
-            // hintText.text = normalizedText;
-            // return new List<HintText> { hintText };
             return hintTexts;
         }
 
@@ -142,25 +141,63 @@ namespace TPRandomizer.Hints
             return normalized;
         }
 
-        private string testGetDungeonEntranceHint()
+        private List<string> testGetDungeonEntranceHint()
         {
-            // TODO: leading Midna text "Here's what we know about dungeon entrances:\n(Entrance => Dungeon)
+            List<string> texts = new();
+
+            // // Only hint dungeon entrances if dungeon ER is enabled.
+            if (shuffleDungeonEntrances == DungeonER.Off)
+                return texts;
 
             List<KeyValuePair<Zone, List<Zone>>> filteredList = getDungeonEntrancesToHint();
 
-            // TODO: abbrev should come from translation files.
+            if (ListUtils.isEmpty(filteredList))
+                return texts;
+
+            // Create leader text
+            texts.Add(Res.LangSpecificNormalize(Res.SimpleMsg("midna.dungeon-entrances")));
+
+            // Dictionary<string, string> shortContext = new() { { "context", "short" } };
+            Dictionary<string, string> shortContext = new();
             Dictionary<Zone, string> zoneToAbbrev =
                 new()
                 {
-                    { Zone.Forest_Temple, "FT" },
-                    { Zone.Goron_Mines, "GM" },
-                    { Zone.Lakebed_Temple, "LBT" },
-                    { Zone.Arbiters_Grounds, "AG" },
-                    { Zone.Snowpeak_Ruins, "SPR" },
-                    { Zone.Temple_of_Time, "ToT" },
-                    { Zone.City_in_the_Sky, "CitS" },
-                    { Zone.Palace_of_Twilight, "PoT" },
-                    { Zone.Hyrule_Castle, "HC" },
+                    {
+                        Zone.Forest_Temple,
+                        Res.SimpleMsg("required-dungeon.forest-temple", shortContext)
+                    },
+                    {
+                        Zone.Goron_Mines,
+                        Res.SimpleMsg("required-dungeon.goron-mines", shortContext)
+                    },
+                    {
+                        Zone.Lakebed_Temple,
+                        Res.SimpleMsg("required-dungeon.lakebed-temple", shortContext)
+                    },
+                    {
+                        Zone.Arbiters_Grounds,
+                        Res.SimpleMsg("required-dungeon.arbiters-grounds", shortContext)
+                    },
+                    {
+                        Zone.Snowpeak_Ruins,
+                        Res.SimpleMsg("required-dungeon.snowpeak-ruins", shortContext)
+                    },
+                    {
+                        Zone.Temple_of_Time,
+                        Res.SimpleMsg("required-dungeon.temple-of-time", shortContext)
+                    },
+                    {
+                        Zone.City_in_the_Sky,
+                        Res.SimpleMsg("required-dungeon.city-in-the-sky", shortContext)
+                    },
+                    {
+                        Zone.Palace_of_Twilight,
+                        Res.SimpleMsg("required-dungeon.palace-of-twilight", shortContext)
+                    },
+                    {
+                        Zone.Hyrule_Castle,
+                        Res.SimpleMsg("required-dungeon.hyrule-castle", shortContext)
+                    },
                 };
 
             string rightArrow = CustomMessages.thinRightArrow;
@@ -181,9 +218,18 @@ namespace TPRandomizer.Hints
                     val += zoneToAbbrev[zone];
                 }
 
-                result += $"{zoneToAbbrev[pair.Key]}{space}{rightArrow}{space}{val}";
+                string normalizedRow = Res.LangSpecificNormalize(
+                    $"{zoneToAbbrev[pair.Key]}{space}{rightArrow}{space}{val}"
+                );
+
+                if (normalizedRow.Contains('\n'))
+                    result += Regex.Replace(normalizedRow, "\n", "\n    ");
+                else
+                    result += normalizedRow;
             }
-            return result;
+            texts.Add(result);
+
+            return texts;
         }
 
         private List<KeyValuePair<Zone, List<Zone>>> getDungeonEntrancesToHint()
