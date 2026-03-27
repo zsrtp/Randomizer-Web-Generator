@@ -72,32 +72,13 @@
   // created even if the dungeon is hinted barren or the check is already hinted
   // barren by a BeyondThisPoint hint.
   "specialHintDefs": [
-    // {
-    //   "spot": "ordon_sign",
-    //   "hintDef": [
-    //     {
-    //       "hintType": "location",
-    //       "options": {
-    //         "canBeClaimHinted": true,
-    //         "validStatuses": ["bad"],
-    //         "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
-    //       }
-    //     },
-    //     {
-    //       "hintType": "location",
-    //       "options": {
-    //         "canBeClaimHinted": true,
-    //         "validChecks": ["Herding Goats Reward", "Wrestling With Bo"]
-    //       }
-    //     }
-    //   ]
-    // },
     {
       "spot": "forest_temple_sign",
       "hintDef": {
         "hintType": "location",
         "options": {
           "canBeClaimHinted": true,
+          "checkStatusDisplay": "required_info",
           "validChecks": ["Forest Temple Gale Boomerang"]
         }
       }
@@ -111,6 +92,7 @@
             "hintType": "location",
             "options": {
               "canBeClaimHinted": true,
+              "checkStatusDisplay": "required_info",
               "validChecks": [
                 "Snowpeak Ruins Chapel Chest",
                 "Snowpeak Ruins Lobby Chandelier Chest",
@@ -123,6 +105,7 @@
             "hintType": "location",
             "options": {
               "canBeClaimHinted": true,
+              "checkStatusDisplay": "required_info",
               "validChecks": [
                 "Snowpeak Ruins Chapel Chest",
                 "Snowpeak Ruins Lobby Chandelier Chest",
@@ -139,6 +122,7 @@
         "hintType": "location",
         "options": {
           "canBeClaimHinted": true,
+          "checkStatusDisplay": "required_info",
           "validChecks": ["Temple of Time Darknut Chest"]
         }
       }
@@ -154,26 +138,6 @@
         }
       }
     },
-    // {
-    //   "spot": "hyrule_castle_sign",
-    //   "hintDef": {
-    //     "hintType": "item",
-    //     "options": {
-    //       "validItems": ["Purple_Rupee_Links_House"],
-    //       "areaType": "zone"
-    //     }
-    //   }
-    // }
-    // {
-    //   "spot": "hyrule_castle_sign",
-    //   "hintDef": {
-    //     "hintType": "importanceCount",
-    //     "options": {
-    //       "indicateImportant": true,
-    //       "validAreas": ["Hyrule Castle"]
-    //     }
-    //   }
-    // },
     {
       "spot": "hyrule_castle_sign",
       "hintDef": {
@@ -185,49 +149,6 @@
         }
       }
     }
-    // {
-    //   "spot": "hyrule_castle_sign",
-    //   "hintDef": {
-    //     "hintType": "numItemInArea",
-    //     "options": {
-    //       "item": "Progressive_Clawshot",
-    //       "areaType": "province",
-    //       "validAreas": ["Dungeon"]
-    //       // "order": "desc"
-    //     }
-    //   }
-    // }
-    // {
-    //   "spot": "hyrule_castle_sign",
-    //   "hintDef": {
-    //     "hintType": "path",
-    //     "options": {
-    //       "invalidItems": ["Progressive_Sword"],
-    //       "validGoals": ["Ganondorf"]
-    //     }
-    //   }
-    // }
-    // {
-    //   "spot": "hyrule_castle_sign",
-    //   "hintDef": [
-    //     {
-    //       "hintType": "item",
-    //       "options": {
-    //         "validItems": ["Boomerang"],
-    //         "areaType": "zone",
-    //         "validStatuses": ["bad"],
-    //         "allowKnownBarren": true
-    //       }
-    //     },
-    //     {
-    //       "hintType": "item",
-    //       "options": {
-    //         "validItems": ["Boomerang"],
-    //         "areaType": "province"
-    //       }
-    //     }
-    //   ]
-    // }
   ],
   "hints": [
     {
@@ -486,14 +407,10 @@
               "options": {
                 "markAsSometimes": true,
                 "validChecks": [
-                  // "Forest Temple Central North Chest",
-                  // "Forest Temple West Tile Worm Chest Behind Stairs",
                   "Goron Mines Outside Clawshot Chest",
                   "Lakebed Temple Deku Toad Chest",
-                  // "Goron Mines Main Magnet Room Top Chest",
-                  "City in The Sky West Wing First Chest",
-                  // "City in The Sky Chest Behind North Fan",
                   "Arbiters Grounds Death Sword Chest",
+                  "City in The Sky West Wing First Chest",
                   "City in The Sky Aeralfos Chest",
                   "Palace of Twilight Big Key Chest"
                 ]
