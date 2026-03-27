@@ -67,7 +67,7 @@ namespace TPRandomizer.Hints
             if (!condRequiredChecks.Contains(checkName))
             {
                 Item contents = HintUtils.getCheckContents(checkName);
-                debugLog($"Sometimes Required: {checkName} ({contents})");
+                Console.WriteLine($"Sometimes Required: {checkName} ({contents})");
                 condRequiredChecks.Add(checkName);
                 return true;
             }

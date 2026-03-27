@@ -2107,7 +2107,6 @@ namespace TPRandomizer.Hints
             {
                 goalToHintableChecksList[pair.Key] = new() { new(pair.Value) };
 
-                // TODO: temp logging
                 string goalName = pair.Key.goalEnum.ToString();
                 foreach (string checkName in pair.Value)
                 {
@@ -2129,7 +2128,6 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            // TODO: below other than the return is also temp logging.
             HashSet<string> requiredDungeonZones = HintUtils.getRequiredDungeonZones();
             HashSet<Zone> interestedZones = new() { Zone.Hyrule_Castle };
             foreach (string zoneName in requiredDungeonZones)
@@ -2189,15 +2187,6 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            // string dungeonEntranceProvincesStr = "";
-            // foreach (Province province in reqDanjEntrProvinces)
-            // {
-            //     if (dungeonEntranceProvincesStr.Length > 0)
-            //         dungeonEntranceProvincesStr += ", ";
-            //     dungeonEntranceProvincesStr += province.ToString();
-            // }
-            // Console.WriteLine($"Dungeon entrance provinces: {dungeonEntranceProvincesStr}");
-
             List<Zone> requiredDungeons = new();
             foreach (string zoneName in requiredDungeonZones)
             {
@@ -2208,16 +2197,6 @@ namespace TPRandomizer.Hints
 
             reqDungeonEntrances.Sort();
             logList("Dungeon entrances for reqDungeons", reqDungeonEntrances);
-            // string str = "";
-            // // foreach (Province province in reqDanjEntrProvinces)
-            // foreach (Zone element in reqDungeonEntrances)
-            // {
-            //     if (str.Length > 0)
-            //         str += ", ";
-            //     str += element.ToString();
-            // }
-            // // Console.WriteLine($"Dungeon entrance provinces: {str}");
-            // Console.WriteLine($"Dungeon entrances for reqDungeons: {str}");
 
             List<Province> reqDanjEntrProvincesList = new(reqDanjEntrProvinces);
             reqDanjEntrProvincesList.Sort();
@@ -2312,30 +2291,4 @@ namespace TPRandomizer.Hints
             Console.WriteLine($"{startStr}: {str}");
         }
     }
-
-    // Dungeon entrance knowledge tracker
-
-    // If you know dungeons A and B are in Faron Province and you know which is behind FT, then it
-    // is pointless to hint the other one.
-
-    // However, if you only know that dungeons may be in Faron Province but not how many, then you
-    // don't know what might be behind the ToT entrance. It might not even be a required dungeon.
-
-    // So in terms of knowledge, we can say we know these things:
-    // Dungeon => where it could be.
-    // We also know "where it could not be" to be all dungeon entrances which are already known.
-
-    // So we get the list of "where it could be" and take away all "where it could not be", and then
-    // we would get a list of "where it could be". If there is only one place "where it could be",
-    // then we can mark it as known. So we would need to keep iterating until we add 0 new known
-    // dungeon entrances based on the info (since a newly found one would change the "where it could
-    // not be" for the other ones, they would need to be attempted again).
-
-    // In the case of only hinting general provinces, each required dungeon would have potential
-    // entrances be any entrances in those provinces. Ex: if Peak, Eldin, and Faron, then possible
-    // entrances are SPR, GM, FT, and ToT.
-
-    // When we know there are 3 required dungeons and 3 provinces, we must know they are in
-    // different provinces. So if we were to know that FT had a required dungeon for example, then
-    // we would know that ToT is nothing.
 }
