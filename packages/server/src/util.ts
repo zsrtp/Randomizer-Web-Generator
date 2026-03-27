@@ -51,7 +51,7 @@ function callGeneratorAsync(args: string[], cb: callGeneratorCb) {
     generatorExePath,
     args,
     {
-      maxBuffer: 2 * 1024 * 1024, // Double from default. Can improve this during rewrite
+      maxBuffer: 4 * 1024 * 1024, // 4x the default. Can improve this during rewrite
     },
     <execFileCb>((error, stdout, stderr) => {
       if (error) {
