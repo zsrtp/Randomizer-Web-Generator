@@ -205,6 +205,10 @@
     <value>ゴロン鉱山</value>
     <comment></comment>
   </data>
+  <data name="required-dungeon.hyrule-castle" xml:space="preserve">
+    <value>ハイラル城</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.lakebed-temple" xml:space="preserve">
     <value>湖底の神殿</value>
     <comment></comment>
