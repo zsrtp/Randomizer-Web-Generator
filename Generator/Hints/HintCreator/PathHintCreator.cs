@@ -66,7 +66,6 @@ namespace TPRandomizer.Hints.HintCreator
             BarrenPenalizer barrenPenalizer
         )
         {
-            // List<PathHint> pathHints = genPathHints(genData, numHints);
             List<PathHint> pathHints = genPathHints2(genData, numHints);
             if (pathHints != null)
             {
@@ -78,38 +77,6 @@ namespace TPRandomizer.Hints.HintCreator
 
         private List<PathHint> genPathHints2(HintGenData genData, int numHintsDesired)
         {
-            // Priorities [reqDungeon, Zant, HC, Ganondorf]
-
-            // We only attempt to do the priorities once! If we fail to generate any from a unique
-            // combination, then we just try to generate normally from these.
-
-            // In any case, once we finish messing we those, we permanently don't try again. After
-            // that point, we just do them like this: [...reqDungeons, Zant, HC, Ganondorf], trying
-            // to make sure each one is hinted a single time.
-
-            // Then after each has been hinted at least once, we just randomly pick them to hint.
-
-            //
-
-            // If we have not generated any path hints which count toward one per goal yet, then we
-            // should try to do the fancy picking to get different zones.
-
-            // We want to avoid adding goals such that the number of goals is greater than the
-            // number we are trying to pick. For example, if we are only picking 2 and adding the
-            // first tier (req dungeons) gives us 3 goals, then we should not continue to add HC to
-            // the list. Otherwise we get something like [FT, GM, LBT, HC] for example, where if we
-            // are hinting 2, it could pick something like [GM, HC] and give us an HC hint even
-            // though we have not already attempted to generate at least one hint per dungeon.
-
-            // So we should first add required dungeons. That's always good. Then if the numDesired
-            // is greater than what we have, we can try to add additional goals. However, if adding
-            // the additional goal would cause the combined list to go higher than numDesired, we
-            // don't add it and we instead proceed with what we have.
-
-            // In the case that we have already done the fancy thing, or attempted it and it did or
-            // did not work, we mark it as never doing that again. Then from that point forward, we
-            // handle it like this:
-
             List<PathHint> createdHints = new();
 
             if (!genData.goalManager.attemptedPriorityPicks)
@@ -318,23 +285,6 @@ namespace TPRandomizer.Hints.HintCreator
                 goal.goalEnum
             );
             return hint;
-
-            // // Mark zone as hinted for that goal
-            // goalToHintedZones[pair.Key].Add(selectedZone);
-
-            // // Create path hint for this goal and check
-            // Item contents = HintUtils.getCheckContents(selectedCheckName);
-            // // Mark checkName as directed toward
-            // genData.hinted.alreadyCheckDirectedToward.Add(selectedCheckName);
-            // hintedChecks.Add(selectedCheckName);
-
-            // PathHint hint = new PathHint(
-            //     AreaId.ZoneStr(selectedZone),
-            //     selectedCheckName,
-            //     pair.Key.goalEnum
-            // );
-            // pathHints.Add(hint);
-
         }
 
         private List<GoalInfo> getPriorityGoals(HintGenData genData, int numHintsDesired)
@@ -659,7 +609,6 @@ namespace TPRandomizer.Hints.HintCreator
 
         private List<PathHint> pickPathHintsFromResults(
             HintGenData genData,
-            // List<KeyValuePair<Goal, List<string>>> primaryList,
             List<GoalInfo> primaryList,
             Dictionary<string, int> results,
             List<List<int>> combinations,
