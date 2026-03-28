@@ -42,10 +42,23 @@ namespace TPRandomizer.Hints
             CustomMsgData.Builder customMsgDataBuilder =
                 new(genData, (byte)Randomizer.RequiredDungeons);
 
+            SpotToHints specialSpotToHints = new SpotToHints();
+            SpotToHints normalSpotToHints = new SpotToHints();
+
+            // We put the requiredDungeons hint on Midna, even if hints were set to none.
+            specialSpotToHints.addHintToSpot(SpotId.Midna, RequiredDungeonsHint.Create(genData));
+
             // If user specified that there are no hintSettings, then we should
             // return the default customMsgData settings.
             if (genData.sSettings.hintDistribution == HintDistribution.None)
+            {
+                List<HintSpot> noHintsSpotList = CreateHintSpotList(
+                    specialSpotToHints,
+                    normalSpotToHints
+                );
+                customMsgDataBuilder.SetHintSpots(noHintsSpotList);
                 return customMsgDataBuilder.Build(genData.sSettings);
+            }
 
             hintSettings = HintSettings.fromPath(genData);
 
@@ -59,9 +72,6 @@ namespace TPRandomizer.Hints
 
             if (hintSettings.starting.excludeFromGroups)
                 removeSpotFromMutableGroups(hintSettings.starting.spot);
-
-            SpotToHints specialSpotToHints = new SpotToHints();
-            SpotToHints normalSpotToHints = new SpotToHints();
 
             // Agitha
             if (hintSettings.agitha)
@@ -1164,8 +1174,9 @@ namespace TPRandomizer.Hints
                     );
                 checkInfoList.Add(checkInfo);
 
-                // Mark check as hinted
-                genData.hinted.alreadyCheckContentsHinted.Add(checkName);
+                // Update hinted. If it says "unhinted" on the sign, can still be Path hinted, etc.
+                if (!unhinted)
+                    genData.hinted.alreadyCheckContentsHinted.Add(checkName);
             }
 
             if (!ListUtils.isEmpty(checkInfoList))
@@ -1310,6 +1321,7 @@ namespace TPRandomizer.Hints
                     { Zone.Arbiters_Grounds, Item.Arbiters_Grounds_Big_Key },
                     { Zone.Temple_of_Time, Item.Temple_of_Time_Big_Key },
                     { Zone.City_in_the_Sky, Item.City_in_The_Sky_Big_Key },
+                    { Zone.Palace_of_Twilight, Item.Palace_of_Twilight_Big_Key },
                 };
 
             if (!zoneToBigKey.TryGetValue(zone, out Item bigKeyItem))
@@ -1785,16 +1797,19 @@ namespace TPRandomizer.Hints
                     }
                 }
 
-                // Try swap single barrenZone hint which points to itself for a
-                // junk hint if enabled in settings.
-                if (hintSettings.barren.ownZoneShowsAsJunkHint && newList.Count == 1)
+                if (genData.sSettings.hintDistribution != HintDistribution.None)
                 {
-                    SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(newList[0]);
-                    if (spot.location == spotId && spotId != SpotId.Invalid)
+                    // Try swap single barrenZone hint which points to itself for a
+                    // junk hint if enabled in settings.
+                    if (hintSettings.barren.ownZoneShowsAsJunkHint && newList.Count == 1)
                     {
-                        Hint barrenAsJunkHint = new JunkHint(genData.rnd, true);
-                        newList.Clear();
-                        newList.Add(barrenAsJunkHint);
+                        SpotId spotId = HintUtils.TryGetSpotIdForBarrenZoneHint(newList[0]);
+                        if (spot.location == spotId && spotId != SpotId.Invalid)
+                        {
+                            Hint barrenAsJunkHint = new JunkHint(genData.rnd, true);
+                            newList.Clear();
+                            newList.Add(barrenAsJunkHint);
+                        }
                     }
                 }
 
@@ -1809,6 +1824,9 @@ namespace TPRandomizer.Hints
 
         private void FillUnfilledCustomSigns(List<HintSpot> hintSpots)
         {
+            if (genData.sSettings.hintDistribution == HintDistribution.None)
+                return;
+
             HashSet<SpotId> possibleSpotsToFill =
                 new()
                 {

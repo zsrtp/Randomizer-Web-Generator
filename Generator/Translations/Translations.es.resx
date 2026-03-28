@@ -177,6 +177,10 @@
     <value>Spawn</value>
     <comment>Intentionally leaving as Spawn</comment>
   </data>
+  <data name="midna.dungeon-entrances" xml:space="preserve">
+    <value>Esto es lo que sabemos sobre las entradas a las mazmorras:\n#(red)(Entrada #(thin-right-arrow) Mazmorra)</value>
+    <comment></comment>
+  </data>
   <data name="midna.required-dungeons" xml:space="preserve">
     <value>Hay #(red)1#(white) mazmorra requerida:</value>
     <comment></comment>
@@ -203,6 +207,10 @@
   </data>
   <data name="required-dungeon.goron-mines" xml:space="preserve">
     <value>Minas de los Goron</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.hyrule-castle" xml:space="preserve">
+    <value>Castillo de Hyrule</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.lakebed-temple" xml:space="preserve">

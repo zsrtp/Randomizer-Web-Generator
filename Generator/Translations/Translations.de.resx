@@ -177,6 +177,10 @@
     <value>Spawn</value>
     <comment>Intentionally still Spawn</comment>
   </data>
+  <data name="midna.dungeon-entrances" xml:space="preserve">
+    <value>Das hier wissen wir bereits über die Dungeon-Eingänge:\n#(red)(Eingang #(thin-right-arrow) Dungeon)</value>
+    <comment></comment>
+  </data>
   <data name="midna.required-dungeons" xml:space="preserve">
     <value>Es ist #(red)1#(white) Dungeon erforderlich:</value>
     <comment></comment>
@@ -203,6 +207,10 @@
   </data>
   <data name="required-dungeon.goron-mines" xml:space="preserve">
     <value>Mine der Goronen</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.hyrule-castle" xml:space="preserve">
+    <value>Schloss Hyrule</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.lakebed-temple" xml:space="preserve">

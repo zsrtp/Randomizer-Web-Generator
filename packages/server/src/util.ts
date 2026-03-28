@@ -47,17 +47,20 @@ function callGeneratorBuf(args: string[], cb: callGeneratorBufCb) {
 }
 
 function callGeneratorAsync(args: string[], cb: callGeneratorCb) {
-  const childProcess = execFile(generatorExePath, args, <execFileCb>((
-    error,
-    stdout,
-    stderr
-  ) => {
-    if (error) {
-      cb(error);
-    } else {
-      cb(null, stdout);
-    }
-  }));
+  const childProcess = execFile(
+    generatorExePath,
+    args,
+    {
+      maxBuffer: 4 * 1024 * 1024, // 4x the default. Can improve this during rewrite
+    },
+    <execFileCb>((error, stdout, stderr) => {
+      if (error) {
+        cb(error);
+      } else {
+        cb(null, stdout);
+      }
+    })
+  );
 
   return childProcess;
 }

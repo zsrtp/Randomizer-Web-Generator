@@ -153,6 +153,21 @@ namespace TPRandomizer.Hints
             "Hyrule Castle Ganondorf"
         );
 
+        private static readonly Dictionary<GoalEnum, Goal> goalEnumToGoal =
+            new()
+            {
+                { GoalEnum.Diababa, Diababa },
+                { GoalEnum.Fyrus, Fyrus },
+                { GoalEnum.Morpheel, Morpheel },
+                { GoalEnum.Stallord, Stallord },
+                { GoalEnum.Blizzeta, Blizzeta },
+                { GoalEnum.Armogohma, Armogohma },
+                { GoalEnum.Argorok, Argorok },
+                { GoalEnum.Zant, Zant },
+                { GoalEnum.Hyrule_Castle, Hyrule_Castle },
+                { GoalEnum.Ganondorf, Ganondorf },
+            };
+
         public static readonly Dictionary<string, Goal> requiredDungeonHintZoneToGoal =
             new()
             {
@@ -409,6 +424,13 @@ namespace TPRandomizer.Hints
 
             return requiredDungeonHintZoneToGoal.ContainsValue(goal);
         }
+
+        public static Goal getGoalFromEnumThrows(GoalEnum goalEnum)
+        {
+            if (!goalEnumToGoal.TryGetValue(goalEnum, out Goal goal))
+                throw new Exception($"Failed to find Goal for GoalEnum '{goalEnum}'.");
+            return goal;
+        }
     }
 
     public class HintUtils
@@ -610,7 +632,8 @@ namespace TPRandomizer.Hints
         public static Dictionary<Goal, List<string>> calculateGoalsRequiredChecks(
             Room startingRoom,
             List<List<KeyValuePair<int, Item>>> spheres,
-            SharedSettings sSettings
+            SharedSettings sSettings,
+            HashSet<Goal> goalsFromDungeons = null
         )
         {
             HashSet<string> maybeRequiredCheckNames = new();
@@ -624,7 +647,8 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            HashSet<Goal> goalsFromDungeons = getGoalsBasedOnDungeons(sSettings);
+            if (goalsFromDungeons == null)
+                goalsFromDungeons = getGoalsBasedOnDungeons(sSettings);
 
             bool startWithBigKeys =
                 sSettings.bigKeySettings == BigKeySettings.Anywhere
@@ -638,7 +662,7 @@ namespace TPRandomizer.Hints
             );
         }
 
-        private static HashSet<Goal> getGoalsBasedOnDungeons(SharedSettings sSettings)
+        public static HashSet<Goal> getGoalsBasedOnDungeons(SharedSettings sSettings)
         {
             HashSet<Goal> result = new();
 

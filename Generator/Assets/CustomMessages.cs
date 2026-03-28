@@ -35,6 +35,7 @@ namespace TPRandomizer.Assets
         public const string maleSign = "\x1A\x05\x06\x00\x02";
         public const string femaleSign = "\x1A\x05\x06\x00\x03";
         public const string referenceMark = "\x1A\x05\x06\x00\x05";
+        public const string thinRightArrow = "\x1A\x05\x06\x00\x07";
         public const string customNbsp = "\x1A\x05\xCC\x00\x00";
 
         // Unused for now but who knows.

@@ -197,6 +197,8 @@ namespace TPRandomizer
                     return "\u2640";
                 case CustomMessages.referenceMark:
                     return "\u203B";
+                case CustomMessages.thinRightArrow:
+                    return "\u2192";
                 case CustomMessages.playerName:
                     return "Link";
                 case CustomMessages.horseName:

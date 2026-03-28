@@ -228,7 +228,31 @@ namespace TPRandomizer.Hints.HintCreator
                     )
                 );
 
+                // Mark hinted.
                 genData.hinted.hintedImportanceCountAreas.Add(pia.areaId);
+                if (pia.getLeadingCountIsZero())
+                {
+                    // If we hint an area as having 0 important/major checks, then mark the
+                    // barrenableChecks as known dead so we do not create location hints for them
+                    // for example.
+                    foreach (string checkName in pia.barrenableChecks)
+                    {
+                        genData.hinted.AddHintedBarrenCheck(checkName);
+                    }
+
+                    // TODO: (this would not be used for now, so can worry about it later) Could
+                    // potentially do the below code as well. HintedBarrenZones does matter for the
+                    // dungeon "maxBarrenZones" hint setting and it could be confusing for
+                    // monopolizeBarren as well (though not used there?). Better to give the
+                    // property on `hinted` an accurate name and use it.
+
+                    // // If no relevant dependent checks, then 0 count should be the same as barren.
+                    // if (!pia.hasRelevantDependentChecks && pia.areaId.type == AreaId.AreaType.Zone)
+                    // {
+                    //     Zone zone = ZoneUtils.StringToIdThrows(pia.areaId.stringId);
+                    //     genData.hinted.hintedBarrenZones.Add(zone);
+                    // }
+                }
             }
 
             return hints;
@@ -362,16 +386,19 @@ namespace TPRandomizer.Hints.HintCreator
 
             foreach (string checkName in checkNames)
             {
-                // Skip Excluded, and Excluded-Unrequired. Unreachable and hidden are already
-                // skipped over by the AreaCheckInfos at a high level.
-                if (HintUtils.checkIsExcluded(checkName))
+                // Skip over Vanilla, Excluded, Excluded-Unrequired, and known Plando checks.
+                // Unreachable and hidden are already skipped over by the AreaCheckInfos at a high
+                // level.
+                if (genData.checkIsPlayerKnownStatus(checkName))
                     continue;
 
                 if (!ownAreaCheckNames.Contains(checkName))
                 {
                     // This is a dependent check, but these do not actually get included in any
                     // counts. Check to see if hint should indicate that there are dependent checks
-                    // before continuing.
+                    // before continuing. Note: this if-statement should always be false, but it
+                    // remains here in case we ever change the above knownStatus check back to
+                    // purely checking for excluded.
                     if (genData.checkIsPlayerKnownStatus(checkName))
                     {
                         // Known status needs to have a major item. Since we skip over excluded
@@ -408,6 +435,11 @@ namespace TPRandomizer.Hints.HintCreator
                     else
                         pia.majorChecks.Add(checkName);
                 }
+
+                // If the area is hinted as 0 important or 0 major, non-skipped checks should still
+                // be added to `alreadyCheckKnownBarren` even if they are not considered 'unknown'
+                // for determining if it is useful to hint the area as barren.
+                pia.barrenableChecks.Add(checkName);
 
                 if (CheckIsUnknownStatus(genData, checkName))
                 {
@@ -513,6 +545,47 @@ namespace TPRandomizer.Hints.HintCreator
                     }
                     break;
                 }
+                case "dungeonzones":
+                {
+                    HashSet<Zone> dungeonZones =
+                        new()
+                        {
+                            Zone.Forest_Temple,
+                            Zone.Goron_Mines,
+                            Zone.Lakebed_Temple,
+                            Zone.Arbiters_Grounds,
+                            Zone.Snowpeak_Ruins,
+                            Zone.Temple_of_Time,
+                            Zone.City_in_the_Sky,
+                            Zone.Palace_of_Twilight,
+                            Zone.Hyrule_Castle,
+                        };
+                    foreach (Zone zone in dungeonZones)
+                    {
+                        result.Add(AreaId.Zone(zone));
+                    }
+                    break;
+                }
+                case "dungeonzonesnohc":
+                {
+                    HashSet<Zone> dungeonZones =
+                        new()
+                        {
+                            Zone.Forest_Temple,
+                            Zone.Goron_Mines,
+                            Zone.Lakebed_Temple,
+                            Zone.Arbiters_Grounds,
+                            Zone.Snowpeak_Ruins,
+                            Zone.Temple_of_Time,
+                            Zone.City_in_the_Sky,
+                            Zone.Palace_of_Twilight,
+                        };
+                    foreach (Zone zone in dungeonZones)
+                    {
+                        result.Add(AreaId.Zone(zone));
+                    }
+                    break;
+                }
                 default:
                     throw new Exception($"Failed to resolve alias '{alias}'.");
             }
@@ -523,6 +596,7 @@ namespace TPRandomizer.Hints.HintCreator
         {
             public AreaId areaId { get; private set; }
             public bool hasRelevantDependentChecks;
+            public HashSet<string> barrenableChecks = new();
             public HashSet<string> importantChecks = new();
             public HashSet<string> majorChecks = new();
             public bool indicatesImportant { get; private set; }
@@ -532,6 +606,13 @@ namespace TPRandomizer.Hints.HintCreator
             {
                 this.areaId = areaId;
                 this.indicatesImportant = indicatesImportant;
+            }
+
+            public bool getLeadingCountIsZero()
+            {
+                if (indicatesImportant)
+                    return importantChecks.Count == 0;
+                return majorChecks.Count == 0;
             }
         }
     }

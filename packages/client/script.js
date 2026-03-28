@@ -7,63 +7,66 @@ const presetsMgr = (function () {
   const SYSTEM_PRESETS = [
     {
       name: 'Default',
-      origSettingsStr: '6sfN9m000201W216000W4-WN__y',
+      origSettingsStr: '6s1N9m000201W216000W4-WJ__-',
       description:
         'Aimed towards players who may have played the vanilla game but are not as familiar with the world. No timesavers are enabled and only the absolute minimum amount of checks are randomized.',
     },
     {
       name: 'Easy',
-      origSettingsStr: '6s9g9gn9_V01W218000W4-WN_NvUpwJ0dd1OTYrGTeol_0',
+      origSettingsStr: '6sHg9gn9_V01W218000W4-WJ_hylPz9WJpWiEnQeEqPN_W',
       description:
         'Aimed towards players who are familiar with randomizers and want a little more randomness. Many of the story timesavers are skipped and the world is much more random. A number of time-intensive checks are excluded.',
     },
     {
       name: 'Experienced',
-      origSettingsStr: '6sfQ9lxS_R9nq216000W4-WGoUV__y',
+      origSettingsStr: '6s1Q9lxS_R9nq216000W4-WGPFF__-',
       description:
         'These settings are aimed towards players who have a lot of seeds under their belt and are looking for a new challenge. A majority of timesavers are enabled, all check types are randomized, and no checks are excluded.',
     },
     {
       name: 'Full Randomness',
-      origSettingsStr: '6sfN4lxR_V81i2X9W7Y04-WN__y',
+      origSettingsStr: '6s1N4lxR_V81i2X9W7Y04-WJ__-',
       description:
         'These settings are for those who want the full randomizer experience: all possible checks randomized, entrance rando, and a majority of timesavers enabled. No fluff, just rando.',
     },
     {
       name: 'Quick and Easy',
-      origSettingsStr: '6sfv029C_V6yT2fAO00W502GoGZp7u_8188YG5WxLolNxeU__NudbG3bsYc_y',
+      origSettingsStr:
+        '6sPu029C_V6yT2fAO00W502GP8HvZyVa0a4H82mTgvNhzqVzVYUL0ENQAR_m',
       description:
         'These settings are for those who want a quick seed that requires less searching and more playing.',
     },
     {
       name: 'Nightmare',
-      origSettingsStr: '6sHP6lxS_PW0iB81WNaJm-WGo___W',
+      origSettingsStr: '6sPP6lxS_PW0iB81WNaJm-WGPV__m',
       description:
         'These settings are designed to cause pain. Everything is randomized and settings such as One-Hit-KO, Bonks Do Damage, and Nightmare trap items are enabled. These seeds rely on glitchless logic to be beatable. Good luck.',
     },
     {
       name: 'Glitched',
-      origSettingsStr: '6sHPKlxS_R11i298002Ku-WGo___W',
-      description: 'This preset is just commonly used settings when running/racing a glitched seed.',
+      origSettingsStr: '6sPPKlxS_R11i298002Ku-WGPV__m',
+      description:
+        'This preset is just commonly used settings when running/racing a glitched seed.',
     },
     {
       name: 'No Logic',
-      origSettingsStr: '6sfWbFxS_VM4O21AW0204-WGoUQG7QkN___y',
-      description: 'This preset is just commonly used settings when running/racing a no logic seed.',
+      origSettingsStr: '6s1WbFxS_VM4O21AW020G-WGPFD83jNB___-',
+      description:
+        'This preset is just commonly used settings when running/racing a no logic seed.',
     },
     {
       name: 'Season 1',
       origSettingsStr:
-        '6sQ4N2kPC__6KD2P2001W4-WGoGZp9u-VBvHQDHgDJ3kVo_TBfTBfTBfS3WS3WS3WS3WS3WS3WS3WS7_9qFIkOqWm6L9Co18n03x7bhmS4Lg6KML15o3Ps6AJz-dWVb-4hNuddzVnQd1JKSXnPLsJnEv5IESKc58H96WE9TOmPB4RK7FWg2rT4cZJ6H9XT1r20BFueo0OjK7QSnHZQPTH1bTPstSJXIZ19nfIAO8wIG9GJN6QqarDCWx0j5fQmOJjq3H3WtZb2X_YcI5dpBDqXYM13_m',
+        '6sY4N2kPC__6KD2P2001WG-WGP8HvayVFbyej6er6fXtFvVkbqkbqkbqk1mE1mE1mE1mE1mE1mE1mE3_aw7fNCQGO3AacP0aOW1zZoruE2Ar3ABAWYv1ix359-_JmFo_2LhyJp-lujJWfgEGuigx9udSYf7EAJ2a8aZG74kiOCbYDg3dmL1QkYJHfZ8amkWwX05dyKP0CMg3jEOenjCkeWokixRk9mfHWauqf5C4T984e9hZDQIQccGTWMYqjOC9sw1eXmRnoXG_nJ92pvbcwGnB0X_u',
       description:
         'Season 1 tournament settings. Good for a quick seed or to learn racing basics.',
     },
     {
-      name: 'Season 1.5',
+      name: 'Season 2',
       origSettingsStr:
-        '6sI5x2kPC_v6L92PDQG1W46GmoGZp9u-VBvHQDHgDJ3kVmxNxeTBfTBfTBfSBWS3WS3WS3WS3WS3WS3WS3W_vEXwLmgCQGO3AacP0bmHY07sFBNWu8hKCeWYvFq_ByByJp-lujIQZaEBAkomPLeeTRO4Qi9tdYToAj43IB0aHpYamf298q1nBh639OZQWvy5GMheaqQOo9CBeEeG1P_56G35gWxJcACRJBg8Chjkud2b62JZIaKmHqaWIWckCrf9gQP1s1QBIrWmw1eXmRnokyxx_92pvbcwGnB0X_y40KbWKtGOomKvGOtWOE0Lq0KMWOBGPIWPE0PH0LbmLHWLp0L5GKyGLbGKSGOSWLDGLSWP10Pi0T50OwmOgmLWmN_m',
+        '6s28A0EPC_v6592PDQe0aD36qP8HvayV8PylbwFL5ertFuTgvVkXqkbqkbqkbmk1mE1mE1mE1mE1mE1mE1mE3_aw7fN2enf1WCgIPa2N1680VOyjU3WYjGoY2Ba_JylmlnFBKcev3Yohii6LQA7Ms16h2TvudSYhH0qYm95OHnBh639OZQWvy5GMheaqQOo9CBeEeG1P_56G35gWxJcACRJBg8Chjkud2b62JZIaK8x136T984e9fqECrf9gQP1s1QBIrWmdRe6Y71l7A40KFyaBFcMRf34i27_q7ZLZZKg0WG1IM1JT1JB1Jb1JU1Gu1NG1HQ1Gj1LA1Ku1L41MN1L61NC1KL1Jn1ML1Hn1Ho1Kr1Lo1K41OX1OW1OV1OU1OT1OS1OR1OQ1OP1OM1OJ1PL1PK1PJ1PI1PH1PE1PD1PC1PB1PA1P91P81P71PG1PF1P61OI1OH1OF1OE1OD1OC1OB1OA1O91O81O61O51O41O31On1Om1Ok1Oj1Oi1Mm1qK1Zh1Yh1M31V_',
       description:
-        'Temporary test settings. Will be replaced with Season 2 once it is ready.',
+        'Season 2 tournament settings. These are the latest tournament settings.',
     },
   ];
 
@@ -326,7 +329,7 @@ const presetsMgr = (function () {
     }
     const name = getNameForSettingsString(settingsString);
     if (!name) {
-      $('#presetsSelect').val(null).trigger('change.select2');
+      $('#presetsSelect').val(null).trigger('change');
     }
   }
 
@@ -872,6 +875,9 @@ document
   .addEventListener('click', setSettingsString);
 document
   .getElementById('adjustHintsForCompletionistsCheckbox')
+  .addEventListener('click', setSettingsString);
+document
+  .getElementById('hintDungeonEntrancesCheckbox')
   .addEventListener('click', setSettingsString);
 
 function importSettingsString() {
@@ -2413,6 +2419,7 @@ function populateSSettings(s) {
     'checked',
     s.adjustHintsForCompletionists
   );
+  $('#hintDungeonEntrancesCheckbox').prop('checked', s.hintDungeonEntrances);
 
   const $excludedChecksParent = $('#baseExcludedChecksListbox');
   s.excludedChecks.forEach((checkNumId) => {

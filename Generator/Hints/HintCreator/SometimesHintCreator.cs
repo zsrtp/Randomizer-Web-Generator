@@ -13,6 +13,7 @@ namespace TPRandomizer.Hints.HintCreator
         private SometimesHintCreator()
         {
             this.markAsSometimes = true;
+            this.actingAsSometimes = true;
         }
 
         new public static SometimesHintCreator fromJObject(JObject obj)
@@ -20,7 +21,17 @@ namespace TPRandomizer.Hints.HintCreator
             SometimesHintCreator inst = new SometimesHintCreator();
 
             if (obj.ContainsKey("options"))
-                throw new Exception("'options' not supported on SometimesHintCreator for now.");
+            {
+                JObject options = (JObject)obj["options"];
+
+                // Note: name has no "sometimes" in it, but we include it in the code to be
+                // explicit.
+                inst.prioritizeNewSometimesZones = HintSettingUtils.getOptionalBool(
+                    options,
+                    "prioritizeNewZones",
+                    inst.prioritizeNewSometimesZones
+                );
+            }
 
             return inst;
         }

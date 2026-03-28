@@ -17,6 +17,7 @@ namespace TPRandomizer.Hints
         public HintVars vars { get; }
 
         public Dictionary<Goal, List<string>> goalToRequiredChecks { get; set; }
+        public GoalManager goalManager { get; }
         public HashSet<string> requiredChecks { get; set; }
         public bool didCondReqCalc { get; private set; } = false;
         public HashSet<string> condReqChecks { get; set; } = new();
@@ -33,7 +34,7 @@ namespace TPRandomizer.Hints
         public HashSet<string> unreachableChecks = new();
         public Dictionary<AreaId, AreaCheckInfo> areaToCheckInfo = new();
         private Dictionary<string, Zone> checkNameToZone = new();
-        public Dictionary<Zone, HashSet<Zone>> dungeonEntrances = new(); // Entering Key sends to Value(s)
+        public Dictionary<Zone, List<Zone>> dungeonEntrances = new(); // Entering Key sends to Value(s)
         private HashSet<Item> defaultHintworthyItems = new();
         private Dictionary<Item, int> multiToMaxItems = new();
 
@@ -62,6 +63,8 @@ namespace TPRandomizer.Hints
 
             if (sSettings.logicRules != LogicRules.No_Logic)
             {
+                goalManager = new(this);
+
                 goalToRequiredChecks = HintUtils.calculateGoalsRequiredChecks(
                     startingRoom,
                     playthroughSpheres.spheres,
@@ -747,9 +750,9 @@ namespace TPRandomizer.Hints
             }
         }
 
-        private Dictionary<Zone, HashSet<Zone>> calcDungeonEntrances()
+        private Dictionary<Zone, List<Zone>> calcDungeonEntrances()
         {
-            Dictionary<Zone, HashSet<Zone>> result = new();
+            Dictionary<Zone, List<Zone>> result = new();
 
             List<(string, string, Zone)> exitToDungeonList =
                 new()
@@ -809,14 +812,18 @@ namespace TPRandomizer.Hints
             {
                 string srcRoom = tuple.Item1;
                 string vanillaTargetRoom = tuple.Item2;
-                Zone entranceZone = tuple.Item3;
+                Zone vanillaTargetZone = tuple.Item3;
 
                 bool exitIsNotRandomized = false;
                 Entrance exitToMatch = null;
 
-                Room dungeonEntranceRoom = Randomizer.Rooms.RoomDict[srcRoom];
-                foreach (Entrance exit in dungeonEntranceRoom.Exits)
+                Room outsideDungeonRoom = Randomizer.Rooms.RoomDict[srcRoom];
+                foreach (Entrance exit in outsideDungeonRoom.Exits)
                 {
+                    // Scan through the srcRoom's exits until we find the "srcRoom =>
+                    // vanillaTargetRoom" exit. Check if it leads to a replaced entrance. If it
+                    // does, then we calc the new zone that taking the "src => target" exit leads
+                    // to. Otherwise it leads to the vanilla zone.
                     if (exit.OriginalConnectedArea == vanillaTargetRoom)
                     {
                         exitToMatch = exit.GetReplacedEntrance();
@@ -835,7 +842,7 @@ namespace TPRandomizer.Hints
 
                 if (exitIsNotRandomized)
                 {
-                    dungeonUponEntering = entranceZone;
+                    dungeonUponEntering = vanillaTargetZone;
                 }
                 else
                 {
@@ -855,12 +862,12 @@ namespace TPRandomizer.Hints
                     dungeonUponEntering = targetDungeon;
                 }
 
-                if (!result.TryGetValue(entranceZone, out HashSet<Zone> set))
+                if (!result.TryGetValue(vanillaTargetZone, out List<Zone> destZones))
                 {
-                    set = new();
-                    result[entranceZone] = set;
+                    destZones = new();
+                    result[vanillaTargetZone] = destZones;
                 }
-                set.Add(dungeonUponEntering);
+                destZones.Add(dungeonUponEntering);
             }
 
             return result;
@@ -990,6 +997,12 @@ namespace TPRandomizer.Hints
 
             AreaCheckInfo hvInfo = areaToCheckInfo[AreaId.Zone(Zone.Hidden_Village)];
             hvInfo.dependentCheckNames.Add("North Castle Town Golden Wolf");
+            // We want to prevent HV from being hinted barren if the player needs to visit it for
+            // the trade item. It has led to confusion in the past, but we do not want to do
+            // something extreme like allowing Vanilla checks to block barren for this one case. Can
+            // revisit this more when more ER is developed or more Ilia quest work is done.
+            // Pre-completed steps should not block barren for example.
+            hvInfo.dependentCheckNames.Add("Ilia Memory Reward");
 
             // Since Goron Springwater Rush works the same way as Golden Wolves (do thing at place A
             // to spawn item at place B), have it block barren for Kak Village. It's also a common
@@ -1536,6 +1549,8 @@ namespace TPRandomizer.Hints
         public readonly HashSet<Zone> hintedBarrenZones = new();
         public readonly HashSet<AreaId> hintedWothAreas = new();
         public readonly HashSet<AreaId> hintedImportanceCountAreas = new();
+        public readonly HashSet<Zone> hintedDungeonEntranceSources = new();
+        public readonly HashSet<Zone> hintedSometimesHintZones = new();
         public bool agithaHintedDead = false;
 
         // private
@@ -1757,5 +1772,523 @@ namespace TPRandomizer.Hints
         public bool hasUnknownChecks;
         public HashSet<AreaId> dependentAreaIds { get; } = new();
         public HashSet<string> dependentCheckNames { get; } = new();
+    }
+
+    public class GoalManager
+    {
+        private static readonly Goal zantBossRoomGoal = Goal.Room("Palace of Twilight Boss Room");
+
+        private static readonly List<HashSet<Goal>> leafGoalPriorities =
+            new()
+            {
+                new()
+                {
+                    GoalConstants.Diababa,
+                    GoalConstants.Fyrus,
+                    GoalConstants.Morpheel,
+                    GoalConstants.Stallord,
+                    GoalConstants.Blizzeta,
+                    GoalConstants.Armogohma,
+                    GoalConstants.Argorok,
+                },
+                new() { zantBossRoomGoal },
+                new() { GoalConstants.Zant },
+                new() { GoalConstants.Hyrule_Castle },
+                new() { GoalConstants.Ganondorf },
+            };
+
+        private static readonly Dictionary<Goal, List<Goal>> goalToForbidden =
+            new()
+            {
+                {
+                    GoalConstants.Diababa,
+                    new()
+                    {
+                        Goal.Check("Forest Temple Diababa"),
+                        Goal.Check("Forest Temple Diababa Heart Container"),
+                        Goal.Check("Forest Temple Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Fyrus,
+                    new()
+                    {
+                        Goal.Check("Goron Mines Fyrus"),
+                        Goal.Check("Goron Mines Fyrus Heart Container"),
+                        Goal.Check("Goron Mines Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Morpheel,
+                    new()
+                    {
+                        Goal.Check("Lakebed Temple Morpheel"),
+                        Goal.Check("Lakebed Temple Morpheel Heart Container"),
+                        Goal.Check("Lakebed Temple Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Stallord,
+                    new()
+                    {
+                        Goal.Check("Arbiters Grounds Stallord"),
+                        Goal.Check("Arbiters Grounds Stallord Heart Container"),
+                        Goal.Check("Arbiters Grounds Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Blizzeta,
+                    new()
+                    {
+                        Goal.Check("Snowpeak Ruins Blizzeta"),
+                        Goal.Check("Snowpeak Ruins Blizzeta Heart Container"),
+                        Goal.Check("Snowpeak Ruins Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Armogohma,
+                    new()
+                    {
+                        Goal.Check("Temple of Time Armogohma"),
+                        Goal.Check("Temple of Time Armogohma Heart Container"),
+                        Goal.Check("Temple of Time Dungeon Reward"),
+                    }
+                },
+                {
+                    GoalConstants.Argorok,
+                    new()
+                    {
+                        Goal.Check("City in The Sky Argorok"),
+                        Goal.Check("City in The Sky Argorok Heart Container"),
+                        Goal.Check("City in The Sky Dungeon Reward"),
+                    }
+                },
+                {
+                    zantBossRoomGoal,
+                    new() { zantBossRoomGoal }
+                },
+                {
+                    GoalConstants.Zant,
+                    new()
+                    {
+                        Goal.Check("Palace of Twilight Zant"),
+                        Goal.Check("Palace of Twilight Zant Heart Container"),
+                    }
+                },
+                {
+                    GoalConstants.Hyrule_Castle,
+                    new() { Goal.Room("Hyrule Castle Entrance"), }
+                },
+                {
+                    GoalConstants.Ganondorf,
+                    new() { Goal.Check("Hyrule Castle Ganondorf"), }
+                },
+            };
+
+        private HintGenData genData;
+        public Dictionary<Goal, List<List<string>>> goalToCheckLists = new();
+        public bool attemptedPriorityPicks { get; private set; }
+        public HashSet<Goal> hintedGoals { get; } = new();
+        public HashSet<string> hintedZoneNames { get; } = new();
+
+        public GoalManager(HintGenData genData)
+        {
+            this.genData = genData;
+
+            CalculateGoals();
+        }
+
+        public void notifyAttemptedPriorityPicks()
+        {
+            attemptedPriorityPicks = true;
+        }
+
+        private void CalculateGoals()
+        {
+            // Get relevant goals and each sphere check which is path to the goal.
+            HashSet<Goal> goalsFromDungeons = HintUtils.getGoalsBasedOnDungeons(genData.sSettings);
+            if (goalsFromDungeons.Contains(GoalConstants.Zant))
+                goalsFromDungeons.Add(zantBossRoomGoal);
+
+            Dictionary<Goal, List<string>> goalToCheckNames =
+                HintUtils.calculateGoalsRequiredChecks(
+                    genData.startingRoom,
+                    genData.playthroughSpheres.spheres,
+                    genData.sSettings,
+                    goalsFromDungeons: goalsFromDungeons
+                );
+
+            HashSet<Goal> goals = new(goalToCheckNames.Keys);
+
+            // Calculate if any of the goals are path to other goals (ex: cannot defeat Ganondorf
+            // until after defeating Stallord, etc.).
+            Dictionary<Goal, HashSet<Goal>> goalToParentGoals = CalcGoalRelations(goals);
+
+            // Based on the goal relationships and priorities, filter down to the ones we would
+            // actually be allowed to hint (ex: not hinting path to Ganondorf if could simply hint
+            // it path to Fyrus instead, etc.). Note that we just go by what is in the spheres at
+            // this point, so this includes smallKeys, dungeonRewards, etc. The PathHintCreator
+            // decides which ones it wants to hint.
+            goalToCheckLists = CalcGoalToHintableChecks(goalToParentGoals, goalToCheckNames);
+        }
+
+        private Dictionary<Goal, HashSet<Goal>> CalcGoalRelations(HashSet<Goal> goals)
+        {
+            Dictionary<Goal, HashSet<Goal>> goalToParentGoals = new();
+
+            // For each relevant goal, see if it is path to any of the other relevant goals.
+            foreach (Goal currGoal in goals)
+            {
+                HashSet<string> forbiddenCheckNames = new();
+                HashSet<string> forbiddenRoomNames = new();
+
+                List<Goal> goalsOfCurrGoal = goalToForbidden[currGoal];
+                foreach (Goal goalForGoal in goalsOfCurrGoal)
+                {
+                    if (goalForGoal.type == Goal.Type.Check)
+                        forbiddenCheckNames.Add(goalForGoal.id);
+                    else if (goalForGoal.type == Goal.Type.Room)
+                        forbiddenRoomNames.Add(goalForGoal.id);
+                }
+
+                Dictionary<Goal, List<Goal>> goalsToTest = new();
+                foreach (Goal relevantGoal in goals)
+                {
+                    if (relevantGoal == currGoal)
+                        continue;
+                    goalsToTest[relevantGoal] = goalToForbidden[relevantGoal];
+                }
+
+                Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+                    genData.startingRoom,
+                    goalsToTest,
+                    false,
+                    forbiddenCheckNames: forbiddenCheckNames,
+                    forbiddenRoomNames: forbiddenRoomNames
+                );
+
+                // The current goal is then "path to" any of the goals that failed when we forbid
+                // completing the current goal.
+                HashSet<Goal> failedGoals = new();
+                foreach (KeyValuePair<Goal, bool> pair in goalResults)
+                {
+                    if (!pair.Value)
+                        failedGoals.Add(pair.Key);
+                }
+                goalToParentGoals[currGoal] = failedGoals;
+            }
+
+            return goalToParentGoals;
+        }
+
+        private Dictionary<Goal, List<List<string>>> CalcGoalToHintableChecks(
+            Dictionary<Goal, HashSet<Goal>> goalToParentGoals,
+            Dictionary<Goal, List<string>> goalToCheckNames
+        )
+        {
+            // Reorganize so we have each relevant check pointing to the goals it is path to.
+            Dictionary<string, HashSet<Goal>> checkToGoals = new();
+            foreach (KeyValuePair<Goal, List<string>> pair in goalToCheckNames)
+            {
+                foreach (string checkName in pair.Value)
+                {
+                    if (!checkToGoals.TryGetValue(checkName, out HashSet<Goal> goalsForCheck))
+                    {
+                        goalsForCheck = new();
+                        checkToGoals[checkName] = goalsForCheck;
+                    }
+                    goalsForCheck.Add(pair.Key);
+                }
+            }
+
+            HashSet<string> lowPriorityChecks = new();
+            if (!ListUtils.isEmpty(genData.playthroughSpheres.sphere0Checks))
+            {
+                HashSet<string> validSphere0Checks = new();
+                foreach (string checkName in genData.playthroughSpheres.sphere0Checks)
+                {
+                    if (
+                        !CheckIdClass.GetIsHideFromUiCheckName(checkName)
+                        && !genData.unreachableChecks.Contains(checkName)
+                        && !genData.checkIsPlayerKnownStatus(checkName)
+                    )
+                        validSphere0Checks.Add(checkName);
+                }
+
+                // If sphere0 is small, then deprioritize hinting these checks. Mainly meant to
+                // handle cases where your random spawn starts you in a small room where you must
+                // get the item to escape (such as Stalfos grotto and Spinner).
+                if (validSphere0Checks.Count <= 10)
+                    lowPriorityChecks = validSphere0Checks;
+            }
+
+            Dictionary<string, HashSet<Goal>> checkToHintableGoals = new();
+
+            HashSet<string> zantDeprioritizedChecks = new();
+
+            List<string> requiredChecks = goalToCheckNames[GoalConstants.Ganondorf];
+            foreach (string checkName in requiredChecks)
+            {
+                HashSet<Goal> validGoals = new();
+                HashSet<Goal> invalidGoals = new();
+
+                HashSet<Goal> goalsForCheck = checkToGoals[checkName];
+                foreach (Goal goal in goalsForCheck)
+                {
+                    if (invalidGoals.Contains(goal))
+                        continue;
+
+                    HashSet<Goal> parentGoals = goalToParentGoals[goal];
+                    invalidGoals.UnionWith(parentGoals);
+                    foreach (Goal parentGoal in parentGoals)
+                    {
+                        validGoals.Remove(parentGoal);
+                    }
+
+                    validGoals.Add(goal);
+                }
+
+                bool shouldDeprioritizeForZant =
+                    validGoals.Count > 1 && validGoals.Contains(GoalConstants.Zant);
+
+                // If we have multiple leaf node goals, then filter down based on priority. For
+                // example, if something is path to both Fyrus and Zant, we would prefer to hint it
+                // for Fyrus so we can improve the quality of our Zant hints.
+                bool alreadyMatchedTier = false;
+                for (int i = 0; i < leafGoalPriorities.Count; i++)
+                {
+                    HashSet<Goal> goalsForTier = leafGoalPriorities[i];
+                    if (alreadyMatchedTier)
+                    {
+                        foreach (Goal goalForTier in goalsForTier)
+                        {
+                            validGoals.Remove(goalForTier);
+                        }
+                    }
+                    else
+                    {
+                        foreach (Goal goal in validGoals)
+                        {
+                            if (goalsForTier.Contains(goal))
+                            {
+                                alreadyMatchedTier = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (shouldDeprioritizeForZant && validGoals.Contains(GoalConstants.Zant))
+                {
+                    // Mark for deprioritize
+                    zantDeprioritizedChecks.Add(checkName);
+                }
+
+                checkToHintableGoals[checkName] = validGoals;
+            }
+
+            // Reorganize from "checks to hintable goals" to "goals to hintable checks".
+            Dictionary<Goal, HashSet<string>> goalToHintableChecks = new();
+            foreach (Goal goal in goalToParentGoals.Keys)
+            {
+                goalToHintableChecks[goal] = new();
+            }
+
+            foreach (KeyValuePair<string, HashSet<Goal>> pair in checkToHintableGoals)
+            {
+                foreach (Goal goal in pair.Value)
+                {
+                    goalToHintableChecks[goal].Add(pair.Key);
+                }
+            }
+
+            Dictionary<Goal, List<List<string>>> goalToHintableChecksList = new();
+            foreach (KeyValuePair<Goal, HashSet<string>> pair in goalToHintableChecks)
+            {
+                goalToHintableChecksList[pair.Key] = new() { new(pair.Value) };
+
+                string goalName = pair.Key.goalEnum.ToString();
+                foreach (string checkName in pair.Value)
+                {
+                    Item contents = HintUtils.getCheckContents(checkName);
+                    if (!HintConstants.invalidSpolItems.Contains(contents))
+                    {
+                        if (
+                            pair.Key.goalEnum == GoalEnum.Zant
+                            && zantDeprioritizedChecks.Contains(checkName)
+                        )
+                            Console.WriteLine(
+                                $"Can be Path to {goalName} (deprioritized): {checkName} ({contents})"
+                            );
+                        else
+                            Console.WriteLine(
+                                $"Can be Path to {goalName}: {checkName} ({contents})"
+                            );
+                    }
+                }
+            }
+
+            HashSet<string> requiredDungeonZones = HintUtils.getRequiredDungeonZones();
+            HashSet<Zone> interestedZones = new() { Zone.Hyrule_Castle };
+            foreach (string zoneName in requiredDungeonZones)
+            {
+                interestedZones.Add(ZoneUtils.StringToIdThrows(zoneName));
+            }
+
+            Dictionary<Zone, Province> dungeonToEntranceProvince =
+                new()
+                {
+                    { Zone.Forest_Temple, Province.Faron },
+                    { Zone.Goron_Mines, Province.Eldin },
+                    { Zone.Lakebed_Temple, Province.Lanayru },
+                    { Zone.Arbiters_Grounds, Province.Desert },
+                    { Zone.Snowpeak_Ruins, Province.Peak },
+                    { Zone.Temple_of_Time, Province.Faron },
+                    { Zone.City_in_the_Sky, Province.Lanayru },
+                    { Zone.Palace_of_Twilight, Province.Desert },
+                    { Zone.Hyrule_Castle, Province.Lanayru },
+                };
+
+            HashSet<Province> reqDanjEntrProvinces = new();
+            Zone hcEntrance = Zone.Invalid;
+            List<Zone> reqDungeonEntrances = new();
+
+            foreach (KeyValuePair<Zone, List<Zone>> pair in genData.dungeonEntrances)
+            {
+                bool isInterested = false;
+                foreach (Zone zone in interestedZones)
+                {
+                    if (pair.Value.Contains(zone))
+                    {
+                        isInterested = true;
+                        break;
+                    }
+                }
+
+                if (isInterested)
+                {
+                    Province province = dungeonToEntranceProvince[pair.Key];
+                    if (!pair.Value.Contains(Zone.Hyrule_Castle))
+                    {
+                        reqDungeonEntrances.Add(pair.Key);
+                        reqDanjEntrProvinces.Add(dungeonToEntranceProvince[pair.Key]);
+                    }
+                    else
+                        hcEntrance = pair.Key;
+
+                    string toZones = "";
+                    foreach (Zone toZone in pair.Value)
+                    {
+                        toZones += toZone.ToString();
+                    }
+                    Console.WriteLine(
+                        $"Dungeon entrance {pair.Key} => {toZones} found in {province}"
+                    );
+                }
+            }
+
+            List<Zone> requiredDungeons = new();
+            foreach (string zoneName in requiredDungeonZones)
+            {
+                requiredDungeons.Add(ZoneUtils.StringToIdThrows(zoneName));
+            }
+            requiredDungeons.Sort();
+            logList("Required dungeons", requiredDungeons);
+
+            reqDungeonEntrances.Sort();
+            logList("Dungeon entrances for reqDungeons", reqDungeonEntrances);
+
+            List<Province> reqDanjEntrProvincesList = new(reqDanjEntrProvinces);
+            reqDanjEntrProvincesList.Sort();
+            logList("Dungeon entrance provinces", reqDanjEntrProvincesList);
+
+            Console.WriteLine($"HC found behind entrance: {hcEntrance}");
+
+            if (
+                goalToHintableChecksList.TryGetValue(
+                    GoalConstants.Zant,
+                    out List<List<string>> zantList
+                )
+            )
+            {
+                // Deprioritize any which were path to Zant and not Zant's bossroom, but which had
+                // other valid leaf goals before adjusting for tier priority (ex: path to Zant and
+                // HC when HC is path to Stallord and Armogohma => only path to Zant is valid since
+                // it has priority over HC, but the hint is of a lower quality and can be confusing
+                // compared to purely path to the Zant boss fight).
+                List<string> deprioritizedChecks = new();
+                foreach (string checkName in zantDeprioritizedChecks)
+                {
+                    if (zantList[0].Remove(checkName))
+                        deprioritizedChecks.Add(checkName);
+                }
+                if (deprioritizedChecks.Count > 0)
+                    zantList.Add(deprioritizedChecks);
+
+                // Then add any which are path to both Zant and Zant's boss room.
+                if (
+                    goalToHintableChecksList.TryGetValue(
+                        zantBossRoomGoal,
+                        out List<List<string>> zantBossRoomList
+                    )
+                )
+                {
+                    goalToHintableChecksList.Remove(zantBossRoomGoal);
+                    if (!ListUtils.isEmpty(zantBossRoomList))
+                        zantList.Add(zantBossRoomList[0]);
+                }
+            }
+
+            // Deprioritize any low priority checks.
+            if (lowPriorityChecks.Count > 0)
+            {
+                Dictionary<Goal, List<List<string>>> newRet = new();
+
+                foreach (KeyValuePair<Goal, List<List<string>>> pair in goalToHintableChecksList)
+                {
+                    HashSet<string> filteredCheckNames = new();
+                    List<List<string>> newLists = new();
+                    foreach (List<string> list in pair.Value)
+                    {
+                        List<string> filteredList = new();
+                        foreach (string checkName in list)
+                        {
+                            if (lowPriorityChecks.Contains(checkName))
+                                filteredCheckNames.Add(checkName);
+                            else
+                                filteredList.Add(checkName);
+                        }
+                        if (filteredList.Count > 0)
+                            newLists.Add(filteredList);
+                    }
+
+                    if (filteredCheckNames.Count > 0)
+                    {
+                        List<string> asList = new(filteredCheckNames);
+                        HintUtils.ShuffleListInPlace(genData.rnd, asList);
+                        newLists.Add(asList);
+                    }
+                    newRet[pair.Key] = newLists;
+                }
+
+                goalToHintableChecksList = newRet;
+            }
+
+            return goalToHintableChecksList;
+        }
+
+        private void logList<T>(string startStr, List<T> list)
+        {
+            string str = "";
+            // foreach (Province province in reqDanjEntrProvinces)
+            foreach (T element in list)
+            {
+                if (str.Length > 0)
+                    str += ", ";
+                str += element.ToString();
+            }
+            // Console.WriteLine($"Dungeon entrance provinces: {str}");
+            Console.WriteLine($"{startStr}: {str}");
+        }
     }
 }
