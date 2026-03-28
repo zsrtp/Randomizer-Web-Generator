@@ -1584,31 +1584,44 @@ namespace TPRandomizer
             List<Item> requiredItems = new();
             for (int i = 0; i < listOfRequiredDungeons.GetLength(0); i++)
             {
-                foreach (string dungeonCheck in listOfRequiredDungeons[i].requirementChecks)
+                // If HCBK is locked by dungeons or if HC is not shuffled and barrier also requires dungeons, then all dungeons are required by default
+                if (
+                    (
+                        (SSettings.castleRequirements == CastleRequirements.Dungeons)
+                        && (SSettings.shuffleDungeonEntrances != DungeonER.Dungeon_Hyrule)
+                    ) || (SSettings.castleBKRequirements == CastleBKRequirements.Dungeons)
+                )
                 {
-                    Check check = Randomizer.Checks.CheckDict[dungeonCheck];
-                    // We can skip over verifying any checks for which an item
-                    // has not yet been placed.
-                    if (check.itemWasPlaced)
+                    listOfRequiredDungeons[i].isRequired = true;
+                }
+                else
+                {
+                    foreach (string dungeonCheck in listOfRequiredDungeons[i].requirementChecks)
                     {
-                        Item checkItem = check.itemId;
-
-                        check.itemId = Item.Recovery_Heart;
-                        bool isBeatable = BackendFunctions.ValidatePlaythroughBeatable(
-                            startingRoom,
-                            false
-                        );
-
-                        // If the world is no longer completable we want to put the item back and mark the dungeon as required
-                        if (!isBeatable)
+                        Check check = Randomizer.Checks.CheckDict[dungeonCheck];
+                        // We can skip over verifying any checks for which an item
+                        // has not yet been placed.
+                        if (check.itemWasPlaced)
                         {
-                            check.itemId = checkItem;
-                            requiredItems.Add(checkItem);
-                            listOfRequiredDungeons[i].isRequired = true;
-                        }
-                        else
-                        {
-                            checkData.Add(dungeonCheck, checkItem);
+                            Item checkItem = check.itemId;
+
+                            check.itemId = Item.Recovery_Heart;
+                            bool isBeatable = BackendFunctions.ValidatePlaythroughBeatable(
+                                startingRoom,
+                                false
+                            );
+
+                            // If the world is no longer completable we want to put the item back and mark the dungeon as required
+                            if (!isBeatable)
+                            {
+                                check.itemId = checkItem;
+                                requiredItems.Add(checkItem);
+                                listOfRequiredDungeons[i].isRequired = true;
+                            }
+                            else
+                            {
+                                checkData.Add(dungeonCheck, checkItem);
+                            }
                         }
                     }
                 }
