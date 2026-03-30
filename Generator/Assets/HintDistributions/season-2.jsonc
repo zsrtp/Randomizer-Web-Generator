@@ -20,17 +20,15 @@
   },
   "always": {
     "monopolizeSpots": true,
-    "idealNumSpots": 5,
+    "idealNumSpots": 4,
     "copies": 2,
     "groupId": "overworld"
   },
   //
   "addChecks": {
     "Lake Hylia Shell Blade Grotto Chest": ["always"],
-    "Skybook From Impaz": ["always"],
     "Doctors Office Balcony Chest": ["sometimes"],
-    "Sacred Grove Past Owl Statue Chest": ["sometimes"],
-    "Sacred Grove Baba Serpent Grotto Chest": ["sometimes"]
+    "Sacred Grove Past Owl Statue Chest": ["sometimes"]
   },
   "removeChecks": {
     "Palace of Twilight Collect Both Sols": ["always"],
@@ -40,8 +38,6 @@
     "Zoras Domain Light All Torches Chest": ["sometimes"],
     "Eldin Spring Underwater Chest": ["sometimes"],
     "Lake Hylia Underwater Chest": ["sometimes"],
-    "Outside South Castle Town Tightrope Chest": ["sometimes"],
-    "Gift From Ralis": ["sometimes"],
     "Arbiters Grounds Death Sword Chest": ["sometimes"],
     "City in The Sky Aeralfos Chest": ["sometimes"]
   },
@@ -55,8 +51,7 @@
       "-hiddenvillage",
       "-snowpeakmountain"
     ],
-    "requiredDungeons": ["alias:requiredDungeons"],
-    "hyruleCastle": ["hyrulecastle"]
+    "requiredDungeons": ["alias:requiredDungeons"]
   },
   // Special hints generated right after Always hints are generated. These are
   // created even if the dungeon is hinted barren or the check is already hinted
@@ -68,7 +63,6 @@
         "hintType": "location",
         "options": {
           "canBeClaimHinted": true,
-          "checkStatusDisplay": "required_info",
           "validChecks": ["Forest Temple Gale Boomerang"]
         }
       }
@@ -82,7 +76,6 @@
             "hintType": "location",
             "options": {
               "canBeClaimHinted": true,
-              "checkStatusDisplay": "required_info",
               "validChecks": [
                 "Snowpeak Ruins Chapel Chest",
                 "Snowpeak Ruins Lobby Chandelier Chest",
@@ -95,7 +88,6 @@
             "hintType": "location",
             "options": {
               "canBeClaimHinted": true,
-              "checkStatusDisplay": "required_info",
               "validChecks": [
                 "Snowpeak Ruins Chapel Chest",
                 "Snowpeak Ruins Lobby Chandelier Chest",
@@ -112,7 +104,6 @@
         "hintType": "location",
         "options": {
           "canBeClaimHinted": true,
-          "checkStatusDisplay": "required_info",
           "validChecks": ["Temple of Time Darknut Chest"]
         }
       }
@@ -125,17 +116,6 @@
           "canBeClaimHinted": true,
           "checkStatusDisplay": "required_info",
           "validChecks": ["Palace of Twilight Collect Both Sols"]
-        }
-      }
-    },
-    {
-      "spot": "hyrule_castle_sign",
-      "hintDef": {
-        "hintType": "location",
-        "options": {
-          "canBeClaimHinted": true,
-          "checkStatusDisplay": "required_info",
-          "validChecks": ["Hyrule Castle Graveyard Owl Statue Chest"]
         }
       }
     }
@@ -175,11 +155,7 @@
                     "starting": 4,
                     "saveToVar": "barrenHints",
                     "options": {
-                      "validAreas": [
-                        "alias:overworldZones",
-                        "category.Northern_Desert",
-                        "category.Southern_Desert"
-                      ]
+                      "validAreas": ["alias:overworldZones"]
                     }
                   }
                 ]
@@ -333,20 +309,11 @@
             ]
           },
           {
-            // Hint 1 dungeon sometimes
-            "hintDef": {
-              "hintType": "location",
-              "options": {
-                "markAsSometimes": true,
-                "validChecks": [
-                  "Goron Mines Outside Clawshot Chest",
-                  "Lakebed Temple Deku Toad Chest",
-                  "Arbiters Grounds Death Sword Chest",
-                  "City in The Sky West Wing First Chest",
-                  "City in The Sky Aeralfos Chest",
-                  "Palace of Twilight Big Key Chest"
-                ]
-              }
+            "hintType": "numItemInArea",
+            "options": {
+              "item": "Progressive_Sword",
+              "areaType": "province",
+              "validAreas": ["Dungeon"]
             }
           },
           // Fill layer with extra copies of the IC hint and path hints. Order
@@ -363,6 +330,7 @@
               },
               {
                 "hintType": "var",
+                "iterations": 3,
                 "options": {
                   "varName": "firstLayerPathHints",
                   "randomOrder": true
@@ -374,66 +342,40 @@
       }
     },
     {
-      "groupId": "hyruleCastle",
-      "useFillerHints": false,
-      "hintDef": [
-        {
-          "hintType": "item",
-          "options": {
-            "validItems": ["Boomerang"],
-            "areaType": "zone",
-            "validStatuses": ["bad"],
-            "allowKnownBarren": true
-          }
-        },
-        {
-          "hintType": "item",
-          "options": {
-            "validItems": ["Boomerang"],
-            "areaType": "default"
-          }
-        }
-      ]
-    },
-    {
       // On required dungeon signs, hint an HC path hint if possible and the
       // MostSwordsProvince.
       "groupId": "requiredDungeons",
+      "useFillerHints": false,
       "hintDef": [
         {
-          "hintType": "path",
-          "saveToVar": "reqDunHcPath",
-          "options": {
-            "invalidItems": ["Progressive_Sword"],
-            "validGoals": ["Hyrule_Castle"]
-          }
-        },
-        {
-          "hintType": "numItemInArea",
-          "saveToVar": "reqDunSwordHint",
-          "options": {
-            "item": "Progressive_Sword",
-            "areaType": "province",
-            "order": "desc"
-          }
-        },
-        {
-          "iterations": 99,
-          "selectionType": "randomOrder",
+          "maxPicks": 1,
           "hintDef": [
             {
-              "hintType": "var",
+              "hintType": "path",
+              "saveToVar": "reqDunPath",
               "options": {
-                "varName": "reqDunHcPath"
+                "validItems": ["Spinner"],
+                "validGoals": ["Ganondorf"]
               }
             },
             {
-              "hintType": "var",
+              "hintType": "path",
+              "saveToVar": "reqDunPath",
               "options": {
-                "varName": "reqDunSwordHint"
+                "invalidItems": ["Progressive_Sword"],
+                "validGoals": ["Ganondorf"]
               }
             }
           ]
+        },
+        {
+          "iterations": 99,
+          "hintDef": {
+            "hintType": "var",
+            "options": {
+              "varName": "reqDunPath"
+            }
+          }
         }
       ]
     },
@@ -444,8 +386,26 @@
         "copies": 2,
         "hintDef": [
           {
-            "maxPicks": 5,
+            "maxPicks": 6,
             "hintDef": [
+              {
+                // Hint 1 dungeon sometimes
+                "hintDef": {
+                  "hintType": "location",
+                  "saveToVar": "2ndLayerSometimes",
+                  "options": {
+                    "markAsSometimes": true,
+                    "validChecks": [
+                      "Goron Mines Outside Clawshot Chest",
+                      "Lakebed Temple Deku Toad Chest",
+                      "Arbiters Grounds Death Sword Chest",
+                      "City in The Sky West Wing First Chest",
+                      "City in The Sky Aeralfos Chest",
+                      "Palace of Twilight Big Key Chest"
+                    ]
+                  }
+                }
+              },
               {
                 "maxPicks": 1,
                 "hintDef": [
@@ -497,6 +457,7 @@
               },
               {
                 "hintType": "sometimes",
+                "minCopies": 1,
                 "saveToVar": "2ndLayerSometimes",
                 "iterations": 99,
                 "options": {
