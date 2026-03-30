@@ -12,6 +12,7 @@ namespace TPRandomizer.Hints.HintCreator
     {
         public override HintCreatorType type { get; } = HintCreatorType.Path;
 
+        private HashSet<Item> validItems = null;
         private HashSet<Item> invalidItems = new();
         private HashSet<Goal> validGoals = null;
         private bool unhintedGoalsOnly = false;
@@ -24,6 +25,12 @@ namespace TPRandomizer.Hints.HintCreator
             if (obj.ContainsKey("options"))
             {
                 JObject options = (JObject)obj["options"];
+
+                inst.validItems = HintSettingUtils.getOptionalItemSet(
+                    options,
+                    "validItems",
+                    inst.validItems
+                );
 
                 inst.invalidItems = HintSettingUtils.getOptionalItemSet(
                     options,
@@ -761,6 +768,7 @@ namespace TPRandomizer.Hints.HintCreator
 
             return (
                 genData.CheckCanBeWothPathHinted(checkName)
+                && (validItems == null || validItems.Contains(item))
                 && (invalidItems == null || !invalidItems.Contains(item))
             );
         }
