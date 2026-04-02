@@ -932,7 +932,7 @@ namespace TPRandomizer.Assets
                     (int)ReplacementType.Instruction,
                     (int)0xFF,
                     (int)GCRelIDs.D_A_NPC_KS,
-                    0x9CC8,
+                    0x9CCC,
                     DataFunctions.ASM_NOP()
                 ), // Prevent setting 4 monkey cs flag in FT
 
