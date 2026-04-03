@@ -1,5 +1,5 @@
 {
-    "requirements": "Shadow_Crystal and CanCompleteLanayruTwilight",
+    "requirements": "Shadow_Crystal",
     "glitchedRequirements": "Shadow_Crystal and CanCompleteLanayruTwilight",
     "checkCategory": ["Overworld", "Poe", "Hyrule Field - Lanayru Province"],
     "itemId": "Poe_Soul"
