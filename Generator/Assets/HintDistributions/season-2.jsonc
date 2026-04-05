@@ -20,13 +20,14 @@
   },
   "always": {
     "monopolizeSpots": true,
-    "idealNumSpots": 4,
+    "idealNumSpots": 5,
     "copies": 2,
     "groupId": "overworld"
   },
   //
   "addChecks": {
     "Lake Hylia Shell Blade Grotto Chest": ["always"],
+    "Castle Town Malo Mart Magic Armor": ["always"],
     "Doctors Office Balcony Chest": ["sometimes"],
     "Sacred Grove Past Owl Statue Chest": ["sometimes"]
   },
@@ -46,17 +47,59 @@
   },
   //
   "groups": {
-    "overworld": [
-      "alias:overworldZones",
-      "-hiddenvillage",
-      "-snowpeakmountain"
-    ],
+    "overworld": ["alias:overworldZones", "-snowpeakmountain"],
+    "overworld2nd": ["alias:overworldZones", "-snowpeakmountain", "-ordon"],
     "requiredDungeons": ["alias:requiredDungeons"]
   },
   // Special hints generated right after Always hints are generated. These are
   // created even if the dungeon is hinted barren or the check is already hinted
   // barren by a BeyondThisPoint hint.
   "specialHintDefs": [
+    {
+      "spot": "ordon_sign",
+      "hintDef": [
+        {
+          "selectionType": "randomOrder",
+          "hintDef": [
+            {
+              "hintType": "location",
+              "weight": 2,
+              "options": {
+                "validChecks": ["Wrestling With Bo"],
+                "validStatuses": ["bad"]
+              }
+            },
+            {
+              "hintType": "location",
+              "weight": 1,
+              "options": {
+                "validChecks": ["Herding Goats Reward"],
+                "validStatuses": ["bad"]
+              }
+            }
+          ]
+        },
+        {
+          "selectionType": "randomOrder",
+          "hintDef": [
+            {
+              "hintType": "location",
+              "weight": 2,
+              "options": {
+                "validChecks": ["Wrestling With Bo"]
+              }
+            },
+            {
+              "hintType": "location",
+              "weight": 1,
+              "options": {
+                "validChecks": ["Herding Goats Reward"]
+              }
+            }
+          ]
+        }
+      ]
+    },
     {
       "spot": "forest_temple_sign",
       "hintDef": {
@@ -116,6 +159,16 @@
           "canBeClaimHinted": true,
           "checkStatusDisplay": "required_info",
           "validChecks": ["Palace of Twilight Collect Both Sols"]
+        }
+      }
+    },
+    {
+      "spot": "hyrule_castle_sign",
+      "hintDef": {
+        "hintType": "item",
+        "options": {
+          "validItems": ["Purple_Rupee_Links_House"],
+          "areaType": "zone"
         }
       }
     }
@@ -342,8 +395,8 @@
       }
     },
     {
-      // On required dungeon signs, hint an HC path hint if possible and the
-      // MostSwordsProvince.
+      // On required dungeon signs, hint a Ganondorf path and a Gale Boomerang
+      // hint if possible.
       "groupId": "requiredDungeons",
       "useFillerHints": false,
       "hintDef": [
@@ -352,7 +405,7 @@
           "hintDef": [
             {
               "hintType": "path",
-              "saveToVar": "reqDunPath",
+              "saveToVar": "reqDunHints",
               "options": {
                 "validItems": ["Spinner"],
                 "validGoals": ["Ganondorf"]
@@ -360,10 +413,33 @@
             },
             {
               "hintType": "path",
-              "saveToVar": "reqDunPath",
+              "saveToVar": "reqDunHints",
               "options": {
                 "invalidItems": ["Progressive_Sword"],
                 "validGoals": ["Ganondorf"]
+              }
+            }
+          ]
+        },
+        {
+          "maxPicks": 1,
+          "hintDef": [
+            {
+              "hintType": "item",
+              "saveToVar": "reqDunHints",
+              "options": {
+                "validItems": ["Boomerang"],
+                "validStatuses": ["bad"],
+                "allowKnownBarren": true,
+                "areaType": "zone"
+              }
+            },
+            {
+              "hintType": "item",
+              "saveToVar": "reqDunHints",
+              "options": {
+                "validItems": ["Boomerang"],
+                "areaType": "province"
               }
             }
           ]
@@ -373,7 +449,7 @@
           "hintDef": {
             "hintType": "var",
             "options": {
-              "varName": "reqDunPath"
+              "varName": "reqDunHints"
             }
           }
         }
@@ -381,18 +457,18 @@
     },
     {
       // 2nd layer is "sometimes" hints
-      "groupId": "overworld",
+      "groupId": "overworld2nd",
       "hintDef": {
         "copies": 2,
         "hintDef": [
           {
-            "maxPicks": 6,
+            "maxPicks": 5,
             "hintDef": [
               {
                 // Hint 1 dungeon sometimes
                 "hintDef": {
                   "hintType": "location",
-                  "saveToVar": "2ndLayerSometimes",
+                  "saveToVar": "2ndLayerDungeon",
                   "options": {
                     "markAsSometimes": true,
                     "validChecks": [
@@ -407,55 +483,6 @@
                 }
               },
               {
-                "maxPicks": 1,
-                "hintDef": [
-                  {
-                    "selectionType": "randomOrder",
-                    "hintDef": [
-                      {
-                        "hintType": "location",
-                        "saveToVar": "2ndLayerBoGoats",
-                        "weight": 0.55,
-                        "options": {
-                          "validChecks": ["Wrestling With Bo"],
-                          "validStatuses": ["bad"]
-                        }
-                      },
-                      {
-                        "hintType": "location",
-                        "saveToVar": "2ndLayerBoGoats",
-                        "weight": 0.45,
-                        "options": {
-                          "validChecks": ["Herding Goats Reward"],
-                          "validStatuses": ["bad"]
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "selectionType": "randomOrder",
-                    "hintDef": [
-                      {
-                        "hintType": "location",
-                        "saveToVar": "2ndLayerBoGoats",
-                        "weight": 0.55,
-                        "options": {
-                          "validChecks": ["Wrestling With Bo"]
-                        }
-                      },
-                      {
-                        "hintType": "location",
-                        "saveToVar": "2ndLayerBoGoats",
-                        "weight": 0.45,
-                        "options": {
-                          "validChecks": ["Herding Goats Reward"]
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
                 "hintType": "sometimes",
                 "minCopies": 1,
                 "saveToVar": "2ndLayerSometimes",
@@ -467,14 +494,14 @@
             ]
           },
           // Fill in layer with extra copies of the sometimes hints
-          // (prioritizing Bo/Goats).
+          // (prioritizing Dungeon).
           {
             "hintDef": [
               {
                 "hintType": "var",
                 "copies": 1,
                 "options": {
-                  "varName": "2ndLayerBoGoats"
+                  "varName": "2ndLayerDungeon"
                 }
               },
               {
