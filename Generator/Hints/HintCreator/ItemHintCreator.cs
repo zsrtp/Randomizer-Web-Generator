@@ -24,6 +24,7 @@ namespace TPRandomizer.Hints.HintCreator
         private HashSet<string> validChecks = null;
         protected HashSet<string> invalidChecks = new();
         private HashSet<CheckStatus> validStatuses = new() { CheckStatus.Good };
+        private HashSet<CheckStatus> invalidStatuses = null;
         private CheckStatusDisplay statusDisplay = CheckStatusDisplay.Automatic;
         private bool itemsOrdered = false;
         private bool vague = false;
@@ -107,6 +108,12 @@ namespace TPRandomizer.Hints.HintCreator
                         inst.validStatuses.Add(checkStatus);
                     }
                 }
+
+                inst.invalidStatuses = HintSettingUtils.getOptionalCheckStatusSet(
+                    options,
+                    "invalidStatuses",
+                    inst.invalidStatuses
+                );
 
                 List<string> validItemsStrList = HintSettingUtils.getOptionalStringList(
                     options,
@@ -422,6 +429,7 @@ namespace TPRandomizer.Hints.HintCreator
                 && !invalidCheckNames.Contains(checkName)
                 && validItemsSet.Contains(item)
                 && validStatuses.Contains(status)
+                && (invalidStatuses == null || !invalidStatuses.Contains(status))
             );
         }
     }

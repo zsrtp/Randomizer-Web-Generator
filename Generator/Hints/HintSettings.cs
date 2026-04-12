@@ -361,6 +361,29 @@ namespace TPRandomizer.Hints.Settings
                 );
         }
 
+        public static HashSet<CheckStatus> getOptionalCheckStatusSet(
+            JObject obj,
+            string propertyName,
+            HashSet<CheckStatus> defaultVal
+        )
+        {
+            if (!obj.ContainsKey(propertyName))
+                return defaultVal;
+            return getCheckStatusSet(obj, propertyName);
+        }
+
+        public static HashSet<CheckStatus> getCheckStatusSet(JObject obj, string propertyName)
+        {
+            HashSet<CheckStatus> ret = new();
+            List<String> contents = HintSettingUtils.getStringList(obj, propertyName);
+            foreach (string itemName in contents)
+            {
+                CheckStatus status = parseCheckStatus(itemName);
+                ret.Add(status);
+            }
+            return ret;
+        }
+
         public static HashSet<Item> getItemSet(JObject obj, string propertyName)
         {
             HashSet<Item> items = new();
