@@ -29,7 +29,8 @@
     "Lake Hylia Shell Blade Grotto Chest": ["always"],
     "Castle Town Malo Mart Magic Armor": ["always"],
     "Doctors Office Balcony Chest": ["sometimes"],
-    "Sacred Grove Past Owl Statue Chest": ["sometimes"]
+    "Sacred Grove Past Owl Statue Chest": ["sometimes"],
+    "Sacred Grove Baba Serpent Grotto Chest": ["sometimes"]
   },
   "removeChecks": {
     "Palace of Twilight Collect Both Sols": ["always"],
@@ -321,16 +322,33 @@
             "hintDef": [
               {
                 "maxPicks": 3,
+                "copies": 1,
+                "saveToVar": "firstLayerPathHints",
                 "hintDef": [
                   {
-                    "hintType": "itemToItemPath",
-                    "saveToVar": "firstLayerPathHints",
-                    "copies": 1
+                    "maxPicks": 1,
+                    "hintDef": [
+                      {
+                        "hintType": "path",
+                        "options": {
+                          "validItems": ["Spinner"],
+                          "validGoals": ["Ganondorf"]
+                        }
+                      },
+                      {
+                        "hintType": "path",
+                        "options": {
+                          "invalidItems": ["Progressive_Sword"],
+                          "validGoals": ["Ganondorf"]
+                        }
+                      },
+                      {
+                        "hintType": "itemToItemPath"
+                      }
+                    ]
                   },
                   {
                     "hintType": "path",
-                    "saveToVar": "firstLayerPathHints",
-                    "copies": 1,
                     "iterations": 3,
                     "options": {
                       "invalidItems": ["Progressive_Sword"],
@@ -350,6 +368,8 @@
                   }
                 ]
               },
+              // Fill in with extra path hint copies until we have the base 6
+              // copies.
               {
                 "hintType": "var",
                 "copies": 1,
@@ -402,56 +422,30 @@
       "hintDef": [
         {
           "maxPicks": 1,
-          "hintDef": [
-            {
-              "hintType": "path",
-              "saveToVar": "reqDunHints",
-              "options": {
-                "validItems": ["Spinner"],
-                "validGoals": ["Ganondorf"]
-              }
-            },
-            {
-              "hintType": "path",
-              "saveToVar": "reqDunHints",
-              "options": {
-                "invalidItems": ["Progressive_Sword"],
-                "validGoals": ["Ganondorf"]
-              }
-            }
-          ]
-        },
-        {
-          "maxPicks": 1,
+          "copies": 99,
+          "minCopies": 1,
           "hintDef": [
             {
               "hintType": "item",
-              "saveToVar": "reqDunHints",
               "options": {
                 "validItems": ["Boomerang"],
                 "validStatuses": ["bad"],
                 "allowKnownBarren": true,
-                "areaType": "zone"
+                "areaType": "zone",
+                "checkStatusDisplay": "required_info"
               }
             },
             {
               "hintType": "item",
-              "saveToVar": "reqDunHints",
               "options": {
                 "validItems": ["Boomerang"],
-                "areaType": "province"
+                "validStatuses": ["good"],
+                "invalidStatuses": ["required"],
+                "areaType": "province",
+                "checkStatusDisplay": "required_info"
               }
             }
           ]
-        },
-        {
-          "iterations": 99,
-          "hintDef": {
-            "hintType": "var",
-            "options": {
-              "varName": "reqDunHints"
-            }
-          }
         }
       ]
     },
