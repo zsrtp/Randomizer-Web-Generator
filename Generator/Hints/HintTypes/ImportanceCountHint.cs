@@ -232,17 +232,17 @@ namespace TPRandomizer.Hints
 
             string normalizedText = Res.LangSpecificNormalize(text);
 
-            if (hasRelevantDependentChecks)
-            {
-                // If footnote would be in next textbox, put '*' at end of main hint text.
-                if (Res.IsLinesFillBasicSign(normalizedText))
-                    normalizedText += "*";
+            // if (hasRelevantDependentChecks)
+            // {
+            //     // If footnote would be in next textbox, put '*' at end of main hint text.
+            //     if (Res.IsLinesFillBasicSign(normalizedText))
+            //         normalizedText += "*";
 
-                string footnoteText = Res.LangSpecificNormalize(
-                    Res.SimpleMsg("hint-type.importance-count.footnote")
-                );
-                normalizedText += '\n' + CustomMessages.messageColorOrange + footnoteText;
-            }
+            //     string footnoteText = Res.LangSpecificNormalize(
+            //         Res.SimpleMsg("hint-type.importance-count.footnote")
+            //     );
+            //     normalizedText += '\n' + CustomMessages.messageColorOrange + footnoteText;
+            // }
 
             HintText hintText = new HintText();
             hintText.text = normalizedText;
