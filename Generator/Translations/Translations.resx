@@ -495,7 +495,7 @@
   </data>
   <data name="faq.santuary-basement-owl-statue" xml:space="preserve">
     <value>They say that the repaired Sky Cannon will #(red)automatically appear#(white) at Lake Hylia once the Ancient Sky Book has been filled.</value>
-    <comment></comment>
+    <comment>&quot;Sky Cannon&quot; for different languages can come from zel_02.bmg node 0x973 when talking to Shad where he says &quot;Sky Cannon&quot;.</comment>
   </data>
   <data name="goal.argorok" xml:space="preserve">
     <value>Argorok</value>

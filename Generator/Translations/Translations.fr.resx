@@ -569,6 +569,22 @@
     <value>(non requis)</value>
     <comment></comment>
   </data>
+  <data name="faq.cits-no-claw-exit-1" xml:space="preserve">
+    <value>#(red)Pas de Grappin#(white) ? Pas de problème ! Retourne dans l&apos;eau, va à gauche puis saute depuis le chemin à l&apos;#(red)ouest#(white).</value>
+    <comment></comment>
+  </data>
+  <data name="faq.cits-no-claw-exit-1$wii" xml:space="preserve">
+    <value>#(red)Pas de Grappin#(white) ? Pas de problème ! Retourne dans l&apos;eau, va à droite puis saute depuis le chemin à l&apos;#(red)est#(white).</value>
+    <comment></comment>
+  </data>
+  <data name="faq.cits-no-claw-exit-2" xml:space="preserve">
+    <value>Tu seras de retour à la surface en un rien de temps !</value>
+    <comment></comment>
+  </data>
+  <data name="faq.santuary-basement-owl-statue" xml:space="preserve">
+    <value>Il est dit que le canon des cieux réparé #(red)apparaîtra automatiquement#(white) au Lac Hylia une fois que les anciens écrits célestiens auront été complétés.</value>
+    <comment></comment>
+  </data>
   <data name="goal.argorok" xml:space="preserve">
     <value>Pyrodactilus</value>
     <comment></comment>
