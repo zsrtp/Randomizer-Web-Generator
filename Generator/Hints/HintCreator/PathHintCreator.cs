@@ -73,6 +73,9 @@ namespace TPRandomizer.Hints.HintCreator
             BarrenPenalizer barrenPenalizer
         )
         {
+            if (genData.sSettings.logicRules == SSettings.Enums.LogicRules.No_Logic)
+                return null;
+
             List<PathHint> pathHints = genPathHints2(genData, numHints);
             if (pathHints != null)
             {

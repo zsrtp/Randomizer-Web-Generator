@@ -380,8 +380,8 @@ app.get('/', (req: express.Request, res: express.Response) => {
         [0x8d, 'Hyrule Castle Small Key'],
         [0x8d, 'Hyrule Castle Small Key'],
         [0x98, 'Hyrule Castle Big Key'],
-        [0xEE, 'North Faron Woods Gate Key'],
-        [0xFE, 'Faron Woods Coro Key'],
+        [0xee, 'North Faron Woods Gate Key'],
+        [0xfe, 'Faron Woods Coro Key'],
         [0xe0, 'Poe Soul', 60],
         [0x3b, 'Gerudo Desert Portal'],
         [0xae, 'Mirror Chamber Portal'],
@@ -643,7 +643,8 @@ app.get('/s/:id', (req: express.Request, res: express.Response) => {
               const minAllowedVer = semver.parse(
                 `${imageVersion.major}.${imageVersion.minor}.0`
               );
-              if (minAllowedVer) {
+              // Note: json.meta.imgVer is currently null for non-production seeds.
+              if (minAllowedVer && json.meta.imgVer) {
                 if (minAllowedVer.compare(json.meta.imgVer) > 0) {
                   // Version that seed was generated is lower than
                   // minAllowedVersion.
