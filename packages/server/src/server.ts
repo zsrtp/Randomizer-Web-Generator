@@ -107,6 +107,7 @@ app.all(
 
     if (token === getApiSecret()) {
       req.apiToken = token;
+      req.userId = '__api_token__';
       next();
     } else {
       jwt.verify(token, getJwtSecret(), (err, data: jwt.JwtPayload) => {
