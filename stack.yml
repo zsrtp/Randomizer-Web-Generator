@@ -28,3 +28,6 @@ secrets:
   seedhash_secret:
     file: ./secrets/seedHashSecret.txt
     name: seedhash_secret-${SEEDHASH_SECRET_HASH}
+  api_secret:
+    file: ./secrets/apiSecret.txt
+    name: api_secret-${API_SECRET_HASH}

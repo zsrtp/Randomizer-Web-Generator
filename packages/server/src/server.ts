@@ -54,7 +54,7 @@ initConfig();
 // after this point.
 import logger from './logger/logger';
 
-import { initSecrets, getJwtSecret } from './secret';
+import { initSecrets, getJwtSecret, getApiSecret } from './secret';
 initSecrets();
 
 const url = require('url');
@@ -68,12 +68,16 @@ import { genUserJwt } from './util/jwt';
 const { normalizeStringToMax128Bytes } = require('./util/string');
 import jwt from 'jsonwebtoken';
 import { checkProgress } from './generationQueues';
+import { apiPresets } from './api/seed/apiPresets';
+import { PRESETS_SAFE_STR } from './api/seed/presets';
+import { escapeHtml } from './util/escapeHtml';
 
 declare global {
   namespace Express {
     interface Request {
       newUserJwt?: string;
       userId?: string;
+      apiToken?: string;
     }
   }
 }
@@ -101,14 +105,19 @@ app.all(
 
     const token = req.headers.authorization.substring(7);
 
-    jwt.verify(token, getJwtSecret(), (err, data: jwt.JwtPayload) => {
-      if (err || !data.uid) {
-        return res.status(403).send({ error: 'Forbidden' });
-      }
-
-      req.userId = data.uid;
+    if (token === getApiSecret()) {
+      req.apiToken = token;
       next();
-    });
+    } else {
+      jwt.verify(token, getJwtSecret(), (err, data: jwt.JwtPayload) => {
+        if (err || !data.uid) {
+          return res.status(403).send({ error: 'Forbidden' });
+        }
+
+        req.userId = data.uid;
+        next();
+      });
+    }
   }
 );
 
@@ -157,6 +166,7 @@ if (process.env.NODE_ENV === 'production') {
 app.post('/api/seed/generate', apiSeedGenerate);
 app.get('/api/seed/progress/:id', apiSeedProgress);
 app.post('/api/seed/cancel', apiSeedCancel);
+app.get('/api/presets', apiPresets);
 
 interface Aaa {
   name: string;
@@ -286,6 +296,10 @@ app.get('/', (req: express.Request, res: express.Response) => {
       msg = msg.replace(
         '<!-- USER_ID -->',
         `<input id="userJwtInput" type="hidden" value="${req.newUserJwt}">`
+      );
+      msg = msg.replace(
+        '<!-- SYSTEM_PRESETS -->',
+        `<input id="systemPresets" type="hidden" value="${PRESETS_SAFE_STR}">`
       );
 
       const excludedChecksList = JSON.parse(
@@ -571,37 +585,6 @@ app.get('/', (req: express.Request, res: express.Response) => {
     }
   });
 });
-
-// const escapeHtml = (str: string) =>
-//   str.replace(
-//     /[&<>'"]/g,
-//     (tag: string) =>
-//       ({
-//         '&': '&amp;',
-//         '<': '&lt;',
-//         '>': '&gt;',
-//         "'": '&#39;',
-//         '"': '&quot;',
-//       }[tag])
-//   );
-
-type HtmlCharMap = {
-  [key: string]: string;
-};
-
-const abc: HtmlCharMap = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  "'": '&#39;',
-  '"': '&quot;',
-};
-
-function escapeHtml(str: string) {
-  return str.replace(/[&<>'"]/g, (tag: string) => {
-    return abc[tag] || '';
-  });
-}
 
 function genSpoilerData(inputJsonObj: string) {
   return JSON.parse(JSON.stringify(inputJsonObj));
