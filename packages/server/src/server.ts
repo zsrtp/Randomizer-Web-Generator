@@ -71,6 +71,7 @@ import { checkProgress } from './generationQueues';
 import { apiPresets } from './api/seed/apiPresets';
 import { PRESETS_SAFE_STR } from './api/seed/presets';
 import { escapeHtml } from './util/escapeHtml';
+import { randomUUID } from 'crypto';
 
 declare global {
   namespace Express {
@@ -107,7 +108,7 @@ app.all(
 
     if (token === getApiSecret()) {
       req.apiToken = token;
-      req.userId = '__api_token__';
+      req.userId = randomUUID();
       next();
     } else {
       jwt.verify(token, getJwtSecret(), (err, data: jwt.JwtPayload) => {
