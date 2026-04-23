@@ -266,9 +266,9 @@ function addToFastQueue(
     if (seedGenStatus) {
       const canCancel = Boolean(
         userId &&
-          requesterHash &&
-          seedGenStatus.userId === userId &&
-          seedGenStatus.requesterHash === requesterHash
+        requesterHash &&
+        seedGenStatus.userId === userId &&
+        seedGenStatus.requesterHash === requesterHash
       );
 
       return {
@@ -321,13 +321,19 @@ function checkProgress(
 ): {
   error?: string;
   seedGenProgress?: SeedGenProgress;
+  seedName?: string;
   seedGenStatus?: SeedGenStatus;
   queuePos?: number;
 } {
   if (!seedIdToSeedGenStatus[id]) {
-    if (fs.existsSync(resolveOutputPath('seeds', id, 'input.json'))) {
+    const seedFilePath = resolveOutputPath('seeds', id, 'input.json');
+    if (fs.existsSync(seedFilePath)) {
+      const content = fs.readJsonSync(seedFilePath) as {
+        output: { name: string };
+      };
       return {
         seedGenProgress: SeedGenProgress.Done,
+        seedName: content.output.name,
         queuePos: -1,
       };
     } else {
@@ -348,6 +354,22 @@ function checkProgress(
     seedIdToSeedGenStatus = objects.filterKeys(seedIdToSeedGenStatus, [
       seedGenStatus.seedId,
     ]) as SeedIdToSeedGenStatus;
+  } else if (seedGenStatus.progress === SeedGenProgress.Done) {
+    let seedName = '';
+    const seedFilePath = resolveOutputPath('seeds', id, 'input.json');
+    if (fs.existsSync(seedFilePath)) {
+      const content = fs.readJsonSync(seedFilePath) as {
+        output: { name: string };
+      };
+      seedName = content.output.name;
+    }
+
+    return {
+      seedGenProgress: SeedGenProgress.Done,
+      seedName,
+      seedGenStatus: seedGenStatus,
+      queuePos: queue.indexOf(id),
+    };
   }
 
   return {
