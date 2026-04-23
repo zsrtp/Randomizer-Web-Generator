@@ -11,6 +11,7 @@ services:
     secrets:
       - jwt_secret
       - seedhash_secret
+      - api_secret
 
 volumes:
   tpr-generator-data:
