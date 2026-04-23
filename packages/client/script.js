@@ -22,6 +22,7 @@ const presetsMgr = (function () {
       );
     } catch (e) {
       // Not expected to fail
+      console.error(e);
     }
 
     try {
