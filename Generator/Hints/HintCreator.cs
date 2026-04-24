@@ -8,13 +8,12 @@ namespace TPRandomizer.Hints.Settings
 
     public enum HintCreatorType
     {
-        // The below values are intentionally not assigned specific numbers to
-        // indicate that they are not encoded anywhere and their order is not
-        // important. Note that every HintType does not necessarily have a
-        // HintCreator (since we do not want people to be able to manually
-        // create hints of some types, such as AgithaRewards and BeyondPoint).
-        // Additionally, some HintCreators do not actually have a corresponding
-        // HintType (such as the SometimesHintCreator creating Location hints).
+        // The below values are intentionally not assigned specific numbers to indicate that they
+        // are not encoded anywhere and their order is not important. Note that every HintType does
+        // not necessarily have a HintCreator (since we do not want people to be able to manually
+        // create hints of some types, such as AgithaRewards and BeyondPoint). Additionally, some
+        // HintCreators do not actually have a corresponding HintType (such as the
+        // SometimesHintCreator creating Location hints).
         Junk,
         Location,
         Woth,
@@ -27,6 +26,7 @@ namespace TPRandomizer.Hints.Settings
         TradeGroup,
         Sometimes,
         Var,
+        ImportanceCount,
     }
 
     public abstract class HintCreator
@@ -37,7 +37,8 @@ namespace TPRandomizer.Hints.Settings
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         );
 
         private static HintCreatorType typeFromStr(string strType)
@@ -78,6 +79,8 @@ namespace TPRandomizer.Hints.Settings
                     return TradeGroupHintCreator.fromJObject(obj);
                 case HintCreatorType.Var:
                     return VarHintCreator.fromJObject(obj);
+                case HintCreatorType.ImportanceCount:
+                    return ImportanceCountHintCreator.fromJObject(obj);
                 default:
                     throw new Exception(
                         $"Tried to create HintCreator, but found unexpected HintCreatorType '{type}'."

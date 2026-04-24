@@ -54,7 +54,7 @@ namespace TPRandomizer.Hints
         public static JunkHint decode(
             HintEncodingBitLengths bitLengths,
             BitsProcessor processor,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             ushort idValue = (ushort)processor.NextInt(16);

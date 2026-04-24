@@ -1,0 +1,6 @@
+{
+    "requirements": "CanDefeatDiababa",
+    "glitchedRequirements": "CanDefeatDiababa",
+    "checkCategory": ["Dungeon", "Forest Temple"],
+    "itemId": "Diababa_Defeated"
+}

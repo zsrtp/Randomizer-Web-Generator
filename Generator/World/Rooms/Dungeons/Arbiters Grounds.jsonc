@@ -10,8 +10,8 @@
           },
           {
             "ConnectedArea": "Arbiters Grounds Lobby",
-            "Requirements": "((Arbiters_Grounds_Small_Key,1) or (Setting.smallKeySettings equals Keysy)) and Lantern",
-            "GlitchedRequirements": "((Arbiters_Grounds_Small_Key,1) or (Setting.smallKeySettings equals Keysy)) and Lantern"
+            "Requirements": "(Arbiters_Grounds_Small_Key,1) and Lantern",
+            "GlitchedRequirements": "(Arbiters_Grounds_Small_Key,1) and Lantern"
           }
         ],
         "Checks": 
@@ -41,8 +41,8 @@
             },
             {
               "ConnectedArea": "Arbiters Grounds After Poe Gate",
-              "Requirements": "CanDefeatPoe and Shadow_Crystal and (Progressive_Clawshot, 1) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat and CanDefeatStalfos and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))",
-              "GlitchedRequirements": "CanDefeatPoe and Shadow_Crystal and (Progressive_Clawshot, 1) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat and CanDefeatStalfos and ((Arbiters_Grounds_Small_Key, 4) or (Setting.smallKeySettings equals Keysy))"
+              "Requirements": "CanDefeatPoe and Shadow_Crystal and (Progressive_Clawshot, 1) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat and CanDefeatStalfos and (Arbiters_Grounds_Small_Key, 4)",
+              "GlitchedRequirements": "CanDefeatPoe and Shadow_Crystal and (Progressive_Clawshot, 1) and CanDefeatRedeadKnight and CanDefeatStalchild and CanDefeatBubble and CanDefeatGhoulRat and CanDefeatStalfos and (Arbiters_Grounds_Small_Key, 4)"
             }
           ],
           "Checks": 
@@ -106,8 +106,8 @@
           },
           {
             "ConnectedArea": "Arbiters Grounds Boss Room",
-            "Requirements": "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysy))",
-            "GlitchedRequirements": "Spinner and (Arbiters_Grounds_Big_Key or (Setting.bigKeySettings equals Keysy))"
+            "Requirements": "Spinner and Arbiters_Grounds_Big_Key",
+            "GlitchedRequirements": "Spinner and Arbiters_Grounds_Big_Key"
           }
         ],
         "Checks": 
@@ -136,6 +136,7 @@
         "Checks": 
         [
               "Arbiters Grounds Stallord Heart Container",
+              "Arbiters Grounds Stallord",
               "Arbiters Grounds Dungeon Reward"
         ], 
         "Region": "Arbiters Grounds"

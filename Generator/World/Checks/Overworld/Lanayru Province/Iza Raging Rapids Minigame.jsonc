@@ -1,6 +1,6 @@
 {
-    "requirements": "Room.Upper_Zoras_River and (HasSword or (CanDefeatShadowBeast and (Setting.transformAnywhere equals True))) and (Progressive_Bow, 1)",
-    "glitchedRequirements": "Room.Upper_Zoras_River and (HasSword or (CanDefeatShadowBeast and (Setting.transformAnywhere equals True))) and (Progressive_Bow, 1)",
+    "requirements": "Room.Upper_Zoras_River and (HasSword or (CanDefeatShadowBeast and (Setting.transformAnywhere equals True))) and (Progressive_Bow, 1) and CanCompleteLanayruTwilight",
+    "glitchedRequirements": "Room.Upper_Zoras_River and (HasSword or (CanDefeatShadowBeast and (Setting.transformAnywhere equals True))) and (Progressive_Bow, 1) and CanCompleteLanayruTwilight",
     "checkCategory": ["Overworld", "Npc", "Upper Zoras River"],
     "itemId": "Giant_Bomb_Bag"
 }

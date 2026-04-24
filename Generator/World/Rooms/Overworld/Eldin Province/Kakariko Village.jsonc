@@ -5,13 +5,13 @@
     [
       {
         "ConnectedArea": "Upper Kakariko Village",
-        "Requirements": "(canCompleteGoronMines and CanChangeTime) or canSmash",
-        "GlitchedRequirements": "canCompleteGoronMines or canSmash"
+        "Requirements": "((CanCompleteGoronMines) or CanSmash) and CanCompleteEldinTwilight",
+        "GlitchedRequirements": "((CanCompleteGoronMines) or CanSmash) and CanCompleteEldinTwilight"
       },
       {
         "ConnectedArea": "Kakariko Village Behind Gate",
-        "Requirements": "true",
-        "GlitchedRequirements": "true"
+        "Requirements": "CanCompleteEldinTwilight",
+        "GlitchedRequirements": "CanCompleteEldinTwilight"
       },
       {
         "ConnectedArea": "Kakariko Gorge Behind Gate",
@@ -50,18 +50,18 @@
       },
       {
         "ConnectedArea": "Kakariko Malo Mart",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Kakariko Elde Inn Left Door",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Kakariko Elde Inn Right Door",
-        "Requirements": "CanChangeTime",
-        "GlitchedRequirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Kakariko Bug House Door",
@@ -82,7 +82,14 @@
     "Checks":
     [
         "Eldin Spring Underwater Chest",
-        "Kakariko Village Bomb Rock Spire Heart Piece"
+        "Kakariko Village Bomb Rock Spire Heart Piece",
+        "Kakariko Village Portal",
+        "Kakariko Village Bell Rupee",
+        "Eldin Spring Underwater Boulder Rupee",
+        "Kakariko Village Spring Shortcut Box Rupee 1",
+        "Kakariko Village Spring Shortcut Box Rupee 2",
+        "Kakariko Village Ant House Ledge Box Rupee",
+        "Kakariko Village Hot Spring Ledge Box Rupee"
     ],
     "Region": "Kakariko Village"
   },
@@ -97,8 +104,8 @@
       },
       {
         "ConnectedArea": "Kakariko Top of Watchtower",
-        "Requirements": "canCompleteGoronMines and CanChangeTime",
-        "GlitchedRequirements": "canCompleteGoronMines and CanChangeTime"
+        "Requirements": "CanCompleteGoronMines and CanCompleteEldinTwilight",
+        "GlitchedRequirements": "CanCompleteGoronMines and CanCompleteEldinTwilight"
       },
       {
         "ConnectedArea": "Kakariko Barnes Bomb Shop Upper",
@@ -151,8 +158,8 @@
     [
       {
         "ConnectedArea": "Lower Kakariko Village",
-        "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)", // or access to epona
-        "GlitchedRequirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)" // or access to epona
+        "Requirements": "Gate_Keys or CanCompleteEldinTwilight", // or access to epona
+        "GlitchedRequirements": "Gate_Keys or CanCompleteEldinTwilight" // or access to epona
       },
       {
         "ConnectedArea": "Eldin Field",
@@ -284,7 +291,7 @@
     ],
     "Checks":
     [
-        ""
+        "Shad Dominion Rod"
     ],
     "Region": "Kakariko Village"
 },
@@ -551,8 +558,8 @@
       },
       {
         "ConnectedArea": "Lake Hylia",
-        "Requirements": "(Gate_Keys or (Setting.smallKeySettings equals Keysy)) and (Iron_Boots or Zora_Armor) and CanUseWaterBombs",
-        "GlitchedRequirements": "(HasHeavyMod and CanUseWaterBombs and Gate_Keys) or ((HasHeavyMod or Zora_Armor) and ((hasBombs and (HasSword or Spinner)) or CanDoLJA or CanDoMoonBoots))"
+        "Requirements": "Gate_Keys and (Iron_Boots or Zora_Armor) and CanUseWaterBombs and CanCompleteEldinTwilight",
+        "GlitchedRequirements": "(HasHeavyMod and CanUseWaterBombs and Gate_Keys and CanCompleteEldinTwilight) or ((HasHeavyMod or Zora_Armor) and ((HasBombs and (HasSword or Spinner)) or CanDoLJA or CanDoMoonBoots))"
       }
     ],
     "Checks":
@@ -563,7 +570,8 @@
         "Kakariko Graveyard Male Ant",
         "Kakariko Graveyard Grave Poe",
         "Kakariko Graveyard Open Poe",
-        "Kakariko Graveyard Golden Wolf"
+        "Kakariko Graveyard Golden Wolf",
+        "Kakariko Graveyard Underwater Boulder Rupee"
     ],
     "Region": "Kakariko Village"
   }

@@ -20,8 +20,8 @@
       },
       {
         "ConnectedArea": "Castle Town STAR Game",
-        "Requirements": "true",
-        "GlitchedRequirements": "true"
+        "Requirements": "CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "CanCompleteLanayruTwilight"
       }
     ],
     "Checks":
@@ -83,8 +83,8 @@
       },
       {
         "ConnectedArea": "Castle Town Malo Mart",
-        "Requirements": "true" ,
-        "GlitchedRequirements": "true"
+        "Requirements": "CanCompleteLanayruTwilight" ,
+        "GlitchedRequirements": "CanCompleteLanayruTwilight"
       }
     ],
     "Checks": [""],
@@ -139,9 +139,35 @@
         "ConnectedArea": "Castle Town Goron House Right Door",
         "Requirements": "true",
         "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Goron House Balcony",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks": [""],
+    "Checks": 
+    [
+      "Castle Town Goron Shop Hylian Shield",
+      "Castle Town Goron Shop Red Potion",
+      "Castle Town Goron Shop Lantern Oil"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Goron House Balcony",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town Goron House",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      }
+    ],
+    "Checks": 
+    [
+      "Castle Town Goron Shop Arrow Refill"
+    ],
     "Region": "Castle Town"
   },
   {
@@ -189,8 +215,8 @@
       },
       {
         "ConnectedArea": "Castle Town North Inside Barrier",
-        "Requirements": "(Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons)",
-        "GlitchedRequirements": "(Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons)"
+        "Requirements": "CanBreakHCBarrier",
+        "GlitchedRequirements": "CanBreakHCBarrier"
       }
     ],
     "Checks":
@@ -205,9 +231,9 @@
     [
       {
         "ConnectedArea": "Castle Town North Behind First Door",
-        // Barrier is one-way. If coming from HC to Castle Town, you just have to be able to go through the doors. 
-        "Requirements": "CanCompleteMDH", 
-        "GlitchedRequirements": "CanCompleteMDH"
+        // Barrier is one-way.
+        "Requirements": "true", 
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Hyrule Castle Entrance",
@@ -229,8 +255,8 @@
       },
       {
         "ConnectedArea": "Outside Castle Town East",
-        "Requirements": "true",
-        "GlitchedRequirements": "true"
+        "Requirements": "CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "CanCompleteLanayruTwilight"
       },
       {
         "ConnectedArea": "Castle Town South",
@@ -324,8 +350,8 @@
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Lower",
-        "Requirements": "Invoice",
-        "GlitchedRequirements": "Invoice"
+        "Requirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)",
+        "GlitchedRequirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)"
       }
     ],
     "Checks": [""],
@@ -337,8 +363,8 @@
     [
       {
         "ConnectedArea": "Castle Town Doctors Office Entrance",
-        "Requirements": "Invoice",
-        "GlitchedRequirements": "Invoice"
+        "Requirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)",
+        "GlitchedRequirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Upper",
@@ -387,9 +413,10 @@
         "GlitchedRequirements": "true"
       },
       {
-        "ConnectedArea": "Outside Castle Town South",
-        "Requirements": "true",
-        "GlitchedRequirements": "true"
+        // There are people blocking the way if you try to go to the south during twilight.
+        "ConnectedArea": "South Castle Town Doors",
+        "Requirements": "CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "CanCompleteLanayruTwilight"
       },
       {
         "ConnectedArea": "Castle Town Agithas House",
@@ -408,6 +435,24 @@
       },
       {
         "ConnectedArea": "Castle Town Telmas Bar",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "South Castle Town Doors",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town South",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Outside Castle Town South",
         "Requirements": "true",
         "GlitchedRequirements": "true"
       }

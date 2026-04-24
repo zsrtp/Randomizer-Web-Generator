@@ -2,10 +2,11 @@ namespace TPRandomizer
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using Newtonsoft.Json;
-    using System.IO;
     using TPRandomizer.FcSettings.Enums;
+    using TPRandomizer.Hints.Settings;
 
     public enum EntranceType : int
     {
@@ -22,7 +23,8 @@ namespace TPRandomizer
         Misc_Reverse,
         Mixed,
         Paired,
-        All
+        All,
+        Boss_Exit,
     }
 
     public enum EntranceShuffleError
@@ -36,7 +38,7 @@ namespace TPRandomizer
         NOT_ENOUGH_SPHERE_ZERO_LOCATIONS,
         ATTEMPTED_SELF_CONNECTION,
         FAILED_TO_DISCONNECT_TARGET,
-        DUNGEON_ENTRANCES_CONNECTED
+        DUNGEON_ENTRANCES_CONNECTED,
     };
 
     public class SpawnTableEntry
@@ -55,6 +57,25 @@ namespace TPRandomizer
         public string Spawn { get; set; }
         public string State { get; set; }
         public string PairedEntranceName { get; set; } = "";
+
+        public EntranceInfo(
+            string SourceRoom,
+            string TargetRoom,
+            int Stage,
+            int Room,
+            string Spawn,
+            string State,
+            string PairedEntranceName
+        )
+        {
+            this.SourceRoom = SourceRoom;
+            this.TargetRoom = TargetRoom;
+            this.Stage = Stage;
+            this.Room = Room;
+            this.Spawn = Spawn;
+            this.State = State;
+            this.PairedEntranceName = PairedEntranceName;
+        }
     }
 
     public class Entrance
@@ -62,6 +83,8 @@ namespace TPRandomizer
         public string Requirements { get; set; }
         public string GlitchedRequirements { get; set; }
         public string ParentArea { get; set; }
+
+        public string ParentRegion { get; set; }
         public string ConnectedArea { get; set; }
         public string OriginalConnectedArea { get; set; }
         public bool Primary { get; set; } = false;
@@ -80,7 +103,7 @@ namespace TPRandomizer
         public bool AlreadySetOriginalName { get; set; }
         public string PairedEntranceName { get; set; } = "";
 
-        private LogicAST reqsCache;
+        public LogicAST reqsCache;
 
         public LogicAST CachedRequirements()
         {
@@ -176,9 +199,19 @@ namespace TPRandomizer
             return ConnectedArea;
         }
 
+        public string GetOriginalConnectedArea()
+        {
+            return OriginalConnectedArea;
+        }
+
         public string GetParentArea()
         {
             return ParentArea;
+        }
+
+        public string GetParentRegion()
+        {
+            return ParentRegion;
         }
 
         public void SetState(string newState)
@@ -202,13 +235,21 @@ namespace TPRandomizer
             {
                 Type = EntranceType.Dungeon;
             }
+            else if (entranceType == "Boss Room")
+            {
+                Type = EntranceType.Boss;
+            }
+            else if (entranceType == "Boss Room Exit")
+            {
+                Type = EntranceType.Boss_Exit;
+            }
             else if (entranceType == "Paired")
             {
                 Type = EntranceType.Paired;
             }
         }
 
-        Entrance GetNewTarget()
+        public Entrance GetNewTarget()
         {
             Entrance newExit = new();
             newExit.ParentArea = "Root";
@@ -216,6 +257,10 @@ namespace TPRandomizer
             newExit.Connect(ConnectedArea);
             newExit.SetReplacedEntrance(this);
             newExit.SetOriginalName();
+            newExit.Stage = this.Stage;
+            newExit.Room = this.Room;
+            newExit.Spawn = this.Spawn;
+            newExit.State = this.State;
             Randomizer.Rooms.RoomDict["Root"].Exits.Add(newExit);
             return newExit;
         }
@@ -239,7 +284,7 @@ namespace TPRandomizer
         {
             ConnectedArea = newConnectedArea;
             //Console.WriteLine("Connecting " + this.ParentArea + " to " + ConnectedArea);
-            Randomizer.Rooms.RoomDict[ConnectedArea].Exits.Add(this);
+            //Randomizer.Rooms.RoomDict[ConnectedArea].Exits.Add(this);
             Randomizer.Rooms.RoomDict[this.ParentArea].Exits.Add(this);
         }
 
@@ -301,12 +346,9 @@ namespace TPRandomizer
     /// </summary>
     public class EntranceRando
     {
-        // If disabled, a randomized double door can lead to a different location, depending on which door you use.
-        bool pairEntrances = false;
-
-        // If enabled, all entrances are "one way" so if you go through Faron Woods -> FT Entrance and end up in GM, going back the way you came may not lead you to Faron Woods.
-        bool decoupleEntrances = false;
         public List<SpawnTableEntry> SpawnTable = new();
+        public EntranceInfo vanillaSpawn = new("Outside Links House", "", 43, 1, "1", "FF", "");
+        public List<Entrance> spawnList = new();
 
         public void RandomizeEntrances(Random rnd)
         {
@@ -317,7 +359,58 @@ namespace TPRandomizer
             // Once we have the spawn table created, we want to verify that the data in the table is valid and generate a list of entrances from it.
             GetEntranceList();
 
-            if (pairEntrances)
+            string startingRoom = "Outside Links House";
+
+            Entrance rootExit = new();
+            rootExit.ConnectedArea = startingRoom;
+            rootExit.Requirements = "(true)";
+
+            Randomizer.Rooms.RoomDict["Root"].Exits.Add(rootExit);
+
+            if (Randomizer.SSettings.randomizeStartingPoint)
+            {
+                // We want to be safe and make sure that the room classes are prepped and ready to be linked together. Then we define our starting room.
+                foreach (KeyValuePair<string, Room> roomList in Randomizer.Rooms.RoomDict.ToList())
+                {
+                    Room currentRoom = roomList.Value;
+                    currentRoom.Visited = false;
+                    Randomizer.Rooms.RoomDict[currentRoom.RoomName] = currentRoom;
+                    foreach (Entrance exit in currentRoom.Exits)
+                    {
+                        Entrance shuffledExit = exit;
+                        // We don't want to start the player in Hyrule Castle and we don't want to start them in a boss room.
+                        if (
+                            currentRoom.RoomName != "Hyrule Castle Entrance"
+                            && !shuffledExit.GetCurrentName().Contains("Hyrule Castle Entrance")
+                            && (shuffledExit.State != null)
+                            && (
+                                (shuffledExit.GetEntranceType() != EntranceType.Boss)
+                                && (shuffledExit.GetEntranceType() != EntranceType.Boss_Reverse)
+                                && (shuffledExit.GetEntranceType() != EntranceType.Boss_Exit)
+                            // && (shuffledExit.GetEntranceType() == EntranceType.Dungeon || shuffledExit.GetEntranceType() == EntranceType.Dungeon_Reverse)
+                            )
+                        )
+                        {
+                            Entrance target = shuffledExit.GetNewTarget();
+                            target.Requirements = "(false)";
+                            this.spawnList.Add(target);
+                        }
+                    }
+                }
+                Randomizer.Rooms.RoomDict["Root"].Exits.Clear();
+                Randomizer.spawnIndex = rnd.Next(this.spawnList.Count());
+                Entrance startingEntrance = this.spawnList[Randomizer.spawnIndex];
+                startingRoom = startingEntrance.GetConnectedArea();
+
+                rootExit = new();
+                rootExit.ConnectedArea = startingRoom;
+                rootExit.Requirements = "(true)";
+
+                Randomizer.Rooms.RoomDict["Root"].Exits.Add(rootExit);
+                Console.WriteLine("Spawn is: " + startingRoom);
+            }
+
+            if (!Randomizer.SSettings.unpairEntrances)
             {
                 PairEntrances();
             }
@@ -352,6 +445,9 @@ namespace TPRandomizer
             // Once all of the entrances have been shuffled correctly, we want to update the connections on all of the paired entrances.
             ShufflePairedEntrances();
 
+            // Any additional logic or special cases should be handled here
+            ShuffleSpecialEntrances();
+
             // Validate the world one last time to ensure that everything went okay
             err = ValidateWorld();
             if (err != EntranceShuffleError.NONE)
@@ -385,9 +481,7 @@ namespace TPRandomizer
             // Keep track of the types we need to decouple to make things cleaner
             List<EntranceType> typesToDecouple = new();
 
-            // Placeholder until I get the settings actually created
-            bool isDungeonEREnabled = false;
-            if (isDungeonEREnabled)
+            if (Randomizer.SSettings.shuffleDungeonEntrances != SSettings.Enums.DungeonER.Off)
             {
                 // If we are shuffling dungeon entrances, loop through the entrance table and make note of all of the dungeon entrances and add them to the pool.
                 newEntrancePools.Add(
@@ -395,7 +489,7 @@ namespace TPRandomizer
                     GetShufflableEntrances(EntranceType.Dungeon, true)
                 );
 
-                if (decoupleEntrances)
+                if (Randomizer.SSettings.decoupleEntrances)
                 {
                     newEntrancePools.Add(
                         EntranceType.Dungeon_Reverse,
@@ -459,6 +553,17 @@ namespace TPRandomizer
                             + " -> "
                             + tableEntry.SourceRoomSpawn.TargetRoom
                     );
+                }
+
+                if (
+                    Randomizer.SSettings.shuffleDungeonEntrances
+                    == SSettings.Enums.DungeonER.Dungeon_Hyrule
+                )
+                {
+                    if (tableEntry.Type == "Dungeon - Hyrule")
+                    {
+                        tableEntry.Type = "Dungeon";
+                    }
                 }
 
                 forwardEntrance.SetEntranceType(tableEntry.Type);
@@ -602,7 +707,7 @@ namespace TPRandomizer
             );
             entrance.Connect(targetEntrance.Disconnect());
             entrance.SetReplacedEntrance(targetEntrance.GetReplacedEntrance());
-            if ((entrance.GetReplacedEntrance() != null) && !entrance.IsDecoupled())
+            if ((entrance.GetReverse() != null) && !entrance.IsDecoupled())
             {
                 targetEntrance
                     .GetReplacedEntrance()
@@ -689,7 +794,7 @@ namespace TPRandomizer
                 foreach (Entrance entrance in currentPool.EntranceList)
                 {
                     entrance.SetAsShuffled();
-                    //Console.WriteLine(entrance.GetOriginalName() + " has been shuffled");
+                    // Console.WriteLine(entrance.GetOriginalName() + " has been shuffled");
                     if (entrance.GetReverse() != null)
                     {
                         entrance.GetReverse().SetAsShuffled();
@@ -787,7 +892,7 @@ namespace TPRandomizer
             entrances.EntranceList.Shuffle(rnd);
             foreach (Entrance entrance in entrances.EntranceList)
             {
-                Console.WriteLine("Attempting to shuffle: " + entrance.GetOriginalName());
+                // Console.WriteLine("Attempting to shuffle: " + entrance.GetOriginalName());
                 EntranceShuffleError err = EntranceShuffleError.NONE;
                 if (entrance.GetConnectedArea() != "")
                 {
@@ -803,7 +908,7 @@ namespace TPRandomizer
                         continue;
                     }
 
-                    err = ReplaceEntrance(entrance, target, rollBacks, rnd);
+                    err = ReplaceEntrance(entrance, target, rollBacks);
                     if (err == EntranceShuffleError.NONE)
                     {
                         break;
@@ -838,8 +943,7 @@ namespace TPRandomizer
         EntranceShuffleError ReplaceEntrance(
             Entrance entrance,
             Entrance target,
-            Dictionary<Entrance, Entrance> rollBacks,
-            Random rnd
+            Dictionary<Entrance, Entrance> rollBacks
         )
         {
             Console.WriteLine(
@@ -852,12 +956,7 @@ namespace TPRandomizer
             EntranceShuffleError err = EntranceShuffleError.NONE;
             err = CheckEntranceCompatibility(entrance, target, rollBacks);
             EntranceShuffleErrorCheck(err);
-            if (err != EntranceShuffleError.NONE)
-            {
-                return err;
-            }
             ChangeConnections(entrance, target);
-
             err = ValidateWorld();
 
             // If the replacement produces an invalid world graph, then undo the connection and try again
@@ -957,17 +1056,22 @@ namespace TPRandomizer
                             // We want to loop through every room until we find a match for the entrance information provided.
                             foreach (Entrance secondEntrance in currentRoom2.Exits)
                             {
-                                if (entrance.PairedEntranceName == secondEntrance.GetOriginalName())
+                                if (
+                                    (
+                                        entrance.PairedEntranceName
+                                        == secondEntrance.GetOriginalName()
+                                    ) && (entrance.PairedEntranceName != null)
+                                )
                                 {
                                     // If we have a match, we want to set the type to the 'Paired' type so that no other pools try to pick it up and use it.
                                     secondEntrance.SetEntranceType("Paired");
                                     entrance.SetPairedEntrance(secondEntrance);
-                                    Console.WriteLine(
+                                    /*Console.WriteLine(
                                         "Paired "
                                             + entrance.GetOriginalName()
                                             + " with "
                                             + secondEntrance.GetOriginalName()
-                                    );
+                                    );*/
                                 }
                             }
                         }
@@ -998,12 +1102,12 @@ namespace TPRandomizer
                         && entrance.IsShuffled()
                     )
                     {
-                        Console.WriteLine(
+                        /*Console.WriteLine(
                             "match "
                                 + entrance.GetPairedEntrance().GetOriginalName()
                                 + " in "
                                 + currentRoom.RoomName
-                        );
+                        );*/
                         addedPairs.Add(entrance.GetPairedEntrance());
                         addedConnectedAreas.Add(entrance.GetConnectedArea());
                         entrance
@@ -1016,14 +1120,181 @@ namespace TPRandomizer
                 }
                 for (int i = 0; i < addedPairs.Count; i++)
                 {
-                    Console.WriteLine(
+                    /*Console.WriteLine(
                         "Pairing "
                             + addedPairs[i].GetOriginalName()
                             + " to "
                             + addedConnectedAreas[i]
-                    );
+                    );*/
                     addedPairs[i].Connect(addedConnectedAreas[i]);
                     addedPairs[i].SetAsShuffled();
+                }
+            }
+        }
+
+        // Checks to see if the specified entrance belongs to a dungeon. If it does, it returns the entrance of the dungeon. Otherwise, return the inverse of the checked entrance
+        Entrance GetDungeonEntrance(Entrance pairedEntrance)
+        {
+            string roomName = "";
+
+            foreach (string dungeon in RoomFunctions.DungeonNames)
+            {
+                if (pairedEntrance.GetParentArea().Contains(dungeon))
+                {
+                    roomName = dungeon;
+                    if (dungeon == "Snowpeak Ruins")
+                    {
+                        roomName += " Left Door";
+                    }
+                    else
+                    {
+                        roomName += " Entrance";
+                    }
+                    break;
+                }
+            }
+
+            Dictionary<string, Room> WorldGraph = Randomizer.Rooms.RoomDict;
+            foreach (KeyValuePair<string, Room> roomEntry in WorldGraph)
+            {
+                Room currentRoom = roomEntry.Value;
+                foreach (Entrance exit in currentRoom.Exits)
+                {
+                    if (
+                        (exit.ConnectedArea == roomName)
+                        && (exit.GetEntranceType() == EntranceType.Dungeon)
+                    )
+                    {
+                        return exit;
+                    }
+                }
+            }
+
+            return pairedEntrance;
+        }
+
+        // returns all entrances that are connected to a room.
+        List<Entrance> GetReverseConnectionEntrance(string roomName)
+        {
+            List<Entrance> entranceList = new();
+            Dictionary<string, Room> WorldGraph = Randomizer.Rooms.RoomDict;
+            foreach (KeyValuePair<string, Room> roomEntry in WorldGraph)
+            {
+                Room currentRoom = roomEntry.Value;
+                foreach (Entrance exit in currentRoom.Exits)
+                {
+                    if (exit.ConnectedArea == roomName)
+                    {
+                        entranceList.Add(exit);
+                    }
+                }
+            }
+            return entranceList;
+        }
+
+        void ShuffleSpecialEntrances()
+        {
+            bool shuffleBossRooms = false;
+            if (
+                shuffleBossRooms
+                || (Randomizer.SSettings.shuffleDungeonEntrances != SSettings.Enums.DungeonER.Off)
+            )
+            {
+                // If boss rooms or dungeons are shuffled, we want to return the player to the previous room they entered from once the boss is defeated. If the previous room is a dungeon, we want to return them to the entrance of that dungeon.
+                List<string> bossRooms =
+                    new()
+                    {
+                        "Forest Temple Boss Room",
+                        "Goron Mines Boss Room",
+                        "Lakebed Temple Boss Room",
+                        "Snowpeak Ruins Boss Room",
+                        "Temple of Time Boss Room",
+                        "City in The Sky Boss Room",
+                        "Palace of Twilight Boss Room"
+                    };
+                foreach (string bossRoomName in bossRooms)
+                {
+                    Entrance bossEntrance = Randomizer.Rooms.RoomDict[bossRoomName].Exits[0];
+                    Entrance newEntrance = GetDungeonEntrance(
+                            GetReverseConnectionEntrance(bossRoomName)[0]
+                        )
+                        .GetReplacedEntrance();
+
+                    string newRegion = GetReverseConnectionEntrance(bossRoomName)[
+                        0
+                    ].GetParentRegion();
+
+                    Randomizer.Rooms.RoomDict[bossRoomName].Region = newRegion;
+
+                    // If entrances are decoupled or unpaired, we don't want to potentially send the player somewhere they haven't been before after defeating a boss.
+                    if (
+                        !Randomizer.SSettings.decoupleEntrances
+                        || !Randomizer.SSettings.unpairEntrances
+                    )
+                    {
+                        newEntrance = newEntrance.GetReverse().GetReplacedEntrance();
+                    }
+
+                    bossEntrance.Disconnect();
+                    bossEntrance.SetAsShuffled();
+                    bossEntrance.Connect(newEntrance.GetOriginalConnectedArea());
+                    bossEntrance.SetReplacedEntrance(newEntrance);
+                }
+            }
+
+            // If Mirror Chamber is isolated from the world graph, exiting the Stallord room takes you to the reverse connection instead (assuming entrances are paired)
+            if (
+                Randomizer.SSettings.mirrorChamberEntrance
+                == SSettings.Enums.MirrorChamberEntrance.Closed
+            )
+            {
+                string bossRoomName = "Arbiters Grounds Boss Room";
+                Entrance bossEntrance = Randomizer.Rooms.RoomDict[bossRoomName].Exits[0];
+                Entrance newEntrance = GetDungeonEntrance(
+                        GetReverseConnectionEntrance(bossRoomName)[0]
+                    )
+                    .GetReplacedEntrance();
+
+                if (
+                    !Randomizer.SSettings.decoupleEntrances || !Randomizer.SSettings.unpairEntrances
+                )
+                {
+                    newEntrance = newEntrance.GetReverse().GetReplacedEntrance();
+                }
+
+                bossEntrance.Disconnect();
+                bossEntrance.SetAsShuffled();
+                bossEntrance.Connect(newEntrance.GetOriginalConnectedArea());
+                bossEntrance.SetReplacedEntrance(newEntrance);
+            }
+
+            // Handle Mirror Chamber entrance
+            switch (Randomizer.SSettings.mirrorChamberEntrance)
+            {
+                case SSettings.Enums.MirrorChamberEntrance.Closed:
+                {
+                    // If the entrance is closed then we remove the connection as it is no longer valid
+                    Randomizer.Rooms.RoomDict["Mirror Chamber Lower"].Exits[0].Disconnect();
+                    break;
+                }
+                case SSettings.Enums.MirrorChamberEntrance.Barrier:
+                {
+                    // With the barrier we want to update the logic to account for the boss requirement and clear the cache so that it will be updated next time the requirement is validated.
+
+                    //TODO: Once we randomize bosses, we will need to come back and make this dynamic so it checks for any connected boss requirements and add that requirement to the input json and seed header. Just saving myself some work right now.
+                    Randomizer.Rooms.RoomDict["Mirror Chamber Lower"].Exits[0].Requirements +=
+                        " and CanDefeatStallord and Room.Arbiters_Grounds_Boss_Room";
+                    Randomizer.Rooms.RoomDict["Mirror Chamber Lower"].Exits[0].reqsCache = null;
+                    break;
+                }
+                case SSettings.Enums.MirrorChamberEntrance.Open:
+                {
+                    // Mirror Chamber Lower and AG Boss door always lead to the same place.
+                    Randomizer.Rooms.RoomDict["Mirror Chamber Lower"].Exits[0].SetAsShuffled();
+                    Randomizer.Rooms.RoomDict["Mirror Chamber Lower"].Exits[0].SetReplacedEntrance(
+                        Randomizer.Rooms.RoomDict["Arbiters Grounds After Poe Gate"].Exits[1]
+                    );
+                    break;
                 }
             }
         }

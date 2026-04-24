@@ -1,0 +1,6 @@
+{
+    "requirements": "CanDefeatShadowBeast",
+    "glitchedRequirements": "CanDefeatShadowBeast",
+    "checkCategory": ["Overworld", "Hyrule Field - Eldin"],
+    "itemId": "Bridge_of_Eldin_Portal"
+}

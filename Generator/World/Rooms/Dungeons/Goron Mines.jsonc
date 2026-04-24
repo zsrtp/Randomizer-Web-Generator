@@ -12,6 +12,7 @@
         "Checks": 
         [
             "Goron Mines Fyrus Heart Container",
+            "Goron Mines Fyrus",
             "Goron Mines Dungeon Reward"
         ], 
         "Region": "Goron Mines"
@@ -27,8 +28,8 @@
             },
             {
               "ConnectedArea": "Goron Mines North Wing",
-              "Requirements": "((Iron_Boots and HasSword) or (Progressive_Bow, 1)) and ((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))",
-              "GlitchedRequirements": "((Goron_Mines_Small_Key, 2) or (Setting.smallKeySettings equals Keysy)) and ((Progressive_Bow, 1) or (Iron_Boots and HasSword) or ((CanDoLJA or (HasSword and hasBombs)) and ((Progressive_Clawshot, 1) or Ball_and_Chain or hasBombs)))"
+              "Requirements": "((Iron_Boots and HasSword) or (Progressive_Bow, 1)) and (Goron_Mines_Small_Key, 2)",
+              "GlitchedRequirements": "(Goron_Mines_Small_Key, 2) and ((Progressive_Bow, 1) or (Iron_Boots and HasSword) or ((CanDoLJA or (HasSword and HasBombs)) and ((Progressive_Clawshot, 1) or Ball_and_Chain or HasBombs)))"
             }
         ],
         "Checks": 
@@ -50,8 +51,8 @@
             },
             {
                 "ConnectedArea": "Goron Mines Magnet Room",
-                "Requirements": "Iron_Boots and canBreakWoodenDoor",
-                "GlitchedRequirements": "(Iron_Boots or Shadow_Crystal) and (canBreakWoodenDoor or CanDoBSMoonBoots)"
+                "Requirements": "Iron_Boots and CanBreakWoodenDoor",
+                "GlitchedRequirements": "(Iron_Boots or Shadow_Crystal) and (CanBreakWoodenDoor or CanDoBSMoonBoots)"
             }
         ],
         "Checks":
@@ -90,13 +91,17 @@
             },
             {
                 "ConnectedArea": "Goron Mines Lower West Wing",
-                "Requirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
-                "GlitchedRequirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+                "Requirements": "(Goron_Mines_Small_Key, 1) or ((Setting.gmShortcut equals True) and Iron_Boots)",
+                "GlitchedRequirements": "(Goron_Mines_Small_Key, 1) or (((Setting.gmShortcut equals True) or HasSword) and Iron_Boots)"
             },
+            // Note the difference in the parentheses between this and the
+            // previous exit. The previous exit only requires IB when using the
+            // shortcut magnet, but the below exit always required IB.
+            // Kitty climb is also considered in logic
             {
                 "ConnectedArea": "Goron Mines Crystal Switch Room",
-                "Requirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy)) and Iron_Boots",
-                "GlitchedRequirements": "((Goron_Mines_Small_Key, 1) or (Setting.smallKeySettings equals Keysy)) and Iron_Boots"
+                "Requirements": "((Goron_Mines_Small_Key, 1) or (Setting.gmShortcut equals True)) and Iron_Boots",
+                "GlitchedRequirements": "((Goron_Mines_Small_Key, 1) or (Setting.gmShortcut equals True) or HasSword) and Iron_Boots"
             }
         ],
         "Checks": 
@@ -117,13 +122,13 @@
             },
             {
                 "ConnectedArea": "Goron Mines Upper East Wing",
-                "Requirements": "((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))",
-                "GlitchedRequirements": "((Goron_Mines_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
+                "Requirements": "(Goron_Mines_Small_Key, 3)",
+                "GlitchedRequirements": "(Goron_Mines_Small_Key, 3)"
             },
             {
                 "ConnectedArea": "Goron Mines Boss Room",
-                "Requirements": "(Progressive_Bow, 1) and Iron_Boots and CanDefeatBulblin and ((Goron_Mines_Key_Shard, 3) or (Setting.bigKeySettings equals Keysy))",
-                "GlitchedRequirements": "((Goron_Mines_Key_Shard, 3) or (Setting.bigKeySettings equals Keysy)) and (Progressive_Bow, 1) and ((Iron_Boots and CanDefeatBulblin) or Progressive_Clawshot or CanDoLJA)"
+                "Requirements": "(Progressive_Bow, 1) and Iron_Boots and CanDefeatBulblin and (Goron_Mines_Key_Shard, 3)",
+                "GlitchedRequirements": "(Goron_Mines_Key_Shard, 3) and (Progressive_Bow, 1) and ((Iron_Boots and CanDefeatBulblin) or Progressive_Clawshot or CanDoLJA)"
             }
         ],
         "Checks": 

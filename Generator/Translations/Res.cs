@@ -31,6 +31,21 @@ namespace TPRandomizer
 
         private static Translations translations;
 
+        private static readonly Dictionary<string, string> jaNumConvertMap =
+            new()
+            {
+                { "0", "０" },
+                { "1", "１" },
+                { "2", "２" },
+                { "3", "３" },
+                { "4", "４" },
+                { "5", "５" },
+                { "6", "６" },
+                { "7", "７" },
+                { "8", "８" },
+                { "9", "９" },
+            };
+
         static Res()
         {
             IServiceProvider provider = Global.GetServiceProvider();
@@ -182,6 +197,8 @@ namespace TPRandomizer
                     return "\u2640";
                 case CustomMessages.referenceMark:
                     return "\u203B";
+                case CustomMessages.thinRightArrow:
+                    return "\u2192";
                 case CustomMessages.playerName:
                     return "Link";
                 case CustomMessages.horseName:
@@ -190,6 +207,8 @@ namespace TPRandomizer
                     return "B";
                 case CustomMessages.heart:
                     return "\u2665";
+                case CustomMessages.customNbsp:
+                    return " ";
                 default:
                     return null;
             }
@@ -279,6 +298,8 @@ namespace TPRandomizer
             // List<string> escapedList = new();
             List<TextChunk> chunks = new();
 
+            bool cultureIsJapanese = IsCultureJa();
+
             int index = 0;
             // StringBuilder sb = new();
             TextChunk currentChunk = new TextChunk();
@@ -345,7 +366,17 @@ namespace TPRandomizer
                     if (hasRenderedEsc)
                         currentChunk.AddRenderedEscapeSequence(renderedEsc);
                     else
+                    {
+                        // If JP, convert numbers from 3 to full-width such as ３.
+                        if (
+                            cultureIsJapanese
+                            && jaNumConvertMap.TryGetValue(currentChar, out string newJaNumStr)
+                        )
+                        {
+                            currentChar = newJaNumStr;
+                        }
                         currentChunk.AddChar(currentChar);
+                    }
                 }
 
                 if (!hasRenderedEsc)
@@ -608,7 +639,11 @@ namespace TPRandomizer
                                 throw new Exception(
                                     $"Failed to get rendered escSeq for '{chunk.val}' at index {i}."
                                 );
-                            result += escSeq;
+
+                            if (escSeq == CustomMessages.customNbsp)
+                                result += " ";
+                            else
+                                result += escSeq;
                         }
                         else
                             result += chunk.val[i];
@@ -617,6 +652,33 @@ namespace TPRandomizer
             }
 
             return result;
+        }
+
+        public static bool IsLinesFillBasicSign(string input)
+        {
+            int numLines = 1;
+            int index = 0;
+            while (index < input.Length)
+            {
+                string currentChar = input.Substring(index, 1);
+                byte byteVal = (byte)currentChar[0];
+
+                if (byteVal == 0x1A)
+                {
+                    byte escLength = (byte)input[index + 1];
+                    index += escLength;
+                }
+                else
+                {
+                    if (byteVal == 0xA)
+                        numLines += 1;
+                    index += 1;
+                }
+            }
+
+            int linesPerTextbox = IsCultureJa() ? 3 : 4;
+
+            return (numLines % linesPerTextbox) == 0;
         }
 
         public static string NormalizeForMergingOnSign(string input)
@@ -654,6 +716,65 @@ namespace TPRandomizer
             }
 
             return output;
+        }
+
+        public static List<string> SplitOversizedTexts(List<string> hintTexts)
+        {
+            if (ListUtils.isEmpty(hintTexts))
+                return new();
+
+            int linesPerNode = IsCultureJa() ? 12 : 16;
+            List<string> retNodes = new();
+
+            for (int hintIdx = 0; hintIdx < hintTexts.Count; hintIdx++)
+            {
+                string currNodeText = "";
+                int currNodeNumNewLines = 0;
+
+                string currBaseText = hintTexts[hintIdx];
+                if (StringUtils.isEmpty(currBaseText))
+                    continue;
+
+                int currIdx = 0;
+                while (currIdx < currBaseText.Length)
+                {
+                    string input = currBaseText;
+
+                    char c = input[currIdx];
+                    if (c == '\x1A')
+                    {
+                        byte escLength = (byte)input[currIdx + 1];
+                        string escString = input.Substring(currIdx, escLength);
+                        currNodeText += escString;
+                        currIdx += escLength;
+                        continue;
+                    }
+
+                    if (c == '\n')
+                    {
+                        currNodeNumNewLines += 1;
+                        if (currNodeNumNewLines >= linesPerNode)
+                        {
+                            // Break current text into its own node and start over
+                            retNodes.Add(currNodeText);
+                            currNodeText = "";
+                            currNodeNumNewLines = 0;
+                            currIdx += 1;
+                            continue;
+                        }
+                    }
+
+                    currNodeText += c;
+                    currIdx += 1;
+                }
+
+                if (!StringUtils.isEmpty(currNodeText))
+                {
+                    retNodes.Add(currNodeText);
+                }
+            }
+
+            return retNodes;
         }
 
         public static string CreateAndList(string langCode, List<string> strings)
@@ -1300,6 +1421,50 @@ namespace TPRandomizer
                 this.langCode = langCode;
             }
 
+            private string CapitalizeText(string input)
+            {
+                if (StringUtils.isEmpty(input))
+                    return input;
+
+                int index = 0;
+                while (index < input.Length)
+                {
+                    string currentChar = input.Substring(index, 1);
+                    byte byteVal = (byte)currentChar[0];
+
+                    if (byteVal == 0x1A)
+                    {
+                        byte escLength = (byte)input[index + 1];
+                        // For Japanese only (since non-ja is always one byte per
+                        // char), we may need to convert the string to bytes and
+                        // process that way since an escape sequence (with furigana
+                        // for example) will have fewer chars in it that the actual
+                        // byte length of the sequence.
+                        string escapeSequence = input.Substring(index, escLength);
+                        index += escLength;
+
+                        if (GetEscRenderedCharLength(escapeSequence) > 0)
+                        {
+                            // Found rendered escape sequence before a character
+                            // we can capitalize, so there is nothing to
+                            // capitalize. Return the input string.
+                            return input;
+                        }
+                        // Simply continue if not a rendered escape sequence.
+                    }
+                    else
+                    {
+                        return string.Concat(
+                            input.AsSpan(0, index),
+                            input.Substring(index, 1).ToUpper(cultureInfo),
+                            input.AsSpan(index + 1)
+                        );
+                    }
+                }
+
+                return input;
+            }
+
             public void CapitalizeFirstValidChar()
             {
                 if (StringUtils.isEmpty(value))
@@ -1352,6 +1517,19 @@ namespace TPRandomizer
 
                             if (interpolation.TryGetValue(key.Value, out string valToPut))
                             {
+                                if (
+                                    slotMeta.TryGetValue(
+                                        key.Value,
+                                        out Dictionary<string, string> metaOfSlot
+                                    )
+                                )
+                                {
+                                    if (metaOfSlot.ContainsKey("capitalize"))
+                                    {
+                                        return CapitalizeText(valToPut);
+                                    }
+                                }
+
                                 return valToPut;
                             }
                             // If not in interpolation, return the value back.

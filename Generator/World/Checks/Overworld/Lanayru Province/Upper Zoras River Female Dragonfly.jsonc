@@ -1,6 +1,6 @@
 {
-    "requirements": "true",
-    "glitchedRequirements": "true",
+    "requirements": "CanCompleteLanayruTwilight",
+    "glitchedRequirements": "CanCompleteLanayruTwilight",
     "checkCategory": ["Overworld", "Golden Bug", "Upper Zoras River"],
     "itemId": "Female_Dragonfly"
 }

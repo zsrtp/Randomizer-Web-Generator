@@ -12,6 +12,7 @@
         "Checks": 
         [
             "City in The Sky Argorok Heart Container",
+            "City in The Sky Argorok",
             "City in The Sky Dungeon Reward"
         ], 
         "Region": "City in The Sky"
@@ -68,8 +69,9 @@
         [
           {
             "ConnectedArea": "Lake Hylia",
-            "Requirements": "(Progressive_Clawshot, 1)",
-            "GlitchedRequirements": "(Progressive_Clawshot, 1)"
+            // A custom spawn is added where jumping off the left side puts the player in Lake Hylia
+            "Requirements": "true",
+            "GlitchedRequirements": "true"
           },
           {
             "ConnectedArea": "City in The Sky Lobby",
@@ -95,13 +97,13 @@
             },
             {
                 "ConnectedArea": "City in The Sky East Wing",
-                "Requirements": "Spinner and ((City_in_The_Sky_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
-                "GlitchedRequirements": "Spinner and ((City_in_The_Sky_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+                "Requirements": "Spinner and (City_in_The_Sky_Small_Key, 1)",
+                "GlitchedRequirements": "Spinner and (City_in_The_Sky_Small_Key, 1)"
             },
             {
                 "ConnectedArea": "City in The Sky West Wing",
-                "Requirements": "(Progressive_Clawshot, 2)",
-                "GlitchedRequirements": "(Progressive_Clawshot, 2)"
+                "Requirements": "((Progressive_Clawshot, 1) and Spinner) or (Progressive_Clawshot, 2)",
+                "GlitchedRequirements": "((Progressive_Clawshot, 1) or CanDoLJA) and Spinner"
             },
             {
                 "ConnectedArea": "City in The Sky North Wing",
@@ -130,8 +132,8 @@
             },
             {
                 "ConnectedArea": "City in The Sky Boss Room",
-                "Requirements": "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bigKeySettings equals Keysy))",
-                "GlitchedRequirements": "(Progressive_Clawshot, 2) and CanDefeatAeralfos and (City_in_The_Sky_Big_Key or (Setting.bigKeySettings equals Keysy))"
+                "Requirements": "(Progressive_Clawshot, 2) and CanDefeatAeralfos and City_in_The_Sky_Big_Key",
+                "GlitchedRequirements": "(Progressive_Clawshot, 2) and CanDefeatAeralfos and City_in_The_Sky_Big_Key"
             }
         ],
         "Checks": 

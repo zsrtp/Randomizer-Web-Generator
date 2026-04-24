@@ -1,0 +1,6 @@
+{
+    "requirements": "CanDefeatGanondorf",
+    "glitchedRequirements": "CanDefeatGanondorf",
+    "checkCategory": ["Dungeon", "Hyrule Castle"],
+    "itemId": "Ganondorf_Defeated"
+}

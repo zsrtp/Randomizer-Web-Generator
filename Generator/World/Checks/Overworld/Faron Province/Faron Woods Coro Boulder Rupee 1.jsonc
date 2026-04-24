@@ -1,0 +1,6 @@
+{
+    "requirements": "CanSmash",
+    "glitchedRequirements": "CanSmash",
+    "checkCategory": [ "Overworld", "Faron Woods", "Rupee - Hidden" ],
+    "itemId": "Green_Rupee"
+  }

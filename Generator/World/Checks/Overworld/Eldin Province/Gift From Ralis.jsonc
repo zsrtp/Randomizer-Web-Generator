@@ -1,6 +1,6 @@
 {
-  "requirements": "Asheis_Sketch and (Gate_Keys or (Setting.smallKeySettings equals Keysy))",
-  "glitchedRequirements": "Asheis_Sketch and (Gate_Keys or (Setting.smallKeySettings equals Keysy))",
+  "requirements": "Asheis_Sketch and Gate_Keys and CanCompleteEldinTwilight",
+  "glitchedRequirements": "Asheis_Sketch and Gate_Keys and CanCompleteEldinTwilight",
   "checkCategory": [ "Overworld", "Npc", "Kakariko Graveyard"],
   "itemId": "Progressive_Fishing_Rod"
 }

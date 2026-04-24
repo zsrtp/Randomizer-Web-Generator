@@ -1,6 +1,14 @@
 {
-    "requirements": "canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut and Boomerang and Lantern and (Progressive_Clawshot, 2)",
-    "glitchedRequirements": "(canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut and Boomerang and Lantern and (Progressive_Clawshot, 1)) or (Progressive_Clawshot, 2)",
+    // Access is from the "Hyrule Castle After Double Darknuts" room since you
+    // must press the switch there to make the chest appear and Double-Darknut
+    // Skip is not infinitely reproducible. Note that the barrier fight is not
+    // relevant to this for multiple reasons, the simplest one being that the
+    // trigger for the fight is nowhere near anywhere you would walk to do this
+    // (but the fight is logically completed in order to get here regardless).
+    "requirements": "(Progressive_Clawshot, 2)",
+    // For glitched, you can easily clawshot to this chest from next to the
+    // center north door of the main hall, or you can LJA to it from the switch.
+    "glitchedRequirements": "(Progressive_Clawshot, 1) or CanDoLJA",
     "checkCategory": ["Chest", "Dungeon", "Hyrule Castle"],
     "itemId": "Silver_Rupee"
 }

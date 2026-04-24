@@ -66,6 +66,10 @@ namespace TPRandomizer.Hints
                             }
                             else
                             {
+                                // Handle closing the bracket when we go from non-white to non-white
+                                if (hasOpenBracket)
+                                    sb.Append('}');
+
                                 colors.Add(colorText);
                                 sb.Append('{');
                                 hasOpenBracket = true;

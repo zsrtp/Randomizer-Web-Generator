@@ -5,19 +5,18 @@
     [
       {
         "ConnectedArea": "Lost Woods Lower Battle Arena",
-        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)",
-        "GlitchedRequirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or CanDoJSMoonBoots"
+        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.skipGroveEntrance equals True)",
+        "GlitchedRequirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.skipGroveEntrance equals True) or CanDoJSMoonBoots"
       },
       {
         "ConnectedArea": "Lost Woods Upper Battle Arena",
-        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)",
-        "GlitchedRequirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
+        "Requirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.skipGroveEntrance equals True)",
+        "GlitchedRequirements": "(CanDefeatSkullKid and Shadow_Crystal) or (Setting.skipGroveEntrance equals True)"
       },
       {
-        "ConnectedArea": "North Faron Woods",
+        "ConnectedArea": "North Faron Lost Woods Entrance",
         "Requirements": "true",
         "GlitchedRequirements": "true"
-        // In North Faron Woods, when you are near the Lost Woods entrance, you can save-warp to the main part of North Faron Woods.
       }
     ],
     "Checks": 
@@ -38,13 +37,13 @@
       },
       {
         "ConnectedArea": "Sacred Grove Lower",
-        "Requirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)",
-        "GlitchedRequirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
+        "Requirements": "CanDefeatSkullKid or (Setting.skipGroveEntrance equals True)",
+        "GlitchedRequirements": "CanDefeatSkullKid or (Setting.skipGroveEntrance equals True)"
       },
       {
         "ConnectedArea": "Lost Woods Baba Serpent Grotto",
-        "Requirements": "canSmash and Shadow_Crystal",
-        "GlitchedRequirements": "canSmash and Shadow_Crystal"
+        "Requirements": "CanSmash and Shadow_Crystal",
+        "GlitchedRequirements": "CanSmash and Shadow_Crystal"
       }
     ],
     "Checks":
@@ -60,8 +59,8 @@
     [
       {
         "ConnectedArea": "Sacred Grove Before Block",
-        "Requirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)",
-        "GlitchedRequirements": "CanDefeatSkullKid or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)"
+        "Requirements": "CanDefeatSkullKid or (Setting.skipGroveEntrance equals True)",
+        "GlitchedRequirements": "CanDefeatSkullKid or (Setting.skipGroveEntrance equals True)"
       }
     ],
     "Checks": [""],
@@ -112,8 +111,8 @@
       },
       {
         "ConnectedArea": "Sacred Grove Past",
-        "Requirements": "(Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or (Room.Sacred_Grove_Lower and (Progressive_Sword, 3) and CanDefeatShadowBeast)",
-        "GlitchedRequirements": "(Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or (Room.Sacred_Grove_Lower and (Progressive_Sword, 3) and CanDefeatShadowBeast)"
+        "Requirements": "CanStrikePedestal",
+        "GlitchedRequirements": "CanStrikePedestal"
       }
     ],
     "Checks": [""],
@@ -130,8 +129,8 @@
       },
       {
         "ConnectedArea": "Sacred Grove Upper",
-        "Requirements": "Room.Sacred_Grove_Before_Block or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove)",
-        "GlitchedRequirements": "Room.Sacred_Grove_Before_Block or (Setting.totEntrance equals Open) or (Setting.totEntrance equals OpenGrove) or CanDoJSMoonBoots"
+        "Requirements": "Room.Sacred_Grove_Before_Block or (Setting.skipGroveEntrance equals True)",
+        "GlitchedRequirements": "Room.Sacred_Grove_Before_Block or (Setting.skipGroveEntrance equals True) or CanDoJSMoonBoots"
       }
     ],
     "Checks":
@@ -139,7 +138,8 @@
         "Sacred Grove Male Snail",
         "Sacred Grove Master Sword Poe",
         "Sacred Grove Pedestal Master Sword",
-        "Sacred Grove Pedestal Shadow Crystal"
+        "Sacred Grove Pedestal Shadow Crystal",
+        "Sacred Grove Portal"
     ],
     "Region": "Sacred Grove"
   },
@@ -149,8 +149,8 @@
     [
       {
         "ConnectedArea": "Sacred Grove Past Behind Window",
-        "Requirements": "(Setting.totEntrance equals Open) or (Progressive_Sword, 3)",
-        "GlitchedRequirements": "(Setting.totEntrance equals Open) or (Progressive_Sword, 3)"
+        "Requirements": "CanStrikePedestal",
+        "GlitchedRequirements": "CanStrikePedestal"
       },
       {
         "ConnectedArea": "Sacred Grove Upper",

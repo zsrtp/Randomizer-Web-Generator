@@ -1,6 +1,6 @@
 {
-    "requirements": "Shadow_Crystal and CanChangeTime",
-    "glitchedRequirements": "Shadow_Crystal and CanChangeTime",
+    "requirements": "Shadow_Crystal and CanCompleteEldinTwilight",
+    "glitchedRequirements": "Shadow_Crystal and CanCompleteEldinTwilight",
     "checkCategory": ["Overworld", "Poe", "Kakariko Graveyard"],
     "itemId": "Poe_Soul"
 }

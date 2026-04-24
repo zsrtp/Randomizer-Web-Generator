@@ -1,0 +1,6 @@
+{
+    "requirements": "CanCompleteLanayruTwilight",
+    "glitchedRequirements": "CanCompleteLanayruTwilight",
+    "checkCategory": ["Overworld", "Castle Town", "Shop"],
+    "itemId": "Arrows_30"
+}

@@ -1,6 +1,6 @@
 {
-    "requirements": "true",
-    "glitchedRequirements": "true",
+    "requirements": "CanCompleteLanayruTwilight",
+    "glitchedRequirements": "CanCompleteLanayruTwilight",
     "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Lanayru Province"],
     "itemId": "Male_Ladybug"
 }

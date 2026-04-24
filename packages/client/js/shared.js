@@ -5,6 +5,9 @@
     nineBitWithEndOfListPadding: 'nineBitWithEndOfListPadding',
     bitString: 'bitString',
     xBitNum: 'xBitNum',
+    rgb: 'rgb',
+    midnaHairBase: 'midnaHairBase',
+    midnaHairTips: 'midnaHairTips',
   };
 
   const RecolorId = {
@@ -21,6 +24,27 @@
     paletteEntry: 0b11,
     randomWithinPalette: 0b100,
   };
+
+  const Region = {
+    All: 0,
+    USA: 1,
+    EUR: 2,
+    JAP: 3,
+    WUS: 4,
+    WEU: 5,
+    WJP: 6,
+    WU2: 7,
+  };
+  const regionBitLength = 3;
+
+  const EurLanguageTag = {
+    English: 0,
+    Deutsch: 2,
+    Español: 4,
+    Français: 1,
+    Italiano: 3,
+  };
+  const eurLangTagBitLength = 3;
 
   const encodingChars =
     '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
@@ -175,7 +199,7 @@
 
     let numLengthChars = 0;
     for (let i = 1; i < 6; i++) {
-      const maxNum = 1 << (i * 6);
+      const maxNum = (1 << (i * 6)) - 1;
       if (bitsAsChars.length <= maxNum) {
         numLengthChars = i;
         break;
@@ -231,12 +255,12 @@
       .find('input[type="checkbox"]')
       .each(function () {
         if ($(this).prop('checked')) {
-          const itemId = parseInt($(this).attr('data-checkId'), 10);
-          bits += numToPaddedBits(itemId, 9);
+          const checkId = parseInt($(this).attr('data-checkId'), 10);
+          bits += numToPaddedBits(checkId, 10);
         }
       });
 
-    bits += '111111111';
+    bits += '1111111111';
 
     return {
       type: RawSettingType.bitString,
@@ -249,13 +273,13 @@
     $('.plandoListItem').each(function () {
       const itemId = parseInt($(this).attr('data-itemid'), 10);
       const checkId = parseInt($(this).attr('data-checkid'), 10);
-      bits += numToPaddedBits(checkId, 9);
+      bits += numToPaddedBits(checkId, 10);
       bits += numToPaddedBits(itemId, 8);
     });
     if (bits.length < 1) {
       bits = '0';
     } else {
-      bits = '1' + bits + '111111111';
+      bits = '1' + bits + '1111111111';
     }
 
     return {
@@ -369,7 +393,7 @@
   function genSSettingsFromUi() {
     // Increment the version when you make changes to the format. Need to make
     // sure you don't break backwards compatibility!!
-    const sSettingsVersion = 5;
+    const sSettingsVersion = 6;
 
     const values = [
       { id: 'logicRulesFieldset', bitLength: 2 },
@@ -394,7 +418,7 @@
       { id: 'fastIBCheckbox' },
       { id: 'quickTransformCheckbox' },
       { id: 'transformAnywhereCheckbox' },
-      { id: 'increaseWalletCheckbox' },
+      { id: 'walletSizeFieldset', bitLength: 2 },
       { id: 'modifyShopModelsCheckbox' },
       { id: 'trapItemFieldset', bitLength: 3 },
       { id: 'barrenCheckbox' },
@@ -402,7 +426,8 @@
       { id: 'lakebedEntranceCheckbox' },
       { id: 'arbitersEntranceCheckbox' },
       { id: 'snowpeakEntranceCheckbox' },
-      { id: 'totEntranceFieldset', bitLength: 2 },
+      { id: 'groveEntranceCheckbox' },
+      { id: 'totEntranceFieldset', bitLength: 3 },
       { id: 'cityEntranceCheckbox' },
       { id: 'instantTextCheckbox' },
       { id: 'openMapCheckbox' },
@@ -416,6 +441,26 @@
       { id: 'noSmallKeysOnBossesCheckbox' },
       { id: 'todFieldset', bitLength: 3 },
       { id: 'hintDistributionFieldset', bitLength: 5 },
+      { id: 'randomizeStartingPointCheckbox' },
+      { id: 'hiddenRupeeCheckbox' },
+      { id: 'gmShortcutCheckbox' },
+      { id: 'hcShortcutCheckbox' },
+      { id: 'iliaQuestFieldset', bitLength: 3 },
+      { id: 'mirrorChamberFieldset', bitLength: 2 },
+      { id: 'dungeonERFieldset', bitLength: 2 },
+      { id: 'unpairedEntrancesCheckbox' },
+      { id: 'decoupleEntrancesCheckbox' },
+      { id: 'freestandingRupeeCheckbox' },
+      { id: 'castleRequirementsSlider', bitLength: 6 },
+      { id: 'castleBKRequirementsFieldset', bitLength: 3 },
+      { id: 'castleBKRequirementsSlider', bitLength: 6 },
+      { id: 'autoFillWalletCheckbox' },
+      { id: 'skipBridgeDonationCheckbox' },
+      { id: 'maloShopDonationSlider', bitLength: 11 },
+      { id: 'hintImportanceFieldset', bitLength: 2 },
+      { id: 'noPlandoHintsCheckbox' },
+      { id: 'adjustHintsForCompletionistsCheckbox' },
+      { id: 'hintDungeonEntrancesCheckbox' },
     ].map(({ id, bitLength }) => {
       const val = getVal(id);
       if (bitLength) {
@@ -620,10 +665,7 @@
     }
 
     function nextEolList(bitLength) {
-      let eolValue = 0;
-      for (let i = 0; i < bitLength; i++) {
-        eolValue += 1 << i;
-      }
+      const eolValue = genEolValue(bitLength);
 
       const list = [];
 
@@ -644,17 +686,26 @@
       return list;
     }
 
-    function nextPlandoList() {
-      // 9 bits of all 1s
-      const eolValue = 0x1ff;
+    function genEolValue(bitLength) {
+      let eolValue = 0;
+      for (let i = 0; i < bitLength; i++) {
+        eolValue += 1 << i;
+      }
+      return eolValue;
+    }
+
+    function nextPlandoList(version) {
       const list = [];
 
+      const numCheckIdBits = version >= 6 ? 10 : 9;
+      const eolValue = genEolValue(numCheckIdBits);
+
       while (true) {
-        if (remaining.length < 9) {
+        if (remaining.length < numCheckIdBits) {
           throw new Error('Not enough bits remaining.');
         }
 
-        const checkId = nextXBitsAsNum(9);
+        const checkId = nextXBitsAsNum(numCheckIdBits);
         if (checkId === eolValue) {
           break;
         } else {
@@ -796,7 +847,23 @@
     processBasic({ id: 'fastIronBoots' });
     processBasic({ id: 'quickTransform' });
     processBasic({ id: 'transformAnywhere' });
-    processBasic({ id: 'increaseWalletCapacity' });
+    if (version >= 6) {
+      // `increaseWalletCapacity` changed from a checkbox to a select
+      processBasic({ id: 'walletSize', bitLength: 2 });
+    } else {
+      const walletSize = {
+        minimal: 0,
+        vanilla: 1,
+        hd: 2,
+        large: 3,
+      };
+      const walletSizeValue = processor.nextBoolean();
+      if (walletSizeValue) {
+        res.walletSize = walletSize.large;
+      } else {
+        res.walletSize = walletSize.vanilla;
+      }
+    }
     processBasic({ id: 'shopModelsShowTheReplacedItem' });
     processBasic({ id: 'trapItemsFrequency', bitLength: 3 });
     processBasic({ id: 'barrenDungeons' });
@@ -817,18 +884,42 @@
     processBasic({ id: 'skipLakebedEntrance' });
     processBasic({ id: 'skipArbitersEntrance' });
     processBasic({ id: 'skipSnowpeakEntrance' });
-    if (version >= 1) {
-      // `totEntrance` changed from a checkbox to a select
-      processBasic({ id: 'totEntrance', bitLength: 2 });
+    if (version >= 6) {
+      // `totEntrance` changed uses and meaning and was split into two different settings
+      processBasic({ id: 'skipGroveEntrance' });
+      processBasic({ id: 'totEntrance', bitLength: 3 });
     } else {
       const totEntrance = {
         closed: 0,
         openGrove: 1,
         open: 2,
       };
-      const totOpen = processor.nextBoolean();
-      res.totEntrance = totOpen ? totEntrance.open : totEntrance.closed;
+      const swordReq = {
+        none: 0,
+        masterSword: 3,
+      };
+
+      if (version >= 1) {
+        // `totEntrance` changed from a checkbox to a select
+        processBasic({ id: 'totEntrance', bitLength: 2 });
+        if (res.totEntrance === totEntrance.open) {
+          res.skipGroveEntrance = true;
+          res.totEntrance = swordReq.none;
+        } else if (res.totEntrance === totEntrance.openGrove) {
+          res.skipGroveEntrance = true;
+          res.totEntrance = swordReq.masterSword;
+        } else {
+          // Closed
+          res.skipGroveEntrance = false;
+          res.totEntrance = swordReq.masterSword;
+        }
+      } else {
+        const totOpen = processor.nextBoolean();
+        res.skipGroveEntrance = totOpen;
+        res.totEntrance = totOpen ? swordReq.none : swordReq.masterSword;
+      }
     }
+
     processBasic({ id: 'skipCityEntrance' });
     if (version >= 1) {
       // `instantText' added as an option in version 1
@@ -862,14 +953,77 @@
       res.startingToD = 1; // Noon, which the previous rando versions used.
       res.hintDistribution = 0; // None
     }
+    if (version >= 6) {
+      processBasic({ id: 'randomizeStartingPoint' });
+      processBasic({ id: 'hiddenRupees' });
+      processBasic({ id: 'gmShortcut' });
+      processBasic({ id: 'hcShortcut' });
+      processBasic({ id: 'iliaQuest', bitLength: 3 });
+      processBasic({ id: 'mirrorChamber', bitLength: 2 });
+      processBasic({ id: 'dungeonER', bitLength: 2 });
+      processBasic({ id: 'unpairEntrances' });
+      processBasic({ id: 'decoupleEntrances' });
+      processBasic({ id: 'freestandingRupees' });
+      processBasic({ id: 'castleRequirementCount', bitLength: 6 });
+      processBasic({ id: 'castleBKRequirements', bitLength: 3 });
+      processBasic({ id: 'castleBKRequirementCount', bitLength: 6 });
+      processBasic({ id: 'autoFillWallet' });
+      processBasic({ id: 'skipBridgeDonation' });
+      processBasic({ id: 'maloShopDonation', bitLength: 11 });
+      processBasic({ id: 'hintImportance', bitLength: 2 });
+      processBasic({ id: 'noPlandoHints' });
+      processBasic({ id: 'adjustHintsForCompletionists' });
+      processBasic({ id: 'hintDungeonEntrances' });
+    } else {
+      res.randomizeStartingPoint = false; // Vanilla
+      res.hiddenRupees = false; // Vanilla
+      res.gmShortcut = false;
+      res.hcShortcut = false;
+      res.iliaQuest = 0; // Vanilla
+      res.mirrorChamber = 0; // Vanilla
+      res.dungeonER = 0; // Vanilla
+      res.unpairEntrances = false; // Vanilla
+      res.decoupleEntrances = false; // Vanilla
+      res.freestandingRupees = false; // Vanilla
+      switch (res.castleRequirements) {
+        case 1: {
+          res.castleRequirementCount = 3;
+          break;
+        }
+        case 2: {
+          res.castleRequirementCount = 4;
+          break;
+        }
+        case 3: {
+          res.castleRequirementCount = 8;
+          break;
+        }
+        default: {
+          res.castleRequirementCount = 1;
+          break;
+        }
+      }
+      res.castleBKRequirements = 0;
+      res.castleBKRequirementCount = 1;
+      res.autoFillWallet = false;
+      res.skipBridgeDonation = false;
+      res.maloShopDonation = 2000;
+      res.hintImportance = 0;
+      res.noPlandoHints = false;
+      res.adjustHintsForCompletionists = false;
+      res.hintDungeonEntrances = false;
+    }
 
     res.startingItems = processor.nextEolList(9);
-    res.excludedChecks = processor.nextEolList(9);
+
+    const numCheckIdBits = version >= 6 ? 10 : 9;
+    res.excludedChecks = processor.nextEolList(numCheckIdBits);
+
     if (version >= 5) {
       res.plando = [];
       const hasPlando = processor.nextBoolean();
       if (hasPlando) {
-        res.plando = processor.nextPlandoList();
+        res.plando = processor.nextPlandoList(version);
       }
     } else {
       res.plando = [];
@@ -1074,13 +1228,353 @@
     });
   }
 
+  function setSlidersToMin(parentIds) {
+    parentIds.forEach(function (parentId) {
+      const parentEl = document.getElementById(parentId);
+      if (parentEl) {
+        const inputs = parentEl.getElementsByTagName('input');
+        for (let i = 0; i < inputs.length; i++) {
+          const input = inputs[i];
+          if (input.type.toLowerCase() === 'range') {
+            input.value = input.min;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        }
+      }
+    });
+  }
+
+  function encodeBitStringTo6BitsString(bitString) {
+    const remainder = bitString.length % 6;
+    if (remainder > 0) {
+      const missingChars = 6 - remainder;
+      bitString += '0'.repeat(missingChars);
+    }
+
+    let charString = '';
+
+    const chars =
+      '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
+
+    let index = 0;
+    while (index < bitString.length) {
+      const bits = bitString.substring(index, index + 6);
+      const charIndex = parseInt(bits, 2);
+      charString += chars[charIndex];
+
+      index += 6;
+    }
+
+    return charString;
+  }
+
+  function encodeMidnaHairBase({ valueNum, rgbVal, isCustomColor }) {
+    if (!isCustomColor) {
+      return '0' + numToPaddedBits(valueNum, 4);
+    }
+
+    let ret = '1';
+
+    let sixCharHex = rgbVal;
+    if (sixCharHex.length > 6) {
+      sixCharHex = sixCharHex.substring(sixCharHex.length - 6);
+    }
+
+    const colors = window.MidnaHairColors.calcBaseAndGlow(sixCharHex);
+
+    ret += window.tpr.shared.hexStrToBits(
+      colors.midnaHairBaseLightWorldInactive
+    );
+    ret += window.tpr.shared.hexStrToBits(
+      colors.midnaHairBaseDarkWorldInactive
+    );
+    ret += window.tpr.shared.hexStrToBits(colors.midnaHairBaseAnyWorldActive);
+    ret += window.tpr.shared.hexStrToBits(colors.midnaHairGlowAnyWorldInactive);
+    ret += window.tpr.shared.hexStrToBits(sixCharHex); // midnaHairGlowLightWorldActive
+    ret += window.tpr.shared.hexStrToBits(colors.midnaHairGlowDarkWorldActive);
+
+    return ret;
+  }
+
+  function encodeMidnaHairTips({ valueNum, rgbVal, isCustomColor }) {
+    if (!isCustomColor) {
+      return '0' + numToPaddedBits(valueNum, 4);
+    }
+
+    let ret = '1';
+
+    let sixCharHex = rgbVal;
+    if (sixCharHex.length > 6) {
+      sixCharHex = sixCharHex.substring(sixCharHex.length - 6);
+    }
+
+    const colors = window.MidnaHairColors.calcTips(sixCharHex);
+
+    ret += window.tpr.shared.hexStrToBits(sixCharHex); // midnaHairTipsLightWorldInactive
+    ret += window.tpr.shared.hexStrToBits(
+      colors.midnaHairTipsDarkWorldAnyActive
+    );
+    ret += window.tpr.shared.hexStrToBits(colors.midnaHairTipsLightWorldActive);
+
+    return ret;
+  }
+
+  /**
+   * Converts a hex string like "fc8a" to a bit string like "10110...".
+   *
+   * @param {string} hexStr hex string to convert to a bit string
+   * @return {string} Bit string
+   */
+  function hexStrToBits(hexStr) {
+    if (!hexStr) {
+      return '';
+    }
+
+    let result = '';
+
+    for (let i = 0; i < hexStr.length; i++) {
+      const character = hexStr.substring(i, i + 1);
+      const num = parseInt(character, 16);
+      result += numToPaddedBits(num, 4);
+    }
+
+    return result;
+  }
+
+  function genFcSettingsString(patchOnly, version) {
+    function getVal(id) {
+      const $el = $('#' + id);
+      if ($el.length < 1) {
+        return false;
+      }
+      if ($el.prop('nodeName') === 'INPUT' && $el.attr('type') === 'checkbox') {
+        return $el.prop('checked');
+      }
+
+      return $el.val();
+    }
+
+    let values = [];
+
+    let selectedRegion =
+      typeof version === 'string' ? version : window.tpr.shared.selectedRegion;
+    if (Region.hasOwnProperty(selectedRegion)) {
+      values.push({
+        type: RawSettingType.xBitNum,
+        bitLength: regionBitLength,
+        value: parseInt(Region[selectedRegion], 10),
+      });
+    } else {
+      values.push({
+        type: RawSettingType.xBitNum,
+        bitLength: regionBitLength,
+        value: 0,
+      });
+    }
+
+    const { selectedLanguage } = window.tpr.shared;
+    if (EurLanguageTag.hasOwnProperty(selectedLanguage)) {
+      values.push({
+        type: RawSettingType.xBitNum,
+        bitLength: eurLangTagBitLength,
+        value: parseInt(EurLanguageTag[selectedLanguage], 10),
+      });
+    } else {
+      values.push({
+        type: RawSettingType.xBitNum,
+        bitLength: eurLangTagBitLength,
+        value: 0,
+      });
+    }
+
+    values.push(!!patchOnly);
+
+    values = values.concat(
+      [
+        // { id: 'gameRegion', bitLength: 3 },
+        { id: 'includeSpoilerCheckbox' },
+
+        { id: 'bgmFieldset', bitLength: 2 },
+        { id: 'randomizeFanfaresCheckbox' },
+        { id: 'randomizeSfxCheckbox' },
+        { id: 'disableEnemyBGMCheckbox' },
+        { id: 'invertCameraCheckbox' },
+        { id: 'lightSwordGlowCheckbox' },
+        { id: 'hTunicHatColorFieldset', rgb: true },
+        { id: 'hTunicBodyColorFieldset', rgb: true },
+        { id: 'hTunicSkirtColorFieldset', rgb: true },
+        { id: 'zTunicHatColorFieldset', rgb: true },
+        { id: 'zTunicHelmetColorFieldset', rgb: true },
+        { id: 'zTunicBodyColorFieldset', rgb: true },
+        { id: 'zTunicScalesColorFieldset', rgb: true },
+        { id: 'zTunicBootsColorFieldset', rgb: true },
+        { id: 'msBladeColorFieldset', rgb: true },
+        { id: 'msHandleColorFieldset', rgb: true },
+        { id: 'boomerangColorFieldset', rgb: true },
+        { id: 'ironsColorFieldset', rgb: true },
+        { id: 'spinnerColorFieldset', rgb: true },
+        { id: 'woodSwordColorFieldset', rgb: true },
+        { id: 'eponaColorFieldset', rgb: true },
+        { id: 'wolfColorFieldset', rgb: true },
+        { id: 'lanternColorFieldset', rgb: true },
+        { id: 'lightSwordColorFieldset', rgb: true },
+        // { id: 'midnaHairColorFieldset', bitLength: 1 },
+        { id: 'heartColorFieldset', rgb: true },
+        { id: 'aButtonColorFieldset', rgb: true },
+        { id: 'bButtonColorFieldset', rgb: true },
+        { id: 'xButtonColorFieldset', rgb: true },
+        { id: 'yButtonColorFieldset', rgb: true },
+        { id: 'zButtonColorFieldset', rgb: true },
+        { id: 'midnaHairBaseColorFieldset', midnaHairBase: true },
+        { id: 'midnaHairTipColorFieldset', midnaHairTips: true },
+        { id: 'midnaDomeRingColorFieldset', rgb: true },
+        { id: 'linkHairColorFieldset', rgb: true },
+      ].map(({ id, bitLength, rgb, midnaHairBase, midnaHairTips }) => {
+        if (bitLength) {
+          // select
+          return {
+            type: RawSettingType.xBitNum,
+            bitLength,
+            value: parseInt(getVal(id), 10),
+          };
+        } else if (rgb) {
+          const selVal = getVal(id);
+          const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
+          const value = $option[0].getAttribute('data-rgb');
+
+          return {
+            type: RawSettingType.rgb,
+            value,
+          };
+        } else if (midnaHairBase || midnaHairTips) {
+          const selVal = getVal(id);
+          const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
+          const rgbVal = $option[0].getAttribute('data-rgb');
+          const isCustomColor =
+            $option[0].getAttribute('data-custom-color') === 'true';
+
+          return {
+            type: midnaHairTips
+              ? RawSettingType.midnaHairTips
+              : RawSettingType.midnaHairBase,
+            valueNum: parseInt(selVal, 10),
+            rgbVal,
+            isCustomColor,
+          };
+        }
+        // checkbox
+        return getVal(id);
+      })
+    );
+
+    let bitString = '';
+
+    // valuesArr.forEach((value) => {
+    //   if (typeof value === 'boolean') {
+    //     bitString += value ? '1' : '0';
+    //   } else if (typeof value === 'string') {
+    //     let asNum = parseInt(value, 10);
+    //     if (Number.isNaN(asNum)) {
+    //       asNum = 0;
+    //     }
+    //     bitString += toPaddedBits(asNum, 4);
+    //   } else if (value && typeof value === 'object') {
+    //     if (value.type === RawSettingType.bitString) {
+    //       bitString += value.bitString;
+    //     }
+    //   }
+    // });
+
+    values.forEach((value) => {
+      if (typeof value === 'boolean') {
+        bitString += value ? '1' : '0';
+      } else if (typeof value === 'string') {
+        let asNum = parseInt(value, 10);
+        if (Number.isNaN(asNum)) {
+          asNum = 0;
+        }
+        bitString += numToPaddedBits(asNum, 4);
+      } else if (typeof value === 'object') {
+        if (value === null) {
+          // triple-equals here is intentional for now
+          bitString += '0';
+        } else {
+          switch (value.type) {
+            case RawSettingType.bitString:
+              bitString += value.bitString;
+              break;
+            case RawSettingType.xBitNum:
+              bitString += numToPaddedBits(value.value, value.bitLength);
+              break;
+            case RawSettingType.rgb: {
+              if (value.value == null) {
+                bitString += '0';
+              } else {
+                bitString += '1';
+                bitString += hexStrToBits(value.value);
+              }
+              break;
+            }
+            case RawSettingType.midnaHairBase:
+              bitString += encodeMidnaHairBase(value);
+              break;
+            case RawSettingType.midnaHairTips:
+              bitString += encodeMidnaHairTips(value);
+              break;
+          }
+        }
+      }
+    });
+
+    return encodeBitStringTo6BitsString(bitString);
+  }
+
+  function callCreateGci(fileCreationSettings, cb) {
+    let promise = window.tpr.shared
+      .fetch('/api/final', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fileCreationSettings,
+        }),
+      })
+      .then((response) => response.json());
+    if (cb) {
+      promise
+        .then(({ error, data }) => {
+          cb(error, data);
+        })
+        .catch((err) => {
+          cb(err);
+        });
+    } else {
+      return promise.then(({ error, data }) => {
+        if (error) {
+          throw error;
+        }
+
+        return data;
+      });
+    }
+  }
+
   window.tpr = window.tpr || {};
   window.tpr.shared = {
+    Region,
+    EurLanguageTag,
+    selectedRegion: null,
     genSSettingsFromUi,
     genPSettingsFromUi,
     decodeSettingsString,
     populateUiFromPSettings,
     fetch: fetchWrapper,
     uncheckCheckboxes,
+    setSlidersToMin,
+    hexStrToBits,
+    genFcSettingsString,
+    callCreateGci,
   };
 })();

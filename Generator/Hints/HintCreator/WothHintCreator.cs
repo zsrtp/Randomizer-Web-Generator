@@ -58,7 +58,8 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         )
         {
             if (numHints < 1)
@@ -75,7 +76,7 @@ namespace TPRandomizer.Hints.HintCreator
             // check which can be hinted SpoL which is not in sphere 0.
             foreach (string checkName in genData.requiredChecks)
             {
-                if (!genData.checkCanBeHintedSpol(checkName))
+                if (!genData.CheckCanBeWothPathHinted(checkName))
                     continue;
 
                 HashSet<AreaId> newAreaIds = CheckToAreaIds(genData, hintSettings, checkName);
@@ -314,7 +315,7 @@ namespace TPRandomizer.Hints.HintCreator
             {
                 case AreaId.AreaType.Zone:
                 {
-                    string zoneName = HintUtils.checkNameToHintZone(checkName);
+                    string zoneName = genData.GetZoneNameForCheck(checkName);
                     if (
                         AreaIdFailsDungeonMaxWothCheck(
                             genData,
@@ -331,7 +332,7 @@ namespace TPRandomizer.Hints.HintCreator
                 }
                 case AreaId.AreaType.Province:
                 {
-                    Province province = HintUtils.checkNameToHintProvince(checkName);
+                    Province province = genData.checkNameToHintProvince(checkName);
                     return new() { AreaId.Province(province) };
                 }
                 case AreaId.AreaType.Category:

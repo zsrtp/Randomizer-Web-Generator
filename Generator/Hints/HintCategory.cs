@@ -1,10 +1,6 @@
 namespace TPRandomizer.Hints
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using SSettings.Enums;
-    using TPRandomizer.Util;
 
     public enum HintCategory
     {
@@ -28,6 +24,7 @@ namespace TPRandomizer.Hints
         Snowpeak_Ruins_2nd_Floor = 17,
         Snowpeak_Beyond_This_Point = 18,
         Golden_Wolf = 19,
+        Palace_of_Twilight_Center_Wing = 20,
     }
 
     public class HintCategoryUtils
@@ -146,6 +143,25 @@ namespace TPRandomizer.Hints
                         "Lakebed Temple West Second Floor Southwest Underwater Chest",
                         "City in The Sky Underwater East Chest",
                         "City in The Sky Underwater West Chest",
+                        // Rupees:
+                        "Eldin Spring Underwater Boulder Rupee",
+                        "Kakariko Graveyard Underwater Boulder Rupee",
+                        "Lake Hylia Left Underwater Pillar Rupee",
+                        "Lake Hylia Right Underwater Pillar Rupee",
+                        "Lake Hylia Left Underwater Boulder Rupee",
+                        "Lake Hylia Right Underwater Boulder Rupee",
+                        "Lanayru Field North Underwater Boulder Rupee",
+                        "Lanayru Field South Underwater Boulder Rupee",
+                        "Lanayru Spring Upper Underwater Boulder Rupee",
+                        "Lanayru Spring Lower Underwater Boulder Rupee",
+                        "Zoras Domain Central Underwater Boulder Rupee",
+                        "Zoras Domain North Underwater Boulder Rupee",
+                        "Zoras Domain Throne East Gate Underwater Rupee",
+                        "Zoras Domain Throne West Gate Underwater Rupee",
+                        "Zoras Domain Throne East Underwater Rupee",
+                        "Zoras Domain Throne Northwest Underwater Rupee",
+                        "Zoras Domain Throne West Underwater Rupee",
+                        "Zoras Domain Throne South Underwater Rupee",
                     }
                 },
                 {
@@ -208,7 +224,7 @@ namespace TPRandomizer.Hints
                         "Temple of Time Scales Upper Chest",
                         "Temple of Time Floor Switch Puzzle Room Upper Chest",
                         "Temple of Time Big Key Chest",
-                        "Temple of Time Gilloutine Chest",
+                        "Temple of Time Guillotine Chest",
                         "Temple of Time Chest Before Darknut",
                         "Temple of Time Darknut Chest",
                     }
@@ -246,11 +262,10 @@ namespace TPRandomizer.Hints
                     HintCategory.Snowpeak_Beyond_This_Point,
                     new[]
                     {
-                        // All but "Ashei Sketch" are technically beyond the
-                        // sign. However, we only end up creating this hint when
-                        // it would hint about "Snowpeak Cave Ice Lantern Chest"
-                        // and "Snowpeak Freezard Grotto Chest" and SPR is not
-                        // required.
+                        // All but "Ashei Sketch" are technically beyond the sign. However, we only
+                        // end up creating this hint when it would hint about "Snowpeak Cave Ice
+                        // Lantern Chest" and "Snowpeak Freezard Grotto Chest" and the dungeons
+                        // behind SPR are unrequiredBarren.
                         "Snowboard Racing Prize",
                         "Snowpeak Above Freezard Grotto Poe",
                         "Snowpeak Blizzard Poe",
@@ -258,7 +273,28 @@ namespace TPRandomizer.Hints
                         "Snowpeak Cave Ice Poe",
                         "Snowpeak Freezard Grotto Chest",
                         "Snowpeak Icy Summit Poe",
-                        "Snowpeak Poe Among Trees"
+                        "Snowpeak Poe Among Trees",
+                        "Snowboarding Bridge Ledge Bottom Rupee",
+                        "Snowboarding Bridge Ledge Middle Rupee",
+                        "Snowboarding Bridge Ledge Upper Rupee",
+                        "Snowboarding Shortcut Rupee 1",
+                        "Snowboarding Shortcut Rupee 2",
+                        "Snowboarding Shortcut Rupee 3",
+                        "Snowboarding Shortcut Rupee 4",
+                        "Snowboarding Shortcut Rupee 5",
+                        "Snowboarding Shortcut Rupee 6",
+                        "Snowboarding Shortcut Rupee 7",
+                        "Snowboarding Shortcut Rupee 8",
+                        "Snowboarding Shortcut Rupee 9",
+                        "Snowboarding Shortcut Rupee 10",
+                        "Snowboarding Shortcut Rupee 11",
+                        "Snowboarding Snowy Tree Top Rupee 1",
+                        "Snowboarding Snowy Tree Top Rupee 2",
+                        "Snowboarding Snowy Tree Top Rupee 3",
+                        "Snowboarding Top Left Rupee",
+                        "Snowboarding Top Right Rupee",
+                        // Include the golden wolf which depends on the howling stone.
+                        "Kakariko Graveyard Golden Wolf",
                     }
                 },
                 {
@@ -327,6 +363,17 @@ namespace TPRandomizer.Hints
                         "Outside South Castle Town Golden Wolf",
                         "West Hyrule Field Golden Wolf"
                     }
+                },
+                {
+                    HintCategory.Palace_of_Twilight_Center_Wing,
+                    new[]
+                    {
+                        "Palace of Twilight Big Key Chest",
+                        "Palace of Twilight Central First Room Chest",
+                        "Palace of Twilight Central Outdoor Chest",
+                        "Palace of Twilight Central Tower Chest",
+                        "Palace of Twilight Zant Heart Container",
+                    }
                 }
             };
 
@@ -352,6 +399,7 @@ namespace TPRandomizer.Hints
                 { HintCategory.Snowpeak_Ruins_2nd_Floor, "Snowpeak_Ruins_2nd_Floor" },
                 { HintCategory.Snowpeak_Beyond_This_Point, "Snowpeak_Beyond_This_Point" },
                 { HintCategory.Golden_Wolf, "Golden_Wolf" },
+                { HintCategory.Palace_of_Twilight_Center_Wing, "Palace_of_Twilight_Center_Wing" },
             };
 
             strToEnum = new();

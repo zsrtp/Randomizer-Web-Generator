@@ -1,6 +1,6 @@
 {
     "requirements": "CanDefeatOok",
-    "glitchedRequirements": "CanDefeatOok or hasBombs",
+    "glitchedRequirements": "CanDefeatOok or HasBombs",
     "checkCategory": ["Forest Temple", "Dungeon", "Boss"],
     "itemId": "Boomerang"
 }

@@ -24,7 +24,8 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         )
         {
             // Hard-required unique items which can be hinted.
@@ -33,10 +34,11 @@ namespace TPRandomizer.Hints.HintCreator
             if (uniqReqItemToCheck.Count < 1)
                 return null;
 
-            HashSet<Goal> goals = new();
+            Dictionary<Goal, List<Goal>> goals = new();
             foreach (KeyValuePair<Item, string> pair in uniqReqItemToCheck)
             {
-                goals.Add(new Goal(GoalEnum.Invalid, Goal.Type.Check, pair.Value));
+                Goal goal = Goal.Check(pair.Value);
+                goals[goal] = new() { goal };
             }
 
             List<Item> baseSrcItems =
@@ -48,11 +50,12 @@ namespace TPRandomizer.Hints.HintCreator
                     Item.Iron_Boots,
                     Item.Progressive_Bow,
                     Item.Filled_Bomb_Bag,
-                    Item.Progressive_Clawshot,
-                    Item.Aurus_Memo,
                     Item.Spinner,
                     Item.Ball_and_Chain,
                     Item.Progressive_Dominion_Rod,
+                    // Note: Clawshot leads to far too many checks to be helpful, so removed from
+                    // this base list. Also removed Auru's Memo for the same reason (though not as
+                    // bad as Clawshot).
                 };
 
             // Remove any baseSrcItems which have a check that is already
@@ -75,11 +78,11 @@ namespace TPRandomizer.Hints.HintCreator
                 }
                 else
                 {
-                    // Check that none of the checkNames are already hinted.
+                    // Check that none of the checkNames are already hinted. Perhaps oversimplified
+                    // to skip over any with an unreachable copy, but using the shared function for
+                    // the sake of simplicity.
                     bool srcItemNotHinted = srcCheckNames.All(
-                        (checkName) =>
-                            !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
-                            && !genData.hinted.alreadyCheckContentsHinted.Contains(checkName)
+                        (checkName) => genData.CheckCanBeClaimHinted(checkName)
                     );
                     if (!srcItemNotHinted)
                         baseSrcItems.RemoveAt(i);
@@ -109,11 +112,11 @@ namespace TPRandomizer.Hints.HintCreator
 
                     List<string> checks = genData.itemToChecksList[startItem];
 
-                    // Check that none of the checkNames are already hinted.
+                    // Check that none of the checkNames are already hinted. Perhaps oversimplified
+                    // to skip over any with an unreachable copy, but using the shared function for
+                    // the sake of simplicity.
                     bool srcItemNotHinted = checks.All(
-                        (checkName) =>
-                            !genData.hinted.alreadyCheckDirectedToward.Contains(checkName)
-                            && !genData.hinted.alreadyCheckContentsHinted.Contains(checkName)
+                        (checkName) => genData.CheckCanBeClaimHinted(checkName)
                     );
 
                     if (srcItemNotHinted)
@@ -237,11 +240,14 @@ namespace TPRandomizer.Hints.HintCreator
                 Item contents = HintUtils.getCheckContents(checkName);
                 if (genData.itemToChecksList.ContainsKey(contents))
                 {
+                    // Note: previously it was possible for items on Agitha to be hinted as a
+                    // target. To simplify the shared function, this is not allowed. Theoretically
+                    // it might be more interesting to not hint targets on Agitha as well.
                     List<string> checksList = genData.itemToChecksList[contents];
                     if (
                         checksList != null
                         && checksList.Count == 1
-                        && genData.checkCanBeHintedSpol(checkName, true)
+                        && genData.CheckCanBeWothPathHinted(checkName)
                     )
                     {
                         uniqueItemsToCheckName[contents] = checkName;

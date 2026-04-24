@@ -1,0 +1,6 @@
+{
+    "requirements": "true",
+    "glitchedRequirements": "true",
+    "checkCategory": [ "Overworld", "Npc", "Faron Woods" ],
+    "itemId": "Lantern"
+  }

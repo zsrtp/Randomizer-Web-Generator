@@ -1,6 +1,6 @@
 {
-    "requirements": "CanUseWaterBombs and Iron_Boots and Zora_Armor",
-    "glitchedRequirements": "CanUseWaterBombs and Iron_Boots",
+    "requirements": "CanUseWaterBombs and Iron_Boots and Zora_Armor and CanCompleteLanayruTwilight",
+    "glitchedRequirements": "CanUseWaterBombs and Iron_Boots and CanCompleteLanayruTwilight",
     "checkCategory": ["Overworld", "Npc", "Zoras Domain"],
     "itemId": "Filled_Bomb_Bag"
 }

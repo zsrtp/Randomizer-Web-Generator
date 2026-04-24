@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <link rel="icon" target="_blank" href="/favicon.png" />
@@ -77,6 +77,7 @@
     <!-- IMAGE_VERSION -->
     <!-- GIT_COMMIT -->
     <!-- USER_ID -->
+    <!-- SYSTEM_PRESETS -->
     <script>
       function tabControl(evt, cityName) {
         // Declare all variables
@@ -153,20 +154,38 @@
               <legend>Access Options</legend>
               <div class="selectGroup">
                 <label for="castleRequirementsFieldset"
-                  >Hyrule Castle Requirements</label
+                  >Hyrule Barrier Requirements</label
                 ><br />
                 <select
                   name="Castle Requirements"
-                  data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The player must collect all 3 Fused Shadows.&#0010;&#0010;'Mirror Shards': The player must collect all 4 Mirror Shards.&#0010;&#0010;'All Dungeons': The player must complete all dungeons.&#0010;&#0010;'Vanilla (beat PoT)': The player must complete Palace of Twilight.&#0010;&#0010;Note that all Castle requirements include completing Midna's Desperate Hour. Visit the 'Other' tab to adjust your MDH settings."
+                  data-tooltip-text="'Open': The barrier around Hyrule Castle is dispelled from the beginning.&#0010;&#0010;'Fused Shadows': The barrier will be dispelled once the required number of Fused Shadows have been collected.&#0010;&#0010;'Mirror Shards': The barrier will be dispelled once the required number of Mirror Shards have been collected.&#0010;&#0010;'Dungeons': The barrier will be dispelled once the required number of Dungeons have been cleared.&#0010;&#0010;'Vanilla (beat PoT)': The player must complete Palace of Twilight.&#0010;&#0010;'Poe Souls': The barrier will be dispelled once the required number of Poe Souls have been collected.&#0010;&#0010;'Hearts': The barrier will be dispelled once the required number of Hearts have been reached.&#0010;&#0010;Note that all Castle requirements include completing Midna's Desperate Hour. Visit the 'Other' tab to adjust your MDH settings."
                   id="castleRequirementsFieldset"
                 >
                   <option value="0">Open</option>
                   <option value="1">Fused Shadows</option>
                   <option value="2">Mirror Shards</option>
-                  <option value="3">All Dungeons</option>
+                  <option value="3">Dungeons</option>
                   <option value="4" selected>Vanilla (beat PoT)</option>
+                  <option value="5">Poe Souls</option>
+                  <option value="6">Hearts</option>
                 </select>
               </div>
+              <label
+                for="castleRequirementsSlider"
+                id="castleRequirementsSliderLabel"
+                hidden
+                >Hyrule Castle Requirements</label
+              >
+              <input
+                type="range"
+                min="1"
+                max="1"
+                value="1"
+                class="liSlider"
+                id="castleRequirementsSlider"
+                hidden
+              />
+              <output id="castleRequirementsSliderOutput" hidden></output>
               <div class="selectGroup">
                 <label for="palaceRequirementsFieldset"
                   >Palace of Twilight Requirements</label
@@ -185,7 +204,7 @@
               <div class="selectGroup">
                 <label for="faronLogicFieldset">Faron Woods Logic:</label><br />
                 <select
-                  name="Faron Woods  Logic"
+                  name="Faron Woods Logic"
                   data-tooltip-text="'Open': Midna will not prevent the player from leaving Faron Woods.&#0010;&#0010;'Closed': Midna will block the player from leaving Faron Woods until Forest Temple is completed.&#0010;"
                   id="faronLogicFieldset"
                 >
@@ -196,11 +215,79 @@
             </fieldset>
           </div>
           <div class="tabColumn">
+            <fieldset id="worldOptionsFieldset">
+              <legend>World</legend>
+              <div
+                data-tooltip-text="If checked, when starting a new save file, instead of starting in Ordon, the starting spawn point will be randomized.&#0010;&#0010;Note: Enabling this setting also forces the Prologue to be skipped.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="randomizeStartingPointCheckbox"
+                  name="Randomize Starting Point Checkbox"
+                  value=""
+                />
+                <label for="randomizeStartingPointCheckbox"
+                  >Randomize Starting Location</label
+                ><br />
+              </div>
+              <div class="selectGroup" style="margin-top: 8px">
+                <label for="dungeonERFieldset">Shuffle Dungeon Entrances</label
+                ><br />
+                <select
+                  name="Shuffle Dungeon Entrances Fieldset"
+                  id="dungeonERFieldset"
+                  data-tooltip-text="Adds dungeon entrances to the entrance pool.&#0010;&#0010;'Off': Dungeon entrances are vanilla.&#0010;&#0010;'Dungeons': The 8 main dungeons' entrances are shuffled.&#0010;&#0010;'Dungeons & Hyrule': All dungeons and Hyrule Castle will have their entrances shuffled.&#0010;&#0010;Note: Shuffling dungeon entrances forces MDH to be skipped.&#0010;"
+                >
+                  <option value="0">Off</option>
+                  <option value="1">Dungeons</option>
+                  <option value="2">Dungeons & Hyrule</option>
+                </select>
+              </div>
+              <div class="selectGroup" style="margin-top: 8px">
+                <label for="mirrorChamberFieldset">Mirror Chamber Access</label
+                ><br />
+                <select
+                  name="Mirror Chamber Fieldset"
+                  id="mirrorChamberFieldset"
+                  data-tooltip-text="Customizes the access between the Lower Mirror Chamber and Stallord rooms.&#0010;&#0010;'Open': The entrance is open and operates like normal.&#0010;&#0010;'Barrier': A barrier is placed in front of the Mirror Chamber Entrance and goes away when Stallord is defeated&#0010;&#0010;'Closed': The Mirror Chamber is isolated from the world graph and cannot be reached via the Stallord Boss Room. To access it, players will need either the portal or access from PoT.&#0010;"
+                >
+                  <option value="0">Open</option>
+                  <option value="1">Barrier</option>
+                  <option value="2">Closed</option>
+                </select>
+              </div>
+              <div
+                data-tooltip-text="If checked, entrances that seemingly go to the same place are randomized.&#0010;&#0010;Example: SPR Left Door and Right Doors could potentially lead to different places.&#0010;&#0010;Note: This option is only available if you have dungeon entrances randomized.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="unpairedEntrancesCheckbox"
+                  name="Unpaired Entrances Checkbox"
+                  value=""
+                />
+                <label for="unpairedEntrancesCheckbox">Unpair Entrances</label
+                ><br />
+              </div>
+              <div
+                data-tooltip-text="If checked, entrances are de-coupled, meaning that going back the way you came could lead you to somewhere else.&#0010;&#0010;Example: If you enter FT from North Faron and then leave the dungeon the way you entered, you could end up in Lake Hylia.&#0010;&#0010;Note: This option is only available if you have dungeon entrances randomized.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="decoupleEntrancesCheckbox"
+                  name="Decouple Entrances Checkbox"
+                  value=""
+                />
+                <label for="decoupleEntrancesCheckbox">Decouple Entrances</label
+                ><br />
+              </div>
+            </fieldset>
+          </div>
+          <div class="tabColumn">
             <fieldset id="itemPoolOptionsFieldset">
-              <legend>Item Pool</legend>
+              <legend>World Items</legend>
               <div
                 data-tooltip-text="If checked, the golden bug locations across Hyrule are randomized.&#0010;"
-                style="width: 50%"
+                style="width: 90%"
               >
                 <input
                   type="checkbox"
@@ -212,7 +299,7 @@
               </div>
               <div
                 data-tooltip-text="If checked, the Sky Characters received from the Owl Statues are randomized.&#0010;"
-                style="width: 50%"
+                style="width: 90%"
               >
                 <input
                   type="checkbox"
@@ -223,7 +310,7 @@
                 <label for="skyCharacterCheckbox"> Sky Characters </label><br />
               </div>
               <div
-                style="width: 50%"
+                style="width: 90%"
                 data-tooltip-text="If checked, items recieved from NPCs will be randomized.&#0010;"
               >
                 <input
@@ -236,7 +323,7 @@
                 ><br />
               </div>
               <div
-                style="width: 50%"
+                style="width: 90%"
                 data-tooltip-text="If checked, the items you can permanently buy from shops are randomized.&#0010;"
               >
                 <input
@@ -248,7 +335,7 @@
                 <label for="shopItemsCheckbox"> Shop Items </label><br />
               </div>
               <div
-                style="width: 50%"
+                style="width: 90%"
                 data-tooltip-text="If checked, the Hidden Skills recieved from Golden Wolves are randomized.&#0010;"
               >
                 <input
@@ -258,6 +345,32 @@
                   value=""
                 />
                 <label for="hiddenSkillsCheckbox"> Hidden Skills </label><br />
+              </div>
+              <div
+                style="width: 90%"
+                data-tooltip-text="If checked, rupees that are obtained by either destroying rocks or completing certain tasks are randomized.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="hiddenRupeeCheckbox"
+                  name="Hidden Rupees"
+                  value=""
+                />
+                <label for="hiddenRupeeCheckbox"> Hidden Rupees </label><br />
+              </div>
+              <div
+                style="width: 90%"
+                data-tooltip-text="If checked, certain freestanding rupees are randomized.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="freestandingRupeeCheckbox"
+                  name="Freestanding Rupees"
+                  value=""
+                />
+                <label for="freestandingRupeeCheckbox">
+                  Freestanding Rupees </label
+                ><br />
               </div>
               <div class="selectGroup">
                 <label for="poeSettingsFieldset">Poe Souls:</label><br />
@@ -270,6 +383,20 @@
                   <option value="1">Overworld</option>
                   <option value="2">Dungeons</option>
                   <option value="3">All</option>
+                </select>
+              </div>
+              <div class="selectGroup">
+                <label for="iliaQuestFieldset">Ilia Memory Quest:</label><br />
+                <select
+                  name="Ilia Memory Quest Settings"
+                  data-tooltip-text="With this setting, the player can choose the point in the sequence they want the Ilia Memory Quest to start. Selecting an item shuffles that specific item into world, precompleting the previous items in the quest.&#0010;&#0010;Later items in the sequence are vanilla with the exception of the 'Ilia Memory Reward' item, which is always randomized.&#0010;"
+                  id="iliaQuestFieldset"
+                >
+                  <option value="0" selected>Vanilla</option>
+                  <option value="1">Letter</option>
+                  <option value="2">Invoice</option>
+                  <option value="3">Statue</option>
+                  <option value="4">Charm</option>
                 </select>
               </div>
               <div class="selectGroup" style="margin-top: 8px">
@@ -293,7 +420,7 @@
                 <label for="smallKeyFieldset">Small Keys</label><br />
                 <select
                   name="Small Keys"
-                  data-tooltip-text="'Vanilla': Small Keys will be placed in their original location.&#0010;&#0010;'Own Dungeon': Small Keys will only be randomized in their vanilla dungeon. Example: You can only find a Forest Temple Small Key in the Forest Temple.&#0010;&#0010;'Any Dungeon': Small Keys will be randomized between dungeons.&#0010;&#0010;'Keysanity': Small Keys will be randomized among all checks.&#0010;&#0010;'Keysy': All small key locks are removed and the keys are removed from the item pool and the player will start with the Bulblin Camp Key.&#0010;"
+                  data-tooltip-text="'Vanilla': Small Keys will be placed in their original location.&#0010;&#0010;'Own Dungeon': Small Keys will only be randomized in their vanilla dungeon. Example: You can only find a Forest Temple Small Key in the Forest Temple.&#0010;&#0010;'Any Dungeon': Small Keys will be randomized between dungeons.&#0010;&#0010;'Keysanity': Small Keys will be randomized among all checks.&#0010;&#0010;'Keysy': All small key locks are removed and the keys are removed from the item pool and the player will start with all region small keys. (i.e Gate Keys, Coro Key, etc.)&#0010;"
                   data-tooltip-position="left"
                   id="smallKeyFieldset"
                 >
@@ -335,6 +462,40 @@
                   <option value="4">Start With</option>
                 </select>
               </div>
+              <div class="selectGroup">
+                <label for="castleBKRequirementsFieldset"
+                  >Hyrule Castle Big Key Requirements</label
+                ><br />
+                <select
+                  name="Castle BK Requirements"
+                  data-tooltip-text="When enabled, the HC Big Key will be placed in its vanilla location with the gate in front of it locked. Only when the specified criteria have been met will the gate unlock.&#0010;&#0010;'None': The gate is opened and the key is randomized according to the respective Big Key settings.&#0010;&#0010;'Fused Shadows': The gate will open once the required number of Fused Shadows have been collected.&#0010;&#0010;'Mirror Shards': The gate will open once the required number of Mirror Shards have been collected.&#0010;&#0010;'Dungeons': The gate will open once the required number of Dungeons have been cleared.&#0010;&#0010;'Poe Souls': The gate will open once the required number of Poe Souls have been collected.&#0010;&#0010;'Hearts': The gate will open once the required number of Hearts have been reached."
+                  data-tooltip-position="left"
+                  id="castleBKRequirementsFieldset"
+                >
+                  <option value="0" selected>None</option>
+                  <option value="1">Fused Shadows</option>
+                  <option value="2">Mirror Shards</option>
+                  <option value="3">Dungeons</option>
+                  <option value="4">Poe Souls</option>
+                  <option value="5">Hearts</option>
+                </select>
+              </div>
+              <label
+                for="castleBKRequirementsSlider"
+                id="castleBKRequirementsSliderLabel"
+                hidden
+                >Hyrule Castle Requirements</label
+              >
+              <input
+                type="range"
+                min="1"
+                max="1"
+                value="1"
+                class="liSlider"
+                id="castleBKRequirementsSlider"
+                hidden
+              />
+              <output id="castleBKRequirementsSliderOutput" hidden></output>
               <div
                 data-tooltip-text="If checked, the Fused Shadows and Mirror Shards that normally appear at the end of Dungeons can be found anywhere in the game.&#0010;"
                 data-tooltip-position="left"
@@ -372,7 +533,7 @@
             <fieldset id="clearedTwilightsFieldset">
               <legend>Timesavers</legend>
               <div
-                style="width: 60%"
+                style="width: 90%"
                 data-tooltip-text="Skips the first three days of Ordon and places Link outside his house before the Sewers segment.&#0010;"
               >
                 <input
@@ -384,7 +545,7 @@
                 <label for="introCheckbox"> Skip Prologue </label><br />
               </div>
               <div
-                style="width: 60%"
+                style="width: 90%"
                 data-tooltip-text="Skips the Faron Twilight tear collection segment.&#0010;"
               >
                 <input
@@ -398,7 +559,7 @@
                 ><br />
               </div>
               <div
-                style="width: 60%"
+                style="width: 90%"
                 data-tooltip-text="Skips the Eldin Twilight tear collection segment.&#0010;"
               >
                 <input
@@ -412,7 +573,7 @@
                 ><br />
               </div>
               <div
-                style="width: 80%"
+                style="width: 90%"
                 data-tooltip-text="Skips the Lanayru Twilight tear collection segment.&#0010;"
               >
                 <input
@@ -426,7 +587,7 @@
                 ><br />
               </div>
               <div
-                style="width: 70%"
+                style="width: 90%"
                 data-tooltip-text="Skips the Midna's Desperate Hour segment after Lakebed Temple.&#0010;"
               >
                 <input
@@ -439,7 +600,7 @@
                 ><br />
               </div>
               <div
-                style="width: 60%"
+                style="width: 90%"
                 data-tooltip-text="Sets the flags for most minor cutscenes. (Dungeon Entrance cutscenes, Midna text prompts, etc.)&#0010;"
               >
                 <input
@@ -453,7 +614,7 @@
                 ><br />
               </div>
               <div
-                style="width: 60%"
+                style="width: 90%"
                 data-tooltip-text="Automatically skips all skippable major cutscenes in the game.&#0010;"
               >
                 <input
@@ -467,7 +628,7 @@
                 ><br />
               </div>
               <div
-                style="width: 60%"
+                style="width: 90%"
                 data-tooltip-text="Removes the speed reduction caused by wearing the Iron Boots.&#0010;This also affects any other modifiers that reduce Link's speed such as quicksand, snow, and carrying the Ball and Chain.&#0010;"
               >
                 <input
@@ -479,7 +640,7 @@
                 <label for="fastIBCheckbox"> Fast Iron Boots </label><br />
               </div>
               <div
-                style="width: 60%"
+                style="width: 90%"
                 data-tooltip-text="Allows the player to instantly transform when pressing a specified button combination.&#0010;&#0010;Gamecube: R + Y&#0010;"
               >
                 <input
@@ -493,7 +654,7 @@
               </div>
               <div
                 style="width: 90%"
-                data-tooltip-text="If enabled, any dungeon that is not required to open Hyrule Castle will not contain any important items.&#0010;"
+                data-tooltip-text="If enabled, any dungeon that is not required to complete the seed will not contain any important items.&#0010;"
               >
                 <input
                   type="checkbox"
@@ -520,7 +681,7 @@
               </div>
               <div
                 style="width: 90%"
-                data-tooltip-text="If enabled, map regions affected by certain settings/sequence skips are unlocked and can be warped to once the Shadow Crystal has been obtained. (Example: The Lanayru Region of the map is unlocked if Lanayru Twilight is skipped.)&#0010;"
+                data-tooltip-text="If enabled, map regions affected by certain settings/sequence skips are unlocked and can be warped to once the Shadow Crystal has been obtained and the respective portals have been unlocked. (Example: The Lanayru Region of the map is unlocked if Lanayru Twilight is skipped.)&#0010;"
               >
                 <input
                   type="checkbox"
@@ -556,13 +717,70 @@
                 />
                 <label for="openDotCheckbox"> Open Door of Time </label><br />
               </div>
+              <div
+                style="width: 90%"
+                data-tooltip-text="If enabled, all magnets within Goron Mines except the final one will automatically be activated. The final magnet remains deactivated to avoid a softlock."
+              >
+                <input
+                  type="checkbox"
+                  id="gmShortcutCheckbox"
+                  name="Active Goron Mines Magnets"
+                  value=""
+                />
+                <label for="gmShortcutCheckbox"
+                  >Active Goron Mines Magnets</label
+                ><br />
+              </div>
+              <div
+                style="width: 90%"
+                data-tooltip-text="If enabled, the shortcut chandelier in the Hyrule Castle main hall will be lowered, and the double Dinalfos room will be cleared.&#0010;&#0010;This allows for you to continue from the main hall to the southern balcony more quickly and with fewer item requirements (ex: no Gale Boomerang)."
+              >
+                <input
+                  type="checkbox"
+                  id="hcShortcutCheckbox"
+                  name="Lower Hyrule Castle Chandelier"
+                  value=""
+                />
+                <label for="hcShortcutCheckbox"
+                  >Lower Hyrule Castle Chandelier</label
+                ><br />
+              </div>
+              <div
+                style="width: 90%"
+                data-tooltip-text="If enabled, the bridge to Castle Town from Eldin Field will be automatically repaired."
+              >
+                <input
+                  type="checkbox"
+                  id="skipBridgeDonationCheckbox"
+                  name="Skip Bridge Donation"
+                  value=""
+                />
+                <label for="skipBridgeDonationCheckbox"
+                  >Skip Castle Town Bridge Donation</label
+                ><br />
+              </div>
+              <br />
+              <label
+                for="maloShopDonationSlider"
+                id="maloShopDonationSliderLabel"
+                >Rupees needed for Castle Town Malo Mart:</label
+              >
+              <input
+                type="range"
+                min="1"
+                max="2000"
+                value="2000"
+                class="liSlider"
+                id="maloShopDonationSlider"
+              />
+              <output id="maloShopDonationSliderOutput">2000</output>
             </fieldset>
           </div>
           <div class="tabColumn">
             <fieldset id="additionalSettingsFieldset">
               <legend>Additional Settings</legend>
               <div
-                style="width: 60%"
+                style="width: 90%"
                 data-tooltip-text="If enabled, the player can transform anywhere, even in front of people.&#0010;"
               >
                 <input
@@ -573,20 +791,6 @@
                 />
                 <label for="transformAnywhereCheckbox">
                   Transform Anywhere </label
-                ><br />
-              </div>
-              <div
-                style="width: 70%"
-                data-tooltip-text="Increases the player's wallet capacity from 300, 600, 1000 to 1000, 5000, 9999 respectively.&#0010;"
-              >
-                <input
-                  type="checkbox"
-                  id="increaseWalletCheckbox"
-                  name="Increase Wallet Checkbox"
-                  value=""
-                />
-                <label for="increaseWalletCheckbox">
-                  Increase Wallet Capacity</label
                 ><br />
               </div>
               <div
@@ -612,6 +816,20 @@
                   value=""
                 />
                 <label for="bonksDoDamageCheckbox">Bonks Do Damage</label><br />
+              </div>
+              <div
+                class="selectGroup"
+                style="margin-top: 8px"
+                data-tooltip-text="'Reduced': Sets the wallet capacities to 99, 500, and 1000&#0010;&#0010;'Vanila': Sets the wallet capacities to 300, 600, and 1000.&#0010;&#0010;'HD': Sets the wallet capacities to 500, 1000, and 2000.&#0010;&#0010;'Large': Sets the wallet capacities to 1000, 5000, and 9999."
+                data-tooltip-position="left"
+              >
+                <label for="">Wallet Size</label><br />
+                <select name="Wallet Size" id="walletSizeFieldset">
+                  <option value="0">Reduced</option>
+                  <option value="1" selected>Vanilla</option>
+                  <option value="2">HD</option>
+                  <option value="3">Large</option>
+                </select>
               </div>
               <div class="selectGroup" style="margin-top: 8px">
                 <label for="trapItemFieldset">Trap Item Frequency</label><br />
@@ -646,7 +864,7 @@
                 <select
                   name="Starting Time of Day"
                   id="todFieldset"
-                  data-tooltip-text="If the prologue is skipped, sets the starting time of day of a new save file to the specified value."
+                  data-tooltip-text="Sets the starting time of day of a new save file to the specified value."
                 >
                   <option value="0">Morning</option>
                   <option value="1" selected="selected">Noon</option>
@@ -660,15 +878,67 @@
                 <select
                   name="Hint Distribution"
                   id="hintDistributionFieldset"
-                  data-tooltip-text="'None': Disables hints.&#0010;&#0010;'Balanced': Default hint distribution.&#0010;&#0010;'Season 1': Distribution for the S1 tournament. 3 Barren, 1 Misc, 3 Path (1 Item, 2 Boss), 5 Always, 5 Sometimes, Sword hints in dungeons.&#0010;&#0010;'Strong': Hints are more useful than Balanced on average.&#0010;&#0010;'Very Strong': Hints are more useful than Strong on average.&#0010;&#0010;'Weak': Designed to enhance the experience without speeding things up that much.&#0010;"
+                  data-tooltip-text="'None': Disables hints.&#0010;&#0010;'Balanced': Default hint distribution.&#0010;&#0010;'Season 1': Distribution for the S1 tournament. 3 Barren, 1 Misc, 3 Path (1 Item, 2 Boss), 5 Always, 5 Sometimes, Sword hints in dungeons.&#0010;&#0010;'Season 2': Distribution for the S2 tournament. Similar to Season 1, but it makes use of some newer hint features.&#0010;&#0010;'Strong': Hints are more useful than Balanced on average.&#0010;&#0010;'Very Strong': Hints are more useful than Strong on average.&#0010;&#0010;'Weak': Designed to enhance the experience without speeding things up that much.&#0010;"
                 >
                   <option value="0">None</option>
                   <option value="3" selected="selected">Balanced</option>
                   <option value="1">Season 1</option>
+                  <option value="6">Season 2</option>
                   <option value="4">Strong</option>
                   <option value="5">Very Strong</option>
                   <option value="2">Weak</option>
                 </select>
+              </div>
+              <div class="selectGroup" style="margin-top: 8px">
+                <label for="hintDistributionFieldset">Hint Importance</label
+                ><br />
+                <select
+                  name="Hint Importance"
+                  id="hintImportanceFieldset"
+                  data-tooltip-text='WARNING: calculating hint importance can cause seed generation to take meaningfully longer (up to 1 to 2 minutes depending on settings).&#0010;&#0010;&apos;Default&apos;: Only basic hint calculations are done. No Logic always uses Default.&#0010;&#0010;&apos;Calculate&apos;: Does more calculations to know when major items are not useful. Most "skippable" checks will become either "sometimes required" (useful) or "not required" (not useful). More areas can be hinted barren since a check which is known to be "not required" would not block barren (Ex: a useless Dominion Rod).&#0010;&#0010;&apos;Upgrade Hints&apos;: Includes the changes from "Calculate". Addtionally, most hints will be upgraded to indicate importance. For example, Always hints indicate importance by default, but this setting would make Sometimes hints indicate importance as well.&#0010;'
+                >
+                  <option value="0" selected="selected">Default</option>
+                  <option value="1">Calculate</option>
+                  <option value="2">Upgrade Hints</option>
+                </select>
+              </div>
+              <div
+                data-tooltip-text="Midna will indicate which dungeon entrances lead to which dungeons as part of her hints. If 'Unrequired Dungeons Are Barren' is enabled, entrances which lead to unrequired-barren dungeons will not be listed. If dungeon entrances are not randomized, then this setting is ignored.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="hintDungeonEntrancesCheckbox"
+                  name="Adjust Hints For Completionists"
+                  value=""
+                />
+                <label for="hintDungeonEntrancesCheckbox"
+                  >Hint dungeon entrances</label
+                >
+              </div>
+              <div
+                data-tooltip-text="Plandoed checks will not be randomly selected for a hint. These checks are considered to already be known by the player.&#0010;"
+              >
+                <input
+                  type="checkbox"
+                  id="noPlandoHintsCheckbox"
+                  name="No Plando Hints Checkbox"
+                  value=""
+                  checked
+                />
+                <label for="noPlandoHintsCheckbox">No Plando Hints</label>
+              </div>
+              <div
+                data-tooltip-text='For players who wish to "100%" a seed. Makes a few adjustments to hints to make them more helpful.&#0010;&#0010;&#149; For Barren and BeyondThisPoint hints, all shuffled non-junk items will now block barren and show up as "something good beyond this point".&#0010;&#149; Agitha&apos;s hint indicates all non-junk items, including golden bugs.&#0010;&#149; To avoid confusion, hints no longer indicate importance (such as "not required") since these are calculated relative to beating the game rather than 100%-ing it.&#0010;'
+              >
+                <input
+                  type="checkbox"
+                  id="adjustHintsForCompletionistsCheckbox"
+                  name="Adjust Hints For Completionists"
+                  value=""
+                />
+                <label for="adjustHintsForCompletionistsCheckbox"
+                  >Adjust Hints For Completionists</label
+                >
               </div>
             </fieldset>
           </div>
@@ -719,6 +989,20 @@
                 ><br />
               </div>
               <div
+                data-tooltip-text="If checked, Skull Kid will not need to be defeated to access Sacred Grove.&#0010;"
+                data-tooltip-position="left"
+              >
+                <input
+                  type="checkbox"
+                  id="groveEntranceCheckbox"
+                  name="Grove Checkbox"
+                  value=""
+                />
+                <label for="groveEntranceCheckbox">
+                  Sacred Grove Does Not Require Skull Kid </label
+                ><br />
+              </div>
+              <div
                 data-tooltip-text="If checked, the Sky Cannon is automatically warped to Lake Hylia once Lanayru Twilight is complete and the Sky Characters are removed from the item pool.&#0010;"
                 data-tooltip-position="left"
               >
@@ -751,15 +1035,18 @@
               <div
                 class="selectGroup"
                 style="margin-top: 8px"
-                data-tooltip-text="'Closed': The player must defeat Skull Kid. Warping to the Sacred Grove, accessing the past area, and entering the Temple of Time dungeon are all locked behind the Master Sword.&#0010;&#0010;'Open Grove': The player will not need to defeat Skull Kid, the portal to the Sacred Grove is opened, and the past area is accessible. The Master Sword is still required to enter the dungeon.&#0010;&#0010;'Open': All changes of 'Open Grove' are applied. Additionally, the player will not need the Master Sword to access the Temple of Time dungeon."
+                data-tooltip-text="Sets the minimum progressive sword level that is required to strike the pedestal in Sacred Grove and the Temple of Time. This means that if set to Ordon Sword, the pedestal can be struck with the Ordon, Master, or Light Sword, but not the Wooden Sword. If set to 'none', the player does not need to strike the sword into the pedestal.&#0010;"
                 data-tooltip-position="left"
               >
-                <label for="totEntranceFieldset">Temple of Time Entrance</label
+                <label for="totEntranceFieldset"
+                  >Temple of Time Sword Requirement</label
                 ><br />
                 <select name="Temple of Time Entrance" id="totEntranceFieldset">
-                  <option value="0">Closed</option>
-                  <option value="1">Open Grove</option>
-                  <option value="2">Open</option>
+                  <option value="0">None</option>
+                  <option value="1">Wooden Sword</option>
+                  <option value="2">Ordon Sword</option>
+                  <option value="3" selected="selected">Master Sword</option>
+                  <option value="4">Light Sword</option>
                 </select>
               </div>
             </fieldset>
@@ -793,6 +1080,23 @@
             >
               <!-- STARTING_ITEMS -->
             </ul>
+          </fieldset>
+          <fieldset class="otherItemsFieldset">
+            <legend>Other</legend>
+            <div
+              style="width: 90%"
+              data-tooltip-text="Starts the player with a full wallet. Wallet upgrades will also fill the wallet.&#0010;"
+            >
+              <input
+                type="checkbox"
+                id="autoFillWalletCheckbox"
+                name="Auto Fill Wallet Checkbox"
+                value=""
+              />
+              <label for="autoFillWalletCheckbox">
+                Automatically Fill Wallets</label
+              ><br />
+            </div>
           </fieldset>
         </div>
 
@@ -860,10 +1164,28 @@
         <br />
 
         <div class="settingsStringLabel">Settings String</div>
-        <div style="display: flex; align-items: center; min-width: 0">
+        <div class="settingsStringRowWrapper">
+          <button
+            id="copySettingsBtn"
+            class="css-1egpgfe"
+            tabindex="0"
+            type="button"
+            aria-label="copy"
+          >
+            <svg
+              class="css-vubbuv"
+              focusable="false"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"
+              />
+            </svg>
+          </button>
           <button
             id="editSettingsBtn"
-            class="settingsEditBtnPos css-1egpgfe"
+            class="css-1egpgfe"
             tabindex="0"
             type="button"
             aria-label="delete"
@@ -879,7 +1201,53 @@
               ></path>
             </svg>
           </button>
+          <button
+            id="savePreset"
+            class="css-1egpgfe"
+            tabindex="0"
+            type="button"
+            aria-label="save"
+          >
+            <svg
+              class="css-vubbuv"
+              focusable="false"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
+              />
+            </svg>
+          </button>
+          <button
+            id="managePresets"
+            class="css-1egpgfe"
+            tabindex="0"
+            type="button"
+            aria-label="save"
+            style="margin-right: 8px"
+          >
+            <svg
+              class="css-vubbuv"
+              focusable="false"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.09-.16-.26-.25-.44-.25-.06 0-.12.01-.17.03l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.06-.02-.12-.03-.18-.03-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.09.16.26.25.44.25.06 0 .12-.01.17-.03l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-1.98-1.71c.04.31.05.52.05.73 0 .21-.02.43-.05.73l-.14 1.13.89.7 1.08.84-.7 1.21-1.27-.51-1.04-.42-.9.68c-.43.32-.84.56-1.25.73l-1.06.43-.16 1.13-.2 1.35h-1.4l-.19-1.35-.16-1.13-1.06-.43c-.43-.18-.83-.41-1.23-.71l-.91-.7-1.06.43-1.27.51-.7-1.21 1.08-.84.89-.7-.14-1.13c-.03-.31-.05-.54-.05-.74s.02-.43.05-.73l.14-1.13-.89-.7-1.08-.84.7-1.21 1.27.51 1.04.42.9-.68c.43-.32.84-.56 1.25-.73l1.06-.43.16-1.13.2-1.35h1.39l.19 1.35.16 1.13 1.06.43c.43.18.83.41 1.23.71l.91.7 1.06-.43 1.27-.51.7 1.21-1.07.85-.89.7.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
+              />
+            </svg>
+          </button>
+          <select id="presetsSelect" style="min-width: 200px"></select>
           <span id="combinedSettingsString" class="settingsStringValue"></span>
+
+          <div id="presetUpdateStatus" class="preset-toast">Preset updated</div>
+
+          <div
+            id="presetError"
+            class="fieldErrorText"
+            style="display: none"
+          ></div>
         </div>
 
         <!-- <div>SSettings (display only):</div>
@@ -968,7 +1336,7 @@
       <div class="blackbg">
         <div class="footerText" style="text-align: center">
           Logo and background image are property of Nintendo. Copyright ©
-          Nintendo, 1998-2024.<br />
+          Nintendo, 1998-2025.<br />
           Based off the original website design by
           <a
             target="_blank"
@@ -1048,10 +1416,206 @@
 
         <div class="modalButtonsWrapper">
           <button id="modalImport" type="button">Import</button>
-          <button id="modalCancel" type="button">Cancel</button>
+          <button id="modalCancel" type="button" style="margin-right: 16px">
+            Cancel
+          </button>
           <button id="modalCopy" type="button" style="margin-right: auto">
             Copy settings
           </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Save preset modal -->
+    <div id="savePresetModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <div class="modalTitle">Save Preset</div>
+
+        <div class="labelValueGroup">
+          <div class="settingsStringLabel settingsStringLabelLight">Preset</div>
+          <div class="modal-field">
+            <select
+              id="savePresetModal-selectPreset"
+              style="min-width: 200px"
+            ></select>
+          </div>
+        </div>
+
+        <div
+          id="savePresetModal-warning"
+          class="alert alert-warning-light"
+          style="padding: 8px; margin-bottom: 8px"
+        >
+          Ex: you will be overwriting the "my preset" preset!
+        </div>
+
+        <div id="savePresetModal-nameInputBlock">
+          <div class="settingsStringLabel settingsStringLabelLight">Name</div>
+          <input
+            id="savePresetModal-nameInput"
+            type="text"
+            class="modalSettingsStringInput"
+            maxlength="50"
+          />
+        </div>
+
+        <div id="savePresetModal-descInputBlock">
+          <div class="settingsStringLabel settingsStringLabelLight">
+            Description
+          </div>
+          <input
+            id="savePresetModal-descInput"
+            type="text"
+            class="modalSettingsStringInput"
+            maxlength="200"
+          />
+        </div>
+
+        <div
+          id="savePresetModal-nameError"
+          class="fieldErrorText"
+          style="display: none"
+        ></div>
+
+        <div
+          id="savePresetModal-error"
+          class="alert alert-error-light"
+          style="margin-top: 16px; display: none"
+        ></div>
+
+        <div class="modalButtonsWrapper">
+          <button id="savePresetModal-save" type="button">Save</button>
+          <button
+            id="savePresetModal-cancel"
+            type="button"
+            style="margin-right: 16px"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manage presets modal -->
+    <div id="managePresetsModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <div class="modalTitle">Manage Presets</div>
+
+        <div id="managePresetsModal-pageMain" style="display: none">
+          <div class="labelValueGroup">
+            <div class="settingsStringLabel settingsStringLabelLight">
+              Custom preset
+            </div>
+            <div class="modal-field">
+              <select
+                id="managePresetsModal-selectPreset"
+                style="min-width: 200px"
+              ></select>
+            </div>
+            <div
+              id="managePresetsModal-selectError"
+              class="fieldErrorText"
+              style="display: none"
+            ></div>
+          </div>
+
+          <div
+            id="managePresetsModal-mainDebugAlert"
+            class="alert"
+            style="margin-top: 16px; display: none"
+          ></div>
+
+          <div class="modalButtonsWrapper">
+            <button id="managePresetsModal-edit" type="button">Rename</button>
+            <button
+              id="managePresetsModal-delete"
+              type="button"
+              style="margin-right: 16px"
+            >
+              Delete
+            </button>
+            <button
+              id="managePresetsModal-debug"
+              type="button"
+              style="margin-right: auto"
+            >
+              Copy debug info
+            </button>
+          </div>
+
+          <div
+            id="presetModalError"
+            class="modalError"
+            style="display: none"
+          ></div>
+        </div>
+
+        <div id="managePresetsModal-pageEdit" style="display: none">
+          <div id="managePresetsModal-editInfo" style="margin-bottom: 24px">
+            Renaming "name"
+          </div>
+
+          <div>
+            <div class="settingsStringLabel settingsStringLabelLight">Name</div>
+            <div class="modal-field">
+              <input
+                id="managePresetsModal-nameInput"
+                type="text"
+                class="modalSettingsStringInput"
+                maxlength="50"
+              />
+            </div>
+
+            <div
+              id="managePresetsModal-nameInputError"
+              class="fieldErrorText"
+              style="display: none"
+            ></div>
+          </div>
+
+          <div
+            id="managePresetsModal-editError"
+            class="alert alert-error-light"
+            style="margin-top: 16px; display: none"
+          ></div>
+
+          <div class="modalButtonsWrapper">
+            <button id="managePresetsModal-editSave" type="button">Save</button>
+            <button
+              id="managePresetsModal-editBack"
+              type="button"
+              style="margin-right: 16px"
+            >
+              Back
+            </button>
+          </div>
+        </div>
+
+        <div id="managePresetsModal-pageDelete" style="display: none">
+          <div id="managePresetsModal-deleteInfo">
+            Are you sure you want to delete?
+          </div>
+
+          <div
+            id="managePresetsModal-deleteError"
+            class="alert alert-error-light"
+            style="margin-top: 16px; display: none"
+          ></div>
+
+          <div class="modalButtonsWrapper">
+            <button id="managePresetsModal-deleteConfirm" type="button">
+              Delete
+            </button>
+            <button
+              id="managePresetsModal-deleteBack"
+              type="button"
+              style="margin-right: 16px"
+            >
+              Back
+            </button>
+          </div>
         </div>
       </div>
     </div>

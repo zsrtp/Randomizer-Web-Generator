@@ -1,6 +1,6 @@
 {
     "requirements": "Spinner",
-    "glitchedRequirements": "CanDoMapGlitch or (canSmash and Spinner)",
+    "glitchedRequirements": "CanDoMapGlitch or (CanSmash and Spinner)",
     "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province"],
     "itemId": "Piece_of_Heart"
 }

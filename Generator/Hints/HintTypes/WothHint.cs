@@ -14,11 +14,7 @@ namespace TPRandomizer.Hints
         // always derived
         public Item item { get; private set; }
 
-        public WothHint(
-            AreaId areaId,
-            string checkName,
-            Dictionary<int, byte> itemPlacements = null
-        )
+        public WothHint(AreaId areaId, string checkName, Dictionary<int, int> itemPlacements = null)
         {
             this.areaId = areaId;
             this.checkName = checkName;
@@ -26,7 +22,7 @@ namespace TPRandomizer.Hints
             CalcDerived(itemPlacements);
         }
 
-        private void CalcDerived(Dictionary<int, byte> itemPlacements)
+        private void CalcDerived(Dictionary<int, int> itemPlacements)
         {
             if (itemPlacements != null)
             {
@@ -58,13 +54,22 @@ namespace TPRandomizer.Hints
         public static WothHint decode(
             HintEncodingBitLengths bitLengths,
             BitsProcessor processor,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             AreaId areaId = AreaId.decode(bitLengths, processor);
             int checkId = processor.NextInt(bitLengths.checkId);
             string checkName = CheckIdClass.GetCheckName(checkId);
             return new WothHint(areaId, checkName, itemPlacements);
+        }
+
+        public override void GetPreferHintBefore(
+            out HashSet<string> checkNames,
+            out HashSet<string> roomNames
+        )
+        {
+            checkNames = new() { checkName };
+            roomNames = null;
         }
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)

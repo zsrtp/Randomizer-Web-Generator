@@ -30,6 +30,7 @@
         "Checks": 
         [
             "Temple of Time Armogohma Heart Container",
+            "Temple of Time Armogohma",
             "Temple of Time Dungeon Reward"
         ], 
         "Region": "Temple of Time"
@@ -50,8 +51,8 @@
             },
             {
               "ConnectedArea": "Temple of Time Moving Wall Hallways",
-              "Requirements": "Spinner and ((Temple_of_Time_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))",
-              "GlitchedRequirements": "(Spinner or CanDoLJA) and ((Temple_of_Time_Small_Key, 2) or (Setting.smallKeySettings equals Keysy))"
+              "Requirements": "Spinner and (Temple_of_Time_Small_Key, 2)",
+              "GlitchedRequirements": "(Spinner or CanDoLJA) and (Temple_of_Time_Small_Key, 2)"
             }
           ],
           "Checks": 
@@ -71,8 +72,8 @@
           },
           {
             "ConnectedArea": "Temple of Time Central Mechanical Platform",
-            "Requirements": "hasRangedItem and CanDefeatYoungGohma and CanDefeatLizalfos",
-            "GlitchedRequirements": "hasRangedItem and CanDefeatYoungGohma and CanDefeatLizalfos"
+            "Requirements": "HasRangedItem and CanDefeatYoungGohma and CanDefeatLizalfos",
+            "GlitchedRequirements": "HasRangedItem and CanDefeatYoungGohma and CanDefeatLizalfos"
           }
         ],
         "Checks": 
@@ -94,8 +95,8 @@
             },
             {
               "ConnectedArea": "Temple of Time Boss Room",
-              "Requirements": "(Progressive_Dominion_Rod, 1) and (Temple_of_Time_Big_Key or (Setting.bigKeySettings equals Keysy))",
-              "GlitchedRequirements": "(Progressive_Dominion_Rod, 1) and (Temple_of_Time_Big_Key or (Setting.bigKeySettings equals Keysy))"
+              "Requirements": "(Progressive_Dominion_Rod, 1) and Temple_of_Time_Big_Key",
+              "GlitchedRequirements": "(Progressive_Dominion_Rod, 1) and Temple_of_Time_Big_Key"
             }
           ],
           "Checks": [""],
@@ -128,12 +129,12 @@
             },
             {
               "ConnectedArea": "Temple of Time Connecting Corridors",
-              "Requirements": "((Temple_of_Time_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
-              "GlitchedRequirements": "((Temple_of_Time_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+              "Requirements": "(Temple_of_Time_Small_Key, 1)",
+              "GlitchedRequirements": "(Temple_of_Time_Small_Key, 1)"
             },
             {
               "ConnectedArea": "Temple of Time Crumbling Corridor",
-              "Requirements": "((Progressive_Dominion_Rod, 1) and (Progressive_Bow, 1) and Spinner and CanDefeatLizalfos and CanDefeatDinalfos and CanDefeatDarknut and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))) or (Setting.openDot equals True)",
+              "Requirements": "((Progressive_Dominion_Rod, 1) and (Progressive_Bow, 1) and Spinner and CanDefeatLizalfos and CanDefeatDinalfos and CanDefeatDarknut and (Temple_of_Time_Small_Key, 3)) or (Setting.openDot equals True)",
               // DoT Skip
               "GlitchedRequirements": "(Progressive_Dominion_Rod, 1) or (Setting.openDot equals True)"
             }
@@ -222,13 +223,13 @@
             },
             {
               "ConnectedArea": "Temple of Time Darknut Arena",
-              "Requirements": "CanDefeatLizalfos and CanDefeatBabyGohma and CanDefeatYoungGohma and CanDefeatArmos and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))",
-              "GlitchedRequirements": "CanDefeatLizalfos and CanDefeatBabyGohma and CanDefeatYoungGohma and CanDefeatArmos and ((Temple_of_Time_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))"
+              "Requirements": "CanDefeatLizalfos and CanDefeatBabyGohma and CanDefeatYoungGohma and CanDefeatArmos and (Temple_of_Time_Small_Key, 3)",
+              "GlitchedRequirements": "CanDefeatLizalfos and CanDefeatBabyGohma and CanDefeatYoungGohma and CanDefeatArmos and (Temple_of_Time_Small_Key, 3)"
             }
           ],
           "Checks": 
           [
-              "Temple of Time Gilloutine Chest",
+              "Temple of Time Guillotine Chest",
               "Temple of Time Chest Before Darknut"
           ],
           "Region": "Temple of Time"

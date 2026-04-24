@@ -1,6 +1,6 @@
 {
-    "requirements": "Shadow_Crystal and Room.North_Faron_Woods",
-    "glitchedRequirements": "Shadow_Crystal and Room.North_Faron_Woods",
+    "requirements": "Shadow_Crystal and Room.North_Faron_Lost_Woods_Entrance",
+    "glitchedRequirements": "Shadow_Crystal and Room.North_Faron_Lost_Woods_Entrance",
     "checkCategory": ["Overworld", "Hidden Skill", "Hyrule Field - Lanayru Province"],
     "itemId": "Progressive_Hidden_Skill"
 }

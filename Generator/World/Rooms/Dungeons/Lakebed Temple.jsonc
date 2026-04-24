@@ -12,6 +12,7 @@
         "Checks": 
         [
             "Lakebed Temple Morpheel Heart Container",
+            "Lakebed Temple Morpheel",
             "Lakebed Temple Dungeon Reward"
         ], 
         "Region": "Lakebed Temple"
@@ -27,8 +28,8 @@
             },
             {
               "ConnectedArea": "Lakebed Temple East Wing Second Floor",
-              "Requirements": "((Lakebed_Temple_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))",
-              "GlitchedRequirements": "((Lakebed_Temple_Small_Key, 1) or (Setting.smallKeySettings equals Keysy))"
+              "Requirements": "(Lakebed_Temple_Small_Key, 1)",
+              "GlitchedRequirements": "(Lakebed_Temple_Small_Key, 1)"
             },
             {
               "ConnectedArea": "Lakebed Temple East Wing First Floor",
@@ -37,13 +38,13 @@
             },
             {
               "ConnectedArea": "Lakebed Temple West Wing",
-              "Requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canSmash and (Progressive_Clawshot, 1)",
-              "GlitchedRequirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canSmash and (Progressive_Clawshot, 1)"
+              "Requirements": "(Lakebed_Temple_Small_Key, 3) and CanSmash and (Progressive_Clawshot, 1)",
+              "GlitchedRequirements": "(Lakebed_Temple_Small_Key, 3) and CanSmash and (Progressive_Clawshot, 1)"
             },
             {
               "ConnectedArea": "Lakebed Temple Boss Room",
-              "Requirements": "((Lakebed_Temple_Small_Key, 3) or (Setting.smallKeySettings equals Keysy)) and canLaunchBombs and (Progressive_Clawshot, 1) and (Lakebed_Temple_Big_Key or (Setting.bigKeySettings equals Keysy))",
-              "GlitchedRequirements": "((Progressive_Clawshot, 1) and ((Progressive_Sword, 1) or (Lakebed_Temple_Big_Key or (Setting.bigKeySettings equals Keysy)))) or CanDoLJA"
+              "Requirements": "(Lakebed_Temple_Small_Key, 3) and CanLaunchBombs and (Progressive_Clawshot, 1) and Lakebed_Temple_Big_Key",
+              "GlitchedRequirements": "((Progressive_Clawshot, 1) and ((Progressive_Sword, 1) or Lakebed_Temple_Big_Key)) or CanDoLJA"
             }
           ],
           "Checks": 
@@ -87,8 +88,8 @@
         },
         {
             "ConnectedArea": "Lakebed Temple East Wing First Floor",
-            "Requirements": "canLaunchBombs or (Progressive_Clawshot, 1)",
-            "GlitchedRequirements": "canLaunchBombs or (Progressive_Clawshot, 1)"
+            "Requirements": "CanLaunchBombs or (Progressive_Clawshot, 1)",
+            "GlitchedRequirements": "CanLaunchBombs or (Progressive_Clawshot, 1)"
         }
         ],
         "Checks": 
@@ -111,8 +112,8 @@
           },
           {
             "ConnectedArea": "Lakebed Temple Central Room",
-            "Requirements": "canLaunchBombs",
-            "GlitchedRequirements": "CanDoAirRefill and (canLaunchBombs or CanDoLJA or CanDoJSMoonBoots)"
+            "Requirements": "Zora_Armor and CanLaunchBombs",
+            "GlitchedRequirements": "(Zora_Armor or CanDoAirRefill) and (CanLaunchBombs or CanStepClip)"
           }
         ],
         "Checks": 

@@ -1,6 +1,6 @@
 {
-    "requirements": "Shadow_Crystal and Room.Hidden_Village and CanCompleteMDH",
-    "glitchedRequirements": "Shadow_Crystal and Room.Hidden_Village and CanCompleteMDH",
+    "requirements": "Shadow_Crystal and Room.Hidden_Village and CanCompleteMDH and CanCompleteLanayruTwilight",
+    "glitchedRequirements": "Shadow_Crystal and Room.Hidden_Village and CanCompleteMDH and CanCompleteLanayruTwilight",
     "checkCategory": ["Overworld", "Hidden Skill", "Castle Town"],
     "itemId": "Progressive_Hidden_Skill"
 }

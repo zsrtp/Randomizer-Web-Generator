@@ -25,13 +25,18 @@ namespace TPRandomizer.Hints.HintCreator
         protected HashSet<CheckStatus> validStatuses;
         protected bool vague = false;
         protected bool markAsSometimes = false;
-        protected bool canHintHintedBarrenChecks = false;
+        protected bool canBeClaimHinted = false;
+        protected bool allowKnownBarren = false;
         public CheckStatusDisplay checkStatusDisplay = CheckStatusDisplay.Automatic;
         protected List<string> namedChecks = null;
         protected NamedOrder namedOrder = NamedOrder.Basic;
 
         // Probability of less than 0 means to ignore it.
         protected double namedProbability = -1;
+
+        // Option only available on the SometimesHintCreator
+        protected bool prioritizeNewSometimesZones = false;
+        protected bool actingAsSometimes = false;
 
         protected LocationHintCreator() { }
 
@@ -109,10 +114,10 @@ namespace TPRandomizer.Hints.HintCreator
                     inst.markAsSometimes
                 );
 
-                inst.canHintHintedBarrenChecks = HintSettingUtils.getOptionalBool(
+                inst.canBeClaimHinted = HintSettingUtils.getOptionalBool(
                     options,
-                    "canHintHintedBarrenChecks",
-                    inst.canHintHintedBarrenChecks
+                    "canBeClaimHinted",
+                    inst.canBeClaimHinted
                 );
 
                 inst.checkStatusDisplay = HintSettingUtils.getOptionalCheckStatusDisplay(
@@ -161,6 +166,12 @@ namespace TPRandomizer.Hints.HintCreator
                     throw new Exception(
                         $"'namedProbability' must not be greater than 1, but was '{inst.namedProbability}'."
                     );
+
+                inst.allowKnownBarren = HintSettingUtils.getOptionalBool(
+                    options,
+                    "allowKnownBarren",
+                    inst.allowKnownBarren
+                );
             }
 
             // if (inst.validChecks.Count == 0 && inst.validItems.Count == 0 && inst.namedOrder)
@@ -173,7 +184,8 @@ namespace TPRandomizer.Hints.HintCreator
             HintGenData genData,
             HintSettings hintSettings,
             int numHints,
-            HintGenCache cache
+            HintGenCache cache,
+            BarrenPenalizer barrenPenalizer
         )
         {
             bool isNamedProcessing = namedChecks != null;
@@ -191,36 +203,54 @@ namespace TPRandomizer.Hints.HintCreator
             List<Hint> hints = new();
 
             bool useProbability = isNamedProcessing && namedProbability > 0;
-            HashSet<string> hintedChecks = new();
+            HashSet<string> newlyHintedChecks = new();
+            bool preferNewZone = prioritizeNewSometimesZones;
 
-            for (int i = 0; hints.Count < numHints && i < possibleCheckNames.Count; i++)
+            while (true)
             {
-                string checkName = possibleCheckNames[i];
-
-                // Make sure we do not hint the same check multiple times.
-                if (hintedChecks.Contains(checkName))
-                    continue;
-
-                if (useProbability)
+                for (int i = 0; hints.Count < numHints && i < possibleCheckNames.Count; i++)
                 {
-                    // If generated number is over probability, then we fail and
-                    // should skip current index.
-                    if (genData.rnd.NextDouble() >= namedProbability)
+                    string checkName = possibleCheckNames[i];
+
+                    // Make sure we do not hint the same check multiple times.
+                    if (newlyHintedChecks.Contains(checkName))
                         continue;
+
+                    if (useProbability)
+                    {
+                        // If generated number is over probability, then we fail and should skip
+                        // current index.
+                        if (genData.rnd.NextDouble() >= namedProbability)
+                            continue;
+                    }
+
+                    string zoneName = genData.GetZoneNameForCheck(checkName);
+                    Zone zone = ZoneUtils.StringToIdThrows(zoneName);
+
+                    if (preferNewZone && genData.hinted.hintedSometimesHintZones.Contains(zone))
+                        continue;
+
+                    Hint hint = LocationHint.Create(
+                        genData,
+                        checkName,
+                        vague,
+                        checkStatusDisplay,
+                        markAsSometimes
+                    );
+                    hints.Add(hint);
+                    newlyHintedChecks.Add(checkName);
+
+                    // Update 'hinted'.
+                    genData.hinted.alreadyCheckContentsHinted.Add(checkName);
+                    if (actingAsSometimes)
+                        genData.hinted.hintedSometimesHintZones.Add(zone);
                 }
 
-                Hint hint = LocationHint.Create(
-                    genData,
-                    checkName,
-                    vague,
-                    checkStatusDisplay,
-                    markAsSometimes
-                );
-                hints.Add(hint);
-                hintedChecks.Add(checkName);
-
-                // Update 'hinted'.
-                genData.hinted.alreadyCheckContentsHinted.Add(checkName);
+                // If first loop was prioritizing new zones, then do another loop without this.
+                if (preferNewZone)
+                    preferNewZone = false;
+                else
+                    break;
             }
 
             return hints;
@@ -295,10 +325,13 @@ namespace TPRandomizer.Hints.HintCreator
         )
         {
             Item item = HintUtils.getCheckContents(checkName);
-            CheckStatus status = LocationHint.CalcStatus(genData, checkName);
+            CheckStatus status = genData.CalcCheckStatus(checkName);
 
             return (
-                genData.checkCanBeLocationHinted(checkName, canHintHintedBarrenChecks)
+                (
+                    canBeClaimHinted
+                    || genData.CheckCanBeClaimHinted(checkName, allowKnownBarren: allowKnownBarren)
+                )
                 && (validCheckNames.Count == 0 || validCheckNames.Contains(checkName))
                 && !invalidCheckNames.Contains(checkName)
                 && (validItems.Count == 0 || validItems.Contains(item))

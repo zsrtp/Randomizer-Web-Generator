@@ -23,10 +23,14 @@ for (let i = 0; i < args.length; i++) {
 }
 
 if (useSwarm) {
-  spawnSync('docker', ['stack', 'deploy', '-c', stackFilePath, 'demo'], {
-    stdio: 'inherit',
-    cwd: path.join(__dirname, '..'),
-  });
+  spawnSync(
+    'docker',
+    ['stack', 'deploy', '--detach=true', '-c', stackFilePath, 'demo'],
+    {
+      stdio: 'inherit',
+      cwd: path.join(__dirname, '..'),
+    }
+  );
   console.log('deployyy');
 } else {
   process.env.HOST_PORT = 80;

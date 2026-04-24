@@ -1,0 +1,6 @@
+{
+    "requirements": "(Setting.walletSize not_equal Reduced) or Progressive_Wallet",
+    "glitchedRequirements": "(Setting.walletSize not_equal Reduced) or Progressive_Wallet",
+    "checkCategory": ["Overworld", "Castle Town", "Shop"],
+    "itemId": "Hylian_Shield"
+}

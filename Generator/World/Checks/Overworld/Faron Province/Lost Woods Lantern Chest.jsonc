@@ -1,6 +1,6 @@
 {
-    "requirements": "Lantern",
-    "glitchedRequirements": "Lantern",
+    "requirements": "Lantern and (CanDefeatSkullKid or (Setting.skipGroveEntrance equals True))",
+    "glitchedRequirements": "Lantern and (CanDefeatSkullKid or (Setting.skipGroveEntrance equals True))",
     "checkCategory": ["Overworld", "Chest", "Sacred Grove"],
     "itemId": "Bombs_30"
 }

@@ -10,8 +10,8 @@
       },
       {
         "ConnectedArea": "Hidden Village Impaz House",
-        "Requirements": "(Progressive_Bow, 1) and (Progressive_Dominion_Rod, 1)",
-        "GlitchedRequirements": "(Progressive_Bow, 1) and (Progressive_Dominion_Rod, 1)"
+        "Requirements": "(Progressive_Bow, 1)",
+        "GlitchedRequirements": "(Progressive_Bow, 1)"
       }
     ],
     "Checks":
@@ -19,7 +19,7 @@
         "Cats Hide and Seek Minigame",
         "Ilia Charm",
         "Hidden Village Poe"
-		// Impaz disappears after showing Ilias Charm to Ilia, so the check actually is part of Impaz house to prevent softlocks.
+		// Impaz disappears after getting Ilia's Charm, so the skybook check actually is part of Impaz house to prevent softlocks.
     ],
     "Region": "Hidden Village"
   },

@@ -1,0 +1,6 @@
+{
+    "requirements": "Iron_Boots and CanUseWaterBombs",
+    "glitchedRequirements": "Iron_Boots and CanUseWaterBombs",
+    "checkCategory": [ "Overworld", "Hyrule Field - Lanayru", "Rupee - Hidden" ],
+    "itemId": "Yellow_Rupee"
+  }

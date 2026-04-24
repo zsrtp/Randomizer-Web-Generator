@@ -1,0 +1,6 @@
+{
+    "requirements": "true",
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Castle Town", "Shop"],
+    "itemId": "Lantern_Oil_Shop"
+}

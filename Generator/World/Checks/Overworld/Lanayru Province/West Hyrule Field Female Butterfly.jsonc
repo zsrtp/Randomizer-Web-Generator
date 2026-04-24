@@ -1,6 +1,6 @@
 {
-    "requirements": "(Progressive_Clawshot, 1) or Boomerang or Room.Outside_Castle_Town_West_Grotto_Ledge",
-    "glitchedRequirements": "(Progressive_Clawshot, 1) or Boomerang or CanDoMapGlitch",
+    "requirements": "((Progressive_Clawshot, 1) or Boomerang or Room.Outside_Castle_Town_West_Grotto_Ledge) and CanCompleteLanayruTwilight",
+    "glitchedRequirements": "((Progressive_Clawshot, 1) or Boomerang or CanDoMapGlitch) and CanCompleteLanayruTwilight",
     "checkCategory": ["Overworld", "Golden Bug", "Hyrule Field - Lanayru Province"],
     "itemId": "Female_Butterfly"
 }

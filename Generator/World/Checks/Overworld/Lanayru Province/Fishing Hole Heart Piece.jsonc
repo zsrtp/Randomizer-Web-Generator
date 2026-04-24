@@ -1,6 +1,6 @@
 {
-    "requirements": "Room.Fishing_Hole_House or (Progressive_Clawshot, 1)",
-    "glitchedRequirements": "Room.Fishing_Hole_House or (Progressive_Clawshot, 1)",
+    "requirements": "true",
+    "glitchedRequirements": "true",
     "checkCategory": ["Overworld", "Fishing Hole"],
     "itemId": "Piece_of_Heart"
 }

@@ -26,19 +26,23 @@ namespace TPRandomizer.Assets
         public const string horseName = "\x1A\x05\x00\x00\x22";
         public const string bBtn = "\x1A\x05\x00\x00\x0B";
         public const string heart = "\x1A\x05\x00\x00\x39";
-        public static string messageOption1 = "\x1A\x06\x00\x00\x09\x01";
-        public static string messageOption2 = "\x1A\x06\x00\x00\x09\x02";
-        public static string messageOption3 = "\x1A\x06\x00\x00\x09\x03";
-        public static string shopOption = "\x1A\x05\x00\x00\x20";
+        public static string endMenuBody = "\x1A\x05\x00\x00\x20";
+        public static string option1of2 = "\x1A\x06\x00\x00\x08\x01";
+        public static string option2of2 = "\x1A\x06\x00\x00\x08\x02";
+        public static string option1of3 = "\x1A\x06\x00\x00\x09\x01";
+        public static string option2of3 = "\x1A\x06\x00\x00\x09\x02";
+        public static string option3of3 = "\x1A\x06\x00\x00\x09\x03";
         public const string maleSign = "\x1A\x05\x06\x00\x02";
         public const string femaleSign = "\x1A\x05\x06\x00\x03";
         public const string referenceMark = "\x1A\x05\x06\x00\x05";
+        public const string thinRightArrow = "\x1A\x05\x06\x00\x07";
+        public const string customNbsp = "\x1A\x05\xCC\x00\x00";
 
         // Unused for now but who knows.
         public static string[][] foolishShopItemNames =
         [
-            [ Item.Hylian_Shield.ToString(), "Highlian Shield", "Hilan Shield", "Hylian Sheeld" ],
-            [ Item.Slingshot.ToString(), "Slongshut" ]
+            [Item.Hylian_Shield.ToString(), "Highlian Shield", "Hilan Shield", "Hylian Sheeld"],
+            [Item.Slingshot.ToString(), "Slongshut"],
         ];
 
         //static string messageIconR = "\x1A\x05\x00\x00\x0E";
@@ -67,7 +71,6 @@ namespace TPRandomizer.Assets
                 roomIDX = roomIdx;
             }
         }
-
 
         public List<MessageEntry> englishMessages = new List<MessageEntry>
         {
@@ -405,10 +408,10 @@ namespace TPRandomizer.Assets
 
         public static string getShortenedItemName(Item item)
         {
-           string shortName = "";
+            string shortName = "";
 
-           switch (item)
-           {
+            switch (item)
+            {
                 case Item.Progressive_Sky_Book:
                 case Item.Progressive_Fused_Shadow:
                 case Item.Progressive_Mirror_Shard:
@@ -431,7 +434,7 @@ namespace TPRandomizer.Assets
                 case Item.Forest_Temple_Dungeon_Map:
                 case Item.Forest_Temple_Small_Key:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("Forest Temple", "FT");
+                    shortName = item.ToString().Replace('_', ' ').Replace("Forest Temple", "FT");
                     shortName = messageColorGreen + shortName;
                     break;
                 }
@@ -441,7 +444,7 @@ namespace TPRandomizer.Assets
                 case Item.Goron_Mines_Dungeon_Map:
                 case Item.Goron_Mines_Small_Key:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("Goron Mines", "GM");
+                    shortName = item.ToString().Replace('_', ' ').Replace("Goron Mines", "GM");
                     shortName = messageColorRed + shortName;
                     break;
                 }
@@ -451,7 +454,7 @@ namespace TPRandomizer.Assets
                 case Item.Lakebed_Temple_Dungeon_Map:
                 case Item.Lakebed_Temple_Small_Key:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("Lakebed Temple", "LBT");
+                    shortName = item.ToString().Replace('_', ' ').Replace("Lakebed Temple", "LBT");
                     shortName = messageColorBlue + shortName;
                     break;
                 }
@@ -461,7 +464,7 @@ namespace TPRandomizer.Assets
                 case Item.Arbiters_Grounds_Dungeon_Map:
                 case Item.Arbiters_Grounds_Small_Key:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("Arbiters Grounds", "AG");
+                    shortName = item.ToString().Replace('_', ' ').Replace("Arbiters Grounds", "AG");
                     shortName = messageColorOrange + shortName;
                     break;
                 }
@@ -471,7 +474,7 @@ namespace TPRandomizer.Assets
                 case Item.Snowpeak_Ruins_Dungeon_Map:
                 case Item.Snowpeak_Ruins_Small_Key:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("Snowpeak Ruins", "SPR");
+                    shortName = item.ToString().Replace('_', ' ').Replace("Snowpeak Ruins", "SPR");
                     shortName = messageColorLightBlue + shortName;
                     break;
                 }
@@ -479,7 +482,10 @@ namespace TPRandomizer.Assets
                 case Item.Snowpeak_Ruins_Ordon_Goat_Cheese:
                 case Item.Snowpeak_Ruins_Ordon_Pumpkin:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("Snowpeak Ruins", "SPR").Replace("Ordon ", "");
+                    shortName = item.ToString()
+                        .Replace('_', ' ')
+                        .Replace("Snowpeak Ruins", "SPR")
+                        .Replace("Ordon ", "");
                     shortName = messageColorLightBlue + shortName;
                     break;
                 }
@@ -489,7 +495,7 @@ namespace TPRandomizer.Assets
                 case Item.Temple_of_Time_Dungeon_Map:
                 case Item.Temple_of_Time_Small_Key:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("Temple of Time", "ToT");
+                    shortName = item.ToString().Replace('_', ' ').Replace("Temple of Time", "ToT");
                     shortName = messageColorDarkGreen + shortName;
                     break;
                 }
@@ -499,7 +505,9 @@ namespace TPRandomizer.Assets
                 case Item.City_in_The_Sky_Dungeon_Map:
                 case Item.City_in_The_Sky_Small_Key:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("City in The Sky", "CitS");
+                    shortName = item.ToString()
+                        .Replace('_', ' ')
+                        .Replace("City in The Sky", "CitS");
                     shortName = messageColorYellow + shortName;
                     break;
                 }
@@ -509,7 +517,9 @@ namespace TPRandomizer.Assets
                 case Item.Palace_of_Twilight_Dungeon_Map:
                 case Item.Palace_of_Twilight_Small_Key:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("Palace of Twilight", "PoT");
+                    shortName = item.ToString()
+                        .Replace('_', ' ')
+                        .Replace("Palace of Twilight", "PoT");
                     shortName = messageColorPurple + shortName;
                     break;
                 }
@@ -519,21 +529,23 @@ namespace TPRandomizer.Assets
                 case Item.Hyrule_Castle_Dungeon_Map:
                 case Item.Hyrule_Castle_Small_Key:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("Hyrule Castle", "HC");
+                    shortName = item.ToString().Replace('_', ' ').Replace("Hyrule Castle", "HC");
                     shortName = messageColorSilver + shortName;
                     break;
                 }
 
                 case Item.Gerudo_Desert_Bulblin_Camp_Key:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("Gerudo Desert ", "");
+                    shortName = item.ToString().Replace('_', ' ').Replace("Gerudo Desert ", "");
                     shortName = messageColorOrange + shortName;
                     break;
                 }
 
                 case Item.North_Faron_Woods_Gate_Key:
                 {
-                   shortName = item.ToString().Replace('_', ' ').Replace("North Faron Woods", "Faron");
+                    shortName = item.ToString()
+                        .Replace('_', ' ')
+                        .Replace("North Faron Woods", "Faron");
                     shortName = messageColorOrange + shortName;
                     break;
                 }
@@ -551,8 +563,8 @@ namespace TPRandomizer.Assets
                     shortName = messageColorRed + shortName;
                     break;
                 }
-           }
-           return shortName;
+            }
+            return shortName;
         }
 
         /* length test:
@@ -567,7 +579,7 @@ namespace TPRandomizer.Assets
             Spanish,
             Italian,
             German,
-            Japanese
+            Japanese,
         };
     }
 }

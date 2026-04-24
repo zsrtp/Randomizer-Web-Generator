@@ -26,17 +26,47 @@ namespace TPRandomizer.Hints
         {
             Room,
             Check,
+            Logic,
         }
 
         public GoalEnum goalEnum { get; }
         public Type type { get; }
         public string id { get; }
+        private LogicAST reqsCache;
 
         public Goal(GoalEnum goalEnum, Type type, string id)
         {
             this.goalEnum = goalEnum;
             this.type = type;
             this.id = id;
+        }
+
+        public static Goal Check(string checkName)
+        {
+            return new Goal(GoalEnum.Invalid, Type.Check, checkName);
+        }
+
+        public static Goal Room(string roomName)
+        {
+            return new Goal(GoalEnum.Invalid, Type.Room, roomName);
+        }
+
+        public static Goal Logic(string logic)
+        {
+            return new Goal(GoalEnum.Invalid, Type.Logic, logic);
+        }
+
+        public LogicAST CachedRequirements()
+        {
+            if (type != Type.Logic)
+                throw new Exception(
+                    $"Tried to call CachedRequirements on a Goal with type '{type}'."
+                );
+
+            if (reqsCache != null)
+                return reqsCache;
+
+            return reqsCache = Parser.Parse(id);
         }
 
         // override object.Equals
@@ -119,9 +149,24 @@ namespace TPRandomizer.Hints
         );
         public static readonly Goal Ganondorf = new Goal(
             GoalEnum.Ganondorf,
-            Goal.Type.Room,
-            "Ganondorf Castle"
+            Goal.Type.Check,
+            "Hyrule Castle Ganondorf"
         );
+
+        private static readonly Dictionary<GoalEnum, Goal> goalEnumToGoal =
+            new()
+            {
+                { GoalEnum.Diababa, Diababa },
+                { GoalEnum.Fyrus, Fyrus },
+                { GoalEnum.Morpheel, Morpheel },
+                { GoalEnum.Stallord, Stallord },
+                { GoalEnum.Blizzeta, Blizzeta },
+                { GoalEnum.Armogohma, Armogohma },
+                { GoalEnum.Argorok, Argorok },
+                { GoalEnum.Zant, Zant },
+                { GoalEnum.Hyrule_Castle, Hyrule_Castle },
+                { GoalEnum.Ganondorf, Ganondorf },
+            };
 
         public static readonly Dictionary<string, Goal> requiredDungeonHintZoneToGoal =
             new()
@@ -136,12 +181,255 @@ namespace TPRandomizer.Hints
                 { "Palace of Twilight", Zant },
             };
 
+        private static readonly Dictionary<SpotId, List<Goal>> glitchlessSpotToGoals =
+            new()
+            {
+                {
+                    SpotId.Agithas_Castle_Sign,
+                    new() { Goal.Room("Castle Town South") }
+                },
+                {
+                    SpotId.Ordon_Sign,
+                    new() { Goal.Room("Outside Links House") }
+                },
+                {
+                    SpotId.Sacred_Grove_Sign,
+                    new() { Goal.Room("Sacred Grove Upper") }
+                },
+                {
+                    SpotId.Faron_Field_Sign,
+                    new() { Goal.Room("Faron Field") }
+                },
+                {
+                    SpotId.Faron_Woods_Sign,
+                    new() { Goal.Room("South Faron Woods") }
+                },
+                {
+                    SpotId.Kakariko_Gorge_Sign,
+                    new() { Goal.Room("Kakariko Gorge") }
+                },
+                {
+                    SpotId.Kakariko_Village_Sign,
+                    new() { Goal.Room("Lower Kakariko Village") }
+                },
+                {
+                    SpotId.Kakariko_Graveyard_Sign,
+                    new()
+                    {
+                        Goal.Room("Kakariko Graveyard"),
+                        Goal.Logic("Gate_Keys and CanCompleteEldinTwilight")
+                    }
+                },
+                {
+                    SpotId.Eldin_Field_Sign,
+                    new() { Goal.Room("Eldin Field") }
+                },
+                {
+                    SpotId.North_Eldin_Sign,
+                    new() { Goal.Room("North Eldin Field") }
+                },
+                {
+                    SpotId.Death_Mountain_Sign,
+                    new() { Goal.Room("Death Mountain Volcano") }
+                },
+                {
+                    SpotId.Hidden_Village_Sign,
+                    new() { Goal.Room("Hidden Village") }
+                },
+                {
+                    SpotId.Lanayru_Field_Sign,
+                    new() { Goal.Room("Lanayru Field") }
+                },
+                {
+                    SpotId.Beside_Castle_Town_Sign,
+                    new() { Goal.Room("Outside Castle Town West Grotto Ledge") }
+                },
+                {
+                    SpotId.South_of_Castle_Town_Sign,
+                    new() { Goal.Room("Outside Castle Town South") }
+                },
+                {
+                    SpotId.Castle_Town_Sign,
+                    new() { Goal.Room("Castle Town Center") }
+                },
+                {
+                    SpotId.Great_Bridge_of_Hylia_Sign,
+                    new()
+                    {
+                        Goal.Room("Lake Hylia Bridge"),
+                        Goal.Logic("(Progressive_Clawshot, 1)")
+                    }
+                },
+                {
+                    SpotId.Lake_Hylia_Sign,
+                    new() { Goal.Room("Lake Hylia Flight By Fowl") }
+                },
+                {
+                    SpotId.Lake_Lantern_Cave_Sign,
+                    new() { Goal.Room("Lake Hylia Long Cave"), Goal.Logic("CanSmash and Lantern") }
+                },
+                {
+                    SpotId.Lanayru_Spring_Sign,
+                    new()
+                    {
+                        Goal.Room("Lake Hylia Lanayru Spring"),
+                        Goal.Logic("Zora_Armor or Iron_Boots")
+                    }
+                },
+                {
+                    SpotId.Zoras_Domain_Sign,
+                    new() { Goal.Room("Zoras Domain West Ledge"), }
+                },
+                {
+                    SpotId.Upper_Zoras_River_Sign,
+                    new() { Goal.Room("Fishing Hole"), }
+                },
+                {
+                    SpotId.Gerudo_Desert_Sign,
+                    new() { Goal.Room("Gerudo Desert"), }
+                },
+                {
+                    SpotId.Bulblin_Camp_Sign,
+                    new() { Goal.Room("Bulblin Camp"), }
+                },
+                {
+                    SpotId.Snowpeak_Mountain_Sign,
+                    new() { Goal.Room("Snowpeak Climb Lower"), }
+                },
+                {
+                    SpotId.Cave_of_Ordeals_Sign,
+                    new() { Goal.Room("Gerudo Desert Cave of Ordeals Floors 01-11"), }
+                },
+                {
+                    SpotId.Forest_Temple_Sign,
+                    new()
+                    {
+                        Goal.Room("Forest Temple Lobby"),
+                        // Lobby to west wing logic, minus needing to destroy the web.
+                        Goal.Logic(
+                            "((Forest_Temple_Small_Key, 2) and CanDefeatBokoblin) or (Progressive_Clawshot, 1)"
+                        )
+                    }
+                },
+                {
+                    SpotId.Goron_Mines_Sign,
+                    new() { Goal.Room("Goron Mines Upper East Wing"), }
+                },
+                {
+                    SpotId.Lakebed_Temple_Sign,
+                    // Note: can pull the immediate switch and easily walk to sign
+                    new() { Goal.Room("Lakebed Temple Central Room"), }
+                },
+                {
+                    SpotId.Arbiters_Grounds_Sign,
+                    new() { Goal.Room("Arbiters Grounds Lobby"), }
+                },
+                {
+                    SpotId.Snowpeak_Ruins_Sign,
+                    new() { Goal.Room("Snowpeak Ruins Yeto and Yeta"), }
+                },
+                {
+                    SpotId.Temple_of_Time_Sign,
+                    new() { Goal.Room("Temple of Time Entrance"), }
+                },
+                {
+                    SpotId.City_in_the_Sky_Sign,
+                    new() { Goal.Room("City in The Sky Lobby"), }
+                },
+                {
+                    SpotId.Palace_of_Twilight_Sign,
+                    new() { Goal.Room("Palace of Twilight Entrance"), }
+                },
+                {
+                    SpotId.Hyrule_Castle_Sign,
+                    new() { Goal.Room("Hyrule Castle Entrance"), }
+                },
+                {
+                    SpotId.Temple_of_Time_Beyond_Point_Sign,
+                    // Note: matching main logic which expects Bow specifically even for glitched.
+                    new()
+                    {
+                        Goal.Room("Temple of Time Moving Wall Hallways"),
+                        Goal.Logic("(Progressive_Bow, 1)")
+                    }
+                },
+                {
+                    SpotId.Jovani_House_Sign,
+                    new() { Goal.Room("Castle Town South") }
+                },
+                {
+                    SpotId.Midna,
+                    // Always available
+                    new() { Goal.Logic("true") }
+                },
+            };
+
+        // If non-glitchless logic and an entry is present here, it takes priority over the
+        // glitchless one. Otherwise we fall back to the glitchless one.
+        private static readonly Dictionary<SpotId, List<Goal>> glitchedSpotToGoals =
+            new()
+            {
+                {
+                    SpotId.Kakariko_Graveyard_Sign,
+                    new()
+                    {
+                        Goal.Room("Kakariko Graveyard"),
+                        // Note: based on logic for connection to Lake Hylia.
+                        Goal.Logic(
+                            "(HasBombs and (HasSword or Spinner)) or CanDoLJA or CanDoMoonBoots"
+                        )
+                    }
+                },
+                {
+                    SpotId.Lake_Lantern_Cave_Sign,
+                    new() { Goal.Room("Lake Hylia Long Cave"), Goal.Logic("CanSmash") }
+                },
+                {
+                    SpotId.Lanayru_Spring_Sign,
+                    new()
+                    {
+                        Goal.Room("Lake Hylia Lanayru Spring"),
+                        Goal.Logic("Zora_Armor or HasHeavyMod")
+                    }
+                },
+                {
+                    SpotId.Forest_Temple_Sign,
+                    new()
+                    {
+                        Goal.Room("Forest Temple Lobby"),
+                        Goal.Logic(
+                            "((Forest_Temple_Small_Key, 2) and CanDefeatBokoblin) or (Progressive_Clawshot, 1) or CanDoLJA"
+                        )
+                    }
+                },
+            };
+
+        public static List<Goal> getGoalsForSpot(SpotId spotId, LogicRules logicRules)
+        {
+            List<Goal> list;
+            if (logicRules != LogicRules.Glitchless)
+            {
+                if (glitchedSpotToGoals.TryGetValue(spotId, out list))
+                    return list;
+            }
+            if (!glitchlessSpotToGoals.TryGetValue(spotId, out list))
+                throw new Exception($"Could not find goals for spotId '{spotId}'.");
+            return list;
+        }
+
         public static bool IsDungeonGoal(Goal goal)
         {
             if (goal == null)
                 return false;
 
             return requiredDungeonHintZoneToGoal.ContainsValue(goal);
+        }
+
+        public static Goal getGoalFromEnumThrows(GoalEnum goalEnum)
+        {
+            if (!goalEnumToGoal.TryGetValue(goalEnum, out Goal goal))
+                throw new Exception($"Failed to find Goal for GoalEnum '{goalEnum}'.");
+            return goal;
         }
     }
 
@@ -189,11 +477,11 @@ namespace TPRandomizer.Hints
                 { Item.Male_Snail, "Agitha Male Snail Reward" },
                 { Item.Male_Stag_Beetle, "Agitha Male Stag Beetle Reward" },
                 { Item.Asheis_Sketch, "Gift From Ralis" },
+                { Item.Renados_Letter, "Telma Invoice" },
+                { Item.Ilias_Charm, "Ilia Memory Reward" },
             };
 
         public static readonly Dictionary<string, Item> tradeRewardCheckToSourceItem;
-
-        private static readonly Dictionary<string, string> cachedCheckToHintZoneMap = new();
 
         static HintUtils()
         {
@@ -228,86 +516,6 @@ namespace TPRandomizer.Hints
             //         { Item.Male_Snail, "Agitha Male Snail Reward" },
             //         { Item.Male_Stag_Beetle, "Agitha Male Stag Beetle Reward" },
             //         { Item.Asheis_Sketch, "Gift From Ralis" },
-        }
-
-        public static string getDependentDungeonForCheckName(string checkName)
-        {
-            if (checkName == null || checkName == "")
-            {
-                return null;
-            }
-
-            Check check = Randomizer.Checks.CheckDict[checkName];
-            if (check == null)
-            {
-                return null;
-            }
-
-            for (int i = 0; i < check.checkCategory.Count; i++)
-            {
-                string categoryName = check.checkCategory[i];
-                if (HintConstants.jsonCategoryToDungeonZoneName.ContainsKey(categoryName))
-                {
-                    string dungeonZoneName = HintConstants.jsonCategoryToDungeonZoneName[
-                        categoryName
-                    ];
-                    if (HintConstants.dungeonZonesToRequiredMaskMap.ContainsKey(dungeonZoneName))
-                    {
-                        return dungeonZoneName;
-                    }
-                }
-            }
-
-            // If no dungeonZone name, check if check is hardcoded post-dungeon check.
-            if (HintConstants.postDungeonChecksToDungeonZone.ContainsKey(checkName))
-            {
-                return HintConstants.postDungeonChecksToDungeonZone[checkName];
-            }
-
-            return null;
-        }
-
-        public static Dictionary<string, string[]> getHintZoneToChecksMap()
-        {
-            return ZoneUtils.zoneNameToChecks;
-        }
-
-        public static Dictionary<string, string> getCheckToHintZoneMap()
-        {
-            if (cachedCheckToHintZoneMap.Count > 0)
-                return cachedCheckToHintZoneMap;
-
-            Dictionary<string, string[]> hintZoneToChecksMap = getHintZoneToChecksMap();
-            Dictionary<string, string> checkToHintZoneMap = convertToCheckToHintZoneMap(
-                hintZoneToChecksMap
-            );
-
-            foreach (KeyValuePair<string, string> pair in checkToHintZoneMap)
-            {
-                cachedCheckToHintZoneMap.Add(pair.Key, pair.Value);
-            }
-
-            return checkToHintZoneMap;
-        }
-
-        private static Dictionary<string, string> convertToCheckToHintZoneMap(
-            Dictionary<string, string[]> hintZoneToChecksMap
-        )
-        {
-            Dictionary<string, string> checkToHintZoneMap = new();
-
-            foreach (KeyValuePair<string, string[]> kv in hintZoneToChecksMap)
-            {
-                string zoneName = kv.Key;
-                string[] checksForZone = kv.Value;
-
-                for (int i = 0; i < checksForZone.Length; i++)
-                {
-                    checkToHintZoneMap.Add(checksForZone[i], zoneName);
-                }
-            }
-
-            return checkToHintZoneMap;
         }
 
         public static bool DungeonIsRequired(string dungeonHintZoneName)
@@ -400,7 +608,8 @@ namespace TPRandomizer.Hints
                 checkAndOriginalContents.Add(new(agithaRewardCheck, originalContents));
             }
 
-            HashSet<Goal> goals = new() { GoalConstants.Ganondorf };
+            Dictionary<Goal, List<Goal>> goals = new();
+            goals.Add(GoalConstants.Ganondorf, new() { GoalConstants.Ganondorf });
 
             // Result is true if beatable without Agitha
             Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
@@ -423,7 +632,8 @@ namespace TPRandomizer.Hints
         public static Dictionary<Goal, List<string>> calculateGoalsRequiredChecks(
             Room startingRoom,
             List<List<KeyValuePair<int, Item>>> spheres,
-            SharedSettings sSettings
+            SharedSettings sSettings,
+            HashSet<Goal> goalsFromDungeons = null
         )
         {
             HashSet<string> maybeRequiredCheckNames = new();
@@ -437,7 +647,8 @@ namespace TPRandomizer.Hints
                 }
             }
 
-            HashSet<Goal> goalsFromDungeons = getGoalsBasedOnDungeons(sSettings);
+            if (goalsFromDungeons == null)
+                goalsFromDungeons = getGoalsBasedOnDungeons(sSettings);
 
             bool startWithBigKeys =
                 sSettings.bigKeySettings == BigKeySettings.Anywhere
@@ -451,7 +662,7 @@ namespace TPRandomizer.Hints
             );
         }
 
-        private static HashSet<Goal> getGoalsBasedOnDungeons(SharedSettings sSettings)
+        public static HashSet<Goal> getGoalsBasedOnDungeons(SharedSettings sSettings)
         {
             HashSet<Goal> result = new();
 
@@ -482,7 +693,7 @@ namespace TPRandomizer.Hints
                     result.Add(GoalConstants.Stallord);
                     result.Add(GoalConstants.Zant);
                 }
-                else if (sSettings.castleRequirements == CastleRequirements.All_Dungeons)
+                else if (sSettings.castleRequirements == CastleRequirements.Dungeons)
                 {
                     result.Add(GoalConstants.Diababa);
                     result.Add(GoalConstants.Fyrus);
@@ -576,66 +787,33 @@ namespace TPRandomizer.Hints
                 goalsToRequiredChecks[goal] = new();
             }
 
-            // HashSet<string> filteredCheckNames = new();
+            Dictionary<Goal, List<Goal>> goalDict = new();
+            foreach (Goal goal in goals)
+            {
+                goalDict[goal] = new() { goal };
+            }
 
             // I think it is safe to only generate the item pool once up front.
             Randomizer.Items.GenerateItemPool();
 
-            // After we get potential checks, filter out any which can be
-            // removed in isolation and the playthrough is still valid.
+            // After we get potential checks, filter out any which can be removed in isolation and
+            // the playthrough is still valid.
             foreach (string checkName in maybeRequiredCheckNames)
             {
-                // Replace check contents with a green rupee. If the playthrough
-                // is still beatable, then that item cannot be considered for
-                // SpoL hints.
-                Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
-                Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
-
-                // bool successWithoutCheck = BackendFunctions.emulatePlaythrough(startingRoom);
                 Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
                     startingRoom,
-                    goals,
-                    startWithBigKeys
+                    goalDict,
+                    startWithBigKeys,
+                    forbiddenCheckNames: new() { checkName }
                 );
 
                 foreach (KeyValuePair<Goal, bool> pair in goalResults)
                 {
-                    if (pair.Value)
-                    {
-                        // Was able to complete goal after replacing check contents.
-                        Console.WriteLine(
-                            $"NOT needed for Goal {pair.Key.id}: {originalContents} in {checkName}"
-                        );
-                    }
-                    else
-                    {
-                        // Was unable to complete goal after replacing check contents.
+                    if (!pair.Value)
                         goalsToRequiredChecks[pair.Key].Add(checkName);
-                        Console.WriteLine(
-                            $"Needed for Goal {pair.Key.id}: {originalContents} in {checkName}"
-                        );
-                    }
                 }
-
-                // bool successWithoutCheck = true;
-
-                // if (!successWithoutCheck)
-                // {
-                //     Console.WriteLine($"Needed for SpoL: {originalContents}: {checkName}");
-                //     // Check required to beat the seed, so add it for
-                //     // consideration for SpoL hints.
-                //     filteredCheckNames.Add(checkName);
-                // }
-                // else
-                // {
-                //     Console.WriteLine($"Not needed for SpoL: {originalContents}: {checkName}");
-                // }
-
-                // Put the original item back.
-                Randomizer.Checks.CheckDict[checkName].itemId = originalContents;
             }
 
-            // return filteredCheckNames;
             return goalsToRequiredChecks;
         }
 
@@ -660,44 +838,28 @@ namespace TPRandomizer.Hints
                     $"Expected itemsForChecks to be Count 1, but was '{itemsForChecks.Count}'."
                 );
 
-            List<(string, Item)> checkAndOriginalContents = new();
-            HashSet<Goal> goals = new();
-
+            Dictionary<string, List<Goal>> goalsForChecks = new();
             foreach (string checkName in checkNames)
             {
-                // Replace check contents with a green rupee. If the playthrough
-                // is still beatable, then that item cannot be considered for
-                // SpoL hints.
-                Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
-                Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
-
-                checkAndOriginalContents.Add(new(checkName, originalContents));
-
-                goals.Add(new Goal(GoalEnum.Invalid, Goal.Type.Check, checkName));
+                goalsForChecks[checkName] = new() { Goal.Check(checkName) };
             }
 
-            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+            Dictionary<string, bool> goalResults = BackendFunctions.emulatePlaythrough2(
                 startingRoom,
-                goals,
-                false
+                goalsForChecks,
+                false,
+                forbiddenCheckNames: new(checkNames)
             );
 
-            foreach (KeyValuePair<Goal, bool> pair in goalResults)
+            foreach (KeyValuePair<string, bool> pair in goalResults)
             {
                 if (!pair.Value)
                 {
-                    // This check which gives the item is locked behind first
-                    // doing a different check which already gives the item.
-                    results.Add(pair.Key.id);
+                    // This check which gives the item is locked behind first doing a different
+                    // check which already gives the item.
+                    results.Add(pair.Key);
                 }
             }
-
-            // Put the original items back.
-            foreach ((string, Item) pair in checkAndOriginalContents)
-            {
-                Randomizer.Checks.CheckDict[pair.Item1].itemId = pair.Item2;
-            }
-
             return results;
         }
 
@@ -723,7 +885,7 @@ namespace TPRandomizer.Hints
         public static Dictionary<Item, Dictionary<Goal, bool>> checkGoalsWithoutItems(
             Room startingRoom,
             List<Item> items,
-            HashSet<Goal> goals
+            Dictionary<Goal, List<Goal>> goals
         )
         {
             Dictionary<Item, List<string>> itemToChecks = calcItemToChecksList();
@@ -745,32 +907,15 @@ namespace TPRandomizer.Hints
                     results[item] = new();
                     checkNames = new();
                 }
-                List<Item> originalContentsList = new();
-
-                foreach (string checkName in checkNames)
-                {
-                    // Replace check contents with a green rupee and see which
-                    // goals are completable.
-                    Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
-                    originalContentsList.Add(originalContents);
-                    Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
-                }
 
                 Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
                     startingRoom,
                     goals,
-                    true
+                    true,
+                    forbiddenCheckNames: new(checkNames)
                 );
 
                 results[item] = goalResults;
-
-                // Put the original items back.
-                for (int i = 0; i < checkNames.Count; i++)
-                {
-                    string checkName = checkNames[i];
-                    Item originalContents = originalContentsList[i];
-                    Randomizer.Checks.CheckDict[checkName].itemId = originalContents;
-                }
             }
 
             return results;
@@ -875,50 +1020,18 @@ namespace TPRandomizer.Hints
             return list[randomIndex];
         }
 
-        public static string PickRandomCheckByGroup(
-            Random rnd,
-            IEnumerable<string> checksEnumerable,
-            bool byProvince = false
-        )
+        public static T PickRandomHashSetItem<T>(Random rnd, HashSet<T> hashSet)
         {
-            Dictionary<string, List<string>> checksByGroup = new();
-
-            foreach (string checkName in checksEnumerable)
-            {
-                if (byProvince)
-                {
-                    Province province = checkNameToHintProvince(checkName);
-                    string provinceName = ProvinceUtils.IdToString(province);
-                    if (!checksByGroup.ContainsKey(provinceName))
-                        checksByGroup[provinceName] = new();
-                    checksByGroup[provinceName].Add(checkName);
-                }
-                else
-                {
-                    string zoneName = checkNameToHintZone(checkName);
-                    if (!checksByGroup.ContainsKey(zoneName))
-                        checksByGroup[zoneName] = new();
-                    checksByGroup[zoneName].Add(checkName);
-                }
-            }
-
-            if (checksByGroup.Count < 1)
-                throw new Exception("checkByGroup is empty.");
-
-            KeyValuePair<string, List<string>> groupAndChecks = PickRandomDictionaryPair(
-                rnd,
-                checksByGroup
-            );
-
-            List<string> checksOfGroup = groupAndChecks.Value;
-            string selectedCheckName = RemoveRandomListItem(rnd, checksOfGroup);
-            return selectedCheckName;
+            List<T> list = new(hashSet);
+            int index = rnd.Next(list.Count);
+            T item = list[index];
+            return item;
         }
 
-        public static bool checkIsPlayerKnownStatus(string checkName)
+        public static bool checkIsExcludedOrVanilla(string checkName)
         {
             string checkStatus = Randomizer.Checks.CheckDict[checkName].checkStatus;
-            return HintConstants.preventBarrenHintIfAllCheckStatusesAre.Contains(checkStatus);
+            return HintConstants.excludedOrVanillaCheckStatuses.Contains(checkStatus);
         }
 
         public static bool checkIsExcluded(string checkName)
@@ -927,14 +1040,9 @@ namespace TPRandomizer.Hints
             return HintConstants.excludedCheckStatuses.Contains(checkStatus);
         }
 
-        public static bool checksAllPlayerKnownStatus(IEnumerable<string> checkNames)
+        public static bool checkIsVanilla(string checkName)
         {
-            foreach (string checkName in checkNames)
-            {
-                if (!checkIsPlayerKnownStatus(checkName))
-                    return false;
-            }
-            return true;
+            return Randomizer.Checks.CheckDict[checkName].checkStatus == "Vanilla";
         }
 
         public static bool isItemGoldenBug(Item item)
@@ -957,61 +1065,15 @@ namespace TPRandomizer.Hints
             return HintConstants.dungeonZones.Contains(hintZone);
         }
 
-        public static string checkNameToHintZone(string checkName)
-        {
-            return getCheckToHintZoneMap()[checkName];
-        }
-
-        public static Province checkNameToHintProvince(string checkName)
-        {
-            string hintZone = checkNameToHintZone(checkName);
-
-            if (HintConstants.zoneToProvince.ContainsKey(hintZone))
-                return HintConstants.zoneToProvince[hintZone];
-
-            return Province.Invalid;
-        }
-
         public static Item getCheckContents(string checkName)
         {
             return Randomizer.Checks.CheckDict[checkName].itemId;
         }
 
-        public static Item getCheckContents(string checkName, Dictionary<int, byte> itemPlacements)
+        public static Item getCheckContents(string checkName, Dictionary<int, int> itemPlacements)
         {
             int srcCheckId = CheckIdClass.GetCheckIdNum(checkName);
             return (Item)itemPlacements[srcCheckId];
-        }
-
-        public static HashSet<string> GetChecksForProvince(Province province)
-        {
-            HashSet<string> checkNames = new();
-            Dictionary<string, string[]> zoneToChecks = getHintZoneToChecksMap();
-
-            foreach (Zone zone in ProvinceUtils.ProvinceToZones(province))
-            {
-                string zoneName = ZoneUtils.IdToString(zone);
-                string[] checks = zoneToChecks[zoneName];
-                foreach (string check in checks)
-                {
-                    checkNames.Add(check);
-                }
-            }
-            return checkNames;
-        }
-
-        public static HashSet<string> GetChecksForZone(Zone zone)
-        {
-            HashSet<string> checkNames = new();
-            Dictionary<string, string[]> zoneToChecks = getHintZoneToChecksMap();
-
-            string zoneName = ZoneUtils.IdToString(zone);
-            string[] checks = zoneToChecks[zoneName];
-            foreach (string check in checks)
-            {
-                checkNames.Add(check);
-            }
-            return checkNames;
         }
 
         public static SpotId TryGetSpotIdForBarrenZoneHint(Hint hint)
@@ -1081,7 +1143,7 @@ namespace TPRandomizer.Hints
 
         public static string GetTradeChainFinalCheck(
             string srcCheckName,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             if (!CheckIdClass.IsValidCheckName(srcCheckName))
@@ -1131,8 +1193,6 @@ namespace TPRandomizer.Hints
             switch (item)
             {
                 case Item.Foolish_Item:
-                case Item.Foolish_Item_2:
-                case Item.Foolish_Item_3:
                     return true;
                 default:
                     return false;
@@ -1174,7 +1234,7 @@ namespace TPRandomizer.Hints
         {
             return new(
                 HintTypeUtils.NumBitsToEncode,
-                9,
+                SeedGenResults.checkIDBitLength,
                 ZoneUtils.NumBitsToEncode,
                 HintCategoryUtils.NumBitsToEncode,
                 AreaId.NumBitsToEncode,
@@ -1184,6 +1244,57 @@ namespace TPRandomizer.Hints
                 TradeGroupUtils.NumBitsToEncode,
                 calcNumBitsForHintsAtSpot(hintSpots)
             );
+        }
+
+        public static bool CalcBeatableWithForbiddenChecks(
+            Room startingRoom,
+            HashSet<string> forbiddenCheckNames,
+            HashSet<string> reachedChecks = null
+        )
+        {
+            // I think it is safe to only generate the item pool once up front.
+            Randomizer.Items.GenerateItemPool();
+
+            Dictionary<string, Item> originalContentsMap = new();
+
+            if (!ListUtils.isEmpty(forbiddenCheckNames))
+            {
+                foreach (string checkName in forbiddenCheckNames)
+                {
+                    // Replace check contents with a green rupee. We are checking if the playthrough
+                    // is still beatable without doing any of the forbidden checks essentially (we
+                    // do them in the playthrough, but they give junk).
+                    Item originalContents = Randomizer.Checks.CheckDict[checkName].itemId;
+                    Randomizer.Checks.CheckDict[checkName].itemId = Item.Green_Rupee;
+
+                    originalContentsMap[checkName] = originalContents;
+                }
+            }
+
+            Dictionary<Goal, List<Goal>> goals =
+                new()
+                {
+                    {
+                        GoalConstants.Ganondorf,
+                        new() { GoalConstants.Ganondorf }
+                    }
+                };
+
+            Dictionary<Goal, bool> goalResults = BackendFunctions.emulatePlaythrough2(
+                startingRoom,
+                goals,
+                false,
+                reachedChecks: reachedChecks
+            );
+
+            foreach (KeyValuePair<string, Item> pair in originalContentsMap)
+            {
+                // Put the original item back.
+                Randomizer.Checks.CheckDict[pair.Key].itemId = pair.Value;
+            }
+
+            bool couldBeatGanondorf = goalResults[GoalConstants.Ganondorf];
+            return couldBeatGanondorf;
         }
     }
 }

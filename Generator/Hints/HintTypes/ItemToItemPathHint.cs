@@ -16,6 +16,7 @@ namespace TPRandomizer.Hints
 
         // always derived
         public Item tgtItem { get; private set; }
+        private HashSet<string> checksGivingSrcItem;
 
         public static ItemToItemPathHint Create(
             HintGenData genData,
@@ -32,7 +33,7 @@ namespace TPRandomizer.Hints
             Item srcItem,
             string tgtCheckName,
             bool srcUseDefiniteArticle = false,
-            Dictionary<int, byte> itemPlacements = null
+            Dictionary<int, int> itemPlacements = null
         )
         {
             this.srcItem = srcItem;
@@ -42,7 +43,7 @@ namespace TPRandomizer.Hints
             CalcDerived(genData, itemPlacements);
         }
 
-        private void CalcDerived(HintGenData genData, Dictionary<int, byte> itemPlacements)
+        private void CalcDerived(HintGenData genData, Dictionary<int, int> itemPlacements)
         {
             if (itemPlacements != null)
             {
@@ -64,18 +65,36 @@ namespace TPRandomizer.Hints
                 )
                 {
                     srcUseDefiniteArticle = checksGivingItem.Count == 1;
+                    // Note: checksGivingSrcItem will be null when decoding, but it is not used a
+                    // that point so it is okay.
+                    checksGivingSrcItem = new(checksGivingItem);
                 }
             }
+        }
+
+        public override void GetPreferHintBefore(
+            out HashSet<string> checkNames,
+            out HashSet<string> roomNames
+        )
+        {
+            HashSet<string> checkNamesToAvoid = new() { tgtCheckName };
+            if (!ListUtils.isEmpty(checksGivingSrcItem))
+            {
+                checkNamesToAvoid.UnionWith(checksGivingSrcItem);
+            }
+
+            checkNames = checkNamesToAvoid;
+            roomNames = null;
         }
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
         {
             Res.Result hintParsedRes = Res.Msg("hint-type.item-to-item-path");
 
-            string srcText = customMsgData.GenItemText3(
+            string srcText = customMsgData.GenItemText4(
                 out Dictionary<string, string> srcItemMeta,
                 srcItem,
-                CheckStatus.Unknown,
+                DetailedCheckStatus.Unknown,
                 srcUseDefiniteArticle ? "def" : "indef",
                 checkStatusDisplay: CheckStatusDisplay.None,
                 prefStartColor: CustomMessages.messageColorGreen
@@ -83,10 +102,10 @@ namespace TPRandomizer.Hints
 
             string verb = CustomMsgData.GenVerb(hintParsedRes, srcItemMeta);
 
-            string tgtText = customMsgData.GenItemText3(
+            string tgtText = customMsgData.GenItemText4(
                 out Dictionary<string, string> tgtItemMeta,
                 tgtItem,
-                CheckStatus.Required,
+                DetailedCheckStatus.Required,
                 "def",
                 checkStatusDisplay: CheckStatusDisplay.None,
                 prefStartColor: CustomMessages.messageColorBlue
@@ -119,7 +138,7 @@ namespace TPRandomizer.Hints
         public static ItemToItemPathHint decode(
             HintEncodingBitLengths bitLengths,
             BitsProcessor processor,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             Item srcItem = (Item)processor.NextByte();

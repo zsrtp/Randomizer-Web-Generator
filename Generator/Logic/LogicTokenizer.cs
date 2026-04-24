@@ -73,7 +73,7 @@ namespace TPRandomizer
 
             public override bool Evaluate()
             {
-                int heldCount = Randomizer.Items.heldItems.Where(i => i == ItemId).Count();
+                int heldCount = LogicFunctions.GetItemCount(ItemId);
                 // Console.WriteLine($"Item.Evaluate {heldCount} {Count} {ItemId}");
                 return heldCount >= Count;
             }
@@ -85,7 +85,8 @@ namespace TPRandomizer
 
             public Room(string room) => RoomName = room;
 
-            public override bool Evaluate() => Randomizer.Rooms.RoomDict[RoomName].ReachedByPlaythrough;
+            public override bool Evaluate() =>
+                Randomizer.Rooms.RoomDict[RoomName].ReachedByPlaythrough;
         }
 
         public class Setting : LogicAST
@@ -94,9 +95,11 @@ namespace TPRandomizer
             string SettingValue { get; }
             bool Sense { get; }
 
-            public Setting(string setting, string value, bool sense) => (SettingName, SettingValue, Sense) = (setting, value, sense);
+            public Setting(string setting, string value, bool sense) =>
+                (SettingName, SettingValue, Sense) = (setting, value, sense);
 
-            public override bool Evaluate() => LogicFunctions.EvaluateSetting(SettingName, SettingValue) == Sense;
+            public override bool Evaluate() =>
+                LogicFunctions.EvaluateSetting(SettingName, SettingValue) == Sense;
         }
 
         public class Conjunction : LogicAST
@@ -179,7 +182,10 @@ namespace TPRandomizer
 
                 if ((m = Re(progressiveItemRegex, ref expression)) != null)
                 {
-                    thisNode = new AST.Item(Enum.Parse<Item>(m.Groups[1].Value), int.Parse(m.Groups[2].Value));
+                    thisNode = new AST.Item(
+                        Enum.Parse<Item>(m.Groups[1].Value),
+                        int.Parse(m.Groups[2].Value)
+                    );
                 }
                 else if ((m = Re(settingRegex, ref expression)) != null)
                 {
@@ -247,7 +253,9 @@ namespace TPRandomizer
                 }
                 else
                 {
-                    Console.WriteLine($"failed to parse remainder of logic expression: {expression}");
+                    Console.WriteLine(
+                        $"failed to parse remainder of logic expression: {expression}"
+                    );
                     expression = "";
                     thisNode = new AST.False();
                 }

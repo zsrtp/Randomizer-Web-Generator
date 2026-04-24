@@ -149,12 +149,20 @@
     <value>$(ap:with)the {cs}Golden Wolf{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.golden_wolf$plain" xml:space="preserve">
+    <value>Golden Wolf</value>
+    <comment></comment>
+  </data>
   <data name="area.category.grotto" xml:space="preserve">
     <value>a {cs}Grotto{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$default" xml:space="preserve">
     <value>$(plural)Grottos</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto$plain" xml:space="preserve">
+    <value>Grottos</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$plural" xml:space="preserve">
@@ -169,6 +177,10 @@
     <value>$(plural)the {cs}2 lantern chests in Lake Lantern Cave{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.llc_lantern_chests$plain" xml:space="preserve">
+    <value>Lake Lantern Cave Lantern Chests</value>
+    <comment></comment>
+  </data>
   <data name="area.category.llc_lantern_chests$plural" xml:space="preserve">
     <value>$(plural)the {cs}2 lantern chests in Lake Lantern Cave{ce}</value>
     <comment></comment>
@@ -177,8 +189,16 @@
     <value>$(ap:behind)purple mist</value>
     <comment></comment>
   </data>
+  <data name="area.category.mist$plain" xml:space="preserve">
+    <value>Purple Mist</value>
+    <comment></comment>
+  </data>
   <data name="area.category.northern_desert" xml:space="preserve">
     <value>the {cs}northern desert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.northern_desert$plain" xml:space="preserve">
+    <value>Northern Desert</value>
     <comment></comment>
   </data>
   <data name="area.category.owl_statue" xml:space="preserve">
@@ -189,6 +209,10 @@
     <value>$(ap:behind,plural)Owl Statues</value>
     <comment></comment>
   </data>
+  <data name="area.category.owl_statue$plain" xml:space="preserve">
+    <value>Owl Statues</value>
+    <comment></comment>
+  </data>
   <data name="area.category.owl_statue$plural" xml:space="preserve">
     <value>$(ap:behind,plural)Owl Statues</value>
     <comment></comment>
@@ -197,8 +221,16 @@
     <value>the {cs}southern desert{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.southern_desert$plain" xml:space="preserve">
+    <value>Southern Desert</value>
+    <comment></comment>
+  </data>
   <data name="area.category.underwater" xml:space="preserve">
     <value>$(ap:none)underwater</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater$plain" xml:space="preserve">
+    <value>Underwater</value>
     <comment></comment>
   </data>
   <data name="area.category.underwater$subject" xml:space="preserve">
@@ -261,6 +293,10 @@
     <value>the {cs}Bulblin Camp{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.bulblin_camp$plain" xml:space="preserve">
+    <value>Bulblin Camp</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.castle_town" xml:space="preserve">
     <value>Castle Town</value>
     <comment></comment>
@@ -269,7 +305,15 @@
     <value>the {cs}Cave of Ordeals{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.cave_of_ordeals$plain" xml:space="preserve">
+    <value>Cave of Ordeals</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.city_in_the_sky" xml:space="preserve">
+    <value>the {cs}City in the Sky{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.city_in_the_sky$plain" xml:space="preserve">
     <value>City in the Sky</value>
     <comment></comment>
   </data>
@@ -293,8 +337,16 @@
     <value>the {cs}Forest Temple{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.forest_temple$plain" xml:space="preserve">
+    <value>Forest Temple</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.gerudo_desert" xml:space="preserve">
     <value>the {cs}Gerudo Desert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.gerudo_desert$plain" xml:space="preserve">
+    <value>Gerudo Desert</value>
     <comment></comment>
   </data>
   <data name="area.zone.goron_mines" xml:space="preserve">
@@ -305,8 +357,16 @@
     <value>$(ap:at)the {cs}Great Bridge of Hylia{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.great_bridge_of_hylia$plain" xml:space="preserve">
+    <value>Great Bridge of Hylia</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.hidden_village" xml:space="preserve">
     <value>the {cs}Hidden Village{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.hidden_village$plain" xml:space="preserve">
+    <value>Hidden Village</value>
     <comment></comment>
   </data>
   <data name="area.zone.hyrule_castle" xml:space="preserve">
@@ -357,8 +417,16 @@
     <value>the {cs}Palace of Twilight{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.palace_of_twilight$plain" xml:space="preserve">
+    <value>Palace of Twilight</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.sacred_grove" xml:space="preserve">
     <value>the {cs}Sacred Grove{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.sacred_grove$plain" xml:space="preserve">
+    <value>Sacred Grove</value>
     <comment></comment>
   </data>
   <data name="area.zone.snowpeak_mountain" xml:space="preserve">
@@ -375,6 +443,10 @@
   </data>
   <data name="area.zone.temple_of_time" xml:space="preserve">
     <value>the {cs}Temple of Time{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.temple_of_time$plain" xml:space="preserve">
+    <value>Temple of Time</value>
     <comment></comment>
   </data>
   <data name="area.zone.upper_zoras_river" xml:space="preserve">
@@ -401,9 +473,29 @@
     <value>(skippable)</value>
     <comment></comment>
   </data>
+  <data name="description.sometimes-required-check" xml:space="preserve">
+    <value>(sometimes required)</value>
+    <comment></comment>
+  </data>
   <data name="description.unrequired-check" xml:space="preserve">
     <value>(not required)</value>
     <comment></comment>
+  </data>
+  <data name="faq.cits-no-claw-exit-1" xml:space="preserve">
+    <value>#(red)No Clawshot#(white)? No problem!\nHead back to the water, take a left, then jump off the #(red)west path#(white).</value>
+    <comment></comment>
+  </data>
+  <data name="faq.cits-no-claw-exit-1$wii" xml:space="preserve">
+    <value>#(red)No Clawshot#(white)? No problem!\nHead back to the water, take a right, then jump off the #(red)east path#(white).</value>
+    <comment></comment>
+  </data>
+  <data name="faq.cits-no-claw-exit-2" xml:space="preserve">
+    <value>You&apos;ll be back to the surface in no time!</value>
+    <comment></comment>
+  </data>
+  <data name="faq.santuary-basement-owl-statue" xml:space="preserve">
+    <value>They say that the repaired Sky Cannon will #(red)automatically appear#(white) at Lake Hylia once the Ancient Sky Book has been filled.</value>
+    <comment>&quot;Sky Cannon&quot; for different languages can come from zel_02.bmg node 0x973 when talking to Shad where he says &quot;Sky Cannon&quot;.</comment>
   </data>
   <data name="goal.argorok" xml:space="preserve">
     <value>Argorok</value>
@@ -487,6 +579,34 @@
   </data>
   <data name="hint-type.beyond-point$only-big-keys" xml:space="preserve">
     <value>Only {big-key} beyond this point!</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count" xml:space="preserve">
+    <value>They say that {subject} can be found {area-phrase}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.footnote" xml:space="preserve">
+    <value>#(reference-mark)Dependent checks not included.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.important-item" xml:space="preserve">
+    <value>{count} important item</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.important-item#other" xml:space="preserve">
+    <value>$(plural){count} important items</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.major-item" xml:space="preserve">
+    <value>{count} major item</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.major-item#other" xml:space="preserve">
+    <value>$(plural){count} major items</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.num-major" xml:space="preserve">
+    <value>({count}#(nbsp)major)</value>
     <comment></comment>
   </data>
   <data name="hint-type.item" xml:space="preserve">
@@ -770,11 +890,27 @@
     <comment></comment>
   </data>
   <data name="item.61-red_potion_shop@ac(t,a,b,s)" xml:space="preserve">
-    <value>Red Potion</value>
+    <value>red potion</value>
     <comment></comment>
   </data>
   <data name="item.65-sera_bottle@ac(t,a,b,s)" xml:space="preserve">
     <value>half-empty milk bottle</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop" xml:space="preserve">
+    <value>$(objpro:some)lantern oil</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$count" xml:space="preserve">
+    <value>{cs}{count} lantern oil refill{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$count#other" xml:space="preserve">
+    <value>$(plural){cs}{count} lantern oil refills{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$indef" xml:space="preserve">
+    <value>a {cs}lantern oil refill{ce}</value>
     <comment></comment>
   </data>
   <data name="item.75-jovani_bottle@ac(t,a,p)" xml:space="preserve">
@@ -809,7 +945,7 @@
     <value>Forest Temple small key</value>
     <comment></comment>
   </data>
-  <data name="item.85-forest_temple_small_key$short" xml:space="preserve">
+  <data name="item.85-forest_temple_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>FT small key</value>
     <comment></comment>
   </data>
@@ -817,7 +953,7 @@
     <value>Goron Mines small key</value>
     <comment></comment>
   </data>
-  <data name="item.86-goron_mines_small_key$short" xml:space="preserve">
+  <data name="item.86-goron_mines_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>GM small key</value>
     <comment></comment>
   </data>
@@ -825,7 +961,7 @@
     <value>Lakebed Temple small key</value>
     <comment></comment>
   </data>
-  <data name="item.87-lakebed_temple_small_key$short" xml:space="preserve">
+  <data name="item.87-lakebed_temple_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>LBT small key</value>
     <comment></comment>
   </data>
@@ -833,7 +969,7 @@
     <value>Arbiter&apos;s Grounds small key</value>
     <comment></comment>
   </data>
-  <data name="item.88-arbiters_grounds_small_key$short" xml:space="preserve">
+  <data name="item.88-arbiters_grounds_small_key$short@ac(t,an,b,s)" xml:space="preserve">
     <value>AG small key</value>
     <comment></comment>
   </data>
@@ -841,7 +977,7 @@
     <value>Snowpeak Ruins small key</value>
     <comment></comment>
   </data>
-  <data name="item.89-snowpeak_ruins_small_key$short" xml:space="preserve">
+  <data name="item.89-snowpeak_ruins_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>SPR small key</value>
     <comment></comment>
   </data>
@@ -849,7 +985,7 @@
     <value>Temple of Time small key</value>
     <comment></comment>
   </data>
-  <data name="item.8a-temple_of_time_small_key$short" xml:space="preserve">
+  <data name="item.8a-temple_of_time_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>ToT small key</value>
     <comment></comment>
   </data>
@@ -857,7 +993,7 @@
     <value>City in the Sky small key</value>
     <comment></comment>
   </data>
-  <data name="item.8b-city_in_the_sky_small_key$short" xml:space="preserve">
+  <data name="item.8b-city_in_the_sky_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>CitS small key</value>
     <comment></comment>
   </data>
@@ -865,7 +1001,7 @@
     <value>Palace of Twilight small key</value>
     <comment></comment>
   </data>
-  <data name="item.8c-palace_of_twilight_small_key$short" xml:space="preserve">
+  <data name="item.8c-palace_of_twilight_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>PoT small key</value>
     <comment></comment>
   </data>
@@ -873,7 +1009,7 @@
     <value>Hyrule Castle small key</value>
     <comment></comment>
   </data>
-  <data name="item.8d-hyrule_castle_small_key$short" xml:space="preserve">
+  <data name="item.8d-hyrule_castle_small_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>HC small key</value>
     <comment></comment>
   </data>
@@ -885,7 +1021,7 @@
     <value>Auru&apos;s memo</value>
     <comment></comment>
   </data>
-  <data name="item.91-asheis_sketch@ac(,an,b,s)" xml:space="preserve">
+  <data name="item.91-asheis_sketch@ac(,an,b,es)" xml:space="preserve">
     <value>Ashei&apos;s sketch</value>
     <comment></comment>
   </data>
@@ -893,7 +1029,7 @@
     <value>Forest Temple big key</value>
     <comment></comment>
   </data>
-  <data name="item.92-forest_temple_big_key$short" xml:space="preserve">
+  <data name="item.92-forest_temple_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>FT big key</value>
     <comment></comment>
   </data>
@@ -901,7 +1037,7 @@
     <value>Lakebed Temple big key</value>
     <comment></comment>
   </data>
-  <data name="item.93-lakebed_temple_big_key$short" xml:space="preserve">
+  <data name="item.93-lakebed_temple_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>LBT big key</value>
     <comment></comment>
   </data>
@@ -909,7 +1045,7 @@
     <value>Arbiter&apos;s Grounds big key</value>
     <comment></comment>
   </data>
-  <data name="item.94-arbiters_grounds_big_key$short" xml:space="preserve">
+  <data name="item.94-arbiters_grounds_big_key$short@ac(t,an,b,s)" xml:space="preserve">
     <value>AG big key</value>
     <comment></comment>
   </data>
@@ -917,7 +1053,7 @@
     <value>Temple of Time big key</value>
     <comment></comment>
   </data>
-  <data name="item.95-temple_of_time_big_key$short" xml:space="preserve">
+  <data name="item.95-temple_of_time_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>ToT big key</value>
     <comment></comment>
   </data>
@@ -925,7 +1061,7 @@
     <value>City in the Sky big key</value>
     <comment></comment>
   </data>
-  <data name="item.96-city_in_the_sky_big_key$short" xml:space="preserve">
+  <data name="item.96-city_in_the_sky_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>CitS big key</value>
     <comment></comment>
   </data>
@@ -933,15 +1069,15 @@
     <value>Palace of Twilight big key</value>
     <comment></comment>
   </data>
-  <data name="item.97-palace_of_twilight_big_key$short" xml:space="preserve">
+  <data name="item.97-palace_of_twilight_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>PoT big key</value>
     <comment></comment>
   </data>
-  <data name="item.98-hyrule_castle_big_key@ac(t,a,b,es)" xml:space="preserve">
+  <data name="item.98-hyrule_castle_big_key@ac(t,a,b,s)" xml:space="preserve">
     <value>Hyrule Castle big key</value>
     <comment></comment>
   </data>
-  <data name="item.98-hyrule_castle_big_key$short" xml:space="preserve">
+  <data name="item.98-hyrule_castle_big_key$short@ac(t,a,b,s)" xml:space="preserve">
     <value>HC big key</value>
     <comment></comment>
   </data>
@@ -949,7 +1085,7 @@
     <value>Forest Temple compass</value>
     <comment></comment>
   </data>
-  <data name="item.99-forest_temple_compass$short" xml:space="preserve">
+  <data name="item.99-forest_temple_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>FT compass</value>
     <comment></comment>
   </data>
@@ -957,7 +1093,7 @@
     <value>Goron Mines compass</value>
     <comment></comment>
   </data>
-  <data name="item.9a-goron_mines_compass$short" xml:space="preserve">
+  <data name="item.9a-goron_mines_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>GM compass</value>
     <comment></comment>
   </data>
@@ -965,7 +1101,7 @@
     <value>Lakebed Temple compass</value>
     <comment></comment>
   </data>
-  <data name="item.9b-lakebed_temple_compass$short" xml:space="preserve">
+  <data name="item.9b-lakebed_temple_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>LBT compass</value>
     <comment></comment>
   </data>
@@ -985,7 +1121,7 @@
     <value>Arbiter&apos;s Grounds compass</value>
     <comment></comment>
   </data>
-  <data name="item.a8-arbiters_grounds_compass$short" xml:space="preserve">
+  <data name="item.a8-arbiters_grounds_compass$short@ac(t,an,b,es)" xml:space="preserve">
     <value>AG compass</value>
     <comment></comment>
   </data>
@@ -993,7 +1129,7 @@
     <value>Snowpeak Ruins compass</value>
     <comment></comment>
   </data>
-  <data name="item.a9-snowpeak_ruins_compass$short" xml:space="preserve">
+  <data name="item.a9-snowpeak_ruins_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>SPR compass</value>
     <comment></comment>
   </data>
@@ -1001,7 +1137,7 @@
     <value>Temple of Time compass</value>
     <comment></comment>
   </data>
-  <data name="item.aa-temple_of_time_compass$short" xml:space="preserve">
+  <data name="item.aa-temple_of_time_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>ToT compass</value>
     <comment></comment>
   </data>
@@ -1009,7 +1145,7 @@
     <value>City in the Sky compass</value>
     <comment></comment>
   </data>
-  <data name="item.ab-city_in_the_sky_compass$short" xml:space="preserve">
+  <data name="item.ab-city_in_the_sky_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>CitS compass</value>
     <comment></comment>
   </data>
@@ -1017,7 +1153,7 @@
     <value>Palace of Twilight compass</value>
     <comment></comment>
   </data>
-  <data name="item.ac-palace_of_twilight_compass$short" xml:space="preserve">
+  <data name="item.ac-palace_of_twilight_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>PoT compass</value>
     <comment></comment>
   </data>
@@ -1025,7 +1161,7 @@
     <value>Hyrule Castle compass</value>
     <comment></comment>
   </data>
-  <data name="item.ad-hyrule_castle_compass$short" xml:space="preserve">
+  <data name="item.ad-hyrule_castle_compass$short@ac(t,a,b,es)" xml:space="preserve">
     <value>HC compass</value>
     <comment></comment>
   </data>
@@ -1033,7 +1169,7 @@
     <value>Forest Temple dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.b6-forest_temple_dungeon_map$short" xml:space="preserve">
+  <data name="item.b6-forest_temple_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>FT dungeon map</value>
     <comment></comment>
   </data>
@@ -1041,7 +1177,7 @@
     <value>Goron Mines dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.b7-goron_mines_dungeon_map$short" xml:space="preserve">
+  <data name="item.b7-goron_mines_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>GM dungeon map</value>
     <comment></comment>
   </data>
@@ -1049,7 +1185,7 @@
     <value>Lakebed Temple dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.b8-lakebed_temple_dungeon_map$short" xml:space="preserve">
+  <data name="item.b8-lakebed_temple_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>LBT dungeon map</value>
     <comment></comment>
   </data>
@@ -1057,7 +1193,7 @@
     <value>Arbiter&apos;s Grounds dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.b9-arbiters_grounds_dungeon_map$short" xml:space="preserve">
+  <data name="item.b9-arbiters_grounds_dungeon_map$short@ac(t,an,b,s)" xml:space="preserve">
     <value>AG dungeon map</value>
     <comment></comment>
   </data>
@@ -1065,7 +1201,7 @@
     <value>Snowpeak Ruins dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.ba-snowpeak_ruins_dungeon_map$short" xml:space="preserve">
+  <data name="item.ba-snowpeak_ruins_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>SPR dungeon map</value>
     <comment></comment>
   </data>
@@ -1073,7 +1209,7 @@
     <value>Temple of Time dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.bb-temple_of_time_dungeon_map$short" xml:space="preserve">
+  <data name="item.bb-temple_of_time_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>ToT dungeon map</value>
     <comment></comment>
   </data>
@@ -1081,7 +1217,7 @@
     <value>City in the Sky dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.bc-city_in_the_sky_dungeon_map$short" xml:space="preserve">
+  <data name="item.bc-city_in_the_sky_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>CitS dungeon map</value>
     <comment></comment>
   </data>
@@ -1089,7 +1225,7 @@
     <value>Palace of Twilight dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.bd-palace_of_twilight_dungeon_map$short" xml:space="preserve">
+  <data name="item.bd-palace_of_twilight_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>PoT dungeon map</value>
     <comment></comment>
   </data>
@@ -1097,7 +1233,7 @@
     <value>Hyrule Castle dungeon map</value>
     <comment></comment>
   </data>
-  <data name="item.be-hyrule_castle_dungeon_map$short" xml:space="preserve">
+  <data name="item.be-hyrule_castle_dungeon_map$short@ac(t,a,b,s)" xml:space="preserve">
     <value>HC dungeon map</value>
     <comment></comment>
   </data>
@@ -1242,7 +1378,7 @@
     <comment></comment>
   </data>
   <data name="item.ee-north_faron_woods_gate_key@ac(t,a,b,s)" xml:space="preserve">
-    <value>Faron Woods key</value>
+    <value>North Faron Woods key</value>
     <comment></comment>
   </data>
   <data name="item.f3-gate_keys@unc(set,t,a,p)" xml:space="preserve">
@@ -1263,6 +1399,10 @@
   </data>
   <data name="item.f9-goron_mines_key_shard@ac(t,a,b,s)" xml:space="preserve">
     <value>key shard</value>
+    <comment></comment>
+  </data>
+  <data name="item.fe-faron_woods_coro_key@ac(,a,b,s)" xml:space="preserve">
+    <value>Coro&apos;s key</value>
     <comment></comment>
   </data>
   <data name="junk-hint.000" xml:space="preserve">
@@ -1306,7 +1446,7 @@
     <comment></comment>
   </data>
   <data name="junk-hint.010" xml:space="preserve">
-    <value>That say that the fire breath of Dodongos can light torches.</value>
+    <value>They say that mounting #(horse-name) from behind gives an instant burst of speed.</value>
     <comment></comment>
   </data>
   <data name="junk-hint.011" xml:space="preserve">
@@ -1326,7 +1466,7 @@
     <comment></comment>
   </data>
   <data name="junk-hint.015" xml:space="preserve">
-    <value>They say that rupees may actually grow on certain trees!</value>
+    <value>They say that Rupees may actually grow on certain trees!</value>
     <comment></comment>
   </data>
   <data name="junk-hint.016" xml:space="preserve">
@@ -1446,7 +1586,7 @@
     <comment></comment>
   </data>
   <data name="junk-hint.045" xml:space="preserve">
-    <value>They say that those who clear all Rollgoal levels will be handsomely rewarded.</value>
+    <value>They say that Hena will fill the wallet of anyone who clears all 64 Rollgoal levels.</value>
     <comment></comment>
   </data>
   <data name="junk-hint.046" xml:space="preserve">
@@ -1562,7 +1702,7 @@
     <comment></comment>
   </data>
   <data name="junk-hint.074" xml:space="preserve">
-    <value>......Sorry, I forgot.</value>
+    <value>They say that it is possible to backflip off of #(horse-name).</value>
     <comment></comment>
   </data>
   <data name="junk-hint.075" xml:space="preserve">
@@ -1713,6 +1853,90 @@
     <value>They say that the Ball and Chain can destroy wooden towers.</value>
     <comment></comment>
   </data>
+  <data name="menu.midna-base.option.something-else" xml:space="preserve">
+    <value>Something else</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-human" xml:space="preserve">
+    <value>Transform into human</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-wolf" xml:space="preserve">
+    <value>Transform into wolf</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.warp" xml:space="preserve">
+    <value>Warp</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.body" xml:space="preserve">
+    <value>Need something?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.change-time-of-day" xml:space="preserve">
+    <value>Change time of day</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.hints" xml:space="preserve">
+    <value>Hints</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.return-to-spawn" xml:space="preserve">
+    <value>Return to spawn</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.body" xml:space="preserve">
+    <value>I&apos;ll get you out of here. Are you ready to go?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.not-yet" xml:space="preserve">
+    <value>Not yet</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.ready" xml:space="preserve">
+    <value>I&apos;m ready</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.body" xml:space="preserve">
+    <value>I&apos;ll get you out of here. Where do you want to go?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.cancel" xml:space="preserve">
+    <value>Nevermind</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.dungeon" xml:space="preserve">
+    <value>Dungeon entrance</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.spawn" xml:space="preserve">
+    <value>Spawn</value>
+    <comment></comment>
+  </data>
+  <data name="midna.dungeon-entrances" xml:space="preserve">
+    <value>Here&apos;s what we know about dungeon entrances:\n#(red)(Entrance #(thin-right-arrow) Dungeon)</value>
+    <comment></comment>
+  </data>
+  <data name="midna.grouped-barren-hints" xml:space="preserve">
+    <value>They say that there is #(purple)nothing#(white) to be found in the following areas:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.grouped-barren-hints.area" xml:space="preserve">
+    <value>{area(capitalize)}</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons" xml:space="preserve">
+    <value>There is #(red)1#(white) required dungeon:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#other" xml:space="preserve">
+    <value>There are #(red){count}#(white) required dungeons:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#zero" xml:space="preserve">
+    <value>There are no required dungeons.</value>
+    <comment></comment>
+  </data>
   <data name="noun.a-bug" xml:space="preserve">
     <value>a {cs}bug{ce}</value>
     <comment></comment>
@@ -1725,15 +1949,23 @@
     <value>Unhinted</value>
     <comment></comment>
   </data>
+  <data name="noun.mystery-item@ac(t,a,b,s)" xml:space="preserve">
+    <value>mystery item</value>
+    <comment></comment>
+  </data>
   <data name="noun.nothing-of-value" xml:space="preserve">
     <value>nothing of value</value>
     <comment></comment>
   </data>
-  <data name="noun.shop-it" xml:space="preserve">
+  <data name="noun.objpro" xml:space="preserve">
     <value>it</value>
     <comment></comment>
   </data>
-  <data name="noun.shop-it$plural" xml:space="preserve">
+  <data name="noun.objpro$objpro-some" xml:space="preserve">
+    <value>some</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$plural" xml:space="preserve">
     <value>them</value>
     <comment></comment>
   </data>
@@ -1765,6 +1997,10 @@
     <value>Goron Mines</value>
     <comment></comment>
   </data>
+  <data name="required-dungeon.hyrule-castle" xml:space="preserve">
+    <value>Hyrule Castle</value>
+    <comment>Used by RequiredDungeonsHint for dungeon entrances</comment>
+  </data>
   <data name="required-dungeon.lakebed-temple" xml:space="preserve">
     <value>Lakebed Temple</value>
     <comment></comment>
@@ -1794,11 +2030,7 @@
     <comment></comment>
   </data>
   <data name="self-hinter.charlo-options" xml:space="preserve">
-    <value>#(option1)100 Rupees#(option2)50 Rupees#(option3)Sorry...</value>
-    <comment></comment>
-  </data>
-  <data name="self-hinter.charlo$default" xml:space="preserve">
-    <value>For the sake of peace in Hyrule...\nWould you please make a donation?</value>
+    <value>#(option1of3)100 Rupees#(option2of3)50 Rupees#(option3of3)Sorry...</value>
     <comment></comment>
   </data>
   <data name="self-hinter.fishing-bottle" xml:space="preserve">
@@ -1822,15 +2054,19 @@
     <comment></comment>
   </data>
   <data name="shop.cant-afford" xml:space="preserve">
-    <value>{item} {verb(name:is)} {price}. If you want {noun(name:shop-it)}, bring some money with you, all right, m&apos;dear?</value>
+    <value>{item(capitalize)} {verb(name:is)} {price}. If you want {noun(name:objpro)}, bring some money with you, all right, m&apos;dear?</value>
     <comment>From Sera Slingshot</comment>
   </data>
   <data name="shop.cant-afford$barnes-bomb-bag" xml:space="preserve">
     <value>$(skip-msg)uses default text!</value>
     <comment></comment>
   </data>
+  <data name="shop.cant-afford$ct-small-gorons" xml:space="preserve">
+    <value>You do not have enough Rupees, Brother...</value>
+    <comment>This is a copy of 0x3C4 for the red potion goron.</comment>
+  </data>
   <data name="shop.cant-afford$kak-malo" xml:space="preserve">
-    <value>{item} {verb(name:costs)} {price}... but there are people with enough Rupees, and then there&apos;s you.</value>
+    <value>{item(capitalize)} {verb(name:costs)} {price}... but there are people with enough Rupees, and then there&apos;s you.</value>
     <comment></comment>
   </data>
   <data name="shop.coming-soon" xml:space="preserve">
@@ -1846,11 +2082,39 @@
     <comment></comment>
   </data>
   <data name="shop.confirmation" xml:space="preserve">
-    <value>{item} will cost you {price}. Want {noun(name:shop-it)} or not?</value>
+    <value>{item(capitalize)} will cost you {price}. Want {noun(name:objpro)} or not?</value>
     <comment>From kak malo mart.</comment>
   </data>
+  <data name="shop.confirmation$coro" xml:space="preserve">
+    <value>Right now we have {item} for {price} and oil #(red)refills#(white) for #(purple)20 Rupees#(white)!</value>
+    <comment>Adjusted msg slightly so we don&apos;t have to deal with &quot;a&quot; 10-Rupee item or &quot;an&quot; 11-Rupee item. Also slightly shorter msg length. Only &quot;refills&quot; is red (not &quot;oil refills&quot;) to make the first item text easier to read, and it matchees with the &quot;Buy a refill&quot; part. Vanilla text leaves out &quot;oil&quot; entirely because oil is mentioned earlier in the text.</comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-arrows" xml:space="preserve">
+    <value>So... Would you want to buy {item} for {price}?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-oil-initial" xml:space="preserve">
+    <value>So, Brother, would you buy {item} from me for {price}?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-oil-later" xml:space="preserve">
+    <value>Just buy {item} from me for {price}, OK?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-red-potion" xml:space="preserve">
+    <value>You can buy {item} for only {price}!</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-shield-initial" xml:space="preserve">
+    <value>Anyway... Would you want {item} for {price}?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-shield-later" xml:space="preserve">
+    <value>Would you want {item} for {price}?</value>
+    <comment></comment>
+  </data>
   <data name="shop.confirmation$sera" xml:space="preserve">
-    <value>{item} {verb(name:is)} {price}. Do you want to buy {noun(name:shop-it)}, m&apos;dear?</value>
+    <value>{item(capitalize)} {verb(name:is)} {price}. Do you want to buy {noun(name:objpro)}, m&apos;dear?</value>
     <comment></comment>
   </data>
   <data name="shop.price" xml:space="preserve">
@@ -1865,8 +2129,16 @@
     <value>{item(shop:true)} {price}\nDon&apos;t let them sell out before you\nbuy one!</value>
     <comment></comment>
   </data>
+  <data name="shop.slot$barnes" xml:space="preserve">
+    <value>{item(shop:true)} {price}\nAvailable for a limited time only! Don&apos;t miss out!</value>
+    <comment></comment>
+  </data>
   <data name="shop.slot$chudley" xml:space="preserve">
     <value>{item(shop:true)}\nAn item for the richest and most precious customers.</value>
+    <comment></comment>
+  </data>
+  <data name="shop.slot$kak-malo-right" xml:space="preserve">
+    <value>{item(shop:true)} {price}\n        LIMITED SUPPLY!\nBuy to see the item behind {noun2(name:objpro)}!</value>
     <comment></comment>
   </data>
   <data name="shop.slot$magic-armor" xml:space="preserve">
@@ -1874,7 +2146,7 @@
     <comment></comment>
   </data>
   <data name="shop.slot$sera" xml:space="preserve">
-    <value>{item(shop:true)} {price}\nI got {noun(name:shop-this)} in for the kids, but I&apos;ll sell {noun2(name:shop-it)} if you really want {noun2b}.</value>
+    <value>{item(shop:true)} {price}\nI got {noun(name:shop-this)} in for the kids, but I&apos;ll sell {noun2(name:objpro)} if you really want {noun2b}.</value>
     <comment></comment>
   </data>
   <data name="shop.sold-out" xml:space="preserve">

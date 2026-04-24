@@ -1,0 +1,6 @@
+{
+    "requirements": "true",
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Zoras Domain"],
+    "itemId": "Zoras_Domain_Portal"
+}

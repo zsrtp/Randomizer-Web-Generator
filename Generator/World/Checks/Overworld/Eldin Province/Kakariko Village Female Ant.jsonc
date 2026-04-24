@@ -1,6 +1,6 @@
 {
-    "requirements": "true",
-    "glitchedRequirements": "true",
+    "requirements": "CanCompleteEldinTwilight",
+    "glitchedRequirements": "CanCompleteEldinTwilight",
     "checkCategory": ["Overworld", "Golden Bug", "Kakariko Village"],
     "itemId": "Female_Ant"
 }

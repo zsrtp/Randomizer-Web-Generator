@@ -1,6 +1,11 @@
 {
-    "requirements": "canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut and Boomerang and Lantern and (Progressive_Clawshot, 2)",
-    "glitchedRequirements": "(canKnockDownHCPainting and CanDefeatLizalfos and CanDefeatDarknut and Boomerang and Lantern and (Progressive_Clawshot, 1)) or (Progressive_Clawshot, 2)",
+    // Access is from the "Hyrule Castle After Double Darknuts" room. Note that
+    // the Double-Darknut Skip is not infinitely reproducible since it is only
+    // available until you lower the shortcut chandelier, so there is no logical
+    // way even in glitched to get this chest without going through the Double
+    // Darknuts, at which point you just walk up and get it for free.
+    "requirements": "true",
+    "glitchedRequirements": "true",
     "checkCategory": ["Chest", "Dungeon", "Hyrule Castle"],
-    "itemId": "Orange_Rupee"
+    "itemId": "Purple_Rupee"
 }

@@ -1,6 +1,6 @@
 {
-    "requirements": "Iron_Boots",
-    "glitchedRequirements": "HasHeavyMod",
+    "requirements": "Iron_Boots and CanCompleteLanayruTwilight",
+    "glitchedRequirements": "HasHeavyMod and CanCompleteLanayruTwilight",
     "checkCategory": ["Overworld", "Chest", "Lake Hylia"],
     "itemId": "Orange_Rupee"
 }

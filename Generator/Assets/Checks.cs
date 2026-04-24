@@ -50,8 +50,6 @@ namespace TPRandomizer
 
         public List<string> arcOffsets { get; set; } // Used by ARC checks.
 
-        public List<string> magicByte { get; set; }
-
         public string fileName { get; set; }
 
         public List<string> overrideInstruction { get; set; } // Used by REL checks. The override instruction to be used when replacing the item in the rel.
@@ -84,8 +82,6 @@ namespace TPRandomizer
                 "Forest Temple Central Chest Behind Stairs",
                 "Forest Temple Central Chest Hanging From Web",
                 "Forest Temple Central North Chest",
-                "Forest Temple Diababa Heart Container",
-                "Forest Temple Dungeon Reward",
                 "Forest Temple East Tile Worm Chest",
                 "Forest Temple East Water Cave Chest",
                 "Forest Temple Entrance Vines Chest",
@@ -101,16 +97,13 @@ namespace TPRandomizer
         public static List<string> minesRequirementChecks =
             new()
             {
-                "Death Mountain Trail Poe",
                 "Goron Mines After Crystal Switch Room Magnet Wall Chest",
                 "Goron Mines Beamos Room Chest",
                 "Goron Mines Chest Before Dangoro",
                 "Goron Mines Crystal Switch Room Small Chest",
                 "Goron Mines Crystal Switch Room Underwater Chest",
                 "Goron Mines Dangoro Chest",
-                "Goron Mines Dungeon Reward",
                 "Goron Mines Entrance Chest",
-                "Goron Mines Fyrus Heart Container",
                 "Goron Mines Gor Amato Chest",
                 "Goron Mines Gor Amato Key Shard",
                 "Goron Mines Gor Amato Small Chest",
@@ -124,8 +117,6 @@ namespace TPRandomizer
                 "Goron Mines Outside Beamos Chest",
                 "Goron Mines Outside Clawshot Chest",
                 "Goron Mines Outside Underwater Chest",
-                "Kakariko Village Malo Mart Hawkeye",
-                "Talo Sharpshooting",
             };
 
         public static List<string> lakebedRequirementChecks =
@@ -140,7 +131,6 @@ namespace TPRandomizer
                 "Lakebed Temple Central Room Spire Chest",
                 "Lakebed Temple Chandelier Chest",
                 "Lakebed Temple Deku Toad Chest",
-                "Lakebed Temple Dungeon Reward",
                 "Lakebed Temple East Lower Waterwheel Bridge Chest",
                 "Lakebed Temple East Lower Waterwheel Stalactite Chest",
                 "Lakebed Temple East Second Floor Southeast Chest",
@@ -149,7 +139,6 @@ namespace TPRandomizer
                 "Lakebed Temple East Water Supply Small Chest",
                 "Lakebed Temple Lobby Left Chest",
                 "Lakebed Temple Lobby Rear Chest",
-                "Lakebed Temple Morpheel Heart Container",
                 "Lakebed Temple Stalactite Room Chest",
                 "Lakebed Temple Underwater Maze Small Chest",
                 "Lakebed Temple West Lower Small Chest",
@@ -166,7 +155,6 @@ namespace TPRandomizer
             {
                 "Arbiters Grounds Big Key Chest",
                 "Arbiters Grounds Death Sword Chest",
-                "Arbiters Grounds Dungeon Reward",
                 "Arbiters Grounds East Lower Turnable Redead Chest",
                 "Arbiters Grounds East Turning Room Poe",
                 "Arbiters Grounds East Upper Turnable Chest",
@@ -180,7 +168,6 @@ namespace TPRandomizer
                 "Arbiters Grounds Spinner Room Lower North Chest",
                 "Arbiters Grounds Spinner Room Second Small Chest",
                 "Arbiters Grounds Spinner Room Stalfos Alcove Chest",
-                "Arbiters Grounds Stallord Heart Container",
                 "Arbiters Grounds Torch Room East Chest",
                 "Arbiters Grounds Torch Room Poe",
                 "Arbiters Grounds Torch Room West Chest",
@@ -195,12 +182,10 @@ namespace TPRandomizer
             new()
             {
                 "Snowpeak Ruins Ball and Chain",
-                "Snowpeak Ruins Blizzeta Heart Container",
                 "Snowpeak Ruins Broken Floor Chest",
                 "Snowpeak Ruins Chapel Chest",
                 "Snowpeak Ruins Chest After Darkhammer",
                 "Snowpeak Ruins Courtyard Central Chest",
-                "Snowpeak Ruins Dungeon Reward",
                 "Snowpeak Ruins East Courtyard Buried Chest",
                 "Snowpeak Ruins East Courtyard Chest",
                 "Snowpeak Ruins Ice Room Poe",
@@ -218,25 +203,22 @@ namespace TPRandomizer
                 "Snowpeak Ruins Wooden Beam Central Chest",
                 "Snowpeak Ruins Wooden Beam Chandelier Chest",
                 "Snowpeak Ruins Wooden Beam Northwest Chest",
-                "Snowboard Racing Prize",
             };
 
         public static List<string> totRequirementChecks =
             new()
             {
-                "Temple of Time Armogohma Heart Container",
                 "Temple of Time Armos Antechamber East Chest",
                 "Temple of Time Armos Antechamber North Chest",
                 "Temple of Time Armos Antechamber Statue Chest",
                 "Temple of Time Big Key Chest",
                 "Temple of Time Chest Before Darknut",
                 "Temple of Time Darknut Chest",
-                "Temple of Time Dungeon Reward",
                 "Temple of Time First Staircase Armos Chest",
                 "Temple of Time First Staircase Gohma Gate Chest",
                 "Temple of Time First Staircase Window Chest",
                 "Temple of Time Floor Switch Puzzle Room Upper Chest",
-                "Temple of Time Gilloutine Chest",
+                "Temple of Time Guillotine Chest",
                 "Temple of Time Lobby Lantern Chest",
                 "Temple of Time Moving Wall Beamos Room Chest",
                 "Temple of Time Moving Wall Dinalfos Room Chest",
@@ -244,23 +226,12 @@ namespace TPRandomizer
                 "Temple of Time Poe Behind Gate",
                 "Temple of Time Scales Gohma Chest",
                 "Temple of Time Scales Upper Chest",
-                "Renados Letter",
-                "Telma Invoice",
-                "Wooden Statue",
-                "Ilia Charm",
-                "Ilia Memory Reward",
-                "Hidden Village Poe",
-                "Skybook From Impaz",
-                "Doctors Office Balcony Chest",
-                "North Castle Town Golden Wolf",
-                "Cats Hide and Seek Minigame",
             };
 
         public static List<string> cityRequirementChecks =
             new()
             {
                 "City in The Sky Aeralfos Chest",
-                "City in The Sky Argorok Heart Container",
                 "City in The Sky Baba Tower Alcove Chest",
                 "City in The Sky Baba Tower Narrow Ledge Chest",
                 "City in The Sky Baba Tower Top Small Chest",
@@ -269,7 +240,6 @@ namespace TPRandomizer
                 "City in The Sky Central Outside Poe Island Chest",
                 "City in The Sky Chest Behind North Fan",
                 "City in The Sky Chest Below Big Key Chest",
-                "City in The Sky Dungeon Reward",
                 "City in The Sky East First Wing Chest After Fans",
                 "City in The Sky East Tile Worm Small Chest",
                 "City in The Sky East Wing After Dinalfos Alcove Chest",
@@ -297,9 +267,9 @@ namespace TPRandomizer
                 "Palace of Twilight Central Outdoor Chest",
                 "Palace of Twilight Central Tower Chest",
                 "Palace of Twilight Collect Both Sols",
-                "Palace of Twilight East Wing First Room East Alcove",
+                "Palace of Twilight East Wing First Room East Alcove Chest",
                 "Palace of Twilight East Wing First Room North Small Chest",
-                "Palace of Twilight East Wing First Room West Alcove",
+                "Palace of Twilight East Wing First Room West Alcove Chest",
                 "Palace of Twilight East Wing First Room Zant Head Chest",
                 "Palace of Twilight East Wing Second Room Northeast Chest",
                 "Palace of Twilight East Wing Second Room Northwest Chest",
@@ -310,7 +280,63 @@ namespace TPRandomizer
                 "Palace of Twilight West Wing Second Room Central Chest",
                 "Palace of Twilight West Wing Second Room Lower South Chest",
                 "Palace of Twilight West Wing Second Room Southeast Chest",
-                "Palace of Twilight Zant Heart Container",
+            };
+
+        public static List<string> postFyrusChecks =
+            new()
+            {
+                "Kakariko Village Malo Mart Hawkeye",
+                "Talo Sharpshooting",
+                "Death Mountain Trail Poe",
+            };
+
+        public static List<string> postBlizettaChecks = new() { "Snowboard Racing Prize", };
+
+        public static List<string> postArmogohmaChecks =
+            new()
+            {
+                "Renados Letter",
+                "Telma Invoice",
+                "Wooden Statue",
+                "Ilia Charm",
+                "Ilia Memory Reward",
+                "Hidden Village Poe",
+                "Skybook From Impaz",
+                "Doctors Office Balcony Chest",
+                "North Castle Town Golden Wolf",
+                "Cats Hide and Seek Minigame",
+            };
+
+        public static List<string> questChecks =
+            new() { "Renados Letter", "Telma Invoice", "Wooden Statue", "Ilia Charm", };
+
+        // All of these checks are forced to be vanilla until a way to randomize them is figured out or if they are not meant to be randomized for the sake of events and the like.
+        public static List<string> vanillaChecks =
+            new()
+            {
+                "South Faron Portal",
+                "North Faron Portal",
+                "Sacred Grove Portal",
+                "Kakariko Gorge Portal",
+                "Kakariko Village Portal",
+                "Death Mountain Portal",
+                "Bridge of Eldin Portal",
+                "Castle Town Portal",
+                "Zoras Domain Portal",
+                "Lake Hylia Portal",
+                "Gerudo Desert Portal",
+                "Snowpeak Portal",
+                "Mirror Chamber Portal",
+                "Upper Zoras River Portal",
+                "Forest Temple Diababa",
+                "Goron Mines Fyrus",
+                "Lakebed Temple Morpheel",
+                "Arbiters Grounds Stallord",
+                "Snowpeak Ruins Blizzeta",
+                "Temple of Time Armogohma",
+                "City in The Sky Argorok",
+                "Palace of Twilight Zant",
+                "Hyrule Castle Ganondorf",
             };
 
         /// <summary>
@@ -355,6 +381,7 @@ namespace TPRandomizer
                     currentCheck.checkStatus = "Vanilla";
                 }
 
+                // Some NPCs give dungeon items (Yeta give dungeon map, Elders give key shards) so we need to account for the possibility of conflicting settings.
                 if (!parseSetting.shuffleNpcItems)
                 {
                     if (currentCheck.checkCategory.Contains("Npc"))
@@ -458,9 +485,8 @@ namespace TPRandomizer
                         else
                         {
                             currentCheck.checkStatus = "Vanilla";
+                            Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
                         }
-
-                        Randomizer.Items.RandomizedImportantItems.Remove(currentCheck.itemId);
                     }
                 }
 
@@ -484,29 +510,89 @@ namespace TPRandomizer
                         }
                     }
                 }
+
+                if (!parseSetting.shuffleHiddenRupees)
+                {
+                    if (currentCheck.checkCategory.Contains("Rupee - Hidden"))
+                    {
+                        currentCheck.checkStatus = "Vanilla";
+                    }
+                }
+
+                if (!parseSetting.shuffleFreestandingRupees)
+                {
+                    if (currentCheck.checkCategory.Contains("Rupee - Freestanding"))
+                    {
+                        currentCheck.checkStatus = "Vanilla";
+                    }
+                }
             }
 
-            // Vanilla until all of the flag issues are figured out.
-            Randomizer.Checks.CheckDict["Renados Letter"].checkStatus = "Vanilla";
-            Randomizer.Checks.CheckDict["Telma Invoice"].checkStatus = "Vanilla";
-            Randomizer.Checks.CheckDict["Wooden Statue"].checkStatus = "Vanilla";
-            Randomizer.Checks.CheckDict["Ilia Charm"].checkStatus = "Vanilla";
-            Randomizer.Checks.CheckDict["Ilia Memory Reward"].checkStatus = "Vanilla";
-            Randomizer.Items.RandomizedImportantItems.Remove(
-                Randomizer.Checks.CheckDict["Renados Letter"].itemId
-            );
-            Randomizer.Items.RandomizedImportantItems.Remove(
-                Randomizer.Checks.CheckDict["Telma Invoice"].itemId
-            );
-            Randomizer.Items.RandomizedImportantItems.Remove(
-                Randomizer.Checks.CheckDict["Wooden Statue"].itemId
-            );
-            Randomizer.Items.RandomizedImportantItems.Remove(
-                Randomizer.Checks.CheckDict["Ilia Charm"].itemId
-            );
-            Randomizer.Items.RandomizedImportantItems.Remove(
-                Randomizer.Checks.CheckDict["Ilia Memory Reward"].itemId
-            );
+            List<string> removedQuestChecks = new();
+
+            switch (parseSetting.iliaQuest)
+            {
+                case IliaQuest.Letter:
+                {
+                    removedQuestChecks.Add("Renados Letter");
+                    Randomizer.Items.RandomizedImportantItems.Add(Item.Renados_Letter);
+                    break;
+                }
+                case IliaQuest.Invoice:
+                {
+                    removedQuestChecks.Add("Renados Letter");
+                    removedQuestChecks.Add("Telma Invoice");
+                    Randomizer.Items.RandomizedImportantItems.Add(Item.Invoice);
+                    break;
+                }
+                case IliaQuest.Statue:
+                {
+                    removedQuestChecks.Add("Renados Letter");
+                    removedQuestChecks.Add("Telma Invoice");
+                    removedQuestChecks.Add("Wooden Statue");
+                    Randomizer.Items.RandomizedImportantItems.Add(Item.Wooden_Statue);
+                    break;
+                }
+                case IliaQuest.Charm:
+                {
+                    removedQuestChecks.Add("Renados Letter");
+                    removedQuestChecks.Add("Telma Invoice");
+                    removedQuestChecks.Add("Wooden Statue");
+                    removedQuestChecks.Add("Ilia Charm");
+                    Randomizer.Items.RandomizedImportantItems.Add(Item.Ilias_Charm);
+                    break;
+                }
+
+                default:
+                {
+                    break;
+                }
+            }
+
+            foreach (string questCheck in removedQuestChecks)
+            {
+                questChecks.Remove(questCheck);
+                Randomizer.Checks.CheckDict[questCheck].checkStatus = "Excluded";
+                Randomizer.Items.RandomizedImportantItems.Remove(
+                    Randomizer.Checks.CheckDict[questCheck].itemId
+                );
+            }
+
+            // set up the vanilla checks
+
+            vanillaChecks.AddRange(questChecks);
+            if (Randomizer.SSettings.castleBKRequirements != CastleBKRequirements.None)
+            {
+                vanillaChecks.Add("Hyrule Castle Big Key Chest");
+            }
+
+            foreach (string vanillaCheck in vanillaChecks)
+            {
+                Randomizer.Checks.CheckDict[vanillaCheck].checkStatus = "Vanilla";
+                Randomizer.Items.RandomizedImportantItems.Remove(
+                    Randomizer.Checks.CheckDict[vanillaCheck].itemId
+                );
+            }
 
             foreach ((string checkName, Item item) in parseSetting.plandoChecks)
             {

@@ -1,6 +1,6 @@
 {
     "requirements": "(Progressive_Dominion_Rod, 2) and (Progressive_Clawshot, 1)",
-    "glitchedRequirements": "(Progressive_Dominion_Rod, 2) and ((Progressive_Clawshot, 1) or CanDoMapGlitch)",
+    "glitchedRequirements": "(Progressive_Dominion_Rod, 2) and ((Progressive_Clawshot, 1) or (CanDoMapGlitch and CanCompleteLanayruTwilight))",
     "checkCategory": ["Overworld", "Hyrule Field - Lanayru Province", "Sky Book"],
     "itemId": "Progressive_Sky_Book"
 }

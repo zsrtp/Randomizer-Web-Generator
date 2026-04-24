@@ -37,7 +37,7 @@ Before deploying the image, you need to define secrets which are used in the pro
 - In this directory, create a `jwtSecret.txt` file.
 - It is recommended that you set the contents of this file to a random 32 character hex hash.
   You can go to [this website](https://onlinehashtools.com/generate-random-md5-hash) and copy one of the hash lines if you would like.
-- Repeat the previous steps for `seedHashSecret.txt`, using a different hash for the file contents.
+- Repeat the previous steps for `seedHashSecret.txt` and `apiSecret.txt`, using a different hash for the file contents.
 
 ### Deploying
 

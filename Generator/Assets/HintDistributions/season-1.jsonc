@@ -14,7 +14,7 @@
   },
   "beyondPointZones": ["alias:all"],
   "barren": {
-    "ownZoneBehavior": "monopolize",
+    "monopolizeSpots": true,
     "ownZoneShowsAsJunkHint": true
   },
   "always": {
@@ -50,7 +50,7 @@
       "hintDef": {
         "hintType": "location",
         "options": {
-          "canHintHintedBarrenChecks": true,
+          "canBeClaimHinted": true,
           "validChecks": ["Forest Temple Gale Boomerang"]
         }
       }
@@ -63,7 +63,7 @@
           {
             "hintType": "location",
             "options": {
-              "canHintHintedBarrenChecks": true,
+              "canBeClaimHinted": true,
               "validChecks": [
                 "Snowpeak Ruins Chapel Chest",
                 "Snowpeak Ruins Lobby Chandelier Chest",
@@ -75,7 +75,7 @@
           {
             "hintType": "location",
             "options": {
-              "canHintHintedBarrenChecks": true,
+              "canBeClaimHinted": true,
               "validChecks": [
                 "Snowpeak Ruins Chapel Chest",
                 "Snowpeak Ruins Lobby Chandelier Chest",
@@ -91,7 +91,7 @@
       "hintDef": {
         "hintType": "location",
         "options": {
-          "canHintHintedBarrenChecks": true,
+          "canBeClaimHinted": true,
           "validChecks": ["Temple of Time Darknut Chest"]
         }
       }

@@ -93,18 +93,21 @@ namespace TPRandomizer.Assets.CLR0
         public string bmdFile;
         public string texture;
         public byte archiveIndex;
+        public BMDDirectory directory;
 
         public CMPRTextureFileSettings(
             Clr0Entry colorEntry,
             string bmdFile,
             string texture,
-            byte archiveIndex
+            byte archiveIndex,
+            BMDDirectory directory
         )
         {
             this.colorEntry = colorEntry;
             this.bmdFile = bmdFile;
             this.texture = texture;
             this.archiveIndex = archiveIndex;
+            this.directory = directory;
         }
     };
 
@@ -114,19 +117,30 @@ namespace TPRandomizer.Assets.CLR0
         public string bmdFile;
         public List<string> textures;
         public byte archiveIndex;
+        public BMDDirectory directory;
 
         public BmdTextureAssociation(
             byte recolorType,
             string bmdFile,
             List<string> textures,
-            byte archiveIndex
+            byte archiveIndex,
+            BMDDirectory directory
         )
         {
             this.recolorType = recolorType;
             this.bmdFile = bmdFile;
             this.textures = textures;
             this.archiveIndex = archiveIndex;
+            this.directory = directory;
         }
+    };
+
+    public enum BMDDirectory : byte
+    {
+        BMWE = 0,
+        BMDR = 1,
+        BMWR = 2,
+        BMDE = 3,
     };
 
     public enum ArchiveIndex : byte
@@ -134,7 +148,11 @@ namespace TPRandomizer.Assets.CLR0
         Link = 0,
         ZoraArmor = 1,
         ZoraArmorField = 2,
-        LinkMS = 3,
+        ALink = 3,
+        MagicArmor = 4,
+        AlAnm = 5,
+        Horse = 6,
+        Wolf = 7,
     }
 
     public class ColorArrays
@@ -154,6 +172,7 @@ namespace TPRandomizer.Assets.CLR0
             new[] { 0x000000, 0x000000, 0x1A0500, 0x3C190E, 0x3F1D0B, 0x3F187E }, // Brown
             new[] { 0xF0F1F1, 0xA9947E, 0x090B0C, 0x222424, 0xFFFFFF, 0xFFD5FF }, // White
             new[] { 0x000000, 0x000000, 0x0B0B0B, 0x232323, 0x000000, 0x000078 }, // Black
+            new[] { 0xFFFFFE, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000 }, // Rainbow Placeholder
         };
 
         public static readonly int[][] MidnaHairTipsColors = new int[][]

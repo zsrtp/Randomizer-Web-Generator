@@ -65,8 +65,8 @@
         [
             "Palace of Twilight East Wing First Room North Small Chest",
             "Palace of Twilight East Wing First Room Zant Head Chest",
-            "Palace of Twilight East Wing First Room East Alcove",
-            "Palace of Twilight East Wing First Room West Alcove",
+            "Palace of Twilight East Wing First Room East Alcove Chest",
+            "Palace of Twilight East Wing First Room West Alcove Chest",
             "Palace of Twilight East Wing Second Room Northeast Chest",
             "Palace of Twilight East Wing Second Room Northwest Chest",
             "Palace of Twilight East Wing Second Room Southwest Chest",
@@ -85,8 +85,8 @@
         },
         {
             "ConnectedArea": "Palace of Twilight Outside Room",
-            "Requirements": "((Palace_of_Twilight_Small_Key, 5) or (Setting.smallKeySettings equals Keysy)) and (Progressive_Sword, 4)",
-            "GlitchedRequirements": "((Palace_of_Twilight_Small_Key, 5) or (Setting.smallKeySettings equals Keysy)) and (Progressive_Sword, 4)"
+            "Requirements": "(Palace_of_Twilight_Small_Key, 5) and (Progressive_Sword, 4)",
+            "GlitchedRequirements": "(Palace_of_Twilight_Small_Key, 5) and (Progressive_Sword, 4)"
         }
         ],
         "Checks": 
@@ -106,8 +106,8 @@
         },
         {
             "ConnectedArea": "Palace of Twilight North Tower",
-            "Requirements": "((Palace_of_Twilight_Small_Key, 6) or (Setting.smallKeySettings equals Keysy))",
-            "GlitchedRequirements": "((Palace_of_Twilight_Small_Key, 6) or (Setting.smallKeySettings equals Keysy))"
+            "Requirements": "(Palace_of_Twilight_Small_Key, 6)",
+            "GlitchedRequirements": "(Palace_of_Twilight_Small_Key, 6)"
         }
         ],
         "Checks": 
@@ -128,8 +128,8 @@
         },
         {
             "ConnectedArea": "Palace of Twilight Boss Room",
-            "Requirements": "CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatShadowBeast and (Progressive_Clawshot, 1) and ((Palace_of_Twilight_Small_Key, 7) or (Setting.smallKeySettings equals Keysy))",
-            "GlitchedRequirements": "CanDefeatZantHead and (Progressive_Sword, 4) and (Palace_of_Twilight_Big_Key or (Setting.bigKeySettings equals Keysy)) and CanDefeatShadowBeast and (Progressive_Clawshot, 1) and ((Palace_of_Twilight_Small_Key, 7) or (Setting.smallKeySettings equals Keysy))"
+            "Requirements": "CanDefeatZantHead and (Progressive_Sword, 4) and Palace_of_Twilight_Big_Key and CanDefeatShadowBeast and (Progressive_Clawshot, 1) and (Palace_of_Twilight_Small_Key, 7)",
+            "GlitchedRequirements": "CanDefeatZantHead and (Progressive_Sword, 4) and Palace_of_Twilight_Big_Key and CanDefeatShadowBeast and (Progressive_Clawshot, 1) and (Palace_of_Twilight_Small_Key, 7)"
         }
         ],
         "Checks": 
@@ -150,7 +150,8 @@
       ],
       "Checks":
       [
-          "Palace of Twilight Zant Heart Container"
+          "Palace of Twilight Zant Heart Container",
+          "Palace of Twilight Zant"
       ],
       "Region": "Palace of Twilight"
   }

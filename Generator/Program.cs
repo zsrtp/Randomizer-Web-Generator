@@ -2,12 +2,12 @@
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Text;
+using System.Threading;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using System.Threading;
-using System.Text;
 
 namespace TPRandomizer
 {
@@ -27,14 +27,12 @@ namespace TPRandomizer
 
             HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
-            builder.Services.AddLocalization(
-                options =>
-                {
-                    // This path is added to the root "Generator" dir to find
-                    // the folder which contains the resx files.
-                    options.ResourcesPath = "Translations";
-                }
-            );
+            builder.Services.AddLocalization(options =>
+            {
+                // This path is added to the root "Generator" dir to find
+                // the folder which contains the resx files.
+                options.ResourcesPath = "Translations";
+            });
             builder.Services.AddSingleton<Translations>();
 
             IHost host = builder.Build();

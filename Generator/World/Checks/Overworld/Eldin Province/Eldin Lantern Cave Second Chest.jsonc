@@ -1,6 +1,6 @@
 {
-    "requirements": "canBurnWebs",
-    "glitchedRequirements": "canBurnWebs",
+    "requirements": "CanBurnWebs",
+    "glitchedRequirements": "CanBurnWebs",
     "checkCategory": ["Overworld", "Chest", "Eldin Lantern Cave"],
     "itemId": "Purple_Rupee"
 }

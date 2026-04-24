@@ -1,6 +1,6 @@
 {
-    "requirements": "Shadow_Crystal",
-    "glitchedRequirements": "Shadow_Crystal",
+    "requirements": "Shadow_Crystal and CanCompleteLanayruTwilight",
+    "glitchedRequirements": "Shadow_Crystal and CanCompleteLanayruTwilight",
     "checkCategory": ["Overworld", "Poe", "Upper Zoras River"],
     "itemId": "Poe_Soul"
 }

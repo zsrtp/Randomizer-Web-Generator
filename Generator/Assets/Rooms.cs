@@ -1,8 +1,8 @@
 namespace TPRandomizer
 {
+    using System;
     using System.Collections.Generic;
     using TPRandomizer.SSettings.Enums;
-    using System;
 
     /// <summary>
     /// summary text.
@@ -119,7 +119,7 @@ namespace TPRandomizer
         Star_Game,
         Kakariko_Graveyard_Interiors,
         Light_Arrows_Cutscene,
-        Hyrule_Castle_Cutscenes
+        Hyrule_Castle_Cutscenes,
     };
 
     /// <summary>
@@ -127,6 +127,283 @@ namespace TPRandomizer
     /// </summary>
     public class RoomFunctions
     {
+        public static List<string> WarpableStages =
+            new()
+            {
+                "South Faron Woods",
+                "South Faron Woods Behind Gate",
+                "South Faron Woods Coros Ledge",
+                "South Faron Woods Owl Statue Area",
+                "South Faron Woods Above Owl Statue",
+                "Mist Area Near Faron Woods Cave",
+                "Mist Area Under Owl Statue Chest",
+                "Mist Area Outside Faron Mist Cave",
+                "Mist Area Near North Faron Woods",
+                "North Faron Woods",
+                "Lost Woods",
+                "Lost Woods Lower Battle Arena",
+                "Lost Woods Upper Battle Arena",
+                "Sacred Grove Before Block",
+                "Sacred Grove Upper",
+                "Sacred Grove Lower",
+                "Faron Field",
+                "Kakariko Gorge",
+                "Kakariko Gorge Behind Gate",
+                "Death Mountain Near Kakariko",
+                "Death Mountain Trail",
+                "Death Mountain Volcano",
+                "Death Mountain Outside Sumo Hall",
+                "Death Mountain Elevator Lower",
+                "Eldin Field",
+                "Eldin Field Near Castle Town",
+                "Eldin Field From Lava Cave Lower",
+                "Eldin Field Grotto Platform",
+                "Eldin Field Outside Hidden Village",
+                "Lanayru Field",
+                "Lanayru Field Behind Boulder",
+                "Hyrule Field Near Spinner Rails",
+                "Upper Zoras River",
+                "Fishing Hole",
+                "Zoras Domain",
+                "Zoras Domain West Ledge",
+                "Zoras Domain Throne Room",
+                "Snowpeak Climb Lower",
+                "Snowpeak Climb Upper",
+                "Snowpeak Summit Upper",
+                "Snowpeak Summit Lower",
+                "Outside Castle Town West",
+                "Outside Castle Town West Grotto Ledge",
+                "Castle Town West",
+                "Castle Town Center",
+                "Castle Town East",
+                "Castle Town Doctors Office Balcony",
+                "Outside Castle Town East",
+                "Castle Town South",
+                "Outside Castle Town South",
+                "Lake Hylia Bridge",
+                "Lake Hylia",
+                "Gerudo Desert",
+                "Gerudo Desert Basin",
+                "Gerudo Desert Outside Bulblin Camp",
+                "Bulblin Camp",
+                "Mirror Chamber Lower",
+                "Mirror Chamber Upper",
+                "Mirror Chamber Portal",
+                "Ordon Village",
+                "Outside Links House",
+                "Ordon Spring",
+                "Ordon Bridge",
+            };
+
+        public static List<string> timeFlowStages =
+            new()
+            {
+                "South Faron Woods",
+                "South Faron Woods Behind Gate",
+                "South Faron Woods Coros Ledge",
+                "South Faron Woods Owl Statue Area",
+                "South Faron Woods Above Owl Statue",
+                "North Faron Woods",
+                "Sacred Grove Before Block",
+                "Sacred Grove Upper",
+                "Sacred Grove Lower",
+                "Faron Field",
+                "Kakariko Gorge",
+                //"Kakariko Gorge Cave Entrance",
+                "Kakariko Gorge Behind Gate",
+                "Death Mountain Near Kakariko",
+                "Death Mountain Trail",
+                "Death Mountain Volcano",
+                "Death Mountain Outside Sumo Hall",
+                "Death Mountain Elevator Lower",
+                "Eldin Field",
+                "Eldin Field Near Castle Town",
+                "Eldin Field Lava Cave Ledge",
+                "Eldin Field From Lava Cave Lower",
+                "Eldin Field Grotto Platform",
+                "Eldin Field Outside Hidden Village",
+                "Lanayru Field",
+                //"Lanayru Field Cave Entrance",
+                "Lanayru Field Behind Boulder",
+                "Hyrule Field Near Spinner Rails",
+                "Upper Zoras River",
+                "Fishing Hole",
+                "Zoras Domain",
+                "Zoras Domain West Ledge",
+                "Zoras Domain Throne Room",
+                "Snowpeak Climb Lower",
+                "Snowpeak Climb Upper",
+                "Snowpeak Summit Lower",
+                "Outside Castle Town West",
+                "Outside Castle Town West Grotto Ledge",
+                "Castle Town West",
+                "Castle Town Center",
+                "Castle Town East",
+                "Castle Town Doctors Office Balcony",
+                "Outside Castle Town East",
+                "Castle Town South",
+                "Outside Castle Town South",
+                "Lake Hylia Bridge",
+                "Lake Hylia Bridge Grotto Ledge",
+                "Lake Hylia",
+                "Lake Hylia Cave Entrance",
+                "Lake Hylia Lakebed Temple Entrance",
+                "Gerudo Desert",
+                "Gerudo Desert Cave of Ordeals Plateau",
+                "Gerudo Desert Basin",
+                "Gerudo Desert North East Ledge",
+                "Gerudo Desert Outside Bulblin Camp",
+                "Bulblin Camp",
+                "Mirror Chamber Lower",
+                "Mirror Chamber Upper",
+                "Mirror Chamber Portal",
+            };
+
+        public static List<string> OrdonaMapRooms =
+            new()
+            {
+                "Ordon Village",
+                "Ordon Ranch",
+                "Ordon Spring",
+                "Outside Links House",
+                "Ordon Bridge",
+            };
+
+        public static List<string> FaronMapRooms =
+            new()
+            {
+                "South Faron Woods",
+                "South Faron Woods Behind Gate",
+                "South Faron Woods Coros Ledge",
+                "South Faron Woods Owl Statue Area",
+                "South Faron Woods Above Owl Statue",
+                "Mist Area Near Faron Woods Cave",
+                "Mist Area Inside Mist",
+                "Mist Area Under Owl Statue Chest",
+                "Mist Area Near Owl Statue Chest",
+                "Mist Area Center Stump",
+                "Mist Area Outside Faron Mist Cave",
+                "Mist Area Near North Faron Woods",
+                "Mist Area Faron Mist Cave",
+                "North Faron Woods",
+                "Lost Woods",
+                "Lost Woods Lower Battle Arena",
+                "Lost Woods Upper Battle Arena",
+                "Sacred Grove Before Block",
+                "Sacred Grove Upper",
+                "Sacred Grove Lower",
+                "Sacred Grove Past",
+                "Sacred Grove Past Behind Window",
+                "Faron Field",
+            };
+
+        public static List<string> EldinMapRooms =
+            new()
+            {
+                "Kakariko Gorge",
+                "Kakariko Gorge Cave Entrance",
+                "Kakariko Gorge Behind Gate",
+                "Lower Kakariko Village",
+                "Upper Kakariko Village",
+                "Kakariko Top of Watchtower",
+                "Kakariko Village Behind Gate",
+                "Kakariko Graveyard",
+                "Death Mountain Near Kakariko",
+                "Death Mountain Trail",
+                "Death Mountain Volcano",
+                "Death Mountain Hot Spring",
+                "Death Mountain Outside Sumo Hall",
+                "Death Mountain Elevator Lower",
+                "Eldin Field",
+                "Eldin Field Lava Cave Ledge",
+                "Eldin Field From Lava Cave Lower",
+                // Note that the rooms listed below do not unlock Eldin Province
+                // on their own. When approaching from Lanayru Province, you
+                // must be able to enter a room listed above in order to unlock
+                // Eldin warping (by either destroying the North Eldin rocks,
+                // approaching from the north when the rocks are already
+                // destroyed, or entering from CT when the bridge is already
+                // repaired).
+
+                // "Eldin Field Near Castle Town",
+                // "North Eldin Field",
+                // "Eldin Field Grotto Platform",
+                // "Outside Hidden Village",
+                // "Hidden Village",
+            };
+
+        public static List<string> LanayruMapRooms =
+            new()
+            {
+                "Lanayru Field",
+                "Lanayru Field Cave Entrance",
+                "Lanayru Field Behind Boulder",
+                "Hyrule Field Near Spinner Rails",
+                "Upper Zoras River",
+                "Fishing Hole",
+                "Zoras Domain",
+                "Zoras Domain West Ledge",
+                "Zoras Domain Throne Room",
+                "Zoras Domain Top of Waterfall",
+                "Outside Castle Town West",
+                "Outside Castle Town West Grotto Ledge",
+                "Castle Town West",
+                "Castle Town Center",
+                "Castle Town North",
+                "Castle Town North Behind First Door",
+                "Castle Town North Inside Barrier",
+                "Castle Town East",
+                "Castle Town Doctors Office Balcony",
+                "Outside Castle Town East",
+                "Castle Town South",
+                "South Castle Town Doors",
+                "Outside Castle Town South",
+                "Lake Hylia Bridge",
+                "Lake Hylia Bridge Grotto Ledge",
+                "Lake Hylia",
+                "Lake Hylia Flight By Fowl",
+                "Lake Hylia Cave Entrance",
+                "Lake Hylia Lakebed Temple Entrance",
+                "Lake Hylia Lanayru Spring",
+            };
+
+        public static List<string> SnowpeakMapRooms =
+            new()
+            {
+                "Snowpeak Climb Lower",
+                "Snowpeak Climb Upper",
+                "Snowpeak Summit Upper",
+                "Snowpeak Summit Lower",
+            };
+
+        public static List<string> GerudoMapRooms =
+            new()
+            {
+                "Gerudo Desert",
+                "Gerudo Desert Cave of Ordeals Plateau",
+                "Gerudo Desert Basin",
+                "Gerudo Desert North East Ledge",
+                "Gerudo Desert Outside Bulblin Camp",
+                "Bulblin Camp",
+                "Outside Arbiters Grounds",
+                "Mirror Chamber Lower",
+                "Mirror Chamber Upper",
+                "Mirror Chamber Portal",
+            };
+
+        public static List<string> DungeonNames =
+            new()
+            {
+                "Forest Temple",
+                "Goron Mines",
+                "Lakebed Temple",
+                "Arbiters Grounds",
+                "Snowpeak Ruins",
+                "Temple of Time",
+                "City in The Sky",
+                "Palace of Twilight"
+            };
+
         /// <summary>
         /// A dictionary of all of the rooms that will be used to generate a playthrough graph.
         /// </summary>

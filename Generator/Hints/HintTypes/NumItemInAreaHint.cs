@@ -43,7 +43,7 @@ namespace TPRandomizer.Hints
         public static NumItemInAreaHint decode(
             HintEncodingBitLengths bitLengths,
             BitsProcessor processor,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             int count = processor.NextVlq16();
@@ -65,6 +65,15 @@ namespace TPRandomizer.Hints
         public AreaId GetAreaId()
         {
             return areaId;
+        }
+
+        public override void GetPreferHintBefore(
+            out HashSet<string> checkNames,
+            out HashSet<string> roomNames
+        )
+        {
+            checkNames = new(this.checkNames);
+            roomNames = null;
         }
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)

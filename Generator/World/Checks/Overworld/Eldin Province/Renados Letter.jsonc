@@ -1,6 +1,6 @@
 {
-    "requirements": "canCompleteTempleofTime",
-    "glitchedRequirements": "canCompleteTempleofTime",
-    "checkCategory": ["Overworld", "Npc", "Kakariko Village"],
+    "requirements": "(CanCompleteTempleofTime or (Setting.iliaQuest not_equal Vanilla)) and CanCompleteEldinTwilight",
+    "glitchedRequirements": "(CanCompleteTempleofTime or (Setting.iliaQuest not_equal Vanilla)) and CanCompleteEldinTwilight",
+    "checkCategory": ["Overworld", "Quest", "Kakariko Village"],
     "itemId": "Renados_Letter"
 }

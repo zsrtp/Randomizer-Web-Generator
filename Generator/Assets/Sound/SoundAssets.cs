@@ -2,9 +2,9 @@ namespace TPRandomizer.Assets
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using Newtonsoft.Json;
-    using System.IO;
     using TPRandomizer.FcSettings.Enums;
 
     /// <summary>
@@ -4145,5 +4145,199 @@ namespace TPRandomizer.Assets
             Z2SE_D20_ENV_SHINE = 0x9004D,
             Z2SE_D15_JINARI = 0x9004E,
         }
+
+        public static List<JAISoundID> equipmentSoundEffects =
+            new()
+            {
+                JAISoundID.Z2SE_AL_SWORD_PULLOUT,
+                JAISoundID.Z2SE_AL_SWORD_PUTIN,
+                JAISoundID.Z2SE_AL_SWORD_SWING_S,
+                JAISoundID.Z2SE_AL_SWORD_SWING_L,
+                JAISoundID.Z2SE_AL_SWORD_THRUST,
+                JAISoundID.Z2SE_AL_KAITENGIRI,
+                JAISoundID.Z2SE_AL_FINISH_SWING1,
+                JAISoundID.Z2SE_AL_FINISH_SWING2,
+                JAISoundID.Z2SE_WOLFATTACK_WIND_S,
+                JAISoundID.Z2SE_WOLFATTACK_WIND_L,
+                JAISoundID.Z2SE_WOLF_WIPE_OFF_WATER,
+                JAISoundID.Z2SE_WOLFATTACK_WIND_TAIL,
+                JAISoundID.Z2SE_WOLFATTACK_WIND_SCREW,
+                JAISoundID.Z2SE_WOLF_SWALLOW,
+                JAISoundID.Z2SE_AL_KICK_HORSE,
+                JAISoundID.Z2SE_AL_SET_CHAIN,
+                JAISoundID.Z2SE_AL_GRAB_CHAIN,
+                JAISoundID.Z2SE_AL_DAMAGE_NORMAL,
+                JAISoundID.Z2SE_AL_DAMAGE_LARGE,
+                JAISoundID.Z2SE_AL_BODYATTACK,
+                JAISoundID.Z2SE_WARP_DOME_OPEN,
+                JAISoundID.Z2SE_AL_SWING_BOTTLE,
+                JAISoundID.Z2SE_AL_PADDLING_FORWARD,
+                JAISoundID.Z2SE_AL_PADDLING_BACKWARD,
+                JAISoundID.Z2SE_AL_WALK_IN_WATER,
+                JAISoundID.Z2SE_AL_WALK_OUT_WATER,
+                JAISoundID.Z2SE_AL_DRAW_BOW,
+                JAISoundID.Z2SE_AL_HS_OPEN,
+                JAISoundID.Z2SE_WOLF_POWER_COME,
+                JAISoundID.Z2SE_LK_BOTTLE_CLOSE,
+                JAISoundID.Z2SE_LK_BOTTLE_OPEN,
+                JAISoundID.Z2SE_AL_BURN_START,
+                JAISoundID.Z2SE_LK_HS_SHOOT,
+                JAISoundID.Z2SE_LK_SCOOP_WATER,
+                JAISoundID.Z2SE_AL_OPEN_LETTER,
+                JAISoundID.Z2SE_WOLF_SENSE_OPEN_START,
+                JAISoundID.Z2SE_WOLF_DIG_HOLE_THROUGH,
+                JAISoundID.Z2SE_WOLF_WIPE_OFF_DUST,
+                JAISoundID.Z2SE_WOLF_BODYATTACK,
+                JAISoundID.Z2SE_AL_CHANGE_BOOTS,
+                JAISoundID.Z2SE_AL_DAMAGE_SMALL,
+                JAISoundID.Z2SE_AL_COPYROD_CATCH,
+                JAISoundID.Z2SE_AL_COPYROD_SWING,
+                JAISoundID.Z2SE_AL_COPYROD_READY,
+                JAISoundID.Z2SE_AL_SPINNER_EXTEND,
+                JAISoundID.Z2SE_WOLF_SENSE_CLOSE,
+                JAISoundID.Z2SE_AL_LTN_SWORD_SWING_S,
+                JAISoundID.Z2SE_AL_LTN_SWORD_SWING_L,
+                JAISoundID.Z2SE_AL_LTN_SWORD_THRUST,
+                JAISoundID.Z2SE_AL_LTN_KAITENGIRI,
+                JAISoundID.Z2SE_AL_LTN_FINISH_SWING1,
+                JAISoundID.Z2SE_AL_LTN_FINISH_SWING2,
+                JAISoundID.Z2SE_AL_LTN_SW_WAIT_SWING,
+                JAISoundID.Z2SE_AL_UKI_POKOPOKO,
+            };
+
+        public static List<JAISoundID> gameSoundEffects =
+            new()
+            {
+                JAISoundID.Z2SE_TITLE_ENTER,
+                JAISoundID.Z2SE_FILE_SELECT_CURSOR,
+                JAISoundID.Z2SE_FILE_SELECT_SUB,
+                JAISoundID.Z2SE_POINT_ON_ICON,
+                JAISoundID.Z2SE_OPTION_MENU_CURSOR,
+                JAISoundID.Z2SE_HEART_PIECE_GET,
+                JAISoundID.Z2SE_CONSUMP_ITEM_GET,
+                JAISoundID.Z2SE_HP_GAUGE_INC,
+                JAISoundID.Z2SE_MAGIC_METER_DEC,
+                JAISoundID.Z2SE_SWIM_TIMER_RECOVER,
+                JAISoundID.Z2SE_FORCE_BACK,
+                JAISoundID.Z2SE_ITEM_RING_IN,
+                JAISoundID.Z2SE_ITEM_RING_OUT,
+                JAISoundID.Z2SE_ITEM_RING_ROLL,
+                JAISoundID.Z2SE_WHIP_HORSE,
+                JAISoundID.Z2SE_WHIP_RECOVER,
+                JAISoundID.Z2SE_WHIP_RECOVER_ALL,
+                JAISoundID.Z2SE_WARP_MAP_CURSOR,
+                JAISoundID.Z2SE_SY_CURSOR_OPTION,
+                JAISoundID.Z2SE_SY_CURSOR_ITEM,
+                JAISoundID.Z2SE_SY_CURSOR_FLOOR,
+                JAISoundID.Z2SE_SY_ITEM_SET_X,
+                JAISoundID.Z2SE_SY_ITEM_SET_Y,
+                JAISoundID.Z2SE_SY_EXP_WIN_OPEN,
+                JAISoundID.Z2SE_SY_EXP_WIN_CLOSE,
+                JAISoundID.Z2SE_SY_HINT_BUTTON,
+                JAISoundID.Z2SE_SY_L_FOCUS_SET,
+                JAISoundID.Z2SE_SY_L_FOCUS_RESET,
+                JAISoundID.Z2SE_SY_CAMERA_L_MOVE,
+                JAISoundID.Z2SE_SY_CAMERA_L_CANCEL,
+                JAISoundID.Z2SE_SY_MENU_IN,
+                JAISoundID.Z2SE_SY_MENU_OUT,
+                JAISoundID.Z2SE_SY_MENU_PAGE_CHANGE,
+                JAISoundID.Z2SE_SY_TALK_START,
+                JAISoundID.Z2SE_SY_BOOM_LOCK_ON_1,
+                JAISoundID.Z2SE_SY_BOOM_LOCK_ON_2,
+                JAISoundID.Z2SE_SY_BOOM_LOCK_ON_3,
+                JAISoundID.Z2SE_SY_BOOM_LOCK_ON_4,
+                JAISoundID.Z2SE_SY_BOOM_LOCK_ON_5,
+                JAISoundID.Z2SE_SY_ITEM_USE_CANCEL,
+                JAISoundID.Z2SE_SY_NAME_CURSOR,
+                JAISoundID.Z2SE_SY_NAME_INPUT,
+                JAISoundID.Z2SE_SY_NAME_DELETE,
+                JAISoundID.Z2SE_SY_NAME_OK,
+                JAISoundID.Z2SE_SY_MAP_OPEN_S,
+                JAISoundID.Z2SE_SY_MAP_CLOSE_S,
+                JAISoundID.Z2SE_SY_MAP_OPEN_L,
+                JAISoundID.Z2SE_SY_MAP_CLOSE_L,
+                JAISoundID.Z2SE_SY_MAP_ZOOMIN,
+                JAISoundID.Z2SE_SY_MAP_ZOOMOUT,
+                JAISoundID.Z2SE_SY_MAP_DPD_HOLD_ON,
+                JAISoundID.Z2SE_SY_MAP_DPD_HOLD_OFF,
+                JAISoundID.Z2SE_SY_MAP_AREA_SELECT,
+                JAISoundID.Z2SE_SY_LETTER_OPEN,
+                JAISoundID.Z2SE_SY_LETTER_CLOSE,
+                JAISoundID.Z2SE_SY_LETTER_NEXT_PAGE,
+                JAISoundID.Z2SE_SY_LIGHT_DROP_GET,
+            };
+
+        public static List<JAISoundID> playerSoundEffects =
+            new()
+            {
+                //JAISoundID.Z2SE_FN_WALK_DUMMY, // Walking
+                JAISoundID.Z2SE_FN_JUMP_DUMMY, // Small Leap
+                //JAISoundID.Z2SE_FN_BOUND_DUMMY, // Dirt walking - Shoes
+                //JAISoundID.Z2SE_FN_HAND_DUMMY, // Dirt walking - barefoot
+                // JAISoundID.Z2SE_FN_WALK_HEAVY, // Iron Boots Normal Walking Sound (crashes when shuffled in GM)
+                // JAISoundID.Z2SE_FN_JUMP_HEAVY, // Iron Boots equip sound (crashes when shuffled in GM)
+                JAISoundID.Z2SE_FN_LADDER_CLIMB, // Ladder Ascend
+                JAISoundID.Z2SE_FN_LADDER_DOWN, // Ladder Decend
+                //JAISoundID.Z2SE_WL_WALK_L_DUMMY, // Wolf Link Left Leg Walk
+                //JAISoundID.Z2SE_WL_WALK_R_DUMMY, // Wolf Link Right Leg Walk
+                //JAISoundID.Z2SE_WL_RUN_L_DUMMY, // Wolf Link Left Leg Run
+                //JAISoundID.Z2SE_WL_RUN_R_DUMMY, // Wolf Link Right Leg Run
+                JAISoundID.Z2SE_FN_WALL_CLIMB, // Wall Climb
+                JAISoundID.Z2SE_FN_LINK_CRAWL, // Crawling
+                JAISoundID.Z2SE_FN_ROPE_CREAK, // Balancing Rope Creak
+                JAISoundID.Z2SE_FN_CHAIN_CREAK, // Chain/Bones Creak
+                //JAISoundID.Z2SE_HS_WALK_L_DUMMY, // Epona - Left Leg Walk
+                //JAISoundID.Z2SE_HS_WALK_R_DUMMY, // Epona - Right Leg Walk
+                //JAISoundID.Z2SE_HS_TROT_L_DUMMY, // Epona - Left Leg Trot
+                //JAISoundID.Z2SE_HS_TROT_R_DUMMY, // Epona - Right Leg Trot
+                //JAISoundID.Z2SE_HS_GALLOP_L_DUMMY, // Epona - Left Leg Gallop
+                //JAISoundID.Z2SE_HS_GALLOP_R_DUMMY, // Epona - Right Leg Galop
+                //JAISoundID.Z2SE_FT_HORSE_PEDAL, // Epona - Turn sound
+                //JAISoundID.Z2SE_AL_SWIM, // Adult Link - Swim
+                //JAISoundID.Z2SE_AL_INTO_WATER, // Adult Link - Walking into water
+                //JAISoundID.Z2SE_AL_OUTOF_WATER, // Adult Link - Walking out of water
+                //JAISoundID.Z2SE_AL_DIVE_INTO_WATER, // Adult Link - Dive into water
+                //JAISoundID.Z2SE_AL_DIVE_SWIM, // Adult Link - Diving Swim
+                //JAISoundID.Z2SE_AL_SWIM_UNDERWATER, // Adult Link - Swim Undetwater
+                //JAISoundID.Z2SE_WL_SWIM, // Wolf Link - Swim
+                //JAISoundID.Z2SE_WL_OUTOF_WATER, // Wolf Link - Out of Water
+                JAISoundID.Z2SE_FN_ARMER_LIGHT_ADD, // MA - Light Walk
+                JAISoundID.Z2SE_FN_ARMER_HEAVY_ADD, // MA - Heavy Walk
+                JAISoundID.Z2SE_FN_SEKIZOU_L, // Statue Walk
+                JAISoundID.Z2SE_FN_SEKIZOU_R, // Statue Walk
+                JAISoundID.Z2SE_FN_ZORA_L, // Zora Armor Left Leg
+                JAISoundID.Z2SE_FN_ZORA_R, // Zora Armor Right Leg
+                //JAISoundID.Z2SE_AL_SWIM_DASH, // Adult Link - Swim Dash
+                //JAISoundID.Z2SE_WL_SWIM_DASH, // Wolf Link - Swim Dash
+            };
+
+        public static List<JAISoundID> itemSoundEffects =
+            new()
+            {
+                // JAISoundID.Z2SE_HIT_SWORD, // Sword Hit
+                // JAISoundID.Z2SE_HIT_SWORD_STAB, // Sword Stab
+                //JAISoundID.Z2SE_HIT_SHIELD_ATTACK, // Shield Attack
+                //JAISoundID.Z2SE_HIT_HAMMER, // Dom Rod Statue Hammer
+                //JAISoundID.Z2SE_HIT_ARROW_STICK, // Arrow Stab Sound
+                //JAISoundID.Z2SE_HIT_ARROW_REBOUND, // Arrow Rebound
+                //JAISoundID.Z2SE_HIT_METAL_WEAPON, // Weapon Hitting Metal
+                //JAISoundID.Z2SE_HIT_STONE_WEAPON, // Weapon Hitting Stone
+                //JAISoundID.Z2SE_HIT_HARD_BODY, // Weapon Hitting hard Body
+                //JAISoundID.Z2SE_HIT_SOFT_BODY, // Weapon Hitting Soft Body
+                //JAISoundID.Z2SE_HIT_SWORD_RUN, // Running Sword Hit
+                //JAISoundID.Z2SE_HIT_SPINNER, // Spinner Hit
+                //JAISoundID.Z2SE_HIT_COPYROD, // Dom Rod Statue hit
+                //JAISoundID.Z2SE_HIT_STATUE_HAMMER, // Domt Rod Statue Hammer Hit
+                //JAISoundID.Z2SE_HIT_AL_ARROW_STICK, // Adult Link - Arrow Stick
+                //JAISoundID.Z2SE_HIT_AL_ARROW_REBOUND, // Adult Link - Arrow Rebound
+                //JAISoundID.Z2SE_HIT_PACHINKO, // Slingshot hit
+                // JAISoundID.Z2SE_SWORD_STICK_PULLOUT, // Unsheath Sword
+                // JAISoundID.Z2SE_HIT_ROPE_CUT, // Rope Cut
+                JAISoundID.Z2SE_HIT_ROPE_REBOUND, // Rope Rebound
+                JAISoundID.Z2SE_HIT_CHAIN_REBOUND, // Chain Rebound
+                JAISoundID.JA_SE_OBJ_BREAK_WOOD_S, // Break Wood Object - Small
+                JAISoundID.JA_SE_OBJ_BREAK_WOOD_L, // Break Wood Object - Large
+                JAISoundID.JA_SE_OBJ_HIT_SHOCK_SWITCH, // Hit Crystal Switch
+            };
     }
 }

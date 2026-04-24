@@ -1,6 +1,6 @@
 {
-  "requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)",
-  "glitchedRequirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)",
+  "requirements": "Gate_Keys and CanCompleteEldinTwilight",
+  "glitchedRequirements": "Gate_Keys and CanCompleteEldinTwilight",
   "checkCategory": [ "Overworld", "Npc", "Kakariko Graveyard" ],
   "itemId": "Zora_Armor"
 }

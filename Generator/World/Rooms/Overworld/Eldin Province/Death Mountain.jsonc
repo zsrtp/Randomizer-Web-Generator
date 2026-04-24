@@ -10,8 +10,8 @@
       },
       {
         "ConnectedArea": "Death Mountain Trail",
-        "Requirements": "Iron_Boots or canCompleteGoronMines",
-        "GlitchedRequirements": "Iron_Boots or canCompleteGoronMines"
+        "Requirements": "Iron_Boots or CanCompleteGoronMines",
+        "GlitchedRequirements": "Iron_Boots or CanCompleteGoronMines"
       }
     ],
     "Checks": [""],
@@ -50,14 +50,44 @@
       },
       {
         "ConnectedArea": "Death Mountain Outside Sumo Hall",
-        "Requirements": "Iron_Boots and (CanDefeatGoron or canCompleteGoronMines)",
-        "GlitchedRequirements": "Iron_Boots and (CanDefeatGoron or canCompleteGoronMines)"
+        "Requirements": "Iron_Boots and (CanDefeatGoron or CanCompleteGoronMines) and CanCompleteEldinTwilight",
+        "GlitchedRequirements": "(Iron_Boots or HasShield) and (CanDefeatGoron or CanCompleteGoronMines) and CanCompleteEldinTwilight"
       },
       {
         "ConnectedArea": "Death Mountain Elevator Lower",
         "Requirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open)",
         // Either having visited the area before or doing Early Elevator
         "GlitchedRequirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open) or (HasSword and (CanDoLJA or Shadow_Crystal))"
+      },
+      {
+        "ConnectedArea": "Death Mountain Hot Spring",
+        "Requirements": "CanDefeatGoron",
+        "GlitchedRequirements": "CanDefeatGoron"
+      }
+    ],
+    "Checks": 
+    [
+      "Death Mountain Portal",
+      "Death Mountain Volcano Ledge Rupee 1",
+      "Death Mountain Volcano Ledge Rupee 2",
+      "Death Mountain Volcano Ledge Rupee 3",
+      "Death Mountain Volcano Pipe Ledge Rock Rupee"
+    ],
+    "Region": "Death Mountain"
+  },
+  {
+    "RoomName": "Death Mountain Hot Spring",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Death Mountain Volcano",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Death Mountain Elevator Lower",
+        "Requirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open)",
+        "GlitchedRequirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open)"
       }
     ],
     "Checks": [""],
@@ -87,6 +117,11 @@
     [
       {
         "ConnectedArea": "Death Mountain Volcano",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Death Mountain Hot Spring",
         "Requirements": "true",
         "GlitchedRequirements": "true"
       },

@@ -2,10 +2,10 @@ namespace TPRandomizer.Assets
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using TPRandomizer.FcSettings.Enums;
     using TPRandomizer.Util;
-    using System.IO;
 
     /// <summary>
     /// summary text.
