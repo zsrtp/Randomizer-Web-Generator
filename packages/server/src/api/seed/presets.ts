@@ -54,7 +54,7 @@ export const PRESETS = [
     name: 'Season 1',
     aliases: ['s1', 'season1'],
     origSettingsStr:
-      '6sY4N2kPC__6KD2P2001WG-WGP8HvayVFbyej6er6fXtFvVkbqkbqkbqk1mE1mE1mE1mE1mE1mE1mE3_aw7fNCQGO3AacP0aOW1zZoruE2Ar3ABAWYv1ix359-_JmFo_2LhyJp-lujJWfgEGuigx9udSYf7EAJ2a8aZG74kiOCbYDg3dmL1QkYJHfZ8amkWwX05dyKP0CMg3jEOenjCkeWokixRk9mfHWauqf5C4T984e9hZDQIQccGTWMYqjOC9sw1eXmRnoXG_nJ92pvbcwGnB0X_u',
+      '6sY4N2kPC__6KD2P2001W4-WGP8HvayVFbyej6er6fXtFvVkbqkbqkbqk1mE1mE1mE1mE1mE1mE1mE3_aw7fNCQGO3AacP0aOW1zZoruE2Ar3ABAWYv1ix359-_JmFo_2LhyJp-lujJWfgEGuigx9udSYf7EAJ2a8aZG74kiOCbYDg3dmL1QkYJHfZ8amkWwX05dyKP0CMg3jEOenjCkeWokixRk9mfHWauqf5C4T984e9hZDQIQccGTWMYqjOC9sw1eXmRnoXG_nJ92pvbcwGnB0X_u',
     description:
       'Season 1 tournament settings. Good for a quick seed or to learn racing basics.',
   },
