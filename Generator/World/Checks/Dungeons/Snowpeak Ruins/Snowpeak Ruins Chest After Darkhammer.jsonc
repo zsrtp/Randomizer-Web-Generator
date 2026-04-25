@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatDarkhammer and Ball_and_Chain",
-    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Small Key", "ARC"],
+    "glitchedRequirements": "CanDefeatDarkhammer and Ball_and_Chain",
+    "checkCategory": ["Chest", "Dungeon", "Snowpeak Ruins", "Small Key"],
     "itemId": "Snowpeak_Ruins_Ordon_Goat_Cheese"
 }

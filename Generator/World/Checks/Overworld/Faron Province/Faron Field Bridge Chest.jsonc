@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Clawshot, 1)",
-    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Faron Province", "ARC"],
+    "glitchedRequirements": "(Progressive_Clawshot, 1) or CanDoStorage",
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Faron Province"],
     "itemId": "Orange_Rupee"
 }

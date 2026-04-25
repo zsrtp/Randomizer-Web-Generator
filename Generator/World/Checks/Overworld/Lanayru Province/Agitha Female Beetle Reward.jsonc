@@ -1,5 +1,6 @@
 {
     "requirements": "Female_Beetle",
+    "glitchedRequirements": "Female_Beetle",
     "checkCategory": ["Overworld", "Npc", "Castle Town", "Bug Reward"],
     "itemId": "Purple_Rupee"
 }

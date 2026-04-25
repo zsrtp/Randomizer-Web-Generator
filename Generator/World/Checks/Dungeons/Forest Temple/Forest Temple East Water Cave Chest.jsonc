@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "ARC"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple"],
     "itemId": "Yellow_Rupee"
 }

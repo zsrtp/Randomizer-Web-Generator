@@ -1,0 +1,6 @@
+{
+    "requirements": "CanDefeatArgorok",
+    "glitchedRequirements": "CanDefeatArgorok",
+    "checkCategory": ["Dungeon", "City in The Sky"],
+    "itemId": "Argorok_Defeated"
+}

@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Dominion_Rod, 2)",
-    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Eldin Province", "ARC"],
+    "glitchedRequirements": "(Progressive_Dominion_Rod, 2) or CanDoLJA or CanDoStorage or CanDoEBMoonBoots",
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Eldin Province"],
     "itemId": "Orange_Rupee"
 }

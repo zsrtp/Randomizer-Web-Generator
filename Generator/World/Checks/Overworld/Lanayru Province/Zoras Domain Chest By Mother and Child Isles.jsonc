@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Overworld", "Chest", "Zoras Domain", "ARC"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Chest", "Zoras Domain"],
     "itemId": "Yellow_Rupee"
 }

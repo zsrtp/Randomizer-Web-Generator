@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal and (Progressive_Clawshot, 2) and CanDefeatArmos and CanDefeatBabaSerpent and CanDefeatLizalfos and CanDefeatDinalfos and ((Progressive_Bow, 1) or Ball_and_Chain)",
+    "glitchedRequirements": "Shadow_Crystal and ((Progressive_Clawshot, 2) or ((Progressive_Clawshot, 1) and CanDoLJA)) and CanDefeatArmos and CanDefeatBabaSerpent and CanDefeatLizalfos and CanDefeatDinalfos and ((Progressive_Bow, 1) or Ball_and_Chain)",
     "checkCategory": ["Overworld", "Poe", "Cave of Ordeals"],
     "itemId": "Poe_Soul"
 }

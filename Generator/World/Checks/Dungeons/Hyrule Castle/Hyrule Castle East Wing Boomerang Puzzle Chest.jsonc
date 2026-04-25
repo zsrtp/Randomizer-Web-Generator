@@ -1,5 +1,6 @@
 {
     "requirements": "Boomerang",
-    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle", "Dungeon Items", "Dungeon Map", "ARC"],
+    "glitchedRequirements": "Boomerang",
+    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle", "Dungeon Items", "Dungeon Map"],
     "itemId": "Hyrule_Castle_Dungeon_Map"
 }

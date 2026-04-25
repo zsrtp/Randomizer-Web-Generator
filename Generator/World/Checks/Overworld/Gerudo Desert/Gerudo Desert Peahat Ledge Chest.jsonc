@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Clawshot, 1)",
-    "checkCategory": ["Overworld", "Chest", "Gerudo Desert", "ARC"],
+    "glitchedRequirements": "(Progressive_Clawshot, 1)",
+    "checkCategory": ["Overworld", "Chest", "Gerudo Desert"],
     "itemId": "Red_Rupee"
 }

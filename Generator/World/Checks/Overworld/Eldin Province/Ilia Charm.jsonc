@@ -1,5 +1,6 @@
 {
-    "requirements": "(Progressive_Bow, 1)",
-    "checkCategory": ["Overworld", "Npc", "Hidden Village", "ARC"],
+    "requirements": "(Progressive_Bow, 1) and Wooden_Statue",
+    "glitchedRequirements": "CanDoHiddenVillageGlitched and Wooden_Statue",
+    "checkCategory": ["Overworld", "Quest", "Hidden Village"],
     "itemId": "Ilias_Charm"
 }

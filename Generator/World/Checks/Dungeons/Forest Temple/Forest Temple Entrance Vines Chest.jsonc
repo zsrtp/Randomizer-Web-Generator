@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatWalltula",
-    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "ARC"],
+    "glitchedRequirements": "CanDefeatWalltula",
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple"],
     "itemId": "Yellow_Rupee"
 }

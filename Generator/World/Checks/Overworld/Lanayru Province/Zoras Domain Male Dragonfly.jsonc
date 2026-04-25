@@ -1,5 +1,6 @@
 {
-    "requirements": "true",
-    "checkCategory": ["Overworld", "Golden Bug", "Zoras Domain", "DZX"],
+    "requirements": "CanCompleteLanayruTwilight",
+    "glitchedRequirements": "CanCompleteLanayruTwilight",
+    "checkCategory": ["Overworld", "Golden Bug", "Zoras Domain"],
     "itemId": "Male_Dragonfly"
 }

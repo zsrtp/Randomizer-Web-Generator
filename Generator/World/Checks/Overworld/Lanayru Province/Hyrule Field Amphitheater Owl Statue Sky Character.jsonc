@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Dominion_Rod, 2)",
+    "glitchedRequirements": "(Progressive_Dominion_Rod, 2)",
     "checkCategory": ["Overworld", "Hyrule Field - Lanayru Province", "Sky Book"],
     "itemId": "Progressive_Sky_Book"
 }

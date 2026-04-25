@@ -1,5 +1,0 @@
-{
-    "requirements": "CanDefeatDarknut and Boomerang and CanDefeatBokoblin and  CanDefeatLizalfos and Progressive_Clawshot",
-    "checkCategory": ["Chest", "Dungeon", "Hyrule Castle"],
-    "itemId": "Purple_Rupee"
-}

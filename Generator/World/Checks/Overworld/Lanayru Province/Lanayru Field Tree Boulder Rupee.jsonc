@@ -1,0 +1,6 @@
+{
+    "requirements": "CanSmash",
+    "glitchedRequirements": "CanSmash",
+    "checkCategory": [ "Overworld", "Hyrule Field - Lanayru", "Rupee - Hidden" ],
+    "itemId": "Purple_Rupee"
+  }

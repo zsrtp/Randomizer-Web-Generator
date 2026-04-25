@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal and CanDefeatWalltula",
+    "glitchedRequirements": "Shadow_Crystal and CanDefeatWalltula",
     "checkCategory": ["Dungeon", "Poe", "City in The Sky"],
     "itemId": "Poe_Soul"
 }

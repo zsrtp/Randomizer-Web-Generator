@@ -1,5 +1,0 @@
-{
-    "requirements": "CanDefeatStallord",
-    "checkCategory": ["Heart Container", "Arbiters Grounds", "Dungeon", "Boss"],
-    "itemId": "Heart_Container"
-}

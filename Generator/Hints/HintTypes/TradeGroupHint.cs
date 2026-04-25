@@ -40,7 +40,7 @@ namespace TPRandomizer.Hints
             Vagueness vagueness,
             Status status,
             string checkName,
-            Dictionary<int, byte> itemPlacements = null,
+            Dictionary<int, int> itemPlacements = null,
             object privateRef = null
         )
         {
@@ -66,7 +66,7 @@ namespace TPRandomizer.Hints
             CalcDerived(itemPlacements);
         }
 
-        private void CalcDerived(Dictionary<int, byte> itemPlacements)
+        private void CalcDerived(Dictionary<int, int> itemPlacements)
         {
             if (itemPlacements != null)
             {
@@ -97,7 +97,7 @@ namespace TPRandomizer.Hints
         public static TradeGroupHint decode(
             HintEncodingBitLengths bitLengths,
             BitsProcessor processor,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             TradeGroup tradeGroup = (TradeGroup)processor.NextInt(bitLengths.tradeGroupId);

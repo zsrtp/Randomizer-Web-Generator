@@ -1,0 +1,6 @@
+{
+    "requirements": "true",
+    "glitchedRequirements": "true",
+    "checkCategory": [ "Overworld", "Faron Woods", "Rupee - Freestanding" ],
+    "itemId": "Yellow_Rupee"
+  }

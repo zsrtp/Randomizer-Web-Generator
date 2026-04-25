@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Overworld", "Chest", "Bulblin Camp", "DZX"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Chest", "Bulblin Camp"],
     "itemId": "Arrows_20"
 }

@@ -1,5 +1,0 @@
-{
-    "requirements": "Boomerang or (hasBombs and HasSword and (Progressive_Clawshot, 1))",
-    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "Small Key"],
-    "itemId": "Forest_Temple_Small_Key"
-}

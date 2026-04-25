@@ -2,6 +2,8 @@ namespace TPRandomizer
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
+    using TPRandomizer.Util;
 
     public class CheckIdClass
     {
@@ -9,6 +11,34 @@ namespace TPRandomizer
         private static readonly string idChars = "012345abcdefghijklmnopqrstuvwxyz";
         private static Dictionary<string, string> nameToId;
         private static Dictionary<int, string> idNumToName;
+
+        private static HashSet<string> hideFromUiCheckNames =
+            new()
+            {
+                "Forest Temple Diababa",
+                "Goron Mines Fyrus",
+                "Lakebed Temple Morpheel",
+                "Arbiters Grounds Stallord",
+                "Snowpeak Ruins Blizzeta",
+                "Temple of Time Armogohma",
+                "City in The Sky Argorok",
+                "Palace of Twilight Zant",
+                "Hyrule Castle Ganondorf",
+                "Bridge of Eldin Portal",
+                "Castle Town Portal",
+                "Death Mountain Portal",
+                "Gerudo Desert Portal",
+                "Kakariko Gorge Portal",
+                "Kakariko Village Portal",
+                "Lake Hylia Portal",
+                "Mirror Chamber Portal",
+                "North Faron Portal",
+                "Sacred Grove Portal",
+                "South Faron Portal",
+                "Snowpeak Portal",
+                "Upper Zoras River Portal",
+                "Zoras Domain Portal",
+            };
 
         static CheckIdClass()
         {
@@ -77,7 +107,7 @@ namespace TPRandomizer
                 "Arbiters Grounds Stallord Heart Container",
                 "Zoras Domain Chest Behind Waterfall",
                 "City in The Sky Central Outside Ledge Chest",
-                "Palace of Twilight East Wing First Room West Alcove",
+                "Palace of Twilight East Wing First Room West Alcove Chest",
                 "Bulblin Camp First Chest Under Tower At Entrance",
                 "Arbiters Grounds West Stalfos Northeast Chest",
                 "Outside South Castle Town Male Ladybug",
@@ -405,7 +435,7 @@ namespace TPRandomizer
                 "Temple of Time Armos Antechamber Statue Chest",
                 "Cave of Ordeals Floor 17 Poe",
                 "Arbiters Grounds West Small Chest Behind Block",
-                "Temple of Time Gilloutine Chest",
+                "Temple of Time Guillotine Chest",
                 "Cats Hide and Seek Minigame",
                 "Goron Mines Entrance Chest",
                 "Auru Gift To Fyer",
@@ -495,7 +525,7 @@ namespace TPRandomizer
                 "Lakebed Temple Before Deku Toad Alcove Chest",
                 "Eldin Lantern Cave Poe",
                 "Kakariko Village Malo Mart Hylian Shield",
-                "Palace of Twilight East Wing First Room East Alcove",
+                "Palace of Twilight East Wing First Room East Alcove Chest",
                 "Bulblin Camp Roasted Boar",
                 "Faron Woods Golden Wolf",
                 "Jovani 60 Poe Soul Reward",
@@ -503,7 +533,125 @@ namespace TPRandomizer
                 "Kakariko Village Malo Mart Wooden Shield",
                 "Arbiters Grounds Dungeon Reward",
                 "Sacred Grove Pedestal Master Sword",
-                "Sacred Grove Pedestal Shadow Crystal"
+                "Sacred Grove Pedestal Shadow Crystal",
+                "Castle Town Goron Shop Hylian Shield",
+                "Forest Temple Diababa",
+                "Goron Mines Fyrus",
+                "Lakebed Temple Morpheel",
+                "Arbiters Grounds Stallord",
+                "Snowpeak Ruins Blizzeta",
+                "Temple of Time Armogohma",
+                "City in The Sky Argorok",
+                "Palace of Twilight Zant",
+                "Hyrule Castle Ganondorf",
+                "South Faron Portal",
+                "North Faron Portal",
+                "Sacred Grove Portal",
+                "Kakariko Gorge Portal",
+                "Kakariko Village Portal",
+                "Death Mountain Portal",
+                "Bridge of Eldin Portal",
+                "Castle Town Portal",
+                "Lake Hylia Portal",
+                "Zoras Domain Portal",
+                "Upper Zoras River Portal",
+                "Snowpeak Portal",
+                "Gerudo Desert Portal",
+                "Mirror Chamber Portal",
+                "Castle Town Goron Shop Red Potion",
+                "Castle Town Goron Shop Lantern Oil",
+                "Castle Town Goron Shop Arrow Refill",
+                "Kakariko Village Bell Rupee",
+                "Coro Lantern",
+                "Coro Gate Key",
+                "Shad Dominion Rod",
+                "Faron Woods Coro Boulder Rupee 1",
+                "Faron Woods Coro Boulder Rupee 2",
+                "Faron Woods Coro Boulder Rupee 3",
+                "Faron Woods Coro Boulder Rupee 4",
+                "Ordon Bo Cliff Rupee",
+                "Ordon Bo Roof Rupee",
+                "Ordon Bo Window Rupee 1",
+                "Ordon Bo Window Rupee 2",
+                "Ordon Hidden Rusl House Rupee",
+                "Ordon Rupee In Grass By Bo",
+                "Ordon Rupee In River 1",
+                "Ordon Rupee In River 2",
+                "Ordon Rupee Under Bridge",
+                "Ordon Rupee Under Tall Tree 1",
+                "Ordon Rupee Under Tall Tree 2",
+                "Ordon Rusl House Roof Rupee 1",
+                "Ordon Rusl House Roof Rupee 2",
+                "Ordon Shield House Ledge Grass Rupee",
+                "Ordon Tree Long Branch Rupee",
+                "Ordon Tree Short Branch Rupee",
+                "Zoras Domain Behind Waterfall Rupee",
+                "Zoras Domain Central Underwater Boulder Rupee",
+                "Zoras Domain North Underwater Boulder Rupee",
+                "Zoras Domain Shortcut Ledge Rupee",
+                "Zoras Domain Shortcut Lower Boulder Rupee",
+                "Zoras Domain Shortcut Upper Boulder Rupee",
+                "Zoras Domain Throne East Gate Underwater Rupee",
+                "Zoras Domain Throne East Underwater Rupee",
+                "Zoras Domain Throne Northwest Underwater Rupee",
+                "Zoras Domain Throne South Underwater Rupee",
+                "Zoras Domain Throne West Gate Underwater Rupee",
+                "Zoras Domain Throne West Underwater Rupee",
+                "Zoras Domain Top Ledge Rupee",
+                "Zoras Domain Vine Ledge Rupee",
+                "Zoras Domain Waterfall Ledge Rupee",
+                "Upper Zoras River East Underwater Boulder Rupee",
+                "Upper Zoras River Central Underwater Boulder Rupee",
+                "Upper Zoras River West Underwater Boulder Rupee",
+                "Upper Zoras River Ledge Boulder Rupee",
+                "Kakariko Graveyard Underwater Boulder Rupee",
+                "Eldin Spring Underwater Boulder Rupee",
+                "Kakariko Village Spring Shortcut Box Rupee 1",
+                "Kakariko Village Spring Shortcut Box Rupee 2",
+                "Kakariko Village Ant House Ledge Box Rupee",
+                "Kakariko Village Hot Spring Ledge Box Rupee",
+                "Death Mountain Volcano Ledge Rupee 1",
+                "Death Mountain Volcano Ledge Rupee 2",
+                "Death Mountain Volcano Ledge Rupee 3",
+                "Death Mountain Volcano Pipe Ledge Rock Rupee",
+                "Lake Hylia Left Underwater Pillar Rupee",
+                "Lake Hylia Right Underwater Pillar Rupee",
+                "Lake Hylia Right Underwater Boulder Rupee",
+                "Lake Hylia Left Underwater Boulder Rupee",
+                "Lanayru Spring Upper Underwater Boulder Rupee",
+                "Lanayru Spring Lower Underwater Boulder Rupee",
+                "Bridge of Eldin Boulder Rupee",
+                "Kakariko Gorge Owl Statue Boulder Rupee",
+                "Kakariko Gorge Spire Boulder Rupee",
+                "Lake Hylia Bridge Faron Boulder Rupee",
+                "Lake Hylia Bridge Owl Statue Boulder Rupee",
+                "Lanayru Field North Spinner Track Boulder Rupee",
+                "Lanayru Field South Spinner Track Boulder Rupee",
+                "Lanayru Field North Underwater Boulder Rupee",
+                "Lanayru Field South Underwater Boulder Rupee",
+                "Outside South Castle Town Boulder Rupee",
+                "West Hyrule Field Northern Boulder Rupee",
+                "West Hyrule Field Southern Boulder Rupee",
+                "Lanayru Field Tree Boulder Rupee",
+                "Snowboarding Bridge Ledge Bottom Rupee",
+                "Snowboarding Bridge Ledge Middle Rupee",
+                "Snowboarding Bridge Ledge Upper Rupee",
+                "Snowboarding Shortcut Rupee 1",
+                "Snowboarding Shortcut Rupee 2",
+                "Snowboarding Shortcut Rupee 3",
+                "Snowboarding Shortcut Rupee 4",
+                "Snowboarding Shortcut Rupee 5",
+                "Snowboarding Shortcut Rupee 6",
+                "Snowboarding Shortcut Rupee 7",
+                "Snowboarding Shortcut Rupee 8",
+                "Snowboarding Shortcut Rupee 9",
+                "Snowboarding Shortcut Rupee 10",
+                "Snowboarding Shortcut Rupee 11",
+                "Snowboarding Snowy Tree Top Rupee 1",
+                "Snowboarding Snowy Tree Top Rupee 2",
+                "Snowboarding Snowy Tree Top Rupee 3",
+                "Snowboarding Top Left Rupee",
+                "Snowboarding Top Right Rupee"
                 // Add new check names right above this line. The name should
                 // match exactly with the json filename in the "Checks"
                 // directory.
@@ -589,16 +737,28 @@ namespace TPRandomizer
             return GetCheckIdNum(checkName) >= 0;
         }
 
-        public static SortedDictionary<string, int> GetNameToIdNumDictionary()
+        // Used to get the list of checks to use in the settings UI for
+        // Exclusions and Plando checks. Filters out ones that should not show
+        // up such as "Forest Temple Diababa"
+        public static SortedDictionary<string, int> GetUiNameToIdNumDict()
         {
             SortedDictionary<string, int> nameToIdNum = new();
 
             foreach (KeyValuePair<string, string> item in nameToId)
             {
-                nameToIdNum[item.Key] = IdToNum(item.Value);
+                if (!hideFromUiCheckNames.Contains(item.Key))
+                    nameToIdNum[item.Key] = IdToNum(item.Value);
             }
 
             return nameToIdNum;
+        }
+
+        public static bool GetIsHideFromUiCheckName(string checkName)
+        {
+            if (StringUtils.isEmpty(checkName))
+                throw new Exception($"checkName was empty.");
+
+            return hideFromUiCheckNames.Contains(checkName);
         }
     }
 }

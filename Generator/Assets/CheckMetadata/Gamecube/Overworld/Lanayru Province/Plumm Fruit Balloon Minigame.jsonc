@@ -1,7 +1,7 @@
 {
-    "arcOffsets": ["FF7"],
-    "stageIDX": [61],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
+    "arcOffsets": ["FF7", "F67"],
+    "stageIDX": [61, 61],
+    "fileDirectoryType": [1, 1],
+    "replacementType": [0, 0],
     "dataCategory": ["ARC"]
 }

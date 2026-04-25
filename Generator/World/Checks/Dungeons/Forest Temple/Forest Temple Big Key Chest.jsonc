@@ -1,5 +1,6 @@
 {
     "requirements": "Boomerang",
-    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "Big Key", "ARC"],
+    "glitchedRequirements": "Boomerang",
+    "checkCategory": ["Chest", "Dungeon", "Forest Temple", "Big Key"],
     "itemId": "Forest_Temple_Big_Key"
 }

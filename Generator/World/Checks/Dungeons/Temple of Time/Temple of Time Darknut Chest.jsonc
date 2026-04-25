@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatDarknut",
-    "checkCategory": ["Chest", "Dungeon", "Temple of Time", "ARC"],
+    "glitchedRequirements": "CanDefeatDarknut",
+    "checkCategory": ["Chest", "Dungeon", "Temple of Time"],
     "itemId": "Progressive_Dominion_Rod"
 }

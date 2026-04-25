@@ -117,6 +117,78 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="menu.midna-base.option.something-else" xml:space="preserve">
+    <value>その他</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-human" xml:space="preserve">
+    <value>人に戻る</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-wolf" xml:space="preserve">
+    <value>獣になる</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.warp" xml:space="preserve">
+    <value>ワープする</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.body" xml:space="preserve">
+    <value>どうした？</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.change-time-of-day" xml:space="preserve">
+    <value>時間を進める</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.hints" xml:space="preserve">
+    <value>ヒント</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.return-to-spawn" xml:space="preserve">
+    <value>スポーン地点に戻る</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.body" xml:space="preserve">
+    <value>このまま、戻ってもいいか？\nやり残したことは　ないよな？</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.not-yet" xml:space="preserve">
+    <value>まだ</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.ready" xml:space="preserve">
+    <value>戻る</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.body" xml:space="preserve">
+    <value>どこに行きたい？</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.cancel" xml:space="preserve">
+    <value>ちょっと待って</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.dungeon" xml:space="preserve">
+    <value>ダンジョンの入口</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.spawn" xml:space="preserve">
+    <value>スポーン地点</value>
+    <comment></comment>
+  </data>
+  <data name="midna.dungeon-entrances" xml:space="preserve">
+    <value>ダンジョンの入口について\nわかっていることは　これ\n#(red)（入口　#(thin-right-arrow)　ダンジョン）</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons" xml:space="preserve">
+    <value>必須ダンジョンが　#(red){count}つ#(white)ある・・・</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#zero" xml:space="preserve">
+    <value>必須ダンジョンが　ないらしい</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
     <value>砂漠の処刑場</value>
     <comment></comment>
@@ -131,6 +203,10 @@
   </data>
   <data name="required-dungeon.goron-mines" xml:space="preserve">
     <value>ゴロン鉱山</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.hyrule-castle" xml:space="preserve">
+    <value>ハイラル城</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.lakebed-temple" xml:space="preserve">

@@ -141,12 +141,20 @@
     <value>le {cs}Loup Doré{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.golden_wolf$plain" xml:space="preserve">
+    <value>Loup Doré</value>
+    <comment></comment>
+  </data>
   <data name="area.category.grotto" xml:space="preserve">
     <value>$(ap:dans)une {cs}Grotte secrète{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$default" xml:space="preserve">
     <value>$(ap:dans,plural)les {cs}Grottes secrètes{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.grotto$plain" xml:space="preserve">
+    <value>Grottes Secrètes</value>
     <comment></comment>
   </data>
   <data name="area.category.grotto$plural" xml:space="preserve">
@@ -161,6 +169,10 @@
     <value>$(ap:dans,plural)les {cs}Coffres Lanternes de la Grotte Lanterne du Lac{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.llc_lantern_chests$plain" xml:space="preserve">
+    <value>Coffres Lanternes de la Grotte Lanterne du Lac</value>
+    <comment></comment>
+  </data>
   <data name="area.category.llc_lantern_chests$plural" xml:space="preserve">
     <value>$(ap:dans,plural)les {cs}Coffres Lanternes de la Grotte Lanterne du Lac{ce}</value>
     <comment></comment>
@@ -169,8 +181,16 @@
     <value>$(ap:derriere)le {cs}Brouillard Mauve{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.mist$plain" xml:space="preserve">
+    <value>Brouillard Mauve</value>
+    <comment></comment>
+  </data>
   <data name="area.category.northern_desert" xml:space="preserve">
     <value>$(ap:dans)la {cs}partie nord du désert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.northern_desert$plain" xml:space="preserve">
+    <value>Partie Nord du Désert</value>
     <comment></comment>
   </data>
   <data name="area.category.owl_statue" xml:space="preserve">
@@ -181,12 +201,20 @@
     <value>$(ap:pres-de,plural)les {cs}Statues de Hibou{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.category.owl_statue$plain" xml:space="preserve">
+    <value>Statues de Hibou</value>
+    <comment></comment>
+  </data>
   <data name="area.category.owl_statue$plural" xml:space="preserve">
     <value>$(ap:pres-de,plural)les {cs}Statues de Hibou{ce}</value>
     <comment></comment>
   </data>
   <data name="area.category.southern_desert" xml:space="preserve">
     <value>$(ap:dans)la {cs}partie sud du désert{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.southern_desert$plain" xml:space="preserve">
+    <value>Partie Sud du Désert</value>
     <comment></comment>
   </data>
   <data name="area.category.underwater" xml:space="preserve">
@@ -199,6 +227,10 @@
   </data>
   <data name="area.category.underwater$default" xml:space="preserve">
     <value>$(ap:none)plonger {cs}sous l&apos;eau{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.category.underwater$plain" xml:space="preserve">
+    <value>$(ap:none)Sous l&apos;eau</value>
     <comment></comment>
   </data>
   <data name="area.province.desert" xml:space="preserve">
@@ -241,24 +273,48 @@
     <value>le {cs}Château de Machaon{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.agithas_castle$plain" xml:space="preserve">
+    <value>Château de Machaon</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.arbiters_grounds" xml:space="preserve">
     <value>la {cs}Tour du Jugement{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.arbiters_grounds$plain" xml:space="preserve">
+    <value>Tour du Jugement</value>
     <comment></comment>
   </data>
   <data name="area.zone.beside_castle_town" xml:space="preserve">
     <value>$(plural)les {cs}Abords de la Citadelle{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.beside_castle_town$plain" xml:space="preserve">
+    <value>Abords de la Citadelle</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.bulblin_camp" xml:space="preserve">
     <value>le {cs}Camp des Bulblins{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.bulblin_camp$plain" xml:space="preserve">
+    <value>Camp des Bulblins</value>
     <comment></comment>
   </data>
   <data name="area.zone.castle_town" xml:space="preserve">
     <value>la {cs}Citadelle{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.castle_town$plain" xml:space="preserve">
+    <value>Citadelle</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.cave_of_ordeals" xml:space="preserve">
     <value>la {cs}Caverne de l&apos;Ordalie{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.cave_of_ordeals$plain" xml:space="preserve">
+    <value>Caverne de l&apos;Ordalie</value>
     <comment></comment>
   </data>
   <data name="area.zone.city_in_the_sky" xml:space="preserve">
@@ -269,76 +325,152 @@
     <value>la {cs}Montagne de la Mort{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.death_mountain$plain" xml:space="preserve">
+    <value>Montagne de la Mort</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.eldin_field" xml:space="preserve">
     <value>la {cs}Plaine de Ordinn{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.eldin_field$plain" xml:space="preserve">
+    <value>Plaine de Ordinn</value>
     <comment></comment>
   </data>
   <data name="area.zone.faron_field" xml:space="preserve">
     <value>la {cs}Plaine de Firone{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.faron_field$plain" xml:space="preserve">
+    <value>Plaine de Firone</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.faron_woods" xml:space="preserve">
     <value>la {cs}Forêt de Firone{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.faron_woods$plain" xml:space="preserve">
+    <value>Forêt de Firone</value>
     <comment></comment>
   </data>
   <data name="area.zone.forest_temple" xml:space="preserve">
     <value>le {cs}Temple Sylvestre{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.forest_temple$plain" xml:space="preserve">
+    <value>Temple Sylvestre</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.gerudo_desert" xml:space="preserve">
     <value>le {cs}Désert Gerudo{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.gerudo_desert$plain" xml:space="preserve">
+    <value>Désert Gerudo</value>
     <comment></comment>
   </data>
   <data name="area.zone.goron_mines" xml:space="preserve">
     <value>$(plural)les {cs}Mines Gorons{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.goron_mines$plain" xml:space="preserve">
+    <value>Mines Gorons</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.great_bridge_of_hylia" xml:space="preserve">
     <value>le {cs}Viaduc d&apos;Hylia{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.great_bridge_of_hylia$plain" xml:space="preserve">
+    <value>Viaduc d&apos;Hylia</value>
     <comment></comment>
   </data>
   <data name="area.zone.hidden_village" xml:space="preserve">
     <value>le {cs}Village oublié{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.hidden_village$plain" xml:space="preserve">
+    <value>Village Oublié</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.hyrule_castle" xml:space="preserve">
     <value>le {cs}Château d&apos;Hyrule{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.hyrule_castle$plain" xml:space="preserve">
+    <value>Château d&apos;Hyrule</value>
     <comment></comment>
   </data>
   <data name="area.zone.kakariko_gorge" xml:space="preserve">
     <value>$(plural)les {cs}Gorges de Cocorico{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.kakariko_gorge$plain" xml:space="preserve">
+    <value>Gorges de Cocorico</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.kakariko_graveyard" xml:space="preserve">
     <value>le {cs}Cimetière de Cocorico{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.kakariko_graveyard$plain" xml:space="preserve">
+    <value>Cimetière de Cocorico</value>
     <comment></comment>
   </data>
   <data name="area.zone.kakariko_village" xml:space="preserve">
     <value>le {cs}Village Cocorico{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.kakariko_village$plain" xml:space="preserve">
+    <value>Village Cocorico</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.lake_hylia" xml:space="preserve">
     <value>le {cs}Lac Hylia{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lake_hylia$plain" xml:space="preserve">
+    <value>Lac Hylia</value>
     <comment></comment>
   </data>
   <data name="area.zone.lake_lantern_cave" xml:space="preserve">
     <value>la {cs}Grotte Lanterne du Lac{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.lake_lantern_cave$plain" xml:space="preserve">
+    <value>Grotte Lanterne du Lac</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.lakebed_temple" xml:space="preserve">
     <value>le {cs}Temple Abyssal{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.lakebed_temple$plain" xml:space="preserve">
+    <value>Temple Abyssal</value>
     <comment></comment>
   </data>
   <data name="area.zone.lanayru_field" xml:space="preserve">
     <value>la {cs}Plaine de Lanelle{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.lanayru_field$plain" xml:space="preserve">
+    <value>Plaine de Lanelle</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.lanayru_spring" xml:space="preserve">
     <value>la {cs}Source de Lanelle{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.lanayru_spring$plain" xml:space="preserve">
+    <value>Source de Lanelle</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.north_eldin" xml:space="preserve">
     <value>{que-transform}Ordinn Nord</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.north_eldin$plain" xml:space="preserve">
+    <value>Ordinn Nord</value>
     <comment></comment>
   </data>
   <data name="area.zone.ordon" xml:space="preserve">
@@ -349,28 +481,56 @@
     <value>le {cs}Palais du Crépuscule{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.palace_of_twilight$plain" xml:space="preserve">
+    <value>Palais du Crépuscule</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.sacred_grove" xml:space="preserve">
     <value>le {cs}Sanctuaire de la Forêt{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.sacred_grove$plain" xml:space="preserve">
+    <value>Sanctuaire de la Forêt</value>
     <comment></comment>
   </data>
   <data name="area.zone.snowpeak_mountain" xml:space="preserve">
     <value>$(plural)les {cs}Pics Blancs{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.snowpeak_mountain$plain" xml:space="preserve">
+    <value>Pics Blancs</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.snowpeak_ruins" xml:space="preserve">
     <value>$(plural)les {cs}Ruines des Pics Blancs{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.snowpeak_ruins$plain" xml:space="preserve">
+    <value>Ruines des Pics Blancs</value>
     <comment></comment>
   </data>
   <data name="area.zone.south_of_castle_town" xml:space="preserve">
     <value>le {cs}Sud de la Citadelle{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.south_of_castle_town$plain" xml:space="preserve">
+    <value>Sud de la Citadelle</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.temple_of_time" xml:space="preserve">
     <value>le {cs}Temple du Temps{ce}</value>
     <comment></comment>
   </data>
+  <data name="area.zone.temple_of_time$plain" xml:space="preserve">
+    <value>Temple du Temps</value>
+    <comment></comment>
+  </data>
   <data name="area.zone.upper_zoras_river" xml:space="preserve">
     <value>l&apos;{cs}Amont de la Rivière Zora{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.upper_zoras_river$plain" xml:space="preserve">
+    <value>Amont de la Rivière Zora</value>
     <comment></comment>
   </data>
   <data name="area.zone.upper_zoras_river$trade-chain" xml:space="preserve">
@@ -379,6 +539,10 @@
   </data>
   <data name="area.zone.zoras_domain" xml:space="preserve">
     <value>le {cs}Domaine Zora{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="area.zone.zoras_domain$plain" xml:space="preserve">
+    <value>Domaine Zora</value>
     <comment></comment>
   </data>
   <data name="description.bad-check" xml:space="preserve">
@@ -390,15 +554,35 @@
     <comment></comment>
   </data>
   <data name="description.required-check" xml:space="preserve">
-    <value>(obligatoire)</value>
+    <value>(requis)</value>
     <comment></comment>
   </data>
   <data name="description.skippable-check" xml:space="preserve">
     <value>(optionnel)</value>
     <comment></comment>
   </data>
+  <data name="description.sometimes-required-check" xml:space="preserve">
+    <value>(parfois requis)</value>
+    <comment></comment>
+  </data>
   <data name="description.unrequired-check" xml:space="preserve">
-    <value>(non obligatoire)</value>
+    <value>(non requis)</value>
+    <comment></comment>
+  </data>
+  <data name="faq.cits-no-claw-exit-1" xml:space="preserve">
+    <value>#(red)Pas de Grappin#(white) ? Pas de problème ! Retourne dans l&apos;eau, va à gauche puis saute depuis le chemin à l&apos;#(red)ouest#(white).</value>
+    <comment></comment>
+  </data>
+  <data name="faq.cits-no-claw-exit-1$wii" xml:space="preserve">
+    <value>#(red)Pas de Grappin#(white) ? Pas de problème ! Retourne dans l&apos;eau, va à droite puis saute depuis le chemin à l&apos;#(red)est#(white).</value>
+    <comment></comment>
+  </data>
+  <data name="faq.cits-no-claw-exit-2" xml:space="preserve">
+    <value>Tu seras de retour à la surface en un rien de temps !</value>
+    <comment></comment>
+  </data>
+  <data name="faq.santuary-basement-owl-statue" xml:space="preserve">
+    <value>Il est dit que le canon des cieux réparé #(red)apparaîtra automatiquement#(white) au Lac Hylia une fois que les anciens écrits célestiens auront été complétés.</value>
     <comment></comment>
   </data>
   <data name="goal.argorok" xml:space="preserve">
@@ -483,6 +667,38 @@
   </data>
   <data name="hint-type.beyond-point$only-big-keys" xml:space="preserve">
     <value>Seulement {big-key} à partir de ce point !</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count" xml:space="preserve">
+    <value>Il est dit que {subject} {verb(name:can-be-found)} {area-phrase}.</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.footnote" xml:space="preserve">
+    <value>#(reference-mark)Checks dépendants non inclus</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.important-item@ac(m,true)" xml:space="preserve">
+    <value>objet important</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.important-item#other@ac(m)" xml:space="preserve">
+    <value>objets importants</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.major-item@ac(m,true)" xml:space="preserve">
+    <value>objet majeur</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.major-item#other@ac(m)" xml:space="preserve">
+    <value>objets majeurs</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.num-major" xml:space="preserve">
+    <value>({count}#(nbsp)majeur)</value>
+    <comment></comment>
+  </data>
+  <data name="hint-type.importance-count.num-major#other" xml:space="preserve">
+    <value>({count}#(nbsp)majeurs)</value>
     <comment></comment>
   </data>
   <data name="hint-type.item" xml:space="preserve">
@@ -633,8 +849,16 @@
     <value>$(gender:m,negative)aucun pack de 5 bombes</value>
     <comment></comment>
   </data>
+  <data name="item.0a-bombs_5$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 5 bombes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.0a-bombs_5$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 5 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0a-bombs_5$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 5 bombes{ce}</value>
     <comment></comment>
   </data>
   <data name="item.0b-bombs_10" xml:space="preserve">
@@ -653,8 +877,16 @@
     <value>$(gender:m,negative)aucun pack de 10 bombes</value>
     <comment></comment>
   </data>
+  <data name="item.0b-bombs_10$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 10 bombes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.0b-bombs_10$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 10 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0b-bombs_10$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 10 bombes{ce}</value>
     <comment></comment>
   </data>
   <data name="item.0c-bombs_20" xml:space="preserve">
@@ -673,8 +905,16 @@
     <value>$(gender:m,negative)aucun pack de 20 bombes</value>
     <comment></comment>
   </data>
+  <data name="item.0c-bombs_20$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 20 bombes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.0c-bombs_20$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 20 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0c-bombs_20$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 20 bombes{ce}</value>
     <comment></comment>
   </data>
   <data name="item.0d-bombs_30" xml:space="preserve">
@@ -693,8 +933,16 @@
     <value>$(gender:m,negative)aucun pack de 30 bombes</value>
     <comment></comment>
   </data>
+  <data name="item.0d-bombs_30$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 30 bombes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.0d-bombs_30$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 30 bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.0d-bombs_30$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 30 bombes{ce}</value>
     <comment></comment>
   </data>
   <data name="item.0e-arrows_10" xml:space="preserve">
@@ -713,8 +961,16 @@
     <value>$(gender:m,negative)aucun pack de 10 flèches</value>
     <comment></comment>
   </data>
+  <data name="item.0e-arrows_10$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 10 flèches{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.0e-arrows_10$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 10 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.0e-arrows_10$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 10 flèches{ce}</value>
     <comment></comment>
   </data>
   <data name="item.0f-arrows_20" xml:space="preserve">
@@ -733,8 +989,16 @@
     <value>$(gender:m,negative)aucun pack de 20 flèches</value>
     <comment></comment>
   </data>
+  <data name="item.0f-arrows_20$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 20 flèches{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.0f-arrows_20$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 20 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.0f-arrows_20$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 20 flèches{ce}</value>
     <comment></comment>
   </data>
   <data name="item.10-arrows_30" xml:space="preserve">
@@ -753,8 +1017,16 @@
     <value>$(gender:m,negative)aucun pack de 30 flèches</value>
     <comment></comment>
   </data>
+  <data name="item.10-arrows_30$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 30 flèches{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.10-arrows_30$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 30 flèches</value>
+    <comment></comment>
+  </data>
+  <data name="item.10-arrows_30$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 30 flèches{ce}</value>
     <comment></comment>
   </data>
   <data name="item.12-seeds_50" xml:space="preserve">
@@ -773,8 +1045,16 @@
     <value>$(gender:m,negative)aucun pack de 50 graines</value>
     <comment></comment>
   </data>
+  <data name="item.12-seeds_50$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 50 graines{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.12-seeds_50$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 50 graines</value>
+    <comment></comment>
+  </data>
+  <data name="item.12-seeds_50$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 50 graines{ce}</value>
     <comment></comment>
   </data>
   <data name="item.13-foolish_item@ac(m)" xml:space="preserve">
@@ -806,7 +1086,7 @@
     <comment></comment>
   </data>
   <data name="item.16-water_bombs_5$count" xml:space="preserve">
-    <value>$(gender:m){count}pack de 5 hydro-bombes</value>
+    <value>$(gender:m){count} pack de 5 hydro-bombes</value>
     <comment></comment>
   </data>
   <data name="item.16-water_bombs_5$count#other" xml:space="preserve">
@@ -817,8 +1097,16 @@
     <value>$(gender:m,negative)aucun pack de 5 hydro-bombes</value>
     <comment></comment>
   </data>
+  <data name="item.16-water_bombs_5$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 5 hydro-bombes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.16-water_bombs_5$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 5 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.16-water_bombs_5$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 5 hydro-bombes{ce}</value>
     <comment></comment>
   </data>
   <data name="item.17-water_bombs_10" xml:space="preserve">
@@ -837,8 +1125,16 @@
     <value>$(gender:m,negative)aucun pack de 10 hydro-bombes</value>
     <comment></comment>
   </data>
+  <data name="item.17-water_bombs_10$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 10 hydro-bombes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.17-water_bombs_10$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 10 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.17-water_bombs_10$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 10 hydro-bombes{ce}</value>
     <comment></comment>
   </data>
   <data name="item.18-water_bombs_15" xml:space="preserve">
@@ -857,8 +1153,16 @@
     <value>$(gender:m,negative)aucun pack de 15 hydro-bombes</value>
     <comment></comment>
   </data>
+  <data name="item.18-water_bombs_15$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 15 hydro-bombes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.18-water_bombs_15$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 15 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.18-water_bombs_15$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 15 hydro-bombes{ce}</value>
     <comment></comment>
   </data>
   <data name="item.19-water_bombs_3" xml:space="preserve">
@@ -877,8 +1181,16 @@
     <value>$(gender:m,negative)aucun pack de 3 hydro-bombes</value>
     <comment></comment>
   </data>
+  <data name="item.19-water_bombs_3$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 3 hydro-bombes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.19-water_bombs_3$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 3 hydro-bombes</value>
+    <comment></comment>
+  </data>
+  <data name="item.19-water_bombs_3$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 3 hydro-bombes{ce}</value>
     <comment></comment>
   </data>
   <data name="item.1a-bomblings_5" xml:space="preserve">
@@ -897,8 +1209,16 @@
     <value>$(gender:m,negative)aucun pack de 5 bombinsectes</value>
     <comment></comment>
   </data>
+  <data name="item.1a-bomblings_5$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 5 bombinsectes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.1a-bomblings_5$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 5 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1a-bomblings_5$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 5 bombinsectes{ce}</value>
     <comment></comment>
   </data>
   <data name="item.1b-bomblings_10" xml:space="preserve">
@@ -917,8 +1237,16 @@
     <value>$(gender:m,negative)aucun pack de 10 bombinsectes</value>
     <comment></comment>
   </data>
+  <data name="item.1b-bomblings_10$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 10 bombinsectes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.1b-bomblings_10$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 10 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1b-bomblings_10$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 10 bombinsectes{ce}</value>
     <comment></comment>
   </data>
   <data name="item.1c-bomblings_3" xml:space="preserve">
@@ -937,8 +1265,16 @@
     <value>$(gender:m,negative)aucun pack de 3 bombinsectes</value>
     <comment></comment>
   </data>
+  <data name="item.1c-bomblings_3$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)le {cs}pack de 3 bombinsectes{ce}</value>
+    <comment></comment>
+  </data>
   <data name="item.1c-bomblings_3$fishing-bottle" xml:space="preserve">
     <value>$(gender:m)pack de 3 bombinsectes</value>
+    <comment></comment>
+  </data>
+  <data name="item.1c-bomblings_3$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:m)un {cs}pack de 3 bombinsectes{ce}</value>
     <comment></comment>
   </data>
   <data name="item.21-piece_of_heart@ac(m)" xml:space="preserve">
@@ -1089,8 +1425,16 @@
     <value>$(gender:f,plural)les {cs}bottes de fer{ce}</value>
     <comment></comment>
   </data>
+  <data name="item.45-iron_boots$def,shop-group-of" xml:space="preserve">
+    <value>$(gender:f,plural)les {cs}bottes de fer{ce}</value>
+    <comment>Same as &quot;def&quot; context</comment>
+  </data>
   <data name="item.45-iron_boots$indef" xml:space="preserve">
     <value>$(gender:f,plural)des {cs}bottes de fer{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.45-iron_boots$indef,shop-group-of" xml:space="preserve">
+    <value>$(gender:f)une {cs}paire de bottes de fer{ce}</value>
     <comment></comment>
   </data>
   <data name="item.46-progressive_dominion_rod@ac(m)" xml:space="preserve">
@@ -1163,6 +1507,30 @@
   </data>
   <data name="item.65-sera_bottle#other@ac(f)" xml:space="preserve">
     <value>bouteilles de lait à moitié vide</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop" xml:space="preserve">
+    <value>$(gender:f){que-transform}huile de lanterne</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$count" xml:space="preserve">
+    <value>$(gender:f){cs}{count} recharge d&apos;huile{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$count#other" xml:space="preserve">
+    <value>$(gender:f,plural){cs}{count} recharges d&apos;huile{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$count#zero" xml:space="preserve">
+    <value>$(gender:f,negative){cs}aucune recharge d&apos;huile{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$def" xml:space="preserve">
+    <value>$(gender:f,objpro:en)l&apos;{cs}huile de lanterne{ce}</value>
+    <comment></comment>
+  </data>
+  <data name="item.66-lantern_oil_shop$indef" xml:space="preserve">
+    <value>$(gender:f,objpro:en)une {cs}huile de lanterne{ce}</value>
     <comment></comment>
   </data>
   <data name="item.75-jovani_bottle@ac(f)" xml:space="preserve">
@@ -1758,11 +2126,11 @@
     <comment></comment>
   </data>
   <data name="item.ee-north_faron_woods_gate_key@ac(f)" xml:space="preserve">
-    <value>clé de la Forêt de Firone</value>
+    <value>clé du Nord de la Forêt de Firone</value>
     <comment></comment>
   </data>
   <data name="item.ee-north_faron_woods_gate_key#other@ac(f)" xml:space="preserve">
-    <value>clés de la Forêt de Firone</value>
+    <value>clés du Nord de la Forêt de Firone</value>
     <comment></comment>
   </data>
   <data name="item.f3-gate_keys@ac(f)" xml:space="preserve">
@@ -1805,6 +2173,94 @@
     <value>fragments de clé</value>
     <comment></comment>
   </data>
+  <data name="item.fe-faron_woods_coro_key@ac(f)" xml:space="preserve">
+    <value>clé de Kikolou</value>
+    <comment></comment>
+  </data>
+  <data name="item.fe-faron_woods_coro_key#other@ac(f)" xml:space="preserve">
+    <value>clés de Kikolou</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.something-else" xml:space="preserve">
+    <value>Je veux autre chose</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-human" xml:space="preserve">
+    <value>Je veux redevenir humain</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-wolf" xml:space="preserve">
+    <value>Je veux redevenir un loup</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.warp" xml:space="preserve">
+    <value>Je veux me téléporter</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.body" xml:space="preserve">
+    <value>Qu&apos;est-ce qu&apos;il y a?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.change-time-of-day" xml:space="preserve">
+    <value>Changer l&apos;heure</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.hints" xml:space="preserve">
+    <value>Indices</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.return-to-spawn" xml:space="preserve">
+    <value>Revenir au spawn</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.body" xml:space="preserve">
+    <value>Tu es sûr que tu veux sortir tout de suite? Tu as fait tout ce que tu voulais faire?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.not-yet" xml:space="preserve">
+    <value>Pas encore</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.ready" xml:space="preserve">
+    <value>Je suis prêt</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.body" xml:space="preserve">
+    <value>Tu es sûr que tu veux sortir tout de suite? Tu as fait tout ce que tu voulais faire?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.cancel" xml:space="preserve">
+    <value>Non rien</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.dungeon" xml:space="preserve">
+    <value>Au début du donjon</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.spawn" xml:space="preserve">
+    <value>Au spawn</value>
+    <comment></comment>
+  </data>
+  <data name="midna.dungeon-entrances" xml:space="preserve">
+    <value>Voici ce que nous savons à propos des entrées des donjons :\n#(red)(Entrée #(thin-right-arrow) Donjon)</value>
+    <comment></comment>
+  </data>
+  <data name="midna.grouped-barren-hints" xml:space="preserve">
+    <value>Il est dit qu&apos;il n&apos;y a #(purple)rien#(white) à trouver dans les zones suivantes :</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons" xml:space="preserve">
+    <value>Il y a #(red)1#(white) donjon requis :</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#other" xml:space="preserve">
+    <value>Il y a #(red){count}#(white) donjons requis :</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#zero" xml:space="preserve">
+    <value>Il n&apos;y a aucun donjon requis.</value>
+    <comment></comment>
+  </data>
   <data name="noun.a-bug" xml:space="preserve">
     <value>un {cs}insecte{ce}</value>
     <comment></comment>
@@ -1813,8 +2269,56 @@
     <value>({cs}zone inutile{ce})</value>
     <comment></comment>
   </data>
+  <data name="noun.it-subject" xml:space="preserve">
+    <value>il</value>
+    <comment></comment>
+  </data>
+  <data name="noun.it-subject$gender-f" xml:space="preserve">
+    <value>elle</value>
+    <comment></comment>
+  </data>
+  <data name="noun.it-subject$gender-f,plural" xml:space="preserve">
+    <value>elles</value>
+    <comment></comment>
+  </data>
+  <data name="noun.it-subject$plural" xml:space="preserve">
+    <value>ils</value>
+    <comment></comment>
+  </data>
   <data name="noun.jovani-unhinted" xml:space="preserve">
     <value>Pas d&apos;indice</value>
+    <comment></comment>
+  </data>
+  <data name="noun.mystery-item@ac(m,true)" xml:space="preserve">
+    <value>objet mystère</value>
+    <comment></comment>
+  </data>
+  <data name="noun.mystery-item#other@ac(m)" xml:space="preserve">
+    <value>objets mystères</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro" xml:space="preserve">
+    <value>le</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$gender-f" xml:space="preserve">
+    <value>la</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$gender-f,objpro-en" xml:space="preserve">
+    <value>en</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$gender-f,plural" xml:space="preserve">
+    <value>les</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$objpro-en" xml:space="preserve">
+    <value>en</value>
+    <comment></comment>
+  </data>
+  <data name="noun.objpro$plural" xml:space="preserve">
+    <value>les</value>
     <comment></comment>
   </data>
   <data name="noun.rien" xml:space="preserve">
@@ -1823,22 +2327,6 @@
   </data>
   <data name="noun.something-good" xml:space="preserve">
     <value>quelque chose de bien</value>
-    <comment></comment>
-  </data>
-  <data name="noun.the-article" xml:space="preserve">
-    <value>le</value>
-    <comment></comment>
-  </data>
-  <data name="noun.the-article$gender-f" xml:space="preserve">
-    <value>la</value>
-    <comment></comment>
-  </data>
-  <data name="noun.the-article$gender-f,plural" xml:space="preserve">
-    <value>les</value>
-    <comment></comment>
-  </data>
-  <data name="noun.the-article$plural" xml:space="preserve">
-    <value>les</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
@@ -1855,6 +2343,10 @@
   </data>
   <data name="required-dungeon.goron-mines" xml:space="preserve">
     <value>Mine Goron</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.hyrule-castle" xml:space="preserve">
+    <value>Château d&apos;Hyrule</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.lakebed-temple" xml:space="preserve">
@@ -1878,19 +2370,15 @@
     <comment></comment>
   </data>
   <data name="self-hinter.barnes-bomb-bag" xml:space="preserve">
-    <value>Allez, je te fais une offre spéciale, {item} pour {price}. Ça te tente?</value>
+    <value>Allez, je te fais une offre spéciale, {item(shop-group-of)} pour {price}. Ça te tente?</value>
     <comment></comment>
   </data>
   <data name="self-hinter.charlo" xml:space="preserve">
-    <value>Pour {item}...\npuis-je vous demander l&apos;aumône...?</value>
+    <value>Pour {item(shop-group-of)}...\npuis-je vous demander l&apos;aumône...?</value>
     <comment></comment>
   </data>
   <data name="self-hinter.charlo-options" xml:space="preserve">
-    <value>#(option1)Voici 100 rubis.#(option2)Voici 50 rubis.#(option3)Je refuse.</value>
-    <comment></comment>
-  </data>
-  <data name="self-hinter.charlo$default" xml:space="preserve">
-    <value>Pour que la paix règne en Hyrule...\npuis-je vous demander l&apos;aumône...?</value>
+    <value>#(option1of3)Voici 100 rubis.#(option2of3)Voici 50 rubis.#(option3of3)Je refuse.</value>
     <comment></comment>
   </data>
   <data name="self-hinter.fishing-bottle" xml:space="preserve">
@@ -1910,19 +2398,23 @@
     <comment>From magic armor, minus the MA reference.</comment>
   </data>
   <data name="shop.bought$sera" xml:space="preserve">
-    <value>Je ne pensais pas que tu voudrais {noun(name:the-article)} {que-transform}acheter...</value>
+    <value>Je ne pensais pas que tu voudrais {noun(name:objpro)} {que-transform}acheter...</value>
     <comment></comment>
   </data>
   <data name="shop.cant-afford" xml:space="preserve">
-    <value>{item} {verb(name:costs)} {price}. Si tu {noun(name:the-article)} veux, il faut {noun2} payer.</value>
+    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}. Si tu {noun(name:objpro)} veux, il faut {noun2} payer.</value>
     <comment>From Sera Slingshot</comment>
   </data>
   <data name="shop.cant-afford$barnes-bomb-bag" xml:space="preserve">
     <value>Et alors, garçon?\nTu n&apos;as pas assez, apparemment...</value>
     <comment></comment>
   </data>
+  <data name="shop.cant-afford$ct-small-gorons" xml:space="preserve">
+    <value>Vous n&apos;avez pas assez de rrubis...</value>
+    <comment>This is a copy of 0x3C4 for the red potion goron.</comment>
+  </data>
   <data name="shop.cant-afford$kak-malo" xml:space="preserve">
-    <value>{item} {verb(name:costs)} {price}, et tu n&apos;as pas {price2}...</value>
+    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}, et tu n&apos;as pas {price2}...</value>
     <comment></comment>
   </data>
   <data name="shop.coming-soon" xml:space="preserve">
@@ -1938,11 +2430,39 @@
     <comment></comment>
   </data>
   <data name="shop.confirmation" xml:space="preserve">
-    <value>{item} {verb(name:costs)} {price}, tu {noun(name:the-article)} veux?</value>
+    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}, tu {noun(name:objpro)} veux?</value>
     <comment></comment>
   </data>
+  <data name="shop.confirmation$coro" xml:space="preserve">
+    <value>Je vends {item(shop-group-of)} pour {price}, mais aussi #(red)le plein d&apos;huile#(white) pour #(purple)20 rubis#(white). Alors?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-arrows" xml:space="preserve">
+    <value>Puisque c&apos;est toi, ce ne serra que {price} pourr {item(shop-group-of)}, ça te va?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-oil-initial" xml:space="preserve">
+    <value>Alorrs dites, vous voulez pas m&apos;acheter {item(shop-group-of)}? {noun(name:it-subject,capitalize)} {verb(name:costs)} {price}.</value>
+    <comment>From feedback from Menou: removed &quot;de&quot; after m&apos;acheter since it caused lots of interpolation issues and the sentence works fine without it.</comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-oil-later" xml:space="preserve">
+    <value>Vous voulez pas m&apos;acheter {item(shop-group-of)}? {noun(name:it-subject,capitalize)} {verb(name:costs)} {price}.</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-red-potion" xml:space="preserve">
+    <value>Si cela vous tente, je peux vous vendrre {item(shop-group-of)} pourr {price}!</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-shield-initial" xml:space="preserve">
+    <value>Mais au fait, nous vendons {item(shop-group-of)} pourr {price}. Ça t&apos;intérresse?</value>
+    <comment></comment>
+  </data>
+  <data name="shop.confirmation$ct-goron-shield-later" xml:space="preserve">
+    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}, tu {noun(name:objpro)} veux?</value>
+    <comment>Matches the base shop.confirmation, but putting here so this doesn&apos;t change if the fallback changes.</comment>
+  </data>
   <data name="shop.confirmation$sera" xml:space="preserve">
-    <value>{item} {verb(name:costs)} {price}.\nTu {noun(name:the-article)} veux?</value>
+    <value>{item(capitalize,shop-group-of)} {verb(name:costs)} {price}.\nTu {noun(name:objpro)} veux?</value>
     <comment></comment>
   </data>
   <data name="shop.no" xml:space="preserve">
@@ -1953,12 +2473,24 @@
     <value>{count} rubis</value>
     <comment></comment>
   </data>
+  <data name="shop.price$goron" xml:space="preserve">
+    <value>{count} rrubis</value>
+    <comment></comment>
+  </data>
   <data name="shop.slot" xml:space="preserve">
     <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
     <comment></comment>
   </data>
+  <data name="shop.slot$barnes" xml:space="preserve">
+    <value>{item(shop:true)} {price}\nDisponible pour un temps limité !\nProfites en !</value>
+    <comment></comment>
+  </data>
   <data name="shop.slot$chudley" xml:space="preserve">
     <value>{item(shop:true)}\nUn seul exemplaire disponible.</value>
+    <comment></comment>
+  </data>
+  <data name="shop.slot$kak-malo-right" xml:space="preserve">
+    <value>{item(shop:true)} {price}\nUn seul exemplaire disponible.\nNe passez pas à côté !</value>
     <comment></comment>
   </data>
   <data name="shop.sold-out" xml:space="preserve">

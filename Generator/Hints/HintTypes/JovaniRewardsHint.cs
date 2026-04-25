@@ -46,7 +46,7 @@ namespace TPRandomizer.Hints
         public static JovaniRewardsHint decode(
             HintEncodingBitLengths bitLengths,
             BitsProcessor processor,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             int listSize = processor.NextInt(4);
@@ -97,17 +97,19 @@ namespace TPRandomizer.Hints
                     }
                     else
                     {
-                        // Leaving def/indef out for now. Might need it or
-                        // 'capitalize' to be based on meta from the
-                        // 'hint-type.jovani-rewards.reward' line.
-                        itemText = customMsgData.GenItemText3(
+                        // Leaving def/indef out for now. Might need it or 'capitalize' to be based
+                        // on meta from the 'hint-type.jovani-rewards.reward' line.
+                        itemText = customMsgData.GenItemText4(
                             out _,
                             checkInfo.item,
                             checkInfo.checkStatus,
                             // contextIn: checkInfo.useDefArticle ? "def" : "indef",
                             checkStatusDisplay: checkInfo.checkStatusDisplay,
                             capitalize: true,
-                            isLogicalItem: checkInfo.isLogicalItem
+                            // Want to always include (not required, etc.) for "Mystery item", so
+                            // check for vague as well.
+                            isLogicalItem: checkInfo.isLogicalItem || checkInfo.vague,
+                            customResKey: checkInfo.vague ? "noun.mystery-item" : null
                         );
                     }
 
@@ -151,7 +153,8 @@ namespace TPRandomizer.Hints
             public string checkName { get; }
             public byte soulsThreshold { get; } // Planning ahead for configurable thresholds
             public bool unhinted { get; }
-            public CheckStatus checkStatus { get; }
+            public bool vague { get; }
+            public DetailedCheckStatus checkStatus { get; }
             public CheckStatusDisplay checkStatusDisplay { get; }
 
             // derived and encoded
@@ -166,16 +169,18 @@ namespace TPRandomizer.Hints
                 string checkName,
                 byte soulsThreshold,
                 bool unhinted,
-                CheckStatus checkStatus,
+                bool vague,
+                DetailedCheckStatus checkStatus,
                 CheckStatusDisplay checkStatusDisplay,
                 bool useDefArticle = false,
                 bool isLogicalItem = false,
-                Dictionary<int, byte> itemPlacements = null
+                Dictionary<int, int> itemPlacements = null
             )
             {
                 this.checkName = checkName;
                 this.soulsThreshold = soulsThreshold;
                 this.unhinted = unhinted;
+                this.vague = vague;
                 this.checkStatus = checkStatus;
                 this.checkStatusDisplay = checkStatusDisplay;
                 this.useDefArticle = useDefArticle;
@@ -184,7 +189,7 @@ namespace TPRandomizer.Hints
                 CalcDerived(genData, itemPlacements);
             }
 
-            private void CalcDerived(HintGenData genData, Dictionary<int, byte> itemPlacements)
+            private void CalcDerived(HintGenData genData, Dictionary<int, int> itemPlacements)
             {
                 if (itemPlacements != null)
                 {
@@ -216,7 +221,11 @@ namespace TPRandomizer.Hints
                 );
                 result += SettingsEncoder.EncodeNumAsBits(soulsThreshold, 8);
                 result += unhinted ? "1" : "0";
-                result += SettingsEncoder.EncodeNumAsBits((byte)checkStatus, 2);
+                result += vague ? "1" : "0";
+                result += SettingsEncoder.EncodeNumAsBits(
+                    (byte)checkStatus,
+                    bitLengths.checkStatus
+                );
                 result += SettingsEncoder.EncodeNumAsBits((byte)checkStatusDisplay, 2);
                 result += useDefArticle ? "1" : "0";
                 result += isLogicalItem ? "1" : "0";
@@ -226,7 +235,7 @@ namespace TPRandomizer.Hints
             public static JovaniCheckInfo decode(
                 HintEncodingBitLengths bitLengths,
                 BitsProcessor processor,
-                Dictionary<int, byte> itemPlacements
+                Dictionary<int, int> itemPlacements
             )
             {
                 int checkId = processor.NextInt(bitLengths.checkId);
@@ -234,7 +243,10 @@ namespace TPRandomizer.Hints
 
                 byte soulsThreshold = processor.NextByte();
                 bool unhinted = processor.NextBool();
-                CheckStatus status = (CheckStatus)processor.NextInt(2);
+                bool vague = processor.NextBool();
+                DetailedCheckStatus status = (DetailedCheckStatus)processor.NextInt(
+                    bitLengths.checkStatus
+                );
                 CheckStatusDisplay display = (CheckStatusDisplay)processor.NextInt(2);
                 bool useDefArticle = processor.NextBool();
                 bool isLogicalItem = processor.NextBool();
@@ -244,6 +256,7 @@ namespace TPRandomizer.Hints
                     checkName,
                     soulsThreshold,
                     unhinted,
+                    vague,
                     status,
                     display,
                     useDefArticle,

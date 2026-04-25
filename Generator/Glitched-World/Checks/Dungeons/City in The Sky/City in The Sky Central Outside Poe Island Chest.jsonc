@@ -1,6 +1,0 @@
-{
-    // Either walk the ropes to the left or Claw up and then walk on the ropes
-    "requirements": "((CanDefeatDinalfos and CanDefeatWalltula and CanDefeatKargarok) or (Progressive_Clawshot, 1)) and Shadow_Crystal",
-    "checkCategory": ["Chest", "Dungeon", "City in The Sky"],
-    "itemId": "Purple_Rupee"
-}

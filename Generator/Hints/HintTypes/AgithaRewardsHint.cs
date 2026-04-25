@@ -1,7 +1,7 @@
 namespace TPRandomizer.Hints
 {
     using System.Collections.Generic;
-    using System.Security.Cryptography;
+    using System.Linq;
     using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
@@ -23,7 +23,7 @@ namespace TPRandomizer.Hints
             int numBugsInPool,
             List<string> interestingAgithaChecks,
             List<bool> useDefArticleList = null,
-            Dictionary<int, byte> itemPlacements = null
+            Dictionary<int, int> itemPlacements = null
         // List<Item> items
         )
         {
@@ -34,7 +34,7 @@ namespace TPRandomizer.Hints
             CalcDerived(genData, itemPlacements);
         }
 
-        private void CalcDerived(HintGenData genData, Dictionary<int, byte> itemPlacements)
+        private void CalcDerived(HintGenData genData, Dictionary<int, int> itemPlacements)
         {
             items = new();
             if (genData != null)
@@ -88,36 +88,51 @@ namespace TPRandomizer.Hints
                 bool capitalize = res.MetaHasVal("capitalize", "true");
                 bool useShort = res.MetaHasVal("short", "true");
 
+                HashSet<Item> handledItems = new();
+
                 // Generate the items list by passing a list of strings. On the
                 // outside we can set each one to a green color. The function
                 // can be in Res and it can automatically detect the language.
                 List<string> itemTexts = new();
                 for (int i = 0; i < items.Count; i++)
                 {
-                    string contextForItem = "";
+                    Item item = items[i];
+                    if (handledItems.Contains(item))
+                        continue;
+                    handledItems.Add(item);
+
+                    int count = items.Count((x) => x == item);
+
+                    List<string> contextParts = new();
+
                     if (useShort)
-                        contextForItem = "short";
-                    else if (useArticles)
-                        contextForItem = useDefArticleList[i] ? "def" : "indef";
+                        contextParts.Add("short");
+                    if (count > 1)
+                        contextParts.Add("count");
+                    else if (count == 1 && useArticles)
+                        contextParts.Add(useDefArticleList[i] ? "def" : "indef");
+
+                    // Note: gets split inside GenItemText4, so order here does not matter.
+                    string contextForItem = string.Join(",", contextParts);
 
                     itemTexts.Add(
-                        customMsgData.GenItemText3(
+                        customMsgData.GenItemText4(
                             out _,
-                            items[i],
-                            CheckStatus.Good,
+                            item,
+                            DetailedCheckStatus.Unknown,
                             contextIn: contextForItem,
                             prefStartColor: "",
                             prefEndColor: "",
                             capitalize: capitalize,
-                            checkStatusDisplay: CheckStatusDisplay.None
+                            checkStatusDisplay: CheckStatusDisplay.None,
+                            count: count > 1 ? count : null
                         )
                     );
                 }
-                // TODO: there seems to be a maximum number of bytes that we can
-                // put on the sign before it stops copying them over. So making
-                // this entire section green to save space for now until we can
-                // figure out another solution. Ideally we would maybe split
-                // this sign into multiple text boxes.
+                // TODO: there seems to be a maximum number of bytes that we can put on the sign
+                // before it stops copying them over. So making this entire section green to save
+                // space for now until we can figure out another solution. Ideally we would maybe
+                // split this sign into multiple text boxes.
                 itemsText =
                     CustomMessages.messageColorGreen + Res.CreateAndList(res.langCode, itemTexts);
             }
@@ -154,7 +169,7 @@ namespace TPRandomizer.Hints
         public static AgithaRewardsHint decode(
             HintEncodingBitLengths bitLengths,
             BitsProcessor processor,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             int numBugsInPool = processor.NextInt(5);

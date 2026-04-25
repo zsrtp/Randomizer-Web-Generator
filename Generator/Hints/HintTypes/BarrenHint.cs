@@ -4,7 +4,7 @@ namespace TPRandomizer.Hints
     using TPRandomizer.Assets;
     using TPRandomizer.Util;
 
-    public class BarrenHint : Hint
+    public class BarrenHint : Hint, IAreaHinter
     {
         public override HintType type { get; } = HintType.Barren;
 
@@ -25,11 +25,16 @@ namespace TPRandomizer.Hints
         public static BarrenHint decode(
             HintEncodingBitLengths bitLengths,
             BitsProcessor processor,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             AreaId areaId = AreaId.decode(bitLengths, processor);
             return new BarrenHint(areaId);
+        }
+
+        public AreaId GetAreaId()
+        {
+            return areaId;
         }
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)

@@ -1,5 +1,6 @@
 {
     "requirements": "Iron_Boots",
-    "checkCategory": ["Chest", "Dungeon", "Goron Mines", "Dungeon Items", "Dungeon Map", "ARC"],
+    "glitchedRequirements": "Iron_Boots",
+    "checkCategory": ["Chest", "Dungeon", "Goron Mines", "Dungeon Items", "Dungeon Map"],
     "itemId": "Goron_Mines_Dungeon_Map"
 }

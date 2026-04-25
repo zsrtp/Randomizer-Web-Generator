@@ -14,15 +14,18 @@ namespace TPRandomizer.Hints
             Province = 1,
         }
 
+        // Used during initial creation, but not stored.
+        public AreaType areaType { get; }
+
         // stored
         public string srcCheckName { get; }
         public bool vaugeSourceItem { get; }
         public bool includeArea { get; }
-        public AreaType areaType { get; }
-        public CheckStatus checkStatus { get; }
+        public DetailedCheckStatus checkStatus { get; }
         public CheckStatusDisplay checkStatusDisplay { get; }
 
         // derived but encoded
+        public AreaId srcAreaId { get; private set; }
         public bool srcUseDefiniteArticle { get; private set; }
         public bool tgtUseDefiniteArticle { get; private set; }
         public bool tgtIsLogicalItem { get; private set; }
@@ -38,7 +41,7 @@ namespace TPRandomizer.Hints
             bool vagueSourceItem,
             bool includeArea,
             AreaType areaType,
-            CheckStatus checkStatus,
+            DetailedCheckStatus checkStatus,
             CheckStatusDisplay checkStatusDisplay
         )
         {
@@ -59,12 +62,13 @@ namespace TPRandomizer.Hints
             bool vagueSourceItem,
             bool includeArea,
             AreaType areaType,
-            CheckStatus checkStatus,
+            DetailedCheckStatus checkStatus,
             CheckStatusDisplay checkStatusDisplay,
+            AreaId srcAreaId = null,
             bool srcUseDefiniteArticle = false,
             bool tgtUseDefiniteArticle = false,
             bool tgtIsLogicalItem = false,
-            Dictionary<int, byte> itemPlacements = null
+            Dictionary<int, int> itemPlacements = null
         )
         {
             this.srcCheckName = srcCheckName;
@@ -73,6 +77,7 @@ namespace TPRandomizer.Hints
             this.areaType = areaType;
             this.checkStatus = checkStatus;
             this.checkStatusDisplay = checkStatusDisplay;
+            this.srcAreaId = srcAreaId;
             this.srcUseDefiniteArticle = srcUseDefiniteArticle;
             this.tgtUseDefiniteArticle = tgtUseDefiniteArticle;
             this.tgtIsLogicalItem = tgtIsLogicalItem;
@@ -80,7 +85,7 @@ namespace TPRandomizer.Hints
             CalcDerived(genData, itemPlacements);
         }
 
-        private void CalcDerived(HintGenData genData, Dictionary<int, byte> itemPlacements)
+        private void CalcDerived(HintGenData genData, Dictionary<int, int> itemPlacements)
         {
             if (itemPlacements != null)
             {
@@ -101,6 +106,16 @@ namespace TPRandomizer.Hints
             // than use input value.
             if (genData != null)
             {
+                string srcZoneName = genData.GetZoneNameForCheck(srcCheckName);
+                if (areaType == AreaType.Zone)
+                    srcAreaId = AreaId.ZoneStr(srcZoneName);
+                else
+                {
+                    Zone srcZone = ZoneUtils.StringToIdThrows(srcZoneName);
+                    Province srcProvince = ProvinceUtils.ZoneToProvince(srcZone);
+                    srcAreaId = AreaId.Province(srcProvince);
+                }
+
                 if (genData.logicalItems.Contains(tgtItem))
                     tgtIsLogicalItem = true;
 
@@ -124,6 +139,15 @@ namespace TPRandomizer.Hints
                     tgtUseDefiniteArticle = checksGivingTgtItem.Count == 1;
                 }
             }
+        }
+
+        public override void GetPreferHintBefore(
+            out HashSet<string> checkNames,
+            out HashSet<string> roomNames
+        )
+        {
+            checkNames = new() { srcCheckName, tgtCheckName };
+            roomNames = null;
         }
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
@@ -156,10 +180,10 @@ namespace TPRandomizer.Hints
             }
             else
             {
-                srcText = customMsgData.GenItemText3(
+                srcText = customMsgData.GenItemText4(
                     out srcItemMeta,
                     srcItem,
-                    CheckStatus.Unknown,
+                    DetailedCheckStatus.Unknown,
                     srcUseDefiniteArticle ? "def" : "indef",
                     checkStatusDisplay: CheckStatusDisplay.None,
                     prefStartColor: CustomMessages.messageColorYellow
@@ -167,17 +191,6 @@ namespace TPRandomizer.Hints
             }
 
             string verb = CustomMsgData.GenVerb(hintParsedRes, srcItemMeta);
-
-            AreaId areaId;
-
-            if (areaType == AreaType.Province)
-            {
-                areaId = AreaId.Province(HintUtils.checkNameToHintProvince(srcCheckName));
-            }
-            else
-            {
-                areaId = AreaId.ZoneStr(HintUtils.checkNameToHintZone(srcCheckName));
-            }
 
             Dictionary<string, string> metaForArea = new();
             foreach (KeyValuePair<string, string> pair in srcItemMeta)
@@ -199,7 +212,7 @@ namespace TPRandomizer.Hints
                     areaPhrase = " ";
 
                 Res.Result tradeChainAreaRes = Res.Msg(
-                    areaId.GenResKey(),
+                    srcAreaId.GenResKey(),
                     new() { { "context", "trade-chain" } }
                 );
                 if (tradeChainAreaRes.MetaHasVal("trade-chain", "true"))
@@ -214,14 +227,14 @@ namespace TPRandomizer.Hints
                 else
                 {
                     areaPhrase += CustomMsgData.GenAreaPhrase(
-                        areaId,
+                        srcAreaId,
                         metaForArea,
                         CustomMessages.messageColorRed
                     );
                 }
             }
 
-            string tgtText = customMsgData.GenItemText3(
+            string tgtText = customMsgData.GenItemText4(
                 out Dictionary<string, string> tgtItemMeta,
                 tgtItem,
                 checkStatus,
@@ -254,9 +267,9 @@ namespace TPRandomizer.Hints
             );
             result += vaugeSourceItem ? "1" : "0";
             result += includeArea ? "1" : "0";
-            result += SettingsEncoder.EncodeNumAsBits((int)areaType, 1);
-            result += SettingsEncoder.EncodeNumAsBits((int)checkStatus, 2);
+            result += SettingsEncoder.EncodeNumAsBits((int)checkStatus, bitLengths.checkStatus);
             result += SettingsEncoder.EncodeNumAsBits((int)checkStatusDisplay, 2);
+            result += srcAreaId.encodeAsBits(bitLengths);
             result += srcUseDefiniteArticle ? "1" : "0";
             result += tgtUseDefiniteArticle ? "1" : "0";
             result += tgtIsLogicalItem ? "1" : "0";
@@ -266,7 +279,7 @@ namespace TPRandomizer.Hints
         public static TradeChainHint decode(
             HintEncodingBitLengths bitLengths,
             BitsProcessor processor,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             int srcCheckId = processor.NextInt(bitLengths.checkId);
@@ -274,22 +287,27 @@ namespace TPRandomizer.Hints
 
             bool vagueSource = processor.NextBool();
             bool includeArea = processor.NextBool();
-            AreaType areaType = (AreaType)processor.NextInt(1);
-            CheckStatus checkStatus = (CheckStatus)processor.NextInt(2);
+            DetailedCheckStatus checkStatus = (DetailedCheckStatus)processor.NextInt(
+                bitLengths.checkStatus
+            );
             CheckStatusDisplay checkStatusDisplay = (CheckStatusDisplay)processor.NextInt(2);
+            AreaId srcAreaId = AreaId.decode(bitLengths, processor);
             bool srcUseDefiniteArticle = processor.NextBool();
             bool tgtUseDefiniteArticle = processor.NextBool();
             bool tgtIsLogicalItem = processor.NextBool();
 
+            // Note: we just pass AreaType.Zone since it isn't used when decoding. We don't bother
+            // storing it for this reason.
             TradeChainHint hint =
                 new(
                     null,
                     srcCheckName,
                     vagueSource,
                     includeArea,
-                    areaType,
+                    AreaType.Zone,
                     checkStatus,
                     checkStatusDisplay,
+                    srcAreaId,
                     srcUseDefiniteArticle,
                     tgtUseDefiniteArticle,
                     tgtIsLogicalItem,

@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Sword, 4) and (Progressive_Clawshot, 1)",
+    "glitchedRequirements": "(Progressive_Sword, 4) and (Progressive_Clawshot, 1)",
     "checkCategory": ["Chest", "Dungeon", "Palace of Twilight"],
     "itemId": "Piece_of_Heart"
 }

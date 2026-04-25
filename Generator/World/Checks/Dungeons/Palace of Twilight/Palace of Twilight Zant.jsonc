@@ -1,0 +1,6 @@
+{
+    "requirements": "CanDefeatZant",
+    "glitchedRequirements": "CanDefeatZant",
+    "checkCategory": ["Dungeon", "Palace of Twilight"],
+    "itemId": "Zant_Defeated"
+}

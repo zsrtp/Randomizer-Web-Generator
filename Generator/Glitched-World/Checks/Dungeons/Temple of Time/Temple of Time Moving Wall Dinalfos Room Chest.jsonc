@@ -1,5 +1,0 @@
-{
-    "requirements": "CanDefeatDinalfos and ((Progressive_Dominion_Rod, 1) or (Spinner and hasBombs)) and (Progressive_Bow, 1)",
-    "checkCategory": ["Chest", "Dungeon", "Temple of Time"],
-    "itemId": "Piece_of_Heart"
-}

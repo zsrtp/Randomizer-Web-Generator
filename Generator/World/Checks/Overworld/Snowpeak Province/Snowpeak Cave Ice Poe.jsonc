@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal and Ball_and_Chain",
+    "glitchedRequirements": "Shadow_Crystal and Ball_and_Chain",
     "checkCategory": ["Overworld", "Poe", "Snowpeak Province"],
     "itemId": "Poe_Soul"
 }

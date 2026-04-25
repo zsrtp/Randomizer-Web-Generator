@@ -24,10 +24,8 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
     return;
   }
 
-  const { error, seedGenStatus, seedGenProgress, queuePos } = checkProgress(
-    id,
-    true
-  );
+  const { error, seedGenStatus, seedName, seedGenProgress, queuePos } =
+    checkProgress(id, true);
 
   if (error) {
     return res.send({
@@ -60,6 +58,7 @@ function apiSeedProgress(req: express.Request, res: express.Response) {
   res.send({
     data: {
       progress: seedGenProgress,
+      seedName,
       queuePos,
     },
   });

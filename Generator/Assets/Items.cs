@@ -8,7 +8,7 @@ namespace TPRandomizer
     using TPRandomizer.SSettings.Enums;
 
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Item : byte
+    public enum Item
     {
         Recovery_Heart = 0x00,
         Green_Rupee = 0x01,
@@ -32,8 +32,8 @@ namespace TPRandomizer
         Seeds_50 = 0x12,
 
         Foolish_Item = 0x13, // Custom Item added for the Randomizer.
-        Foolish_Item_2 = 0x14, // Custom Item added for the Randomizer.
-        Foolish_Item_3 = 0x15, // Custom Item added for the Randomizer.
+        Ordon_Portal = 0x14, // Custom Item added for the Randomizer.
+        South_Faron_Portal = 0x15, // Custom Item added for the Randomizer.
         Water_Bombs_5 = 0x16,
         Water_Bombs_10 = 0x17,
         Water_Bombs_15 = 0x18,
@@ -72,10 +72,10 @@ namespace TPRandomizer
 
         /*Piece_of_Heart_2?	=	0x37,*/
         /*Piece_of_Heart_3?	=	0x38,*/
-        /*Piece_of_Heart_4?	=	0x39,*/
-        /*Piece_of_Heart_5?	=	0x3A,*/
-        /*sword?	=	0x3B,*/
-        /*?	=	0x3C,*/
+        Upper_Zoras_River_Portal = 0x39,
+        Castle_Town_Portal = 0x3A,
+        Gerudo_Desert_Portal = 0x3B,
+        North_Faron_Portal = 0x3C,
         Coral_Earring = 0x3D,
         Hawkeye = 0x3E,
         Progressive_Sword = 0x3F,
@@ -93,20 +93,21 @@ namespace TPRandomizer
         Slingshot = 0x4B,
         Dominion_Rod_Uncharged = 0x4C,
 
-        /*?	=	0x4D,*/
-        /*?	=	0x4E,*/
+        Kakariko_Gorge_Portal = 0x4D,
+        Kakariko_Village_Portal = 0x4E,
         Giant_Bomb_Bag = 0x4F,
         Barnes_Bomb_Bag = 0x50,
         Filled_Bomb_Bag = 0x51,
+        Death_Mountain_Portal = 0x52,
 
-        /*Giant_Bomb_Bag?	=	0x52,*/
-        /*?	=	0x53,*/
+        /*Light Arrow = 0x53,*/
+
         /*unused*/
         Small_Quiver = 0x54,
         Big_Quiver = 0x55,
         Giant_Quiver = 0x56,
 
-        /*?	=	0x57,*/
+        Zoras_Domain_Portal = 0x57,
         Fishing_Rod_Lure = 0x58,
         Bow_Bombs = 0x59,
         Bow_Hawkeye = 0x5A,
@@ -163,7 +164,7 @@ namespace TPRandomizer
         Hyrule_Castle_Small_Key = 0x8D, /*custom*/
         Gerudo_Desert_Bulblin_Camp_Key = 0x8E, /*custom*/
 
-        /*unused 0x8F */
+        Lake_Hylia_Portal = 0x8F,
         Aurus_Memo = 0x90,
         Asheis_Sketch = 0x91,
         Forest_Temple_Big_Key = 0x92, /*custom*/
@@ -199,11 +200,11 @@ namespace TPRandomizer
         Palace_of_Twilight_Compass = 0xAC, /*custom*/
         Hyrule_Castle_Compass = 0xAD, /*custom*/
 
-        /*Unused	=	0xAE,*/
-        /*Unused	=	0xAF,*/
+        Mirror_Chamber_Portal = 0xAE,
+        Snowpeak_Portal = 0xAF,
         Ilias_Scent = 0xB0,
 
-        /*Unused_Scent?	=	0xB1,*/
+        /*Pumpkin_Scent UNUSED = 0xB1,*/
         Poe_Scent = 0xB2,
         Reekfish_Scent = 0xB3,
         Youths_Scent = 0xB4,
@@ -218,7 +219,7 @@ namespace TPRandomizer
         Palace_of_Twilight_Dungeon_Map = 0xBD,
         Hyrule_Castle_Dungeon_Map = 0xBE,
 
-        /*Bottle_Insides?	=	0xBF,*/
+        Sacred_Grove_Portal = 0xBF,
         Male_Beetle = 0xC0,
         Female_Beetle = 0xC1,
         Male_Butterfly = 0xC2,
@@ -246,11 +247,12 @@ namespace TPRandomizer
         Progressive_Fused_Shadow = 0xD8,
         Fused_Shadow_2 = 0xD9,
         Fused_Shadow_3 = 0xDA,
-        Ancient_Sky_Book_First_Character = 0xDB, /*custom*/
-        Ancient_Sky_Book_Second_Character = 0xDC, /*custom*/
-        Ancient_Sky_Book_Third_Character = 0xDD, /*custom*/
-        Ancient_Sky_Book_Fourth_Character = 0xDE, /*custom*/
-        Ancient_Sky_Book_Fifth_Character = 0xDF, /*custom*/
+        Mirror_Shard_1 = 0xDB,
+
+        /*unused = 0xDC, custom*/
+        /*unused = 0xDD, custom*/
+        /*unused = 0xDE, custom*/
+        /*unused = 0xDF, custom*/
         Poe_Soul = 0xE0,
         Progressive_Hidden_Skill = 0xE1,
         Shield_Attack = 0xE2,
@@ -260,7 +262,7 @@ namespace TPRandomizer
         Jump_Strike = 0xE6,
         Great_Spin = 0xE7,
 
-        /*?	=	0xE8,*/
+        Bridge_of_Eldin_Portal = 0xE8,
         Progressive_Sky_Book = 0xE9,
         Ancient_Sky_Book_Partly_Filled = 0xEA,
         Ancient_Sky_Book_Completed = 0xEB,
@@ -277,7 +279,7 @@ namespace TPRandomizer
         Snowpeak_Ruins_Ordon_Goat_Cheese = 0xF5,
         Snowpeak_Ruins_Bedroom_Key = 0xF6,
 
-        /*Shield?	=	0xF7,*/
+        /*Surfboard UNUSED = 0xF7,*/
         Got_Lantern_Back = 0xF8,
         Goron_Mines_Key_Shard = 0xF9,
         Goron_Mines_Key_Shard_Second = 0xFA,
@@ -285,13 +287,26 @@ namespace TPRandomizer
 
         /*Key?	=	0xFC,*/
         Goron_Mines_Big_Key = 0xFD,
-        Coro_Key = 0xFE,
-        Gives_Vanilla = 0xFF
+        Faron_Woods_Coro_Key = 0xFE,
+        Gives_Vanilla = 0xFF,
+
+        // Event items. These are not items that the player can "collect" but are used to specify major events that affect logical progression.
+        Diababa_Defeated,
+        Fyrus_Defeated,
+        Morpheel_Defeated,
+        Stallord_Defeated,
+        Blizzeta_Defeated,
+        Armogohma_Defeated,
+        Argorok_Defeated,
+        Zant_Defeated,
+        Ganondorf_Defeated,
     };
 
     public class ItemFunctions
     {
         public List<Item> RandomizedImportantItems = new();
+
+        public List<Item> RandomizedImportantItemsStatic = new(); // A copy of the randomized important items to be read and referenced.
         public List<Item> StartingItems = new(); // Any items that the player starts with as selected by the gui.
         public List<Item> RandomizedDungeonRegionItems = new(); // Items that are shuffled among dungeons.
         public List<Item> JunkItems = new(); // Extra junk items that are put in the pool if there are checks left and all items have been placed..
@@ -325,6 +340,40 @@ namespace TPRandomizer
                 Item.Horse_Call,
             };
 
+        public List<Item> BossItems =
+            new()
+            {
+                Item.Diababa_Defeated,
+                Item.Fyrus_Defeated,
+                Item.Morpheel_Defeated,
+                Item.Stallord_Defeated,
+                Item.Blizzeta_Defeated,
+                Item.Armogohma_Defeated,
+                Item.Argorok_Defeated,
+                Item.Zant_Defeated,
+                Item.Ganondorf_Defeated
+            };
+
+        public List<Item> PortalItems =
+            new()
+            {
+                Item.Ordon_Portal,
+                Item.South_Faron_Portal,
+                Item.North_Faron_Portal,
+                Item.Kakariko_Gorge_Portal,
+                Item.Kakariko_Village_Portal,
+                Item.Death_Mountain_Portal,
+                Item.Castle_Town_Portal,
+                Item.Zoras_Domain_Portal,
+                Item.Lake_Hylia_Portal,
+                Item.Gerudo_Desert_Portal,
+                Item.Mirror_Chamber_Portal,
+                Item.Snowpeak_Portal,
+                Item.Sacred_Grove_Portal,
+                Item.Bridge_of_Eldin_Portal,
+                Item.Upper_Zoras_River_Portal,
+            };
+
         public List<Item> ShuffledDungeonRewards = new();
         internal List<Item> VanillaDungeonRewards =
             new()
@@ -335,14 +384,12 @@ namespace TPRandomizer
                 Item.Progressive_Mirror_Shard,
                 Item.Progressive_Mirror_Shard,
                 Item.Progressive_Mirror_Shard,
-                Item.Progressive_Mirror_Shard
+                Item.Progressive_Mirror_Shard,
             };
 
         internal List<Item> RegionSmallKeys =
             new()
             {
-                Item.Gerudo_Desert_Bulblin_Camp_Key,
-                Item.North_Faron_Woods_Gate_Key,
                 Item.Forest_Temple_Small_Key,
                 Item.Forest_Temple_Small_Key,
                 Item.Forest_Temple_Small_Key,
@@ -491,6 +538,9 @@ namespace TPRandomizer
                 Item.Ilias_Charm,
                 Item.Horse_Call,
                 Item.Gate_Keys,
+                Item.Gerudo_Desert_Bulblin_Camp_Key,
+                Item.North_Faron_Woods_Gate_Key,
+                Item.Faron_Woods_Coro_Key,
                 Item.Empty_Bottle,
                 Item.Sera_Bottle,
                 Item.Coro_Bottle,
@@ -536,11 +586,8 @@ namespace TPRandomizer
                 Item.Female_Snail,
             };
 
-        /// <summary>
-        /// summary text.
-        /// </summary>
-        public List<Item> alwaysItems =
-            new() // Items from the vanilla pool that are guaranteed to be in every seed
+        public List<Item> healthItems =
+            new()
             {
                 Item.Piece_of_Heart,
                 Item.Piece_of_Heart,
@@ -595,6 +642,14 @@ namespace TPRandomizer
                 Item.Heart_Container,
                 Item.Heart_Container,
                 Item.Heart_Container,
+            };
+
+        /// <summary>
+        /// summary text.
+        /// </summary>
+        public List<Item> alwaysItems =
+            new() // Items from the vanilla pool that are guaranteed to be in every seed
+            {
                 Item.Purple_Rupee_Links_House,
                 Item.Green_Rupee,
                 Item.Green_Rupee,
@@ -723,7 +778,17 @@ namespace TPRandomizer
                 Item.Purple_Rupee,
                 Item.Purple_Rupee,
                 Item.Purple_Rupee,
-                Item.Purple_Rupee
+                Item.Purple_Rupee,
+            };
+
+        public static List<Item> ToTSwordRequirements =
+            new()
+            {
+                Item.Gives_Vanilla,
+                Item.Progressive_Sword,
+                Item.Ordon_Sword,
+                Item.Master_Sword,
+                Item.Master_Sword_Light,
             };
 
         // Mutates inputList
@@ -775,6 +840,18 @@ namespace TPRandomizer
         public void GenerateItemPool()
         {
             SharedSettings parseSetting = Randomizer.SSettings;
+            // Reset startingItems and other lists to prevent them from getting extra copies while
+            // emulating playthroughs. This is critical to avoid a memory leak when doing many
+            // playthroughs during conditionallyRequired calculations.
+            parseSetting.startingItems = new(Randomizer.origSSettingsStartingItems);
+
+            Randomizer.Items.RandomizedImportantItems = new();
+            Randomizer.Items.RandomizedImportantItemsStatic = new();
+            Randomizer.Items.RandomizedDungeonRegionItems = new();
+            Randomizer.Items.JunkItems = new();
+            Randomizer.Items.BaseItemPool = new();
+            Randomizer.Items.ShuffledDungeonRewards = new();
+
             Randomizer.Items.RandomizedImportantItems.AddRange(this.ImportantItems);
             Randomizer.Items.ShuffledDungeonRewards.AddRange(this.VanillaDungeonRewards);
 
@@ -801,6 +878,14 @@ namespace TPRandomizer
             else if (parseSetting.smallKeySettings == SmallKeySettings.Keysy)
             {
                 this.RandomizedImportantItems.Remove(Item.Gate_Keys);
+                parseSetting.startingItems.Add(Item.Gate_Keys);
+                this.RandomizedImportantItems.Remove(Item.Gerudo_Desert_Bulblin_Camp_Key);
+                parseSetting.startingItems.Add(Item.Gerudo_Desert_Bulblin_Camp_Key);
+                this.RandomizedImportantItems.Remove(Item.North_Faron_Woods_Gate_Key);
+                parseSetting.startingItems.Add(Item.North_Faron_Woods_Gate_Key);
+                this.RandomizedImportantItems.Remove(Item.Faron_Woods_Coro_Key);
+                parseSetting.startingItems.Add(Item.Faron_Woods_Coro_Key);
+                parseSetting.startingItems.AddRange(this.RegionSmallKeys);
             }
 
             // Check Big Key Settings before adding them to the pool
@@ -815,6 +900,14 @@ namespace TPRandomizer
             {
                 this.RandomizedImportantItems.AddRange(this.DungeonBigKeys);
             }
+            else if (parseSetting.bigKeySettings == BigKeySettings.Keysy)
+            {
+                parseSetting.startingItems.AddRange(this.DungeonBigKeys);
+                if (parseSetting.castleBKRequirements != CastleBKRequirements.None)
+                {
+                    parseSetting.startingItems.Remove(Item.Hyrule_Castle_Big_Key);
+                }
+            }
 
             // Check Map and Compass settings before adding to pool
             if (
@@ -827,6 +920,28 @@ namespace TPRandomizer
             else if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Anywhere)
             {
                 this.RandomizedImportantItems.AddRange(this.DungeonMapsAndCompasses);
+            }
+            else if (parseSetting.mapAndCompassSettings == MapAndCompassSettings.Start_With)
+            {
+                parseSetting.startingItems.AddRange(this.DungeonMapsAndCompasses);
+            }
+
+            // Handle Castle settings
+            if (
+                (parseSetting.castleBKRequirements == CastleBKRequirements.Hearts)
+                || (parseSetting.castleRequirements == CastleRequirements.Hearts)
+            )
+            {
+                Randomizer.Items.RandomizedImportantItems.AddRange(this.healthItems);
+            }
+            else
+            {
+                Randomizer.Items.alwaysItems.AddRange(this.healthItems);
+            }
+
+            if (parseSetting.castleBKRequirements != CastleBKRequirements.None)
+            {
+                RemoveItem(Item.Hyrule_Castle_Big_Key);
             }
 
             // Modifying Item Pool based on ice trap settings
@@ -873,21 +988,34 @@ namespace TPRandomizer
                 // Include as few items as possible.
                 case ItemScarcity.Minimal:
                 {
-                    // Note we leave in the empty bottle since it shows up in
-                    // the `Faron Field.jsonc` file. It might be required in
-                    // Entrance Rando at some point, so leaving it in for now.
+                    // Note we leave in the empty bottle since it shows up in the `Faron
+                    // Field.jsonc` file. It might be required in Entrance Rando at some point, so
+                    // leaving it in for now.
+
+                    // Remove extra bottles
+                    updateItemToCount(RandomizedImportantItems, Item.Coro_Bottle, 0);
+                    updateItemToCount(RandomizedImportantItems, Item.Jovani_Bottle, 0);
+                    if (
+                        !parseSetting.bonksDoDamage
+                        || parseSetting.damageMagnification != DamageMagnification.OHKO
+                    )
+                    {
+                        // Only remove this bottle if OHKO bonks not turned on. Otherwise we need 2
+                        // bottles to be available for fairies for the Ordon Shield check.
+                        updateItemToCount(RandomizedImportantItems, Item.Sera_Bottle, 0);
+                    }
 
                     // Update alwaysItems
                     HashSet<Item> alwaysItemsToRemove =
                         new()
                         {
-                            Item.Heart_Container,
-                            Item.Piece_of_Heart,
-                            Item.Sera_Bottle,
-                            Item.Coro_Bottle,
-                            Item.Jovani_Bottle,
                             Item.Hawkeye,
                             Item.Giant_Bomb_Bag,
+                            // Note: the hearts are only filtered out when not required by HC
+                            // settings. If required, they are in RandomizedImportantItems and not
+                            // alwaysItems.
+                            Item.Heart_Container,
+                            Item.Piece_of_Heart,
                         };
 
                     // Filter out certain items
@@ -936,11 +1064,14 @@ namespace TPRandomizer
 
                     // If wallet size is not increased, we need to be able to
                     // find 1 wallet so we can afford the magic armor check.
-                    updateItemToCount(
-                        RandomizedImportantItems,
-                        Item.Progressive_Wallet,
-                        Randomizer.SSettings.increaseWallet ? 0 : 1
-                    );
+                    if (Randomizer.SSettings.walletSize == WalletSize.Vanilla)
+                    {
+                        updateItemToCount(RandomizedImportantItems, Item.Progressive_Wallet, 1);
+                    }
+                    else if (Randomizer.SSettings.walletSize >= WalletSize.HD)
+                    {
+                        updateItemToCount(RandomizedImportantItems, Item.Progressive_Wallet, 0);
+                    }
 
                     break;
                 }
@@ -981,6 +1112,7 @@ namespace TPRandomizer
                             Item.Progressive_Dominion_Rod,
                             Item.Progressive_Sky_Book,
                             Item.Gate_Keys,
+                            Item.Gerudo_Desert_Bulblin_Camp_Key,
                             Item.Empty_Bottle,
                             Item.Progressive_Hidden_Skill,
                             Item.Magic_Armor,
@@ -1030,16 +1162,38 @@ namespace TPRandomizer
 
                     default:
                     {
-                        Console.WriteLine("remove " + item.ToString());
+                        // Console.WriteLine("remove " + item.ToString());
                         RemoveItem(item);
                         break;
                     }
                 }
             }
 
-            if (parseSetting.skipPrologue)
+            // Handle portals
+            parseSetting.startingItems.Add(Item.Ordon_Portal);
+            if (parseSetting.faronTwilightCleared)
             {
-                RemoveItem(Item.North_Faron_Woods_Gate_Key);
+                parseSetting.startingItems.Add(Item.South_Faron_Portal);
+                parseSetting.startingItems.Add(Item.North_Faron_Portal);
+            }
+
+            if (parseSetting.eldinTwilightCleared)
+            {
+                parseSetting.startingItems.Add(Item.Kakariko_Gorge_Portal);
+                parseSetting.startingItems.Add(Item.Kakariko_Village_Portal);
+                parseSetting.startingItems.Add(Item.Death_Mountain_Portal);
+            }
+
+            if (parseSetting.lanayruTwilightCleared)
+            {
+                parseSetting.startingItems.Add(Item.Zoras_Domain_Portal);
+                parseSetting.startingItems.Add(Item.Lake_Hylia_Portal);
+                parseSetting.startingItems.Add(Item.Castle_Town_Portal);
+            }
+
+            if (parseSetting.skipSnowpeakEntrance)
+            {
+                parseSetting.startingItems.Add(Item.Snowpeak_Portal);
             }
 
             // Remove the bulblin camp key from the item pool if we have the setting to skip Bulblin Camp enabled.
@@ -1051,10 +1205,8 @@ namespace TPRandomizer
             //
             if (parseSetting.skipCityEntrance)
             {
-                for (int i = 0; i < 7; i++)
-                {
-                    RemoveItem(Item.Progressive_Sky_Book);
-                }
+                // We still need a skybook for Shad
+                updateItemToCount(RandomizedImportantItems, Item.Progressive_Sky_Book, 1);
             }
 
             foreach (Item startingItem in parseSetting.startingItems)
@@ -1065,6 +1217,7 @@ namespace TPRandomizer
             Randomizer.Items.BaseItemPool.AddRange(this.ShuffledDungeonRewards);
             Randomizer.Items.BaseItemPool.AddRange(this.RandomizedImportantItems);
             Randomizer.Items.BaseItemPool.AddRange(this.RandomizedDungeonRegionItems);
+            Randomizer.Items.RandomizedImportantItemsStatic.AddRange(this.RandomizedImportantItems);
             // Adjust Poe souls for BaseItemPool to match calculated value
             updateItemToCount(Randomizer.Items.BaseItemPool, Item.Poe_Soul, numPoesForBaseItemPool);
             return;
@@ -1078,7 +1231,7 @@ namespace TPRandomizer
                     RandomizedImportantItems,
                     alwaysItems,
                     RandomizedDungeonRegionItems,
-                    ShuffledDungeonRewards
+                    ShuffledDungeonRewards,
                 };
 
             for (int i = 0; i < lists.Count; i++)
@@ -1118,7 +1271,7 @@ namespace TPRandomizer
                     { "Agitha Male Phasmid Reward", Item.Male_Phasmid },
                     { "Agitha Male Pill Bug Reward", Item.Male_Pill_Bug },
                     { "Agitha Male Snail Reward", Item.Male_Snail },
-                    { "Agitha Male Stag Beetle Reward", Item.Male_Stag_Beetle }
+                    { "Agitha Male Stag Beetle Reward", Item.Male_Stag_Beetle },
                 };
 
             foreach (string excludedCheckName in sSettings.excludedChecks)

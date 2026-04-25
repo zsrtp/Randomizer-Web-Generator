@@ -1,0 +1,17 @@
+[info]
+game-name = "tpr"
+full-game-name = "Twilight Princess Randomizer"
+developer-name = "Twilight Princess Community"
+full-developer-name = "Speedrun Community"
+
+[src]
+iso = ""
+patch = "patch.asm"
+
+[build]
+iso = ""
+
+[files]
+"mod/mod.rel" = "mod.rel"
+"mod/boot.rel" = "boot.rel"
+"mod/seed.bin" = "seed.bin"

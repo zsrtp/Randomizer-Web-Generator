@@ -1,5 +1,0 @@
-{
-    "requirements": "CanDefeatBabaSerpent and CanDefeatBigBaba and (Progressive_Clawshot, 2)",
-    "checkCategory": ["Chest", "Dungeon", "City in The Sky", "ARC"],
-    "itemId": "Yellow_Rupee"
-}

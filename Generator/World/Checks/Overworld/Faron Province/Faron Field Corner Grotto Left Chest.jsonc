@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Faron Province", "DZX"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Faron Province"],
     "itemId": "Red_Rupee"
 }

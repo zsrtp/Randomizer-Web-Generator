@@ -1,0 +1,516 @@
+{
+  // Season 2 distribution
+  "starting": {
+    "spot": "midna",
+    "excludeFromGroups": true
+  },
+  "agitha": true,
+  "jovani": {
+    "minFoundSoulsForHint": 10,
+    "maxFoundSoulsForVagueItem": 20
+  },
+  "caveOfOrdeals": true,
+  "dungeons": {
+    "bigKeyHints": true
+  },
+  "beyondPointZones": ["alias:all"],
+  "barren": {
+    "monopolizeSpots": true,
+    "ownZoneShowsAsJunkHint": true
+  },
+  "always": {
+    "monopolizeSpots": true,
+    "idealNumSpots": 5,
+    "copies": 2,
+    "groupId": "overworld"
+  },
+  //
+  "addChecks": {
+    "Lake Hylia Shell Blade Grotto Chest": ["always"],
+    "Castle Town Malo Mart Magic Armor": ["always"],
+    "Doctors Office Balcony Chest": ["sometimes"],
+    "Sacred Grove Past Owl Statue Chest": ["sometimes"],
+    "Sacred Grove Baba Serpent Grotto Chest": ["sometimes"]
+  },
+  "removeChecks": {
+    "Palace of Twilight Collect Both Sols": ["always"],
+    "Herding Goats Reward": ["sometimes"],
+    "Wrestling With Bo": ["sometimes"],
+    "Zoras Domain Extinguish All Torches Chest": ["sometimes"],
+    "Zoras Domain Light All Torches Chest": ["sometimes"],
+    "Eldin Spring Underwater Chest": ["sometimes"],
+    "Lake Hylia Underwater Chest": ["sometimes"],
+    "Arbiters Grounds Death Sword Chest": ["sometimes"],
+    "City in The Sky Aeralfos Chest": ["sometimes"]
+  },
+  "removeItems": {
+    "Progressive_Sword": ["sometimes"]
+  },
+  //
+  "groups": {
+    "overworld": ["alias:overworldZones", "-snowpeakmountain"],
+    "overworld2nd": ["alias:overworldZones", "-snowpeakmountain", "-ordon"],
+    "requiredDungeons": ["alias:requiredDungeons"]
+  },
+  // Special hints generated right after Always hints are generated. These are
+  // created even if the dungeon is hinted barren or the check is already hinted
+  // barren by a BeyondThisPoint hint.
+  "specialHintDefs": [
+    {
+      "spot": "ordon_sign",
+      "hintDef": [
+        {
+          "selectionType": "randomOrder",
+          "hintDef": [
+            {
+              "hintType": "location",
+              "weight": 2,
+              "options": {
+                "validChecks": ["Wrestling With Bo"],
+                "validStatuses": ["bad"]
+              }
+            },
+            {
+              "hintType": "location",
+              "weight": 1,
+              "options": {
+                "validChecks": ["Herding Goats Reward"],
+                "validStatuses": ["bad"]
+              }
+            }
+          ]
+        },
+        {
+          "selectionType": "randomOrder",
+          "hintDef": [
+            {
+              "hintType": "location",
+              "weight": 2,
+              "options": {
+                "validChecks": ["Wrestling With Bo"]
+              }
+            },
+            {
+              "hintType": "location",
+              "weight": 1,
+              "options": {
+                "validChecks": ["Herding Goats Reward"]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spot": "forest_temple_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "canBeClaimHinted": true,
+          "validChecks": ["Forest Temple Gale Boomerang"]
+        }
+      }
+    },
+    {
+      "spot": "snowpeak_ruins_sign",
+      "hintDef": {
+        "maxPicks": 1,
+        "hintDef": [
+          {
+            "hintType": "location",
+            "options": {
+              "canBeClaimHinted": true,
+              "validChecks": [
+                "Snowpeak Ruins Chapel Chest",
+                "Snowpeak Ruins Lobby Chandelier Chest",
+                "Snowpeak Ruins Northeast Chandelier Chest"
+              ],
+              "validItems": ["Snowpeak_Ruins_Bedroom_Key"]
+            }
+          },
+          {
+            "hintType": "location",
+            "options": {
+              "canBeClaimHinted": true,
+              "validChecks": [
+                "Snowpeak Ruins Chapel Chest",
+                "Snowpeak Ruins Lobby Chandelier Chest",
+                "Snowpeak Ruins Northeast Chandelier Chest"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "spot": "temple_of_time_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "canBeClaimHinted": true,
+          "validChecks": ["Temple of Time Darknut Chest"]
+        }
+      }
+    },
+    {
+      "spot": "palace_of_twilight_sign",
+      "hintDef": {
+        "hintType": "location",
+        "options": {
+          "canBeClaimHinted": true,
+          "checkStatusDisplay": "required_info",
+          "validChecks": ["Palace of Twilight Collect Both Sols"]
+        }
+      }
+    },
+    {
+      "spot": "hyrule_castle_sign",
+      "hintDef": {
+        "hintType": "item",
+        "options": {
+          "validItems": ["Purple_Rupee_Links_House"],
+          "areaType": "zone"
+        }
+      }
+    }
+  ],
+  "hints": [
+    {
+      "groupId": "overworld",
+      "hintDef": {
+        "copies": 2,
+        "hintDef": [
+          {
+            "hintDef": [
+              {
+                "maxPicks": 4,
+                "hintDef": [
+                  {
+                    "hintType": "barren",
+                    "iterations": 1,
+                    "starting": 1,
+                    "options": {
+                      "validAreas": [
+                        "Forest Temple",
+                        "Goron Mines",
+                        "Lakebed Temple",
+                        "Arbiter's Grounds",
+                        "Snowpeak Ruins",
+                        "Temple of Time",
+                        "City in the Sky",
+                        "Palace of Twilight",
+                        "Hyrule Castle"
+                      ]
+                    }
+                  },
+                  {
+                    "hintType": "barren",
+                    "iterations": 4,
+                    "starting": 4,
+                    "saveToVar": "barrenHints",
+                    "options": {
+                      "validAreas": ["alias:overworldZones"]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            // Prioritizes hinting importance counts 1,2,3 with slight
+            // preference for 1. Falls back to any count, but for S2 this is
+            // basically guaranteed not to happen.
+            "maxPicks": 1,
+            "hintDef": [
+              {
+                "selectionType": "randomOrder",
+                "hintDef": [
+                  {
+                    "hintType": "importanceCount",
+                    "saveToVar": "firstLayerIcHint",
+                    "weight": 0.4,
+                    "options": {
+                      "indicateImportant": false,
+                      "allowedCounts": [1],
+                      "validAreas": [
+                        "Sacred Grove",
+                        "Kakariko Gorge",
+                        "Kakariko Village",
+                        "Kakariko Graveyard",
+                        "Lanayru Field",
+                        "Beside Castle Town",
+                        "Great Bridge of Hylia",
+                        "Lanayru Spring",
+                        "Zora's Domain",
+                        "Gerudo Desert",
+                        "Hyrule Castle"
+                      ]
+                    }
+                  },
+                  {
+                    "hintType": "importanceCount",
+                    "saveToVar": "firstLayerIcHint",
+                    "weight": 0.3,
+                    "options": {
+                      "indicateImportant": false,
+                      "allowedCounts": [2],
+                      "validAreas": [
+                        "Sacred Grove",
+                        "Kakariko Gorge",
+                        "Kakariko Village",
+                        "Kakariko Graveyard",
+                        "Lanayru Field",
+                        "Beside Castle Town",
+                        "Great Bridge of Hylia",
+                        "Lanayru Spring",
+                        "Zora's Domain",
+                        "Gerudo Desert",
+                        "Hyrule Castle"
+                      ]
+                    }
+                  },
+                  {
+                    "hintType": "importanceCount",
+                    "saveToVar": "firstLayerIcHint",
+                    "weight": 0.3,
+                    "options": {
+                      "indicateImportant": false,
+                      "allowedCounts": [3],
+                      "validAreas": [
+                        "Sacred Grove",
+                        "Kakariko Gorge",
+                        "Kakariko Village",
+                        "Kakariko Graveyard",
+                        "Lanayru Field",
+                        "Beside Castle Town",
+                        "Great Bridge of Hylia",
+                        "Lanayru Spring",
+                        "Zora's Domain",
+                        "Gerudo Desert",
+                        "Hyrule Castle"
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "hintType": "importanceCount",
+                "saveToVar": "firstLayerIcHint",
+                "options": {
+                  "indicateImportant": false,
+                  "validAreas": [
+                    "Sacred Grove",
+                    "Kakariko Gorge",
+                    "Kakariko Village",
+                    "Kakariko Graveyard",
+                    "Lanayru Field",
+                    "Beside Castle Town",
+                    "Great Bridge of Hylia",
+                    "Lanayru Spring",
+                    "Zora's Domain",
+                    "Gerudo Desert",
+                    "Hyrule Castle"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            // Generates at most 3 hints at 1 copy each, then fills using var
+            // until 6 hint copies total.
+            "maxPicks": 6,
+            "hintDef": [
+              {
+                "maxPicks": 3,
+                "copies": 1,
+                "saveToVar": "firstLayerPathHints",
+                "hintDef": [
+                  {
+                    "maxPicks": 1,
+                    "hintDef": [
+                      {
+                        "hintType": "path",
+                        "options": {
+                          "validItems": ["Spinner"],
+                          "validGoals": ["Ganondorf"]
+                        }
+                      },
+                      {
+                        "hintType": "path",
+                        "options": {
+                          "invalidItems": ["Progressive_Sword"],
+                          "validGoals": ["Ganondorf"]
+                        }
+                      },
+                      {
+                        "hintType": "itemToItemPath"
+                      }
+                    ]
+                  },
+                  {
+                    "hintType": "path",
+                    "iterations": 3,
+                    "options": {
+                      "invalidItems": ["Progressive_Sword"],
+                      // Each goal hinted at most once.
+                      "unhintedGoalsOnly": true,
+                      "validGoals": [
+                        "Diababa",
+                        "Fyrus",
+                        "Morpheel",
+                        "Stallord",
+                        "Blizzeta",
+                        "Armogohma",
+                        "Argorok",
+                        "Zant"
+                      ]
+                    }
+                  }
+                ]
+              },
+              // Fill in with extra path hint copies until we have the base 6
+              // copies.
+              {
+                "hintType": "var",
+                "copies": 1,
+                "iterations": 99,
+                "options": {
+                  "varName": "firstLayerPathHints",
+                  "randomOrder": true
+                }
+              }
+            ]
+          },
+          {
+            "hintType": "numItemInArea",
+            "options": {
+              "item": "Progressive_Sword",
+              "areaType": "province",
+              "validAreas": ["Dungeon"]
+            }
+          },
+          // Fill layer with extra copies of the IC hint and path hints. Order
+          // not random so we do an extra IC hint before the sometimes.
+          {
+            "copies": 1,
+            "iterations": 99,
+            "hintDef": [
+              {
+                "hintType": "var",
+                "options": {
+                  "varName": "firstLayerIcHint"
+                }
+              },
+              {
+                "hintType": "var",
+                "iterations": 3,
+                "options": {
+                  "varName": "firstLayerPathHints",
+                  "randomOrder": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      // On required dungeon signs, hint a Ganondorf path and a Gale Boomerang
+      // hint if possible.
+      "groupId": "requiredDungeons",
+      "useFillerHints": false,
+      "hintDef": [
+        {
+          "maxPicks": 1,
+          "copies": 99,
+          "minCopies": 1,
+          "hintDef": [
+            {
+              "hintType": "item",
+              "options": {
+                "validItems": ["Boomerang"],
+                "validStatuses": ["bad"],
+                "allowKnownBarren": true,
+                "areaType": "zone",
+                "checkStatusDisplay": "required_info"
+              }
+            },
+            {
+              "hintType": "item",
+              "options": {
+                "validItems": ["Boomerang"],
+                "validStatuses": ["good"],
+                "invalidStatuses": ["required"],
+                "areaType": "province",
+                "checkStatusDisplay": "required_info"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      // 2nd layer is "sometimes" hints
+      "groupId": "overworld2nd",
+      "hintDef": {
+        "copies": 2,
+        "hintDef": [
+          {
+            "maxPicks": 5,
+            "hintDef": [
+              {
+                // Hint 1 dungeon sometimes
+                "hintDef": {
+                  "hintType": "location",
+                  "saveToVar": "2ndLayerDungeon",
+                  "options": {
+                    "markAsSometimes": true,
+                    "validChecks": [
+                      "Goron Mines Outside Clawshot Chest",
+                      "Lakebed Temple Deku Toad Chest",
+                      "Arbiters Grounds Death Sword Chest",
+                      "City in The Sky West Wing First Chest",
+                      "City in The Sky Aeralfos Chest",
+                      "Palace of Twilight Big Key Chest"
+                    ]
+                  }
+                }
+              },
+              {
+                "hintType": "sometimes",
+                "minCopies": 1,
+                "saveToVar": "2ndLayerSometimes",
+                "iterations": 99,
+                "options": {
+                  "prioritizeNewZones": true
+                }
+              }
+            ]
+          },
+          // Fill in layer with extra copies of the sometimes hints
+          // (prioritizing Dungeon).
+          {
+            "hintDef": [
+              {
+                "hintType": "var",
+                "copies": 1,
+                "options": {
+                  "varName": "2ndLayerDungeon"
+                }
+              },
+              {
+                "hintType": "var",
+                "copies": 1,
+                "iterations": 99,
+                "options": {
+                  "varName": "2ndLayerSometimes",
+                  "randomOrder": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

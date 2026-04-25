@@ -117,6 +117,82 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="menu.midna-base.option.something-else" xml:space="preserve">
+    <value>Etwas anderes</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-human" xml:space="preserve">
+    <value>Zum Menschen werden</value>
+    <comment>Note: removed periods from the ends of all of these options per recommendation of Lars P.</comment>
+  </data>
+  <data name="menu.midna-base.option.transform-into-wolf" xml:space="preserve">
+    <value>Zum Wolf werden</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-base.option.warp" xml:space="preserve">
+    <value>Warpen</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.body" xml:space="preserve">
+    <value>Was ist los?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.change-time-of-day" xml:space="preserve">
+    <value>Tageszeit ändern</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.hints" xml:space="preserve">
+    <value>Hinweise</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-other.option.return-to-spawn" xml:space="preserve">
+    <value>Zum Spawn zurückkehren</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.body" xml:space="preserve">
+    <value>Ich kann dich von hier wegbringen. Aber bist du auch sicher, dass du nichts vergessen hast?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.not-yet" xml:space="preserve">
+    <value>Noch nicht</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-confirm.option.ready" xml:space="preserve">
+    <value>Wir können gehen</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.body" xml:space="preserve">
+    <value>Ich kann dich von hier wegbringen. Wo willst du hin?</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.cancel" xml:space="preserve">
+    <value>Doch nichts</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.dungeon" xml:space="preserve">
+    <value>Dungeon-Eingang</value>
+    <comment></comment>
+  </data>
+  <data name="menu.midna-rts-dungeon.option.spawn" xml:space="preserve">
+    <value>Spawn</value>
+    <comment>Intentionally still Spawn</comment>
+  </data>
+  <data name="midna.dungeon-entrances" xml:space="preserve">
+    <value>Das hier wissen wir bereits über die Dungeon-Eingänge:\n#(red)(Eingang #(thin-right-arrow) Dungeon)</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons" xml:space="preserve">
+    <value>Es ist #(red)1#(white) Dungeon erforderlich:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#other" xml:space="preserve">
+    <value>Es sind #(red){count}#(white) Dungeons erforderlich:</value>
+    <comment></comment>
+  </data>
+  <data name="midna.required-dungeons#zero" xml:space="preserve">
+    <value>Es ist kein Dungeon erforderlich.</value>
+    <comment></comment>
+  </data>
   <data name="required-dungeon.arbiters-grounds" xml:space="preserve">
     <value>Wüstenburg</value>
     <comment></comment>
@@ -131,6 +207,10 @@
   </data>
   <data name="required-dungeon.goron-mines" xml:space="preserve">
     <value>Mine der Goronen</value>
+    <comment></comment>
+  </data>
+  <data name="required-dungeon.hyrule-castle" xml:space="preserve">
+    <value>Schloss Hyrule</value>
     <comment></comment>
   </data>
   <data name="required-dungeon.lakebed-temple" xml:space="preserve">

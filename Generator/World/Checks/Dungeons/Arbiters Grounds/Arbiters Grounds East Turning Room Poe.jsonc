@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal and (Progressive_Clawshot, 1)",
+    "glitchedRequirements": "Shadow_Crystal and (Progressive_Clawshot, 1)",
     "checkCategory": ["Dungeon", "Poe", "Arbiters Grounds"],
     "itemId": "Poe_Soul"
 }

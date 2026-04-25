@@ -1,5 +1,7 @@
 {
     "requirements": "CanDefeatAeralfos and (Progressive_Clawshot, 1) and Iron_Boots and CanDefeatDinalfos and CanDefeatTileWorm",
+    // You can equip Irons mid-air to bypass the tile worms
+    "glitchedRequirements": "CanDefeatAeralfos and (Progressive_Clawshot, 1) and Iron_Boots and CanDefeatDinalfos",
     "checkCategory": ["Chest", "Dungeon", "City in The Sky", "ARC"],
     "itemId": "Progressive_Clawshot"
 }

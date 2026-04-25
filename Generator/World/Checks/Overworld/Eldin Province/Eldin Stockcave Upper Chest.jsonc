@@ -1,5 +1,6 @@
 {
     "requirements": "Iron_Boots",
-    "checkCategory": ["Overworld", "Chest", "Eldin Stockcave", "ARC"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Chest", "Eldin Stockcave"],
     "itemId": "Red_Rupee"
 }

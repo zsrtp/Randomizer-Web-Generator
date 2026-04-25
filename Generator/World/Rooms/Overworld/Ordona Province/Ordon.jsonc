@@ -1,19 +1,21 @@
 [
   {
     "RoomName": "Outside Links House",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Ordon Village",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Spring",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Links House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -21,116 +23,146 @@
   },
   {
     "RoomName": "Ordon Links House",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Outside Links House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Wooden Sword Chest",
-        "Links Basement Chest"
-    ],
+    "Checks": ["Wooden Sword Chest", "Links Basement Chest"],
     "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Village",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Outside Links House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Ranch Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Seras Shop",
-        "Requirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
-        "ConnectedArea": "Ordon Shield House",
-        "Requirements": "CanChangeTime"
+        "ConnectedArea": "Ordon Shield House Lower",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Sword House",
-        "Requirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Bos House Left Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Bos House Right Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Uli Cradle Delivery"
+    "Checks": [
+      "Ordon Bo Cliff Rupee",
+      "Ordon Bo Roof Rupee",
+      "Ordon Bo Window Rupee 1",
+      "Ordon Bo Window Rupee 2",
+      "Ordon Hidden Rusl House Rupee",
+      "Ordon Rupee In Grass By Bo",
+      "Ordon Rupee In River 1",
+      "Ordon Rupee In River 2",
+      "Ordon Rupee Under Bridge",
+      "Ordon Rupee Under Tall Tree 1",
+      "Ordon Rupee Under Tall Tree 2",
+      "Ordon Rusl House Roof Rupee 1",
+      "Ordon Rusl House Roof Rupee 2",
+      "Ordon Shield House Ledge Grass Rupee",
+      "Ordon Tree Long Branch Rupee",
+      "Ordon Tree Short Branch Rupee",
+      "Uli Cradle Delivery"
     ],
     "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Seras Shop",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Ordon Village",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Ordon Cat Rescue",
-        "Sera Shop Slingshot"
-    ],
+    "Checks": ["Ordon Cat Rescue", "Sera Shop Slingshot"],
     "Region": "Ordona Province"
   },
   {
-    "RoomName": "Ordon Shield House",
-    "Exits":
-    [
+    "RoomName": "Ordon Shield House Lower",
+    "Exits": [
       {
         "ConnectedArea": "Ordon Village",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Ordon Shield House Upper",
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
-    "Checks":
-    [
-        "Ordon Shield"
+    "Checks": [""],
+    "Region": "Ordon Village"
+  },
+  {
+    "RoomName": "Ordon Shield House Upper",
+    "Exits": [
+      {
+        "ConnectedArea": "Ordon Shield House Lower",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Ordon Village",
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
+      }
     ],
+    "Checks": ["Ordon Shield"],
     "Region": "Ordon Village"
   },
   {
     "RoomName": "Ordon Sword House",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Ordon Village",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Ordon Sword"
-    ],
+    "Checks": ["Ordon Sword"],
     "Region": "Ordon Village"
   },
   {
     "RoomName": "Ordon Bos House Left Door",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Ordon Village",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Bos House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -138,15 +170,16 @@
   },
   {
     "RoomName": "Ordon Bos House Right Door",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Ordon Village",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Bos House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -154,33 +187,33 @@
   },
   {
     "RoomName": "Ordon Bos House",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Ordon Bos House Left Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Bos House Right Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks": [
-        "Wrestling With Bo"
-    ],
+    "Checks": ["Wrestling With Bo"],
     "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Ranch Entrance",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Ordon Ranch",
-        "Requirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Village",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -188,34 +221,33 @@
   },
   {
     "RoomName": "Ordon Ranch",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Ordon Ranch Entrance",
-        "Requirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Ranch Stable",
-        "Requirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Herding Goats Reward"
-    ],
+    "Checks": ["Herding Goats Reward"],
     "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Ranch Stable",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Ordon Ranch",
-        "Requirements": "CanChangeTime"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Ranch Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
     "Checks": [""],
@@ -223,53 +255,49 @@
   },
   {
     "RoomName": "Ordon Ranch Grotto",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Ordon Ranch Stable",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Ordon Ranch Grotto Lantern Chest"
-    ],
+    "Checks": ["Ordon Ranch Grotto Lantern Chest"],
     "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Spring",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Outside Links House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Ordon Bridge",
-        "Requirements": "(Room.Outside_Links_House and HasSword and Slingshot) or (Setting.skipPrologue equals True)"
+        "Requirements": "(Room.Outside_Links_House and HasSword and Slingshot) or CanCompletePrologue",
+        // Gate clip
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [
-        "Ordon Spring Golden Wolf"
-    ],
+    "Checks": ["Ordon Spring Golden Wolf"],
     "Region": "Ordona Province"
   },
   {
     "RoomName": "Ordon Bridge",
-    "Exits":
-    [
+    "Exits": [
       {
         "ConnectedArea": "Ordon Spring",
-        "Requirements": "(Room.Outside_Links_House and HasSword and Slingshot) or (Setting.skipPrologue equals True)"
+        "Requirements": "(Room.Outside_Links_House and HasSword and Slingshot) or CanCompletePrologue",
+        "GlitchedRequirements": "(Room.Outside_Links_House and HasSword and Slingshot) or CanCompletePrologue"
       },
       {
         "ConnectedArea": "South Faron Woods",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks":
-    [],
+    "Checks": [],
     "Region": "Ordona Province"
   }
 ]

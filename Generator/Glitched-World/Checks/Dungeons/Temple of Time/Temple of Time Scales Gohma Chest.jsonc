@@ -1,5 +1,0 @@
-{
-    "requirements": "CanDefeatYoungGohma and CanDefeatBabyGohma",
-    "checkCategory": ["Chest", "Dungeon", "Temple of Time"],
-    "itemId": "Purple_Rupee"
-}

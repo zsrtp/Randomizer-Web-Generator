@@ -37,7 +37,7 @@ namespace TPRandomizer.Hints
             AreaId areaId,
             string checkName,
             GoalEnum goalEnum,
-            Dictionary<int, byte> itemPlacements = null
+            Dictionary<int, int> itemPlacements = null
         )
         {
             this.areaId = areaId;
@@ -47,7 +47,7 @@ namespace TPRandomizer.Hints
             CalcDerived(itemPlacements);
         }
 
-        private void CalcDerived(Dictionary<int, byte> itemPlacements)
+        private void CalcDerived(Dictionary<int, int> itemPlacements)
         {
             if (itemPlacements != null)
             {
@@ -59,6 +59,15 @@ namespace TPRandomizer.Hints
                 // When creating hint during generation
                 item = HintUtils.getCheckContents(checkName);
             }
+        }
+
+        public override void GetPreferHintBefore(
+            out HashSet<string> checkNames,
+            out HashSet<string> roomNames
+        )
+        {
+            checkNames = new() { checkName };
+            roomNames = null;
         }
 
         public override List<HintText> toHintTextList(CustomMsgData customMsgData)
@@ -122,7 +131,7 @@ namespace TPRandomizer.Hints
         public static PathHint decode(
             HintEncodingBitLengths bitLengths,
             BitsProcessor processor,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             AreaId areaId = AreaId.decode(bitLengths, processor);

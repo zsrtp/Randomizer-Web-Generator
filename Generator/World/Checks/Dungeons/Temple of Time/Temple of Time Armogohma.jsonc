@@ -1,0 +1,6 @@
+{
+    "requirements": "CanDefeatArmogohma",
+    "glitchedRequirements": "CanDefeatArmogohma",
+    "checkCategory": ["Dungeon", "Temple of Time"],
+    "itemId": "Armogohma_Defeated"
+}

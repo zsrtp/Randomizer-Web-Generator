@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatArgorok",
+    "glitchedRequirements": "CanDefeatArgorok",
     "checkCategory": ["Heart Container", "Dungeon", "City in The Sky", "Boss"],
     "itemId": "Heart_Container"
 }

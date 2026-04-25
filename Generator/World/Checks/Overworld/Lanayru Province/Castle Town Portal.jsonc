@@ -1,0 +1,6 @@
+{
+    "requirements": "true",
+    "glitchedRequirements": "true",
+    "checkCategory": ["Overworld", "Hyrule Field - Lanayru"],
+    "itemId": "Castle_Town_Portal"
+}

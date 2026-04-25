@@ -5,25 +5,34 @@
     [
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Fishing Hole",
-        "Requirements": "true"
+        "Requirements": "(Room.Zoras_Domain_Throne_Room and CanCompleteEldinTwilight) or CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "(Room.Zoras_Domain_Throne_Room and CanCompleteEldinTwilight) or CanCompleteLanayruTwilight"
       },
 	  {
 		  "ConnectedArea": "Zoras Domain",
-		  "Requirements": "true"
+		  "Requirements": "true",
+      "GlitchedRequirements": "true"
 	  },
       {
         "ConnectedArea": "Upper Zoras River Izas House",
-        "Requirements": "HasSword or (CanDefeatShadowBeast and (Setting.transformAnywhere equals True))"
+        "Requirements": "(HasSword or ((CanDefeatShadowBeast and (Setting.transformAnywhere equals True)) or Upper_Zoras_River_Portal)) and CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "(HasSword or ((CanDefeatShadowBeast and (Setting.transformAnywhere equals True)) or Upper_Zoras_River_Portal)) and CanCompleteLanayruTwilight"
       }
     ],
     "Checks":
     [
         "Upper Zoras River Female Dragonfly",
-        "Upper Zoras River Poe"
+        "Upper Zoras River Poe",
+        "Upper Zoras River Portal",
+        "Upper Zoras River East Underwater Boulder Rupee",
+        "Upper Zoras River Central Underwater Boulder Rupee",
+        "Upper Zoras River West Underwater Boulder Rupee",
+        "Upper Zoras River Ledge Boulder Rupee"
     ],
     "Region": "Zoras Domain"
   },
@@ -33,11 +42,13 @@
     [
       {
         "ConnectedArea": "Upper Zoras River",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Lake Hylia",
-        "Requirements": "(Progressive_Bow, 1)"
+        "Requirements": "(Progressive_Bow, 1)",
+        "GlitchedRequirements": "(Progressive_Bow, 1)"
       }
     ],
     "Checks":
@@ -53,16 +64,22 @@
     [
       {
         "ConnectedArea": "Upper Zoras River",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Fishing Hole House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Fishing Hole Piece of Heart",
+        "Requirements": "(Progressive_Clawshot, 1)",
+        "GlitchedRequirements": "(Progressive_Clawshot, 1)"
       }
     ],
     "Checks":
     [
-        "Fishing Hole Heart Piece",
         "Fishing Hole Bottle"
     ],
     "Region": "Zoras Domain"
@@ -73,10 +90,25 @@
     [
       {
         "ConnectedArea": "Fishing Hole",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Fishing Hole Piece of Heart",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Fishing Hole Piece of Heart",
+    "Exits": [],
+    "Checks":
+    [
+        "Fishing Hole Heart Piece"
+    ],
     "Region": "Zoras Domain"
   },
   {
@@ -85,19 +117,23 @@
     [
       {
         "ConnectedArea": "Zoras Domain West Ledge",
-        "Requirements": "(Progressive_Clawshot, 1) or Shadow_Crystal or canSmash"
+        "Requirements": "(Progressive_Clawshot, 1) or Shadow_Crystal or CanSmash",
+        "GlitchedRequirements": "(Progressive_Clawshot, 1) or Shadow_Crystal or CanSmash"
       },
       {
         "ConnectedArea": "Upper Zoras River",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
-        "ConnectedArea": "Zoras Throne Room",
-        "Requirements": "true"
+        "ConnectedArea": "Zoras Domain Top of Waterfall",
+        "Requirements": "CanWarpMeteor or Shadow_Crystal",
+        "GlitchedRequirements": "CanWarpMeteor or Shadow_Crystal"
       },
       {
-        "ConnectedArea": "Snowpeak Climb Lower",
-        "Requirements": "true"
+        "ConnectedArea": "Zoras Domain Snowpeak Entrance",
+        "Requirements": "((Room.Zoras_Domain_Throne_Room and CanCompleteEldinTwilight and Ball_and_Chain) or CanCompleteLanayruTwilight)",
+        "GlitchedRequirements": "((Room.Zoras_Domain_Throne_Room and CanCompleteEldinTwilight and Ball_and_Chain) or CanCompleteLanayruTwilight)"
       }
     ],
     "Checks":
@@ -106,8 +142,33 @@
         "Zoras Domain Chest Behind Waterfall",
         "Zoras Domain Male Dragonfly",
         "Zoras Domain Mother and Child Isle Poe",
-        "Zoras Domain Waterfall Poe"
+        "Zoras Domain Waterfall Poe",
+        "Zoras Domain Behind Waterfall Rupee",
+        "Zoras Domain Central Underwater Boulder Rupee",
+        "Zoras Domain North Underwater Boulder Rupee",
+        "Zoras Domain Shortcut Ledge Rupee",
+        "Zoras Domain Top Ledge Rupee",
+        "Zoras Domain Vine Ledge Rupee",
+        "Zoras Domain Waterfall Ledge Rupee"
     ],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Zoras Domain Snowpeak Entrance",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Zoras Domain",
+        "Requirements": "Ball_and_Chain or CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "Ball_and_Chain or CanCompleteLanayruTwilight"
+      },
+      {
+        "ConnectedArea": "Snowpeak Climb Lower",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      }
+    ],
+    "Checks": [""],
     "Region": "Zoras Domain"
   },
   {
@@ -116,30 +177,70 @@
     [
       {
         "ConnectedArea": "Zoras Domain",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Zoras Domain Top of Waterfall",
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "Lanayru Field Behind Boulder",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks": [""],
+    "Checks": 
+    [
+      
+      "Zoras Domain Shortcut Lower Boulder Rupee"
+    ],
     "Region": "Zoras Domain"
   },
   {
-    "RoomName": "Zoras Throne Room",
+    "RoomName": "Zoras Domain Throne Room",
     "Exits":
     [
       {
-        "ConnectedArea": "Zoras Domain",
-        "Requirements": "true"
+        "ConnectedArea": "Zoras Domain Top of Waterfall",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
     [
         "Zoras Domain Light All Torches Chest",
         "Zoras Domain Extinguish All Torches Chest",
-        "Zoras Domain Underwater Goron"
+        "Zoras Domain Underwater Goron",
+        "Zoras Domain Portal",
+        "Zoras Domain Throne East Gate Underwater Rupee",
+        "Zoras Domain Throne East Underwater Rupee",
+        "Zoras Domain Throne Northwest Underwater Rupee",
+        "Zoras Domain Throne South Underwater Rupee",
+        "Zoras Domain Throne West Gate Underwater Rupee",
+        "Zoras Domain Throne West Underwater Rupee",
+    ],
+    "Region": "Zoras Domain"
+  },
+  {
+    "RoomName": "Zoras Domain Top of Waterfall",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Zoras Domain",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Zoras Domain Throne Room",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      }
+    ],
+    "Checks": 
+    [
+      "Zoras Domain Shortcut Upper Boulder Rupee"
     ],
     "Region": "Zoras Domain"
   }

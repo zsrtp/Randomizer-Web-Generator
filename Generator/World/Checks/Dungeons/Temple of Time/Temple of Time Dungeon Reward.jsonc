@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatArmogohma",
-    "checkCategory": ["Dungeon", "Temple of Time", "Dungeon Reward", "REL", "ARC"],
+    "glitchedRequirements": "CanDefeatArmogohma",
+    "checkCategory": ["Dungeon", "Temple of Time", "Dungeon Reward"],
     "itemId": "Progressive_Mirror_Shard"
 }

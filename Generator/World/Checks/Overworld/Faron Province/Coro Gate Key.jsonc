@@ -1,0 +1,6 @@
+{
+    "requirements": "true",
+    "glitchedRequirements": "true",
+    "checkCategory": [ "Overworld", "Npc", "Faron Woods" ],
+    "itemId": "Faron_Woods_Coro_Key"
+  }

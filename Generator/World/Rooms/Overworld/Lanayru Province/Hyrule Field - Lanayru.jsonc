@@ -5,35 +5,43 @@
     [
       {
         "ConnectedArea": "Lanayru Field Cave Entrance",
-        "Requirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "Lanayru Field Behind Boulder",
-        "Requirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash or CanDoMapGlitch"
       },
       {
         "ConnectedArea": "Hyrule Field Near Spinner Rails",
-        "Requirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash or (CanDoMapGlitch and CanCompleteLanayruTwilight)"
       },
       {
         "ConnectedArea": "North Eldin Field",
-        "Requirements": "true"
+        "Requirements": "CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "CanCompleteLanayruTwilight"
       },
       {
         "ConnectedArea": "Outside Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Lanayru Field Chu Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal and CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "Shadow_Crystal and CanCompleteLanayruTwilight"
       },
       {
         "ConnectedArea": "Lanayru Field Skulltula Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal and CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "Shadow_Crystal and CanCompleteLanayruTwilight"
       },
       {
         "ConnectedArea": "Lanayru Field Poe Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal and CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "Shadow_Crystal and CanCompleteLanayruTwilight"
       }
     ],
     "Checks":
@@ -41,7 +49,11 @@
         "Lanayru Field Behind Gate Underwater Chest",
         "Lanayru Field Male Stag Beetle",
         "Lanayru Field Female Stag Beetle",
-        "Lanayru Field Bridge Poe"
+        "Lanayru Field Bridge Poe",
+        "Lanayru Field North Spinner Track Boulder Rupee",
+        "Lanayru Field North Underwater Boulder Rupee",
+        "Lanayru Field South Underwater Boulder Rupee",
+        "Lanayru Field Tree Boulder Rupee"
     ],
     "Region": "Hyrule Field - Lanayru Province"
   },
@@ -51,11 +63,13 @@
     [
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "Lanayru Ice Puzzle Cave",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -67,11 +81,13 @@
     [
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "Zoras Domain West Ledge",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -83,11 +99,13 @@
     [
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "Lake Hylia Bridge",
-        "Requirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       }
     ],
     "Checks":
@@ -102,7 +120,8 @@
     [
       {
         "ConnectedArea": "Lanayru Field Cave Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -117,7 +136,8 @@
     [
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -129,7 +149,8 @@
     [
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -144,7 +165,8 @@
     [
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -160,19 +182,23 @@
     [
       {
         "ConnectedArea": "Outside Castle Town West Grotto Ledge",
-        "Requirements": "(Progressive_Clawshot, 1)"
+        "Requirements": "(Progressive_Clawshot, 1)",
+        "GlitchedRequirements": "Shadow_Crystal and ((Progressive_Clawshot, 1) or CanDoMapGlitch)"
       },
       {
         "ConnectedArea": "Lanayru Field",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Lake Hylia Bridge",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -182,7 +208,10 @@
         "West Hyrule Field Male Butterfly",
         "West Hyrule Field Female Butterfly",
         "Hyrule Field Amphitheater Poe",
-        "West Hyrule Field Golden Wolf"
+        "West Hyrule Field Golden Wolf",
+        "Castle Town Portal",
+        "West Hyrule Field Northern Boulder Rupee",
+        "West Hyrule Field Southern Boulder Rupee"
     ],
     "Region": "Hyrule Field - Lanayru Province"
   },
@@ -192,11 +221,13 @@
     [
       {
         "ConnectedArea": "Outside Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Outside Castle Town West Helmasaur Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
     "Checks": [""],
@@ -208,7 +239,8 @@
     [
       {
         "ConnectedArea": "Outside Castle Town West Grotto Ledge",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -223,11 +255,13 @@
     [
       {
         "ConnectedArea": "Eldin Field Near Castle Town",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -241,20 +275,25 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        // The people blocking the way in the twilight are a one-way entrance.
+        "ConnectedArea": "South Castle Town Doors",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
-        "ConnectedArea": "Faron Field Behind Boulder",
-        "Requirements": "canGetHotSpringWater"
+        "ConnectedArea": "Faron Field",
+        "Requirements": "CanGetHotSpringWater",
+        "GlitchedRequirements": "CanGetHotSpringWater"
       },
       {
         "ConnectedArea": "Lake Hylia",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Outside Castle Town South Tektite Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal and CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "Shadow_Crystal and CanCompleteLanayruTwilight"
       }
     ],
     "Checks":
@@ -266,21 +305,9 @@
         "Outside South Castle Town Male Ladybug",
         "Outside South Castle Town Female Ladybug",
         "Outside South Castle Town Poe",
-        "Outside South Castle Town Golden Wolf"
+        "Outside South Castle Town Golden Wolf",
+        "Outside South Castle Town Boulder Rupee"
     ],
-    "Region": "Hyrule Field - Lanayru Province"
-  },
-  {
-     // If you enter Outside Castle Town South from there while the boulder is still there, you get stuck and are forced to save-warp or portal-warp
-    "RoomName": "Outside Castle Town South Inside Boulder",
-    "Exits":
-    [
-      {
-        "ConnectedArea": "Outside Castle Town South",
-        "Requirements": "canGetHotSpringWater and Room.Outside_Castle_Town_South"
-      }
-    ],
-    "Checks": [""],
     "Region": "Hyrule Field - Lanayru Province"
   },
   {
@@ -289,7 +316,8 @@
     [
       {
         "ConnectedArea": "Outside Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -304,23 +332,28 @@
     [
       {
         "ConnectedArea": "Lake Hylia Bridge Grotto Ledge",
-        "Requirements": "canLaunchBombs and (Progressive_Clawshot, 1)"
+        "Requirements": "CanLaunchBombs and (Progressive_Clawshot, 1)",
+        "GlitchedRequirements": "CanLaunchBombs and (Progressive_Clawshot, 1)"
       },
       {
         "ConnectedArea": "Hyrule Field Near Spinner Rails",
-        "Requirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash or CanDoMapGlitch"
       },
       {
         "ConnectedArea": "Outside Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
-        "ConnectedArea": "Lake Hylia",
-        "Requirements": "true"
+        "ConnectedArea": "Lake Hylia Flight By Fowl",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Faron Field",
-        "Requirements": "Gate_Keys or (Setting.smallKeySettings equals Keysy)"
+        "Requirements": "Gate_Keys and CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "(Gate_Keys or Shadow_Crystal) and CanCompleteLanayruTwilight"
       }
     ],
     "Checks":
@@ -329,7 +362,10 @@
         "Lake Hylia Bridge Owl Statue Chest",
         "Lake Hylia Bridge Owl Statue Sky Character",
         "Lake Hylia Bridge Male Mantis",
-        "Lake Hylia Bridge Female Mantis"
+        "Lake Hylia Bridge Female Mantis",
+        "Lake Hylia Bridge Faron Boulder Rupee",
+        "Lake Hylia Bridge Owl Statue Boulder Rupee",
+        "Lanayru Field South Spinner Track Boulder Rupee"
     ],
     "Region": "Hyrule Field - Lanayru Province"
   },
@@ -339,11 +375,13 @@
     [
       {
         "ConnectedArea": "Lake Hylia Bridge",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Lake Hylia Bridge Bubble Grotto",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
     "Checks":
@@ -359,7 +397,8 @@
     [
       {
         "ConnectedArea": "Lake Hylia Bridge Grotto Ledge",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":

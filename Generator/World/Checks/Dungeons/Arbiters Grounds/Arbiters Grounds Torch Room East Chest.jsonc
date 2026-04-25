@@ -1,5 +1,6 @@
 {
     "requirements": "true",
+    "glitchedRequirements": "true",
     "checkCategory": ["Chest", "Dungeon", "Arbiters Grounds"],
     "itemId": "Piece_of_Heart"
 }

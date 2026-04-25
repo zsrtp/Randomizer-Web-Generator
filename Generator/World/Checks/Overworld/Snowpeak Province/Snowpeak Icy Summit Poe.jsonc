@@ -1,5 +1,6 @@
 {
-    "requirements": "Shadow_Crystal and CanDefeatShadowBeast and ((Setting.bonksDoDamage equals False) or ((Setting.bonksDoDamage equals True) and ((Setting.damageMagnification not_equal OHKO) or CanUseBottledFairy)))",
+    "requirements": "Shadow_Crystal",
+    "glitchedRequirements": "Shadow_Crystal",
     "checkCategory": ["Overworld", "Poe", "Snowpeak Province"],
     "itemId": "Poe_Soul"
 }

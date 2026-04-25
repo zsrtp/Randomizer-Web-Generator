@@ -1,5 +1,6 @@
 {
     "requirements": "Shadow_Crystal",
+    "glitchedRequirements": "Shadow_Crystal",
     "checkCategory": ["Chest", "Dungeon", "Arbiters Grounds", "Small Key"],
     "itemId": "Arbiters_Grounds_Small_Key"
 }

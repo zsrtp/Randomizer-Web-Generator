@@ -19,6 +19,8 @@ namespace TPRandomizer.Hints
         TradeChain = 10,
         TradeGroup = 11,
         JovaniRewards = 12,
+        ImportanceCount = 13,
+        RequiredDungeons = 14,
     }
 
     public class HintTypeUtils
@@ -36,7 +38,7 @@ namespace TPRandomizer.Hints
         public uint uniqueHintId { get; private set; }
         public abstract HintType type { get; }
 
-        private static uint nextHintId = 0;
+        private static uint nextHintId = 1;
 
         protected Hint()
         {
@@ -44,9 +46,23 @@ namespace TPRandomizer.Hints
             nextHintId += 1;
         }
 
+        public virtual void GetPreferHintBefore(
+            out HashSet<string> checkNames,
+            out HashSet<string> roomNames
+        )
+        {
+            checkNames = null;
+            roomNames = null;
+        }
+
         public abstract List<HintText> toHintTextList(CustomMsgData customMsgData);
 
         public virtual HintInfo GetHintInfo(CustomMsgData customMsgData)
+        {
+            return null;
+        }
+
+        public virtual List<HintInfo> GetHintInfos(CustomMsgData customMsgData)
         {
             return null;
         }
@@ -59,7 +75,7 @@ namespace TPRandomizer.Hints
         public static Hint decodeHint(
             HintEncodingBitLengths bitLengths,
             BitsProcessor processor,
-            Dictionary<int, byte> itemPlacements
+            Dictionary<int, int> itemPlacements
         )
         {
             HintType type = (HintType)processor.NextInt(bitLengths.hintType);
@@ -91,6 +107,10 @@ namespace TPRandomizer.Hints
                     return TradeGroupHint.decode(bitLengths, processor, itemPlacements);
                 case HintType.JovaniRewards:
                     return JovaniRewardsHint.decode(bitLengths, processor, itemPlacements);
+                case HintType.ImportanceCount:
+                    return ImportanceCountHint.decode(bitLengths, processor, itemPlacements);
+                case HintType.RequiredDungeons:
+                    return RequiredDungeonsHint.decode(bitLengths, processor, itemPlacements);
                 default:
                     throw new Exception(
                         $"Tried to decode hintType, but found unexpected type `{type}`."
@@ -102,7 +122,7 @@ namespace TPRandomizer.Hints
     public class HintEncodingBitLengths
     {
         public byte hintType = HintTypeUtils.NumBitsToEncode;
-        public byte checkId = 9;
+        public byte checkId = 10;
         public byte zoneId = ZoneUtils.NumBitsToEncode;
         public byte categoryId = HintCategoryUtils.NumBitsToEncode;
         public byte areaId = AreaId.NumBitsToEncode;
@@ -110,6 +130,7 @@ namespace TPRandomizer.Hints
         public byte hintSpotLocation = HintSpotLocationUtils.NumBitsToEncode;
         public byte goalEnum = GoalConstants.NumBitsToEncode;
         public byte tradeGroupId = TradeGroupUtils.NumBitsToEncode;
+        public byte checkStatus = 3;
         public byte hintsPerSpot;
 
         public HintEncodingBitLengths(

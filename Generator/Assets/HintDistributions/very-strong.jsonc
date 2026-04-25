@@ -10,7 +10,7 @@
   },
   "beyondPointZones": ["alias:all"],
   "barren": {
-    "ownZoneBehavior": "monopolize"
+    "monopolizeSpots": true
   },
   "always": {
     "copies": 2,

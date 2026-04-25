@@ -1,5 +1,0 @@
-{
-  "requirements": "Shadow_Crystal and CanDefeatRedeadKnight and ((Arbiters_Grounds_Small_Key, 3) or (Setting.smallKeySettings equals Keysy))",
-  "checkCategory": [ "Dungeon", "Poe", "Arbiters Grounds" ],
-  "itemId": "Poe_Soul"
-}

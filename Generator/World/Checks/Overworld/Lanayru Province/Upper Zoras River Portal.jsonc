@@ -1,0 +1,6 @@
+{
+    "requirements": "CanDefeatShadowBeast",
+    "glitchedRequirements": "CanDefeatShadowBeast",
+    "checkCategory": ["Overworld", "Zoras Domain"],
+    "itemId": "Upper_Zoras_River_Portal"
+}

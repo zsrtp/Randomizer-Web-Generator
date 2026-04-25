@@ -1,6 +1,0 @@
-{
-  "requirements": "canSmash or (((Setting.lanayruTwilightCleared equals True) or Shadow_Crystal) and (Gate_Keys or (Setting.smallKeySettings equals Keysy)))",
-  "stageIDX": [ 56 ],
-  "checkCategory": [ "Overworld", "Npc", "Hyrule Field - Eldin Province", "Boss" ],
-  "itemId": "Piece_of_Heart"
-}

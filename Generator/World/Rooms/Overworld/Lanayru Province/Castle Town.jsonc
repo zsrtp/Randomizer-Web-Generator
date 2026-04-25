@@ -5,19 +5,23 @@
     [
       {
         "ConnectedArea": "Outside Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town STAR Game",
-        "Requirements": "true"
+        "Requirements": "CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "CanCompleteLanayruTwilight"
       }
     ],
     "Checks":
@@ -32,7 +36,8 @@
     [
       {
         "ConnectedArea": "Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -48,31 +53,38 @@
     [
       {
         "ConnectedArea": "Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town North",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Goron House Left Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Goron House Right Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Malo Mart",
-        "Requirements": "true" 
+        "Requirements": "CanCompleteLanayruTwilight" ,
+        "GlitchedRequirements": "CanCompleteLanayruTwilight"
       }
     ],
     "Checks": [""],
@@ -84,11 +96,13 @@
     [
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Goron House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -100,11 +114,13 @@
     [
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Goron House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -116,14 +132,42 @@
     [
       {
         "ConnectedArea": "Castle Town Goron House Left Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Goron House Right Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Castle Town Goron House Balcony",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
-    "Checks": [""],
+    "Checks": 
+    [
+      "Castle Town Goron Shop Hylian Shield",
+      "Castle Town Goron Shop Red Potion",
+      "Castle Town Goron Shop Lantern Oil"
+    ],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "Castle Town Goron House Balcony",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town Goron House",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      }
+    ],
+    "Checks": 
+    [
+      "Castle Town Goron Shop Arrow Refill"
+    ],
     "Region": "Castle Town"
   },
   {
@@ -132,7 +176,8 @@
     [
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -147,11 +192,13 @@
     [
       {
         "ConnectedArea": "Castle Town North Behind First Door",
-        "Requirements": "CanCompleteMDH"
+        "Requirements": "CanCompleteMDH",
+        "GlitchedRequirements": "CanCompleteMDH"
       },
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -163,11 +210,13 @@
     [
       {
         "ConnectedArea": "Castle Town North",
-        "Requirements": "CanCompleteMDH"
+        "Requirements": "CanCompleteMDH",
+        "GlitchedRequirements": "CanCompleteMDH"
       },
       {
         "ConnectedArea": "Castle Town North Inside Barrier",
-        "Requirements": "(Setting.castleRequirements equals Open) or ((Setting.castleRequirements equals Vanilla) and canCompletePalaceofTwilight) or ((Setting.castleRequirements equals Fused_Shadows) and (Progressive_Fused_Shadow, 3)) or ((Setting.castleRequirements equals Mirror_Shards) and (Progressive_Mirror_Shard, 4)) or ((Setting.castleRequirements equals All_Dungeons) and canCompleteAllDungeons)"
+        "Requirements": "CanBreakHCBarrier",
+        "GlitchedRequirements": "CanBreakHCBarrier"
       }
     ],
     "Checks":
@@ -182,11 +231,14 @@
     [
       {
         "ConnectedArea": "Castle Town North Behind First Door",
-        "Requirements": "CanCompleteMDH" // Barrier is one-way. If coming from HC to Castle Town, you just have to be able to go through the doors. 
+        // Barrier is one-way.
+        "Requirements": "true", 
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Hyrule Castle Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -198,23 +250,28 @@
     [
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Outside Castle Town East",
-        "Requirements": "true"
+        "Requirements": "CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "CanCompleteLanayruTwilight"
       },
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Left Door",
-        "Requirements": "true" 
+        "Requirements": "true" ,
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Right Door",
-        "Requirements": "true" 
+        "Requirements": "true" ,
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -226,11 +283,13 @@
     [
       {
         "ConnectedArea": "Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Upper",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -245,11 +304,13 @@
     [
       {
         "ConnectedArea": "Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -261,11 +322,13 @@
     [
       {
         "ConnectedArea": "Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -277,15 +340,18 @@
     [
       {
         "ConnectedArea": "Castle Town Doctors Office Left Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Right Door",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Lower",
-        "Requirements": "Invoice"
+        "Requirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)",
+        "GlitchedRequirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)"
       }
     ],
     "Checks": [""],
@@ -297,11 +363,13 @@
     [
       {
         "ConnectedArea": "Castle Town Doctors Office Entrance",
-        "Requirements": "Invoice"
+        "Requirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)",
+        "GlitchedRequirements": "Invoice or (Setting.iliaQuest equals Statue) or (Setting.iliaQuest equals Charm)"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Upper",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
     "Checks": [""], // scent does belong to this room if it gets a check one day
@@ -313,11 +381,13 @@
     [
       {
         "ConnectedArea": "Castle Town Doctors Office Lower",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Doctors Office Balcony",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -329,35 +399,62 @@
     [
       {
         "ConnectedArea": "Castle Town West",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Center",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town East",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
-        "ConnectedArea": "Outside Castle Town South",
-        "Requirements": "true"
+        // There are people blocking the way if you try to go to the south during twilight.
+        "ConnectedArea": "South Castle Town Doors",
+        "Requirements": "CanCompleteLanayruTwilight",
+        "GlitchedRequirements": "CanCompleteLanayruTwilight"
       },
       {
         "ConnectedArea": "Castle Town Agithas House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Seer House",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Castle Town Jovanis House",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       },
       {
         "ConnectedArea": "Castle Town Telmas Bar",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Castle Town"
+  },
+  {
+    "RoomName": "South Castle Town Doors",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Castle Town South",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Outside Castle Town South",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -369,7 +466,8 @@
     [
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -407,7 +505,8 @@
     [
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -420,7 +519,8 @@
       {
         // The door and the dig spot lead to the exact same entrance, so there technically is only one way out, which is always accessible.
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -437,7 +537,8 @@
     [
       {
         "ConnectedArea": "Castle Town South",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":

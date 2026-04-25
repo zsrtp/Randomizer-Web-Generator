@@ -149,6 +149,18 @@ _Note: This section will change after the client-side code is restructured in an
 
 Assuming you are just making changes to existing client code, you can make a change to the file, then reload the page in your browser.
 
+#### Updating the patcher worker
+
+Regarding the worker used to patch the Randomizer into an iso, it is taken from the web application part
+of the [geckopatcher](https://github.com/zsrtp/geckopatcher). We copy the WASM binary as well as its glue code after
+building the web application. [Trunk](https://trunkrs.dev/) is required to build it (using cargo, install with `cargo install trunk`). The steps are as follow:
+
+1. In the `geckopatcher` repo, under `/gui/web`, run `trunk build --release --features generic_patch`.
+2. Once the build process finishes successfully, from the folder `/gui/web/dist`, copy the
+   files `worker_bg.wasm` and `worker.js` to the generator's client folder `/packages/client/js/patcher`.
+
+The patcher should now be updated.
+
 ## Development Environment
 
 VSCode is the recommended tool for development.
@@ -170,4 +182,6 @@ It is based on Prettier, hence the name.
 
 ## Next steps
 
-See [docker.md](./docker.md) for instructions on deploying a production build.
+If you need to deploy a production build to a public site, see [docker.md](./docker.md) for instructions.
+YOU DO NOT NEED DOCKER if you are only making changes for personal use or PRs with minor changes.
+Please see the [Running the server](#Running-the-server) section for instructions on running the site locally.

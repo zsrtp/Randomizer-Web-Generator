@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatMorpheel",
-    "checkCategory": ["Dungeon", "Lakebed Temple", "Dungeon Reward", "REL", "ARC"],
+    "glitchedRequirements": "CanDefeatMorpheel",
+    "checkCategory": ["Dungeon", "Lakebed Temple", "Dungeon Reward"],
     "itemId": "Progressive_Fused_Shadow"
 }

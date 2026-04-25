@@ -1,0 +1,6 @@
+{
+    "requirements": "CanDefeatStallord",
+    "glitchedRequirements": "CanDefeatStallord",
+    "checkCategory": ["Dungeon", "Arbiters Grounds"],
+    "itemId": "Stallord_Defeated"
+}

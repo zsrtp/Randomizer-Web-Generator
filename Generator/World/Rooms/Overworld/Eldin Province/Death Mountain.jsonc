@@ -5,11 +5,13 @@
     [
       {
         "ConnectedArea": "Lower Kakariko Village",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Trail",
-        "Requirements": "Iron_Boots or canCompleteGoronMines"
+        "Requirements": "Iron_Boots or CanCompleteGoronMines",
+        "GlitchedRequirements": "Iron_Boots or CanCompleteGoronMines"
       }
     ],
     "Checks": [""],
@@ -21,11 +23,13 @@
     [
       {
         "ConnectedArea": "Death Mountain Near Kakariko",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Volcano",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -41,15 +45,49 @@
     [
       {
         "ConnectedArea": "Death Mountain Trail",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Outside Sumo Hall",
-        "Requirements": "Iron_Boots and (CanDefeatGoron or canCompleteGoronMines)"
+        "Requirements": "Iron_Boots and (CanDefeatGoron or CanCompleteGoronMines) and CanCompleteEldinTwilight",
+        "GlitchedRequirements": "(Iron_Boots or HasShield) and (CanDefeatGoron or CanCompleteGoronMines) and CanCompleteEldinTwilight"
       },
       {
         "ConnectedArea": "Death Mountain Elevator Lower",
-        "Requirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open)"
+        "Requirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open)",
+        // Either having visited the area before or doing Early Elevator
+        "GlitchedRequirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open) or (HasSword and (CanDoLJA or Shadow_Crystal))"
+      },
+      {
+        "ConnectedArea": "Death Mountain Hot Spring",
+        "Requirements": "CanDefeatGoron",
+        "GlitchedRequirements": "CanDefeatGoron"
+      }
+    ],
+    "Checks": 
+    [
+      "Death Mountain Portal",
+      "Death Mountain Volcano Ledge Rupee 1",
+      "Death Mountain Volcano Ledge Rupee 2",
+      "Death Mountain Volcano Ledge Rupee 3",
+      "Death Mountain Volcano Pipe Ledge Rock Rupee"
+    ],
+    "Region": "Death Mountain"
+  },
+  {
+    "RoomName": "Death Mountain Hot Spring",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Death Mountain Volcano",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Death Mountain Elevator Lower",
+        "Requirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open)",
+        "GlitchedRequirements": "Room.Death_Mountain_Elevator_Lower or (Setting.goronMinesEntrance equals Open)"
       }
     ],
     "Checks": [""],
@@ -61,11 +99,13 @@
     [
       {
         "ConnectedArea": "Death Mountain Volcano",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Sumo Hall",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -77,11 +117,18 @@
     [
       {
         "ConnectedArea": "Death Mountain Volcano",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      },
+      {
+        "ConnectedArea": "Death Mountain Hot Spring",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Sumo Hall Elevator",
-        "Requirements": "Iron_Boots"
+        "Requirements": "Iron_Boots",
+        "GlitchedRequirements": "Iron_Boots"
       }
     ],
     "Checks": [""],
@@ -93,15 +140,18 @@
     [
       {
         "ConnectedArea": "Death Mountain Outside Sumo Hall",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Death Mountain Sumo Hall Elevator",
-        "Requirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
+        "Requirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)",
+        "GlitchedRequirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
       },
       {
         "ConnectedArea": "Death Mountain Sumo Hall Goron Mines Tunnel",
-        "Requirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
+        "Requirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)",
+        "GlitchedRequirements": "Iron_Boots or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
       }
     ],
     "Checks": [""],
@@ -113,12 +163,15 @@
     [
       {
         "ConnectedArea": "Death Mountain Elevator Lower",
-        "Requirements": "Iron_Boots"
+        "Requirements": "Iron_Boots",
+        "GlitchedRequirements": "Iron_Boots"
       },
       {
         // Depending on settings, the Goron can be blocking the way into the room. If this is the case, we need to make sure we can actually move the Goron before we consider this a valid path.
         "ConnectedArea": "Death Mountain Sumo Hall",
-        "Requirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
+        "Requirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)",
+        // Spinner/wolf clip also works.
+        "GlitchedRequirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True) or Spinner or Shadow_Crystal"
       }
     ],
     "Checks": [""],
@@ -131,11 +184,14 @@
       {
         // Depending on settings, the Gorons can be blocking the way into the room. If this is the case, we need to make sure we can actually move the Gorons before we consider this a valid path.
         "ConnectedArea": "Death Mountain Sumo Hall",
-        "Requirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)"
+        "Requirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True)",
+        // Spinner clip also works
+        "GlitchedRequirements": "(Room.Death_Mountain_Sumo_Hall and Iron_Boots) or (Setting.skipMinesEntrance equals NoWrestling) or (Setting.skipMinesEntrance equals True) or Spinner"
       },
       {
         "ConnectedArea": "Goron Mines Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],

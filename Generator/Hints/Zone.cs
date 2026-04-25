@@ -155,6 +155,15 @@ namespace TPRandomizer.Hints
                         BeyondPointObj.Validity.Dungeon
                     )
                 },
+                {
+                    Zone.Palace_of_Twilight,
+                    new BeyondPointObj(
+                        Zone.Palace_of_Twilight,
+                        SpotId.Palace_of_Twilight_Sign,
+                        HintCategory.Palace_of_Twilight_Center_Wing,
+                        BeyondPointObj.Validity.Dungeon
+                    )
+                },
             };
 
         private static readonly HashSet<Zone> dungeonZones =
@@ -185,6 +194,22 @@ namespace TPRandomizer.Hints
                         "Ordon Shield",
                         "Ordon Spring Golden Wolf",
                         "Ordon Sword",
+                        "Ordon Bo Cliff Rupee",
+                        "Ordon Bo Roof Rupee",
+                        "Ordon Bo Window Rupee 1",
+                        "Ordon Bo Window Rupee 2",
+                        "Ordon Hidden Rusl House Rupee",
+                        "Ordon Rupee In Grass By Bo",
+                        "Ordon Rupee In River 1",
+                        "Ordon Rupee In River 2",
+                        "Ordon Rupee Under Bridge",
+                        "Ordon Rupee Under Tall Tree 1",
+                        "Ordon Rupee Under Tall Tree 2",
+                        "Ordon Rusl House Roof Rupee 1",
+                        "Ordon Rusl House Roof Rupee 2",
+                        "Ordon Shield House Ledge Grass Rupee",
+                        "Ordon Tree Long Branch Rupee",
+                        "Ordon Tree Short Branch Rupee",
                         "Sera Shop Slingshot",
                         "Uli Cradle Delivery",
                         "Wooden Sword Chest",
@@ -228,6 +253,8 @@ namespace TPRandomizer.Hints
                     new[]
                     {
                         "Coro Bottle",
+                        "Coro Lantern",
+                        "Coro Gate Key",
                         "Faron Mist Cave Lantern Chest",
                         "Faron Mist Cave Open Chest",
                         "Faron Mist North Chest",
@@ -238,7 +265,11 @@ namespace TPRandomizer.Hints
                         "Faron Woods Owl Statue Chest",
                         "Faron Woods Owl Statue Sky Character",
                         "North Faron Woods Deku Baba Chest",
-                        "South Faron Cave Chest"
+                        "South Faron Cave Chest",
+                        "Faron Woods Coro Boulder Rupee 1",
+                        "Faron Woods Coro Boulder Rupee 2",
+                        "Faron Woods Coro Boulder Rupee 3",
+                        "Faron Woods Coro Boulder Rupee 4"
                     }
                 },
                 {
@@ -255,7 +286,9 @@ namespace TPRandomizer.Hints
                         "Kakariko Gorge Owl Statue Chest",
                         "Kakariko Gorge Owl Statue Sky Character",
                         "Kakariko Gorge Poe",
-                        "Kakariko Gorge Spire Heart Piece"
+                        "Kakariko Gorge Spire Heart Piece",
+                        "Kakariko Gorge Owl Statue Boulder Rupee",
+                        "Kakariko Gorge Spire Boulder Rupee",
                     }
                 },
                 {
@@ -277,7 +310,14 @@ namespace TPRandomizer.Hints
                         "Kakariko Watchtower Alcove Chest",
                         "Kakariko Watchtower Chest",
                         "Renados Letter",
-                        "Talo Sharpshooting"
+                        "Talo Sharpshooting",
+                        "Kakariko Village Bell Rupee",
+                        "Shad Dominion Rod",
+                        "Eldin Spring Underwater Boulder Rupee",
+                        "Kakariko Village Spring Shortcut Box Rupee 1",
+                        "Kakariko Village Spring Shortcut Box Rupee 2",
+                        "Kakariko Village Ant House Ledge Box Rupee",
+                        "Kakariko Village Hot Spring Ledge Box Rupee",
                     }
                 },
                 {
@@ -290,7 +330,8 @@ namespace TPRandomizer.Hints
                         "Kakariko Graveyard Lantern Chest",
                         "Kakariko Graveyard Male Ant",
                         "Kakariko Graveyard Open Poe",
-                        "Rutelas Blessing"
+                        "Rutelas Blessing",
+                        "Kakariko Graveyard Underwater Boulder Rupee",
                     }
                 },
                 {
@@ -319,12 +360,21 @@ namespace TPRandomizer.Hints
                         "Eldin Field Stalfos Grotto Stalfos Chest",
                         "Eldin Stockcave Lantern Chest",
                         "Eldin Stockcave Lowest Chest",
-                        "Eldin Stockcave Upper Chest"
+                        "Eldin Stockcave Upper Chest",
+                        "Bridge of Eldin Boulder Rupee"
                     }
                 },
                 {
                     "Death Mountain",
-                    new[] { "Death Mountain Alcove Chest", "Death Mountain Trail Poe" }
+                    new[]
+                    {
+                        "Death Mountain Alcove Chest",
+                        "Death Mountain Trail Poe",
+                        "Death Mountain Volcano Ledge Rupee 1",
+                        "Death Mountain Volcano Ledge Rupee 2",
+                        "Death Mountain Volcano Ledge Rupee 3",
+                        "Death Mountain Volcano Pipe Ledge Rock Rupee",
+                    }
                 },
                 {
                     "Hidden Village",
@@ -348,7 +398,12 @@ namespace TPRandomizer.Hints
                         "Lanayru Field Poe Grotto Right Poe",
                         "Lanayru Field Skulltula Grotto Chest",
                         "Lanayru Field Spinner Track Chest",
-                        "Lanayru Ice Block Puzzle Cave Chest"
+                        "Lanayru Ice Block Puzzle Cave Chest",
+                        "Lanayru Field North Spinner Track Boulder Rupee",
+                        "Lanayru Field South Spinner Track Boulder Rupee",
+                        "Lanayru Field North Underwater Boulder Rupee",
+                        "Lanayru Field South Underwater Boulder Rupee",
+                        "Lanayru Field Tree Boulder Rupee"
                     }
                 },
                 {
@@ -361,7 +416,9 @@ namespace TPRandomizer.Hints
                         "West Hyrule Field Female Butterfly",
                         "West Hyrule Field Golden Wolf",
                         "West Hyrule Field Helmasaur Grotto Chest",
-                        "West Hyrule Field Male Butterfly"
+                        "West Hyrule Field Male Butterfly",
+                        "West Hyrule Field Northern Boulder Rupee",
+                        "West Hyrule Field Southern Boulder Rupee"
                     }
                 },
                 {
@@ -376,7 +433,8 @@ namespace TPRandomizer.Hints
                         "Outside South Castle Town Poe",
                         "Outside South Castle Town Tektite Grotto Chest",
                         "Outside South Castle Town Tightrope Chest",
-                        "Wooden Statue"
+                        "Wooden Statue",
+                        "Outside South Castle Town Boulder Rupee",
                     }
                 },
                 {
@@ -393,7 +451,11 @@ namespace TPRandomizer.Hints
                         "North Castle Town Golden Wolf",
                         "STAR Prize 1",
                         "STAR Prize 2",
-                        "Telma Invoice"
+                        "Telma Invoice",
+                        "Castle Town Goron Shop Hylian Shield",
+                        "Castle Town Goron Shop Red Potion",
+                        "Castle Town Goron Shop Lantern Oil",
+                        "Castle Town Goron Shop Arrow Refill"
                     }
                 },
                 {
@@ -437,7 +499,9 @@ namespace TPRandomizer.Hints
                         "Lake Hylia Bridge Male Mantis",
                         "Lake Hylia Bridge Owl Statue Chest",
                         "Lake Hylia Bridge Owl Statue Sky Character",
-                        "Lake Hylia Bridge Vines Chest"
+                        "Lake Hylia Bridge Vines Chest",
+                        "Lake Hylia Bridge Faron Boulder Rupee",
+                        "Lake Hylia Bridge Owl Statue Boulder Rupee",
                     }
                 },
                 {
@@ -460,7 +524,11 @@ namespace TPRandomizer.Hints
                         "Lake Hylia Water Toadpoli Grotto Chest",
                         "Outside Lanayru Spring Left Statue Chest",
                         "Outside Lanayru Spring Right Statue Chest",
-                        "Plumm Fruit Balloon Minigame"
+                        "Plumm Fruit Balloon Minigame",
+                        "Lake Hylia Left Underwater Pillar Rupee",
+                        "Lake Hylia Right Underwater Pillar Rupee",
+                        "Lake Hylia Right Underwater Boulder Rupee",
+                        "Lake Hylia Left Underwater Boulder Rupee"
                     }
                 },
                 {
@@ -497,7 +565,9 @@ namespace TPRandomizer.Hints
                         "Lanayru Spring East Double Clawshot Chest",
                         "Lanayru Spring Underwater Left Chest",
                         "Lanayru Spring Underwater Right Chest",
-                        "Lanayru Spring West Double Clawshot Chest"
+                        "Lanayru Spring West Double Clawshot Chest",
+                        "Lanayru Spring Upper Underwater Boulder Rupee",
+                        "Lanayru Spring Lower Underwater Boulder Rupee"
                     }
                 },
                 {
@@ -511,7 +581,22 @@ namespace TPRandomizer.Hints
                         "Zoras Domain Male Dragonfly",
                         "Zoras Domain Mother and Child Isle Poe",
                         "Zoras Domain Underwater Goron",
-                        "Zoras Domain Waterfall Poe"
+                        "Zoras Domain Waterfall Poe",
+                        "Zoras Domain Behind Waterfall Rupee",
+                        "Zoras Domain Central Underwater Boulder Rupee",
+                        "Zoras Domain North Underwater Boulder Rupee",
+                        "Zoras Domain Shortcut Ledge Rupee",
+                        "Zoras Domain Shortcut Lower Boulder Rupee",
+                        "Zoras Domain Shortcut Upper Boulder Rupee",
+                        "Zoras Domain Throne East Gate Underwater Rupee",
+                        "Zoras Domain Throne East Underwater Rupee",
+                        "Zoras Domain Throne Northwest Underwater Rupee",
+                        "Zoras Domain Throne South Underwater Rupee",
+                        "Zoras Domain Throne West Gate Underwater Rupee",
+                        "Zoras Domain Throne West Underwater Rupee",
+                        "Zoras Domain Top Ledge Rupee",
+                        "Zoras Domain Vine Ledge Rupee",
+                        "Zoras Domain Waterfall Ledge Rupee",
                     }
                 },
                 {
@@ -523,7 +608,11 @@ namespace TPRandomizer.Hints
                         "Iza Helping Hand",
                         "Iza Raging Rapids Minigame",
                         "Upper Zoras River Female Dragonfly",
-                        "Upper Zoras River Poe"
+                        "Upper Zoras River Poe",
+                        "Upper Zoras River East Underwater Boulder Rupee",
+                        "Upper Zoras River Central Underwater Boulder Rupee",
+                        "Upper Zoras River West Underwater Boulder Rupee",
+                        "Upper Zoras River Ledge Boulder Rupee",
                     }
                 },
                 {
@@ -581,7 +670,26 @@ namespace TPRandomizer.Hints
                         "Snowpeak Cave Ice Poe",
                         "Snowpeak Freezard Grotto Chest",
                         "Snowpeak Icy Summit Poe",
-                        "Snowpeak Poe Among Trees"
+                        "Snowpeak Poe Among Trees",
+                        "Snowboarding Bridge Ledge Bottom Rupee",
+                        "Snowboarding Bridge Ledge Middle Rupee",
+                        "Snowboarding Bridge Ledge Upper Rupee",
+                        "Snowboarding Shortcut Rupee 1",
+                        "Snowboarding Shortcut Rupee 2",
+                        "Snowboarding Shortcut Rupee 3",
+                        "Snowboarding Shortcut Rupee 4",
+                        "Snowboarding Shortcut Rupee 5",
+                        "Snowboarding Shortcut Rupee 6",
+                        "Snowboarding Shortcut Rupee 7",
+                        "Snowboarding Shortcut Rupee 8",
+                        "Snowboarding Shortcut Rupee 9",
+                        "Snowboarding Shortcut Rupee 10",
+                        "Snowboarding Shortcut Rupee 11",
+                        "Snowboarding Snowy Tree Top Rupee 1",
+                        "Snowboarding Snowy Tree Top Rupee 2",
+                        "Snowboarding Snowy Tree Top Rupee 3",
+                        "Snowboarding Top Left Rupee",
+                        "Snowboarding Top Right Rupee"
                     }
                 },
                 {
@@ -757,7 +865,7 @@ namespace TPRandomizer.Hints
                         "Temple of Time First Staircase Gohma Gate Chest",
                         "Temple of Time First Staircase Window Chest",
                         "Temple of Time Floor Switch Puzzle Room Upper Chest",
-                        "Temple of Time Gilloutine Chest",
+                        "Temple of Time Guillotine Chest",
                         "Temple of Time Lobby Lantern Chest",
                         "Temple of Time Moving Wall Beamos Room Chest",
                         "Temple of Time Moving Wall Dinalfos Room Chest",
@@ -810,9 +918,9 @@ namespace TPRandomizer.Hints
                         "Palace of Twilight Central Outdoor Chest",
                         "Palace of Twilight Central Tower Chest",
                         "Palace of Twilight Collect Both Sols",
-                        "Palace of Twilight East Wing First Room East Alcove",
+                        "Palace of Twilight East Wing First Room East Alcove Chest",
                         "Palace of Twilight East Wing First Room North Small Chest",
-                        "Palace of Twilight East Wing First Room West Alcove",
+                        "Palace of Twilight East Wing First Room West Alcove Chest",
                         "Palace of Twilight East Wing First Room Zant Head Chest",
                         "Palace of Twilight East Wing Second Room Northeast Chest",
                         "Palace of Twilight East Wing Second Room Northwest Chest",
@@ -946,6 +1054,14 @@ namespace TPRandomizer.Hints
             if (idToSpotId.ContainsKey(zoneId))
                 return idToSpotId[zoneId];
             return SpotId.Invalid;
+        }
+
+        public static SpotId IdToSpotIdThrows(Zone zoneId)
+        {
+            SpotId result = IdToSpotId(zoneId);
+            if (result == SpotId.Invalid)
+                throw new Exception($"Failed to convert Zone {zoneId} to valid spotId.");
+            return result;
         }
 
         public static Zone SpotIdToZone(SpotId spotId)

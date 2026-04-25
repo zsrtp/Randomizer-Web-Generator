@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   tpr-generator:
     image: tpr-generator:${IMAGE_VERSION}
@@ -13,6 +11,7 @@ services:
     secrets:
       - jwt_secret
       - seedhash_secret
+      - api_secret
 
 volumes:
   tpr-generator-data:
@@ -30,3 +29,6 @@ secrets:
   seedhash_secret:
     file: ./secrets/seedHashSecret.txt
     name: seedhash_secret-${SEEDHASH_SECRET_HASH}
+  api_secret:
+    file: ./secrets/apiSecret.txt
+    name: api_secret-${API_SECRET_HASH}

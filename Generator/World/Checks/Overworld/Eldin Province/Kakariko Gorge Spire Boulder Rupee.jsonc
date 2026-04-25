@@ -1,0 +1,6 @@
+{
+    "requirements": "CanSmash",
+    "glitchedRequirements": "CanSmash",
+    "checkCategory": [ "Overworld", "Hyrule Field - Eldin", "Rupee - Hidden" ],
+    "itemId": "Yellow_Rupee"
+  }

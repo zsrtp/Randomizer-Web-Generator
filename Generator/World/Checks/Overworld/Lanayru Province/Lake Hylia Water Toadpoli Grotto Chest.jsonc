@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatWaterToadpoli",
-    "checkCategory": ["Overworld", "Chest", "Lake Hylia", "DZX"],
+    "glitchedRequirements": "CanDefeatWaterToadpoli",
+    "checkCategory": ["Overworld", "Chest", "Lake Hylia"],
     "itemId": "Orange_Rupee"
 }

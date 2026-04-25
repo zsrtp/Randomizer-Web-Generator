@@ -1,0 +1,6 @@
+{
+    "requirements": "Iron_Boots and CanUseWaterBombs",
+    "glitchedRequirements": "Iron_Boots and CanUseWaterBombs",
+    "checkCategory": [ "Overworld", "Upper Zoras River", "Rupee - Hidden" ],
+    "itemId": "Blue_Rupee"
+  }

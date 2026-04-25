@@ -1,9 +1,0 @@
-{
-    "requirements": "(Poe_Soul, 20)",
-    "arcOffsets": ["421F"],
-    "stageIDX": [73],
-    "fileDirectoryType": [1],
-    "replacementType": [0],
-    "checkCategory": ["Overworld", "Npc", "Castle Town", "ARC"],
-    "itemId": "Jovani_Bottle"
-}

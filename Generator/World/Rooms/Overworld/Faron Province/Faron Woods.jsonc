@@ -5,28 +5,42 @@
     [
       {
         "ConnectedArea": "South Faron Woods Behind Gate",
-        "Requirements": "true" // Coro Key is Vanilla if forest is closed. Gate is open otherwise. 
+        "Requirements": "Faron_Woods_Coro_Key or Shadow_Crystal", 
+        "GlitchedRequirements": "Faron_Woods_Coro_Key or Shadow_Crystal"
       },
       {
         "ConnectedArea": "South Faron Woods Owl Statue Area",
-        "Requirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
+        // Worst case scenerio, if you complete prologue then you also need to complete Faron Twilight
         "ConnectedArea": "Ordon Bridge",
-        "Requirements": "true"
+        "Requirements": "CanCompletePrologue and CanCompleteFaronTwilight",
+        "GlitchedRequirements": "CanCompletePrologue and CanCompleteFaronTwilight"
       },
       {
         "ConnectedArea": "Faron Field",
-        "Requirements": "canClearForest"
+        "Requirements": "CanClearForest and CanCompleteFaronTwilight and CanCompletePrologue",
+        // There's no prologue requirement because worse case scenerio, you just gate clip
+        "GlitchedRequirements": "CanClearForestGlitched and CanCompleteFaronTwilight"
       },
       {
         "ConnectedArea": "Faron Woods Coros House Lower",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true" 
       }
     ],
     "Checks":
     [
-        "Coro Bottle"
+        "Coro Bottle",
+        "Coro Lantern",
+        "Coro Gate Key",
+        "South Faron Portal",
+        "Faron Woods Coro Boulder Rupee 1",
+        "Faron Woods Coro Boulder Rupee 2",
+        "Faron Woods Coro Boulder Rupee 3",
+        "Faron Woods Coro Boulder Rupee 4"
     ],
     "Region": "Faron Woods"
   },
@@ -36,11 +50,13 @@
     [
       {
         "ConnectedArea": "South Faron Woods",
-        "Requirements": "Room.South_Faron_Woods or Shadow_Crystal or canClearForest" 
+        "Requirements": "Shadow_Crystal or Faron_Woods_Coro_Key",
+        "GlitchedRequirements": "Shadow_Crystal or Faron_Woods_Coro_Key" 
       },
       {
         "ConnectedArea": "Faron Woods Cave Southern Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -52,11 +68,13 @@
     [
       {
         "ConnectedArea": "South Faron Woods",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Faron Woods Coros House Upper",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -68,11 +86,13 @@
     [
       {
         "ConnectedArea": "South Faron Woods",
-        "Requirements": "canSmash"
+        "Requirements": "CanSmash",
+        "GlitchedRequirements": "CanSmash"
       },
       {
         "ConnectedArea": "South Faron Woods Above Owl Statue",
-        "Requirements": "canClearForest and (Progressive_Dominion_Rod, 2) and Shadow_Crystal"
+        "Requirements": "CanClearForest and (Progressive_Dominion_Rod, 2) and Shadow_Crystal and CanCompleteFaronTwilight",
+        "GlitchedRequirements": "CanClearForestGlitched and (Progressive_Dominion_Rod, 2) and Shadow_Crystal and CanCompleteFaronTwilight"
       }
     ],
     "Checks":
@@ -87,11 +107,13 @@
     [
       {
         "ConnectedArea": "South Faron Woods Owl Statue Area",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Mist Area Near Owl Statue Chest",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -103,11 +125,13 @@
     [
 	  {
 		"ConnectedArea": "Faron Woods Coros House Upper",
-		"Requirements": "Shadow_Crystal"
+		"Requirements": "Shadow_Crystal",
+    "GlitchedRequirements": "Shadow_Crystal"
 	  },
       {
         "ConnectedArea": "South Faron Woods",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -119,11 +143,13 @@
     [
       {
         "ConnectedArea": "Faron Woods Coros House Lower",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
 	  {
 		  "ConnectedArea": "South Faron Woods Coros Ledge",
-		  "Requirements": "true"
+		  "Requirements": "true",
+      "GlitchedRequirements": "true"
 	  }
     ],
     "Checks": [""],
@@ -135,11 +161,13 @@
     [
       {
         "ConnectedArea": "South Faron Woods Behind Gate",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Faron Woods Cave",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -151,11 +179,13 @@
     [
       {
         "ConnectedArea": "Faron Woods Cave Southern Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Faron Woods Cave Northern Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -170,15 +200,18 @@
     [
       {
         "ConnectedArea": "Mist Area Inside Mist",
-        "Requirements": "Lantern"
+        "Requirements": "Lantern",
+        "GlitchedRequirements": "Lantern or CanDoMapGlitch"
       },
       {
         "ConnectedArea": "Mist Area Under Owl Statue Chest",
-        "Requirements": "Lantern or Shadow_Crystal"
+        "Requirements": "Lantern or Shadow_Crystal",
+        "GlitchedRequirements": "Lantern or Shadow_Crystal"
       },
       {
         "ConnectedArea": "Faron Woods Cave Northern Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -190,19 +223,23 @@
     [
       {
         "ConnectedArea": "Mist Area Near Faron Woods Cave",
-        "Requirements": "Lantern"
+        "Requirements": "Lantern",
+        "GlitchedRequirements": "Lantern or (Room.South_Faron_Woods and CanDoMapGlitch)" // Epona OoB in South Faron can get Epona in the mist.
       },
       {
         "ConnectedArea": "Mist Area Under Owl Statue Chest",
-        "Requirements": "Lantern"
+        "Requirements": "Lantern",
+        "GlitchedRequirements": "Lantern or CanDoMapGlitch"
       },
       {
         "ConnectedArea": "Mist Area Outside Faron Mist Cave",
-        "Requirements": "Lantern"
+        "Requirements": "Lantern and (CanCompleteFaronTwilight or Shadow_Crystal)",
+        "GlitchedRequirements": "Lantern or (Room.South_Faron_Woods and CanDoMapGlitch)" // Epona OoB in South Faron can get Epona in the mist.
       },
       {
         "ConnectedArea": "Mist Area Near North Faron Woods",
-        "Requirements": "Lantern"
+        "Requirements": "Lantern",
+        "GlitchedRequirements": "Lantern or (Room.South_Faron_Woods and CanDoMapGlitch)" // Epona OoB in South Faron can get Epona in the mist.
       }
     ],
     "Checks":
@@ -219,11 +256,13 @@
     [
       {
         "ConnectedArea": "Mist Area Inside Mist",
-        "Requirements": "Lantern"
+        "Requirements": "Lantern",
+        "GlitchedRequirements": "Lantern or CanDoMapGlitch"
       },
       {
         "ConnectedArea": "Mist Area Center Stump",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
     "Checks": [""],
@@ -235,11 +274,13 @@
     [
       {
         "ConnectedArea": "Mist Area Under Owl Statue Chest",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "South Faron Woods Above Owl Statue",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -254,11 +295,13 @@
     [
       {
         "ConnectedArea": "Mist Area Inside Mist",
-        "Requirements": "Lantern"
+        "Requirements": "Lantern",
+        "GlitchedRequirements": "Lantern or CanDoMapGlitch"
       },
       {
         "ConnectedArea": "Mist Area Near North Faron Woods",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
       }
     ],
     "Checks":
@@ -273,11 +316,13 @@
     [
       {
         "ConnectedArea": "Mist Area Inside Mist",
-        "Requirements": "Lantern"
+        "Requirements": "Lantern",
+        "GlitchedRequirements": "Lantern or CanDoMapGlitch"
       },
       {
         "ConnectedArea": "Mist Area Faron Mist Cave",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -289,15 +334,36 @@
     [
       {
         "ConnectedArea": "Mist Area Inside Mist",
-        "Requirements": "Lantern"
+        "Requirements": "Lantern",
+        "GlitchedRequirements": "Lantern or CanDoMapGlitch"
       },
       {
         "ConnectedArea": "Mist Area Near Faron Woods Cave",
-        "Requirements": "Shadow_Crystal"
+        "Requirements": "Shadow_Crystal",
+        "GlitchedRequirements": "Shadow_Crystal"
+      },
+      {
+        "ConnectedArea": "Mist Area Near North Faron Woods Behind Gate",
+        "Requirements": "North_Faron_Woods_Gate_Key",
+        "GlitchedRequirements": "North_Faron_Woods_Gate_Key"
+      }
+    ],
+    "Checks": [""],
+    "Region": "Faron Woods"
+  },
+  {
+    "RoomName": "Mist Area Near North Faron Woods Behind Gate",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Mist Area Near North Faron Woods",
+        "Requirements": "North_Faron_Woods_Gate_Key",
+        "GlitchedRequirements": "North_Faron_Woods_Gate_Key"
       },
       {
         "ConnectedArea": "North Faron Woods",
-        "Requirements": "North_Faron_Woods_Gate_Key or (Setting.skipPrologue equals True)"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -309,11 +375,13 @@
     [
       {
         "ConnectedArea": "Mist Area Near Faron Woods Cave",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
         "ConnectedArea": "Faron Woods Cave",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [""],
@@ -325,7 +393,8 @@
     [
       {
         "ConnectedArea": "Mist Area Outside Faron Mist Cave",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks":
@@ -340,22 +409,39 @@
     "Exits":
     [
       {
-        "ConnectedArea": "Mist Area Near North Faron Woods",
-        "Requirements": "true"
+        "ConnectedArea": "Mist Area Near North Faron Woods Behind Gate",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       },
       {
-        "ConnectedArea": "Lost Woods",
-        "Requirements": "Shadow_Crystal"
+        "ConnectedArea": "North Faron Lost Woods Entrance",
+        "Requirements": "Shadow_Crystal and CanCompleteFaronTwilight",
+        "GlitchedRequirements": "(Shadow_Crystal and CanCompleteFaronTwilight) or (HasBombs and CanDoLJA)"
       },
       {
         "ConnectedArea": "Forest Temple Entrance",
-        "Requirements": "true"
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
       }
     ],
     "Checks": [
         "North Faron Woods Deku Baba Chest",
-        "Faron Woods Golden Wolf"
+        "Faron Woods Golden Wolf", 
+        "North Faron Portal"
     ],
+    "Region": "Faron Woods"
+  },
+  {
+    "RoomName": "North Faron Lost Woods Entrance",
+    "Exits":
+    [
+      {
+        "ConnectedArea": "Lost Woods",
+        "Requirements": "true",
+        "GlitchedRequirements": "true"
+      }
+    ],
+    "Checks": [],
     "Region": "Faron Woods"
   }
 ]

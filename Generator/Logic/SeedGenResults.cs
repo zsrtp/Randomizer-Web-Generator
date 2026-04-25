@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using TPRandomizer.Util;
 using TPRandomizer.Assets;
-using System.Runtime.Serialization;
+using TPRandomizer.Util;
 
 namespace TPRandomizer
 {
@@ -27,7 +27,7 @@ namespace TPRandomizer
         // output
         public string playthroughName { get; set; }
         public string wiiPlaythroughName { get; set; }
-        public Dictionary<int, byte> itemPlacements { get; }
+        public Dictionary<int, int> itemPlacements { get; }
         public byte requiredDungeons { get; set; }
         public List<List<KeyValuePair<int, Item>>> spheres { get; }
         public string entrances { get; }
@@ -35,6 +35,8 @@ namespace TPRandomizer
 
         // other
         public SharedSettings decodedSSettings;
+
+        public static byte checkIDBitLength = 10;
 
         public SeedGenResults(string seedId, JObject inputJsonContents)
         {
@@ -77,9 +79,175 @@ namespace TPRandomizer
             );
         }
 
-        public static string EncodeEntrances()
+        public static string EncodeEntrances(SharedSettings sSettings)
         {
+            string spawnRoom = Randomizer.Rooms.RoomDict["Root"].Exits[0].ConnectedArea;
+            EntranceInfo vanillaSpawn = Randomizer.EntranceRandomizer.vanillaSpawn;
             string encodedString = "";
+            Console.WriteLine("Spawn point is " + spawnRoom);
+
+            encodedString = encodedString + vanillaSpawn.Stage.ToString("X") + ",";
+            encodedString = encodedString + vanillaSpawn.Room.ToString("X") + ",";
+            encodedString = encodedString + vanillaSpawn.Spawn + ",";
+            encodedString = encodedString + vanillaSpawn.State + ",";
+            if (Randomizer.SSettings.randomizeStartingPoint)
+            {
+                Entrance randomSpawn = Randomizer.EntranceRandomizer.spawnList[
+                    Randomizer.spawnIndex
+                ];
+
+                encodedString = encodedString + randomSpawn.Stage.ToString("X") + ",";
+                encodedString = encodedString + randomSpawn.Room.ToString("X") + ",";
+                encodedString = encodedString + randomSpawn.Spawn + ",";
+                encodedString = encodedString + randomSpawn.State + ",";
+            }
+            else
+            {
+                encodedString = encodedString + vanillaSpawn.Stage.ToString("X") + ",";
+                encodedString = encodedString + vanillaSpawn.Room.ToString("X") + ",";
+                encodedString = encodedString + vanillaSpawn.Spawn + ",";
+                encodedString = encodedString + vanillaSpawn.State + ",";
+            }
+
+            // Handle Ooccoo destination remapping when Dungeon ER is on
+            // (including CitS Ooccoo)
+            if (sSettings.shuffleDungeonEntrances != SSettings.Enums.DungeonER.Off)
+            {
+                List<(EntranceInfo, string, string)> ooccooSpawns =
+                    new()
+                    {
+                        (
+                            new(
+                                "Forest Temple Ooccoo Out",
+                                "",
+                                (int)StageIDs.Faron_Woods,
+                                6,
+                                "96",
+                                "FF",
+                                ""
+                            ),
+                            "Forest Temple Entrance",
+                            "North Faron Woods"
+                        ),
+                        (
+                            new(
+                                "Goron Mines Ooccoo Out",
+                                "",
+                                (int)StageIDs.Death_Mountain,
+                                3,
+                                "06",
+                                "FF",
+                                ""
+                            ),
+                            "Goron Mines Entrance",
+                            "Death Mountain Sumo Hall Goron Mines Tunnel"
+                        ),
+                        (
+                            new(
+                                "Lakebed Temple Ooccoo Out",
+                                "",
+                                (int)StageIDs.Lake_Hylia,
+                                0,
+                                "96",
+                                "FF",
+                                ""
+                            ),
+                            "Lakebed Temple Entrance",
+                            "Lake Hylia Lakebed Temple Entrance"
+                        ),
+                        (
+                            new(
+                                "Arbiters Grounds Ooccoo Out",
+                                "",
+                                (int)StageIDs.Bulblin_Camp,
+                                3,
+                                "05",
+                                "FF",
+                                ""
+                            ),
+                            "Arbiters Grounds Entrance",
+                            "Outside Arbiters Grounds"
+                        ),
+                        (
+                            new(
+                                "Snowpeak Ruins Ooccoo Out",
+                                "",
+                                (int)StageIDs.Snowpeak,
+                                1,
+                                "0D",
+                                "FF",
+                                ""
+                            ),
+                            "Snowpeak Ruins Left Door",
+                            "Snowpeak Summit Lower Left Door"
+                        ),
+                        (
+                            new(
+                                "Temple of Time Ooccoo Out",
+                                "",
+                                (int)StageIDs.Sacred_Grove,
+                                1,
+                                "64",
+                                "FF",
+                                ""
+                            ),
+                            "Temple of Time Entrance",
+                            "Sacred Grove Past Behind Window"
+                        ),
+                        (
+                            new(
+                                "City in The Sky Ooccooo Out",
+                                "",
+                                (int)StageIDs.City_in_the_Sky,
+                                16,
+                                "02",
+                                "FF",
+                                ""
+                            ),
+                            "City in The Sky Entrance",
+                            "Lake Hylia"
+                        ),
+                    };
+
+                Console.WriteLine("Ooccoo exits are remapped since Dungeon ER is on.");
+                foreach ((EntranceInfo, string, string) tuple in ooccooSpawns)
+                {
+                    EntranceInfo ooccooSpawn = tuple.Item1;
+                    string dungeonEntrance = tuple.Item2;
+                    string origConnectedArea = tuple.Item3;
+
+                    encodedString += ooccooSpawn.Stage.ToString("X") + ",";
+                    encodedString += ooccooSpawn.Room.ToString("X") + ",";
+                    encodedString += ooccooSpawn.Spawn + ",";
+                    encodedString += ooccooSpawn.State + ",";
+
+                    Entrance exitToMatch = null;
+
+                    Room dungeonEntranceRoom = Randomizer.Rooms.RoomDict[dungeonEntrance];
+                    foreach (Entrance exit in dungeonEntranceRoom.Exits)
+                    {
+                        if (exit.OriginalConnectedArea == origConnectedArea)
+                        {
+                            exitToMatch = exit.GetReplacedEntrance();
+                            break;
+                        }
+                    }
+
+                    if (exitToMatch == null)
+                        throw new Exception(
+                            $"Failed to find origConnectedArea '{origConnectedArea}'."
+                        );
+
+                    Console.WriteLine(
+                        $"'{ooccooSpawn.SourceRoom}' goes to '{exitToMatch.OriginalName}'."
+                    );
+                    encodedString += exitToMatch.GetStage().ToString("X") + ",";
+                    encodedString += exitToMatch.GetRoom().ToString("X") + ",";
+                    encodedString += exitToMatch.GetSpawn() + ",";
+                    encodedString += exitToMatch.GetState() + ",";
+                }
+            }
+
             foreach (KeyValuePair<string, Room> roomEntry in Randomizer.Rooms.RoomDict)
             {
                 //Console.WriteLine("checking room: " + roomEntry.Value.RoomName);
@@ -93,14 +261,10 @@ namespace TPRandomizer
                                 + entrance.GetReplacedEntrance().GetOriginalName()
                         );
                         // Get the original entrance that the entrance leads to in vanilla
-                        encodedString = encodedString + entrance.GetStage().ToString("X");
-                        encodedString = encodedString + ",";
-                        encodedString = encodedString + entrance.GetRoom().ToString("X");
-                        encodedString = encodedString + ",";
-                        encodedString = encodedString + entrance.GetSpawn();
-                        encodedString = encodedString + ",";
-                        encodedString = encodedString + entrance.GetState();
-                        encodedString = encodedString + ",";
+                        encodedString = encodedString + entrance.GetStage().ToString("X") + ",";
+                        encodedString = encodedString + entrance.GetRoom().ToString("X") + ",";
+                        encodedString = encodedString + entrance.GetSpawn() + ",";
+                        encodedString = encodedString + entrance.GetState() + ",";
 
                         // Add new connection info
 
@@ -143,8 +307,8 @@ namespace TPRandomizer
             int smallest = checkNumIdToItemId.First().Key;
             int largest = checkNumIdToItemId.Last().Key;
 
-            result += SettingsEncoder.EncodeNumAsBits(smallest, 9);
-            result += SettingsEncoder.EncodeNumAsBits(largest, 9);
+            result += SettingsEncoder.EncodeNumAsBits(smallest, SeedGenResults.checkIDBitLength);
+            result += SettingsEncoder.EncodeNumAsBits(largest, SeedGenResults.checkIDBitLength);
 
             string itemBits = "";
 
@@ -153,7 +317,7 @@ namespace TPRandomizer
                 if (checkNumIdToItemId.ContainsKey(i))
                 {
                     result += "1";
-                    itemBits += SettingsEncoder.EncodeNumAsBits(checkNumIdToItemId[i], 8);
+                    itemBits += SettingsEncoder.EncodeNumAsBits(checkNumIdToItemId[i], 9);
                 }
                 else
                 {
@@ -166,13 +330,13 @@ namespace TPRandomizer
             return SettingsEncoder.EncodeAs6BitString(result);
         }
 
-        private Dictionary<int, byte> DecodeItemPlacements(string sixCharString)
+        private Dictionary<int, int> DecodeItemPlacements(string sixCharString)
         {
             BitsProcessor processor = new BitsProcessor(
                 SettingsEncoder.DecodeToBitString(sixCharString)
             );
 
-            Dictionary<int, byte> checkNumIdToItemId = new();
+            Dictionary<int, int> checkNumIdToItemId = new();
 
             UInt16 version = processor.NextVlq16();
 
@@ -181,8 +345,8 @@ namespace TPRandomizer
                 return checkNumIdToItemId;
             }
 
-            int smallest = processor.NextInt(9);
-            int largest = processor.NextInt(9);
+            int smallest = processor.NextInt(SeedGenResults.checkIDBitLength);
+            int largest = processor.NextInt(SeedGenResults.checkIDBitLength);
 
             List<int> checkIdsWithItemIds = new();
 
@@ -197,7 +361,7 @@ namespace TPRandomizer
             for (int i = 0; i < checkIdsWithItemIds.Count; i++)
             {
                 int checkId = checkIdsWithItemIds[i];
-                byte itemId = processor.NextByte();
+                int itemId = processor.NextInt(9);
                 checkNumIdToItemId[checkId] = itemId;
             }
 
@@ -210,7 +374,7 @@ namespace TPRandomizer
             {
                 int checkId = CheckIdClass.GetCheckIdNum(pair.Key);
                 if (!checkNumIdToItemId.ContainsKey(checkId))
-                    checkNumIdToItemId[checkId] = (byte)pair.Value.itemId;
+                    checkNumIdToItemId[checkId] = (int)pair.Value.itemId;
             }
             // Ensure we have a mapping for all checkIds.
             int currCheckId = 0;
@@ -239,8 +403,11 @@ namespace TPRandomizer
 
                     foreach (KeyValuePair<int, Item> pair in spherePairsList)
                     {
-                        result += SettingsEncoder.EncodeNumAsBits(pair.Key, 9); // checkId
-                        result += SettingsEncoder.EncodeNumAsBits((int)pair.Value, 8); // itemId
+                        result += SettingsEncoder.EncodeNumAsBits(
+                            pair.Key,
+                            SeedGenResults.checkIDBitLength
+                        ); // checkId
+                        result += SettingsEncoder.EncodeNumAsBits((int)pair.Value, 9); // itemId
                     }
                 }
             }
@@ -273,8 +440,8 @@ namespace TPRandomizer
 
                 for (int i = 0; i < numPairsInSphere; i++)
                 {
-                    int checkId = processor.NextInt(9);
-                    Item itemId = (Item)processor.NextByte();
+                    int checkId = processor.NextInt(SeedGenResults.checkIDBitLength);
+                    Item itemId = (Item)processor.NextInt(9);
 
                     spherePairs.Add(new KeyValuePair<int, Item>(checkId, itemId));
                 }
@@ -375,6 +542,26 @@ namespace TPRandomizer
                 }
             }
             string[] entranceBytes = entrances.Split(",");
+
+            // Spawn location is always the first entry in the entrance table
+            foreach (EntranceInfo entry in entranceInfo)
+            {
+                if (entry.Stage.ToString("X") == entranceBytes[4])
+                {
+                    if (entry.Room.ToString("X") == entranceBytes[5])
+                    {
+                        if (entry.Spawn == entranceBytes[6])
+                        {
+                            if (entry.State == entranceBytes[7])
+                            {
+                                shuffledEntrances.Add("Spawn Location -> " + entry.TargetRoom);
+                            }
+                        }
+                    }
+                }
+            }
+            entranceBytes = entranceBytes.Skip(8).ToArray();
+
             //Console.WriteLine(entrances);
             for (int i = 0; i < entranceBytes.Length - 1; i++)
             {
@@ -393,44 +580,14 @@ namespace TPRandomizer
                 );*/
                 foreach (EntranceInfo entry in entranceInfo)
                 {
-                    /*Console.WriteLine(
-                        "testing: "
-                            + entry.SourceRoom
-                            + " testing stage: "
-                            + entry.Stage.ToString("X")
-                    );*/
                     if (entry.Stage.ToString("X") == entranceBytes[i])
                     {
-                        /*Console.WriteLine(
-                            "stage match for: " + entry.SourceRoom + " testing room: " + entry.Room
-                        );*/
                         if (entry.Room.ToString("X") == entranceBytes[i + 1])
                         {
-                            /* Console.WriteLine(
-                                 "room match for: "
-                                     + entry.SourceRoom
-                                     + " testing spawn: "
-                                     + entry.Spawn
-                                     + " against: "
-                                     + entranceBytes[i + 2]
-                             );*/
                             if (entry.Spawn == entranceBytes[i + 2])
                             {
-                                /*Console.WriteLine(
-                                    "spawn match for: "
-                                        + entry.SourceRoom
-                                        + " testing spawn type: "
-                                        + entry.SpawnType
-                                );*/
                                 if (entry.State == entranceBytes[i + 3])
                                 {
-                                    /*Console.WriteLine(
-                                        "spawn type match for: "
-                                            + entry.SourceRoom
-                                            + " testing params: "
-                                            + entry.Parameters
-                                    );*/
-                                    //Console.WriteLine("param match for: " + entry.SourceRoom);
                                     foreach (EntranceInfo entry2 in entranceInfo)
                                     {
                                         if (entry2.Stage.ToString("X") == entranceBytes[i + 4])
@@ -504,6 +661,7 @@ namespace TPRandomizer
 
             result.Add("logicRules", sSettings.logicRules.ToString());
             result.Add("castleRequirements", sSettings.castleRequirements.ToString());
+            result.Add("castleRequirementCount", sSettings.castleRequirementCount);
             result.Add("palaceRequirements", sSettings.palaceRequirements.ToString());
             result.Add("faronWoodsLogic", sSettings.faronWoodsLogic.ToString());
             result.Add("shuffleGoldenBugs", sSettings.shuffleGoldenBugs);
@@ -529,7 +687,8 @@ namespace TPRandomizer
             result.Add("fastIronBoots", sSettings.fastIronBoots);
             result.Add("quickTransform", sSettings.quickTransform);
             result.Add("transformAnywhere", sSettings.transformAnywhere);
-            result.Add("increaseWallet", sSettings.increaseWallet);
+            result.Add("walletSize", sSettings.walletSize.ToString());
+            result.Add("autoFillWallet", sSettings.autoFillWallet);
             result.Add("modifyShopModels", sSettings.modifyShopModels);
             result.Add("trapFrequency", sSettings.trapFrequency.ToString());
             result.Add("barrenDungeons", sSettings.barrenDungeons);
@@ -537,6 +696,7 @@ namespace TPRandomizer
             result.Add("skipLakebedEntrance", sSettings.skipLakebedEntrance);
             result.Add("skipArbitersEntrance", sSettings.skipArbitersEntrance);
             result.Add("skipSnowpeakEntrance", sSettings.skipSnowpeakEntrance);
+            result.Add("skipGroveEntrance", sSettings.skipGroveEntrance);
             result.Add("totEntrance", sSettings.totEntrance.ToString());
             result.Add("skipCityEntrance", sSettings.skipCityEntrance);
             result.Add("instantText", sSettings.instantText);
@@ -546,6 +706,24 @@ namespace TPRandomizer
             result.Add("noSmallKeysOnBosses", sSettings.noSmallKeysOnBosses);
             result.Add("startingToD", sSettings.startingToD.ToString());
             result.Add("hintDistribution", sSettings.hintDistribution.ToString());
+            result.Add("randomizeStartingPoint", sSettings.randomizeStartingPoint);
+            result.Add("shuffleHiddenRupees", sSettings.shuffleHiddenRupees);
+            result.Add("gmShortcut", sSettings.gmShortcut);
+            result.Add("hcShortcut", sSettings.hcShortcut);
+            result.Add("iliaQuest", sSettings.iliaQuest.ToString());
+            result.Add("mirrorChamberEntrance", sSettings.mirrorChamberEntrance.ToString());
+            result.Add("shuffleDungeonEntrances", sSettings.shuffleDungeonEntrances.ToString());
+            result.Add("shuffleFreestandingRupees", sSettings.shuffleFreestandingRupees);
+            result.Add("decoupleEntrances", sSettings.decoupleEntrances);
+            result.Add("unpairEntrances", sSettings.unpairEntrances);
+            result.Add("castleBKRequirements", sSettings.castleBKRequirements.ToString());
+            result.Add("castleBKRequirementCount", sSettings.castleBKRequirementCount);
+            result.Add("skipBridgeDonation", sSettings.skipBridgeDonation);
+            result.Add("maloShopDonation", sSettings.maloShopDonation);
+            result.Add("hintImportance", sSettings.hintImportance.ToString());
+            result.Add("noPlandoHints", sSettings.noPlandoHints);
+            result.Add("adjustHintsForCompletionists", sSettings.adjustHintsForCompletionists);
+            result.Add("hintDungeonEntrances", sSettings.hintDungeonEntrances);
 
             result.Add("startingItems", sSettings.startingItems);
             result.Add("excludedChecks", sSettings.excludedChecks);
@@ -567,7 +745,13 @@ namespace TPRandomizer
             public string entrances;
             public string customMsgData;
 
-            public Builder() { }
+            // Used to know whether or not to remap Ooccoo warp-out destinations
+            private SharedSettings sSettings;
+
+            public Builder(SharedSettings sSettings)
+            {
+                this.sSettings = sSettings;
+            }
 
             public void SetItemPlacements(SortedDictionary<int, byte> checkNumIdToItemId)
             {
@@ -581,7 +765,7 @@ namespace TPRandomizer
 
             public void SetEntrances()
             {
-                entrances = EncodeEntrances();
+                entrances = EncodeEntrances(sSettings);
             }
 
             public string GetEntrances(string encodedString)
@@ -594,7 +778,7 @@ namespace TPRandomizer
                 this.customMsgData = customMsgData.Encode();
             }
 
-            override public string ToString()
+            public override string ToString()
             {
                 Dictionary<string, object> inputJsonRoot = new();
                 // Need to update format for any changes.

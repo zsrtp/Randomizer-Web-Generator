@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatHelmasaur",
+    "glitchedRequirements": "CanDefeatHelmasaur",
     "checkCategory": ["Chest", "Dungeon", "City in The Sky", "ARC"],
     "itemId": "Red_Rupee"
 }

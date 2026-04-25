@@ -1,5 +1,6 @@
 {
     "requirements": "(Progressive_Clawshot, 2)",
-    "checkCategory": ["Chest", "Dungeon", "City in The Sky", "ARC"],
+    "glitchedRequirements": "(Progressive_Clawshot, 2)",
+    "checkCategory": ["Chest", "Dungeon", "City in The Sky"],
     "itemId": "Purple_Rupee"
 }

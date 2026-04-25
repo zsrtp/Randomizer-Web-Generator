@@ -1,5 +1,6 @@
 {
     "requirements": "CanDefeatTektite",
-    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province", "DZX"],
+    "glitchedRequirements": "CanDefeatTektite",
+    "checkCategory": ["Overworld", "Chest", "Hyrule Field - Lanayru Province"],
     "itemId": "Orange_Rupee"
 }

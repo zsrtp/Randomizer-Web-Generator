@@ -16,28 +16,9 @@
     progressCallFailure: 'progressCallFailure',
   };
 
-  const Region = {
-    All: 0,
-    USA: 1,
-    EUR: 2,
-    JAP: 3,
-  };
-  const regionBitLength = 2;
-
-  const EurLanguageTag = {
-    English: 0,
-    Deutsch: 2,
-    Español: 4,
-    Français: 1,
-    Italiano: 3,
-  };
-  const eurLangTagBitLength = 3;
-
   let pageData;
   let creationCallInProgress;
   let picrossOpened = false;
-  let selectedRegion = null;
-  let selectedLanguage = null;
   let hasSelectedRegionError = false;
   let defaultIncludeSpoilerLog = false;
 
@@ -78,6 +59,7 @@
     zoraArmor: 0x01,
     zoraArmorSecondary: 0x02,
     zoraArmorHelmet: 0x03,
+    linkMS: 0x4,
   };
 
   function isRgbHex(str) {
@@ -227,9 +209,18 @@
       if (shouldCheckProgress) {
         handleCheckProgressPage();
       } else {
-        handleInvalidSeedPage();
+        const seedErrorMsgEl = document.getElementById('seedErrorMsg');
+        if (seedErrorMsgEl) {
+          // Error msg was inserted into page
+          $('#progressTitle').text(seedErrorMsgEl.value || 'Error');
+        } else {
+          // Handle invalid seed page
+          $('#progressTitle').text('Invalid seed ID.');
+        }
       }
     }
+
+    window.initTooltipsInTree(document);
   }
 
   function handleGenerationCompletedPage(inputJsonDataEl) {
@@ -271,9 +262,13 @@
 
     function handleToggleTranslationsWarning() {
       let showTranslationsWarning = false;
-      if (selectedRegion !== 'USA' && selectedLanguage !== 'English') {
+      if (
+        window.tpr.shared.selectedRegion !== 'USA' &&
+        window.tpr.shared.selectedLanguage !== 'English'
+      ) {
         showTranslationsWarning =
-          selectedRegion !== 'EUR' || selectedLanguage !== 'Français';
+          window.tpr.shared.selectedRegion !== 'EUR' ||
+          window.tpr.shared.selectedLanguage !== 'Français';
       }
 
       $('#translationsWarning').toggle(showTranslationsWarning);
@@ -304,7 +299,8 @@
 
   function updateLangDisplay() {
     const shouldShowLangSection =
-      selectedRegion == 'All' || selectedRegion === 'EUR';
+      window.tpr.shared.selectedRegion == 'All' ||
+      window.tpr.shared.selectedRegion === 'EUR';
 
     $('#downloadOptionsLanguageFilterGroup').toggle(shouldShowLangSection);
   }
@@ -315,12 +311,16 @@
         window.localStorage.getItem('fcSettingsDefault')
       );
 
-      if (Region.hasOwnProperty(fcSettingsDefault.region)) {
-        selectedRegion = fcSettingsDefault.region;
+      if (window.tpr.shared.Region.hasOwnProperty(fcSettingsDefault.region)) {
+        window.tpr.shared.selectedRegion = fcSettingsDefault.region;
       }
 
-      if (EurLanguageTag.hasOwnProperty(fcSettingsDefault.eurLanguage)) {
-        selectedLanguage = fcSettingsDefault.eurLanguage;
+      if (
+        window.tpr.shared.EurLanguageTag.hasOwnProperty(
+          fcSettingsDefault.eurLanguage
+        )
+      ) {
+        window.tpr.shared.selectedLanguage = fcSettingsDefault.eurLanguage;
       }
 
       if (typeof fcSettingsDefault.includeSpoilerLog === 'boolean') {
@@ -330,7 +330,11 @@
       // do nothing
     }
 
-    if (!EurLanguageTag.hasOwnProperty(selectedLanguage)) {
+    if (
+      !window.tpr.shared.EurLanguageTag.hasOwnProperty(
+        window.tpr.shared.selectedLanguage
+      )
+    ) {
       pickDefaultEurLanguage();
     }
   }
@@ -364,16 +368,20 @@
 
           const lang = localeMapping[locale];
 
-          if (EurLanguageTag.hasOwnProperty(lang)) {
-            selectedLanguage = lang;
+          if (window.tpr.shared.EurLanguageTag.hasOwnProperty(lang)) {
+            window.tpr.shared.selectedLanguage = lang;
             return;
           }
         }
       }
     }
 
-    if (!EurLanguageTag.hasOwnProperty(selectedLanguage)) {
-      selectedLanguage = 'English';
+    if (
+      !window.tpr.shared.EurLanguageTag.hasOwnProperty(
+        window.tpr.shared.selectedLanguage
+      )
+    ) {
+      window.tpr.shared.selectedLanguage = 'English';
     }
   }
 
@@ -417,9 +425,9 @@
       rootEl: downloadOptionsRegionFilterGroupEl,
       title: 'Region',
       filters: ['USA', 'EUR', 'JAP', 'All'],
-      defaultFilter: selectedRegion,
+      defaultFilter: window.tpr.shared.selectedRegion,
       onFilterSelected: (filter) => {
-        selectedRegion = filter;
+        window.tpr.shared.selectedRegion = filter;
         regionSelectedEvent.notify();
         // selectedLocationFilter = filter;
         // onFilterChange();
@@ -434,9 +442,9 @@
       rootEl: downloadOptionsLanguageFilterGroupEl,
       title: 'EUR Language',
       filters: ['English', 'Deutsch', 'Español', 'Français', 'Italiano'],
-      defaultFilter: selectedLanguage,
+      defaultFilter: window.tpr.shared.selectedLanguage,
       onFilterSelected: (filter) => {
-        selectedLanguage = filter;
+        window.tpr.shared.selectedLanguage = filter;
         languageSelectedEvent.notify();
       },
     });
@@ -454,7 +462,7 @@
   // Return value is an array of 16 colors like [ "69567a", "6d5980", ...]. If
   // don't provide a baseHue or the provided value is invalid, picks a random
   // baseHue.
-  function get16ColorsPalette(baseHue) {
+  function get16ColorsPalette(baseHue, useSoftColors) {
     if (typeof baseHue !== 'number' || baseHue < 0) {
       baseHue = Math.random() * 360;
     } else if (baseHue >= 360) {
@@ -462,16 +470,28 @@
     }
     baseHue = Math.floor(baseHue);
 
-    return (
-      new window.ColorScheme()
-        .from_hue(baseHue) // Start the scheme
-        .scheme('triade') // Use the 'tetrade' scheme, that is, colors
-        // selected from 3 points equidistant around
-        // the color wheel.
-        .variation('soft') // Use the 'soft' color variation
-        .distance(0.5)
-        .colors()
-    );
+    if (useSoftColors) {
+      return (
+        new window.ColorScheme()
+          .from_hue(baseHue) // Start the scheme
+          .scheme('triade') // Use the 'tetrade' scheme, that is, colors
+          // selected from 3 points equidistant around
+          // the color wheel.
+          .variation('soft') // Use the 'soft' color variation
+          .distance(0.5)
+          .colors()
+      );
+    } else {
+      return (
+        new window.ColorScheme()
+          .from_hue(baseHue) // Start the scheme
+          .scheme('triade') // Use the 'tetrade' scheme, that is, colors
+          // selected from 3 points equidistant around
+          // the color wheel.
+          .distance(0.5)
+          .colors()
+      );
+    }
   }
 
   // `colorHex` does not have the '#' at the front.
@@ -562,22 +582,31 @@
         'zTunicScalesColorFieldsetColorPicker',
         'zTunicBootsColorFieldsetColorPicker',
       ],
-      'lanternColorFieldsetColorPicker',
+      { id: 'msBladeColorFieldsetColorPicker', useSoftColors: false },
+      'msHandleColorFieldsetColorPicker',
+      'boomerangColorFieldsetColorPicker',
+      'ironsColorFieldsetColorPicker',
+      'spinnerColorFieldsetColorPicker',
+      'woodSwordColorFieldsetColorPicker',
+      'eponaColorFieldsetColorPicker',
+      'wolfColorFieldsetColorPicker',
+      { id: 'lanternColorFieldsetColorPicker', useSoftColors: false },
+      { id: 'lightSwordColorFieldsetColorPicker', useSoftColors: false },
       'heartColorFieldset',
       'aButtonColorFieldset',
       'bButtonColorFieldset',
       'xButtonColorFieldset',
       'yButtonColorFieldset',
       'zButtonColorFieldset',
-      { id: 'midnaHairBaseColorFieldset', preventCustomColor: true },
-      { id: 'midnaHairTipColorFieldset', preventCustomColor: true },
+      'midnaHairBaseColorFieldsetColorPicker',
+      'midnaHairTipColorFieldsetColorPicker',
       'midnaDomeRingColorFieldset',
     ];
 
     for (let i = 0; i < arrayOfCosmeticSettings.length; i++) {
       const entry = arrayOfCosmeticSettings[i];
       if (Array.isArray(entry)) {
-        const colors = get16ColorsPalette();
+        const colors = get16ColorsPalette(null, true);
 
         for (let j = 0; j < entry.length; j++) {
           const elId = entry[j];
@@ -586,11 +615,18 @@
         }
       } else if (typeof entry === 'object') {
         if (entry) {
-          randomizeCosmeticSetting(entry.id, null, entry.preventCustomColor);
+          randomizeCosmeticSetting(
+            entry.id,
+            get16ColorsPalette(null, entry.useSoftColors)[0]
+          );
+
+          if (entry.preventCustomColor == true) {
+            randomizeCosmeticSetting(entry.id, null, entry.preventCustomColor);
+          }
         }
       } else {
         const elId = arrayOfCosmeticSettings[i];
-        randomizeCosmeticSetting(elId, get16ColorsPalette()[0]);
+        randomizeCosmeticSetting(elId, get16ColorsPalette(null, true)[0]);
       }
     }
   }
@@ -783,6 +819,8 @@
       Shop: true,
       'Sky Book': true,
       Poe: true,
+      'Rupee - Hidden': true,
+      'Rupee - Freestanding': true,
     };
 
     const importantItems = {
@@ -1106,10 +1144,6 @@
     startCheckProgressRoutine();
   }
 
-  function handleInvalidSeedPage() {
-    $('#progressTitle').text('Invalid seed ID.');
-  }
-
   function initTabButtons(tabIds) {
     const tabBtnEls = tabIds.map(({ buttonId }) => {
       return document.getElementById(buttonId);
@@ -1236,247 +1270,6 @@
     });
   }
 
-  function encodeBitStringTo6BitsString(bitString) {
-    const remainder = bitString.length % 6;
-    if (remainder > 0) {
-      const missingChars = 6 - remainder;
-      bitString += '0'.repeat(missingChars);
-    }
-
-    let charString = '';
-
-    const chars =
-      '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
-
-    let index = 0;
-    while (index < bitString.length) {
-      const bits = bitString.substring(index, index + 6);
-      const charIndex = parseInt(bits, 2);
-      charString += chars[charIndex];
-
-      index += 6;
-    }
-
-    return charString;
-  }
-
-  function genFcSettingsString() {
-    function getVal(id) {
-      const $el = $('#' + id);
-      if ($el.length < 1) {
-        return false;
-      }
-      if ($el.prop('nodeName') === 'INPUT' && $el.attr('type') === 'checkbox') {
-        return $el.prop('checked');
-      }
-
-      return $el.val();
-    }
-
-    let values = [];
-
-    if (Region.hasOwnProperty(selectedRegion)) {
-      values.push({
-        type: RawSettingType.xBitNum,
-        bitLength: regionBitLength,
-        value: parseInt(Region[selectedRegion], 10),
-      });
-    } else {
-      values.push({
-        type: RawSettingType.xBitNum,
-        bitLength: regionBitLength,
-        value: 0,
-      });
-    }
-
-    if (EurLanguageTag.hasOwnProperty(selectedLanguage)) {
-      values.push({
-        type: RawSettingType.xBitNum,
-        bitLength: eurLangTagBitLength,
-        value: parseInt(EurLanguageTag[selectedLanguage], 10),
-      });
-    } else {
-      values.push({
-        type: RawSettingType.xBitNum,
-        bitLength: eurLangTagBitLength,
-        value: 0,
-      });
-    }
-
-    values = values.concat(
-      [
-        // { id: 'gameRegion', bitLength: 3 },
-        { id: 'includeSpoilerCheckbox' },
-
-        { id: 'bgmFieldset', bitLength: 2 },
-        { id: 'randomizeFanfaresCheckbox' },
-        { id: 'disableEnemyBGMCheckbox' },
-
-        { id: 'hTunicHatColorFieldset', rgb: true },
-        { id: 'hTunicBodyColorFieldset', rgb: true },
-        { id: 'hTunicSkirtColorFieldset', rgb: true },
-        { id: 'zTunicHatColorFieldset', rgb: true },
-        { id: 'zTunicHelmetColorFieldset', rgb: true },
-        { id: 'zTunicBodyColorFieldset', rgb: true },
-        { id: 'zTunicScalesColorFieldset', rgb: true },
-        { id: 'zTunicBootsColorFieldset', rgb: true },
-        { id: 'lanternColorFieldset', rgb: true },
-        // { id: 'midnaHairColorFieldset', bitLength: 1 },
-        { id: 'heartColorFieldset', rgb: true },
-        { id: 'aButtonColorFieldset', rgb: true },
-        { id: 'bButtonColorFieldset', rgb: true },
-        { id: 'xButtonColorFieldset', rgb: true },
-        { id: 'yButtonColorFieldset', rgb: true },
-        { id: 'zButtonColorFieldset', rgb: true },
-        { id: 'midnaHairBaseColorFieldset', midnaHairBase: true },
-        { id: 'midnaHairTipColorFieldset', midnaHairTips: true },
-        { id: 'midnaDomeRingColorFieldset', rgb: true },
-        { id: 'linkHairColorFieldset', rgb: true },
-      ].map(({ id, bitLength, rgb, midnaHairBase, midnaHairTips }) => {
-        if (bitLength) {
-          // select
-          return {
-            type: RawSettingType.xBitNum,
-            bitLength,
-            value: parseInt(getVal(id), 10),
-          };
-        } else if (rgb) {
-          const selVal = getVal(id);
-          const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
-          const value = $option[0].getAttribute('data-rgb');
-
-          return {
-            type: RawSettingType.rgb,
-            value,
-          };
-        } else if (midnaHairBase || midnaHairTips) {
-          const selVal = getVal(id);
-          const $option = $(`#${id}`).find(`option[value="${selVal}"]`);
-          const rgbVal = $option[0].getAttribute('data-rgb');
-          const isCustomColor =
-            $option[0].getAttribute('data-custom-color') === 'true';
-
-          return {
-            type: midnaHairTips
-              ? RawSettingType.midnaHairTips
-              : RawSettingType.midnaHairBase,
-            valueNum: parseInt(selVal, 10),
-            rgbVal,
-            isCustomColor,
-          };
-        }
-        // checkbox
-        return getVal(id);
-      })
-    );
-
-    let bitString = '';
-
-    // valuesArr.forEach((value) => {
-    //   if (typeof value === 'boolean') {
-    //     bitString += value ? '1' : '0';
-    //   } else if (typeof value === 'string') {
-    //     let asNum = parseInt(value, 10);
-    //     if (Number.isNaN(asNum)) {
-    //       asNum = 0;
-    //     }
-    //     bitString += toPaddedBits(asNum, 4);
-    //   } else if (value && typeof value === 'object') {
-    //     if (value.type === RawSettingType.bitString) {
-    //       bitString += value.bitString;
-    //     }
-    //   }
-    // });
-
-    values.forEach((value) => {
-      if (typeof value === 'boolean') {
-        bitString += value ? '1' : '0';
-      } else if (typeof value === 'string') {
-        let asNum = parseInt(value, 10);
-        if (Number.isNaN(asNum)) {
-          asNum = 0;
-        }
-        bitString += numToPaddedBits(asNum, 4);
-      } else if (typeof value === 'object') {
-        if (value === null) {
-          // triple-equals here is intentional for now
-          bitString += '0';
-        } else {
-          switch (value.type) {
-            case RawSettingType.bitString:
-              bitString += value.bitString;
-              break;
-            case RawSettingType.xBitNum:
-              bitString += numToPaddedBits(value.value, value.bitLength);
-              break;
-            case RawSettingType.rgb: {
-              if (value.value == null) {
-                bitString += '0';
-              } else {
-                bitString += '1';
-                bitString += hexStrToBits(value.value);
-              }
-              break;
-            }
-            case RawSettingType.midnaHairBase:
-              bitString += encodeMidnaHairBase(value);
-              break;
-            case RawSettingType.midnaHairTips:
-              bitString += encodeMidnaHairTips(value);
-              break;
-          }
-        }
-      }
-    });
-
-    return encodeBitStringTo6BitsString(bitString);
-  }
-
-  function encodeMidnaHairBase({ valueNum, rgbVal, isCustomColor }) {
-    if (!isCustomColor) {
-      return '0' + numToPaddedBits(valueNum, 4);
-    }
-
-    let ret = '1';
-
-    let sixCharHex = rgbVal;
-    if (sixCharHex.length > 6) {
-      sixCharHex = sixCharHex.substring(sixCharHex.length - 6);
-    }
-
-    const colors = window.MidnaHairColors.calcBaseAndGlow(sixCharHex);
-
-    ret += hexStrToBits(colors.midnaHairBaseLightWorldInactive);
-    ret += hexStrToBits(colors.midnaHairBaseDarkWorldInactive);
-    ret += hexStrToBits(colors.midnaHairBaseAnyWorldActive);
-    ret += hexStrToBits(colors.midnaHairGlowAnyWorldInactive);
-    ret += hexStrToBits(sixCharHex); // midnaHairGlowLightWorldActive
-    ret += hexStrToBits(colors.midnaHairGlowDarkWorldActive);
-
-    return ret;
-  }
-
-  function encodeMidnaHairTips({ valueNum, rgbVal, isCustomColor }) {
-    if (!isCustomColor) {
-      return '0' + numToPaddedBits(valueNum, 4);
-    }
-
-    let ret = '1';
-
-    let sixCharHex = rgbVal;
-    if (sixCharHex.length > 6) {
-      sixCharHex = sixCharHex.substring(sixCharHex.length - 6);
-    }
-
-    const colors = window.MidnaHairColors.calcTips(sixCharHex);
-
-    ret += hexStrToBits(sixCharHex); // midnaHairTipsLightWorldInactive
-    ret += hexStrToBits(colors.midnaHairTipsDarkWorldAnyActive);
-    ret += hexStrToBits(colors.midnaHairTipsLightWorldActive);
-
-    return ret;
-  }
-
   function _base64ToUint8Array(base64Str) {
     const binary_string = window.atob(base64Str);
     const len = binary_string.length;
@@ -1499,7 +1292,9 @@
     $('#downloadLinkError').hide();
 
     // Validate input
-    if (!Region.hasOwnProperty(selectedRegion)) {
+    if (
+      !window.tpr.shared.Region.hasOwnProperty(window.tpr.shared.selectedRegion)
+    ) {
       hasSelectedRegionError = true;
       $('#downloadLinkError').text('Select a region.').show();
       creationCallInProgress = false;
@@ -1507,14 +1302,14 @@
       return;
     }
 
-    const fileCreationSettings = genFcSettingsString();
+    const fileCreationSettings = window.tpr.shared.genFcSettingsString();
     console.log(fileCreationSettings);
 
     // Save preferences to localStorage
     try {
       const fcSettingsDefault = {
-        region: selectedRegion,
-        eurLanguage: selectedLanguage,
+        region: window.tpr.shared.selectedRegion,
+        eurLanguage: window.tpr.shared.selectedLanguage,
         includeSpoilerLog: $('#includeSpoilerCheckbox').prop('checked'),
       };
 
@@ -1529,7 +1324,7 @@
     // Show progress in UI
     $('#preparingDownloadLinkRow').show();
 
-    callCreateGci(fileCreationSettings, (error, data) => {
+    window.tpr.shared.callCreateGci(fileCreationSettings, (error, data) => {
       $('#preparingDownloadLinkRow').hide();
 
       // if (error || true) {
@@ -1555,27 +1350,6 @@
 
       creationCallInProgress = false;
     });
-  }
-
-  function callCreateGci(fileCreationSettings, cb) {
-    window.tpr.shared
-      .fetch('/api/final', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fileCreationSettings,
-        }),
-      })
-      .then((response) => response.json())
-      .then(({ error, data }) => {
-        cb(error, data);
-      })
-      .catch((err) => {
-        cb(err);
-      });
   }
 
   /**
@@ -1608,28 +1382,6 @@
    */
   function numToPaddedBits(number, strLength) {
     return padBits2(number.toString(2), strLength);
-  }
-
-  /**
-   * Converts a hex string like "fc8a" to a bit string like "10110...".
-   *
-   * @param {string} hexStr hex string to convert to a bit string
-   * @return {string} Bit string
-   */
-  function hexStrToBits(hexStr) {
-    if (!hexStr) {
-      return '';
-    }
-
-    let result = '';
-
-    for (let i = 0; i < hexStr.length; i++) {
-      const character = hexStr.substring(i, i + 1);
-      const num = parseInt(character, 16);
-      result += numToPaddedBits(num, 4);
-    }
-
-    return result;
   }
 
   function initSettingsModal() {
@@ -2011,7 +1763,16 @@
       'zTunicBodyColorFieldset',
       'zTunicScalesColorFieldset',
       'zTunicBootsColorFieldset',
+      'msBladeColorFieldset',
+      'msHandleColorFieldset',
+      'boomerangColorFieldset',
+      'ironsColorFieldset',
+      'spinnerColorFieldset',
+      'woodSwordColorFieldset',
+      'eponaColorFieldset',
+      'wolfColorFieldset',
       'lanternColorFieldset',
+      'lightSwordColorFieldset',
       'midnaHairBaseColorFieldset',
       'midnaHairTipColorFieldset',
     ].forEach((selectId) => {

@@ -1,5 +1,6 @@
 {
     "requirements": "true",
-    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple", "ARC"],
+    "glitchedRequirements": "true",
+    "checkCategory": ["Chest", "Dungeon", "Lakebed Temple"],
     "itemId": "Arrows_20"
 }

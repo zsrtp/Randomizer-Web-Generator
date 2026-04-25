@@ -1,15 +1,15 @@
 namespace TPRandomizer
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using System.Text.RegularExpressions;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
-    using TPRandomizer.Util;
     using TPRandomizer.Assets;
-    using System.Runtime.Serialization;
-    using System.IO;
-    using System.Text.RegularExpressions;
+    using TPRandomizer.Util;
 
     // Handles special formatting for "hints" section of the spoilerLog so that
     // it does not take up a large number of lines.
@@ -21,7 +21,8 @@ namespace TPRandomizer
         private Stack<string> stack = new();
         private bool isActive = false;
 
-        public SpoilerJsonWriter(TextWriter textWriter) : base(textWriter)
+        public SpoilerJsonWriter(TextWriter textWriter)
+            : base(textWriter)
         {
             this.Formatting = Formatting.Indented;
         }

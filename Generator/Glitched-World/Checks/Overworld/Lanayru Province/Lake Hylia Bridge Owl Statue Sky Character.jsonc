@@ -1,7 +1,0 @@
-{
-    "requirements": "(Progressive_Dominion_Rod, 2) and ((Progressive_Clawshot, 1) or CanDoMapGlitch)",
-    "stageIDX": [56],
-    "roomIDX": 13,
-    "checkCategory": ["Overworld", "Hyrule Field - Lanaryu Province", "Sky Book"],
-    "itemId": "Progressive_Sky_Book"
-}

@@ -1,5 +1,6 @@
 {
-  "requirements": "canCompletePrologue",
-  "checkCategory": [ "Overworld", "Npc", "Faron Woods", "ARC" ],
+  "requirements": "((Setting.walletSize not_equal Reduced) or Progressive_Wallet)",
+  "glitchedRequirements": "((Setting.walletSize not_equal Reduced) or Progressive_Wallet)",
+  "checkCategory": [ "Overworld", "Shop", "Faron Woods" ],
   "itemId": "Coro_Bottle"
 }

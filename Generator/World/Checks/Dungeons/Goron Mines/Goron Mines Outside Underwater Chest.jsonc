@@ -1,5 +1,6 @@
 {
     "requirements": "(HasSword or CanUseWaterBombs) and Iron_Boots",
-    "checkCategory": ["Chest", "Dungeon", "Goron Mines", "ARC"],
+    "glitchedRequirements": "HasHeavyMod",
+    "checkCategory": ["Chest", "Dungeon", "Goron Mines"],
     "itemId": "Purple_Rupee"
 }

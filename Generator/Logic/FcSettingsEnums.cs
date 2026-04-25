@@ -9,6 +9,7 @@ namespace TPRandomizer.FcSettings.Enums
         WII_10_USA = 4,
         WII_10_EU = 5,
         WII_10_JP = 6,
+        WII_12_USA = 7,
     }
 
     public enum RandomizeBgm
